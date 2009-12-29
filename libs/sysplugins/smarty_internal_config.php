@@ -134,7 +134,7 @@ class Smarty_Internal_Config {
     {
         $_flag = (int)$this->smarty->config_read_hidden + (int)$this->smarty->config_booleanize * 2 +
         (int)$this->smarty->config_overwrite * 4;
-        $_filepath = (string)abs(crc32($this->config_resource_name . $_flag)); 
+        $_filepath = sha1($this->config_resource_name . $_flag); 
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
@@ -225,9 +225,9 @@ class Smarty_Internal_Config {
     public function loadConfigVars ($sections = null, $scope)
     {
         if (isset($this->template)) {
-            $this->template->properties['file_dependency']['F' . abs(crc32($this->getConfigFilepath()))] = array($this->getConfigFilepath(), $this->getTimestamp());
+            $this->template->properties['file_dependency'][sha1($this->getConfigFilepath())] = array($this->getConfigFilepath(), $this->getTimestamp());
         } else {
-            $this->smarty->properties['file_dependency']['F' . abs(crc32($this->getConfigFilepath()))] = array($this->getConfigFilepath(), $this->getTimestamp());
+            $this->smarty->properties['file_dependency'][sha1($this->getConfigFilepath())] = array($this->getConfigFilepath(), $this->getTimestamp());
         } 
         $config_data = unserialize($this->getCompiledConfig()); 
         // var_dump($config_data);

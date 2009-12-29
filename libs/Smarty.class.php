@@ -177,7 +177,7 @@ class Smarty extends Smarty_Internal_Data {
     // dummy parent object
     public $parent = null; 
     // global template functions
-    public $template_functions = null; 
+    public $template_functions = array(); 
     // resource type used if none given
     public $default_resource_type = 'file'; 
     // caching type

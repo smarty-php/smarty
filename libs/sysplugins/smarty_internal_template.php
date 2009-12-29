@@ -44,7 +44,8 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public $suppressHeader = false;
     public $suppressFileDependency = false;
     public $extract_code = false;
-    public $extracted_compiled_code = ''; 
+    public $extracted_compiled_code = '';
+    public $has_nocache_code = false; 
     // Rendered content
     public $rendered_content = null; 
     // Cache file
@@ -61,7 +62,9 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     // storage for plugin
     public $plugin_data = array(); 
     // special properties
-    public $properties = null; 
+    public $properties = array ('file_dependency' => array(),
+        'nocache_hash' => '',
+        'function' => array()); 
     // storage for block data
     public $block_data = array(); 
     // required plugins
@@ -80,7 +83,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     */
     public function __construct($template_resource, $smarty, $_parent = null, $_cache_id = null, $_compile_id = null, $_caching = null, $_cache_lifetime = null)
     {
-        $this->smarty = $smarty; 
+        $this->smarty = &$smarty; 
         // Smarty parameter
         $this->cache_id = $_cache_id === null ? $this->smarty->cache_id : $_cache_id;
         $this->compile_id = $_compile_id === null ? $this->smarty->compile_id : $_compile_id;
@@ -90,10 +93,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         $this->cache_lifetime = $_cache_lifetime === null ?$this->smarty->cache_lifetime : $_cache_lifetime;
         $this->force_cache = $this->smarty->force_cache;
         $this->security = $this->smarty->security;
-        $this->parent = $_parent;
-        $this->properties['file_dependency'] = array();
-        $this->properties['nocache_hash'] = ''; 
-        $this->properties['function'] = array();; 
+        $this->parent = $_parent; 
         // dummy local smarty variable
         $this->tpl_vars['smarty'] = new Smarty_Variable; 
         // Template resource
@@ -244,7 +244,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     {
         if (!$this->resource_object->isEvaluated) {
             $this->properties['file_dependency'] = array();
-            $this->properties['file_dependency']['F' . abs(crc32($this->getTemplateFilepath()))] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
+            $this->properties['file_dependency'][sha1($this->getTemplateFilepath())] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
         } 
         if ($this->smarty->debugging) {
             Smarty_Internal_Debug::start_compile($this);
@@ -330,8 +330,8 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             // don't write cache file
             return false;
         } 
-        // build file dependency string
-        $this->properties['cache_lifetime'] = $this->cache_lifetime; 
+        $this->properties['cache_lifetime'] = $this->cache_lifetime;
+        $this->properties['has_nocache_code'] = false; 
         // get text between non-cached items
         $cache_split = preg_split("!/\*%%SmartyNocache:{$this->properties['nocache_hash']}%%\*\/(.+?)/\*/%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!s", $this->rendered_content); 
         // get non-cached items
@@ -342,6 +342,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             // escape PHP tags in template content
             $output .= preg_replace('/(<%|%>|<\?php|<\?|\?>)/', '<?php echo \'$1\'; ?>', $curr_split);
             if (isset($cache_parts[0][$curr_idx])) {
+                $this->properties['has_nocache_code'] = true; 
                 // remove nocache tags from cache output
                 $output .= preg_replace("!/\*/?%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!", '', $cache_parts[0][$curr_idx]);
             } 
@@ -359,10 +360,10 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public function isCached ()
     {
         if ($this->isCached === null) {
-            $this->isCached = false;
             if (($this->caching == 1 || $this->caching == 2) && !$this->resource_object->isEvaluated && !$this->force_compile && !$this->force_cache) {
                 $cachedTimestamp = $this->getCachedTimestamp();
                 if ($cachedTimestamp === false) {
+                    $this->isCached = false;
                     return $this->isCached;
                 } 
                 if ($this->caching === SMARTY_CACHING_LIFETIME_SAVED || ($this->caching == SMARTY_CACHING_LIFETIME_CURRENT && (time() <= ($cachedTimestamp + $this->cache_lifetime) || $this->cache_lifetime < 0))) {
@@ -373,6 +374,9 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                     if ($this->smarty->debugging) {
                         Smarty_Internal_Debug::end_cache($this);
                     } 
+                    if ($this->isCached === false) {
+                        return $this->isCached;
+                    } 
                     if ($this->cacheFileChecked) {
                         $this->isCached = true;
                         return $this->isCached;
@@ -380,6 +384,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                     $this->cacheFileChecked = true;
                     if ($this->caching === SMARTY_CACHING_LIFETIME_SAVED && $this->properties['cache_lifetime'] > 0 && (time() > ($this->getCachedTimestamp() + $this->properties['cache_lifetime']))) {
                         $this->rendered_content = null;
+                        $this->isCached = false;
                         return $this->isCached;
                     } 
                     if (!empty($this->properties['file_dependency']) && $this->smarty->compile_check) {
@@ -394,6 +399,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                             // If ($mtime > $this->getCachedTimestamp()) {
                             If ($mtime > $_file_to_check[1]) {
                                 $this->rendered_content = null;
+                                $this->isCached = false;
                                 return $this->isCached;
                             } 
                         } 
@@ -401,6 +407,9 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                     $this->isCached = true;
                 } 
             } 
+        } 
+        if ($this->isCached === null) {
+            $this->isCached = false;
         } 
         return $this->isCached;
     } 
@@ -468,10 +477,9 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         } 
         $this->rendered_content = ob_get_clean();
         if (!$this->resource_object->isEvaluated) {
-            $this->properties['file_dependency']['F' . abs(crc32($this->getTemplateFilepath()))] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
+            $this->properties['file_dependency'][sha1($this->getTemplateFilepath())] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
         } 
         if ($this->parent instanceof Smarty_Template or $this->parent instanceof Smarty_Internal_Template) {
-            // var_dump('merge ', $this->parent->getTemplateFilepath(), $this->parent->properties['file_dependency'], $this->getTemplateFilepath(), $this->properties['file_dependency']);
             $this->parent->properties['file_dependency'] = array_merge($this->parent->properties['file_dependency'], $this->properties['file_dependency']);
             $this->parent->required_plugins = array_merge_recursive($this->parent->required_plugins, $this->required_plugins);
         } 
@@ -494,9 +502,9 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                 Smarty_Internal_Debug::end_cache($this);
             } 
         } else {
-            if (!empty($this->properties['nocache_hash']) && !empty($this->parent->properties['nocache_hash'])) {
+            // var_dump('renderTemplate',$this->has_nocache_code,$this->template_resource, $this->has_nocache_code, $this->properties['nocache_hash'], $this->parent->properties['nocache_hash'], $this->rendered_content);
+            if ($this->has_nocache_code && !empty($this->properties['nocache_hash']) && !empty($this->parent->properties['nocache_hash'])) {
                 // replace nocache_hash
-                // var_dump($this->properties['nocache_hash'],$this->parent->properties['nocache_hash'],$this->rendered_content);
                 $this->rendered_content = preg_replace("/{$this->properties['nocache_hash']}/", $this->parent->properties['nocache_hash'], $this->rendered_content);
             } 
         } 
@@ -721,13 +729,8 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     */
     public function createPropertyHeader ($cache = false)
     {
-        $this->properties['fullpath'] = realpath($this->getTemplateFilepath());
-        $properties_string = "<?php /*%%SmartyHeaderCode:{$this->properties['nocache_hash']}%%*/" ;
-        if ($this->smarty->direct_access_security) {
-            $properties_string .= "if(!defined('SMARTY_DIR')) exit('no direct access allowed');\n";
-        } 
-        $properties_string .= "\$_smarty_tpl->decodeProperties(" . var_export($this->properties, true) . "); /*/%%SmartyHeaderCode%%*/?>\n";
-        $plugins_string = '';
+        $plugins_string = ''; 
+        // include code for plugins
         if (!$cache) {
             if (!empty($this->required_plugins['compiled'])) {
                 $plugins_string = '<?php ';
@@ -738,6 +741,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                 $plugins_string .= '?>';
             } 
             if (!empty($this->required_plugins['cache'])) {
+                $this->has_nocache_code = true;
                 $plugins_string .= "<?php echo '/*%%SmartyNocache:{$this->properties['nocache_hash']}%%*/<?php ";
                 foreach($this->required_plugins['cache'] as $plugin_name => $data) {
                     $plugin = 'smarty_' . $data['type'] . '_' . $plugin_name;
@@ -746,6 +750,27 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                 $plugins_string .= "?>/*/%%SmartyNocache:{$this->properties['nocache_hash']}%%*/';?>\n";
             } 
         } 
+        // build property code
+        $this->properties['fullpath'] = realpath($this->resource_object->getTemplateFilepath($this));
+        $this->properties['has_nocache_code'] = $this->has_nocache_code;
+        $properties_string = "<?php /*%%SmartyHeaderCode:{$this->properties['nocache_hash']}%%*/" ;
+        if ($this->smarty->direct_access_security) {
+            $properties_string .= "if(!defined('SMARTY_DIR')) exit('no direct access allowed');\n";
+        } 
+        if ($cache) {
+            // remove compiled code of{function} definition
+            unset($this->properties['function']);
+            if (!empty($this->smarty->template_functions)) {
+                // copy code of {function} tags called in nocache mode
+                foreach ($this->smarty->template_functions as $name => $function_data) {
+                    if (isset($function_data['called_nocache'])) {
+                        unset($function_data['called_nocache'], $this->smarty->template_functions[$name]['called_nocache']);
+                        $this->properties['function'][$name] = $function_data;
+                    } 
+                } 
+            } 
+        } 
+        $properties_string .= "\$_smarty_tpl->decodeProperties(" . var_export($this->properties, true) . "); /*/%%SmartyHeaderCode%%*/?>\n";
         return $properties_string . $plugins_string;
     } 
 
@@ -754,9 +779,11 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     */
     public function decodeProperties ($properties)
     {
-//        if ($properties['fullpath'] != realpath($this->getTemplateFilepath())) {
-//            throw new Exception('CRC32 collision \'' . $properties['fullpath'] . '\'');
-//        } ;
+        if ($properties['fullpath'] != realpath($this->resource_object->getTemplateFilepath($this))) {
+            $this->isCached = false;
+            $this->mustCompile = true; 
+        } ;
+        $this->has_nocache_code = $properties['has_nocache_code'];
         $this->properties['nocache_hash'] = $properties['nocache_hash'];
         if (isset($properties['cache_lifetime'])) {
             $this->properties['cache_lifetime'] = $properties['cache_lifetime'];
@@ -765,10 +792,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             $this->properties['file_dependency'] = array_merge($this->properties['file_dependency'], $properties['file_dependency']);
         } 
         if (!empty($properties['function'])) {
-            foreach ($properties['function'] as $_name => $_data) {
-                $this->smarty->template_functions[$_name]['compiled'] = $_data['compiled'];
-                $this->smarty->template_functions[$_name]['parameter'] = $_data['parameter'];
-            } 
+            $this->smarty->template_functions = array_merge($this->smarty->template_functions, $properties['function']);
         } 
     } 
 

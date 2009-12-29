@@ -77,7 +77,7 @@ class Smarty_Internal_Resource_Extends {
     public function getTemplateSource($template)
     {
         $this->template = $template;
-        $saved_filepath = $template->getTemplateFilepath();
+//        $saved_filepath = $template->getTemplateFilepath();
         $_files = explode('|', $template->resource_name);
         $_files = array_reverse($_files);
         foreach ($_files as $_file) {
@@ -87,7 +87,7 @@ class Smarty_Internal_Resource_Extends {
                 throw new Exception("Unable to load template \"file : {$_file}\"");
             } 
             if ($_file != $_files[0]) {
-                $template->properties['file_dependency']['F' . abs(crc32($_filepath))] = array($_filepath, filemtime($_filepath));
+                $template->properties['file_dependency'][sha1($_filepath)] = array($_filepath, filemtime($_filepath));
             } 
             $template->template_filepath = $_filepath;
             $_content = file_get_contents($_filepath);
@@ -107,7 +107,7 @@ class Smarty_Internal_Resource_Extends {
                 return true;
             } 
         } 
-        $template->template_filepath = $saved_filepath;
+//        $template->template_filepath = $saved_filepath;
     } 
     protected function saveBlockData($block_content, $block_tag, $_filepath)
     {
@@ -148,7 +148,7 @@ class Smarty_Internal_Resource_Extends {
     {
         $_compile_id = isset($template->compile_id) ? preg_replace('![^\w\|]+!', '_', $template->compile_id) : null;
         $_files = explode('|', $template->resource_name);
-        $_filepath = (string)abs(crc32($template->getTemplateFilepath())); 
+        $_filepath = sha1($template->getTemplateFilepath()); 
         // if use_sub_dirs, break file into directories
         if ($template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS

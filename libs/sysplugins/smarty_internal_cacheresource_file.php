@@ -163,7 +163,7 @@ class Smarty_Internal_CacheResource_File {
     {
         $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
-        $_filepath = (string)abs(crc32($source_file_path)); 
+        $_filepath = sha1($source_file_path); 
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS

@@ -34,7 +34,13 @@ class Smarty_Internal_Compile_Private_Function_Call extends Smarty_Internal_Comp
         } 
         $_name = trim($_attr['name'], "'"); 
         // create template object
-        $_output = "<?php \$_template = new {$compiler->smarty->template_class} ('string:', \$_smarty_tpl->smarty, \$_smarty_tpl);\n"; 
+        $_output = "<?php \$_template = new {$compiler->smarty->template_class} ('string:', \$_smarty_tpl->smarty, \$_smarty_tpl);\n";
+        $_output .= "\$_template->properties['nocache_hash'] = \$_smarty_tpl->smarty->template_functions['$_name']['nocache_hash'];\n";
+        // set flag (compiled code of {function} must be included in cache file
+        if ($this->compiler->nocache || $this->compiler->tag_nocache) {
+            $compiler->smarty->template_functions[$_name]['called_nocache'] = true;
+            $compiler->template->properties['function'][$_name]['called_nocache'] = true;
+        } 
         // assign default paramter
         if (isset($this->smarty->template_functions[$_name]['parameter'])) {
             // function is already compiled

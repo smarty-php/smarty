@@ -97,7 +97,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
     */
     static function get_key($template)
     {
-        $key = 'F' . abs(crc32($template->getTemplateFilepath()));
+        $key = sha1($template->getTemplateFilepath());
         if (isset(self::$template_data[$key])) {
             return $key;
         } else {

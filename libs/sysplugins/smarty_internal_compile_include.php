@@ -43,12 +43,17 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                     if ($tpl->resource_object->usesCompiler && $tpl->isExisting()) {
                         // make sure that template is up to date and merge template properties
                         $tpl->renderTemplate(); 
+                        // compiled code for {function} tags
+                        $compiler->template->properties['function'] = array_merge($compiler->template->properties['function'], $tpl->properties['function']); 
                         // get compiled code
                         $compiled_tpl = $tpl->getCompiledTemplate(); 
                         // remove header code
-                        $compiled_tpl = preg_replace("/(<\?php \/\*%%SmartyHeaderCode:{$tpl->properties['nocache_hash']}%%\*\/(.+?)\/\*\/%%SmartyHeaderCode%%\*\/\?>\n)/s", '', $compiled_tpl); 
-                        // replace nocache_hash
-                        $compiled_tpl = preg_replace("/{$tpl->properties['nocache_hash']}/", $compiler->template->properties['nocache_hash'], $compiled_tpl);
+                        $compiled_tpl = preg_replace("/(<\?php \/\*%%SmartyHeaderCode:{$tpl->properties['nocache_hash']}%%\*\/(.+?)\/\*\/%%SmartyHeaderCode%%\*\/\?>\n)/s", '', $compiled_tpl);
+                        if ($tpl->has_nocache_code) {
+                            // replace nocache_hash
+                            $compiled_tpl = preg_replace("/{$tpl->properties['nocache_hash']}/", $compiler->template->properties['nocache_hash'], $compiled_tpl);
+                            $compiler->template->has_nocache_code = true;
+                        } 
                         $has_compiled_template = true;
                     } 
                 } 
