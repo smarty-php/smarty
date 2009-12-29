@@ -37,8 +37,8 @@ class Smarty_Internal_CacheResource_File {
     * @return integer |booelan the template timestamp or false if the file does not exist
     */
     public function getCachedTimestamp($template)
-    {
-        //return @filemtime($template->getCachedFilepath()); 
+    { 
+        // return @filemtime ($template->getCachedFilepath());
         return ($template->getCachedFilepath() && file_exists($template->getCachedFilepath())) ? filemtime($template->getCachedFilepath()) : false ;
     } 
 
@@ -161,9 +161,10 @@ class Smarty_Internal_CacheResource_File {
     */
     private function buildCachedFilepath ($source_file_path, $cache_id, $compile_id)
     {
+        $_source_file_path = str_replace(':', '.', $source_file_path);
         $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
-        $_filepath = sha1($source_file_path); 
+        $_filepath = sha1($_source_file_path); 
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
@@ -186,7 +187,7 @@ class Smarty_Internal_CacheResource_File {
         if (strpos('/\\', substr($_cache_dir, -1)) === false) {
             $_cache_dir .= DS;
         } 
-        return $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($source_file_path) . '.php';
+        return $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($_source_file_path) . '.php';
     } 
 } 
 
