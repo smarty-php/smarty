@@ -1,6 +1,7 @@
 12/29/2009
 - use sha1() for filepath encoding
-- updates on nocache_hash handling 
+- updates on nocache_hash handling
+- internal change on merging some data 
 
 12/28/2009
 - update for security fixes
