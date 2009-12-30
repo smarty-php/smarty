@@ -1,3 +1,6 @@
+12/30/2009
+- bugfix for plugins defined in the script as smarty_function_foo
+
 12/29/2009
 - use sha1() for filepath encoding
 - updates on nocache_hash handling
