@@ -117,7 +117,7 @@ class Smarty_Internal_TemplateCompilerBase {
         if (($_output = $this->callTagCompiler($tag, $args)) === false) {
             if (isset($this->smarty->template_functions[$tag])) {
                 // template defined by {template} tag
-                $args['name'] = $tag;
+                $args['name'] = "'" . $tag . "'";
                 $_output = $this->callTagCompiler('call', $args);
             } 
         } 
@@ -287,29 +287,30 @@ class Smarty_Internal_TemplateCompilerBase {
         foreach((array)$this->smarty->plugins_dir as $_plugin_dir) {
             $file = rtrim($_plugin_dir, '/\\') . DS . $type . '.' . $plugin_name . '.php';
             if (file_exists($file)) {
-                require_once($file);
+                // require_once($file);
                 $found = true;
                 break;
             } 
         } 
         if ($found) {
-            if (is_callable($plugin)) {
-                $this->template->required_plugins_call[$plugin_name][$type] = $plugin;
-                if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
-                    $this->template->required_plugins['cache'][$plugin_name]['file'] = $file;
-                    $this->template->required_plugins['cache'][$plugin_name]['type'] = $type;
-                } else {
-                    $this->template->required_plugins['compiled'][$plugin_name]['file'] = $file;
-                    $this->template->required_plugins['compiled'][$plugin_name]['type'] = $type;
-                } 
-                if ($type == 'modifier') {
-                    $this->template->saved_modifer[$plugin_name] = true;
-                } 
-
-                return $plugin;
+            // if (is_callable($plugin)) {
+            $this->template->required_plugins_call[$plugin_name][$type] = $plugin;
+            if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
+                $this->template->required_plugins['cache'][$plugin_name]['file'] = $file;
+                $this->template->required_plugins['cache'][$plugin_name]['type'] = $type;
             } else {
+                $this->template->required_plugins['compiled'][$plugin_name]['file'] = $file;
+                $this->template->required_plugins['compiled'][$plugin_name]['type'] = $type;
+            } 
+            if ($type == 'modifier') {
+                $this->template->saved_modifer[$plugin_name] = true;
+            } 
+
+            return $plugin;
+            /* } else {
                 throw new Exception("Plugin {$type} \"{$plugin_name}\" not callable");
             } 
+            */
         } 
         return false;
     } 

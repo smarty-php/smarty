@@ -32,32 +32,14 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase {
             // output will be stored in a smarty variable instead of beind displayed
             $_assign = $_attr['assign'];
         } 
-        $_name = trim($_attr['name'], "'"); 
-        // create template object
-        $_output = "<?php \$_template = new {$compiler->smarty->template_class} ('string:', \$_smarty_tpl->smarty, \$_smarty_tpl);\n";
-        $_output .= "\$_template->properties['nocache_hash'] = \$_smarty_tpl->smarty->template_functions['$_name']['nocache_hash'];\n";
         // set flag (compiled code of {function} must be included in cache file
         if ($this->compiler->nocache || $this->compiler->tag_nocache) {
-            $compiler->smarty->template_functions[$_name]['called_nocache'] = true;
-            $compiler->template->properties['function'][$_name]['called_nocache'] = true;
+            $nocache = 'true';
+        } else {
+            $nocache = 'false';
         } 
-        // assign default paramter
-        if (isset($this->smarty->template_functions[$_name]['parameter'])) {
-            // function is already compiled
-            foreach ($this->smarty->template_functions[$_name]['parameter'] as $_key => $_value) {
-                if (!isset($_attr[$_key])) {
-                    $_output .= "\$_template->assign('$_key',$_value);\n";
-                } 
-            } 
-        } 
-        if (isset($compiler->template->properties['function'][$_name]['parameter'])) {
-            // for recursive call during function compilation
-            foreach ($compiler->template->properties['function'][$_name]['parameter'] as $_key => $_value) {
-                if (!isset($_attr[$_key])) {
-                    $_output .= "\$_template->assign('$_key',$_value);\n";
-                } 
-            } 
-        } 
+        // create template object
+        $_output = "<?php \$_template = new Smarty_Internal_Function_Call_Handler ({$_attr['name']}, \$_smarty_tpl->smarty, \$_smarty_tpl, {$nocache});\n"; 
         // delete {include} standard attributes
         unset($_attr['name'], $_attr['assign']); 
         // remaining attributes must be assigned as smarty variable
@@ -67,14 +49,13 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase {
                 $_output .= "\$_template->assign('$_key',$_value);\n";
             } 
         } 
-        // load compiled function
-        $_output .= "\$_template->compiled_template = \$this->smarty->template_functions['$_name']['compiled'];\n\$_template->mustCompile = false;\n"; 
         // was there an assign attribute
         if (isset($_assign)) {
-            $_output .= "\$_smarty_tpl->assign($_assign,\$_template->getRenderedTemplate()); ?>";
+            $_output .= "\$_smarty_tpl->assign({$_assign},\$_template->getRenderedTemplate());\n";
         } else {
-            $_output .= "echo \$_template->getRenderedTemplate(); ?>";
+            $_output .= "echo \$_template->getRenderedTemplate();\n";
         } 
+        $_output .= 'unset($_template);?>';
         return $_output;
     } 
 } 

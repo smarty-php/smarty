@@ -484,6 +484,11 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             if ($this->smarty->debugging) {
                 Smarty_Internal_Debug::start_cache($this);
             } 
+            // dummy renderung because of {function} nocache handling
+            $_smarty_tpl = $this;
+            ob_start();
+            eval("?>" . $this->rendered_content);
+            ob_get_clean(); 
             // write rendered template
             if (!$this->cacheFileWritten) {
                 $this->writeCachedContent($this);
@@ -495,10 +500,11 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                 Smarty_Internal_Debug::end_cache($this);
             } 
         } else {
-            // var_dump('renderTemplate',$this->has_nocache_code,$this->template_resource, $this->has_nocache_code, $this->properties['nocache_hash'], $this->parent->properties['nocache_hash'], $this->rendered_content);
+            // var_dump('renderTemplate', $this->has_nocache_code, $this->template_resource, $this->properties['nocache_hash'], $this->parent->properties['nocache_hash'], $this->rendered_content);
             if ($this->has_nocache_code && !empty($this->properties['nocache_hash']) && !empty($this->parent->properties['nocache_hash'])) {
                 // replace nocache_hash
                 $this->rendered_content = preg_replace("/{$this->properties['nocache_hash']}/", $this->parent->properties['nocache_hash'], $this->rendered_content);
+                $this->parent->has_nocache_code = $this->has_nocache_code;
             } 
         } 
     } 
@@ -780,6 +786,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             $this->properties['file_dependency'] = array_merge($this->properties['file_dependency'], $properties['file_dependency']);
         } 
         if (!empty($properties['function'])) {
+            $this->properties['function'] = array_merge($this->properties['function'], $properties['function']);
             $this->smarty->template_functions = array_merge($this->smarty->template_functions, $properties['function']);
         } 
     } 

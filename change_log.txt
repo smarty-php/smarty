@@ -1,3 +1,12 @@
+12/31/2009
+- optimization of generated code for doublequoted strings containing variables
+- rewrite of {function} tag handling
+  - can now be declared in an external subtemplate
+  - can contain nocache sections (nocache_hash handling)
+  - can be called in noccache sections (nocache_hash handling)
+  - new {call..} tag to call template functions with a variable name {call name=$foo}
+- fixed nocache_hash handling in merged compiled templates
+
 12/30/2009
 - bugfix for plugins defined in the script as smarty_function_foo
 

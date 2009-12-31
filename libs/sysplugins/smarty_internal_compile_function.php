@@ -26,7 +26,8 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
         $this->optional_attributes = array('_any'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
-        $save = array($_attr, $compiler->template->extracted_compiled_code, $compiler->template->extract_code, $compiler->template->has_nocache_code);
+        $save = array($_attr, $compiler->template->extracted_compiled_code, $compiler->template->extract_code,
+            $compiler->template->has_nocache_code, $compiler->template->required_plugins);
         $this->_open_tag('function', $save);
         $_name = trim($_attr['name'], "'");
         unset($_attr['name']);
@@ -34,7 +35,9 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
             $compiler->template->properties['function'][$_name]['parameter'][$_key] = $_data;
         } 
         // make function known for recursive calls
-        $this->compiler->smarty->template_functions[$_name]['compiled'] = '';
+        $this->compiler->smarty->template_functions[$_name]['compiled'] = ''; 
+        // Init temporay context
+        $compiler->template->required_plugins = array('compiled' => array(), 'cache' => array());
         $compiler->template->extract_code = true;
         $compiler->template->extracted_compiled_code = '';
         $compiler->template->has_code = false;
@@ -60,18 +63,35 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase 
         $this->compiler->has_code = false;
         $_attr = $this->_get_attributes($args);
         $saved_data = $this->_close_tag(array('function'));
-        $_name = trim($saved_data[0]['name'], "'");
-        $compiler->template->properties['function'][$_name]['compiled'] = $compiler->template->extracted_compiled_code;
+        $_name = trim($saved_data[0]['name'], "'"); 
+        // build plugin include code
+        $plugins_string = '';
+        if (!empty($compiler->template->required_plugins['compiled'])) {
+            $plugins_string = '<?php ';
+            foreach($compiler->template->required_plugins['compiled'] as $plugin_name => $data) {
+                $plugin = 'smarty_' . $data['type'] . '_' . $plugin_name;
+                $plugins_string .= "if (!is_callable('{$plugin}')) include '{$data['file']}';\n";
+            } 
+            $plugins_string .= '?>';
+        } 
+        if (!empty($compiler->template->required_plugins['cache'])) {
+            $plugins_string .= "<?php echo '/*%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/<?php ";
+            foreach($compiler->template->required_plugins['cache'] as $plugin_name => $data) {
+                $plugin = 'smarty_' . $data['type'] . '_' . $plugin_name;
+                $plugins_string .= "if (!is_callable(\'{$plugin}\')) include \'{$data['file']}\';\n";
+            } 
+            $plugins_string .= "?>/*/%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/';?>\n";
+        } 
+        $compiler->template->properties['function'][$_name]['compiled'] = $plugins_string . $compiler->template->extracted_compiled_code;
         $compiler->template->properties['function'][$_name]['nocache_hash'] = $compiler->template->properties['nocache_hash'];
         $compiler->template->properties['function'][$_name]['has_nocache_code'] = $compiler->template->has_nocache_code;
-        $this->compiler->smarty->template_functions[$_name]['compiled'] = $compiler->template->extracted_compiled_code;
-        $this->compiler->smarty->template_functions[$_name]['parameter'] = $compiler->template->properties['function'][$_name]['parameter'];
-        $this->compiler->smarty->template_functions[$_name]['nocache_hash'] = $compiler->template->properties['nocache_hash'];
-        $this->compiler->smarty->template_functions[$_name]['has_nocache_code'] = $compiler->template->has_nocache_code; 
-        // restore old code extraction status
+//        $compiler->template->properties['function'][$_name]['plugins'] = $compiler->template->required_plugins;
+        $this->compiler->smarty->template_functions[$_name] = $compiler->template->properties['function'][$_name];
+        // restore old compiler status
         $compiler->template->extracted_compiled_code = $saved_data[1];
         $compiler->template->extract_code = $saved_data[2];
         $compiler->template->has_nocache_code = $saved_data[3];
+        $compiler->template->required_plugins = $saved_data[4];
         return true;
     } 
 } 
