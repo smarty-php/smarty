@@ -18,22 +18,10 @@
 */
 function smarty_block_php($params, $content, $smarty, &$repeat, $template)
 { 
-    // get security settings
-    if ($template->security && isset($smarty->security_handler)) {
-        $sec_obj = $smarty->security_policy;
-    } else {
-        $sec_obj = $smarty;
+    if (!$smarty->allow_php_tag) {
+        throw new Exception("{php} is deprecated, set allow_php_tag = true to enable");
     } 
-    if (is_null($content)) {
-        if (!$smarty->allow_php_tag) {
-            trigger_error("{php} is deprecated, set allow_php_tag = true to enable", E_USER_WARNING);
-        } 
-        return;
-    } 
-
     eval($content);
-
     return '';
-} 
-
+}
 ?>
