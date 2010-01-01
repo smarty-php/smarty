@@ -180,8 +180,7 @@ class Smarty_Internal_TemplateCompilerBase {
                             throw new Exception("Plugin \"{$tag}\" not callable");
                         } 
                     } else {
-                        $function = 'smarty_' . $plugin_type . '_' . $tag;
-                        if (is_callable($function) || $function = $this->getPlugin($tag, $plugin_type)) {
+                        if ($function = $this->getPlugin($tag, $plugin_type)) {
                             return $this->callTagCompiler('private_' . $plugin_type . '_plugin', $args, $tag, $function);
                         } 
                     } 
@@ -204,8 +203,7 @@ class Smarty_Internal_TemplateCompilerBase {
                     return $this->callTagCompiler('private_registered_block', $args, $tag);
                 } 
                 // block plugin?
-                $function = 'smarty_block_' . $base_tag;
-                if (is_callable($function) || $function = $this->getPlugin($base_tag, 'block')) {
+                if ($function = $this->getPlugin($base_tag, 'block')) {
                     return $this->callTagCompiler('private_block_plugin', $args, $tag, $function);
                 } 
                 if ($this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
@@ -307,10 +305,10 @@ class Smarty_Internal_TemplateCompilerBase {
             } 
 
             return $plugin;
-            /* } else {
-                throw new Exception("Plugin {$type} \"{$plugin_name}\" not callable");
-            } 
-            */
+        } 
+        if (is_callable($plugin)) {
+            // plugin function is defined in the script
+            return $plugin;
         } 
         return false;
     } 
