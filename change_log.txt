@@ -1,3 +1,7 @@
+01/02/2009
+- update cached_timestamp at the template object after cache file is written to avoid possible side effects
+- use internally always SMARTY_CACHING_LIFETIME_* constants
+
 01/01/2009
 - bugfix for obtaining plugins which must be included (related to change of 12/30/2009)
 - bugfix for {php} tag (trow an exception if allow_php_tag = false)

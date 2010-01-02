@@ -65,11 +65,13 @@ class Smarty_Internal_CacheResource_File {
     public function writeCachedContent($template, $content)
     {
         if (!$template->resource_object->isEvaluated) {
-            return Smarty_Internal_Write_File::writeFile($template->getCachedFilepath(), $content, $this->smarty);
-        } else {
-            return false;
-        } 
-    } 
+            if (Smarty_Internal_Write_File::writeFile($template->getCachedFilepath(), $content, $this->smarty) === true) {
+                $template->cached_timestamp = filemtime($template->getCachedFilepath());
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
     * Empty cache folder

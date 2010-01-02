@@ -50,7 +50,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public $rendered_content = null; 
     // Cache file
     private $cached_filepath = null;
-    private $cached_timestamp = null;
+    public $cached_timestamp = null;
     private $isCached = null;
     private $cache_resource_object = null;
     private $cacheFileWritten = false;
@@ -103,7 +103,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             throw new Exception ("Unable to parse resource name \"{$template_resource}\"");
         } 
         // load cache resource
-        if (!$this->resource_object->isEvaluated && ($this->caching == 1 || $this->caching == 2)) {
+        if (!$this->resource_object->isEvaluated && ($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED)) {
             $this->cache_resource_object = $this->smarty->loadCacheResource();
         } 
     } 
@@ -291,7 +291,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public function getCachedFilepath ()
     {
         return $this->cached_filepath === null ?
-        $this->cached_filepath = ($this->resource_object->isEvaluated || !($this->caching == 1 || $this->caching == 2)) ? false : $this->cache_resource_object->getCachedFilepath($this) :
+        $this->cached_filepath = ($this->resource_object->isEvaluated || !($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED)) ? false : $this->cache_resource_object->getCachedFilepath($this) :
         $this->cached_filepath;
     } 
 
@@ -305,7 +305,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public function getCachedTimestamp ()
     {
         return $this->cached_timestamp === null ?
-        $this->cached_timestamp = ($this->resource_object->isEvaluated || !($this->caching == 1 || $this->caching == 2)) ? false : $this->cache_resource_object->getCachedTimestamp($this) :
+        $this->cached_timestamp = ($this->resource_object->isEvaluated || !($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED)) ? false : $this->cache_resource_object->getCachedTimestamp($this) :
         $this->cached_timestamp;
     } 
 
@@ -317,7 +317,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public function getCachedContent ()
     {
         return $this->rendered_content === null ?
-        $this->rendered_content = ($this->resource_object->isEvaluated || !($this->caching == 1 || $this->caching == 2)) ? false : $this->cache_resource_object->getCachedContents($this) :
+        $this->rendered_content = ($this->resource_object->isEvaluated || !($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED)) ? false : $this->cache_resource_object->getCachedContents($this) :
         $this->rendered_content;
     } 
 
@@ -326,7 +326,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     */
     public function writeCachedContent ()
     {
-        if ($this->resource_object->isEvaluated || !($this->caching == 1 || $this->caching == 2)) {
+        if ($this->resource_object->isEvaluated || !($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED)) {
             // don't write cache file
             return false;
         } 
@@ -361,7 +361,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     {
         if ($this->isCached === null) {
             $this->isCached = false;
-            if (($this->caching == 1 || $this->caching == 2) && !$this->resource_object->isEvaluated && !$this->force_compile && !$this->force_cache) {
+            if (($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED) && !$this->resource_object->isEvaluated && !$this->force_compile && !$this->force_cache) {
                 $cachedTimestamp = $this->getCachedTimestamp();
                 if ($cachedTimestamp === false) {
                     return $this->isCached;
