@@ -1,3 +1,6 @@
+01/03/2009
+- internal change on building cache files
+
 01/02/2009
 - update cached_timestamp at the template object after cache file is written to avoid possible side effects
 - use internally always SMARTY_CACHING_LIFETIME_* constants

@@ -53,7 +53,6 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public $cached_timestamp = null;
     private $isCached = null;
     private $cache_resource_object = null;
-    private $cacheFileWritten = false;
     private $cacheFileChecked = false; 
     // template variables
     public $tpl_vars = array();
@@ -324,30 +323,14 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     /**
     * Writes the cached template output
     */
-    public function writeCachedContent ()
+    public function writeCachedContent ($content)
     {
         if ($this->resource_object->isEvaluated || !($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED)) {
             // don't write cache file
             return false;
         } 
         $this->properties['cache_lifetime'] = $this->cache_lifetime;
-        $this->properties['has_nocache_code'] = false; 
-        // get text between non-cached items
-        $cache_split = preg_split("!/\*%%SmartyNocache:{$this->properties['nocache_hash']}%%\*\/(.+?)/\*/%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!s", $this->rendered_content); 
-        // get non-cached items
-        preg_match_all("!/\*%%SmartyNocache:{$this->properties['nocache_hash']}%%\*\/(.+?)/\*/%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!s", $this->rendered_content, $cache_parts);
-        $output = ''; 
-        // loop over items, stitch back together
-        foreach($cache_split as $curr_idx => $curr_split) {
-            // escape PHP tags in template content
-            $output .= preg_replace('/(<%|%>|<\?php|<\?|\?>)/', '<?php echo \'$1\'; ?>', $curr_split);
-            if (isset($cache_parts[0][$curr_idx])) {
-                $this->properties['has_nocache_code'] = true; 
-                // remove nocache tags from cache output
-                $output .= preg_replace("!/\*/?%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!", '', $cache_parts[0][$curr_idx]);
-            } 
-        } 
-        return $this->cache_resource_object->writeCachedContent($this, $this->createPropertyHeader(true) . $output);
+        return $this->cache_resource_object->writeCachedContent($this, $this->createPropertyHeader(true) . $content);
     } 
 
     /**
@@ -484,18 +467,29 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             if ($this->smarty->debugging) {
                 Smarty_Internal_Debug::start_cache($this);
             } 
-            // dummy renderung because of {function} nocache handling
+            $this->properties['has_nocache_code'] = false; 
+            // get text between non-cached items
+            $cache_split = preg_split("!/\*%%SmartyNocache:{$this->properties['nocache_hash']}%%\*\/(.+?)/\*/%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!s", $this->rendered_content); 
+            // get non-cached items
+            preg_match_all("!/\*%%SmartyNocache:{$this->properties['nocache_hash']}%%\*\/(.+?)/\*/%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!s", $this->rendered_content, $cache_parts);
+            $output = ''; 
+            // loop over items, stitch back together
+            foreach($cache_split as $curr_idx => $curr_split) {
+                // escape PHP tags in template content
+                $output .= preg_replace('/(<%|%>|<\?php|<\?|\?>)/', '<?php echo \'$1\'; ?>', $curr_split);
+                if (isset($cache_parts[0][$curr_idx])) {
+                    $this->properties['has_nocache_code'] = true; 
+                    // remove nocache tags from cache output
+                    $output .= preg_replace("!/\*/?%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!", '', $cache_parts[0][$curr_idx]);
+                } 
+            } 
+            // rendering (must be done before writing cache file because of {function} nocache handling)
             $_smarty_tpl = $this;
             ob_start();
-            eval("?>" . $this->rendered_content);
-            ob_get_clean(); 
-            // write rendered template
-            if (!$this->cacheFileWritten) {
-                $this->writeCachedContent($this);
-                $this->cacheFileWritten = true;
-            } 
-            // cache file may contain nocache code. read it back for processing
-            $this->rendered_content = $this->cache_resource_object->getCachedContents($this);
+            eval("?>" . $output);
+            $this->rendered_content = ob_get_clean(); 
+            // write cache file content
+            $this->writeCachedContent($output); 
             if ($this->smarty->debugging) {
                 Smarty_Internal_Debug::end_cache($this);
             } 
