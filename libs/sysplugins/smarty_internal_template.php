@@ -31,7 +31,8 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public $resource_type = null;
     public $resource_name = null;
     public $resource_object = null;
-    private $isExisting = null; 
+    private $isExisting = null;
+    public $templateUid = '';
     // Template source
     public $template_filepath = null;
     public $template_source = null;
@@ -243,7 +244,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     {
         if (!$this->resource_object->isEvaluated) {
             $this->properties['file_dependency'] = array();
-            $this->properties['file_dependency'][sha1($this->getTemplateFilepath())] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
+            $this->properties['file_dependency'][$this->templateUid] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
         } 
         if ($this->smarty->debugging) {
             Smarty_Internal_Debug::start_compile($this);
@@ -260,15 +261,6 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             if (!$this->resource_object->isEvaluated) {
                 // write compiled template
                 Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->compiled_template, $this->smarty); 
-                // make template and compiled file timestamp match
-                /**
-                * $this->compiled_timestamp = null;
-                * touch($this->getCompiledFilepath(), $this->getTemplateTimestamp()); 
-                * // daylight saving time problem on windows
-                * if ($this->template_timestamp != $this->getCompiledTimestamp()) {
-                * touch($this->getCompiledFilepath(), 2 * $this->template_timestamp - $this->compiled_timestamp);
-                * }
-                */
             } 
         } else {
             // error compiling template
@@ -452,7 +444,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         } 
         $this->rendered_content = ob_get_clean();
         if (!$this->resource_object->isEvaluated) {
-            $this->properties['file_dependency'][sha1($this->getTemplateFilepath())] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
+            $this->properties['file_dependency'][$this->templateUid] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
         } 
         if ($this->parent instanceof Smarty_Template or $this->parent instanceof Smarty_Internal_Template) {
             $this->parent->properties['file_dependency'] = array_merge($this->parent->properties['file_dependency'], $this->properties['file_dependency']);

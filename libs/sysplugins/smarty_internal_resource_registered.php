@@ -50,7 +50,7 @@ class Smarty_Internal_Resource_Registered {
         // no filepath for strings
         // return "string" for compiler error messages
            $_filepath = $_template->resource_type .':'.$_template->resource_name;
-
+        $_template->templateUid = sha1($_filepath);
         return $_filepath;
  } 
 
@@ -105,7 +105,11 @@ class Smarty_Internal_Resource_Registered {
     public function getCompiledFilepath($_template)
     { 
         $_compile_id =  isset($_template->compile_id) ? preg_replace('![^\w\|]+!','_',$_template->compile_id) : null;
-        $_filepath = sha1($_template->template_resource); 
+        // calculate Uid if not already done
+        if ($_template->templateUid == '') {
+            $_template->getTemplateFilepath();
+        } 
+        $_filepath = $_template->$templateUid; 
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS

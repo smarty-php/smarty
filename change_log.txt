@@ -1,3 +1,7 @@
+01/05/2009
+- bugfix sha1() calculations at extends resource and some general improvments on sha1() handling 
+
+
 01/03/2009
 - internal change on building cache files
 

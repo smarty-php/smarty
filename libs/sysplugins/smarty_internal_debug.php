@@ -97,7 +97,11 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
     */
     static function get_key($template)
     {
-        $key = sha1($template->getTemplateFilepath());
+        // calculate Uid if not already done
+        if ($template->templateUid == '') {
+            $template->getTemplateFilepath();
+        } 
+        $key = $template->templateUid;
         if (isset(self::$template_data[$key])) {
             return $key;
         } else {

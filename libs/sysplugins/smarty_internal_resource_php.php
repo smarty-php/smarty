@@ -52,7 +52,7 @@ class Smarty_Internal_Resource_PHP {
         if ($_template->security) {
             $_template->smarty->security_handler->isTrustedResourceDir($_filepath);
         } 
-
+        $_template->templateUid = sha1($_filepath);
         return $_filepath;
     } 
 
