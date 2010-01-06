@@ -53,10 +53,10 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
 
     protected function saveBlockData($block_content, $block_tag, $template)
     {
-        if (0 == preg_match('/(.?)(name=)([^ ]*)/', $block_tag, $_match)) {
+        if (0 == preg_match("/(.?)(name=)(.*?)(?=(\s|{$this->smarty->right_delimiter}))/", $block_tag, $_match)) {
             $this->compiler->trigger_template_error("\"" . $block_tag . "\" missing name attribute");
         } else {
-            $_name = trim($_match[3], "\"'}");
+            $_name = trim($_match[3], "\"'");
             if (isset($this->smarty->block_data[$_name])) {
                 if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
                     $this->smarty->block_data[$_name]['source'] =
