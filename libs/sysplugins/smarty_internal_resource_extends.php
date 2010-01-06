@@ -16,6 +16,8 @@ class Smarty_Internal_Resource_Extends {
     public function __construct($smarty)
     {
         $this->smarty = $smarty;
+        $this->_rdl = preg_quote($smarty->right_delimiter);
+        $this->_ldl = preg_quote($smarty->left_delimiter);
     } 
     // classes used for compiling Smarty templates from file resource
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
@@ -88,7 +90,7 @@ class Smarty_Internal_Resource_Extends {
         foreach ($_files as $_filepath) {
             // read template file
             if ($_filepath === false) {
-                throw new Exception("Unable to load template \"file : {$_file}\"");
+                throw new Exception("Unable to load template 'file : {$_file}'");
             } 
             if ($_filepath != $_files[0]) {
                 $_template->properties['file_dependency'][sha1($_filepath)] = array($_filepath, filemtime($_filepath));
@@ -96,9 +98,9 @@ class Smarty_Internal_Resource_Extends {
             $_template->template_filepath = $_filepath;
             $_content = file_get_contents($_filepath);
             if ($_filepath != $_files[count($_files)-1]) {
-                if (preg_match_all('/(' . $this->smarty->left_delimiter . 'block(.+?)' . $this->smarty->right_delimiter . ')/', $_content, $_open, PREG_OFFSET_CAPTURE) !=
-                        preg_match_all('/(' . $this->smarty->left_delimiter . '\/block(.*?)' . $this->smarty->right_delimiter . ')/', $_content, $_close, PREG_OFFSET_CAPTURE)) {
-                    $this->smarty->trigger_error(" unmatched {block} {/block} pairs");
+                if (preg_match_all("!({$this->_ldl}block(.+?){$this->_rdl})!", $_content, $_open, PREG_OFFSET_CAPTURE) !=
+                        preg_match_all("!({$this->_ldl}/block(.*?){$this->_rdl})!", $_content, $_close, PREG_OFFSET_CAPTURE)) {
+                    $this->smarty->trigger_error('unmatched {block} {/block} pairs');
                 } 
                 $_block_count = count($_open[0]);
                 for ($_i = 0; $_i < $_block_count; $_i++) {
@@ -115,10 +117,10 @@ class Smarty_Internal_Resource_Extends {
     } 
     protected function saveBlockData($block_content, $block_tag, $_filepath)
     {
-        if (0 == preg_match("/(.?)(name=)(.*?)(?=(\s|{$this->smarty->right_delimiter}))/", $block_tag, $_match)) {
-            $this->smarty->trigger_error("\"" . $block_tag . "\" missing name attribute");
+        if (0 == preg_match("!(.?)(name=)(.*?)(?=(\s|{$this->_rdl}))!", $block_tag, $_match)) {
+            $this->smarty->trigger_error("'{$block_tag}' missing name attribute");
         } else {
-            $_name = trim($_match[3], "\"'");
+            $_name = trim($_match[3], '\'"');
             if (isset($this->smarty->block_data[$_name])) {
                 if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
                     $this->smarty->block_data[$_name]['source'] =
@@ -151,7 +153,7 @@ class Smarty_Internal_Resource_Extends {
     public function getCompiledFilepath($_template)
     {
         $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w\|]+!', '_', $_template->compile_id) : null;
-        $_files = explode('|', $_template->resource_name);
+        $_files = explode('|', $_template->resource_name); 
         // calculate Uid if not already done
         if ($_template->templateUid == '') {
             $_template->getTemplateFilepath();
