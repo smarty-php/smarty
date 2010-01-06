@@ -109,7 +109,7 @@ class Smarty_Internal_Resource_Registered {
         if ($_template->templateUid == '') {
             $_template->getTemplateFilepath();
         } 
-        $_filepath = $_template->$templateUid; 
+        $_filepath = $_template->templateUid; 
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
