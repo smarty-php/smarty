@@ -443,7 +443,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             } 
         } 
         $this->rendered_content = ob_get_clean();
-        if (!$this->resource_object->isEvaluated) {
+        if (!$this->resource_object->isEvaluated && empty($this->properties['file_dependency'][$this->templateUid])) {
             $this->properties['file_dependency'][$this->templateUid] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp());
         } 
         if ($this->parent instanceof Smarty_Template or $this->parent instanceof Smarty_Internal_Template) {

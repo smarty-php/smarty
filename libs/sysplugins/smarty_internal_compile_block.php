@@ -64,6 +64,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
         $_name = trim($saved_data[0]['name'], "\"'");
         if (isset($this->smarty->block_data[$_name])) {
             $_tpl = $this->smarty->createTemplate('string:' . $this->smarty->block_data[$_name]['source'], null, null, $compiler->template);
+            $_tpl->properties['nocache_hash'] = $compiler->template->properties['nocache_hash'];
             $_tpl->template_filepath = $this->smarty->block_data[$_name]['file'];
             $_tpl->forceNocache = true;
             $_tpl->suppressHeader = true;
@@ -76,7 +77,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
                 $_output = $compiler->template->extracted_compiled_code . $_tpl->getCompiledTemplate();
             } elseif (!empty($this->smarty->block_data[$_name])) {
                 $_output = $_tpl->getCompiledTemplate();
-            }
+            } 
             $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $_tpl->properties['file_dependency']);
             $compiler->template->properties['function'] = array_merge($compiler->template->properties['function'], $_tpl->properties['function']);
             $compiler->template->required_plugins['compiled'] = array_merge($compiler->template->required_plugins['compiled'], $_tpl->required_plugins['compiled']);
@@ -86,7 +87,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             $_output = $compiler->template->extracted_compiled_code;
         } 
         $compiler->template->extracted_compiled_code = $saved_data[1];
-        $compiler->template->extract_code = $saved_data[2]; 
+        $compiler->template->extract_code = $saved_data[2];
         return $_output;
     } 
 } 

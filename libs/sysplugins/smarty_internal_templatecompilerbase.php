@@ -39,10 +39,14 @@ class Smarty_Internal_TemplateCompilerBase {
     */
     public function compileTemplate($template)
     {
-        $template->properties['nocache_hash'] = $this->nocache_hash;
+        if (empty($template->properties['nocache_hash'])) {
+            $template->properties['nocache_hash'] = $this->nocache_hash;
+        } else {
+            $this->nocache_hash = $template->properties['nocache_hash'];
+        } 
         /* here is where the compiling takes place. Smarty
        tags in the templates are replaces with PHP code,
-       then written to compiled files. */ 
+       then written to compiled files. */
         // flag for nochache sections
         $this->nocache = false;
         $this->tag_nocache = false; 

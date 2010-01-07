@@ -1,3 +1,7 @@
+01/07/2009
+- bugfix on file dependency at template inheritance
+- bugfix on nocache code at template inheritance
+
 01/06/2009
 - fixed typo in smarty_internal_resource_registered
 - bugfix for custom delimiter at extends resource and {extends} tag
