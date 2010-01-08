@@ -1,3 +1,6 @@
+01/08/2009
+- bugfix on variable filters. filter/nofilter attributes did not work on output statements
+
 01/07/2009
 - bugfix on file dependency at template inheritance
 - bugfix on nocache code at template inheritance
