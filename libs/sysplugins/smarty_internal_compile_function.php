@@ -40,8 +40,8 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
         $compiler->template->required_plugins = array('compiled' => array(), 'cache' => array());
         $compiler->template->extract_code = true;
         $compiler->template->extracted_compiled_code = '';
-        $compiler->template->has_code = false;
         $compiler->template->has_nocache_code = false;
+        $compiler->has_code = false;
         return true;
     } 
 } 

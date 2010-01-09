@@ -12,6 +12,10 @@
 * Main compiler class
 */
 class Smarty_Internal_TemplateCompilerBase {
+    // hash for nocache sections
+    private $nocache_hash = null; 
+    // suppress generation of nocache code
+    public $suppressNocacheProcessing = false;
     // compile tag objects
     static $_tag_objects = array(); 
     // tag stack
@@ -20,8 +24,6 @@ class Smarty_Internal_TemplateCompilerBase {
     public $template = null; 
     // required plugins
     public $required_plugins_call = array(); 
-    // hash for nocache sections
-    private $nocache_hash = null;
 
     /**
     * Initialize compiler
@@ -331,10 +333,10 @@ class Smarty_Internal_TemplateCompilerBase {
     public function processNocacheCode ($content, $is_code)
     { 
         // If the template is not evaluated and we have a nocache section and or a nocache tag
-        if ($is_code) {
+        if ($is_code && !empty($content)) {
             // generate replacement code
-            if ((!$this->template->resource_object->isEvaluated || $this->template->forceNocache) && $this->template->caching &&
-                    ($this->nocache || $this->tag_nocache)) {
+            if ((!$this->template->resource_object->isEvaluated || $this->template->forceNocache) && $this->template->caching && !$this->suppressNocacheProcessing &&
+                    ($this->nocache || $this->tag_nocache || $this->template->forceNocache == 2)) {
                 $this->tag_nocache = false;
                 $this->template->has_nocache_code = true;
                 $_output = str_replace("'", "\'", $content);
@@ -354,6 +356,7 @@ class Smarty_Internal_TemplateCompilerBase {
         } else {
             $_output = $content;
         } 
+        $this->suppressNocacheProcessing = false;
         return $_output;
     } 
     /**

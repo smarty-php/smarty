@@ -1,3 +1,6 @@
+01/09/2009
+- bugfix on nocache {block} tags in parent templates
+
 01/08/2009
 - bugfix on variable filters. filter/nofilter attributes did not work on output statements
 
