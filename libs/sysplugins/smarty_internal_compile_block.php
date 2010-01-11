@@ -23,11 +23,17 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
     {
         $this->compiler = $compiler;
         $this->required_attributes = array('name');
-        $this->optional_attributes = array('assign'); 
+        $this->optional_attributes = array('assign','nocache'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
-        $save = array($_attr, $compiler->template->extracted_compiled_code, $compiler->template->extract_code);
+        $save = array($_attr, $compiler->template->extracted_compiled_code, $compiler->template->extract_code, $this->compiler->nocache);
         $this->_open_tag('block', $save);
+        if (isset($_attr['nocache'])) {
+            if ($_attr['nocache'] == 'true') {
+                $compiler->nocache = true;
+            } 
+        } 
+
         $compiler->template->extract_code = true;
         $compiler->template->extracted_compiled_code = '';
         $compiler->has_code = false;
@@ -91,7 +97,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             $_output = $compiler->template->extracted_compiled_code;
         } 
         $compiler->template->extracted_compiled_code = $saved_data[1];
-        $compiler->template->extract_code = $saved_data[2]; 
+        $compiler->template->extract_code = $saved_data[2];
+        $compiler->nocache = $saved_data[3]; 
         // $_output content has already nocache code processed
         $compiler->suppressNocacheProcessing = true;
         return $_output;

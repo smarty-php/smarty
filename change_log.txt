@@ -1,6 +1,8 @@
 01/11/2010
 - added \n to the compiled code of the {if},{else},{elseif},{/if} tags to get output of newlines as expected by the template source
 - added missing support of insert plugins
+- added optional nocache attribute to {block} tags in parent template
+- updated <?php...?> handling supporting now heredocs and newdocs. (thanks to Thue Jnaus Kristensen)
 
 01/09/2010
 - bugfix on nocache {block} tags in parent templates
