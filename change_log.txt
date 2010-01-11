@@ -1,29 +1,32 @@
-01/09/2009
+01/11/2010
+- added \n to the compiled code of the {/if} tag to get output of newlines as expected by the template source
+
+01/09/2010
 - bugfix on nocache {block} tags in parent templates
 
-01/08/2009
+01/08/2010
 - bugfix on variable filters. filter/nofilter attributes did not work on output statements
 
-01/07/2009
+01/07/2010
 - bugfix on file dependency at template inheritance
 - bugfix on nocache code at template inheritance
 
-01/06/2009
+01/06/2010
 - fixed typo in smarty_internal_resource_registered
 - bugfix for custom delimiter at extends resource and {extends} tag
 
-01/05/2009
+01/05/2010
 - bugfix sha1() calculations at extends resource and some general improvments on sha1() handling 
 
 
-01/03/2009
+01/03/2010
 - internal change on building cache files
 
-01/02/2009
+01/02/2010
 - update cached_timestamp at the template object after cache file is written to avoid possible side effects
 - use internally always SMARTY_CACHING_LIFETIME_* constants
 
-01/01/2009
+01/01/2010
 - bugfix for obtaining plugins which must be included (related to change of 12/30/2009)
 - bugfix for {php} tag (trow an exception if allow_php_tag = false)
 
