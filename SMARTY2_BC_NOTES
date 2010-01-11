@@ -70,3 +70,7 @@ Smarty 3 sets the constant SMARTY_RESOURCE_CHAR_SET to utf-8 as default template
 This is now used also on modifiers like escape as default charset. If your templates use 
 other charsets make sure that you define the constant accordingly. Otherwise you may not 
 get any output.
+
+== newline at {if} tags ==
+A \n was added to the compiled code of the {if},{else},{elseif},{/if} tags to get output of newlines as expected by the template source. 
+If one of the {if} tags is at the line end you will now get a newline in the HTML output.
