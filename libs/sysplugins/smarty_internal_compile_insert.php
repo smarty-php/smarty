@@ -29,10 +29,12 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
         $_attr = $this->_get_attributes($args); 
         // this tag must not be cached
         $this->compiler->tag_nocache = true;
+        $_smarty_tpl = $compiler->template;
 
         $_output = '<?php '; 
         // save posible attributes
-        $_name = 'insert_' . trim($_attr['name'], "'\"");
+        eval('$_name = ' . $_attr['name'] . ';');
+        $_function = "insert_{$_name}";
         if (isset($_attr['assign'])) {
             // output will be stored in a smarty variable instead of beind displayed
             $_assign = $_attr['assign']; 
@@ -44,13 +46,19 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
             $_smarty_tpl = $compiler->template;
             eval('$_script = ' . $_attr['script'] . ';');
             if (!file_exists($_script)) {
-                $this->compiler->trigger_template_error('missing file "' . $_script . '"');
+                $this->compiler->trigger_template_error("{insert} missing script file '{$_script}'");
             } 
             // code for script file loading
-            $_output .= 'require once ' . $_script . ';';
+            $_output .= "require_once {$_script} ;";
+            require_once $_script;
+            if (!is_callable($_function)) {
+                $this->compiler->trigger_template_error(" {insert} function '{$_name}' is not callable");
+            } 
         } else {
-            if (!is_callable($_name)) {
-                $this->compiler->trigger_template_error('function "' . $_name . '" is not callable');
+            if (!is_callable($_function)) {
+                if (!$_function = $this->compiler->getPlugin($_name, 'insert')) {
+                    $this->compiler->trigger_template_error("{insert} no function or plugin found for '{$_name}'");
+                } 
             } 
         } 
         // delete {insert} standard attributes
@@ -58,15 +66,15 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
         // convert attributes into parameter array string
         $_paramsArray = array();
         foreach ($_attr as $_key => $_value) {
-            $_paramsArray[] = "'$_key'=>$_value";
+            $_paramsArray[] = "'$_key' => $_value";
         } 
-        $_params = 'array(' . implode(",", $_paramsArray) . ')'; 
+        $_params = 'array(' . implode(", ", $_paramsArray) . ')'; 
         // call insert
         if (isset($_assign)) {
-            $_output .= '$_smarty_tpl->assign(' . $_assign . ',' . $_name . '(' . $_params . '),true); ?>';
+            $_output .= "\$_smarty_tpl->assign({$_assign} , {$_function} ({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl), true);?>";
         } else {
             $this->compiler->has_output = true;
-            $_output .= 'echo ' . $_name . '(' . $_params . '); ?>';
+            $_output .= "echo {$_function}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>";
         } 
         return $_output;
     } 
