@@ -1949,7 +1949,7 @@ static public $yy_action = array(
 #line 121 "smarty_internal_templateparser.y"
     function yy_r6(){
                                       if ($this->sec_obj->php_handling == SMARTY_PHP_PASSTHRU) {
-					                             $this->_retvalue = self::escape_start_tag($this->yystack[$this->yyidx + -2]->minor) . $this->yystack[$this->yyidx + -1]->minor . '?<??>>';
+					                             $this->_retvalue = self::escape_start_tag($this->yystack[$this->yyidx + -2]->minor) . str_replace('<?','&lt;?',$this->yystack[$this->yyidx + -1]->minor) . '?<??>>';
                                       } elseif ($this->sec_obj->php_handling == SMARTY_PHP_QUOTE) {
                                        $this->_retvalue = $this->compiler->processNocacheCode(htmlspecialchars($this->yystack[$this->yyidx + -2]->minor.$this->yystack[$this->yyidx + -1]->minor.'?>', ENT_QUOTES), false);
                                       }elseif ($this->sec_obj->php_handling == SMARTY_PHP_ALLOW) {

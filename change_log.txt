@@ -3,6 +3,8 @@
     if modifiers are used in side {if...} expression or in mathematical expressions 
     parentheses must be used.
 - bugfix the {function..} tag did not accept the name attribute in double quotes
+- closed possible security hole at <?php ... ?> tags
+- bugfix of config file parser on large config files
 
 
 ###beta 6####
