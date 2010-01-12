@@ -2,6 +2,7 @@
 - changed back modifer handling in parser. Some restrictions still apply:
     if modifiers are used in side {if...} expression or in mathematical expressions 
     parentheses must be used.
+- bugfix the {function..} tag did not accept the name attribute in double quotes
 
 
 ###beta 6####

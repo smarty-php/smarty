@@ -29,7 +29,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
         $save = array($_attr, $compiler->template->extracted_compiled_code, $compiler->template->extract_code,
             $compiler->template->has_nocache_code, $compiler->template->required_plugins);
         $this->_open_tag('function', $save);
-        $_name = trim($_attr['name'], "'");
+        $_name = trim($_attr['name'], "'\"");
         unset($_attr['name']);
         foreach ($_attr as $_key => $_data) {
             $compiler->template->properties['function'][$_name]['parameter'][$_key] = $_data;
