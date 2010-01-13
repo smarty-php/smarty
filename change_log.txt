@@ -1,3 +1,6 @@
+01/13/2010
+- bugfix on {if} tags 
+
 01/12/2010
 - changed back modifer handling in parser. Some restrictions still apply:
     if modifiers are used in side {if...} expression or in mathematical expressions 
