@@ -64,7 +64,7 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase {
         if (isset($append)) {
             $_output .= " \$_smarty_tpl->append($append, ob_get_contents());";
         } 
-        $_output .= " \$_smarty_tpl->smarty->_smarty_vars['capture'][$buffer]=ob_get_clean(); ?>";
+        $_output .= " \$_smarty_tpl->smarty->_smarty_vars['capture'][$buffer]=ob_get_clean();?>";
         return $_output;
     } 
 } 

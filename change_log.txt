@@ -2,6 +2,7 @@
 - bugfix on backslash within single quoted strings
 - bugfix allow absolute filepath for config files
 - bugfix on special Smarty variable $smarty.cookies
+- revert handling of newline on no output tags like {if...} 
 
 01/13/2010
 - bugfix on {if} tags 

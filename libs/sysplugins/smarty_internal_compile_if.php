@@ -31,7 +31,7 @@ class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase {
             $_output .= "if (\$_smarty_tpl->tpl_vars[".$args['if condition']['var']."]->value = ".$args['if condition']['value']."){?>";
             return $_output;
         } else {
-            return "<?php if ({$args['if condition']}){?>\n";
+            return "<?php if ({$args['if condition']}){?>";
         } 
     } 
 } 
@@ -53,7 +53,7 @@ class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase {
         list($nesting, $compiler->tag_nocache) = $this->_close_tag(array('if', 'elseif'));
         $this->_open_tag('else',array($nesting,$compiler->tag_nocache));
 
-        return "<?php }else{ ?>\n";
+        return "<?php }else{ ?>";
     } 
 } 
 
@@ -79,13 +79,13 @@ class Smarty_Internal_Compile_Elseif extends Smarty_Internal_CompileBase {
 
         if (empty($this->compiler->prefix_code)) {
             $this->_open_tag('elseif', array($nesting, $compiler->tag_nocache));
-            return "<?php }elseif({$args['if condition']}){?>\n";
+            return "<?php }elseif({$args['if condition']}){?>";
         } else {
             $tmp = '';
             foreach ($this->compiler->prefix_code as $code) $tmp .= $code;
             $this->compiler->prefix_code = array();
             $this->_open_tag('elseif', array($nesting + 1, $compiler->tag_nocache));
-            return "<?php }else{?>{$tmp}<?php if ({$args['if condition']}){?>\n";
+            return "<?php }else{?>{$tmp}<?php if ({$args['if condition']}){?>";
         } 
     } 
 } 
@@ -107,7 +107,7 @@ class Smarty_Internal_Compile_Ifclose extends Smarty_Internal_CompileBase {
         list($nesting, $compiler->tag_nocache) = $this->_close_tag(array('if', 'else', 'elseif'));
         $tmp = '';
         for ($i = 0; $i < $nesting ; $i++) $tmp .= '}';
-        return "<?php {$tmp}?>\n";
+        return "<?php {$tmp}?>";
     } 
 } 
 

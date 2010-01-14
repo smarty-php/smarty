@@ -340,7 +340,7 @@ class Smarty_Internal_TemplateCompilerBase {
                 $this->tag_nocache = false;
                 $this->template->has_nocache_code = true;
                 $_output = str_replace("'", "\'", $content);
-                $_output = "<?php echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/" . $_output . "/*/%%SmartyNocache:{$this->nocache_hash}%%*/';?>\n"; 
+                $_output = "<?php echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/" . $_output . "/*/%%SmartyNocache:{$this->nocache_hash}%%*/';?>"; 
                 // make sure we include modifer plugins for nocache code
                 if (isset($this->template->saved_modifer)) {
                     foreach ($this->template->saved_modifer as $plugin_name => $dummy) {

@@ -129,15 +129,15 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 $_output .= "\$_template->properties['nocache_hash']  = '{$compiler->template->properties['nocache_hash']}';\n";
                 $_output .= "\$_tpl_stack[] = \$_smarty_tpl; \$_smarty_tpl = \$_template;?>\n";
                 $_output .= $compiled_tpl;
-                $_output .= "<?php \$_smarty_tpl->updateParentVariables($_parent_scope);?>";
-                $_output .= "<?php /*  End of included template \"" . $tpl->getTemplateFilepath() . "\" */ ?>";
+                $_output .= "<?php \$_smarty_tpl->updateParentVariables($_parent_scope);?>\n";
+                $_output .= "<?php /*  End of included template \"" . $tpl->getTemplateFilepath() . "\" */ ?>\n";
                 $_output .= "<?php \$_smarty_tpl = array_pop(\$_tpl_stack);?>";
             } else {
                 $_output .= " echo \$_template->getRenderedTemplate();?>";
                 $_output .= "<?php \$_template->updateParentVariables($_parent_scope);?>";
             } 
         } 
-        $_output .= "<?php unset(\$_template);?>";
+        $_output .= "<?php unset(\$_template);?>\n";
         return $_output;
     } 
 } 
