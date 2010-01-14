@@ -3,6 +3,7 @@
 - bugfix allow absolute filepath for config files
 - bugfix on special Smarty variable $smarty.cookies
 - revert handling of newline on no output tags like {if...} 
+- allow special characters in config file section names for Smarty2 BC
 
 01/13/2010
 - bugfix on {if} tags 

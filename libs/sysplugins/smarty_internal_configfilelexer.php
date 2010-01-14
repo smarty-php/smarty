@@ -79,13 +79,12 @@ class Smarty_Internal_Configfilelexer
               4 => 0,
               5 => 0,
               6 => 0,
-              7 => 0,
-              8 => 0,
+              7 => 1,
             );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(#)|^(\\[)|^(\\])|^(=)|^([ \t\r]+)|^(\n)|^(\\.)|^(\\w+)/";
+        $yy_global_pattern = "/^(#)|^(=)|^([ \t\r]+)|^(\n)|^(\\.)|^([0-9]*[a-zA-Z_]\\w*)|^(\\[(.*?)\\])/";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -144,38 +143,33 @@ class Smarty_Internal_Configfilelexer
     function yy_r1_2($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_OPENB;
+    $this->token = Smarty_Internal_Configfileparser::TPC_EQUAL;
+    $this->yypushstate(self::VALUE);
     }
     function yy_r1_3($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_CLOSEB;
+    return false;
     }
     function yy_r1_4($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_EQUAL;
-    $this->yypushstate(self::VALUE);
+    $this->token = Smarty_Internal_Configfileparser::TPC_NEWLINE;
     }
     function yy_r1_5($yy_subpatterns)
     {
 
-    return false;
+    $this->token = Smarty_Internal_Configfileparser::TPC_DOT;
     }
     function yy_r1_6($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_NEWLINE;
+    $this->token = Smarty_Internal_Configfileparser::TPC_ID;
     }
     function yy_r1_7($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_DOT;
-    }
-    function yy_r1_8($yy_subpatterns)
-    {
-
-    $this->token = Smarty_Internal_Configfileparser::TPC_ID;
+    $this->token = Smarty_Internal_Configfileparser::TPC_SECTION;
     }
 
 
