@@ -1,6 +1,7 @@
 01/14/2010
 - bugfix on backslash within single quoted strings
 - bugfix allow absolute filepath for config files
+- bugfix on special Smarty variable $smarty.cookies
 
 01/13/2010
 - bugfix on {if} tags 
