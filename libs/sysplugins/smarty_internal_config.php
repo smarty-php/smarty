@@ -83,6 +83,9 @@ class Smarty_Internal_Config {
             if (file_exists($_filepath))
                 return $_filepath;
         } 
+        // check for absolute path
+        if (file_exists($this->config_resource_name))
+            return $this->config_resource_name;
         // no tpl file found
         throw new Exception("Unable to load config file \"{$this->config_resource_name}\"");
         return false;
