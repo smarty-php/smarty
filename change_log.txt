@@ -1,3 +1,6 @@
+01/14/2010
+- bugfix on backslash within single quoted strings
+
 01/13/2010
 - bugfix on {if} tags 
 
