@@ -87,7 +87,7 @@ class Smarty_Internal_Config_File_Compiler {
 //            $line--;
         } 
         $match = preg_split("/\n/", $this->lex->data);
-        $error_text = 'Syntax Error in config file "' . $this->config->getConfigFilepath() . '"  on line ' . $line . ' "'. $match[$line-1].'" ';
+        $error_text = "Syntax error in config file '{$this->config->getConfigFilepath()}' on line {$line} '{$match[$line-1]}' ";
         if (isset($args)) {
             // individual error message
             $error_text .= $args;

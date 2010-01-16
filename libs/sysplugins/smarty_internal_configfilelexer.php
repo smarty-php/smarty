@@ -79,12 +79,12 @@ class Smarty_Internal_Configfilelexer
               4 => 0,
               5 => 0,
               6 => 0,
-              7 => 1,
+              7 => 0,
             );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(#)|^(=)|^([ \t\r]+)|^(\n)|^(\\.)|^([0-9]*[a-zA-Z_]\\w*)|^(\\[(.*?)\\])/";
+        $yy_global_pattern = "/^(#)|^(\\[)|^(\\])|^(=)|^([ \t\r]+)|^(\n)|^([0-9]*[a-zA-Z_]\\w*)/";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -143,33 +143,34 @@ class Smarty_Internal_Configfilelexer
     function yy_r1_2($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_EQUAL;
-    $this->yypushstate(self::VALUE);
+    $this->token = Smarty_Internal_Configfileparser::TPC_OPENB;
+    $this->yypushstate(self::SECTION);
     }
     function yy_r1_3($yy_subpatterns)
     {
 
-    return false;
+    $this->token = Smarty_Internal_Configfileparser::TPC_CLOSEB;
     }
     function yy_r1_4($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_NEWLINE;
+    $this->token = Smarty_Internal_Configfileparser::TPC_EQUAL;
+    $this->yypushstate(self::VALUE);
     }
     function yy_r1_5($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_DOT;
+    return false;
     }
     function yy_r1_6($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_ID;
+    $this->token = Smarty_Internal_Configfileparser::TPC_NEWLINE;
     }
     function yy_r1_7($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_SECTION;
+    $this->token = Smarty_Internal_Configfileparser::TPC_ID;
     }
 
 
@@ -444,6 +445,79 @@ class Smarty_Internal_Configfilelexer
     {
 
     $this->token = Smarty_Internal_Configfileparser::TPC_NEWLINE;
+    $this->yypopstate();
+    }
+
+
+
+    function yylex5()
+    {
+        $tokenMap = array (
+              1 => 0,
+              2 => 0,
+            );
+        if ($this->counter >= strlen($this->data)) {
+            return false; // end of input
+        }
+        $yy_global_pattern = "/^(\\.)|^(.*?(?=[\.=[\]\r\n]))/";
+
+        do {
+            if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
+                $yysubmatches = $yymatches;
+                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                if (!count($yymatches)) {
+                    throw new Exception('Error: lexing failed because a rule matched' .
+                        'an empty string.  Input "' . substr($this->data,
+                        $this->counter, 5) . '... state SECTION');
+                }
+                next($yymatches); // skip global match
+                $this->token = key($yymatches); // token number
+                if ($tokenMap[$this->token]) {
+                    // extract sub-patterns for passing to lex function
+                    $yysubmatches = array_slice($yysubmatches, $this->token + 1,
+                        $tokenMap[$this->token]);
+                } else {
+                    $yysubmatches = array();
+                }
+                $this->value = current($yymatches); // token value
+                $r = $this->{'yy_r5_' . $this->token}($yysubmatches);
+                if ($r === null) {
+                    $this->counter += strlen($this->value);
+                    $this->line += substr_count($this->value, "\n");
+                    // accept this token
+                    return true;
+                } elseif ($r === true) {
+                    // we have changed state
+                    // process this token in the new state
+                    return $this->yylex();
+                } elseif ($r === false) {
+                    $this->counter += strlen($this->value);
+                    $this->line += substr_count($this->value, "\n");
+                    if ($this->counter >= strlen($this->data)) {
+                        return false; // end of input
+                    }
+                    // skip this token
+                    continue;
+                }            } else {
+                throw new Exception('Unexpected input at line' . $this->line .
+                    ': ' . $this->data[$this->counter]);
+            }
+            break;
+        } while (true);
+
+    } // end function
+
+
+    const SECTION = 5;
+    function yy_r5_1($yy_subpatterns)
+    {
+
+    $this->token = Smarty_Internal_Configfileparser::TPC_DOT;
+    }
+    function yy_r5_2($yy_subpatterns)
+    {
+
+    $this->token = Smarty_Internal_Configfileparser::TPC_SECTION;
     $this->yypopstate();
     }
 

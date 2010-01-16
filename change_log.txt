@@ -1,3 +1,7 @@
+01/16/2010
+- internal change of config file lexer/parser on handling of section names
+- bugfix on registered objects (format parameter of register_object was not handled correctly)
+
 01/14/2010
 - bugfix on backslash within single quoted strings
 - bugfix allow absolute filepath for config files
