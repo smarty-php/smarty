@@ -277,7 +277,7 @@ class Smarty_Internal_TemplateCompilerBase {
                 } 
             } else {
                 if (isset($this->template->required_plugins['cache'][$plugin_name])) {
-                    $this->template->required_plugins['compiled'][$plugin_name] = $this->template->required_plugins['compiled'][$plugin_name];
+                    $this->template->required_plugins['compiled'][$plugin_name] = $this->template->required_plugins['cache'][$plugin_name];
                 } 
             } 
             if ($type == 'modifier') {
