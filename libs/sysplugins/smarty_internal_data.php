@@ -158,7 +158,6 @@ class Smarty_Internal_Data {
         } 
     } 
 
-
     /**
     * clear the given assigned template variable.
     * 
@@ -278,49 +277,38 @@ class Smarty_Internal_Data {
     } 
 
     /**
-    * creates a template object
+    * Returns a single or all config variables
     * 
-    * @param string $template the resource handle of the template file
-    * @param object $parent next higher level of Smarty variables
-    * @param mixed $cache_id cache id to be used with this template
-    * @param mixed $compile_id compile id to be used with this template
-    * @returns object template object
+    * @param string $varname variable name or null
+    * @return string variable value or or array of variables
     */
-    public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
+    function get_config_vars($varname = null)
     {
-        if (is_object($cache_id) || is_array($cache_id)) {
-            $parent = $cache_id;
-            $cache_id = null;
-        } 
-        if (is_array($parent)) {
-            $data = $parent;
-            $parent = null;
-        } else {
-            $data = null;
-        } 
-        if (!is_object($template)) {
-            // we got a template resource
-            // already in template cache?
-            $_templateId = crc32($template . $cache_id . $compile_id);
-            if (isset($this->smarty->template_objects[$_templateId]) && $this->smarty->caching) {
-                // return cached template object
-                $tpl = $this->smarty->template_objects[$_templateId];
+        if (isset($varname)) {
+            if (isset($this->config_vars[$varname])) {
+                return $this->config_vars[$varname];
             } else {
-                // create new template object
-                $tpl = new $this->template_class($template, $this->smarty, $parent, $cache_id, $compile_id);
+                return '';
             } 
         } else {
-            // just return a copy of template class
-            $tpl = $template;
+            return $this->config_vars;
         } 
-        // fill data if present
-        if (is_array($data)) {
-            // set up variable values
-            foreach ($data as $_key => $_val) {
-                $tpl->tpl_vars[$_key] = new Smarty_variable($_val);
-            } 
+    } 
+
+    /**
+    * Deassigns a single or all config variables
+    * 
+    * @param string $varname variable name or null
+    */
+    function clear_config($varname = null)
+    {
+        if (isset($varname)) {
+            unset($this->config_vars[$varname]);
+            return;
+        } else {
+            $this->config_vars = array();
+            return;
         } 
-        return $tpl;
     } 
 
     /**
@@ -349,12 +337,15 @@ class Smarty_Data extends Smarty_Internal_Data {
     // back pointer to parent object
     public $parent = null; 
     // config vars
-    public $config_vars = array();
+    public $config_vars = array(); 
+    // Smarty object
+    public $smarty = null;
     /**
     * create Smarty data object
     */
-    public function __construct ($_parent = null)
+    public function __construct ($_parent = null, $smarty = null)
     {
+        $this->smarty = $smarty;
         if (is_object($_parent)) {
             // when object set up back pointer
             $this->parent = $_parent;
@@ -363,7 +354,7 @@ class Smarty_Data extends Smarty_Internal_Data {
             foreach ($_parent as $_key => $_val) {
                 $this->tpl_vars[$_key] = new Smarty_variable($_val);
             } 
-        } else {
+        } elseif ($_parent != null) {
             throw new Exception("Wrong type for template variables");
         } 
     } 

@@ -1,5 +1,15 @@
+01/22/2010
+- new method $smarty->createData([$parent]) for creating a data object (required for bugfixes below)
+- bugfix config_load() method now works also on a data object
+- bugfix get_config_vars() method now works also on a data and template objects
+- bugfix clear_config() method now works also on a data and template objects
+
 01/19/2010
 - bugfix on plugins if same plugin was called from a nocache section first and later from a cached section
+
+
+###beta 7###
+
 
 01/17/2010
 - bugfix on $smarty.const... in double quoted strings

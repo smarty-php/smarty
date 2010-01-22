@@ -203,7 +203,9 @@ class Smarty extends Smarty_Internal_Data {
     // autoload filter
     public $autoload_filters = array(); 
     // status of filter on variable output
-    public $variable_filter = true; 
+    public $variable_filter = true;
+    // default modifier
+    public $default_modifiers = array(); 
     // global internal smarty  vars
     public $_smarty_vars = array(); 
     // start time for execution time calculation
@@ -344,6 +346,63 @@ class Smarty extends Smarty_Internal_Data {
         } 
         // return cache status of template
         return $template->isCached();
+    } 
+
+    /**
+    * creates a data object
+    * 
+    * @param object $parent next higher level of Smarty variables
+    * @returns object data object
+    */
+    public function createData($parent = null)
+    {
+        return new Smarty_Data($parent, $this);
+    } 
+
+    /**
+    * creates a template object
+    * 
+    * @param string $template the resource handle of the template file
+    * @param object $parent next higher level of Smarty variables
+    * @param mixed $cache_id cache id to be used with this template
+    * @param mixed $compile_id compile id to be used with this template
+    * @returns object template object
+    */
+    public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
+    {
+        if (is_object($cache_id) || is_array($cache_id)) {
+            $parent = $cache_id;
+            $cache_id = null;
+        } 
+        if (is_array($parent)) {
+            $data = $parent;
+            $parent = null;
+        } else {
+            $data = null;
+        } 
+        if (!is_object($template)) {
+            // we got a template resource
+            // already in template cache?
+            $_templateId = crc32($template . $cache_id . $compile_id);
+            if (isset($this->template_objects[$_templateId]) && $this->caching) {
+                // return cached template object
+                $tpl = $this->template_objects[$_templateId];
+            } else {
+                // create new template object
+                $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
+            } 
+        } else {
+            // just return a copy of template class
+            $tpl = $template;
+        } 
+        // fill data if present
+        if (is_array($data)) {
+            // set up variable values
+            foreach ($data as $_key => $_val) {
+                $tpl->tpl_vars[$_key] = new Smarty_variable($_val);
+            } 
+        } 
+        return $tpl;
     } 
 
     /**

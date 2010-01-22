@@ -260,14 +260,14 @@ Besides the above mentioned objects, there is also a special storage area for
 global variables.
 
 A Smarty data object can be created as follows:
-$data = new Smarty_Data;          // create root data object
+$data = $smarty->createData();    // create root data object
 $data->assign('foo','bar');       // assign variables as usual
-$data->conf_load('my.conf');									 // load config file    
+$data->config_load('my.conf');									 // load config file    
 
-$data= new Smarty_Data($smarty);  // create data object having a parent link to
+$data= $smarty->createData($smarty);  // create data object having a parent link to
 the Smarty object
 
-$data2= new Smarty_Data($data);   // create data object having a parent link to
+$data2= $smarty->createData($data);   // create data object having a parent link to
 the $data data object
 
 A template object can be created by using the createTemplate method. It has the
@@ -280,7 +280,7 @@ The first parameter can be a template name, a smarty object or a data object.
 Examples:
 $tpl = $smarty->createTemplate('mytpl.tpl'); // create template object not linked to any parent
 $tpl->assign('foo','bar');                   // directly assign variables
-$tpl->conf_load('my.conf');									 // load config file    
+$tpl->config_load('my.conf');									 // load config file    
 
 $tpl = $smarty->createTemplate('mytpl.tpl',$smarty);  // create template having a parent link to the Smarty object
 $tpl = $smarty->createTemplate('mytpl.tpl',$data);    // create template having a parent link to the $data object
