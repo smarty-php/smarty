@@ -1,5 +1,6 @@
 01/25/2010
 - bugfix cache resource was not loaded when caching was globally off but enabled at a template object
+- added test that $_SERVER['SCRIPT_NAME'] does exist in Smarty.class.php
 
 01/22/2010
 - new method $smarty->createData([$parent]) for creating a data object (required for bugfixes below)

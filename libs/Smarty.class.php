@@ -167,7 +167,7 @@ class Smarty extends Smarty_Internal_Data {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                              
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                               
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -203,7 +203,7 @@ class Smarty extends Smarty_Internal_Data {
     // autoload filter
     public $autoload_filters = array(); 
     // status of filter on variable output
-    public $variable_filter = true;
+    public $variable_filter = true; 
     // default modifier
     public $default_modifiers = array(); 
     // global internal smarty  vars
@@ -267,7 +267,9 @@ class Smarty extends Smarty_Internal_Data {
                 } 
             } 
         } 
-        $this->assign_global('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
+        if (isset($_SERVER['SCRIPT_NAME'])) {
+            $this->assign_global('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
+        } 
     } 
 
     /**
@@ -354,8 +356,7 @@ class Smarty extends Smarty_Internal_Data {
     * @param object $parent next higher level of Smarty variables
     * @returns object data object
     */
-    public function createData($parent = null)
-    {
+    public function createData($parent = null) {
         return new Smarty_Data($parent, $this);
     } 
 
@@ -368,8 +369,7 @@ class Smarty extends Smarty_Internal_Data {
     * @param mixed $compile_id compile id to be used with this template
     * @returns object template object
     */
-    public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
-    {
+    public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null) {
         if (is_object($cache_id) || is_array($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
@@ -377,7 +377,8 @@ class Smarty extends Smarty_Internal_Data {
         if (is_array($parent)) {
             $data = $parent;
             $parent = null;
-        } else {
+        } 
+        else {
             $data = null;
         } 
         if (!is_object($template)) {
@@ -387,11 +388,13 @@ class Smarty extends Smarty_Internal_Data {
             if (isset($this->template_objects[$_templateId]) && $this->caching) {
                 // return cached template object
                 $tpl = $this->template_objects[$_templateId];
-            } else {
+            } 
+            else {
                 // create new template object
                 $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
             } 
-        } else {
+        } 
+        else {
             // just return a copy of template class
             $tpl = $template;
         } 
@@ -478,7 +481,7 @@ class Smarty extends Smarty_Internal_Data {
     * plugin filename format: plugintype.pluginname.php
     * 
     * @param string $plugin_name class plugin name to load
-    * @return string|boolean filepath of loaded file or false
+    * @return string |boolean filepath of loaded file or false
     */
     public function loadPlugin($plugin_name, $check = true) {
         // if function or class exists, exit silently (already loaded)
