@@ -32,7 +32,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public $resource_name = null;
     public $resource_object = null;
     private $isExisting = null;
-    public $templateUid = '';
+    public $templateUid = ''; 
     // Template source
     public $template_filepath = null;
     public $template_source = null;
@@ -260,7 +260,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             // compiling succeded
             if (!$this->resource_object->isEvaluated) {
                 // write compiled template
-                Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->compiled_template, $this->smarty); 
+                Smarty_Internal_Write_File::writeFile($this->getCompiledFilepath(), $this->compiled_template, $this->smarty);
             } 
         } else {
             // error compiling template
@@ -337,6 +337,9 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         if ($this->isCached === null) {
             $this->isCached = false;
             if (($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED) && !$this->resource_object->isEvaluated && !$this->force_compile && !$this->force_cache) {
+                if (!isset($this->cache_resource_object)) {
+                    $this->cache_resource_object = $this->smarty->loadCacheResource();
+                } 
                 $cachedTimestamp = $this->getCachedTimestamp();
                 if ($cachedTimestamp === false) {
                     return $this->isCached;
@@ -481,7 +484,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             eval("?>" . $output);
             $this->rendered_content = ob_get_clean(); 
             // write cache file content
-            $this->writeCachedContent($output); 
+            $this->writeCachedContent($output);
             if ($this->smarty->debugging) {
                 Smarty_Internal_Debug::end_cache($this);
             } 
