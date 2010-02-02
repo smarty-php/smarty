@@ -72,7 +72,7 @@ class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_C
                 $output = '<?php $_block_content = ob_get_clean(); $_block_repeat=false; echo call_user_func_array(array(\'' . $function[0] . '\',\'' . $function[1] . '\'),array(' . $_params . ', $_block_content, $_smarty_tpl->smarty, $_block_repeat, $_smarty_tpl)); }?>';
             } 
         } 
-        return $output;
+        return $output."\n";
     } 
 } 
 

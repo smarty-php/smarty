@@ -43,7 +43,7 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
         } 
         $_params = 'array(' . implode(",", $_paramsArray) . ')'; 
         // compile code
-        $output = '<?php echo call_user_func_array($_smarty_tpl->smarty->registered_plugins[\'function\'][\'' . $tag . '\'][0],array(' . $_params . ',$_smarty_tpl->smarty,$_smarty_tpl));?>';
+        $output = "<?php echo call_user_func_array(\$_smarty_tpl->smarty->registered_plugins['function']['{$tag}'][0],array({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl));?>\n";
         return $output;
     } 
 } 

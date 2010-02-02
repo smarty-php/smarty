@@ -1,3 +1,6 @@
+02/02/2010
+- retaining newlines at registered functions and function plugins
+
 01/25/2010
 - bugfix cache resource was not loaded when caching was globally off but enabled at a template object
 - added test that $_SERVER['SCRIPT_NAME'] does exist in Smarty.class.php

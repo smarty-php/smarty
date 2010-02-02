@@ -52,7 +52,7 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
             // compile code
             $output = '<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false; echo $_smarty_tpl->smarty->registered_objects[\'' . substr($tag, 0, -5) . '\'][0]->' . $methode . '(' . $_params . ', $_block_content, $_smarty_tpl->smarty, $_block_repeat, $_smarty_tpl); }?>';
         } 
-        return $output;
+        return $output."\n";
     } 
 } 
 
