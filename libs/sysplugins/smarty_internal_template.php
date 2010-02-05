@@ -68,7 +68,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     // storage for block data
     public $block_data = array(); 
     // required plugins
-    public $required_plugins = array('compiled' => array(), 'cache' => array());
+    public $required_plugins = array('compiled' => array(), 'nocache' => array());
 
     /**
     * Create template data object
@@ -451,8 +451,13 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         } 
         if ($this->parent instanceof Smarty_Template or $this->parent instanceof Smarty_Internal_Template) {
             $this->parent->properties['file_dependency'] = array_merge($this->parent->properties['file_dependency'], $this->properties['file_dependency']);
-            $this->parent->required_plugins['compiled'] = array_merge($this->parent->required_plugins['compiled'], $this->required_plugins['compiled']);
-            $this->parent->required_plugins['cache'] = array_merge($this->parent->required_plugins['cache'], $this->required_plugins['cache']);
+            foreach($this->required_plugins as $code => $tmp1) {
+                foreach($tmp1 as $name => $tmp) {
+                    foreach($tmp as $type => $data) {
+                        $this->parent->required_plugins[$code][$name][$type] = $data;
+                    } 
+                } 
+            } 
         } 
         if ($this->smarty->debugging) {
             Smarty_Internal_Debug::end_render($this);
@@ -722,18 +727,20 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         if (!$cache) {
             if (!empty($this->required_plugins['compiled'])) {
                 $plugins_string = '<?php ';
-                foreach($this->required_plugins['compiled'] as $plugin_name => $data) {
-                    $plugin = 'smarty_' . $data['type'] . '_' . $plugin_name;
-                    $plugins_string .= "if (!is_callable('{$plugin}')) include '{$data['file']}';\n";
+                foreach($this->required_plugins['compiled'] as $tmp) {
+                    foreach($tmp as $data) {
+                        $plugins_string .= "if (!is_callable('{$data['function']}')) include '{$data['file']}';\n";
+                    } 
                 } 
                 $plugins_string .= '?>';
             } 
-            if (!empty($this->required_plugins['cache'])) {
+            if (!empty($this->required_plugins['nocache'])) {
                 $this->has_nocache_code = true;
                 $plugins_string .= "<?php echo '/*%%SmartyNocache:{$this->properties['nocache_hash']}%%*/<?php ";
-                foreach($this->required_plugins['cache'] as $plugin_name => $data) {
-                    $plugin = 'smarty_' . $data['type'] . '_' . $plugin_name;
-                    $plugins_string .= "if (!is_callable(\'{$plugin}\')) include \'{$data['file']}\';\n";
+                foreach($this->required_plugins['nocache'] as $tmp) {
+                    foreach($tmp as $data) {
+                        $plugins_string .= "if (!is_callable('{$data['function']}')) include '{$data['file']}';\n";
+                    } 
                 } 
                 $plugins_string .= "?>/*/%%SmartyNocache:{$this->properties['nocache_hash']}%%*/';?>\n";
             } 

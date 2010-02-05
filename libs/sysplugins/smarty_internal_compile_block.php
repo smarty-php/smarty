@@ -90,8 +90,13 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             } 
             $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $_tpl->properties['file_dependency']);
             $compiler->template->properties['function'] = array_merge($compiler->template->properties['function'], $_tpl->properties['function']);
-            $compiler->template->required_plugins['compiled'] = array_merge($compiler->template->required_plugins['compiled'], $_tpl->required_plugins['compiled']);
-            $compiler->template->required_plugins['cache'] = array_merge($compiler->template->required_plugins['cache'], $_tpl->required_plugins['cache']);
+            foreach($_tpl->required_plugins as $code => $tmp1) {
+                foreach($tmp1 as $name => $tmp) {
+                    foreach($tmp as $type => $data) {
+                        $compiler->template->required_plugins[$code][$name][$type] = $data;
+                    } 
+                } 
+            } 
             unset($_tpl);
         } else {
             $_output = $compiler->template->extracted_compiled_code;

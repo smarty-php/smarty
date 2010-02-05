@@ -1,3 +1,6 @@
+05/02/2010
+- bugfix on modifier and block plugins with same name
+
 02/02/2010
 - retaining newlines at registered functions and function plugins
 
