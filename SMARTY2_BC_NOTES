@@ -1,4 +1,10 @@
 = Known incompatibilities with Smarty 2 =
+
+== Syntax ==
+
+Smarty 3 API has a new syntax. Much of the Smarty 2 syntax is supported but
+deprecated. See the README that comes with Smarty 3 for more information.
+
 == PHP Version ==
 Smarty 3 is PHP 5 only. It will not work with PHP 4.
 

@@ -46,7 +46,7 @@ class Smarty_Internal_Data {
     * @param mixed $value the value to assign
     * @param boolean $nocache if true any output of this variable will be not cached
     */
-    public function assign_global($varname, $value = null, $nocache = false)
+    public function assignGlobal($varname, $value = null, $nocache = false)
     {
         if ($varname != '') {
             $this->smarty->global_tpl_vars[$varname] = new Smarty_variable($value, $nocache);
@@ -60,7 +60,7 @@ class Smarty_Internal_Data {
     * @param boolean $nocache if true any output of this variable will be not cached
     * @param boolean $scope the scope the variable will have  (local,parent or root)
     */
-    public function assign_by_ref($tpl_var, &$value, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
+    public function assignByRef($tpl_var, &$value, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
     {
         if ($tpl_var != '') {
             $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache, $scope);
@@ -139,7 +139,7 @@ class Smarty_Internal_Data {
     * @param mixed $ &$value the referenced value to append
     * @param boolean $merge flag if array elements shall be merged
     */
-    public function append_by_ref($tpl_var, &$value, $merge = false)
+    public function appendByRef($tpl_var, &$value, $merge = false)
     {
         if ($tpl_var != '' && isset($value)) {
             if (!isset($this->tpl_vars[$tpl_var])) {
@@ -163,7 +163,7 @@ class Smarty_Internal_Data {
     * 
     * @param string $ |array $tpl_var the template variable(s) to clear
     */
-    public function clear_assign($tpl_var)
+    public function clearAssign($tpl_var)
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $curr_var) {
@@ -177,7 +177,7 @@ class Smarty_Internal_Data {
     /**
     * clear all the assigned template variables.
     */
-    public function clear_all_assign()
+    public function clearAllAssign()
     {
         $this->tpl_vars = array();
     } 
@@ -188,7 +188,7 @@ class Smarty_Internal_Data {
     * @param string $config_file filename
     * @param mixed $sections array of section names, single section or null
     */
-    public function config_load($config_file, $sections = null)
+    public function configLoad($config_file, $sections = null)
     { 
         // load Config class
         $config = new Smarty_Internal_Config($config_file, $this->smarty);
@@ -282,7 +282,7 @@ class Smarty_Internal_Data {
     * @param string $varname variable name or null
     * @return string variable value or or array of variables
     */
-    function get_config_vars($varname = null)
+    function getConfigVars($varname = null)
     {
         if (isset($varname)) {
             if (isset($this->config_vars[$varname])) {
@@ -300,7 +300,7 @@ class Smarty_Internal_Data {
     * 
     * @param string $varname variable name or null
     */
-    function clear_config($varname = null)
+    function clearConfig($varname = null)
     {
         if (isset($varname)) {
             unset($this->config_vars[$varname]);

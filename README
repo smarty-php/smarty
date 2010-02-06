@@ -5,7 +5,103 @@ Author: Uwe Tews
 
 AN INTRODUCTION TO SMARTY 3 BETA
 
-The file structure is similar to Smarty 2:
+NOTICE for BETA 8:
+
+The Smarty 3 API (as of beta 8) has been refactored to a syntax geared
+for consistency and modularity. The Smarty 2 API syntax is still supported, but
+will throw a deprecation notice. You can disable the notices, but it is highly
+recommended to adjust your syntax to Smarty 3, as the Smarty 2 syntax must run
+through an extra rerouting wrapper.
+
+Basically, all Smarty methods now follow the "fooBarBaz" camel case syntax. Also,
+all Smarty properties now have getters and setters. So for example, the property
+$smarty->cache_dir can be set with $smarty->setCacheDir('foo/') and can be
+retrieved with $smarty->getCacheDir().
+
+Some of the Smarty 3 APIs have been revoked such as the "is*" methods that were
+just duplicate functions of the now available "get*" methods.
+
+Here is a rundown of the Smarty 3 API:
+
+$smarty->fetch($template, $cache_id = null, $compile_id = null, $parent = null)
+$smarty->display($template, $cache_id = null, $compile_id = null, $parent = null)
+$smarty->isCached($template, $cache_id = null, $compile_id = null)
+$smarty->createData($parent = null)
+$smarty->createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
+$smarty->enableSecurity()
+$smarty->setTemplateDir($template_dir)
+$smarty->addTemplateDir($template_dir)
+$smarty->enableCaching()
+$smarty->templateExists($resource_name)
+$smarty->loadPlugin($plugin_name, $check = true)
+$smarty->loadFilter($type, $name)
+$smarty->setExceptionHandler($handler)
+$smarty->addPluginsDir($plugins_dir)
+$smarty->getGlobal($varname = null)
+$smarty->getRegisteredObject($name)
+$smarty->getDebugTemplate()
+$smarty->setDebugTemplate($tpl_name)
+$smarty->assign($tpl_var, $value = null, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
+$smarty->assignGlobal($varname, $value = null, $nocache = false)
+$smarty->assignByRef($tpl_var, &$value, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
+$smarty->append($tpl_var, $value = null, $merge = false, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
+$smarty->appendByRef($tpl_var, &$value, $merge = false)
+$smarty->clearAssign($tpl_var)
+$smarty->clearAllAssign()
+$smarty->configLoad($config_file, $sections = null)
+$smarty->getVariable($variable, $_ptr = null, $search_parents = true, $error_enable = true)
+$smarty->getConfigVariable($variable)
+$smarty->getStreamVariable($variable)
+$smarty->getConfigVars($varname = null)
+$smarty->clearConfig($varname = null)
+
+// some API calls are moved into their own objects:
+
+$smarty->cache->loadResource($type = null)
+$smarty->cache->clearAll($exp_time = null, $type = null)
+$smarty->cache->clear($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
+
+$smarty->register->block($block_tag, $block_impl, $cacheable = true, $cache_attr = array())
+$smarty->register->compilerFunction($compiler_tag, $compiler_impl, $cacheable = true)
+$smarty->register->templateFunction($function_tag, $function_impl, $cacheable = true, $cache_attr = array())
+$smarty->register->modifier($modifier_name, $modifier_impl)
+$smarty->register->templateObject($object_name, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
+$smarty->register->outputFilter($function_name)
+$smarty->register->postFilter($function_name)
+$smarty->register->preFilter($function_name)
+$smarty->register->resource($resource_type, $function_names)
+$smarty->register->variableFilter($function_name)
+$smarty->register->defaultPluginHandler($function_name)
+$smarty->register->defaultTemplateHandler($function_name)
+
+$smarty->unregister->block($block_tag)
+$smarty->unregister->compilerFunction($compiler_tag)
+$smarty->unregister->templateFunction($function_tag)
+$smarty->unregister->modifier($modifier)
+$smarty->unregister->templateObject($object_name)
+$smarty->unregister->outputFilter($function_name)
+$smarty->unregister->postFilter($function_name)
+$smarty->unregister->preFilter($function_name)
+$smarty->unregister->resource($resource_type)
+$smarty->unregister->variableFilter($function_name)
+
+$smarty->utility->compileAllTemplates($extention = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
+$smarty->utility->clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
+$smarty->utility->getTemplateVars($varname = null, $_ptr = null, $search_parents = true)
+$smarty->utility->testInstall()
+
+// then all the getters/setters, available for all properties. Here are a few:
+
+$caching = $smarty->getCaching();      // get $smarty->caching
+$smarty->setCaching(true);             // set $smarty->caching
+$smarty->setDeprecationNotices(false); // set $smarty->deprecation_notices
+$smarty->setCacheId($id);              // set $smarty->cache_id
+$debugging = $smarty->getDebugging();  // get $smarty->debugging
+
+
+FILE STRUCTURE
+
+The Smarty 3 file structure is similar to Smarty 2:
 
 /libs/
   Smarty.class.php
