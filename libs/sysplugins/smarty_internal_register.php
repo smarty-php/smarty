@@ -28,6 +28,7 @@
 * @author Monte Ohrt <monte at ohrt dot com> 
 * @author Uwe Tews 
 * @package Smarty
+* @subpackage PluginsInternal
 * @version 3-SVN$Rev: 3286 $
 */
 
@@ -239,7 +240,7 @@ class Smarty_Internal_Register {
         if (is_callable($function_name)) {
             $this->smarty->default_template_handler_func = $function_name;
         } else {
-            throw new Exception("Default template handler '$function' not callable");
+            throw new Exception("Default template handler '$function_name' not callable");
         } 
     }    
     

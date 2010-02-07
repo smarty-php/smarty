@@ -3,7 +3,7 @@
 * Smarty Internal Plugin Function Call Handler
 * 
 * @package Smarty
-* @subpackage Security
+* @subpackage PluginsInternal
 * @author Uwe Tews 
 */
 /**

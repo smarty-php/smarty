@@ -1,3 +1,6 @@
+07/02/2010
+- API changes (see README file)
+
 05/02/2010
 - bugfix on modifier and block plugins with same name
 

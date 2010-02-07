@@ -28,6 +28,7 @@
 * @author Monte Ohrt <monte at ohrt dot com> 
 * @author Uwe Tews 
 * @package Smarty
+* @subpackage PluginsInternal
 * @version 3-SVN$Rev: 3286 $
 */
 
