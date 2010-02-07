@@ -167,7 +167,7 @@ class Smarty extends Smarty_Internal_Data {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                               
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                                
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -219,7 +219,9 @@ class Smarty extends Smarty_Internal_Data {
     // default dir permissions
     public $_dir_perms = 0771; 
     // smarty object reference
-    public $smarty = null;
+    public $smarty = null; 
+    // block data at template inheritance
+    public $block_data = array(); 
     // generate deprecated function call notices?
     public $deprecation_notices = true;
 
@@ -354,7 +356,7 @@ class Smarty extends Smarty_Internal_Data {
         } 
         // return cache status of template
         return $template->isCached();
-    }
+    } 
 
     /**
     * creates a data object
@@ -429,6 +431,13 @@ class Smarty extends Smarty_Internal_Data {
     } 
 
     /**
+    * Disable security
+    */
+    public function disableSecurity() {
+        $this->security = true;
+    } 
+
+    /**
     * Set template directory
     * 
     * @param string $ |array $template_dir folder(s) of template sorces
@@ -448,28 +457,20 @@ class Smarty extends Smarty_Internal_Data {
         $this->template_dir = array_unique($this->template_dir);
         return;
     } 
-    
-    /**
-    * Enable Caching
-    */
-    public function enableCaching() {
-        $this->caching = SMARTY_CACHING_LIFETIME_CURRENT;
-        return;
-    }
-     
+
+
     /**
     * Check if a template resource exists
     * 
     * @param string $resource_name template name
     * @return boolean status
     */
-    function templateExists($resource_name)
-    { 
+    function templateExists($resource_name) {
         // create template object
         $tpl = new $this->template_class($resource_name, $this); 
-        // check if it does exists 
+        // check if it does exists
         return $tpl->isExisting();
-    }
+    } 
 
     /**
     * Takes unknown classes and loads plugin files for them
@@ -524,24 +525,23 @@ class Smarty extends Smarty_Internal_Data {
     * 
     * @param string $type filter type
     * @param string $name filter name
-    * @return bool
+    * @return bool 
     */
-    function loadFilter($type, $name)
-    {
+    function loadFilter($type, $name) {
         $_plugin = "smarty_{$type}filter_{$name}";
         $_filter_name = $_plugin;
         if ($this->loadPlugin($_plugin)) {
             if (class_exists($_plugin, false)) {
                 $_plugin = array($_plugin, 'execute');
-            }
+            } 
             if (is_callable($_plugin)) {
                 return $this->registered_filters[$type][$_filter_name] = $_plugin;
             } 
         } 
         throw new Exception("{$type}filter \"{$name}\" not callable");
         return false;
-    }
-    
+    } 
+
     /**
     * Sets the exception handler for Smarty.
     * 
@@ -568,17 +568,16 @@ class Smarty extends Smarty_Internal_Data {
     * 
     * @param callback $function_name 
     */
-    public function _get_filter_name($function_name)
-    {
-    		if (is_array($function_name)) {
-    			$_class_name = (is_object($function_name[0]) ?
-    				get_class($function_name[0]) : $function_name[0]);
-    			return $_class_name . '_' . $function_name[1];
-    		}
-    		else {
-    			return $function_name;
-    		}
-    }     
+    public function _get_filter_name($function_name) {
+        if (is_array($function_name)) {
+            $_class_name = (is_object($function_name[0]) ?
+                get_class($function_name[0]) : $function_name[0]);
+            return $_class_name . '_' . $function_name[1];
+        } 
+        else {
+            return $function_name;
+        } 
+    } 
 
     /**
     * Adds directory of plugin files
@@ -587,13 +586,12 @@ class Smarty extends Smarty_Internal_Data {
     * @param string $ |array $ plugins folder
     * @return 
     */
-    function addPluginsDir($plugins_dir)
-    {
+    function addPluginsDir($plugins_dir) {
         $this->plugins_dir = array_merge((array)$this->plugins_dir, (array)$plugins_dir);
         $this->plugins_dir = array_unique($this->plugins_dir);
         return;
-    }
-            
+    } 
+
     /**
     * Returns a single or all global  variables
     * 
@@ -601,22 +599,23 @@ class Smarty extends Smarty_Internal_Data {
     * @param string $varname variable name or null
     * @return string variable value or or array of variables
     */
-    function getGlobal($varname = null)
-    {
+    function getGlobal($varname = null) {
         if (isset($varname)) {
             if (isset($this->global_tpl_vars[$varname])) {
                 return $this->global_tpl_vars[$varname]->value;
-            } else {
+            } 
+            else {
                 return '';
             } 
-        } else {
+        } 
+        else {
             $_result = array();
             foreach ($this->global_tpl_vars AS $key => $var) {
                 $_result[$key] = $var->value;
             } 
             return $_result;
         } 
-    }    
+    } 
 
     /**
     * return a reference to a registered object
@@ -624,51 +623,48 @@ class Smarty extends Smarty_Internal_Data {
     * @param string $name object name
     * @return object 
     */
-    function getRegisteredObject($name)
-    {
+    function getRegisteredObject($name) {
         if (!isset($this->registered_objects[$name]))
-            throw new Exception("'$name' is not a registered object");
-    
+        throw new Exception("'$name' is not a registered object");
+
         if (!is_object($this->registered_objects[$name][0]))
-            throw new Exception("registered '$name' is not an object");
-    
+        throw new Exception("registered '$name' is not an object");
+
         return $this->registered_objects[$name][0];
-    }    
+    } 
 
     /**
     * return name of debugging template
     * 
     * @return string 
     */
-    function getDebugTemplate()
-    {
+    function getDebugTemplate() {
         return $this->debug_tpl;
-    }    
+    } 
 
     /**
     * set the debug template
     * 
-    * @param string $tpl_name
+    * @param string $tpl_name 
     * @return bool 
     */
-    function setDebugTemplate($tpl_name)
-    {
+    function setDebugTemplate($tpl_name) {
         return $this->debug_tpl = $tpl_name;
-    }    
-    
+    } 
+
     /**
     * lazy loads (valid) property objects
     * 
     * @param string $name property name
     */
     public function __get($name) {
-        if(in_array($name,array('register','unregister','utility','cache'))) {
-            $class = "Smarty_Internal_".ucfirst($name);
+        if(in_array($name, array('register', 'unregister', 'utility', 'cache'))) {
+            $class = "Smarty_Internal_" . ucfirst($name);
             return new $class($this);
-        }
+        } 
         return false;
-    }    
-    
+    } 
+
     /**
     * Takes unknown class methods and lazy loads sysplugin files for them
     * class name format: Smarty_Method_MethodName
@@ -680,37 +676,35 @@ class Smarty extends Smarty_Internal_Data {
     public function __call($name, $args) {
         static $camel_func;
         if(!isset($camel_func))
-          $camel_func = create_function('$c', 'return "_" . strtolower($c[1]);');
+        $camel_func = create_function('$c', 'return "_" . strtolower($c[1]);'); 
         // PHP4 call to constructor?
         if (strtolower($name) == 'smarty') {
             throw new Exception('Please use parent::__construct() to call parent constuctor');
             return false;
         } 
-    
         // see if this is a set/get for a property
-        $first3 = strtolower(substr($name,0,3));
-        if(in_array($first3,array('set','get')) && substr($name,3,1) !== '_') {
-           // try to keep case correct for future PHP 6.0 case-sensitive class methods
-           // lcfirst() not available < PHP 5.3.0, so improvise
-           $property_name = strtolower(substr($name,3,1)).substr($name,4);
-           // convert camel case to underscored name
-           $property_name = preg_replace_callback('/([A-Z])/', $camel_func, $property_name);
-           if(!property_exists($this,$property_name)) {
-              throw new Exception("property '$property_name' does not exist.");
-              return false;
-           }
-           if($first3 == 'get')
-              return $this->$property_name;
-           else
-              return $this->$property_name = $args[0];
-        }
-    
+        $first3 = strtolower(substr($name, 0, 3));
+        if(in_array($first3, array('set', 'get')) && substr($name, 3, 1) !== '_') {
+            // try to keep case correct for future PHP 6.0 case-sensitive class methods
+            // lcfirst() not available < PHP 5.3.0, so improvise
+            $property_name = strtolower(substr($name, 3, 1)) . substr($name, 4); 
+            // convert camel case to underscored name
+            $property_name = preg_replace_callback('/([A-Z])/', $camel_func, $property_name);
+            if(!property_exists($this, $property_name)) {
+                throw new Exception("property '$property_name' does not exist.");
+                return false;
+            } 
+            if($first3 == 'get')
+            return $this->$property_name;
+            else
+            return $this->$property_name = $args[0];
+        } 
         // Smarty Backward Compatible wrapper
         if(!isset($this->wrapper)) {
-          $this->wrapper = new Smarty_Internal_Wrapper($this);
-        }
+            $this->wrapper = new Smarty_Internal_Wrapper($this);
+        } 
         return $this->wrapper->convert($name, $args);
-        
+
         /*
         $name = strtolower($name);
         if ($name == 'smarty') {
