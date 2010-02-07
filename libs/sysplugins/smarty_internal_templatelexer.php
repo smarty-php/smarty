@@ -82,7 +82,8 @@ class Smarty_Internal_Templatelexer
     {
         // set instance object
         self::instance($this); 
-        $this->data = preg_replace("/(\r\n|\r|\n)/", "\n", $data);
+//        $this->data = preg_replace("/(\r\n|\r|\n)/", "\n", $data);
+        $this->data = $data;
         $this->counter = 0;
         $this->line = 1;
         $this->smarty = $compiler->smarty;
