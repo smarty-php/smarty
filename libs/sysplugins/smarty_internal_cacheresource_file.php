@@ -29,7 +29,7 @@ class Smarty_Internal_CacheResource_File {
     {
         $_source_file_path = str_replace(':', '.', $_template->getTemplateFilepath());
         $_cache_id = isset($_template->cache_id) ? preg_replace('![^\w\|]+!', '_', $_template->cache_id) : null;
-        $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w\|]+!', '_', $_template->compile_id) : null; 
+        $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w\|]+!', '_', $_template->compile_id) : null;
         $_filepath = $_template->templateUid; 
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
@@ -130,6 +130,14 @@ class Smarty_Internal_CacheResource_File {
             $_cache_id_parts = explode('|', $_cache_id);
             $_cache_id_parts_count = count($_cache_id_parts);
         } 
+        if (isset($resource_name)) {
+            $tpl = $this->smarty->createTemplate($resource_name);
+            if ($tpl->isExisting()) {
+                $_resourcename_parts = basename(str_replace('^','/',$tpl->getCachedFilepath()));
+            } else {
+                return 0;
+            } 
+        } 
         $_count = 0;
         $_cacheDirs = new RecursiveDirectoryIterator($_dir);
         $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
@@ -146,15 +154,10 @@ class Smarty_Internal_CacheResource_File {
                 $_parts_count = count($_parts); 
                 // check name
                 if (isset($resource_name)) {
-                    $_filename_parts = explode('.', $_parts[$_parts_count-1]);
-                    $_resourcename_parts = explode('.', $resource_name . '.php');
-                    if (count($_filename_parts)-1 != count($_resourcename_parts)) {
+                    if ($_parts[$_parts_count-1] != $_resourcename_parts) {
                         continue;
                     } 
-                    for ($i = 0; $i < count($_resourcename_parts); $i++) {
-                        if ($_filename_parts[$i + 1] != $_resourcename_parts[$i]) continue 2;
-                    } 
-                }
+                } 
                 // check compile id
                 if (isset($_compile_id) && $_parts[$_parts_count-2 - $_compile_id_offset] != $_compile_id) {
                     continue;
