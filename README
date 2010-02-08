@@ -54,6 +54,7 @@ $smarty->getConfigVariable($variable)
 $smarty->getStreamVariable($variable)
 $smarty->getConfigVars($varname = null)
 $smarty->clearConfig($varname = null)
+$smarty->getTemplateVars($varname = null, $_ptr = null, $search_parents = true)
 
 // some API calls are moved into their own objects:
 
@@ -87,7 +88,6 @@ $smarty->unregister->variableFilter($function_name)
 
 $smarty->utility->compileAllTemplates($extention = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
 $smarty->utility->clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
-$smarty->utility->getTemplateVars($varname = null, $_ptr = null, $search_parents = true)
 $smarty->utility->testInstall()
 
 // then all the getters/setters, available for all properties. Here are a few:
