@@ -136,6 +136,9 @@ backward compatible with Smarty 2, except for the following items:
    Therefore, { foo } will not compile as a tag, you must use {foo}. This change
    Makes Javascript/CSS easier to work with, eliminating the need for {literal}.
    This can be disabled by setting $smarty->auto_literal = false;
+*) The Smarty 3 API is a bit different. Many Smarty 2 API calls are deprecated
+   but still work. You will want to update your calls to Smarty 3 for maximum
+   efficiency.
 
 
 There are many things that are new to Smarty 3. Here are the notable items:
