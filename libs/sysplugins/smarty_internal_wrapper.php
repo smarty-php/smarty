@@ -79,7 +79,7 @@ class Smarty_Internal_Wrapper {
            case 'get':
            switch($name_parts[1]) {
               case 'template_vars':
-                 return call_user_func_array(array($this->smarty->utility,'getTemplateVars'),$args);
+                 return call_user_func_array(array($this->smarty,'getTemplateVars'),$args);
                  break;
               case 'config_vars':
                  return call_user_func_array(array($this->smarty,'getConfigVars'),$args);
