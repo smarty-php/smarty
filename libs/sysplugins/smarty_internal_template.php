@@ -336,12 +336,12 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     {
         if ($this->isCached === null) {
             $this->isCached = false;
-            if (($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED) && !$this->resource_object->isEvaluated && !$this->force_compile && !$this->force_cache) {
+            if (($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED) && !$this->resource_object->isEvaluated) {
                 if (!isset($this->cache_resource_object)) {
                     $this->cache_resource_object = $this->smarty->loadCacheResource();
                 } 
                 $cachedTimestamp = $this->getCachedTimestamp();
-                if ($cachedTimestamp === false) {
+                if ($cachedTimestamp === false || $this->force_compile || $this->force_cache) {
                     return $this->isCached;
                 } 
                 if ($this->caching === SMARTY_CACHING_LIFETIME_SAVED || ($this->caching == SMARTY_CACHING_LIFETIME_CURRENT && (time() <= ($cachedTimestamp + $this->cache_lifetime) || $this->cache_lifetime < 0))) {

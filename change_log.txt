@@ -1,3 +1,6 @@
+08/02/2010
+- bugfix of cache filename on extended templates when force_compile=true
+
 07/02/2010
 - bugfix on changes of 05/02/2010
 - preserve line endings type form template source
