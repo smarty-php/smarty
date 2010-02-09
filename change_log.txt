@@ -1,3 +1,6 @@
+09/02/2010
+- added $smarty->_tag_stack for tracing block tag hierarchy
+
 08/02/2010
 - bugfix  use template fullpath at §smarty->cache->clear(...), $smarty->clear_cache(....)
 - bugfix of cache filename on extended templates when force_compile=true

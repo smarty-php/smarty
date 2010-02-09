@@ -21,7 +21,7 @@ class Smarty_Internal_TemplateCompilerBase {
     // tag stack
     public $_tag_stack = array(); 
     // current template
-    public $template = null; 
+    public $template = null;
 
     /**
     * Initialize compiler
@@ -175,6 +175,9 @@ class Smarty_Internal_TemplateCompilerBase {
                 foreach ($this->smarty->plugin_search_order as $plugin_type) {
                     if ($plugin_type == 'compiler' && $this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
                         $plugin = 'smarty_compiler_' . $tag;
+                        if (is_callable($plugin)) {
+                            return call_user_func_array($plugin, array($args, $this->smarty));
+                        } 
                         if (class_exists($plugin, false)) {
                             $plugin = array(new $plugin, 'compile');
                         } 
@@ -212,6 +215,9 @@ class Smarty_Internal_TemplateCompilerBase {
                 } 
                 if ($this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
                     $plugin = 'smarty_compiler_' . $tag;
+                    if (is_callable($plugin)) {
+                        return call_user_func_array($plugin, array($args, $this->smarty));
+                    } 
                     if (class_exists($plugin, false)) {
                         $plugin = array(new $plugin, 'compile');
                     } 

@@ -43,14 +43,15 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
 
             $this->_open_tag($tag . '->' . $methode, $_params); 
             // compile code
-            $output = '<?php $_block_repeat=true; $_smarty_tpl->smarty->registered_objects[\'' . $tag . '\'][0]->' . $methode . '(' . $_params . ', null, $_smarty_tpl->smarty, $_block_repeat, $_smarty_tpl);while ($_block_repeat) { ob_start();?>';
+            $output = "<?php \$_smarty_tpl->smarty->_tag_stack[] = array('{$tag}->{$methode}', {$_params}); \$_block_repeat=true; \$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params}, null, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl);while (\$_block_repeat) { ob_start();?>";
         } else {
+            $base_tag = substr($tag, 0, -5); 
             // closing tag of block plugin
-            $_params = $this->_close_tag(substr($tag, 0, -5) . '->' . $methode); 
+            $_params = $this->_close_tag($base_tag . '->' . $methode); 
             // This tag does create output
             $this->compiler->has_output = true; 
             // compile code
-            $output = '<?php $_block_content = ob_get_contents(); ob_end_clean(); $_block_repeat=false; echo $_smarty_tpl->smarty->registered_objects[\'' . substr($tag, 0, -5) . '\'][0]->' . $methode . '(' . $_params . ', $_block_content, $_smarty_tpl->smarty, $_block_repeat, $_smarty_tpl); }?>';
+            $output = "<?php \$_block_content = ob_get_contents(); ob_end_clean(); \$_block_repeat=false; echo \$_smarty_tpl->smarty->registered_objects['{$base_tag}'][0]->{$methode}({$_params}, \$_block_content, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl); } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
         } 
         return $output."\n";
     } 
