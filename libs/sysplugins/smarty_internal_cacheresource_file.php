@@ -159,7 +159,7 @@ class Smarty_Internal_CacheResource_File {
                     } 
                 } 
                 // check compile id
-                if (isset($_compile_id) && $_parts[$_parts_count-2 - $_compile_id_offset] != $_compile_id) {
+                if (isset($_compile_id) && (!isset($_parts[$_parts_count-2 - $_compile_id_offset]) || $_parts[$_parts_count-2 - $_compile_id_offset] != $_compile_id)) {
                     continue;
                 } 
                 // check cache id
@@ -176,7 +176,7 @@ class Smarty_Internal_CacheResource_File {
                 // expired ?
                 if (isset($exp_time) && time() - @filemtime($_file) < $exp_time) {
                     continue;
-                } 
+                }
                 $_count += @unlink((string) $_file) ? 1 : 0;
             } 
         } 

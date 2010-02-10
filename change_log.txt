@@ -1,4 +1,7 @@
 09/02/2010
+- avoid possible notice on $smarty->cache->clear(...), $smarty->clear_cache(....)
+
+09/02/2010
 - added $smarty->_tag_stack for tracing block tag hierarchy
 
 08/02/2010
