@@ -412,7 +412,7 @@ class Smarty_Internal_TemplateCompilerBase {
             $line = $this->lex->line;
         } 
         $match = preg_split("/\n/", $this->lex->data);
-        $error_text = 'Syntax Error in template "' . $this->template->getTemplateFilepath() . '"  on line ' . $line . ' "' . $match[$line-1] . '" ';
+        $error_text = 'Syntax Error in template "' . $this->template->getTemplateFilepath() . '"  on line ' . $line . ' "' . htmlspecialchars($match[$line-1]) . '" ';
         if (isset($args)) {
             // individual error message
             $error_text .= $args;
