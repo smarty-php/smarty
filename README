@@ -460,7 +460,7 @@ Child title
 
 grandchild.tpl:
 {extends file='child.tpl'} 
-{block name='title'}Home - {$smarty.parent}{/block} 
+{block name='title'}Home - {$smarty.block.parent}{/block} 
 {block name='page-title'}My home{/block}
 {block name='content'}
   {foreach $images as $img}
@@ -468,7 +468,7 @@ grandchild.tpl:
   {/foreach}
 {/block}
 
-We redefined all the blocks here, however in the title block we used {$smarty.parent},
+We redefined all the blocks here, however in the title block we used {$smarty.block.parent},
 which tells Smarty to insert the default content from the parent template in its place.
 The content block was overriden to display the image files, and page-title has also be 
 overriden to display a completely different title. 

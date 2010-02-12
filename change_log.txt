@@ -1,4 +1,6 @@
 12/02/2010
+- bugfix on nested {block} tags
+- changed Smarty special variable $smarty.parent to $smarty.block.parent
 - added support of nested {bock} tags
 
 10/02/2010
