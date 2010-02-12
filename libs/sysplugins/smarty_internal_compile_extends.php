@@ -1,25 +1,25 @@
 <?php
 
 /**
-* Smarty Internal Plugin Compile extend
-* 
-* Compiles the {extends} tag
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile extend
+ * 
+ * Compiles the {extends} tag
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
 /**
-* Smarty Internal Plugin Compile extend Class
-*/
+ * Smarty Internal Plugin Compile extend Class
+ */
 class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {extends} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the {extends} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
@@ -41,11 +41,18 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
                 preg_match_all("!({$this->_ldl}/block(.*?){$this->_rdl})!", $_old_source, $c, PREG_OFFSET_CAPTURE)) {
             $this->compiler->trigger_template_error('unmatched {block} {/block} pairs');
         } 
-        $block_count = count($s[0]);
-        for ($i = 0; $i < $block_count; $i++) {
-            $block_content = str_replace($this->smarty->left_delimiter . '$smarty.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
-                substr($_old_source, $s[0][$i][1] + strlen($s[0][$i][0]), $c[0][$i][1] - $s[0][$i][1] - strlen($s[0][$i][0])));
-            $this->saveBlockData($block_content, $s[0][$i][0], $compiler->template);
+        preg_match_all("!{$this->_ldl}block(.+?){$this->_rdl}|{$this->_ldl}/block.*{$this->_rdl}!", $_old_source, $_result, PREG_OFFSET_CAPTURE);
+        $_result_count = count($_result[0]);
+        $_i = 0;
+        while ($_i < $_result_count) {
+            $_ii = 1;
+            while (!strpos($_result[0][$_i + $_ii][0], '/')) {
+                $_ii++;
+            } 
+            $_block_content = str_replace($this->smarty->left_delimiter . '$smarty.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
+                substr($_old_source, $_result[0][$_i][1] + strlen($_result[0][$_i][0]), $_result[0][$_i-1 + 2 * $_ii][1] - $_result[0][$_i][1] - + strlen($_result[0][$_i][0])));
+            $this->saveBlockData($_block_content, $_result[0][$_i][0], $compiler->template);
+            $_i = $_i + 2 * $_ii;
         } 
         $compiler->template->template_source = $_template->getTemplateSource();
         $compiler->template->template_filepath = $_template->getTemplateFilepath();

@@ -1,3 +1,6 @@
+12/02/2010
+- added support of nested {bock} tags
+
 10/02/2010
 - avoid possible notice on $smarty->cache->clear(...), $smarty->clear_cache(....)
 - allow Smarty tags inside <? ... ?> tags in SMARTY_PHP_QUOTE and SMARTY_PHP_PASSTHRU mode

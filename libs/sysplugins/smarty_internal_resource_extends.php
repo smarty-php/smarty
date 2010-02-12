@@ -1,17 +1,17 @@
 <?php
 
 /**
-* Smarty Internal Plugin Resource Extends
-* 
-* Implements the file system as resource for Smarty which does extend a chain of template files templates
-* 
-* @package Smarty
-* @subpackage TemplateResources
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Resource Extends
+ * 
+ * Implements the file system as resource for Smarty which does extend a chain of template files templates
+ * 
+ * @package Smarty
+ * @subpackage TemplateResources
+ * @author Uwe Tews 
+ */
 /**
-* Smarty Internal Plugin Resource Extends
-*/
+ * Smarty Internal Plugin Resource Extends
+ */
 class Smarty_Internal_Resource_Extends {
     public function __construct($smarty)
     {
@@ -29,11 +29,11 @@ class Smarty_Internal_Resource_Extends {
     public $allFilepaths = array();
 
     /**
-    * Return flag if template source is existing
-    * 
-    * @param object $_template template object
-    * @return boolean result
-    */
+     * Return flag if template source is existing
+     * 
+     * @param object $_template template object
+     * @return boolean result
+     */
     public function isExisting($_template)
     {
         if ($_template->getTemplateFilepath() === false) {
@@ -43,11 +43,11 @@ class Smarty_Internal_Resource_Extends {
         } 
     } 
     /**
-    * Get filepath to template source
-    * 
-    * @param object $_template template object
-    * @return string filepath to template source file
-    */
+     * Get filepath to template source
+     * 
+     * @param object $_template template object
+     * @return string filepath to template source file
+     */
     public function getTemplateFilepath($_template)
     {
         $sha1String = '';
@@ -67,22 +67,22 @@ class Smarty_Internal_Resource_Extends {
     } 
 
     /**
-    * Get timestamp to template source
-    * 
-    * @param object $_template template object
-    * @return integer timestamp of template source file
-    */
+     * Get timestamp to template source
+     * 
+     * @param object $_template template object
+     * @return integer timestamp of template source file
+     */
     public function getTemplateTimestamp($_template)
     {
         return filemtime($_template->getTemplateFilepath());
     } 
 
     /**
-    * Read template source from file
-    * 
-    * @param object $_template template object
-    * @return string content of template source file
-    */
+     * Read template source from file
+     * 
+     * @param object $_template template object
+     * @return string content of template source file
+     */
     public function getTemplateSource($_template)
     {
         $this->template = $_template;
@@ -100,13 +100,20 @@ class Smarty_Internal_Resource_Extends {
             if ($_filepath != $_files[count($_files)-1]) {
                 if (preg_match_all("!({$this->_ldl}block(.+?){$this->_rdl})!", $_content, $_open, PREG_OFFSET_CAPTURE) !=
                         preg_match_all("!({$this->_ldl}/block(.*?){$this->_rdl})!", $_content, $_close, PREG_OFFSET_CAPTURE)) {
-                    $this->smarty->trigger_error('unmatched {block} {/block} pairs');
+                    $this->smarty->trigger_error("unmatched {block} {/block} pairs in file '$_filepath'");
                 } 
-                $_block_count = count($_open[0]);
-                for ($_i = 0; $_i < $_block_count; $_i++) {
+                preg_match_all("!{$this->_ldl}block(.+?){$this->_rdl}|{$this->_ldl}/block.*{$this->_rdl}!", $_content, $_result, PREG_OFFSET_CAPTURE);
+                $_result_count = count($_result[0]);
+                $_i = 0;
+                while ($_i < $_result_count) {
+                    $_ii = 1;
+                    while (!strpos($_result[0][$_i + $_ii][0], '/')) {
+                        $_ii++;
+                    } 
                     $_block_content = str_replace($this->smarty->left_delimiter . '$smarty.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
-                        substr($_content, $_open[0][$_i][1] + strlen($_open[0][$_i][0]), $_close[0][$_i][1] - $_open[0][$_i][1] - strlen($_open[0][$_i][0])));
-                    $this->saveBlockData($_block_content, $_open[0][$_i][0], $_filepath);
+                        substr($_content, $_result[0][$_i][1]+strlen($_result[0][$_i][0]), $_result[0][$_i-1 + 2 * $_ii][1] - $_result[0][$_i][1] - +strlen($_result[0][$_i][0])));
+                    $this->saveBlockData($_block_content, $_result[0][$_i][0], $_filepath);
+                    $_i = $_i + 2 * $_ii;
                 } 
             } else {
                 $_template->template_source = $_content;
@@ -118,7 +125,7 @@ class Smarty_Internal_Resource_Extends {
     protected function saveBlockData($block_content, $block_tag, $_filepath)
     {
         if (0 == preg_match("!(.?)(name=)(.*?)(?=(\s|{$this->_rdl}))!", $block_tag, $_match)) {
-            $this->smarty->trigger_error("'{$block_tag}' missing name attribute");
+            $this->smarty->trigger_error("'{$block_tag}' missing name attribute in file '$_filepath'");
         } else {
             $_name = trim($_match[3], '\'"');
             if (isset($this->smarty->block_data[$_name])) {
@@ -145,11 +152,11 @@ class Smarty_Internal_Resource_Extends {
     } 
 
     /**
-    * Get filepath to compiled template
-    * 
-    * @param object $_template template object
-    * @return string return path to compiled template
-    */
+     * Get filepath to compiled template
+     * 
+     * @param object $_template template object
+     * @return string return path to compiled template
+     */
     public function getCompiledFilepath($_template)
     {
         $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w\|]+!', '_', $_template->compile_id) : null;
