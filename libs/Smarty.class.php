@@ -224,6 +224,8 @@ class Smarty extends Smarty_Internal_Data {
     public $block_data = array(); 
     // block tag hierarchy
     public $_tag_stack = array();
+    // plugins
+    public $_plugins = array();
     // generate deprecated function call notices?
     public $deprecation_notices = true;
 
