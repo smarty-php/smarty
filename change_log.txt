@@ -1,5 +1,6 @@
 14/02/2010
 - added missing _plugins property in smarty.class.php
+- bugfix $smarty.const... inside doublequoted strings and backticks was compiled into wrong PHP code
 
 12/02/2010
 - bugfix on nested {block} tags
