@@ -1,3 +1,7 @@
+16/02/2010
+- bugfix on <?xml ... ?> tags for all php_handling modes
+- bugfix on parameter of variablefilter.htmlspecialchars.php plugin
+
 14/02/2010
 - added missing _plugins property in smarty.class.php
 - bugfix $smarty.const... inside doublequoted strings and backticks was compiled into wrong PHP code
