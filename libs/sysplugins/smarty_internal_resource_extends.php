@@ -134,6 +134,17 @@ class Smarty_Internal_Resource_Extends {
             $this->smarty->trigger_error("'{$block_tag}' missing name attribute in file '$_filepath'");
         } else {
             $_name = trim($_match[3], '\'"');
+	   // replace {$smarty.block.child} 
+            if (strpos($block_content, $this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter) !== false) {
+                if (isset($this->smarty->block_data[$_name])) {
+                    $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
+                        $this->smarty->block_data[$_name]['source'], $block_content);
+                    unset($this->smarty->block_data[$_name]);
+                } else {
+                    $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
+                        '', $block_content);
+                } 
+            } 
             if (isset($this->smarty->block_data[$_name])) {
                 if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
                     $this->smarty->block_data[$_name]['source'] =
@@ -195,4 +206,5 @@ class Smarty_Internal_Resource_Extends {
         return $_compile_dir . $_filepath . '.' . $_template->resource_type . '.' . basename($_files[count($_files)-1]) . $_cache . '.php';
     } 
 } 
+
 ?>

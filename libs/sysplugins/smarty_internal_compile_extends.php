@@ -72,6 +72,17 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
             $this->compiler->trigger_template_error("\"" . $block_tag . "\" missing name attribute");
         } else {
             $_name = trim($_match[3], '\'"');
+	   // replace {$smarty.block.child} 
+            if (strpos($block_content, $this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter) !== false) {
+                if (isset($this->smarty->block_data[$_name])) {
+                    $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
+                        $this->smarty->block_data[$_name]['source'], $block_content);
+                    unset($this->smarty->block_data[$_name]);
+                } else {
+                    $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
+                        '', $block_content);
+                } 
+            } 
             if (isset($this->smarty->block_data[$_name])) {
                 if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
                     $this->smarty->block_data[$_name]['source'] =

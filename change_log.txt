@@ -1,3 +1,7 @@
+17/02/2010
+- removed restriction that modifiers did require surrounding parenthesis in some cases
+- added {$smarty.block.child} special variable for template inheritance
+
 16/02/2010
 - bugfix on <?xml ... ?> tags for all php_handling modes
 - bugfix on parameter of variablefilter.htmlspecialchars.php plugin
