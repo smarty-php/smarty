@@ -662,11 +662,17 @@ class Smarty extends Smarty_Internal_Data {
     * @param string $name property name
     */
     public function __get($name) {
+echo "inside get\n";
         if(in_array($name, array('register', 'unregister', 'utility', 'cache'))) {
             $class = "Smarty_Internal_" . ucfirst($name);
-            return new $class($this);
-        } 
-        return false;
+            $this->$name = new $class($this);
+            return $this->$name;
+        } else if ($name == '_version') {
+            // Smarty 2 BC
+            $this->_version = self::SMARTY_VERSION;
+            return $this->_version;
+        }   	
+        return null;
     } 
 
     /**
