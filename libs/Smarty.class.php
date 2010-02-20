@@ -662,7 +662,6 @@ class Smarty extends Smarty_Internal_Data {
     * @param string $name property name
     */
     public function __get($name) {
-echo "inside get\n";
         if(in_array($name, array('register', 'unregister', 'utility', 'cache'))) {
             $class = "Smarty_Internal_" . ucfirst($name);
             $this->$name = new $class($this);

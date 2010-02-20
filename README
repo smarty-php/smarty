@@ -224,7 +224,7 @@ Object method chaining is implemented.
 Example: {$object->method1($x)->method2($y)}
 
 {for} tag added for looping (replacement for {section} tag):
-{for $x=0, $y=count($foo); $x<$y; $i++}  ....  {/for}
+{for $x=0, $y=count($foo); $x<$y; $x++}  ....  {/for}
 Any number of statements can be used separated by comma as the first
 inital expression at {for}.
 
