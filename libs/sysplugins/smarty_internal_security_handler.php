@@ -26,11 +26,27 @@ class Smarty_Internal_Security_Handler {
         if (empty($this->smarty->security_policy->php_functions) || in_array($function_name, $this->smarty->security_policy->php_functions)) {
             return true;
         } else {
-            $compiler->trigger_template_error ("PHP function \"" . $function_name . "\" not allowed by security setting");
+            $compiler->trigger_template_error ("PHP function '{$function_name}' not allowed by security setting");
             return false;
         } 
     } 
 
+    /**
+    * Check if static class is trusted.
+    * 
+    * @param string $class_name 
+    * @param object $compiler compiler object
+    * @return boolean true if class is trusted
+    */
+    function isTrustedStaticClass($class_name, $compiler)
+    {
+        if (empty($this->smarty->security_policy->static_classes) || in_array($class_name, $this->smarty->security_policy->static_classes)) {
+            return true;
+        } else {
+            $compiler->trigger_template_error ("access to static class '{$class_name}' not allowed by security setting");
+            return false;
+        } 
+    } 
     /**
     * Check if modifier is trusted.
     * 
@@ -43,7 +59,7 @@ class Smarty_Internal_Security_Handler {
         if (empty($this->smarty->security_policy->modifiers) || in_array($modifier_name, $this->smarty->security_policy->modifiers)) {
             return true;
         } else {
-            $compiler->trigger_template_error ("modifier \"" . $modifier_name . "\" not allowed by security setting");
+            $compiler->trigger_template_error ("modifier '{$modifier_name}' not allowed by security setting");
             return false;
         } 
     } 
@@ -59,7 +75,7 @@ class Smarty_Internal_Security_Handler {
         if (empty($this->smarty->security_policy->streams) || in_array($stream_name, $this->smarty->security_policy->streams)) {
             return true;
         } else {
-            throw new Exception ("stream \"" . $stream_name . "\" not allowed by security setting");
+            throw new Exception ("stream '{$stream_name}' not allowed by security setting");
             return false;
         } 
     } 
@@ -96,7 +112,7 @@ class Smarty_Internal_Security_Handler {
             } 
         } 
 
-        throw new Exception ("directory \"" . $_rp . "\" not allowed by security setting");
+        throw new Exception ("directory '{$_rp}' not allowed by security setting");
         return false;
     } 
     /**
@@ -122,7 +138,7 @@ class Smarty_Internal_Security_Handler {
             } 
         } 
 
-        throw new Exception ("directory \"" . $_rp . "\" not allowed by security setting");
+        throw new Exception ("directory '{$_rp}' not allowed by security setting");
         return false;
     } 
 } 

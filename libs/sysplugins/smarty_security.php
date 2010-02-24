@@ -45,6 +45,15 @@ class Smarty_Security {
 
 
     /**
+    * This is an array of trusted static classes.
+    *
+    * If empty access to all static classes is allowed.
+    * If set to 'none' none is allowed.
+    * @var array 
+    */
+    public $static_classes = array();
+
+    /**
     * This is an array of trusted PHP functions.
     *
     * If empty all functions are allowed.
