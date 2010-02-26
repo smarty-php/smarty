@@ -1,5 +1,6 @@
 26/02/2010
 - cache modified check implemented
+- support of access to a class constant from an object (since PHP 5.3)
 
 24/02/2010
 - bugfix on expressions in doublequoted string enclosed in backticks
