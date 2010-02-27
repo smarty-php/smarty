@@ -651,7 +651,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     * @param string $resource_type return resource type
     * @param string $resource_name return resource name
     */
-    private function getResourceTypeName ($template_resource, &$resource_type, &$resource_name)
+    protected function getResourceTypeName ($template_resource, &$resource_type, &$resource_name)
     {
         if (strpos($template_resource, ':') === false) {
             // no resource given, use default
@@ -676,7 +676,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     * @param string $resource_type template resource type
     * @return object resource handler object
     */
-    private function loadTemplateResourceHandler ($resource_type)
+    protected function loadTemplateResourceHandler ($resource_type)
     { 
         // try registered resource
         if (isset($this->smarty->_plugins['resource'][$resource_type])) {

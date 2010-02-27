@@ -1,3 +1,6 @@
+27/02/2010
+- allow block tags inside double quoted string 
+
 26/02/2010
 - cache modified check implemented
 - support of access to a class constant from an object (since PHP 5.3)
