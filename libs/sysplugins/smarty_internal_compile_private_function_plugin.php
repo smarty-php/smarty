@@ -42,7 +42,7 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
         $_params = 'array(' . implode(",", $_paramsArray) . ')'; 
         // compile code
         if (is_array($function)) {
-            $output = "<?php echo call_user_func_array(array('{$function[0]}','{$function[1]}'),(array({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl));?>\n";
+            $output = "<?php echo call_user_func(array('{$function[0]}','{$function[1]}'),{$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
         } else {
             $output = "<?php echo {$function}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
         } 

@@ -1,25 +1,25 @@
 <?php
 /**
-* Smarty Internal Plugin Compile Registered Function
-* 
-* Compiles code for the execution of a registered function
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile Registered Function
+ * 
+ * Compiles code for the execution of a registered function
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
 /**
-* Smarty Internal Plugin Compile Registered Function Class
-*/
+ * Smarty Internal Plugin Compile Registered Function Class
+ */
 class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the execution of a registered function
-    * 
-    * @param array $args array with attributes from parser
-    * @param string $tag name of function
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the execution of a registered function
+     * 
+     * @param array $args array with attributes from parser
+     * @param string $tag name of function
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler, $tag)
     {
         $this->compiler = $compiler; 
@@ -43,7 +43,15 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
         } 
         $_params = 'array(' . implode(",", $_paramsArray) . ')'; 
         // compile code
-        $output = "<?php echo call_user_func_array(\$_smarty_tpl->smarty->registered_plugins['function']['{$tag}'][0],array({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl));?>\n";
+        $function = $compiler->smarty->registered_plugins['function'][$tag][0]; 
+        // compile code
+        if (!is_array($function)) {
+            $output = "<?php echo {$function}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
+        } else if (is_object($function[0])) {
+            $output = "<?php echo call_user_func(\$_smarty_tpl->smarty->registered_plugins['function']['{$tag}'][0],{$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
+        } else {
+            $output = "<?php echo call_user_func(array('{$function[0]}','{$function[1]}'),{$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
+        } 
         return $output;
     } 
 } 

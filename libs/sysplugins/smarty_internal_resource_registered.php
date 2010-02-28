@@ -33,7 +33,7 @@ class Smarty_Internal_Resource_Registered {
     */
     public function isExisting($_template)
     {
-        if (is_integer($this->getTemplateTimestamp($_template))) {
+        if (is_integer($_template->getTemplateTimestamp())) {
             return true;
         } else {
             return false;
