@@ -97,7 +97,7 @@ class _smarty_doublequoted extends _smarty_parsetree {
             } 
         } 
 
-        $code = sprintf("(%s)", $code);
+//        $code = sprintf("(%s)", $code);
         return $code;
     } 
 } 
