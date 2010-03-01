@@ -68,7 +68,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = SMARTY_
 
         case 'mail': 
             // safe way to display e-mail address on a web page
-            if ($smarty->has_mb) {
+            if (function_exists('mb_str_replace')) {
                 return mb_str_replace(array('@', '.'), array(' [AT] ', ' [DOT] '), $string);
             } else {
                 return str_replace(array('@', '.'), array(' [AT] ', ' [DOT] '), $string);
