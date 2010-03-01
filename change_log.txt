@@ -1,3 +1,6 @@
+01/03/2010
+- bugfix on nocache code in {block} tags if child template was included by {include}
+
 27/02/2010
 - allow block tags inside double quoted string 
 

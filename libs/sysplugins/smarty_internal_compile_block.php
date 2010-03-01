@@ -1,29 +1,29 @@
 <?php
 /**
-* Smarty Internal Plugin Compile Block
-* 
-* Compiles the {block}{/block} tags
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile Block
+ * 
+ * Compiles the {block}{/block} tags
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
 /**
-* Smarty Internal Plugin Compile Block Class
-*/
+ * Smarty Internal Plugin Compile Block Class
+ */
 class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {block} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return boolean true
-    */
+     * Compiles code for the {block} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return boolean true
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
         $this->required_attributes = array('name');
-        $this->optional_attributes = array('assign','nocache'); 
+        $this->optional_attributes = array('assign', 'nocache'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
         $save = array($_attr, $compiler->template->extracted_compiled_code, $compiler->template->extract_code, $this->compiler->nocache);
@@ -42,16 +42,16 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
 } 
 
 /**
-* Smarty Internal Plugin Compile BlockClose Class
-*/
+ * Smarty Internal Plugin Compile BlockClose Class
+ */
 class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {/block} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the {/block} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
@@ -90,6 +90,9 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             } 
             $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $_tpl->properties['file_dependency']);
             $compiler->template->properties['function'] = array_merge($compiler->template->properties['function'], $_tpl->properties['function']);
+            if ($_tpl->has_nocache_code) {
+                $compiler->template->has_nocache_code = true;
+            } 
             foreach($_tpl->required_plugins as $code => $tmp1) {
                 foreach($tmp1 as $name => $tmp) {
                     foreach($tmp as $type => $data) {
