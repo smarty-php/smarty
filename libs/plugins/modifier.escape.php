@@ -23,6 +23,21 @@
 */
 function smarty_modifier_escape($string, $esc_type = 'html', $char_set = SMARTY_RESOURCE_CHAR_SET)
 {
+    if (!function_exists('mb_str_replace') && function_exists('mb_strlen')) {
+        // simulate the missing PHP mb_str_replace function
+        function mb_str_replace($needle, $replacement, $haystack)
+        {
+            $needle_len = mb_strlen($needle);
+            $replacement_len = mb_strlen($replacement);
+            $pos = mb_strpos($haystack, $needle, 0);
+            while ($pos !== false) {
+                $haystack = mb_substr($haystack, 0, $pos) . $replacement
+                 . mb_substr($haystack, $pos + $needle_len);
+                $pos = mb_strpos($haystack, $needle, $pos + $replacement_len);
+            } 
+            return $haystack;
+        } 
+    } 
     switch ($esc_type) {
         case 'html':
             return htmlspecialchars($string, ENT_QUOTES, $char_set);
@@ -90,21 +105,6 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = SMARTY_
 
         default:
             return $string;
-    } 
-    if (!function_exists("mb_str_replace")) {
-        // simulate the missing PHP mb_str_replace function
-        function mb_str_replace($needle, $replacement, $haystack)
-        {
-            $needle_len = mb_strlen($needle);
-            $replacement_len = mb_strlen($replacement);
-            $pos = mb_strpos($haystack, $needle, 0);
-            while ($pos !== false) {
-                $haystack = mb_substr($haystack, 0, $pos) . $replacement
-                 . mb_substr($haystack, $pos + $needle_len);
-                $pos = mb_strpos($haystack, $needle, $pos + $replacement_len);
-            } 
-            return $haystack;
-        } 
     } 
 } 
 
