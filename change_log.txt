@@ -1,3 +1,6 @@
+04/03/2010
+- bugfix allow uppercase chars in registered resource names
+
 01/03/2010
 - bugfix on nocache code in {block} tags if child template was included by {include}
 

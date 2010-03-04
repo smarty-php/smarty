@@ -665,7 +665,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                 $resource_type = 'file';
                 $resource_name = $template_resource;
             } else {
-                $resource_type = strtolower($resource_type);
+                $resource_type = $resource_type;
             } 
         } 
     } 
@@ -801,13 +801,6 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public function fetch ()
     {
         return $this->smarty->fetch($this);
-    } 
-    /**
-    * wrapper for is_cached
-    */
-    public function is_cached ()
-    {
-        return $this->iscached($this);
     } 
 } 
 
