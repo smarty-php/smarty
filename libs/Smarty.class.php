@@ -751,21 +751,6 @@ class Smarty extends Smarty_Internal_Data {
             $this->wrapper = new Smarty_Internal_Wrapper($this);
         } 
         return $this->wrapper->convert($name, $args);
-
-        /*
-        $name = strtolower($name);
-        if ($name == 'smarty') {
-            throw new Exception('Please use parent::__construct() to call parent constuctor');
-        } 
-        $function_name = 'smarty_method_' . $name;
-        if (!is_callable($function_name)) {
-            if (!file_exists(SMARTY_SYSPLUGINS_DIR . $function_name . '.php')) {
-                throw new Exception('Undefined Smarty method "' . $name . '"');
-            } 
-            require_once(SMARTY_SYSPLUGINS_DIR . $function_name . '.php');
-        } 
-        return call_user_func_array($function_name, array_merge(array($this), $args));
-        */
     } 
 } 
 
