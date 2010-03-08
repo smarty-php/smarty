@@ -804,6 +804,25 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     }
     
     /**
+     * lazy loads (valid) property objects
+     * 
+     * @param string $name property name
+     */
+    public function __get($name)
+    {
+        if (in_array($name, array('register', 'unregister', 'utility', 'cache'))) {
+            $class = "Smarty_Internal_" . ucfirst($name);
+            $this->$name = new $class($this);
+            return $this->$name;
+        } else if ($name == '_version') {
+            // Smarty 2 BC
+            $this->_version = self::SMARTY_VERSION;
+            return $this->_version;
+        }   	
+        return null;
+    }    
+    
+    /**
      * Takes unknown class methods and lazy loads sysplugin files for them
      * class name format: Smarty_Method_MethodName
      * plugin filename format: method.methodname.php
