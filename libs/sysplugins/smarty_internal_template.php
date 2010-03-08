@@ -801,7 +801,39 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public function fetch ()
     {
         return $this->smarty->fetch($this);
-    } 
+    }
+    
+    /**
+     * Takes unknown class methods and lazy loads sysplugin files for them
+     * class name format: Smarty_Method_MethodName
+     * plugin filename format: method.methodname.php
+     * 
+     * @param string $name unknown methode name
+     * @param array $args aurgument array
+     */
+    public function __call($name, $args)
+    {
+        static $camel_func;
+        if (!isset($camel_func))
+            $camel_func = create_function('$c', 'return "_" . strtolower($c[1]);'); 
+        // see if this is a set/get for a property
+        $first3 = strtolower(substr($name, 0, 3));
+        if (in_array($first3, array('set', 'get')) && substr($name, 3, 1) !== '_') {
+            // try to keep case correct for future PHP 6.0 case-sensitive class methods
+            // lcfirst() not available < PHP 5.3.0, so improvise
+            $property_name = strtolower(substr($name, 3, 1)) . substr($name, 4); 
+            // convert camel case to underscored name
+            $property_name = preg_replace_callback('/([A-Z])/', $camel_func, $property_name);
+            if (!property_exists($this, $property_name)) {
+                throw new Exception("property '$property_name' does not exist.");
+                return false;
+            } 
+            if ($first3 == 'get')
+                return $this->$property_name;
+            else
+                return $this->$property_name = $args[0];
+        } 
+    }        
 } 
 
 /**
