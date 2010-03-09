@@ -466,7 +466,7 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function disableSecurity()
     {
-        $this->security = true;
+        $this->security = false;
     } 
 
     /**
