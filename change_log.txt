@@ -1,3 +1,7 @@
+16/03/2010
+- bugfix on assign attribute at registered template objects
+- make handling of modifiers on expression BC to Smarty2
+ 
 15/03/2010
 - bugfix on block plugin calls
 

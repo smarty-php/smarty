@@ -1,36 +1,38 @@
 <?php
 /**
-* Smarty Internal Plugin Compile Object Funtion
-* 
-* Compiles code for registered objects as function
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile Object Funtion
+ * 
+ * Compiles code for registered objects as function
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
 /**
-* Smarty Internal Plugin Compile Object Function Class
-*/
+ * Smarty Internal Plugin Compile Object Function Class
+ */
 class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the execution of function plugin
-    * 
-    * @param array $args array with attributes from parser
-    * @param string $tag name of function
-    * @param string $methode name of methode to call
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the execution of function plugin
+     * 
+     * @param array $args array with attributes from parser
+     * @param string $tag name of function
+     * @param string $methode name of methode to call
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler, $tag, $methode)
     {
-        $this->compiler = $compiler; 
-        // This tag does create output
-        $this->compiler->has_output = true;
-
+        $this->compiler = $compiler;
         $this->required_attributes = array();
         $this->optional_attributes = array('_any'); 
         // check and get attributes
-        $_attr = $this->_get_attributes($args); 
+        $_attr = $this->_get_attributes($args);
+        $_assign = null;
+        if (isset($_attr['assign'])) {
+            $_assign = $_attr['assign'];
+            unset($_attr['assign']);
+        } 
         // convert attributes into parameter array string
         if ($this->compiler->smarty->registered_objects[$tag][2]) {
             $_paramsArray = array();
@@ -42,13 +44,19 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
                 } 
             } 
             $_params = 'array(' . implode(",", $_paramsArray) . ')';
-            $output = "<?php echo \$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
+            $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl)";
         } else {
             $_params = implode(",", $_attr);
-            $output = "<?php echo \$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params});?>\n";
+            $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params})";
         } 
+        if (empty($_assign)) {
+            // This tag does create output
+            $this->compiler->has_output = true;
+            $output = "<?php echo {$return};?>\n";
+        } else {
+            $output = "<?php \$_smarty_tpl->assign({$_assign},{$return});?>\n";
+	}
         return $output;
     } 
 } 
-
 ?>
