@@ -1,3 +1,6 @@
+17/03/2010
+- bugfix make $smarty->cache->clear() function independent from caching status
+
 16/03/2010
 - bugfix on assign attribute at registered template objects
 - make handling of modifiers on expression BC to Smarty2

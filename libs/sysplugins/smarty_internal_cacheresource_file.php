@@ -131,7 +131,10 @@ class Smarty_Internal_CacheResource_File {
             $_cache_id_parts_count = count($_cache_id_parts);
         } 
         if (isset($resource_name)) {
+	   $_save_stat = $this->smarty->caching;
+	   $this->smarty->caching = true;
             $tpl = $this->smarty->createTemplate($resource_name);
+	   $this->smarty->caching = $_save_stat;
             if ($tpl->isExisting()) {
                 $_resourcename_parts = basename(str_replace('^','/',$tpl->getCachedFilepath()));
             } else {
