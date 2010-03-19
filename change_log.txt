@@ -1,3 +1,6 @@
+19/03/2010
+- bugfix for multiple {/block} tags on same line
+
 17/03/2010
 - bugfix make $smarty->cache->clear() function independent from caching status
 

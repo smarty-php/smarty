@@ -102,7 +102,7 @@ class Smarty_Internal_Resource_Extends {
                         preg_match_all("!({$this->_ldl}/block(.*?){$this->_rdl})!", $_content, $_close)) {
                     $this->smarty->trigger_error("unmatched {block} {/block} pairs in file '$_filepath'");
                 } 
-                preg_match_all("!{$this->_ldl}block(.+?){$this->_rdl}|{$this->_ldl}/block.*{$this->_rdl}!", $_content, $_result, PREG_OFFSET_CAPTURE);
+                preg_match_all("!{$this->_ldl}block(.+?){$this->_rdl}|{$this->_ldl}/block(.*?){$this->_rdl}!", $_content, $_result, PREG_OFFSET_CAPTURE);
                 $_result_count = count($_result[0]);
                 $_start = 0;
                 while ($_start < $_result_count) {
