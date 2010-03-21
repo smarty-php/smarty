@@ -57,10 +57,6 @@ class Smarty_Internal_Utility {
             $_mtime = explode(" ", $_mtime);
             return (double)($_mtime[1]) + (double)($_mtime[0]);
         } 
-        // set default directory
-        if ($dir_name === null) {
-            $dir_name = $this->smarty->template_dir;
-        } 
         // switch off time limit
         if (function_exists('set_time_limit')) {
             @set_time_limit($time_limit);

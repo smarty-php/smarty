@@ -1,3 +1,6 @@
+21/03/2010
+- removed unused code in compileAllTemplates()
+
 19/03/2010
 - bugfix for multiple {/block} tags on same line
 
