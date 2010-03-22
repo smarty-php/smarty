@@ -1,3 +1,6 @@
+22/03/2010
+- bugfix make directory separator operating system independend in compileAllTemplates()
+
 21/03/2010
 - removed unused code in compileAllTemplates()
 

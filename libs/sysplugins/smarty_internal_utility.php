@@ -75,7 +75,7 @@ class Smarty_Internal_Utility {
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
                     $_template_file = $_file;
                 } else {
-                    $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . '\\' . $_file;
+                    $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
                 } 
                 echo '<br>', $_dir, '---', $_template_file;
                 flush();
