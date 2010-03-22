@@ -170,11 +170,11 @@ class Smarty_Internal_Utility {
         echo "Testing compile directory...\n";
     
         if (!is_dir($this->smarty->compile_dir))
-            echo "FAILED: $this->smarty->compile_dir is not a directory.\n";
+            echo "FAILED: {$this->smarty->compile_dir} is not a directory.\n";
         elseif (!is_readable($this->smarty->compile_dir))
-            echo "FAILED: $this->smarty->compile_dir is not readable.\n";
+            echo "FAILED: {$this->smarty->compile_dir} is not readable.\n";
         elseif (!is_writable($this->smarty->compile_dir))
-            echo "FAILED: $this->smarty->compile_dir is not writable.\n";
+            echo "FAILED: {$this->smarty->compile_dir} is not writable.\n";
         else
             echo "{$this->smarty->compile_dir} is OK.\n";
     
@@ -192,20 +192,20 @@ class Smarty_Internal_Utility {
         echo "Testing cache directory...\n";
     
         if (!is_dir($this->smarty->cache_dir))
-            echo "FAILED: $this->smarty->cache_dir is not a directory.\n";
+            echo "FAILED: {$this->smarty->cache_dir} is not a directory.\n";
         elseif (!is_readable($this->smarty->cache_dir))
-            echo "FAILED: $this->smarty->cache_dir is not readable.\n";
+            echo "FAILED: {$this->smarty->cache_dir} is not readable.\n";
         elseif (!is_writable($this->smarty->cache_dir))
-            echo "FAILED: $this->smarty->cache_dir is not writable.\n";
+            echo "FAILED: {$this->smarty->cache_dir} is not writable.\n";
         else
             echo "{$this->smarty->cache_dir} is OK.\n";
     
         echo "Testing configs directory...\n";
     
         if (!is_dir($this->smarty->config_dir))
-            echo "FAILED: $this->smarty->config_dir is not a directory.\n";
+            echo "FAILED: {$this->smarty->config_dir} is not a directory.\n";
         elseif (!is_readable($this->smarty->config_dir))
-            echo "FAILED: $this->smarty->config_dir is not readable.\n";
+            echo "FAILED: {$this->smarty->config_dir} is not readable.\n";
         else
             echo "{$this->smarty->config_dir} is OK.\n";
     
