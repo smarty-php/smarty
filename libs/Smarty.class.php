@@ -167,7 +167,7 @@ class Smarty extends Smarty_Internal_Data {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                                     
+    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                                      
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -221,7 +221,8 @@ class Smarty extends Smarty_Internal_Data {
     // smarty object reference
     public $smarty = null; 
     // block data at template inheritance
-    public $block_data = array(); 
+    public $block_data = array();
+    public $block_data_stack = array(); 
     // block tag hierarchy
     public $_tag_stack = array(); 
     // plugins
@@ -310,6 +311,8 @@ class Smarty extends Smarty_Internal_Data {
             // get default Smarty data object
             $parent = $this;
         } 
+        array_push($this->block_data_stack, $this->block_data);
+        $this->block_data = array(); 
         // create template object if necessary
         ($template instanceof $this->template_class)? $_template = $template :
         $_template = $this->createTemplate ($template, $cache_id, $compile_id, $parent);
@@ -352,9 +355,11 @@ class Smarty extends Smarty_Internal_Data {
             if ($this->debugging) {
                 Smarty_Internal_Debug::display_debug($this);
             } 
+            $this->block_data = array_pop($this->block_data_stack);
             return;
         } else {
-	   // return fetched content
+            // return fetched content
+            $this->block_data = array_pop($this->block_data_stack);
             return $_output;
         } 
     } 
@@ -707,7 +712,7 @@ class Smarty extends Smarty_Internal_Data {
             // Smarty 2 BC
             $this->_version = self::SMARTY_VERSION;
             return $this->_version;
-        }   	
+        } 
         return null;
     } 
 

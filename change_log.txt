@@ -1,3 +1,6 @@
+23/03/2010
+- bugfix on template inheritance when calling multiple child/parent relations
+
 22/03/2010
 - bugfix make directory separator operating system independend in compileAllTemplates()
 
