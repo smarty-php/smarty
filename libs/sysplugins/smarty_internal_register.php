@@ -108,9 +108,9 @@ class Smarty_Internal_Register {
     function modifier($modifier_name, $modifier_impl)
     {
         if (isset($this->smarty->registered_plugins['modifier'][$modifier_name])) {
-            throw new Exception("Plugin \"{$modifier}\" already registered");
+            throw new Exception("Plugin \"{$modifier_name}\" already registered");
         } elseif (!is_callable($modifier_impl)) {
-            throw new Exception("Plugin \"{$modifier}\" not callable");
+            throw new Exception("Plugin \"{$modifier_name}\" not callable");
         } else {
             $this->smarty->registered_plugins['modifier'][$modifier_name] =
             array($modifier_impl);

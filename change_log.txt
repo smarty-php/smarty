@@ -1,3 +1,6 @@
+24/03/2010
+- bugfix on register->modifier() error messages
+
 23/03/2010
 - bugfix on template inheritance when calling multiple child/parent relations
 - bugfix on caching mode SMARTY_CACHING_LIFETIME_SAVED and cache_lifetime = 0
