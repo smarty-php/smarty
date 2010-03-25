@@ -1,3 +1,7 @@
+25/03/2010
+- change of utility->compileAllTemplates() log messages
+- bugfix on nocache code in {function} tags 
+
 24/03/2010
 - bugfix on register->modifier() error messages
 
