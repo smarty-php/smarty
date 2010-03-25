@@ -105,6 +105,64 @@ class Smarty_Internal_Utility {
     } 
 
     /**
+     * Compile all config files
+     * 
+     * @param string $extension file extension
+     * @param bool $force_compile force all to recompile
+     * @param int $time_limit 
+     * @param int $max_errors 
+     * @return integer number of template files recompiled
+     */
+    function compileAllConfig($extention = '.conf', $force_compile = false, $time_limit = 0, $max_errors = null)
+    {
+       // switch off time limit
+        if (function_exists('set_time_limit')) {
+            @set_time_limit($time_limit);
+        } 
+        $this->smarty->force_compile = $force_compile;
+        $_count = 0;
+        $_error_count = 0; 
+        // loop over array of template directories
+        foreach((array)$this->smarty->config_dir as $_dir) {
+            $_compileDirs = new RecursiveDirectoryIterator($_dir);
+            $_compile = new RecursiveIteratorIterator($_compileDirs);
+            foreach ($_compile as $_fileinfo) {
+                if (strpos($_fileinfo, '.svn') !== false) continue;
+                $_file = $_fileinfo->getFilename();
+                if (!substr_compare($_file, $extention, - strlen($extention)) == 0) continue;
+                if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
+                    $_config_file = $_file;
+                } else {
+                    $_config_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
+                } 
+                echo '<br>', $_dir, '---', $_config_file;
+                flush();
+                $_start_time = _get_time();
+                try {
+                    $_config = new Smarty_Internal_Config($_config_file, $this->smarty);
+                    if ($_config->mustCompile()) {
+                        $_config->compileConfigSource();
+                        echo ' compiled in  ', _get_time() - $_start_time, ' seconds';
+                        flush();
+                    } else {
+                        echo ' is up to date';
+                        flush();
+                    } 
+                } 
+                catch (Exception $e) {
+                    echo 'Error: ', $e->getMessage(), "<br><br>";
+                    $_error_count++;
+                } 
+                if ($max_errors !== null && $_error_count == $max_errors) {
+                    echo '<br><br>too many errors';
+                    exit();
+                } 
+            } 
+        } 
+        return $_count;
+    } 
+
+    /**
      * Delete compiled template file
      * 
      * @param string $resource_name template name

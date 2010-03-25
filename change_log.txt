@@ -1,6 +1,7 @@
 25/03/2010
 - change of utility->compileAllTemplates() log messages
 - bugfix on nocache code in {function} tags 
+- new methode utility->compileAllConfig() to compile all config files
 
 24/03/2010
 - bugfix on register->modifier() error messages
