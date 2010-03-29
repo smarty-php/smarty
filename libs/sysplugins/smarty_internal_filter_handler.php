@@ -26,7 +26,7 @@ class Smarty_Internal_Filter_Handler {
      * @param string $content the content which shall be processed by the filters
      * @return string the filtered content
      */
-    static function runFilter($type, $content, $smarty, $flag = null)
+    static function runFilter($type, $content, $smarty, $template, $flag = null)
     {
         $output = $content;
         if ($type != 'variable' || ($smarty->variable_filter && $flag !== false) || $flag === true) {
@@ -40,7 +40,7 @@ class Smarty_Internal_Filter_Handler {
                             $output = $plugin_name($output, $smarty);
                         } elseif (class_exists($plugin_name, false)) {
                             // loaded class of filter plugin
-                            $output = call_user_func(array($plugin_name, 'execute'), $output, $smarty);
+                            $output = call_user_func(array($plugin_name, 'execute'), $output, $smarty, $template);
                         } 
                     } else {
                         // nothing found, throw exception
@@ -52,9 +52,9 @@ class Smarty_Internal_Filter_Handler {
             if (!empty($smarty->registered_filters[$type])) {
                 foreach ($smarty->registered_filters[$type] as $key => $name) {
                     if (is_array($smarty->registered_filters[$type][$key])) {
-                        $output = call_user_func($smarty->registered_filters[$type][$key], $output, $smarty);
+                        $output = call_user_func($smarty->registered_filters[$type][$key], $output, $smarty, $template);
                     } else {
-                        $output = $smarty->registered_filters[$type][$key]($output, $smarty);
+                        $output = $smarty->registered_filters[$type][$key]($output, $smarty, $template);
                     } 
                 } 
             } 

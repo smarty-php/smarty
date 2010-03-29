@@ -49,7 +49,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
             // display value
             $this->compiler->has_output = true;
             if (isset($this->compiler->smarty->registered_filters['variable'])) {
-                $output = '<?php echo Smarty_Internal_Filter_Handler::runFilter(\'variable\', ' . $_attr['value'] . ',$this->smarty, ' . $_attr['filter'] . ');?>';
+                $output = '<?php echo Smarty_Internal_Filter_Handler::runFilter(\'variable\', ' . $_attr['value'] . ',$_smarty_tpl->smarty, $_smarty_tpl, ' . $_attr['filter'] . ');?>';
             } else {
                 $output = '<?php echo ' . $_attr['value'] . ';?>';
             } 

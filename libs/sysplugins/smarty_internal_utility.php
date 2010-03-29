@@ -50,13 +50,7 @@ class Smarty_Internal_Utility {
      * @return integer number of template files recompiled
      */
     function compileAllTemplates($extention = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
-    {
-        function _get_time()
-        {
-            $_mtime = microtime();
-            $_mtime = explode(" ", $_mtime);
-            return (double)($_mtime[1]) + (double)($_mtime[0]);
-        } 
+    { 
         // switch off time limit
         if (function_exists('set_time_limit')) {
             @set_time_limit($time_limit);
@@ -79,12 +73,12 @@ class Smarty_Internal_Utility {
                 } 
                 echo '<br>', $_dir, '---', $_template_file;
                 flush();
-                $_start_time = _get_time();
+                $_start_time = $this->_get_time();
                 try {
                     $_tpl = $this->smarty->createTemplate($_template_file);
                     if ($_tpl->mustCompile()) {
                         $_tpl->compileTemplateSource();
-                        echo ' compiled in  ', _get_time() - $_start_time, ' seconds';
+                        echo ' compiled in  ', $this->_get_time() - $_start_time, ' seconds';
                         flush();
                     } else {
                         echo ' is up to date';
@@ -114,8 +108,8 @@ class Smarty_Internal_Utility {
      * @return integer number of template files recompiled
      */
     function compileAllConfig($extention = '.conf', $force_compile = false, $time_limit = 0, $max_errors = null)
-    {
-       // switch off time limit
+    { 
+        // switch off time limit
         if (function_exists('set_time_limit')) {
             @set_time_limit($time_limit);
         } 
@@ -137,12 +131,12 @@ class Smarty_Internal_Utility {
                 } 
                 echo '<br>', $_dir, '---', $_config_file;
                 flush();
-                $_start_time = _get_time();
+                $_start_time = $this->_get_time();
                 try {
                     $_config = new Smarty_Internal_Config($_config_file, $this->smarty);
                     if ($_config->mustCompile()) {
                         $_config->compileConfigSource();
-                        echo ' compiled in  ', _get_time() - $_start_time, ' seconds';
+                        echo ' compiled in  ', $this->_get_time() - $_start_time, ' seconds';
                         flush();
                     } else {
                         echo ' is up to date';
@@ -278,5 +272,16 @@ class Smarty_Internal_Utility {
         echo "</PRE>\n";
 
         return true;
+    } 
+    /**
+     * Get Micro Time
+     * 
+     * @return double micro time
+     */
+    function _get_time()
+    {
+        $_mtime = microtime();
+        $_mtime = explode(" ", $_mtime);
+        return (double)($_mtime[1]) + (double)($_mtime[0]);
     } 
 }

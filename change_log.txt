@@ -1,7 +1,12 @@
+29/03/2010
+- bugfix allow array definitions as modifier parameter
+- bugfix observe compile_check property when loading config files
+- added the template object as third filter parameter
+
 25/03/2010
 - change of utility->compileAllTemplates() log messages
 - bugfix on nocache code in {function} tags 
-- new methode utility->compileAllConfig() to compile all config files
+- new method utility->compileAllConfig() to compile all config files
 
 24/03/2010
 - bugfix on register->modifier() error messages
