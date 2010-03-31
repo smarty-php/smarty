@@ -14,7 +14,6 @@
  * Main config file compiler class
  */
 class Smarty_Internal_Config_File_Compiler {
-    public $compile_error = false;
     /**
      * Initialize compiler
      */
@@ -59,12 +58,6 @@ class Smarty_Internal_Config_File_Compiler {
         $parser->doParse(0, 0);
 
         $config->compiled_config = serialize($this->config_data);
-        if (!$this->compile_error) {
-            return true;
-        } else {
-            // compilation error
-            return false;
-        } 
     } 
     /**
      * display compiler error messages without dying
@@ -107,8 +100,6 @@ class Smarty_Internal_Config_File_Compiler {
             $error_text .= ' - Unexpected "' . $this->lex->value . '", expected one of: ' . implode(' , ', $expect);
         } 
         throw new Exception($error_text); 
-        // set error flag
-        $this->compile_error = true;
     } 
 } 
 

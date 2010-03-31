@@ -129,6 +129,8 @@ class Smarty extends Smarty_Internal_Data {
     public $force_compile = false; 
     // check template for modifications?
     public $compile_check = true; 
+    // locking concurrent compiles
+    public $compile_locking = true; 
     // use sub dirs for compiled/cached files?
     public $use_sub_dirs = false; 
     // compile_error?

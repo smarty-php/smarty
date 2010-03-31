@@ -50,8 +50,6 @@ class Smarty_Internal_TemplateCompilerBase {
         // flag for nochache sections
         $this->nocache = false;
         $this->tag_nocache = false; 
-        // assume successfull compiling
-        $this->compile_error = false; 
         // save template object in compiler class
         $this->template = $template;
         $this->smarty->_current_file = $this->template->getTemplateFilepath(); 
@@ -82,22 +80,16 @@ class Smarty_Internal_TemplateCompilerBase {
             } 
             // call compiler
             $_compiled_code = $this->doCompile($_content);
-        } while ($this->abort_and_recompile);
-        if (!$this->compile_error) {
-            // return compiled code to template object
-            if ($template->suppressFileDependency) {
-                $template->compiled_template = $_compiled_code;
-            } else {
-                $template->compiled_template = $template_header . $template->createPropertyHeader() . $_compiled_code;
-            } 
-            // run postfilter if required
-            if (isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) {
-                $template->compiled_template = Smarty_Internal_Filter_Handler::runFilter('post', $template->compiled_template, $this->smarty, $template);
-            } 
-            return true;
+        } while ($this->abort_and_recompile); 
+        // return compiled code to template object
+        if ($template->suppressFileDependency) {
+            $template->compiled_template = $_compiled_code;
         } else {
-            // compilation error
-            return false;
+            $template->compiled_template = $template_header . $template->createPropertyHeader() . $_compiled_code;
+        } 
+        // run postfilter if required
+        if (isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) {
+            $template->compiled_template = Smarty_Internal_Filter_Handler::runFilter('post', $template->compiled_template, $this->smarty, $template);
         } 
     } 
 
@@ -429,9 +421,7 @@ class Smarty_Internal_TemplateCompilerBase {
             // output parser error message
             $error_text .= ' - Unexpected "' . $this->lex->value . '", expected one of: ' . implode(' , ', $expect);
         } 
-        throw new Exception($error_text); 
-        // set error flag
-        $this->compile_error = true;
+        throw new Exception($error_text);
     } 
 } 
 

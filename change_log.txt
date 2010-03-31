@@ -1,3 +1,6 @@
+31/03/2010
+- compile locking by touching old compiled files to avoid concurrent compilations
+
 29/03/2010
 - bugfix allow array definitions as modifier parameter
 - bugfix observe compile_check property when loading config files
