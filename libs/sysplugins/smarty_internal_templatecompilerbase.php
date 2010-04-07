@@ -282,7 +282,7 @@ class Smarty_Internal_TemplateCompilerBase {
         } 
         if (isset($function)) {
             if ($type == 'modifier') {
-                $this->template->saved_modifer[$plugin_name] = true;
+                $this->template->saved_modifier[$plugin_name] = true;
             } 
             return $function;
         } 
@@ -298,7 +298,7 @@ class Smarty_Internal_TemplateCompilerBase {
          * } 
          * } 
          * if ($type == 'modifier') {
-         * $this->template->saved_modifer[$plugin_name] = true;
+         * $this->template->saved_modifier[$plugin_name] = true;
          * } 
          * return $this->template->required_plugins_call[$plugin_name][$type];
          * }
