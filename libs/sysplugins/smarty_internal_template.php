@@ -68,7 +68,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     // required plugins
     public $required_plugins = array('compiled' => array(), 'nocache' => array());
     public $security = false;
-    public $saved_modifer = null;
+    public $saved_modifier = null;
     public $smarty = null;
     /**
      * Create template data object

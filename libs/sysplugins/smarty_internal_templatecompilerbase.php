@@ -334,7 +334,7 @@ class Smarty_Internal_TemplateCompilerBase {
              * }
              */
             if ($type == 'modifier') {
-                $this->template->saved_modifer[$plugin_name] = true;
+                $this->template->saved_modifier[$plugin_name] = true;
             } 
             return $function;
         } 
@@ -368,13 +368,13 @@ class Smarty_Internal_TemplateCompilerBase {
                 $_output = str_replace("'", "\'", $content);
                 $_output = "<?php echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/" . $_output . "/*/%%SmartyNocache:{$this->nocache_hash}%%*/';?>"; 
                 // make sure we include modifer plugins for nocache code
-                if (isset($this->template->saved_modifer)) {
-                    foreach ($this->template->saved_modifer as $plugin_name => $dummy) {
+                if (isset($this->template->saved_modifier)) {
+                    foreach ($this->template->saved_modifier as $plugin_name => $dummy) {
                         if (isset($this->template->required_plugins['compiled'][$plugin_name]['modifier'])) {
                             $this->template->required_plugins['nocache'][$plugin_name]['modifier'] = $this->template->required_plugins['compiled'][$plugin_name]['modifier'];
                         } 
                     } 
-                    unset($this->template->saved_modifer);
+                    unset($this->template->saved_modifier);
                 } 
             } else {
                 $_output = $content;
