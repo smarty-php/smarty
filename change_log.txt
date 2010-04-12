@@ -1,3 +1,6 @@
+12/04/2010
+- bugfix in smarty_internal_templatecompilerbase (overloaded property)
+
 07/04/2010
 - bugfix typo in smarty_internal_templatecompilerbase 
 

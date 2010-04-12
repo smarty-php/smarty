@@ -374,7 +374,7 @@ class Smarty_Internal_TemplateCompilerBase {
                             $this->template->required_plugins['nocache'][$plugin_name]['modifier'] = $this->template->required_plugins['compiled'][$plugin_name]['modifier'];
                         } 
                     } 
-                    unset($this->template->saved_modifier);
+                    $this->template->saved_modifier = null;
                 } 
             } else {
                 $_output = $content;
