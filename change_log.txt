@@ -1,5 +1,6 @@
 12/04/2010
 - bugfix in smarty_internal_templatecompilerbase (overloaded property)
+- removed parser restrictions in using true,false and null as ID
 
 07/04/2010
 - bugfix typo in smarty_internal_templatecompilerbase 
