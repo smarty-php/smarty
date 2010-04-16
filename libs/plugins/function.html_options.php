@@ -90,7 +90,7 @@ function smarty_function_html_options($params, $smarty, $template)
 
     if (!empty($name)) {
         $_html_result = '<select name="' . $name . '"' . $extra . '>' . "\n" . $_html_result . '</select>' . "\n";
-    }
+    } 
 
     return $_html_result;
 } 
@@ -111,7 +111,7 @@ function smarty_function_html_options_optoutput($key, $value, $selected)
 
 function smarty_function_html_options_optgroup($key, $values, $selected)
 {
-    $optgroup_html = '<optgroup>' . "\n";
+    $optgroup_html = '<optgroup label="' . smarty_function_escape_special_chars($key) . '">' . "\n";
     foreach ($values as $key => $value) {
         $optgroup_html .= smarty_function_html_options_optoutput($key, $value, $selected);
     } 
