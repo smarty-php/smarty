@@ -1,3 +1,7 @@
+2010-04-17  Uwe Tews
+
+    * Fixed security hole in {math} plugin
+    
 2007-09-27  TAKAGI Masahiro  <matakagi@gmail.com>
 
     * docs/ja/designers/language-custom-functions/language-function-html-checkboxes.xml:
