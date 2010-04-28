@@ -1,3 +1,16 @@
+27/04/2010
+- change default of $debugging_ctrl to 'NONE'
+- optimization of compiled code of {foreach} and {for} loops
+- change of compiler for config variables
+
+27/04/2010
+- bugfix in $smarty->cache->clear() method. (do not cache template object)
+
+
+17/04/2010
+- security fix in {math} plugin
+
+
 12/04/2010
 - bugfix in smarty_internal_templatecompilerbase (overloaded property)
 - removed parser restrictions in using true,false and null as ID

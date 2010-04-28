@@ -161,7 +161,7 @@ class Smarty extends Smarty_Internal_Data {
     public $direct_access_security = true; 
     // debug mode
     public $debugging = false;
-    public $debugging_ctrl = 'URL';
+    public $debugging_ctrl = 'NONE';
     public $smarty_debug_id = 'SMARTY_DEBUG';
     public $debug_tpl = null; 
     // When set, smarty does uses this value as error_reporting-level.

@@ -240,10 +240,12 @@ class Smarty_Internal_Config {
         } else {
             $this->smarty->properties['file_dependency'][sha1($this->getConfigFilepath())] = array($this->getConfigFilepath(), $this->getTimestamp());
         } 
-        $config_data = unserialize($this->getCompiledConfig()); 
-        // var_dump($config_data);
+        if ($this->mustCompile()) {
+            $this->compileConfigSource();
+        } 
+        include($this->getCompiledFilepath ());
         // copy global config vars
-        foreach ($config_data['vars'] as $variable => $value) {
+        foreach ($_config_vars['vars'] as $variable => $value) {
             if ($this->smarty->config_overwrite || !isset($scope->config_vars[$variable])) {
                 $scope->config_vars[$variable] = $value;
             } else {
@@ -251,9 +253,9 @@ class Smarty_Internal_Config {
             } 
         } 
         // scan sections
-        foreach ($config_data['sections'] as $this_section => $dummy) {
+        foreach ($_config_vars['sections'] as $this_section => $dummy) {
             if ($sections == null || in_array($this_section, (array)$sections)) {
-                foreach ($config_data['sections'][$this_section]['vars'] as $variable => $value) {
+                foreach ($_config_vars['sections'][$this_section]['vars'] as $variable => $value) {
                     if ($this->smarty->config_overwrite || !isset($scope->config_vars[$variable])) {
                         $scope->config_vars[$variable] = $value;
                     } else {

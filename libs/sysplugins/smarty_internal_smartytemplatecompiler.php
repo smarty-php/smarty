@@ -14,6 +14,8 @@ require_once("smarty_internal_parsetree.php");
  * Class SmartyTemplateCompiler
  */
 class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase {
+    // array of vars which can be compiled in local scope
+    public $local_var = array();
     /**
      * Initialize compiler
      */
