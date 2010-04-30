@@ -23,7 +23,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
     public function compile($args, $compiler, $tag, $function)
     {
         $this->compiler = $compiler;
-        if (strlen($tag) < 6 || substr_compare($tag, 'close', -5, 5) != 0) {
+        if (strlen($tag) < 6 || substr($tag, -5) != 'close') {
             // opening tag of block plugin
             $this->required_attributes = array();
             $this->optional_attributes = array('_any'); 
