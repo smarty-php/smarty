@@ -3,6 +3,7 @@
 - work around of a substr_compare bug in older PHP5 versions
 - bugfix on template inheritance for tag names starting with "block"
 - bugfix on {function} tag with name attribute in doublequoted strings
+- fix to make calling of template functions unambiguously by madatory usage of the {call} tag
 
 =====  RC1 =====
 
