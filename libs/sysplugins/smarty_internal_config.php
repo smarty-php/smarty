@@ -172,7 +172,7 @@ class Smarty_Internal_Config {
     public function mustCompile ()
     {
         return $this->mustCompile === null ?
-        $this->mustCompile = ($this->smarty->force_compile || $this->smarty->compile_check && $this->getCompiledTimestamp () !== $this->getTimestamp ()):
+        $this->mustCompile = ($this->smarty->force_compile || $this->smarty->compile_check && $this->getCompiledTimestamp () < $this->getTimestamp ()):
         $this->mustCompile;
     } 
     /**
