@@ -1,6 +1,8 @@
 30/04/2010
 - bugfix when comparing timestamps in sysplugins/smarty_internal_config.php
 - work around of a substr_compare bug in older PHP5 versions
+- bugfix on template inheritance for tag names starting with "block"
+- bugfix on {function} tag with name attribute in doublequoted strings
 
 =====  RC1 =====
 
