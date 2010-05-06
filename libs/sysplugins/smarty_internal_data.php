@@ -188,7 +188,7 @@ class Smarty_Internal_Data {
                     $_ptr = null;
                 } 
             } 
-            if ($search_parents) {
+            if ($search_parents && isset($this->global_tpl_vars)) {
                 foreach ($this->global_tpl_vars AS $key => $var) {
                     $_result[$key] = $var->value;
                 } 
