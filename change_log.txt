@@ -1,3 +1,6 @@
+06/05/2010
+- bugfix when merging compiled templates and objects are passed as parameter of the {include} tag
+
 05/05/2010
 - bugfix on {insert} to cache parameter
 - implementation of $smarty->default_modifiers as in Smarty2
