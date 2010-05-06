@@ -1,5 +1,6 @@
 05/05/2010
 - bugfix on {insert} to cache parameter
+- implementation of $smarty->default_modifiers as in Smarty2
 
 01/05/2010
 - bugfix on handling of variable method names at object chaning
