@@ -356,7 +356,6 @@ class Smarty_Internal_TemplateCompilerBase {
             // generate replacement code
             if ((!$this->template->resource_object->isEvaluated || $this->template->forceNocache) && $this->template->caching && !$this->suppressNocacheProcessing &&
                     ($this->nocache || $this->tag_nocache || $this->template->forceNocache == 2)) {
-                $this->tag_nocache = false;
                 $this->template->has_nocache_code = true;
                 $_output = str_replace("'", "\'", $content);
                 $_output = "<?php echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/" . $_output . "/*/%%SmartyNocache:{$this->nocache_hash}%%*/';?>"; 
@@ -376,6 +375,7 @@ class Smarty_Internal_TemplateCompilerBase {
             $_output = $content;
         } 
         $this->suppressNocacheProcessing = false;
+        $this->tag_nocache = false;
         return $_output;
     } 
     /**
