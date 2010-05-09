@@ -1,3 +1,6 @@
+09/05/2010
+- update of template and config file parser because of minor parser generator bugs 
+
 07/05/2010
 - bugfix on {insert} 
 
