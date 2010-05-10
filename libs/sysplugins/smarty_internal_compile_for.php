@@ -43,9 +43,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        $this->_open_tag('for', array('for', $this->compiler->nocache)); 
-        // maybe nocache because of nocache variables
-        $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache;
+        $local_vars = array();
 
         $output = "<?php ";
         if (isset($_attr['ifexp'])) {
@@ -53,12 +51,14 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
                 $output .= " \$_smarty_tpl->tpl_vars[$_statement[var]] = new Smarty_Variable;";
                 $output .= " \$_smarty_tpl->tpl_vars[$_statement[var]]->value = $_statement[value];\n";
                 $compiler->local_var[$_statement['var']] = true;
+                $local_vars[] = $_statement['var'];
             } 
             $output .= "  if ($_attr[ifexp]){ for (\$_foo=true;$_attr[ifexp]; \$_smarty_tpl->tpl_vars[$_attr[varloop]]->value$_attr[loop]){\n";
         } else {
             $_statement = $_attr['start'];
             $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]] = new Smarty_Variable;";
             $compiler->local_var[$_statement['var']] = true;
+            $local_vars[] = $_statement['var'];
             if (isset($_attr['step'])) {
                 $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->step = $_attr[step];";
             } else {
@@ -74,7 +74,11 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
             $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->first = \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration == 1;";
             $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->last = \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration == \$_smarty_tpl->tpl_vars[$_statement[var]]->total;";
         } 
-        $output .= "?>"; 
+        $output .= "?>";
+
+        $this->_open_tag('for', array('for', $this->compiler->nocache, $local_vars)); 
+        // maybe nocache because of nocache variables
+        $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache; 
         // return compiled code
         return $output;
     } 
@@ -97,8 +101,8 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
-        list($_open_tag, $nocache) = $this->_close_tag(array('for'));
-        $this->_open_tag('forelse', array('forelse', $nocache));
+        list($_open_tag, $nocache, $local_vars) = $this->_close_tag(array('for'));
+        $this->_open_tag('forelse', array('forelse', $nocache, $local_vars));
         return "<?php }} else { ?>";
     } 
 } 
@@ -124,7 +128,11 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase {
             $this->compiler->tag_nocache = true;
         } 
 
-        list($_open_tag, $this->compiler->nocache) = $this->_close_tag(array('for', 'forelse'));
+        list($_open_tag, $this->compiler->nocache, $local_vars) = $this->_close_tag(array('for', 'forelse'));
+
+        foreach ($local_vars as $var) {
+            unset($compiler->local_var[$var]);
+        } 
         if ($_open_tag == 'forelse')
             return "<?php }  ?>";
         else
