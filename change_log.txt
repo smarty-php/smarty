@@ -1,5 +1,6 @@
 11/05/2010
 - bugfix  make sure that the cache resource is loaded in all conditions when template methods getCached... are called externally
+- reverted the change 0f 30/04/2010. With the exception of forward references template functions can be again called by a standard tag.
 
 10/05/2010
 - bugfix on {foreach} and {for} optimizations of 27/04/2010 

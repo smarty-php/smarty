@@ -110,7 +110,14 @@ class Smarty_Internal_TemplateCompilerBase {
         $this->has_code = true;
         $this->has_output = false; 
         // compile the smarty tag (required compile classes to compile the tag are autoloaded)
-        if (($_output = $this->callTagCompiler($tag, $args)) !== false) {
+        if (($_output = $this->callTagCompiler($tag, $args)) === false) {
+            if (isset($this->smarty->template_functions[$tag])) {
+                // template defined by {template} tag
+                $args['name'] = "'" . $tag . "'";
+                $_output = $this->callTagCompiler('call', $args);
+            } 
+        } 
+        if ($_output !== false) {
             if ($_output !== true) {
                 // did we get compiled code
                 if ($this->has_code) {
