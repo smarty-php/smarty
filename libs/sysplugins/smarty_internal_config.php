@@ -172,7 +172,7 @@ class Smarty_Internal_Config {
     public function mustCompile ()
     {
         return $this->mustCompile === null ?
-        $this->mustCompile = ($this->smarty->force_compile || $this->smarty->compile_check && $this->getCompiledTimestamp () < $this->getTimestamp ()):
+        $this->mustCompile = ($this->smarty->force_compile || $this->getCompiledTimestamp () === false || $this->smarty->compile_check && $this->getCompiledTimestamp () < $this->getTimestamp ()):
         $this->mustCompile;
     } 
     /**
@@ -243,7 +243,7 @@ class Smarty_Internal_Config {
         if ($this->mustCompile()) {
             $this->compileConfigSource();
         } 
-        include($this->getCompiledFilepath ());
+        include($this->getCompiledFilepath ()); 
         // copy global config vars
         foreach ($_config_vars['vars'] as $variable => $value) {
             if ($this->smarty->config_overwrite || !isset($scope->config_vars[$variable])) {
