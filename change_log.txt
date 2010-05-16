@@ -1,3 +1,5 @@
+16/05/2010
+- bugfix when passing parameter with numeric name like {foo 1='bar' 2='blar'}
 14/05/2010
 - bugfix compile new config files if compile_check and force_compile = false
 - added variable static classes names to template syntax
