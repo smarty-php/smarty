@@ -1,25 +1,25 @@
 <?php
 
 /**
-* Smarty Internal Plugin Compile Include
-* 
-* Compiles the {include} tag
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile Include
+ * 
+ * Compiles the {include} tag
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
 /**
-* Smarty Internal Plugin Compile Include Class
-*/
+ * Smarty Internal Plugin Compile Include Class
+ */
 class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {include} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the {include} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
@@ -40,14 +40,23 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                         // needs code for cached page but no cache file
                         $tpl->caching = 9999;
                     } 
+                   if ($this->compiler->template->mustCompile) {
+                        // make sure whole chain gest compiled
+                        $tpl->mustCompile = true;
+                    } 
                     if ($tpl->resource_object->usesCompiler && $tpl->isExisting()) {
-                        // make sure that template is up to date and merge template properties
-//                        $tpl->renderTemplate();   // 06/05/2010
-                        $compiled_tpl = $tpl->getCompiledTemplate(); // 06/05/2010
-                        // compiled code for {function} tags
-                        $compiler->template->properties['function'] = array_merge($compiler->template->properties['function'], $tpl->properties['function']);
                         // get compiled code
- //                       $compiled_tpl = $tpl->getCompiledTemplate();   // 06/05/2010
+                        $compiled_tpl = $tpl->getCompiledTemplate();
+                        // merge compiled code for {function} tags
+                        $compiler->template->properties['function'] = array_merge($compiler->template->properties['function'], $tpl->properties['function']); 
+                        // merge filedependency by evaluating header code
+                        preg_match_all("/(<\?php \/\*%%SmartyHeaderCode:{$tpl->properties['nocache_hash']}%%\*\/(.+?)\/\*\/%%SmartyHeaderCode%%\*\/\?>\n)/s", $compiled_tpl, $result);
+                        $saved_has_nocache_code = $compiler->template->has_nocache_code;
+                        $saved_nocache_hash = $compiler->template->properties['nocache_hash'];
+                        $_smarty_tpl = $compiler->template;
+                        eval($result[2][0]);
+                        $compiler->template->properties['nocache_hash'] = $saved_nocache_hash;
+                        $compiler->template->has_nocache_code = $saved_has_nocache_code; 
                         // remove header code
                         $compiled_tpl = preg_replace("/(<\?php \/\*%%SmartyHeaderCode:{$tpl->properties['nocache_hash']}%%\*\/(.+?)\/\*\/%%SmartyHeaderCode%%\*\/\?>\n)/s", '', $compiled_tpl);
                         if ($tpl->has_nocache_code) {

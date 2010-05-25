@@ -1,24 +1,24 @@
 <?php
 /**
-* Smarty Internal Plugin Compile Function
-* 
-* Compiles the {function} {/function} tags
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile Function
+ * 
+ * Compiles the {function} {/function} tags
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
 /**
-* Smarty Internal Plugin Compile Function Class
-*/
+ * Smarty Internal Plugin Compile Function Class
+ */
 class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {function} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return boolean true
-    */
+     * Compiles code for the {function} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return boolean true
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
@@ -34,33 +34,39 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
         foreach ($_attr as $_key => $_data) {
             $compiler->template->properties['function'][$_name]['parameter'][$_key] = $_data;
         } 
-        // make function known for recursive calls
-        $this->compiler->smarty->template_functions[$_name]['compiled'] = ''; 
+        if ($compiler->template->caching) {
+            $output = '';
+        } else {
+            $output = "<?php if (!function_exists('smarty_template_function_{$_name}')) {
+	function smarty_template_function_{$_name}(\$_smarty_tpl,\$params) {
+	\$saved_tpl_vars = \$_smarty_tpl->tpl_vars;
+	foreach (\$params as \$key => \$value) {\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(\$value);}?>";
+        } 
         // Init temporay context
         $compiler->template->required_plugins = array('compiled' => array(), 'nocache' => array());
         $compiler->template->extract_code = true;
-        $compiler->template->extracted_compiled_code = '';
+        $compiler->template->extracted_compiled_code = $output;
         $compiler->template->has_nocache_code = false;
         $compiler->has_code = false;
+        $compiler->template->properties['function'][$_name]['compiled'] = '';
         return true;
     } 
 } 
 
 /**
-* Smarty Internal Plugin Compile Functionclose Class
-*/
+ * Smarty Internal Plugin Compile Functionclose Class
+ */
 class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {/function} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return boolean true
-    */
+     * Compiles code for the {/function} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return boolean true
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
-        $this->compiler->has_code = false;
         $_attr = $this->_get_attributes($args);
         $saved_data = $this->_close_tag(array('function'));
         $_name = trim($saved_data[0]['name'], "'\""); 
@@ -84,16 +90,24 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase 
             } 
             $plugins_string .= "?>/*/%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/';?>\n";
         } 
-        $compiler->template->properties['function'][$_name]['compiled'] = $plugins_string . $compiler->template->extracted_compiled_code;
-        $compiler->template->properties['function'][$_name]['nocache_hash'] = $compiler->template->properties['nocache_hash'];
-        $compiler->template->properties['function'][$_name]['has_nocache_code'] = $compiler->template->has_nocache_code; 
-        $this->compiler->smarty->template_functions[$_name] = $compiler->template->properties['function'][$_name]; 
+        // if caching save template function for possible nocache call
+        if ($compiler->template->caching) {
+            $compiler->template->properties['function'][$_name]['compiled'] .= $plugins_string
+             . $compiler->template->extracted_compiled_code;
+            $compiler->template->properties['function'][$_name]['nocache_hash'] = $compiler->template->properties['nocache_hash'];
+            $compiler->template->properties['function'][$_name]['has_nocache_code'] = $compiler->template->has_nocache_code;
+            $compiler->smarty->template_functions[$_name] = $compiler->template->properties['function'][$_name];
+            $compiler->has_code = false;
+            $output = true;
+        } else {
+            $output = $plugins_string . $compiler->template->extracted_compiled_code . "<?php \$_smarty_tpl->tpl_vars = \$saved_tpl_vars;}}?>\n";
+        } 
         // restore old compiler status
         $compiler->template->extracted_compiled_code = $saved_data[1];
         $compiler->template->extract_code = $saved_data[2];
-        $compiler->template->has_nocache_code = $saved_data[3];
+        $compiler->template->has_nocache_code = $compiler->template->has_nocache_code | $saved_data[3];
         $compiler->template->required_plugins = $saved_data[4];
-        return true;
+        return $output;
     } 
 } 
 
