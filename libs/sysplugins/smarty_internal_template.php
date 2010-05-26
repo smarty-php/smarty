@@ -712,7 +712,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                     if (class_exists($_resource_class, false)) {
                         return new $_resource_class($this->smarty);
                     } else {
-                        $this->smarty->register_resource($resource_type,
+                        $this->smarty->register->resource($resource_type,
                             array("smarty_resource_{$resource_type}_source",
                                 "smarty_resource_{$resource_type}_timestamp",
                                 "smarty_resource_{$resource_type}_secure",
