@@ -1,5 +1,6 @@
 27/05/2010
 - bugfix on object chaining using variable properties
+- make scope of {counter} and {cycle} tags again global as in Smarty2
 
 26/05/2010
 - bugfix removed decrepated register_resource call in smarty_internal_template.php
