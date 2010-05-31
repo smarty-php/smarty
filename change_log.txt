@@ -1,3 +1,6 @@
+31/05/2010
+- bugfix the parser did not allow some smarty variables with special name like $for, $if, $else and others.
+
 27/05/2010
 - bugfix on object chaining using variable properties
 - make scope of {counter} and {cycle} tags again global as in Smarty2
