@@ -35,7 +35,4 @@ function smarty_function_popup_init($params, $smarty, $template)
         trigger_error("popup_init: missing src parameter",E_USER_WARNING);
     }
 }
-
-/* vim: set expandtab: */
-
 ?>

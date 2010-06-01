@@ -1,5 +1,7 @@
 01/06/2010
 - bugfix on template functions used with template inheritance
+- removed /* vim: set expandtab: */ comments
+- bugfix of auto literal problem introduce with fix of 31/05/2010
 
 31/05/2010
 - bugfix the parser did not allow some smarty variables with special name like $for, $if, $else and others.

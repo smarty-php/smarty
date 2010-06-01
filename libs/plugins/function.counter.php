@@ -74,7 +74,4 @@ function smarty_function_counter($params, $smarty)
     return $retval;
     
 }
-
-/* vim: set expandtab: */
-
 ?>
