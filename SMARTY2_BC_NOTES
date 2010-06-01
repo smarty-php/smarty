@@ -5,6 +5,15 @@
 Smarty 3 API has a new syntax. Much of the Smarty 2 syntax is supported but
 deprecated. See the README that comes with Smarty 3 for more information.
 
+The {$array|@mod} syntax has always been a bit confusing, where an "@" is required
+to apply a modifier to an array instead of the individual elements. Normally you
+always want the modifier to apply to the variable regardless of its type. In Smarty 3,
+{$array|mod} and {$array|@mod} behave identical. It is safe to drop the "@" and the
+modifier will still apply to the array. If you really want the modifier to apply to
+each array element, you must loop the array in-template, or use a custom modifier that
+supports array iteration. Most smarty functions already escape values where necessary
+such as {html_options}
+
 == PHP Version ==
 Smarty 3 is PHP 5 only. It will not work with PHP 4.
 
