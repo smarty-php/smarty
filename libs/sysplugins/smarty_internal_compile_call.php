@@ -49,7 +49,7 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase {
                 $_paramsArray[] = "'$_key'=>$_value";
             } 
         } 
-        if (isset($compiler->template->properties['function'][$_name])) {
+        if (isset($compiler->template->properties['function'][$_name]['parameter'])) {
             foreach ($compiler->template->properties['function'][$_name]['parameter'] as $_key => $_value) {
                 if (!isset($_attr[$_key])) {
                     if (is_int($_key)) {
@@ -59,8 +59,8 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase {
                     } 
                 } 
             } 
-        } elseif (isset($this->smarty->template->properties['function'][$_name])) {
-            foreach ($this->smarty->template->properties['function'][$_name]['parameter'] as $_key => $_value) {
+        } elseif (isset($this->smarty->template_functions[$_name]['parameter'])) {
+           foreach ($this->smarty->template_functions[$_name]['parameter'] as $_key => $_value) {
                 if (!isset($_attr[$_key])) {
                     if (is_int($_key)) {
                         $_paramsArray[] = "$_key=>$_value";
