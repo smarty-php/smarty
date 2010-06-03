@@ -31,12 +31,11 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
         $this->_open_tag('function', $save);
         $_name = trim($_attr['name'], "'\"");
         unset($_attr['name']);
+        $compiler->template->properties['function'][$_name]['parameter'] = array();
         foreach ($_attr as $_key => $_data) {
             $compiler->template->properties['function'][$_name]['parameter'][$_key] = $_data;
         } 
-        if (isset($compiler->template->properties['function'][$_name]['parameter'])) {
-            $compiler->smarty->template_functions[$_name]['parameter'] = $compiler->template->properties['function'][$_name]['parameter'];
-        } 
+        $compiler->smarty->template_functions[$_name]['parameter'] = $compiler->template->properties['function'][$_name]['parameter'];
         if ($compiler->template->caching) {
             $output = '';
         } else {

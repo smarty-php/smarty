@@ -1,3 +1,6 @@
+03/06/2010
+- bugfix on calling template functions like Smarty tags
+
 01/06/2010
 - bugfix on template functions used with template inheritance
 - removed /* vim: set expandtab: */ comments
