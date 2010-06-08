@@ -68,6 +68,19 @@ class Smarty_Internal_Data {
         } 
     } 
     /**
+    * wrapper function for Smarty 2 BC
+    * 
+    * @param string $tpl_var the template variable name
+    * @param mixed $ &$value the referenced value to assign
+    * @param boolean $nocache if true any output of this variable will be not cached
+    * @param boolean $scope the scope the variable will have  (local,parent or root)
+    */
+    public function assign_by_ref($tpl_var, &$value, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
+    {
+        trigger_error("function call 'assign_by_ref' is unknown or deprecated, use 'assignByRef'",E_USER_NOTICE);
+	$this->assignByRef($tpl_var,$value,$nocache,$scope);
+    } 
+    /**
     * appends values to template variables
     * 
     * @param array $ |string $tpl_var the template variable name(s)
@@ -157,7 +170,18 @@ class Smarty_Internal_Data {
             } 
         } 
     } 
-
+    /**
+    * wrapper function for Smarty 2 BC
+    * 
+    * @param string $tpl_var the template variable name
+    * @param mixed $ &$value the referenced value to append
+    * @param boolean $merge flag if array elements shall be merged
+    */
+    public function append_by_ref($tpl_var, &$value, $merge = false)
+    {
+        trigger_error("function call 'append_by_ref' is unknown or deprecated, use 'appendByRef'",E_USER_NOTICE);
+        $this->appendByRef($tpl_var,$value,$merge);
+    }
     /**
     * Returns a single or all template variables
     * 
