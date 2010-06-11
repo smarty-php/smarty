@@ -842,13 +842,14 @@ class Smarty_Internal_Templatelexer
               2 => 0,
               3 => 0,
               4 => 0,
-              5 => 2,
-              8 => 0,
+              5 => 0,
+              6 => 2,
+              9 => 0,
             );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^(<\\?(?:php\\w+|=|[a-zA-Z]+)?)|^(\\?>)|^(([\S\s]*?)(?=(".$this->ldel."\/?literal".$this->rdel."|<\\?)))|^([\S\s]+)/";
+        $yy_global_pattern = "/^(".$this->ldel."literal".$this->rdel.")|^(".$this->ldel."\/literal".$this->rdel.")|^([\t ]*[\r\n]+[\t ]*)|^(<\\?(?:php\\w+|=|[a-zA-Z]+)?)|^(\\?>)|^(([\S\s]*?)(?=([\t ]*[\r\n]+[\t ]*|".$this->ldel."\/?literal".$this->rdel."|<\\?)))|^([\S\s]+)/";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -913,6 +914,11 @@ class Smarty_Internal_Templatelexer
     function yy_r3_3($yy_subpatterns)
     {
 
+  $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
+    }
+    function yy_r3_4($yy_subpatterns)
+    {
+
   if (in_array($this->value, Array('<?', '<?=', '<?php'))) {
     $this->token = Smarty_Internal_Templateparser::TP_PHPSTARTTAG;
    } else {
@@ -920,17 +926,17 @@ class Smarty_Internal_Templatelexer
     $this->value = substr($this->value, 0, 2);
    }
     }
-    function yy_r3_4($yy_subpatterns)
-    {
-
-  $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
-    }
     function yy_r3_5($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
     }
-    function yy_r3_8($yy_subpatterns)
+    function yy_r3_6($yy_subpatterns)
+    {
+
+  $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
+    }
+    function yy_r3_9($yy_subpatterns)
     {
 
   $this->compiler->trigger_template_error ("missing or misspelled literal closing tag");
