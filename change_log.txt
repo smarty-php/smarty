@@ -1,3 +1,7 @@
+13/06/2010
+- bugfix Smarty3 did not handle hexadecimals like 0x0F as numerical value
+- bugifx Smarty3 did not accept numerical constants like .1 or 2. (without a leading or trailing digit)
+
 11/06/2010
 - bugfix the lexer did fail on larger {literal} ... {/literal} sections
 

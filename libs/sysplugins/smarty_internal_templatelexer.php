@@ -406,11 +406,12 @@ class Smarty_Internal_Templatelexer
               85 => 0,
               86 => 0,
               87 => 0,
+              88 => 0,
             );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s*(if|elseif|else if|while)(?![^\s]))|^(".$this->ldel."\\s*for(?![^\s]))|^(".$this->ldel."\\s*foreach(?![^\s]))|^(".$this->ldel."\\s{1,})|^(\\s{1,}".$this->rdel.")|^(".$this->ldel."\/)|^(".$this->ldel.")|^(".$this->rdel.")|^(\\s+is\\s+in\\s+)|^(\\s+(AS|as)\\s+)|^(\\s+(to)\\s+)|^(\\s+(step)\\s+)|^(\\s+instanceof\\s+)|^(\\s*===\\s*)|^(\\s*!==\\s*)|^(\\s*==\\s*|\\s+(EQ|eq)\\s+)|^(\\s*!=\\s*|\\s*<>\\s*|\\s+(NE|NEQ|ne|neq)\\s+)|^(\\s*>=\\s*|\\s+(GE|GTE|ge|gte)\\s+)|^(\\s*<=\\s*|\\s+(LE|LTE|le|lte)\\s+)|^(\\s*>\\s*|\\s+(GT|gt)\\s+)|^(\\s*<\\s*|\\s+(LT|lt)\\s+)|^(\\s+(MOD|mod)\\s+)|^(!\\s*|(NOT|not)\\s+)|^(\\s*&&\\s*|\\s*(AND|and)\\s+)|^(\\s*\\|\\|\\s*|\\s*(OR|or)\\s+)|^(\\s*(XOR|xor)\\s+)|^(\\s+is\\s+odd\\s+by\\s+)|^(\\s+is\\s+not\\s+odd\\s+by\\s+)|^(\\s+is\\s+odd)|^(\\s+is\\s+not\\s+odd)|^(\\s+is\\s+even\\s+by\\s+)|^(\\s+is\\s+not\\s+even\\s+by\\s+)|^(\\s+is\\s+even)|^(\\s+is\\s+not\\s+even)|^(\\s+is\\s+div\\s+by\\s+)|^(\\s+is\\s+not\\s+div\\s+by\\s+)|^(\\((int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)\\))|^(\\(\\s*)|^(\\s*\\))|^(\\[\\s*)|^(\\s*\\])|^(\\s*->\\s*)|^(\\s*=>\\s*)|^(\\s*=\\s*)|^((\\+\\+|--)\\s*)|^(\\s*(\\+|-)\\s*)|^(\\s*(\\*|\/|%)\\s*)|^(\\$)|^(\\s*;)|^(::)|^(\\s*:\\s*)|^(@)|^(#)|^(\")|^(`)|^(\\|)|^(\\.)|^(\\s*,\\s*)|^(\\s*&\\s*)|^(\\s*\\?\\s*)|^([0-9]*[a-zA-Z_]\\w*)|^(\\d+)|^(\\s+)|^(.)/";
+        $yy_global_pattern = "/^('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s*(if|elseif|else if|while)(?![^\s]))|^(".$this->ldel."\\s*for(?![^\s]))|^(".$this->ldel."\\s*foreach(?![^\s]))|^(".$this->ldel."\\s{1,})|^(\\s{1,}".$this->rdel.")|^(".$this->ldel."\/)|^(".$this->ldel.")|^(".$this->rdel.")|^(\\s+is\\s+in\\s+)|^(\\s+(AS|as)\\s+)|^(\\s+(to)\\s+)|^(\\s+(step)\\s+)|^(\\s+instanceof\\s+)|^(\\s*===\\s*)|^(\\s*!==\\s*)|^(\\s*==\\s*|\\s+(EQ|eq)\\s+)|^(\\s*!=\\s*|\\s*<>\\s*|\\s+(NE|NEQ|ne|neq)\\s+)|^(\\s*>=\\s*|\\s+(GE|GTE|ge|gte)\\s+)|^(\\s*<=\\s*|\\s+(LE|LTE|le|lte)\\s+)|^(\\s*>\\s*|\\s+(GT|gt)\\s+)|^(\\s*<\\s*|\\s+(LT|lt)\\s+)|^(\\s+(MOD|mod)\\s+)|^(!\\s*|(NOT|not)\\s+)|^(\\s*&&\\s*|\\s*(AND|and)\\s+)|^(\\s*\\|\\|\\s*|\\s*(OR|or)\\s+)|^(\\s*(XOR|xor)\\s+)|^(\\s+is\\s+odd\\s+by\\s+)|^(\\s+is\\s+not\\s+odd\\s+by\\s+)|^(\\s+is\\s+odd)|^(\\s+is\\s+not\\s+odd)|^(\\s+is\\s+even\\s+by\\s+)|^(\\s+is\\s+not\\s+even\\s+by\\s+)|^(\\s+is\\s+even)|^(\\s+is\\s+not\\s+even)|^(\\s+is\\s+div\\s+by\\s+)|^(\\s+is\\s+not\\s+div\\s+by\\s+)|^(\\((int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)\\))|^(\\(\\s*)|^(\\s*\\))|^(\\[\\s*)|^(\\s*\\])|^(\\s*->\\s*)|^(\\s*=>\\s*)|^(\\s*=\\s*)|^((\\+\\+|--)\\s*)|^(\\s*(\\+|-)\\s*)|^(\\s*(\\*|\/|%)\\s*)|^(\\$)|^(\\s*;)|^(::)|^(\\s*:\\s*)|^(@)|^(#)|^(\")|^(`)|^(\\|)|^(\\.)|^(\\s*,\\s*)|^(\\s*&\\s*)|^(\\s*\\?\\s*)|^(0[xX][0-9a-fA-F]+)|^([0-9]*[a-zA-Z_]\\w*)|^(\\d+)|^(\\s+)|^(.)/";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -815,19 +816,24 @@ class Smarty_Internal_Templatelexer
     function yy_r2_84($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_ID;
+  $this->token = Smarty_Internal_Templateparser::TP_HEX;
     }
     function yy_r2_85($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_INTEGER;
+  $this->token = Smarty_Internal_Templateparser::TP_ID;
     }
     function yy_r2_86($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_SPACE;
+  $this->token = Smarty_Internal_Templateparser::TP_INTEGER;
     }
     function yy_r2_87($yy_subpatterns)
+    {
+
+  $this->token = Smarty_Internal_Templateparser::TP_SPACE;
+    }
+    function yy_r2_88($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
