@@ -1,5 +1,14 @@
+18/06/2010
+- added __toString method to the Smarty_Variable class
+
+
 14/06/2010
 - make handling of Smarty comments followed by newline BC to Smarty2
+
+
+=====  RC2 =====
+
+
 
 13/06/2010
 - bugfix Smarty3 did not handle hexadecimals like 0x0F as numerical value
