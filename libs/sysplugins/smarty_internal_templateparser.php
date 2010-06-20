@@ -2145,7 +2145,7 @@ static public $yy_action = array(
                                        $this->_retvalue = $this->compiler->processNocacheCode(htmlspecialchars('%>', ENT_QUOTES), false);
                                       }elseif ($this->sec_obj->php_handling == SMARTY_PHP_ALLOW) {
                                         if ($this->asp_tags) {
-                                          $this->_retvalue = $this->compiler->processNocacheCode('<%', true);
+                                          $this->_retvalue = $this->compiler->processNocacheCode('%>', true);
                                         } else {
                                          $this->_retvalue = '%<?php ?>>';
                                         }
