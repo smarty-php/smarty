@@ -1,3 +1,6 @@
+20/06/2010
+- replace internal get_time() calls with standard PHP5 microtime(true) calls
+
 18/06/2010
 - added __toString method to the Smarty_Variable class
 

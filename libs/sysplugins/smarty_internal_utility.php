@@ -273,15 +273,4 @@ class Smarty_Internal_Utility {
 
         return true;
     } 
-    /**
-     * Get Micro Time
-     * 
-     * @return double micro time
-     */
-    function _get_time()
-    {
-        $_mtime = microtime();
-        $_mtime = explode(" ", $_mtime);
-        return (double)($_mtime[1]) + (double)($_mtime[0]);
-    } 
 }

@@ -374,17 +374,6 @@ class Smarty_Internal_Data {
         } 
     } 
 
-    /**
-     * return current time
-     * 
-     * @returns double current time
-     */
-    function _get_time()
-    {
-        $_mtime = microtime();
-        $_mtime = explode(" ", $_mtime);
-        return (double)($_mtime[1]) + (double)($_mtime[0]);
-    } 
 } 
 
 /**
