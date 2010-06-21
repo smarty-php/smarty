@@ -129,6 +129,11 @@ class Smarty_Internal_CacheResource_File {
         if (isset($_cache_id)) {
             $_cache_id_parts = explode('|', $_cache_id);
             $_cache_id_parts_count = count($_cache_id_parts);
+            if ($this->smarty->use_sub_dirs) {
+                foreach ($_cache_id_parts as $id_part) {
+                    $_dir .= $id_part . DS;
+                } 
+            } 
         } 
         if (isset($resource_name)) {
             $_save_stat = $this->smarty->caching;
@@ -144,45 +149,47 @@ class Smarty_Internal_CacheResource_File {
             } 
         } 
         $_count = 0;
-        $_cacheDirs = new RecursiveDirectoryIterator($_dir);
-        $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
-        foreach ($_cache as $_file) {
-            if (strpos($_file, '.svn') !== false) continue; 
-            // directory ?
-            if ($_file->isDir()) {
-                if (!$_cache->isDot()) {
-                    // delete folder if empty
-                    @rmdir($_file->getPathname());
-                } 
-            } else {
-                $_parts = explode($_dir_sep, str_replace('\\', '/', substr((string)$_file, $_dir_length)));
-                $_parts_count = count($_parts); 
-                // check name
-                if (isset($resource_name)) {
-                    if ($_parts[$_parts_count-1] != $_resourcename_parts) {
+        if (file_exists($_dir)) {
+            $_cacheDirs = new RecursiveDirectoryIterator($_dir);
+            $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
+            foreach ($_cache as $_file) {
+                if (strpos($_file, '.svn') !== false) continue; 
+                // directory ?
+                if ($_file->isDir()) {
+                    if (!$_cache->isDot()) {
+                        // delete folder if empty
+                        @rmdir($_file->getPathname());
+                    } 
+                } else {
+                    $_parts = explode($_dir_sep, str_replace('\\', '/', substr((string)$_file, $_dir_length)));
+                    $_parts_count = count($_parts); 
+                    // check name
+                    if (isset($resource_name)) {
+                        if ($_parts[$_parts_count-1] != $_resourcename_parts) {
+                            continue;
+                        } 
+                    } 
+                    // check compile id
+                    if (isset($_compile_id) && (!isset($_parts[$_parts_count-2 - $_compile_id_offset]) || $_parts[$_parts_count-2 - $_compile_id_offset] != $_compile_id)) {
                         continue;
                     } 
-                } 
-                // check compile id
-                if (isset($_compile_id) && (!isset($_parts[$_parts_count-2 - $_compile_id_offset]) || $_parts[$_parts_count-2 - $_compile_id_offset] != $_compile_id)) {
-                    continue;
-                } 
-                // check cache id
-                if (isset($_cache_id)) {
-                    // count of cache id parts
-                    $_parts_count = (isset($_compile_id)) ? $_parts_count - 2 - $_compile_id_offset : $_parts_count - 1 - $_compile_id_offset;
-                    if ($_parts_count < $_cache_id_parts_count) {
+                    // check cache id
+                    if (isset($_cache_id)) {
+                        // count of cache id parts
+                        $_parts_count = (isset($_compile_id)) ? $_parts_count - 2 - $_compile_id_offset : $_parts_count - 1 - $_compile_id_offset;
+                        if ($_parts_count < $_cache_id_parts_count) {
+                            continue;
+                        } 
+                        for ($i = 0; $i < $_cache_id_parts_count; $i++) {
+                            if ($_parts[$i] != $_cache_id_parts[$i]) continue 2;
+                        } 
+                    } 
+                    // expired ?
+                    if (isset($exp_time) && time() - @filemtime($_file) < $exp_time) {
                         continue;
                     } 
-                    for ($i = 0; $i < $_cache_id_parts_count; $i++) {
-                        if ($_parts[$i] != $_cache_id_parts[$i]) continue 2;
-                    } 
+                    $_count += @unlink((string) $_file) ? 1 : 0;
                 } 
-                // expired ?
-                if (isset($exp_time) && time() - @filemtime($_file) < $exp_time) {
-                    continue;
-                } 
-                $_count += @unlink((string) $_file) ? 1 : 0;
             } 
         } 
         return $_count;

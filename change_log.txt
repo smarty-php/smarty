@@ -1,5 +1,6 @@
 21/06/2010
 - removed use of PHP shortags SMARTY_PHP_PASSTHRU mode
+- improved speed of cache->clear() when a compile_id was specified and use_sub_dirs is true 
 
 20/06/2010
 - replace internal get_time() calls with standard PHP5 microtime(true) calls
