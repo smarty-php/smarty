@@ -2092,7 +2092,7 @@ static public $yy_action = array(
                                       if ($this->sec_obj->php_handling == SMARTY_PHP_PASSTHRU) {
 					                             $this->_retvalue = self::escape_start_tag($this->yystack[$this->yyidx + 0]->minor);
                                       } elseif ($this->sec_obj->php_handling == SMARTY_PHP_QUOTE) {
-                                       $this->_retvalue = $this->compiler->processNocacheCode(htmlspecialchars($this->yystack[$this->yyidx + 0]->minor, ENT_QUOTES),false);
+                                       $this->_retvalue = htmlspecialchars($this->yystack[$this->yyidx + 0]->minor, ENT_QUOTES);
                                       }elseif ($this->sec_obj->php_handling == SMARTY_PHP_ALLOW) {
                                        $this->_retvalue = $this->compiler->processNocacheCode('<?php', true);
                                       }elseif ($this->sec_obj->php_handling == SMARTY_PHP_REMOVE) {
@@ -2106,9 +2106,9 @@ static public $yy_action = array(
                                        $this->is_xml = true; 
                                        $this->_retvalue = $this->compiler->processNocacheCode("<?php echo '?>';?>", $this->compiler, true);
                                       }elseif ($this->sec_obj->php_handling == SMARTY_PHP_PASSTHRU) {
-					                             $this->_retvalue = '?<??>>';
+					                             $this->_retvalue = '?<?php ?>>';
                                       } elseif ($this->sec_obj->php_handling == SMARTY_PHP_QUOTE) {
-                                       $this->_retvalue = $this->compiler->processNocacheCode(htmlspecialchars('?>', ENT_QUOTES), false);
+                                       $this->_retvalue = htmlspecialchars('?>', ENT_QUOTES);
                                       }elseif ($this->sec_obj->php_handling == SMARTY_PHP_ALLOW) {
                                        $this->_retvalue = $this->compiler->processNocacheCode('?>', true);
                                       }elseif ($this->sec_obj->php_handling == SMARTY_PHP_REMOVE) {
@@ -2121,7 +2121,7 @@ static public $yy_action = array(
                                       if ($this->sec_obj->php_handling == SMARTY_PHP_PASSTHRU) {
 					                             $this->_retvalue = '<<?php ?>%';
                                       } elseif ($this->sec_obj->php_handling == SMARTY_PHP_QUOTE) {
-                                       $this->_retvalue = $this->compiler->processNocacheCode(htmlspecialchars($this->yystack[$this->yyidx + 0]->minor, ENT_QUOTES),false);
+                                       $this->_retvalue = htmlspecialchars($this->yystack[$this->yyidx + 0]->minor, ENT_QUOTES);
                                       }elseif ($this->sec_obj->php_handling == SMARTY_PHP_ALLOW) {
                                         if ($this->asp_tags) {
                                           $this->_retvalue = $this->compiler->processNocacheCode('<%', true);
@@ -2142,7 +2142,7 @@ static public $yy_action = array(
                                       if ($this->sec_obj->php_handling == SMARTY_PHP_PASSTHRU) {
 					                             $this->_retvalue = '%<?php ?>>';
                                       } elseif ($this->sec_obj->php_handling == SMARTY_PHP_QUOTE) {
-                                       $this->_retvalue = $this->compiler->processNocacheCode(htmlspecialchars('%>', ENT_QUOTES), false);
+                                       $this->_retvalue = htmlspecialchars('%>', ENT_QUOTES);
                                       }elseif ($this->sec_obj->php_handling == SMARTY_PHP_ALLOW) {
                                         if ($this->asp_tags) {
                                           $this->_retvalue = $this->compiler->processNocacheCode('%>', true);
