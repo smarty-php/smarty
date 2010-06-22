@@ -1,3 +1,7 @@
+22/06/2010
+- allow spaces between typecast and value in template syntax
+- bugfix get correct count of traversables in {foreach} tag
+
 21/06/2010
 - removed use of PHP shortags SMARTY_PHP_PASSTHRU mode
 - improved speed of cache->clear() when a compile_id was specified and use_sub_dirs is true 
