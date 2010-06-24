@@ -1,3 +1,7 @@
+24/06/2010
+- replace internal get_time() calls with standard PHP5 microtime(true) calls in Smarty_Internal_Utility
+
+
 22/06/2010
 - allow spaces between typecast and value in template syntax
 - bugfix get correct count of traversables in {foreach} tag

@@ -73,12 +73,12 @@ class Smarty_Internal_Utility {
                 } 
                 echo '<br>', $_dir, '---', $_template_file;
                 flush();
-                $_start_time = $this->_get_time();
+                $_start_time = microtime(true);
                 try {
                     $_tpl = $this->smarty->createTemplate($_template_file);
                     if ($_tpl->mustCompile()) {
                         $_tpl->compileTemplateSource();
-                        echo ' compiled in  ', $this->_get_time() - $_start_time, ' seconds';
+                        echo ' compiled in  ', microtime(true) - $_start_time, ' seconds';
                         flush();
                     } else {
                         echo ' is up to date';
@@ -131,12 +131,12 @@ class Smarty_Internal_Utility {
                 } 
                 echo '<br>', $_dir, '---', $_config_file;
                 flush();
-                $_start_time = $this->_get_time();
+                $_start_time = microtime(true);
                 try {
                     $_config = new Smarty_Internal_Config($_config_file, $this->smarty);
                     if ($_config->mustCompile()) {
                         $_config->compileConfigSource();
-                        echo ' compiled in  ', $this->_get_time() - $_start_time, ' seconds';
+                        echo ' compiled in  ', microtime(true) - $_start_time, ' seconds';
                         flush();
                     } else {
                         echo ' is up to date';
