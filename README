@@ -551,6 +551,20 @@ function may become available in the future.
 You can call PHP functions a usual:
 <?php echo foo($bar); ?>
 
+
+STATIC CLASS ACCESS AND NAMESPACE SUPPORT
+=========================================
+
+You can register a class with optional namespace for the use in the template like:
+
+$smarty->register->templateClass('foo','name\name2\myclass');
+
+In the template you can use it like this:
+{foo::method()}  etc.
+
+
+=======================
+
 Please look through it and send any questions/suggestions/etc to the forums.
 
 http://www.phpinsider.com/smarty-forum/viewtopic.php?t=14168

@@ -97,6 +97,16 @@ class Smarty_Internal_Unregister {
     {
         unset($this->smarty->registered_objects[$object_name]);
     } 
+
+    /**
+    * Unregisters template class
+    * 
+    * @param string $object_name name of template object
+    */
+     function templateClass($class_name)
+    {
+        unset($this->smarty->registered_classes[$class_name]);
+    } 
     
     /**
     * Unregisters an output filter

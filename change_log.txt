@@ -1,5 +1,6 @@
 24/06/2010
 - replace internal get_time() calls with standard PHP5 microtime(true) calls in Smarty_Internal_Utility
+- added $smarty->register->templateClass() and $smarty->unregister->templateClass() methods for supporting static classes with namespace
 
 
 22/06/2010
