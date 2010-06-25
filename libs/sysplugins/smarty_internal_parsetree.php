@@ -6,7 +6,8 @@ abstract class _smarty_parsetree {
 
 /* A complete smarty tag. */
 
-class _smarty_tag extends _smarty_parsetree {
+class _smarty_tag extends _smarty_parsetree
+{
     public $parser;
     public $data;
     public $saved_block_nesting;
@@ -66,6 +67,8 @@ class _smarty_doublequoted extends _smarty_parsetree {
         if ($last_subtree >= 0 && $this->subtrees[$last_subtree] instanceof _smarty_tag && $this->subtrees[$last_subtree]->saved_block_nesting < $this->parser->block_nesting_level) {
             if ($subtree instanceof _smarty_code) {
                 $this->subtrees[$last_subtree]->data .= '<?php echo ' . $subtree->data . ';?>';
+            } elseif ($subtree instanceof _smarty_dq_content) {
+                $this->subtrees[$last_subtree]->data .= '<?php echo "' . $subtree->data . '";?>';
             } else {
                 $this->subtrees[$last_subtree]->data .= $subtree->data;
             } 
@@ -96,8 +99,7 @@ class _smarty_doublequoted extends _smarty_parsetree {
                 $this->parser->compiler->has_variable_string = true;
             } 
         } 
-
-//        $code = sprintf("(%s)", $code);
+        // $code = sprintf("(%s)", $code);
         return $code;
     } 
 } 
@@ -116,6 +118,5 @@ class _smarty_dq_content extends _smarty_parsetree {
         return '"' . $this->data . '"';
     } 
 } 
-
 
 ?>
