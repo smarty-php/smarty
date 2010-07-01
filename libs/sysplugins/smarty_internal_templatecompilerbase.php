@@ -155,7 +155,14 @@ class Smarty_Internal_TemplateCompilerBase {
                             if (!$this->smarty->registered_plugins[$type][$tag][1]) {
                                 $this->tag_nocache = true;
                             } 
-                            return call_user_func_array($this->smarty->registered_plugins[$type][$tag][0], array($args, $this));
+                            $function = $this->smarty->registered_plugins[$type][$tag][0];
+                            if (!is_array($function)) {
+                                return $function($args, $this);
+                            } else if (is_object($function[0])) {
+                                return $this->smarty->registered_plugins[$type][$tag][0][0]->$function[1]($args, $this);
+                            } else {
+                                return call_user_func_array($this->smarty->registered_plugins[$type][$tag][0], array($args, $this));
+                            } 
                         } 
                         // compile registered function or block function
                         if ($type == 'function' || $type == 'block') {
@@ -286,23 +293,6 @@ class Smarty_Internal_TemplateCompilerBase {
             } 
             return $function;
         } 
-        /**
-         * if (isset($this->template->required_plugins_call[$plugin_name][$type])) {
-         * if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
-         * if (isset($this->template->required_plugins['compiled'][$plugin_name])) {
-         * $this->template->required_plugins['cache'][$plugin_name] = $this->template->required_plugins['compiled'][$plugin_name];
-         * } 
-         * } else {
-         * if (isset($this->template->required_plugins['cache'][$plugin_name])) {
-         * $this->template->required_plugins['compiled'][$plugin_name] = $this->template->required_plugins['cache'][$plugin_name];
-         * } 
-         * } 
-         * if ($type == 'modifier') {
-         * $this->template->saved_modifier[$plugin_name] = true;
-         * } 
-         * return $this->template->required_plugins_call[$plugin_name][$type];
-         * }
-         */
         // loop through plugin dirs and find the plugin
         $function = 'smarty_' . $type . '_' . $plugin_name;
         $found = false;
@@ -315,7 +305,6 @@ class Smarty_Internal_TemplateCompilerBase {
             } 
         } 
         if ($found) {
-            // if (is_callable($plugin)) {
             if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
                 $this->template->required_plugins['nocache'][$plugin_name][$type]['file'] = $file;
                 $this->template->required_plugins['nocache'][$plugin_name][$type]['function'] = $function;
@@ -323,16 +312,6 @@ class Smarty_Internal_TemplateCompilerBase {
                 $this->template->required_plugins['compiled'][$plugin_name][$type]['file'] = $file;
                 $this->template->required_plugins['compiled'][$plugin_name][$type]['function'] = $function;
             } 
-            /**
-             * $this->template->required_plugins_call[$plugin_name][$type] = $plugin;
-             * if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
-             * $this->template->required_plugins['cache'][$plugin_name]['file'] = $file;
-             * $this->template->required_plugins['cache'][$plugin_name]['type'] = $type;
-             * } else {
-             * $this->template->required_plugins['compiled'][$plugin_name]['file'] = $file;
-             * $this->template->required_plugins['compiled'][$plugin_name]['type'] = $type;
-             * }
-             */
             if ($type == 'modifier') {
                 $this->template->saved_modifier[$plugin_name] = true;
             } 

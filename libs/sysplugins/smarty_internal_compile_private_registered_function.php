@@ -42,15 +42,14 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
             } 
         } 
         $_params = 'array(' . implode(",", $_paramsArray) . ')'; 
-        // compile code
         $function = $compiler->smarty->registered_plugins['function'][$tag][0]; 
         // compile code
         if (!is_array($function)) {
             $output = "<?php echo {$function}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
         } else if (is_object($function[0])) {
-            $output = "<?php echo call_user_func(\$_smarty_tpl->smarty->registered_plugins['function']['{$tag}'][0],{$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
+            $output = "<?php echo \$_smarty_tpl->smarty->registered_plugins['function']['{$tag}'][0][0]->{$function[1]}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
         } else {
-            $output = "<?php echo call_user_func(array('{$function[0]}','{$function[1]}'),{$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
+            $output = "<?php echo {$function[0]}::{$function[1]}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
         } 
         return $output;
     } 

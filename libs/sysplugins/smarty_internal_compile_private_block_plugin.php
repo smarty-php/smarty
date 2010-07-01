@@ -1,25 +1,25 @@
 <?php
 /**
-* Smarty Internal Plugin Compile Block Plugin
-* 
-* Compiles code for the execution of block plugin
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile Block Plugin
+ * 
+ * Compiles code for the execution of block plugin
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
 /**
-* Smarty Internal Plugin Compile Block Plugin Class
-*/
+ * Smarty Internal Plugin Compile Block Plugin Class
+ */
 class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the execution of block plugin
-    * 
-    * @param array $args array with attributes from parser
-    * @param string $tag name of block function
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the execution of block plugin
+     * 
+     * @param array $args array with attributes from parser
+     * @param string $tag name of block function
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler, $tag, $function)
     {
         $this->compiler = $compiler;
@@ -44,11 +44,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             // maybe nocache because of nocache variables or nocache plugin
             $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache; 
             // compile code
-            if (is_array($function)) {
-                $output = "<?php \$_smarty_tpl->smarty->_tag_stack[] = array('{$tag}', {$_params}); \$_block_repeat=true; call_user_func_array(array('{$function[0]}','{$function[1]}'),(array({$_params}, null, \$_smarty_tpl->smarty, &\$_block_repeat, \$_smarty_tpl));while (\$_block_repeat) { ob_start();?>";
-            } else {
-                $output = "<?php \$_smarty_tpl->smarty->_tag_stack[] = array('{$tag}', {$_params}); \$_block_repeat=true; {$function}({$_params}, null, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl);while (\$_block_repeat) { ob_start();?>";
-            } 
+            $output = "<?php \$_smarty_tpl->smarty->_tag_stack[] = array('{$tag}', {$_params}); \$_block_repeat=true; {$function}({$_params}, null, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl);while (\$_block_repeat) { ob_start();?>";
         } else {
             // must endblock be nocache?
             if ($this->compiler->nocache) {
@@ -59,13 +55,9 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             // This tag does create output
             $this->compiler->has_output = true; 
             // compile code
-            if (is_array($function)) {
-                $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false; echo call_user_func_array(array('{$function[0]}','{$function[1]}'),(array({$_params}, \$_block_content, \$_smarty_tpl->smarty, &\$_block_repeat, \$_smarty_tpl)); } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
-            } else {
-                $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false; echo {$function}({$_params}, \$_block_content, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl); } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
-            } 
+            $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false; echo {$function}({$_params}, \$_block_content, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl); } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
         } 
-        return $output."\n";
+        return $output . "\n";
     } 
 } 
 

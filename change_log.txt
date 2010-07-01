@@ -1,3 +1,6 @@
+01/07/2010
+- removed call_user_func_array calls for optimization of compiled code when using registered modifiers and plugins
+
 25/06/2010
 - bugfix escaping " when block tags are used within doublequoted strings
 
