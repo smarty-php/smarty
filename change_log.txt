@@ -1,3 +1,9 @@
+06/07/2010
+- create exception on recursive {extends} calls
+- fixed reported line number at "unexpected closing tag " exception
+- bugfix on escape:'mail' modifier
+- drop exception if 'item' variable is equal 'from' variable in {foreach} tag
+
 01/07/2010
 - removed call_user_func_array calls for optimization of compiled code when using registered modifiers and plugins
 

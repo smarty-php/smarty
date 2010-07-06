@@ -95,7 +95,7 @@ abstract class Smarty_Internal_CompileBase
             return;
         } 
         // wrong nesting of tags
-        $this->compiler->trigger_template_error("unexpected closing tag");
+        $this->compiler->trigger_template_error("unexpected closing tag",$this->compiler->lex->taglineno);
         return;
     } 
 } 

@@ -35,7 +35,11 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         // create template object
         $_template = new $compiler->smarty->template_class($include_file, $this->smarty, $compiler->template); 
         // save file dependency
-        $compiler->template->properties['file_dependency'][sha1($_template->getTemplateFilepath())] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
+        $template_sha1 = sha1($_template->getTemplateFilepath());
+        if (isset($compiler->template->properties['file_dependency'][$template_sha1])) {
+            $this->compiler->trigger_template_error("illegal recursive call of \"{$include_file}\"",$compiler->lex->line-1);
+        } 
+        $compiler->template->properties['file_dependency'][$template_sha1] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
         $_content = $compiler->template->template_source;
         if (preg_match_all("!({$this->_ldl}block\s(.+?){$this->_rdl})!", $_content, $s) !=
                 preg_match_all("!({$this->_ldl}/block(.*?){$this->_rdl})!", $_content, $c)) {
@@ -71,8 +75,8 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         if (0 == preg_match("!(.?)(name=)(.*?)(?=(\s|{$this->_rdl}))!", $block_tag, $_match)) {
             $this->compiler->trigger_template_error("\"" . $block_tag . "\" missing name attribute");
         } else {
-            $_name = trim($_match[3], '\'"');
-	   // replace {$smarty.block.child} 
+            $_name = trim($_match[3], '\'"'); 
+            // replace {$smarty.block.child}
             if (strpos($block_content, $this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter) !== false) {
                 if (isset($this->smarty->block_data[$_name])) {
                     $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
