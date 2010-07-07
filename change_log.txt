@@ -1,3 +1,6 @@
+07/07/2010
+- bugfix the truncate modifier needs to check if the string is utf-8 encoded or not
+
 06/07/2010
 - create exception on recursive {extends} calls
 - fixed reported line number at "unexpected closing tag " exception
