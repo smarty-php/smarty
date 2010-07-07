@@ -1,5 +1,6 @@
 07/07/2010
 - bugfix the truncate modifier needs to check if the string is utf-8 encoded or not
+- bugfix support of script files relative to trusted_dir
 
 06/07/2010
 - create exception on recursive {extends} calls

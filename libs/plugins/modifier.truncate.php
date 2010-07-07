@@ -48,7 +48,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...',
             } 
         } 
     } 
-    // $string has utf-8 no encoding
+    // $string has no utf-8 encoding
     if (strlen($string) > $length) {
         $length -= min($length, strlen($etc));
         if (!$break_words && !$middle) {

@@ -159,6 +159,7 @@ class Smarty extends Smarty_Internal_Data {
     public $security_policy = null;
     public $security_handler = null;
     public $direct_access_security = true; 
+    public $trusted_dir = array();
     // debug mode
     public $debugging = false;
     public $debugging_ctrl = 'NONE';
