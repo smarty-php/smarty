@@ -1997,7 +1997,6 @@ static public $yy_action = array(
         121 => 121,
         122 => 122,
         124 => 124,
-        185 => 124,
         126 => 126,
         127 => 127,
         128 => 128,
@@ -2049,6 +2048,7 @@ static public $yy_action = array(
         181 => 181,
         182 => 182,
         183 => 183,
+        185 => 185,
     );
 #line 92 "smarty_internal_templateparser.y"
     function yy_r0(){ $this->_retvalue = $this->yystack[$this->yyidx + 0]->minor;     }
@@ -2456,7 +2456,7 @@ static public $yy_action = array(
     function yy_r122(){ $this->_retvalue = '['.$this->compiler->compileTag('private_special_variable','[\'section\'][\''.$this->yystack[$this->yyidx + -3]->minor.'\'][\''.$this->yystack[$this->yyidx + -1]->minor.'\']').']';    }
 #line 2453 "smarty_internal_templateparser.php"
 #line 484 "smarty_internal_templateparser.y"
-    function yy_r124(){$this->_retvalue = '';    }
+    function yy_r124(){$this->_retvalue = '[]';    }
 #line 2456 "smarty_internal_templateparser.php"
 #line 492 "smarty_internal_templateparser.y"
     function yy_r126(){$this->_retvalue = $this->yystack[$this->yyidx + -1]->minor.'.'.$this->yystack[$this->yyidx + 0]->minor;    }
@@ -2614,6 +2614,9 @@ static public $yy_action = array(
 #line 624 "smarty_internal_templateparser.y"
     function yy_r183(){ $this->_retvalue = new _smarty_dq_content($this, $this->yystack[$this->yyidx + 0]->minor);     }
 #line 2612 "smarty_internal_templateparser.php"
+#line 631 "smarty_internal_templateparser.y"
+    function yy_r185(){$this->_retvalue = '';    }
+#line 2615 "smarty_internal_templateparser.php"
 
     private $_retvalue;
 
@@ -2675,7 +2678,7 @@ static public $yy_action = array(
     $this->internalError = true;
     $this->yymajor = $yymajor;
     $this->compiler->trigger_template_error();
-#line 2675 "smarty_internal_templateparser.php"
+#line 2678 "smarty_internal_templateparser.php"
     }
 
     function yy_accept()
@@ -2692,7 +2695,7 @@ static public $yy_action = array(
     $this->internalError = false;
     $this->retvalue = $this->_retvalue;
     //echo $this->retvalue."\n\n";
-#line 2693 "smarty_internal_templateparser.php"
+#line 2696 "smarty_internal_templateparser.php"
     }
 
     function doParse($yymajor, $yytokenvalue)
