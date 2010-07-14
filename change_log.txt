@@ -1,3 +1,7 @@
+15/08/2010
+- make the date_format modifier work also on objects of the DateTime class
+- implementation of parsetrees in the parser to close security holes and remove unwanted empty line in HTML output
+
 08/07/2010
 - bugfix on assigning multidimensional arrays within templates
 - corrected bugfix for truncate modifier

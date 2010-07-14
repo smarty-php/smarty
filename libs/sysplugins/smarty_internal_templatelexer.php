@@ -63,6 +63,7 @@ class Smarty_Internal_Templatelexer
     				'QMARK'		=> '"?"',
     				'ID'			=> 'identifier',
     				'OTHER'		=> 'text',
+    				'LINEBREAK'		=> 'newline',
      				'FAKEPHPSTARTTAG'	=> 'Fake PHP start tag',
      				'PHPSTARTTAG'	=> 'PHP start tag',
      				'PHPENDTAG'	=> 'PHP end tag',
@@ -247,7 +248,7 @@ class Smarty_Internal_Templatelexer
   if ($this->strip) {
      return false;
   } else {
-     $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+     $this->token = Smarty_Internal_Templateparser::TP_LINEBREAK;
   }
     }
     function yy_r1_9($yy_subpatterns)

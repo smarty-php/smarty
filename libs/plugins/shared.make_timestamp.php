@@ -19,7 +19,7 @@ function smarty_make_timestamp($string)
     if(empty($string)) {
         // use "now":
         return time();
-    } elseif (is_a($string,'DateTime')) {
+    } elseif ($string instanceof DateTime) {
         return $string->getTimestamp();
     } elseif (preg_match('/^\d{14}$/', $string)) {
         // it is mysql timestamp format of YYYYMMDDHHMMSS?            

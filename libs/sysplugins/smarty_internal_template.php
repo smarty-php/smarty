@@ -44,8 +44,6 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public $mustCompile = null;
     public $suppressHeader = false;
     public $suppressFileDependency = false;
-    public $extract_code = false;
-    public $extracted_compiled_code = '';
     public $has_nocache_code = false; 
     // Rendered content
     public $rendered_content = null; 
