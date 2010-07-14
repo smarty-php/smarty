@@ -1,4 +1,11 @@
-15/08/2010
+
+
+=====  RC3 =====
+
+
+
+
+15/07/2010
 - make the date_format modifier work also on objects of the DateTime class
 - implementation of parsetrees in the parser to close security holes and remove unwanted empty line in HTML output
 
