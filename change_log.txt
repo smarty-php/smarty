@@ -1,4 +1,5 @@
-
+15/07/2010
+- bufix  {$smarty.template} does include now the relative path, not just filename
 
 =====  RC3 =====
 
