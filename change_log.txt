@@ -1,3 +1,6 @@
+20/07/2010
+- fixed handling of { strip } tag with whitespaces
+
 15/07/2010
 - bufix  {$smarty.template} does include now the relative path, not just filename
 
