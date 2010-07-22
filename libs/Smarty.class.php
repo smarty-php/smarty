@@ -511,9 +511,13 @@ class Smarty extends Smarty_Internal_Data {
     function templateExists($resource_name)
     { 
         // create template object
+        $save = $this->template_objects;
         $tpl = new $this->template_class($resource_name, $this); 
         // check if it does exists
-        return $tpl->isExisting();
+        $result = $tpl->isExisting();
+        $this->template_objects = $save;
+        unset ($tpl);
+        return $result;
     } 
 
     /**
