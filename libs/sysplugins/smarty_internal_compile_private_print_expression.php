@@ -23,7 +23,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
     {
         $this->compiler = $compiler;
         $this->required_attributes = array('value');
-        $this->optional_attributes = array('assign', 'nocache', 'filter', 'nofilter'); 
+        $this->optional_attributes = array('assign', 'nocache', 'filter', 'nofilter', 'modifierlist'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
@@ -54,12 +54,10 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                 $output = $_attr['value'];
             } 
             if (!isset($_attr['nofilter']) && isset($this->compiler->smarty->default_modifiers)) {
-                foreach ($this->compiler->smarty->default_modifiers as $default_modifier) {
-                    $mod_array = explode (':', $default_modifier);
-                    $modifier = $mod_array[0];
-                    $mod_array[0] = $output;
-                    $output = $this->compiler->compileTag('private_modifier', array('modifier' => $modifier, 'params' => implode(", ", $mod_array)));
-                } 
+                $output = $this->compiler->compileTag('private_modifier', array('modifierlist' => $this->compiler->smarty->default_modifiers, 'value' => $output));
+            } 
+            if (isset($_attr['modifierlist'])) {
+                $output = $this->compiler->compileTag('private_modifier', array('modifierlist' => $_attr['modifierlist'], 'value' => $output));
             } 
             $output = '<?php echo ' . $output . ';?>';
         } 

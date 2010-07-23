@@ -1,3 +1,8 @@
+23/07/2010
+- changed execution order. A variable filter does now run before modifiers on output of variables
+- bugfix use always { and } as delimiter for debug.tpl
+
+
 22/07/2010
 - bugfix in templateExists() methode
 
