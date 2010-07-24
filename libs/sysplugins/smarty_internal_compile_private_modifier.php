@@ -26,13 +26,18 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
         $this->required_attributes = array('value', 'modifierlist'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
-        $output = $_attr['value'];
+        $output = $_attr['value']; 
         // loop over list of modifiers
         foreach ($_attr['modifierlist'] as $single_modifier) {
-            $mod_array = preg_split("/(:)(?![^'\"])/", $single_modifier);
-            $modifier = $mod_array[0];
-	   $mod_array[0] = $output;
-            $params = implode(", ", $mod_array); 
+            preg_match_all('/(\'(.+?)\'|\"(.+?)\"|:|[^:]+)/', $single_modifier, $mod_array);
+            $modifier = $mod_array[0][0];
+            $i = 1;
+            while (isset($mod_array[0][$i])) {
+                unset($mod_array[0][$i]);
+                $i = $i + 2;
+            } 
+            $mod_array[0][0] = $output;
+            $params = implode(",", $mod_array[0]); 
             // check for registered modifier
             if (isset($compiler->smarty->registered_plugins['modifier'][$modifier])) {
                 $function = $compiler->smarty->registered_plugins['modifier'][$modifier][0];
