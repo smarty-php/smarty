@@ -47,7 +47,6 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
             $output = '<?php $_smarty_tpl->assign(' . $_attr['assign'] . ',' . $_attr['value'] . ');?>';
         } else {
             // display value
-            $this->compiler->has_output = true;
             if (isset($this->compiler->smarty->registered_filters['variable'])) {
                 $output = 'Smarty_Internal_Filter_Handler::runFilter(\'variable\', ' . $_attr['value'] . ',$_smarty_tpl->smarty, $_smarty_tpl, ' . $_attr['filter'] . ')';
             } else {
@@ -59,7 +58,8 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
             if (isset($_attr['modifierlist'])) {
                 $output = $this->compiler->compileTag('private_modifier', array('modifierlist' => $_attr['modifierlist'], 'value' => $output));
             } 
-            $output = '<?php echo ' . $output . ';?>';
+	  $this->compiler->has_output = true;
+           $output = '<?php echo ' . $output . ';?>';
         } 
         return $output;
     } 
