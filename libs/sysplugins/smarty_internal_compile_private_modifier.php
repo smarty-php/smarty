@@ -29,7 +29,7 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
         $output = $_attr['value'];
         // loop over list of modifiers
         foreach ($_attr['modifierlist'] as $single_modifier) {
-            $mod_array = explode (':', $single_modifier);
+            $mod_array = preg_split("/(:)(?![^'\"])/", $single_modifier);
             $modifier = $mod_array[0];
 	   $mod_array[0] = $output;
             $params = implode(", ", $mod_array); 

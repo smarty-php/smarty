@@ -1,3 +1,6 @@
+24/07/2010
+- bugfix of change from 23/07/2010 when compiling modifer
+
 23/07/2010
 - changed execution order. A variable filter does now run before modifiers on output of variables
 - bugfix use always { and } as delimiter for debug.tpl
