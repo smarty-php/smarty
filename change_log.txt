@@ -1,3 +1,6 @@
+25/07/2010
+- another bugfix of change from 23/07/2010 when compiling modifer
+
 24/07/2010
 - bugfix of change from 23/07/2010 when compiling modifer
 
