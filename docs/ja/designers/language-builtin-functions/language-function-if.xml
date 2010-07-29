@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3162 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="language.function.if">
  <title>{if},{elseif},{else}</title>
@@ -236,7 +236,7 @@
     {* 何かを行います *}
 {/if}
 
-{if is_array($foo) && count($foo) > 0)
+{if is_array($foo) && count($foo) > 0}
     {* foreach ループを実行します *}
 {/if}
   ]]>

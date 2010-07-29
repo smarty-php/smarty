@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Revision$ -->
-<!-- EN-Revision: 2972 Maintainer: takagi Status: ready -->
+<!-- EN-Revision: 3191 Maintainer: takagi Status: ready -->
 <!-- CREDITS: mat-sh,daichi,joe -->
 <sect1 id="advanced.features.postfilters">
  <title>ポストフィルタ</title>
@@ -46,7 +46,8 @@ $smarty->display('index.tpl');
  </example>
  <para>
  <link linkend="api.register.postfilter"><varname>register_postfilter()</varname></link>、
- <link linkend="advanced.features.prefilters">プリフィルタ</link>
+ <link linkend="advanced.features.prefilters">プリフィルタ</link>、
+ <link linkend="advanced.features.outputfilters">アウトプットフィルタ</link>
  および
  <link linkend="api.load.filter"><varname>load_filter()</varname></link>
  も参照してください。
