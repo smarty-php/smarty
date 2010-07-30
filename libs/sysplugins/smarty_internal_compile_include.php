@@ -40,13 +40,13 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                         // needs code for cached page but no cache file
                         $tpl->caching = 9999;
                     } 
-                   if ($this->compiler->template->mustCompile) {
+                    if ($this->compiler->template->mustCompile) {
                         // make sure whole chain gest compiled
                         $tpl->mustCompile = true;
                     } 
                     if ($tpl->resource_object->usesCompiler && $tpl->isExisting()) {
                         // get compiled code
-                        $compiled_tpl = $tpl->getCompiledTemplate();
+                        $compiled_tpl = $tpl->getCompiledTemplate(); 
                         // merge compiled code for {function} tags
                         $compiler->template->properties['function'] = array_merge($compiler->template->properties['function'], $tpl->properties['function']); 
                         // merge filedependency by evaluating header code
@@ -77,11 +77,12 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
 
         $_parent_scope = SMARTY_LOCAL_SCOPE;
         if (isset($_attr['scope'])) {
-            if ($_attr['scope'] == '\'parent\'') {
+            $_attr['scope'] = trim($_attr['scope'], "'\"");
+            if ($_attr['scope'] == 'parent') {
                 $_parent_scope = SMARTY_PARENT_SCOPE;
-            } elseif ($_attr['scope'] == '\'root\'') {
+            } elseif ($_attr['scope'] == 'root') {
                 $_parent_scope = SMARTY_ROOT_SCOPE;
-            } elseif ($_attr['scope'] == '\'global\'') {
+            } elseif ($_attr['scope'] == 'global') {
                 $_parent_scope = SMARTY_GLOBAL_SCOPE;
             } 
         } 
@@ -103,13 +104,13 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             $_cache_lifetime = 'null';
         } 
         if (isset($_attr['nocache'])) {
-            if ($_attr['nocache'] == 'true') {
+            if (trim($_attr['nocache'], "'\"") == 'true') {
                 $this->compiler->tag_nocache = true;
                 $_caching = SMARTY_CACHING_OFF;
             } 
         } 
         if (isset($_attr['caching'])) {
-            if ($_attr['caching'] == 'true') {
+            if (trim($_attr['caching'], "'\"") == 'true') {
                 $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
             } else {
                 $this->compiler->tag_nocache = true;
@@ -128,7 +129,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                     $_output .= "\$_template->assign('$_key',$_value);";
                 } 
             } else {
-                $this->compiler->trigger_template_error('variable passing not allowed in parent/global scope');
+                $this->compiler->trigger_template_error('variable passing not allowed in parent/global scope', $this->compiler->lex->taglineno);
             } 
         } 
         // was there an assign attribute

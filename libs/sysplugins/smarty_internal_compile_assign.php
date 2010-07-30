@@ -41,11 +41,12 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
         $_attr = $this->_get_attributes($args);
 
         if (isset($_attr['scope'])) {
-            if ($_attr['scope'] == '\'parent\'') {
+            $_attr['scope'] = trim($_attr['scope'], "'\"");
+            if ($_attr['scope'] == 'parent') {
                 $_scope = SMARTY_PARENT_SCOPE;
-            } elseif ($_attr['scope'] == '\'root\'') {
+            } elseif ($_attr['scope'] == 'root') {
                 $_scope = SMARTY_ROOT_SCOPE;
-            } elseif ($_attr['scope'] == '\'global\'') {
+            } elseif ($_attr['scope'] == 'global') {
                 $_scope = SMARTY_GLOBAL_SCOPE;
             } 
         } 

@@ -67,7 +67,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         $compiler->template->template_source = $_template->getTemplateSource();
         $compiler->template->template_filepath = $_template->getTemplateFilepath();
         $compiler->abort_and_recompile = true;
-        return ' ';
+        return '';
     } 
 
     protected function saveBlockData($block_content, $block_tag, $template)
