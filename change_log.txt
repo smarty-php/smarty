@@ -1,3 +1,6 @@
+31/07/2010
+- bugfix on nocache attribute at {assign} and {append}
+
 30/07/2010
 - bugfix passing scope attributes in doublequoted strings did not work at {include} {assign} and {append}
 
