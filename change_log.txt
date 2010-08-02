@@ -1,3 +1,6 @@
+02/08/2010
+- bugfix strip did not work correctly in conjunction with comment lines
+
 31/07/2010
 - bugfix on nocache attribute at {assign} and {append}
 
