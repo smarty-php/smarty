@@ -86,9 +86,12 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 $_parent_scope = SMARTY_GLOBAL_SCOPE;
             } 
         } 
-        $_caching = 'null'; 
+        $_caching = 'null';
+        if ($this->compiler->nocache || $this->compiler->tag_nocache) {
+            $_caching = SMARTY_CACHING_OFF;
+        } 
         // default for included templates
-        if ($this->compiler->template->caching && !$this->compiler->nocache) {
+        if ($this->compiler->template->caching && !$this->compiler->nocache && !$this->compiler->tag_nocache) {
             $_caching = 9999;
         } 
         /*

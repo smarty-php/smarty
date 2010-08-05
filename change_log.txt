@@ -1,6 +1,7 @@
 05/08/2010
 - added plugin type modifiercompiler to produce compiled modifier code
 - changed standard modifier plugins to the compiling versions whenever possible
+- bugfix in nocache sections {include} must not cache the subtemplate
 
 02/08/2010
 - bugfix strip did not work correctly in conjunction with comment lines
