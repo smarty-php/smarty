@@ -32,11 +32,13 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
             preg_match_all('/(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|::?|[^:]+)/', $single_modifier, $mod_array);
             $modifier = $mod_array[0][0];
             for ($i = 0, $count = count($mod_array[0]);$i < $count;$i++) {
-                if ($mod_array[0][$i] == '::') {
-                    continue;
-                } 
                 if ($mod_array[0][$i] == ':') {
                     $mod_array[0][$i] = ',';
+                } 
+                if ($mod_array[0][$i] == '::') {
+                    $mod_array[0][$i-1] = $mod_array[0][$i-1] . $mod_array[0][$i] . $mod_array[0][$i + 1];
+                    unset($mod_array[0][$i], $mod_array[0][$i + 1]);
+                    $i++;
                 } 
             } 
             unset($mod_array[0][0]);
