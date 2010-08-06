@@ -39,8 +39,8 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
                     $mod_array[0][$i] = ',';
                 } 
             } 
-	  unset($mod_array[0][0]);
-           $params = $output.implode('', $mod_array[0]); 
+            unset($mod_array[0][0]);
+            $params = $output . implode('', $mod_array[0]); 
             // check for registered modifier
             if (isset($compiler->smarty->registered_plugins['modifier'][$modifier])) {
                 $function = $compiler->smarty->registered_plugins['modifier'][$modifier][0];
@@ -56,7 +56,12 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
                 // check for plugin modifiercompiler
             } else if ($compiler->smarty->loadPlugin('smarty_modifiercompiler_' . $modifier)) {
                 $plugin = 'smarty_modifiercompiler_' . $modifier;
-                $args = array_merge((array)$output,$mod_array[0]);
+                foreach($mod_array[0] as $key => $value) {
+                    if ($value == ',') {
+                        unset ($mod_array[0][$key]);
+                    } 
+                } 
+                $args = array_merge((array)$output, $mod_array[0]);
                 $output = $plugin($args, $compiler); 
                 // check for plugin modifier
             } else if ($function = $this->compiler->getPlugin($modifier, 'modifier')) {
