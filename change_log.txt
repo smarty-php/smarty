@@ -1,3 +1,6 @@
+09/08/2010
+- bugfix on modifier with doublequoted strings as parameter containing embedded tags
+
 06/08/2010
 - bugfix when cascading some modifier like |strip|strip_tags modifier
 
