@@ -193,8 +193,6 @@ class Smarty extends Smarty_Internal_Data {
     public $properties = array(); 
     // config type
     public $default_config_type = 'file'; 
-    // exception handler: array('ExceptionClass','ExceptionMethod');
-    public $exception_handler = null; 
     // cached template objects
     public $template_objects = null; 
     // check If-Modified-Since headers
@@ -247,9 +245,6 @@ class Smarty extends Smarty_Internal_Data {
             mb_internal_encoding(SMARTY_RESOURCE_CHAR_SET);
         } 
         $this->start_time = microtime(true); 
-        // set exception handler
-        if (!empty($this->exception_handler))
-            set_exception_handler($this->exception_handler); 
         // set default dirs
         $this->template_dir = array('.' . DS . 'templates' . DS);
         $this->compile_dir = '.' . DS . 'templates_c' . DS;
@@ -292,9 +287,6 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function __destruct()
     { 
-        // restore to previous exception handler, if any
-        if (!empty($this->exception_handler))
-            restore_exception_handler();
     } 
 
     /**
@@ -467,7 +459,7 @@ class Smarty extends Smarty_Internal_Data {
             $this->security_handler = new Smarty_Internal_Security_Handler($this);
             $this->security = true;
         } else {
-            throw new Exception('Property security_class is not defined');
+            throw new SmartyException('Property security_class is not defined');
         } 
     } 
 
@@ -538,7 +530,7 @@ class Smarty extends Smarty_Internal_Data {
         $_name_parts = explode('_', $_plugin_name, 3); 
         // class name must have three parts to be valid plugin
         if (count($_name_parts) < 3 || $_name_parts[0] !== 'smarty') {
-            throw new Exception("plugin {$plugin_name} is not a valid name format");
+            throw new SmartyException("plugin {$plugin_name} is not a valid name format");
             return false;
         } 
         // if type is "internal", get plugin from sysplugins
@@ -587,7 +579,7 @@ class Smarty extends Smarty_Internal_Data {
                 return $this->registered_filters[$type][$_filter_name] = $_plugin;
             } 
         } 
-        throw new Exception("{$type}filter \"{$name}\" not callable");
+        throw new SmartyException("{$type}filter \"{$name}\" not callable");
         return false;
     } 
 
@@ -611,7 +603,7 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function trigger_error($error_msg, $error_type = E_USER_WARNING)
     {
-        throw new Exception("Smarty error: $error_msg");
+        throw new SmartyException("Smarty error: $error_msg");
     } 
 
     /**
@@ -677,10 +669,10 @@ class Smarty extends Smarty_Internal_Data {
     function getRegisteredObject($name)
     {
         if (!isset($this->registered_objects[$name]))
-            throw new Exception("'$name' is not a registered object");
+            throw new SmartyException("'$name' is not a registered object");
 
         if (!is_object($this->registered_objects[$name][0]))
-            throw new Exception("registered '$name' is not an object");
+            throw new SmartyException("registered '$name' is not an object");
 
         return $this->registered_objects[$name][0];
     } 
@@ -740,7 +732,7 @@ class Smarty extends Smarty_Internal_Data {
             $camel_func = create_function('$c', 'return "_" . strtolower($c[1]);'); 
         // PHP4 call to constructor?
         if (strtolower($name) == 'smarty') {
-            throw new Exception('Please use parent::__construct() to call parent constuctor');
+            throw new SmartyException('Please use parent::__construct() to call parent constuctor');
             return false;
         } 
         // see if this is a set/get for a property
@@ -752,7 +744,7 @@ class Smarty extends Smarty_Internal_Data {
             // convert camel case to underscored name
             $property_name = preg_replace_callback('/([A-Z])/', $camel_func, $property_name);
             if (!property_exists($this, $property_name)) {
-                throw new Exception("property '$property_name' does not exist.");
+                throw new SmartyException("property '$property_name' does not exist.");
                 return false;
             } 
             if ($first3 == 'get')
@@ -775,5 +767,12 @@ function smartyAutoload($class)
         include SMARTY_SYSPLUGINS_DIR . $_class . '.php';
     } 
 } 
+
+Class SmartyException extends Exception {
+}
+
+Class SmartyCompilerException extends SmartyException  {
+}
+
 
 ?>

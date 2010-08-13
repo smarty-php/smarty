@@ -29,7 +29,7 @@ class Smarty_Internal_Config {
         $this->compiler_object = null; 
         // parse config resource name
         if (!$this->parseConfigResourceName ($config_resource)) {
-            throw new Exception ("Unable to parse config resource '{$config_resource}'");
+            throw new SmartyException ("Unable to parse config resource '{$config_resource}'");
         } 
     } 
 
@@ -87,7 +87,7 @@ class Smarty_Internal_Config {
         if (file_exists($this->config_resource_name))
             return $this->config_resource_name; 
         // no tpl file found
-        throw new Exception("Unable to load config file \"{$this->config_resource_name}\"");
+        throw new SmartyException("Unable to load config file \"{$this->config_resource_name}\"");
         return false;
     } 
     /**
@@ -106,7 +106,7 @@ class Smarty_Internal_Config {
     {
         if ($this->config_source === null) {
             if ($this->readConfigSource($this) === false) {
-                throw new Exception("Unable to load config file \"{$this->config_resource_name}\"");
+                throw new SmartyException("Unable to load config file \"{$this->config_resource_name}\"");
             } 
         } 
         return $this->config_source;

@@ -1,3 +1,7 @@
+13/08/2010
+- remove exception_handler property from Smarty class
+- added Smarty's own exceptions SmartyException and SmartyCompilerException
+
 09/08/2010
 - bugfix on modifier with doublequoted strings as parameter containing embedded tags
 

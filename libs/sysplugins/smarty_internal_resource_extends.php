@@ -90,7 +90,7 @@ class Smarty_Internal_Resource_Extends {
         foreach ($_files as $_filepath) {
             // read template file
             if ($_filepath === false) {
-                throw new Exception("Unable to load template 'file : {$_file}'");
+                throw new SmartyException("Unable to load template 'file : {$_file}'");
             } 
             if ($_filepath != $_files[0]) {
                 $_template->properties['file_dependency'][sha1($_filepath)] = array($_filepath, filemtime($_filepath));

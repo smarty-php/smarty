@@ -102,10 +102,10 @@ class Smarty_Internal_Resource_PHP {
     public function renderUncompiled($_smarty_template)
     {
         if (!$this->smarty->allow_php_templates) {
-            throw new Exception("PHP templates are disabled");
+            throw new SmartyException("PHP templates are disabled");
         } 
         if ($this->getTemplateFilepath($_smarty_template) === false) {
-            throw new Exception("Unable to load template \"{$_smarty_template->resource_type} : {$_smarty_template->resource_name}\"");
+            throw new SmartyException("Unable to load template \"{$_smarty_template->resource_type} : {$_smarty_template->resource_name}\"");
         } 
         // prepare variables
         $_smarty_ptr = $_smarty_template;

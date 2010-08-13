@@ -51,9 +51,9 @@ class Smarty_Internal_Register {
     function block($block_tag, $block_impl, $cacheable = true, $cache_attr = array())
     {
         if (isset($this->smarty->registered_plugins['block'][$block_tag])) {
-            throw new Exception("Plugin tag \"{$block_tag}\" already registered");
+            throw new SmartyException("Plugin tag \"{$block_tag}\" already registered");
         } elseif (!is_callable($block_impl)) {
-            throw new Exception("Plugin \"{$block_tag}\" not callable");
+            throw new SmartyException("Plugin \"{$block_tag}\" not callable");
         } else {
             $this->smarty->registered_plugins['block'][$block_tag] =
             array($block_impl, $cacheable, $cache_attr);
@@ -70,9 +70,9 @@ class Smarty_Internal_Register {
     function compilerFunction($compiler_tag, $compiler_impl, $cacheable = true)
     {
         if (isset($this->smarty->registered_plugins['compiler'][$compiler_tag])) {
-            throw new Exception("Plugin tag \"{$compiler_tag}\" already registered");
+            throw new SmartyException("Plugin tag \"{$compiler_tag}\" already registered");
         } elseif (!is_callable($compiler_impl)) {
-            throw new Exception("Plugin \"{$compiler_tag}\" not callable");
+            throw new SmartyException("Plugin \"{$compiler_tag}\" not callable");
         } else {
             $this->smarty->registered_plugins['compiler'][$compiler_tag] =
             array($compiler_impl, $cacheable);
@@ -90,9 +90,9 @@ class Smarty_Internal_Register {
     function templateFunction($function_tag, $function_impl, $cacheable = true, $cache_attr = array())
     {
         if (isset($this->smarty->registered_plugins['function'][$function_tag])) {
-            throw new Exception("Plugin tag \"{$function_tag}\" already registered");
+            throw new SmartyException("Plugin tag \"{$function_tag}\" already registered");
         } elseif (!is_callable($function_impl)) {
-            throw new Exception("Plugin \"{$function_tag}\" not callable");
+            throw new SmartyException("Plugin \"{$function_tag}\" not callable");
         } else {
             $this->smarty->registered_plugins['function'][$function_tag] =
             array($function_impl, $cacheable, $cache_attr);
@@ -108,9 +108,9 @@ class Smarty_Internal_Register {
     function modifier($modifier_name, $modifier_impl)
     {
         if (isset($this->smarty->registered_plugins['modifier'][$modifier_name])) {
-            throw new Exception("Plugin \"{$modifier_name}\" already registered");
+            throw new SmartyException("Plugin \"{$modifier_name}\" already registered");
         } elseif (!is_callable($modifier_impl)) {
-            throw new Exception("Plugin \"{$modifier_name}\" not callable");
+            throw new SmartyException("Plugin \"{$modifier_name}\" not callable");
         } else {
             $this->smarty->registered_plugins['modifier'][$modifier_name] =
             array($modifier_impl);
@@ -132,7 +132,7 @@ class Smarty_Internal_Register {
         if (!empty($allowed)) {
             foreach ((array)$allowed as $method) {
                 if (!is_callable(array($object_impl, $method))) {
-                    throw new Exception("Undefined method '$method' in registered object");
+                    throw new SmartyException("Undefined method '$method' in registered object");
                 } 
             } 
         } 
@@ -140,7 +140,7 @@ class Smarty_Internal_Register {
         if (!empty($block_methods)) {
             foreach ((array)$block_methods as $method) {
                 if (!is_callable(array($object_impl, $method))) {
-                    throw new Exception("Undefined method '$method' in registered object");
+                    throw new SmartyException("Undefined method '$method' in registered object");
                 } 
             } 
         } 
@@ -159,7 +159,7 @@ class Smarty_Internal_Register {
     { 
         // test if exists
         if (!class_exists($class_impl)) {
-            throw new Exception("Undefined class '$class_impl' in register template class");
+            throw new SmartyException("Undefined class '$class_impl' in register template class");
         } 
         // register the class
         $this->smarty->registered_classes[$class_name] = $class_impl;
@@ -217,7 +217,7 @@ class Smarty_Internal_Register {
                     array(&$function_names[0], $function_names[4])),
                 false);
         } else {
-            throw new Exception("malformed function-list for '$resource_type' in register_resource");
+            throw new SmartyException("malformed function-list for '$resource_type' in register_resource");
         } 
     } 
 
@@ -242,7 +242,7 @@ class Smarty_Internal_Register {
         if (is_callable($function_name)) {
             $this->smarty->default_plugin_handler_func = $function_name;
         } else {
-            throw new Exception("Default plugin handler '$function_name' not callable");
+            throw new SmartyException("Default plugin handler '$function_name' not callable");
         } 
     } 
 
@@ -256,7 +256,7 @@ class Smarty_Internal_Register {
         if (is_callable($function_name)) {
             $this->smarty->default_template_handler_func = $function_name;
         } else {
-            throw new Exception("Default template handler '$function_name' not callable");
+            throw new SmartyException("Default template handler '$function_name' not callable");
         } 
     } 
 }

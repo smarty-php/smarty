@@ -75,7 +75,7 @@ class Smarty_Internal_Security_Handler {
         if (empty($this->smarty->security_policy->streams) || in_array($stream_name, $this->smarty->security_policy->streams)) {
             return true;
         } else {
-            throw new Exception ("stream '{$stream_name}' not allowed by security setting");
+            throw new SmartyException ("stream '{$stream_name}' not allowed by security setting");
             return false;
         } 
     } 
@@ -112,7 +112,7 @@ class Smarty_Internal_Security_Handler {
             } 
         } 
 
-        throw new Exception ("directory '{$_rp}' not allowed by security setting");
+        throw new SmartyException ("directory '{$_rp}' not allowed by security setting");
         return false;
     } 
     /**
@@ -138,7 +138,7 @@ class Smarty_Internal_Security_Handler {
             } 
         } 
 
-        throw new Exception ("directory '{$_rp}' not allowed by security setting");
+        throw new SmartyException ("directory '{$_rp}' not allowed by security setting");
         return false;
     } 
 } 

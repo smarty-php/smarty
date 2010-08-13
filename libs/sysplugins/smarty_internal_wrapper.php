@@ -114,7 +114,7 @@ class Smarty_Internal_Wrapper {
              }
              $func_name = implode('',$name_parts);
              if(!method_exists($this->smarty,$func_name)) {
-                throw new Exception("unknown method '$name'");
+                throw new SmartyException("unknown method '$name'");
                 return false;
              }
              return call_user_func_array(array($this->smarty,$func_name),$args);

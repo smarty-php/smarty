@@ -44,7 +44,7 @@ class Smarty_Internal_Filter_Handler {
                         } 
                     } else {
                         // nothing found, throw exception
-                        throw new Exception("Unable to load filter {$plugin_name}");
+                        throw new SmartyException("Unable to load filter {$plugin_name}");
                     } 
                 } 
             } 

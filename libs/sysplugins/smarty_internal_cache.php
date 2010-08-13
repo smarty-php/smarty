@@ -64,7 +64,7 @@ class Smarty_Internal_Cache {
                 return $this->smarty->cache_resource_objects[$type] = new $cache_resource_class($this->smarty);
             } 
             else {
-                throw new Exception("Unable to load cache resource '{$type}'");
+                throw new SmartyException("Unable to load cache resource '{$type}'");
             } 
         } 
     } 

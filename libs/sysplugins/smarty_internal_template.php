@@ -98,7 +98,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         $this->template_resource = $template_resource; 
         // parse resource name
         if (!$this->parseResourceName ($template_resource, $this->resource_type, $this->resource_name, $this->resource_object)) {
-            throw new Exception ("Unable to parse resource name \"{$template_resource}\"");
+            throw new SmartyException ("Unable to parse resource name \"{$template_resource}\"");
         } 
         // load cache resource
         if (!$this->resource_object->isEvaluated && ($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED)) {
@@ -145,7 +145,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     {
         if ($this->template_source === null) {
             if (!$this->resource_object->getTemplateSource($this)) {
-                throw new Exception("Unable to read template {$this->resource_type} '{$this->resource_name}'");
+                throw new SmartyException("Unable to read template {$this->resource_type} '{$this->resource_name}'");
             } 
         } 
         return $this->template_source;
@@ -164,7 +164,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             $this->isExisting = $this->resource_object->isExisting($this);
         } 
         if (!$this->isExisting && $error) {
-            throw new Exception("Unable to load template {$this->resource_type} '{$this->resource_name}'");
+            throw new SmartyException("Unable to load template {$this->resource_type} '{$this->resource_name}'");
         } 
         return $this->isExisting;
     } 
@@ -461,7 +461,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                 ob_start();
                 $this->resource_object->renderUncompiled($this);
             } else {
-                throw new Exception("Resource '$this->resource_type' must have 'renderUncompiled' methode");
+                throw new SmartyException("Resource '$this->resource_type' must have 'renderUncompiled' methode");
             } 
         } 
         $this->rendered_content = ob_get_clean();
@@ -593,7 +593,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         // no tpl file found
         if (!empty($this->smarty->default_template_handler_func)) {
             if (!is_callable($this->smarty->default_template_handler_func)) {
-                throw new Exception("Default template handler not callable");
+                throw new SmartyException("Default template handler not callable");
             } else {
                 $_return = call_user_func_array($this->smarty->default_template_handler_func,
                     array($this->resource_type, $this->resource_name, &$this->template_source, &$this->template_timestamp, $this));
@@ -604,7 +604,6 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                 } 
             } 
         } 
-        // throw new Exception("Unable to load template \"{$file}\"");
         return false;
     } 
 
@@ -729,7 +728,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                         } 
                         return new Smarty_Internal_Resource_Stream($this->smarty);
                     } else {
-                        throw new Exception('Unkown resource type \'' . $resource_type . '\'');
+                        throw new SmartyException('Unkown resource type \'' . $resource_type . '\'');
                     } 
                 } 
             } 
@@ -883,7 +882,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             // convert camel case to underscored name
             $property_name = preg_replace_callback('/([A-Z])/', $camel_func, $property_name);
             if (!property_exists($this, $property_name)) {
-                throw new Exception("property '$property_name' does not exist.");
+                throw new SmartyException("property '$property_name' does not exist.");
                 return false;
             } 
             if ($first3 == 'get')
