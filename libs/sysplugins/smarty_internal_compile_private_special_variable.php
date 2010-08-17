@@ -1,24 +1,25 @@
 <?php
 /**
-* Smarty Internal Plugin Compile Special Smarty Variable
-* 
-* Compiles the special $smarty variables
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile Special Smarty Variable
+ * 
+ * Compiles the special $smarty variables
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
+
 /**
-* Smarty Internal Plugin Compile special Smarty Variable Class
-*/
+ * Smarty Internal Plugin Compile special Smarty Variable Class
+ */
 class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the speical $smarty variables
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the speical $smarty variables
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler)
     {
         $_index = explode(',', str_replace(array(']['), array(','), substr($args, 1, strlen($args)-2)));

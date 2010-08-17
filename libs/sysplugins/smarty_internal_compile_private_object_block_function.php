@@ -1,26 +1,27 @@
 <?php
 /**
-* Smarty Internal Plugin Compile Object Block Function
-* 
-* Compiles code for registered objects as block function
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile Object Block Function
+ * 
+ * Compiles code for registered objects as block function
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
+
 /**
-* Smarty Internal Plugin Compile Object Block Function Class
-*/
+ * Smarty Internal Plugin Compile Object Block Function Class
+ */
 class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the execution of block plugin
-    * 
-    * @param array $args array with attributes from parser
-    * @param string $tag name of block function
-    * @param string $methode name of methode to call
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the execution of block plugin
+     * 
+     * @param array $args array with attributes from parser
+     * @param string $tag name of block function
+     * @param string $methode name of methode to call
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler, $tag, $methode)
     {
         $this->compiler = $compiler;

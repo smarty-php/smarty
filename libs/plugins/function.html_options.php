@@ -1,35 +1,34 @@
 <?php
 /**
-* Smarty plugin
-* 
-* @package Smarty
-* @subpackage PluginsFunction
-*/
+ * Smarty plugin
+ * 
+ * @package Smarty
+ * @subpackage PluginsFunction
+ */
 
 /**
-* Smarty {html_options} function plugin
-* 
-* Type:     function<br>
-* Name:     html_options<br>
-* Purpose:  Prints the list of <option> tags generated from
-*            the passed parameters
-* 
-* @link http://smarty.php.net/manual/en/language.function.html.options.php {html_image}
-      (Smarty online manual)
-* @author Monte Ohrt <monte at ohrt dot com> 
-* @param array $params parameters
-* Input:<br>
-*            - name       (optional) - string default "select"
-*            - values     (required if no options supplied) - array
-*            - options    (required if no values supplied) - associative array
-*            - selected   (optional) - string default not set
-*            - output     (required if not options supplied) - array
-* @param object $smarty Smarty object
-* @param object $template template object
-* @return string 
-* @uses smarty_function_escape_special_chars()
-*/
-
+ * Smarty {html_options} function plugin
+ * 
+ * Type:     function<br>
+ * Name:     html_options<br>
+ * Purpose:  Prints the list of <option> tags generated from
+ *            the passed parameters
+ * 
+ * @link http://smarty.php.net/manual/en/language.function.html.options.php {html_image}
+ *      (Smarty online manual)
+ * @author Monte Ohrt <monte at ohrt dot com> 
+ * @param array $params parameters
+ * Input:<br>
+ *            - name       (optional) - string default "select"
+ *            - values     (required if no options supplied) - array
+ *            - options    (required if no values supplied) - associative array
+ *            - selected   (optional) - string default not set
+ *            - output     (required if not options supplied) - array
+ * @param object $smarty Smarty object
+ * @param object $template template object
+ * @return string 
+ * @uses smarty_function_escape_special_chars()
+ */
 function smarty_function_html_options($params, $smarty, $template)
 {
     require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');

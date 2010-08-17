@@ -760,6 +760,9 @@ class Smarty extends Smarty_Internal_Data {
     } 
 } 
 
+/**
+ * Autoloader
+ */
 function smartyAutoload($class)
 {
     $_class = strtolower($class);
@@ -768,11 +771,16 @@ function smartyAutoload($class)
     } 
 } 
 
+/**
+ * Smarty exception class
+ */
 Class SmartyException extends Exception {
 }
 
+/**
+ * Smarty compiler exception class
+ */
 Class SmartyCompilerException extends SmartyException  {
 }
-
 
 ?>

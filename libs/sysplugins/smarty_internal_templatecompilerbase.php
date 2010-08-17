@@ -8,6 +8,7 @@
  * @subpackage Compiler
  * @author Uwe Tews 
  */
+
 /**
  * Main compiler class
  */
@@ -402,6 +403,5 @@ class Smarty_Internal_TemplateCompilerBase {
         } 
         throw new SmartyCompilerException($error_text);
     } 
-} 
-
+}
 ?>

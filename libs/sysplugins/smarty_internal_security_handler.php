@@ -1,26 +1,27 @@
 <?php
 /**
-* Smarty Internal Plugin Security Handler
-* 
-* @package Smarty
-* @subpackage Security
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Security Handler
+ * 
+ * @package Smarty
+ * @subpackage Security
+ * @author Uwe Tews 
+ */
+ 
 /**
-* This class contains all methods for security checking
-*/
+ * This class contains all methods for security checking
+ */
 class Smarty_Internal_Security_Handler {
     function __construct($smarty)
     {
         $this->smarty = $smarty;
     } 
     /**
-    * Check if PHP function is trusted.
-    * 
-    * @param string $function_name 
-    * @param object $compiler compiler object
-    * @return boolean true if function is trusted
-    */
+     * Check if PHP function is trusted.
+     * 
+     * @param string $function_name 
+     * @param object $compiler compiler object
+     * @return boolean true if function is trusted
+     */
     function isTrustedPhpFunction($function_name, $compiler)
     {
         if (empty($this->smarty->security_policy->php_functions) || in_array($function_name, $this->smarty->security_policy->php_functions)) {
@@ -32,12 +33,12 @@ class Smarty_Internal_Security_Handler {
     } 
 
     /**
-    * Check if static class is trusted.
-    * 
-    * @param string $class_name 
-    * @param object $compiler compiler object
-    * @return boolean true if class is trusted
-    */
+     * Check if static class is trusted.
+     * 
+     * @param string $class_name 
+     * @param object $compiler compiler object
+     * @return boolean true if class is trusted
+     */
     function isTrustedStaticClass($class_name, $compiler)
     {
         if (empty($this->smarty->security_policy->static_classes) || in_array($class_name, $this->smarty->security_policy->static_classes)) {
@@ -48,12 +49,12 @@ class Smarty_Internal_Security_Handler {
         } 
     } 
     /**
-    * Check if modifier is trusted.
-    * 
-    * @param string $modifier_name 
-    * @param object $compiler compiler object
-    * @return boolean true if modifier is trusted
-    */
+     * Check if modifier is trusted.
+     * 
+     * @param string $modifier_name 
+     * @param object $compiler compiler object
+     * @return boolean true if modifier is trusted
+     */
     function isTrustedModifier($modifier_name, $compiler)
     {
         if (empty($this->smarty->security_policy->modifiers) || in_array($modifier_name, $this->smarty->security_policy->modifiers)) {
@@ -64,12 +65,12 @@ class Smarty_Internal_Security_Handler {
         } 
     } 
     /**
-    * Check if stream is trusted.
-    * 
-    * @param string $stream_name 
-    * @param object $compiler compiler object
-    * @return boolean true if stream is trusted
-    */
+     * Check if stream is trusted.
+     * 
+     * @param string $stream_name 
+     * @param object $compiler compiler object
+     * @return boolean true if stream is trusted
+     */
     function isTrustedStream($stream_name)
     {
         if (empty($this->smarty->security_policy->streams) || in_array($stream_name, $this->smarty->security_policy->streams)) {
@@ -81,12 +82,12 @@ class Smarty_Internal_Security_Handler {
     } 
 
     /**
-    * Check if directory of file resource is trusted.
-    * 
-    * @param string $filepath 
-    * @param object $compiler compiler object
-    * @return boolean true if directory is trusted
-    */
+     * Check if directory of file resource is trusted.
+     * 
+     * @param string $filepath 
+     * @param object $compiler compiler object
+     * @return boolean true if directory is trusted
+     */
     function isTrustedResourceDir($filepath)
     {
         $_rp = realpath($filepath);
@@ -115,13 +116,14 @@ class Smarty_Internal_Security_Handler {
         throw new SmartyException ("directory '{$_rp}' not allowed by security setting");
         return false;
     } 
+    
     /**
-    * Check if directory of file resource is trusted.
-    * 
-    * @param string $filepath 
-    * @param object $compiler compiler object
-    * @return boolean true if directory is trusted
-    */
+     * Check if directory of file resource is trusted.
+     * 
+     * @param string $filepath 
+     * @param object $compiler compiler object
+     * @return boolean true if directory is trusted
+     */
     function isTrustedPHPDir($filepath)
     {
         $_rp = realpath($filepath);

@@ -1,6 +1,7 @@
 <?php
 /**
  * Smarty plugin
+ *
  * @package Smarty
  * @subpackage PluginsFunction
  */
@@ -41,6 +42,7 @@
  * @param Smarty
  * @return string|null
  */
+
 function smarty_function_cycle($params, $smarty)
 {
     static $cycle_vars;
@@ -100,4 +102,5 @@ function smarty_function_cycle($params, $smarty)
     
     return $retval;
 }
+
 ?>

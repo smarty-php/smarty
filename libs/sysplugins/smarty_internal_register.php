@@ -260,3 +260,5 @@ class Smarty_Internal_Register {
         } 
     } 
 }
+
+?>

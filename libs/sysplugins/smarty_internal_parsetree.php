@@ -9,13 +9,14 @@
  * @author Thue Kristensen 
  * @author Uwe Tews 
  */
+ 
 abstract class _smarty_parsetree {
   abstract public function to_smarty_php();
 }
 
-
-/* A complete smarty tag. */
-
+/**
+ * A complete smarty tag.
+ */
 class _smarty_tag extends _smarty_parsetree
 {
     public $parser;
@@ -42,7 +43,9 @@ class _smarty_tag extends _smarty_parsetree
     } 
 } 
 
-/* Code fragment inside a tag. */
+/**
+ * Code fragment inside a tag.
+ */
 class _smarty_code extends _smarty_parsetree {
     public $parser;
     public $data;
@@ -58,7 +61,9 @@ class _smarty_code extends _smarty_parsetree {
     } 
 } 
 
-/* Double quoted string inside a tag. */
+/**
+ * Double quoted string inside a tag.
+ */
 class _smarty_doublequoted extends _smarty_parsetree {
     public $parser;
     public $subtrees = Array();
@@ -113,7 +118,9 @@ class _smarty_doublequoted extends _smarty_parsetree {
     } 
 } 
 
-/* Raw chars as part of a double quoted string. */
+/**
+ * Raw chars as part of a double quoted string.
+ */
 class _smarty_dq_content extends _smarty_parsetree {
     public $data;
     function __construct($parser, $data)
@@ -127,7 +134,10 @@ class _smarty_dq_content extends _smarty_parsetree {
         return '"' . $this->data . '"';
     } 
 } 
-/* Template element */
+
+/**
+ * Template element
+ */
 class _smarty_template_buffer extends _smarty_parsetree {
     public $subtrees = Array();
     function __construct($parser)
@@ -160,7 +170,7 @@ class _smarty_template_buffer extends _smarty_parsetree {
                     $code = substr($code, 0, strlen($code)-1) . '<<?php ?>?' . substr($subtree, 1);
                 } elseif ($this->parser->asp_tags && substr($subtree, 0, 1) == '%') {
                     $code = substr($code, 0, strlen($code)-1) . '<<?php ?>%' . substr($subtree, 1);
-	       } else {
+           } else {
                     $code .= $subtree;
                 } 
                 continue;
@@ -169,7 +179,7 @@ class _smarty_template_buffer extends _smarty_parsetree {
                 $subtree = $this->subtrees[$key]->to_smarty_php();
                 if (substr($subtree, 0, 1) == '>') {
                     $code = substr($code, 0, strlen($code)-1) . '%<?php ?>>' . substr($subtree, 1);
-	       } else {
+           } else {
                     $code .= $subtree;
                 } 
                 continue;
@@ -178,7 +188,7 @@ class _smarty_template_buffer extends _smarty_parsetree {
                 $subtree = $this->subtrees[$key]->to_smarty_php();
                 if (substr($subtree, 0, 1) == '>') {
                     $code = substr($code, 0, strlen($code)-1) . '?<?php ?>>' . substr($subtree, 1);
-	       } else {
+           } else {
                     $code .= $subtree;
                 } 
                 continue;
@@ -187,8 +197,11 @@ class _smarty_template_buffer extends _smarty_parsetree {
         } 
         return $code;
     } 
-} 
-/* template text */
+}
+
+/**
+ * template text
+ */
 class _smarty_text extends _smarty_parsetree {
     public $data;
     function __construct($parser, $data)
@@ -202,7 +215,10 @@ class _smarty_text extends _smarty_parsetree {
         return $this->data;
     } 
 } 
-/* template linebreaks */
+
+/**
+ * template linebreaks
+ */
 class _smarty_linebreak extends _smarty_parsetree {
     public $data;
     function __construct($parser, $data)

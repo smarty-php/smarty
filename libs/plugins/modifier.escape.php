@@ -1,12 +1,11 @@
 <?php
-
 /**
  * Smarty plugin
  * 
  * @package Smarty
  * @subpackage PluginsModifier
  */
-
+ 
 /**
  * Smarty escape modifier plugin
  * 

@@ -1,17 +1,18 @@
 <?php
 
 /**
-* Smarty Internal Plugin Compile Append
-* 
-* Compiles the {append} tag
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+  * Smarty Internal Plugin Compile Append
+  * 
+  * Compiles the {append} tag
+  * 
+  * @package Smarty
+  * @subpackage Compiler
+  * @author Uwe Tews 
+  */
+
 /**
-* Smarty Internal Plugin Compile Append Class
-*/
+  * Smarty Internal Plugin Compile Append Class
+  */
 class Smarty_Internal_Compile_Append extends Smarty_Internal_CompileBase {
     /**
     * Compiles code for the {append} tag

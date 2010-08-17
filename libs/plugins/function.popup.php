@@ -1,10 +1,10 @@
 <?php
 /**
  * Smarty plugin
+ *
  * @package Smarty
  * @subpackage PluginsFunction
  */
-
 
 /**
  * Smarty {popup} function plugin
@@ -115,4 +115,5 @@ function smarty_function_popup($params, $smarty, $template)
 
     return $retval;
 }
+
 ?>

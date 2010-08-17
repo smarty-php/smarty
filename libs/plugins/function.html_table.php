@@ -1,53 +1,53 @@
 <?php
 /**
-* Smarty plugin
-* 
-* @package Smarty
-* @subpackage PluginsFunction
-*/
+ * Smarty plugin
+ * 
+ * @package Smarty
+ * @subpackage PluginsFunction
+ */
 
 /**
-* Smarty {html_table} function plugin
-* 
-* Type:     function<br>
-* Name:     html_table<br>
-* Date:     Feb 17, 2003<br>
-* Purpose:  make an html table from an array of data<br>
-* 
-* 
-* Examples:
-* <pre>
-* {table loop=$data}
-* {table loop=$data cols=4 tr_attr='"bgcolor=red"'}
-* {table loop=$data cols="first,second,third" tr_attr=$colors}
-* </pre>
-* 
-* @author Monte Ohrt <monte at ohrt dot com> 
-* @author credit to Messju Mohr <messju at lammfellpuschen dot de> 
-* @author credit to boots <boots dot smarty at yahoo dot com> 
-* @version 1.1
-* @link http://smarty.php.net/manual/en/language.function.html.table.php {html_table}
-          (Smarty online manual)
-* @param array $params parameters
-* Input:<br>
-*          - loop = array to loop through
-*          - cols = number of columns, comma separated list of column names
-*                   or array of column names
-*          - rows = number of rows
-*          - table_attr = table attributes
-*          - th_attr = table heading attributes (arrays are cycled)
-*          - tr_attr = table row attributes (arrays are cycled)
-*          - td_attr = table cell attributes (arrays are cycled)
-*          - trailpad = value to pad trailing cells with
-*          - caption = text for caption element 
-*          - vdir = vertical direction (default: "down", means top-to-bottom)
-*          - hdir = horizontal direction (default: "right", means left-to-right)
-*          - inner = inner loop (default "cols": print $loop line by line,
-*                    $loop will be printed column by column otherwise)
-* @param object $smarty Smarty object
-* @param object $template template object
-* @return string 
-*/
+ * Smarty {html_table} function plugin
+ * 
+ * Type:     function<br>
+ * Name:     html_table<br>
+ * Date:     Feb 17, 2003<br>
+ * Purpose:  make an html table from an array of data<br>
+ * 
+ * 
+ * Examples:
+ * <pre>
+ * {table loop=$data}
+ * {table loop=$data cols=4 tr_attr='"bgcolor=red"'}
+ * {table loop=$data cols="first,second,third" tr_attr=$colors}
+ * </pre>
+ * 
+ * @author Monte Ohrt <monte at ohrt dot com> 
+ * @author credit to Messju Mohr <messju at lammfellpuschen dot de> 
+ * @author credit to boots <boots dot smarty at yahoo dot com> 
+ * @version 1.1
+ * @link http://smarty.php.net/manual/en/language.function.html.table.php {html_table}
+ *          (Smarty online manual)
+ * @param array $params parameters
+ * Input:<br>
+ *          - loop = array to loop through
+ *          - cols = number of columns, comma separated list of column names
+ *                   or array of column names
+ *          - rows = number of rows
+ *          - table_attr = table attributes
+ *          - th_attr = table heading attributes (arrays are cycled)
+ *          - tr_attr = table row attributes (arrays are cycled)
+ *          - td_attr = table cell attributes (arrays are cycled)
+ *          - trailpad = value to pad trailing cells with
+ *          - caption = text for caption element 
+ *          - vdir = vertical direction (default: "down", means top-to-bottom)
+ *          - hdir = horizontal direction (default: "right", means left-to-right)
+ *          - inner = inner loop (default "cols": print $loop line by line,
+ *                    $loop will be printed column by column otherwise)
+ * @param object $smarty Smarty object
+ * @param object $template template object
+ * @return string 
+ */
 function smarty_function_html_table($params, $smarty, $template)
 {
     $table_attr = 'border="1"';
@@ -172,5 +172,6 @@ function smarty_function_html_table_cycle($name, $var, $no)
     } 
 
     return ($ret) ? ' ' . $ret : '';
-} 
+}
+
 ?>

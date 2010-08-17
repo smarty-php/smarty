@@ -1,7 +1,7 @@
 <?php
 /**
  * Smarty plugin
- * 
+ *
  * @package Smarty
  * @subpackage PluginsModifierCompiler
  */
@@ -18,6 +18,7 @@
  * @param array $params parameters
  * @return string with compiled code
  */
+
 function smarty_modifiercompiler_strip_tags($params, $compiler)
 {
    if (!isset($params[1])) {

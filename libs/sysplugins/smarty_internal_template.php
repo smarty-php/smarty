@@ -376,7 +376,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                     $this->cacheFileChecked = true;
                     if ($this->caching === SMARTY_CACHING_LIFETIME_SAVED && $this->properties['cache_lifetime'] >= 0 && (time() > ($this->getCachedTimestamp() + $this->properties['cache_lifetime']))) {
                       $this->tpl_vars = array();
-		    $this->rendered_content = null;
+            $this->rendered_content = null;
                         return $this->isCached;
                     } 
                     if (!empty($this->properties['file_dependency']) && $this->smarty->compile_check) {

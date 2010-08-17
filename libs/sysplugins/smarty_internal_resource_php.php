@@ -1,21 +1,22 @@
 <?php
 
 /**
-* Smarty Internal Plugin Resource PHP
-* 
-* Implements the file system as resource for PHP templates
-* 
-* @package Smarty
-* @subpackage TemplateResources
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Resource PHP
+ * 
+ * Implements the file system as resource for PHP templates
+ * 
+ * @package Smarty
+ * @subpackage TemplateResources
+ * @author Uwe Tews 
+ */
+
 /**
-* Smarty Internal Plugin Resource PHP
-*/
+ * Smarty Internal Plugin Resource PHP
+ */
 class Smarty_Internal_Resource_PHP {
     /**
-    * Class constructor, enable short open tags
-    */
+     * Class constructor, enable short open tags
+     */
     public function __construct($smarty)
     {
         $this->smarty = $smarty;
@@ -26,10 +27,10 @@ class Smarty_Internal_Resource_PHP {
     public $isEvaluated = false;
 
     /**
-    * Return flag if template source is existing
-    * 
-    * @return boolean true
-    */
+     * Return flag if template source is existing
+     * 
+     * @return boolean true
+     */
     public function isExisting($template)
     {
         if ($template->getTemplateFilepath() === false) {
@@ -40,11 +41,11 @@ class Smarty_Internal_Resource_PHP {
     } 
 
     /**
-    * Get filepath to template source
-    * 
-    * @param object $_template template object
-    * @return string filepath to template source file
-    */
+     * Get filepath to template source
+     * 
+     * @param object $_template template object
+     * @return string filepath to template source file
+     */
     public function getTemplateFilepath($_template)
     {
         $_filepath = $_template->buildTemplateFilepath ();
@@ -57,22 +58,22 @@ class Smarty_Internal_Resource_PHP {
     } 
 
     /**
-    * Get timestamp to template source
-    * 
-    * @param object $_template template object
-    * @return integer timestamp of template source file
-    */
+     * Get timestamp to template source
+     * 
+     * @param object $_template template object
+     * @return integer timestamp of template source file
+     */
     public function getTemplateTimestamp($_template)
     {
         return filemtime($_template->getTemplateFilepath());
     } 
 
     /**
-    * Read template source from file
-    * 
-    * @param object $_template template object
-    * @return string content of template source file
-    */
+     * Read template source from file
+     * 
+     * @param object $_template template object
+     * @return string content of template source file
+     */
     public function getTemplateSource($_template)
     {
         if (file_exists($_template->getTemplateFilepath())) {
@@ -83,13 +84,12 @@ class Smarty_Internal_Resource_PHP {
         } 
     } 
 
-
     /**
-    * Get filepath to compiled template
-    * 
-    * @param object $_template template object
-    * @return boolean return false as compiled template is not stored
-    */
+     * Get filepath to compiled template
+     * 
+     * @param object $_template template object
+     * @return boolean return false as compiled template is not stored
+     */
     public function getCompiledFilepath($_template)
     { 
         // no filepath for PHP templates
@@ -97,8 +97,8 @@ class Smarty_Internal_Resource_PHP {
     } 
 
     /**
-    * renders the PHP template
-    */
+     * renders the PHP template
+     */
     public function renderUncompiled($_smarty_template)
     {
         if (!$this->smarty->allow_php_templates) {

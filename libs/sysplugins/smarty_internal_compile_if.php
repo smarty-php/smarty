@@ -1,24 +1,25 @@
 <?php
 /**
-* Smarty Internal Plugin Compile If
-* 
-* Compiles the {if} {else} {elseif} {/if} tags
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile If
+ * 
+ * Compiles the {if} {else} {elseif} {/if} tags
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
+
 /**
-* Smarty Internal Plugin Compile If Class
-*/
+ * Smarty Internal Plugin Compile If Class
+ */
 class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {if} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the {if} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
@@ -37,16 +38,16 @@ class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase {
 } 
 
 /**
-* Smarty Internal Plugin Compile Else Class
-*/
+ * Smarty Internal Plugin Compile Else Class
+ */
 class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {else} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the {else} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler; 
@@ -58,16 +59,16 @@ class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase {
 } 
 
 /**
-* Smarty Internal Plugin Compile ElseIf Class
-*/
+ * Smarty Internal Plugin Compile ElseIf Class
+ */
 class Smarty_Internal_Compile_Elseif extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {elseif} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the {elseif} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;

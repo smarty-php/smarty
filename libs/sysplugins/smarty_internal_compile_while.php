@@ -8,6 +8,7 @@
 * @subpackage Compiler
 * @author Uwe Tews 
 */
+
 /**
 * Smarty Internal Plugin Compile While Class
 */
@@ -28,9 +29,9 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase {
         $this->_open_tag('while', $this->compiler->nocache);
 
         // maybe nocache because of nocache variables
-		$this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache;
+        $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache;
 
-		
+        
         if (is_array($args['if condition'])) {
             $_output = " <?php if (!isset(\$_smarty_tpl->tpl_vars[".$args['if condition']['var']."])) \$_smarty_tpl->tpl_vars[".$args['if condition']['var']."] = new Smarty_Variable;\n";
             $_output .= " while (\$_smarty_tpl->tpl_vars[".$args['if condition']['var']."]->value = ".$args['if condition']['value'].") {\n ?>";
@@ -55,12 +56,13 @@ class Smarty_Internal_Compile_Whileclose extends Smarty_Internal_CompileBase {
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler; 
- 		// must endblock be nocache?
-		if ($this->compiler->nocache) {
+        // must endblock be nocache?
+        if ($this->compiler->nocache) {
                  $this->compiler->tag_nocache = true;
         }
         $this->compiler->nocache = $this->_close_tag(array('while'));
         return "<?php }?>";
     } 
 } 
+
 ?>

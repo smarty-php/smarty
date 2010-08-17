@@ -1,25 +1,26 @@
 <?php
 
 /**
-* Smarty Internal Plugin Compile Include PHP
-* 
-* Compiles the {include_php} tag
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile Include PHP
+ * 
+ * Compiles the {include_php} tag
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
+
 /**
-* Smarty Internal Plugin Compile Insert Class
-*/
+ * Smarty Internal Plugin Compile Insert Class
+ */
 class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the {include_php} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the {include_php} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;

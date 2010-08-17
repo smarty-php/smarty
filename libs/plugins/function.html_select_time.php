@@ -1,28 +1,28 @@
 <?php
 /**
-* Smarty plugin
-* 
-* @package Smarty
-* @subpackage PluginsFunction
-*/
+ * Smarty plugin
+ * 
+ * @package Smarty
+ * @subpackage PluginsFunction
+ */
 
 /**
-* Smarty {html_select_time} function plugin
-* 
-* Type:     function<br>
-* Name:     html_select_time<br>
-* Purpose:  Prints the dropdowns for time selection
-* 
-* @link http://smarty.php.net/manual/en/language.function.html.select.time.php {html_select_time}
-          (Smarty online manual)
-* @author Roberto Berto <roberto@berto.net> 
-* @credits Monte Ohrt <monte AT ohrt DOT com>
-* @param array $params parameters
-* @param object $smarty Smarty object
-* @param object $template template object
-* @return string 
-* @uses smarty_make_timestamp()
-*/
+ * Smarty {html_select_time} function plugin
+ * 
+ * Type:     function<br>
+ * Name:     html_select_time<br>
+ * Purpose:  Prints the dropdowns for time selection
+ * 
+ * @link http://smarty.php.net/manual/en/language.function.html.select.time.php {html_select_time}
+ *          (Smarty online manual)
+ * @author Roberto Berto <roberto@berto.net> 
+ * @credits Monte Ohrt <monte AT ohrt DOT com>
+ * @param array $params parameters
+ * @param object $smarty Smarty object
+ * @param object $template template object
+ * @return string 
+ * @uses smarty_make_timestamp()
+ */
 function smarty_function_html_select_time($params, $smarty, $template)
 {
     require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');

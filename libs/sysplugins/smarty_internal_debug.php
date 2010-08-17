@@ -9,6 +9,7 @@
  * @subpackage Debug
  * @author Uwe Tews 
  */
+
 /**
  * Smarty Internal Plugin Debug Class
  */

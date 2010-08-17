@@ -1,25 +1,26 @@
 <?php
 /**
-* Smarty Internal Plugin Compile Registered Block
-* 
-* Compiles code for the execution of a registered block function
-* 
-* @package Smarty
-* @subpackage Compiler
-* @author Uwe Tews 
-*/
+ * Smarty Internal Plugin Compile Registered Block
+ * 
+ * Compiles code for the execution of a registered block function
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
+
 /**
-* Smarty Internal Plugin Compile Registered Block Class
-*/
+ * Smarty Internal Plugin Compile Registered Block Class
+ */
 class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_CompileBase {
     /**
-    * Compiles code for the execution of a block function
-    * 
-    * @param array $args array with attributes from parser
-    * @param string $tag name of block function
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
+     * Compiles code for the execution of a block function
+     * 
+     * @param array $args array with attributes from parser
+     * @param string $tag name of block function
+     * @param object $compiler compiler object
+     * @return string compiled code
+     */
     public function compile($args, $compiler, $tag)
     {
         $this->compiler = $compiler;

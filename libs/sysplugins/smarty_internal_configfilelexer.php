@@ -7,6 +7,7 @@
 * @subpackage Config
 * @author Uwe Tews 
 */
+
 /**
 * Smarty Internal Plugin Configfilelexer
 */
@@ -20,10 +21,10 @@ class Smarty_Internal_Configfilelexer
     public $node;
     public $line;
     private $state = 1;
-    public $smarty_token_names = array (		// Text for parser error messages
-   				);
-    				
-    				
+    public $smarty_token_names = array (        // Text for parser error messages
+                );
+                    
+                    
     function __construct($data, $smarty)
     {
         // set instance object
@@ -521,6 +522,6 @@ class Smarty_Internal_Configfilelexer
     $this->yypopstate();
     }
 
-
 }
+
 ?>

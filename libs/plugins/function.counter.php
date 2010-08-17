@@ -5,7 +5,6 @@
  * @subpackage PluginsFunction
  */
 
-
 /**
  * Smarty {counter} function plugin
  *
@@ -74,4 +73,5 @@ function smarty_function_counter($params, $smarty)
     return $retval;
     
 }
+
 ?>

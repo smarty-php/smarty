@@ -1,10 +1,10 @@
 <?php
 /**
  * Smarty shared plugin
+ *
  * @package Smarty
  * @subpackage PluginsShared
  */
-
 
 /**
  * Function: smarty_make_timestamp<br>
@@ -14,6 +14,7 @@
  * @param string $string
  * @return string
  */
+
 function smarty_make_timestamp($string)
 {
     if(empty($string)) {
@@ -38,4 +39,5 @@ function smarty_make_timestamp($string)
         return $time;
     }
 }
+
 ?>

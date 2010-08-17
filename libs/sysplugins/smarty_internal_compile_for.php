@@ -8,6 +8,7 @@
  * @subpackage Compiler
  * @author Uwe Tews 
  */
+
 /**
  * Smarty Internal Plugin Compile For Class
  */

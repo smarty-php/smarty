@@ -10,6 +10,7 @@
  * @subpackage Config
  * @author Uwe Tews 
  */
+ 
 /**
  * Main config file compiler class
  */

@@ -9,6 +9,7 @@
  * @subpackage TemplateResources
  * @author Uwe Tews 
  */
+
 /**
  * Smarty Internal Plugin Resource Extends
  */
@@ -127,14 +128,18 @@ class Smarty_Internal_Resource_Extends {
             } 
         } 
         // $_template->template_filepath = $saved_filepath;
-    } 
+    }
+    
+    /**
+     * saveBlockData
+     */    
     protected function saveBlockData($block_content, $block_tag, $_filepath)
     {
         if (0 == preg_match("!(.?)(name=)(.*?)(?=(\s|{$this->_rdl}))!", $block_tag, $_match)) {
             $this->smarty->trigger_error("'{$block_tag}' missing name attribute in file '$_filepath'");
         } else {
             $_name = trim($_match[3], '\'"');
-	   // replace {$smarty.block.child} 
+       // replace {$smarty.block.child} 
             if (strpos($block_content, $this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter) !== false) {
                 if (isset($this->smarty->block_data[$_name])) {
                     $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,

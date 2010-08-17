@@ -1,23 +1,24 @@
 <?php
 
 /**
-* Smarty write file plugin
-* 
-* @package Smarty
-* @subpackage PluginsInternal
-* @author Monte Ohrt 
-*/
+ * Smarty write file plugin
+ * 
+ * @package Smarty
+ * @subpackage PluginsInternal
+ * @author Monte Ohrt 
+ */
+
 /**
-* Smarty Internal Write File Class
-*/
+ * Smarty Internal Write File Class
+ */
 class Smarty_Internal_Write_File {
     /**
-    * Writes file in a save way to disk
-    * 
-    * @param string $_filepath complete filepath
-    * @param string $_contents file content
-    * @return boolean true
-    */
+     * Writes file in a save way to disk
+     * 
+     * @param string $_filepath complete filepath
+     * @param string $_contents file content
+     * @return boolean true
+     */
     public static function writeFile($_filepath, $_contents, $smarty)
     {
         $old_umask = umask(0);

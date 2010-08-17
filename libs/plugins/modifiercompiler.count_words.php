@@ -17,7 +17,7 @@
  * @author Uwe Tews 
  * @param array $params parameters
  * @return string with compiled code
- */
+*/
 function smarty_modifiercompiler_count_words($params, $compiler)
 { 
     // mb_ functions available?

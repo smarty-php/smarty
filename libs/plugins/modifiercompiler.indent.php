@@ -5,7 +5,6 @@
  * @subpackage PluginsModifierCompiler
  */
 
-
 /**
  * Smarty indent modifier plugin
  *
@@ -18,6 +17,7 @@
  * @param array $params parameters
  * @return string with compiled code
  */
+
 function smarty_modifiercompiler_indent($params, $compiler)
 {
     if (!isset($params[1])) {

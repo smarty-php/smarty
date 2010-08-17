@@ -1,10 +1,10 @@
 <?php
 /**
  * Smarty plugin
+ *
  * @package Smarty
  * @subpackage PluginsFunction
  */
-
 
 /**
  * Smarty {fetch} plugin

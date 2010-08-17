@@ -9,6 +9,7 @@
  * @subpackage Compiler
  * @author Uwe Tews 
  */
+
 /**
  * Smarty Internal Plugin Compile Function_Call Class
  */
@@ -71,7 +72,7 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase {
             } 
         } 
         $_params = 'array(' . implode(",", $_paramsArray) . ')';
-	$_hash = str_replace('-','_',$compiler->template->properties['nocache_hash']);
+    $_hash = str_replace('-','_',$compiler->template->properties['nocache_hash']);
         // was there an assign attribute
         if (isset($_assign)) {
             if ($compiler->template->caching) {

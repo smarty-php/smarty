@@ -1,11 +1,11 @@
 <?php
 /**
  * Smarty plugin
- * 
+ *
  * @package Smarty
  * @subpackage PluginsModifier
  */
-
+ 
 /**
  * Smarty truncate modifier plugin
  * 

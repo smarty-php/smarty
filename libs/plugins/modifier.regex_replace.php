@@ -1,10 +1,10 @@
 <?php
 /**
  * Smarty plugin
+ *
  * @package Smarty
  * @subpackage PluginsModifier
-*/
-
+ */
 
 /**
  * Smarty regex_replace modifier plugin
@@ -42,4 +42,5 @@ function _smarty_regex_replace_check($search)
     }
     return $search;
 }
+
 ?>

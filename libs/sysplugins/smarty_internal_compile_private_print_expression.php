@@ -8,6 +8,7 @@
  * @subpackage Compiler
  * @author Uwe Tews 
  */
+
 /**
  * Smarty Internal Plugin Compile Print Expression Class
  */
@@ -58,7 +59,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
             if (isset($_attr['modifierlist'])) {
                 $output = $this->compiler->compileTag('private_modifier', array('modifierlist' => $_attr['modifierlist'], 'value' => $output));
             } 
-	  $this->compiler->has_output = true;
+      $this->compiler->has_output = true;
            $output = '<?php echo ' . $output . ';?>';
         } 
         return $output;

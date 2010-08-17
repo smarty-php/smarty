@@ -8,6 +8,7 @@
  * @subpackage Compiler
  * @author Uwe Tews 
  */
+
 /**
  * Smarty Internal Plugin Compile Object Function Class
  */
@@ -55,8 +56,9 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
             $output = "<?php echo {$return};?>\n";
         } else {
             $output = "<?php \$_smarty_tpl->assign({$_assign},{$return});?>\n";
-	}
+    }
         return $output;
     } 
-} 
+}
+
 ?>

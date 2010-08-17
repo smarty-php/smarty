@@ -7,7 +7,6 @@
  * @subpackage PluginsFunction
  */
 
-
 /**
  * Smarty {math} function plugin
  *
@@ -81,4 +80,5 @@ function smarty_function_math($params, $smarty, $template)
         }
     }
 }
+
 ?>
