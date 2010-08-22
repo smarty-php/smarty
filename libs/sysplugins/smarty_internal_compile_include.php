@@ -107,6 +107,13 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         } else {
             $_cache_lifetime = 'null';
         } 
+        if (isset($_attr['cache_id'])) {
+            $_cache_id = $_attr['cache_id'];
+            $this->compiler->tag_nocache = true;
+            $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
+        } else {
+            $_cache_id = '$_smarty_tpl->cache_id';
+        } 
         if (isset($_attr['nocache'])) {
             if (trim($_attr['nocache'], "'\"") == 'true') {
                 $this->compiler->tag_nocache = true;
@@ -122,9 +129,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             } 
         } 
         // create template object
-        $_output = "<?php \$_template = new {$compiler->smarty->template_class}($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, \$_smarty_tpl->cache_id, \$_smarty_tpl->compile_id, $_caching, $_cache_lifetime);\n"; 
+        $_output = "<?php \$_template = new {$compiler->smarty->template_class}($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, $_cache_id, \$_smarty_tpl->compile_id, $_caching, $_cache_lifetime);\n"; 
         // delete {include} standard attributes
-        unset($_attr['file'], $_attr['assign'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']); 
+        unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']); 
         // remaining attributes must be assigned as smarty variable
         if (!empty($_attr)) {
             if ($_parent_scope == SMARTY_LOCAL_SCOPE) {

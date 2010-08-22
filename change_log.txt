@@ -1,3 +1,6 @@
+22/08/2010
+- added attribute cache_id to {include} tag
+
 13/08/2010
 - remove exception_handler property from Smarty class
 - added Smarty's own exceptions SmartyException and SmartyCompilerException
