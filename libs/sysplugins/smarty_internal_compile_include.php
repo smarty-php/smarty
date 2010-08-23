@@ -34,7 +34,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         if ($compiler->smarty->merge_compiled_includes || isset($_attr['inline'])) {
             // check if compiled code can be merged (contains no variable part)
             if (!$compiler->has_variable_string && (substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2) and substr_count($include_file, '(') == 0) {
-                eval("\$tmp = $include_file;");
+             $tmp = null;
+	    eval("\$tmp = $include_file;");
                 if ($this->compiler->template->template_resource != $tmp) {
                     $tpl = $compiler->smarty->createTemplate ($tmp, $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template);
                     if ($this->compiler->template->caching) {

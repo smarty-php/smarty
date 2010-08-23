@@ -1,3 +1,6 @@
+23/08/2010
+- fixed E_STRICT errors for uninitialized variables
+
 22/08/2010
 - added attribute cache_id to {include} tag
 

@@ -243,6 +243,7 @@ class Smarty_Internal_Config {
         if ($this->mustCompile()) {
             $this->compileConfigSource();
         } 
+        $_config_vars = array();
         include($this->getCompiledFilepath ()); 
         // copy global config vars
         foreach ($_config_vars['vars'] as $variable => $value) {

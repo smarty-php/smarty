@@ -332,7 +332,7 @@ class Smarty_Internal_Data {
             return $_result;
         } 
 
-        if ($this->smarty->$error_unassigned) {
+        if ($this->smarty->error_unassigned) {
             throw new SmartyException('Undefined stream variable "' . $variable . '"');
         } else {
             return '';

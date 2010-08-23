@@ -375,11 +375,13 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                     } 
                     $this->cacheFileChecked = true;
                     if ($this->caching === SMARTY_CACHING_LIFETIME_SAVED && $this->properties['cache_lifetime'] >= 0 && (time() > ($this->getCachedTimestamp() + $this->properties['cache_lifetime']))) {
-                      $this->tpl_vars = array();
-            $this->rendered_content = null;
+                        $this->tpl_vars = array();
+                        $this->rendered_content = null;
                         return $this->isCached;
                     } 
                     if (!empty($this->properties['file_dependency']) && $this->smarty->compile_check) {
+                        $resource_type = null;
+                        $resource_name = null;
                         foreach ($this->properties['file_dependency'] as $_file_to_check) {
                             $this->getResourceTypeName($_file_to_check[0], $resource_type, $resource_name);
                             If ($resource_type == 'file') {
@@ -429,6 +431,8 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                 if ($this->smarty->compile_check) {
                     if (!empty($this->properties['file_dependency'])) {
                         $this->mustCompile = false;
+                        $resource_type = null;
+                        $resource_name = null;
                         foreach ($this->properties['file_dependency'] as $_file_to_check) {
                             $this->getResourceTypeName($_file_to_check[0], $resource_type, $resource_name);
                             If ($resource_type == 'file') {

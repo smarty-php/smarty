@@ -63,7 +63,7 @@ function smarty_function_math($params, $smarty, $template)
             $equation = preg_replace("/\b$key\b/", " \$params['$key'] ", $equation);
         }
     }
-
+    $smarty_math_result = null;
     eval("\$smarty_math_result = ".$equation.";");
 
     if (empty($params['format'])) {

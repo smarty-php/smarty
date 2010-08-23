@@ -31,7 +31,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         // check and get attributes
         $_attr = $this->_get_attributes($args);
         $_smarty_tpl = $compiler->template; 
-        // $include_file = '';
+        $include_file = null;
         eval('$include_file = ' . $_attr['file'] . ';'); 
         // create template object
         $_template = new $compiler->smarty->template_class($include_file, $this->smarty, $compiler->template); 
