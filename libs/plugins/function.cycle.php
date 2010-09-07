@@ -39,11 +39,12 @@
  * @author credit to Jason Sweat <jsweat_php@yahoo.com>
  * @version  1.3
  * @param array
- * @param Smarty
+ * @param object $smarty Smarty object
+ * @param object $template template object
  * @return string|null
  */
 
-function smarty_function_cycle($params, $smarty)
+function smarty_function_cycle($params, $smarty, $template)
 {
     static $cycle_vars;
     
@@ -83,7 +84,7 @@ function smarty_function_cycle($params, $smarty)
     
     if (isset($params['assign'])) {
         $print = false;
-        $smarty->assign($params['assign'], $cycle_array[$cycle_vars[$name]['index']]);
+        $template->assign($params['assign'], $cycle_array[$cycle_vars[$name]['index']]);
     }
         
     if($print) {

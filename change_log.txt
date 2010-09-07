@@ -1,3 +1,8 @@
+07/09/2010
+- bugfix {counter} and {cycle} plugin assigned result to smarty variable not in local(template) scope
+- bugfix templates containing just {strip} {/strip} tags did produce an error
+
+
 23/08/2010
 - fixed E_STRICT errors for uninitialized variables
 
