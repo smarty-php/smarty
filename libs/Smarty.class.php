@@ -223,9 +223,6 @@ class Smarty extends Smarty_Internal_Data {
     public $_dir_perms = 0771; 
     // smarty object reference
     public $smarty = null; 
-    // block data at template inheritance
-    public $block_data = array();
-    public $block_data_stack = array(); 
     // block tag hierarchy
     public $_tag_stack = array(); 
     // plugins
@@ -308,8 +305,6 @@ class Smarty extends Smarty_Internal_Data {
             // get default Smarty data object
             $parent = $this;
         } 
-        array_push($this->block_data_stack, $this->block_data);
-        $this->block_data = array(); 
         // create template object if necessary
         ($template instanceof $this->template_class)? $_template = $template :
         $_template = $this->createTemplate ($template, $cache_id, $compile_id, $parent);
@@ -352,11 +347,9 @@ class Smarty extends Smarty_Internal_Data {
             if ($this->debugging) {
                 Smarty_Internal_Debug::display_debug($this);
             } 
-            $this->block_data = array_pop($this->block_data_stack);
             return;
         } else {
             // return fetched content
-            $this->block_data = array_pop($this->block_data_stack);
             return $_output;
         } 
     } 

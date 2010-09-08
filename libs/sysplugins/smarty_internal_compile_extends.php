@@ -79,35 +79,35 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
             $_name = trim($_match[3], '\'"'); 
             // replace {$smarty.block.child}
             if (strpos($block_content, $this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter) !== false) {
-                if (isset($this->smarty->block_data[$_name])) {
+                if (isset($template->block_data[$_name])) {
                     $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
-                        $this->smarty->block_data[$_name]['source'], $block_content);
-                    unset($this->smarty->block_data[$_name]);
+                        $template->block_data[$_name]['source'], $block_content);
+                    unset($template->block_data[$_name]);
                 } else {
                     $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
                         '', $block_content);
                 } 
             } 
-            if (isset($this->smarty->block_data[$_name])) {
-                if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
-                    $this->smarty->block_data[$_name]['source'] =
-                    str_replace('%%%%SMARTY_PARENT%%%%', $block_content, $this->smarty->block_data[$_name]['source']);
-                } elseif ($this->smarty->block_data[$_name]['mode'] == 'prepend') {
-                    $this->smarty->block_data[$_name]['source'] .= $block_content;
-                } elseif ($this->smarty->block_data[$_name]['mode'] == 'append') {
-                    $this->smarty->block_data[$_name]['source'] = $block_content . $this->smarty->block_data[$_name]['source'];
+            if (isset($template->block_data[$_name])) {
+                if (strpos($template->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
+                    $template->block_data[$_name]['source'] =
+                    str_replace('%%%%SMARTY_PARENT%%%%', $block_content, $template->block_data[$_name]['source']);
+                } elseif ($template->block_data[$_name]['mode'] == 'prepend') {
+                    $template->block_data[$_name]['source'] .= $block_content;
+                } elseif ($template->block_data[$_name]['mode'] == 'append') {
+                    $template->block_data[$_name]['source'] = $block_content . $template->block_data[$_name]['source'];
                 } 
             } else {
-                $this->smarty->block_data[$_name]['source'] = $block_content;
+                $template->block_data[$_name]['source'] = $block_content;
             } 
             if (preg_match('/(.?)(append)(.*)/', $block_tag, $_match) != 0) {
-                $this->smarty->block_data[$_name]['mode'] = 'append';
+                $template->block_data[$_name]['mode'] = 'append';
             } elseif (preg_match('/(.?)(prepend)(.*)/', $block_tag, $_match) != 0) {
-                $this->smarty->block_data[$_name]['mode'] = 'prepend';
+                $template->block_data[$_name]['mode'] = 'prepend';
             } else {
-                $this->smarty->block_data[$_name]['mode'] = 'replace';
+                $template->block_data[$_name]['mode'] = 'replace';
             } 
-            $this->smarty->block_data[$_name]['file'] = $template->getTemplateFilepath();
+            $template->block_data[$_name]['file'] = $template->getTemplateFilepath();
         } 
     } 
 } 

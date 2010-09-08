@@ -66,10 +66,10 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             $this->compiler->trigger_template_error('mismatching name attributes "' . $saved_data[0]['name'] . '" and "' . $_attr['name'] . '"');
         } 
         $_name = trim($saved_data[0]['name'], "\"'");
-        if (isset($this->smarty->block_data[$_name])) {
-            $_tpl = $this->smarty->createTemplate('string:' . $this->smarty->block_data[$_name]['source'], null, null, $compiler->template);
+        if (isset($compiler->template->block_data[$_name])) {
+            $_tpl = $this->smarty->createTemplate('string:' . $compiler->template->block_data[$_name]['source'], null, null, $compiler->template);
             $_tpl->properties['nocache_hash'] = $compiler->template->properties['nocache_hash'];
-            $_tpl->template_filepath = $this->smarty->block_data[$_name]['file'];
+            $_tpl->template_filepath = $compiler->template->block_data[$_name]['file'];
             if ($compiler->nocache) {
                 $_tpl->forceNocache = 2;
             } else {
@@ -77,13 +77,13 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             } 
             $_tpl->suppressHeader = true;
             $_tpl->suppressFileDependency = true;
-            if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
+            if (strpos($compiler->template->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
                 $_output = str_replace('%%%%SMARTY_PARENT%%%%', $compiler->parser->current_buffer->to_smarty_php(), $_tpl->getCompiledTemplate());
-            } elseif ($this->smarty->block_data[$_name]['mode'] == 'prepend') {
+            } elseif ($compiler->template->block_data[$_name]['mode'] == 'prepend') {
                 $_output = $_tpl->getCompiledTemplate() . $compiler->parser->current_buffer->to_smarty_php();
-            } elseif ($this->smarty->block_data[$_name]['mode'] == 'append') {
+            } elseif ($compiler->template->block_data[$_name]['mode'] == 'append') {
                 $_output = $compiler->parser->current_buffer->to_smarty_php() . $_tpl->getCompiledTemplate();
-            } elseif (!empty($this->smarty->block_data[$_name])) {
+            } elseif (!empty($compiler->template->block_data[$_name])) {
                 $_output = $_tpl->getCompiledTemplate();
             } 
             $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $_tpl->properties['file_dependency']);

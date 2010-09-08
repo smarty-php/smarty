@@ -68,6 +68,8 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public $security = false;
     public $saved_modifier = null;
     public $smarty = null;
+    // blocks for template inheritance
+    public $block_data = array();
     /**
      * Create template data object
      * 

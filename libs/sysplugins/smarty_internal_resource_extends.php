@@ -119,7 +119,7 @@ class Smarty_Internal_Resource_Extends {
                     } 
                     $_block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
                         substr($_content, $_result[0][$_start][1] + strlen($_result[0][$_start][0]), $_result[0][$_start + $_end][1] - $_result[0][$_start][1] - + strlen($_result[0][$_start][0])));
-                    $this->saveBlockData($_block_content, $_result[0][$_start][0], $_filepath);
+                    $this->saveBlockData($_block_content, $_result[0][$_start][0], $_filepath, $_template);
                     $_start = $_start + $_end + 1;
                 } 
             } else {
@@ -133,7 +133,7 @@ class Smarty_Internal_Resource_Extends {
     /**
      * saveBlockData
      */    
-    protected function saveBlockData($block_content, $block_tag, $_filepath)
+    protected function saveBlockData($block_content, $block_tag, $_filepath, $_template)
     {
         if (0 == preg_match("!(.?)(name=)(.*?)(?=(\s|{$this->_rdl}))!", $block_tag, $_match)) {
             $this->smarty->trigger_error("'{$block_tag}' missing name attribute in file '$_filepath'");
@@ -141,35 +141,35 @@ class Smarty_Internal_Resource_Extends {
             $_name = trim($_match[3], '\'"');
        // replace {$smarty.block.child} 
             if (strpos($block_content, $this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter) !== false) {
-                if (isset($this->smarty->block_data[$_name])) {
+                if (isset($_template->block_data[$_name])) {
                     $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
-                        $this->smarty->block_data[$_name]['source'], $block_content);
-                    unset($this->smarty->block_data[$_name]);
+                        $_template->block_data[$_name]['source'], $block_content);
+                    unset($_template->block_data[$_name]);
                 } else {
                     $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
                         '', $block_content);
                 } 
             } 
-            if (isset($this->smarty->block_data[$_name])) {
-                if (strpos($this->smarty->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
-                    $this->smarty->block_data[$_name]['source'] =
-                    str_replace('%%%%SMARTY_PARENT%%%%', $block_content, $this->smarty->block_data[$_name]['source']);
-                } elseif ($this->smarty->block_data[$_name]['mode'] == 'prepend') {
-                    $this->smarty->block_data[$_name]['source'] .= $block_content;
-                } elseif ($this->smarty->block_data[$_name]['mode'] == 'append') {
-                    $this->smarty->block_data[$_name]['source'] = $block_content . $this->smarty->block_data[$_name]['source'];
+            if (isset($_template->block_data[$_name])) {
+                if (strpos($_template->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
+                    $_template->block_data[$_name]['source'] =
+                    str_replace('%%%%SMARTY_PARENT%%%%', $block_content, $_template->block_data[$_name]['source']);
+                } elseif ($_template->block_data[$_name]['mode'] == 'prepend') {
+                    $_template->block_data[$_name]['source'] .= $block_content;
+                } elseif ($_template->block_data[$_name]['mode'] == 'append') {
+                    $_template->block_data[$_name]['source'] = $block_content . $_template->block_data[$_name]['source'];
                 } 
             } else {
-                $this->smarty->block_data[$_name]['source'] = $block_content;
+                $_template->block_data[$_name]['source'] = $block_content;
             } 
             if (preg_match('/(.?)(append)(.*)/', $block_tag, $_match) != 0) {
-                $this->smarty->block_data[$_name]['mode'] = 'append';
+                $_template->block_data[$_name]['mode'] = 'append';
             } elseif (preg_match('/(.?)(prepend)(.*)/', $block_tag, $_match) != 0) {
-                $this->smarty->block_data[$_name]['mode'] = 'prepend';
+                $_template->block_data[$_name]['mode'] = 'prepend';
             } else {
-                $this->smarty->block_data[$_name]['mode'] = 'replace';
+                $_template->block_data[$_name]['mode'] = 'replace';
             } 
-            $this->smarty->block_data[$_name]['file'] = $_filepath;
+            $_template->block_data[$_name]['file'] = $_filepath;
         } 
     } 
 
