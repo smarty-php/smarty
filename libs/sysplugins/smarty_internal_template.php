@@ -105,7 +105,12 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         // load cache resource
         if (!$this->resource_object->isEvaluated && ($this->caching == SMARTY_CACHING_LIFETIME_CURRENT || $this->caching == SMARTY_CACHING_LIFETIME_SAVED)) {
             $this->cache_resource_object = $this->smarty->cache->loadResource();
-        } 
+        }
+        // copy block data of template inheritance
+        if ($this->parent instanceof Smarty_Template or $this->parent instanceof Smarty_Internal_Template) {
+        	$this->block_data = $this->parent->block_data;
+        }
+ 
     } 
 
     /**

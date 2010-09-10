@@ -27,13 +27,15 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
         $this->optional_attributes = array('assign', 'nocache'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
-        $save = array($_attr, $compiler->parser->current_buffer, $this->compiler->nocache);
+        $save = array($_attr, $compiler->parser->current_buffer, $this->compiler->nocache, $this->compiler->smarty->merge_compiled_includes);
         $this->_open_tag('block', $save);
         if (isset($_attr['nocache'])) {
             if ($_attr['nocache'] == 'true') {
                 $compiler->nocache = true;
             } 
-        } 
+        }
+        // must merge includes
+        $this->compiler->smarty->merge_compiled_includes = true; 
 
         $compiler->parser->current_buffer = new _smarty_template_buffer($compiler->parser);
         $compiler->has_code = false;
@@ -103,7 +105,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
             $_output = $compiler->parser->current_buffer->to_smarty_php();
         } 
         $compiler->parser->current_buffer = $saved_data[1];
-        $compiler->nocache = $saved_data[2]; 
+        $compiler->nocache = $saved_data[2];
+        $compiler->smarty->merge_compiled_includes = $saved_data[2];
         // $_output content has already nocache code processed
         $compiler->suppressNocacheProcessing = true;
         return $_output;
