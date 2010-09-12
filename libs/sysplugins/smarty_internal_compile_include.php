@@ -37,7 +37,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
              $tmp = null;
 	    eval("\$tmp = $include_file;");
                 if ($this->compiler->template->template_resource != $tmp) {
-                    $tpl = $compiler->smarty->createTemplate ($tmp, $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template);
+                    $tpl = new $compiler->smarty->template_class ($tmp, $compiler->smarty, $compiler->template, $compiler->template->cache_id, $compiler->template->compile_id);
                     if ($this->compiler->template->caching) {
                         // needs code for cached page but no cache file
                         $tpl->caching = 9999;
