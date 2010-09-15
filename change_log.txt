@@ -1,3 +1,7 @@
+15/09/2010
+- bugfix resolving conflict between '<%'/'%>' as custom Smarty delimiter and ASP tags
+- use ucfirst for resource name on internal resource class names
+
 12/09/2010
 - bugfix for change of 08/09/2010 (final {block} tags in subtemplates did not produce correct results)
 

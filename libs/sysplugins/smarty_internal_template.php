@@ -713,11 +713,11 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         } else {
             // try sysplugins dir
             if (in_array($resource_type, array('file', 'string', 'extends', 'php', 'registered', 'stream'))) {
-                $_resource_class = 'Smarty_Internal_Resource_' . $resource_type;
+                $_resource_class = 'Smarty_Internal_Resource_' . ucfirst($resource_type);
                 return new $_resource_class($this->smarty);
             } else {
                 // try plugins dir
-                $_resource_class = 'Smarty_Resource_' . $resource_type;
+                $_resource_class = 'Smarty_Resource_' . ucfirst($resource_type);
                 if ($this->smarty->loadPlugin($_resource_class)) {
                     if (class_exists($_resource_class, false)) {
                         return new $_resource_class($this->smarty);
