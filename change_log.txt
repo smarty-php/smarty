@@ -1,3 +1,6 @@
+16/09/2010
+- bugfix when a doublequoted modifier parameter did contain Smarty tags and ':'
+
 15/09/2010
 - bugfix resolving conflict between '<%'/'%>' as custom Smarty delimiter and ASP tags
 - use ucfirst for resource name on internal resource class names
