@@ -55,6 +55,9 @@ class Smarty_Internal_Resource_Extends {
         $_files = explode('|', $_template->resource_name);
         foreach ($_files as $_file) {
             $_filepath = $_template->buildTemplateFilepath ($_file);
+            if ($_filepath === false) {
+                throw new SmartyException("Unable to load template 'file : {$_file}'");
+            } 
             if ($_filepath !== false) {
                 if ($_template->security) {
                     $_template->smarty->security_handler->isTrustedResourceDir($_filepath);
@@ -90,9 +93,6 @@ class Smarty_Internal_Resource_Extends {
         $_files = array_reverse($this->allFilepaths);
         foreach ($_files as $_filepath) {
             // read template file
-            if ($_filepath === false) {
-                throw new SmartyException("Unable to load template 'file : {$_file}'");
-            } 
             if ($_filepath != $_files[0]) {
                 $_template->properties['file_dependency'][sha1($_filepath)] = array($_filepath, filemtime($_filepath));
             } 

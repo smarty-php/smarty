@@ -67,10 +67,10 @@ class Smarty_Internal_Utility {
                 $_file = $_fileinfo->getFilename();
                 if (!substr_compare($_file, $extention, - strlen($extention)) == 0) continue;
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
-                    $_template_file = $_file;
+                   $_template_file = $_file;
                 } else {
-                    $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
-                } 
+                    $_template_file = substr(substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file,1);
+                }
                 echo '<br>', $_dir, '---', $_template_file;
                 flush();
                 $_start_time = microtime(true);

@@ -34,6 +34,8 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
                 $compiler->nocache = true;
             } 
         }
+        // set flag for {block} tag
+        $compiler->smarty->inheritance = true;
         // must merge includes
         $this->compiler->smarty->merge_compiled_includes = true; 
 
@@ -109,6 +111,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
         $compiler->smarty->merge_compiled_includes = $saved_data[2];
         // $_output content has already nocache code processed
         $compiler->suppressNocacheProcessing = true;
+        // reset flag
+        $compiler->smarty->inheritance = false;
         return $_output;
     } 
 } 

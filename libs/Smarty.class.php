@@ -225,6 +225,8 @@ class Smarty extends Smarty_Internal_Data {
     public $smarty = null; 
     // block tag hierarchy
     public $_tag_stack = array(); 
+    // flag if {block} tag is compiled for template inheritance
+    public $inheritance = false;
     // plugins
     public $_plugins = array(); 
     // generate deprecated function call notices?

@@ -1,3 +1,8 @@
+17/09/2010
+- bugfix {$smarty.template} and {$smarty.current_dir} did not compile correctly within {block} tags
+- bugfix corrected error message on missing template files in extends resource
+- bugfix untility compileAllTemplates() did not create sha1 code for compiled template file names if template_dir was defined with no trailing DS
+
 16/09/2010
 - bugfix when a doublequoted modifier parameter did contain Smarty tags and ':'
 
