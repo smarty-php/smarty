@@ -1,3 +1,7 @@
+18/09/2010
+- bugfix untility compileAllConfig() did not create sha1 code for compiled template file names if template_dir was defined with no trailing DS
+- bugfix on templateExists() for extends resource
+
 17/09/2010
 - bugfix {$smarty.template} and {$smarty.current_dir} did not compile correctly within {block} tags
 - bugfix corrected error message on missing template files in extends resource

@@ -37,11 +37,13 @@ class Smarty_Internal_Resource_Extends {
      */
     public function isExisting($_template)
     {
-        if ($_template->getTemplateFilepath() === false) {
+    	  $_template->getTemplateFilepath();
+    	  foreach ($this->allFilepaths as $_filepath) {
+        	if ($_filepath === false) {
             return false;
-        } else {
-            return true;
-        } 
+          }
+        }
+        return true;
     } 
     /**
      * Get filepath to template source
@@ -55,16 +57,13 @@ class Smarty_Internal_Resource_Extends {
         $_files = explode('|', $_template->resource_name);
         foreach ($_files as $_file) {
             $_filepath = $_template->buildTemplateFilepath ($_file);
-            if ($_filepath === false) {
-                throw new SmartyException("Unable to load template 'file : {$_file}'");
-            } 
             if ($_filepath !== false) {
                 if ($_template->security) {
                     $_template->smarty->security_handler->isTrustedResourceDir($_filepath);
                 } 
             } 
             $sha1String .= $_filepath;
-            $this->allFilepaths[] = $_filepath;
+            $this->allFilepaths[$_file] = $_filepath;
         } 
         $_template->templateUid = sha1($sha1String);
         return $_filepath;
@@ -91,14 +90,19 @@ class Smarty_Internal_Resource_Extends {
     {
         $this->template = $_template;
         $_files = array_reverse($this->allFilepaths);
-        foreach ($_files as $_filepath) {
+    		$_first = reset($_files);
+    		$_last = end($_files);
+        foreach ($_files as $_file => $_filepath) {
+        		if ($_filepath === false) {
+            		throw new SmartyException("Unable to load template 'file : {$_file}'");
+        		}
             // read template file
-            if ($_filepath != $_files[0]) {
+            if ($_filepath != $_first) {
                 $_template->properties['file_dependency'][sha1($_filepath)] = array($_filepath, filemtime($_filepath));
             } 
             $_template->template_filepath = $_filepath;
             $_content = file_get_contents($_filepath);
-            if ($_filepath != $_files[count($_files)-1]) {
+            if ($_filepath != $_last) {
                 if (preg_match_all("!({$this->_ldl}block\s(.+?){$this->_rdl})!", $_content, $_open) !=
                         preg_match_all("!({$this->_ldl}/block(.*?){$this->_rdl})!", $_content, $_close)) {
                     $this->smarty->trigger_error("unmatched {block} {/block} pairs in file '$_filepath'");
@@ -127,7 +131,6 @@ class Smarty_Internal_Resource_Extends {
                 return true;
             } 
         } 
-        // $_template->template_filepath = $saved_filepath;
     }
     
     /**

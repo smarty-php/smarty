@@ -127,7 +127,7 @@ class Smarty_Internal_Utility {
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
                     $_config_file = $_file;
                 } else {
-                    $_config_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
+                    $_config_file = substr(substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file,1);
                 } 
                 echo '<br>', $_dir, '---', $_config_file;
                 flush();
