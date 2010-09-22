@@ -1,3 +1,6 @@
+22/09/2010
+- bugfix on default modifier
+
 18/09/2010
 - bugfix untility compileAllConfig() did not create sha1 code for compiled template file names if template_dir was defined with no trailing DS
 - bugfix on templateExists() for extends resource

@@ -25,7 +25,7 @@ function smarty_modifiercompiler_default ($params, $compiler)
         $params[1] = "''";
     } 
     for ($i = 1, $cnt = count($params); $i < $cnt; $i++) {
-        $output = '(($tmp = ' . $output . ')===null||$tmp===\'\' ? ' . $params[$i] . ' : $tmp)';
+        $output = '(($tmp = @' . $output . ')===null||$tmp===\'\' ? ' . $params[$i] . ' : $tmp)';
     } 
     return $output;
 } 
