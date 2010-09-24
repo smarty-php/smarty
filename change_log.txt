@@ -1,3 +1,6 @@
+24/09/2010
+- bugfix merge_compiled_includes flag was not restored correctly in {block} tag
+
 22/09/2010
 - bugfix on default modifier
 
