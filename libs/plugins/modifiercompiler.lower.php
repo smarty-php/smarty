@@ -22,7 +22,7 @@
 function smarty_modifiercompiler_lower($params, $compiler)
 {
     if (function_exists('mb_strtolower')) {
-        return '(mb_detect_encoding(' . $params[0] . ', \'UTF-8, ISO-8859-1\') === \'UTF-8\') ? mb_strtolower(' . $params[0] . ',SMARTY_RESOURCE_CHAR_SET) : strtolower(' . $params[0] . ')' ;
+        return '((mb_detect_encoding(' . $params[0] . ', \'UTF-8, ISO-8859-1\') === \'UTF-8\') ? mb_strtolower(' . $params[0] . ',SMARTY_RESOURCE_CHAR_SET) : strtolower(' . $params[0] . '))' ;
     } else {
         return 'strtolower(' . $params[0] . ')';
     } 
