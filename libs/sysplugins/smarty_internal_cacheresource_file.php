@@ -74,12 +74,17 @@ class Smarty_Internal_CacheResource_File {
      * @param object $_template current template
      * @return string |booelan the template content or false if the file does not exist
      */
-    public function getCachedContents($_template)
+    public function getCachedContents($_template, $no_render = false)
     {
         ob_start();
         $_smarty_tpl = $_template;
         include $_template->getCachedFilepath();
-        return ob_get_clean();
+        if ($no_render) {
+        	ob_clean();
+        	return null;
+        } else {
+          return ob_get_clean();
+        }
     } 
 
     /**

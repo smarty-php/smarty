@@ -1,3 +1,9 @@
+01/10/2010
+- added {break} and {continue} tags for flow control of {foreach},{section},{for} and {while} loops
+- change of 'string' resource. It's no longer evaluated and compiled files are now stored
+- new 'eval' resource which evaluates a template without saving the compiled file
+- change in isCached() method to allow multiple calls for the same template
+
 25/09/2010
 - bugfix on some compiling modifiers
 

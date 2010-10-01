@@ -47,18 +47,16 @@ class Smarty_Internal_Resource_Registered {
      */
     public function getTemplateFilepath($_template)
     { 
-        // no filepath for strings
-        // return "string" for compiler error messages
-           $_filepath = $_template->resource_type .':'.$_template->resource_name;
+        $_filepath = $_template->resource_type .':'.$_template->resource_name;
         $_template->templateUid = sha1($_filepath);
         return $_filepath;
     } 
 
     /**
-     * Get timestamp to template source
+     * Get timestamp of template source
      * 
      * @param object $_template template object
-     * @return boolean false as string resources have no timestamp
+     * @return int  timestamp
      */
     public function getTemplateTimestamp($_template)
     { 
@@ -70,10 +68,10 @@ class Smarty_Internal_Resource_Registered {
     }
      
     /**
-     * Get timestamp to template source by type and name
+     * Get timestamp of template source by type and name
      * 
      * @param object $_template template object
-     * @return boolean false as string resources have no timestamp
+     * @return int  timestamp
      */
     public function getTemplateTimestampTypeName($_resource_type, $_resource_name)
     { 

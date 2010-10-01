@@ -346,7 +346,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             return false;
         } 
         $this->properties['cache_lifetime'] = $this->cache_lifetime;
-        return $this->cache_resource_object->writeCachedContent($this, $this->createPropertyHeader(true) . $content);
+        return $this->cache_resource_object->writeCachedContent($this, $this->createPropertyHeader(true) .$content);
     } 
 
     /**
@@ -356,7 +356,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
      * 
      * @return boolean true if cache is valid
      */
-    public function isCached ()
+    public function isCached ($no_render = true)
     {
         if ($this->isCached === null) {
             $this->isCached = false;
@@ -372,7 +372,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                     if ($this->smarty->debugging) {
                         Smarty_Internal_Debug::start_cache($this);
                     } 
-                    $this->rendered_content = $this->cache_resource_object->getCachedContents($this);
+                    $this->rendered_content = $this->cache_resource_object->getCachedContents($this, $no_render);
                     if ($this->smarty->debugging) {
                         Smarty_Internal_Debug::end_cache($this);
                     } 
@@ -519,7 +519,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             eval("?>" . $output);
             $this->rendered_content = ob_get_clean(); 
             // write cache file content
-            $this->writeCachedContent($output);
+            $this->writeCachedContent('<?php if (!$no_render) {?>'. $output. '<?php } ?>');
             if ($this->smarty->debugging) {
                 Smarty_Internal_Debug::end_cache($this);
             } 
@@ -550,9 +550,23 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         // checks if template exists
         $this->isExisting(true); 
         // read from cache or render
-        if ($this->rendered_content === null && !$this->isCached()) {
+        if ($this->rendered_content === null) {
+        	if ($this->isCached) {
+        		if ($this->smarty->debugging) {
+            	Smarty_Internal_Debug::start_cache($this);
+            } 
+            $this->rendered_content = $this->cache_resource_object->getCachedContents($this, false);
+            if ($this->smarty->debugging) {
+            	Smarty_Internal_Debug::end_cache($this);
+            }
+          } 
+          if ($this->isCached === null) { 
+            $this->isCached(false); 
+          }
+          if (!$this->isCached) {          
             // render template (not loaded and not in cache)
             $this->renderTemplate();
+          }
         } 
         $this->updateParentVariables();
         $this->isCached = null;
@@ -575,9 +589,8 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         $this->getResourceTypeName($template_resource, $resource_type, $resource_name);
         $resource_handler = $this->loadTemplateResourceHandler($resource_type); 
         // cache template object under a unique ID
-        // do not cache string resources
-        // *****        if ($resource_type != 'string' && $this->smarty->caching) {
-        if ($resource_type != 'string') {
+        // do not cache eval resources
+        if ($resource_type != 'eval') {
             $this->smarty->template_objects[crc32($this->template_resource . $this->cache_id . $this->compile_id)] = $this;
         } 
         return true;
@@ -712,7 +725,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             return new Smarty_Internal_Resource_Registered($this->smarty);
         } else {
             // try sysplugins dir
-            if (in_array($resource_type, array('file', 'string', 'extends', 'php', 'registered', 'stream'))) {
+            if (in_array($resource_type, array('file', 'string', 'extends', 'php', 'registered', 'stream', 'eval'))) {
                 $_resource_class = 'Smarty_Internal_Resource_' . ucfirst($resource_type);
                 return new $_resource_class($this->smarty);
             } else {
