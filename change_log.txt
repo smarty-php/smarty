@@ -3,7 +3,7 @@
 - bugfix use caching properties of template instead of smarty object when compiling child {block}
 - bugfix {*block}...{/block*} did throw an exception in template inheritance
 - bugfix on template inheritance using nested eval or string resource in {extends} tags
-
+- bugfix on output buffer handling in isCached() method
 
 =====  RC4 =====
 

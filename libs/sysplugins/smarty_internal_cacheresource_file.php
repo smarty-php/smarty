@@ -76,11 +76,12 @@ class Smarty_Internal_CacheResource_File {
      */
     public function getCachedContents($_template, $no_render = false)
     {
-        ob_start();
+    	if (!$no_render) {
+        	ob_start();
+    	}
         $_smarty_tpl = $_template;
         include $_template->getCachedFilepath();
         if ($no_render) {
-        	ob_clean();
         	return null;
         } else {
           return ob_get_clean();
