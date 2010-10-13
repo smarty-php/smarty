@@ -43,10 +43,10 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         $compiler->template->properties['file_dependency'][$template_sha1] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
         $_content = $compiler->template->template_source;
         if (preg_match_all("!({$this->_ldl}block\s(.+?){$this->_rdl})!", $_content, $s) !=
-                preg_match_all("!({$this->_ldl}/block(.*?){$this->_rdl})!", $_content, $c)) {
+                preg_match_all("!({$this->_ldl}/block{$this->_rdl})!", $_content, $c)) {
             $this->compiler->trigger_template_error('unmatched {block} {/block} pairs');
         } 
-        preg_match_all("!{$this->_ldl}block\s(.+?){$this->_rdl}|{$this->_ldl}/block(.*?){$this->_rdl}!", $_content, $_result, PREG_OFFSET_CAPTURE);
+        preg_match_all("!{$this->_ldl}block\s(.+?){$this->_rdl}|{$this->_ldl}/block{$this->_rdl}!", $_content, $_result, PREG_OFFSET_CAPTURE);
         $_result_count = count($_result[0]);
         $_start = 0;
         while ($_start < $_result_count) {

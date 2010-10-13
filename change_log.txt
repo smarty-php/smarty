@@ -1,3 +1,11 @@
+13/10/2010
+- bugfix removed ambiguity between ternary and stream variable in template syntax
+- bugfix use caching properties of template instead of smarty object when compiling child {block}
+- bugfix {*block}...{/block*} did throw an exception in template inheritance
+
+
+=====  RC4 =====
+
 01/10/2010
 - added {break} and {continue} tags for flow control of {foreach},{section},{for} and {while} loops
 - change of 'string' resource. It's no longer evaluated and compiled files are now stored

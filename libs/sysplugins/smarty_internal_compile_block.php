@@ -71,7 +71,9 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
         } 
         $_name = trim($saved_data[0]['name'], "\"'");
         if (isset($compiler->template->block_data[$_name])) {
-            $_tpl = $this->smarty->createTemplate('eval:' . $compiler->template->block_data[$_name]['source'], null, null, $compiler->template);
+//            $_tpl = $this->smarty->createTemplate('eval:' . $compiler->template->block_data[$_name]['source'], null, null, $compiler->template);
+		    $_tpl = new Smarty_Internal_template ('eval:' . $compiler->template->block_data[$_name]['source'], $this->smarty, $compiler->template, $compiler->template->cache_id, 
+		               $compiler->template->compile_id = null, $compiler->template->caching, $compiler->template->cache_lifetime);
             $_tpl->properties['nocache_hash'] = $compiler->template->properties['nocache_hash'];
             $_tpl->template_filepath = $compiler->template->block_data[$_name]['file'];
             if ($compiler->nocache) {
