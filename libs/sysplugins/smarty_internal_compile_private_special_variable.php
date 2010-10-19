@@ -104,7 +104,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                 $compiled_ref = $compiled_ref . "[$_ind]";
             } 
         } 
-        return $compiled_ref;
+        return "(isset($compiled_ref)? $compiled_ref : null)";
     } 
 } 
 

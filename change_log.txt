@@ -1,3 +1,6 @@
+19/10/2010
+- change Smarty does no longer mask out E_NOTICE by default during template processing
+
 13/10/2010
 - bugfix removed ambiguity between ternary and stream variable in template syntax
 - bugfix use caching properties of template instead of smarty object when compiling child {block}

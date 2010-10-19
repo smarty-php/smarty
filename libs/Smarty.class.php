@@ -310,8 +310,9 @@ class Smarty extends Smarty_Internal_Data {
         // create template object if necessary
         ($template instanceof $this->template_class)? $_template = $template :
         $_template = $this->createTemplate ($template, $cache_id, $compile_id, $parent);
-        $_smarty_old_error_level = $this->debugging ? error_reporting() : error_reporting(isset($this->error_reporting)
-            ? $this->error_reporting : error_reporting() &~E_NOTICE); 
+        if (isset($this->error_reporting)) {
+        	$_smarty_old_error_level = error_reporting($this->error_reporting);
+    	}
         // obtain data for cache modified check
         if ($this->cache_modified_check && $this->caching && $display) {
             $_isCached = $_template->isCached() && !$_template->has_nocache_code;
@@ -328,7 +329,9 @@ class Smarty extends Smarty_Internal_Data {
             $_output = $_template->getRenderedTemplate();
         } 
         $_template->rendered_content = null;
-        error_reporting($_smarty_old_error_level); 
+        if (isset($this->error_reporting)) {
+        	error_reporting($_smarty_old_error_level);
+        } 
         // display or fetch
         if ($display) {
             if ($this->caching && $this->cache_modified_check) {
