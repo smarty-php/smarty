@@ -312,7 +312,7 @@ class Smarty_Internal_Data {
         if ($this->smarty->error_unassigned) {
             throw new SmartyException('Undefined config variable "' . $variable . '"');
         } else {
-            return '';
+            return null;
         } 
     } 
     /**
@@ -335,7 +335,7 @@ class Smarty_Internal_Data {
         if ($this->smarty->error_unassigned) {
             throw new SmartyException('Undefined stream variable "' . $variable . '"');
         } else {
-            return '';
+            return null;
         } 
     } 
 
