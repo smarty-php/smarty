@@ -30,20 +30,9 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
         $output = $_attr['value']; 
         // loop over list of modifiers
         foreach ($_attr['modifierlist'] as $single_modifier) {
-            preg_match_all('/(((\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|[^:"]*"[^"\\\\]*(?:\\\\.[^"\\\\]*)*")[^:]*)+|::?|[^:]+)/', $single_modifier, $mod_array);
-            $modifier = $mod_array[0][0];
-            for ($i = 0, $count = count($mod_array[0]);$i < $count;$i++) {
-                if ($mod_array[0][$i] == ':') {
-                    $mod_array[0][$i] = ',';
-                } 
-                if ($mod_array[0][$i] == '::') {
-                    $mod_array[0][$i-1] = $mod_array[0][$i-1] . $mod_array[0][$i] . $mod_array[0][$i + 1];
-                    unset($mod_array[0][$i], $mod_array[0][$i + 1]);
-                    $i++;
-                } 
-            } 
-            unset($mod_array[0][0]);
-            $params = $output . implode('', $mod_array[0]); 
+            $modifier = $single_modifier[0];
+	   $single_modifier[0] = $output;
+            $params = implode(',', $single_modifier); 
             // check for registered modifier
             if (isset($compiler->smarty->registered_plugins['modifier'][$modifier])) {
                 $function = $compiler->smarty->registered_plugins['modifier'][$modifier][0];
@@ -59,13 +48,7 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
                 // check for plugin modifiercompiler
             } else if ($compiler->smarty->loadPlugin('smarty_modifiercompiler_' . $modifier)) {
                 $plugin = 'smarty_modifiercompiler_' . $modifier;
-                foreach($mod_array[0] as $key => $value) {
-                    if ($value == ',') {
-                        unset ($mod_array[0][$key]);
-                    } 
-                } 
-                $args = array_merge((array)$output, $mod_array[0]);
-                $output = $plugin($args, $compiler); 
+                $output = $plugin($single_modifier, $compiler); 
                 // check for plugin modifier
             } else if ($function = $this->compiler->getPlugin($modifier, 'modifier')) {
                 $output = "{$function}({$params})"; 
@@ -76,7 +59,7 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
                     $output = "{$modifier}({$params})";
                 } 
             } else {
-                $this->compiler->trigger_template_error ("unknown modifier \"" . $modifier . "\"");
+                $this->compiler->trigger_template_error ("unknown modifier \"" . $modifier . "\"", $this->compiler->lex->taglineno);
             } 
         } 
         return $output;

@@ -23,44 +23,53 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
+        $this->optional_attributes = array('assign');
         $this->required_attributes = array('value');
-        $this->optional_attributes = array('assign', 'nocache', 'filter', 'nofilter', 'modifierlist'); 
+        $this->optional_attributes = array('assign', 'nocache', 'nofilter', 'modifierlist'); 
         // check and get attributes
-        $_attr = $this->_get_attributes($args);
-
+        $_attr = $this->_get_attributes($args); 
+        // nocache option
         if (isset($_attr['nocache'])) {
             if ($_attr['nocache'] == 'true') {
                 $this->compiler->tag_nocache = true;
             } 
         } 
 
-        if (!isset($_attr['filter'])) {
-            $_attr['filter'] = 'null';
-        } 
+        // filter handling
         if (isset($_attr['nofilter'])) {
-            if ($_attr['nofilter'] == 'true') {
-                $_attr['filter'] = 'false';
-            } 
+            $_filter = 'false';
+        } else {
+            $_filter = 'true';
         } 
 
+        // compiled output
         if (isset($_attr['assign'])) {
             // assign output to variable
-            $output = '<?php $_smarty_tpl->assign(' . $_attr['assign'] . ',' . $_attr['value'] . ');?>';
+            $output = "<?php \$_smarty_tpl->assign({$_attr['assign']},{$_attr['value']});?>";
         } else {
             // display value
             if (isset($this->compiler->smarty->registered_filters['variable'])) {
-                $output = 'Smarty_Internal_Filter_Handler::runFilter(\'variable\', ' . $_attr['value'] . ',$_smarty_tpl->smarty, $_smarty_tpl, ' . $_attr['filter'] . ')';
+                $output = "Smarty_Internal_Filter_Handler::runFilter('variable', {$_attr['value']},\$_smarty_tpl->smarty, \$_smarty_tpl, {$_filter})";
             } else {
                 $output = $_attr['value'];
             } 
-            if (!isset($_attr['nofilter']) && isset($this->compiler->smarty->default_modifiers)) {
-                $output = $this->compiler->compileTag('private_modifier', array('modifierlist' => $this->compiler->smarty->default_modifiers, 'value' => $output));
+            if (!isset($_attr['nofilter']) && !empty($this->compiler->smarty->default_modifiers)) {
+                $modifierlist = array();
+                foreach ($this->compiler->smarty->default_modifiers as $key => $single_default_modifier) {
+                    preg_match_all('/(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|:|[^:]+)/', $single_default_modifier, $mod_array);
+                    for ($i = 0, $count = count($mod_array[0]);$i < $count;$i++) {
+                        if ($mod_array[0][$i] != ':') {
+                            $modifierlist[$key][] = $mod_array[0][$i];
+                        } 
+                    } 
+                } 
+                $output = $this->compiler->compileTag('private_modifier', array('modifierlist' => $modifierlist, 'value' => $output));
             } 
-            if (isset($_attr['modifierlist'])) {
+            if (!empty($_attr['modifierlist'])) {
                 $output = $this->compiler->compileTag('private_modifier', array('modifierlist' => $_attr['modifierlist'], 'value' => $output));
             } 
-      $this->compiler->has_output = true;
-           $output = '<?php echo ' . $output . ';?>';
+            $this->compiler->has_output = true;
+            $output = "<?php echo {$output};?>";
         } 
         return $output;
     } 
