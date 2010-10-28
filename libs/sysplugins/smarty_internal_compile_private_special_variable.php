@@ -22,7 +22,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
      */
     public function compile($args, $compiler)
     {
-        $_index = explode(',', str_replace(array(']['), array(','), substr($args, 1, strlen($args)-2)));
+        $_index = preg_split("/\]\[/",substr($args, 1, strlen($args)-2));
         $compiled_ref = ' ';
         $variable = trim($_index[0], "'");
         switch ($variable) {

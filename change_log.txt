@@ -1,3 +1,6 @@
+28/10/2010
+- bugfix on compiling modifiers within $smarty special vars like {$smarty.post.{$foo|lower}}
+
 27/10/2010
 - bugfix default parameter values did not work for template functions included with {include}
 
