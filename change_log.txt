@@ -1,3 +1,6 @@
+01/11/2010
+- bugfix related to E_NOTICE change.  {if empty($foo)} did fail when $foo contained a string 
+
 28/10/2010
 - bugfix on compiling modifiers within $smarty special vars like {$smarty.post.{$foo|lower}}
 
