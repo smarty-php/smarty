@@ -1,3 +1,7 @@
+04/11/2010
+- bugfix do not allow access of dynamic and private object members of assigned objects when
+  security is enabled.
+
 01/11/2010
 - bugfix related to E_NOTICE change.  {if empty($foo)} did fail when $foo contained a string 
 
