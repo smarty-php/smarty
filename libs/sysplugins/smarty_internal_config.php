@@ -135,7 +135,7 @@ class Smarty_Internal_Config {
     } 
     public function buildCompiledFilepath()
     {
-        $_compile_id = isset($_template->smarty->compile_id) ? preg_replace('![^\w\|]+!', '_', $_template->smarty->compile_id) : null;
+        $_compile_id = isset($this->smarty->compile_id) ? preg_replace('![^\w\|]+!', '_', $this->smarty->compile_id) : null;
         $_flag = (int)$this->smarty->config_read_hidden + (int)$this->smarty->config_booleanize * 2 +
         (int)$this->smarty->config_overwrite * 4;
         $_filepath = sha1($this->config_resource_name . $_flag); 
@@ -146,7 +146,7 @@ class Smarty_Internal_Config {
              . substr($_filepath, 4, 2) . DS
              . $_filepath;
         } 
-        $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
+        $_compile_dir_sep = $this->smarty->use_sub_dirs ? DS : '^';
         if (isset($_compile_id)) {
             $_filepath = $_compile_id . $_compile_dir_sep . $_filepath;
         } 
