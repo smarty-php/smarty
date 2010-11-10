@@ -1,3 +1,6 @@
+10/11/2010
+- observe compile_id also for config files
+
 09/11/2010
 -bugfix on  complex expressions as start value for {for} tag
 
