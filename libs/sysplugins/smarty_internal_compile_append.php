@@ -1,68 +1,49 @@
 <?php
 
 /**
-  * Smarty Internal Plugin Compile Append
-  * 
-  * Compiles the {append} tag
-  * 
-  * @package Smarty
-  * @subpackage Compiler
-  * @author Uwe Tews 
-  */
-
+ * Smarty Internal Plugin Compile Append
+ * 
+ * Compiles the {append} tag
+ * 
+ * @package Smarty
+ * @subpackage Compiler
+ * @author Uwe Tews 
+ */
 /**
-  * Smarty Internal Plugin Compile Append Class
-  */
-class Smarty_Internal_Compile_Append extends Smarty_Internal_CompileBase {
+ * Smarty Internal Plugin Compile Append Class
+ */
+class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign {
+	// attribute definitions
+    public $required_attributes = array('var', 'value');
+    public $shorttag_order = array('var', 'value');
+    public $optional_attributes = array('scope', 'index'); 
+
     /**
-    * Compiles code for the {append} tag
-    * 
-    * @param array $args array with attributes from parser
-    * @param object $compiler compiler object
-    * @return string compiled code
-    */
-    public function compile($args, $compiler)
+     * Compiles code for the {append} tag
+     * 
+     * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
+     * @return string compiled code
+     */
+    public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler;
-        $this->required_attributes = array('var', 'value');
-        $this->optional_attributes = array('scope', 'nocache', 'index');
-
-        $_nocache = 'null';
-        $_scope = 'null'; 
-        // check for nocache attribute before _get_attributes because
-        // it shall not controll caching of the compiled code, but is a parameter
-        if (isset($args['nocache'])) {
-            if ($args['nocache'] == 'true') {
-                $this->compiler->tag_nocache = true;
-            } 
-            unset($args['nocache']);
-        } 
-
         // check and get attributes
-        $_attr = $this->_get_attributes($args);
-
-        if ($this->compiler->tag_nocache) {
-            $_nocache = 'true'; 
-            // create nocache var to make it know for further compiling
-            $compiler->template->tpl_vars[trim($_attr['var'],"'")] = new Smarty_variable(null, true);
-        } 
-
-        if (isset($_attr['scope'])) {
-            $_attr['scope'] = trim($_attr['scope'], "'\"");
-            if ($_attr['scope'] == 'parent') {
-                $_scope = SMARTY_PARENT_SCOPE;
-            } elseif ($_attr['scope'] == 'root') {
-                $_scope = SMARTY_ROOT_SCOPE;
-           } elseif ($_attr['scope'] == 'global') {
-                $_scope = SMARTY_GLOBAL_SCOPE;
-            } 
-        } 
-        // compiled output
+        $_attr = $this->_get_attributes($args); 
+        // map to compile assign attributes
         if (isset($_attr['index'])) {
-            return "<?php \$_smarty_tpl->append($_attr[var],array($_attr[index] => $_attr[value]),true,$_nocache,$_scope);?>";
+            $_params['smarty_internal_index'] = '[' . $_attr['index'] . ']';
+            unset($_attr['index']);
         } else {
-            return "<?php \$_smarty_tpl->append($_attr[var],$_attr[value],false,$_nocache,$_scope);?>";
+            $_params['smarty_internal_index'] = '[]';
+        }
+        $_new_attr = array();
+        foreach ($_attr as $key => $value) {
+            $_new_attr[] = array($key => $value);
         } 
+        // call compile assign
+        return parent::compile($_new_attr, $compiler, $_params);
     } 
 } 
 

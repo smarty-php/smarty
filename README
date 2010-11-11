@@ -3,11 +3,13 @@ Smarty 3.0 Beta
 Author: Monte Ohrt <monte at ohrt dot com >
 Author: Uwe Tews
 
-AN INTRODUCTION TO SMARTY 3 BETA
+AN INTRODUCTION TO SMARTY 3
 
-NOTICE for BETA 8:
+NOTICE for RC5:
 
-The Smarty 3 API (as of beta 8) has been refactored to a syntax geared
+With RC5 the API was changed once again.
+
+The Smarty 3 API has been refactored to a syntax geared
 for consistency and modularity. The Smarty 2 API syntax is still supported, but
 will throw a deprecation notice. You can disable the notices, but it is highly
 recommended to adjust your syntax to Smarty 3, as the Smarty 2 syntax must run
@@ -41,10 +43,10 @@ $smarty->getGlobal($varname = null)
 $smarty->getRegisteredObject($name)
 $smarty->getDebugTemplate()
 $smarty->setDebugTemplate($tpl_name)
-$smarty->assign($tpl_var, $value = null, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
+$smarty->assign($tpl_var, $value = null, $nocache = false)
 $smarty->assignGlobal($varname, $value = null, $nocache = false)
-$smarty->assignByRef($tpl_var, &$value, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
-$smarty->append($tpl_var, $value = null, $merge = false, $nocache = false, $scope = SMARTY_LOCAL_SCOPE)
+$smarty->assignByRef($tpl_var, &$value, $nocache = false)
+$smarty->append($tpl_var, $value = null, $merge = false, $nocache = false)
 $smarty->appendByRef($tpl_var, &$value, $merge = false)
 $smarty->clearAssign($tpl_var)
 $smarty->clearAllAssign()
@@ -55,40 +57,26 @@ $smarty->getStreamVariable($variable)
 $smarty->getConfigVars($varname = null)
 $smarty->clearConfig($varname = null)
 $smarty->getTemplateVars($varname = null, $_ptr = null, $search_parents = true)
+$smarty->clearAllCache($exp_time = null, $type = null)
+$smarty->clearCache($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
 
-// some API calls are moved into their own objects:
+$smarty->registerPlugin($type, $tag, $callback, $cacheable = true, $cache_attr = array())
 
-$smarty->cache->loadResource($type = null)
-$smarty->cache->clearAll($exp_time = null, $type = null)
-$smarty->cache->clear($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
+$smarty->registerObject($object_name, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
 
-$smarty->register->block($block_tag, $block_impl, $cacheable = true, $cache_attr = array())
-$smarty->register->compilerFunction($compiler_tag, $compiler_impl, $cacheable = true)
-$smarty->register->templateFunction($function_tag, $function_impl, $cacheable = true, $cache_attr = array())
-$smarty->register->modifier($modifier_name, $modifier_impl)
-$smarty->register->templateObject($object_name, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
-$smarty->register->outputFilter($function_name)
-$smarty->register->postFilter($function_name)
-$smarty->register->preFilter($function_name)
-$smarty->register->resource($resource_type, $function_names)
-$smarty->register->variableFilter($function_name)
-$smarty->register->defaultPluginHandler($function_name)
-$smarty->register->defaultTemplateHandler($function_name)
+$smarty->registerFilter($type, $function_name)
+$smarty->registerResource($resource_type, $function_names)
+$smarty->registerDefaultPluginHandler($function_name)
+$smarty->registerDefaultTemplateHandler($function_name)
 
-$smarty->unregister->block($block_tag)
-$smarty->unregister->compilerFunction($compiler_tag)
-$smarty->unregister->templateFunction($function_tag)
-$smarty->unregister->modifier($modifier)
-$smarty->unregister->templateObject($object_name)
-$smarty->unregister->outputFilter($function_name)
-$smarty->unregister->postFilter($function_name)
-$smarty->unregister->preFilter($function_name)
-$smarty->unregister->resource($resource_type)
-$smarty->unregister->variableFilter($function_name)
+$smarty->unregisterPlugin($type, $tag)
+$smarty->unregisterObject($object_name)
+$smarty->unregisterFilter($type, $function_name)
+$smarty->unregisterResource($resource_type)
 
-$smarty->utility->compileAllTemplates($extention = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
-$smarty->utility->clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
-$smarty->utility->testInstall()
+$smarty->compileAllTemplates($extention = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
+$smarty->clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
+$smarty->testInstall()
 
 // then all the getters/setters, available for all properties. Here are a few:
 

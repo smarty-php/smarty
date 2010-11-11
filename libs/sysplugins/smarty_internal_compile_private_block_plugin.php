@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  * Smarty Internal Plugin Compile Block Plugin
  * 
@@ -13,23 +13,30 @@
  * Smarty Internal Plugin Compile Block Plugin Class
  */
 class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_CompileBase {
+	// attribute definitions
+    public $optional_attributes = array('_any'); 
+
     /**
      * Compiles code for the execution of block plugin
      * 
      * @param array $args array with attributes from parser
-     * @param string $tag name of block function
      * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
+     * @param string $tag name of block plugin
+     * @param string $function PHP function name
      * @return string compiled code
      */
-    public function compile($args, $compiler, $tag, $function)
+    public function compile($args, $compiler, $parameter, $tag, $function)
     {
         $this->compiler = $compiler;
         if (strlen($tag) < 6 || substr($tag, -5) != 'close') {
             // opening tag of block plugin
-            $this->required_attributes = array();
-            $this->optional_attributes = array('_any'); 
-            // check and get attributes
-            $_attr = $this->_get_attributes($args); 
+        	// check and get attributes
+        	$_attr = $this->_get_attributes($args); 
+        	if ($_attr['nocache'] === true) {
+            	$this->compiler->tag_nocache = true;
+        	}
+       		unset($_attr['nocache']);
             // convert attributes into parameter array string
             $_paramsArray = array();
             foreach ($_attr as $_key => $_value) {

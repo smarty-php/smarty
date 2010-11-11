@@ -14,6 +14,14 @@
  * Smarty Internal Plugin Compile Include Class
  */
 class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
+	// caching mode to create nocache code but no cache file
+	const CACHING_NOCACHE_CODE = 9999;
+	// attribute definitions
+    public $required_attributes = array('file');
+   	public $shorttag_order = array('file');
+    public $option_flags = array('nocache','inline','caching');
+    public $optional_attributes = array('_any'); 
+
     /**
      * Compiles code for the {include} tag
      * 
@@ -24,28 +32,28 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
-        $this->required_attributes = array('file');
-        $this->optional_attributes = array('_any'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args); 
         // save posible attributes
         $include_file = $_attr['file'];
         $has_compiled_template = false;
-        if ($compiler->smarty->merge_compiled_includes || isset($_attr['inline'])) {
+        if ($compiler->smarty->merge_compiled_includes || $_attr['inline'] === true) {
             // check if compiled code can be merged (contains no variable part)
             if (!$compiler->has_variable_string && (substr_count($include_file, '"') == 2 or substr_count($include_file, "'") == 2) and substr_count($include_file, '(') == 0) {
              $tmp = null;
 	    eval("\$tmp = $include_file;");
                 if ($this->compiler->template->template_resource != $tmp) {
                     $tpl = new $compiler->smarty->template_class ($tmp, $compiler->smarty, $compiler->template, $compiler->template->cache_id, $compiler->template->compile_id);
+                    // suppress writing of compiled file
+                    $tpl->write_compiled_code = false;
                     if ($this->compiler->template->caching) {
                         // needs code for cached page but no cache file
-                        $tpl->caching = 9999;
+                        $tpl->caching = self::CACHING_NOCACHE_CODE;
                     } 
-                    if ($this->compiler->template->mustCompile) {
+//                    if ($this->compiler->template->mustCompile) {
                         // make sure whole chain gest compiled
                         $tpl->mustCompile = true;
-                    } 
+//                    } 
                     if ($tpl->resource_object->usesCompiler && $tpl->isExisting()) {
                         // get compiled code
                         $compiled_tpl = $tpl->getCompiledTemplate(); 
@@ -77,24 +85,24 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             $_assign = $_attr['assign'];
         } 
 
-        $_parent_scope = SMARTY_LOCAL_SCOPE;
+        $_parent_scope = Smarty::SCOPE_LOCAL;
         if (isset($_attr['scope'])) {
             $_attr['scope'] = trim($_attr['scope'], "'\"");
             if ($_attr['scope'] == 'parent') {
-                $_parent_scope = SMARTY_PARENT_SCOPE;
+                $_parent_scope = Smarty::SCOPE_PARENT;
             } elseif ($_attr['scope'] == 'root') {
-                $_parent_scope = SMARTY_ROOT_SCOPE;
+                $_parent_scope = Smarty::SCOPE_ROOT;
             } elseif ($_attr['scope'] == 'global') {
-                $_parent_scope = SMARTY_GLOBAL_SCOPE;
+                $_parent_scope = Smarty::SCOPE_GLOBAL;
             } 
         } 
         $_caching = 'null';
         if ($this->compiler->nocache || $this->compiler->tag_nocache) {
-            $_caching = SMARTY_CACHING_OFF;
+            $_caching = Smarty::CACHING_OFF;
         } 
         // default for included templates
         if ($this->compiler->template->caching && !$this->compiler->nocache && !$this->compiler->tag_nocache) {
-            $_caching = 9999;
+            $_caching = self::CACHING_NOCACHE_CODE;
         } 
         /*
         * if the {include} tag provides individual parameter for caching
@@ -104,38 +112,36 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         if (isset($_attr['cache_lifetime'])) {
             $_cache_lifetime = $_attr['cache_lifetime'];
             $this->compiler->tag_nocache = true;
-            $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
+            $_caching = Smarty::CACHING_LIFETIME_CURRENT;
         } else {
             $_cache_lifetime = 'null';
         } 
         if (isset($_attr['cache_id'])) {
             $_cache_id = $_attr['cache_id'];
             $this->compiler->tag_nocache = true;
-            $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
+            $_caching = Smarty::CACHING_LIFETIME_CURRENT;
         } else {
             $_cache_id = '$_smarty_tpl->cache_id';
         } 
-        if (isset($_attr['nocache'])) {
-            if (trim($_attr['nocache'], "'\"") == 'true') {
-                $this->compiler->tag_nocache = true;
-                $_caching = SMARTY_CACHING_OFF;
-            } 
+        if (isset($_attr['compile_id'])) {
+            $_compile_id = $_attr['compile_id'];
+        } else {
+            $_compile_id = '$_smarty_tpl->compile_id';
         } 
-        if (isset($_attr['caching'])) {
-            if (trim($_attr['caching'], "'\"") == 'true') {
-                $_caching = SMARTY_CACHING_LIFETIME_CURRENT;
-            } else {
-                $this->compiler->tag_nocache = true;
-                $_caching = SMARTY_CACHING_OFF;
-            } 
+        if ($_attr['caching'] === true) {
+            $_caching = Smarty::CACHING_LIFETIME_CURRENT;
+        } 
+        if ($_attr['nocache'] === true) {
+            $this->compiler->tag_nocache = true;
+            $_caching = Smarty::CACHING_OFF;
         } 
         // create template object
-        $_output = "<?php \$_template = new {$compiler->smarty->template_class}($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, $_cache_id, \$_smarty_tpl->compile_id, $_caching, $_cache_lifetime);\n"; 
+        $_output = "<?php \$_template = new {$compiler->smarty->template_class}($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, $_cache_id, $_compile_id, $_caching, $_cache_lifetime);\n"; 
         // delete {include} standard attributes
-        unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']); 
+        unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['compile_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']); 
         // remaining attributes must be assigned as smarty variable
         if (!empty($_attr)) {
-            if ($_parent_scope == SMARTY_LOCAL_SCOPE) {
+            if ($_parent_scope == Smarty::SCOPE_LOCAL) {
                 // create variables
                 foreach ($_attr as $_key => $_value) {
                     $_output .= "\$_template->assign('$_key',$_value);";

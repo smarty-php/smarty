@@ -14,6 +14,11 @@
  * Smarty Internal Plugin Compile Insert Class
  */
 class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
+	// attribute definitions
+    public $required_attributes = array('name');
+   	public $shorttag_order = array('name');
+    public $optional_attributes = array('_any'); 
+
     /**
      * Compiles code for the {insert} tag
      * 
@@ -24,8 +29,6 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
-        $this->required_attributes = array('name');
-        $this->optional_attributes = array('_any'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args); 
         // never compile as nocache code
@@ -39,7 +42,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
         // save posible attributes
         eval('$_name = ' . $_attr['name'] . ';');
         if (isset($_attr['assign'])) {
-            // output will be stored in a smarty variable instead of beind displayed
+            // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr['assign']; 
             // create variable to make shure that the compiler knows about its nocache status
             $this->compiler->template->tpl_vars[trim($_attr['assign'], "'")] = new Smarty_Variable(null, true);
@@ -50,10 +53,10 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
             $_smarty_tpl = $compiler->template;
             $_filepath = false;
             eval('$_script = ' . $_attr['script'] . ';');
-            if (!$this->compiler->smarty->security && file_exists($_script)) {
+            if (!isset($this->compiler->smarty->security_policy) && file_exists($_script)) {
                 $_filepath = $_script;
             } else {
-                if ($this->compiler->smarty->security) {
+                if (isset($this->compiler->smarty->security_policy)) {
                     $_dir = $this->compiler->smarty->security_policy->trusted_dir;
                 } else {
                     $_dir = $this->compiler->smarty->trusted_dir;
@@ -91,7 +94,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
             } 
         } 
         // delete {insert} standard attributes
-        unset($_attr['name'], $_attr['assign'], $_attr['script']); 
+        unset($_attr['name'], $_attr['assign'], $_attr['script'], $_attr['nocache']); 
         // convert attributes into parameter array string
         $_paramsArray = array();
         foreach ($_attr as $_key => $_value) {

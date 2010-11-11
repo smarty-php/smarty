@@ -2,8 +2,9 @@
 
 == Syntax ==
 
-Smarty 3 API has a new syntax. Much of the Smarty 2 syntax is supported but
-deprecated. See the README that comes with Smarty 3 for more information.
+Smarty 3 API has a new syntax. Much of the Smarty 2 syntax is supported 
+by a wrapper but deprecated. See the README that comes with Smarty 3 for more 
+information.
 
 The {$array|@mod} syntax has always been a bit confusing, where an "@" is required
 to apply a modifier to an array instead of the individual elements. Normally you
@@ -89,3 +90,20 @@ get any output.
 == newline at {if} tags ==
 A \n was added to the compiled code of the {if},{else},{elseif},{/if} tags to get output of newlines as expected by the template source. 
 If one of the {if} tags is at the line end you will now get a newline in the HTML output.
+
+== trigger_error() ==
+The API function trigger_error() has been removed because it did just map to PHP trigger_error.
+However it's still included in the Smarty2 API wrapper.
+
+== Smarty constants ==
+The constants 
+SMARTY_PHP_PASSTHRU
+SMARTY_PHP_QUOTE
+SMARTY_PHP_REMOVE
+SMARTY_PHP_ALLOW
+have been replaced with class constants
+Smarty::PHP_PASSTHRU
+Smarty::PHP_QUOTE
+Smarty::PHP_REMOVE
+Smarty::PHP_ALLOW
+

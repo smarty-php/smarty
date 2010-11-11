@@ -14,9 +14,16 @@
  * Smarty Internal Plugin Resource Registered
  */
 class Smarty_Internal_Resource_Registered {
-    public function __construct($smarty)
+    public function __construct($template, $resource_type = null)
     {
-        $this->smarty = $smarty;
+        $this->smarty = $template->smarty;
+        if (isset($resource_type)) {
+        	$template->smarty->registerResource($resource_type,
+        		array("smarty_resource_{$resource_type}_source",
+            		"smarty_resource_{$resource_type}_timestamp",
+                	"smarty_resource_{$resource_type}_secure",
+                	"smarty_resource_{$resource_type}_trusted"));
+        }
     } 
     // classes used for compiling Smarty templates from file resource
     public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
@@ -62,7 +69,7 @@ class Smarty_Internal_Resource_Registered {
     { 
         // return timestamp
         $time_stamp = false;
-        call_user_func_array($this->smarty->_plugins['resource'][$_template->resource_type][0][1],
+        call_user_func_array($this->smarty->registered_resources[$_template->resource_type][0][1],
             array($_template->resource_name, &$time_stamp, $this->smarty));
         return is_numeric($time_stamp) ? (int)$time_stamp : $time_stamp;
     }
@@ -77,7 +84,7 @@ class Smarty_Internal_Resource_Registered {
     { 
         // return timestamp
         $time_stamp = false;
-        call_user_func_array($this->smarty->_plugins['resource'][$_resource_type][0][1],
+        call_user_func_array($this->smarty->registered_resources[$_resource_type][0][1],
             array($_resource_name, &$time_stamp, $this->smarty));
         return is_numeric($time_stamp) ? (int)$time_stamp : $time_stamp;
     } 
@@ -91,7 +98,7 @@ class Smarty_Internal_Resource_Registered {
     public function getTemplateSource($_template)
     { 
         // return template string
-        return call_user_func_array($this->smarty->_plugins['resource'][$_template->resource_type][0][0],
+        return call_user_func_array($this->smarty->registered_resources[$_template->resource_type][0][0],
             array($_template->resource_name, &$_template->template_source, $this->smarty));
     } 
 

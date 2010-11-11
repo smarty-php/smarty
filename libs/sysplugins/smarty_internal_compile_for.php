@@ -29,32 +29,33 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
      * 
      * @param array $args array with attributes from parser
      * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
      * @return string compiled code
      */
-    public function compile($args, $compiler)
+    public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler; 
-        // {for $x=0; $x<$y; $x++} syntax
-        if (isset($args['ifexp'])) {
-            $this->required_attributes = array('ifexp', 'start', 'loop', 'varloop');
+        if ($parameter == 0) {
+        	$this->required_attributes = array('start','to');
+        	$this->optional_attributes = array('max','step');
         } else {
-            $this->required_attributes = array('start', 'to');
-            $this->optional_attributes = array('step', 'max');
-        } 
+        	$this->required_attributes = array('start','ifexp','var','step');
+        	$this->optional_attributes = array();
+        }
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
         $local_vars = array();
 
         $output = "<?php ";
-        if (isset($_attr['ifexp'])) {
+        if ($parameter == 1) {
             foreach ($_attr['start'] as $_statement) {
                 $output .= " \$_smarty_tpl->tpl_vars[$_statement[var]] = new Smarty_Variable;";
                 $output .= " \$_smarty_tpl->tpl_vars[$_statement[var]]->value = $_statement[value];\n";
                 $compiler->local_var[$_statement['var']] = true;
                 $local_vars[] = $_statement['var'];
             } 
-            $output .= "  if ($_attr[ifexp]){ for (\$_foo=true;$_attr[ifexp]; \$_smarty_tpl->tpl_vars[$_attr[varloop]]->value$_attr[loop]){\n";
+            $output .= "  if ($_attr[ifexp]){ for (\$_foo=true;$_attr[ifexp]; \$_smarty_tpl->tpl_vars[$_attr[var]]->value$_attr[step]){\n";
         } else {
             $_statement = $_attr['start'];
             $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]] = new Smarty_Variable;";
@@ -63,7 +64,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
             if (isset($_attr['step'])) {
                 $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->step = $_attr[step];";
             } else {
-                $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->step = ($_attr[to] - ($_statement[value]) < 0) ? -1 : 1;";
+                $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->step = 1;";
             } 
             if (isset($_attr['max'])) {
                 $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->total = (int)min(ceil((\$_smarty_tpl->tpl_vars[$_statement[var]]->step > 0 ? $_attr[to]+1 - ($_statement[value]) : $_statement[value]-($_attr[to])+1)/abs(\$_smarty_tpl->tpl_vars[$_statement[var]]->step)),$_attr[max]);\n";
@@ -94,13 +95,14 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase {
      * 
      * @param array $args array with attributes from parser
      * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
      * @return string compiled code
      */
-    public function compile($args, $compiler)
+    public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler; 
         // check and get attributes
-        $_attr = $this->_get_attributes($args);
+        $_attr  = $this->_get_attributes($args);
 
         list($_open_tag, $nocache, $local_vars) = $this->_close_tag(array('for'));
         $this->_open_tag('forelse', array('forelse', $nocache, $local_vars));
@@ -117,13 +119,14 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase {
      * 
      * @param array $args array with attributes from parser
      * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
      * @return string compiled code
      */
-    public function compile($args, $compiler)
+    public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler; 
         // check and get attributes
-        $_attr = $this->_get_attributes($args); 
+        $_attr  = $this->_get_attributes($args); 
         // must endblock be nocache?
         if ($this->compiler->nocache) {
             $this->compiler->tag_nocache = true;

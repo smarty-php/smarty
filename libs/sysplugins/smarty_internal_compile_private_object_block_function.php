@@ -13,24 +13,31 @@
  * Smarty Internal Plugin Compile Object Block Function Class
  */
 class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Internal_CompileBase {
+	// attribute definitions
+    public $required_attributes = array();
+    public $optional_attributes = array('_any'); 
+
     /**
      * Compiles code for the execution of block plugin
      * 
      * @param array $args array with attributes from parser
-     * @param string $tag name of block function
-     * @param string $methode name of methode to call
      * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
+     * @param string $tag name of block object
+     * @param string $methode name of methode to call
      * @return string compiled code
      */
-    public function compile($args, $compiler, $tag, $methode)
+    public function compile($args, $compiler, $parameter, $tag, $methode)
     {
         $this->compiler = $compiler;
         if (strlen($tag) < 5 || substr($tag, -5) != 'close') {
             // opening tag of block plugin
-            $this->required_attributes = array();
-            $this->optional_attributes = array('_any'); 
-            // check and get attributes
-            $_attr = $this->_get_attributes($args); 
+        	// check and get attributes
+        	$_attr = $this->_get_attributes($args); 
+        	if ($_attr['nocache'] === true) {
+            	$this->compiler->tag_nocache = true;
+        	}
+       		unset($_attr['nocache']);
             // convert attributes into parameter array string
             $_paramsArray = array();
             foreach ($_attr as $_key => $_value) {
@@ -42,13 +49,19 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
             } 
             $_params = 'array(' . implode(",", $_paramsArray) . ')';
 
-            $this->_open_tag($tag . '->' . $methode, $_params); 
+            $this->_open_tag($tag . '->' . $methode, array($_params, $this->compiler->nocache)); 
+            // maybe nocache because of nocache variables or nocache plugin
+            $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache; 
             // compile code
             $output = "<?php \$_smarty_tpl->smarty->_tag_stack[] = array('{$tag}->{$methode}', {$_params}); \$_block_repeat=true; \$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params}, null, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl);while (\$_block_repeat) { ob_start();?>";
         } else {
             $base_tag = substr($tag, 0, -5); 
-            // closing tag of block plugin
-            $_params = $this->_close_tag($base_tag . '->' . $methode); 
+            // must endblock be nocache?
+            if ($this->compiler->nocache) {
+                $this->compiler->tag_nocache = true;
+            } 
+            // closing tag of block plugin, restore nocache
+            list($_params, $this->compiler->nocache) = $this->_close_tag($base_tag . '->' . $methode); 
             // This tag does create output
             $this->compiler->has_output = true; 
             // compile code

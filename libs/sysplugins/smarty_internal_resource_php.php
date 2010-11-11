@@ -50,8 +50,8 @@ class Smarty_Internal_Resource_PHP {
     {
         $_filepath = $_template->buildTemplateFilepath ();
 
-        if ($_template->security) {
-            $_template->smarty->security_handler->isTrustedResourceDir($_filepath);
+        if (is_object($_template->smarty->security_policy)) {
+            $_template->smarty->security_policy->isTrustedResourceDir($_filepath);
         } 
         $_template->templateUid = sha1($_filepath);
         return $_filepath;
@@ -76,8 +76,8 @@ class Smarty_Internal_Resource_PHP {
      */
     public function getTemplateSource($_template)
     {
-        if (file_exists($_template->getTemplateFilepath())) {
-            $_template->template_source = file_get_contents($_template->getTemplateFilepath());
+        if (file_exists($_tfp = $_template->getTemplateFilepath())) {
+            $_template->template_source = file_get_contents($_tfp);
             return true;
         } else {
             return false;

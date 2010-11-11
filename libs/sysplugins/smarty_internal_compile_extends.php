@@ -14,6 +14,10 @@
  * Smarty Internal Plugin Compile extend Class
  */
 class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
+	// attribute definitions
+    public $required_attributes = array('file');
+    public $shorttag_order = array('file');
+
     /**
      * Compiles code for the {extends} tag
      * 
@@ -27,9 +31,13 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         $this->smarty = $compiler->smarty;
         $this->_rdl = preg_quote($this->smarty->right_delimiter);
         $this->_ldl = preg_quote($this->smarty->left_delimiter);
-        $this->required_attributes = array('file'); 
+        $filepath = $compiler->template->getTemplateFilepath();
         // check and get attributes
         $_attr = $this->_get_attributes($args);
+        if ($_attr['nocache'] === true) {
+        	$this->compiler->trigger_template_error('nocache option not allowed', $this->compiler->lex->taglineno);
+        }
+
         $_smarty_tpl = $compiler->template; 
         $include_file = null;
         eval('$include_file = ' . $_attr['file'] . ';'); 
@@ -44,7 +52,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         if (isset($compiler->template->properties['file_dependency'][$template_sha1])) {
             $this->compiler->trigger_template_error("illegal recursive call of \"{$include_file}\"",$compiler->lex->line-1);
         } 
-        $compiler->template->properties['file_dependency'][$template_sha1] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp());
+        $compiler->template->properties['file_dependency'][$template_sha1] = array($_template->getTemplateFilepath(), $_template->getTemplateTimestamp(),$_template->resource_type);
         $_content = substr($compiler->template->template_source,$compiler->lex->counter-1);
         if (preg_match_all("!({$this->_ldl}block\s(.+?){$this->_rdl})!", $_content, $s) !=
                 preg_match_all("!({$this->_ldl}/block{$this->_rdl})!", $_content, $c)) {
@@ -66,7 +74,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
             } 
             $_block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.parent' . $this->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
                 substr($_content, $_result[0][$_start][1] + strlen($_result[0][$_start][0]), $_result[0][$_start + $_end][1] - $_result[0][$_start][1] - + strlen($_result[0][$_start][0])));
-            $this->saveBlockData($_block_content, $_result[0][$_start][0], $compiler->template);
+            Smarty_Internal_Compile_Block::saveBlockData($_block_content, $_result[0][$_start][0], $compiler->template, $filepath);
             $_start = $_start + $_end + 1;
         } 
         $compiler->template->template_source = $_template->getTemplateSource();
@@ -75,45 +83,5 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         return '';
     } 
 
-    protected function saveBlockData($block_content, $block_tag, $template)
-    {
-        if (0 == preg_match("!(.?)(name=)(.*?)(?=(\s|{$this->_rdl}))!", $block_tag, $_match)) {
-            $this->compiler->trigger_template_error("\"" . $block_tag . "\" missing name attribute");
-        } else {
-            $_name = trim($_match[3], '\'"'); 
-            // replace {$smarty.block.child}
-            if (strpos($block_content, $this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter) !== false) {
-                if (isset($template->block_data[$_name])) {
-                    $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
-                        $template->block_data[$_name]['source'], $block_content);
-                    unset($template->block_data[$_name]);
-                } else {
-                    $block_content = str_replace($this->smarty->left_delimiter . '$smarty.block.child' . $this->smarty->right_delimiter,
-                        '', $block_content);
-                } 
-            } 
-            if (isset($template->block_data[$_name])) {
-                if (strpos($template->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
-                    $template->block_data[$_name]['source'] =
-                    str_replace('%%%%SMARTY_PARENT%%%%', $block_content, $template->block_data[$_name]['source']);
-                } elseif ($template->block_data[$_name]['mode'] == 'prepend') {
-                    $template->block_data[$_name]['source'] .= $block_content;
-                } elseif ($template->block_data[$_name]['mode'] == 'append') {
-                    $template->block_data[$_name]['source'] = $block_content . $template->block_data[$_name]['source'];
-                } 
-            } else {
-                $template->block_data[$_name]['source'] = $block_content;
-            } 
-            if (preg_match('/(.?)(append)(.*)/', $block_tag, $_match) != 0) {
-                $template->block_data[$_name]['mode'] = 'append';
-            } elseif (preg_match('/(.?)(prepend)(.*)/', $block_tag, $_match) != 0) {
-                $template->block_data[$_name]['mode'] = 'prepend';
-            } else {
-                $template->block_data[$_name]['mode'] = 'replace';
-            } 
-            $template->block_data[$_name]['file'] = $template->getTemplateFilepath();
-        } 
-    } 
 } 
-
 ?>

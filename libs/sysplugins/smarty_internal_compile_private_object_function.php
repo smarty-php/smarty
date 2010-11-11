@@ -13,22 +13,29 @@
  * Smarty Internal Plugin Compile Object Function Class
  */
 class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_CompileBase {
+	// attribute definitions
+    public $required_attributes = array();
+    public $optional_attributes = array('_any'); 
+
     /**
      * Compiles code for the execution of function plugin
      * 
      * @param array $args array with attributes from parser
+     * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
      * @param string $tag name of function
      * @param string $methode name of methode to call
-     * @param object $compiler compiler object
      * @return string compiled code
      */
-    public function compile($args, $compiler, $tag, $methode)
+    public function compile($args, $compiler, $parameter, $tag, $methode)
     {
         $this->compiler = $compiler;
-        $this->required_attributes = array();
-        $this->optional_attributes = array('_any'); 
         // check and get attributes
-        $_attr = $this->_get_attributes($args);
+        $_attr = $this->_get_attributes($args); 
+        if ($_attr['nocache'] === true) {
+            $this->compiler->tag_nocache = true;
+        }
+        unset($_attr['nocache']);
         $_assign = null;
         if (isset($_attr['assign'])) {
             $_assign = $_attr['assign'];

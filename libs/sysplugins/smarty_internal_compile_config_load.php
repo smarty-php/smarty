@@ -14,6 +14,11 @@
  * Smarty Internal Plugin Compile Config Load Class
  */
 class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
+	// attribute definitions
+    public $required_attributes = array('file');
+    public $shorttag_order = array('file','section');
+    public $optional_attributes = array('section', 'scope'); 
+
     /**
      * Compiles code for the {config_load} tag
      * 
@@ -24,10 +29,14 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
-        $this->required_attributes = array('file');
-        $this->optional_attributes = array('section', 'scope'); 
         // check and get attributes
-        $_attr = $this->_get_attributes($args); 
+        $_attr = $this->_get_attributes($args);
+        
+        if ($_attr['nocache'] === true) {
+        	$this->compiler->trigger_template_error('nocache option not allowed', $this->compiler->lex->taglineno);
+        }
+
+         
         // save posible attributes
         $conf_file = $_attr['file'];
         if (isset($_attr['section'])) {
@@ -35,13 +44,18 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
         } else {
             $section = 'null';
         } 
-        $scope = '$_smarty_tpl->smarty';
+        $scope = '$_smarty_tpl';
+        // scope setup
         if (isset($_attr['scope'])) {
             $_attr['scope'] = trim($_attr['scope'], "'\"");
-            if ($_attr['scope'] == 'local') {
-                $scope = '$_smarty_tpl';
-            } elseif ($_attr['scope'] == 'parent') {
+            if ($_attr['scope'] == 'parent') {
                 $scope = '$_smarty_tpl->parent';
+            } elseif ($_attr['scope'] == 'local') {
+                $scope = '$_smarty_tpl';
+            } elseif ($_attr['scope'] == 'global') {
+        		$scope = '$_smarty_tpl->smarty';
+           } else {
+                $this->compiler->trigger_template_error('illegal value for "scope" attribute', $this->compiler->lex->taglineno);
             } 
         } 
         // create config object

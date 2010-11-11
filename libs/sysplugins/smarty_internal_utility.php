@@ -60,6 +60,9 @@ class Smarty_Internal_Utility {
         $_error_count = 0; 
         // loop over array of template directories
         foreach((array)$this->smarty->template_dir as $_dir) {
+            if (strpos('/\\', substr($_dir, -1)) === false) {
+                $_dir .= DS;
+            } 
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             $_compile = new RecursiveIteratorIterator($_compileDirs);
             foreach ($_compile as $_fileinfo) {
@@ -69,7 +72,7 @@ class Smarty_Internal_Utility {
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
                    $_template_file = $_file;
                 } else {
-                    $_template_file = substr(substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file,1);
+                   $_template_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
                 }
                 echo '<br>', $_dir, '---', $_template_file;
                 flush();
@@ -118,6 +121,9 @@ class Smarty_Internal_Utility {
         $_error_count = 0; 
         // loop over array of template directories
         foreach((array)$this->smarty->config_dir as $_dir) {
+            if (strpos('/\\', substr($_dir, -1)) === false) {
+                $_dir .= DS;
+            } 
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             $_compile = new RecursiveIteratorIterator($_compileDirs);
             foreach ($_compile as $_fileinfo) {
@@ -127,7 +133,7 @@ class Smarty_Internal_Utility {
                 if ($_fileinfo->getPath() == substr($_dir, 0, -1)) {
                     $_config_file = $_file;
                 } else {
-                    $_config_file = substr(substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file,1);
+                    $_config_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
                 } 
                 echo '<br>', $_dir, '---', $_config_file;
                 flush();
@@ -208,6 +214,19 @@ class Smarty_Internal_Utility {
         return $_count;
     } 
 
+    /**
+     * Return array of tag/attributes of all tags used by an template
+     * 
+     * @param object $templae template object
+     * @return array of tag/attributes
+     */
+	function getTags(Smarty_Internal_Template $template) 
+	{
+		$template->smarty->get_used_tags = true;
+		$template->compileTemplateSource();
+		return $template->compiler_object->used_tags;
+	}	
+	
     function testInstall()
     {
         echo "<PRE>\n";

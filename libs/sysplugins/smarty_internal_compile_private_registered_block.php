@@ -13,23 +13,29 @@
  * Smarty Internal Plugin Compile Registered Block Class
  */
 class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_CompileBase {
+	// attribute definitions
+    public $optional_attributes = array('_any'); 
+
     /**
      * Compiles code for the execution of a block function
      * 
      * @param array $args array with attributes from parser
-     * @param string $tag name of block function
      * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
+     * @param string $tag name of block function
      * @return string compiled code
      */
-    public function compile($args, $compiler, $tag)
+    public function compile($args, $compiler, $parameter, $tag)
     {
         $this->compiler = $compiler;
         if (strlen($tag) < 6 || substr($tag,-5) != 'close') {
             // opening tag of block plugin
-            $this->required_attributes = array();
-            $this->optional_attributes = array('_any'); 
-            // check and get attributes
-            $_attr = $this->_get_attributes($args); 
+        	// check and get attributes
+        	$_attr = $this->_get_attributes($args); 
+        	if ($_attr['nocache']) {
+            	$this->compiler->tag_nocache = true;
+        	}
+       		unset($_attr['nocache']);
             // convert attributes into parameter array string
             $_paramsArray = array();
             foreach ($_attr as $_key => $_value) {
@@ -43,8 +49,8 @@ class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_C
 
             $this->_open_tag($tag, array($_params, $this->compiler->nocache)); 
             // maybe nocache because of nocache variables or nocache plugin
-            $this->compiler->nocache = !$compiler->smarty->registered_plugins['block'][$tag][1] | $this->compiler->nocache | $this->compiler->tag_nocache;
-            $function = $compiler->smarty->registered_plugins['block'][$tag][0]; 
+            $this->compiler->nocache = !$compiler->smarty->registered_plugins[Smarty::PLUGIN_BLOCK][$tag][1] | $this->compiler->nocache | $this->compiler->tag_nocache;
+            $function = $compiler->smarty->registered_plugins[Smarty::PLUGIN_BLOCK][$tag][0]; 
             // compile code
             if (!is_array($function)) {
                 $output = "<?php \$_smarty_tpl->smarty->_tag_stack[] = array('{$tag}', {$_params}); \$_block_repeat=true; {$function}({$_params}, null, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl);while (\$_block_repeat) { ob_start();?>";
@@ -63,7 +69,7 @@ class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_C
             list($_params, $this->compiler->nocache) = $this->_close_tag($base_tag); 
             // This tag does create output
             $this->compiler->has_output = true;
-            $function = $compiler->smarty->registered_plugins['block'][$base_tag][0]; 
+            $function = $compiler->smarty->registered_plugins[Smarty::PLUGIN_BLOCK][$base_tag][0]; 
             // compile code
             if (!is_array($function)) {
                 $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false; echo {$function}({$_params}, \$_block_content, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl); } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";

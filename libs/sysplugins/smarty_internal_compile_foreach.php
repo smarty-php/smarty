@@ -13,18 +13,22 @@
  * Smarty Internal Plugin Compile Foreach Class
  */
 class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
+	// attribute definitions
+    public $required_attributes = array('from', 'item');
+    public $optional_attributes = array('name', 'key'); 
+    public $shorttag_order = array('from','item','key','name');
+
     /**
      * Compiles code for the {foreach} tag
      * 
      * @param array $args array with attributes from parser
      * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
      * @return string compiled code
      */
-    public function compile($args, $compiler)
+    public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler;
-        $this->required_attributes = array('from', 'item');
-        $this->optional_attributes = array('name', 'key');
         $tpl = $compiler->template; 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
@@ -62,11 +66,12 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
             $usesSmartyIndex = strpos($tpl->template_source, $SmartyVarName . 'index') !== false;
             $usesSmartyIteration = strpos($tpl->template_source, $SmartyVarName . 'iteration') !== false;
             $usesSmartyShow = strpos($tpl->template_source, $SmartyVarName . 'show') !== false;
-            $usesSmartyTotal = $usesSmartyLast || strpos($tpl->template_source, $SmartyVarName . 'total') !== false;
+            $usesSmartyTotal = strpos($tpl->template_source, $SmartyVarName . 'total') !== false;
         } else {
             $usesSmartyFirst = false;
             $usesSmartyLast = false;
             $usesSmartyTotal = false;
+            $usesSmartyShow = false;
         } 
 
         $usesPropFirst = $usesSmartyFirst || strpos($tpl->template_source, $ItemVarName . 'first') !== false;
@@ -74,7 +79,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
         $usesPropIndex = $usesPropFirst || strpos($tpl->template_source, $ItemVarName . 'index') !== false;
         $usesPropIteration = $usesPropLast || strpos($tpl->template_source, $ItemVarName . 'iteration') !== false;
         $usesPropShow = strpos($tpl->template_source, $ItemVarName . 'show') !== false;
-        $usesPropTotal = $usesSmartyTotal || $usesPropLast || strpos($tpl->template_source, $ItemVarName . 'total') !== false; 
+        $usesPropTotal = $usesSmartyTotal || $usesSmartyShow || $usesPropShow || $usesPropLast || strpos($tpl->template_source, $ItemVarName . 'total') !== false; 
         // generate output code
         $output = "<?php ";
         $output .= " \$_smarty_tpl->tpl_vars[$item] = new Smarty_Variable;\n";
@@ -85,13 +90,16 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
         } 
         $output .= " \$_from = $from; if (!is_array(\$_from) && !is_object(\$_from)) { settype(\$_from, 'array');}\n";
         if ($usesPropTotal) {
-            $output .= " \$_smarty_tpl->tpl_vars[$item]->total=(\$_from instanceof Traversable)?iterator_count(\$_from):count(\$_from);\n";
+            $output .= " \$_smarty_tpl->tpl_vars[$item]->total= \$_smarty_tpl->_count(\$_from);\n";
         } 
         if ($usesPropIteration) {
             $output .= " \$_smarty_tpl->tpl_vars[$item]->iteration=0;\n";
         } 
         if ($usesPropIndex) {
             $output .= " \$_smarty_tpl->tpl_vars[$item]->index=-1;\n";
+        } 
+        if ($usesPropShow) {
+            $output .= " \$_smarty_tpl->tpl_vars[$item]->show = (\$_smarty_tpl->tpl_vars[$item]->total > 0);\n";
         } 
         if ($has_name) {
             if ($usesSmartyTotal) {
@@ -103,9 +111,16 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
             if ($usesSmartyIndex) {
                 $output .= " \$_smarty_tpl->tpl_vars['smarty']->value['foreach'][$name]['index']=-1;\n";
             } 
+            if ($usesSmartyShow) {
+                $output .= " \$_smarty_tpl->tpl_vars['smarty']->value['foreach'][$name]['show']=(\$_smarty_tpl->tpl_vars[$item]->total > 0);\n";
+            } 
         } 
-        $output .= "if (count(\$_from) > 0){\n";
-        $output .= "    foreach (\$_from as \$_smarty_tpl->tpl_vars[$item]->key => \$_smarty_tpl->tpl_vars[$item]->value){\n";
+        if ($usesPropTotal) {
+			$output .= "if (\$_smarty_tpl->tpl_vars[$item]->total > 0){\n";
+        } else {
+			$output .= "if (\$_smarty_tpl->_count(\$_from) > 0){\n";
+		}
+		$output .= "    foreach (\$_from as \$_smarty_tpl->tpl_vars[$item]->key => \$_smarty_tpl->tpl_vars[$item]->value){\n";
         if ($key != null) {
             $output .= " \$_smarty_tpl->tpl_vars[$key]->value = \$_smarty_tpl->tpl_vars[$item]->key;\n";
         } 
@@ -150,9 +165,10 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase {
      * 
      * @param array $args array with attributes from parser
      * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
      * @return string compiled code
      */
-    public function compile($args, $compiler)
+    public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler; 
         // check and get attributes
@@ -174,9 +190,10 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase {
      * 
      * @param array $args array with attributes from parser
      * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
      * @return string compiled code
      */
-    public function compile($args, $compiler)
+    public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler; 
         // check and get attributes

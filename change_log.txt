@@ -1,3 +1,6 @@
+11/11/2010
+- major update including some API changes
+
 10/11/2010
 - observe compile_id also for config files
 

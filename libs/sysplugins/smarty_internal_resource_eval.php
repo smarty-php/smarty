@@ -86,5 +86,4 @@ class Smarty_Internal_Resource_Eval {
         return false;
     } 
 } 
-
 ?>

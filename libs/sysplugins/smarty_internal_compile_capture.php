@@ -13,6 +13,10 @@
  * Smarty Internal Plugin Compile Capture Class
  */
 class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase {
+	// attribute definitions
+    public $shorttag_order = array('name');
+    public $optional_attributes = array('name', 'assign', 'append'); 
+
     /**
      * Compiles code for the {capture} tag
      * 
@@ -23,7 +27,6 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase {
     public function compile($args, $compiler)
     {
         $this->compiler = $compiler;
-        $this->optional_attributes = array('name', 'assign', 'append'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
 
@@ -31,8 +34,9 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase {
         $assign = isset($_attr['assign']) ? $_attr['assign'] : null;
         $append = isset($_attr['append']) ? $_attr['append'] : null;
 
-        $this->compiler->_capture_stack[] = array($buffer, $assign, $append);
-
+        $this->compiler->_capture_stack[] = array($buffer, $assign, $append, $this->compiler->nocache);
+        // maybe nocache because of nocache variables
+        $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache; 
         $_output = "<?php ob_start(); ?>";
 
         return $_output;
@@ -55,8 +59,12 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase {
         $this->compiler = $compiler; 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
+        // must endblock be nocache?
+        if ($this->compiler->nocache) {
+            $this->compiler->tag_nocache = true;
+        } 
 
-        list($buffer, $assign, $append) = array_pop($this->compiler->_capture_stack);
+        list($buffer, $assign, $append, $this->compiler->nocache) = array_pop($this->compiler->_capture_stack);
 
         $_output = "<?php ";
         if (isset($assign)) {

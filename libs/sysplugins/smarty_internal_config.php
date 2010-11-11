@@ -241,9 +241,9 @@ class Smarty_Internal_Config {
     public function loadConfigVars ($sections = null, $scope)
     {
         if (isset($this->template)) {
-            $this->template->properties['file_dependency'][sha1($this->getConfigFilepath())] = array($this->getConfigFilepath(), $this->getTimestamp());
+            $this->template->properties['file_dependency'][sha1($this->getConfigFilepath())] = array($this->getConfigFilepath(), $this->getTimestamp(),'file');
         } else {
-            $this->smarty->properties['file_dependency'][sha1($this->getConfigFilepath())] = array($this->getConfigFilepath(), $this->getTimestamp());
+            $this->smarty->properties['file_dependency'][sha1($this->getConfigFilepath())] = array($this->getConfigFilepath(), $this->getTimestamp(),'file');
         } 
         if ($this->mustCompile()) {
             $this->compileConfigSource();

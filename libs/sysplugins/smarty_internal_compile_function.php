@@ -13,20 +13,29 @@
  * Smarty Internal Plugin Compile Function Class
  */
 class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
+	// attribute definitions
+    public $required_attributes = array('name');
+    public $shorttag_order = array('name');
+    public $optional_attributes = array('_any'); 
+
     /**
      * Compiles code for the {function} tag
      * 
      * @param array $args array with attributes from parser
      * @param object $compiler compiler object
-     * @return boolean true
+      * @param array $parameter array with compilation parameter
+    * @return boolean true
      */
-    public function compile($args, $compiler)
+    public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler;
-        $this->required_attributes = array('name');
-        $this->optional_attributes = array('_any'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
+
+        if ($_attr['nocache'] === true) {
+        	$this->compiler->trigger_template_error('nocache option not allowed', $this->compiler->lex->taglineno);
+        }
+
         $save = array($_attr, $compiler->parser->current_buffer,
             $compiler->template->has_nocache_code, $compiler->template->required_plugins);
         $this->_open_tag('function', $save);
@@ -66,9 +75,10 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase 
      * 
      * @param array $args array with attributes from parser
      * @param object $compiler compiler object
+     * @param array $parameter array with compilation parameter
      * @return boolean true
      */
-    public function compile($args, $compiler)
+    public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler;
         $_attr = $this->_get_attributes($args);

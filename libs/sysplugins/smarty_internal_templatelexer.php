@@ -133,16 +133,16 @@ class Smarty_Internal_Templatelexer
     {
         $tokenMap = array (
               1 => 0,
-              2 => 1,
-              4 => 0,
+              2 => 0,
+              3 => 1,
               5 => 0,
               6 => 0,
               7 => 0,
               8 => 0,
               9 => 0,
               10 => 0,
-              11 => 1,
-              13 => 0,
+              11 => 0,
+              12 => 1,
               14 => 0,
               15 => 0,
               16 => 0,
@@ -151,13 +151,14 @@ class Smarty_Internal_Templatelexer
               19 => 0,
               20 => 0,
               21 => 0,
-              22 => 2,
-              25 => 0,
+              22 => 0,
+              23 => 2,
+              26 => 0,
             );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(\\{\\})|^(".$this->ldel."\\*([\S\s]*?)\\*".$this->rdel.")|^([\t ]*[\r\n]+[\t ]*)|^(".$this->ldel."strip".$this->rdel.")|^(".$this->ldel."\\s{1,}strip\\s{1,}".$this->rdel.")|^(".$this->ldel."\/strip".$this->rdel.")|^(".$this->ldel."\\s{1,}\/strip\\s{1,}".$this->rdel.")|^(".$this->ldel."\\s*literal\\s*".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s*(if|elseif|else if|while)(?![^\s]))|^(".$this->ldel."\\s*for(?![^\s]))|^(".$this->ldel."\\s*foreach(?![^\s]))|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(<\\?(?:php\\w+|=|[a-zA-Z]+)?)|^(\\?>)|^(<%)|^(%>)|^(([\S\s]*?)(?=([\t ]*[\r\n]+[\t ]*|".$this->ldel."|<\\?|\\?>|<%|%>)))|^([\S\s]+)/";
+        $yy_global_pattern = "/^(".$this->ldel."[$]smarty\\.block\\.child".$this->rdel.")|^(\\{\\})|^(".$this->ldel."\\*([\S\s]*?)\\*".$this->rdel.")|^([\t ]*[\r\n]+[\t ]*)|^(".$this->ldel."strip".$this->rdel.")|^(".$this->ldel."\\s{1,}strip\\s{1,}".$this->rdel.")|^(".$this->ldel."\/strip".$this->rdel.")|^(".$this->ldel."\\s{1,}\/strip\\s{1,}".$this->rdel.")|^(".$this->ldel."\\s*literal\\s*".$this->rdel.")|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s*(if|elseif|else if|while)(?![^\s]))|^(".$this->ldel."\\s*for(?![^\s]))|^(".$this->ldel."\\s*foreach(?![^\s]))|^(".$this->ldel."\\s{1,})|^(".$this->ldel."\/)|^(".$this->ldel.")|^(<\\?(?:php\\w+|=|[a-zA-Z]+)?)|^(\\?>)|^(<%)|^(%>)|^(([\S\s]*?)(?=([\t ]*[\r\n]+[\t ]*|".$this->ldel."|<\\?|\\?>|<%|%>)))|^([\S\s]+)/";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -210,14 +211,19 @@ class Smarty_Internal_Templatelexer
     function yy_r1_1($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+  $this->token = Smarty_Internal_Templateparser::TP_SMARTYBLOCKCHILD;
     }
     function yy_r1_2($yy_subpatterns)
     {
 
+  $this->token = Smarty_Internal_Templateparser::TP_OTHER;
+    }
+    function yy_r1_3($yy_subpatterns)
+    {
+
   $this->token = Smarty_Internal_Templateparser::TP_COMMENT;
     }
-    function yy_r1_4($yy_subpatterns)
+    function yy_r1_5($yy_subpatterns)
     {
 
   if ($this->strip) {
@@ -226,13 +232,13 @@ class Smarty_Internal_Templatelexer
      $this->token = Smarty_Internal_Templateparser::TP_LINEBREAK;
   }
     }
-    function yy_r1_5($yy_subpatterns)
+    function yy_r1_6($yy_subpatterns)
     {
 
   $this->strip = true;
   return false;
     }
-    function yy_r1_6($yy_subpatterns)
+    function yy_r1_7($yy_subpatterns)
     {
 
   if ($this->smarty->auto_literal) {
@@ -242,13 +248,13 @@ class Smarty_Internal_Templatelexer
     return false;
   }
     }
-    function yy_r1_7($yy_subpatterns)
+    function yy_r1_8($yy_subpatterns)
     {
 
   $this->strip = false;
   return false;
     }
-    function yy_r1_8($yy_subpatterns)
+    function yy_r1_9($yy_subpatterns)
     {
 
   if ($this->smarty->auto_literal) {
@@ -258,13 +264,13 @@ class Smarty_Internal_Templatelexer
     return false;
   }
     }
-    function yy_r1_9($yy_subpatterns)
+    function yy_r1_10($yy_subpatterns)
     {
 
    $this->token = Smarty_Internal_Templateparser::TP_LITERALSTART;
    $this->yypushstate(self::LITERAL);
     }
-    function yy_r1_10($yy_subpatterns)
+    function yy_r1_11($yy_subpatterns)
     {
 
   if ($this->smarty->auto_literal) {
@@ -275,7 +281,7 @@ class Smarty_Internal_Templatelexer
      $this->taglineno = $this->line;
   }
     }
-    function yy_r1_11($yy_subpatterns)
+    function yy_r1_12($yy_subpatterns)
     {
 
   if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
@@ -286,7 +292,7 @@ class Smarty_Internal_Templatelexer
      $this->taglineno = $this->line;
   }
     }
-    function yy_r1_13($yy_subpatterns)
+    function yy_r1_14($yy_subpatterns)
     {
 
   if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
@@ -297,7 +303,7 @@ class Smarty_Internal_Templatelexer
      $this->taglineno = $this->line;
   }
     }
-    function yy_r1_14($yy_subpatterns)
+    function yy_r1_15($yy_subpatterns)
     {
 
   if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
@@ -308,7 +314,7 @@ class Smarty_Internal_Templatelexer
      $this->taglineno = $this->line;
   }
     }
-    function yy_r1_15($yy_subpatterns)
+    function yy_r1_16($yy_subpatterns)
     {
 
   if ($this->smarty->auto_literal) {
@@ -319,21 +325,21 @@ class Smarty_Internal_Templatelexer
      $this->taglineno = $this->line;
   }
     }
-    function yy_r1_16($yy_subpatterns)
+    function yy_r1_17($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line;
     }
-    function yy_r1_17($yy_subpatterns)
+    function yy_r1_18($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_LDEL;
      $this->yypushstate(self::SMARTY);
      $this->taglineno = $this->line;
     }
-    function yy_r1_18($yy_subpatterns)
+    function yy_r1_19($yy_subpatterns)
     {
 
   if (in_array($this->value, Array('<?', '<?=', '<?php'))) {
@@ -345,27 +351,27 @@ class Smarty_Internal_Templatelexer
     $this->value = substr($this->value, 0, 2);
   }
      }
-    function yy_r1_19($yy_subpatterns)
+    function yy_r1_20($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_PHPENDTAG;
     }
-    function yy_r1_20($yy_subpatterns)
+    function yy_r1_21($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_ASPSTARTTAG;
     }
-    function yy_r1_21($yy_subpatterns)
+    function yy_r1_22($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_ASPENDTAG;
     }
-    function yy_r1_22($yy_subpatterns)
+    function yy_r1_23($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
     }
-    function yy_r1_25($yy_subpatterns)
+    function yy_r1_26($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
@@ -421,9 +427,10 @@ class Smarty_Internal_Templatelexer
               62 => 0,
               63 => 0,
               64 => 0,
-              65 => 1,
-              67 => 1,
-              69 => 1,
+              65 => 0,
+              66 => 1,
+              68 => 1,
+              70 => 0,
               71 => 0,
               72 => 0,
               73 => 0,
@@ -441,12 +448,11 @@ class Smarty_Internal_Templatelexer
               85 => 0,
               86 => 0,
               87 => 0,
-              88 => 0,
             );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s*(if|elseif|else if|while)(?![^\s]))|^(".$this->ldel."\\s*for(?![^\s]))|^(".$this->ldel."\\s*foreach(?![^\s]))|^(".$this->ldel."\\s{1,})|^(\\s{1,}".$this->rdel.")|^(".$this->ldel."\/)|^(".$this->ldel.")|^(".$this->rdel.")|^(\\s+is\\s+in\\s+)|^(\\s+(AS|as)\\s+)|^(\\s+(to)\\s+)|^(\\s+(step)\\s+)|^(\\s+instanceof\\s+)|^(\\s*===\\s*)|^(\\s*!==\\s*)|^(\\s*==\\s*|\\s+(EQ|eq)\\s+)|^(\\s*!=\\s*|\\s*<>\\s*|\\s+(NE|NEQ|ne|neq)\\s+)|^(\\s*>=\\s*|\\s+(GE|GTE|ge|gte)\\s+)|^(\\s*<=\\s*|\\s+(LE|LTE|le|lte)\\s+)|^(\\s*>\\s*|\\s+(GT|gt)\\s+)|^(\\s*<\\s*|\\s+(LT|lt)\\s+)|^(\\s+(MOD|mod)\\s+)|^(!\\s*|(NOT|not)\\s+)|^(\\s*&&\\s*|\\s*(AND|and)\\s+)|^(\\s*\\|\\|\\s*|\\s*(OR|or)\\s+)|^(\\s*(XOR|xor)\\s+)|^(\\s+is\\s+odd\\s+by\\s+)|^(\\s+is\\s+not\\s+odd\\s+by\\s+)|^(\\s+is\\s+odd)|^(\\s+is\\s+not\\s+odd)|^(\\s+is\\s+even\\s+by\\s+)|^(\\s+is\\s+not\\s+even\\s+by\\s+)|^(\\s+is\\s+even)|^(\\s+is\\s+not\\s+even)|^(\\s+is\\s+div\\s+by\\s+)|^(\\s+is\\s+not\\s+div\\s+by\\s+)|^(\\((int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)\\)\\s*)|^(\\(\\s*)|^(\\s*\\))|^(\\[\\s*)|^(\\s*\\])|^(\\s*->\\s*)|^(\\s*=>\\s*)|^(\\s*=\\s*)|^((\\+\\+|--)\\s*)|^(\\s*(\\+|-)\\s*)|^(\\s*(\\*|\/|%)\\s*)|^(\\$)|^(\\s*;)|^(::)|^(\\s*:\\s*)|^(@)|^(#)|^(\")|^(`)|^(\\|)|^(\\.)|^(\\s*,\\s*)|^(\\s*&\\s*)|^(\\s*\\?\\s*)|^(0[xX][0-9a-fA-F]+)|^([0-9]*[a-zA-Z_]\\w*)|^(\\d+)|^(\\s+)|^(.)/";
+        $yy_global_pattern = "/^('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|^(".$this->ldel."\\s{1,}\/)|^(".$this->ldel."\\s*(if|elseif|else if|while)(?![^\s]))|^(".$this->ldel."\\s*for(?![^\s]))|^(".$this->ldel."\\s*foreach(?![^\s]))|^(".$this->ldel."\\s{1,})|^(\\s{1,}".$this->rdel.")|^(".$this->ldel."\/)|^(".$this->ldel.")|^(".$this->rdel.")|^(\\s+is\\s+in\\s+)|^(\\s+(AS|as)\\s+)|^(\\s+(to)\\s+)|^(\\s+(step)\\s+)|^(\\s+instanceof\\s+)|^(\\s*===\\s*)|^(\\s*!==\\s*)|^(\\s*==\\s*|\\s+(EQ|eq)\\s+)|^(\\s*!=\\s*|\\s*<>\\s*|\\s+(NE|NEQ|ne|neq)\\s+)|^(\\s*>=\\s*|\\s+(GE|GTE|ge|gte)\\s+)|^(\\s*<=\\s*|\\s+(LE|LTE|le|lte)\\s+)|^(\\s*>\\s*|\\s+(GT|gt)\\s+)|^(\\s*<\\s*|\\s+(LT|lt)\\s+)|^(\\s+(MOD|mod)\\s+)|^(!\\s*|(NOT|not)\\s+)|^(\\s*&&\\s*|\\s*(AND|and)\\s+)|^(\\s*\\|\\|\\s*|\\s*(OR|or)\\s+)|^(\\s*(XOR|xor)\\s+)|^(\\s+is\\s+odd\\s+by\\s+)|^(\\s+is\\s+not\\s+odd\\s+by\\s+)|^(\\s+is\\s+odd)|^(\\s+is\\s+not\\s+odd)|^(\\s+is\\s+even\\s+by\\s+)|^(\\s+is\\s+not\\s+even\\s+by\\s+)|^(\\s+is\\s+even)|^(\\s+is\\s+not\\s+even)|^(\\s+is\\s+div\\s+by\\s+)|^(\\s+is\\s+not\\s+div\\s+by\\s+)|^(\\((int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)\\)\\s*)|^(\\(\\s*)|^(\\s*\\))|^(\\[\\s*)|^(\\s*\\])|^(\\s*->\\s*)|^(\\s*=>\\s*)|^(\\s*=\\s*)|^(\\+\\+|--)|^(\\s*(\\+|-)\\s*)|^(\\s*(\\*|\/|%)\\s*)|^(\\$)|^(\\s*;)|^(::)|^(\\s*:\\s*)|^(@)|^(#)|^(\")|^(`)|^(\\|)|^(\\.)|^(\\s*,\\s*)|^(\\s*&\\s*)|^(\\s*\\?\\s*)|^(0[xX][0-9a-fA-F]+)|^([0-9]*[a-zA-Z_]\\w*)|^(\\d+)|^(\\s+)|^(.)/";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -771,104 +777,104 @@ class Smarty_Internal_Templatelexer
 
   $this->token = Smarty_Internal_Templateparser::TP_INCDEC;
     }
-    function yy_r2_67($yy_subpatterns)
+    function yy_r2_66($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_UNIMATH;
     }
-    function yy_r2_69($yy_subpatterns)
+    function yy_r2_68($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_MATH;
     }
-    function yy_r2_71($yy_subpatterns)
+    function yy_r2_70($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_DOLLAR;
     }
-    function yy_r2_72($yy_subpatterns)
+    function yy_r2_71($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_SEMICOLON;
     }
-    function yy_r2_73($yy_subpatterns)
+    function yy_r2_72($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_DOUBLECOLON;
     }
-    function yy_r2_74($yy_subpatterns)
+    function yy_r2_73($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_COLON;
     }
-    function yy_r2_75($yy_subpatterns)
+    function yy_r2_74($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_AT;
     }
-    function yy_r2_76($yy_subpatterns)
+    function yy_r2_75($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_HATCH;
     }
-    function yy_r2_77($yy_subpatterns)
+    function yy_r2_76($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
   $this->yypushstate(self::DOUBLEQUOTEDSTRING);
     }
-    function yy_r2_78($yy_subpatterns)
+    function yy_r2_77($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_BACKTICK;
   $this->yypopstate();
     }
-    function yy_r2_79($yy_subpatterns)
+    function yy_r2_78($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_VERT;
     }
-    function yy_r2_80($yy_subpatterns)
+    function yy_r2_79($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_DOT;
     }
-    function yy_r2_81($yy_subpatterns)
+    function yy_r2_80($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_COMMA;
     }
-    function yy_r2_82($yy_subpatterns)
+    function yy_r2_81($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_ANDSYM;
     }
-    function yy_r2_83($yy_subpatterns)
+    function yy_r2_82($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_QMARK;
     }
-    function yy_r2_84($yy_subpatterns)
+    function yy_r2_83($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_HEX;
     }
-    function yy_r2_85($yy_subpatterns)
+    function yy_r2_84($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_ID;
     }
-    function yy_r2_86($yy_subpatterns)
+    function yy_r2_85($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_INTEGER;
     }
-    function yy_r2_87($yy_subpatterns)
+    function yy_r2_86($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_SPACE;
     }
-    function yy_r2_88($yy_subpatterns)
+    function yy_r2_87($yy_subpatterns)
     {
 
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
@@ -1169,6 +1175,5 @@ class Smarty_Internal_Templatelexer
 
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
     }
-
 }
 ?>

@@ -18,12 +18,12 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase {
     * 
     * @param array $args array with attributes from parser
     * @param object $compiler compiler object
+    * @param array $parameter array with compilation parameter
     * @return string compiled code
     */
-    public function compile($args, $compiler)
+    public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler;
-        $this->required_attributes = array('if condition'); 
         // check and get attributes
         $_attr = $this->_get_attributes($args);
         $this->_open_tag('while', $this->compiler->nocache);
@@ -32,12 +32,12 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase {
         $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache;
 
         
-        if (is_array($args['if condition'])) {
-            $_output = " <?php if (!isset(\$_smarty_tpl->tpl_vars[".$args['if condition']['var']."])) \$_smarty_tpl->tpl_vars[".$args['if condition']['var']."] = new Smarty_Variable;\n";
-            $_output .= " while (\$_smarty_tpl->tpl_vars[".$args['if condition']['var']."]->value = ".$args['if condition']['value'].") {\n ?>";
+        if (is_array($parameter['if condition'])) {
+            $_output = " <?php if (!isset(\$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']."])) \$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']."] = new Smarty_Variable;\n";
+            $_output .= " while (\$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']."]->value = ".$parameter['if condition']['value'].") {\n ?>";
             return $_output;
         } else {
-            return '<?php while (' . $args['if condition'] . ') { ?>';
+            return '<?php while (' . $parameter['if condition'] . ') { ?>';
         } 
     } 
 } 

@@ -60,68 +60,67 @@ class Smarty_Internal_Wrapper {
        switch($name_parts[0]) {
          case 'register':
          case 'unregister':
-           $myobj = $name_parts[0] == 'register' ? $this->smarty->register : $this->smarty->unregister;
            switch($name_parts[1]) {
-              case 'function':
-                 return call_user_func_array(array($myobj,'templateFunction'),$args);
-                 break;
               case 'object':
-                 return call_user_func_array(array($myobj,'templateObject'),$args);
-                 break;
+                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Object"),$args);
               case 'compiler_function':
-                 return call_user_func_array(array($myobj,'compilerFunction'),$args);
-                 break;
+                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Plugin"),array_merge(array('compiler'),$args));
+              case 'prefilter':
+                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Filter"),array_merge(array('pre'),$args));
+              case 'postfilter':
+                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Filter"),array_merge(array('post'),$args));
+              case 'outputfilter':
+                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Filter"),array_merge(array('output'),$args));
+             case 'resource':
+                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Resource"),$args);
               default:
-                 return call_user_func_array(array($myobj,$name_parts[1]),$args);
-                 break;
+                 return call_user_func_array(array($this->smarty,"{$name_parts[0]}Plugin"),array_merge(array($name_parts[1]),$args));
            }
-           break;
            case 'get':
            switch($name_parts[1]) {
               case 'template_vars':
                  return call_user_func_array(array($this->smarty,'getTemplateVars'),$args);
-                 break;
               case 'config_vars':
                  return call_user_func_array(array($this->smarty,'getConfigVars'),$args);
-                 break;
               default:
                  return call_user_func_array(array($myobj,$name_parts[1]),$args);
-                 break;
            }
-           break;
            case 'clear':
            switch($name_parts[1]) {
               case 'all_assign':
                  return call_user_func_array(array($this->smarty,'clearAllAssign'),$args);
-                 break;
+              case 'assign':
+                 return call_user_func_array(array($this->smarty,'clearAssign'),$args);
+              case 'all_cache':
+                 return call_user_func_array(array($this->smarty,'clearAllCache'),$args);
+              case 'cache':
+                 return call_user_func_array(array($this->smarty,'clearCache'),$args);
+              case 'compiled_template':
+                 return call_user_func_array(array($this->smarty,'clearCompiledTemplate'),$args);
            }
-           break;
            case 'config':
            switch($name_parts[1]) {
               case 'load':
                  return call_user_func_array(array($this->smarty,'configLoad'),$args);
-                 break;
            }
-           break;
-           default:
-             // convert foo_bar_baz to fooBarBaz style names
-             $name_parts = explode('_',$name);
-             foreach($name_parts as $idx=>$part) {
-                if($idx==0)
-                  $name_parts[$idx] = strtolower($part);
-                else
-                  $name_parts[$idx] = ucfirst($part);
-             }
-             $func_name = implode('',$name_parts);
-             if(!method_exists($this->smarty,$func_name)) {
-                throw new SmartyException("unknown method '$name'");
-                return false;
-             }
-             return call_user_func_array(array($this->smarty,$func_name),$args);
-           break;
+           case 'trigger':
+           switch($name_parts[1]) {
+              case 'error':
+                 return call_user_func_array(array($this,'trigger_error'),$args);
+           }
        }
-       return false;
+       throw new SmartyException("unknown method '$name'");
+    }
+
+    /**
+     * trigger Smarty error
+     *
+     * @param string $error_msg
+     * @param integer $error_type
+     */
+    function trigger_error($error_msg, $error_type = E_USER_WARNING)
+    {
+        trigger_error("Smarty error: $error_msg", $error_type);
     }
 }
-
 ?>
