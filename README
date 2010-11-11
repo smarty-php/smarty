@@ -5,9 +5,45 @@ Author: Uwe Tews
 
 AN INTRODUCTION TO SMARTY 3
 
-NOTICE for RC5:
+NOTICE for 3.0 release:
 
-With RC5 the API was changed once again.
+IMPORTANT: Some API adjustments have been made between the RC4 and 3.0 release.
+We felt it is better to make these now instead of after a 3.0 release, then have to
+immediately deprecate APIs in 3.1. Online documentation has been updated
+to reflect these changes. Specifically:
+
+---- API CHANGES RC4 -> 3.0 ----
+
+$smarty->register->*
+$smarty->unregister->*
+$smarty->utility->*
+$samrty->cache->*
+
+Have all been changed to local method calls such as:
+
+$smarty->clearAllCache()
+$smarty->registerFoo()
+$smarty->unregisterFoo()
+$smarty->testInstall()
+etc.
+
+Registration of function, block, compiler, and modifier plugins have been
+consolidated under two API calls:
+
+$smarty->registerPlugin(...)
+$smarty->unregisterPlugin(...)
+
+Registration of pre, post, output and variable filters have been
+consolidated under two API calls:
+
+$smarty->registerFilter(...)
+$smarty->unregisterFilter(...)
+
+Please refer to the online documentation for all specific changes:
+
+http://www.smarty.net/documentation
+
+----
 
 The Smarty 3 API has been refactored to a syntax geared
 for consistency and modularity. The Smarty 2 API syntax is still supported, but
