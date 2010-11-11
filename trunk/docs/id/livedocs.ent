@@ -1,6 +1,0 @@
-<!-- $Revision$ -->
-
-<!ENTITY livedocs.author 'Pembuat:<br />'>
-<!ENTITY livedocs.editors 'Disunting oleh:<br />'>
-<!ENTITY livedocs.copyright 'Hak Cipta &copy; %s by %s'>
-<!ENTITY livedocs.published 'Diterbitkan pada: %s'>
