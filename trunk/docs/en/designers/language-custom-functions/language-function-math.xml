@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Revision$ -->
+<sect1 id="language.function.math">
+ <title>{math}</title>
+  <para>
+   <varname>{math}</varname> allows the template designer to do math equations
+   in the template.
+   </para>
+   <itemizedlist>
+   <listitem><para>
+   Any numeric template variables may be used in the
+   equations, and the result is printed in place of the tag.
+   </para></listitem>
+
+   <listitem><para>
+   The variables used in the equation are passed as parameters,
+   which can  be template variables or static values.
+   </para></listitem>
+
+   <listitem><para>+, -, /, *, abs, ceil, cos,  exp, floor, log, log10, max, min,
+   pi, pow, rand, round, sin, sqrt, srans and tan are all valid operators.
+   Check the PHP documentation  for further information on these
+   <ulink url="&url.php-manual;eval">math</ulink> functions.
+  </para></listitem>
+
+  <listitem><para>
+   If you supply the <parameter>assign</parameter> attribute, the output of the
+   <varname>{math}</varname> function will be assigned to this template
+   variable instead of  being output to the template.
+   </para></listitem>
+  </itemizedlist>
+
+   <note>
+  <title>Technical Note</title>
+  <para>
+   <varname>{math}</varname> is an expensive function in performance due to
+   its use of the php <ulink url="&url.php-manual;eval">
+   <varname>eval()</varname></ulink> function. Doing the math in PHP is much
+   more  efficient, so whenever possible do the math calculations in the script
+   and <link linkend="api.assign"><varname>assign()</varname></link>
+   the results to the template. Definitely avoid  repetitive
+   <varname>{math}</varname> function calls, eg within
+    <link linkend="language.function.section">
+    <varname>{section}</varname></link> loops.
+  </para>
+ </note>
+
+ <informaltable frame="all">
+  <tgroup cols="5">
+   <colspec colname="param" align="center" />
+   <colspec colname="type" align="center" />
+   <colspec colname="required" align="center" />
+   <colspec colname="default" align="center" />
+   <colspec colname="desc" />
+   <thead>
+    <row>
+     <entry>Attribute Name</entry>
+     <entry>Type</entry>
+     <entry>Required</entry>
+     <entry>Default</entry>
+     <entry>Description</entry>
+    </row>
+   </thead>
+   <tbody>
+    <row>
+     <entry>equation</entry>
+     <entry>string</entry>
+     <entry>Yes</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>The equation to execute</entry>
+    </row>
+    <row>
+     <entry>format</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>The format of the result (sprintf)</entry>
+    </row>
+    <row>
+     <entry>var</entry>
+     <entry>numeric</entry>
+     <entry>Yes</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Equation variable value</entry>
+    </row>
+    <row>
+     <entry>assign</entry>
+     <entry>string</entry>
+     <entry>No</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Template variable the output will be assigned to</entry>
+    </row>
+    <row>
+     <entry>[var ...]</entry>
+     <entry>numeric</entry>
+     <entry>Yes</entry>
+     <entry><emphasis>n/a</emphasis></entry>
+     <entry>Equation variable value</entry>
+    </row>
+   </tbody>
+  </tgroup>
+ </informaltable>
+
+
+ <example>
+  <title>{math}</title>
+  <para>
+  <emphasis role="bold">Example a:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* $height=4, $width=5 *}
+
+   {math equation="x + y" x=$height y=$width}
+]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
+   9
+]]>
+  </screen>
+  <para>
+    <emphasis role="bold">Example b:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *}
+
+   {math equation="height * width / division"
+   height=$row_height
+   width=$row_width
+   division=#col_div#}
+]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
+   100
+]]>
+  </screen>
+  <para>
+  <emphasis role="bold">Example c:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* you can use parenthesis *}
+
+   {math equation="(( x + y ) / z )" x=2 y=10 z=2}
+]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
+   6
+]]>
+  </screen>
+    <para>
+    <emphasis role="bold">Example d:</emphasis>
+  </para>
+  <programlisting>
+<![CDATA[
+   {* you can supply a format parameter in sprintf format *}
+
+   {math equation="x + y" x=4.4444 y=5.0000 format="%.2f"}
+   ]]>
+  </programlisting>
+  <para>
+   The above example will output:
+  </para>
+  <screen>
+<![CDATA[
+   9.44
+]]>
+  </screen>
+ </example>
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"../../../../manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->

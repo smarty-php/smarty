@@ -1,0 +1,281 @@
+;; $Id$
+;;
+;; This file is part of the Modular DocBook Stylesheet distribution.
+;; See ../README or http://nwalsh.com/docbook/dsssl/
+;;
+
+;; ----------------------------- Localization -----------------------------
+
+;; If you create a new version of this file, please send it to
+;; Norman Walsh, ndw@nwalsh.com.  Please use the ISO 639 language
+;; code to identify the language.  Append a subtag as per RFC 1766,
+;; if necessary.
+
+;; The generated text for cross references to elements.  See dblink.dsl
+;; for a discussion of how substitution is performed on the %x and #x
+;; keywords.
+;;
+
+;; The following language codes from ISO 639 are recognized:
+;; %%LANGUAGES%%
+;; af - Afrikaans                           1.71
+;; ca - Catalan
+;; cs - Czech
+;; da - Danish (previously dk)
+;; de - German (previously dege)
+;; el - Greek
+;; en - English (previously usen)
+;; es - Spanish
+;; et - Estonian                            1.55
+;; eu - Basque                              1.74
+;; fi - Finnish
+;; fr - French
+;; hu - Hungarian                           1.55
+;; id - Indonesian                          1.55
+;; it - Italian
+;; ja - Japanese
+;; ko - Korean                              1.59
+;; nl - Dutch
+;; nn - Nnyorsk                             1.74
+;; no - Norwegian (previously bmno) ???
+;; pl - Polish
+;; pt - Portuguese
+;; pt_br - Portuguese (Brazil)
+;; ro - Romanian
+;; ru - Russian
+;; sk - Slovak
+;; sl - Slovenian                           1.55
+;; sr - Serbian                             1.70
+;; sv - Swedish (previously svse)
+;; tr - Turkish                             1.71
+;; uk - Ukranian                            1.74
+;; xh - Xhosa                               1.74
+;; zh_cn - Chinese (Continental)            1.55
+;; zh_tw - Chinese (Traditional)            1.70
+
+;; The following language codes are recognized for historical reasons:
+
+;; %%HISTORICAL%%
+;; bmno(no) - Norwegian (Norsk Bokmal) ???
+;; dege(de) - German
+;; dk(da)   - Danish
+;; svse(sv) - Swedish
+;; usen(en) - English
+;; %%/LANGUAGES%%
+
+(define %default-language% "en")
+(define %gentext-language% #f)
+(define %gentext-use-xref-lang% #f)
+
+(define ($lang$ #!optional (target (current-node)) (xref-context #f))
+  (if %gentext-language%
+      (lang-fix %gentext-language%)
+      (if (or xref-context %gentext-use-xref-lang%)
+	  (let loop ((here target))
+	    (if (node-list-empty? here)
+		(lang-fix %default-language%)
+		(if (attribute-string (normalize "lang") here)
+		    (lang-fix (attribute-string (normalize "lang") here))
+		    (loop (parent here)))))
+	  (if (inherited-attribute-string (normalize "lang"))
+	      (lang-fix (inherited-attribute-string (normalize "lang")))
+	      (lang-fix %default-language%)))))
+
+(define (lang-fix language)
+  ;; Lowercase the language
+  ;; Translate 'xx-yy' to 'xx_yy'
+  (let ((fixed-lang (if (> (string-index language "-") 0)
+			(let ((pos (string-index language "-")))
+			  (string-append
+			   (substring language 0 pos)
+			   "_"
+			   (substring language (+ pos 1)
+				      (string-length language))))
+			language)))
+    (case-fold-down fixed-lang)))
+
+;; bmno - Norwegian (Norsk Bokmal) ???
+;; dege - German
+;; dk   - Danish
+;; svse - Swedish
+;; usen - English
+
+(define (author-string #!optional (author (current-node)))
+  (let ((lang   (if (string? author) ($lang$) ($lang$ author))))
+    (case lang
+      ;; ISO 639/ISO 3166/RFC 1766
+      <![%l10n-XX[   (("XX")    (XX-author-string author)) ]]>
+      (else (error (string-append "L10N ERROR: author-string: "
+				  lang))))))
+
+(define (gentext-xref-strings target)
+  (let ((giname (if (string? target) (normalize target) (gi target)))
+	(lang   (if (string? target) ($lang$) ($lang$ target))))
+    (case lang
+      <![%l10n-XX[ (("XX") (gentext-XX-xref-strings giname)) ]]>
+      (else (error (string-append "L10N ERROR: gentext-xref-strings: " 
+				  lang))))))
+
+(define (auto-xref-indirect-connector before) 
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") (XX-auto-xref-indirect-connector before)) ]]>
+    (else (error "L10N ERROR: auto-xref-indirect-connector"))))
+
+(define (generate-toc-in-front)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %generate-XX-toc-in-front%) ]]>
+    (else (error "L10N ERROR: generate-toc-in-front"))))
+
+(define (gentext-element-name target)
+  (let ((giname (if (string? target) (normalize target) (gi target)))
+	(lang   (if (string? target) ($lang$) ($lang$ target #t))))
+    (case lang
+      <![%l10n-XX[ (("XX") (gentext-XX-element-name giname)) ]]>
+      (else (error (string-append "L10N ERROR: gentext-element-name: "
+				  lang
+				  " ("
+				  giname
+				  ")"))))))
+
+(define (gentext-element-name-space target)
+  (let ((giname (if (string? target) (normalize target) (gi target)))
+	(lang   (if (string? target) ($lang$) ($lang$ target))))
+    (case lang
+      <![%l10n-XX[ (("XX") (gentext-XX-element-name-space giname)) ]]>
+      (else (error "L10N ERROR: gentext-element-name-space")))))
+
+(define (gentext-intra-label-sep target)
+  (let ((giname (if (string? target) (normalize target) (gi target)))
+	(lang   (if (string? target) ($lang$) ($lang$ target))))
+    (case lang
+      <![%l10n-XX[ (("XX") (gentext-XX-intra-label-sep giname)) ]]>
+      (else (error "L10N ERROR: gentext-intra-label-sep")))))
+
+(define (gentext-label-title-sep target)
+  (let ((giname (if (string? target) (normalize target) (gi target)))
+	(lang   (if (string? target) ($lang$) ($lang$ target))))
+    (case lang
+      <![%l10n-XX[ (("XX") (gentext-XX-label-title-sep giname)) ]]>
+      (else (error "L10N ERROR: gentext-label-title-sep")))))
+
+(define (label-number-format target)
+  (let ((giname (if (string? target) (normalize target) (gi target)))
+	(lang   (if (string? target) ($lang$) ($lang$ target))))
+    (case lang
+      <![%l10n-XX[ (("XX") (XX-label-number-format target)) ]]>
+      (else (error "L10N ERROR: label-number-format")))))
+
+(define ($lot-title$ lotgi)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") ($lot-title-XX$ lotgi)) ]]>
+    (else (error "L10N ERROR: $lot-title$"))))
+
+(define (gentext-start-quote)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-start-quote%) ]]>
+    (else (error "L10N ERROR: gentext-start-quote"))))
+
+(define (gentext-end-quote)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-end-quote%) ]]>
+    (else (error "L10N ERROR: gentext-end-quote"))))
+
+(define (gentext-start-nested-quote)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-start-nested-quote%) ]]>
+    (else (error "L10N ERROR: gentext-start-nested-quote"))))
+
+(define (gentext-end-nested-quote)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-end-nested-quote%) ]]>
+    (else (error "L10N ERROR: gentext-end-nested-quote"))))
+
+(define (gentext-by)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-by%) ]]>
+    (else (error "L10N ERROR: gentext-by"))))
+
+(define (gentext-edited-by)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-edited-by%) ]]>
+    (else (error "L10N ERROR: gentext-edited-by"))))
+
+(define (gentext-revised-by)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-revised-by%) ]]>
+    (else (error "L10N ERROR: gentext-revised-by"))))
+
+(define (gentext-page)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-page%) ]]>
+    (else (error "L10N ERROR: gentext-page"))))
+
+(define (gentext-and)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-and%) ]]>
+    (else (error "L10N ERROR: gentext-and"))))
+
+(define (gentext-listcomma)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-listcomma%) ]]>
+    (else (error "L10N ERROR: gentext-listcomma"))))
+
+(define (gentext-lastlistcomma)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-lastlistcomma%) ]]>
+    (else (error "L10N ERROR: gentext-lastlistcomma"))))
+
+(define (gentext-bibl-pages)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-bibl-pages%) ]]>
+    (else (error "L10N ERROR: gentext-bibl-pages"))))
+
+(define (gentext-endnotes)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-endnotes%) ]]>
+    (else (error "L10N ERROR: gentext-endnotes"))))
+
+(define (gentext-table-endnotes)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-table-endnotes%) ]]>
+    (else (error "L10N ERROR: gentext-table-endnotes"))))
+
+(define (gentext-index-see)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-index-see%) ]]>
+    (else (error "L10N ERROR: gentext-index-see"))))
+
+(define (gentext-index-seealso)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") %gentext-XX-index-seealso%) ]]>
+    (else (error "L10N ERROR: gentext-index-seealso"))))
+
+(define (gentext-nav-prev prev) 
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") (gentext-XX-nav-prev prev)) ]]>
+    (else (error "L10N ERROR: gentext-nav-prev"))))
+
+(define (gentext-nav-prev-sibling prevsib) 
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") (gentext-XX-nav-prev-sibling prevsib)) ]]>
+    (else (error "L10N ERROR: gentext-nav-prev-sibling "))))
+
+(define (gentext-nav-next-sibling nextsib)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") (gentext-XX-nav-next-sibling nextsib)) ]]>
+    (else (error "L10N ERROR: gentext-nav-next-sibling"))))
+
+(define (gentext-nav-next next)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") (gentext-XX-nav-next next)) ]]>
+    (else (error "L10N ERROR: gentext-nav-next"))))
+
+(define (gentext-nav-up up)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") (gentext-XX-nav-up up)) ]]>
+    (else (error "L10N ERROR: gentext-nav-up"))))
+
+(define (gentext-nav-home home)
+  (case ($lang$)
+    <![%l10n-XX[ (("XX") (gentext-XX-nav-home home)) ]]>
+    (else (error "L10N ERROR: gentext-nav-home"))))

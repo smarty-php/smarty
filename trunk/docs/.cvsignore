@@ -1,0 +1,11 @@
+configure
+Makefile
+manual.xml
+config.*
+*.cache
+*.fot
+html
+phpweb
+diff
+revcheck.html
+manual.pdf

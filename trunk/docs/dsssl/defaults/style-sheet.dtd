@@ -1,0 +1,76 @@
+<!-- A DTD for DSSSL Style Sheets.  The public identifier for this is
+
+     "-//OpenJade//DTD DSSSL Style Sheet//EN"
+-->
+
+<!ENTITY % declarations
+ "add-name-chars | add-separator-chars | standard-chars | 
+  map-sdata-entity | char-repertoire"
+>
+
+<!element style-sheet o o ((%declarations;)*, style-specification,
+			   (external-specification|style-specification)*)>
+<!element style-specification o o ((%declarations;)*, style-specification-body)>
+<!attlist style-specification
+  id id #implied
+  use idrefs #implied
+>
+<!element style-specification-body o o (#pcdata)>
+<!attlist style-specification-body
+  content entity #conref
+>
+<!element external-specification - o empty>
+<!attlist external-specification
+  id id #required
+  document entity #required
+  specid name #implied
+>
+<!-- Declare additional characters allowed in name within DSSSL notation. -->
+<!element add-name-chars - O (#PCDATA)
+  -- dlextype(charname*) -->
+
+<!-- Declare additional characters allowed as separators within
+DSSSL notation. -->
+<!element add-separator-chars - O (#PCDATA)
+  -- dlextype(charname*) -->
+
+<!-- Define characters associating names with universal codes. -->
+
+<!element standard-chars - O (#PCDATA)
+  -- dlextype((charname, number))*) -->
+
+<!-- Map an SDATA entity onto a character. -->
+
+<!element map-sdata-entity - O (#PCDATA)
+  -- dlextype(charname) -->
+<!attlist map-sdata-entity
+         name CDATA #IMPLIED -- Default: mapping uses replacement text only --
+         text CDATA #IMPLIED -- Default: mapping uses name only --
+>
+
+<!-- Declare a character repertoire. -->
+<!element char-repertoire - O EMPTY>
+<!attlist char-repertoire
+          name -- public identifier for repertoire --
+               CDATA #REQUIRED
+>
+
+<?IS10744 ArcBase DSSSL>
+<!NOTATION DSSSL   PUBLIC "ISO/IEC 10179:1996//NOTATION
+                   DSSSL Architecture Definition Document//EN"
+                -- A document architecture conforming to the
+                   Architectural Form Definition Requirements of
+                   ISO/IEC 10744.     --
+>
+
+<!ATTLIST #NOTATION DSSSL
+                            -- Support attributes for all architectures --
+  ArcQuant CDATA #FIXED "NAMELEN 64"
+  ArcDTD CDATA #FIXED "%DSSSLDTD"
+  ArcDocF NAME #FIXED dsssl-specification
+  ArcDataF NAME #FIXED dsssl-specification
+>
+
+<!ENTITY % DSSSLDTD PUBLIC
+ "ISO/IEC 10179:1996//DTD DSSSL Architecture//EN"
+>

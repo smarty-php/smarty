@@ -1,0 +1,134 @@
+<!-- DSSSL Architectural Forms -->
+
+<!ENTITY % declarations
+ "features | baseset-encoding | literal-described-char | add-name-chars
+  | add-separator-chars | standard-chars | other-chars 
+  | combine-char | map-sdata-entity | char-repertoire"
+>
+
+<!element dsssl-specification - O
+          ((%declarations;)*,
+           (style-specification | transformation-specification
+            | external-specification)+)>
+<!attlist dsssl-specification
+          version CDATA #FIXED "ISO/IEC 10179:1996"
+>
+
+<!element transformation-specification - O
+          ((%declarations;)*, transformation-specification-body*)>
+<!attlist transformation-specification
+          id ID #IMPLIED
+	  desc CDATA #IMPLIED
+          -- human readable description of specification --
+	  partial (partial | complete) complete
+	  -- is the specification complete is or is it just a fragment
+	     to be used in other specifications? --
+          use -- reftype(transformation-specification|external-specification) --
+              IDREFS #IMPLIED -- Default: none --
+          entities
+          -- entities available to be specified as DTD for validation
+             of result document --
+              ENTITIES #IMPLIED -- Default: none --
+>
+
+<!element style-specification - O
+          ((%declarations;)*, style-specification-body*)>
+<!attlist style-specification
+          id ID #IMPLIED
+	  desc CDATA #IMPLIED
+          -- human readable description of specification --
+	  partial (partial | complete) complete
+	  -- is the specification complete is or is it just a fragment
+	     to be used in other specifications? --
+          use   -- reftype(style-specification|external-specification) --
+             IDREFS #IMPLIED -- Default: none --
+>
+
+<!-- Assign a local ID to a specification in another document. -->
+<!element external-specification - O EMPTY>
+<!attlist external-specification
+          id ID #REQUIRED
+          document -- document containing spec --
+                  ENTITY #REQUIRED 
+          specid -- id of spec in document --
+                  NAME #IMPLIED -- Default: first spec in document --
+>
+
+<!-- Declares features used by specification. -->
+<!element features - O (#PCDATA)
+  -- dlextype(featurename*) -->
+
+<!-- Map character numbers in a base character set to character names;
+not needed when system knows a character set, and all characters
+in character set have universal code. -->
+<!element baseset-encoding - O (#PCDATA)
+  -- dlextype((number, charname)*) -->
+<!attlist baseset-encoding
+          name CDATA #REQUIRED -- public identifier of baseset --
+>
+
+<!-- Map a character described in the SGML declaration with a minimum literal
+to a character name. -->
+<!element literal-described-char - O (#PCDATA)
+  -- dlextype(charname) -->
+<!attlist literal-described-char
+          desc CDATA #REQUIRED -- the literal description --
+>
+
+<!-- Declare additional characters allowed in name within DSSSL notation. -->
+<!element add-name-chars - O (#PCDATA)
+  -- dlextype(charname*) -->
+
+<!-- Declare additional characters allowed as separators within
+DSSSL notation. -->
+<!element add-separator-chars - O (#PCDATA)
+  -- dlextype(charname*) -->
+
+<!-- Define characters associating names with universal codes. -->
+
+<!element standard-chars - O (#PCDATA)
+  -- dlextype((charname, number))*) -->
+
+<!-- Define characters with no universal codes. -->
+
+<!element other-chars - O (#PCDATA)
+  -- dlextype(charname*) -->
+
+<!-- Map an SDATA entity onto a character. -->
+
+<!element map-sdata-entity - O (#PCDATA)
+  -- dlextype(charname) -->
+<!attlist map-sdata-entity
+         name CDATA #IMPLIED -- Default: mapping uses replacement text only --
+         text CDATA #IMPLIED -- Default: mapping uses name only --
+>
+
+<!-- Declare character combining. -->
+
+<!element combine-char - O (#PCDATA)
+  -- dlextype(charname, charname, charname+) -->
+
+<!-- Declare a character repertoire. -->
+<!element char-repertoire - O EMPTY>
+<!attlist char-repertoire
+          name -- public identifier for repertoire --
+               CDATA #REQUIRED 
+>
+
+<!element style-specification-body - - CDATA
+  -- content uses notation of DSSSL style language -->
+<!attlist style-specification-body
+          content ENTITY #CONREF -- Default: syntactic content --
+>
+
+<!element transformation-specification-body - - CDATA
+  -- content uses notation of DSSSL transformation language -->
+<!attlist transformation-specification-body
+          content ENTITY #CONREF -- Default: syntactic content --
+>
+
+<!-- This notation is intended for use as the value of the ArcDataF
+  architectural form support attribute. -->
+
+<!NOTATION dsssl-specification PUBLIC
+  "ISO/IEC 10179:1996//NOTATION DSSSL Specification//EN">
