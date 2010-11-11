@@ -1,4 +1,4 @@
-Smarty 3.0 Beta
+Smarty 3.0
 
 Author: Monte Ohrt <monte at ohrt dot com >
 Author: Uwe Tews
@@ -536,44 +536,12 @@ is appended or prepended to the child block content.
 PHP STREAMS:
 ============
 
-(to be filled in)
+(see online documentation)
 
 VARIBLE FILTERS:
 ================
 
-(to be filled in)
-
-PHP TEMPLATES
-=============
-
-For those that prefer pure PHP over the {tag} based syntax, Smarty now offers
-a PHP option for template syntax. PHP templates have several differences over
-the tag-based templates:
-
-*) PHP templates are not compiled, they are included directly by the engine.
-*) None of Smarty's security features are applied to PHP templates.
-*) By default, PHP templates are disabled, set $smarty->allow_php_templates=true.
-
-If you want to use a PHP template, just use the "php" resource type:
-
-$smarty->display('php:foo.php');
-
-You can also mix PHP templates with {tag} templates:
-
-{include file="php:foo.php"}
-
-In PHP templates, assigned vars are available simply as:
-
-// same as {$foo}
-<?php echo $foo; ?>
-<?=$foo?> // php short tags
-
-At this point, smarty modifier/function plugins are not
-conveniently accessible from PHP templates. A wrapper
-function may become available in the future.
-
-You can call PHP functions a usual:
-<?php echo foo($bar); ?>
+(see online documentation)
 
 
 STATIC CLASS ACCESS AND NAMESPACE SUPPORT
