@@ -20,7 +20,7 @@
  * @param object $template template object
  * @return string
  */
-function smarty_function_popup($params, $smarty, $template)
+function smarty_function_popup($params, $template)
 {
     $append = '';
     foreach ($params as $_key=>$_value) {

@@ -23,7 +23,7 @@
  * @return string 
  * @uses smarty_make_timestamp()
  */
-function smarty_function_html_select_time($params, $smarty, $template)
+function smarty_function_html_select_time($params, $template)
 {
     require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
     require_once(SMARTY_PLUGINS_DIR . 'function.html_options.php');

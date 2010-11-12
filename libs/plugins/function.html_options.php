@@ -29,7 +29,7 @@
  * @return string 
  * @uses smarty_function_escape_special_chars()
  */
-function smarty_function_html_options($params, $smarty, $template)
+function smarty_function_html_options($params, $template)
 {
     require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
     //$smarty->loadPlugin('Smarty_shared_escape_special_chars');

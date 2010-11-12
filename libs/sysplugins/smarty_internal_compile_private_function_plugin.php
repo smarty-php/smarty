@@ -50,7 +50,7 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
         } 
         $_params = 'array(' . implode(",", $_paramsArray) . ')'; 
         // compile code
-        $output = "<?php echo {$function}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>\n";
+        $output = "<?php echo {$function}({$_params},\$_smarty_tpl);?>\n";
         return $output;
     } 
 } 

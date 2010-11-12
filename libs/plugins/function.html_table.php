@@ -48,7 +48,7 @@
  * @param object $template template object
  * @return string 
  */
-function smarty_function_html_table($params, $smarty, $template)
+function smarty_function_html_table($params, $template)
 {
     $table_attr = 'border="1"';
     $tr_attr = '';

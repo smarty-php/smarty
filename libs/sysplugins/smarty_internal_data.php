@@ -247,8 +247,8 @@ class Smarty_Internal_Data {
     public function configLoad($config_file, $sections = null)
     { 
         // load Config class
-        $config = new Smarty_Internal_Config($config_file, $this->smarty);
-        $config->loadConfigVars($sections, $this);
+        $config = new Smarty_Internal_Config($config_file, $this->smarty, $this);
+        $config->loadConfigVars($sections);
     } 
 
     /**

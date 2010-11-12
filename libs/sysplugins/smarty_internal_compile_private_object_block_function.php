@@ -53,7 +53,7 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
             // maybe nocache because of nocache variables or nocache plugin
             $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache; 
             // compile code
-            $output = "<?php \$_smarty_tpl->smarty->_tag_stack[] = array('{$tag}->{$methode}', {$_params}); \$_block_repeat=true; \$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params}, null, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl);while (\$_block_repeat) { ob_start();?>";
+            $output = "<?php \$_smarty_tpl->smarty->_tag_stack[] = array('{$tag}->{$methode}', {$_params}); \$_block_repeat=true; \$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params}, null, \$_smarty_tpl, \$_block_repeat);while (\$_block_repeat) { ob_start();?>";
         } else {
             $base_tag = substr($tag, 0, -5); 
             // must endblock be nocache?

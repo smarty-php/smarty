@@ -52,7 +52,7 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
                 } 
             } 
             $_params = 'array(' . implode(",", $_paramsArray) . ')';
-            $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl)";
+            $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params},\$_smarty_tpl)";
         } else {
             $_params = implode(",", $_attr);
             $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$methode}({$_params})";

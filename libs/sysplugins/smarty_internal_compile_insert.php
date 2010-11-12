@@ -106,14 +106,14 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
             if ($_smarty_tpl->caching) {
                 $_output .= "echo Smarty_Internal_Nocache_Insert::compile ('{$_function}',{$_params}, \$_smarty_tpl, '{$_filepath}',{$_assign});?>";
             } else {
-                $_output .= "\$_smarty_tpl->assign({$_assign} , {$_function} ({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl), true);?>";
+                $_output .= "\$_smarty_tpl->assign({$_assign} , {$_function} ({$_params},\$_smarty_tpl), true);?>";
             } 
         } else {
             $this->compiler->has_output = true;
             if ($_smarty_tpl->caching) {
                 $_output .= "echo Smarty_Internal_Nocache_Insert::compile ('{$_function}',{$_params}, \$_smarty_tpl, '{$_filepath}');?>";
             } else {
-                $_output .= "echo {$_function}({$_params},\$_smarty_tpl->smarty,\$_smarty_tpl);?>";
+                $_output .= "echo {$_function}({$_params},\$_smarty_tpl);?>";
             } 
         } 
         return $_output;

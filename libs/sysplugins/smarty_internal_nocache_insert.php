@@ -34,9 +34,9 @@ class Smarty_Internal_Nocache_Insert {
         } 
         // call insert
         if (isset($_assign)) {
-            $_output .= "\$_smarty_tpl->assign('{$_assign}' , {$_function} (" . var_export($_attr, true) . ",\$_smarty_tpl->smarty,\$_smarty_tpl), true);?>";
+            $_output .= "\$_smarty_tpl->assign('{$_assign}' , {$_function} (" . var_export($_attr, true) . ",\$_smarty_tpl), true);?>";
         } else {
-            $_output .= "echo {$_function}(" . var_export($_attr, true) . ",\$_smarty_tpl->smarty,\$_smarty_tpl);?>";
+            $_output .= "echo {$_function}(" . var_export($_attr, true) . ",\$_smarty_tpl);?>";
         } 
         $_tpl = $_template;
         while ($_tpl->parent instanceof Smarty_Internal_Template) {

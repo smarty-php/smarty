@@ -21,7 +21,7 @@
   * @return string 
   */
 
-function smarty_function_popup_init($params, $smarty, $template)
+function smarty_function_popup_init($params, $template)
 {
     $zindex = 1000;
     

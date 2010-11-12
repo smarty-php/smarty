@@ -19,7 +19,7 @@
  * @param object $template template object
  * @return string|null
  */
-function smarty_function_counter($params, $smarty, $template)
+function smarty_function_counter($params, $template)
 {
     static $counters = array();
 

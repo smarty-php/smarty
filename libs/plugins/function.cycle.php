@@ -44,7 +44,7 @@
  * @return string|null
  */
 
-function smarty_function_cycle($params, $smarty, $template)
+function smarty_function_cycle($params, $template)
 {
     static $cycle_vars;
     

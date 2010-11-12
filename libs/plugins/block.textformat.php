@@ -32,7 +32,7 @@
  * @param object $template template object
  * @return string content re-formatted
  */
-function smarty_block_textformat($params, $content, $smarty, &$repeat, $template)
+function smarty_block_textformat($params, $content, $template, &$repeat)
 {
     if (is_null($content)) {
         return;

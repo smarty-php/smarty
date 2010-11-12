@@ -38,7 +38,7 @@
  * @param object $template template object
  * @return string 
  */
-function smarty_function_html_select_date($params, $smarty, $template)
+function smarty_function_html_select_date($params, $template)
 {
     require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
     require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');

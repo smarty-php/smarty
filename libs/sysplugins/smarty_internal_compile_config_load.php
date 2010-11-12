@@ -44,23 +44,19 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase {
         } else {
             $section = 'null';
         } 
-        $scope = '$_smarty_tpl';
+        $scope = 'local';
         // scope setup
         if (isset($_attr['scope'])) {
             $_attr['scope'] = trim($_attr['scope'], "'\"");
-            if ($_attr['scope'] == 'parent') {
-                $scope = '$_smarty_tpl->parent';
-            } elseif ($_attr['scope'] == 'local') {
-                $scope = '$_smarty_tpl';
-            } elseif ($_attr['scope'] == 'global') {
-        		$scope = '$_smarty_tpl->smarty';
+            if (in_array($_attr['scope'],array('local','parent','root','global'))) {
+                $scope = $_attr['scope'];
            } else {
                 $this->compiler->trigger_template_error('illegal value for "scope" attribute', $this->compiler->lex->taglineno);
-            } 
+           } 
         } 
         // create config object
         $_output = "<?php  \$_config = new Smarty_Internal_Config($conf_file, \$_smarty_tpl->smarty, \$_smarty_tpl);";
-        $_output .= "\$_config->loadConfigVars($section, $scope); ?>";
+        $_output .= "\$_config->loadConfigVars($section, '$scope'); ?>";
         return $_output;
     } 
 } 

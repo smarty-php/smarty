@@ -49,7 +49,7 @@
  * @param object $template template object
  * @return string 
  */
-function smarty_function_mailto($params, $smarty, $template)
+function smarty_function_mailto($params, $template)
 {
     $extra = '';
 
