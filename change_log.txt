@@ -1,3 +1,10 @@
+12/11/2010
+- reactivated $error_reporting property handling
+
+===== Smarty 3.0.0  =====
+
+
+
 11/11/2010
 - major update including some API changes
 
