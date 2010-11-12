@@ -1,5 +1,10 @@
 12/11/2010
 - reactivated $error_reporting property handling
+- fixed typo in compile_continue
+- fixed security in {fetch} plugin
+- changed back plugin parameters to two. second is template object 
+  with transparent access to Smarty object
+- fixed {config_load} scoping form compile time to run time
 
 ===== Smarty 3.0.0  =====
 
