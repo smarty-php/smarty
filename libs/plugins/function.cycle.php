@@ -39,7 +39,6 @@
  * @author credit to Jason Sweat <jsweat_php@yahoo.com>
  * @version  1.3
  * @param array
- * @param object $smarty Smarty object
  * @param object $template template object
  * @return string|null
  */

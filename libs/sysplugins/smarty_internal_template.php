@@ -245,7 +245,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         // compile template
         if (!is_object($this->compiler_object)) {
             // load compiler
-            Smarty_Internal_Plugin_Loader::loadPlugin($this->resource_object->compiler_class,$this->smarty->plugins_dir);
+            $this->smarty->loadPlugin($this->resource_object->compiler_class);
             $this->compiler_object = new $this->resource_object->compiler_class($this->resource_object->template_lexer_class, $this->resource_object->template_parser_class, $this->smarty);
         } 
         // compile locking
@@ -705,7 +705,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             } else {
                 // try plugins dir
                 $_resource_class = 'Smarty_Resource_' . ucfirst($resource_type);
-                if (Smarty_Internal_Plugin_Loader::loadPlugin($_resource_class,$this->smarty->plugins_dir)) {
+                if ($this->smarty->loadPlugin($_resource_class)) {
                     if (class_exists($_resource_class, false)) {
                         return new $_resource_class($this->smarty);
                     } else {

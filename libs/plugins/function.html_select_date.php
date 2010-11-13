@@ -34,7 +34,6 @@
  * @author Andrei Zmievski 
  * @author Monte Ohrt <monte at ohrt dot com> 
  * @param array $params parameters
- * @param object $smarty Smarty object
  * @param object $template template object
  * @return string 
  */
@@ -43,9 +42,6 @@ function smarty_function_html_select_date($params, $template)
     require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
     require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
     require_once(SMARTY_PLUGINS_DIR . 'function.html_options.php');
-    //$smarty->loadPlugin('Smarty_shared_escape_special_chars');
-    //$smarty->loadPlugin('Smarty_shared_make_timestamp');
-    //$smarty->loadPlugin('Smarty_function_html_options');
 
     /* Default values. */
     $prefix = "Date_";
@@ -219,7 +215,7 @@ function smarty_function_html_select_date($params, $template)
                 'values' => $month_values,
                 'selected' => (int)$time[1] ? strftime($month_value_format, mktime(0, 0, 0, (int)$time[1], 1, 2000)) : '',
                 'print_result' => false),
-            $smarty, $template);
+                 $template);
         $month_result .= '</select>';
     } 
 
@@ -255,7 +251,7 @@ function smarty_function_html_select_date($params, $template)
                 'values' => $day_values,
                 'selected' => $time[2],
                 'print_result' => false),
-            $smarty, $template);
+             $template);
         $day_result .= '</select>';
     } 
 
@@ -302,7 +298,7 @@ function smarty_function_html_select_date($params, $template)
                     'values' => $yearvals,
                     'selected' => $time[0],
                     'print_result' => false),
-                $smarty, $template);
+                   $template);
             $year_result .= '</select>';
         } 
     } 

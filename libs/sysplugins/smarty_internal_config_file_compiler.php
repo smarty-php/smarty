@@ -22,8 +22,8 @@ class Smarty_Internal_Config_File_Compiler {
     {
         $this->smarty = $smarty; 
         // get required plugins
-        Smarty_Internal_Plugin_Loader::loadPlugin('Smarty_Internal_Configfilelexer', $this->smarty->plugins_dir);
-		Smarty_Internal_Plugin_Loader::loadPlugin('Smarty_Internal_Configfileparser', $this->smarty->plugins_dir);
+        $this->smarty->loadPlugin('Smarty_Internal_Configfilelexer');
+		$this->smarty->loadPlugin('Smarty_Internal_Configfileparser');
         $this->config_data['sections'] = array();
         $this->config_data['vars'] = array();
     } 

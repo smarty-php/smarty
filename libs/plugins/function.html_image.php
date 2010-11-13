@@ -29,7 +29,6 @@
  *          - basedir = base directory for absolute paths, default
  *                      is environment variable DOCUMENT_ROOT
  *          - path_prefix = prefix for path output (optional, default empty)
- * @param object $smarty Smarty object
  * @param object $template template object
  * @return string 
  * @uses smarty_function_escape_special_chars()
@@ -37,8 +36,7 @@
 function smarty_function_html_image($params, $template)
 {
     require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-    //$smarty->loadPlugin('Smarty_shared_escape_special_chars');
-
+ 
     $alt = '';
     $file = '';
     $height = '';

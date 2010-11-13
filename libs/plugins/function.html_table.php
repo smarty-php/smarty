@@ -44,7 +44,6 @@
  *          - hdir = horizontal direction (default: "right", means left-to-right)
  *          - inner = inner loop (default "cols": print $loop line by line,
  *                    $loop will be printed column by column otherwise)
- * @param object $smarty Smarty object
  * @param object $template template object
  * @return string 
  */

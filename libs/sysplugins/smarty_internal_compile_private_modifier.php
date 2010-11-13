@@ -46,7 +46,7 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
                     } 
                 } 
                 // check for plugin modifiercompiler
-            } else if (Smarty_Internal_Plugin_Loader::loadPlugin('smarty_modifiercompiler_' . $modifier, $compiler->smarty->plugins_dir)) {
+            } else if ($compiler->smarty->loadPlugin('smarty_modifiercompiler_' . $modifier)) {
                 $plugin = 'smarty_modifiercompiler_' . $modifier;
                 $output = $plugin($single_modifier, $compiler); 
                 // check for plugin modifier

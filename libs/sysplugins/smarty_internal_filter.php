@@ -72,7 +72,7 @@ class Smarty_Internal_Filter {
     {
         $_plugin = "smarty_{$type}filter_{$name}";
         $_filter_name = $_plugin;
-        if (Smarty_Internal_Plugin_Loader::loadPlugin($_plugin, $this->smarty->plugins_dir)) {
+        if ($this->smarty->loadPlugin($_plugin)) {
             if (class_exists($_plugin, false)) {
                 $_plugin = array($_plugin, 'execute');
             } 

@@ -18,7 +18,6 @@
  * @author Roberto Berto <roberto@berto.net> 
  * @credits Monte Ohrt <monte AT ohrt DOT com>
  * @param array $params parameters
- * @param object $smarty Smarty object
  * @param object $template template object
  * @return string 
  * @uses smarty_make_timestamp()
@@ -27,8 +26,6 @@ function smarty_function_html_select_time($params, $template)
 {
     require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
     require_once(SMARTY_PLUGINS_DIR . 'function.html_options.php');
-    //$smarty->loadPlugin('Smarty_shared_make_timestamp');
-    //$smarty->loadPlugin('Smarty_function_html_options');
 
     /* Default values. */
     $prefix = "Time_";
@@ -108,7 +105,7 @@ function smarty_function_html_select_time($params, $template)
                 'values' => $hours,
                 'selected' => strftime($hour_fmt, $time),
                 'print_result' => false),
-            $smarty, $template);
+            $template);
         $html_result .= "</select>\n";
     } 
 
@@ -135,7 +132,7 @@ function smarty_function_html_select_time($params, $template)
                 'values' => $minutes,
                 'selected' => $selected,
                 'print_result' => false),
-            $smarty, $template);
+              $template);
         $html_result .= "</select>\n";
     } 
 
@@ -163,7 +160,7 @@ function smarty_function_html_select_time($params, $template)
                 'values' => $seconds,
                 'selected' => $selected,
                 'print_result' => false),
-            $smarty, $template);
+             $template);
         $html_result .= "</select>\n";
     } 
 
@@ -187,7 +184,7 @@ function smarty_function_html_select_time($params, $template)
                 'values' => array('am', 'pm'),
                 'selected' => strtolower(strftime('%p', $time)),
                 'print_result' => false),
-            $smarty, $template);
+            $template);
         $html_result .= "</select>\n";
     } 
 

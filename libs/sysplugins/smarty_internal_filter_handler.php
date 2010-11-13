@@ -34,7 +34,7 @@ class Smarty_Internal_Filter_Handler {
             if (!empty($smarty->autoload_filters[$type])) {
                 foreach ((array)$smarty->autoload_filters[$type] as $name) {
                     $plugin_name = "Smarty_{$type}filter_{$name}";
-                    if (Smarty_Internal_Plugin_Loader::loadPlugin($plugin_name, $smarty->plugins_dir)) {
+                    if ($smarty->loadPlugin($plugin_name)) {
                         if (function_exists($plugin_name)) {
                             // use loaded Smarty2 style plugin
                             $output = $plugin_name($output, $smarty);

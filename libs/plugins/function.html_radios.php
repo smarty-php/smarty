@@ -35,7 +35,6 @@
  *            - separator  (optional) - ie <br> or &nbsp;
  *            - output     (optional) - the output next to each radio button
  *            - assign     (optional) - assign the output as an array to this variable
- * @param object $smarty Smarty object
  * @param object $template template object
  * @return string 
  * @uses smarty_function_escape_special_chars()
@@ -43,7 +42,6 @@
 function smarty_function_html_radios($params, $template)
 {
     require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-    //$smarty->loadPlugin('Smarty_shared_escape_special_chars');
 
     $name = 'radio';
     $values = null;

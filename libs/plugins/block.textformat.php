@@ -27,9 +27,8 @@
  * </pre>
  * @author Monte Ohrt <monte at ohrt dot com> 
  * @param string $content contents of the block
- * @param object $smarty Smarty object
- * @param boolean &$repeat repeat flag
  * @param object $template template object
+ * @param boolean &$repeat repeat flag
  * @return string content re-formatted
  */
 function smarty_block_textformat($params, $content, $template, &$repeat)

@@ -30,7 +30,7 @@ class Smarty_Internal_Compile_Debug extends Smarty_Internal_CompileBase {
 		$this->compiler->tag_nocache = true;
 
         // display debug template
-        $_output = "<?php Smarty_Internal_Plugin_Loader::loadPlugin('Smarty_Internal_Debug', \$_smarty_tpl->smarty->plugins_dir); Smarty_Internal_Debug::display_debug(\$_smarty_tpl); ?>";
+        $_output = "<?php \$_smarty_tpl->smarty->loadPlugin('Smarty_Internal_Debug'); Smarty_Internal_Debug::display_debug(\$_smarty_tpl); ?>";
         return $_output;
     } 
 } 

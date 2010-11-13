@@ -1,5 +1,7 @@
 13/11/2010
 - bugfix on {debug}
+- reverted location of loadPlugin() to Smarty class
+- fixed comments in plugins
 
 ===== Smarty 3.0.2  =====
 

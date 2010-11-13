@@ -193,7 +193,7 @@ class Smarty_Internal_TemplateCompilerBase {
                 } 
                 // check plugins from plugins folder
                 foreach ($this->smarty->plugin_search_order as $plugin_type) {
-                    if ($plugin_type == Smarty::PLUGIN_BLOCK && Smarty_Internal_Plugin_Loader::loadPlugin('smarty_compiler_' . $tag, $this->smarty->plugins_dir)) {
+                    if ($plugin_type == Smarty::PLUGIN_BLOCK && $this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
                         $plugin = 'smarty_compiler_' . $tag;
                         if (is_callable($plugin)) {
                             return $plugin($args, $this->smarty);
@@ -231,7 +231,7 @@ class Smarty_Internal_TemplateCompilerBase {
                 if ($function = $this->getPlugin($base_tag, Smarty::PLUGIN_BLOCK)) {
                     return $this->callTagCompiler('private_block_plugin', $args, $parameter, $tag, $function);
                 } 
-                if (Smarty_Internal_Plugin_Loader::loadPlugin('smarty_compiler_' . $tag, $this->smarty->plugins_dir)) {
+                if ($this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
                     $plugin = 'smarty_compiler_' . $tag;
                     if (is_callable($plugin)) {
                         return $plugin($args, $this->smarty);
@@ -272,7 +272,7 @@ class Smarty_Internal_TemplateCompilerBase {
         } 
         // lazy load internal compiler plugin
         $class_name = 'Smarty_Internal_Compile_' . $tag;
-        if (Smarty_Internal_Plugin_Loader::loadPlugin($class_name, $this->smarty->plugins_dir)) {
+        if ($this->smarty->loadPlugin($class_name)) {
             // use plugin if found
             self::$_tag_objects[$tag] = new $class_name; 
             // compile this tag
