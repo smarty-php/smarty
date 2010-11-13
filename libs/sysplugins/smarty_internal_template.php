@@ -818,13 +818,6 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             settype($this->tpl_vars[$tpl_var]->value, 'array');
         } 
     } 
-    /**
-     * wrapper for display
-     */
-    public function display ()
-    {
-        return $this->smarty->display($this);
-    } 
 
     /**
      * [util function] counts an array, arrayaccess/traversable or PDOStatement object
@@ -861,10 +854,29 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     /**
      * wrapper for fetch
      */
-    public function fetch ()
+    public function fetch ($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false)
     {
-        return $this->smarty->fetch($this);
+ 		if ($template == null) {
+        	return $this->smarty->fetch($this);
+        } else {
+        	return $this->smarty->fetch($template, $cache_id, $compile_id, $parent, $display);
+        }
+        
     } 
+ 
+     /**
+     * wrapper for display
+     */
+    public function display ($template = null, $cache_id = null, $compile_id = null, $parent = null)
+    {
+ 		if ($template == null) {
+        	return $this->smarty->display($this);
+        } else {
+       		return $this->smarty->display($template, $cache_id, $compile_id, $parent);
+        }
+       
+    } 
+
     /**
      * set Smarty property in template context      
      * @param string $property_name property name

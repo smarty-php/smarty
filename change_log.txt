@@ -1,4 +1,10 @@
 13/11/2010
+- bugfix  overloading problem when $smarty->fetch()/display() have been used in plugins
+				(introduced with 3.0.2)
+								
+===== Smarty 3.0.3  =====
+
+13/11/2010
 - bugfix on {debug}
 - reverted location of loadPlugin() to Smarty class
 - fixed comments in plugins
