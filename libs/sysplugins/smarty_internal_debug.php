@@ -93,7 +93,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
         $rdelim = $smarty->right_delimiter;
         $smarty->left_delimiter = '{';
         $smarty->right_delimiter = '}';
-        $_template = new Smarty_Template ($smarty->debug_tpl, $smarty);
+        $_template = new Smarty_Internal_Template ($smarty->debug_tpl, $smarty);
         $_template->caching = false;
         $_template->force_compile = false;
         $_template->disableSecurity();

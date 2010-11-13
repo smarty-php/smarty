@@ -95,7 +95,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         // Template resource
         $this->template_resource = $template_resource; 
         // copy block data of template inheritance
-        if ($this->parent instanceof Smarty_Template or $this->parent instanceof Smarty_Internal_Template) {
+        if ($this->parent instanceof Smarty_Internal_Template) {
         	$this->block_data = $this->parent->block_data;
         }
  
@@ -455,7 +455,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         if (!$this->resource_object->isEvaluated && empty($this->properties['file_dependency'][$this->templateUid])) {
             $this->properties['file_dependency'][$this->templateUid] = array($this->getTemplateFilepath(), $this->getTemplateTimestamp(),$this->resource_type);
         } 
-        if ($this->parent instanceof Smarty_Template or $this->parent instanceof Smarty_Internal_Template) {
+        if ($this->parent instanceof Smarty_Internal_Template) {
             $this->parent->properties['file_dependency'] = array_merge($this->parent->properties['file_dependency'], $this->properties['file_dependency']);
             foreach($this->required_plugins as $code => $tmp1) {
                 foreach($tmp1 as $name => $tmp) {
@@ -859,7 +859,10 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
  		if ($template == null) {
         	return $this->smarty->fetch($this);
         } else {
-        	return $this->smarty->fetch($template, $cache_id, $compile_id, $parent, $display);
+        	if (!isset($parent)) {
+        		$parent = $this;
+        	}
+         	return $this->smarty->fetch($template, $cache_id, $compile_id, $parent, $display);
         }
         
     } 
@@ -872,6 +875,9 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
  		if ($template == null) {
         	return $this->smarty->display($this);
         } else {
+        	if (!isset($parent)) {
+        		$parent = $this;
+        	}
        		return $this->smarty->display($template, $cache_id, $compile_id, $parent);
         }
        
@@ -953,10 +959,4 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     } 
 
 }
-/**
- * wrapper for template class
- */
-class Smarty_Template extends Smarty_Internal_Template {
-} 
-
 ?>

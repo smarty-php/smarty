@@ -564,19 +564,15 @@ class Smarty extends Smarty_Internal_Data {
         if (!isset($type)) {
             $type = $this->caching_type;
         } 
-        // already loaded?
-        if (isset($this->cache_resource_objects[$type])) {
-            return $this->cache_resource_objects[$type];
-        } 
         if (in_array($type, $this->cache_resource_types)) {
             $cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($type);
-            return $this->cache_resource_objects[$type] = new $cache_resource_class($this);
+            return new $cache_resource_class($this);
         } 
         else {
             // try plugins dir
             $cache_resource_class = 'Smarty_CacheResource_' . ucfirst($type);
-            if (Smarty_Internal_Plugin_Loader::loadPlugin($cache_resource_class, $this->plugins_dir)) {
-                return $this->cache_resource_objects[$type] = new $cache_resource_class($this);
+            if ($this->loadPlugin($cache_resource_class)) {
+                return new $cache_resource_class($this);
             } 
             else {
                 throw new SmartyException("Unable to load cache resource '{$type}'");
