@@ -335,8 +335,18 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
      * 
      * @return boolean true if cache is valid
      */
-    public function isCached ($no_render = true)
+    public function isCached ($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
+    	if ($template === null) {    		
+ 			$no_render = true;
+ 		} elseif ($template === false) {
+			$no_render = false;
+  		} else {
+  			if ($parent === null) {
+  				$parent = $this;
+  			}
+			$this->smarty->isCached ($template, $cache_id, $compile_id, $parent);
+  		}
         if ($this->isCached === null) {
             $this->isCached = false;
             if (($this->caching == Smarty::CACHING_LIFETIME_CURRENT || $this->caching == Smarty::CACHING_LIFETIME_SAVED) && !$this->resource_object->isEvaluated) {

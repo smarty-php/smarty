@@ -196,8 +196,6 @@ class Smarty extends Smarty_Internal_Data {
     public $caching_type = 'file'; 
     // internal cache resource types
     public $cache_resource_types = array('file'); 
-    // internal cache resource objects
-    public $cache_resource_objects = array(); 
     // internal config properties
     public $properties = array(); 
     // config type
@@ -387,12 +385,16 @@ class Smarty extends Smarty_Internal_Data {
      * @param string $ |object $template the resource handle of the template file or template object
      * @param mixed $cache_id cache id to be used with this template
      * @param mixed $compile_id compile id to be used with this template
+     * @param object $parent next higher level of Smarty variables
      * @return boolean cache status
      */
-    public function isCached($template, $cache_id = null, $compile_id = null)
+    public function isCached($template, $cache_id = null, $compile_id = null, $parent = null)
     {
+    	if ($parent === null) {
+    		$parent = $this;
+    	}
         if (!($template instanceof $this->template_class)) {
-            $template = $this->createTemplate ($template, $cache_id, $compile_id, $this);
+            $template = $this->createTemplate ($template, $cache_id, $compile_id, $parent);
         } 
         // return cache status of template
         return $template->isCached();
