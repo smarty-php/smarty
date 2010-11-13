@@ -2,6 +2,7 @@
 - bugfix on {debug}
 - reverted location of loadPlugin() to Smarty class
 - fixed comments in plugins
+- fixed internal_config (removed unwanted code line)
 
 ===== Smarty 3.0.2  =====
 

@@ -266,7 +266,6 @@ class Smarty_Internal_Config {
         // copy global config vars
         foreach ($_config_vars['vars'] as $variable => $value) {
             if ($this->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
-                $scope->config_vars[$variable] = $value;
                 $scope_ptr->config_vars[$variable] = $value;
             } else {
                 $scope_ptr->config_vars[$variable] = array_merge((array)$scope_ptr->config_vars[$variable], (array)$value);
