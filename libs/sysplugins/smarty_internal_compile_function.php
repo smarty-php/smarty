@@ -104,6 +104,11 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase 
             } 
             $plugins_string .= "?>/*/%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/';?>\n";
         } 
+ 		// remove last line break from function definition
+ 		$last = count($compiler->parser->current_buffer->subtrees) - 1;
+ 		if ($compiler->parser->current_buffer->subtrees[$last] instanceof _smarty_linebreak) {
+ 			unset($compiler->parser->current_buffer->subtrees[$last]);
+ 		}
         // if caching save template function for possible nocache call
         if ($compiler->template->caching) {
             $compiler->template->properties['function'][$_name]['compiled'] .= $plugins_string

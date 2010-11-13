@@ -3,6 +3,7 @@
 - reverted location of loadPlugin() to Smarty class
 - fixed comments in plugins
 - fixed internal_config (removed unwanted code line)
+- improvement  remove last linebreak from {function} definition
 
 ===== Smarty 3.0.2  =====
 
