@@ -1,3 +1,8 @@
+14/11/2010
+- bugfix isset() did not allow multiple parameter
+- improvment of some error messages
+- bugfix html_image did use removed property $request_use_auto_globals
+
 13/11/2010
 - bugfix  overloading problem when $smarty->fetch()/display() have been used in plugins
 				(introduced with 3.0.2)
@@ -34,7 +39,7 @@
 
 09/11/2010
 -bugfix on  complex expressions as start value for {for} tag
-
+request_use_auto_globals
 04/11/2010
 - bugfix do not allow access of dynamic and private object members of assigned objects when
   security is enabled.

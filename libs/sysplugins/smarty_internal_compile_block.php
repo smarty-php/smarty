@@ -50,7 +50,8 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
         $_ldl = preg_quote($template->smarty->left_delimiter);
 
         if (0 == preg_match("!({$_ldl}block\s+)(name=)?(\w+|'\w+'|\"\w+\")(\s*?)?((append|prepend|nocache)(=true)?)?(\s*{$_rdl})!", $block_tag, $_match)) {
-            $template->compiler_object->trigger_template_error('Illegal {block} tag syntax');
+            $error_text = 'Syntax Error in template "' . $template->getTemplateFilepath() . '"   "' . htmlspecialchars($block_tag) . '" illegal options';
+            throw new SmartyCompilerException($error_text);
         } else {
             $_name = trim($_match[3], '\'"'); 
             // replace {$smarty.block.child}
@@ -101,7 +102,11 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
             }
         }
 		if ($_name == null) {
-       		$compiler->trigger_template_error('{$smarty.block.child} used out of context');
+       		$compiler->trigger_template_error('{$smarty.block.child} used out of context', $this->compiler->lex->taglineno);
+		}
+		// undefined child?
+		if (!isset($compiler->template->block_data[$_name])) {
+       		return '';
 		}
 		    $_tpl = new Smarty_Internal_template ('eval:' . $compiler->template->block_data[$_name]['source'], $compiler->smarty, $compiler->template, $compiler->template->cache_id, 
 		               $compiler->template->compile_id = null, $compiler->template->caching, $compiler->template->cache_lifetime);

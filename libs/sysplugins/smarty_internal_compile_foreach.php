@@ -37,7 +37,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
         $item = $_attr['item'];
 
         if (substr_compare("\$_smarty_tpl->getVariable($item)", $from,0, strlen("\$_smarty_tpl->getVariable($item)")) == 0) {
-            $this->compiler->trigger_template_error("item parameter {$item} may not be the same parameter at 'from'");
+            $this->compiler->trigger_template_error("item variable {$item} may not be the same variable as at 'from'", $this->compiler->lex->taglineno);
         } 
 
         if (isset($_attr['key'])) {
