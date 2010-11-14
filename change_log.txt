@@ -2,6 +2,7 @@
 - bugfix isset() did not allow multiple parameter
 - improvment of some error messages
 - bugfix html_image did use removed property $request_use_auto_globals
+- small performace patch in Smarty class
 
 13/11/2010
 - bugfix  overloading problem when $smarty->fetch()/display() have been used in plugins

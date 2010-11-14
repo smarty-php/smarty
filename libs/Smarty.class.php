@@ -305,7 +305,7 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function fetch($template, $cache_id = null, $compile_id = null, $parent = null, $display = false)
     {
-        if (is_object($cache_id)) {
+        if (!empty($cache_id) && is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
         } 
@@ -422,11 +422,11 @@ class Smarty extends Smarty_Internal_Data {
      */
     public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
     {
-        if (is_object($cache_id) || is_array($cache_id)) {
+        if (!empty($cache_id) && (is_object($cache_id) || is_array($cache_id))) {
             $parent = $cache_id;
             $cache_id = null;
         } 
-        if (is_array($parent)) {
+        if (!empty($parent) && is_array($parent)) {
             $data = $parent;
             $parent = null;
         } else {
@@ -448,7 +448,7 @@ class Smarty extends Smarty_Internal_Data {
             $tpl = $template;
         } 
         // fill data if present
-        if (is_array($data)) {
+        if (!empty($data) && is_array($data)) {
             // set up variable values
             foreach ($data as $_key => $_val) {
                 $tpl->tpl_vars[$_key] = new Smarty_variable($_val);
