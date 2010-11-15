@@ -69,6 +69,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     public $smarty = null;
     // blocks for template inheritance
     public $block_data = array();
+    public $wrapper = null;
     /**
      * Create template data object
      * 
@@ -963,6 +964,13 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
             	else
                 	return $this->$property_name = $args[0];
         	}
+        }
+        // Smarty Backward Compatible wrapper
+		if (strpos($name,'_') !== false) {
+        	if (!isset($this->wrapper)) {
+           	 $this->wrapper = new Smarty_Internal_Wrapper($this);
+        	} 
+        	return $this->wrapper->convert($name, $args);
         }
         // pass call to Smarty object 	
         return call_user_func_array(array($this->smarty,$name),$args);

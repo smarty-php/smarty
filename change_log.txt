@@ -1,6 +1,8 @@
 15/11/2010
 - bugfix when using {$smarty.session} as object
 - bugfix scoping problem on $smarty object passed to filters
+- bugfix captured content could not be accessed globally
+- bugfix Smarty2 wrapper functions could not be call from within plugins
 
 14/11/2010
 - bugfix isset() did not allow multiple parameter

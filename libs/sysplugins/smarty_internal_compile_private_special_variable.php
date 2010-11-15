@@ -31,7 +31,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
             case 'section':
                 return "\$_smarty_tpl->getVariable('smarty')->value$parameter";
             case 'capture':
-                return "\$_smarty_tpl->smarty->_smarty_vars$parameter";
+                return "Smarty::\$_smarty_vars$parameter";
             case 'now':
                 return 'time()';
             case 'cookies':

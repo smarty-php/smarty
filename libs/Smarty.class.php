@@ -223,7 +223,7 @@ class Smarty extends Smarty_Internal_Data {
     // default modifier
     public $default_modifiers = array(); 
     // global internal smarty  vars
-    public $_smarty_vars = array(); 
+    static $_smarty_vars = array(); 
     // start time for execution time calculation
     public $start_time = 0; 
     // default file permissions
