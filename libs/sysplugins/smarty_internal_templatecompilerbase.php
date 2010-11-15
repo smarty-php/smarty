@@ -67,7 +67,7 @@ class Smarty_Internal_TemplateCompilerBase {
             $_content = $template->getTemplateSource(); 
             // run prefilter if required
             if (isset($this->smarty->autoload_filters['pre']) || isset($this->smarty->registered_filters['pre'])) {
-                $_content = Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $this->smarty, $template);
+                $_content = Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $template);
             } 
             // on empty template just return header
             if ($_content == '') {
@@ -89,7 +89,7 @@ class Smarty_Internal_TemplateCompilerBase {
         } 
         // run postfilter if required
         if (isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) {
-            $template->compiled_template = Smarty_Internal_Filter_Handler::runFilter('post', $template->compiled_template, $this->smarty, $template);
+            $template->compiled_template = Smarty_Internal_Filter_Handler::runFilter('post', $template->compiled_template, $template);
         } 
     } 
 

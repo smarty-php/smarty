@@ -330,7 +330,7 @@ class Smarty extends Smarty_Internal_Data {
         } 
         // return redered template
         if (isset($this->autoload_filters['output']) || isset($this->registered_filters['output'])) {
-            $_output = Smarty_Internal_Filter_Handler::runFilter('output', $_template->getRenderedTemplate(), $this, $_template);
+            $_output = Smarty_Internal_Filter_Handler::runFilter('output', $_template->getRenderedTemplate(), $_template);
         } else {
             $_output = $_template->getRenderedTemplate();
         } 

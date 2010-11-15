@@ -1,3 +1,7 @@
+15/11/2010
+- bugfix when using {$smarty.session} as object
+- bugfix scoping problem on $smarty object passed to filters
+
 14/11/2010
 - bugfix isset() did not allow multiple parameter
 - improvment of some error messages

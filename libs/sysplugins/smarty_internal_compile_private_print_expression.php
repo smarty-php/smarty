@@ -48,7 +48,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
         } else {
             // display value
             if (!$_attr['nofilter'] && isset($this->compiler->smarty->registered_filters['variable'])) {
-                $output = "Smarty_Internal_Filter_Handler::runFilter('variable', {$parameter['value']},\$_smarty_tpl->smarty, \$_smarty_tpl, {$_filter})";
+                $output = "Smarty_Internal_Filter_Handler::runFilter('variable', {$parameter['value']}, \$_smarty_tpl, {$_filter})";
             } else {
                 $output = $parameter['value'];
             } 

@@ -338,16 +338,30 @@ class Smarty_Internal_Data {
      * @param string $varname variable name or null
      * @return string variable value or or array of variables
      */
-    function getConfigVars($varname = null)
+    function getConfigVars($varname = null, $search_parents = true)
     {
-        if (isset($varname)) {
-            if (isset($this->config_vars[$varname])) {
-                return $this->config_vars[$varname];
+ //   	var_dump($this);
+        $_ptr = $this;
+        $var_array = array();
+        while ($_ptr !== null) {
+        	if (isset($varname)) {
+            	if (isset($_ptr->config_vars[$varname])) {
+                	return $_ptr->config_vars[$varname];
+                }
             } else {
-                return '';
+            	$var_array = array_merge($_ptr->config_vars, $var_array);
+        	} 
+             // not found, try at parent
+            if ($search_parents) {
+                $_ptr = $_ptr->parent;
+            } else {
+                $_ptr = null;
             } 
+    	} 
+        if (isset($varname)) {
+    		return '';
         } else {
-            return $this->config_vars;
+            return $var_array;
         } 
     } 
 
