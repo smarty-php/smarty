@@ -1,3 +1,8 @@
+16/11/2010
+- bugfix whitespace in front of "<?php" in smarty_internal_compile_private_block_plugin.php
+- bugfix {$smarty.now} did compile incorrectly
+- bugfix on reset(),end(),next(),prev(),current() within tempaltes
+
 15/11/2010
 - bugfix when using {$smarty.session} as object
 - bugfix scoping problem on $smarty object passed to filters
