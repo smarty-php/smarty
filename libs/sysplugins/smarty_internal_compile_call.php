@@ -54,7 +54,6 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase {
                 $_paramsArray[] = "'$_key'=>$_value";
             } 
         }
-	if (false) {
         if (isset($compiler->template->properties['function'][$_name]['parameter'])) {
             foreach ($compiler->template->properties['function'][$_name]['parameter'] as $_key => $_value) {
                 if (!isset($_attr[$_key])) {
@@ -76,9 +75,8 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase {
                 } 
             } 
         }
-	}
         $_params = 'array(' . implode(",", $_paramsArray) . ')';
-    $_hash = str_replace('-','_',$compiler->template->properties['nocache_hash']);
+    	$_hash = str_replace('-','_',$compiler->template->properties['nocache_hash']);
         // was there an assign attribute
         if (isset($_assign)) {
             if ($compiler->template->caching) {

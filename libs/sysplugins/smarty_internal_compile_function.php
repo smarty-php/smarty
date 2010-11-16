@@ -35,7 +35,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
         if ($_attr['nocache'] === true) {
         	$this->compiler->trigger_template_error('nocache option not allowed', $this->compiler->lex->taglineno);
         }
-
+		unset($_attr['nocache']);
         $save = array($_attr, $compiler->parser->current_buffer,
             $compiler->template->has_nocache_code, $compiler->template->required_plugins);
         $this->_open_tag('function', $save);
