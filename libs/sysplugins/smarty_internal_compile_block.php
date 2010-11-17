@@ -49,7 +49,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
     	  $_rdl = preg_quote($template->smarty->right_delimiter);
         $_ldl = preg_quote($template->smarty->left_delimiter);
 
-        if (0 == preg_match("!({$_ldl}block\s+)(name=)?(\w+|'\w+'|\"\w+\")(\s*?)?((append|prepend|nocache)(=true)?)?(\s*{$_rdl})!", $block_tag, $_match)) {
+        if (0 == preg_match("!({$_ldl}block\s+)(name=)?(\w+|'.*'|\".*\")(\s*?)?((append|prepend|nocache)(=true)?)?(\s*{$_rdl})!", $block_tag, $_match)) {
             $error_text = 'Syntax Error in template "' . $template->getTemplateFilepath() . '"   "' . htmlspecialchars($block_tag) . '" illegal options';
             throw new SmartyCompilerException($error_text);
         } else {
@@ -167,6 +167,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
         $_attr = $this->_get_attributes($args);
         $saved_data = $this->_close_tag(array('block'));
         $_name = trim($saved_data[0]['name'], "\"'");
+        var_dump($_name);
         if (isset($compiler->template->block_data[$_name]) && !isset($compiler->template->block_data[$_name]['compiled'])) {
         	$_output = Smarty_Internal_Compile_Block::compileChildBlock($compiler, $_name);
         } else {

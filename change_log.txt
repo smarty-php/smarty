@@ -1,5 +1,6 @@
 17/11/2010
 - bugfix on {call} with variable function name
+- bugfix on {block} if name did contain '-'
 
 16/11/2010
 - bugfix whitespace in front of "<?php" in smarty_internal_compile_private_block_plugin.php
