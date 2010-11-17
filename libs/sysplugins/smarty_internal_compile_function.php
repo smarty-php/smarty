@@ -52,7 +52,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase {
             $output = "<?php if (!function_exists('smarty_template_function_{$_name}')) {
     function smarty_template_function_{$_name}(\$_smarty_tpl,\$params) {
     \$saved_tpl_vars = \$_smarty_tpl->tpl_vars;
-    foreach (\$_smarty_tpl->smarty->template_functions['{$_name}']['parameter'] as \$key => \$value) {\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(trim(\$value,'\''));};
+    foreach (\$_smarty_tpl->template_functions['{$_name}']['parameter'] as \$key => \$value) {\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(trim(\$value,'\''));};
     foreach (\$params as \$key => \$value) {\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(\$value);}?>";
         } 
         // Init temporay context

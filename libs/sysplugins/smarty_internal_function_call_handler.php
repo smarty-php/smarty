@@ -22,6 +22,7 @@ class Smarty_Internal_Function_Call_Handler extends Smarty_Internal_Template {
         if (!is_callable($_function)) {
             $_code = "function {$_function}(\$_smarty_tpl,\$params) {
     \$saved_tpl_vars = \$_smarty_tpl->tpl_vars;
+    foreach (\$_smarty_tpl->template_functions['{$_name}']['parameter'] as \$key => \$value) {\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(trim(\$value,'\''));};
     foreach (\$params as \$key => \$value) {\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(\$value);}?>";
             if ($_nocache) {
                 $_code .= preg_replace(array("!<\?php echo \\'/\*%%SmartyNocache:{$_template->smarty->template_functions[$_name]['nocache_hash']}%%\*/|/\*/%%SmartyNocache:{$_template->smarty->template_functions[$_name]['nocache_hash']}%%\*/\\';\?>!",
