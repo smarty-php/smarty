@@ -1,3 +1,7 @@
+18/11/2010
+- change on handling of unassigned template variable -- default will drop E_NOTICE
+- bugfix on Smarty2 wrapper load_filter() did not work
+
 17/11/2010
 - bugfix on {call} with variable function name
 - bugfix on {block} if name did contain '-'

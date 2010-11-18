@@ -106,7 +106,12 @@ class Smarty_Internal_Wrapper {
            case 'trigger':
            switch($name_parts[1]) {
               case 'error':
-                 return call_user_func_array(array($this,'trigger_error'),$args);
+                 return call_user_func_array('trigger_error',$args);
+           }
+           case 'load':
+           switch($name_parts[1]) {
+              case 'filter':
+                 return call_user_func_array(array($this->smarty,'loadFilter'),$args);
            }
        }
        throw new SmartyException("unknown method '$name'");

@@ -33,8 +33,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
             case 'capture':
                 return "Smarty::\$_smarty_vars$parameter";
             case 'now':
-            	// the '#' below is not a bug, its a flag for the parser not to us isset() on the return
-                return '#time()';
+                return 'time()';
             case 'cookies':
                 if (isset($compiler->smarty->security_policy) && !$compiler->smarty->security_policy->allow_super_globals) {
                     $compiler->trigger_template_error("(secure mode) super globals not permitted");
