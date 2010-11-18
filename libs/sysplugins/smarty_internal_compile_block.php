@@ -167,7 +167,6 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
         $_attr = $this->_get_attributes($args);
         $saved_data = $this->_close_tag(array('block'));
         $_name = trim($saved_data[0]['name'], "\"'");
-        var_dump($_name);
         if (isset($compiler->template->block_data[$_name]) && !isset($compiler->template->block_data[$_name]['compiled'])) {
         	$_output = Smarty_Internal_Compile_Block::compileChildBlock($compiler, $_name);
         } else {
