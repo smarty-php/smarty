@@ -102,10 +102,6 @@ class Smarty_Internal_Resource_Extends {
             } 
             $_template->template_filepath = $_filepath;
             $_content = file_get_contents($_filepath);
-	    	// run prefilter if required
-	        if (isset($this->smarty->autoload_filters['pre']) || isset($this->smarty->registered_filters['pre'])) {
-	        	$_content = Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $this->smarty, $compiler->template);
-	        }
             if ($_filepath != $_last) {
                 if (preg_match_all("!({$this->_ldl}block\s(.+?){$this->_rdl})!", $_content, $_open) !=
                         preg_match_all("!({$this->_ldl}/block{$this->_rdl})!", $_content, $_close)) {

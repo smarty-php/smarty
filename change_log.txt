@@ -1,6 +1,5 @@
 19/11/2010
 - bugfix on block plugins with modifiers
-- bugfix on template inheritance. prefilter did not run over child blocks
 
 18/11/2010
 - change on handling of unassigned template variable -- default will drop E_NOTICE
