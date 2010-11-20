@@ -65,7 +65,13 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
             // This tag does create output
             $this->compiler->has_output = true; 
             // compile code
-            $output = "<?php \$_block_content = ob_get_contents(); ob_end_clean(); \$_block_repeat=false; echo \$_smarty_tpl->smarty->registered_objects['{$base_tag}'][0]->{$methode}({$_params}, \$_block_content, \$_smarty_tpl->smarty, \$_block_repeat, \$_smarty_tpl); } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
+            if (!isset($parameter['modifier_list'])) {
+            	$mod_pre = $mod_post ='';
+            } else {
+            	$mod_pre = ' ob_start(); ';
+            	$mod_post = 'echo '.$this->compiler->compileTag('private_modifier',array(),array('modifierlist'=>$parameter['modifier_list'],'value'=>'ob_get_clean()')).';';
+            }
+            $output = "<?php \$_block_content = ob_get_contents(); ob_end_clean(); \$_block_repeat=false;".$mod_pre." echo \$_smarty_tpl->smarty->registered_objects['{$base_tag}'][0]->{$methode}({$_params}, \$_block_content, \$_smarty_tpl, \$_block_repeat); ".$mod_post."  } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
         } 
         return $output."\n";
     } 

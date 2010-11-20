@@ -71,12 +71,18 @@ class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_C
             $this->compiler->has_output = true;
             $function = $compiler->smarty->registered_plugins[Smarty::PLUGIN_BLOCK][$base_tag][0]; 
             // compile code
-            if (!is_array($function)) {
-                $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false; echo {$function}({$_params}, \$_block_content, \$_smarty_tpl, \$_block_repeat); } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
-            } else if (is_object($function[0])) {
-                $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false; echo \$_smarty_tpl->smarty->registered_plugins['block']['{$base_tag}'][0][0]->{$function[1]}({$_params}, \$_block_content, \$_smarty_tpl, \$_block_repeat); } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
+            if (!isset($parameter['modifier_list'])) {
+            	$mod_pre = $mod_post ='';
             } else {
-                $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false; echo {$function[0]}::{$function[1]}({$_params}, \$_block_content, \$_smarty_tpl, \$_block_repeat); } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
+            	$mod_pre = ' ob_start(); ';
+            	$mod_post = 'echo '.$this->compiler->compileTag('private_modifier',array(),array('modifierlist'=>$parameter['modifier_list'],'value'=>'ob_get_clean()')).';';
+            }
+            if (!is_array($function)) {
+                $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false;".$mod_pre." echo {$function}({$_params}, \$_block_content, \$_smarty_tpl, \$_block_repeat);".$mod_post." } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
+            } else if (is_object($function[0])) {
+                $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false;".$mod_pre." echo \$_smarty_tpl->smarty->registered_plugins['block']['{$base_tag}'][0][0]->{$function[1]}({$_params}, \$_block_content, \$_smarty_tpl, \$_block_repeat); ".$mod_post."} array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
+            } else {
+                $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false;".$mod_pre." echo {$function[0]}::{$function[1]}({$_params}, \$_block_content, \$_smarty_tpl, \$_block_repeat); ".$mod_post."} array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
             } 
         } 
         return $output."\n";

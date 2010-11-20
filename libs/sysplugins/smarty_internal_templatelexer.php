@@ -1175,5 +1175,6 @@ class Smarty_Internal_Templatelexer
 
   $this->token = Smarty_Internal_Templateparser::TP_OTHER;
     }
+
 }
 ?>
