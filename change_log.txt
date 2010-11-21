@@ -1,3 +1,6 @@
+===== Smarty 3.0.5  =====
+
+
 19/11/2010
 - bugfix on block plugins with modifiers
 
@@ -21,6 +24,8 @@
 - bugfix scoping problem on $smarty object passed to filters
 - bugfix captured content could not be accessed globally
 - bugfix Smarty2 wrapper functions could not be call from within plugins
+
+===== Smarty 3.0.4  =====
 
 14/11/2010
 - bugfix isset() did not allow multiple parameter
