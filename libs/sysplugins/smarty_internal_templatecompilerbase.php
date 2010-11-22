@@ -67,7 +67,7 @@ class Smarty_Internal_TemplateCompilerBase {
             $_content = $template->getTemplateSource(); 
             // run prefilter if required
             if (isset($this->smarty->autoload_filters['pre']) || isset($this->smarty->registered_filters['pre'])) {
-                $_content = Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $template);
+                $template->template_source = $_content = Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $template);
             } 
             // on empty template just return header
             if ($_content == '') {
