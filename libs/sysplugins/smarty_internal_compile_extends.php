@@ -40,6 +40,9 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
 
         $_smarty_tpl = $compiler->template; 
         $include_file = null;
+        if (strpos($_attr['file'],'$_tmp') !== false) {
+        	$this->compiler->trigger_template_error('illegal value for file attribute', $this->compiler->lex->taglineno);
+        }
         eval('$include_file = ' . $_attr['file'] . ';'); 
         // create template object
         $_template = new $compiler->smarty->template_class($include_file, $this->smarty, $compiler->template); 
