@@ -1,3 +1,7 @@
+23/11/2011
+-bugfix allow integer as attribute name in plugin calls
+-change  trimm whitespace from error message, removed long list of expected tokens
+
 22/11/2010
 - bugfix on template inheritance when an {extends} tag was inserted by a prefilter
 - added error message for illegal variable file attributes at {extends...} tags

@@ -71,7 +71,8 @@ class Smarty_Internal_CompileBase {
                     } 
                     // must be named attribute
                 } else {
-                    $_indexed_attr = array_merge($_indexed_attr, $mixed);
+                	reset($mixed);
+                    $_indexed_attr[key($mixed)] = $mixed[key($mixed)];
                 } 
             } 
         } 

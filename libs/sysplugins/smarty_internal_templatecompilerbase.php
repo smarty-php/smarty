@@ -401,24 +401,26 @@ class Smarty_Internal_TemplateCompilerBase {
             $line = $this->lex->line;
         } 
         $match = preg_split("/\n/", $this->lex->data);
-        $error_text = 'Syntax Error in template "' . $this->template->getTemplateFilepath() . '"  on line ' . $line . ' "' . htmlspecialchars($match[$line-1]) . '" ';
+        $error_text = 'Syntax Error in template "' . $this->template->getTemplateFilepath() . '"  on line ' . $line . ' "' . htmlspecialchars(trim(preg_replace('![\t\r\n]+!',' ',$match[$line-1]))) . '" ';
         if (isset($args)) {
             // individual error message
             $error_text .= $args;
         } else {
             // expected token from parser
-            foreach ($this->parser->yy_get_expected_tokens($this->parser->yymajor) as $token) {
-                $exp_token = $this->parser->yyTokenName[$token];
-                if (isset($this->lex->smarty_token_names[$exp_token])) {
-                    // token type from lexer
-                    $expect[] = '"' . $this->lex->smarty_token_names[$exp_token] . '"';
-                } else {
-                    // otherwise internal token name
-                    $expect[] = $this->parser->yyTokenName[$token];
-                } 
-            } 
-            // output parser error message
-            $error_text .= ' - Unexpected "' . $this->lex->value . '", expected one of: ' . implode(' , ', $expect);
+            $error_text .= ' - Unexpected "' . $this->lex->value.'"';
+            if (count($this->parser->yy_get_expected_tokens($this->parser->yymajor)) <= 4 ) {
+            	foreach ($this->parser->yy_get_expected_tokens($this->parser->yymajor) as $token) {
+            	    $exp_token = $this->parser->yyTokenName[$token];
+            	    if (isset($this->lex->smarty_token_names[$exp_token])) {
+            	        // token type from lexer
+            	        $expect[] = '"' . $this->lex->smarty_token_names[$exp_token] . '"';
+            	    } else {
+            	        // otherwise internal token name
+            	        $expect[] = $this->parser->yyTokenName[$token];
+            	    } 
+            	} 
+            	$error_text .= ', expected one of: ' . implode(' , ', $expect);
+        	}
         } 
         throw new SmartyCompilerException($error_text);
     } 
