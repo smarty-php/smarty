@@ -30,14 +30,29 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase {
 
         // maybe nocache because of nocache variables
         $this->compiler->nocache = $this->compiler->nocache | $this->compiler->tag_nocache;
-
-        
         if (is_array($parameter['if condition'])) {
-            $_output = " <?php if (!isset(\$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']."])) \$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']."] = new Smarty_Variable;\n";
-            $_output .= " while (\$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']."]->value = ".$parameter['if condition']['value'].") {\n ?>";
+        	if ($this->compiler->nocache) {
+        		$_nocache = ',true';
+            	// create nocache var to make it know for further compiling
+            	if (is_array($parameter['if condition']['var'])) {
+            		$this->compiler->template->tpl_vars[trim($parameter['if condition']['var']['var'], "'")] = new Smarty_variable(null, true);
+            	} else {
+            		$this->compiler->template->tpl_vars[trim($parameter['if condition']['var'], "'")] = new Smarty_variable(null, true);
+            	}
+        	} else {
+        		$_nocache = '';
+         		$_nocache2 = '';
+        	}
+            if (is_array($parameter['if condition']['var'])) {
+            	$_output = "<?php if (!isset(\$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']['var']."]) || !is_array(\$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']['var']."]->value)) \$_smarty_tpl->createLocalArrayVariable(".$parameter['if condition']['var']['var']."$_nocache2);\n";
+	            $_output .= "while (\$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']['var']."]->value".$parameter['if condition']['var']['smarty_internal_index']." = ".$parameter['if condition']['value']."){?>";
+            } else {
+	            $_output = "<?php \$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']."] = new Smarty_Variable(\$_smarty_tpl->getVariable(".$parameter['if condition']['var'].")->value{$_nocache},null,true,false);";            
+	            $_output .= "while (\$_smarty_tpl->tpl_vars[".$parameter['if condition']['var']."]->value = ".$parameter['if condition']['value']."){?>";
+	        }
             return $_output;
         } else {
-            return '<?php while (' . $parameter['if condition'] . ') { ?>';
+            return "<?php while ({$parameter['if condition']}){?>";
         } 
     } 
 } 

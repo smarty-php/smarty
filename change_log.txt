@@ -1,3 +1,9 @@
+===== SVN trunk  =====
+
+24/11/2011
+-bugfix on parser at  !$foo|modifier
+-change parser logic when assignments used as condition in {if] and {while} to allow assign to array element
+
 23/11/2011
 -bugfix allow integer as attribute name in plugin calls
 -change  trimm whitespace from error message, removed long list of expected tokens
