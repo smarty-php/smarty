@@ -500,6 +500,9 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                     $output .= preg_replace("!/\*/?%%SmartyNocache:{$this->properties['nocache_hash']}%%\*/!", '', $cache_parts[0][$curr_idx]);
                 } 
             } 
+            if (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output'])) {
+            	$output = Smarty_Internal_Filter_Handler::runFilter('output', $output, $this);
+        	}
             // rendering (must be done before writing cache file because of {function} nocache handling)
             $_smarty_tpl = $this;
             ob_start();

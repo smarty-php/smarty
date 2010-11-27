@@ -1,4 +1,6 @@
 ===== SVN trunk  =====
+27/11/2010
+-change run output filter before cache file is written. (same as in Smarty2)
 
 24/11/2011
 -bugfix on parser at  !$foo|modifier
