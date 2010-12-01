@@ -86,8 +86,9 @@ td {
 </head>
 <body>
 
-<h1>Smarty Debug Console  -  Total Time {$execution_time|string_format:"%.5f"}</h1>
+<h1>Smarty Debug Console  -  {if isset($template_name)}{$template_name|debug_print_var}{else}Total Time {$execution_time|string_format:"%.5f"}{/if}</h1>
 
+{if !empty($template_data)}
 <h2>included templates &amp; config files (load time in seconds)</h2>
 
 <div>
@@ -99,6 +100,7 @@ td {
   <br>
 {/foreach}
 </div>
+{/if}
 
 <h2>assigned template variables</h2>
 
@@ -124,13 +126,14 @@ td {
 </html>
 {/capture}
 <script type="text/javascript">
-{literal}    if ( self.name == '' ) {
-       var title = 'Console';
+{$id = $template_name|default:''|md5}
+    if ( self.name == '' ) {
+       var title = 'Console{$id}';
       }
     else {
-       var title = 'Console_' + self.name;
-      }{/literal}
-    _smarty_console = window.open("",title.value,"width=680,height=600,resizable,scrollbars=yes");
+       var title = 'Console_{$id}' + self.name;
+      }
+    _smarty_console = window.open("","console{$id}","width=680,height=600,resizable,scrollbars=yes");
     _smarty_console.document.write("{$debug_output|escape:'javascript'}");
     _smarty_console.document.close();
 </script>

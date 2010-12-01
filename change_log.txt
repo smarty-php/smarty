@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+01/12/2010
+- improvement of {debug} tag output
+
 27/11/2010
 -change run output filter before cache file is written. (same as in Smarty2)
 
