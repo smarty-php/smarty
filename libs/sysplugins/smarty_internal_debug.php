@@ -114,27 +114,23 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
 	/*
 	* Recursively gets variables from all template/data scopes
 	*/
-	public static function get_debug_vars($obj, $is_parent = false)
+	public static function get_debug_vars($obj)
 	{
 		$config_vars = $obj->config_vars;
 		$tpl_vars = array();
 		foreach ($obj->tpl_vars as $key => $var) {
 			$tpl_vars[$key] = clone $var;
-			if (true) {
-				if ($obj instanceof Smarty_Internal_Template) {
-					$tpl_vars[$key]->scope = $obj->resource_type.':'.$obj->resource_name;
-				} elseif ($obj instanceof Smarty_Data) {
-					$tpl_vars[$key]->scope = 'Data object';
-				} else {
-					$tpl_vars[$key]->scope = 'Smarty root';
-				}
+			if ($obj instanceof Smarty_Internal_Template) {
+				$tpl_vars[$key]->scope = $obj->resource_type.':'.$obj->resource_name;
+			} elseif ($obj instanceof Smarty_Data) {
+				$tpl_vars[$key]->scope = 'Data object';
 			} else {
-				$tpl_vars[$key]->scope = 'local';
+				$tpl_vars[$key]->scope = 'Smarty root';
 			}
 		}
 
 		if (isset($obj->parent)) {
-			$parent = self::get_debug_vars($obj->parent, true);
+			$parent = self::get_debug_vars($obj->parent);
 			$tpl_vars = array_merge($parent->tpl_vars, $tpl_vars);
 			$config_vars = array_merge($parent->config_vars, $config_vars);
 		} else {

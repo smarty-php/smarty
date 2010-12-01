@@ -127,12 +127,6 @@ td {
 {/capture}
 <script type="text/javascript">
 {$id = $template_name|default:''|md5}
-    if ( self.name == '' ) {
-       var title = 'Console{$id}';
-      }
-    else {
-       var title = 'Console_{$id}' + self.name;
-      }
     _smarty_console = window.open("","console{$id}","width=680,height=600,resizable,scrollbars=yes");
     _smarty_console.document.write("{$debug_output|escape:'javascript'}");
     _smarty_console.document.close();
