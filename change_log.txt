@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+05/12/2010
+- bugfix missing declaration of $smarty in Smarty class
+
 01/12/2010
 - improvement of {debug} tag output
 

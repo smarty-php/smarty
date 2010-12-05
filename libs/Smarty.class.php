@@ -238,6 +238,8 @@ class Smarty extends Smarty_Internal_Data {
     public $deprecation_notices = true;
     // Smarty 2 BC
     public $_version = self::SMARTY_VERSION;
+    // self pointer to Smarty object
+    public $smarty;
 
     /**
      * Class constructor, initializes basic smarty properties
