@@ -184,7 +184,7 @@ class Smarty_Internal_Data {
     function getTemplateVars($varname = null, $_ptr = null, $search_parents = true)
     {
         if (isset($varname)) {
-            $_var = $this->getVariable($varname, $_ptr, $search_parents);
+            $_var = $this->getVariable($varname, $_ptr, $search_parents, false);
             if (is_object($_var)) {
                 return $_var->value;
             } else {

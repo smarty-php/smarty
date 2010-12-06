@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+06/12/2010
+- bugfix getTemplateVars() should return 'null' instead dropping E_NOTICE on an unassigned variable
+
 05/12/2010
 - bugfix missing declaration of $smarty in Smarty class
 - bugfix empty($foo) in {if} did drop a notice when $foo was not assigned
