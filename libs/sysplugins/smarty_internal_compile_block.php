@@ -46,7 +46,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
 
     static function saveBlockData($block_content, $block_tag, $template, $filepath)
     {
-    	  $_rdl = preg_quote($template->smarty->right_delimiter);
+    	$_rdl = preg_quote($template->smarty->right_delimiter);
         $_ldl = preg_quote($template->smarty->left_delimiter);
 
         if (0 == preg_match("!({$_ldl}block\s+)(name=)?(\w+|'.*'|\".*\")(\s*?)?((append|prepend|nocache)(=true)?)?(\s*{$_rdl})!", $block_tag, $_match)) {
@@ -85,7 +85,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
                 $template->block_data[$_name]['mode'] = 'replace';
             } 
             $template->block_data[$_name]['file'] = $filepath;
-        } 
+        }
     }
 
 	static function compileChildBlock ($compiler, $_name = null)
@@ -100,6 +100,8 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
                 	break;
                 }
             }
+		// flag that child is already compile by {$smarty.block.child} inclusion
+        $compiler->template->block_data[$_name]['compiled'] = true;
         }
 		if ($_name == null) {
        		$compiler->trigger_template_error('{$smarty.block.child} used out of context', $this->compiler->lex->taglineno);
@@ -108,7 +110,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
 		if (!isset($compiler->template->block_data[$_name])) {
        		return '';
 		}
-		    $_tpl = new Smarty_Internal_template ('eval:' . $compiler->template->block_data[$_name]['source'], $compiler->smarty, $compiler->template, $compiler->template->cache_id, 
+		$_tpl = new Smarty_Internal_template ('eval:' . $compiler->template->block_data[$_name]['source'], $compiler->smarty, $compiler->template, $compiler->template->cache_id, 
 		               $compiler->template->compile_id = null, $compiler->template->caching, $compiler->template->cache_lifetime);
 		$_tpl->properties['nocache_hash'] = $compiler->template->properties['nocache_hash'];
 		$_tpl->template_filepath = $compiler->template->block_data[$_name]['file'];
@@ -141,7 +143,6 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
 			}
 		}
 		unset($_tpl);
-        $compiler->template->block_data[$_name]['compiled'] = true;
 		return $_output;
 	}
 
@@ -172,7 +173,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
         } else {
             $_output = $compiler->parser->current_buffer->to_smarty_php();
             unset ($compiler->template->block_data[$_name]['compiled']);
-        } 
+        }
         // reset flags
         $compiler->parser->current_buffer = $saved_data[1];
         $compiler->nocache = $saved_data[2];
