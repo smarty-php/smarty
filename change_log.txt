@@ -2,6 +2,7 @@
 11/12/2010
 - bugfix nested block tags in template inheritance child templates did not work correctly
 - bugfix {$smarty.current_dir} in child template did not point to dir of child template
+- bugfix changed code when writing temporary compiled files to allow stream_wrapper
 
 06/12/2010
 - bugfix getTemplateVars() should return 'null' instead dropping E_NOTICE on an unassigned variable

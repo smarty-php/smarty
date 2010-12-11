@@ -30,11 +30,17 @@ class Smarty_Internal_Write_File {
         // write to tmp file, then move to overt file lock race condition
         $_tmp_file = tempnam($_dirpath, 'wrt');
 
-        if (!file_put_contents($_tmp_file, $_contents)) {
-            umask($old_umask);
+	    if (!($fd = @fopen($_tmp_file, 'wb'))) {
+        	$_tmp_file = $_dirname . DS . uniqid('wrt');
+        	if (!($fd = @fopen($_tmp_file, 'wb'))) {
             throw new SmartyException("unable to write file {$_tmp_file}");
             return false;
-        } 
+        	}
+   		 }
+
+    	fwrite($fd, $_contents);
+    	fclose($fd);
+
         // remove original file
         if (file_exists($_filepath))
             @unlink($_filepath); 
