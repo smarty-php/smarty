@@ -31,7 +31,7 @@ class Smarty_Internal_Write_File {
         $_tmp_file = tempnam($_dirpath, 'wrt');
 
 	    if (!($fd = @fopen($_tmp_file, 'wb'))) {
-        	$_tmp_file = $_dirname . DS . uniqid('wrt');
+        	$_tmp_file = $_dirpath . DS . uniqid('wrt');
         	if (!($fd = @fopen($_tmp_file, 'wb'))) {
             throw new SmartyException("unable to write file {$_tmp_file}");
             return false;

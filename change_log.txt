@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+12/12/2010
+- bugfix fixed typo regarding yesterdays change to allow streamWrapper
+
 11/12/2010
 - bugfix nested block tags in template inheritance child templates did not work correctly
 - bugfix {$smarty.current_dir} in child template did not point to dir of child template
