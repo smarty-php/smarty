@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+
+===== Smarty 3.0.6  =====
+
 12/12/2010
 - bugfix fixed typo regarding yesterdays change to allow streamWrapper
 
