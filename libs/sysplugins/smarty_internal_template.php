@@ -593,17 +593,27 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     {
         if ($file == null) {
             $file = $this->resource_name;
-        } 
-        foreach((array)$this->smarty->template_dir as $_template_dir) {
-            if (strpos('/\\', substr($_template_dir, -1)) === false) {
-                $_template_dir .= DS;
-            } 
-
-            $_filepath = $_template_dir . $file;
-            if (file_exists($_filepath))
-                return $_filepath;
-        } 
-        if (file_exists($file)) return $file; 
+        }
+        // relative file name? 
+        if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
+	        foreach((array)$this->smarty->template_dir as $_template_dir) {
+           		if (strpos('/\\', substr($_template_dir, -1)) === false) {
+                	$_template_dir .= DS;
+            	} 
+            	$_filepath = $_template_dir . $file;
+            	if (file_exists($_filepath)) {
+                	return $_filepath;
+            	}
+        		if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_template_dir)) {
+        			// try PHP include_path
+        			if (($_filepath = Smarty_Internal_Get_Include_Path::getIncludePath($_filepath)) !== false) {
+        				return $_filepath;
+        			}
+        		}
+       		}
+       	}
+        // try absolute filepath
+        if (file_exists($file)) return $file;
         // no tpl file found
         if (!empty($this->smarty->default_template_handler_func)) {
             if (!is_callable($this->smarty->default_template_handler_func)) {

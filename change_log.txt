@@ -1,5 +1,9 @@
 ===== SVN trunk  =====
 
+13/12/2010
+- bugfix {$smarty.template} in child template did not return right content
+- bugfix Smarty3 did not search the PHP include_path for template files
+
 ===== Smarty 3.0.6  =====
 
 12/12/2010
