@@ -1,4 +1,6 @@
 ===== SVN trunk  =====
+14/12/2010
+- bugfix when passing an array as default parameter at {function} tag
 
 13/12/2010
 - bugfix {$smarty.template} in child template did not return right content
