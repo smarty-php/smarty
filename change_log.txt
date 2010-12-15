@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+15/12/2010
+- bugfix assigment as condition in {while} did drop an E_NOTICE
+
 14/12/2010
 - bugfix when passing an array as default parameter at {function} tag
 
