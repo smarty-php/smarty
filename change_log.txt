@@ -1,6 +1,9 @@
 ===== SVN trunk  =====
+17/12/2010
+- bugfix added missing support of $cache_attrs for registered plugins
+
 15/12/2010
-- bugfix assigment as condition in {while} did drop an E_NOTICE
+- bugfix assignment as condition in {while} did drop an E_NOTICE
 
 14/12/2010
 - bugfix when passing an array as default parameter at {function} tag

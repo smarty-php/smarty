@@ -35,10 +35,7 @@ class Smarty_Internal_Register {
     	} elseif (!is_callable($callback)) {
         	throw new Exception("Plugin \"{$tag}\" not callable");
     	} else {
-       		$this->smarty->registered_plugins[$type][$tag] = array($callback, (bool) $cacheable);
-        	if (isset($cache_attr)&&in_array($type, array(Smarty::PLUGIN_BLOCK, Smarty::PLUGIN_FUNCTION))) {
-           		$this->smarty->registered_plugins[$type][$tag][] = (array) $cache_attr;
-        	}
+       		$this->smarty->registered_plugins[$type][$tag] = array($callback, (bool) $cacheable, (array) $cache_attr);
     	}
 	} 
 
