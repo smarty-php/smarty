@@ -1,4 +1,8 @@
 ===== SVN trunk  =====
+
+21/12/2010
+- update html_options to support class and id attrs
+
 17/12/2010
 - bugfix added missing support of $cache_attrs for registered plugins
 
