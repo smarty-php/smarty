@@ -317,7 +317,7 @@ class Smarty extends Smarty_Internal_Data {
         } 
         // create template object if necessary
         ($template instanceof $this->template_class)? $_template = $template :
-        $_template = $this->createTemplate ($template, $cache_id, $compile_id, $parent);
+        $_template = $this->createTemplate ($template, $cache_id, $compile_id, $parent, false);
         if (isset($this->error_reporting)) {
         	$_smarty_old_error_level = error_reporting($this->error_reporting);
     	}
@@ -396,7 +396,7 @@ class Smarty extends Smarty_Internal_Data {
     		$parent = $this;
     	}
         if (!($template instanceof $this->template_class)) {
-            $template = $this->createTemplate ($template, $cache_id, $compile_id, $parent);
+            $template = $this->createTemplate ($template, $cache_id, $compile_id, $parent, false);
         } 
         // return cache status of template
         return $template->isCached();
@@ -417,12 +417,13 @@ class Smarty extends Smarty_Internal_Data {
      * creates a template object
      * 
      * @param string $template the resource handle of the template file
-     * @param object $parent next higher level of Smarty variables
      * @param mixed $cache_id cache id to be used with this template
      * @param mixed $compile_id compile id to be used with this template
+     * @param object $parent next higher level of Smarty variables
+     * @param boolean $do_clone flag is Smarty object shall be cloned
      * @returns object template object
      */
-    public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
+    public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null, $do_clone = true)
     {
         if (!empty($cache_id) && (is_object($cache_id) || is_array($cache_id))) {
             $parent = $cache_id;
@@ -443,7 +444,11 @@ class Smarty extends Smarty_Internal_Data {
                 $tpl = $this->template_objects[$_templateId];
             } else {
                 // create new template object
-                $tpl = new $this->template_class($template, clone $this, $parent, $cache_id, $compile_id);
+                if ($do_clone) {
+                	$tpl = new $this->template_class($template, clone $this, $parent, $cache_id, $compile_id);
+                } else {
+                	$tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
+                }
             } 
         } else {
             // just return a copy of template class

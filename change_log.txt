@@ -1,5 +1,8 @@
 ===== SVN trunk  =====
 
+22/12/2010
+- update do not clone the Smarty object an internal createTemplate() calls to increase performance
+
 21/12/2010
 - update html_options to support class and id attrs
 
