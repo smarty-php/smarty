@@ -13,10 +13,6 @@
  * Smarty Internal Plugin Compile Append Class
  */
 class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign {
-	// attribute definitions
-    public $required_attributes = array('var', 'value');
-    public $shorttag_order = array('var', 'value');
-    public $optional_attributes = array('scope', 'index'); 
 
     /**
      * Compiles code for the {append} tag
@@ -29,6 +25,10 @@ class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign {
     public function compile($args, $compiler, $parameter)
     {
         $this->compiler = $compiler;
+        // the following must be assigned at runtime because it will be overwritten in parent class
+        $this->required_attributes = array('var', 'value');
+        $this->shorttag_order = array('var', 'value');
+        $this->optional_attributes = array('scope','index');
         // check and get attributes
         $_attr = $this->_get_attributes($args); 
         // map to compile assign attributes

@@ -1,4 +1,6 @@
 ===== SVN trunk  =====
+28/12/2010
+- bugfix multiple {append} tags failed to compile.
 
 22/12/2010
 - update do not clone the Smarty object an internal createTemplate() calls to increase performance
