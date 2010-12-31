@@ -1,4 +1,10 @@
 ===== SVN trunk  =====
+31/12/2010
+- bugfix dynamic configuration of $debugging_crtl did not work
+- bugfix default value of $config_read_hidden changed to false
+- bugfix format of attribute array on compiler plugins
+- bugfix getTemplateVars() could return value from wrong scope
+
 28/12/2010
 - bugfix multiple {append} tags failed to compile.
 

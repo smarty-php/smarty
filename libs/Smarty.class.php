@@ -181,7 +181,7 @@ class Smarty extends Smarty_Internal_Data {
     // config var settings
     public $config_overwrite = true; //Controls whether variables with the same name overwrite each other.
     public $config_booleanize = true; //Controls whether config values of on/true/yes and off/false/no get converted to boolean
-    public $config_read_hidden = true; //Controls whether hidden config sections/vars are read from the file.                                                      
+    public $config_read_hidden = false; //Controls whether hidden config sections/vars are read from the file.                                                      
     // config vars
     public $config_vars = array(); 
     // assigned tpl vars
@@ -259,31 +259,6 @@ class Smarty extends Smarty_Internal_Data {
         $this->cache_dir = '.' . DS . 'cache' . DS;
         $this->config_dir = '.' . DS . 'configs' . DS;
         $this->debug_tpl = SMARTY_DIR . 'debug.tpl';
-        if (!$this->debugging && $this->debugging_ctrl == 'URL') {
-            if (isset($_SERVER['QUERY_STRING'])) {
-                $_query_string = $_SERVER['QUERY_STRING'];
-            } else {
-                $_query_string = '';
-            } 
-            if (false !== strpos($_query_string, $this->smarty_debug_id)) {
-                if (false !== strpos($_query_string, $this->smarty_debug_id . '=on')) {
-                    // enable debugging for this browser session
-                    setcookie('SMARTY_DEBUG', true);
-                    $this->debugging = true;
-                } elseif (false !== strpos($_query_string, $this->smarty_debug_id . '=off')) {
-                    // disable debugging for this browser session
-                    setcookie('SMARTY_DEBUG', false);
-                    $this->debugging = false;
-                } else {
-                    // enable debugging for this page
-                    $this->debugging = true;
-                } 
-            } else {
-                if (isset($_COOKIE['SMARTY_DEBUG'])) {
-                    $this->debugging = true;
-                } 
-            } 
-        } 
         if (isset($_SERVER['SCRIPT_NAME'])) {
             $this->assignGlobal('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
         } 
@@ -321,6 +296,32 @@ class Smarty extends Smarty_Internal_Data {
         if (isset($this->error_reporting)) {
         	$_smarty_old_error_level = error_reporting($this->error_reporting);
     	}
+    	// check URL debugging control
+        if (!$this->debugging && $this->debugging_ctrl == 'URL') {
+            if (isset($_SERVER['QUERY_STRING'])) {
+                $_query_string = $_SERVER['QUERY_STRING'];
+            } else {
+                $_query_string = '';
+            } 
+            if (false !== strpos($_query_string, $this->smarty_debug_id)) {
+                if (false !== strpos($_query_string, $this->smarty_debug_id . '=on')) {
+                    // enable debugging for this browser session
+                    setcookie('SMARTY_DEBUG', true);
+                    $this->debugging = true;
+                } elseif (false !== strpos($_query_string, $this->smarty_debug_id . '=off')) {
+                    // disable debugging for this browser session
+                    setcookie('SMARTY_DEBUG', false);
+                    $this->debugging = false;
+                } else {
+                    // enable debugging for this page
+                    $this->debugging = true;
+                } 
+            } else {
+                if (isset($_COOKIE['SMARTY_DEBUG'])) {
+                    $this->debugging = true;
+                } 
+            } 
+        } 
         // obtain data for cache modified check
         if ($this->cache_modified_check && $this->caching && $display) {
             $_isCached = $_template->isCached() && !$_template->has_nocache_code;

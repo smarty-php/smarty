@@ -196,7 +196,12 @@ class Smarty_Internal_TemplateCompilerBase {
                     if ($plugin_type == Smarty::PLUGIN_BLOCK && $this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
                         $plugin = 'smarty_compiler_' . $tag;
                         if (is_callable($plugin)) {
-                            return $plugin($args, $this->smarty);
+                        	// convert arguments format for old compiler plugins
+                            $new_args = array();
+                            foreach ($args as $mixed) {
+                                $new_args = array_merge($new_args, $mixed);
+                            } 
+                            return $plugin($new_args, $this->smarty);
                         } 
                         if (class_exists($plugin, false)) {
                             $plugin_object = new $plugin;
