@@ -1,4 +1,6 @@
 ===== SVN trunk  =====
+- bugfix mb_str_replace in replace and escape modifiers work with utf8
+
 31/12/2010
 - bugfix dynamic configuration of $debugging_crtl did not work
 - bugfix default value of $config_read_hidden changed to false
