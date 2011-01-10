@@ -1,4 +1,9 @@
 ===== SVN trunk  =====
+
+10/01/2010
+- bugfix when using {$smarty.block.child} and name of {block} was in double quoted string
+- bugfix updateParentVariables() was called twice when leaving {include} processing
+
 - bugfix mb_str_replace in replace and escape modifiers work with utf8
 
 31/12/2010

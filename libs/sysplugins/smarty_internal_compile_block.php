@@ -96,7 +96,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
         	$stack_count = count($compiler->_tag_stack);
             while (--$stack_count >= 0) {
             	if ($compiler->_tag_stack[$stack_count][0] == 'block') {
-                	$_name = trim($compiler->_tag_stack[$stack_count][1][0]['name'] ,"'");
+                	$_name = trim($compiler->_tag_stack[$stack_count][1][0]['name'] ,"'\"");
                 	break;
                 }
             }

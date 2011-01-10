@@ -163,7 +163,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 $_output .= "<?php \$_smarty_tpl = array_pop(\$_tpl_stack);?>";
             } else {
                 $_output .= " echo \$_template->getRenderedTemplate();?>";
-                $_output .= "<?php \$_template->updateParentVariables($_parent_scope);?>";
+                if ($_parent_scope != Smarty::SCOPE_LOCAL) {
+                	$_output .= "<?php \$_template->updateParentVariables($_parent_scope);?>";
+            	}
             } 
         } 
         $_output .= "<?php unset(\$_template);?>";
