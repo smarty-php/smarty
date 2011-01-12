@@ -1,6 +1,8 @@
 ===== SVN trunk  =====
+12/01/2011
+- bugfix in {if} and {while} tag compiler when using assignments as condition and nocache mode
 
-10/01/2010
+10/01/2011
 - bugfix when using {$smarty.block.child} and name of {block} was in double quoted string
 - bugfix updateParentVariables() was called twice when leaving {include} processing
 
