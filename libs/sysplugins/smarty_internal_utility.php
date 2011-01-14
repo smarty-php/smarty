@@ -92,10 +92,12 @@ class Smarty_Internal_Utility {
                     {
                     	unset($this->smarty->template_objects[$key]); 
                     }
+                    $this->smarty->template_objects = array();
                     foreach ($_tpl->smarty->template_objects as $key => $d) 
                     {
                     	unset($_tpl->smarty->template_objects[$key]); 
                     }
+                    $_tpl->smarty->template_objects = array();
                     unset($_tpl);
                 }
                 catch (Exception $e) {
