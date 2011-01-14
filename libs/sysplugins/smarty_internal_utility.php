@@ -87,23 +87,15 @@ class Smarty_Internal_Utility {
                         echo ' is up to date';
                         flush();
                     }
-					// free memory
-                    foreach ($this->smarty->template_objects as $key => $d) 
-                    {
-                    	unset($this->smarty->template_objects[$key]); 
-                    }
-                    $this->smarty->template_objects = array();
-                    foreach ($_tpl->smarty->template_objects as $key => $d) 
-                    {
-                    	unset($_tpl->smarty->template_objects[$key]); 
-                    }
-                    $_tpl->smarty->template_objects = array();
-                    unset($_tpl);
                 }
                 catch (Exception $e) {
                     echo 'Error: ', $e->getMessage(), "<br><br>";
                     $_error_count++;
                 } 
+				// free memory
+                $this->smarty->template_objects = array();
+                $_tpl->smarty->template_objects = array();
+                $_tpl = null;
                 if ($max_errors !== null && $_error_count == $max_errors) {
                     echo '<br><br>too many errors';
                     exit();
