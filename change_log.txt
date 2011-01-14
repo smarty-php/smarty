@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+14/01/2011
+-bugfix removed memory leak while processing compileAllTemplates
+
 12/01/2011
 - bugfix in {if} and {while} tag compiler when using assignments as condition and nocache mode
 

@@ -273,7 +273,13 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         } 
         if ($this->smarty->debugging) {
             Smarty_Internal_Debug::end_compile($this);
-        } 
+        }
+        // release objects to free memory
+        foreach (Smarty_Internal_TemplateCompilerBase::$_tag_objects as $i => $d)  {
+			unset(Smarty_Internal_TemplateCompilerBase::$_tag_objects[$i]);
+		}
+        unset ($this->compiler_object->parser->root_buffer,$this->compiler_object->parser->current_buffer,$this->compiler_object->parser,
+        	$this->compiler_object->lex,$this->compiler_object->template,$this->compiler_object); 
     } 
 
     /**

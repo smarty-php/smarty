@@ -33,7 +33,7 @@ class Smarty_Internal_TemplateCompilerBase {
     {
         $this->nocache_hash = str_replace('.', '-', uniqid(rand(), true));
     } 
-    // abstract function doCompile($_content);
+
     /**
      * Methode to compile a Smarty template
      * 
