@@ -1,6 +1,7 @@
 ===== SVN trunk  =====
 16/01/2011
 -bugfix of ArrayAccess object handling in internal _count() method
+-bugfix of Iterator object handling in internal _count() method
 
 14/01/2011
 -bugfix removed memory leak while processing compileAllTemplates

@@ -864,7 +864,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         } elseif ($value instanceof Iterator) {
             $value->rewind();
             if ($value->valid()) {
-                return 1;
+                return iterator_count($value);
             }
         } elseif ($value instanceof PDOStatement) {
             return $value->rowCount();
