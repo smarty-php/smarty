@@ -22,7 +22,7 @@ function smarty_make_timestamp($string)
         return time();
     } elseif ($string instanceof DateTime) {
         return $string->getTimestamp();
-    } elseif (ctype_digit($string) && strlen($string)==14) {
+    } elseif (strlen($string)==14 && ctype_digit($string)) {
         // it is mysql timestamp format of YYYYMMDDHHMMSS?            
         return mktime(substr($string, 8, 2),substr($string, 10, 2),substr($string, 12, 2),
                        substr($string, 4, 2),substr($string, 6, 2),substr($string, 0, 4));
