@@ -1,4 +1,8 @@
 ===== SVN trunk  =====
+
+31/01/2011
+- bugfix the lexer/parser did fail on special characters like VT
+
 16/01/2011
 -bugfix of ArrayAccess object handling in internal _count() method
 -bugfix of Iterator object handling in internal _count() method
