@@ -7,7 +7,6 @@
 * @subpackage Config
 * @author Uwe Tews 
 */
-
 /**
 * Smarty Internal Plugin Configfilelexer
 */
@@ -21,10 +20,10 @@ class Smarty_Internal_Configfilelexer
     public $node;
     public $line;
     private $state = 1;
-    public $smarty_token_names = array (        // Text for parser error messages
-                );
-                    
-                    
+    public $smarty_token_names = array (		// Text for parser error messages
+   				);
+    				
+    				
     function __construct($data, $smarty)
     {
         // set instance object
@@ -85,7 +84,7 @@ class Smarty_Internal_Configfilelexer
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(#)|^(\\[)|^(\\])|^(=)|^([ \t\r]+)|^(\n)|^([0-9]*[a-zA-Z_]\\w*)/";
+        $yy_global_pattern = "/^(#)|^(\\[)|^(\\])|^(=)|^([ \t\r]+)|^(\n)|^([0-9]*[a-zA-Z_]\\w*)/iS";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -192,7 +191,7 @@ class Smarty_Internal_Configfilelexer
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^([ \t\r]+)|^(\\d+\\.\\d+(?=[ \t\r]*[\n#]))|^(\\d+(?=[ \t\r]*[\n#]))|^('[^'\\\\]*(?:\\\\.[^'\\\\]*)*'(?=[ \t\r]*[\n#]))|^(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"(?=[ \t\r]*[\n#]))|^(\"\"\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"\"\"(?=[ \t\r]*[\n#]))|^([a-zA-Z]+(?=[ \t\r]*[\n#]))|^([^\n]+?(?=[ \t\r]*\n))|^(\n)/";
+        $yy_global_pattern = "/^([ \t\r]+)|^(\\d+\\.\\d+(?=[ \t\r]*[\n#]))|^(\\d+(?=[ \t\r]*[\n#]))|^('[^'\\\\]*(?:\\\\.[^'\\\\]*)*'(?=[ \t\r]*[\n#]))|^(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"(?=[ \t\r]*[\n#]))|^(\"\"\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"\"\"(?=[ \t\r]*[\n#]))|^([a-zA-Z]+(?=[ \t\r]*[\n#]))|^([^\n]+?(?=[ \t\r]*\n))|^(\n)/iS";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -313,7 +312,7 @@ class Smarty_Internal_Configfilelexer
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^([^\n]+?(?=[ \t\r]*\n))/";
+        $yy_global_pattern = "/^([^\n]+?(?=[ \t\r]*\n))/iS";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -382,7 +381,7 @@ class Smarty_Internal_Configfilelexer
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^([ \t\r]+)|^([^\n]+?(?=[ \t\r]*\n))|^(\n)/";
+        $yy_global_pattern = "/^([ \t\r]+)|^([^\n]+?(?=[ \t\r]*\n))|^(\n)/iS";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -460,7 +459,7 @@ class Smarty_Internal_Configfilelexer
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/^(\\.)|^(.*?(?=[\.=[\]\r\n]))/";
+        $yy_global_pattern = "/^(\\.)|^(.*?(?=[\.=[\]\r\n]))/iS";
 
         do {
             if (preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches)) {
@@ -522,6 +521,6 @@ class Smarty_Internal_Configfilelexer
     $this->yypopstate();
     }
 
-}
 
+}
 ?>

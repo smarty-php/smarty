@@ -1,4 +1,6 @@
 ===== SVN trunk  =====
+01/02/2011
+- removed assert() from config and template parser
 
 31/01/2011
 - bugfix the lexer/parser did fail on special characters like VT
