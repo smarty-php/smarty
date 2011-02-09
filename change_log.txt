@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+09/02/2011
+- bugfix removed security hole when using {$smarty.template}
+
 01/02/2011
 - removed assert() from config and template parser
 
