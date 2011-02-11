@@ -331,7 +331,7 @@ class Smarty extends Smarty_Internal_Data {
                 $_gmt_mtime = '';
             } 
         } 
-        // return redered template
+        // return rendered template
         if ((!$this->caching || $_template->resource_object->isEvaluated) && (isset($this->autoload_filters['output']) || isset($this->registered_filters['output']))) {
             $_output = Smarty_Internal_Filter_Handler::runFilter('output', $_template->getRenderedTemplate(), $_template);
         } else {

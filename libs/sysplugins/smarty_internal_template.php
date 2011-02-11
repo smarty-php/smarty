@@ -832,7 +832,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     } 
 
     /**
-     * creates a loacal Smarty variable for array assignments
+     * creates a local Smarty variable for array assignments
      */
     public function createLocalArrayVariable($tpl_var, $nocache = false, $scope = Smarty::SCOPE_LOCAL)
     {
