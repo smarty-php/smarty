@@ -561,12 +561,8 @@ class Smarty_Internal_Templatelexer
     function yy_r2_8($yy_subpatterns)
     {
 
-  if ($this->smarty->auto_literal) {
-     $this->token = Smarty_Internal_Templateparser::TP_OTHER;
-  } else {
      $this->token = Smarty_Internal_Templateparser::TP_RDEL;
      $this->yypopstate();
-  }
     }
     function yy_r2_9($yy_subpatterns)
     {
