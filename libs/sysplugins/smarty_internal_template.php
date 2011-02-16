@@ -938,7 +938,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     		// load template resource
     		$this->resource_object = null;
         	if (!$this->parseResourceName ($this->template_resource, $this->resource_type, $this->resource_name, $this->resource_object)) {
-            	throw new SmartyException ("Unable to parse resource name \"{$template_resource}\"");
+            	throw new SmartyException ("Unable to parse resource name \"{$this->template_resource}\"");
         	}
         	return $this->resource_object;
         }

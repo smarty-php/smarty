@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+16/02/2011
+-fixed typo in exception message of Smarty_Internal_Template
+
 13/02/2011
 - bugfix replace $smarty->triggerError() by exception in smarty_internal_resource_extends.php
 - removed obsolete {popup_init..} plugin from demo templates
