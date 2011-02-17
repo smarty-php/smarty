@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+17/02/2011
+-improvement not to delete files starting with '.' from cache and template_c folders on clearCompiledTemplate() and clearCache()
+
 16/02/2011
 -fixed typo in exception message of Smarty_Internal_Template
 -improvement allow leading spaces on } tag closing if auto_literal is enabled
