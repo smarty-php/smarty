@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+18/02/2011
+- bugfix removed possible race condition when isCached() was called for an individually cached subtemplate
+
 17/02/2011
 -improvement not to delete files starting with '.' from cache and template_c folders on clearCompiledTemplate() and clearCache()
 

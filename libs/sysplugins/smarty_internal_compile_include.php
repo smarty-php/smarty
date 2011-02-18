@@ -136,7 +136,17 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             $_caching = Smarty::CACHING_OFF;
         } 
         // create template object
-        $_output = "<?php \$_template = new {$compiler->smarty->template_class}($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, $_cache_id, $_compile_id, $_caching, $_cache_lifetime);\n"; 
+        $_output = "<?php ";
+        if ($_caching != 'null' && $_caching != Smarty::CACHING_OFF) {
+        	$_output .= "\$sha = sha1($include_file . $_cache_id . $_compile_id);\n";
+        	$_output .= "if (isset(\$_smarty_tpl->smarty->template_objects[\$sha])) {\n";
+        	$_output .= "\$_template = \$_smarty_tpl->smarty->template_objects[\$sha]; \$_template->caching = $_caching; \$_template->cache_lifetime =  $_cache_lifetime;\n"; 
+        	$_output .= "} else {\n";
+        }
+        $_output .= "\$_template = new {$compiler->smarty->template_class}($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, $_cache_id, $_compile_id, $_caching, $_cache_lifetime);\n";
+        if ($_caching != 'null' && $_caching != Smarty::CACHING_OFF) {
+        	$_output .= "}\n";
+        } 
         // delete {include} standard attributes
         unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['compile_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']); 
         // remaining attributes must be assigned as smarty variable
