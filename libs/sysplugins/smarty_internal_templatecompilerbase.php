@@ -307,7 +307,7 @@ class Smarty_Internal_TemplateCompilerBase {
         } else {
             if (isset($this->template->required_plugins['compiled'][$plugin_name][$type])) {
                 $function = $this->template->required_plugins['compiled'][$plugin_name][$type]['function'];
-            } else if (isset($this->template->required_plugins['compiled'][$plugin_name][$type])) {
+            } else if (isset($this->template->required_plugins['nocache'][$plugin_name][$type])) {
                 $this->template->required_plugins['compiled'][$plugin_name][$type] = $this->template->required_plugins['nocache'][$plugin_name][$type];
                 $function = $this->template->required_plugins['compiled'][$plugin_name][$type]['function'];
             } 

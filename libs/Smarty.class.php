@@ -258,7 +258,7 @@ class Smarty extends Smarty_Internal_Data {
         $this->plugins_dir = array(SMARTY_PLUGINS_DIR);
         $this->cache_dir = '.' . DS . 'cache' . DS;
         $this->config_dir = '.' . DS . 'configs' . DS;
-        $this->debug_tpl = SMARTY_DIR . 'debug.tpl';
+        $this->debug_tpl = 'file:' . SMARTY_DIR . 'debug.tpl';
         if (isset($_SERVER['SCRIPT_NAME'])) {
             $this->assignGlobal('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
         } 
