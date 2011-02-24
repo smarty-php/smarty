@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+24/02/2011
+- bugfix $smarty->clearCache('some.tpl') did by mistake cache the template object
+
 18/02/2011
 - bugfix removed possible race condition when isCached() was called for an individually cached subtemplate
 - bugfix force default debug.tpl to be loaded by the file resource when default_resource_type was modified

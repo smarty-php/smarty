@@ -145,12 +145,14 @@ class Smarty_Internal_CacheResource_File {
             $_save_stat = $this->smarty->caching;
             $this->smarty->caching = true;
             $tpl = new $this->smarty->template_class($resource_name, $this->smarty); 
-            // remove from template cache
-            unset($this->smarty->template_objects[crc32($tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
             $this->smarty->caching = $_save_stat;
             if ($tpl->isExisting()) {
                 $_resourcename_parts = basename(str_replace('^', '/', $tpl->getCachedFilepath()));
+            	// remove from template cache
+            	unset($this->smarty->template_objects[sha1($tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
             } else {
+            	// remove from template cache
+            	unset($this->smarty->template_objects[sha1($tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
                 return 0;
             } 
         } 
