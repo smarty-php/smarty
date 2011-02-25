@@ -198,8 +198,12 @@ class Smarty_Internal_TemplateCompilerBase {
                         if (is_callable($plugin)) {
                         	// convert arguments format for old compiler plugins
                             $new_args = array();
-                            foreach ($args as $mixed) {
-                                $new_args = array_merge($new_args, $mixed);
+                            foreach ($args as $key => $mixed) {
+                            	if (is_array($mixed)) {
+                                	$new_args = array_merge($new_args, $mixed);
+                                } else {
+                                	$new_args[$key] = $mixed;
+                                }
                             } 
                             return $plugin($new_args, $this->smarty);
                         } 

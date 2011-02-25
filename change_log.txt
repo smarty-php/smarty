@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+25/02/2011
+- bugfix for Smarty2 style compiler plugins on unnamed attribute passing like {tag $foo $bar}
+
 24/02/2011
 - bugfix $smarty->clearCache('some.tpl') did by mistake cache the template object
 
