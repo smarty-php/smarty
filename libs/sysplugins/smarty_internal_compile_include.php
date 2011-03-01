@@ -101,7 +101,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
             $_caching = Smarty::CACHING_OFF;
         } 
         // default for included templates
-        if ($this->compiler->template->caching && !$this->compiler->nocache && !$this->compiler->tag_nocache) {
+        if ($compiler->template->caching && !$this->compiler->nocache && !$this->compiler->tag_nocache) {
             $_caching = self::CACHING_NOCACHE_CODE;
         } 
         /*

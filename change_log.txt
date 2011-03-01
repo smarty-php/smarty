@@ -1,4 +1,9 @@
 ===== SVN trunk  =====
+01/03/2011
+- bugfix replace modifier did not work in 3.0.7 on systems without multibyte support
+- bugfix {$smarty.template} could return in 3.0.7 parent template name instead of 
+         child name when it needed to compile
+
 25/02/2011
 - bugfix for Smarty2 style compiler plugins on unnamed attribute passing like {tag $foo $bar}
 

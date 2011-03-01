@@ -52,7 +52,7 @@ class Smarty_Internal_TemplateCompilerBase {
         $this->tag_nocache = false; 
         // save template object in compiler class
         $this->template = $template;
-        $this->smarty->_current_file = $this->template->getTemplateFilepath(); 
+        $this->smarty->_current_file = $saved_filepath = $this->template->getTemplateFilepath(); 
         // template header code
         $template_header = '';
         if (!$template->suppressHeader) {
@@ -80,7 +80,9 @@ class Smarty_Internal_TemplateCompilerBase {
             } 
             // call compiler
             $_compiled_code = $this->doCompile($_content);
-        } while ($this->abort_and_recompile); 
+        } while ($this->abort_and_recompile);
+        // restore original filepath which could have been modified by template inheritance
+        $this->template->template_filepath = $saved_filepath;
         // return compiled code to template object
         if ($template->suppressFileDependency) {
             $template->compiled_template = $_compiled_code;
