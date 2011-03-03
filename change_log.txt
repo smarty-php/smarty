@@ -1,6 +1,7 @@
 ===== SVN trunk  =====
 03/03/2011
 - bugfix "smarty" template variable was not recreated when cached templated had expired
+- bugfix internal rendered_content must be cleared after subtemplate was included
 
 01/03/2011
 - bugfix replace modifier did not work in 3.0.7 on systems without multibyte support

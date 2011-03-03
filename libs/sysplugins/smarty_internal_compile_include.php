@@ -172,7 +172,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 $_output .= "<?php /*  End of included template \"" . $tpl->getTemplateFilepath() . "\" */ ?>\n";
                 $_output .= "<?php \$_smarty_tpl = array_pop(\$_tpl_stack);?>";
             } else {
-                $_output .= " echo \$_template->getRenderedTemplate();?>";
+                $_output .= " echo \$_template->getRenderedTemplate(); \$_template->rendered_content = null;?>";
                 if ($_parent_scope != Smarty::SCOPE_LOCAL) {
                 	$_output .= "<?php \$_template->updateParentVariables($_parent_scope);?>";
             	}
