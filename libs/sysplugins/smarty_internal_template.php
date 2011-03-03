@@ -379,6 +379,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                     $this->cacheFileChecked = true;
                     if ($this->caching === Smarty::CACHING_LIFETIME_SAVED && $this->properties['cache_lifetime'] >= 0 && (time() > ($this->getCachedTimestamp() + $this->properties['cache_lifetime']))) {
                         $this->tpl_vars = array();
+        				$this->tpl_vars['smarty'] = new Smarty_Variable; 
                         $this->rendered_content = null;
                         return $this->isCached;
                     } 
@@ -396,6 +397,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
                             // If ($mtime > $this->getCachedTimestamp()) {
                             If ($mtime > $_file_to_check[1]) {
                                 $this->tpl_vars = array();
+        						$this->tpl_vars['smarty'] = new Smarty_Variable; 
                                 $this->rendered_content = null;
                                 return $this->isCached;
                             } 
