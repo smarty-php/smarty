@@ -272,16 +272,18 @@ class Smarty_Internal_Config {
             } 
         } 
         // scan sections
-        foreach ($_config_vars['sections'] as $this_section => $dummy) {
-            if ($sections == null || in_array($this_section, (array)$sections)) {
-                foreach ($_config_vars['sections'][$this_section]['vars'] as $variable => $value) {
-                    if ($this->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
-                        $scope_ptr->config_vars[$variable] = $value;
-                    } else {
-                        $scope_ptr->config_vars[$variable] = array_merge((array)$scope_ptr->config_vars[$variable], (array)$value);
-                    } 
-                } 
-            } 
+        if(!empty($sections)) {
+          foreach ($_config_vars['sections'] as $this_section => $dummy) {
+              if (in_array($this_section, (array)$sections)) {
+                  foreach ($_config_vars['sections'][$this_section]['vars'] as $variable => $value) {
+                      if ($this->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
+                          $scope_ptr->config_vars[$variable] = $value;
+                      } else {
+                          $scope_ptr->config_vars[$variable] = array_merge((array)$scope_ptr->config_vars[$variable], (array)$value);
+                      } 
+                  } 
+              } 
+          }
         }
     } 
 } 

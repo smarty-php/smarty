@@ -1,4 +1,6 @@
 ===== SVN trunk  =====
+08/03/2011
+- bugfix loading config file without section should load only defaults
 03/03/2011
 - bugfix "smarty" template variable was not recreated when cached templated had expired
 - bugfix internal rendered_content must be cleared after subtemplate was included
