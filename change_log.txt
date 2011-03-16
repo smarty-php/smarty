@@ -1,4 +1,8 @@
 ===== SVN trunk  =====
+17/03/2011
+- bugfix on default {function} parameters when {function} was used in nocache sections
+- bugfix on compiler object destruction. compiler_object property was by mistake unset.
+
 09/03/2011
 -bugfix a variable filter should run before modifers on an output tag (see change of 23/07/2010)
 
