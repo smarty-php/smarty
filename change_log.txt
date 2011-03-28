@@ -1,4 +1,9 @@
 ===== SVN trunk  =====
+29/03/2011
+- bugfix on error message in smarty_internal_compile_block.php
+- bugfix mb handling in strip modifier
+- bugfix for Smarty2 style registered compiler function on unnamed attribute passing like {tag $foo $bar}
+
 17/03/2011
 - bugfix on default {function} parameters when {function} was used in nocache sections
 - bugfix on compiler object destruction. compiler_object property was by mistake unset.

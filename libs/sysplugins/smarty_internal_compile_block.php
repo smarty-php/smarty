@@ -1,12 +1,12 @@
 <?php
 /**
  * Smarty Internal Plugin Compile Block
- * 
+ *
  * Compiles the {block}{/block} tags
- * 
+ *
  * @package Smarty
  * @subpackage Compiler
- * @author Uwe Tews 
+ * @author Uwe Tews
  */
 
 /**
@@ -18,7 +18,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
     public $shorttag_order = array('name');
     /**
      * Compiles code for the {block} tag
-     * 
+     *
      * @param array $args array with attributes from parser
      * @param object $compiler compiler object
      * @return boolean true
@@ -36,12 +36,12 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
         // set flag for {block} tag
         $compiler->smarty->inheritance = true;
         // must merge includes
-        $this->compiler->smarty->merge_compiled_includes = true; 
+        $this->compiler->smarty->merge_compiled_includes = true;
 
         $compiler->parser->current_buffer = new _smarty_template_buffer($compiler->parser);
         $compiler->has_code = false;
         return true;
-    } 
+    }
 
 
     static function saveBlockData($block_content, $block_tag, $template, $filepath)
@@ -53,7 +53,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
             $error_text = 'Syntax Error in template "' . $template->getTemplateFilepath() . '"   "' . htmlspecialchars($block_tag) . '" illegal options';
             throw new SmartyCompilerException($error_text);
         } else {
-            $_name = trim($_match[3], '\'"'); 
+            $_name = trim($_match[3], '\'"');
             // replace {$smarty.block.child}
             if (strpos($block_content, $template->smarty->left_delimiter . '$smarty.block.child' . $template->smarty->right_delimiter) !== false) {
                 if (isset($template->block_data[$_name])) {
@@ -63,8 +63,8 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
                 } else {
                     $block_content = str_replace($template->smarty->left_delimiter . '$smarty.block.child' . $template->smarty->right_delimiter,
                         '', $block_content);
-                } 
-            } 
+                }
+            }
             if (isset($template->block_data[$_name])) {
                 if (strpos($template->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
                     $template->block_data[$_name]['source'] =
@@ -73,17 +73,17 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
                     $template->block_data[$_name]['source'] .= $block_content;
                 } elseif ($template->block_data[$_name]['mode'] == 'append') {
                     $template->block_data[$_name]['source'] = $block_content . $template->block_data[$_name]['source'];
-                } 
+                }
             } else {
                 $template->block_data[$_name]['source'] = $block_content;
-            } 
+            }
             if ($_match[6] == 'append') {
                 $template->block_data[$_name]['mode'] = 'append';
             } elseif ($_match[6] == 'prepend') {
                 $template->block_data[$_name]['mode'] = 'prepend';
             } else {
                 $template->block_data[$_name]['mode'] = 'replace';
-            } 
+            }
             $template->block_data[$_name]['file'] = $filepath;
         }
     }
@@ -104,13 +104,13 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
         $compiler->template->block_data[$_name]['compiled'] = true;
         }
 		if ($_name == null) {
-       		$compiler->trigger_template_error('{$smarty.block.child} used out of context', $this->compiler->lex->taglineno);
+       		$compiler->trigger_template_error('{$smarty.block.child} used out of context', $compiler->lex->taglineno);
 		}
 		// undefined child?
 		if (!isset($compiler->template->block_data[$_name])) {
        		return '';
 		}
-		$_tpl = new Smarty_Internal_template ('eval:' . $compiler->template->block_data[$_name]['source'], $compiler->smarty, $compiler->template, $compiler->template->cache_id, 
+		$_tpl = new Smarty_Internal_template ('eval:' . $compiler->template->block_data[$_name]['source'], $compiler->smarty, $compiler->template, $compiler->template->cache_id,
 		               $compiler->template->compile_id = null, $compiler->template->caching, $compiler->template->cache_lifetime);
 		$_tpl->properties['nocache_hash'] = $compiler->template->properties['nocache_hash'];
 		$_tpl->template_filepath = $compiler->template->block_data[$_name]['file'];
@@ -154,7 +154,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
 class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
     /**
      * Compiles code for the {/block} tag
-     * 
+     *
      * @param array $args array with attributes from parser
      * @param object $compiler compiler object
      * @return string compiled code
@@ -163,7 +163,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
     {
         $this->compiler = $compiler;
         $this->smarty = $compiler->smarty;
-        $this->compiler->has_code = true; 
+        $this->compiler->has_code = true;
         // check and get attributes
         $_attr = $this->_get_attributes($args);
         $saved_data = $this->_close_tag(array('block'));
@@ -182,6 +182,6 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase {
         // $_output content has already nocache code processed
         $compiler->suppressNocacheProcessing = true;
         return $_output;
-    } 
-} 
+    }
+}
 ?>
