@@ -1,4 +1,8 @@
 ===== SVN trunk  =====
+01/04/2011
+- bugfix do not run filters and default modifier when displaying the debug template
+- bugfix of embedded double quotes within multi line strings (""")
+
 29/03/2011
 - bugfix on error message in smarty_internal_compile_block.php
 - bugfix mb handling in strip modifier

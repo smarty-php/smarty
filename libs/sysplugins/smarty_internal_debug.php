@@ -78,18 +78,19 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
 		// prepare information of assigned variables
 		$ptr = self::get_debug_vars($obj);
 		if ($obj instanceof Smarty) {
-			$smarty = $obj;
+			$smarty = clone $obj;
 		} else {
-			$smarty = $obj->smarty;
+			$smarty = clone $obj->smarty;
 		}
 		$_assigned_vars = $ptr->tpl_vars;
 		ksort($_assigned_vars);
 		$_config_vars = $ptr->config_vars;
 		ksort($_config_vars);
-		$ldelim = $smarty->left_delimiter;
-		$rdelim = $smarty->right_delimiter;
 		$smarty->left_delimiter = '{';
 		$smarty->right_delimiter = '}';
+		$smarty->registered_filters = array();
+		$smarty->autoload_filters = array();
+		$smarty->default_modifiers = array();
 		$_template = new Smarty_Internal_Template ($smarty->debug_tpl, $smarty);
 		$_template->caching = false;
 		$_template->force_compile = false;
@@ -108,8 +109,6 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
 		$_template->assign('config_vars', $_config_vars);
 		$_template->assign('execution_time', microtime(true) - $smarty->start_time);
 		echo $_template->getRenderedTemplate();
-		$smarty->left_delimiter = $ldelim;
-		$smarty->right_delimiter = $rdelim;
 	}
 	/*
 	* Recursively gets variables from all template/data scopes
