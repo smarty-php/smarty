@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+22/04/2011
+- bugfix allow only fixed string as file attribute at {extends} tag
+
 01/04/2011
 - bugfix do not run filters and default modifier when displaying the debug template
 - bugfix of embedded double quotes within multi line strings (""")
