@@ -1,6 +1,7 @@
 ===== SVN trunk  =====
 22/04/2011
 - bugfix allow only fixed string as file attribute at {extends} tag
+- workaround for PHP 5.2.13 bug in method_exists()
 
 01/04/2011
 - bugfix do not run filters and default modifier when displaying the debug template
