@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+13/05/2011
+- bugfix condition starting with "-" did fail at {if} and {while} tags
+
 22/04/2011
 - bugfix allow only fixed string as file attribute at {extends} tag
 - workaround for PHP 5.2.13 bug in method_exists()
