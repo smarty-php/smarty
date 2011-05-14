@@ -1,6 +1,6 @@
 ===== SVN trunk  =====
 14/05/2011
-- bugfix fopen() error handling at stream resources
+- bugfix error handling at stream resources
 
 13/05/2011
 - bugfix condition starting with "-" did fail at {if} and {while} tags

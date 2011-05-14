@@ -75,8 +75,8 @@ class Smarty_Internal_Resource_Stream {
         // return template string
         $_template->template_source = '';
         if ($fp = fopen(str_replace(':', '://', $_template->template_resource),'r+')) {
-            while (!feof($fp)) {
-                $_template->template_source .= fgets($fp);
+            while (!feof($fp) && ($current_line = fgets($fp)) !== false ) {
+                $_template->template_source .= $current_line;
             }
             fclose($fp);
             return true;
