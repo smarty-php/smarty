@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+29/05/2011
+- bugfix <?xml ...> in templates did break "cache modified check"
+
 14/05/2011
 - bugfix error handling at stream resources
 
