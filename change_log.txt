@@ -1,4 +1,5 @@
 ===== SVN trunk  =====
+===== Smarty 3.0.8  =====
 29/05/2011
 - bugfix <?xml ...> in templates did break "cache modified check"
 
