@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+07/06/2011
+- bugfix registerFilter() or registerPlugin() on template objects did register to the main Smarty object if the register methods had been used on the main Smarty object before.
+
 ===== Smarty 3.0.8  =====
 29/05/2011
 - bugfix <?xml ...> in templates did break "cache modified check"

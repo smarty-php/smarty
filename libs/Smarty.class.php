@@ -724,8 +724,8 @@ class Smarty extends Smarty_Internal_Data {
     	// clear assigned tpl vars
     	$this->tpl_vars = array();
     	// clear objects for external methods
-    	unset($this->register);
-    	unset($this->filter);
+    	unset($this->Register);
+    	unset($this->Filter);
 	}
 
 
