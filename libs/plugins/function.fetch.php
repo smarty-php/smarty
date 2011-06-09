@@ -28,8 +28,8 @@ function smarty_function_fetch($params, $template)
     }
 
     $content = '';
-    if (isset($template->security_policy) && !preg_match('!^(http|ftp)://!i', $params['file'])) {
-        if(!$template->security_policy->isTrustedResourceDir($params['file'])) {
+    if (isset($template->smarty->security_policy) && !preg_match('!^(http|ftp)://!i', $params['file'])) {
+        if(!$template->smarty->security_policy->isTrustedResourceDir($params['file'])) {
             return;
         }
         

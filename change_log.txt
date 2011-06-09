@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+09/0672011
+- bugfix smarty security_policy issue in plugins {html_image} and {fetch}
+
 07/06/2011
 - bugfix registerFilter() or registerPlugin() on template objects did register to the main Smarty object if the register methods had been used on the main Smarty object before.
 

@@ -106,8 +106,8 @@ function smarty_function_html_image($params, $template)
                 return;
             } 
         } 
-        if (isset($template->security_policy)) {
-            if (!$template->security_policy->isTrustedResourceDir($_image_path)) {
+        if (isset($template->smarty->security_policy)) {
+            if (!$template->smarty->security_policy->isTrustedResourceDir($_image_path)) {
                 return;
             } 
         } 
