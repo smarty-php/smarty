@@ -650,7 +650,7 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
         $has_root = false;
         foreach ($this->tpl_vars as $_key => $_variable) {
             $_variable_scope = $this->tpl_vars[$_key]->scope;
-            if ($scope == Smarty::SCOPE_LOCAL && $_variable_scope == Smarty::SCOPE_LOCAL) {
+            if (($scope == Smarty::SCOPE_LOCAL && $_variable_scope == Smarty::SCOPE_LOCAL) || $_key == 'smarty') {
                 continue;
             }
             if (isset($this->parent) && ($scope == Smarty::SCOPE_PARENT || $_variable_scope == Smarty::SCOPE_PARENT)) {

@@ -1,5 +1,8 @@
 ===== SVN trunk  =====
-09/0672011
+16/06/2011
+- bugfix do not overwrite 'smarty' template variable when {include ... scope=parent} exits
+
+09/06/2011
 - bugfix smarty security_policy issue in plugins {html_image} and {fetch}
 
 07/06/2011
