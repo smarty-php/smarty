@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+19/06/2011
+- bugfix clear_config Smarty2 BC wrapper function was missing
+
 16/06/2011
 - bugfix do not overwrite 'smarty' template variable when {include ... scope=parent} exits
 
