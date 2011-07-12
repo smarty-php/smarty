@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+12/07/2011
+- bugfix PHP did eat line break on nocache sections
+
 19/06/2011
 - bugfix clear_config Smarty2 BC wrapper function was missing
 
