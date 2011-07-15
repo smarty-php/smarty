@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+15/07/2011
+- bugfix individual cache_lifetime of {include} did not work correctly inside {block} tags
+
 12/07/2011
 - bugfix PHP did eat line break on nocache sections
 
