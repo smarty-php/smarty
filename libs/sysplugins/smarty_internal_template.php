@@ -70,6 +70,8 @@ class Smarty_Internal_Template extends Smarty_Internal_Data {
     // blocks for template inheritance
     public $block_data = array();
     public $wrapper = null;
+    // optional log of tag/attributes
+    public $used_tags = array();
     /**
      * Create template data object
      *

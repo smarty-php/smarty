@@ -23,8 +23,6 @@ class Smarty_Internal_TemplateCompilerBase {
     public $_tag_stack = array();
     // current template
     public $template = null;
-    // optional log of tag/attributes
-    public $used_tags = array();
 
     /**
      * Initialize compiler
@@ -114,7 +112,7 @@ class Smarty_Internal_TemplateCompilerBase {
         $this->has_output = false;
         // log tag/attributes
         if (isset($this->smarty->get_used_tags) && $this->smarty->get_used_tags) {
-        	$this->used_tags[] = array($tag,$args);
+        	$this->template->used_tags[] = array($tag,$args);
         }
 		// check nocache option flag
         if (in_array("'nocache'",$args) || in_array(array('nocache'=>'true'),$args)

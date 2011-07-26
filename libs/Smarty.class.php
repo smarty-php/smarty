@@ -236,6 +236,8 @@ class Smarty extends Smarty_Internal_Data {
     public $inheritance = false;
     // generate deprecated function call notices?
     public $deprecation_notices = true;
+    // internal flag for getTags()
+    public $get_used_tags = false;
     // Smarty 2 BC
     public $_version = self::SMARTY_VERSION;
     // self pointer to Smarty object
@@ -712,6 +714,17 @@ class Smarty extends Smarty_Internal_Data {
         }
         // no plugin loaded
         return false;
+    }
+
+    /**
+    * Return array of tag/attributes of all tags used by an template
+    *
+    * @param object $templae template object
+    * @return array of tag/attributes
+    */
+    public function getTags(Smarty_Internal_Template $template)
+    {
+        return Smarty_Internal_Utility::getTags($template);
     }
 
     /**

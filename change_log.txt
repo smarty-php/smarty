@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+26/07/2011
+- bugfix experimental getTags() method did not work
+
 15/07/2011
 - bugfix individual cache_lifetime of {include} did not work correctly inside {block} tags
 
