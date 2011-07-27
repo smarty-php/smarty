@@ -143,7 +143,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         if ($_caching != 'null' && $_caching != Smarty::CACHING_OFF) {
         	$_output .= "\$sha = sha1($include_file . $_cache_id . $_compile_id);\n";
         	$_output .= "if (isset(\$_smarty_tpl->smarty->template_objects[\$sha])) {\n";
-        	$_output .= "\$_template = \$_smarty_tpl->smarty->template_objects[\$sha]; \$_template->caching = $_caching; \$_template->cache_lifetime =  $_cache_lifetime;\n";
+        	$_output .= "\$_template = \$_smarty_tpl->smarty->template_objects[\$sha]; \$_template->parent = \$_smarty_tpl; \$_template->caching = $_caching; \$_template->cache_lifetime =  $_cache_lifetime;\n";
         	$_output .= "} else {\n";
         }
         $_output .= "\$_template = new {$compiler->smarty->template_class}($include_file, \$_smarty_tpl->smarty, \$_smarty_tpl, $_cache_id, $_compile_id, $_caching, $_cache_lifetime);\n";

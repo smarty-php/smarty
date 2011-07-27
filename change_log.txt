@@ -1,4 +1,7 @@
 ===== SVN trunk  =====
+27/07/2011
+- bugfix subtemplate could use wrong varibale scope when it was recalled from different templates
+
 26/07/2011
 - bugfix experimental getTags() method did not work
 
