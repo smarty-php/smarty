@@ -12,13 +12,13 @@
  * Type:     function<br>
  * Name:     fetch<br>
  * Purpose:  fetch file, web or ftp data and display results
- * @link http://smarty.php.net/manual/en/language.function.fetch.php {fetch}
+ *
+ * @link http://www.smarty.net/manual/en/language.function.fetch.php {fetch}
  *       (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
- * @param array $params parameters
- * @param object $template template object
- * @return string|null if the assign parameter is passed, Smarty assigns the
- *                     result to a template variable
+ * @param array                    $params   parameters
+ * @param Smarty_Internal_Template $template template object
+ * @return string|null if the assign parameter is passed, Smarty assigns the result to a template variable
  */
 function smarty_function_fetch($params, $template)
 {
@@ -32,7 +32,7 @@ function smarty_function_fetch($params, $template)
         if(!$template->smarty->security_policy->isTrustedResourceDir($params['file'])) {
             return;
         }
-        
+
         // fetch the file
         if($fp = @fopen($params['file'],'r')) {
             while(!feof($fp)) {
@@ -52,7 +52,7 @@ function smarty_function_fetch($params, $template)
                 $host = $server_name = $uri_parts['host'];
                 $timeout = 30;
                 $accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*";
-                $agent = "Smarty Template Engine ".$template->_version;
+                $agent = "Smarty Template Engine ". Smarty::SMARTY_VERSION;
                 $referer = "";
                 $uri = !empty($uri_parts['path']) ? $uri_parts['path'] : '/';
                 $uri .= !empty($uri_parts['query']) ? '?' . $uri_parts['query'] : '';

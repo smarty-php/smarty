@@ -14,6 +14,16 @@
  * Name:       html_radios<br>
  * Date:       24.Feb.2003<br>
  * Purpose:    Prints out a list of radio input types<br>
+ * Params:
+ * <pre>
+ * - name       (optional) - string default "radio"
+ * - values     (required) - array
+ * - options    (required) - associative array
+ * - checked    (optional) - array default not set
+ * - separator  (optional) - ie <br> or &nbsp;
+ * - output     (optional) - the output next to each radio button
+ * - assign     (optional) - assign the output as an array to this variable
+ * </pre>
  * Examples:
  * <pre>
  * {html_radios values=$ids output=$names}
@@ -26,16 +36,8 @@
  * @author Christopher Kvarme <christopher.kvarme@flashjab.com> 
  * @author credits to Monte Ohrt <monte at ohrt dot com> 
  * @version 1.0
- * @param array $params parameters
- * Input:<br>
- *            - name       (optional) - string default "radio"
- *            - values     (required) - array
- *            - options    (optional) - associative array
- *            - checked    (optional) - array default not set
- *            - separator  (optional) - ie <br> or &nbsp;
- *            - output     (optional) - the output next to each radio button
- *            - assign     (optional) - assign the output as an array to this variable
- * @param object $template template object
+ * @param array                    $params   parameters
+ * @param Smarty_Internal_Template $template template object
  * @return string 
  * @uses smarty_function_escape_special_chars()
  */

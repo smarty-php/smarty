@@ -1,128 +1,90 @@
 <?php
+/**
+ * Smarty Internal Plugin Resource File
+ *
+ * @package Smarty
+ * @subpackage TemplateResources
+ * @author Uwe Tews
+ * @author Rodney Rehm
+ */
 
 /**
  * Smarty Internal Plugin Resource File
- * 
+ *
  * Implements the file system as resource for Smarty templates
- * 
+ *
  * @package Smarty
  * @subpackage TemplateResources
- * @author Uwe Tews 
  */
-
-/** 
- * Smarty Internal Plugin Resource File
- */
-class Smarty_Internal_Resource_File {
-    public function __construct($smarty)
-    {
-        $this->smarty = $smarty;
-    } 
-    // classes used for compiling Smarty templates from file resource
-    public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
-    public $template_lexer_class = 'Smarty_Internal_Templatelexer';
-    public $template_parser_class = 'Smarty_Internal_Templateparser'; 
-    // properties
-    public $usesCompiler = true;
-    public $isEvaluated = false;
+class Smarty_Internal_Resource_File extends Smarty_Resource {
 
     /**
-     * Return flag if template source is existing
-     * 
-     * @return boolean true
+     * populate Source Object with meta data from Resource
+     *
+     * @param Smarty_Template_Source   $source    source object
+     * @param Smarty_Internal_Template $_template template object
      */
-    public function isExisting($template)
+    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template=null)
     {
-        if ($template->getTemplateFilepath() === false) {
-            return false;
-        } else {
-            return true;
-        } 
-    } 
+        $source->filepath = $this->buildFilepath($source, $_template);
+
+        if ($source->filepath !== false) {
+            if (is_object($source->smarty->security_policy)) {
+                $source->smarty->security_policy->isTrustedResourceDir($source->filepath);
+            }
+
+            $source->uid = sha1($source->filepath);
+            if ($source->smarty->compile_check && !isset($source->timestamp)) {
+                $source->timestamp = @filemtime($source->filepath);
+                $source->exists = !!$source->timestamp;
+            }
+        }
+    }
 
     /**
-     * Get filepath to template source
-     * 
-     * @param object $_template template object
-     * @return string filepath to template source file
+     * populate Source Object with timestamp and exists from Resource
+     *
+     * @param Smarty_Template_Source $source source object
      */
-    public function getTemplateFilepath($_template)
+    public function populateTimestamp(Smarty_Template_Source $source)
     {
-        $_filepath = $_template->buildTemplateFilepath ();
-
-        if ($_filepath !== false) {
-            if (is_object($_template->smarty->security_policy)) {
-                $_template->smarty->security_policy->isTrustedResourceDir($_filepath);
-            } 
-        } 
-        $_template->templateUid = sha1($_filepath);
-        return $_filepath;
-    } 
+        $source->timestamp = @filemtime($source->filepath);
+        $source->exists = !!$source->timestamp;
+    }
 
     /**
-     * Get timestamp to template source
-     * 
-     * @param object $_template template object
-     * @return integer timestamp of template source file
+     * Load template's source from file into current template object
+     *
+     * @param Smarty_Template_Source $source source object
+     * @return string template source
+     * @throws SmartyException if source cannot be loaded
      */
-    public function getTemplateTimestamp($_template)
+    public function getContent(Smarty_Template_Source $source)
     {
-        return filemtime($_template->getTemplateFilepath());
-    } 
+        if ($source->timestamp) {
+            return file_get_contents($source->filepath);
+        }
+        if ($source instanceof Smarty_Config_Source) {
+            throw new SmartyException("Unable to read config {$source->type} '{$source->name}'");
+        }
+        throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");
+    }
 
     /**
-     * Read template source from file
-     * 
-     * @param object $_template template object
-     * @return string content of template source file
+     * Determine basename for compiled filename
+     *
+     * @param Smarty_Template_Source $source source object
+     * @return string resource's basename
      */
-    public function getTemplateSource($_template)
-    { 
-        // read template file
-        if (file_exists($_tfp = $_template->getTemplateFilepath())) {
-            $_template->template_source = file_get_contents($_tfp);
-            return true;
-        } else {
-            return false;
-        } 
-    } 
-
-    /**
-     * Get filepath to compiled template
-     * 
-     * @param object $_template template object
-     * @return string return path to compiled template
-     */
-    public function getCompiledFilepath($_template)
+    public function getBasename(Smarty_Template_Source $source)
     {
-        $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w\|]+!', '_', $_template->compile_id) : null;
-        // calculate Uid if not already done
-        if ($_template->templateUid == '') {
-            $_template->getTemplateFilepath();
-        } 
-        $_filepath = $_template->templateUid; 
-        // if use_sub_dirs, break file into directories
-        if ($_template->smarty->use_sub_dirs) {
-            $_filepath = substr($_filepath, 0, 2) . DS
-             . substr($_filepath, 2, 2) . DS
-             . substr($_filepath, 4, 2) . DS
-             . $_filepath;
-        } 
-        $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
-        if (isset($_compile_id)) {
-            $_filepath = $_compile_id . $_compile_dir_sep . $_filepath;
-        } 
-        if ($_template->caching) {
-            $_cache = '.cache';
-        } else {
-            $_cache = '';
-        } 
-        $_compile_dir = $_template->smarty->compile_dir;
-        if (strpos('/\\', substr($_compile_dir, -1)) === false) {
-            $_compile_dir .= DS;
-        } 
-        return $_compile_dir . $_filepath . '.' . $_template->resource_type . '.' . basename($_template->resource_name) . $_cache . '.php';
-    } 
-} 
+        $_file = $source->name;
+        if (($_pos = strpos($_file, ']')) !== false) {
+            $_file = substr($_file, $_pos + 1);
+        }
+        return basename($_file);
+    }
+
+}
 
 ?>

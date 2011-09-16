@@ -1,89 +1,72 @@
 <?php
-
 /**
  * Smarty Internal Plugin Resource Eval
- * 
- * Implements the strings as resource for Smarty template
- * 
+ *
  * @package Smarty
  * @subpackage TemplateResources
- * @author Uwe Tews 
+ * @author Uwe Tews
+ * @author Rodney Rehm
  */
- 
+
 /**
  * Smarty Internal Plugin Resource Eval
+ *
+ * Implements the strings as resource for Smarty template
+ *
+ * {@internal unlike string-resources the compiled state of eval-resources is NOT saved for subsequent access}}
+ *
+ * @package Smarty
+ * @subpackage TemplateResources
  */
-class Smarty_Internal_Resource_Eval {
-    public function __construct($smarty)
+class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled {
+
+    /**
+     * populate Source Object with meta data from Resource
+     *
+     * @param Smarty_Template_Source   $source    source object
+     * @param Smarty_Internal_Template $_template template object
+     * @return void
+     */
+    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template=null)
     {
-        $this->smarty = $smarty;
-    } 
-    // classes used for compiling Smarty templates from file resource
-    public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
-    public $template_lexer_class = 'Smarty_Internal_Templatelexer';
-    public $template_parser_class = 'Smarty_Internal_Templateparser';
-    // properties
-    public $usesCompiler = true;
-    public $isEvaluated = true;
+        $source->uid = $source->filepath = sha1($source->name);
+        $source->timestamp = false;
+        $source->exists = true;
+    }
 
     /**
-     * Return flag if template source is existing
-     * 
-     * @return boolean true
+     * Load template's source from $resource_name into current template object
+     *
+     * {@internal if source begins with "base64:" or "urlencode:", the source is decoded accordingly}}
+     *
+     * @param Smarty_Template_Source $source source object
+     * @return string template source
      */
-    public function isExisting($template)
+    public function getContent(Smarty_Template_Source $source)
     {
-        return true;
-    } 
+        // decode if specified
+        if (($pos = strpos($source->name, ':')) !== false) {
+            if (!strncmp($source->name, 'base64', 6)) {
+                return base64_decode(substr($source->name, 7));
+            } elseif (!strncmp($source->name, 'urlencode', 9)) {
+                return urldecode(substr($source->name, 10));
+            }
+        }
+
+        return $source->name;
+    }
 
     /**
-     * Get filepath to template source
-     * 
-     * @param object $_template template object
-     * @return string return 'string' as template source is not a file
+     * Determine basename for compiled filename
+     *
+     * @param Smarty_Template_Source $source source object
+     * @return string resource's basename
      */
-    public function getTemplateFilepath($_template)
-    { 
-        // no filepath for evaluated strings
-        // return "string" for compiler error messages
-        return 'eval:';
-    } 
+    protected function getBasename(Smarty_Template_Source $source)
+    {
+        return '';
+    }
 
-    /**
-     * Get timestamp to template source
-     * 
-     * @param object $_template template object
-     * @return boolean false as string resources have no timestamp
-     */
-    public function getTemplateTimestamp($_template)
-    { 
-        // evaluated strings must always be compiled and have no timestamp
-        return false;
-    } 
+}
 
-    /**
-     * Retuen template source from resource name
-     * 
-     * @param object $_template template object
-     * @return string content of template source
-     */
-    public function getTemplateSource($_template)
-    { 
-        // return template string
-        $_template->template_source = $_template->resource_name;
-        return true;
-    } 
-
-    /**
-     * Get filepath to compiled template
-     * 
-     * @param object $_template template object
-     * @return boolean return false as compiled template is not stored
-     */
-    public function getCompiledFilepath($_template)
-    { 
-        // no filepath for strings
-        return false;
-    } 
-} 
 ?>
