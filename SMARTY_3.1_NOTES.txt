@@ -52,8 +52,8 @@ prevent entities from being encoded again.
 The capitalize modifier now know the $lc_rest option, which makes sure
 all letters following a captial letter are lower-cased.
 
-The count_sentences modifier now accepts ».?!« as
-legitimate endings of a sentence - previously only ».« was
+The count_sentences modifier now accepts (.?!) as
+legitimate endings of a sentence - previously only (.) was
 accepted
 
 The new unescape modifier is there to reverse the effects of the
