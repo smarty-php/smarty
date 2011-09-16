@@ -1,4 +1,8 @@
-﻿===== Smarty 3.1  =====
+﻿===== Smarty 3.1 trunk  =====
+17.09.2011
+- bugfix reverted resource caching as it could not detect template_dir changes
+
+===== Smarty 3.1.0  =====
 15/09/2011
 - optimization of {foreach}; call internal _count() method only when "total" or "last" {foreach} properties are used
 

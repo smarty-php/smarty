@@ -17,16 +17,6 @@
  */
 abstract class Smarty_Resource {
     /**
-     * cache for Smarty_Template_Source instances
-     * @var array
-     */
-    public static $sources = array();
-    /**
-     * cache for Smarty_Template_Compiled instances
-     * @var array
-     */
-    public static $compileds = array();
-    /**
      * cache for Smarty_Resource instances
      * @var array
      */
@@ -319,11 +309,6 @@ abstract class Smarty_Resource {
      */
     public static function load(Smarty $smarty, $resource_type)
     {
-        // try the instance cache
-        if (isset(self::$resources[$resource_type])) {
-            return self::$resources[$resource_type];
-        }
-
         // try registered resource
         if (isset($smarty->registered_resources[$resource_type])) {
             if ($smarty->registered_resources[$resource_type] instanceof Smarty_Resource) {
@@ -393,12 +378,6 @@ abstract class Smarty_Resource {
             $template_resource = $_template->template_resource;
         }
 
-        // check runtime cache
-        $_cache_key = 'template|' . $template_resource;
-        if (isset(self::$sources[$_cache_key])) {
-            return self::$sources[$_cache_key];
-        }
-
         if (($pos = strpos($template_resource, ':')) === false) {
             // no resource given, use default
             $resource_type = $smarty->default_resource_type;
@@ -418,8 +397,6 @@ abstract class Smarty_Resource {
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $resource_type, $resource_name);
         $resource->populate($source, $_template);
 
-        // runtime cache
-        self::$sources[$_cache_key] = $source;
         return $source;
     }
 
@@ -588,19 +565,10 @@ class Smarty_Template_Source {
      */
     public function getCompiled(Smarty_Internal_Template $_template)
     {
-        // check runtime cache
-        $_cache_key = $_template->template_resource . '#' . $_template->compile_id;
-        if (isset(Smarty_Resource::$compileds[$_cache_key])) {
-            return Smarty_Resource::$compileds[$_cache_key];
-        }
-
         $compiled = new Smarty_Template_Compiled($this);
         $this->handler->populateCompiledFilepath($compiled, $_template);
         $compiled->timestamp = @filemtime($compiled->filepath);
         $compiled->exists = !!$compiled->timestamp;
-
-        // runtime cache
-        Smarty_Resource::$compileds[$_cache_key] = $compiled;
 
         return $compiled;
     }
