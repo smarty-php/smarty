@@ -98,8 +98,6 @@ function default_template_handler_func($type, $name, &$content, &$modified, Smar
 
   Stuff done to the compiler
 
-@todo uwe.tews
-
 Many performance improvements have happened internally. One notable
 improvement is that all compiled templates are now handled as PHP
 functions. This speeds up repeated templates tremendously, as each one
@@ -260,7 +258,9 @@ default_config_handler_func() has been introduced.
 
   default_plugin_handler_func()
 
-@todo uwe.tews
+An optional default_plugin_handler_func() can be defined which gets called 
+by the compiler on tags which can't be resolved internally or by plugins.
+The default_plugin_handler() can map tags to plugins on the fly.
 
 New getters/setters
 
