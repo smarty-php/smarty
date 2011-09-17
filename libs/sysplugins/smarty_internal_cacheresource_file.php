@@ -54,7 +54,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
             // create locking file name
             // relative file name?
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_cache_dir)) {
-                $_lock_dir = getcwd().$_cache_dir;
+                $_lock_dir = rtrim(getcwd(), '/\\') . DS . $_cache_dir;
             } else {
                 $_lock_dir = $_cache_dir;
             }

@@ -234,6 +234,9 @@ class Smarty_Internal_Utility {
                 }
             }
         }
+        // clear compiled cache
+        Smarty_Resource::$sources = array();
+        Smarty_Resource::$compileds = array();
         return $_count;
     }
 

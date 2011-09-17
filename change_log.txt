@@ -1,6 +1,7 @@
 ﻿===== Smarty 3.1 trunk  =====
 17.09.2011
-- bugfix reverted resource caching as it could not detect template_dir changes
+- bugfix lock_id for file resource would create invalid filepath
+- bugfix resource caching did not care about file.tpl in different template_dir
 
 ===== Smarty 3.1.0  =====
 15/09/2011
