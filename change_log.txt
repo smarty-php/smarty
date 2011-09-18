@@ -4,6 +4,8 @@
 - bugfix {include $file} was broken when merge_compiled_incluges = true
 - bugfix {include} was broken when merge_compiled_incluges = true and same indluded template
   was used in different main templates in one compilation run
+- bugfix for Smarty2 style compiler plugins on unnamed attribute passing like {tag $foo $bar}
+- bugfix debug.tpl did not display correctly when it was compiled with escape_html = true
 
 17.09.2011
 - bugfix lock_id for file resource would create invalid filepath
