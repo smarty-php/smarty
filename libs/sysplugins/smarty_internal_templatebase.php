@@ -106,6 +106,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
                 }
             }
         }
+        // must reset merge template date
+        $_template->smarty->merged_templates_func = array();
         // get rendered template
         // disable caching for evaluated code
         if ($_template->source->recompiled) {

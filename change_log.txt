@@ -1,4 +1,10 @@
 ﻿===== Smarty 3.1 trunk  =====
+18.09.2011
+- bugfix template caching did not care about file.tpl in different template_dir
+- bugfix {include $file} was broken when merge_compiled_incluges = true
+- bugfix {include} was broken when merge_compiled_incluges = true and same indluded template
+  was used in different main templates in one compilation run
+
 17.09.2011
 - bugfix lock_id for file resource would create invalid filepath
 - bugfix resource caching did not care about file.tpl in different template_dir

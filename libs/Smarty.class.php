@@ -533,6 +533,12 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * @var bool
     */
     public $_parserdebug = false;
+    /**
+    * Saved parameter of merged templates during compilation
+    *
+    * @var array
+    */
+    public $merged_templates_func = array();
     /**#@-*/
 
     /**
@@ -1126,7 +1132,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
         // already in template cache?
-        $_templateId =  sha1($template . $cache_id . $compile_id);
+        $_templateId =  sha1(join(DIRECTORY_SEPARATOR, $this->getTemplateDir()).$template . $cache_id . $compile_id);
         if ($do_clone) {
             if (isset($this->template_objects[$_templateId])) {
                 // return cached template object

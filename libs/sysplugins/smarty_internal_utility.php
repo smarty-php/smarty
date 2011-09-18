@@ -192,10 +192,10 @@ class Smarty_Internal_Utility {
             if ($tpl->source->exists) {
                  $_resource_part_1 = basename(str_replace('^', '/', $tpl->compiled->filepath));
                 // remove from template cache
-                unset($smarty->template_objects[sha1($tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
+                unset($smarty->template_objects[sha1(join(DIRECTORY_SEPARATOR, $smarty->getTemplateDir()).$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
             } else {
                 // remove from template cache
-                unset($smarty->template_objects[sha1($tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
+                unset($smarty->template_objects[sha1(join(DIRECTORY_SEPARATOR, $smarty->getTemplateDir()).$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
                 return 0;
             }
             $_resource_part_2 = str_replace('.php','.cache.php',$_resource_part_1);
