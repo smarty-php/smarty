@@ -1,6 +1,7 @@
 ﻿===== Smarty 3.1 trunk  =====
 19.09.2011
 - bugfix regression in Smarty_CacheReource_KeyValueStore introduced by r4261
+- bugfix output filter shall not run on included subtemplates
 
 18.09.2011
 - bugfix template caching did not care about file.tpl in different template_dir

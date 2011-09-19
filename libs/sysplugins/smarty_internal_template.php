@@ -272,7 +272,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 $tpl->tpl_vars[$_key] = new Smarty_variable($_val);
             }
         }
-        return $tpl->fetch(null, null, null, null, false, false);
+        return $tpl->fetch(null, null, null, null, false, false, true);
     }
 
     /**
