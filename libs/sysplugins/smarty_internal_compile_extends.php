@@ -81,7 +81,6 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
             $_end = 0;
             $_level = 1;
             if (substr($_result[0][$_start][0],0,strlen($compiler->smarty->left_delimiter)+1) == $compiler->smarty->left_delimiter.'*') {
-                echo 'lll';
                 $_start++;
                 continue;
             }
