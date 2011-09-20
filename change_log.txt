@@ -1,6 +1,7 @@
 ﻿===== Smarty 3.1 trunk  =====
 20.09.2011
 - bugfix removed debug echo output while compiling template inheritance
+- bugfix relative paths in $template_dir broke relative path resolving in {include "../foo.tpl"}
 
 19.09.2011
 - bugfix regression in Smarty_CacheReource_KeyValueStore introduced by r4261

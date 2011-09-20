@@ -159,6 +159,11 @@ abstract class Smarty_Resource {
             }
             $file = dirname($_template->parent->source->filepath) . DS . $file;
             $_file_exact_match = true;
+            if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
+                // the path gained from the parent template is relative to the current working directory
+                // as expansions (like include_path) have already been done
+                $file = getcwd() . DS . $file;
+            }
         } elseif ($_file_is_dotted) {
             throw new SmartyException("Template '{$file}' may not start with ../ or ./'");
         }
