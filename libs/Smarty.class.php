@@ -1314,6 +1314,22 @@ class Smarty extends Smarty_Internal_TemplateBase {
      */
     public static function muteExpectedErrors()
     {
+        /*
+            error muting is done because some people implemented custom error_handlers using 
+            http://php.net/set_error_handler and for some reason did not understand the following paragraph:
+            
+                It is important to remember that the standard PHP error handler is completely bypassed for the 
+                error types specified by error_types unless the callback function returns FALSE. 
+                error_reporting() settings will have no effect and your error handler will be called regardless - 
+                however you are still able to read the current value of error_reporting and act appropriately. 
+                Of particular note is that this value will be 0 if the statement that caused the error was 
+                prepended by the @ error-control operator. 
+            
+            Smarty deliberately uses @filemtime() over file_exists() and filemtime() in some places. Reasons include
+                - @filemtime() is almost twice as fast as using an additional file_exists()
+                - between file_exists() and filemtime() a possible race condition is opened, 
+                  which does not exist using the simple @filemtime() approach.
+        */
         if (self::$error_muting) {
             set_error_handler(array('Smarty', 'mutingErrorHandler'));
         }
