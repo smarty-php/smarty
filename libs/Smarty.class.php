@@ -1209,7 +1209,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // loop through plugin dirs and find the plugin
         foreach($this->getPluginsDir() as $_plugin_dir) {
             $names = array(
-              //  $_plugin_dir . $_plugin_filename,
+                $_plugin_dir . $_plugin_filename,
                 $_plugin_dir . strtolower($_plugin_filename),
             );
             foreach ($names as $file) {
