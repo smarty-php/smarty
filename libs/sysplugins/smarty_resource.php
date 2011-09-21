@@ -164,12 +164,11 @@ abstract class Smarty_Resource {
                 // as expansions (like include_path) have already been done
                 $file = getcwd() . DS . $file;
             }
-        } elseif ($_file_is_dotted) {
-            throw new SmartyException("Template '{$file}' may not start with ../ or ./'");
-        }
+        } 
 
         // resolve relative path
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
+            $_was_relative_prefix = $file[0] == '.' ? substr($file, 0, strpos($file, '|')) : null;
             $_path = DS . trim($file, '/\\');
             $_was_relative = true;
         } else {
@@ -201,8 +200,13 @@ abstract class Smarty_Resource {
         }
         // revert to relative
         if (isset($_was_relative)) {
-            $_path = substr($_path, 1);
+            if (isset($_was_relative_prefix)){
+                $_path = $_was_relative_prefix . $_path;
+            } else {
+                $_path = substr($_path, 1);
+            }
         }
+
         // this is only required for directories
         $file = rtrim($_path, '/\\');
 
@@ -213,10 +217,6 @@ abstract class Smarty_Resource {
 
         // template_dir index?
         if (preg_match('#^\[(?P<key>[^\]]+)\](?P<file>.+)$#', $file, $match)) {
-            if ($match['file'][0] == '.' && ($match['file'][1] == '.' || $match['file'][1] == '/' || $match['file'][1] == "\\")) {
-                throw new SmartyException("Template '{$match['file']}' may not start with ../ or ./'");
-            }
-
             $_directory = null;
             // try string indexes
             if (isset($_directories[$match['key']])) {

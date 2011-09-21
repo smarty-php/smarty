@@ -3,6 +3,7 @@
 - bugfix look for mixed case plugin file names as in 3.0 if not found try all lowercase
 - added $error_muting to suppress error messages even for badly implemented error_handlers
 - optimized autoloader
+- reverted ./ and ../ handling in fetch() and display() - they're allowed again
 
 20.09.2011
 - bugfix removed debug echo output while compiling template inheritance
