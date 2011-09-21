@@ -1176,16 +1176,15 @@ class Smarty extends Smarty_Internal_TemplateBase {
         if ($check && (is_callable($plugin_name) || class_exists($plugin_name, false)))
             return true;
         // Plugin name is expected to be: Smarty_[Type]_[Name]
-        $_plugin_name = strtolower($plugin_name);
-        $_name_parts = explode('_', $_plugin_name, 3);
+        $_name_parts = explode('_', $plugin_name, 3);
         // class name must have three parts to be valid plugin
-        if (count($_name_parts) < 3 || $_name_parts[0] !== 'smarty') {
+        if (count($_name_parts) < 3 || strtolower($_name_parts[0]) !== 'smarty') {
             throw new SmartyException("plugin {$plugin_name} is not a valid name format");
             return false;
         }
         // if type is "internal", get plugin from sysplugins
-        if ($_name_parts[1] == 'internal') {
-            $file = SMARTY_SYSPLUGINS_DIR . $_plugin_name . '.php';
+        if (strtolower($_name_parts[1]) == 'internal') {
+            $file = SMARTY_SYSPLUGINS_DIR . strtolower($plugin_name) . '.php';
             if (file_exists($file)) {
                 require_once($file);
                 return $file;
@@ -1197,16 +1196,20 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php";
         // loop through plugin dirs and find the plugin
         foreach($this->getPluginsDir() as $_plugin_dir) {
-            $file = $_plugin_dir . $_plugin_filename;
-            if (file_exists($file)) {
-                require_once($file);
-                return $file;
-            }
-            if ($this->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
-                // try PHP include_path
-                if (($file = Smarty_Internal_Get_Include_Path::getIncludePath($file)) !== false) {
+            $names = array();
+            $names[] = $_plugin_dir . $_plugin_filename;
+            $names[] = $_plugin_dir . strtolower($_plugin_filename);
+            foreach ($names as $file) {
+                if (file_exists($file)) {
                     require_once($file);
                     return $file;
+                }
+                if ($this->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
+                    // try PHP include_path
+                    if (($file = Smarty_Internal_Get_Include_Path::getIncludePath($file)) !== false) {
+                        require_once($file);
+                        return $file;
+                    }
                 }
             }
         }
