@@ -35,6 +35,7 @@ class Smarty_Internal_Resource_PHP extends Smarty_Resource_Uncompiled {
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template=null)
     {
+        Smarty::muteExpectedErrors();
         $source->filepath = $this->buildFilepath($source, $_template);
 
         if ($source->filepath !== false) {
@@ -48,6 +49,7 @@ class Smarty_Internal_Resource_PHP extends Smarty_Resource_Uncompiled {
                 $source->exists = !!$source->timestamp;
             }
         }
+        Smarty::unmuteExpectedErrors();
     }
     
     /**
@@ -58,7 +60,9 @@ class Smarty_Internal_Resource_PHP extends Smarty_Resource_Uncompiled {
      */
     public function populateTimestamp(Smarty_Template_Source $source)
     {
+        Smarty::muteExpectedErrors();
         $source->timestamp = @filemtime($source->filepath);
+        Smarty::unmuteExpectedErrors();
         $source->exists = !!$source->timestamp;
     }
 

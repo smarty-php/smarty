@@ -157,6 +157,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * assigned global tpl vars
     */
     public static $global_tpl_vars = array();
+    /**
+     * Enable error_handler suppression to outsmart badly implemented external error_handlers
+     * @var boolean
+     */
+    public static $error_muting = true;
 
     /**#@+
     * variables
@@ -684,10 +689,13 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     function clearAllCache($exp_time = null, $type = null)
     {
+        Smarty::muteExpectedErrors();
         // load cache resource and call clearAll
         $_cache_resource = Smarty_CacheResource::load($this, $type);
         Smarty_CacheResource::invalidLoadedCache($this);
-        return $_cache_resource->clearAll($this, $exp_time);
+        $t = $_cache_resource->clearAll($this, $exp_time);
+        Smarty::unmuteExpectedErrors();
+        return $t;
     }
 
     /**
@@ -702,10 +710,13 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function clearCache($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
     {
+        Smarty::muteExpectedErrors();
         // load cache resource and call clear
         $_cache_resource = Smarty_CacheResource::load($this, $type);
         Smarty_CacheResource::invalidLoadedCache($this);
-        return $_cache_resource->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
+        $t = $_cache_resource->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
+        Smarty::unmuteExpectedErrors();
+        return $t;
     }
 
     /**
@@ -1178,7 +1189,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // Plugin name is expected to be: Smarty_[Type]_[Name]
         $_name_parts = explode('_', $plugin_name, 3);
         // class name must have three parts to be valid plugin
-        if (count($_name_parts) < 3 || strtolower($_name_parts[0]) !== 'smarty') {
+        // count($_name_parts) < 3 === !isset($_name_parts[2])
+        if (!isset($_name_parts[2]) || strtolower($_name_parts[0]) !== 'smarty') {
             throw new SmartyException("plugin {$plugin_name} is not a valid name format");
             return false;
         }
@@ -1196,9 +1208,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php";
         // loop through plugin dirs and find the plugin
         foreach($this->getPluginsDir() as $_plugin_dir) {
-            $names = array();
-            $names[] = $_plugin_dir . $_plugin_filename;
-            $names[] = $_plugin_dir . strtolower($_plugin_filename);
+            $names = array(
+              //  $_plugin_dir . $_plugin_filename,
+                $_plugin_dir . strtolower($_plugin_filename),
+            );
             foreach ($names as $file) {
                 if (file_exists($file)) {
                     require_once($file);
@@ -1280,7 +1293,43 @@ class Smarty extends Smarty_Internal_TemplateBase {
     {
         return Smarty_Internal_Utility::testInstall($this, $errors);
     }
-
+    
+    /**
+     * Error Handler to mute expected messages
+     *
+     * @link http://php.net/set_error_handler
+     * @param integer $errno Error level
+     * @return boolean
+     */
+    public static function mutingErrorHandler($errno)
+    {
+        // return false if $errno is not 0 and included in current error level
+        return (bool)($errno && $errno & error_reporting());
+    }
+    
+    /**
+     * Enable error handler to mute expected messages
+     *
+     * @return void
+     */
+    public static function muteExpectedErrors()
+    {
+        if (self::$error_muting) {
+            set_error_handler(array('Smarty', 'mutingErrorHandler'));
+        }
+    }
+    
+    /**
+     * Disable error handler muting expected messages
+     *
+     * @return void
+     */
+    public static function unmuteExpectedErrors()
+    {
+        if (self::$error_muting) {
+            restore_error_handler();
+        }
+    }
 }
 
 /**

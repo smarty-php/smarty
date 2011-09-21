@@ -1,7 +1,7 @@
 ﻿===== Smarty 3.1 trunk  =====
 21.09.2011
 - bugfix look for mixed case plugin file names as in 3.0 if not found try all lowercase
-- bugfix use 3.0 version of smarty_internal_write_file.php because of problems with custom error handlers
+- added $error_muting to suppress error messages even for badly implemented error_handlers
 
 20.09.2011
 - bugfix removed debug echo output while compiling template inheritance
