@@ -174,8 +174,7 @@ class Smarty_Internal_Data {
             if (!isset($this->tpl_vars[$tpl_var])) {
                 $this->tpl_vars[$tpl_var] = new Smarty_variable();
             }
-            // FIXME u.tews what's this @silence doing here?
-            if (!@is_array($this->tpl_vars[$tpl_var]->value)) {
+            if (!is_array($this->tpl_vars[$tpl_var]->value)) {
                 settype($this->tpl_vars[$tpl_var]->value, 'array');
             }
             if ($merge && is_array($value)) {
