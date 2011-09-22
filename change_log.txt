@@ -1,4 +1,7 @@
 ﻿===== Smarty 3.1 trunk  =====
+22.09.2011
+- bugfix {foreachelse} does fail if {section} was nested inside {foreach}
+
 21.09.2011
 - bugfix look for mixed case plugin file names as in 3.0 if not found try all lowercase
 - added $error_muting to suppress error messages even for badly implemented error_handlers
