@@ -227,7 +227,9 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
         } else {
             clearstatcache();
         }
+        Smarty::muteExpectedErrors();
         $t = @filemtime($cached->lock_id);
+        Smarty::unmuteExpectedErrors();
         return $t && (time() - $t < $smarty->locking_timeout);
     }
 

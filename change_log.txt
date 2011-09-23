@@ -5,6 +5,7 @@
 - bugfix a relative {include} in child template blocks failed
 - bugfix direct setting of $template_dir, $config_dir, $plugins_dir in __construct() of an 
   extended Smarty class created problems
+- bugfix error muting was not implemented for cache locking
 
 ===== Smarty 3.1.1  =====
 22.09.2011
