@@ -821,7 +821,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             return isset($this->template_dir[$index]) ? $this->template_dir[$index] : null;
         }
 
-        return $this->template_dir;
+        return (array)$this->template_dir;
     }
 
     /**
@@ -885,7 +885,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             return isset($this->config_dir[$index]) ? $this->config_dir[$index] : null;
         }
 
-        return $this->config_dir;
+        return (array)$this->config_dir;
     }
 
     /**
@@ -942,7 +942,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function getPluginsDir()
     {
-        return $this->plugins_dir;
+        return (array)$this->plugins_dir;
     }
 
     /**
@@ -1293,7 +1293,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     {
         return Smarty_Internal_Utility::testInstall($this, $errors);
     }
-    
+
     /**
      * Error Handler to mute expected messages
      *
@@ -1306,7 +1306,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // return false if $errno is not 0 and included in current error level
         return (bool)($errno && $errno & error_reporting());
     }
-    
+
     /**
      * Enable error handler to mute expected messages
      *
@@ -1315,26 +1315,26 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public static function muteExpectedErrors()
     {
         /*
-            error muting is done because some people implemented custom error_handlers using 
+            error muting is done because some people implemented custom error_handlers using
             http://php.net/set_error_handler and for some reason did not understand the following paragraph:
-            
-                It is important to remember that the standard PHP error handler is completely bypassed for the 
-                error types specified by error_types unless the callback function returns FALSE. 
-                error_reporting() settings will have no effect and your error handler will be called regardless - 
-                however you are still able to read the current value of error_reporting and act appropriately. 
-                Of particular note is that this value will be 0 if the statement that caused the error was 
-                prepended by the @ error-control operator. 
-            
+
+                It is important to remember that the standard PHP error handler is completely bypassed for the
+                error types specified by error_types unless the callback function returns FALSE.
+                error_reporting() settings will have no effect and your error handler will be called regardless -
+                however you are still able to read the current value of error_reporting and act appropriately.
+                Of particular note is that this value will be 0 if the statement that caused the error was
+                prepended by the @ error-control operator.
+
             Smarty deliberately uses @filemtime() over file_exists() and filemtime() in some places. Reasons include
                 - @filemtime() is almost twice as fast as using an additional file_exists()
-                - between file_exists() and filemtime() a possible race condition is opened, 
+                - between file_exists() and filemtime() a possible race condition is opened,
                   which does not exist using the simple @filemtime() approach.
         */
         if (self::$error_muting) {
             set_error_handler(array('Smarty', 'mutingErrorHandler'));
         }
     }
-    
+
     /**
      * Disable error handler muting expected messages
      *
@@ -1380,7 +1380,7 @@ function smartyAutoload($class)
         'smarty_resource_uncompiled' => true,
         'smarty_resource_recompiled' => true,
     );
-    
+
     if (!strncmp($_class, 'smarty_internal_', 16) || isset($_classes[$_class])) {
         include SMARTY_SYSPLUGINS_DIR . $_class . '.php';
     }

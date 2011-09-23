@@ -654,6 +654,16 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     }
 
     /**
+     * preg_replace callback to convert camelcase getter/setter to underscore property names
+     *
+     * @param string $match match string
+     * @return string  replacemant
+     */
+    private function replaceCamelcase($match) {
+        return "_" . strtolower($match[1]);
+    }
+
+    /**
      * Handle unknown class methods
      *
      * @param string $name unknown method-name
@@ -661,13 +671,10 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
      */
     public function __call($name, $args)
     {
-        static $camel_func;
         // methode of Smarty object?
         if (method_exists($this->smarty, $name)) {
             return call_user_func_array(array($this->smarty, $name), $args);
         }
-        if (!isset($camel_func))
-            $camel_func = create_function('$c', 'return "_" . strtolower($c[1]);');
         // see if this is a set/get for a property
         $first3 = strtolower(substr($name, 0, 3));
         if (in_array($first3, array('set', 'get')) && substr($name, 3, 1) !== '_') {
@@ -675,7 +682,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
             // lcfirst() not available < PHP 5.3.0, so improvise
             $property_name = strtolower(substr($name, 3, 1)) . substr($name, 4);
             // convert camel case to underscored name
-            $property_name = preg_replace_callback('/([A-Z])/', $camel_func, $property_name);
+            $property_name = preg_replace_callback('/([A-Z])/', array($this,'replaceCamelcase'), $property_name);
             if (property_exists($this, $property_name)) {
                 if ($first3 == 'get')
                     return $this->$property_name;
@@ -692,7 +699,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
             }
         }
         // must be unknown
-        throw new SmartyException("Call of unknown function '$name'.");
+        throw new SmartyException("Call of unknown method '$name'.");
     }
 
 }

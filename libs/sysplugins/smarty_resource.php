@@ -154,7 +154,7 @@ abstract class Smarty_Resource {
         // go relative to a given template?
         $_file_is_dotted = $file[0] == '.' && ($file[1] == '.' || $file[1] == '/' || $file[1] == "\\");
         if ($_template && $_template->parent instanceof Smarty_Internal_Template && $_file_is_dotted) {
-            if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends') {
+            if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' && !$_template->parent->allow_relative_path) {
                 throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
             }
             $file = dirname($_template->parent->source->filepath) . DS . $file;
@@ -164,7 +164,7 @@ abstract class Smarty_Resource {
                 // as expansions (like include_path) have already been done
                 $file = getcwd() . DS . $file;
             }
-        } 
+        }
 
         // resolve relative path
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
@@ -422,7 +422,7 @@ abstract class Smarty_Resource {
                 $resource_name = $template_resource;
             }
         }
-        
+
         $resource = Smarty_Resource::load($smarty, $resource_type);
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $resource_type, $resource_name);
         $resource->populate($source, $_template);

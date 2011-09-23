@@ -42,19 +42,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
      */
     public $cache_lifetime = null;
     /**
-     * Class name
-     * @var string
-     */
-    public $cacher_class = null;
-    /**
-     * caching type
-     *
-     * Must be an element of $cache_resource_types.
-     *
-     * @var string
-     */
-    public $caching_type = null;
-    /**
      * Template resource
      * @var string
      */
@@ -101,6 +88,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
      * @var array
      */
     public $used_tags = array();
+    /**
+     * internal flag to allow relative path in child template blocks
+     * @var bool
+     */
+    public $allow_relative_path = false;
 
     /**
      * Create template data object
