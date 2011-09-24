@@ -137,7 +137,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function mustCompile()
     {
         if (!$this->source->exists) {
-            throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'");
+            if ($this->parent instanceof Smarty_Internal_Template) {
+                $parent_resource = " in '$this->parent->template_resource}'";
+            } else {
+                $parent_resource = '';
+            }
+            throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
         }
         if ($this->mustCompile === null) {
             $this->mustCompile = (!$this->source->uncompiled && ($this->smarty->force_compile || $this->source->recompiled || $this->compiled->timestamp === false ||
