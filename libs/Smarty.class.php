@@ -159,9 +159,13 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public static $global_tpl_vars = array();
     
     /**
-     * error handler returned by set_error_hanlder() in Smarty::muteExpctedErrors()
+     * error handler returned by set_error_hanlder() in Smarty::muteExpectedErrors()
      */
     public static $_previous_error_handler = null;
+    /**
+     * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
+     */
+    public static $_muted_directories = array();
 
     /**#@+
     * variables
@@ -559,11 +563,12 @@ class Smarty extends Smarty_Internal_TemplateBase {
         }
         $this->start_time = microtime(true);
         // set default dirs
-        $this->template_dir = array('.' . DS . 'templates' . DS);
-        $this->compile_dir = '.' . DS . 'templates_c' . DS;
-        $this->plugins_dir = array(SMARTY_PLUGINS_DIR);
-        $this->cache_dir = '.' . DS . 'cache' . DS;
-        $this->config_dir = array('.' . DS . 'configs' . DS);
+        $this->setTemplateDir('.' . DS . 'templates' . DS)
+            ->setCompileDir('.' . DS . 'templates_c' . DS)
+            ->setPluginsDir(SMARTY_PLUGINS_DIR)
+            ->setCacheDir('.' . DS . 'cache' . DS)
+            ->setConfigDir('.' . DS . 'configs' . DS);
+            
         $this->debug_tpl = 'file:' . dirname(__FILE__) . '/debug.tpl';
         if (isset($_SERVER['SCRIPT_NAME'])) {
             $this->assignGlobal('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
@@ -948,6 +953,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public function setCompileDir($compile_dir)
     {
         $this->compile_dir = rtrim($compile_dir, '/\\') . DS;
+        if (!isset(Smarty::$_muted_directories[$this->compile_dir])) {
+            Smarty::$_muted_directories[$this->compile_dir] = null;
+        }
         return $this;
     }
 
@@ -970,6 +978,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public function setCacheDir($cache_dir)
     {
         $this->cache_dir = rtrim($cache_dir, '/\\') . DS;
+        if (!isset(Smarty::$_muted_directories[$this->cache_dir])) {
+            Smarty::$_muted_directories[$this->cache_dir] = null;
+        }
         return $this;
     }
 
@@ -1297,17 +1308,36 @@ class Smarty extends Smarty_Internal_TemplateBase {
      */
     public static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
     {
-        static $directory = null;
-        static $length = null;
+        $_is_muted_directory = false;
         
-        if ($directory === null) {
-            $directory = realpath(SMARTY_DIR);
-            $length = strlen($directory);
+        // add the SMARTY_DIR to the list of muted directories
+        if (!isset(Smarty::$_muted_directories[SMARTY_DIR])) {
+            $smarty_dir = realpath(SMARTY_DIR);
+            Smarty::$_muted_directories[SMARTY_DIR] = array(
+                'file' => $smarty_dir,
+                'length' => strlen($smarty_dir),
+            );
+        }
+        
+        // walk the muted directories and test against $errfile
+        foreach (Smarty::$_muted_directories as $key => &$dir) {
+            if (!$dir) {
+                // resolve directory and length for speedy comparisons
+                $file = realpath($key);
+                $dir = array(
+                    'file' => $file,
+                    'length' => strlen($file),
+                );
+            }
+            if (!strncmp($errfile, $dir['file'], $dir['length'])) {
+                $_is_muted_directory = true;
+                break;
+            }
         }
 
         // pass to next error handler if this error did not occur inside SMARTY_DIR
         // or the error was within smarty but masked to be ignored
-        if (strncmp($errfile, $directory, $length) || ($errno && $errno & error_reporting())) {
+        if (!$_is_muted_directory || ($errno && $errno & error_reporting())) {
             if (Smarty::$_previous_error_handler) {
                 return call_user_func(Smarty::$_previous_error_handler, $errno, $errstr, $errfile, $errline, $errcontext);
             } else {

@@ -2,6 +2,7 @@
 24.09.2011
 - removed internal muteExpectedErrors() calls in favor of having the implementor call this once from his application
 - optimized muteExpectedErrors() to pass errors to the latest registered error handler, if appliccable
+- added compile_dir and cache_dir to list of muted directories
 
 23.09.2011
 - remove unused properties
