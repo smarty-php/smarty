@@ -25,7 +25,6 @@ class Smarty_Internal_Write_File {
      */
     public static function writeFile($_filepath, $_contents, Smarty $smarty)
     {
-        Smarty::muteExpectedErrors();
         $_error_reporting = error_reporting();
         error_reporting($_error_reporting & ~E_NOTICE & ~E_WARNING);
         if ($smarty->_file_perms !== null) {
@@ -42,7 +41,6 @@ class Smarty_Internal_Write_File {
         $_tmp_file = $_dirpath . DS . uniqid('wrt');
         if (!file_put_contents($_tmp_file, $_contents)) {
             error_reporting($_error_reporting);
-            Smarty::unmuteExpectedErrors();
             throw new SmartyException("unable to write file {$_tmp_file}");
             return false;
         }
@@ -54,7 +52,6 @@ class Smarty_Internal_Write_File {
         $success = rename($_tmp_file, $_filepath);
         if (!$success) {
             error_reporting($_error_reporting);
-            Smarty::unmuteExpectedErrors();
             throw new SmartyException("unable to write file {$_filepath}");
             return false;
         }
@@ -65,7 +62,6 @@ class Smarty_Internal_Write_File {
             umask($old_umask);
         }
         error_reporting($_error_reporting);
-        Smarty::unmuteExpectedErrors();
         return true;
     }
 

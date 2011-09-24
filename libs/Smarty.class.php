@@ -157,11 +157,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * assigned global tpl vars
     */
     public static $global_tpl_vars = array();
+    
     /**
-     * Enable error_handler suppression to outsmart badly implemented external error_handlers
-     * @var boolean
+     * error handler returned by set_error_hanlder() in Smarty::muteExpctedErrors()
      */
-    public static $error_muting = true;
+    public static $_previous_error_handler = null;
 
     /**#@+
     * variables
@@ -689,13 +689,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     function clearAllCache($exp_time = null, $type = null)
     {
-        Smarty::muteExpectedErrors();
         // load cache resource and call clearAll
         $_cache_resource = Smarty_CacheResource::load($this, $type);
         Smarty_CacheResource::invalidLoadedCache($this);
-        $t = $_cache_resource->clearAll($this, $exp_time);
-        Smarty::unmuteExpectedErrors();
-        return $t;
+        return $_cache_resource->clearAll($this, $exp_time);
     }
 
     /**
@@ -710,13 +707,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function clearCache($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
     {
-        Smarty::muteExpectedErrors();
         // load cache resource and call clear
         $_cache_resource = Smarty_CacheResource::load($this, $type);
         Smarty_CacheResource::invalidLoadedCache($this);
-        $t = $_cache_resource->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
-        Smarty::unmuteExpectedErrors();
-        return $t;
+        return $_cache_resource->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
     }
 
     /**
@@ -1301,10 +1295,25 @@ class Smarty extends Smarty_Internal_TemplateBase {
      * @param integer $errno Error level
      * @return boolean
      */
-    public static function mutingErrorHandler($errno)
+    public static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
     {
-        // return false if $errno is not 0 and included in current error level
-        return (bool)($errno && $errno & error_reporting());
+        static $directory = null;
+        static $lenght = null;
+        
+        if ($base === null) {
+            $base = realpath(SMARTY_DIR);
+            $length = strlen($base);
+        }
+        
+        // pass to next error handler if this error did not occur inside SMARTY_DIR
+        // or the error was within smarty but masked to be ignored
+        if (strncmp($errfile, $base, $length) || ($errno && $errno & error_reporting())) {
+            if (Smarty::$_previous_error_handler) {
+                return call_user_func(Smarty::$_previous_error_handler, $errno, $errstr, $errfile, $errline, $errcontext);
+            } else {
+                return false;
+            }
+        }
     }
 
     /**
@@ -1330,8 +1339,12 @@ class Smarty extends Smarty_Internal_TemplateBase {
                 - between file_exists() and filemtime() a possible race condition is opened,
                   which does not exist using the simple @filemtime() approach.
         */
-        if (self::$error_muting) {
-            set_error_handler(array('Smarty', 'mutingErrorHandler'));
+        $error_handler = array('Smarty', 'mutingErrorHandler');
+        $previous = set_error_handler($error_handler);
+
+        // avoid dead loops
+        if ($previous !== $error_handler) {
+            Smarty::$_previous_error_handler = $previous;
         }
     }
 
@@ -1342,9 +1355,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
      */
     public static function unmuteExpectedErrors()
     {
-        if (self::$error_muting) {
-            restore_error_handler();
-        }
+        restore_error_handler();
     }
 }
 
