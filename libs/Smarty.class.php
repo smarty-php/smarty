@@ -1298,16 +1298,16 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
     {
         static $directory = null;
-        static $lenght = null;
+        static $length = null;
         
-        if ($base === null) {
-            $base = realpath(SMARTY_DIR);
-            $length = strlen($base);
+        if ($directory === null) {
+            $directory = realpath(SMARTY_DIR);
+            $length = strlen($directory);
         }
-        
+
         // pass to next error handler if this error did not occur inside SMARTY_DIR
         // or the error was within smarty but masked to be ignored
-        if (strncmp($errfile, $base, $length) || ($errno && $errno & error_reporting())) {
+        if (strncmp($errfile, $directory, $length) || ($errno && $errno & error_reporting())) {
             if (Smarty::$_previous_error_handler) {
                 return call_user_func(Smarty::$_previous_error_handler, $errno, $errstr, $errfile, $errline, $errcontext);
             } else {
