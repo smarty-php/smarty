@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+26.09.2011
+- bugfix repeated calls to same subtemplate did not make use of cached template object
+
 24.09.2011
 - removed internal muteExpectedErrors() calls in favor of having the implementor call this once from his application
 - optimized muteExpectedErrors() to pass errors to the latest registered error handler, if appliccable
