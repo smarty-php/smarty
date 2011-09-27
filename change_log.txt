@@ -4,6 +4,7 @@
 - added chaining to Smarty_Internal_Data so $smarty->assign('a',1)->assign('b',2); is possible now
 - bugfix remove race condition when a custom resource did change timestamp during compilation
 - bugfix variable property did not work on objects variable in template
+- bugfix smarty_make_timestamp() failed to process DateTime objects properly
 
 26.09.2011
 - bugfix repeated calls to same subtemplate did not make use of cached template object
