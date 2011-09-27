@@ -2,6 +2,7 @@
 27.09.2011
 - bugfix possible warning "attempt to modify property of non-object" in {section} (issue #34)
 - added chaining to Smarty_Internal_Data so $smarty->assign('a',1)->assign('b',2); is possible now
+- bugfix remove race condition when a custom resource did change timestamp during compilation
 
 26.09.2011
 - bugfix repeated calls to same subtemplate did not make use of cached template object
