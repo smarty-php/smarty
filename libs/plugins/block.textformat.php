@@ -78,7 +78,7 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
     $_paragraphs = preg_split('![\r\n]{2}!', $content);
     $_output = '';
 
-    for($_x = 0, $_y = count($_paragraphs); $_x < $_y; $_x++) {
+    for ($_x = 0, $_y = count($_paragraphs); $_x < $_y; $_x++) {
         if ($_paragraphs[$_x] == '') {
             continue;
         }
@@ -101,8 +101,12 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
         }
     }
     $_output = implode($wrap_char . $wrap_char, $_paragraphs);
-
-    return $assign ? $template->assign($assign, $_output) : $_output;
+    
+    if ($assign) {
+        $template->assign($assign, $_output);
+    } else {
+        return $_output;
+    }
 }
 
 ?>
