@@ -427,7 +427,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 } elseif ($_file_to_check[2] == 'string') {
                     continue;
                 } else {
-                    $source = Smarty_Resource::source($this, $this->smarty, $_file_to_check[0]);
+                    $source = Smarty_Resource::source(null, $this->smarty, $_file_to_check[0]);
                     $mtime = $source->timestamp;
                 }
                 if ($mtime > $_file_to_check[1]) {
