@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+28.09.2011
+- bugfix on template functions called nocache calling other template functions
+
 27.09.2011
 - bugfix possible warning "attempt to modify property of non-object" in {section} (issue #34)
 - added chaining to Smarty_Internal_Data so $smarty->assign('a',1)->assign('b',2); is possible now

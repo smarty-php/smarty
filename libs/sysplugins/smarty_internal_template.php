@@ -360,7 +360,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 // copy code of {function} tags called in nocache mode
                 foreach ($this->smarty->template_functions as $name => $function_data) {
                     if (isset($function_data['called_nocache'])) {
-                        unset($function_data['called_nocache'], $this->smarty->template_functions[$name]['called_nocache']);
+                        foreach ($function_data['called_functions'] as $func_name) {
+                            $this->smarty->template_functions[$func_name]['called_nocache'] = true;
+                        }
+                    }
+                }
+                 foreach ($this->smarty->template_functions as $name => $function_data) {
+                    if (isset($function_data['called_nocache'])) {
+                        unset($function_data['called_nocache'], $function_data['called_functions'], $this->smarty->template_functions[$name]['called_nocache']);
                         $this->properties['function'][$name] = $function_data;
                     }
                 }

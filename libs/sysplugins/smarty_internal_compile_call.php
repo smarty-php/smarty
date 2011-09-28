@@ -57,6 +57,9 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase {
             $_assign = $_attr['assign'];
         }
         $_name = $_attr['name'];
+        if ($compiler->compiles_template_function) {
+            $compiler->called_functions[] = trim($_name, "'\"");
+        }
         unset($_attr['name'], $_attr['assign'], $_attr['nocache']);
         // set flag (compiled code of {function} must be included in cache file
         if ($compiler->nocache || $compiler->tag_nocache) {

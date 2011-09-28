@@ -98,6 +98,16 @@ abstract class Smarty_Internal_TemplateCompilerBase {
      */
     public $write_compiled_code = true;
     /**
+     * flag if currently a template function is compiled
+     * @var bool
+     */
+    public $compiles_template_function = false;
+    /**
+     * called subfuntions from template function
+     * @var array
+     */
+    public $called_functions = array();
+    /**
      * flags for used modifier plugins
      * @var array
      */
