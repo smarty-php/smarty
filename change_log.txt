@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+29.09.2011
+- improvement of Smarty_Internal_Config::loadConfigVars() dropped the in_array for index look up
+
 28.09.2011
 - bugfix on template functions called nocache calling other template functions
 
