@@ -42,6 +42,7 @@ class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase {
      */
     public function compile($args, $compiler, $parameter)
     {
+        static $_is_loopy = array('for' => true, 'foreach' => true, 'while' => true, 'section' => true);
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
@@ -60,7 +61,7 @@ class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase {
         $level_count = $_levels;
         $stack_count = count($compiler->_tag_stack) - 1;
         while ($level_count > 0 && $stack_count >= 0) {
-            if (in_array($compiler->_tag_stack[$stack_count][0], array('for', 'foreach', 'while', 'section'))) {
+            if (isset($_is_loopy[$compiler->_tag_stack[$stack_count][0]])) {
                 $level_count--;
             }
             $stack_count--;

@@ -50,6 +50,7 @@
  */
 function smarty_function_mailto($params, $template)
 {
+    static $_allowed_encoding = array('javascript' => true, 'javascript_charcode' => true, 'hex' => true, 'none' => true);
     $extra = '';
 
     if (empty($params['address'])) {
@@ -95,7 +96,7 @@ function smarty_function_mailto($params, $template)
     $address .= $mail_parm_vals;
 
     $encode = (empty($params['encode'])) ? 'none' : $params['encode'];
-    if (!in_array($encode, array('javascript', 'javascript_charcode', 'hex', 'none'))) {
+    if (!isset($_allowed_encoding[$encode])) {
         trigger_error("mailto: 'encode' parameter must be none, javascript, javascript_charcode or hex", E_USER_WARNING);
         return;
     }

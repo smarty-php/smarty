@@ -42,6 +42,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
     */
     public function compile($args, $compiler)
     {
+        static $_is_stringy = array('string' => true, 'eval' => true);
         $this->_rdl = preg_quote($compiler->smarty->right_delimiter);
         $this->_ldl = preg_quote($compiler->smarty->left_delimiter);
         $filepath = $compiler->template->source->filepath;
@@ -60,7 +61,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         // create template object
         $_template = new $compiler->smarty->template_class($include_file, $compiler->smarty, $compiler->template);
         // save file dependency
-        if (in_array($_template->source->type, array('eval', 'string'))) {
+        if (isset($_is_stringy[$_template->source->type])) {
             $template_sha1 = sha1($include_file);
         } else {
             $template_sha1 = sha1($_template->source->filepath);

@@ -440,6 +440,7 @@ abstract class Smarty_Resource {
      */
     public static function config(Smarty_Internal_Config $_config)
     {
+        static $_incompatible_resources = array('eval' => true, 'string' => true, 'extends' => true, 'php' => true);
         $config_resource = $_config->config_resource;
         $smarty = $_config->smarty;
 
@@ -457,8 +458,8 @@ abstract class Smarty_Resource {
                 $resource_name = $config_resource;
             }
         }
-
-        if (in_array($resource_type, array('eval', 'string', 'extends', 'php'))) {
+        
+        if (isset($_incompatible_resources[$resource_type])) {
             throw new SmartyException ("Unable to use resource '{$resource_type}' for config");
         }
 

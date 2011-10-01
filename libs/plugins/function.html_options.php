@@ -66,7 +66,7 @@ function smarty_function_html_options($params, $template)
 
             case 'selected':
                 if (is_array($_val)) {
-                    $selected = array_map('strval', array_values((array)$_val));
+                    $selected = array_flip(array_map('strval', array_values((array)$_val)));
                 } else {
                     $selected = $_val;
                 }
@@ -114,7 +114,7 @@ function smarty_function_html_options_optoutput($key, $value, $selected, $id, $c
     if (!is_array($value)) {
         $_html_result = '<option value="' . smarty_function_escape_special_chars($key) . '"';
         if (is_array($selected)) {
-            if (in_array((string)$key, $selected)) {
+            if (isset($selected[(string) $key])) {
                 $_html_result .= ' selected="selected"';
             }
         } elseif ($key == $selected) {

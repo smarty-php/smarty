@@ -180,6 +180,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
      */
     private static function get_key($template)
     {
+        static $_is_stringy = array('string' => true, 'eval' => true);
         // calculate Uid if not already done
         if ($template->source->uid == '') {
             $template->source->filepath;
@@ -188,7 +189,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
         if (isset(self::$template_data[$key])) {
             return $key;
         } else {
-            if (in_array($template->source->type, array('string','eval'))) {
+            if (isset($_is_stringy[$template->source->type])) {
                 self::$template_data[$key]['name'] = '\''.substr($template->source->name,0,25).'...\'';
             } else {
                 self::$template_data[$key]['name'] = $template->source->filepath;

@@ -23,6 +23,11 @@
  */
 function smarty_function_math($params, $template)
 {
+    static $_allowed_funcs = array(
+        'int' => true, 'abs' => true, 'ceil' => true, 'cos' => true, 'exp' => true, 'floor' => true, 
+        'log' => true, 'log10' => true, 'max' => true, 'min' => true, 'pi' => true, 'pow' => true, 
+        'rand' => true, 'round' => true, 'sin' => true, 'sqrt' => true, 'srand' => true ,'tan' => true
+    );
     // be sure equation parameter is present
     if (empty($params['equation'])) {
         trigger_error("math: missing equation parameter",E_USER_WARNING);
@@ -39,11 +44,9 @@ function smarty_function_math($params, $template)
 
     // match all vars in equation, make sure all are passed
     preg_match_all("!(?:0x[a-fA-F0-9]+)|([a-zA-Z][a-zA-Z0-9_]*)!",$equation, $match);
-    $allowed_funcs = array('int','abs','ceil','cos','exp','floor','log','log10',
-                           'max','min','pi','pow','rand','round','sin','sqrt','srand','tan');
 
     foreach($match[1] as $curr_var) {
-        if ($curr_var && !in_array($curr_var, array_keys($params)) && !in_array($curr_var, $allowed_funcs)) {
+        if ($curr_var && !isset($params[$curr_var]) && !isset($_allowed_funcs[$current_var])) {
             trigger_error("math: function call $curr_var not allowed",E_USER_WARNING);
             return;
         }
@@ -52,7 +55,7 @@ function smarty_function_math($params, $template)
     foreach($params as $key => $val) {
         if ($key != "equation" && $key != "format" && $key != "assign") {
             // make sure value is not empty
-            if (strlen($val)==0) {
+            if (isset($val[0])) {
                 trigger_error("math: parameter $key is empty",E_USER_WARNING);
                 return;
             }
