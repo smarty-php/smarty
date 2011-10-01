@@ -46,7 +46,7 @@ function smarty_function_math($params, $template)
     preg_match_all("!(?:0x[a-fA-F0-9]+)|([a-zA-Z][a-zA-Z0-9_]*)!",$equation, $match);
 
     foreach($match[1] as $curr_var) {
-        if ($curr_var && !isset($params[$curr_var]) && !isset($_allowed_funcs[$current_var])) {
+        if ($curr_var && !isset($params[$curr_var]) && !isset($_allowed_funcs[$curr_var])) {
             trigger_error("math: function call $curr_var not allowed",E_USER_WARNING);
             return;
         }
