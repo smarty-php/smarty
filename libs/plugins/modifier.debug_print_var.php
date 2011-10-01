@@ -75,7 +75,7 @@ function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
                     $results = mb_substr($var, 0, $length - 3, SMARTY_RESOURCE_CHAR_SET) . '...';
                 }
             } else {
-                if (strlen($var) > $length) {
+                if (isset($var[$length])) {
                     $results = substr($var, 0, $length - 3) . '...';
                 }
             }

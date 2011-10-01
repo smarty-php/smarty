@@ -226,10 +226,10 @@ class Smarty_Internal_Utility {
                         (strlen((string) $_file) > strlen($_resource_part_2) && substr_compare((string) $_file, $_resource_part_2, - strlen($_resource_part_2), strlen($_resource_part_2)) == 0))) {
                     if (isset($exp_time)) {
                         if (time() - @filemtime($_file) >= $exp_time) {
-                            $_count += @ unlink((string) $_file) ? 1 : 0;
+                            $_count += @unlink((string) $_file) ? 1 : 0;
                         }
                     } else {
-                        $_count += @ unlink((string) $_file) ? 1 : 0;
+                        $_count += @unlink((string) $_file) ? 1 : 0;
                     }
                 }
             }

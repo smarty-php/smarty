@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 01.10.2011
 - improvement replaced most in_array() calls by more efficient isset() on array_flip()ed haystacks
+- improvement replaced some strlen($foo) > 3 calls by isset($foo[3])
 
 29.09.2011
 - improvement of Smarty_Internal_Config::loadConfigVars() dropped the in_array for index look up
