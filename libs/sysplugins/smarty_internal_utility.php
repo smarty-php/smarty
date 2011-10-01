@@ -191,6 +191,7 @@ class Smarty_Internal_Utility {
             $smarty->caching = $_save_stat;
             if ($tpl->source->exists) {
                  $_resource_part_1 = basename(str_replace('^', '/', $tpl->compiled->filepath));
+                 $_resource_part_1_length = strlen($_resource_part_1);
                 // remove from template cache
                 unset($smarty->template_objects[sha1(join(DIRECTORY_SEPARATOR, $smarty->getTemplateDir()).$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
             } else {
@@ -199,6 +200,7 @@ class Smarty_Internal_Utility {
                 return 0;
             }
             $_resource_part_2 = str_replace('.php','.cache.php',$_resource_part_1);
+            $_resource_part_2_length = strlen($_resource_part_2);
         } else {
             $_resource_part = '';
         }
@@ -208,6 +210,7 @@ class Smarty_Internal_Utility {
         }
         if (isset($_compile_id)) {
             $_compile_id_part = $_compile_dir . $_compile_id . $_dir_sep;
+            $_compile_id_part_length = strlen($_compile_id_part);
         }
         $_count = 0;
         $_compileDirs = new RecursiveDirectoryIterator($_dir);
@@ -215,22 +218,33 @@ class Smarty_Internal_Utility {
         foreach ($_compile as $_file) {
             if (substr($_file->getBasename(), 0, 1) == '.' || strpos($_file, '.svn') !== false)
                 continue;
+            
+            $_filepath = (string) $_file;
+            
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
                     // delete folder if empty
                     @rmdir($_file->getPathname());
                 }
             } else {
-                if ((!isset($_compile_id) || (strlen((string) $_file) > strlen($_compile_id_part) && substr_compare((string) $_file, $_compile_id_part, 0, strlen($_compile_id_part)) == 0)) &&
-                        (!isset($resource_name) || (strlen((string) $_file) > strlen($_resource_part_1) && substr_compare((string) $_file, $_resource_part_1, - strlen($_resource_part_1), strlen($_resource_part_1)) == 0) ||
-                        (strlen((string) $_file) > strlen($_resource_part_2) && substr_compare((string) $_file, $_resource_part_2, - strlen($_resource_part_2), strlen($_resource_part_2)) == 0))) {
+                $unlink = false;
+                if ((!isset($_compile_id) || (isset($_filepath[$_compile_id_part_length]) && !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length)))
+                    && (!isset($resource_name) 
+                        || (isset($_filepath[$_resource_part_1_length]) 
+                            && substr_compare($_filepath, $_resource_part_1, -$_resource_part_1_length, $_resource_part_1_length) == 0) 
+                        || (isset($_filepath[$_resource_part_2_length]) 
+                            && substr_compare($_filepath, $_resource_part_2, -$_resource_part_2_length, $_resource_part_2_length) == 0))) {
                     if (isset($exp_time)) {
-                        if (time() - @filemtime($_file) >= $exp_time) {
-                            $_count += @unlink((string) $_file) ? 1 : 0;
+                        if (time() - @filemtime($_filepath) >= $exp_time) {
+                            $unlink = true;
                         }
                     } else {
-                        $_count += @unlink((string) $_file) ? 1 : 0;
+                        $unlink = true;
                     }
+                }
+                
+                if ($unlink && @unlink($_filepath)) {
+                    $_count++;
                 }
             }
         }
