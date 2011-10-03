@@ -399,7 +399,7 @@ abstract class Smarty_Resource {
         }
 
         // check runtime cache
-        $_cache_key_dir = join(DIRECTORY_SEPARATOR, $smarty->getTemplateDir());
+        $_cache_key_dir = $smarty->joined_template_dir;
         $_cache_key = 'template|' . $template_resource;
         if (!isset(self::$sources[$_cache_key_dir])) {
             self::$sources[$_cache_key_dir] = array();
@@ -599,7 +599,7 @@ class Smarty_Template_Source {
     public function getCompiled(Smarty_Internal_Template $_template)
     {
         // check runtime cache
-        $_cache_key_dir = join(DIRECTORY_SEPARATOR, $_template->smarty->getTemplateDir());
+        $_cache_key_dir = $_template->smarty->joined_template_dir;
         $_cache_key = $_template->template_resource . '#' . $_template->compile_id;
         if (!isset(Smarty_Resource::$compileds[$_cache_key_dir])) {
             Smarty_Resource::$compileds[$_cache_key_dir] = array();

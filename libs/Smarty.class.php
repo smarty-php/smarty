@@ -188,9 +188,14 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $use_include_path = false;
     /**
     * template directory
+    * @var array
+    */
+    protected $template_dir = array();
+    /**
+    * joined template directory string used in cache keys
     * @var string
     */
-    protected $template_dir = null;
+    public $joined_template_dir = null;
     /**
     * default template handler
     * @var callable
@@ -213,9 +218,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     protected $compile_dir = null;
     /**
     * plugins directory
-    * @var string
+    * @var array
     */
-    protected $plugins_dir = null;
+    protected $plugins_dir = array();
     /**
     * cache directory
     * @var string
@@ -223,9 +228,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     protected $cache_dir = null;
     /**
     * config directory
-    * @var string
+    * @var array
     */
-    protected $config_dir = null;
+    protected $config_dir = array();
     /**
     * force template compiling?
     * @var boolean
@@ -771,6 +776,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             $this->template_dir[$k] = rtrim($v, '/\\') . DS;
         }
 
+        $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
         return $this;
     }
 
@@ -804,7 +810,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             // append new directory
             $this->template_dir[] = rtrim($template_dir, '/\\') . DS;
         }
-
+        $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
         return $this;
     }
 
@@ -1148,7 +1154,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
         // already in template cache?
-        $_templateId =  sha1(join(DIRECTORY_SEPARATOR, $this->getTemplateDir()).$template . $cache_id . $compile_id);
+        $_templateId =  sha1($this->smarty->joined_template_dir.$template . $cache_id . $compile_id);
         if ($do_clone) {
             if (isset($this->template_objects[$_templateId])) {
                 // return cached template object

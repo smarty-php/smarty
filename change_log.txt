@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+03.10.2011
+- improvement add internal $joined_template_dir property instead computing it on the fly several times
+
 01.10.2011
 - improvement replaced most in_array() calls by more efficient isset() on array_flip()ed haystacks
 - improvement replaced some strlen($foo) > 3 calls by isset($foo[3])

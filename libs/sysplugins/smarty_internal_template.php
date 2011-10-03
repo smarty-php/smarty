@@ -240,7 +240,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function getSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope)
     {
         // already in template cache?
-        $_templateId = sha1(join(DIRECTORY_SEPARATOR, $this->smarty->getTemplateDir()).$template . $cache_id . $compile_id);
+        $_templateId = sha1($this->smarty->joined_template_dir.$template . $cache_id . $compile_id);
         if (isset($this->smarty->template_objects[$_templateId])) {
             // clone cached template object because of possible recursive call
             $tpl = clone $this->smarty->template_objects[$_templateId];
@@ -593,7 +593,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 // cache template object under a unique ID
                 // do not cache eval resources
                 if ($this->source->type != 'eval') {
-                    $this->smarty->template_objects[sha1(join(DIRECTORY_SEPARATOR, $this->smarty->getTemplateDir()).$this->template_resource . $this->cache_id . $this->compile_id)] = $this;
+                    $this->smarty->template_objects[sha1($this->smarty->joined_template_dir.$this->template_resource . $this->cache_id . $this->compile_id)] = $this;
                 }
                 return $this->source;
 
