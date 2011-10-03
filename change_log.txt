@@ -1,4 +1,5 @@
 ﻿===== trunk  =====
+===== Smarty-3.1.2  =====
 03.10.2011
 - improvement add internal $joined_template_dir property instead computing it on the fly several times
 
