@@ -4,6 +4,7 @@
 - bugfix of problem introduced with r4342 on math plugin 
 - bugfix output filter should not run on individually cached subtemplates
 - add unloadFilter() method
+- bugfix has_nocache_code flag was not reset before compilation
 
 ===== Smarty-3.1.2  =====
 03.10.2011
