@@ -56,25 +56,15 @@ class Smarty_Internal_Data {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $_key => $_val) {
                 if ($_key != '') {
-                    if (isset($this->tpl_vars[$_key])) {
-                        $this->tpl_vars[$_key]->value = $_val;
-                        $this->tpl_vars[$_key]->nocache = $nocache;
-                    } else {
-                        $this->tpl_vars[$_key] = new Smarty_variable($_val, $nocache);
-                    }
+                    $this->tpl_vars[$_key] = new Smarty_variable($_val, $nocache);
                 }
             }
         } else {
             if ($tpl_var != '') {
-                if (isset($this->tpl_vars[$tpl_var])) {
-                    $this->tpl_vars[$tpl_var]->value = $value;
-                    $this->tpl_vars[$tpl_var]->nocache = $nocache;
-                } else {
-                    $this->tpl_vars[$tpl_var] = new Smarty_variable($value, $nocache);
-                }
+                $this->tpl_vars[$tpl_var] = new Smarty_variable($value, $nocache);
             }
         }
-        
+
         return $this;
     }
 
@@ -91,7 +81,7 @@ class Smarty_Internal_Data {
         if ($varname != '') {
             Smarty::$global_tpl_vars[$varname] = new Smarty_variable($value, $nocache);
         }
-        
+
         return $this;
     }
     /**
@@ -108,7 +98,7 @@ class Smarty_Internal_Data {
             $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache);
             $this->tpl_vars[$tpl_var]->value = &$value;
         }
-        
+
         return $this;
     }
 
@@ -169,7 +159,7 @@ class Smarty_Internal_Data {
                 }
             }
         }
-        
+
         return $this;
     }
 
@@ -198,7 +188,7 @@ class Smarty_Internal_Data {
                 $this->tpl_vars[$tpl_var]->value[] = &$value;
             }
         }
-        
+
         return $this;
     }
 
@@ -262,7 +252,7 @@ class Smarty_Internal_Data {
         } else {
             unset($this->tpl_vars[$tpl_var]);
         }
-        
+
         return $this;
     }
 
