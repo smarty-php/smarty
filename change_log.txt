@@ -2,6 +2,8 @@
 04.10.2011
 - bugfix assign() in plugins called in subtemplates did change value also in parent template
 - bugfix of problem introduced with r4342 on math plugin 
+- bugfix output filter should not run on individually cached subtemplates
+- add unloadFilter() method
 
 ===== Smarty-3.1.2  =====
 03.10.2011
