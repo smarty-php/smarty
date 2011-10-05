@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 05.10.2011
 - bugfix of problem introduced with r4342 by replacing strlen() with isset()
+- add environment configuration issue with mbstring.func_overload Smarty cannot compensate for (Issue #45)
 
 04.10.2011
 - bugfix assign() in plugins called in subtemplates did change value also in parent template

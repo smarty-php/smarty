@@ -57,6 +57,9 @@ if (!defined('SMARTY_PLUGINS_DIR')) {
     define('SMARTY_PLUGINS_DIR', SMARTY_DIR . 'plugins' . DS);
 }
 if (!defined('SMARTY_MBSTRING')) {
+    if (ini_get('mbstring.func_overload') & 2) {
+        throw new SmartyException("mbstring.func_overload is active which breaks Smarty's compiler.");
+    }
     define('SMARTY_MBSTRING', function_exists('mb_strlen'));
 }
 if (!defined('SMARTY_RESOURCE_CHAR_SET')) {
