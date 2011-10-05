@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+05.10.2011
+- bugfix of problem introduced with r4342 by replacing strlen() with isset()
+
 04.10.2011
 - bugfix assign() in plugins called in subtemplates did change value also in parent template
 - bugfix of problem introduced with r4342 on math plugin 

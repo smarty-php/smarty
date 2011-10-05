@@ -36,7 +36,7 @@ class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_C
      */
     public function compile($args, $compiler, $parameter, $tag)
     {
-        if (!isset($tag[6]) || substr($tag,-5) != 'close') {
+        if (!isset($tag[5]) || substr($tag,-5) != 'close') {
             // opening tag of block plugin
             // check and get attributes
             $_attr = $this->getAttributes($compiler, $args);
