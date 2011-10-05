@@ -66,9 +66,28 @@ function smarty_function_html_options($params, $template)
 
             case 'selected':
                 if (is_array($_val)) {
-                    $selected = array_flip(array_map('strval', array_values((array)$_val)));
+                    $selected = array();
+                    foreach ($_val as $_sel) {
+                        if (is_object($_sel)) {
+                            if (method_exists($_sel, "__toString")) {
+                                $selected = smarty_function_escape_special_chars((string) $_sel->__toString());
+                            } else {
+                                trigger_error("html_options: selected attribute contains an object of class '". get_class($_sel) ."' without __toString() method", E_USER_NOTICE);
+                                continue;
+                            }
+                        } else {
+                            $_sel = smarty_function_escape_special_chars((string) $_sel);
+                        }
+                        $selected[$_sel] = true;
+                    }
+                } elseif (is_object($_val)) {
+                    if (method_exists($_val, "__toString")) {
+                        $selected = smarty_function_escape_special_chars((string) $_val->__toString());
+                    } else {
+                        trigger_error("html_options: selected attribute is an object of class '". get_class($_val) ."' without __toString() method", E_USER_NOTICE);
+                    }
                 } else {
-                    $selected = $_val;
+                    $selected = smarty_function_escape_special_chars((string) $_val);
                 }
                 break;
 
@@ -82,9 +101,10 @@ function smarty_function_html_options($params, $template)
         } 
     }
 
-    if (!isset($options) && !isset($values))
+    if (!isset($options) && !isset($values)) {
+        /* raise error here? */
         return '';
-    /* raise error here? */
+    }
 
     $_html_result = '';
     $_idx = 0;
@@ -112,12 +132,13 @@ function smarty_function_html_options($params, $template)
 function smarty_function_html_options_optoutput($key, $value, $selected, $id, $class, &$idx)
 {
     if (!is_array($value)) {
-        $_html_result = '<option value="' . smarty_function_escape_special_chars($key) . '"';
+        $_key = smarty_function_escape_special_chars($key);
+        $_html_result = '<option value="' . $_key . '"';
         if (is_array($selected)) {
-            if (isset($selected[(string) $key])) {
+            if (isset($selected[$_key])) {
                 $_html_result .= ' selected="selected"';
             }
-        } elseif ($key == $selected) {
+        } elseif ($_key === $selected) {
             $_html_result .= ' selected="selected"';
         }
         $_html_class = !empty($class) ? ' class="'.$class.' option"' : '';
