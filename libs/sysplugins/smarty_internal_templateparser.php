@@ -1,4 +1,14 @@
 <?php
+/**
+* Smarty Internal Plugin Templateparser
+*
+* This is the template parser.
+* It is generated from the internal.templateparser.y file
+* @package Smarty
+* @subpackage Compiler
+* @author Uwe Tews
+*/
+
 class TP_yyToken implements ArrayAccess
 {
     public $string = '';

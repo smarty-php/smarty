@@ -32,7 +32,8 @@ class Smarty_Internal_Configfilelexer
         $this->counter = 0;
         $this->line = 1;
         $this->smarty = $smarty;
-     }
+        $this->mbstring_overload = ini_get('mbstring.func_overload') & 2;
+    }
     public static function &instance($new_instance = null)
     {
         static $instance = null;
@@ -87,7 +88,7 @@ class Smarty_Internal_Configfilelexer
         $yy_global_pattern = "/\G(#|;)|\G(\\[)|\G(\\])|\G(=)|\G([ \t\r]+)|\G(\n)|\G([0-9]*[a-zA-Z_]\\w*)/iS";
 
         do {
-            if (preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
+            if ($this->mbstring_overload ? preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches) : preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
@@ -194,7 +195,7 @@ class Smarty_Internal_Configfilelexer
         $yy_global_pattern = "/\G([ \t\r]+)|\G(\\d+\\.\\d+(?=[ \t\r]*[\n#;]))|\G(\\d+(?=[ \t\r]*[\n#;]))|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*'(?=[ \t\r]*[\n#;]))|\G(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"(?=[ \t\r]*[\n#;]))|\G(\"\"\"([^\"]|\\\\\"|\"{1,2}[^\"])*\"\"\"(?=[ \t\r]*[\n#;]))|\G([a-zA-Z]+(?=[ \t\r]*[\n#;]))|\G([^\n]+?(?=[ \t\r]*\n))|\G(\n)/iS";
 
         do {
-            if (preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
+            if ($this->mbstring_overload ? preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches) : preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
@@ -315,7 +316,7 @@ class Smarty_Internal_Configfilelexer
         $yy_global_pattern = "/\G([^\n]+?(?=[ \t\r]*\n))/iS";
 
         do {
-            if (preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
+            if ($this->mbstring_overload ? preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches) : preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
@@ -384,7 +385,7 @@ class Smarty_Internal_Configfilelexer
         $yy_global_pattern = "/\G([ \t\r]+)|\G([^\n]+?(?=[ \t\r]*\n))|\G(\n)/iS";
 
         do {
-            if (preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
+            if ($this->mbstring_overload ? preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches) : preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
@@ -462,7 +463,7 @@ class Smarty_Internal_Configfilelexer
         $yy_global_pattern = "/\G(\\.)|\G(.*?(?=[\.=[\]\r\n]))/iS";
 
         do {
-            if (preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
+            if ($this->mbstring_overload ? preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches) : preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
                 if (!count($yymatches)) {
