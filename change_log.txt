@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 06.10.2011
 - bugfix switch lexer internals depending on mbstring.func_overload
+- bugfix start_year and end_year of {html_select_date} did not use current year as offset base (Issue #53)
 
 05.10.2011
 - bugfix of problem introduced with r4342 by replacing strlen() with isset()
