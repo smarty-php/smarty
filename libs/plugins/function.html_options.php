@@ -52,16 +52,16 @@ function smarty_function_html_options($params, $template)
             case 'name':
             case 'class':
             case 'id':
-                $$_key = (string)$_val;
+                $$_key = (string) $_val;
                 break;
 
             case 'options':
-                $options = (array)$_val;
+                $options = (array) $_val;
                 break;
 
             case 'values':
             case 'output':
-                $$_key = array_values((array)$_val);
+                $$_key = array_values((array) $_val);
                 break;
 
             case 'selected':
