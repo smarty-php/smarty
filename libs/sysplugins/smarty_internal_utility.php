@@ -289,6 +289,42 @@ class Smarty_Internal_Utility {
 
         // test if all registered template_dir are accessible
         foreach($smarty->getTemplateDir() as $template_dir) {
+            $_template_dir = $template_dir;
+            $template_dir = realpath($template_dir);
+            // resolve include_path or fail existance
+            if (!$template_dir) {
+                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_template_dir)) {
+                    // try PHP include_path
+                    if (($template_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_template_dir)) !== false) {
+                        if ($errors === null) {
+                            echo "$template_dir is OK.\n";
+                        }
+                        
+                        continue;
+                    } else {
+                        $status = false;
+                        $message = "FAILED: $_template_dir does not exist (and couldn't be found in include_path either)";
+                        if ($errors === null) {
+                            echo $message . ".\n";
+                        } else {
+                            $errors['template_dir'] = $message;
+                        }
+
+                        continue;
+                    }
+                } else {
+                    $status = false;
+                    $message = "FAILED: $_template_dir does not exist";
+                    if ($errors === null) {
+                        echo $message . ".\n";
+                    } else {
+                        $errors['template_dir'] = $message;
+                    }
+                    
+                    continue;
+                }
+            }
+            
             if (!is_dir($template_dir)) {
                 $status = false;
                 $message = "FAILED: $template_dir is not a directory";
@@ -318,8 +354,17 @@ class Smarty_Internal_Utility {
         }
 
         // test if registered compile_dir is accessible
-        $_compile_dir = $smarty->getCompileDir();
-        if (!is_dir($_compile_dir)) {
+        $__compile_dir = $smarty->getCompileDir();
+        $_compile_dir = realpath($__compile_dir);
+        if (!$__compile_dir) {
+            $status = false;
+            $message = "FAILED: {$__compile_dir} does not exist";
+            if ($errors === null) {
+                echo $message . ".\n";
+            } else {
+                $errors['compile_dir'] = $message;
+            }
+        } elseif (!is_dir($_compile_dir)) {
             $status = false;
             $message = "FAILED: {$_compile_dir} is not a directory";
             if ($errors === null) {
@@ -359,6 +404,42 @@ class Smarty_Internal_Utility {
         $_core_plugins_dir = realpath(dirname(__FILE__) .'/../plugins');
         $_core_plugins_available = false;
         foreach($smarty->getPluginsDir() as $plugin_dir) {
+            $_plugin_dir = $plugin_dir;
+            $plugin_dir = realpath($plugin_dir);
+            // resolve include_path or fail existance
+            if (!$plugin_dir) {
+                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
+                    // try PHP include_path
+                    if (($plugin_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_plugin_dir)) !== false) {
+                        if ($errors === null) {
+                            echo "$plugin_dir is OK.\n";
+                        }
+                        
+                        continue;
+                    } else {
+                        $status = false;
+                        $message = "FAILED: $_plugin_dir does not exist (and couldn't be found in include_path either)";
+                        if ($errors === null) {
+                            echo $message . ".\n";
+                        } else {
+                            $errors['plugins_dir'] = $message;
+                        }
+
+                        continue;
+                    }
+                } else {
+                    $status = false;
+                    $message = "FAILED: $_plugin_dir does not exist";
+                    if ($errors === null) {
+                        echo $message . ".\n";
+                    } else {
+                        $errors['plugins_dir'] = $message;
+                    }
+                    
+                    continue;
+                }
+            }
+            
             if (!is_dir($plugin_dir)) {
                 $status = false;
                 $message = "FAILED: $plugin_dir is not a directory";
@@ -400,10 +481,19 @@ class Smarty_Internal_Utility {
             echo "Testing cache directory...\n";
         }
 
-        $_cache_dir = $smarty->getCacheDir();
-
+        
         // test if all registered cache_dir is accessible
-        if (!is_dir($_cache_dir)) {
+        $__cache_dir = $smarty->getCacheDir();
+        $_cache_dir = realpath($__cache_dir);
+        if (!$__cache_dir) {
+            $status = false;
+            $message = "FAILED: {$__cache_dir} does not exist";
+            if ($errors === null) {
+                echo $message . ".\n";
+            } else {
+                $errors['cache_dir'] = $message;
+            }
+        } elseif (!is_dir($_cache_dir)) {
             $status = false;
             $message = "FAILED: {$_cache_dir} is not a directory";
             if ($errors === null) {
@@ -440,6 +530,42 @@ class Smarty_Internal_Utility {
 
         // test if all registered config_dir are accessible
         foreach($smarty->getConfigDir() as $config_dir) {
+            $_config_dir = $config_dir;
+            $config_dir = realpath($config_dir);
+            // resolve include_path or fail existance
+            if (!$config_dir) {
+                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_config_dir)) {
+                    // try PHP include_path
+                    if (($config_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_config_dir)) !== false) {
+                        if ($errors === null) {
+                            echo "$config_dir is OK.\n";
+                        }
+                        
+                        continue;
+                    } else {
+                        $status = false;
+                        $message = "FAILED: $_config_dir does not exist (and couldn't be found in include_path either)";
+                        if ($errors === null) {
+                            echo $message . ".\n";
+                        } else {
+                            $errors['config_dir'] = $message;
+                        }
+
+                        continue;
+                    }
+                } else {
+                    $status = false;
+                    $message = "FAILED: $_config_dir does not exist";
+                    if ($errors === null) {
+                        echo $message . ".\n";
+                    } else {
+                        $errors['config_dir'] = $message;
+                    }
+                    
+                    continue;
+                }
+            }
+            
             if (!is_dir($config_dir)) {
                 $status = false;
                 $message = "FAILED: $config_dir is not a directory";
