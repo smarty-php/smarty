@@ -88,13 +88,10 @@ function smarty_function_mailto($params, $template)
         }
     }
 
-    $mail_parm_vals = '';
-    for ($i = 0, $_length = count($mail_parms); $i < $_length; $i++) {
-        $mail_parm_vals .= (0 == $i) ? '?' : '&';
-        $mail_parm_vals .= $mail_parms[$i];
+    if ($mail_parms) {
+        $address .= '?' . join('&', $mail_parms);
     }
-    $address .= $mail_parm_vals;
-
+    
     $encode = (empty($params['encode'])) ? 'none' : $params['encode'];
     if (!isset($_allowed_encoding[$encode])) {
         trigger_error("mailto: 'encode' parameter must be none, javascript, javascript_charcode or hex", E_USER_WARNING);

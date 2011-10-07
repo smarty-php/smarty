@@ -78,26 +78,27 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
     $_paragraphs = preg_split('![\r\n]{2}!', $content);
     $_output = '';
 
-    for ($_x = 0, $_y = count($_paragraphs); $_x < $_y; $_x++) {
-        if ($_paragraphs[$_x] == '') {
+
+    foreach ($_paragraphs as &$_paragraph) {
+        if (!$_paragraph) {
             continue;
         }
         // convert mult. spaces & special chars to single space
-        $_paragraphs[$_x] = preg_replace(array('!\s+!u', '!(^\s+)|(\s+$)!u'), array(' ', ''), $_paragraphs[$_x]);
+        $_paragraph = preg_replace(array('!\s+!u', '!(^\s+)|(\s+$)!u'), array(' ', ''), $_paragraph);
         // indent first line
         if ($indent_first > 0) {
-            $_paragraphs[$_x] = str_repeat($indent_char, $indent_first) . $_paragraphs[$_x];
+            $_paragraph = str_repeat($indent_char, $indent_first) . $_paragraph;
         }
         // wordwrap sentences
         if (SMARTY_MBSTRING /* ^phpunit */&&empty($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'])/* phpunit$ */) {
             require_once(SMARTY_PLUGINS_DIR . 'shared.mb_wordwrap.php');
-            $_paragraphs[$_x] = smarty_mb_wordwrap($_paragraphs[$_x], $wrap - $indent, $wrap_char, $wrap_cut);
+            $_paragraph = smarty_mb_wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);
         } else {
-            $_paragraphs[$_x] = wordwrap($_paragraphs[$_x], $wrap - $indent, $wrap_char, $wrap_cut);
+            $_paragraph = wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);
         }
         // indent lines
         if ($indent > 0) {
-            $_paragraphs[$_x] = preg_replace('!^!m', str_repeat($indent_char, $indent), $_paragraphs[$_x]);
+            $_paragraph = preg_replace('!^!m', str_repeat($indent_char, $indent), $_paragraph);
         }
     }
     $_output = implode($wrap_char . $wrap_char, $_paragraphs);
