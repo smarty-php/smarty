@@ -377,6 +377,9 @@ class Smarty_Internal_Utility {
                 }
             } elseif ($_core_plugins_dir && $_core_plugins_dir == realpath($plugin_dir)) {
                 $_core_plugins_available = true;
+                if ($errors === null) {
+                    echo "$plugin_dir is OK.\n";
+                }
             } else {
                 if ($errors === null) {
                     echo "$plugin_dir is OK.\n";

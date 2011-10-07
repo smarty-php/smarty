@@ -1,8 +1,11 @@
 ﻿===== trunk  =====
+07.10.2011
+- improvement removed html comments from {mailto} (Forum Topic 20092)
+- bugfix testInstall() would not show path to internal plugins_dir (Forum Post 74627)
+
 06.10.2011
 - bugfix switch lexer internals depending on mbstring.func_overload
 - bugfix start_year and end_year of {html_select_date} did not use current year as offset base (Issue #53)
-- improvement removed html comments from {mailto} (Forum Topic 20092)
 
 05.10.2011
 - bugfix of problem introduced with r4342 by replacing strlen() with isset()
