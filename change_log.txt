@@ -6,6 +6,7 @@
 - bugfix html_options plugin did not handle object values properly (Issue #49, Forum Topic 20049)
 - improvement html_checkboxes and html_radios to accept null- and object values, and label_ids attribute
 - improvement removed some unnecessary count()s
+- bugfix parent pointer was not set when fetch() for other template was called on template object
 
 06.10.2011
 - bugfix switch lexer internals depending on mbstring.func_overload

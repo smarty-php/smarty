@@ -38,14 +38,13 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
             $parent = $cache_id;
             $cache_id = null;
         }
-        if ($parent === null && $this instanceof Smarty) {
-            // get default Smarty data object
+        if ($parent === null && ($this instanceof Smarty || is_string($template))) {
             $parent = $this;
         }
         // create template object if necessary
         $_template = ($template instanceof $this->template_class)
             ? $template
-            : $this->createTemplate($template, $cache_id, $compile_id, $parent, false);
+            : $this->smarty->createTemplate($template, $cache_id, $compile_id, $parent, false);
         // merge all variable scopes into template
         if ($merge_tpl_vars) {
             // save local variables
