@@ -3,6 +3,7 @@
 - improvement removed html comments from {mailto} (Forum Topic 20092)
 - bugfix testInstall() would not show path to internal plugins_dir (Forum Post 74627)
 - improvement testInstall() now showing resolved paths and checking the include_path if necessary
+- bugfix html_options plugin did not handle object values properly (Issue #49, Forum Topic 20049)
 
 06.10.2011
 - bugfix switch lexer internals depending on mbstring.func_overload
