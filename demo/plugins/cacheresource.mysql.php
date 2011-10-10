@@ -61,7 +61,7 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom {
         $this->fetch->closeCursor();        
         if ($row) {
             $content = $row['content'];
-            $mtime = $row['modified'];
+            $mtime = strtotime($row['modified']);
         } else {
             $content = null;
             $mtime = null;
@@ -81,7 +81,7 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom {
     protected function fetchTimestamp($id, $name, $cache_id, $compile_id)
     {
         $this->fetchTimestamp->execute(array('id' => $id));
-        $mtime = $this->fetchTimestamp->fetchColumn();
+        $mtime = strtotime($this->fetchTimestamp->fetchColumn());
         $this->fetchTimestamp->closeCursor();
         return $mtime;
     }
