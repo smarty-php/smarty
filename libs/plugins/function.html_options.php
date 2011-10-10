@@ -70,7 +70,7 @@ function smarty_function_html_options($params, $template)
                     foreach ($_val as $_sel) {
                         if (is_object($_sel)) {
                             if (method_exists($_sel, "__toString")) {
-                                $selected = smarty_function_escape_special_chars((string) $_sel->__toString());
+                                $_sel = smarty_function_escape_special_chars((string) $_sel->__toString());
                             } else {
                                 trigger_error("html_options: selected attribute contains an object of class '". get_class($_sel) ."' without __toString() method", E_USER_NOTICE);
                                 continue;

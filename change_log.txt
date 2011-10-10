@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+10.10.2011
+- bugfix variable name typo in {html_options} and {html_checkboxes} (Issue #54)
+
+===== Smarty-3.1.3  =====
 07.10.2011
 - improvement removed html comments from {mailto} (Forum Topic 20092)
 - bugfix testInstall() would not show path to internal plugins_dir (Forum Post 74627)
