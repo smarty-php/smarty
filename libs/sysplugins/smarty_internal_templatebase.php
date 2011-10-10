@@ -249,10 +249,10 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
                 }
             } else {
                 // var_dump('renderTemplate', $_template->has_nocache_code, $_template->template_resource, $_template->properties['nocache_hash'], $_template->parent->properties['nocache_hash'], $_output);
-                if ($_template->has_nocache_code && !empty($_template->properties['nocache_hash']) && !empty($_template->parent->properties['nocache_hash'])) {
+                if (!empty($_template->properties['nocache_hash']) && !empty($_template->parent->properties['nocache_hash'])) {
                     // replace nocache_hash
                     $_output = preg_replace("/{$_template->properties['nocache_hash']}/", $_template->parent->properties['nocache_hash'], $_output);
-                    $_template->parent->has_nocache_code = $_template->has_nocache_code;
+                    $_template->parent->has_nocache_code = $_template->parent->has_nocache_code || $_template->has_nocache_code;
                 }
             }
         } else {
