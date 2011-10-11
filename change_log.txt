@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+11.10.2011
+- add runtime checks for not matching {capture}/{/capture} calls (Forum Topic 20120)
+ 
 10.10.2011
 - bugfix variable name typo in {html_options} and {html_checkboxes} (Issue #54)
 - bugfix <?xml> tag did create wrong output when caching enabled and the tag was in included subtemplate

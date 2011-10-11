@@ -93,6 +93,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
      * @var bool
      */
     public $allow_relative_path = false;
+    /**
+     * internal capture runtime stack
+     * @var array
+     */
+    public $_capture_stack = array();
 
     /**
      * Create template data object
@@ -551,6 +556,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     }
 
     /**
+     * runtime error not matching capture tags
+     *
+     */
+    public function capture_error()
+    {
+        throw new SmartyException("Not matching {capture} open/close in \"{$this->template_resource}\"");
+    }
+     /**
      * set Smarty property in template context
      *
      * @param string $property_name property name

@@ -170,6 +170,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
                             throw new SmartyException("Invalid compiled template for '{$_template->template_resource}'");
                         }
                         $_template->properties['unifunc']($_template);
+                        if (isset($_template->_capture_stack[0])) {
+                            $_template->capture_error();
+                        }
                     } catch (Exception $e) {
                         ob_get_clean();
                         throw $e;
@@ -262,6 +265,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
             try {
                 ob_start();
                 $_template->properties['unifunc']($_template);
+                if (isset($_template->_capture_stack[0])) {
+                    $_template->capture_error();
+                }
                 $_output = ob_get_clean();
             } catch (Exception $e) {
                 ob_get_clean();
