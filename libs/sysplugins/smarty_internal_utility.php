@@ -189,16 +189,22 @@ class Smarty_Internal_Utility {
             $smarty->caching = false;
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
+            
+            // TODO: uwe.tews check if $tpl->compile_id vs. $compile_id  is correct
+            // from what I can see $tpl->compile_id would always be null?!
+            
+            // remove from template cache
+            $tpl->source; // have the template registered before unset()
+            $_templateId = sha1($tpl->source->unique_resource . $tpl->cache_id . $tpl->compile_id);
+            unset($smarty->template_objects[$_templateId]);
+            
             if ($tpl->source->exists) {
                  $_resource_part_1 = basename(str_replace('^', '/', $tpl->compiled->filepath));
                  $_resource_part_1_length = strlen($_resource_part_1);
-                // remove from template cache
-                unset($smarty->template_objects[sha1($smarty->joined_template_dir.$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
             } else {
-                // remove from template cache
-                unset($smarty->template_objects[sha1($smarty->joined_template_dir.$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
                 return 0;
             }
+            
             $_resource_part_2 = str_replace('.php','.cache.php',$_resource_part_1);
             $_resource_part_2_length = strlen($_resource_part_2);
         } else {

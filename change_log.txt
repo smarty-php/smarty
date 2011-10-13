@@ -2,6 +2,7 @@
 13.10.2011
 - add caching for config files in Smarty_Resource
 - bugfix disable of caching after isCached() call did not work (Forum Topic 20131)
+- add concept unique_resource to combat potentially ambiguous template_resource values when custom resource handlers are used (Forum Topic 20128)
 
 11.10.2011
 - add runtime checks for not matching {capture}/{/capture} calls (Forum Topic 20120)
