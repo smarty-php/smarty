@@ -30,7 +30,7 @@ abstract class Smarty_Resource {
      * cache for Smarty_Resource instances
      * @var array
      */
-    protected static $resources = array();
+    public static $resources = array();
     /**
      * resource types provided by the core
      * @var array
