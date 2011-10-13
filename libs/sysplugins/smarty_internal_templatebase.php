@@ -45,6 +45,10 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
         $_template = ($template instanceof $this->template_class)
             ? $template
             : $this->smarty->createTemplate($template, $cache_id, $compile_id, $parent, false);
+        // if called by Smarty object make sure we use current caching status
+        if ($this instanceof Smarty) {
+            $_template->caching = $this->caching;
+        }
         // merge all variable scopes into template
         if ($merge_tpl_vars) {
             // save local variables
