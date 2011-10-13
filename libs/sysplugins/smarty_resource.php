@@ -398,16 +398,6 @@ abstract class Smarty_Resource {
             $template_resource = $_template->template_resource;
         }
 
-        // check runtime cache
-        $_cache_key_dir = $smarty->joined_template_dir;
-        $_cache_key = 'template|' . $template_resource;
-        if (!isset(self::$sources[$_cache_key_dir])) {
-            self::$sources[$_cache_key_dir] = array();
-        }
-        if (isset(self::$sources[$_cache_key_dir][$_cache_key])) {
-            return self::$sources[$_cache_key_dir][$_cache_key];
-        }
-
         if (($pos = strpos($template_resource, ':')) === false) {
             // no resource given, use default
             $resource_type = $smarty->default_resource_type;
@@ -424,6 +414,20 @@ abstract class Smarty_Resource {
         }
 
         $resource = Smarty_Resource::load($smarty, $resource_type);
+        
+        // TODO: modify $template_resource here
+        
+        // check runtime cache
+        $_cache_key_dir = $smarty->joined_template_dir;
+        $_cache_key = 'template|' . $template_resource;
+        if (!isset(self::$sources[$_cache_key_dir])) {
+            self::$sources[$_cache_key_dir] = array();
+        }
+        if (isset(self::$sources[$_cache_key_dir][$_cache_key])) {
+            return self::$sources[$_cache_key_dir][$_cache_key];
+        }
+        
+        // create source
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $resource_type, $resource_name);
         $resource->populate($source, $_template);
 
@@ -464,8 +468,25 @@ abstract class Smarty_Resource {
         }
 
         $resource = Smarty_Resource::load($smarty, $resource_type);
+        
+        // TODO: modify $config_resource here
+        
+        // check runtime cache
+        $_cache_key_dir = $smarty->joined_config_dir;
+        $_cache_key = 'config|' . $config_resource;
+        if (!isset(self::$sources[$_cache_key_dir])) {
+            self::$sources[$_cache_key_dir] = array();
+        }
+        if (isset(self::$sources[$_cache_key_dir][$_cache_key])) {
+            return self::$sources[$_cache_key_dir][$_cache_key];
+        }
+        
+        // create source
         $source = new Smarty_Config_Source($resource, $smarty, $config_resource, $resource_type, $resource_name);
         $resource->populate($source, null);
+        
+        // runtime cache
+        self::$sources[$_cache_key_dir][$_cache_key] = $source;
         return $source;
     }
 

@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+13.10.2011
+- add caching for config files in Smarty_Resource
+
 11.10.2011
 - add runtime checks for not matching {capture}/{/capture} calls (Forum Topic 20120)
  

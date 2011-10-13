@@ -197,6 +197,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public $joined_template_dir = null;
     /**
+    * joined config directory string used in cache keys
+    * @var string
+    */
+    public $joined_config_dir = null;
+    /**
     * default template handler
     * @var callable
     */
@@ -841,7 +846,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
         foreach ((array) $config_dir as $k => $v) {
             $this->config_dir[$k] = rtrim($v, '/\\') . DS;
         }
-
+        
+        $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
         return $this;
     }
 
@@ -874,7 +880,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
             // append new directory
             $this->config_dir[] = rtrim($config_dir, '/\\') . DS;
         }
-
+        
+        $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
         return $this;
     }
 
