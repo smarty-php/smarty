@@ -177,9 +177,6 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource {
                 $uid = $tpl->source->uid;
             }
             
-            // TODO: uwe.tews check if $tpl->compile_id vs. $compile_id  is correct
-            // from what I can see $tpl->compile_id would always be null?!
-            
             // remove from template cache
             $_templateId = sha1($tpl->source->unique_resource . $tpl->cache_id . $tpl->compile_id);
             unset($smarty->template_objects[$_templateId]);
