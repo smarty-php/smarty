@@ -199,7 +199,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource {
         
         $mtime = $this->fetchTimestamp($id, $name, null, null);
         if ($mtime === null) {
-            $this->fetch($id, $name, null, null, &$content, &$mtime);
+            $this->fetch($id, $name, null, null, $content, $mtime);
         }
         
         return $mtime && time() - $mtime < $smarty->locking_timeout;
