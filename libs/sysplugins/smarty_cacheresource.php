@@ -150,6 +150,7 @@ abstract class Smarty_CacheResource {
         }
         // try the instance cache
         if (isset(self::$resources[$type])) {
+            // FIXME: rodneyrehm need to validate if cache resource may be used in given $smarty.
             return self::$resources[$type];
         }
         // try registered resource
