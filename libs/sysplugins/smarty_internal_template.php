@@ -574,7 +574,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function clearCache($exp_time=null)
     {
         Smarty_CacheResource::invalidLoadedCache($this->smarty);
-        return $this->cached->handler->clear($this->smarty, $this->template_name, $this->cache_id, $this->compile_id);
+        return $this->cached->handler->clear($this->smarty, $this->template_name, $this->cache_id, $this->compile_id, $exp_time);
     }
     
      /**
