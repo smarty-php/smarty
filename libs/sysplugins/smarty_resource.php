@@ -656,13 +656,9 @@ class Smarty_Template_Source {
     public function getCompiled(Smarty_Internal_Template $_template)
     {
         // check runtime cache
-        $_cache_key_dir = $_template->smarty->joined_template_dir;
-        $_cache_key = $_template->template_resource . '#' . $_template->compile_id;
-        if (!isset(Smarty_Resource::$compileds[$_cache_key_dir])) {
-            Smarty_Resource::$compileds[$_cache_key_dir] = array();
-        }
-        if (isset(Smarty_Resource::$compileds[$_cache_key_dir][$_cache_key])) {
-            return Smarty_Resource::$compileds[$_cache_key_dir][$_cache_key];
+        $_cache_key = $this->unique_resource . '#' . $_template->compile_id;
+        if (isset(Smarty_Resource::$compileds[$_cache_key])) {
+            return Smarty_Resource::$compileds[$_cache_key];
         }
 
         $compiled = new Smarty_Template_Compiled($this);
@@ -671,7 +667,7 @@ class Smarty_Template_Source {
         $compiled->exists = !!$compiled->timestamp;
 
         // runtime cache
-        Smarty_Resource::$compileds[$_cache_key_dir][$_cache_key] = $compiled;
+        Smarty_Resource::$compileds[$_cache_key] = $compiled;
 
         return $compiled;
     }

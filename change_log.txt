@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+14.10.2011
+- bugfix unique_resource did not properly apply to compiled resources (Forum Topic 20128)
+
 13.10.2011
 - add caching for config files in Smarty_Resource
 - bugfix disable of caching after isCached() call did not work (Forum Topic 20131)
