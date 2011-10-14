@@ -564,6 +564,19 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     {
         throw new SmartyException("Not matching {capture} open/close in \"{$this->template_resource}\"");
     }
+    
+    /**
+    * Empty cache for this template
+    *
+    * @param integer $exp_time      expiration time
+    * @return integer number of cache files deleted
+    */
+    public function clearCache($exp_time=null)
+    {
+        Smarty_CacheResource::invalidLoadedCache($this->smarty);
+        return $this->cached->handler->clear($this->smarty, $this->template_name, $this->cache_id, $this->compile_id);
+    }
+    
      /**
      * set Smarty property in template context
      *
