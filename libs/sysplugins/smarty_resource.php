@@ -331,68 +331,80 @@ abstract class Smarty_Resource {
     /**
      * Load Resource Handler
      *
-     * @param Smarty $smarty        smarty object
-     * @param string $resource_type name of the resource
+     * @param Smarty $smarty    smarty object
+     * @param string $type      name of the resource
      * @return Smarty_Resource Resource Handler
      */
-    public static function load(Smarty $smarty, $resource_type)
+    public static function load(Smarty $smarty, $type)
     {
-        // try the instance cache
-        if (isset(self::$resources[$resource_type])) {
-            // FIXME: rodneyrehm need to validate if resource may be used in given $smarty.
-            return self::$resources[$resource_type];
+        // try smarty's cache
+        if (isset($smarty->_resource_handlers[$type])) {
+            return $smarty->_resource_handlers[$type];
         }
 
         // try registered resource
-        if (isset($smarty->registered_resources[$resource_type])) {
-            if ($smarty->registered_resources[$resource_type] instanceof Smarty_Resource) {
-                return self::$resources[$resource_type] = $smarty->registered_resources[$resource_type];
+        if (isset($smarty->registered_resources[$type])) {
+            if ($smarty->registered_resources[$type] instanceof Smarty_Resource) {
+                $smarty->_resource_handlers[$type] = $smarty->registered_resources[$type];
+                // note registered to smarty is not kept unique!
+                return $smarty->_resource_handlers[$type];
             }
             if (!isset(self::$resources['registered'])) {
                 self::$resources['registered'] = new Smarty_Internal_Resource_Registered();
+                $smarty->_resource_handlers[$type] = self::$resources['registered'];
             }
-            return self::$resources['registered'];
+            return $smarty->_resource_handlers[$type];
         }
 
         // try sysplugins dir
-        if (isset(self::$sysplugins[$resource_type])) {
-            $_resource_class = 'Smarty_Internal_Resource_' . ucfirst($resource_type);
-            return self::$resources[$resource_type] = new $_resource_class();
+        if (isset(self::$sysplugins[$type])) {
+            if (!isset(self::$resources[$type])) {
+                $_resource_class = 'Smarty_Internal_Resource_' . ucfirst($type);
+                self::$resources[$type] = new $_resource_class();
+            }
+            return $smarty->_resource_handlers[$type] = self::$resources[$type];
         }
 
         // try plugins dir
-        $_resource_class = 'Smarty_Resource_' . ucfirst($resource_type);
+        $_resource_class = 'Smarty_Resource_' . ucfirst($type);
         if ($smarty->loadPlugin($_resource_class)) {
+            if (isset(self::$resources[$type])) {
+                return $smarty->_resource_handlers[$type] = self::$resources[$type];
+            }
+            
             if (class_exists($_resource_class, false)) {
-                return self::$resources[$resource_type] = new $_resource_class();
+                self::$resources[$type] = new $_resource_class();
+                return $smarty->_resource_handlers[$type] = self::$resources[$type];
             } else {
-                $smarty->registerResource($resource_type,
-                    array("smarty_resource_{$resource_type}_source",
-                        "smarty_resource_{$resource_type}_timestamp",
-                        "smarty_resource_{$resource_type}_secure",
-                        "smarty_resource_{$resource_type}_trusted"));
+                $smarty->registerResource($type, array(
+                    "smarty_resource_{$type}_source",
+                    "smarty_resource_{$type}_timestamp",
+                    "smarty_resource_{$type}_secure",
+                    "smarty_resource_{$type}_trusted"
+                ));
+
                 // give it another try, now that the resource is registered properly
-                return self::load($smarty, $resource_type);
+                return self::load($smarty, $type);
             }
         }
 
         // try streams
         $_known_stream = stream_get_wrappers();
-        if (in_array($resource_type, $_known_stream)) {
+        if (in_array($type, $_known_stream)) {
             // is known stream
             if (is_object($smarty->security_policy)) {
-                $smarty->security_policy->isTrustedStream($resource_type);
+                $smarty->security_policy->isTrustedStream($type);
             }
             if (!isset(self::$resources['stream'])) {
                 self::$resources['stream'] = new Smarty_Internal_Resource_Stream();
             }
-            return self::$resources['stream'];
+            return $smarty->_resource_handlers[$type] = self::$resources['stream'];
         }
 
         // TODO: try default_(template|config)_handler
 
         // give up
-        throw new SmartyException('Unkown resource type \'' . $resource_type . '\'');
+        throw new SmartyException("Unkown resource type '{$type}'");
     }
     
     /**

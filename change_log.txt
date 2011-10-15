@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+15.10.2011
+- bugfix Smarty_Resource and Smarty_CacheResource runtime caching (Forum Post 75264)
+
 14.10.2011
 - bugfix unique_resource did not properly apply to compiled resources (Forum Topic 20128)
 - add locking to custom resources (Forum Post 75252)

@@ -493,10 +493,20 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public $registered_resources = array();
     /**
+    * resource handler cache
+    * @var array
+    */
+    public $_resource_handlers = array();
+    /**
     * registered cache resources
     * @var array
     */
     public $registered_cache_resources = array();
+    /**
+    * cache resource handler cache
+    * @var array
+    */
+    public $_cacheresource_handlers = array();
     /**
     * autoload filter
     * @var array
@@ -584,6 +594,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             $this->assignGlobal('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
         }
     }
+    
 
     /**
     * Class destructor
