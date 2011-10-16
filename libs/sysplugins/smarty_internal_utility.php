@@ -359,7 +359,7 @@ class Smarty_Internal_Utility {
         // test if registered compile_dir is accessible
         $__compile_dir = $smarty->getCompileDir();
         $_compile_dir = realpath($__compile_dir);
-        if (!$__compile_dir) {
+        if (!$_compile_dir) {
             $status = false;
             $message = "FAILED: {$__compile_dir} does not exist";
             if ($errors === null) {
@@ -488,7 +488,7 @@ class Smarty_Internal_Utility {
         // test if all registered cache_dir is accessible
         $__cache_dir = $smarty->getCacheDir();
         $_cache_dir = realpath($__cache_dir);
-        if (!$__cache_dir) {
+        if (!$_cache_dir) {
             $status = false;
             $message = "FAILED: {$__cache_dir} does not exist";
             if ($errors === null) {

@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+16.10.2011
+- bugfix testInstall() did not propery check cache_dir and compile_dir
+
 15.10.2011
 - bugfix Smarty_Resource and Smarty_CacheResource runtime caching (Forum Post 75264)
 
