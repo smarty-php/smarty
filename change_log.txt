@@ -1,4 +1,6 @@
 ﻿===== trunk  =====
+19.10.2011
+- revert PHP4 constructor message
 ===== Smarty-3.1.4 =====
 19.10.2011
 - added exception when using PHP4 style constructor
