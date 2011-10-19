@@ -751,6 +751,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
                 return false;
             }
         }
+        if ($name == 'Smarty') {
+            throw new SmartyException("PHP5 requires you to call __construct() instead of Smarty()");
+        }
         // must be unknown
         throw new SmartyException("Call of unknown method '$name'.");
     }
