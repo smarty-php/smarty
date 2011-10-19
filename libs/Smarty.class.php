@@ -665,6 +665,15 @@ class Smarty extends Smarty_Internal_TemplateBase {
         }
     }
 
+
+    /**
+    * Throw error when using PHP 4 style constructor
+    */
+    public function Smarty()
+    {
+         throw new SmartyException("PHP5 requires you to call __construct() instead of Smarty()");
+    }
+
     /**
     * Check if a template resource exists
     *
