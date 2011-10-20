@@ -82,7 +82,7 @@ function smarty_function_html_select_time($params, $template)
     foreach ($params as $_key => $_value) {
         switch ($_key) {
             case 'time':
-                if (!is_array($_value)) {
+                if (!is_array($_value) && $_value !== null) {
                     $time = smarty_make_timestamp($_value);
                 }
                 break;
@@ -180,7 +180,8 @@ function smarty_function_html_select_time($params, $template)
             list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d'));
         }
     } elseif ($time === null) {
-        list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s'));
+        //list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s'));
+        $_hour = $_minute = $_second = $time = null;
     } else {
         list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s', $time));
     }
@@ -219,15 +220,13 @@ function smarty_function_html_select_time($params, $template)
             $_text = $hour_format == '%02d' ? $_val : sprintf($hour_format, $i);
             $_value = $hour_value_format == '%02d' ? $_val : sprintf($hour_value_format, $i);
 
-            if ($use_24_hours) {
-                $selected = $_hour == $_val;
-            } else {
+            if (!$use_24_hours) {
                 $_hour12 = $_hour == 0
                     ? 12
                     : ($_hour <= 12 ? $_hour : $_hour -12);
             }
 
-            $selected = $use_24_hours ? $_hour == $_val : $_hour12 == $_val;
+            $selected = $_hour !== null ? ($use_24_hours ? $_hour == $_val : $_hour12 == $_val) : null;
             $_html_hours .= '<option value="' . $_value . '"'
                 . ($selected ? ' selected="selected"' : '')
                 . '>' . $_text . '</option>' . $option_separator;
@@ -263,13 +262,13 @@ function smarty_function_html_select_time($params, $template)
             $_html_minutes .= '<option value="">' . ( isset($minute_empty) ? $minute_empty : $all_empty ) . '</option>' . $option_separator;
         }
 
-        $selected = $_minute - $_minute % $minute_interval;
+        $selected = $_minute !== null ? ($_minute - $_minute % $minute_interval) : null;
         for ($i=0; $i <= 59; $i += $minute_interval) {
             $_val = sprintf('%02d', $i);
             $_text = $minute_format == '%02d' ? $_val : sprintf($minute_format, $i);
             $_value = $minute_value_format == '%02d' ? $_val : sprintf($minute_value_format, $i);
             $_html_minutes .= '<option value="' . $_value . '"'
-                . ($selected == $i ? ' selected="selected"' : '')
+                . ($selected === $i ? ' selected="selected"' : '')
                 . '>' . $_text . '</option>' . $option_separator;
         }
 
@@ -303,13 +302,13 @@ function smarty_function_html_select_time($params, $template)
             $_html_seconds .= '<option value="">' . ( isset($second_empty) ? $second_empty : $all_empty ) . '</option>' . $option_separator;
         }
 
-        $selected = $_second - $_second % $second_interval;
+        $selected = $_second !== null ? ($_second - $_second % $second_interval) : null;
         for ($i=0; $i <= 59; $i += $second_interval) {
             $_val = sprintf('%02d', $i);
             $_text = $second_format == '%02d' ? $_val : sprintf($second_format, $i);
             $_value = $second_value_format == '%02d' ? $_val : sprintf($second_value_format, $i);
             $_html_seconds .= '<option value="' . $_value . '"'
-                . ($selected == $i ? ' selected="selected"' : '')
+                . ($selected === $i ? ' selected="selected"' : '')
                 . '>' . $_text . '</option>' . $option_separator;
         }
 

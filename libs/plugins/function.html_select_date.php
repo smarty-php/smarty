@@ -116,7 +116,7 @@ function smarty_function_html_select_date($params, $template)
     foreach ($params as $_key => $_value) {
         switch ($_key) {
             case 'time':
-                if (!is_array($_value)) {
+                if (!is_array($_value) && $_value !== null) {
                     $time = smarty_make_timestamp($_value);
                 }
                 break;
@@ -202,7 +202,8 @@ function smarty_function_html_select_date($params, $template)
             list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d'));
         }
     } elseif ($time === null) {
-        list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d'));
+        //list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d'));
+        $_year = $_month = $_day = $time = null;
     } else {
         list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d', $time));
     }
