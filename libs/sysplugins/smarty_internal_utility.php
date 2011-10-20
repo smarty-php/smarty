@@ -216,7 +216,11 @@ class Smarty_Internal_Utility {
             $_compile_id_part_length = strlen($_compile_id_part);
         }
         $_count = 0;
-        $_compileDirs = new RecursiveDirectoryIterator($_dir);
+        try {
+            $_compileDirs = new RecursiveDirectoryIterator($_dir);
+        } catch (UnexpectedValueException $e) {
+            return 0;
+        }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
             if (substr($_file->getBasename(), 0, 1) == '.' || strpos($_file, '.svn') !== false)
