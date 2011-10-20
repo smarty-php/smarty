@@ -178,7 +178,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource {
             }
             
             // remove from template cache
-            $_templateId = sha1($tpl->source->unique_resource . $tpl->cache_id . $tpl->compile_id);
+            $_templateId = $tpl->source->unique_resource . $tpl->cache_id . $tpl->compile_id;
             unset($smarty->template_objects[$_templateId]);
         }
         return $uid;

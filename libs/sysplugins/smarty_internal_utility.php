@@ -192,7 +192,7 @@ class Smarty_Internal_Utility {
             
             // remove from template cache
             $tpl->source; // have the template registered before unset()
-            $_templateId = sha1($tpl->source->unique_resource . $tpl->cache_id . $tpl->compile_id);
+            $_templateId = $tpl->source->unique_resource . $tpl->cache_id . $tpl->compile_id;
             unset($smarty->template_objects[$_templateId]);
             
             if ($tpl->source->exists) {

@@ -246,7 +246,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     {
         // already in template cache?
         $unique_template_name = Smarty_Resource::getUniqueTemplateName($this->smarty, $template);
-        $_templateId =  sha1($unique_template_name . $cache_id . $compile_id);
+        $_templateId =  $unique_template_name . $cache_id . $compile_id;
         if (isset($this->smarty->template_objects[$_templateId])) {
             // clone cached template object because of possible recursive call
             $tpl = clone $this->smarty->template_objects[$_templateId];
@@ -620,7 +620,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 // cache template object under a unique ID
                 // do not cache eval resources
                 if ($this->source->type != 'eval') {
-                    $_templateId = sha1($this->source->unique_resource . $this->cache_id . $this->compile_id);
+                    $_templateId = $this->source->unique_resource . $this->cache_id . $this->compile_id;
                     $this->smarty->template_objects[$_templateId] = $this;
                 }
                 return $this->source;
