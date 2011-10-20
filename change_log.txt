@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+20.10.2011
+- @silenced unlink() in Smarty_Internal_Write_File since debuggers go haywire without it.
+
 19.10.2011
 - revert PHP4 constructor message
 - fixed PHP4 constructor message
