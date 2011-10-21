@@ -245,8 +245,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     public function getSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope)
     {
         // already in template cache?
-        $unique_template_name = Smarty_Resource::getUniqueTemplateName($this->smarty, $template);
-        $_templateId =  $unique_template_name . $cache_id . $compile_id;
+        if ($this->smarty->allow_ambiguous_resources) {
+            $_templateId = Smarty_Resource::getUniqueTemplateName($this->smarty, $template) . $cache_id . $compile_id;
+        } else {
+            $_templateId = $this->smarty->joined_template_dir . '#' . $template . $cache_id . $compile_id;
+        }
+
         if (isset($_templateId[150])) {
             $_templateId = sha1($_templateId);
         }
@@ -625,7 +629,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 // cache template object under a unique ID
                 // do not cache eval resources
                 if ($this->source->type != 'eval') {
-                    $_templateId = $this->source->unique_resource . $this->cache_id . $this->compile_id;
+                    if ($this->smarty->allow_ambiguous_resources) {
+                        $_templateId = $this->source->unique_resource . $this->cache_id . $this->compile_id;
+                    } else {
+                        $_templateId = $this->smarty->joined_template_dir . '#' . $this->template_resource . $this->cache_id . $this->compile_id;
+                    }
+
                     if (isset($_templateId[150])) {
                         $_templateId = sha1($_templateId);
                     }

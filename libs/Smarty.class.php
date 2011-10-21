@@ -252,6 +252,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public $use_sub_dirs = false;
     /**
+     * allow ambiguous resources (that are made unique by the resource handler)
+     * @var boolean
+     */
+    public $allow_ambiguous_resources = false;
+    /**
     * caching enabled
     * @var boolean
     */
@@ -1172,8 +1177,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
         // already in template cache?
-        $unique_template_name = Smarty_Resource::getUniqueTemplateName($this, $template);
-        $_templateId = $unique_template_name . $cache_id . $compile_id;
+        if ($this->allow_ambiguous_resources) {
+            $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template) . $cache_id . $compile_id;
+        } else {
+            $_templateId = $this->joined_template_dir . '#' . $template . $cache_id . $compile_id;
+        }
         if (isset($_templateId[150])) {
             $_templateId = sha1($_templateId);
         }

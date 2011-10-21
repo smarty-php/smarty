@@ -2,6 +2,7 @@
 21.10.2011
 - bugfix apostrophe in plugins_dir path name failed (forum topic 20199)
 - improvement sha1() for array keys longer than 150 characters
+- add Smarty::$allow_ambiguous_resources to activate unique resource handling (Forum Topic 20128)
 
 20.10.2011
 - @silenced unlink() in Smarty_Internal_Write_File since debuggers go haywire without it.
