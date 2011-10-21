@@ -1174,6 +1174,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // already in template cache?
         $unique_template_name = Smarty_Resource::getUniqueTemplateName($this, $template);
         $_templateId = $unique_template_name . $cache_id . $compile_id;
+        if (isset($_templateId[150])) {
+            $_templateId = sha1($_templateId);
+        }
         if ($do_clone) {
             if (isset($this->template_objects[$_templateId])) {
                 // return cached template object
