@@ -334,7 +334,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 $plugins_string = '<?php ';
                 foreach ($this->required_plugins['compiled'] as $tmp) {
                     foreach ($tmp as $data) {
-                        $plugins_string .= "if (!is_callable('{$data['function']}')) include '{$data['file']}';\n";
+                        $file = addslashes($data['file']);
+                        $plugins_string .= "if (!is_callable('{$data['function']}')) include '{$file}';\n";
                     }
                 }
                 $plugins_string .= '?>';
@@ -344,7 +345,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
                 $plugins_string .= "<?php echo '/*%%SmartyNocache:{$this->properties['nocache_hash']}%%*/<?php \$_smarty = \$_smarty_tpl->smarty; ";
                 foreach ($this->required_plugins['nocache'] as $tmp) {
                     foreach ($tmp as $data) {
-                        $plugins_string .= "if (!is_callable(\'{$data['function']}\')) include \'{$data['file']}\';\n";
+                        $file = addslashes($data['file']);
+                        $plugins_string .= addslashes("if (!is_callable('{$data['function']}')) include '{$file}';\n");
                     }
                 }
                 $plugins_string .= "?>/*/%%SmartyNocache:{$this->properties['nocache_hash']}%%*/';?>\n";
@@ -564,7 +566,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     {
         throw new SmartyException("Not matching {capture} open/close in \"{$this->template_resource}\"");
     }
-    
+
     /**
     * Empty cache for this template
     *
@@ -576,7 +578,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         Smarty_CacheResource::invalidLoadedCache($this->smarty);
         return $this->cached->handler->clear($this->smarty, $this->template_name, $this->cache_id, $this->compile_id, $exp_time);
     }
-    
+
      /**
      * set Smarty property in template context
      *
