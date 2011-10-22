@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+22.10.2011
+- bugfix smarty_mb_from_unicode() would not decode unicode-points properly
+
 21.10.2011
 - bugfix apostrophe in plugins_dir path name failed (forum topic 20199)
 - improvement sha1() for array keys longer than 150 characters
@@ -17,6 +20,7 @@
 ===== Smarty-3.1.4 =====
 19.10.2011
 - added exception when using PHP4 style constructor
+
 16.10.2011
 - bugfix testInstall() did not propery check cache_dir and compile_dir
 

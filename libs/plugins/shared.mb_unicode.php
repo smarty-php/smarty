@@ -39,7 +39,7 @@ function smarty_mb_from_unicode($unicode, $encoding=null) {
         $encoding = mb_internal_encoding();
     }
     foreach((array) $unicode as $utf32be) {
-        $character = pack("N", $utf32be);
+        $character = pack("N*", $utf32be);
         $t .= mb_convert_encoding($character, $encoding, "UTF-32BE");
     }
     return $t;
