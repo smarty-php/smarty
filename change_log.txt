@@ -1,6 +1,10 @@
 ﻿===== trunk  =====
+
 22.10.2011
-- bugfix smarty_mb_from_unicode() would not decode unicode-points properly
+- bugfix use catch Exception instead UnexpectedValueException in 
+  clearCompiledTemplate to be PHP 5.2 compatible
+- bugfix use catch Exception instead UnexpectedValueException in 
+  clearCompiledTemplate to be PHP 5.2 compatible
 
 21.10.2011
 - bugfix apostrophe in plugins_dir path name failed (forum topic 20199)

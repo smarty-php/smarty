@@ -189,7 +189,7 @@ class Smarty_Internal_Utility {
             $smarty->caching = false;
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
-            
+
             // remove from template cache
             $tpl->source; // have the template registered before unset()
             if ($smarty->allow_ambiguous_resources) {
@@ -201,14 +201,14 @@ class Smarty_Internal_Utility {
                 $_templateId = sha1($_templateId);
             }
             unset($smarty->template_objects[$_templateId]);
-            
+
             if ($tpl->source->exists) {
                  $_resource_part_1 = basename(str_replace('^', '/', $tpl->compiled->filepath));
                  $_resource_part_1_length = strlen($_resource_part_1);
             } else {
                 return 0;
             }
-            
+
             $_resource_part_2 = str_replace('.php','.cache.php',$_resource_part_1);
             $_resource_part_2_length = strlen($_resource_part_2);
         } else {
@@ -225,16 +225,17 @@ class Smarty_Internal_Utility {
         $_count = 0;
         try {
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
-        } catch (UnexpectedValueException $e) {
+        // NOTE: UnexpectedValueException thrown for PHP >= 5.3
+        } catch (Exception $e) {
             return 0;
         }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
             if (substr($_file->getBasename(), 0, 1) == '.' || strpos($_file, '.svn') !== false)
                 continue;
-            
+
             $_filepath = (string) $_file;
-            
+
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
                     // delete folder if empty
@@ -243,10 +244,10 @@ class Smarty_Internal_Utility {
             } else {
                 $unlink = false;
                 if ((!isset($_compile_id) || (isset($_filepath[$_compile_id_part_length]) && !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length)))
-                    && (!isset($resource_name) 
-                        || (isset($_filepath[$_resource_part_1_length]) 
-                            && substr_compare($_filepath, $_resource_part_1, -$_resource_part_1_length, $_resource_part_1_length) == 0) 
-                        || (isset($_filepath[$_resource_part_2_length]) 
+                    && (!isset($resource_name)
+                        || (isset($_filepath[$_resource_part_1_length])
+                            && substr_compare($_filepath, $_resource_part_1, -$_resource_part_1_length, $_resource_part_1_length) == 0)
+                        || (isset($_filepath[$_resource_part_2_length])
                             && substr_compare($_filepath, $_resource_part_2, -$_resource_part_2_length, $_resource_part_2_length) == 0))) {
                     if (isset($exp_time)) {
                         if (time() - @filemtime($_filepath) >= $exp_time) {
@@ -256,7 +257,7 @@ class Smarty_Internal_Utility {
                         $unlink = true;
                     }
                 }
-                
+
                 if ($unlink && @unlink($_filepath)) {
                     $_count++;
                 }
@@ -313,7 +314,7 @@ class Smarty_Internal_Utility {
                         if ($errors === null) {
                             echo "$template_dir is OK.\n";
                         }
-                        
+
                         continue;
                     } else {
                         $status = false;
@@ -334,11 +335,11 @@ class Smarty_Internal_Utility {
                     } else {
                         $errors['template_dir'] = $message;
                     }
-                    
+
                     continue;
                 }
             }
-            
+
             if (!is_dir($template_dir)) {
                 $status = false;
                 $message = "FAILED: $template_dir is not a directory";
@@ -428,7 +429,7 @@ class Smarty_Internal_Utility {
                         if ($errors === null) {
                             echo "$plugin_dir is OK.\n";
                         }
-                        
+
                         continue;
                     } else {
                         $status = false;
@@ -449,11 +450,11 @@ class Smarty_Internal_Utility {
                     } else {
                         $errors['plugins_dir'] = $message;
                     }
-                    
+
                     continue;
                 }
             }
-            
+
             if (!is_dir($plugin_dir)) {
                 $status = false;
                 $message = "FAILED: $plugin_dir is not a directory";
@@ -495,7 +496,7 @@ class Smarty_Internal_Utility {
             echo "Testing cache directory...\n";
         }
 
-        
+
         // test if all registered cache_dir is accessible
         $__cache_dir = $smarty->getCacheDir();
         $_cache_dir = realpath($__cache_dir);
@@ -554,7 +555,7 @@ class Smarty_Internal_Utility {
                         if ($errors === null) {
                             echo "$config_dir is OK.\n";
                         }
-                        
+
                         continue;
                     } else {
                         $status = false;
@@ -575,11 +576,11 @@ class Smarty_Internal_Utility {
                     } else {
                         $errors['config_dir'] = $message;
                     }
-                    
+
                     continue;
                 }
             }
-            
+
             if (!is_dir($config_dir)) {
                 $status = false;
                 $message = "FAILED: $config_dir is not a directory";
