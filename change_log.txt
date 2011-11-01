@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 01.11.2011
 - bugfix {if} and {while} tags without condition did not throw a SmartyCompilerException (Issue #57)
+- bugfix multiline strings in config files could fail on longer strings (reopened Issue #55)
 
 22.10.2011
 - bugfix smarty_mb_from_unicode() would not decode unicode-points properly
