@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+01.11.2011
+- bugfix {if} and {while} tags without condition did not throw a SmartyCompilerException (Issue #57)
+
 22.10.2011
 - bugfix smarty_mb_from_unicode() would not decode unicode-points properly
 - bugfix use catch Exception instead UnexpectedValueException in 
