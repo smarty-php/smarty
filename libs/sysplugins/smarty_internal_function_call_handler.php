@@ -21,7 +21,7 @@ class Smarty_Internal_Function_Call_Handler {
      *
      * @param string                   $_name       template function name
      * @param Smarty_Internal_Template $_template   template object
-     * @param array                    $_params     Smarty variables passed as call paramter
+     * @param array                    $_params     Smarty variables passed as call parameter
      * @param string                   $_hash       nocache hash value
      * @param bool                     $_nocache    nocache flag
      */

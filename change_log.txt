@@ -1708,7 +1708,7 @@ NOTICE: existing compiled template and cache files must be deleted
 - autoappend a directory separator if the xxxxx_dir definition have no trailing one
 
 03/19/2009
-- allow array definition as modifer paramter
+- allow array definition as modifer parameter
 - changed modifier to use multi byte string funktions. 
 
 03/17/2009
