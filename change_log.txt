@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+14.11.2011
+- bugfix allow space between function name and open bracket (forum topic 20375)
+
 09.11.2011
 - bugfix different behaviour of uniqid() on cygwin. See https://bugs.php.net/bug.php?id=34908
   (forum topic 20343)
