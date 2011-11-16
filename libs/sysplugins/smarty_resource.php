@@ -349,10 +349,14 @@ abstract class Smarty_Resource {
                 // note registered to smarty is not kept unique!
                 return $smarty->_resource_handlers[$type];
             }
+            
             if (!isset(self::$resources['registered'])) {
                 self::$resources['registered'] = new Smarty_Internal_Resource_Registered();
+            }
+            if (!isset($smarty->_resource_handlers[$type])) {
                 $smarty->_resource_handlers[$type] = self::$resources['registered'];
             }
+            
             return $smarty->_resource_handlers[$type];
         }
 
