@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 16.11.2011
 - bugfix Smarty_Resource::load() did not always return a proper resource handler (Forum Topic 20414)
+- added escape argument to html_checkboxes and html_radios (Forum Topic 20425)
 
 ===== Smarty-3.1.5  =====
 14.11.2011

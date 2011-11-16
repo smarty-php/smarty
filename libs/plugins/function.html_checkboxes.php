@@ -29,6 +29,7 @@
  * - separator  (optional) - ie <br> or &nbsp;
  * - output     (optional) - the output next to each checkbox
  * - assign     (optional) - assign the output as an array to this variable
+ * - escape     (optional) - escape the content (not value), defaults to true
  * </pre>
  *
  * @link http://www.smarty.net/manual/en/language.function.html.checkboxes.php {html_checkboxes}
@@ -50,6 +51,7 @@ function smarty_function_html_checkboxes($params, $template)
     $options = null;
     $selected = array();
     $separator = '';
+    $escape = true;
     $labels = true;
     $label_ids = false;
     $output = null;
@@ -63,6 +65,7 @@ function smarty_function_html_checkboxes($params, $template)
                 $$_key = (string) $_val;
                 break;
 
+            case 'escape':
             case 'labels':
             case 'label_ids':
                 $$_key = (bool) $_val;
@@ -130,12 +133,12 @@ function smarty_function_html_checkboxes($params, $template)
 
     if (isset($options)) {
         foreach ($options as $_key=>$_val) {
-            $_html_result[] = smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids);
+            $_html_result[] = smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids, $escape);
         }
     } else {
         foreach ($values as $_i=>$_key) {
             $_val = isset($output[$_i]) ? $output[$_i] : '';
-            $_html_result[] = smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids);
+            $_html_result[] = smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids, $escape);
         }
     }
 
@@ -147,7 +150,7 @@ function smarty_function_html_checkboxes($params, $template)
 
 }
 
-function smarty_function_html_checkboxes_output($name, $value, $output, $selected, $extra, $separator, $labels, $label_ids) {
+function smarty_function_html_checkboxes_output($name, $value, $output, $selected, $extra, $separator, $labels, $label_ids, $escape=true) {
     $_output = '';
     
     if (is_object($value)) {
@@ -183,7 +186,9 @@ function smarty_function_html_checkboxes_output($name, $value, $output, $selecte
     
     $name = smarty_function_escape_special_chars($name);
     $value = smarty_function_escape_special_chars($value);
-    $output = smarty_function_escape_special_chars($output);
+    if ($escape) {
+        $output = smarty_function_escape_special_chars($output);
+    }
     
     $_output .= '<input type="checkbox" name="' . $name . '[]" value="' . $value . '"';
     

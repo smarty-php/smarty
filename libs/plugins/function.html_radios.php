@@ -23,6 +23,7 @@
  * - separator  (optional) - ie <br> or &nbsp;
  * - output     (optional) - the output next to each radio button
  * - assign     (optional) - assign the output as an array to this variable
+ * - escape     (optional) - escape the content (not value), defaults to true
  * </pre>
  * Examples:
  * <pre>
@@ -50,6 +51,7 @@ function smarty_function_html_radios($params, $template)
     $options = null;
     $selected = null;
     $separator = '';
+    $escape = true;
     $labels = true;
     $label_ids = false;
     $output = null;
@@ -77,6 +79,7 @@ function smarty_function_html_radios($params, $template)
                 } 
                 break;
 
+            case 'escape':
             case 'labels':
             case 'label_ids':
                 $$_key = (bool) $_val;
@@ -118,12 +121,12 @@ function smarty_function_html_radios($params, $template)
 
     if (isset($options)) {
         foreach ($options as $_key => $_val) {
-            $_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids);
+            $_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids, $escape);
         }
     } else {
         foreach ($values as $_i => $_key) {
             $_val = isset($output[$_i]) ? $output[$_i] : '';
-            $_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids);
+            $_html_result[] = smarty_function_html_radios_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids, $escape);
         } 
     } 
 
@@ -134,7 +137,7 @@ function smarty_function_html_radios($params, $template)
     } 
 } 
 
-function smarty_function_html_radios_output($name, $value, $output, $selected, $extra, $separator, $labels, $label_ids)
+function smarty_function_html_radios_output($name, $value, $output, $selected, $extra, $separator, $labels, $label_ids, $escape)
 {
     $_output = '';
     
@@ -171,7 +174,9 @@ function smarty_function_html_radios_output($name, $value, $output, $selected, $
     
     $name = smarty_function_escape_special_chars($name);
     $value = smarty_function_escape_special_chars($value);
-    $output = smarty_function_escape_special_chars($output);
+    if ($escape) {
+        $output = smarty_function_escape_special_chars($output);
+    }
     
     $_output .= '<input type="radio" name="' . $name . '" value="' . $value . '"';
 
