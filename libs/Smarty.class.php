@@ -157,7 +157,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * assigned global tpl vars
     */
     public static $global_tpl_vars = array();
-    
+
     /**
      * error handler returned by set_error_hanlder() in Smarty::muteExpectedErrors()
      */
@@ -190,7 +190,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * template directory
     * @var array
     */
-    protected $template_dir = array();
+    private $template_dir = array();
     /**
     * joined template directory string used in cache keys
     * @var string
@@ -220,22 +220,22 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * compile directory
     * @var string
     */
-    protected $compile_dir = null;
+    private $compile_dir = null;
     /**
     * plugins directory
     * @var array
     */
-    protected $plugins_dir = array();
+    private $plugins_dir = array();
     /**
     * cache directory
     * @var string
     */
-    protected $cache_dir = null;
+    private $cache_dir = null;
     /**
     * config directory
     * @var array
     */
-    protected $config_dir = array();
+    private $config_dir = array();
     /**
     * force template compiling?
     * @var boolean
@@ -593,13 +593,13 @@ class Smarty extends Smarty_Internal_TemplateBase {
             ->setPluginsDir(SMARTY_PLUGINS_DIR)
             ->setCacheDir('.' . DS . 'cache' . DS)
             ->setConfigDir('.' . DS . 'configs' . DS);
-            
+
         $this->debug_tpl = 'file:' . dirname(__FILE__) . '/debug.tpl';
         if (isset($_SERVER['SCRIPT_NAME'])) {
             $this->assignGlobal('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
         }
     }
-    
+
 
     /**
     * Class destructor
@@ -862,7 +862,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         foreach ((array) $config_dir as $k => $v) {
             $this->config_dir[$k] = rtrim($v, '/\\') . DS;
         }
-        
+
         $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
         return $this;
     }
@@ -896,7 +896,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             // append new directory
             $this->config_dir[] = rtrim($config_dir, '/\\') . DS;
         }
-        
+
         $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
         return $this;
     }
@@ -1347,7 +1347,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
     {
         $_is_muted_directory = false;
-        
+
         // add the SMARTY_DIR to the list of muted directories
         if (!isset(Smarty::$_muted_directories[SMARTY_DIR])) {
             $smarty_dir = realpath(SMARTY_DIR);
@@ -1356,7 +1356,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
                 'length' => strlen($smarty_dir),
             );
         }
-        
+
         // walk the muted directories and test against $errfile
         foreach (Smarty::$_muted_directories as $key => &$dir) {
             if (!$dir) {
