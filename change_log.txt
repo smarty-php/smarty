@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+21.11.2011
+- bugfix cache file could include unneeded modifier plugins under certain condition
+
 18.11.2011
 - bugfix declare all directory properties private to map direct access to getter/setter also on extended Smarty class
 

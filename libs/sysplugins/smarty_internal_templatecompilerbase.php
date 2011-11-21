@@ -140,7 +140,7 @@ abstract class Smarty_Internal_TemplateCompilerBase {
         // save template object in compiler class
         $this->template = $template;
         // reset has noche code flag
-        $this->template->has_nocache_code = false; 
+        $this->template->has_nocache_code = false;
         $this->smarty->_current_file = $saved_filepath = $this->template->source->filepath;
         // template header code
         $template_header = '';
@@ -569,6 +569,7 @@ abstract class Smarty_Internal_TemplateCompilerBase {
         } else {
             $_output = $content;
         }
+        $this->modifier_plugins = array();
         $this->suppressNocacheProcessing = false;
         $this->tag_nocache = false;
         return $_output;
