@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+24.11.2011
+- bugfix a subtemplate later used as main template did use old variable values
+
 21.11.2011
 - bugfix cache file could include unneeded modifier plugins under certain condition
 

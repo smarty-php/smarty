@@ -1191,6 +1191,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
                 $tpl = clone $this->template_objects[$_templateId];
                 $tpl->smarty = clone $tpl->smarty;
                 $tpl->parent = $parent;
+                $tpl->tpl_vars = array();
+                $tpl->config_vars = array();
             } else {
                 $tpl = new $this->template_class($template, clone $this, $parent, $cache_id, $compile_id);
             }
@@ -1198,6 +1200,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
             if (isset($this->template_objects[$_templateId])) {
                 // return cached template object
                 $tpl = $this->template_objects[$_templateId];
+                $tpl->parent = $parent;
+                $tpl->tpl_vars = array();
+                $tpl->config_vars = array();
             } else {
                 $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
             }
