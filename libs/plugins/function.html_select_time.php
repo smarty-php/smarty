@@ -180,8 +180,11 @@ function smarty_function_html_select_time($params, $template)
             list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d'));
         }
     } elseif ($time === null) {
-        //list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s'));
-        $_hour = $_minute = $_second = $time = null;
+        if (array_key_exists('time', $params)) {
+            $_hour = $_minute = $_second = $time = null;
+        } else {
+            list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s'));
+        }
     } else {
         list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s', $time));
     }

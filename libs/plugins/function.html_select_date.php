@@ -202,8 +202,11 @@ function smarty_function_html_select_date($params, $template)
             list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d'));
         }
     } elseif ($time === null) {
-        //list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d'));
-        $_year = $_month = $_day = $time = null;
+        if (array_key_exists('time', $params)) {
+            $_year = $_month = $_day = $time = null;
+        } else {
+            list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d'));
+        }
     } else {
         list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d', $time));
     }

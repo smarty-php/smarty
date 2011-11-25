@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+25.11.2011
+- bugfix {html_select_date} and {html_slecet_time} did not default to current time if "time" was not specified 
+  since r4432 (issue 60)
+
 24.11.2011
 - bugfix a subtemplate later used as main template did use old variable values
 
