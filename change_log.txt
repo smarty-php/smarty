@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+29.11.2011
+- bugfix added exception if the default plugin handler did return a not static callback (Forum Topic 20512)
+
 25.11.2011
 - bugfix {html_select_date} and {html_slecet_time} did not default to current time if "time" was not specified 
   since r4432 (issue 60)
