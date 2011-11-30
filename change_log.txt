@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+30.11.2011
+- bugfix is_cache() for individual cached subtemplates with $smarty->caching = CACHING_OFF did produce
+  an exception (Forum Topic 20531)
+
 29.11.2011
 - bugfix added exception if the default plugin handler did return a not static callback (Forum Topic 20512)
 

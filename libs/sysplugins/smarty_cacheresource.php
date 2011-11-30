@@ -299,6 +299,7 @@ class Smarty_Template_Cached {
         //    check if cache is valid
         //
         if (!($_template->caching == Smarty::CACHING_LIFETIME_CURRENT || $_template->caching == Smarty::CACHING_LIFETIME_SAVED) || $_template->source->recompiled) {
+            $handler->populate($this, $_template);
             return;
         }
         while (true) {
