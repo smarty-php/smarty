@@ -1,4 +1,12 @@
 ﻿===== trunk  =====
+9.12.2011
+- bugfix {capture} tags around recursive {include} calls did throw exception (Forum Topic 20549)
+- bugfix $auto_literal = false did not work with { block} tags in child templates (Forum Topic 20581)
+- bugfix template inheritance: do not include code of {include} in overloaded {block} into compiled 
+   parent template (Issue 66}
+- bugfix template inheritance: {$smarty.block.child} in nested child {block} tags did not return expected
+   result (Forum Topic 20564)
+    
 ===== Smarty-3.1.6  =====
 30.11.2011
 - bugfix is_cache() for individual cached subtemplates with $smarty->caching = CACHING_OFF did produce
