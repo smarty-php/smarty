@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+16.12.2011
+- bugfix the source exits flag and timestamp was not setup when temple is in php include path (issue 69)
+
 9.12.2011
 - bugfix {capture} tags around recursive {include} calls did throw exception (Forum Topic 20549)
 - bugfix $auto_literal = false did not work with { block} tags in child templates (Forum Topic 20581)

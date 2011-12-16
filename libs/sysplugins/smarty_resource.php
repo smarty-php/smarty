@@ -90,8 +90,8 @@ abstract class Smarty_Resource {
     {
         // intentionally left blank
     }
-    
-    
+
+
     /**
      * modify resource_name according to resource handlers specifications
      *
@@ -103,7 +103,7 @@ abstract class Smarty_Resource {
     {
         return get_class($this) . '#' . $smarty->joined_template_dir . '#' . $resource_name;
     }
-    
+
     /**
      * populate Compiled Object with compiled filepath
      *
@@ -265,7 +265,9 @@ abstract class Smarty_Resource {
                 if ($source->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_directory)) {
                     // try PHP include_path
                     if (($_filepath = Smarty_Internal_Get_Include_Path::getIncludePath($_filepath)) !== false) {
-                        return $_filepath;
+                        if ($this->fileExists($source, $_filepath)) {
+                            return $_filepath;
+                        }
                     }
                 }
             }
@@ -349,14 +351,14 @@ abstract class Smarty_Resource {
                 // note registered to smarty is not kept unique!
                 return $smarty->_resource_handlers[$type];
             }
-            
+
             if (!isset(self::$resources['registered'])) {
                 self::$resources['registered'] = new Smarty_Internal_Resource_Registered();
             }
             if (!isset($smarty->_resource_handlers[$type])) {
                 $smarty->_resource_handlers[$type] = self::$resources['registered'];
             }
-            
+
             return $smarty->_resource_handlers[$type];
         }
 
@@ -375,7 +377,7 @@ abstract class Smarty_Resource {
             if (isset(self::$resources[$type])) {
                 return $smarty->_resource_handlers[$type] = self::$resources[$type];
             }
-            
+
             if (class_exists($_resource_class, false)) {
                 self::$resources[$type] = new $_resource_class();
                 return $smarty->_resource_handlers[$type] = self::$resources[$type];
@@ -410,7 +412,7 @@ abstract class Smarty_Resource {
         // give up
         throw new SmartyException("Unkown resource type '{$type}'");
     }
-    
+
     /**
      * extract resource_type and resource_name from template_resource and config_resource
      *
@@ -434,8 +436,8 @@ abstract class Smarty_Resource {
             $name = $parts[1];
         }
     }
-    
-    
+
+
     /**
      * modify resource_name according to resource handlers specifications
      *
@@ -443,11 +445,11 @@ abstract class Smarty_Resource {
      * @param string $resource_name resource_name to make unique
      * @return string unique resource name
      */
-     
+
     /**
      * modify template_resource according to resource handlers specifications
      *
-     * @param string $smarty            Smarty instance 
+     * @param string $smarty            Smarty instance
      * @param string $template_resource template_resource to extracate resource handler and name of
      * @return string unique resource name
      */
@@ -458,7 +460,7 @@ abstract class Smarty_Resource {
         $resource = Smarty_Resource::load($smarty, $type);
         return $resource->buildUniqueResourceName($smarty, $name);
     }
-    
+
     /**
      * initialize Source Object for given resource
      *
@@ -475,7 +477,7 @@ abstract class Smarty_Resource {
             $smarty = $_template->smarty;
             $template_resource = $_template->template_resource;
         }
-        
+
         // parse resource_name, load resource handler, identify unique resource name
         self::parseResourceName($template_resource, $smarty->default_resource_type, $name, $type);
         $resource = Smarty_Resource::load($smarty, $type);
@@ -486,7 +488,7 @@ abstract class Smarty_Resource {
         if (isset(self::$sources[$_cache_key])) {
             return self::$sources[$_cache_key];
         }
-        
+
         // create source
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $type, $name, $unique_resource_name);
         $resource->populate($source, $_template);
@@ -507,10 +509,10 @@ abstract class Smarty_Resource {
         static $_incompatible_resources = array('eval' => true, 'string' => true, 'extends' => true, 'php' => true);
         $config_resource = $_config->config_resource;
         $smarty = $_config->smarty;
-        
+
         // parse resource_name
         self::parseResourceName($config_resource, $smarty->default_config_type, $name, $type);
-        
+
         // make sure configs are not loaded via anything smarty can't handle
         if (isset($_incompatible_resources[$type])) {
             throw new SmartyException ("Unable to use resource '{$type}' for config");
@@ -519,17 +521,17 @@ abstract class Smarty_Resource {
         // load resource handler, identify unique resource name
         $resource = Smarty_Resource::load($smarty, $type);
         $unique_resource_name = $resource->buildUniqueResourceName($smarty, $name);
-        
+
         // check runtime cache
         $_cache_key = 'config|' . $unique_resource_name;
         if (isset(self::$sources[$_cache_key])) {
             return self::$sources[$_cache_key];
         }
-        
+
         // create source
         $source = new Smarty_Config_Source($resource, $smarty, $config_resource, $type, $name, $unique_resource_name);
         $resource->populate($source, null);
-        
+
         // runtime cache
         self::$sources[$_cache_key] = $source;
         return $source;
@@ -594,7 +596,7 @@ class Smarty_Template_Source {
      * @var string
      */
     public $name = null;
-    
+
     /**
      * Unique Resource Name
      * @var string
