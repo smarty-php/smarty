@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+17.12.2011
+- improvement of compiling speed by new handling of plain text blocks in the lexer/parser (issue 68)
+
 16.12.2011
 - bugfix the source exits flag and timestamp was not setup when temple is in php include path (issue 69)
 
