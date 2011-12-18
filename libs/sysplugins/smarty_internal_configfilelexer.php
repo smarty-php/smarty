@@ -81,11 +81,12 @@ class Smarty_Internal_Configfilelexer
               5 => 0,
               6 => 0,
               7 => 0,
+              8 => 0,
             );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/\G(#|;)|\G(\\[)|\G(\\])|\G(=)|\G([ \t\r]+)|\G(\n)|\G([0-9]*[a-zA-Z_]\\w*)/iS";
+        $yy_global_pattern = "/\G(#|;)|\G(\\[)|\G(\\])|\G(=)|\G([ \t\r]+)|\G(\n)|\G([0-9]*[a-zA-Z_]\\w*)|\G([\S\s])/iS";
 
         do {
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches) : preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
@@ -172,6 +173,11 @@ class Smarty_Internal_Configfilelexer
     {
 
     $this->token = Smarty_Internal_Configfileparser::TPC_ID;
+    }
+    function yy_r1_8($yy_subpatterns)
+    {
+
+    $this->token = Smarty_Internal_Configfileparser::TPC_OTHER;
     }
 
 
@@ -528,12 +534,11 @@ class Smarty_Internal_Configfilelexer
         $tokenMap = array (
               1 => 0,
               2 => 0,
-              3 => 2,
             );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/\G(\"\"\"(?=[ \t\r]*[\n#;]))|\G([ \t\r]*\n)|\G(([\S\s]*?)(?=([ \t\r]*\n|\"\"\")))/iS";
+        $yy_global_pattern = "/\G(\"\"\"(?=[ \t\r]*[\n#;]))|\G([\S\s])/iS";
 
         do {
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, substr($this->data, $this->counter), $yymatches) : preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
@@ -593,12 +598,13 @@ class Smarty_Internal_Configfilelexer
     function yy_r6_2($yy_subpatterns)
     {
 
-    $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_CONTENT;
-    }
-    function yy_r6_3($yy_subpatterns)
-    {
-
-    $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_CONTENT;
+  $to = strlen($this->data);
+  preg_match("/\"\"\"[ \t\r]*[\n#;]/",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
+  if (isset($match[0][1])) {
+    $to = $match[0][1];
+  }
+  $this->value = substr($this->data,$this->counter,$to-$this->counter);
+  $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_TEXT;
     }
 
 

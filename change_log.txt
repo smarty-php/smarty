@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+18.12.2011
+- bufix strings ending with " in multiline strings of config files failed to compile {isse 67)
+
 17.12.2011
 - improvement of compiling speed by new handling of plain text blocks in the lexer/parser (issue 68)
 
