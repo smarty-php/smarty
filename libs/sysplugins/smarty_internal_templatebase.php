@@ -417,6 +417,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     * @param callback $callback   PHP callback to register
     * @param boolean  $cacheable  if true (default) this fuction is cachable
     * @param array    $cache_attr caching attributes if any
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     * @throws SmartyException when the plugin tag is invalid
     */
     public function registerPlugin($type, $tag, $callback, $cacheable = true, $cache_attr = null)
@@ -428,6 +429,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
         } else {
             $this->smarty->registered_plugins[$type][$tag] = array($callback, (bool) $cacheable, (array) $cache_attr);
         }
+        
+        return $this;
     }
 
     /**
@@ -435,12 +438,15 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     *
     * @param string $type of plugin
     * @param string $tag name of plugin
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     */
     public function unregisterPlugin($type, $tag)
     {
         if (isset($this->smarty->registered_plugins[$type][$tag])) {
             unset($this->smarty->registered_plugins[$type][$tag]);
         }
+        
+        return $this;
     }
 
     /**
@@ -448,22 +454,27 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     *
     * @param string $type name of resource type
     * @param Smarty_Resource|array $callback or instance of Smarty_Resource, or array of callbacks to handle resource (deprecated)
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     */
     public function registerResource($type, $callback)
     {
         $this->smarty->registered_resources[$type] = $callback instanceof Smarty_Resource ? $callback : array($callback, false);
+        return $this;
     }
 
     /**
     * Unregisters a resource
     *
     * @param string $type name of resource type
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     */
     public function unregisterResource($type)
     {
         if (isset($this->smarty->registered_resources[$type])) {
             unset($this->smarty->registered_resources[$type]);
         }
+        
+        return $this;
     }
 
     /**
@@ -471,22 +482,27 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     *
     * @param string               $type     name of cache resource type
     * @param Smarty_CacheResource $callback instance of Smarty_CacheResource to handle output caching
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     */
     public function registerCacheResource($type, Smarty_CacheResource $callback)
     {
         $this->smarty->registered_cache_resources[$type] = $callback;
+        return $this;
     }
 
     /**
     * Unregisters a cache resource
     *
     * @param string $type name of cache resource type
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     */
     public function unregisterCacheResource($type)
     {
         if (isset($this->smarty->registered_cache_resources[$type])) {
             unset($this->smarty->registered_cache_resources[$type]);
         }
+        
+        return $this;
     }
 
     /**
@@ -498,6 +514,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     * @param boolean $smarty_args   smarty argument format, else traditional
     * @param array   $block_methods list of block-methods
     * @param array $block_functs list of methods that are block format
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     * @throws SmartyException if any of the methods in $allowed or $block_methods are invalid
     */
     public function registerObject($object_name, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
@@ -521,6 +538,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
         // register the object
         $this->smarty->registered_objects[$object_name] =
         array($object_impl, (array) $allowed, (boolean) $smarty_args, (array) $block_methods);
+        return $this;
     }
 
     /**
@@ -545,12 +563,15 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     * unregister an object
     *
     * @param string $name object name
-    * @throws SmartyException if no such object is found
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     */
     public function unregisterObject($name)
     {
-        unset($this->smarty->registered_objects[$name]);
-        return;
+        if (isset($this->smarty->registered_objects[$name])) {
+            unset($this->smarty->registered_objects[$name]);
+        }
+        
+        return $this;
     }
 
     /**
@@ -558,6 +579,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     *
     * @param string $class name of template class
     * @param string $class_impl the referenced PHP class to register
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     * @throws SmartyException if $class_impl does not refer to an existing class
     */
     public function registerClass($class_name, $class_impl)
@@ -568,12 +590,14 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
         }
         // register the class
         $this->smarty->registered_classes[$class_name] = $class_impl;
+        return $this;
     }
 
     /**
     * Registers a default plugin handler
     *
     * @param callable $callback class/method name
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     * @throws SmartyException if $callback is not callable
     */
     public function registerDefaultPluginHandler($callback)
@@ -583,12 +607,15 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
         } else {
             throw new SmartyException("Default plugin handler '$callback' not callable");
         }
+        
+        return $this;
     }
 
     /**
     * Registers a default template handler
     *
     * @param callable $callback class/method name
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     * @throws SmartyException if $callback is not callable
     */
     public function registerDefaultTemplateHandler($callback)
@@ -598,12 +625,15 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
         } else {
             throw new SmartyException("Default template handler '$callback' not callable");
         }
+        
+        return $this;
     }
 
     /**
     * Registers a default template handler
     *
     * @param callable $callback class/method name
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     * @throws SmartyException if $callback is not callable
     */
     public function registerDefaultConfigHandler($callback)
@@ -613,6 +643,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
         } else {
             throw new SmartyException("Default config handler '$callback' not callable");
         }
+        
+        return $this;
     }
 
     /**
@@ -620,10 +652,12 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     *
     * @param string $type filter type
     * @param callback $callback
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     */
     public function registerFilter($type, $callback)
     {
         $this->smarty->registered_filters[$type][$this->_get_filter_name($callback)] = $callback;
+        return $this;
     }
 
     /**
@@ -631,6 +665,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     *
     * @param string $type filter type
     * @param callback $callback
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     */
     public function unregisterFilter($type, $callback)
     {
@@ -638,12 +673,15 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
         if (isset($this->smarty->registered_filters[$type][$name])) {
             unset($this->smarty->registered_filters[$type][$name]);
         }
+        
+        return $this;
     }
 
     /**
     * Return internal filter name
     *
     * @param callback $function_name
+    * @return string internal filter name
     */
     public function _get_filter_name($function_name)
     {
@@ -661,7 +699,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     *
     * @param string $type filter type
     * @param string $name filter name
-    * @return bool
+    * @throws SmartyException if filter could not be loaded
     */
     public function loadFilter($type, $name)
     {
@@ -677,7 +715,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
             }
         }
         throw new SmartyException("{$type}filter \"{$name}\" not callable");
-        return false;
     }
 
     /**
@@ -685,24 +722,23 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
     *
     * @param string $type filter type
     * @param string $name filter name
-    * @return bool
+    * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or Smarty_Internal_Template) instance for chaining
     */
     public function unloadFilter($type, $name)
     {
         $_filter_name = "smarty_{$type}filter_{$name}";
         if (isset($this->smarty->registered_filters[$type][$_filter_name])) {
             unset ($this->smarty->registered_filters[$type][$_filter_name]);
-            return true;
-        } else {
-            return false;
         }
+        
+        return $this;
     }
 
     /**
     * preg_replace callback to convert camelcase getter/setter to underscore property names
     *
     * @param string $match match string
-    * @return string  replacemant
+    * @return string replacemant
     */
     private function replaceCamelcase($match) {
         return "_" . strtolower($match[1]);
