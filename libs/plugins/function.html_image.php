@@ -46,8 +46,7 @@ function smarty_function_html_image($params, $template)
     $prefix = '';
     $suffix = '';
     $path_prefix = '';
-    $server_vars = $_SERVER;
-    $basedir = isset($server_vars['DOCUMENT_ROOT']) ? $server_vars['DOCUMENT_ROOT'] : '';
+    $basedir = isset($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '';
     foreach($params as $_key => $_val) {
         switch ($_key) {
             case 'file':
@@ -88,13 +87,38 @@ function smarty_function_html_image($params, $template)
         return;
     } 
 
-    if (substr($file, 0, 1) == '/') {
+    if ($file[0] == '/') {
         $_image_path = $basedir . $file;
     } else {
         $_image_path = $file;
-    } 
+    }
+    
+    // strip file protocol
+    if (stripos($params['file'], 'file://') === 0) {
+        $params['file'] = substr($params['file'], 7);
+    }
+    
+    $protocol = strpos($params['file'], '://');
+    if ($protocol !== false) {
+        $protocol = strtolower(substr($params['file'], 0, $protocol));
+    }
+    
+    if (isset($template->smarty->security_policy)) {
+        if ($protocol) {
+            // remote resource (or php stream, …)
+            if(!$template->smarty->security_policy->isTrustedUri($params['file'])) {
+                return;
+            }
+        } else {
+            // local file
+            if(!$template->smarty->security_policy->isTrustedResourceDir($params['file'])) {
+                return;
+            }
+        }
+    }
 
     if (!isset($params['width']) || !isset($params['height'])) {
+        // FIXME: (rodneyrehm) getimagesize() loads the complete file off a remote resource, use custom [jpg,png,gif]header reader!
         if (!$_image_data = @getimagesize($_image_path)) {
             if (!file_exists($_image_path)) {
                 trigger_error("html_image: unable to find '$_image_path'", E_USER_NOTICE);
@@ -106,12 +130,7 @@ function smarty_function_html_image($params, $template)
                 trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
                 return;
             } 
-        } 
-        if (isset($template->smarty->security_policy)) {
-            if (!$template->smarty->security_policy->isTrustedResourceDir($_image_path)) {
-                return;
-            } 
-        } 
+        }
 
         if (!isset($params['width'])) {
             $width = $_image_data[0];
@@ -122,7 +141,9 @@ function smarty_function_html_image($params, $template)
     } 
 
     if (isset($params['dpi'])) {
-        if (strstr($server_vars['HTTP_USER_AGENT'], 'Mac')) {
+        if (strstr($_SERVER['HTTP_USER_AGENT'], 'Mac')) {
+            // FIXME: (rodneyrehm) wrong dpi assumption
+            // don't know who thought this up… even if it was true in 1998, it's definitely wrong in 2011.
             $dpi_default = 72;
         } else {
             $dpi_default = 96;

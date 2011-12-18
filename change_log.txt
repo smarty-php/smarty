@@ -6,6 +6,8 @@
 - bugfix unregisterObject() raised notice when object to unregister did not exist
 - changed internals to use Smarty::$_MBSTRING ($_CHARSET, $_DATE_FORMAT) for better unit testing
 - added Smarty::$_UTF8_MODIFIER for proper PCRE charset handling (Forum Topic 20452)
+- added Smarty_Security::isTrustedUri() and Smarty_Security::$trusted_uri to validate 
+  remote resource calls through {fetch} and {html_image} (Forum Topic 20627)
 
 17.12.2011
 - improvement of compiling speed by new handling of plain text blocks in the lexer/parser (issue #68)

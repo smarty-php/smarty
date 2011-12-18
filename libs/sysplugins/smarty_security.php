@@ -49,6 +49,12 @@ class Smarty_Security {
      */
     public $trusted_dir = array();
     /**
+     * List of regular expressions (PCRE) that include trusted URIs
+     *
+     * @var array
+     */
+    public $trusted_uri = array();
+    /**
      * This is an array of trusted static classes.
      *
      * If empty access to all static classes is allowed.
@@ -374,7 +380,33 @@ class Smarty_Security {
         // give up
         throw new SmartyException("directory '{$_filepath}' not allowed by security setting");
     }
-
+    
+    /**
+     * Check if URI (e.g. {fetch} or {html_image}) is trusted
+     *
+     * To simplify things, isTrustedUri() resolves all input to "{$PROTOCOL}://{$HOSTNAME}".
+     * So "http://username:password@hello.world.example.org:8080/some-path?some=query-string"
+     * is reduced to "http://hello.world.example.org" prior to applying the patters from {@link $trusted_uri}.
+     * @param string $uri 
+     * @return boolean true if URI is trusted
+     * @throws SmartyException if URI is not trusted
+     * @uses $trusted_uri for list of patterns to match against $uri
+     */
+    public function isTrustedUri($uri)
+    {
+        $_uri = parse_url($uri);
+        if (!empty($_uri['scheme']) && !empty($_uri['host'])) {
+            $_uri = $_uri['scheme'] . '://' . $_uri['host'];
+            foreach ($this->trusted_uri as $pattern) {
+                if (preg_match($pattern, $_uri)) {
+                    return true;
+                }
+            }
+        }
+        
+        throw new SmartyException("URI '{$uri}' not allowed by security setting");
+    }
+    
     /**
      * Check if directory of file resource is trusted.
      *
