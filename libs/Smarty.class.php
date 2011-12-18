@@ -61,9 +61,15 @@ if (!defined('SMARTY_MBSTRING')) {
 }
 if (!defined('SMARTY_RESOURCE_CHAR_SET')) {
     // UTF-8 can only be done properly when mbstring is available!
+    /**
+     * @deprecated in favor of Smarty::$_CHARSET
+     */
     define('SMARTY_RESOURCE_CHAR_SET', SMARTY_MBSTRING ? 'UTF-8' : 'ISO-8859-1');
 }
 if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
+    /**
+     * @deprecated in favor of Smarty::$_DATE_FORMAT
+     */
     define('SMARTY_RESOURCE_DATE_FORMAT', '%b %e, %Y');
 }
 
@@ -166,11 +172,24 @@ class Smarty extends Smarty_Internal_TemplateBase {
      * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
      */
     public static $_muted_directories = array();
-    
+    /**
+     * Flag denoting if Multibyte String functions are available
+     */
     public static $_MBSTRING = SMARTY_MBSTRING;
+    /**
+     * The character set to adhere to (e.g. "UTF-8")
+     */
     public static $_CHARSET = SMARTY_RESOURCE_CHAR_SET;
+    /**
+     * The date format to be used internally
+     * (accepts date() and strftime())
+     */
     public static $_DATE_FORMAT = SMARTY_RESOURCE_DATE_FORMAT;
+    /**
+     * Flag denoting if PCRE should run in UTF-8 mode
+     */
     public static $_UTF8_MODIFIER = 'u';
+    
     
     /**#@+
      * variables
@@ -1437,7 +1456,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     }
 }
 
-// let PREG treat strings as ISO-8859-1 if we're not dealing with UTF-8
+// let PCRE (preg_*) treat strings as ISO-8859-1 if we're not dealing with UTF-8
 if (Smarty::$_CHARSET !== 'UTF-8') {
     Smarty::$_UTF8_MODIFIER = '';
 }

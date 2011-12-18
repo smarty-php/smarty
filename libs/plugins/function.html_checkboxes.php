@@ -177,7 +177,7 @@ function smarty_function_html_checkboxes_output($name, $value, $output, $selecte
     
     if ($labels) {
         if ($label_ids) {
-            $_id = smarty_function_escape_special_chars(preg_replace('![^\w\-\.]!u', '_', $name . '_' . $value));
+            $_id = smarty_function_escape_special_chars(preg_replace('![^\w\-\.]!' . Smarty::$_UTF8_MODIFIER, '_', $name . '_' . $value));
             $_output .= '<label for="' . $_id . '">';
         } else {
             $_output .= '<label>';

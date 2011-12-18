@@ -130,7 +130,7 @@ function smarty_function_mailto($params, $template)
         }
         $address_encode = '';
         for ($x = 0, $_length = strlen($address); $x < $_length; $x++) {
-            if (preg_match('!\w!u', $address[$x])) {
+            if (preg_match('!\w!' . Smarty::$_UTF8_MODIFIER, $address[$x])) {
                 $address_encode .= '%' . bin2hex($address[$x]);
             } else {
                 $address_encode .= $address[$x];
