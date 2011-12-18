@@ -166,7 +166,12 @@ class Smarty extends Smarty_Internal_TemplateBase {
      * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
      */
     public static $_muted_directories = array();
-
+    
+    public static $_MBSTRING = SMARTY_MBSTRING;
+    public static $_CHARSET = SMARTY_RESOURCE_CHAR_SET;
+    public static $_DATE_FORMAT = SMARTY_RESOURCE_DATE_FORMAT;
+    public static $_UTF8_MODIFIER = 'u';
+    
     /**#@+
      * variables
      */
@@ -584,7 +589,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // selfpointer needed by some other class methods
         $this->smarty = $this;
         if (is_callable('mb_internal_encoding')) {
-            mb_internal_encoding(SMARTY_RESOURCE_CHAR_SET);
+            mb_internal_encoding(Smarty::$_CHARSET);
         }
         $this->start_time = microtime(true);
         // set default dirs
@@ -1430,6 +1435,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     {
         restore_error_handler();
     }
+}
+
+// let PREG treat strings as ISO-8859-1 if we're not dealing with UTF-8
+if (Smarty::$_CHARSET !== 'UTF-8') {
+    Smarty::$_UTF8_MODIFIER = '';
 }
 
 /**

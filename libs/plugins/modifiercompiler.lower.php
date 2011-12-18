@@ -21,8 +21,8 @@
 
 function smarty_modifiercompiler_lower($params, $compiler)
 {
-    if (SMARTY_MBSTRING /* ^phpunit */&&empty($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'])/* phpunit$ */) {
-        return 'mb_strtolower(' . $params[0] . ',SMARTY_RESOURCE_CHAR_SET)' ;
+    if (Smarty::$_MBSTRING) {
+        return 'mb_strtolower(' . $params[0] . ', \'' . addslashes(Smarty::$_CHARSET) . '\')' ;
     }
     // no MBString fallback
     return 'strtolower(' . $params[0] . ')';

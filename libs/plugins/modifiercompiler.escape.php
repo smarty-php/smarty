@@ -27,11 +27,11 @@ function smarty_modifiercompiler_escape($params, $compiler)
 {
     try {
         $esc_type = smarty_literal_compiler_param($params, 1, 'html');
-        $char_set = smarty_literal_compiler_param($params, 2, SMARTY_RESOURCE_CHAR_SET);
+        $char_set = smarty_literal_compiler_param($params, 2, Smarty::$_CHARSET);
         $double_encode = smarty_literal_compiler_param($params, 3, true);
 
         if (!$char_set) {
-            $char_set = SMARTY_RESOURCE_CHAR_SET;
+            $char_set = Smarty::$_CHARSET;
         }
 
         switch ($esc_type) {
@@ -42,7 +42,7 @@ function smarty_modifiercompiler_escape($params, $compiler)
                     . var_export($double_encode, true) . ')';
 
             case 'htmlall':
-                if (SMARTY_MBSTRING /* ^phpunit */&&empty($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'])/* phpunit$ */) {
+                if (Smarty::$_MBSTRING) {
                     return 'mb_convert_encoding(htmlspecialchars('
                         . $params[0] .', ENT_QUOTES, '
                         . var_export($char_set, true) . ', '

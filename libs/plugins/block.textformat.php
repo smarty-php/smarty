@@ -90,7 +90,7 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
             $_paragraph = str_repeat($indent_char, $indent_first) . $_paragraph;
         }
         // wordwrap sentences
-        if (SMARTY_MBSTRING /* ^phpunit */&&empty($_SERVER['SMARTY_PHPUNIT_DISABLE_MBSTRING'])/* phpunit$ */) {
+        if (Smarty::$_MBSTRING) {
             require_once(SMARTY_PLUGINS_DIR . 'shared.mb_wordwrap.php');
             $_paragraph = smarty_mb_wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);
         } else {

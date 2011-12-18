@@ -4,6 +4,7 @@
 - added chaining to Smarty_Internal_Templatebase
 - changed unloadFilter() to not return a boolean in favor of chaining and API conformity
 - bugfix unregisterObject() raised notice when object to unregister did not exist
+- changed internals to use Smarty::$_MBSTRING ($_CHARSET, $_DATE_FORMAT) for better unit testing
 
 17.12.2011
 - improvement of compiling speed by new handling of plain text blocks in the lexer/parser (issue 68)
