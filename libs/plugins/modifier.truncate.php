@@ -32,7 +32,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_wo
         if (mb_strlen($string, SMARTY_RESOURCE_CHAR_SET) > $length) {
             $length -= min($length, mb_strlen($etc, SMARTY_RESOURCE_CHAR_SET));
             if (!$break_words && !$middle) {
-                $string = preg_replace('/\s+?(\S+)?$/u', '', mb_substr($string, 0, $length + 1, SMARTY_RESOURCE_CHAR_SET));
+                $string = preg_replace('/\s+?(\S+)?$/' . SMARTY_PREG_MODIFIER, '', mb_substr($string, 0, $length + 1, SMARTY_RESOURCE_CHAR_SET));
             } 
             if (!$middle) {
                 return mb_substr($string, 0, $length, SMARTY_RESOURCE_CHAR_SET) . $etc;
