@@ -13,7 +13,7 @@
 - improvement of compiling speed by new handling of plain text blocks in the lexer/parser (issue #68)
 
 16.12.2011
-- bugfix the source exits flag and timestamp was not setup when temple is in php include path (issue #69)
+- bugfix the source exits flag and timestamp was not setup when template was in php include path (issue #69)
 
 9.12.2011
 - bugfix {capture} tags around recursive {include} calls did throw exception (Forum Topic 20549)
