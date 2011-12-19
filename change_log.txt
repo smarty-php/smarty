@@ -1,4 +1,5 @@
 ﻿===== trunk  =====
+===== Smarty-3.1.7 =====
 18.12.2011
 - bugfix strings ending with " in multiline strings of config files failed to compile (isse #67)
 - added chaining to Smarty_Internal_Templatebase
