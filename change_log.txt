@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+20.12.2011
+- bugfix template inheritance: {$smarty.block.child} in nested child {block} tags did not return 
+  content after {$smarty.block.child} (Forum Topic 20564)
+
 ===== Smarty-3.1.7 =====
 18.12.2011
 - bugfix strings ending with " in multiline strings of config files failed to compile (isse #67)
