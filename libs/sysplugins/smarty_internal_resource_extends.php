@@ -19,6 +19,13 @@
 class Smarty_Internal_Resource_Extends extends Smarty_Resource {
 
     /**
+    * mbstring.overload flag
+    *
+    * @var int
+    */
+    public $mbstring_overload = 0;
+
+    /**
     * populate Source Object with meta data from Resource
     *
     * @param Smarty_Template_Source   $source    source object
@@ -79,6 +86,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource {
             throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");
         }
 
+        $this->mbstring_overload = ini_get('mbstring.func_overload') & 2;
         $_rdl = preg_quote($source->smarty->right_delimiter);
         $_ldl = preg_quote($source->smarty->left_delimiter);
         $_components = array_reverse($source->components);
@@ -107,13 +115,13 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource {
                 while ($_start+1 < $_result_count) {
                     $_end = 0;
                     $_level = 1;
-                    if (substr($_result[0][$_start][0],0,strlen($source->smarty->left_delimiter)+1) == $source->smarty->left_delimiter.'*') {
+                    if (($this->mbstring_overload ? mb_substr($_result[0][$_start][0],0,mb_strlen($source->smarty->left_delimiter,'latin1')+1, 'latin1') : substr($_result[0][$_start][0],0,strlen($source->smarty->left_delimiter)+1)) == $source->smarty->left_delimiter.'*') {
                         $_start++;
                         continue;
                     }
                     while ($_level != 0) {
                         $_end++;
-                        if (substr($_result[0][$_start + $_end][0],0,strlen($source->smarty->left_delimiter)+1) == $source->smarty->left_delimiter.'*') {
+                        if (($this->mbstring_overload ? mb_substr($_result[0][$_start + $_end][0],0,mb_strlen($source->smarty->left_delimiter,'latin1')+1, 'latin1') : substr($_result[0][$_start + $_end][0],0,strlen($source->smarty->left_delimiter)+1)) == $source->smarty->left_delimiter.'*') {
                             continue;
                         }
                         if (!strpos($_result[0][$_start + $_end][0], '/')) {
@@ -122,7 +130,8 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource {
                             $_level--;
                         }
                     }
-                    $_block_content = str_replace($source->smarty->left_delimiter . '$smarty.block.parent' . $source->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%', substr($_content, $_result[0][$_start][1] + strlen($_result[0][$_start][0]), $_result[0][$_start + $_end][1] - $_result[0][$_start][1] - + strlen($_result[0][$_start][0])));
+                    $_block_content = str_replace($source->smarty->left_delimiter . '$smarty.block.parent' . $source->smarty->right_delimiter, '%%%%SMARTY_PARENT%%%%',
+                    ($this->mbstring_overload ? mb_substr($_content, $_result[0][$_start][1] + mb_strlen($_result[0][$_start][0], 'latin1'), $_result[0][$_start + $_end][1] - $_result[0][$_start][1] - + mb_strlen($_result[0][$_start][0], 'latin1'), 'latin1') : substr($_content, $_result[0][$_start][1] + strlen($_result[0][$_start][0]), $_result[0][$_start + $_end][1] - $_result[0][$_start][1] - + strlen($_result[0][$_start][0]))));
                     Smarty_Internal_Compile_Block::saveBlockData($_block_content, $_result[0][$_start][0], $source->template, $_component->filepath);
                     $_start = $_start + $_end + 1;
                 }
