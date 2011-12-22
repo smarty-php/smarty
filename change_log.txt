@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+22.12.2011
+- bugfix the new lexer of 17.12.2011 did fail if mbstring.func_overload != 0 (issue 70) (Forum Topic 20680)
+
 20.12.2011
 - bugfix template inheritance: {$smarty.block.child} in nested child {block} tags did not return 
   content after {$smarty.block.child} (Forum Topic 20564)
