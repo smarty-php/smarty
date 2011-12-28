@@ -176,19 +176,23 @@ abstract class Smarty_Internal_TemplateCompilerBase {
         self::$_tag_objects = array();
         // return compiled code to template object
         $merged_code = '';
-        if (!$this->suppressMergedTemplates) {
+        if (!$this->suppressMergedTemplates && !empty($this->merged_templates)) {
             foreach ($this->merged_templates as $code) {
                 $merged_code .= $code;
             }
+            // run postfilter if required on merged code
+            if (isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) {
+                $merged_code = Smarty_Internal_Filter_Handler::runFilter('post', $merged_code, $template);
+            }
+        }
+        // run postfilter if required on compiled template code
+        if (isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) {
+            $_compiled_code = Smarty_Internal_Filter_Handler::runFilter('post', $_compiled_code, $template);
         }
         if ($this->suppressTemplatePropertyHeader) {
             $code = $_compiled_code . $merged_code;
         } else {
             $code = $template_header . $template->createTemplateCodeFrame($_compiled_code) . $merged_code;
-        }
-        // run postfilter if required
-        if (isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) {
-            $code = Smarty_Internal_Filter_Handler::runFilter('post', $code, $template);
         }
         return $code;
     }

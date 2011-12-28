@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+28.12.2011
+- bugfix Smarty's internal header code must be excluded from postfilters (issue 71)
+
 22.12.2011
 - bugfix the new lexer of 17.12.2011 did fail if mbstring.func_overload != 0 (issue 70) (Forum Topic 20680)
 - bugfix template inheritace did fail if mbstring.func_overload != 0 (issue 70) (Forum Topic 20680)
