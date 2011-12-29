@@ -1,6 +1,6 @@
 ﻿===== trunk  =====
 29.12.2011
-- bugfix enable more entropy in Smarty_Internal_Write_File for "more uniqueness" and Cygwin compatibility
+- bugfix enable more entropy in Smarty_Internal_Write_File for "more uniqueness" and Cygwin compatibility (Forum Topic 77562)
 
 28.12.2011
 - bugfix Smarty's internal header code must be excluded from postfilters (issue 71)
