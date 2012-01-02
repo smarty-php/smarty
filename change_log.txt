@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+02.01.2011
+- bugfix {block foo nocache} did not load plugins within child {block} in nocache mode (Forum Topic 20753)
+
 29.12.2011
 - bugfix enable more entropy in Smarty_Internal_Write_File for "more uniqueness" and Cygwin compatibility (Forum Topic 20724)
 - bugfix embedded quotes in single quoted strings did not compile correctly in {nocache} sections (Forum Topic 20730)
