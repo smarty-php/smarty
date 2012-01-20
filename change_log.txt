@@ -3,6 +3,7 @@
 - bugfix typo in Smarty_Internal_Get_IncludePath did cause runtime overhead (Issue 74)
 - improvment remove unneeded assigments (Issue 75 and 76)
 - fixed typo in template parser
+- bugfix output filter must not run before writing cache when template does contain nocache code {Issue 71}
 
 02.01.2012
 - bugfix {block foo nocache} did not load plugins within child {block} in nocache mode (Forum Topic 20753)
