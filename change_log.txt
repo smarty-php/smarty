@@ -1,5 +1,9 @@
 ﻿===== trunk  =====
-02.01.2011
+13.01.2012
+- bugfix typo in Smarty_Internal_Get_IncludePath did cause runtime overhead (Issue 74)
+- improvment remove unneeded assigments (Issue 75 and 76)
+
+02.01.2012
 - bugfix {block foo nocache} did not load plugins within child {block} in nocache mode (Forum Topic 20753)
 
 29.12.2011

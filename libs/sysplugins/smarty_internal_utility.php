@@ -211,8 +211,6 @@ class Smarty_Internal_Utility {
 
             $_resource_part_2 = str_replace('.php','.cache.php',$_resource_part_1);
             $_resource_part_2_length = strlen($_resource_part_2);
-        } else {
-            $_resource_part = '';
         }
         $_dir = $_compile_dir;
         if ($smarty->use_sub_dirs && isset($_compile_id)) {

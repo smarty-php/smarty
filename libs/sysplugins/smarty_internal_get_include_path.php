@@ -25,7 +25,7 @@ class Smarty_Internal_Get_Include_Path {
     {
         static $_include_path = null;
 
-        if ($_path_array === null) {
+        if ($_include_path === null) {
             $_include_path = explode(PATH_SEPARATOR, get_include_path());
         }
 
@@ -34,7 +34,7 @@ class Smarty_Internal_Get_Include_Path {
                 return $_path . DS . $filepath;
             }
         }
-        
+
         return false;
     }
 
