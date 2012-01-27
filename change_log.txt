@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+27.01.2012
+- bugfix Smarty did not a template name of "0" (Forum Topic 20895)
+
 20.01.2012
 - bugfix typo in Smarty_Internal_Get_IncludePath did cause runtime overhead (Issue 74)
 - improvment remove unneeded assigments (Issue 75 and 76)

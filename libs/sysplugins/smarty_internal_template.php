@@ -622,8 +622,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
     {
         switch ($property_name) {
             case 'source':
-                if (empty($this->template_resource)) {
-                    throw new SmartyException("Unable to parse resource name \"{$this->template_resource}\"");
+                if (strlen($this->template_resource) == 0) {
+                    throw new SmartyException('Missing template name');
                 }
                 $this->source = Smarty_Resource::source($this);
                 // cache template object under a unique ID
