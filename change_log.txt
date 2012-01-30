@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+30.01.2012
+- bugfix Smarty_Security internal $_resource_dir cache wasn't properly propagated
+
 27.01.2012
 - bugfix Smarty did not a template name of "0" (Forum Topic 20895)
 

@@ -362,7 +362,7 @@ class Smarty_Security {
         $_directory = array();
         while (true) {
             // remember the directory to add it to _resource_dir in case we're successful
-            $_directory[] = $directory;
+            $_directory[$directory] = true;
             // test if the directory is trusted
             if (isset($this->_resource_dir[$directory])) {
                 // merge sub directories of current $directory into _resource_dir to speed up subsequent lookups
