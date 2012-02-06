@@ -45,7 +45,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource {
             $sources[$s->uid] = $s;
             $uid .= $s->filepath;
             if ($_template && $_template->smarty->compile_check) {
-                $exists == $exists && $s->exists;
+                $exists = $exists && $s->exists;
             }
         }
         $source->components = $sources;
@@ -68,7 +68,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource {
     {
         $source->exists = true;
         foreach ($source->components as $s) {
-            $source->exists == $source->exists && $s->exists;
+            $source->exists = $source->exists && $s->exists;
         }
         $source->timestamp = $s->timestamp;
     }
