@@ -24,6 +24,11 @@ class Smarty_Internal_Get_Include_Path {
     public static function getIncludePath($filepath)
     {
         static $_include_path = null;
+        
+        if (function_exists('stream_resolve_include_path')) {
+            // available since PHP 5.3.2
+            return stream_resolve_include_path($filepath);
+        }
 
         if ($_include_path === null) {
             $_include_path = explode(PATH_SEPARATOR, get_include_path());

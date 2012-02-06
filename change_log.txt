@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+06.02.2012
+- improvement stream_resolve_include_path() added to Smarty_Internal_Get_Include_Path (Forum Topic 20980)
+
 30.01.2012
 - bugfix Smarty_Security internal $_resource_dir cache wasn't properly propagated
 
