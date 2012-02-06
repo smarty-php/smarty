@@ -155,7 +155,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                         $compiled_code = preg_replace("/(<\?php \/\*%%SmartyHeaderCode:{$tpl->properties['nocache_hash']}%%\*\/(.+?)\/\*\/%%SmartyHeaderCode%%\*\/\?>\n)/s", '', $compiled_code);
                         if ($tpl->has_nocache_code) {
                             // replace nocache_hash
-                            $compiled_code = preg_replace("/{$tpl->properties['nocache_hash']}/", $compiler->template->properties['nocache_hash'], $compiled_code);
+                            $compiled_code = str_replace("{$tpl->properties['nocache_hash']}", $compiler->template->properties['nocache_hash'], $compiled_code);
                             $compiler->template->has_nocache_code = true;
                         }
                         $compiler->merged_templates[$tpl->properties['unifunc']] = $compiled_code;
