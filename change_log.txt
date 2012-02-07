@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+07.02.2012
+- bugfix increase entropy of internal function names in compiled and cached template files (Forum Topic 20996)
+
 06.02.2012
 - improvement stream_resolve_include_path() added to Smarty_Internal_Get_Include_Path (Forum Topic 20980)
 - bugfix fetch('extends:foo.tpl') always yielded $source->exists == true (Forum Topic 20980)
