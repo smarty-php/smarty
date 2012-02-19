@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+19.02.2012
+- bugfix {include} could result in a fatal error if used in appended or prepended nested {block} tags
+  (reported by mh and Issue 83)
+
 07.02.2012
 - bugfix increase entropy of internal function names in compiled and cached template files (Forum Topic 20996)
 - enhancement cacheable parameter added to default plugin handler, same functionality as in registerPlugin (request by calguy1000)
