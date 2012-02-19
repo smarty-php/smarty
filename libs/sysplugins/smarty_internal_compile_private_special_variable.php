@@ -62,6 +62,9 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
             case 'template':
                 return 'basename($_smarty_tpl->source->filepath)';
 
+            case 'template_object':
+                return '$_smarty_tpl';
+
             case 'current_dir':
                 return 'dirname($_smarty_tpl->source->filepath)';
 

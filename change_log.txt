@@ -2,6 +2,8 @@
 19.02.2012
 - bugfix {include} could result in a fatal error if used in appended or prepended nested {block} tags
   (reported by mh and Issue 83)
+- enhancement added Smarty special variable $smarty.template_object to return the current template object (Forum Topic 20289)
+
 
 07.02.2012
 - bugfix increase entropy of internal function names in compiled and cached template files (Forum Topic 20996)
