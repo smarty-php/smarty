@@ -69,6 +69,12 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
                 if (!is_object($compiler->smarty->security_policy) || $compiler->smarty->security_policy->isTrustedPhpModifier($modifier, $compiler)) {
                     $output = "{$modifier}({$params})";
                 }
+            } else if (is_callable($compiler->smarty->default_plugin_handler_func) && $compiler->getPluginFromDefaultHandler($modifier, Smarty::PLUGIN_MODIFIER) && isset($compiler->default_handler_plugins[Smarty::PLUGIN_MODIFIER][$modifier])) {
+                $function = $compiler->default_handler_plugins[Smarty::PLUGIN_MODIFIER][$modifier][0];
+                // check if modifier allowed
+                if (!is_object($compiler->smarty->security_policy) || $compiler->smarty->security_policy->isTrustedModifier($modifier, $compiler)) {
+                    $output = "{$function}({$params})";
+                }
             } else {
                 $compiler->trigger_template_error("unknown modifier \"" . $modifier . "\"", $compiler->lex->taglineno);
             }

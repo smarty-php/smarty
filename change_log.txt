@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+02.03.2012
+- enhancement the default plugin handler can now also resolve undefined modifier (Smarty::PLUGIN_MODIFIER)
+  (Issue 85)
+
 ===== Smarty-3.1.8  =====
 19.02.2012
 - bugfix {include} could result in a fatal error if used in appended or prepended nested {block} tags
