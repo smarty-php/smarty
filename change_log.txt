@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+12.03.2012
+- bugfix a double quoted string of "$foo" did not compile into PHP "$foo" (Forum Topic 21175)
+
 03.03.2012
 - optimization of compiling speed when same modifier was used several times
 
