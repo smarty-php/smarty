@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+21.03.2012
+- bugfix compileAllTemplates() and compileAllConfig() did not return the number of compiled files (Forum Topic 21286)
+
 13.03.2012
 - correction of yesterdays bugfix (Forum Topic 21175 and 21182)
 
@@ -276,7 +279,7 @@
 - optimization of {foreach}; call internal _count() method only when "total" or "last" {foreach} properties are used
 
 11/09/2011
-- added  unregisterObject() methode
+- added  unregisterObject() method
 
 06/09/2011
 - bugfix  isset() did not work in templates on config variables
@@ -904,7 +907,7 @@ request_use_auto_globals
 
 
 22/07/2010
-- bugfix in templateExists() methode
+- bugfix in templateExists() method
 
 20/07/2010
 - fixed handling of { strip } tag with whitespaces
@@ -1472,7 +1475,7 @@ request_use_auto_globals
 - autoload Smarty internal classes
 - fixed file dependency for config files 
 - some code optimizations
-- fixed function definitions on some autoloaded methodes
+- fixed function definitions on some autoloaded methods
 - fixed nocache variable inside if condition of {if} tag
 
 10/20/2009
@@ -1508,7 +1511,7 @@ request_use_auto_globals
 10/11/2009
 - fixed bug when template with same name is used with different data objects
 - fixed bug with double quoted name attribute at {insert} tag
-- reenabled assign_by_ref and append_by_ref methodes
+- reenabled assign_by_ref and append_by_ref methods
 
 10/07/2009
 - removed block nesting checks for {capture}
@@ -1526,9 +1529,9 @@ request_use_auto_globals
 - {PHP} tag can be enabled by allow_php_tag = true
 
 09/30/2009
-- fixed handling template_exits methode for all resource types
+- fixed handling template_exits method for all resource types
 - bugfix for other cache resources than file
-- the methodes assign_by_ref is now wrapped to assign, append_by_ref to append
+- the methods assign_by_ref is now wrapped to assign, append_by_ref to append
 - allow arrays of variables pass in display, fetch and createTemplate calls
   $data = array('foo'=>'bar','foo2'=>'blar');
   $smarty->display('my.tpl',$data);
@@ -1562,7 +1565,7 @@ NOTICE: existing compiled template and cache files must be deleted
 - added '<>' as comparission operator in {if} tags
 - cached caching_lifetime property to cache_liftime for backward compatibility with Smarty2.
   {include} optional attribute is also now cache_lifetime
-- fixed trigger_error methode (moved into Smarty class)
+- fixed trigger_error method (moved into Smarty class)
 - version is now  Beta!!!
 
 
@@ -1688,7 +1691,7 @@ NOTICE: existing compiled template and cache files must be deleted
 - functions defined with the {function} tag now always have global scope
 
 04/29/2009
-- fixed problem with directory setter methodes
+- fixed problem with directory setter methods
 - allow that cache_dir can end without directory separator
 
 04/28/2009
@@ -1760,7 +1763,7 @@ NOTICE: existing compiled template and cache files must be deleted
 
 04/06/2009
 - variable scopes LOCAL_SCOPE, PARENT_SCOPE, ROOT_SCOPE
-- more getter/setter methodes
+- more getter/setter methods
 
 04/05/2009
 - replaced new array looping syntax {for $foo in $array} with {foreach $foo in $array} to avoid confusion
@@ -1771,22 +1774,22 @@ NOTICE: existing compiled template and cache files must be deleted
 - some fixes on yesterdays update
 
 04/03/2006
-- added registerDefaultTemplateHandler methode and functionallity
-- added registerDefaultPluginHandler methode and functionallity
+- added registerDefaultTemplateHandler method and functionallity
+- added registerDefaultPluginHandler method and functionallity
 - added {append} tag to extend Smarty array variabled
 
 04/02/2009
-- added setter/getter methodes
+- added setter/getter methods
 - added $foo@first and $foo@last properties at {for} tag
 - added $set_timezone (true/false) property to setup optionally the default time zone
 
 03/31/2009
 - bugfix smarty.class and internal.security_handler
 - added compile_check configuration 
-- added setter/getter methodes
+- added setter/getter methods
 
 03/30/2009
-- added all major setter/getter methodes
+- added all major setter/getter methods
 
 03/28/2009
 - {block} tags can be nested now
@@ -1965,17 +1968,17 @@ NOTICE: existing compiled template and cache files must be deleted
 01/25/2009
 - bugfix allow arrays at object properties in Smarty syntax
 - the template object is now passed as additional parameter at plugin calls
-- clear_compiled_tpl methode completed
+- clear_compiled_tpl method completed
 
 01/20/2009
 - access to class constants implemented  ( class::CONSTANT )
 - access to static class variables implemented ( class::$variable )
-- call of static class methodes implemented ( class::methode() )
+- call of static class methods implemented ( class::method() )
 
 01/16/2009
 - reallow leading _ in variable names  {$_var}
-- allow array of objects  {$array.index->methode()} syntax
-- finished work on clear_cache and clear_cache_all methodes
+- allow array of objects  {$array.index->method()} syntax
+- finished work on clear_cache and clear_cache_all methods
 
 01/11/2009
 - added support of {literal} tag
@@ -1984,10 +1987,10 @@ NOTICE: existing compiled template and cache files must be deleted
 
 01/08/2009
 - moved clear_assign and clear_all_assign to internal.templatebase.php
-- added assign_by_ref, append and append_by_ref methodes
+- added assign_by_ref, append and append_by_ref methods
 
 01/02/2009
-- added load_filter methode
+- added load_filter method
 - fished work on filter handling
 - optimization of plugin loading
 
@@ -1999,15 +2002,15 @@ NOTICE: existing compiled template and cache files must be deleted
 12/23/2008
 - fixed problem of not working "not" operator in if-expressions
 - added handling of compiler function plugins
-- finished work on (un)register_compiler_function methode
-- finished work on (un)register_modifier methode
+- finished work on (un)register_compiler_function method
+- finished work on (un)register_modifier method
 - plugin handling from plugins folder changed for modifier plugins
   deleted - internal.modifier.php
 - added modifier chaining to parser 
 
 12/17/2008
-- finished (un)register_function methode
-- finished (un)register_block methode
+- finished (un)register_function method
+- finished (un)register_block method
 - added security checking for PHP functions in PHP templates
 - plugin handling from plugins folder rewritten
   new - internal.plugin_handler.php
