@@ -1,6 +1,8 @@
 ﻿===== trunk  =====
 27.03.2012
 - bugfix prefilter did run multiple times on inline subtemplates compiled into several main templates (Forum Topic 21325)
+- bugfix implement Smarty2's behaviour of variables assigned by reference in SmartyBC. {assign} will affect all references.
+  (issue 88)
 
 21.03.2012
 - bugfix compileAllTemplates() and compileAllConfig() did not return the number of compiled files (Forum Topic 21286)
