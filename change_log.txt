@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+30.03.2012
+- bugfix template inheritance did  not throw exception when a parent template was deleted (issue 90)
+
 27.03.2012
 - bugfix prefilter did run multiple times on inline subtemplates compiled into several main templates (Forum Topic 21325)
 - bugfix implement Smarty2's behaviour of variables assigned by reference in SmartyBC. {assign} will affect all references.
