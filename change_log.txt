@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+08.04.2012
+- bugfix "\\" was not escaped correctly when generation nocache code (Forum Topic 21364)
+
 30.03.2012
 - bugfix template inheritance did  not throw exception when a parent template was deleted (issue 90)
 
