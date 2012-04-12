@@ -2236,7 +2236,7 @@ static public $yy_action = array(
         $this->compiler->tag_nocache = true;
         $this->is_xml = false;
         $save = $this->template->has_nocache_code;
-        $this->_retvalue = new _smarty_text($this, $this->compiler->processNocacheCode("<?php echo '?>';?>", $this->compiler, true));
+        $this->_retvalue = new _smarty_text($this, $this->compiler->processNocacheCode("<?php echo '?>';?>\n", $this->compiler, true));
         $this->template->has_nocache_code = $save;
     } elseif ($this->php_handling == Smarty::PHP_PASSTHRU) {
         $this->_retvalue = new _smarty_text($this, '?<?php ?>>');
