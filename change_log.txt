@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 12.04.2012
-- Smarty did eat the linebreak after the <?xml...?> closing tag (Issue 93)
+- bugfix Smarty did eat the linebreak after the <?xml...?> closing tag (Issue 93)
+- bugfix concurrent cache updates could create a warning (Forum Topic 21403)
 
 08.04.2012
 - bugfix "\\" was not escaped correctly when generating nocache code (Forum Topic 21364)
