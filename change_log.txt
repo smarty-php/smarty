@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+02.05.2012
+- bugfix  {nocache}{block}{plugin}... did produce wrong compiled code when caching is disabled (Forum Topic 21572, issue 95)
+
 12.04.2012
 - bugfix Smarty did eat the linebreak after the <?xml...?> closing tag (Issue 93)
 - bugfix concurrent cache updates could create a warning (Forum Topic 21403)
