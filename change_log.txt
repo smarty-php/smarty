@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+03.05.2012
+- bugfix make HTTP protocall version variable (issue 96)
+
 02.05.2012
 - bugfix  {nocache}{block}{plugin}... did produce wrong compiled code when caching is disabled (Forum Topic 21572, issue 95)
 
