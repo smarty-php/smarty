@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+12.05.2012
+- bugfix {html_options} did not properly escape values (Issue 98)
+
 03.05.2012
 - bugfix make HTTP protocall version variable (issue 96)
 

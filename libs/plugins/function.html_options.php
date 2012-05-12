@@ -150,6 +150,8 @@ function smarty_function_html_options_optoutput($key, $value, $selected, $id, $c
                 trigger_error("html_options: value is an object of class '". get_class($value) ."' without __toString() method", E_USER_NOTICE);
                 return '';
             }
+        } else {
+            $value = smarty_function_escape_special_chars((string) $value);
         }
         $_html_result .= $_html_class . $_html_id . '>' . $value . '</option>' . "\n";
         $idx++;
