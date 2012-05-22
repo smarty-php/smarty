@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+22.05.2012
+- bugfix recursive {include} within {section} did fail (Smarty developer group)
+
 12.05.2012
 - bugfix {html_options} did not properly escape values (Issue 98)
 

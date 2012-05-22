@@ -266,6 +266,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // get variables from calling scope
         if ($parent_scope == Smarty::SCOPE_LOCAL) {
             $tpl->tpl_vars = $this->tpl_vars;
+            $tpl->tpl_vars['smarty'] = clone $this->tpl_vars['smarty'];
         } elseif ($parent_scope == Smarty::SCOPE_PARENT) {
             $tpl->tpl_vars = &$this->tpl_vars;
         } elseif ($parent_scope == Smarty::SCOPE_GLOBAL) {
@@ -305,6 +306,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase {
         // get variables from calling scope
         if ($parent_scope == Smarty::SCOPE_LOCAL ) {
             $tpl->tpl_vars = $this->tpl_vars;
+            $tpl->tpl_vars['smarty'] = clone $this->tpl_vars['smarty'];
         } elseif ($parent_scope == Smarty::SCOPE_PARENT) {
             $tpl->tpl_vars = &$this->tpl_vars;
         } elseif ($parent_scope == Smarty::SCOPE_GLOBAL) {
