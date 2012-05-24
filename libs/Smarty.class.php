@@ -190,6 +190,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
      */
     public static $_UTF8_MODIFIER = 'u';
     
+    /**
+     * Flag denoting if operating system is windows
+     */
+    public static $_IS_WINDOWS = false;
     
     /**#@+
      * variables
@@ -1463,6 +1467,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
         restore_error_handler();
     }
 }
+
+// Check if we're running on windows
+Smarty::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
 
 // let PCRE (preg_*) treat strings as ISO-8859-1 if we're not dealing with UTF-8
 if (Smarty::$_CHARSET !== 'UTF-8') {
