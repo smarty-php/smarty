@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 24.05.2012
 - bugfix Smarty_Internal_Write_File::writeFile() could cause race-conditions on linux systems (Issue 101)
+- bugfix attribute parameter names of plugins may now contain also "-"  and ":"  (Forum Topic 21856)
 
 22.05.2012
 - bugfix recursive {include} within {section} did fail (Smarty developer group)
