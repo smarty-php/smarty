@@ -254,7 +254,7 @@ abstract class Smarty_Resource {
                 }
             }
         }
-        
+
         $_stream_resolve_include_path = function_exists('stream_resolve_include_path');
 
         // relative file name?
@@ -271,7 +271,7 @@ abstract class Smarty_Resource {
                     } else {
                         $_filepath = Smarty_Internal_Get_Include_Path::getIncludePath($_filepath);
                     }
-                    
+
                     if ($_filepath !== false) {
                         if ($this->fileExists($source, $_filepath)) {
                             return $_filepath;
@@ -493,6 +493,9 @@ abstract class Smarty_Resource {
 
         // check runtime cache
         $_cache_key = 'template|' . $unique_resource_name;
+        if ($smarty->compile_id) {
+            $_cache_key .= '|'.$smarty->compile_id;
+        }
         if (isset(self::$sources[$_cache_key])) {
             return self::$sources[$_cache_key];
         }
