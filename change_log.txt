@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 07.06.2012
 - bugfix fetch() and display() with relative paths (Issue 104)
+- bugfix treat "0000-00-00" as 0 in modifier.date_format (Issue 103)
 
 24.05.2012
 - bugfix Smarty_Internal_Write_File::writeFile() could cause race-conditions on linux systems (Issue 101)
