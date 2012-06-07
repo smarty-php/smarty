@@ -144,7 +144,50 @@ abstract class Smarty_Resource {
 
         $compiled->filepath = $_compile_dir . $_filepath . '.' . $compiled->source->type . $_basename . $_cache . '.php';
     }
-
+    
+    /**
+     * Normalize Paths "foo/../bar" to "bar" 
+     *
+     * @param string $_path path to normalize
+     * @param boolean $ds respect windows directory separator
+     * @return string normalized path
+     */
+    protected function normalizePath($_path, $ds=true)
+    {
+        if ($ds) {
+            // don't we all just love windows?
+            $_path = str_replace('\\', '/', $_path);
+        }
+        
+        // resolve simples
+        $_path = preg_replace('#(/\./(\./)*)|/{2,}#', '/', $_path);
+        // resolve parents
+        while (true) {
+            $_parent = strpos($_path, '/../');
+            if ($_parent === false) {
+                break;
+            } else if ($_parent === 0) {
+                $_path = substr($_path, 3);
+                break;
+            }
+            
+            $_pos = strrpos($_path, '/', $_parent - strlen($_path) - 1);
+            if ($_pos === false) {
+                // don't we all just love windows?
+                $_pos = $_parent;
+            }
+            
+            $_path = substr_replace($_path, '', $_pos, $_parent + 3 - $_pos);
+        }
+        
+        if ($ds && DS != '/') {
+            // don't we all just love windows?
+            $_path = str_replace('/', '\\', $_path);
+        }
+        
+        return $_path;
+    }
+    
     /**
      * build template filepath by traversing the template_dir array
      *
@@ -181,32 +224,16 @@ abstract class Smarty_Resource {
 
         // resolve relative path
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
-            $_was_relative_prefix = $file[0] == '.' ? substr($file, 0, strpos($file, '|')) : null;
-            $_path = DS . trim($file, '/\\');
+            // don't we all just love windows?
+            $_path = str_replace('\\', '/', $file);
+            $_was_relative_prefix = $file[0] == '.' ? substr($file, 0, strpos($_path, '/')) : null;
+            $_path = DS . trim($file, '/');
             $_was_relative = true;
         } else {
-            $_path = $file;
+            // don't we all just love windows?
+            $_path = str_replace('\\', '/', $file);
         }
-        // don't we all just love windows?
-        $_path = str_replace('\\', '/', $_path);
-        // resolve simples
-        $_path = preg_replace('#(/\./(\./)*)|/{2,}#', '/', $_path);
-        // resolve parents
-        while (true) {
-            $_parent = strpos($_path, '/../');
-            if ($_parent === false) {
-                break;
-            } else if ($_parent === 0) {
-                $_path = substr($_path, 3);
-                break;
-            }
-            $_pos = strrpos($_path, '/', $_parent - strlen($_path) - 1);
-            if ($_pos === false) {
-                // don't we all just love windows?
-                $_pos = $_parent;
-            }
-            $_path = substr_replace($_path, '', $_pos, $_parent + 3 - $_pos);
-        }
+        $_path = $this->normalizePath($_path, false);
         if (DS != '/') {
             // don't we all just love windows?
             $_path = str_replace('/', '\\', $_path);
@@ -262,7 +289,7 @@ abstract class Smarty_Resource {
             foreach ($_directories as $_directory) {
                 $_filepath = $_directory . $file;
                 if ($this->fileExists($source, $_filepath)) {
-                    return $_filepath;
+                    return $this->normalizePath($_filepath);
                 }
                 if ($source->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_directory)) {
                     // try PHP include_path
@@ -274,7 +301,7 @@ abstract class Smarty_Resource {
 
                     if ($_filepath !== false) {
                         if ($this->fileExists($source, $_filepath)) {
-                            return $_filepath;
+                            return $this->normalizePath($_filepath);
                         }
                     }
                 }
