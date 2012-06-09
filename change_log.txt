@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 09.06.2012
 - bugfix the compiler did ignore registered compiler plugins for closing tags (Forum Topic 22094)
+- bugfix the patch for Topic 21856 did break multiline tags (Forum Topic 22124)
 
 ===== Smarty-3.1.9 =====
 07.06.2012
