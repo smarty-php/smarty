@@ -1,4 +1,6 @@
 ﻿===== trunk  =====
+- bugfix the patch for Topic 21856 did break tabs between tag attributes (Forum Topic 22124)
+
 ===== Smarty-3.1.10  =====
 09.06.2012
 - bugfix the compiler did ignore registered compiler plugins for closing tags (Forum Topic 22094)

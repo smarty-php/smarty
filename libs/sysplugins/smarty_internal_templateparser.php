@@ -2544,7 +2544,7 @@ static public $yy_action = array(
 #line 2540 "smarty_internal_templateparser.php"
 #line 503 "smarty_internal_templateparser.y"
     function yy_r66(){
-    $this->_retvalue = array(trim($this->yystack[$this->yyidx + -1]->minor," =\n\r")=>$this->yystack[$this->yyidx + 0]->minor);
+    $this->_retvalue = array(trim($this->yystack[$this->yyidx + -1]->minor," =\n\r\t")=>$this->yystack[$this->yyidx + 0]->minor);
     }
 #line 2545 "smarty_internal_templateparser.php"
 #line 511 "smarty_internal_templateparser.y"
