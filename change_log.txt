@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+24.06.2012
+- bugfix escape modifier support for PHP < 5.2.3 (Forum Topic 21176)
+
+11.06.2012
 - bugfix the patch for Topic 21856 did break tabs between tag attributes (Forum Topic 22124)
 
 ===== Smarty-3.1.10  =====

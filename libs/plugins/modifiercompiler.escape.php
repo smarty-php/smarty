@@ -25,6 +25,11 @@ require_once( SMARTY_PLUGINS_DIR .'shared.literal_compiler_param.php' );
  */
 function smarty_modifiercompiler_escape($params, $compiler)
 {
+    static $_double_encode = null;
+    if ($_double_encode === null) {
+        $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
+    }
+    
     try {
         $esc_type = smarty_literal_compiler_param($params, 1, 'html');
         $char_set = smarty_literal_compiler_param($params, 2, Smarty::$_CHARSET);
@@ -36,26 +41,56 @@ function smarty_modifiercompiler_escape($params, $compiler)
 
         switch ($esc_type) {
             case 'html':
-                return 'htmlspecialchars('
-                    . $params[0] .', ENT_QUOTES, '
-                    . var_export($char_set, true) . ', '
-                    . var_export($double_encode, true) . ')';
+                if ($_double_encode) {
+                    return 'htmlspecialchars('
+                        . $params[0] .', ENT_QUOTES, '
+                        . var_export($char_set, true) . ', '
+                        . var_export($double_encode, true) . ')';
+                } else if ($double_encode) {
+                    return 'htmlspecialchars('
+                        . $params[0] .', ENT_QUOTES, '
+                        . var_export($char_set, true) . ')';
+                } else {
+                    // fall back to modifier.escape.php
+                }
 
             case 'htmlall':
                 if (Smarty::$_MBSTRING) {
-                    return 'mb_convert_encoding(htmlspecialchars('
-                        . $params[0] .', ENT_QUOTES, '
-                        . var_export($char_set, true) . ', '
-                        . var_export($double_encode, true)
-                        . '), "HTML-ENTITIES", '
-                        . var_export($char_set, true) . ')';
+                    if ($_double_encode) {
+                        // php >=5.3.2 - go native
+                        return 'mb_convert_encoding(htmlspecialchars('
+                            . $params[0] .', ENT_QUOTES, '
+                            . var_export($char_set, true) . ', '
+                            . var_export($double_encode, true)
+                            . '), "HTML-ENTITIES", '
+                            . var_export($char_set, true) . ')';
+                    } else if ($double_encode) {
+                        // php <5.3.2 - only handle double encoding
+                        return 'mb_convert_encoding(htmlspecialchars('
+                            . $params[0] .', ENT_QUOTES, '
+                            . var_export($char_set, true)
+                            . '), "HTML-ENTITIES", '
+                            . var_export($char_set, true) . ')';
+                    } else {
+                        // fall back to modifier.escape.php
+                    }
                 }
 
                 // no MBString fallback
-                return 'htmlentities('
-                    . $params[0] .', ENT_QUOTES, '
-                    . var_export($char_set, true) . ', '
-                    . var_export($double_encode, true) . ')';
+                if ($_double_encode) {
+                    // php >=5.3.2 - go native
+                    return 'htmlentities('
+                        . $params[0] .', ENT_QUOTES, '
+                        . var_export($char_set, true) . ', '
+                        . var_export($double_encode, true) . ')';
+                } else if ($double_encode) {
+                    // php <5.3.2 - only handle double encoding
+                    return 'htmlentities('
+                        . $params[0] .', ENT_QUOTES, '
+                        . var_export($char_set, true) . ')';
+                } else {
+                    // fall back to modifier.escape.php
+                }
 
             case 'url':
                 return 'rawurlencode(' . $params[0] . ')';
