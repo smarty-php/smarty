@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+25.06.2012
+- bugfix the default plugin handler did not allow static class methods for modifier (issue 85)
+
 24.06.2012
 - bugfix escape modifier support for PHP < 5.2.3 (Forum Topic 21176)
 
