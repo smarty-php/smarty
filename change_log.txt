@@ -1,4 +1,5 @@
 ﻿===== trunk  =====
+===== Smarty-3.1.11 =====
 30.06.2012
 - bugfix {block.. hide} did not work as nested child (Forum Topic 22216)
 
