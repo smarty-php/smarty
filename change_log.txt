@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+30.06.2012
+- bugfix {block.. hide} did not work as nested child (Forum Topic 22216)
+
 25.06.2012
 - bugfix the default plugin handler did not allow static class methods for modifier (issue 85)
 
