@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+28.07.2012
+- bugfix array access of config variables did not work (Forum Topic 22527)
+
 19.07.2012
 - bugfix the default plugin handler did create wrong compiled code for static class methods
   from external script files (issue 108)
