@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+30.07.2012
+-bugfix {assign} in a nocache section should not overwrite existing variable values 
+   during compilation (issue 109)
+   
 28.07.2012
 - bugfix array access of config variables did not work (Forum Topic 22527)
 
