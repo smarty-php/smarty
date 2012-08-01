@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+01.08.2012
+- bugfix avoid PHP error on $smarty->configLoad(...) with invalid section specification (Forum Topic 22608)
+
 30.07.2012
 -bugfix {assign} in a nocache section should not overwrite existing variable values 
    during compilation (issue 109)
