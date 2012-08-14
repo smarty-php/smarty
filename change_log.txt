@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+14.08.2012
+- bugfix PHP5.2 compatibility compromised by SplFileInfo::getBasename() (Issue 110)
+
 01.08.2012
 - bugfix avoid PHP error on $smarty->configLoad(...) with invalid section specification (Forum Topic 22608)
 
