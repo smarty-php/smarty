@@ -57,7 +57,7 @@ function smarty_modifiercompiler_escape($params, $compiler)
             case 'htmlall':
                 if (Smarty::$_MBSTRING) {
                     if ($_double_encode) {
-                        // php >=5.3.2 - go native
+                        // php >=5.2.3 - go native
                         return 'mb_convert_encoding(htmlspecialchars('
                             . $params[0] .', ENT_QUOTES, '
                             . var_export($char_set, true) . ', '
@@ -65,7 +65,7 @@ function smarty_modifiercompiler_escape($params, $compiler)
                             . '), "HTML-ENTITIES", '
                             . var_export($char_set, true) . ')';
                     } else if ($double_encode) {
-                        // php <5.3.2 - only handle double encoding
+                        // php <5.2.3 - only handle double encoding
                         return 'mb_convert_encoding(htmlspecialchars('
                             . $params[0] .', ENT_QUOTES, '
                             . var_export($char_set, true)
@@ -78,13 +78,13 @@ function smarty_modifiercompiler_escape($params, $compiler)
 
                 // no MBString fallback
                 if ($_double_encode) {
-                    // php >=5.3.2 - go native
+                    // php >=5.2.3 - go native
                     return 'htmlentities('
                         . $params[0] .', ENT_QUOTES, '
                         . var_export($char_set, true) . ', '
                         . var_export($double_encode, true) . ')';
                 } else if ($double_encode) {
-                    // php <5.3.2 - only handle double encoding
+                    // php <5.2.3 - only handle double encoding
                     return 'htmlentities('
                         . $params[0] .', ENT_QUOTES, '
                         . var_export($char_set, true) . ')';
