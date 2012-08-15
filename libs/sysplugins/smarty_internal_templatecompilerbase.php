@@ -215,6 +215,8 @@ abstract class Smarty_Internal_TemplateCompilerBase {
         } else {
             $code = $template_header . $template->createTemplateCodeFrame($_compiled_code) . $merged_code;
         }
+        // unset content because template inheritance could have replace source with parent code
+        unset ($template->source->content);
         return $code;
     }
 

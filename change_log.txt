@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+15.08.2012
+- bugfix template inheritance did produce wrong code if subtemplates with {block} was
+  included several times (from smarty-developers forum)
+
 14.08.2012
 - bugfix PHP5.2 compatibility compromised by SplFileInfo::getBasename() (Issue 110)
 
