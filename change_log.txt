@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+17.08.2012
+- bugfix compiled code of nocache sections could contain wrong escaping (Forum Topic 22810)
+
 15.08.2012
 - bugfix template inheritance did produce wrong code if subtemplates with {block} was
   included several times (from smarty-developers forum)
