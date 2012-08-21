@@ -141,11 +141,12 @@ class Smarty_Internal_Templatelexer
               21 => 0,
               22 => 0,
               23 => 0,
+              24 => 0,
             );
         if ($this->counter >= ($this->mbstring_overload ? mb_strlen($this->data,'latin1'): strlen($this->data))) {
             return false; // end of input
         }
-        $yy_global_pattern = "/\G(".$this->ldel."[$]smarty\\.block\\.child".$this->rdel.")|\G(\\{\\})|\G(".$this->ldel."\\*([\S\s]*?)\\*".$this->rdel.")|\G(".$this->ldel."strip".$this->rdel.")|\G(".$this->ldel."\\s{1,}strip\\s{1,}".$this->rdel.")|\G(".$this->ldel."\/strip".$this->rdel.")|\G(".$this->ldel."\\s{1,}\/strip\\s{1,}".$this->rdel.")|\G(".$this->ldel."\\s*literal\\s*".$this->rdel.")|\G(".$this->ldel."\\s{1,}\/)|\G(".$this->ldel."\\s*(if|elseif|else if|while)\\s+)|\G(".$this->ldel."\\s*for\\s+)|\G(".$this->ldel."\\s*foreach(?![^\s]))|\G(".$this->ldel."\\s*setfilter\\s+)|\G(".$this->ldel."\\s{1,})|\G(".$this->ldel."\/)|\G(".$this->ldel.")|\G(<\\?(?:php\\w+|=|[a-zA-Z]+)?)|\G(\\?>)|\G(<%)|\G(%>)|\G([\S\s])/iS";
+        $yy_global_pattern = "/\G(".$this->ldel."[$]smarty\\.block\\.child".$this->rdel.")|\G(\\{\\})|\G(".$this->ldel."\\*([\S\s]*?)\\*".$this->rdel.")|\G(".$this->ldel."strip".$this->rdel.")|\G(".$this->ldel."\\s{1,}strip\\s{1,}".$this->rdel.")|\G(".$this->ldel."\/strip".$this->rdel.")|\G(".$this->ldel."\\s{1,}\/strip\\s{1,}".$this->rdel.")|\G(".$this->ldel."\\s*literal\\s*".$this->rdel.")|\G(".$this->ldel."\\s{1,}\/)|\G(".$this->ldel."\\s*(if|elseif|else if|while)\\s+)|\G(".$this->ldel."\\s*for\\s+)|\G(".$this->ldel."\\s*foreach(?![^\s]))|\G(".$this->ldel."\\s*setfilter\\s+)|\G(".$this->ldel."\\s{1,})|\G(".$this->ldel."\/)|\G(".$this->ldel.")|\G(<\\?(?:php\\w+|=|[a-zA-Z]+)?)|\G(\\?>)|\G(".$this->rdel.")|\G(<%)|\G(%>)|\G([\S\s])/iS";
 
         do {
             if ($this->mbstring_overload ? preg_match($yy_global_pattern, mb_substr($this->data, $this->counter,2000000000,'latin1'), $yymatches) : preg_match($yy_global_pattern,$this->data, $yymatches, null, $this->counter)) {
@@ -344,14 +345,19 @@ class Smarty_Internal_Templatelexer
     function yy_r1_21($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_ASPSTARTTAG;
+  $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
     function yy_r1_22($yy_subpatterns)
     {
 
-  $this->token = Smarty_Internal_Templateparser::TP_ASPENDTAG;
+  $this->token = Smarty_Internal_Templateparser::TP_ASPSTARTTAG;
     }
     function yy_r1_23($yy_subpatterns)
+    {
+
+  $this->token = Smarty_Internal_Templateparser::TP_ASPENDTAG;
+    }
+    function yy_r1_24($yy_subpatterns)
     {
 
   if ($this->mbstring_overload) {
@@ -1187,4 +1193,3 @@ class Smarty_Internal_Templatelexer
     }
 
 }
-?>

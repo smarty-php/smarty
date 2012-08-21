@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+21.08.2012
+- bugfix $auto_literal = false did not work with { block} tags in child templates 
+  (problem was reintroduced after fix in 3.1.7)(Forum Topic 20581)
+
 17.08.2012
 - bugfix compiled code of nocache sections could contain wrong escaping (Forum Topic 22810)
 
