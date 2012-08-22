@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+22.08.2012
+- bugfix test MBString availability through mb_split, as it could've been compiled without regex support (--enable-mbregex).
+  Either we get MBstring's full package, or we pretend it's not there at all.
+
 21.08.2012
 - bugfix $auto_literal = false did not work with { block} tags in child templates 
   (problem was reintroduced after fix in 3.1.7)(Forum Topic 20581)
