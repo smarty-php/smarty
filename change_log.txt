@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+31.08.2012
+- bugfix resolving relative paths broke in some circumstances (Issue #114)
+
 22.08.2012
 - bugfix test MBString availability through mb_split, as it could've been compiled without regex support (--enable-mbregex).
   Either we get MBstring's full package, or we pretend it's not there at all.
