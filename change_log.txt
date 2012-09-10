@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+10.09.2012
+- bugfix tag option flags and shorttag attributes did not work when rdel started with '=' (Forum Topic 22979)
+
 31.08.2012
 - bugfix resolving relative paths broke in some circumstances (Issue #114)
 
