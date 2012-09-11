@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+11.09.2012
+- bugfix escape Smarty exception messages to avoid possible script execution
+
 10.09.2012
 - bugfix tag option flags and shorttag attributes did not work when rdel started with '=' (Forum Topic 22979)
 
