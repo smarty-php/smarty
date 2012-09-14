@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+14.09.2012
+- bugfix template inheritance failed to compile with delimiters {/ and /} (Forum Topic 23008)
+
 11.09.2012
 - bugfix escape Smarty exception messages to avoid possible script execution
 

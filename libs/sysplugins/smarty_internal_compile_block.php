@@ -101,17 +101,17 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
                                 $replacement = '';
                             }
                             // replace {$smarty.block.child} tag
-                            $search = array("%({$_ldl}{$al}block[\s\S]*?{$name}[\s\S]*?{$_rdl})([\s\S]*?)({$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl})([\s\S]*?)({$_ldl}{$al}/block\s*{$_rdl})%", "/§§§child§§§/");
+                            $search = array("!({$_ldl}{$al}block[\s\S]*?{$name}[\s\S]*?{$_rdl})([\s\S]*?)({$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl})([\s\S]*?)({$_ldl}{$al}/block\s*{$_rdl})!", "/§§§child§§§/");
                             $replace = array('\2§§§child§§§\4', $replacement);
                             $block_content = preg_replace($search, $replace, $block_content);
                         } else {
                             // remove hidden blocks
-                            $block_content = preg_replace("%({$_ldl}{$al}block[\s\S]*?{$name}[\s\S]*?{$_rdl}[\s\S]*?{$_ldl}{$al}/block\s*{$_rdl})%", '', $block_content);
+                            $block_content = preg_replace("!({$_ldl}{$al}block[\s\S]*?{$name}[\s\S]*?{$_rdl}[\s\S]*?{$_ldl}{$al}/block\s*{$_rdl})!", '', $block_content);
                         }
                     }
                 }
                 // do we have not nested {$smart.block.child}
-                if (0 != preg_match("/({$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl})/", $block_content, $_match2)) {
+                if (0 != preg_match("!({$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl})!", $block_content, $_match2)) {
                     // get child replacement for this block
                     if (isset($template->block_data[$_name])) {
                         $replacement = $template->block_data[$_name]['source'];
@@ -119,7 +119,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
                     } else {
                         $replacement = '';
                     }
-                    $block_content = preg_replace("/({$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl})/", $replacement, $block_content);
+                    $block_content = preg_replace("!({$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl})!", $replacement, $block_content);
                 }
                 if (isset($template->block_data[$_name])) {
                     if (strpos($template->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
