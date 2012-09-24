@@ -1,3 +1,8 @@
+2012-09-24  Uwe Tews
+
+    * Fixed  escape Smarty error messages to avoid possible script execution
+
+    
 2010-04-17  Uwe Tews
 
     * Fixed security hole in {math} plugin
