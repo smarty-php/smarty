@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+01.11.2012
+- bugfix muteExcpetedErrors() would screw up for non-readable paths (Issue #118)
+
 ===== Smarty-3.1.12  =====
 14.09.2012
 - bugfix template inheritance failed to compile with delimiters {/ and /} (Forum Topic 23008)
