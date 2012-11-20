@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+20.11.2012
+- bugfix assignGlobal() called from plugins did not work (Forum Topic 23771)
+
 13.11.2012
 - adding attribute "strict" to html_options, html_checkboxes, html_radios to only print disabled/readonly attributes if their values are true or "disabled"/"readonly" (Issue #120)
 
