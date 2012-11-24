@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+24.11.2012
+- made SmartyBC loadable via composer (Issue #124)
+
 20.11.2012
 - bugfix assignGlobal() called from plugins did not work (Forum Topic 23771)
 
