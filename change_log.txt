@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+26.11.2012
+- bugfix global variable assigned within template function are not seen after template function exit (Forum Topic 23800) 
+
 24.11.2012
 - made SmartyBC loadable via composer (Issue #124)
 
