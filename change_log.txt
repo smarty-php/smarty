@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+27.11.2012
+- bugfix wrong variable usage in smarty_internal_utility.php (Issue #125)
+
 26.11.2012
 - bugfix global variable assigned within template function are not seen after template function exit (Forum Topic 23800) 
 
