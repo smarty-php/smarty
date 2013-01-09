@@ -82,7 +82,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
             $compiler->trigger_template_error("illegal recursive call of \"{$include_file}\"", $compiler->lex->line - 1);
         }
         $compiler->template->properties['file_dependency'][$template_sha1] = array($_template->source->filepath, $_template->source->timestamp, $_template->source->type);
-        $_content = ($this->mbstring_overload ? mb_substr($compiler->template->source->content, $compiler->lex->counter - 1, 20000000, 'latin1') : substr($compiler->template->source->content, $compiler->lex->counter - 1));
+        $_content = ($this->mbstring_overload ? mb_substr($compiler->lex->data, $compiler->lex->counter - 1, 20000000, 'latin1') : substr($compiler->lex->data, $compiler->lex->counter - 1));
         if (preg_match_all("!({$this->_ldl}{$al}block\s(.+?)\s*{$this->_rdl})!", $_content, $s) !=
         preg_match_all("!({$this->_ldl}{$al}/block\s*{$this->_rdl})!", $_content, $c)) {
             $compiler->trigger_template_error('unmatched {block} {/block} pairs');

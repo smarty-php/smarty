@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+09.01.2013
+- bugfix compilation did fail when a prefilter did modify an {extends} tag (Forum Topic 23966)
+
 06.01.2013
 - Allow '://' URL syntax in template names of stream resources  (Issue #129)
 
