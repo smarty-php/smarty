@@ -137,6 +137,14 @@ abstract class Smarty_Internal_TemplateCompilerBase {
     public $known_modifier_type = array();
 
     /**
+     * Methode to compile a Smarty template
+     *
+     * @param  mixed $_content template source
+     * @return bool true if compiling succeeded, false if it failed
+     */
+    abstract protected function doCompile($_content);
+
+    /**
      * Initialize compiler
      */
     public function __construct() {
