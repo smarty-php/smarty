@@ -1,6 +1,8 @@
 ﻿===== trunk  =====
 09.01.2013
 - bugfix compilation did fail when a prefilter did modify an {extends} tag (Forum Topic 23966)
+- bugfix template inheritance could fail if nested {block} tags in childs did contain {$smarty.block.child} (Issue #127)
+- bugfix template inheritance could fail if {block} tags in childs did have similar name as used plugins (Issue #128)
 
 06.01.2013
 - Allow '://' URL syntax in template names of stream resources  (Issue #129)
