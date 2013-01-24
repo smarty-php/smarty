@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+24.01.2013
+- bugfix wrong tag type in smarty_internal_templatecompilerbase.php could cause wrong plugin search order (Forum Topic 24028)
+
 ===== Smarty-3.1.13 =====
 13.01.2013
 - enhancement allow to disable exception message escaping by SmartyException::$escape = false;  (Issue #130)
