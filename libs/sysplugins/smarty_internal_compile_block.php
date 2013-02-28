@@ -179,7 +179,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
             return '';
         }
         $_tpl = new Smarty_Internal_template('string:' . $compiler->template->block_data[$_name]['source'], $compiler->smarty, $compiler->template, $compiler->template->cache_id,
-                        $compiler->template->compile_id = null, $compiler->template->caching, $compiler->template->cache_lifetime);
+                        $compiler->template->compile_id, $compiler->template->caching, $compiler->template->cache_lifetime);
         $_tpl->variable_filters = $compiler->template->variable_filters;
         $_tpl->properties['nocache_hash'] = $compiler->template->properties['nocache_hash'];
         $_tpl->source->filepath = $compiler->template->block_data[$_name]['file'];
