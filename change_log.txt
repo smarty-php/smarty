@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+28.01.2013
+- bugfix nocache blocks could be lost when using CACHING_LIFETIME_SAVED (Issue #133)
+
 24.01.2013
 - bugfix wrong tag type in smarty_internal_templatecompilerbase.php could cause wrong plugin search order (Forum Topic 24028)
 
