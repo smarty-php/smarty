@@ -1,5 +1,5 @@
 ﻿===== trunk  =====
-28.01.2013
+28.02.2013
 - bugfix nocache blocks could be lost when using CACHING_LIFETIME_SAVED (Issue #133)
 - bugfix Compile ID gets nulled when compiling child blocks (Issue #134)
 
