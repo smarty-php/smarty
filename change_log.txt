@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 05.04.2013
 - bugfix post filter must not run when compiling inheritance child blocks (Forum Topic 24094)
+- bugfix after the fix for Issue #130 compiler exceptions got double escaped (Forum Topic 24199)
 
 28.02.2013
 - bugfix nocache blocks could be lost when using CACHING_LIFETIME_SAVED (Issue #133)
