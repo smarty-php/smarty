@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+05.04.2013
+- bugfix post filter must not run when compiling inheritance child blocks (Forum Topic 24094)
+
 28.02.2013
 - bugfix nocache blocks could be lost when using CACHING_LIFETIME_SAVED (Issue #133)
 - bugfix Compile ID gets nulled when compiling child blocks (Issue #134)
@@ -11,7 +14,7 @@
 - enhancement allow to disable exception message escaping by SmartyException::$escape = false;  (Issue #130)
 
 09.01.2013
-- bugfix compilation did fail when a prefilter did modify an {extends} tag (Forum Topic 23966)
+- bugfix compilation did fail when a prefilter did modify an {extends} tag c
 - bugfix template inheritance could fail if nested {block} tags in childs did contain {$smarty.block.child} (Issue #127)
 - bugfix template inheritance could fail if {block} tags in childs did have similar name as used plugins (Issue #128)
 - added abstract method declaration doCompile() in Smarty_Internal_TemplateCompilerBase (Forum Topic 23969)

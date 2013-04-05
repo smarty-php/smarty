@@ -190,6 +190,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
             $_tpl->compiler->forceNocache = 1;
         }
         $_tpl->compiler->suppressHeader = true;
+        $_tpl->compiler->suppressFilter = true;
         $_tpl->compiler->suppressTemplatePropertyHeader = true;
         $_tpl->compiler->suppressMergedTemplates = true;
         if (strpos($compiler->template->block_data[$_name]['source'], '%%%%SMARTY_PARENT%%%%') !== false) {
