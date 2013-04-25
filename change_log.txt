@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+25.04.2013
+- bugfix escape and wordrap modifier could be compiled into wrong code when used in {nocache}{/nocache}
+  section but caching is disabled  (Forum Topic 24260)
+  
 05.04.2013
 - bugfix post filter must not run when compiling inheritance child blocks (Forum Topic 24094)
 - bugfix after the fix for Issue #130 compiler exceptions got double escaped (Forum Topic 24199)
