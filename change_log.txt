@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+21.05.2013
+- bugfix modifier strip_tags:true was compiled into wrong code (Forum Topic 24287)
+- bugfix /n after ?> in Smarty.class.php did start output buffering (Issue 138)
+
 25.04.2013
 - bugfix escape and wordrap modifier could be compiled into wrong code when used in {nocache}{/nocache}
   section but caching is disabled  (Forum Topic 24260)
@@ -10,6 +14,7 @@
 28.02.2013
 - bugfix nocache blocks could be lost when using CACHING_LIFETIME_SAVED (Issue #133)
 - bugfix Compile ID gets nulled when compiling child blocks (Issue #134)
+
 
 24.01.2013
 - bugfix wrong tag type in smarty_internal_templatecompilerbase.php could cause wrong plugin search order (Forum Topic 24028)
