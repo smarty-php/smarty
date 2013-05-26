@@ -1,4 +1,8 @@
 ﻿===== trunk  =====
+26.05.2013
+- enhancement an expire_time of -1 in clearCache() and clearAllCache() will delete outdated cache files
+  by their individual cache_lifetime used at creation (forum topic 24310)
+
 21.05.2013
 - bugfix modifier strip_tags:true was compiled into wrong code (Forum Topic 24287)
 - bugfix /n after ?> in Smarty.class.php did start output buffering (Issue 138)
