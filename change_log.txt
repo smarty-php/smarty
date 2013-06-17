@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+17.06.2013
+- fixed spelling in sources and documentation (from smarty-developers forum Veres Lajos)
+
 26.05.2013
 - enhancement an expire_time of -1 in clearCache() and clearAllCache() will delete outdated cache files
   by their individual cache_lifetime used at creation (forum topic 24310)
@@ -442,7 +445,7 @@
 03/09/2011
 - bugfix createTemplate() must default to cache_id and compile_id of Smarty object
 - bugfix Smarty_CacheResource_KeyValueStore must include $source->uid in cache filepath to keep templates with same
-  name but different folders seperated
+  name but different folders separated
 - added cacheresource.apc.php example in demo folder
 
 02/09/2011
@@ -633,7 +636,7 @@
 - changed ./ and ../ behaviour
 
 14/02/2011
-- added {block ... hide} option to supress block if no child is defined
+- added {block ... hide} option to suppress block if no child is defined
 
 13/02/2011
 - update handling of recursive subtemplate calls
@@ -747,7 +750,7 @@
 - bugfix on compiler object destruction. compiler_object property was by mistake unset.
 
 09/03/2011
--bugfix a variable filter should run before modifers on an output tag (see change of 23/07/2010)
+-bugfix a variable filter should run before modifiers on an output tag (see change of 23/07/2010)
 
 08/03/2011
 - bugfix loading config file without section should load only defaults
@@ -1051,10 +1054,10 @@ request_use_auto_globals
 - bugfix passing scope attributes in doublequoted strings did not work at {include} {assign} and {append}
 
 25/07/2010
-- another bugfix of change from 23/07/2010 when compiling modifer
+- another bugfix of change from 23/07/2010 when compiling modifier
 
 24/07/2010
-- bugfix of change from 23/07/2010 when compiling modifer
+- bugfix of change from 23/07/2010 when compiling modifier
 
 23/07/2010
 - changed execution order. A variable filter does now run before modifiers on output of variables
@@ -1361,7 +1364,7 @@ request_use_auto_globals
 - bugfix on {if} tags 
 
 01/12/2010
-- changed back modifer handling in parser. Some restrictions still apply:
+- changed back modifier handling in parser. Some restrictions still apply:
     if modifiers are used in side {if...} expression or in mathematical expressions 
     parentheses must be used.
 - bugfix the {function..} tag did not accept the name attribute in double quotes
@@ -1973,7 +1976,7 @@ NOTICE: existing compiled template and cache files must be deleted
 - fixed exceptions in function plugins
 - fixed notice error in Smarty.class.php
 - allow chained objects to span multiple lines
-- fixed error in modifers 
+- fixed error in modifiers 
 
 03/20/2009
 - moved /plugins folder into /libs folder
@@ -1981,7 +1984,7 @@ NOTICE: existing compiled template and cache files must be deleted
 - autoappend a directory separator if the xxxxx_dir definition have no trailing one
 
 03/19/2009
-- allow array definition as modifer parameter
+- allow array definition as modifier parameter
 - changed modifier to use multi byte string funktions. 
 
 03/17/2009
