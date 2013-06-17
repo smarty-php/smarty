@@ -129,6 +129,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     const CACHING_LIFETIME_CURRENT = 1;
     const CACHING_LIFETIME_SAVED = 2;
     /**
+     * define constant for clearing cache files be saved expiration datees
+     */
+    const CLEAR_EXPIRED = -1; 
+
+    /**
      * define compile check modes
      */
     const COMPILECHECK_OFF = 0;

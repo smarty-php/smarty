@@ -1,6 +1,7 @@
 ﻿===== trunk  =====
 17.06.2013
 - fixed spelling in sources and documentation (from smarty-developers forum Veres Lajos)
+- enhancement added constant SMARTY::CLEAR_EXPIRED for the change of 26.05.2013 (forum topic 24310)
 
 26.05.2013
 - enhancement an expire_time of -1 in clearCache() and clearAllCache() will delete outdated cache files
