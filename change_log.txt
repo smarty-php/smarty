@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+27.06.2013
+- bugfix removed PHP 5.5 deprecated preg_replace /e option in modifier capitalize (forum topic 24389)
+
 17.06.2013
 - fixed spelling in sources and documentation (from smarty-developers forum Veres Lajos)
 - enhancement added constant SMARTY::CLEAR_EXPIRED for the change of 26.05.2013 (forum topic 24310)
