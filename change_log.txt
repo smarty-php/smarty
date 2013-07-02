@@ -1,4 +1,6 @@
 ﻿===== trunk  =====
+2.7.2013
+- bugfix trimwhitespace would replace captured items in wrong order (forum topic 24387)
 ===== Smarty-3.1.14 =====
 27.06.2013
 - bugfix removed PHP 5.5 deprecated preg_replace /e option in modifier capitalize (forum topic 24389)
