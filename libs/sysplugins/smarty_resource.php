@@ -162,7 +162,7 @@ abstract class Smarty_Resource {
         $offset = 0;
         
         // resolve simples
-        $_path = preg_replace('#(/\./(\./)*)|/{2,}#', '/', $_path);
+        $_path = preg_replace('#/\./(\./)*#', '/', $_path);
         // resolve parents
         while (true) {
             $_parent = strpos($_path, '/../', $offset);
