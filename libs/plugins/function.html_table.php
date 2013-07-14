@@ -64,13 +64,14 @@ function smarty_function_html_table($params, $template)
 
     if (!isset($params['loop'])) {
         trigger_error("html_table: missing 'loop' parameter",E_USER_WARNING);
+
         return;
     }
 
     foreach ($params as $_key => $_value) {
         switch ($_key) {
             case 'loop':
-                $$_key = (array)$_value;
+                $$_key = (array) $_value;
                 break;
 
             case 'cols':
@@ -81,14 +82,14 @@ function smarty_function_html_table($params, $template)
                     $cols = explode(',', $_value);
                     $cols_count = count($cols);
                 } elseif (!empty($_value)) {
-                    $cols_count = (int)$_value;
+                    $cols_count = (int) $_value;
                 } else {
                     $cols_count = $cols;
                 }
                 break;
 
             case 'rows':
-                $$_key = (int)$_value;
+                $$_key = (int) $_value;
                 break;
 
             case 'table_attr':
@@ -97,7 +98,7 @@ function smarty_function_html_table($params, $template)
             case 'vdir':
             case 'inner':
             case 'caption':
-                $$_key = (string)$_value;
+                $$_key = (string) $_value;
                 break;
 
             case 'tr_attr':
@@ -173,5 +174,3 @@ function smarty_function_html_table_cycle($name, $var, $no)
 
     return ($ret) ? ' ' . $ret : '';
 }
-
-?>

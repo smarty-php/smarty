@@ -29,5 +29,6 @@ function smarty_literal_compiler_param($params, $index, $default=null)
 
     $t = null;
     eval("\$t = " . $params[$index] . ";");
+
     return $t;
 }

@@ -15,8 +15,8 @@
 * @package Smarty
 * @subpackage Compiler
 */
-class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
+{
     /**
     * caching mode to create nocache code but no cache file
     */
@@ -53,9 +53,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
     /**
     * Compiles code for the {include} tag
     *
-     * @param array $args array with attributes from parser
-     * @param object $compiler compiler object
-     * @param array $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -198,6 +198,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
                 $_output .= " \$_smarty_tpl->tpl_vars[$_assign] = new Smarty_variable(ob_get_clean());";
             }
             $_output .= "/*  End of included template \"" . $tpl_name . "\" */?>";
+
             return $_output;
         }
 
@@ -207,9 +208,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase {
         } else {
             $_output = "<?php echo \$_smarty_tpl->getSubTemplate ($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope);?>\n";
         }
+
         return $_output;
     }
 
 }
-
-?>

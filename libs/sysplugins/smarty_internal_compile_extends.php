@@ -16,8 +16,8 @@
 * @package Smarty
 * @subpackage Compiler
 */
-class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
+{
     /**
     * Attribute definition: Overwrites base class.
     *
@@ -125,9 +125,8 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase {
         }
         $compiler->template->source->filepath = $_template->source->filepath;
         $compiler->abort_and_recompile = true;
+
         return '';
     }
 
 }
-
-?>

@@ -29,7 +29,7 @@ function smarty_modifiercompiler_escape($params, $compiler)
     if ($_double_encode === null) {
         $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
     }
-    
+
     try {
         $esc_type = smarty_literal_compiler_param($params, 1, 'html');
         $char_set = smarty_literal_compiler_param($params, 2, Smarty::$_CHARSET);
@@ -46,7 +46,7 @@ function smarty_modifiercompiler_escape($params, $compiler)
                         . $params[0] .', ENT_QUOTES, '
                         . var_export($char_set, true) . ', '
                         . var_export($double_encode, true) . ')';
-                } else if ($double_encode) {
+                } elseif ($double_encode) {
                     return 'htmlspecialchars('
                         . $params[0] .', ENT_QUOTES, '
                         . var_export($char_set, true) . ')';
@@ -64,7 +64,7 @@ function smarty_modifiercompiler_escape($params, $compiler)
                             . var_export($double_encode, true)
                             . '), "HTML-ENTITIES", '
                             . var_export($char_set, true) . ')';
-                    } else if ($double_encode) {
+                    } elseif ($double_encode) {
                         // php <5.2.3 - only handle double encoding
                         return 'mb_convert_encoding(htmlspecialchars('
                             . $params[0] .', ENT_QUOTES, '
@@ -83,7 +83,7 @@ function smarty_modifiercompiler_escape($params, $compiler)
                         . $params[0] .', ENT_QUOTES, '
                         . var_export($char_set, true) . ', '
                         . var_export($double_encode, true) . ')';
-                } else if ($double_encode) {
+                } elseif ($double_encode) {
                     // php <5.2.3 - only handle double encoding
                     return 'htmlentities('
                         . $params[0] .', ENT_QUOTES, '
@@ -107,7 +107,7 @@ function smarty_modifiercompiler_escape($params, $compiler)
                 return 'strtr(' . $params[0] . ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", "\\n" => "\\\n", "</" => "<\/" ))';
 
         }
-    } catch(SmartyException $e) {
+    } catch (SmartyException $e) {
         // pass through to regular plugin fallback
     }
 
@@ -119,7 +119,6 @@ function smarty_modifiercompiler_escape($params, $compiler)
         $compiler->template->required_plugins['compiled']['escape']['modifier']['file'] = SMARTY_PLUGINS_DIR .'modifier.escape.php';
         $compiler->template->required_plugins['compiled']['escape']['modifier']['function'] = 'smarty_modifier_escape';
     }
+
     return 'smarty_modifier_escape(' . join( ', ', $params ) . ')';
 }
-
-?>

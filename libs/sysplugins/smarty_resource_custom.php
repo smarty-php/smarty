@@ -15,8 +15,8 @@
  * @package Smarty
  * @subpackage TemplateResources
  */
-abstract class Smarty_Resource_Custom extends Smarty_Resource {
-
+abstract class Smarty_Resource_Custom extends Smarty_Resource
+{
     /**
      * fetch template and its modification time from data source
      *
@@ -24,7 +24,7 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource {
      * @param string  &$source template source
      * @param integer &$mtime  template modification timestamp (epoch)
      */
-    protected abstract function fetch($name, &$source, &$mtime);
+    abstract protected function fetch($name, &$source, &$mtime);
 
     /**
      * Fetch template's modification timestamp from data source
@@ -32,7 +32,7 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource {
      * {@internal implementing this method is optional.
      *  Only implement it if modification times can be accessed faster than loading the complete template source.}}
      *
-     * @param string $name template name
+     * @param  string          $name template name
      * @return integer|boolean timestamp (epoch) the template was modified, or false if not found
      */
     protected function fetchTimestamp($name)
@@ -66,9 +66,9 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource {
     /**
      * Load template's source into current template object
      *
-     * @param Smarty_Template_Source $source source object
-     * @return string template source
-     * @throws SmartyException if source cannot be loaded
+     * @param  Smarty_Template_Source $source source object
+     * @return string                 template source
+     * @throws SmartyException        if source cannot be loaded
      */
     public function getContent(Smarty_Template_Source $source)
     {
@@ -83,8 +83,8 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource {
     /**
      * Determine basename for compiled filename
      *
-     * @param Smarty_Template_Source $source source object
-     * @return string resource's basename
+     * @param  Smarty_Template_Source $source source object
+     * @return string                 resource's basename
      */
     protected function getBasename(Smarty_Template_Source $source)
     {
@@ -92,5 +92,3 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource {
     }
 
 }
-
-?>

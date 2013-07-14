@@ -15,8 +15,8 @@
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -28,11 +28,11 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
     /**
      * Compiles code for the execution of block plugin
      *
-     * @param array  $args      array with attributes from parser
-     * @param object $compiler  compiler object
-     * @param array  $parameter array with compilation parameter
-     * @param string $tag       name of block object
-     * @param string $method    name of method to call
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     * @param  string $tag       name of block object
+     * @param  string $method    name of method to call
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter, $tag, $method)
@@ -80,9 +80,8 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
             }
             $output = "<?php \$_block_content = ob_get_contents(); ob_end_clean(); \$_block_repeat=false;" . $mod_pre . " echo \$_smarty_tpl->smarty->registered_objects['{$base_tag}'][0]->{$method}({$_params}, \$_block_content, \$_smarty_tpl, \$_block_repeat); " . $mod_post . "  } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
         }
+
         return $output . "\n";
     }
 
 }
-
-?>

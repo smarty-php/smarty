@@ -6,17 +6,17 @@
  * @subpackage PluginsShared
  */
 
-if(!function_exists('smarty_mb_wordwrap')) {
+if (!function_exists('smarty_mb_wordwrap')) {
 
     /**
      * Wrap a string to a given number of characters
      *
      * @link http://php.net/manual/en/function.wordwrap.php for similarity
-     * @param string  $str   the string to wrap
-     * @param int     $width the width of the output
-     * @param string  $break the character used to break the line
-     * @param boolean $cut   ignored parameter, just for the sake of
-     * @return string wrapped string
+     * @param  string  $str   the string to wrap
+     * @param  int     $width the width of the output
+     * @param  string  $break the character used to break the line
+     * @param  boolean $cut   ignored parameter, just for the sake of
+     * @return string  wrapped string
      * @author Rodney Rehm
      */
     function smarty_mb_wordwrap($str, $width=75, $break="\n", $cut=false)
@@ -63,7 +63,7 @@ if(!function_exists('smarty_mb_wordwrap')) {
                         $length = 0;
                         continue;
                     }
-                } else if ($token == "\n") {
+                } elseif ($token == "\n") {
                     // hard break must reset counters
                     $_previous = 0;
                     $length = 0;
@@ -80,4 +80,3 @@ if(!function_exists('smarty_mb_wordwrap')) {
     }
 
 }
-?>

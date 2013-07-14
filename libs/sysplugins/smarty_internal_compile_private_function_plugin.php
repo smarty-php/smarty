@@ -15,8 +15,8 @@
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -35,11 +35,11 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
     /**
      * Compiles code for the execution of function plugin
      *
-     * @param array $args array with attributes from parser
-     * @param object $compiler compiler object
-     * @param array $parameter array with compilation parameter
-     * @param string $tag name of function plugin
-     * @param string $function PHP function name
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
+     * @param  string $tag       name of function plugin
+     * @param  string $function  PHP function name
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter, $tag, $function)
@@ -65,9 +65,8 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
         $_params = 'array(' . implode(",", $_paramsArray) . ')';
         // compile code
         $output = "<?php echo {$function}({$_params},\$_smarty_tpl);?>\n";
+
         return $output;
     }
 
 }
-
-?>

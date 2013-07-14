@@ -53,17 +53,17 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
             case 'indent_char':
             case 'wrap_char':
             case 'assign':
-                $$_key = (string)$_val;
+                $$_key = (string) $_val;
                 break;
 
             case 'indent':
             case 'indent_first':
             case 'wrap':
-                $$_key = (int)$_val;
+                $$_key = (int) $_val;
                 break;
 
             case 'wrap_cut':
-                $$_key = (bool)$_val;
+                $$_key = (bool) $_val;
                 break;
 
             default:
@@ -77,7 +77,6 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
     // split into paragraphs
     $_paragraphs = preg_split('![\r\n]{2}!', $content);
     $_output = '';
-
 
     foreach ($_paragraphs as &$_paragraph) {
         if (!$_paragraph) {
@@ -102,12 +101,10 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
         }
     }
     $_output = implode($wrap_char . $wrap_char, $_paragraphs);
-    
+
     if ($assign) {
         $template->assign($assign, $_output);
     } else {
         return $_output;
     }
 }
-
-?>

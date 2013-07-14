@@ -47,5 +47,3 @@ function smarty_modifiercompiler_unescape($params, $compiler)
             return $params[0];
     }
 }
-
-?>

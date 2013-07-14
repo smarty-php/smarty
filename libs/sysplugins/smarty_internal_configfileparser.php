@@ -102,7 +102,7 @@ class Smarty_Internal_Configfileparser#line 79 "smarty_internal_configfileparser
         $this->smarty = $compiler->smarty;
         $this->compiler = $compiler;
     }
-    public static function &instance($new_instance = null)
+    static function &instance($new_instance = null)
     {
         static $instance = null;
         if (isset($new_instance) && is_object($new_instance))
@@ -219,7 +219,7 @@ static public $yy_action = array(
  /*    20 */    15,   17,   23,   18,   27,   26,    4,    5,    6,   32,
  /*    30 */     2,   11,   28,   22,   16,    9,    7,   10,
     );
-    public static $yy_lookahead = array(
+    static $yy_lookahead = array(
  /*     0 */     7,    8,    9,   10,   11,   12,    5,   27,   15,   16,
  /*    10 */    20,   21,   23,   23,   17,   18,   13,   14,   17,   18,
  /*    20 */    15,    2,   17,    4,   25,   26,    6,    3,    3,   14,
@@ -227,17 +227,17 @@ static public $yy_action = array(
 );
     const YY_SHIFT_USE_DFLT = -8;
     const YY_SHIFT_MAX = 19;
-    public static $yy_shift_ofst = array(
+    static $yy_shift_ofst = array(
  /*     0 */    -8,    1,    1,    1,   -7,   -3,   -3,   30,   -8,   -8,
  /*    10 */    -8,   19,    5,    3,   15,   16,   24,   25,   32,   20,
 );
     const YY_REDUCE_USE_DFLT = -21;
     const YY_REDUCE_MAX = 10;
-    public static $yy_reduce_ofst = array(
+    static $yy_reduce_ofst = array(
  /*     0 */   -10,   -1,   -1,   -1,  -20,   10,   12,    8,   14,    7,
  /*    10 */   -11,
 );
-    public static $yyExpectedTokens = array(
+    static $yyExpectedTokens = array(
         /* 0 */ array(),
         /* 1 */ array(5, 17, 18, ),
         /* 2 */ array(5, 17, 18, ),
@@ -275,7 +275,7 @@ static public $yy_action = array(
         /* 34 */ array(),
         /* 35 */ array(),
 );
-    public static $yy_default = array(
+    static $yy_default = array(
  /*     0 */    44,   37,   41,   40,   58,   58,   58,   36,   39,   44,
  /*    10 */    44,   58,   58,   58,   58,   58,   58,   58,   58,   58,
  /*    20 */    55,   54,   57,   56,   50,   45,   43,   42,   38,   46,
@@ -288,9 +288,9 @@ static public $yy_action = array(
     const YYERRORSYMBOL = 19;
     const YYERRSYMDT = 'yy0';
     const YYFALLBACK = 0;
-    public static $yyFallback = array(
+    static $yyFallback = array(
     );
-    public static function Trace($TraceFILE, $zTracePrompt)
+    static function Trace($TraceFILE, $zTracePrompt)
     {
         if (!$TraceFILE) {
             $zTracePrompt = 0;
@@ -301,14 +301,14 @@ static public $yy_action = array(
         self::$yyTracePrompt = $zTracePrompt;
     }
 
-    public static function PrintTrace()
+    static function PrintTrace()
     {
         self::$yyTraceFILE = fopen('php://output', 'w');
         self::$yyTracePrompt = '<br>';
     }
 
-    public static $yyTraceFILE;
-    public static $yyTracePrompt;
+    static $yyTraceFILE;
+    static $yyTracePrompt;
     public $yyidx;                    /* Index of top element in stack */
     public $yyerrcnt;                 /* Shifts left before out of the error */
     public $yystack = array();  /* The parser's stack */
@@ -323,7 +323,7 @@ static public $yy_action = array(
   'section',       'newline',       'var',           'value',
     );
 
-    public static $yyRuleName = array(
+    static $yyRuleName = array(
  /*   0 */ "start ::= global_vars sections",
  /*   1 */ "global_vars ::= var_list",
  /*   2 */ "sections ::= sections section",
@@ -360,7 +360,7 @@ static public $yy_action = array(
         }
     }
 
-    public static function yy_destructor($yymajor, $yypminor)
+    static function yy_destructor($yymajor, $yypminor)
     {
         switch ($yymajor) {
             default:  break;   /* If no destructor action specified: do nothing */
@@ -633,7 +633,7 @@ static public $yy_action = array(
         }
     }
 
-    public static $yyRuleInfo = array(
+    static $yyRuleInfo = array(
   array( 'lhs' => 20, 'rhs' => 2 ),
   array( 'lhs' => 21, 'rhs' => 1 ),
   array( 'lhs' => 22, 'rhs' => 2 ),
@@ -658,7 +658,7 @@ static public $yy_action = array(
   array( 'lhs' => 25, 'rhs' => 3 ),
     );
 
-    public static $yyReduceMap = array(
+    static $yyReduceMap = array(
         0 => 0,
         2 => 0,
         3 => 0,
@@ -830,8 +830,7 @@ static public $yy_action = array(
     {
         if (self::$yyTraceFILE) {
             fprintf(self::$yyTraceFILE, "%sFail!\n", self::$yyTracePrompt);
-        }
-        while ($this->yyidx >= 0) {
+        } while ($this->yyidx >= 0) {
             $this->yy_pop_parser_stack();
         }
     }

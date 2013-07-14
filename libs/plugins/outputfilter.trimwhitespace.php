@@ -88,5 +88,3 @@ function smarty_outputfilter_trimwhitespace($source, Smarty_Internal_Template $s
 
     return $source;
 }
-
-?>

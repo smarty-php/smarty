@@ -15,14 +15,14 @@
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
+{
     /**
      * Compiles code for the {assign} tag
      *
-     * @param array  $args      array with attributes from parser
-     * @param object $compiler  compiler object
-     * @param array  $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -76,13 +76,12 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
         } elseif ($_scope == Smarty::SCOPE_ROOT || $_scope == Smarty::SCOPE_GLOBAL) {
             $output .= "\n\$_ptr = \$_smarty_tpl->parent; while (\$_ptr != null) {\$_ptr->tpl_vars[$_attr[var]] = clone \$_smarty_tpl->tpl_vars[$_attr[var]]; \$_ptr = \$_ptr->parent; }";
         }
-        if ( $_scope == Smarty::SCOPE_GLOBAL) {
+        if ($_scope == Smarty::SCOPE_GLOBAL) {
             $output .= "\nSmarty::\$global_tpl_vars[$_attr[var]] = clone \$_smarty_tpl->tpl_vars[$_attr[var]];";
         }
         $output .= '?>';
+
         return $output;
     }
 
 }
-
-?>

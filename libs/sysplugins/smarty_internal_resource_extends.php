@@ -16,8 +16,8 @@
 * @package Smarty
 * @subpackage TemplateResources
 */
-class Smarty_Internal_Resource_Extends extends Smarty_Resource {
-
+class Smarty_Internal_Resource_Extends extends Smarty_Resource
+{
     /**
     * mbstring.overload flag
     *
@@ -158,5 +158,3 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource {
     }
 
 }
-
-?>

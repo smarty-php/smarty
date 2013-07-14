@@ -29,5 +29,3 @@ function smarty_modifiercompiler_count_characters($params, $compiler)
     // no MBString fallback
     return 'strlen(' . $params[0] . ')';
 }
-
-?>

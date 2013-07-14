@@ -12,7 +12,7 @@
 /**
  * @ignore
  */
-include ("smarty_internal_parsetree.php");
+include 'smarty_internal_parsetree.php';
 
 /**
  * Class SmartyTemplateCompiler
@@ -20,8 +20,8 @@ include ("smarty_internal_parsetree.php");
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase {
-
+class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase
+{
     /**
      * Lexer class name
      *
@@ -84,7 +84,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * Methode to compile a Smarty template
      *
      * @param  mixed $_content template source
-     * @return bool true if compiling succeeded, false if it failed
+     * @return bool  true if compiling succeeded, false if it failed
      */
     protected function doCompile($_content)
     {
@@ -123,5 +123,3 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
     }
 
 }
-
-?>
