@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+14.7.2013
+- bugfix increase of internal maximum parser stacksize to allow more complex tag code {forum topic 24426}
+
 12.7.2013
 - bugfix Do not remove '//' from file path at normalization (Issue 142)
 
