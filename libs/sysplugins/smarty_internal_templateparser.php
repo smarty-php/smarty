@@ -118,14 +118,14 @@ class Smarty_Internal_Templateparser#line 79 "smarty_internal_templateparser.php
         $this->current_buffer = $this->root_buffer = new _smarty_template_buffer($this);
     }
 
-    static function escape_start_tag($tag_text)
+    public static function escape_start_tag($tag_text)
     {
         $tag = preg_replace('/\A<\?(.*)\z/', '<<?php ?>?\1', $tag_text, -1 , $count); //Escape tag
 
         return $tag;
     }
 
-    static function escape_end_tag($tag_text)
+    public static function escape_end_tag($tag_text)
     {
         return '?<?php ?>>';
     }
@@ -469,7 +469,7 @@ static public $yy_action = array(
  /*  2370 */   329,  329,  329,  329,  329,  329,  329,  329,  329,  329,
  /*  2380 */   329,  329,  206,
     );
-    static $yy_lookahead = array(
+    public static $yy_lookahead = array(
  /*     0 */     1,    3,    4,    5,    6,    7,    8,    9,   10,   11,
  /*    10 */    12,   13,   16,   98,   16,   19,   17,   17,  113,  114,
  /*    20 */    22,   23,   16,   97,   18,   19,   28,  112,   29,   29,
@@ -712,7 +712,7 @@ static public $yy_action = array(
 );
     const YY_SHIFT_USE_DFLT = -5;
     const YY_SHIFT_MAX = 256;
-    static $yy_shift_ofst = array(
+    public static $yy_shift_ofst = array(
  /*     0 */    -2, 1271, 1157, 1157, 1271, 1157, 1328, 1328, 1100, 1157,
  /*    10 */  1157, 1157, 1157, 1157, 1157, 1157, 1499, 1157, 1157, 1157,
  /*    20 */  1157, 1157, 1556, 1157, 1157, 1157, 1157, 1157, 1157, 1157,
@@ -742,7 +742,7 @@ static public $yy_action = array(
 );
     const YY_REDUCE_USE_DFLT = -96;
     const YY_REDUCE_MAX = 208;
-    static $yy_reduce_ofst = array(
+    public static $yy_reduce_ofst = array(
  /*     0 */     5,   -7,  489,  566, 1630,  856,   70, 1117, 1865, 1854,
  /*    10 */  1831, 1812, 1891, 1902, 1977, 1951, 1940, 1921, 1789, 1762,
  /*    20 */  1402, 1345, 1288, 1231, 1459, 1516, 1751, 1728, 1709, 1573,
@@ -765,7 +765,7 @@ static public $yy_action = array(
  /*   190 */   597,  552,  552,  596,  594,  594,  594,  599,  -33,  356,
  /*   200 */   296,  360,  -33,  356,  395,  404,  376,  416,  368,
 );
-    static $yyExpectedTokens = array(
+    public static $yyExpectedTokens = array(
         /* 0 */ array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 16, 22, 23, 28, 32, 33, 34, ),
         /* 1 */ array(16, 18, 19, 22, 23, 28, 32, 33, 34, 36, 38, 41, 56, 57, 58, 59, 60, 63, 64, 78, ),
         /* 2 */ array(16, 18, 19, 22, 23, 28, 32, 33, 34, 36, 38, 41, 56, 57, 58, 59, 60, 63, 64, 78, ),
@@ -1158,7 +1158,7 @@ static public $yy_action = array(
         /* 389 */ array(),
         /* 390 */ array(),
 );
-    static $yy_default = array(
+    public static $yy_default = array(
  /*     0 */   394,  578,  549,  549,  595,  549,  595,  595,  595,  595,
  /*    10 */   595,  595,  595,  595,  595,  595,  595,  595,  595,  595,
  /*    20 */   595,  595,  595,  595,  595,  595,  595,  595,  595,  595,
@@ -1207,9 +1207,9 @@ static public $yy_action = array(
     const YYERRORSYMBOL = 81;
     const YYERRSYMDT = 'yy0';
     const YYFALLBACK = 0;
-    static $yyFallback = array(
+    public static $yyFallback = array(
     );
-    static function Trace($TraceFILE, $zTracePrompt)
+    public static function Trace($TraceFILE, $zTracePrompt)
     {
         if (!$TraceFILE) {
             $zTracePrompt = 0;
@@ -1220,14 +1220,14 @@ static public $yy_action = array(
         self::$yyTracePrompt = $zTracePrompt;
     }
 
-    static function PrintTrace()
+    public static function PrintTrace()
     {
         self::$yyTraceFILE = fopen('php://output', 'w');
         self::$yyTracePrompt = '<br>';
     }
 
-    static $yyTraceFILE;
-    static $yyTracePrompt;
+    public static $yyTraceFILE;
+    public static $yyTracePrompt;
     public $yyidx;                    /* Index of top element in stack */
     public $yyerrcnt;                 /* Shifts left before out of the error */
     public $yystack = array();  /* The parser's stack */
@@ -1266,7 +1266,7 @@ static public $yy_action = array(
   'arrayelement',  'doublequoted',  'doublequotedcontent',
     );
 
-    static $yyRuleName = array(
+    public static $yyRuleName = array(
  /*   0 */ "start ::= template",
  /*   1 */ "template ::= template_element",
  /*   2 */ "template ::= template template_element",
@@ -1485,7 +1485,7 @@ static public $yy_action = array(
         }
     }
 
-    static function yy_destructor($yymajor, $yypminor)
+    public static function yy_destructor($yymajor, $yypminor)
     {
         switch ($yymajor) {
             default:  break;   /* If no destructor action specified: do nothing */
@@ -1758,7 +1758,7 @@ static public $yy_action = array(
         }
     }
 
-    static $yyRuleInfo = array(
+    public static $yyRuleInfo = array(
   array( 'lhs' => 82, 'rhs' => 1 ),
   array( 'lhs' => 83, 'rhs' => 1 ),
   array( 'lhs' => 83, 'rhs' => 2 ),
@@ -1965,7 +1965,7 @@ static public $yy_action = array(
   array( 'lhs' => 96, 'rhs' => 0 ),
     );
 
-    static $yyReduceMap = array(
+    public static $yyReduceMap = array(
         0 => 0,
         1 => 1,
         2 => 1,

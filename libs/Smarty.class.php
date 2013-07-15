@@ -167,38 +167,38 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * assigned global tpl vars
      */
-    static $global_tpl_vars = array();
+    public static $global_tpl_vars = array();
 
     /**
      * error handler returned by set_error_hanlder() in Smarty::muteExpectedErrors()
      */
-    static $_previous_error_handler = null;
+    public static $_previous_error_handler = null;
     /**
      * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
      */
-    static $_muted_directories = array();
+    public static $_muted_directories = array();
     /**
      * Flag denoting if Multibyte String functions are available
      */
-    static $_MBSTRING = SMARTY_MBSTRING;
+    public static $_MBSTRING = SMARTY_MBSTRING;
     /**
      * The character set to adhere to (e.g. "UTF-8")
      */
-    static $_CHARSET = SMARTY_RESOURCE_CHAR_SET;
+    public static $_CHARSET = SMARTY_RESOURCE_CHAR_SET;
     /**
      * The date format to be used internally
      * (accepts date() and strftime())
      */
-    static $_DATE_FORMAT = SMARTY_RESOURCE_DATE_FORMAT;
+    public static $_DATE_FORMAT = SMARTY_RESOURCE_DATE_FORMAT;
     /**
      * Flag denoting if PCRE should run in UTF-8 mode
      */
-    static $_UTF8_MODIFIER = 'u';
+    public static $_UTF8_MODIFIER = 'u';
 
     /**
      * Flag denoting if operating system is windows
      */
-    static $_IS_WINDOWS = false;
+    public static $_IS_WINDOWS = false;
 
     /**#@+
      * variables
@@ -564,7 +564,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * global internal smarty vars
      * @var array
      */
-    static $_smarty_vars = array();
+    public static $_smarty_vars = array();
     /**
      * start time for execution time calculation
      * @var int
@@ -1406,7 +1406,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param  integer $errno Error level
      * @return boolean
      */
-    static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
+    public static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
     {
         $_is_muted_directory = false;
 
@@ -1458,7 +1458,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @return void
      */
-    static function muteExpectedErrors()
+    public static function muteExpectedErrors()
     {
         /*
             error muting is done because some people implemented custom error_handlers using
@@ -1490,7 +1490,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @return void
      */
-    static function unmuteExpectedErrors()
+    public static function unmuteExpectedErrors()
     {
         restore_error_handler();
     }
@@ -1510,7 +1510,7 @@ if (Smarty::$_CHARSET !== 'UTF-8') {
  */
 class SmartyException extends Exception
 {
-    static $escape = true;
+    public static $escape = true;
     public function __construct($message)
     {
         $this->message = self::$escape ? htmlentities($message) : $message;
@@ -1531,7 +1531,7 @@ class SmartyCompilerException extends SmartyException
 function smartyAutoload($class)
 {
     $_class = strtolower($class);
-    $_classes = array(
+    static $_classes = array(
         'smarty_config_source' => true,
         'smarty_config_compiled' => true,
         'smarty_security' => true,

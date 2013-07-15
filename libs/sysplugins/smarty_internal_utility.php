@@ -57,7 +57,7 @@ class Smarty_Internal_Utility
      * @param  Smarty  $smarty        Smarty instance
      * @return integer number of template files compiled
      */
-    static function compileAllTemplates($extension, $force_compile, $time_limit, $max_errors, Smarty $smarty)
+    public static function compileAllTemplates($extension, $force_compile, $time_limit, $max_errors, Smarty $smarty)
     {
         // switch off time limit
         if (function_exists('set_time_limit')) {
@@ -121,7 +121,7 @@ class Smarty_Internal_Utility
      * @param  Smarty  $smarty        Smarty instance
      * @return integer number of config files compiled
      */
-    static function compileAllConfig($extension, $force_compile, $time_limit, $max_errors, Smarty $smarty)
+    public static function compileAllConfig($extension, $force_compile, $time_limit, $max_errors, Smarty $smarty)
     {
         // switch off time limit
         if (function_exists('set_time_limit')) {
@@ -180,7 +180,7 @@ class Smarty_Internal_Utility
      * @param  Smarty  $smarty        Smarty instance
      * @return integer number of template files deleted
      */
-    static function clearCompiledTemplate($resource_name, $compile_id, $exp_time, Smarty $smarty)
+    public static function clearCompiledTemplate($resource_name, $compile_id, $exp_time, Smarty $smarty)
     {
         $_compile_dir = $smarty->getCompileDir();
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
@@ -275,7 +275,7 @@ class Smarty_Internal_Utility
      * @param  Smarty_Internal_Template $templae template object
      * @return array                    of tag/attributes
      */
-    static function getTags(Smarty_Internal_Template $template)
+    public static function getTags(Smarty_Internal_Template $template)
     {
         $template->smarty->get_used_tags = true;
         $template->compileTemplateSource();
@@ -292,7 +292,7 @@ class Smarty_Internal_Utility
      * @param  array  $errors array to push results into rather than outputting them
      * @return bool   status, true if everything is fine, false else
      */
-    static function testInstall(Smarty $smarty, &$errors=null)
+    public static function testInstall(Smarty $smarty, &$errors=null)
     {
         $status = true;
 

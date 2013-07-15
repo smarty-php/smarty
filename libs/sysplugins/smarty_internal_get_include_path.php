@@ -21,7 +21,7 @@ class Smarty_Internal_Get_Include_Path
      * @param  string         $filepath filepath
      * @return string|boolean full filepath or false
      */
-    static function getIncludePath($filepath)
+    public static function getIncludePath($filepath)
     {
         static $_include_path = null;
 

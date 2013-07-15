@@ -21,17 +21,17 @@ abstract class Smarty_Resource
      * cache for Smarty_Template_Source instances
      * @var array
      */
-    static $sources = array();
+    public static $sources = array();
     /**
      * cache for Smarty_Template_Compiled instances
      * @var array
      */
-    static $compileds = array();
+    public static $compileds = array();
     /**
      * cache for Smarty_Resource instances
      * @var array
      */
-    static $resources = array();
+    public static $resources = array();
     /**
      * resource types provided by the core
      * @var array
@@ -372,7 +372,7 @@ abstract class Smarty_Resource
      * @param  string          $type   name of the resource
      * @return Smarty_Resource Resource Handler
      */
-    static function load(Smarty $smarty, $type)
+    public static function load(Smarty $smarty, $type)
     {
         // try smarty's cache
         if (isset($smarty->_resource_handlers[$type])) {
@@ -490,7 +490,7 @@ abstract class Smarty_Resource
      * @param  string $template_resource template_resource to extracate resource handler and name of
      * @return string unique resource name
      */
-    static function getUniqueTemplateName($smarty, $template_resource)
+    public static function getUniqueTemplateName($smarty, $template_resource)
     {
         self::parseResourceName($template_resource, $smarty->default_resource_type, $name, $type);
         // TODO: optimize for Smarty's internal resource types
@@ -509,7 +509,7 @@ abstract class Smarty_Resource
      * @param  string                   $template_resource resource identifier
      * @return Smarty_Template_Source   Source Object
      */
-    static function source(Smarty_Internal_Template $_template=null, Smarty $smarty=null, $template_resource=null)
+    public static function source(Smarty_Internal_Template $_template=null, Smarty $smarty=null, $template_resource=null)
     {
         if ($_template) {
             $smarty = $_template->smarty;
@@ -546,7 +546,7 @@ abstract class Smarty_Resource
      * @param  Smarty_Internal_Config $_config config object
      * @return Smarty_Config_Source   Source Object
      */
-    static function config(Smarty_Internal_Config $_config)
+    public static function config(Smarty_Internal_Config $_config)
     {
         static $_incompatible_resources = array('eval' => true, 'string' => true, 'extends' => true, 'php' => true);
         $config_resource = $_config->config_resource;

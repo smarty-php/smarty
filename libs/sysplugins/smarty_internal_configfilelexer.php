@@ -33,7 +33,7 @@ class Smarty_Internal_Configfilelexer
         $this->smarty = $smarty;
         $this->mbstring_overload = ini_get('mbstring.func_overload') & 2;
     }
-    static function &instance($new_instance = null)
+    public static function &instance($new_instance = null)
     {
         static $instance = null;
         if (isset($new_instance) && is_object($new_instance))

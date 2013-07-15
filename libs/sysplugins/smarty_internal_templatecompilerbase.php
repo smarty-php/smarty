@@ -44,7 +44,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      *
      * @var array
      */
-    static $_tag_objects = array();
+    public static $_tag_objects = array();
 
     /**
      * tag stack

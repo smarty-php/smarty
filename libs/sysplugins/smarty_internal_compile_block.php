@@ -160,7 +160,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
      * @param  string $_name    optional name of child block
      * @return string compiled code of schild block
      */
-    static function compileChildBlock($compiler, $_name = null)
+    public static function compileChildBlock($compiler, $_name = null)
     {
         $_output = '';
         // if called by {$smarty.block.child} we must search the name of enclosing {block}
