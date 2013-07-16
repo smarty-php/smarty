@@ -1,3 +1,8 @@
+2013-07-16  Uwe Tews
+
+    * Fixed made Smarty_Compiler.class.php compatible with PHP 5.5
+
+
 2012-09-24  Uwe Tews
 
     * Fixed  escape Smarty error messages to avoid possible script execution
