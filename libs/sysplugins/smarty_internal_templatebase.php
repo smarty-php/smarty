@@ -525,8 +525,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         // test if allowed methodes callable
         if (!empty($allowed)) {
             foreach ((array) $allowed as $method) {
-                if (!is_callable(array($object_impl, $method))) {
-                    throw new SmartyException("Undefined method '$method' in registered object");
+                if (!is_callable(array($object_impl, $method)) && !property_exists($object_impl, $method)) {
+                    throw new SmartyException("Undefined method or property '$method' in registered object");
                 }
             }
         }
