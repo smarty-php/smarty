@@ -115,6 +115,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $smarty->left_delimiter = '{';
         $smarty->right_delimiter = '}';
         $smarty->debugging = false;
+        $smarty->debugging_ctrl = 'NONE';
         $smarty->force_compile = false;
         $_template = new Smarty_Internal_Template($smarty->debug_tpl, $smarty);
         $_template->caching = false;

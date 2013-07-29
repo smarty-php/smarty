@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+29.07.2013
+- bugfix headers already send warning thrown when using 'SMARTY_DEBUG=on' from URL (Issue 148)
+
 27.07.2013
 - enhancement allow access to properties of registered opjects for Smarty2 BC (forum topic 24344)
 
