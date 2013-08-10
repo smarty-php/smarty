@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+10.08.2013
+- bugfix a newline was eaten when a <?xml ... ?> was passed by a Smarty variable and caching was enabled (forum topic 24482)
+
 29.07.2013
 - bugfix headers already send warning thrown when using 'SMARTY_DEBUG=on' from URL (Issue 148)
 
