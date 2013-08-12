@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+12.08.2013
+- bugfix internal $tmpx variables must be unique over all inheritance templates (Issue 149)
+
 10.08.2013
 - bugfix a newline was eaten when a <?xml ... ?> was passed by a Smarty variable and caching was enabled (forum topic 24482)
 
