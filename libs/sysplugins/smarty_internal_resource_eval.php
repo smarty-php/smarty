@@ -71,9 +71,10 @@ class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled
      *
      * @param  Smarty $smarty        Smarty instance
      * @param  string $resource_name resource_name to make unique
+     * @param  boolean $is_config    flag for config resource
      * @return string unique resource name
      */
-    protected function buildUniqueResourceName(Smarty $smarty, $resource_name)
+    protected function buildUniqueResourceName(Smarty $smarty, $resource_name, $is_config = false)
     {
         return get_class($this) . '#' .$this->decode($resource_name);
     }
