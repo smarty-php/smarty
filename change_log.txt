@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+13.08.2013
+- bugfix the internal resource cache did not observe config_dir changes (forum topic 24493)
+
 12.08.2013
 - bugfix internal $tmpx variables must be unique over all inheritance templates (Issue 149)
 

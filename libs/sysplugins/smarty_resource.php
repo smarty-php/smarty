@@ -97,11 +97,16 @@ abstract class Smarty_Resource
      *
      * @param  Smarty $smarty        Smarty instance
      * @param  string $resource_name resource_name to make unique
+     * @param  boolean $is_config    flag for config resource
      * @return string unique resource name
      */
-    protected function buildUniqueResourceName(Smarty $smarty, $resource_name)
+    protected function buildUniqueResourceName(Smarty $smarty, $resource_name, $is_config = false)
     {
-        return get_class($this) . '#' . $smarty->joined_template_dir . '#' . $resource_name;
+        if ($is_config) {
+            return get_class($this) . '#' . $smarty->joined_config_dir . '#' . $resource_name;
+        } else {
+            return get_class($this) . '#' . $smarty->joined_template_dir . '#' . $resource_name;
+        }
     }
 
     /**
@@ -562,7 +567,7 @@ abstract class Smarty_Resource
 
         // load resource handler, identify unique resource name
         $resource = Smarty_Resource::load($smarty, $type);
-        $unique_resource_name = $resource->buildUniqueResourceName($smarty, $name);
+        $unique_resource_name = $resource->buildUniqueResourceName($smarty, $name, true);
 
         // check runtime cache
         $_cache_key = 'config|' . $unique_resource_name;
