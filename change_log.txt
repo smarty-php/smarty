@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+14.08.2013
+- bugfix compiled filepath of config file did not observe different config_dir (forum topic 24493)
+
 13.08.2013
 - bugfix the internal resource cache did not observe config_dir changes (forum topic 24493)
 

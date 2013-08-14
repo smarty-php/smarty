@@ -104,7 +104,7 @@ class Smarty_Internal_Config
         $_compile_id = isset($this->smarty->compile_id) ? preg_replace('![^\w\|]+!', '_', $this->smarty->compile_id) : null;
         $_flag = (int) $this->smarty->config_read_hidden + (int) $this->smarty->config_booleanize * 2
                 + (int) $this->smarty->config_overwrite * 4;
-        $_filepath = sha1($this->source->name . $_flag);
+        $_filepath = sha1($this->source->filepath . $_flag);
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
