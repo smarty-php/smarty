@@ -94,6 +94,10 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         // init the lexer/parser to compile the template
         $this->lex = new $this->lexer_class($_content, $this);
         $this->parser = new $this->parser_class($this->lex, $this);
+        if ($this->inheritance_child) {
+            // start state on child templates
+            $this->lex->yypushstate(Smarty_Internal_Templatelexer::CHILDBODY);
+        }
         if ($this->smarty->_parserdebug)
             $this->parser->PrintTrace();
         // get tokens from lexer and parse them

@@ -25,13 +25,52 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     public static $template_data = array();
 
     /**
+     * List of uid's which shall be ignored
+     *
+     * @var array
+     */
+    public static $ignore_uid = array();
+
+    /**
+     * Ignore template
+     *
+     * @param object $template
+     */
+    public static function ignore($template)
+    {
+        // calculate Uid if not already done
+        if ($template->source->uid == '') {
+            $template->source->filepath;
+        }
+        self::$ignore_uid[$template->source->uid] = true;
+    }
+
+    /**
      * Start logging of compile time
      *
      * @param object $template
      */
     public static function start_compile($template)
     {
-        $key = self::get_key($template);
+        static $_is_stringy = array('string' => true, 'eval' => true);
+        if (!empty($template->compiler->trace_uid)) {
+            $key = $template->compiler->trace_uid;
+            if (!isset(self::$template_data[$key])) {
+                if (isset($_is_stringy[$template->source->type])) {
+                    self::$template_data[$key]['name'] = '\'' . substr($template->source->name, 0, 25) . '...\'';
+                } else {
+                    self::$template_data[$key]['name'] = $template->source->filepath;
+                }
+                self::$template_data[$key]['compile_time'] = 0;
+                self::$template_data[$key]['render_time'] = 0;
+                self::$template_data[$key]['cache_time'] = 0;
+            }
+        } else {
+            if (isset(self::$ignore_uid[$template->source->uid])) {
+                return;
+            }
+            $key = self::get_key($template);
+        }
         self::$template_data[$key]['start_time'] = microtime(true);
     }
 
@@ -42,7 +81,15 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
      */
     public static function end_compile($template)
     {
-        $key = self::get_key($template);
+        if (!empty($template->compiler->trace_uid)) {
+            $key = $template->compiler->trace_uid;
+        } else {
+            if (isset(self::$ignore_uid[$template->source->uid])) {
+                return;
+            }
+
+            $key = self::get_key($template);
+        }
         self::$template_data[$key]['compile_time'] += microtime(true) - self::$template_data[$key]['start_time'];
     }
 
@@ -171,7 +218,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             }
         }
 
-        return (object) array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
+        return (object)array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
     }
 
     /**
@@ -192,7 +239,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             return $key;
         } else {
             if (isset($_is_stringy[$template->source->type])) {
-                self::$template_data[$key]['name'] = '\''.substr($template->source->name,0,25).'...\'';
+                self::$template_data[$key]['name'] = '\'' . substr($template->source->name, 0, 25) . '...\'';
             } else {
                 self::$template_data[$key]['name'] = $template->source->filepath;
             }

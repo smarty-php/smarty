@@ -68,7 +68,6 @@ class Smarty_Internal_Compile_Break extends Smarty_Internal_CompileBase
         if ($level_count != 0) {
             $compiler->trigger_template_error("cannot break {$_levels} level(s)", $compiler->lex->taglineno);
         }
-        $compiler->has_code = true;
 
         return "<?php break {$_levels}?>";
     }

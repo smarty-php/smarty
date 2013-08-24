@@ -69,7 +69,6 @@ class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase
         if ($level_count != 0) {
             $compiler->trigger_template_error("cannot continue {$_levels} level(s)", $compiler->lex->taglineno);
         }
-        $compiler->has_code = true;
 
         return "<?php continue {$_levels}?>";
     }

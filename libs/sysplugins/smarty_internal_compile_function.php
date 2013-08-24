@@ -86,7 +86,6 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
         $compiler->template->has_nocache_code = false;
         $compiler->has_code = false;
         $compiler->template->properties['function'][$_name]['compiled'] = '';
-
         return true;
     }
 

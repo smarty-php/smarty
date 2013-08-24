@@ -167,15 +167,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (!$this->source->recompiled) {
             $this->properties['file_dependency'] = array();
             if ($this->source->components) {
+                // for the extends resource the compiler will fill it
                 // uses real resource for file dependency
-                $source = end($this->source->components);
-                $this->properties['file_dependency'][$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $source->type);
+                // $source = end($this->source->components);
+                // $this->properties['file_dependency'][$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $source->type);
             } else {
                 $this->properties['file_dependency'][$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $this->source->type);
             }
-        }
-        if ($this->smarty->debugging) {
-            Smarty_Internal_Debug::start_compile($this);
         }
         // compile locking
         if ($this->smarty->compile_locking && !$this->source->recompiled) {
@@ -202,9 +200,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             Smarty_Internal_Write_File::writeFile($_filepath, $code, $this->smarty);
             $this->compiled->exists = true;
             $this->compiled->isCompiled = true;
-        }
-        if ($this->smarty->debugging) {
-            Smarty_Internal_Debug::end_compile($this);
         }
         // release compiler object to free memory
         unset($this->compiler);
@@ -413,7 +408,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $output .= $plugins_string;
         $output .= $content;
         if (!$this->source->recompiled) {
-            $output .= '<?php }} ?>';
+            $output .= "<?php }} ?>\n";
         }
 
         return $output;

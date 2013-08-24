@@ -1,4 +1,13 @@
 ﻿===== trunk  =====
+24.08.2013
+- bugfix and enhancement
+  Because several recent problems with template inheritance the {block} tag compiler has been rewriten
+   - Error messages shown now the correct child template file and line number
+   - The compiler could fail on some larger UTF-8 text block (forum topic 24455}
+   - The {strip} tag can now be placed outside {block} tags in child templates (forum topic 24289}
+- change SmartyException::$escape  is now false by default
+- change PHP traceback has been remove for SmartyException and SmartyCompilerException
+   
 14.08.2013
 - bugfix compiled filepath of config file did not observe different config_dir (forum topic 24493)
 

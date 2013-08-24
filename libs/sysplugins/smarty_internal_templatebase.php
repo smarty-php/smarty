@@ -132,13 +132,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             if (!$_template->source->uncompiled) {
                 $_smarty_tpl = $_template;
                 if ($_template->source->recompiled) {
-                    if ($this->smarty->debugging) {
-                        Smarty_Internal_Debug::start_compile($_template);
-                    }
                     $code = $_template->compiler->compileTemplate($_template);
-                    if ($this->smarty->debugging) {
-                        Smarty_Internal_Debug::end_compile($_template);
-                    }
                     if ($this->smarty->debugging) {
                         Smarty_Internal_Debug::start_render($_template);
                     }
