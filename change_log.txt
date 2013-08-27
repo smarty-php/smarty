@@ -1,4 +1,7 @@
 ﻿===== trunk  =====
+27.08.2013
+- bugfix delimiter followed by linebreak did not work as auto literak after update form 24.08.2013 (forum topic 24518}
+
 24.08.2013
 - bugfix and enhancement
   Because several recent problems with template inheritance the {block} tag compiler has been rewriten
