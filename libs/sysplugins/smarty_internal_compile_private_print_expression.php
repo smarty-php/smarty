@@ -91,7 +91,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                         if (!is_array($function)) {
                             $output = "{$function}({$output},\$_smarty_tpl)";
                         } elseif (is_object($function[0])) {
-                            $output = "\$_smarty_tpl->smarty->registered_filters[Smarty::FILTER_VARIABLE][{$key}][0]->{$function[1]}({$output},\$_smarty_tpl)";
+                            $output = "\$_smarty_tpl->smarty->registered_filters[Smarty::FILTER_VARIABLE]['{$key}'][0]->{$function[1]}({$output},\$_smarty_tpl)";
                         } else {
                             $output = "{$function[0]}::{$function[1]}({$output},\$_smarty_tpl)";
                         }

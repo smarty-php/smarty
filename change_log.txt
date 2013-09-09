@@ -1,4 +1,7 @@
  ===== trunk =====
+09.09.2012
+- bugfix incorrect compiled code with array(object,method) callback at registered Variable Filter (forum topic 24542}
+
 27.08.2013
 - bugfix delimiter followed by linebreak did not work as auto literal after update from 24.08.2013 (forum topic 24518}
 
