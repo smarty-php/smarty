@@ -1,16 +1,19 @@
  ===== trunk =====
+13.09.2013
+ - bugfix html_select_time defaulting error for the Meridian dropdown (forum topic 24549)
+
 09.09.2012
-- bugfix incorrect compiled code with array(object,method) callback at registered Variable Filter (forum topic 24542}
+- bugfix incorrect compiled code with array(object,method) callback at registered Variable Filter (forum topic 24542)
 
 27.08.2013
-- bugfix delimiter followed by linebreak did not work as auto literal after update from 24.08.2013 (forum topic 24518}
+- bugfix delimiter followed by linebreak did not work as auto literal after update from 24.08.2013 (forum topic 24518)
 
 24.08.2013
 - bugfix and enhancement
   Because several recent problems with template inheritance the {block} tag compiler has been rewriten
    - Error messages shown now the correct child template file and line number
-   - The compiler could fail on some larger UTF-8 text block (forum topic 24455}
-   - The {strip} tag can now be placed outside {block} tags in child templates (forum topic 24289}
+   - The compiler could fail on some larger UTF-8 text block (forum topic 24455)
+   - The {strip} tag can now be placed outside {block} tags in child templates (forum topic 24289)
 - change SmartyException::$escape  is now false by default
 - change PHP traceback has been remove for SmartyException and SmartyCompilerException
    

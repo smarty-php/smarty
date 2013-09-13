@@ -345,7 +345,7 @@ function smarty_function_html_select_time($params, $template)
             $_html_meridian .= '<option value="">' . ( isset($meridian_empty) ? $meridian_empty : $all_empty ) . '</option>' . $option_separator;
         }
 
-        $_html_meridian .= '<option value="am"'. ($_hour < 12 ? ' selected="selected"' : '') .'>AM</option>' . $option_separator
+        $_html_meridian .= '<option value="am"'. ($_hour > 0 && $_hour < 12 ? ' selected="selected"' : '') .'>AM</option>' . $option_separator
             . '<option value="pm"'. ($_hour < 12 ? '' : ' selected="selected"') .'>PM</option>' . $option_separator
             . '</select>';
     }
