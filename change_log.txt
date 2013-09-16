@@ -1,4 +1,7 @@
  ===== trunk =====
+16.09.2013
+ - bugfix recompiled templates did not show on first request with zend opcache cache (forum topic 24320)
+ 
 13.09.2013
  - bugfix html_select_time defaulting error for the Meridian dropdown (forum topic 24549)
 
