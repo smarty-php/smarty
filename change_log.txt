@@ -1,4 +1,7 @@
  ===== trunk =====
+17.09.2013
+ - improvement added patch for additional SmartyCompilerException properties for better access to scource information (forum topic 24559)
+
 16.09.2013
  - bugfix recompiled templates did not show on first request with zend opcache cache (forum topic 24320)
  

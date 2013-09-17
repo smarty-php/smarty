@@ -798,7 +798,12 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $error_text .= ', expected one of: ' . implode(' , ', $expect);
             }
         }
-        throw new SmartyCompilerException($error_text);
+        $e = new SmartyCompilerException($error_text);
+        $e->line = $line;
+        $e->source = trim(preg_replace('![\t\r\n]+!', ' ', $match[$line - 1]));
+        $e->desc = $args;
+        $e->template = $this->template->source->filepath;
+        throw $e;
     }
 
 }
