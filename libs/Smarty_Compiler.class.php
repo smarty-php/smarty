@@ -2122,7 +2122,7 @@ class Smarty_Compiler extends Smarty {
                 return null;
 
             case 'template':
-                $compiled_ref = "'$this->_current_file'";
+                $compiled_ref = "'" . addslashes($this->_current_file) . "'";
                 $_max_index = 1;
                 break;
 
