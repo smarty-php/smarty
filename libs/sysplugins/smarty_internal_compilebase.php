@@ -163,7 +163,7 @@ abstract class Smarty_Internal_CompileBase
                 }
             }
             // wrong nesting of tags
-            $compiler->trigger_template_error("unclosed {" . $_openTag . "} tag");
+            $compiler->trigger_template_error("unclosed {$compiler->smarty->left_delimiter}" . $_openTag . "{$compiler->smarty->right_delimiter} tag");
 
             return;
         }

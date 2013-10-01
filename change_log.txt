@@ -1,4 +1,7 @@
  ===== trunk =====
+01.10.2013
+ - use current delimiters in compiler error messages (issue 157)
+
 17.09.2013
  - improvement added patch for additional SmartyCompilerException properties for better access to scource information (forum topic 24559)
 
