@@ -353,7 +353,7 @@ abstract class Smarty_Resource
      */
     protected function fileExists(Smarty_Template_Source $source, $file)
     {
-        $source->timestamp = @filemtime($file);
+        $source->timestamp = is_file($file) ? @filemtime($file) : false;
 
         return $source->exists = !!$source->timestamp;
 
