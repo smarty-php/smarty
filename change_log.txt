@@ -1,4 +1,7 @@
  ===== trunk =====
+03.10.2013
+ - bugfix loops using modifier capitalize did eat up memory (issue 159)
+ 
  ===== Smarty 3.1.15 =====
 01.10.2013
  - use current delimiters in compiler error messages (issue 157)
