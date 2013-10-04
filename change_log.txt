@@ -1,4 +1,8 @@
  ===== trunk =====
+ 04.10.2013
+ - bugfix variable file names at {extends} had been disbabled by mistake with the rewrite of 
+   template inheritance of 24.08.2013   (forum topic 24585)
+   
 03.10.2013
  - bugfix loops using modifier capitalize did eat up memory (issue 159)
  
