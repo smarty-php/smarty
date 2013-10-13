@@ -1,4 +1,7 @@
  ===== trunk =====
+ 13.10.2013
+ bugfix variable names on {include} in template inheritance did unextepted error message (forum topic 24585) (Issue 161)
+
  04.10.2013
  - bugfix variable file names at {extends} had been disbabled by mistake with the rewrite of 
    template inheritance of 24.08.2013   (forum topic 24585)

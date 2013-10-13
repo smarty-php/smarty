@@ -135,9 +135,6 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                 || substr_count($include_file, '(') != 0 || substr_count($include_file, '$_smarty_tpl->') != 0
             ) {
                 $merge_compiled_includes = false;
-                if ($compiler->inheritance) {
-                    $compiler->trigger_template_error(' variable template file names not allow within {block} tags');
-                }
             }
             // variable compile_id?
             if (isset($_attr['compile_id'])) {
@@ -145,9 +142,6 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                     || substr_count($_attr['compile_id'], '(') != 0 || substr_count($_attr['compile_id'], '$_smarty_tpl->') != 0
                 ) {
                     $merge_compiled_includes = false;
-                    if ($compiler->inheritance) {
-                        $compiler->trigger_template_error(' variable compile_id not allow within {block} tags');
-                    }
                 }
             }
             if ($compiler->template->caching && ($compiler->tag_nocache || $compiler->nocache) && $_caching != self::CACHING_NOCACHE_CODE) {
