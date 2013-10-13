@@ -243,7 +243,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         // already in template cache?
         if ($this->smarty->allow_ambiguous_resources) {
-            $_templateId = Smarty_Resource::getUniqueTemplateName($this->smarty, $template) . $cache_id . $compile_id;
+            $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template) . $cache_id . $compile_id;
         } else {
             $_templateId = $this->smarty->joined_template_dir . '#' . $template . $cache_id . $compile_id;
         }
