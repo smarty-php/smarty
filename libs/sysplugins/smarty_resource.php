@@ -532,6 +532,8 @@ abstract class Smarty_Resource
         $_file_is_dotted = $name[0] == '.' && ($name[1] == '.' || $name[1] == '/' || $name[1] == "\\");
         if ($_template->parent instanceof Smarty_Internal_Template && $_file_is_dotted && ($_template->parent->source->type == 'file' || $_template->parent->source->type == 'extends')) {
             $name2 = dirname($_template->parent->source->filepath) . DS . $name;
+        } else {
+            $name2 = $name;
         }
         $unique_resource_name = $resource->buildUniqueResourceName($smarty, $name2);
 

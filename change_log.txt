@@ -1,4 +1,7 @@
  ===== trunk =====
+ 14.10.2013
+ - bugfix yesterdays fix could result in an undefined variable
+ 
  13.10.2013
  - bugfix variable names on {include} in template inheritance did unextepted error message (forum topic 24594) (Issue 161)
 .- bugfix relative includes with same name like {include './foo.tpl'} from different folder failed (forum topic 24590)(Issue 161) 
