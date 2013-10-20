@@ -1,4 +1,7 @@
  ===== trunk =====
+ 20.10.2013
+ - bugfix a variable file name at {extends} tag did fail (forum topic 24618)
+ 
  14.10.2013
  - bugfix yesterdays fix could result in an undefined variable
  
