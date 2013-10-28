@@ -529,8 +529,8 @@ abstract class Smarty_Resource
         self::parseResourceName($template_resource, $smarty->default_resource_type, $name, $type);
         $resource = Smarty_Resource::load($smarty, $type);
         // go relative to a given template?
-        $_file_is_dotted = $name[0] == '.' && ($name[1] == '.' || $name[1] == '/' || $name[1] == "\\");
-        if ($_template->parent instanceof Smarty_Internal_Template && $_file_is_dotted && ($_template->parent->source->type == 'file' || $_template->parent->source->type == 'extends')) {
+        $_file_is_dotted = isset($name[0]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/' || $name[1] == "\\");
+        if ($_file_is_dotted && isset($_template) && $_template->parent instanceof Smarty_Internal_Template && ($_template->parent->source->type == 'file' || $_template->parent->source->type == 'extends')) {
             $name2 = dirname($_template->parent->source->filepath) . DS . $name;
         } else {
             $name2 = $name;

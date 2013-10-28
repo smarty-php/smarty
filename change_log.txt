@@ -1,6 +1,7 @@
  ===== trunk =====
  28.10.2013
  - bugfix variable resource name at custom resource plugin did not work within {block} tags (Issue 163)
+ - bugfix notice "Trying to get property of non-object" removed (Issue 163)
  
  20.10.2013
  - bugfix a variable file name at {extends} tag did fail (forum topic 24618)
