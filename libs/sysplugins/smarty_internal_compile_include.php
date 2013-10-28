@@ -85,7 +85,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         $_caching = Smarty::CACHING_OFF;
 
         // flag if included template code should be merged into caller
-        $merge_compiled_includes = ($compiler->smarty->merge_compiled_includes || $_attr['inline'] === true) && !$compiler->template->source->recompiled;
+        $merge_compiled_includes = ($compiler->smarty->merge_compiled_includes || $compiler->inheritance || $_attr['inline'] === true) && !$compiler->template->source->recompiled;
 
         // set default when in nocache mode
 //       if ($compiler->template->caching && ($compiler->nocache || $compiler->tag_nocache || $compiler->forceNocache == 2)) {
@@ -121,7 +121,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         }
         if ($_attr['nocache'] === true) {
             $compiler->tag_nocache = true;
-            if ($merge_compiled_includes || $compiler->inheritance) {
+            if ($merge_compiled_includes) {
             $_caching = self::CACHING_NOCACHE_CODE;
             } else {
             $_caching = Smarty::CACHING_OFF;
@@ -129,7 +129,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         }
 
         $has_compiled_template = false;
-        if ($merge_compiled_includes || $compiler->inheritance) {
+        if ($merge_compiled_includes) {
             // variable template name ?
             if ($compiler->has_variable_string || !((substr_count($include_file, '"') == 2 || substr_count($include_file, "'") == 2))
                 || substr_count($include_file, '(') != 0 || substr_count($include_file, '$_smarty_tpl->') != 0
@@ -151,7 +151,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                 }
             }
         }
-        if ($merge_compiled_includes || $compiler->inheritance) {
+        if ($merge_compiled_includes) {
             // we must observe different compile_id
             $uid = sha1($_compile_id);
             $tpl_name = null;
