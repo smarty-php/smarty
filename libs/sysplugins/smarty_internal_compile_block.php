@@ -330,8 +330,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
             } else {
                 $_output = $compiler->parser->current_buffer->to_smarty_php();
             }
-            unset($compiler->template->block_data[$_name]['compiled']);
         }
+        unset($compiler->template->block_data[$_name]['compiled']);
         // reset flags
         $compiler->parser->current_buffer = $saved_data[2];
         if ($compiler->nocache) {
