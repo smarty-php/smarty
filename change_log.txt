@@ -1,4 +1,7 @@
  ===== trunk =====
+ 07.11.2013
+ - bugfix too restrictive handling of {include} within {block} tags. 3.1.15 did throw errors where 3.1.14 did not (forum topic 24599)
+ 
  28.10.2013
  - bugfix variable resource name at custom resource plugin did not work within {block} tags (Issue 163)
  - bugfix notice "Trying to get property of non-object" removed (Issue 163)

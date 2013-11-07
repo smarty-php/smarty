@@ -146,9 +146,6 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             }
             if ($compiler->template->caching && ($compiler->tag_nocache || $compiler->nocache) && $_caching != self::CACHING_NOCACHE_CODE) {
                 $merge_compiled_includes = false;
-                if ($compiler->inheritance) {
-                    $compiler->trigger_template_error(' invalid caching mode of subtemplate within {block} tags');
-                }
             }
         }
         if ($merge_compiled_includes) {
