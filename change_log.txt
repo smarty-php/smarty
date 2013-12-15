@@ -1,4 +1,8 @@
  ===== trunk =====
+ 15.12.2013
+ - bugfix {include} with {block} tag handling (forum topic 24599, 24594, 24682) (Issue 161)
+   Read 3.1.16_RELEASE_NOTES for more details
+   
  07.11.2013
  - bugfix too restrictive handling of {include} within {block} tags. 3.1.15 did throw errors where 3.1.14 did not (forum topic 24599)
  - bugfix compiler could fail if PHP mbstring.func_overload is enabled  (Issue 164)
