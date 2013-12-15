@@ -21,6 +21,9 @@ class Smarty_Internal_Templatelexer
     public $taglineno;
     public $state = 1;
     private $heredoc_id_stack = Array();
+    public $yyTraceFILE;
+    public $yyTracePrompt;
+    public $state_name = array (1 => 'TEXT', 2 => 'SMARTY', 3 => 'LITERAL', 4 => 'DOUBLEQUOTEDSTRING', 5 => 'CHILDBODY');
     public $smarty_token_names = array (		// Text for parser error messages
     				'IDENTITY'	=> '===',
     				'NONEIDENTITY'	=> '!==',
@@ -91,6 +94,12 @@ class Smarty_Internal_Templatelexer
         $this->mbstring_overload = ini_get('mbstring.func_overload') & 2;
      }
 
+    public function PrintTrace()
+    {
+        $this->yyTraceFILE = fopen('php://output', 'w');
+        $this->yyTracePrompt = '<br>';
+    }
+
 
     private $_yy_state = 1;
     private $_yy_stack = array();
@@ -102,18 +111,34 @@ class Smarty_Internal_Templatelexer
 
     public function yypushstate($state)
     {
+        if ($this->yyTraceFILE) {
+             fprintf($this->yyTraceFILE, "%sState push %s\n", $this->yyTracePrompt, isset($this->state_name[$this->_yy_state]) ? $this->state_name[$this->_yy_state] : $this->_yy_state);
+        }
         array_push($this->_yy_stack, $this->_yy_state);
         $this->_yy_state = $state;
+        if ($this->yyTraceFILE) {
+             fprintf($this->yyTraceFILE, "%snew State %s\n", $this->yyTracePrompt, isset($this->state_name[$this->_yy_state]) ? $this->state_name[$this->_yy_state] : $this->_yy_state);
+        }
     }
 
     public function yypopstate()
     {
-        $this->_yy_state = array_pop($this->_yy_stack);
+       if ($this->yyTraceFILE) {
+             fprintf($this->yyTraceFILE, "%sState pop %s\n", $this->yyTracePrompt,  isset($this->state_name[$this->_yy_state]) ? $this->state_name[$this->_yy_state] : $this->_yy_state);
+        }
+       $this->_yy_state = array_pop($this->_yy_stack);
+        if ($this->yyTraceFILE) {
+             fprintf($this->yyTraceFILE, "%snew State %s\n", $this->yyTracePrompt, isset($this->state_name[$this->_yy_state]) ? $this->state_name[$this->_yy_state] : $this->_yy_state);
+        }
+
     }
 
     public function yybegin($state)
     {
-        $this->_yy_state = $state;
+       $this->_yy_state = $state;
+        if ($this->yyTraceFILE) {
+             fprintf($this->yyTraceFILE, "%sState set %s\n", $this->yyTracePrompt, isset($this->state_name[$this->_yy_state]) ? $this->state_name[$this->_yy_state] : $this->_yy_state);
+        }
     }
 
 
