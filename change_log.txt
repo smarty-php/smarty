@@ -1,4 +1,5 @@
  ===== trunk =====
+ ===== 3.1.16 =====
  15.12.2013
  - bugfix {include} with {block} tag handling (forum topic 24599, 24594, 24682) (Issue 161)
    Read 3.1.16_RELEASE_NOTES for more details
