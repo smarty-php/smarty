@@ -1,4 +1,7 @@
  ===== trunk =====
+ 08.01.2014
+ - bugfix Smarty_CacheResource_Custom did not handle template resource type specifications on clearCache() calls (Issue 161)
+ 
  ===== 3.1.16 =====
  15.12.2013
  - bugfix {include} with {block} tag handling (forum topic 24599, 24594, 24682) (Issue 161)
