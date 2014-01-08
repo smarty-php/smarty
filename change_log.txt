@@ -1,6 +1,7 @@
  ===== trunk =====
  08.01.2014
  - bugfix Smarty_CacheResource_Custom did not handle template resource type specifications on clearCache() calls (Issue 161)
+ - bugfix SmartyBC.class.php should use require_once to load Smarty.class.php (forum topic 24683)
  
  ===== 3.1.16 =====
  15.12.2013
