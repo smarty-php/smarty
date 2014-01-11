@@ -372,6 +372,7 @@ class Smarty_Template_Cached
     {
         if (!$_template->source->recompiled) {
             if ($this->handler->writeCachedContent($_template, $content)) {
+                $this->content = null;
                 $this->timestamp = time();
                 $this->exists = true;
                 $this->valid = true;

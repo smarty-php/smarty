@@ -1,6 +1,7 @@
  ===== trunk =====
   11.01.2014
  - bugfix "* }" (spaces before right delimiter) was interpreted by mistake as comment end tag (Issue 170)
+ - internals  content cache should be clear when updating cache file
  
  08.01.2014
  - bugfix Smarty_CacheResource_Custom did not handle template resource type specifications on clearCache() calls (Issue 169)
