@@ -1,6 +1,9 @@
  ===== trunk =====
+  11.01.2014
+ - bugfix "* }" (spaces before right delimiter) was interpreted by mistake as comment end tag (Issue 170)
+ 
  08.01.2014
- - bugfix Smarty_CacheResource_Custom did not handle template resource type specifications on clearCache() calls (Issue 161)
+ - bugfix Smarty_CacheResource_Custom did not handle template resource type specifications on clearCache() calls (Issue 169)
  - bugfix SmartyBC.class.php should use require_once to load Smarty.class.php (forum topic 24683)
  
  ===== 3.1.16 =====
