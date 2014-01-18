@@ -1,5 +1,8 @@
  ===== trunk =====
-  11.01.2014
+ 18.01.2014
+ - bugfix the compiler did fail when using template inheritance and recursive {include} (smarty-developers group)
+ 
+ 11.01.2014
  - bugfix "* }" (spaces before right delimiter) was interpreted by mistake as comment end tag (Issue 170)
  - internals  content cache should be clear when updating cache file
  
