@@ -1,4 +1,7 @@
  ===== trunk =====
+ 26.01.2014
+ - bugfix  undo block nesting checks for {nocache} for reasons like forum topic 23280 (forum topic 24762)
+ 
  18.01.2014
  - bugfix the compiler did fail when using template inheritance and recursive {include} (smarty-developers group)
  
