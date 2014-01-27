@@ -139,7 +139,7 @@
             $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
             $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
             $_compile_id_offset = $smarty->use_sub_dirs ? 3 : 0;
-            $_dir = $smarty->getCacheDir();
+            $_dir = realpath($smarty->getCacheDir());
             $_dir_length = strlen($_dir);
             if (isset($_cache_id)) {
                 $_cache_id_parts = explode('|', $_cache_id);
