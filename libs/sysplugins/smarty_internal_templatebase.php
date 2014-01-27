@@ -343,7 +343,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             }
             // debug output
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::display_debug($this);
+                Smarty_Internal_Debug::display_debug($_template);
             }
             if ($merge_tpl_vars) {
                 // restore local variables
