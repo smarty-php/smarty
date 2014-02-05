@@ -1,4 +1,7 @@
  ===== trunk =====
+ 05.02.2014
+ - bugfix shared.literal_compiler_param.php did throw an exception when literal did contain a '-' (smarty-developers group)
+ 
  27.01.2014
  - bugfix $smarty->debugging = true; did show the variable of the $smarty object not the variables used in display() call (forum topic 24764)
  - bugfix clearCompiledTemplate(), clearAll() and clear() should use realpath to avoid possible exception from RecursiveDirectoryIterator (Issue 171)
