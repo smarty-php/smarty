@@ -1,4 +1,7 @@
  ===== trunk =====
+ 16.02.2014
+ - bugfix a '//' or '\\' in template_dir path could produce wrong path on relative filepath in {include} (Issue 175)
+ 
  05.02.2014
  - bugfix shared.literal_compiler_param.php did throw an exception when literal did contain a '-' (smarty-developers group)
  
