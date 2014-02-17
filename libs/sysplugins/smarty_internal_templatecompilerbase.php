@@ -203,7 +203,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function __construct()
     {
-        $this->nocache_hash = str_replace('.', '-', uniqid(rand(), true));
+        $this->nocache_hash = str_replace(array('.',','), '-', uniqid(rand(), true));
     }
 
     /**

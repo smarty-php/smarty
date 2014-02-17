@@ -1,4 +1,7 @@
  ===== trunk =====
+ 17.02.2014
+ - bugfix Smarty failed when executing PHP on HHVM (Hip Hop 2.4) because uniqid('',true) does return string with ',' (forum topic 20343)
+ 
  16.02.2014
  - bugfix a '//' or '\\' in template_dir path could produce wrong path on relative filepath in {include} (Issue 175)
  
