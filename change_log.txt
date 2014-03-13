@@ -1,4 +1,7 @@
  ===== trunk =====
+ 13.03.2014
+ - bugfix clearXxx() change of 27.1.2014 did not work when specifing cache_id or compile_id  (forum topic 24868 and 24867)
+ 
  ===== 3.1.17 =====
  08.03.2014
  - bugfix relative file path {include} within {block} of child templates did throw exception on first call (Issue 177)
