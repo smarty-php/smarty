@@ -1,4 +1,7 @@
  ===== trunk =====
+ 17.03.2014
+ - bugfix $smarty->auto_literal and mbsting.func_overload 2, 6 or 7 did fail (forum topic 24899)
+ 
  15.03.2014
  - bugfix Smarty_CacheResource_Keyvaluestore did use different keys on read/writes and clearCache() calls (Issue 169)
 
