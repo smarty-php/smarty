@@ -1,4 +1,7 @@
  ===== trunk =====
+ 20.03.2014
+ - bugfix $smarty->auto_literal and mbsting.func_overload 2, 6 or 7 did fail (forum topic 24899)
+ 
  18.03.2014
  - revert change of 17.03.2014
  
