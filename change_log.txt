@@ -1,4 +1,7 @@
  ===== trunk =====
+ 24.03.2014
+ - bugfix using a {foreach} property like @iteration could fail when used in inheritance parent templates (Issue 182)
+ 
  20.03.2014
  - bugfix $smarty->auto_literal and mbsting.func_overload 2, 6 or 7 did fail (forum topic 24899)
  
