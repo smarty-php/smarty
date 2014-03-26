@@ -1,4 +1,7 @@
  ===== trunk =====
+ 26.03.2014
+ - bugfix Smart_Resource_Custom should not lowercase the resource name (Issue 183)
+ 
  24.03.2014
  - bugfix using a {foreach} property like @iteration could fail when used in inheritance parent templates (Issue 182)
  
