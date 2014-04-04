@@ -1,4 +1,7 @@
  ===== trunk =====
+ 05.04.2014
+ - bugfix default date format leads to extra spaces when displaying dates with single digit days (Issue 182)
+ 
  26.03.2014
  - bugfix Smart_Resource_Custom should not lowercase the resource name (Issue 183)
  
