@@ -1,6 +1,7 @@
  ===== trunk =====
  06.04.2014 
  - bugfix template inheritance fail when using custom resource after patch of 8.3.2014 (Issue 187)
+ - bugfix update of composer file (Issue 168 and 184)
 
  05.04.2014
  - bugfix default date format leads to extra spaces when displaying dates with single digit days (Issue 182)
