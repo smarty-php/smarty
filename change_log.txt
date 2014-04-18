@@ -1,4 +1,7 @@
  ===== 3.1.19-dev ===== (xx.xx.2014)
+ 
+ 18.04.2014
+ - revert bugfxx of 5.4.2015 because %-e date formart is not supported on all oprearting systems
 
 
  ===== 3.1.18 ===== (07.04.2014)
@@ -7,7 +10,7 @@
  - bugfix update of composer file (Issue 168 and 184)
 
  05.04.2014
- - bugfix default date format leads to extra spaces when displaying dates with single digit days (Issue 182)
+ - bugfix default date format leads to extra spaces when displaying dates with single digit days (Issue 165)
  
  26.03.2014
  - bugfix Smart_Resource_Custom should not lowercase the resource name (Issue 183)

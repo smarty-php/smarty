@@ -70,7 +70,7 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
     /**
      * @deprecated in favor of Smarty::$_DATE_FORMAT
      */
-    define('SMARTY_RESOURCE_DATE_FORMAT', '%b %-e, %Y');
+    define('SMARTY_RESOURCE_DATE_FORMAT', '%b %e, %Y');
 }
 
 /**
