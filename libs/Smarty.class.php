@@ -1220,11 +1220,11 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null, $do_clone = true)
     {
-        if (!empty($cache_id) && (is_object($cache_id) || is_array($cache_id))) {
+        if ($cache_id !== null && (is_object($cache_id) || is_array($cache_id))) {
             $parent = $cache_id;
             $cache_id = null;
         }
-        if (!empty($parent) && is_array($parent)) {
+        if ($parent !== null && is_array($parent)) {
             $data = $parent;
             $parent = null;
         } else {
