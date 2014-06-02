@@ -1,11 +1,13 @@
  ===== 3.1.19-dev ===== (xx.xx.2014)
+ 02.06.2014
+ - using multiple cwd with relative template dirs could result in identical compiled file names. (issue 194 and topic 25099)
+ 
  19.04.2014
  - bugfix calling createTemplate(template, data) with empty data array caused notice of array to string conversion (Issue 189)
  - bugfix clearCompiledTemplate() did not delete files on WINDOWS when a compile_id was specified
  
  18.04.2014
  - revert bugfix of 5.4.2015 because %-e date format is not supported on all operating systems
-
 
  ===== 3.1.18 ===== (07.04.2014)
  06.04.2014 
