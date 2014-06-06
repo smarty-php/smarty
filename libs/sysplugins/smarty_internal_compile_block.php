@@ -2,18 +2,17 @@
 
 /**
  * Smarty Internal Plugin Compile Block
- *
  * Compiles the {block}{/block} tags
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Block Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
@@ -68,8 +67,9 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {block} tag
      *
-     * @param array $args     array with attributes from parser
+     * @param array  $args     array with attributes from parser
      * @param object $compiler compiler object
+     *
      * @return boolean true
      */
     public function compile($args, $compiler)
@@ -81,7 +81,6 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         // check if we process an inheritance child template
         if ($compiler->inheritance_child) {
             array_unshift(self::$nested_block_names, $_name);
-            $this->template->block_data[$_name]['source'] = '';
             // build {block} for child block
             self::$block_data[$_name]['source'] =
                 "{$compiler->smarty->left_delimiter}private_child_block name={$_attr['name']} file='{$compiler->template->source->filepath}' type='{$compiler->template->source->type}' resource='{$compiler->template->template_resource}'" .
@@ -114,12 +113,12 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         return true;
     }
 
-
     /**
      * Compile saved child block source
      *
-     * @param object $compiler  compiler object
-     * @param string $_name     optional name of child block
+     * @param object $compiler compiler object
+     * @param string $_name    optional name of child block
+     *
      * @return string   compiled code of child block
      */
     static function compileChildBlock($compiler, $_name = null)
@@ -156,7 +155,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         // flag that child is already compile by {$smarty.block.child} inclusion
         $compiler->template->block_data[$_name]['compiled'] = true;
         $_tpl = new Smarty_Internal_template('string:' . $compiler->template->block_data[$_name]['source'], $compiler->smarty, $compiler->template, $compiler->template->cache_id,
-            $compiler->template->compile_id, $compiler->template->caching, $compiler->template->cache_lifetime);
+                                             $compiler->template->compile_id, $compiler->template->caching, $compiler->template->cache_lifetime);
         if ($compiler->smarty->debugging) {
             Smarty_Internal_Debug::ignore($_tpl);
         }
@@ -206,9 +205,10 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
     /**
      * Compile $smarty.block.parent
      *
-     * @param object $compiler  compiler object
-     * @param string $_name     optional name of child block
-     * @return string   compiled code of schild block
+     * @param object $compiler compiler object
+     * @param string $_name    optional name of child block
+     *
+     * @return string   compiled code of child block
      */
     static function compileParentBlock($compiler, $_name = null)
     {
@@ -237,21 +237,20 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
     /**
      * Process block source
      *
-     * @param string $source    source text
-     * @return ''
+     * @param        $compiler
+     * @param string $source source text
+     *
      */
     static function blockSource($compiler, $source)
     {
         Smarty_Internal_Compile_Block::$block_data[Smarty_Internal_Compile_Block::$nested_block_names[0]]['source'] .= $source;
     }
-
 }
-
 
 /**
  * Smarty Internal Plugin Compile BlockClose Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
@@ -259,8 +258,9 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {/block} tag
      *
-     * @param array $args     array with attributes from parser
+     * @param array  $args     array with attributes from parser
      * @param object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -276,7 +276,6 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
         if ($compiler->inheritance_child) {
             $name1 = Smarty_Internal_Compile_Block::$nested_block_names[0];
             Smarty_Internal_Compile_Block::$block_data[$name1]['source'] .= "{$compiler->smarty->left_delimiter}/private_child_block{$compiler->smarty->right_delimiter}";
-            $level = count(Smarty_Internal_Compile_Block::$nested_block_names);
             array_shift(Smarty_Internal_Compile_Block::$nested_block_names);
             if (!empty(Smarty_Internal_Compile_Block::$nested_block_names)) {
                 $name2 = Smarty_Internal_Compile_Block::$nested_block_names[0];
@@ -349,7 +348,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
 /**
  * Smarty Internal Plugin Compile Child Block Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_CompileBase
@@ -363,12 +362,12 @@ class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_Compil
      */
     public $required_attributes = array('name', 'file', 'uid', 'line', 'type', 'resource');
 
-
     /**
      * Compiles code for the {private_child_block} tag
      *
-     * @param array $args     array with attributes from parser
+     * @param array  $args     array with attributes from parser
      * @param object $compiler compiler object
+     *
      * @return boolean true
      */
     public function compile($args, $compiler)
@@ -385,7 +384,6 @@ class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_Compil
         // source object
         unset ($compiler->template->source);
         $exists = $compiler->template->source->exists;
-
 
         // must merge includes
         if ($_attr['nocache'] == true) {
@@ -408,18 +406,18 @@ class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_Compil
 /**
  * Smarty Internal Plugin Compile Child Block Close Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Private_Child_Blockclose extends Smarty_Internal_CompileBase
 {
 
-
     /**
      * Compiles code for the {/private_child_block} tag
      *
-     * @param array $args     array with attributes from parser
+     * @param array  $args     array with attributes from parser
      * @param object $compiler compiler object
+     *
      * @return boolean true
      */
     public function compile($args, $compiler)

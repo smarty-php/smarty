@@ -27,14 +27,15 @@ class Smarty_Internal_Configfilelexer
    				);
     				
     				
-    function __construct($data, $smarty)
+    function __construct($data, $compiler)
     {
         // set instance object
         self::instance($this); 
         $this->data = $data . "\n"; //now all lines are \n-terminated
         $this->counter = 0;
         $this->line = 1;
-        $this->smarty = $smarty; 
+        $this->compiler = $compiler;
+        $this->smarty = $compiler->smarty;
         $this->mbstring_overload = ini_get('mbstring.func_overload') & 2;
     }
     public static function &instance($new_instance = null)

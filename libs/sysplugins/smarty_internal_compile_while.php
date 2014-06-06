@@ -1,18 +1,17 @@
 <?php
 /**
  * Smarty Internal Plugin Compile While
- *
  * Compiles the {while} tag
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile While Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
@@ -23,6 +22,7 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
      * @param  array  $args      array with attributes from parser
      * @param  object $compiler  compiler object
      * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -31,7 +31,7 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
         $_attr = $this->getAttributes($compiler, $args);
         $this->openTag($compiler, 'while', $compiler->nocache);
 
-        if (!array_key_exists("if condition",$parameter)) {
+        if (!array_key_exists("if condition", $parameter)) {
             $compiler->trigger_template_error("missing while condition", $compiler->lex->taglineno);
         }
 
@@ -62,13 +62,12 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
             return "<?php while ({$parameter['if condition']}) {?>";
         }
     }
-
 }
 
 /**
  * Smarty Internal Plugin Compile Whileclose Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Whileclose extends Smarty_Internal_CompileBase
@@ -78,6 +77,7 @@ class Smarty_Internal_Compile_Whileclose extends Smarty_Internal_CompileBase
      *
      * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -90,5 +90,4 @@ class Smarty_Internal_Compile_Whileclose extends Smarty_Internal_CompileBase
 
         return "<?php }?>";
     }
-
 }

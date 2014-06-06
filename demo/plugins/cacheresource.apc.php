@@ -2,12 +2,12 @@
 
 /**
  * APC CacheResource
- *
  * CacheResource Implementation based on the KeyValueStore API to use
  * memcache as the storage resource for Smarty's output caching.
  * *
+ *
  * @package CacheResource-examples
- * @author Uwe Tews
+ * @author  Uwe Tews
  */
 class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
 {
@@ -22,7 +22,8 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
     /**
      * Read values for a set of keys from cache
      *
-     * @param  array   $keys list of keys to fetch
+     * @param  array $keys list of keys to fetch
+     *
      * @return array   list of values with the given keys used as indexes
      * @return boolean true on success, false on failure
      */
@@ -40,11 +41,12 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
     /**
      * Save values for a set of keys to cache
      *
-     * @param  array   $keys   list of values to save
-     * @param  int     $expire expiration time
+     * @param  array $keys   list of values to save
+     * @param  int   $expire expiration time
+     *
      * @return boolean true on success, false on failure
      */
-    protected function write(array $keys, $expire=null)
+    protected function write(array $keys, $expire = null)
     {
         foreach ($keys as $k => $v) {
             apc_store($k, $v, $expire);
@@ -56,7 +58,8 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
     /**
      * Remove values from cache
      *
-     * @param  array   $keys list of keys to delete
+     * @param  array $keys list of keys to delete
+     *
      * @return boolean true on success, false on failure
      */
     protected function delete(array $keys)

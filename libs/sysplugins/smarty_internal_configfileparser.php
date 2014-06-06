@@ -8,7 +8,6 @@
 * @subpackage Compiler
 * @author Uwe Tews
 */
-
 class TPC_yyToken implements ArrayAccess
 {
     public $string = '';

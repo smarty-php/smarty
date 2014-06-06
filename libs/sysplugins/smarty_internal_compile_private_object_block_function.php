@@ -1,18 +1,17 @@
 <?php
 /**
  * Smarty Internal Plugin Compile Object Block Function
- *
  * Compiles code for registered objects as block function
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Object Block Function Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Internal_CompileBase
@@ -33,11 +32,12 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
      * @param  array  $parameter array with compilation parameter
      * @param  string $tag       name of block object
      * @param  string $method    name of method to call
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter, $tag, $method)
     {
-        if (!isset($tag[5]) || substr($tag, -5) != 'close') {
+        if (!isset($tag[5]) || substr($tag, - 5) != 'close') {
             // opening tag of block plugin
             // check and get attributes
             $_attr = $this->getAttributes($compiler, $args);
@@ -62,7 +62,7 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
             // compile code
             $output = "<?php \$_smarty_tpl->smarty->_tag_stack[] = array('{$tag}->{$method}', {$_params}); \$_block_repeat=true; echo \$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params}, null, \$_smarty_tpl, \$_block_repeat);while (\$_block_repeat) { ob_start();?>";
         } else {
-            $base_tag = substr($tag, 0, -5);
+            $base_tag = substr($tag, 0, - 5);
             // must endblock be nocache?
             if ($compiler->nocache) {
                 $compiler->tag_nocache = true;
@@ -83,5 +83,4 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
 
         return $output . "\n";
     }
-
 }

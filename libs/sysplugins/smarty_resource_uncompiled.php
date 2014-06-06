@@ -2,17 +2,16 @@
 /**
  * Smarty Resource Plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage TemplateResources
- * @author Rodney Rehm
+ * @author     Rodney Rehm
  */
 
 /**
  * Smarty Resource Plugin
- *
  * Base implementation for resource plugins that don't use the compiler
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage TemplateResources
  */
 abstract class Smarty_Resource_Uncompiled extends Smarty_Resource
@@ -22,6 +21,7 @@ abstract class Smarty_Resource_Uncompiled extends Smarty_Resource
      *
      * @param  Smarty_Template_Source   $source    source object
      * @param  Smarty_Internal_Template $_template template object
+     *
      * @throws SmartyException          on failure
      */
     abstract public function renderUncompiled(Smarty_Template_Source $source, Smarty_Internal_Template $_template);
@@ -38,5 +38,4 @@ abstract class Smarty_Resource_Uncompiled extends Smarty_Resource
         $compiled->timestamp = false;
         $compiled->exists = false;
     }
-
 }

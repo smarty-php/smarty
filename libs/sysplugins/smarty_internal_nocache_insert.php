@@ -1,18 +1,17 @@
 <?php
 /**
  * Smarty Internal Plugin Nocache Insert
- *
  * Compiles the {insert} tag into the cache file
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Insert Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Nocache_Insert
@@ -25,6 +24,7 @@ class Smarty_Internal_Nocache_Insert
      * @param  Smarty_Internal_Template $_template template object
      * @param  string                   $_script   script name to load or 'null'
      * @param  string                   $_assign   optional variable name
+     *
      * @return string                   compiled code
      */
     public static function compile($_function, $_attr, $_template, $_script, $_assign = null)
@@ -48,5 +48,4 @@ class Smarty_Internal_Nocache_Insert
 
         return "/*%%SmartyNocache:{$_tpl->properties['nocache_hash']}%%*/" . $_output . "/*/%%SmartyNocache:{$_tpl->properties['nocache_hash']}%%*/";
     }
-
 }

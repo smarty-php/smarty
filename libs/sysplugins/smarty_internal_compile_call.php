@@ -1,18 +1,17 @@
 <?php
 /**
  * Smarty Internal Plugin Compile Function_Call
- *
  * Compiles the calls of user defined tags defined by {function}
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Function_Call Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
@@ -42,9 +41,9 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
     /**
      * Compiles the calls of user defined tags defined by {function}
      *
-     * @param  array  $args      array with attributes from parser
-     * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array  $args     array with attributes from parser
+     * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -53,7 +52,7 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
         $_attr = $this->getAttributes($compiler, $args);
         // save possible attributes
         if (isset($_attr['assign'])) {
-            // output will be stored in a smarty variable instead of beind displayed
+            // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr['assign'];
         }
         $_name = $_attr['name'];
@@ -96,7 +95,7 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
                 }
             }
         }
-        //varibale name?
+        //variable name?
         if (!(strpos($_name, '$') === false)) {
             $call_cache = $_name;
             $call_function = '$tmp = "smarty_template_function_".' . $_name . '; $tmp';
@@ -125,5 +124,4 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
 
         return $_output;
     }
-
 }

@@ -1,32 +1,33 @@
 <?php
 /**
  * Smarty Internal Plugin Compile Special Smarty Variable
- *
  * Compiles the special $smarty variables
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile special Smarty Variable Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_CompileBase
 {
     /**
-     * Compiles code for the speical $smarty variables
+     * Compiles code for the special $smarty variables
      *
      * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     * @param         $parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
     {
-        $_index = preg_split("/\]\[/",substr($parameter, 1, strlen($parameter)-2));
+        $_index = preg_split("/\]\[/", substr($parameter, 1, strlen($parameter) - 2));
         $compiled_ref = ' ';
         $variable = trim($_index[0], "'");
         switch ($variable) {
@@ -56,7 +57,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                     $compiler->trigger_template_error("(secure mode) super globals not permitted");
                     break;
                 }
-                $compiled_ref = '$_'.strtoupper($variable);
+                $compiled_ref = '$_' . strtoupper($variable);
                 break;
 
             case 'template':
@@ -110,5 +111,4 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
 
         return $compiled_ref;
     }
-
 }

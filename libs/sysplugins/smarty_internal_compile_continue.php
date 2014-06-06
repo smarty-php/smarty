@@ -1,18 +1,17 @@
 <?php
 /**
  * Smarty Internal Plugin Compile Continue
- *
  * Compiles the {continue} tag
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Continue Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase
@@ -38,6 +37,7 @@ class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase
      * @param  array  $args      array with attributes from parser
      * @param  object $compiler  compiler object
      * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -62,9 +62,9 @@ class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase
         $stack_count = count($compiler->_tag_stack) - 1;
         while ($level_count > 0 && $stack_count >= 0) {
             if (isset($_is_loopy[$compiler->_tag_stack[$stack_count][0]])) {
-                $level_count--;
+                $level_count --;
             }
-            $stack_count--;
+            $stack_count --;
         }
         if ($level_count != 0) {
             $compiler->trigger_template_error("cannot continue {$_levels} level(s)", $compiler->lex->taglineno);
@@ -72,5 +72,4 @@ class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase
 
         return "<?php continue {$_levels}?>";
     }
-
 }

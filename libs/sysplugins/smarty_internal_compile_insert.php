@@ -2,18 +2,17 @@
 
 /**
  * Smarty Internal Plugin Compile Insert
- *
  * Compiles the {insert} tag
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Insert Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
@@ -45,6 +44,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
      *
      * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -59,12 +59,12 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
         $_script = null;
 
         $_output = '<?php ';
-        // save posible attributes
+        // save possible attributes
         eval('$_name = ' . $_attr['name'] . ';');
         if (isset($_attr['assign'])) {
             // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr['assign'];
-            // create variable to make shure that the compiler knows about its nocache status
+            // create variable to make sure that the compiler knows about its nocache status
             $compiler->template->tpl_vars[trim($_attr['assign'], "'")] = new Smarty_Variable(null, true);
         }
         if (isset($_attr['script'])) {
@@ -137,5 +137,4 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
 
         return $_output;
     }
-
 }

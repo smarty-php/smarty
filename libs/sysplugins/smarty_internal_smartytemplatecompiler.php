@@ -1,12 +1,11 @@
 <?php
 /**
  * Smarty Internal Plugin Smarty Template Compiler Base
+ * This file contains the basic classes and methods for compiling Smarty templates with lexer/parser
  *
- * This file contains the basic classes and methodes for compiling Smarty templates with lexer/parser
- *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
@@ -17,7 +16,7 @@ include 'smarty_internal_parsetree.php';
 /**
  * Class SmartyTemplateCompiler
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase
@@ -81,9 +80,10 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
     }
 
     /**
-     * Methode to compile a Smarty template
+     * method to compile a Smarty template
      *
      * @param  mixed $_content template source
+     *
      * @return bool  true if compiling succeeded, false if it failed
      */
     protected function doCompile($_content)
@@ -127,5 +127,4 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         // return str_replace(array("? >\n<?php","? ><?php"), array('',''), $this->parser->retvalue);
         return $this->parser->retvalue;
     }
-
 }

@@ -1,39 +1,35 @@
 <?php
 /**
  * Smarty Internal Plugin Compile For
- *
  * Compiles the {for} {forelse} {/for} tags
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile For Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
 {
     /**
      * Compiles code for the {for} tag
-     *
-     * Smarty 3 does implement two different sytaxes:
-     *
+     * Smarty 3 does implement two different syntax's:
      * - {for $var in $array}
      * For looping over arrays or iterators
-     *
      * - {for $x=0; $x<$y; $x++}
      * For general loops
-     *
-     * The parser is gereration different sets of attribute by which this compiler can
-     * determin which syntax is used.
+     * The parser is generating different sets of attribute by which this compiler can
+     * determine which syntax is used.
      *
      * @param  array  $args      array with attributes from parser
      * @param  object $compiler  compiler object
      * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -81,13 +77,12 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
         // return compiled code
         return $output;
     }
-
 }
 
 /**
  * Smarty Internal Plugin Compile Forelse Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
@@ -98,25 +93,25 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
      * @param  array  $args      array with attributes from parser
      * @param  object $compiler  compiler object
      * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
     {
         // check and get attributes
-        $_attr  = $this->getAttributes($compiler, $args);
+        $_attr = $this->getAttributes($compiler, $args);
 
         list($openTag, $nocache) = $this->closeTag($compiler, array('for'));
         $this->openTag($compiler, 'forelse', array('forelse', $nocache));
 
         return "<?php }} else { ?>";
     }
-
 }
 
 /**
  * Smarty Internal Plugin Compile Forclose Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
@@ -127,6 +122,7 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
      * @param  array  $args      array with attributes from parser
      * @param  object $compiler  compiler object
      * @param  array  $parameter array with compilation parameter
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -146,5 +142,4 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
             return "<?php }} ?>";
         }
     }
-
 }
