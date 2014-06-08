@@ -1,6 +1,7 @@
  ===== 3.1.19-dev ===== (xx.xx.2014)
  08.06.2014
- - bugfix registered objects did not work after spelling fixes of 006.06.2014
+ - bugfix registered objects did not work after spelling fixes of 06.06.2014
+ - bugfix {block} tags within {literal} .. {/literal} got not displayed correctly (topic 25024)
  
  06.06.2014
  - fixed PHPUnit outputFilterTrimWhitespaceTests.php assertion of test result
