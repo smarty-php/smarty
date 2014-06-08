@@ -114,7 +114,7 @@ function smarty_function_html_image($params, $template)
             }
         } else {
             // local file
-            if (!$template->smarty->security_policy->isTrustedResourceDir($params['file'])) {
+            if (!$template->smarty->security_policy->isTrustedResourceDir($_image_path)) {
                 return;
             }
         }
