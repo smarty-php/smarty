@@ -2,6 +2,7 @@
  08.06.2014
  - bugfix registered objects did not work after spelling fixes of 06.06.2014
  - bugfix {block} tags within {literal} .. {/literal} got not displayed correctly (topic 25024)
+ - bugfix UNC WINDOWS PATH like "\\psf\path\to\dir" did not work as template directory (Issue 192)
  
  06.06.2014
  - fixed PHPUnit outputFilterTrimWhitespaceTests.php assertion of test result
