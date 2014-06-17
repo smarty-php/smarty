@@ -98,6 +98,13 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
             // start state on child templates
             $this->lex->yypushstate(Smarty_Internal_Templatelexer::CHILDBODY);
         }
+        if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2) {
+            $mbEncoding = mb_internal_encoding();
+            mb_internal_encoding('ASCII');
+        } else {
+            $mbEncoding = null;
+        }
+
         if ($this->smarty->_parserdebug) {
             $this->parser->PrintTrace();
             $this->lex->PrintTrace();
@@ -117,6 +124,9 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         }
         // finish parsing process
         $this->parser->doParse(0, 0);
+        if ($mbEncoding) {
+            mb_internal_encoding($mbEncoding);
+        }
         // check for unclosed tags
         if (count($this->_tag_stack) > 0) {
             // get stacked info

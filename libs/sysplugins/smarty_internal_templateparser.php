@@ -2662,8 +2662,7 @@ class Smarty_Internal_Templateparser #line 80 "smarty_internal_templateparser.ph
                     if (isset(self::$yyExpectedTokens[$nextstate])) {
                         $expected = array_merge($expected, self::$yyExpectedTokens[$nextstate]);
                         if (in_array($token,
-                                     self::$yyExpectedTokens[$nextstate], true)
-                        ) {
+                                     self::$yyExpectedTokens[$nextstate], true)) {
                             $this->yyidx = $yyidx;
                             $this->yystack = $stack;
 
