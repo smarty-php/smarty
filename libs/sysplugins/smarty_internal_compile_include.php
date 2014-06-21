@@ -216,8 +216,10 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         if (!empty($_attr)) {
             if ($_parent_scope == Smarty::SCOPE_LOCAL) {
                 // create variables
+                $nccode = '';
                 foreach ($_attr as $key => $value) {
                     $_pairs[] = "'$key'=>$value";
+                    $nccode .= "\$_smarty_tpl->tpl_vars['$key'] =  new Smarty_variable($value);\n";
                 }
                 $_vars = 'array(' . join(',', $_pairs) . ')';
             } else {
@@ -232,6 +234,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $_hash = $compiler->smarty->merged_templates_func[$tpl_name][$uid]['nocache_hash'];
             $_output = "<?php /*  Call merged included template \"" . $tpl_name . "\" */\n";
             $_output .= "\$_tpl_stack[] = \$_smarty_tpl;\n";
+            if (!empty($nccode) && $_caching == 9999 && $_smarty_tpl->caching) {
+                $compiler->suppressNocacheProcessing = false;
+                $_output .=  substr($compiler->processNocacheCode('<?php ' .$nccode . "?>\n", true), 6, -3);
+                $compiler->suppressNocacheProcessing = true;
+            }
             $_output .= " \$_smarty_tpl = \$_smarty_tpl->setupInlineSubTemplate($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, '$_hash');\n";
             if (isset($_assign)) {
                 $_output .= 'ob_start(); ';
