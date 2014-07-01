@@ -1,4 +1,5 @@
- ===== 3.1.19-dev ===== (xx.xx.2014)
+ ===== 3.1.20-dev ===== (xx.xx.2014)
+ ===== 3.1.19 ===== (06.30.2014)
  20.06.2014
  - bugfix template variables could not be passed as paramter in {include} when the include was in a {nocache} section (topic 25131)
  
