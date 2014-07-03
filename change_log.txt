@@ -1,7 +1,10 @@
  ===== 3.1.20-dev ===== (xx.xx.2014)
+ 04.07.2014
+ - bugfix the bufix of 02.06.2014 broke correct handling of child templates with same name but different template folders in extends resource (issue 194 and topic 25099)
+ 
  ===== 3.1.19 ===== (06.30.2014)
  20.06.2014
- - bugfix template variables could not be passed as paramter in {include} when the include was in a {nocache} section (topic 25131)
+ - bugfix template variables could not be passed as parameter in {include} when the include was in a {nocache} section (topic 25131)
  
  17.06.2014
  - bugfix large template text of some charsets could cause parsing errors (topic 24630)
