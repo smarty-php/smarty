@@ -82,7 +82,7 @@ class Smarty_Internal_Templatelexer
         //        $this->data = preg_replace("/(\r\n|\r|\n)/", "\n", $data);
         $this->data = $data;
         $this->counter = 0;
-        if (preg_match('/\xEF\xBB\xBF/', $this->data, $match)) {
+        if (preg_match('/^\xEF\xBB\xBF/', $this->data, $match)) {
             $this->counter += strlen($match[0]);
         }
         $this->line = 1;
