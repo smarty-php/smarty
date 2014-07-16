@@ -1,4 +1,7 @@
  ===== 3.1.20-dev ===== (xx.xx.2014)
+ 16.07.2014
+ - enhancement remove BOM automatically from template source (topic 25161)
+ 
  04.07.2014
  - bugfix the bufix of 02.06.2014 broke correct handling of child templates with same name but different template folders in extends resource (issue 194 and topic 25099)
  
