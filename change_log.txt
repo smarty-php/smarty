@@ -1,6 +1,6 @@
  ===== 3.1.20-dev ===== (xx.xx.2014)
  02.08.2014
- - bugfix modifier wordwrap did output break string wrong if first word was exceeding lenght with cut = true (topic 25193)
+ - bugfix modifier wordwrap did output break string wrong if first word was exceeding length with cut = true (topic 25193)
  
  24.07.2014
  - bugfix cache clear when cache folder does not exist
