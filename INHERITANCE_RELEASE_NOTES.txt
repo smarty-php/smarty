@@ -23,9 +23,9 @@ If $smarty->inheritance_merge_compiled_includes = false; {include} subtemplate w
 You must now manually merge all {include} subtemplate which do contain {block} tags. This is done by setting the "inline" option.
 {include file='foo.bar' inline}
 
-1. In case of a variable file name like {include file=$foo inline} you must you the variable in a compile_id  $smarty->compile_id = $foo;
+1. In case of a variable file name like {include file=$foo inline} you must use the variable in a compile_id  $smarty->compile_id = $foo;
 2. If you use individual compile_id in {include file='foo.tpl' compile_id=$bar inline} it must be used in the 
-   global compile_id as well  $smarty->compile_id = $foo;
+   global compile_id as well  $smarty->compile_id = $bar;
 3. If call templates with different template_dir configurations and a parent could same named child template from different folders
    you must make the folder name part of the compile_id.
 
