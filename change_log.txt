@@ -1,4 +1,7 @@
  ===== 3.1.20-dev ===== (xx.xx.2014)
+ 01.10.2014
+ - bugfix template resource of inheritance blocks could get invalid if the default resource type is not 'file'(Issue 202)
+ 
  02.08.2014
  - bugfix modifier wordwrap did output break string wrong if first word was exceeding length with cut = true (topic 25193)
  
