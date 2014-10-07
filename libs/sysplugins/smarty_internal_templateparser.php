@@ -98,7 +98,7 @@ class Smarty_Internal_Templateparser#line 80 "smarty_internal_templateparser.php
     public $retvalue = 0;
     public static $prefix_number = 0;
     private $_string;
-    private $yymajor;
+    public $yymajor;
     public $last_index;
     public $last_variable;
     public $root_buffer;
