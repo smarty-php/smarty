@@ -20,61 +20,63 @@ class Smarty_Internal_Templatelexer
     public $node;
     public $line;
     public $taglineno;
+    public $is_phpScript = false;
     public $state = 1;
+    public $smarty;
     private $heredoc_id_stack = Array();
     public $yyTraceFILE;
     public $yyTracePrompt;
     public $state_name = array(1 => 'TEXT', 2 => 'SMARTY', 3 => 'LITERAL', 4 => 'DOUBLEQUOTEDSTRING', 5 => 'CHILDBODY');
-    public $smarty_token_names = array( // Text for parser error messages
-                                        'IDENTITY'        => '===',
-                                        'NONEIDENTITY'    => '!==',
-                                        'EQUALS'          => '==',
-                                        'NOTEQUALS'       => '!=',
-                                        'GREATEREQUAL'    => '(>=,ge)',
-                                        'LESSEQUAL'       => '(<=,le)',
-                                        'GREATERTHAN'     => '(>,gt)',
-                                        'LESSTHAN'        => '(<,lt)',
-                                        'MOD'             => '(%,mod)',
-                                        'NOT'             => '(!,not)',
-                                        'LAND'            => '(&&,and)',
-                                        'LOR'             => '(||,or)',
-                                        'LXOR'            => 'xor',
-                                        'OPENP'           => '(',
-                                        'CLOSEP'          => ')',
-                                        'OPENB'           => '[',
-                                        'CLOSEB'          => ']',
-                                        'PTR'             => '->',
-                                        'APTR'            => '=>',
-                                        'EQUAL'           => '=',
-                                        'NUMBER'          => 'number',
-                                        'UNIMATH'         => '+" , "-',
-                                        'MATH'            => '*" , "/" , "%',
-                                        'INCDEC'          => '++" , "--',
-                                        'SPACE'           => ' ',
-                                        'DOLLAR'          => '$',
-                                        'SEMICOLON'       => ';',
-                                        'COLON'           => ':',
-                                        'DOUBLECOLON'     => '::',
-                                        'AT'              => '@',
-                                        'HATCH'           => '#',
-                                        'QUOTE'           => '"',
-                                        'BACKTICK'        => '`',
-                                        'VERT'            => '|',
-                                        'DOT'             => '.',
-                                        'COMMA'           => '","',
-                                        'ANDSYM'          => '"&"',
-                                        'QMARK'           => '"?"',
-                                        'ID'              => 'identifier',
-                                        'TEXT'            => 'text',
-                                        'FAKEPHPSTARTTAG' => 'Fake PHP start tag',
-                                        'PHPSTARTTAG'     => 'PHP start tag',
-                                        'PHPENDTAG'       => 'PHP end tag',
-                                        'LITERALSTART'    => 'Literal start',
-                                        'LITERALEND'      => 'Literal end',
-                                        'LDELSLASH'       => 'closing tag',
-                                        'COMMENT'         => 'comment',
-                                        'AS'              => 'as',
-                                        'TO'              => 'to',
+    public $smarty_token_names = array(        // Text for parser error messages
+                                               'IDENTITY'        => '===',
+                                               'NONEIDENTITY'    => '!==',
+                                               'EQUALS'          => '==',
+                                               'NOTEQUALS'       => '!=',
+                                               'GREATEREQUAL'    => '(>=,ge)',
+                                               'LESSEQUAL'       => '(<=,le)',
+                                               'GREATERTHAN'     => '(>,gt)',
+                                               'LESSTHAN'        => '(<,lt)',
+                                               'MOD'             => '(%,mod)',
+                                               'NOT'             => '(!,not)',
+                                               'LAND'            => '(&&,and)',
+                                               'LOR'             => '(||,or)',
+                                               'LXOR'            => 'xor',
+                                               'OPENP'           => '(',
+                                               'CLOSEP'          => ')',
+                                               'OPENB'           => '[',
+                                               'CLOSEB'          => ']',
+                                               'PTR'             => '->',
+                                               'APTR'            => '=>',
+                                               'EQUAL'           => '=',
+                                               'NUMBER'          => 'number',
+                                               'UNIMATH'         => '+" , "-',
+                                               'MATH'            => '*" , "/" , "%',
+                                               'INCDEC'          => '++" , "--',
+                                               'SPACE'           => ' ',
+                                               'DOLLAR'          => '$',
+                                               'SEMICOLON'       => ';',
+                                               'COLON'           => ':',
+                                               'DOUBLECOLON'     => '::',
+                                               'AT'              => '@',
+                                               'HATCH'           => '#',
+                                               'QUOTE'           => '"',
+                                               'BACKTICK'        => '`',
+                                               'VERT'            => '|',
+                                               'DOT'             => '.',
+                                               'COMMA'           => '","',
+                                               'ANDSYM'          => '"&"',
+                                               'QMARK'           => '"?"',
+                                               'ID'              => 'identifier',
+                                               'TEXT'            => 'text',
+                                               'FAKEPHPSTARTTAG' => 'Fake PHP start tag',
+                                               'PHPSTARTTAG'     => 'PHP start tag',
+                                               'PHPENDTAG'       => 'PHP end tag',
+                                               'LITERALSTART'    => 'Literal start',
+                                               'LITERALEND'      => 'Literal end',
+                                               'LDELSLASH'       => 'closing tag',
+                                               'COMMENT'         => 'comment',
+                                               'AS'              => 'as',
+                                               'TO'              => 'to',
     );
 
     function __construct($data, $compiler)
@@ -155,17 +157,19 @@ class Smarty_Internal_Templatelexer
             11 => 0,
             12 => 0,
             13 => 0,
-            14 => 0,
-            15 => 0,
-            16 => 0,
+            14 => 2,
             17 => 0,
             18 => 0,
             19 => 0,
+            20 => 0,
+            21 => 0,
+            22 => 0,
+            23 => 0,
         );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/\G(\\{\\})|\G(" . $this->ldel . "\\*([\S\s]*?)\\*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" . $this->ldel . "\\s*foreach(?![^\s]))|\G(" . $this->ldel . "\\s*setfilter\\s+)|\G(" . $this->ldel . "\\s*\/)|\G(" . $this->ldel . "\\s*)|\G(<\\?(?:php\\w+|=|[a-zA-Z]+)?)|\G(\\?>)|\G(\\s*" . $this->rdel . ")|\G(<%)|\G(%>)|\G([\S\s])/iS";
+        $yy_global_pattern = "/\G(\\{\\})|\G(" . $this->ldel . "\\*([\S\s]*?)\\*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" . $this->ldel . "\\s*foreach(?![^\s]))|\G(" . $this->ldel . "\\s*setfilter\\s+)|\G(" . $this->ldel . "\\s*\/)|\G(" . $this->ldel . "\\s*)|\G((<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|(<\\?(?:php\\w+|=|[a-zA-Z]+)?))|\G(\\?>)|\G(<\/script>)|\G(<\/script>)|\G(\\s*" . $this->rdel . ")|\G(<%)|\G(%>)|\G([\S\s])/iS";
 
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
@@ -333,7 +337,10 @@ class Smarty_Internal_Templatelexer
     function yy_r1_14($yy_subpatterns)
     {
 
-        if (in_array($this->value, Array('<?', '<?=', '<?php'))) {
+        if (in_array($this->value, Array('<?', '<?=', '<?php')) || $script = strpos($this->value, '<s') === 0) {
+            if ($script) {
+                $this->is_phpScript = true;
+            }
             $this->token = Smarty_Internal_Templateparser::TP_PHPSTARTTAG;
         } elseif ($this->value == '<?xml') {
             $this->token = Smarty_Internal_Templateparser::TP_XMLTAG;
@@ -343,35 +350,48 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    function yy_r1_15($yy_subpatterns)
+    function yy_r1_17($yy_subpatterns)
     {
 
         $this->token = Smarty_Internal_Templateparser::TP_PHPENDTAG;
     }
 
-    function yy_r1_16($yy_subpatterns)
-    {
-
-        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-    }
-
-    function yy_r1_17($yy_subpatterns)
-    {
-
-        $this->token = Smarty_Internal_Templateparser::TP_ASPSTARTTAG;
-    }
-
     function yy_r1_18($yy_subpatterns)
     {
 
-        $this->token = Smarty_Internal_Templateparser::TP_ASPENDTAG;
+        $this->token = Smarty_Internal_Templateparser::TP_PHPENDSCRIPT;
     }
 
     function yy_r1_19($yy_subpatterns)
     {
 
+        $this->token = Smarty_Internal_Templateparser::TP_PHPENDSCRIPT;
+    }
+
+    function yy_r1_20($yy_subpatterns)
+    {
+
+        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+    }
+
+    function yy_r1_21($yy_subpatterns)
+    {
+
+        $this->token = Smarty_Internal_Templateparser::TP_ASPSTARTTAG;
+    }
+
+    function yy_r1_22($yy_subpatterns)
+    {
+
+        $this->token = Smarty_Internal_Templateparser::TP_ASPENDTAG;
+    }
+
+    function yy_r1_23($yy_subpatterns)
+    {
+
+        $phpEndScript = $this->is_phpScript ? '|<\\/script>' : '';
         $to = strlen($this->data);
-        preg_match("/{$this->ldel}|<\?|\?>|<%|%>/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
+        preg_match("/{$this->ldel}|<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>{$phpEndScript}/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
         if (isset($match[0][1])) {
             $to = $match[0][1];
         }
@@ -942,18 +962,19 @@ class Smarty_Internal_Templatelexer
     public function yylex3()
     {
         $tokenMap = array(
-            1 => 0,
-            2 => 0,
-            3 => 0,
-            4 => 0,
-            5 => 0,
-            6 => 0,
-            7 => 0,
+            1  => 0,
+            2  => 0,
+            3  => 2,
+            6  => 0,
+            7  => 0,
+            8  => 0,
+            9  => 0,
+            10 => 0,
         );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/literal\\s*" . $this->rdel . ")|\G(<\\?(?:php\\w+|=|[a-zA-Z]+)?)|\G(\\?>)|\G(<%)|\G(%>)|\G([\S\s])/iS";
+        $yy_global_pattern = "/\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/literal\\s*" . $this->rdel . ")|\G((<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|(<\\?(?:php\\w+|=|[a-zA-Z]+)?))|\G(\\?>)|\G(<\/script>)|\G(<%)|\G(%>)|\G([\S\s])/iS";
 
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
@@ -1028,7 +1049,10 @@ class Smarty_Internal_Templatelexer
     function yy_r3_3($yy_subpatterns)
     {
 
-        if (in_array($this->value, Array('<?', '<?=', '<?php'))) {
+        if (in_array($this->value, Array('<?', '<?=', '<?php')) || $script = strpos($this->value, '<s') === 0) {
+            if ($script) {
+                $this->is_phpScript = true;
+            }
             $this->token = Smarty_Internal_Templateparser::TP_PHPSTARTTAG;
         } else {
             $this->token = Smarty_Internal_Templateparser::TP_FAKEPHPSTARTTAG;
@@ -1036,29 +1060,36 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    function yy_r3_4($yy_subpatterns)
+    function yy_r3_6($yy_subpatterns)
     {
 
         $this->token = Smarty_Internal_Templateparser::TP_PHPENDTAG;
     }
 
-    function yy_r3_5($yy_subpatterns)
+    function yy_r3_7($yy_subpatterns)
+    {
+
+        $this->token = Smarty_Internal_Templateparser::TP_PHPENDSCRIPT;
+    }
+
+    function yy_r3_8($yy_subpatterns)
     {
 
         $this->token = Smarty_Internal_Templateparser::TP_ASPSTARTTAG;
     }
 
-    function yy_r3_6($yy_subpatterns)
+    function yy_r3_9($yy_subpatterns)
     {
 
         $this->token = Smarty_Internal_Templateparser::TP_ASPENDTAG;
     }
 
-    function yy_r3_7($yy_subpatterns)
+    function yy_r3_10($yy_subpatterns)
     {
 
+        $phpEndScript = $this->is_phpScript ? '|<\\/script>' : '';
         $to = strlen($this->data);
-        preg_match("/{$this->ldel}\/?literal{$this->rdel}|<\?|<%|\?>|%>/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
+        preg_match("/{$this->ldel}\/?literal{$this->rdel}|<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>{$phpEndScript}/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
         if (isset($match[0][1])) {
             $to = $match[0][1];
         } else {

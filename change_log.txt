@@ -1,4 +1,7 @@
  ===== 3.1.20-dev ===== (xx.xx.2014)
+ 08.10.2014
+ - bugfix security mode of "<script language=php>" must be controlled by $php_handling property (Thue Kristensen)
+ 
  01.10.2014
  - bugfix template resource of inheritance blocks could get invalid if the default resource type is not 'file'(Issue 202)
  - bugfix existing child {block} tag must override parent {block} tag append / prepend setting (topic 25259)
