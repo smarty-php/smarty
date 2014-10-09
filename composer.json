@@ -40,9 +40,9 @@
             "type": "package",
             "package": {
                 "name": "smarty/smarty",
-                "version": "3.1.19",
+                "version": "3.1.20",
                 "dist": {
-                    "url": "http://www.smarty.net/files/Smarty-3.1.19.zip",
+                    "url": "http://www.smarty.net/files/Smarty-3.1.20.zip",
                     "type": "zip"
                 }
             }
