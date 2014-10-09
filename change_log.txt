@@ -1,5 +1,5 @@
  ===== 3.1.21-dev ===== (xx.xx.2014)
- ===== 3.1.20 ===== (10.09.2014)
+ ===== 3.1.20 ===== (09.10.2014)
  08.10.2014
  - bugfix security mode of "<script language=php>" must be controlled by $php_handling property (Thue Kristensen)
  
