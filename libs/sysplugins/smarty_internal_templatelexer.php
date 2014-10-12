@@ -21,6 +21,7 @@ class Smarty_Internal_Templatelexer
     public $line;
     public $taglineno;
     public $is_phpScript = false;
+    public $phpValue = '';
     public $state = 1;
     public $smarty;
     private $heredoc_id_stack = Array();
@@ -164,12 +165,13 @@ class Smarty_Internal_Templatelexer
             20 => 0,
             21 => 0,
             22 => 0,
-            23 => 0,
+            23 => 4,
+            28 => 0,
         );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/\G(\\{\\})|\G(" . $this->ldel . "\\*([\S\s]*?)\\*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" . $this->ldel . "\\s*foreach(?![^\s]))|\G(" . $this->ldel . "\\s*setfilter\\s+)|\G(" . $this->ldel . "\\s*\/)|\G(" . $this->ldel . "\\s*)|\G((<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|(<\\?(?:php\\w+|=|[a-zA-Z]+)?))|\G(\\?>)|\G(<\/script>)|\G(<\/script>)|\G(\\s*" . $this->rdel . ")|\G(<%)|\G(%>)|\G([\S\s])/iS";
+        $yy_global_pattern = "/\G(\\{\\})|\G(" . $this->ldel . "\\*([\S\s]*?)\\*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" . $this->ldel . "\\s*foreach(?![^\s]))|\G(" . $this->ldel . "\\s*setfilter\\s+)|\G(" . $this->ldel . "\\s*\/)|\G(" . $this->ldel . "\\s*)|\G((<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|(<\\?(?:php\\w+|=|[a-zA-Z]+)?))|\G(\\?>)|\G(<\/script>)|\G(<\/script>)|\G(\\s*" . $this->rdel . ")|\G(<%)|\G(%>)|\G(<(([^>]*?)(?=" . $this->ldel . ")" . $this->ldel . "\\*([\S\s]*?)\\*" . $this->rdel . ")+([^>]*?)(?!" . $this->ldel . ")>)|\G([\S\s])/iS";
 
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
@@ -341,6 +343,7 @@ class Smarty_Internal_Templatelexer
             if ($script) {
                 $this->is_phpScript = true;
             }
+            $this->phpValue = $this->value;
             $this->token = Smarty_Internal_Templateparser::TP_PHPSTARTTAG;
         } elseif ($this->value == '<?xml') {
             $this->token = Smarty_Internal_Templateparser::TP_XMLTAG;
@@ -389,9 +392,24 @@ class Smarty_Internal_Templatelexer
     function yy_r1_23($yy_subpatterns)
     {
 
+        $clean = preg_replace("/{$this->ldel}\*([\S\s]*?)\*{$this->rdel}/", '', $this->value);
+        if (preg_match("/<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>/", $clean, $match)) {
+            $this->phpValue = $match[0];
+            $this->is_phpScript = true;
+            $this->token = Smarty_Internal_Templateparser::TP_PHPSTARTTAG;
+        } else {
+            preg_match("/([\S\s]*?)(?={$this->ldel})/", $this->value, $match);
+            $this->value = $match[0];
+            $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+        }
+    }
+
+    function yy_r1_28($yy_subpatterns)
+    {
+
         $phpEndScript = $this->is_phpScript ? '|<\\/script>' : '';
         $to = strlen($this->data);
-        preg_match("/{$this->ldel}|<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>{$phpEndScript}/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
+        preg_match("/<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>|<(([^>]*?)(?={$this->ldel}){$this->ldel}\*([\S\s]*?)\*{$this->rdel})+([^>]*?)(?!{$this->ldel})>|{$this->ldel}{$phpEndScript}/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
         if (isset($match[0][1])) {
             $to = $match[0][1];
         }
@@ -969,12 +987,13 @@ class Smarty_Internal_Templatelexer
             7  => 0,
             8  => 0,
             9  => 0,
-            10 => 0,
+            10 => 4,
+            15 => 0,
         );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/literal\\s*" . $this->rdel . ")|\G((<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|(<\\?(?:php\\w+|=|[a-zA-Z]+)?))|\G(\\?>)|\G(<\/script>)|\G(<%)|\G(%>)|\G([\S\s])/iS";
+        $yy_global_pattern = "/\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/literal\\s*" . $this->rdel . ")|\G((<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|(<\\?(?:php\\w+|=|[a-zA-Z]+)?))|\G(\\?>)|\G(<\/script>)|\G(<%)|\G(%>)|\G(<(([^>]*?)(?=" . $this->ldel . ")" . $this->ldel . "\\*([\S\s]*?)\\*" . $this->rdel . ")+([^>]*?)(?!" . $this->ldel . ")>)|\G([\S\s])/iS";
 
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
@@ -1087,9 +1106,24 @@ class Smarty_Internal_Templatelexer
     function yy_r3_10($yy_subpatterns)
     {
 
+        $clean = preg_replace("/{$this->ldel}\*([\S\s]*?)\*{$this->rdel}/", '', $this->value);
+        if (preg_match("/<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>/", $clean, $match)) {
+            $this->phpValue = $match[0];
+            $this->is_phpScript = true;
+            $this->token = Smarty_Internal_Templateparser::TP_PHPSTARTTAG;
+        } else {
+            preg_match("/([\S\s]*?)(?={$this->ldel})/", $this->value, $match);
+            $this->value = $match[0];
+            $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+        }
+    }
+
+    function yy_r3_15($yy_subpatterns)
+    {
+
         $phpEndScript = $this->is_phpScript ? '|<\\/script>' : '';
         $to = strlen($this->data);
-        preg_match("/{$this->ldel}\/?literal{$this->rdel}|<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>{$phpEndScript}/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
+        preg_match("/<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>|<(([^>]*?)(?={$this->ldel}){$this->ldel}\*([\S\s]*?)\*{$this->rdel})+([^>]*?)(?!{$this->ldel})>|{$this->ldel}\/?literal{$this->rdel}{$phpEndScript}/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
         if (isset($match[0][1])) {
             $to = $match[0][1];
         } else {

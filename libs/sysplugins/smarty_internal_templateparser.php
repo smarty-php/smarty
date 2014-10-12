@@ -3313,13 +3313,13 @@ class Smarty_Internal_Templateparser#line 80 "smarty_internal_templateparser.php
     #line 152 "smarty_internal_templateparser.y"
     function yy_r7()
     {
-        if (strpos($this->yystack[$this->yyidx + 0]->minor, '<s') === 0) {
+        if (strpos($this->lex->phpValue, '<s') === 0) {
             $this->lex->is_phpScript = true;
         }
         if ($this->php_handling == Smarty::PHP_PASSTHRU) {
-            $this->_retvalue = new _smarty_text($this, self::escape_start_tag($this->yystack[$this->yyidx + 0]->minor));
+            $this->_retvalue = new _smarty_text($this, self::escape_start_tag($this->lex->phpValue));
         } elseif ($this->php_handling == Smarty::PHP_QUOTE) {
-            $this->_retvalue = new _smarty_text($this, htmlspecialchars($this->yystack[$this->yyidx + 0]->minor, ENT_QUOTES));
+            $this->_retvalue = new _smarty_text($this, htmlspecialchars($this->lex->phpValue, ENT_QUOTES));
         } elseif ($this->php_handling == Smarty::PHP_ALLOW) {
             if (!($this->smarty instanceof SmartyBC)) {
                 $this->compiler->trigger_template_error(self::Err3);
