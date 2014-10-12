@@ -339,7 +339,7 @@ class Smarty_Internal_Templatelexer
     function yy_r1_14($yy_subpatterns)
     {
 
-        if (in_array($this->value, Array('<?', '<?=', '<?php')) || $script = strpos($this->value, '<s') === 0) {
+        if ($script = strpos($this->value, '<s') === 0 || in_array($this->value, Array('<?', '<?=', '<?php'))) {
             if ($script) {
                 $this->is_phpScript = true;
             }
@@ -1068,7 +1068,7 @@ class Smarty_Internal_Templatelexer
     function yy_r3_3($yy_subpatterns)
     {
 
-        if (in_array($this->value, Array('<?', '<?=', '<?php')) || $script = strpos($this->value, '<s') === 0) {
+        if ($script = strpos($this->value, '<s') === 0 || in_array($this->value, Array('<?', '<?=', '<?php'))) {
             if ($script) {
                 $this->is_phpScript = true;
             }

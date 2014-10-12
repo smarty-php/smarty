@@ -4444,13 +4444,14 @@ class Smarty_Internal_Templateparser#line 80 "smarty_internal_templateparser.php
         while ($this->yyidx >= 0) {
             $stack = $this->yy_pop_parser_stack();
         }
-        #line 76 "smarty_internal_templateparser.y"
+        #line 75 "smarty_internal_templateparser.y"
 
         $this->successful = !$this->internalError;
         $this->internalError = false;
         $this->retvalue = $this->_retvalue;
         //echo $this->retvalue."\n\n";
-        #line 3165 "smarty_internal_templateparser.php"
+
+        #line 3166 "smarty_internal_templateparser.php"
     }
 
     public function doParse($yymajor, $yytokenvalue)

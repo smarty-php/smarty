@@ -1,6 +1,7 @@
  ===== 3.1.21-dev ===== (xx.xx.2014)
  12.10.2014
  - bugfix a comment like "<script{*foo*} language=php>" bypassed $php_handling checking (Thue Kristensen)
+ - bugfix change of 08.10.2014 could create E_NOTICE meassage when using "<?php" tags
 
  ===== 3.1.20 ===== (09.10.2014)
  08.10.2014
