@@ -662,6 +662,14 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var array
      */
     public $merged_templates_func = array();
+
+    /**
+     * Cache of is_file results of loadPlugin()
+     * 
+     * @var array
+     */
+    public static $_is_file_cache= array();
+
     /**#@-*/
 
     /**
@@ -1372,9 +1380,8 @@ class Smarty extends Smarty_Internal_TemplateBase
         // if type is "internal", get plugin from sysplugins
         if (strtolower($_name_parts[1]) == 'internal') {
             $file = SMARTY_SYSPLUGINS_DIR . strtolower($plugin_name) . '.php';
-            if (file_exists($file)) {
+            if (isset(self::$_is_file_cache[$file]) ? self::$_is_file_cache[$file] : self::$_is_file_cache[$file] = is_file($file)) {
                 require_once($file);
-
                 return $file;
             } else {
                 return false;
@@ -1392,9 +1399,8 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $_plugin_dir . strtolower($_plugin_filename),
             );
             foreach ($names as $file) {
-                if (file_exists($file)) {
+                if (isset(self::$_is_file_cache[$file]) ? self::$_is_file_cache[$file] : self::$_is_file_cache[$file] = is_file($file)) {
                     require_once($file);
-
                     return $file;
                 }
                 if ($this->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
