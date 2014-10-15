@@ -1,4 +1,7 @@
  ===== 3.1.21-dev ===== (xx.xx.2014)
+ 15.10.2014
+ - bugfix calling a new created cache file with fetch() and Smarty::CACHING_LIFETIME_SAVED multiple times did fail (forum 22350)
+
  14.10.2014
  - bugfix any tag placed within "<script language=php>" will throw a security exception to close all thinkable holes
  - bugfix classmap in root composer.json should start at "libs/..."
