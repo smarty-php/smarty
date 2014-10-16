@@ -1,4 +1,7 @@
  ===== 3.1.21-dev ===== (xx.xx.2014)
+ 16.10.2014
+ - bugfix composer.json update
+ 
  15.10.2014
  - bugfix calling a new created cache file with fetch() and Smarty::CACHING_LIFETIME_SAVED multiple times did fail (forum 22350)
 
