@@ -1,4 +1,7 @@
  ===== 3.1.21-dev ===== (xx.xx.2014)
+ 17.10.2014
+ - bugfix on $php_handling security and optimization of smarty_internal_parsetree (Thue Kristensen)
+ 
  16.10.2014
  - bugfix composer.json update
  
