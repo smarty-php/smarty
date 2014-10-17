@@ -1,4 +1,2 @@
-smarty3-dist
-============
-
-Smarty 3 distribution
+<h1>Smarty 3 template engine</h1>
+ <br>distribution repository
