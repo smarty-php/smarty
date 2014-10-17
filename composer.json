@@ -22,7 +22,7 @@
     "support": {
         "irc": "irc://irc.freenode.org/smarty",
         "issues": "http://code.google.com/p/smarty-php/issues/list",
-        "forum": "http://www.smarty.net/forums/",
+        "forum": "http://www.smarty.net/forums/"
     },
     "require": {
         "php": ">=5.2"
