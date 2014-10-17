@@ -245,7 +245,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 // loop over items, stitch back together
                 foreach ($cache_split as $curr_idx => $curr_split) {
                     // escape PHP tags in template content
-                    $output .= preg_replace('/(<%|%>|<\?php|<\?|\?>)/', "<?php echo '\$1'; ?>\n", $curr_split);
+                    $output .= preg_replace('/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/', "<?php echo '\$1'; ?>\n", $curr_split);
                     if (isset($cache_parts[0][$curr_idx])) {
                         $_template->properties['has_nocache_code'] = true;
                         // remove nocache tags from cache output

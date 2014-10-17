@@ -231,6 +231,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             // don't write cache file
             return false;
         }
+        $this->cached->timestamp = time();
         $this->properties['cache_lifetime'] = $this->cache_lifetime;
         $this->properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
         $content = $this->createTemplateCodeFrame($content, true);

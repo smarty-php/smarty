@@ -1,4 +1,27 @@
- ===== 3.1.20 ===== (10.09.2014)
+ ===== 3.1.21 ===== (18.10.2014)
+ 18.10.2014
+  - composer moved to github
+  
+ 17.10.2014
+ - bugfix on $php_handling security and optimization of smarty_internal_parsetree (Thue Kristensen)
+ 
+ 16.10.2014
+ - bugfix composer.json update
+ 
+ 15.10.2014
+ - bugfix calling a new created cache file with fetch() and Smarty::CACHING_LIFETIME_SAVED multiple times did fail (forum 22350)
+
+ 14.10.2014
+ - bugfix any tag placed within "<script language=php>" will throw a security exception to close all thinkable holes
+ - bugfix classmap in root composer.json should start at "libs/..."
+ - improvement cache is_file(file_exists) results of loadPlugin() to avoid unnecessary calls during compilation (Issue 201}
+
+ 12.10.2014
+ - bugfix a comment like "<script{*foo*} language=php>" bypassed $php_handling checking (Thue Kristensen)
+ - bugfix change of 08.10.2014 could create E_NOTICE meassage when using "<?php" tags
+ - bugfix "<script language=php>" with $php_handling PHP_PASSTHRU was executed in {nocache} sections
+
+ ===== 3.1.20 ===== (09.10.2014)
  08.10.2014
  - bugfix security mode of "<script language=php>" must be controlled by $php_handling property (Thue Kristensen)
  
