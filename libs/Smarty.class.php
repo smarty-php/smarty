@@ -23,7 +23,7 @@
  * @author    Uwe Tews
  * @author    Rodney Rehm
  * @package   Smarty
- * @version   3.1.22-dev
+ * @version   3.1.21
  */
 
 /**
@@ -109,7 +109,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = 'Smarty-3.1.22-dev';
+    const SMARTY_VERSION = 'Smarty-3.1.21';
 
     /**
      * define variable scopes
