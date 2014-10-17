@@ -2,7 +2,6 @@
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
- * SVN:         $Id: Smarty.class.php 4897 2014-10-14 22:29:58Z Uwe.Tews@googlemail.com $
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -24,7 +23,7 @@
  * @author    Uwe Tews
  * @author    Rodney Rehm
  * @package   Smarty
- * @version   3.1-DEV
+ * @version   3.1.20
  */
 
 /**
@@ -110,7 +109,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = 'Smarty-3.1.21-dev';
+    const SMARTY_VERSION = 'Smarty-3.1.20';
 
     /**
      * define variable scopes
@@ -662,14 +661,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var array
      */
     public $merged_templates_func = array();
-
-    /**
-     * Cache of is_file results of loadPlugin()
-     * 
-     * @var array
-     */
-    public static $_is_file_cache= array();
-
     /**#@-*/
 
     /**
@@ -1380,8 +1371,9 @@ class Smarty extends Smarty_Internal_TemplateBase
         // if type is "internal", get plugin from sysplugins
         if (strtolower($_name_parts[1]) == 'internal') {
             $file = SMARTY_SYSPLUGINS_DIR . strtolower($plugin_name) . '.php';
-            if (isset(self::$_is_file_cache[$file]) ? self::$_is_file_cache[$file] : self::$_is_file_cache[$file] = is_file($file)) {
+            if (file_exists($file)) {
                 require_once($file);
+
                 return $file;
             } else {
                 return false;
@@ -1399,8 +1391,9 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $_plugin_dir . strtolower($_plugin_filename),
             );
             foreach ($names as $file) {
-                if (isset(self::$_is_file_cache[$file]) ? self::$_is_file_cache[$file] : self::$_is_file_cache[$file] = is_file($file)) {
+                if (file_exists($file)) {
                     require_once($file);
+
                     return $file;
                 }
                 if ($this->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
