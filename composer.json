@@ -29,7 +29,9 @@
     },
     "autoload": {
         "classmap": [
-            "libs/"
+            "libs/Smarty.class.php",
+            "libs/SmartyBC.class.php",
+            "libs/sysplugins/smarty_security.php"
         ]
     },
     "extra": {
