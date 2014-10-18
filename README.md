@@ -1,5 +1,5 @@
 <h1>Smarty 3 template engine</h1>
- <br><h>2distribution repository</h2>
+ <br><h2>distribution repository</h2>
  
  Starting with Smarty 3.1.21 Composer has been configured to load the packages from github.
  
