@@ -3453,20 +3453,20 @@ class Smarty_Internal_Templateparser#line 80 "smarty_internal_templateparser.php
     function yy_r11()
     {
         if ($this->php_handling == Smarty::PHP_PASSTHRU) {
-            $this->_retvalue = new _smarty_text($this, st);
+            $this->_retvalue = new _smarty_text($this, $this->yystack[$this->yyidx + 0]->minor);
         } elseif ($this->php_handling == Smarty::PHP_QUOTE) {
             $this->_retvalue = new _smarty_text($this, htmlspecialchars('%>', ENT_QUOTES));
         } elseif ($this->php_handling == Smarty::PHP_ALLOW) {
             if ($this->asp_tags) {
                 $this->_retvalue = new _smarty_tag($this, $this->compiler->processNocacheCode('%>', true));
             } else {
-                $this->_retvalue = new _smarty_text($this, st);
+                $this->_retvalue = new _smarty_text($this, $this->yystack[$this->yyidx + 0]->minor);
             }
         } elseif ($this->php_handling == Smarty::PHP_REMOVE) {
             if ($this->asp_tags) {
                 $this->_retvalue = null;
             } else {
-                $this->_retvalue = new _smarty_text($this, st);
+                $this->_retvalue = new _smarty_text($this, $this->yystack[$this->yyidx + 0]->minor);
             }
         }
     }
