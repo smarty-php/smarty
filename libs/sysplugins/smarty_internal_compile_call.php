@@ -107,7 +107,6 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
 
         $_params = 'array(' . implode(",", $_paramsArray) . ')';
         $_hash = str_replace('-', '_', $compiler->template->properties['nocache_hash']);
-        $compiler->suppressNocacheProcessing = true;
         // was there an assign attribute
         if (isset($_assign)) {
             if ($compiler->template->caching) {
