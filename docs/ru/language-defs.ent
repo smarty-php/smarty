@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- $Revision$ -->
-<!-- EN-Revision: 1602 Maintainer: freespace Status: ready -->
-
-<!ENTITY SMARTYManual      "Руководство по Smarty">
-<!ENTITY SMARTYDesigners   "Smarty для дизайнеров шаблонов">
-<!ENTITY SMARTYProgrammers "Smarty для программистов">
-<!ENTITY Appendixes        "Приложения">
