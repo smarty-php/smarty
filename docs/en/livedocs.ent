@@ -1,6 +1,0 @@
-<!-- $Revision$ -->
-
-<!ENTITY livedocs.author 'Authors:<br />'>
-<!ENTITY livedocs.editors 'Edited by:<br />'>
-<!ENTITY livedocs.copyright 'Copyright &copy; %s by %s'>
-<!ENTITY livedocs.published 'Published on: %s'>

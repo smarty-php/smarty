@@ -1,7 +1,0 @@
-<!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: nlopess Status: ready -->
-
-<!ENTITY livedocs.author 'Autores:<br />'>
-<!ENTITY livedocs.editors 'Editado por:<br />'>
-<!ENTITY livedocs.copyright 'Copyright &copy; %s por %s'>
-<!ENTITY livedocs.published 'Publicado em: %s'>
