@@ -1,8 +1,0 @@
-<!-- $Revision$ -->
-<!-- EN-Revision: 2033 Maintainer: takagi Status: ready -->
-<!-- CREDITS: mat-sh,daichi,joe -->
-
-<!ENTITY livedocs.author '作者:<br />'>
-<!ENTITY livedocs.editors '編集者:<br />'>
-<!ENTITY livedocs.copyright '著作権 &copy; %s by %s'>
-<!ENTITY livedocs.published '公開日: %s'>

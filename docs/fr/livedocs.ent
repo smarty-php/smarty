@@ -1,7 +1,0 @@
-<!-- $Revision$ -->
-<!-- EN-Revision: 1.1 Maintainer: didou Status: ready -->
-
-<!ENTITY livedocs.author 'Auteurs :<br />'>
-<!ENTITY livedocs.editors 'Editeurs :<br />'>
-<!ENTITY livedocs.copyright 'Copyright &copy; %s pour le compte de %s'>
-<!ENTITY livedocs.published 'Publié le : %s'>
