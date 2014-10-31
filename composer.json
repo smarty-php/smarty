@@ -13,6 +13,10 @@
         {
             "name": "Uwe Tews",
             "email": "uwe.tews@googlemail.com"
+        },
+        {
+            "name": "Rodney Rehm",
+            "email": "rodney.rehm@medialize.de"
         }
     ],
     "support": {
@@ -26,13 +30,13 @@
     "autoload": {
         "classmap": [
             "libs/Smarty.class.php",
-            "libs/Smarty_Compiler.class.php",
-            "libs/Config_File.class.php"
+            "libs/SmartyBC.class.php",
+            "libs/sysplugins/smarty_security.php"
         ]
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.6.x-dev"
+            "dev-master": "3.1.x-dev"
         }
     }
 
