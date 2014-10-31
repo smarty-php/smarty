@@ -1,5 +1,5 @@
 <HTML>
 <HEAD>
-    <TITLE>{$title} - {$Name}</TITLE>
+<TITLE>{$title} - {$Name}</TITLE>
 </HEAD>
 <BODY bgcolor="#ffffff">

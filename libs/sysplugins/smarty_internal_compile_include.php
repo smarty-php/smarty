@@ -87,9 +87,13 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         // flag if included template code should be merged into caller
         $merge_compiled_includes = ($compiler->smarty->merge_compiled_includes || ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes) || $_attr['inline'] === true) && !$compiler->template->source->recompiled;
 
+        if ($_attr['nocache'] === true) {
+            $compiler->tag_nocache = true;
+         }
+
         // set default when in nocache mode
-        //       if ($compiler->template->caching && ($compiler->nocache || $compiler->tag_nocache || $compiler->forceNocache == 2)) {
-        if ($compiler->template->caching && ((!$compiler->inheritance && !$compiler->nocache && !$compiler->tag_nocache) || ($compiler->inheritance && ($compiler->nocache || $compiler->tag_nocache)))) {
+        if ($compiler->template->caching && !$compiler->nocache && !$compiler->tag_nocache) {
+       //if ($compiler->template->caching && ((!$compiler->inheritance && !$compiler->nocache && !$compiler->tag_nocache) || ($compiler->inheritance && ($compiler->nocache || $compiler->tag_nocache)))) {
             $_caching = self::CACHING_NOCACHE_CODE;
         }
         /*
@@ -119,14 +123,6 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         if ($_attr['caching'] === true) {
             $_caching = Smarty::CACHING_LIFETIME_CURRENT;
         }
-        if ($_attr['nocache'] === true) {
-            $compiler->tag_nocache = true;
-            if ($merge_compiled_includes) {
-                $_caching = self::CACHING_NOCACHE_CODE;
-            } else {
-                $_caching = Smarty::CACHING_OFF;
-            }
-        }
 
         $has_compiled_template = false;
         if ($merge_compiled_includes && $_attr['inline'] !== true) {
@@ -153,33 +149,28 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         }
         if ($merge_compiled_includes) {
             if ($compiler->template->caching && ($compiler->tag_nocache || $compiler->nocache) && $_caching != self::CACHING_NOCACHE_CODE) {
-                $merge_compiled_includes = false;
+//                $merge_compiled_includes = false;
                 if ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes) {
                     $compiler->trigger_template_error(' invalid caching mode of subtemplate within {block} tags');
                 }
             }
         }
         if ($merge_compiled_includes) {
-            // we must observe different compile_id
-            $uid = sha1($_compile_id);
+            // we must observe different compile_id and caching
+            $uid = sha1($_compile_id . ($_caching ? '--caching' : '--nocaching'));
             $tpl_name = null;
-            $nocache = false;
             /** @var Smarty_Internal_Template $_smarty_tpl
              * used in evaluated code
              */
             $_smarty_tpl = $compiler->template;
             eval("\$tpl_name = $include_file;");
             if (!isset($compiler->smarty->merged_templates_func[$tpl_name][$uid])) {
-                $tpl = new $compiler->smarty->template_class ($tpl_name, $compiler->smarty, $compiler->template, $compiler->template->cache_id, $compiler->template->compile_id);
+                $tpl = new $compiler->smarty->template_class ($tpl_name, $compiler->smarty, $compiler->template, $compiler->template->cache_id, $compiler->template->compile_id, $_caching);
                 // save unique function name
                 $compiler->smarty->merged_templates_func[$tpl_name][$uid]['func'] = $tpl->properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
                 // use current nocache hash for inlined code
                 $compiler->smarty->merged_templates_func[$tpl_name][$uid]['nocache_hash'] = $tpl->properties['nocache_hash'] = $compiler->template->properties['nocache_hash'];
-                if ($compiler->template->caching && $_caching == self::CACHING_NOCACHE_CODE) {
-                    // all code must be nocache
-                    $nocache = true;
-                }
-                if ($compiler->inheritance) {
+                 if ($compiler->inheritance) {
                     $tpl->compiler->inheritance = true;
                 }
                 // make sure whole chain gets compiled
@@ -187,7 +178,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                 if (!($tpl->source->uncompiled) && $tpl->source->exists) {
 
                     // get compiled code
-                    $compiled_code = $tpl->compiler->compileTemplate($tpl, $nocache);
+                    $compiled_code = $tpl->compiler->compileTemplate($tpl);
                     // release compiler object to free memory
                     unset($tpl->compiler);
                     // merge compiled code for {function} tags

@@ -1,10 +1,21 @@
+ ===== 3.1.22-dev ===== (xx.xx.2014)
+ 30.10.2014
+ - bugfix access to class constant by object like {$object::CONST} or variable class name {$class::CONST} did not work (forum 25301)
+
+ 26.10.2014
+ - bugfix E_NOTICE message was created during compilation when ASP tags '<%' or '%>' are in template source text
+ - bugfix merge_compiled_includes option failed when caching  enables and same subtemplate was included cached and not cached
+ 
  ===== 3.1.21 ===== (18.10.2014)
+ 18.10.2014
+  - composer moved to github
+
  17.10.2014
  - bugfix on $php_handling security and optimization of smarty_internal_parsetree (Thue Kristensen)
- 
+
  16.10.2014
  - bugfix composer.json update
- 
+
  15.10.2014
  - bugfix calling a new created cache file with fetch() and Smarty::CACHING_LIFETIME_SAVED multiple times did fail (forum 22350)
 
