@@ -1,5 +1,4 @@
-
-﻿===== trunk  =====
+﻿===== Smarty-3.1.14  =====
 27.06.2013
 - bugfix removed PHP 5.5 deprecated preg_replace /e option in modifier capitalize (forum topic 24389)
 
