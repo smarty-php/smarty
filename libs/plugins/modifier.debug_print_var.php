@@ -1,23 +1,23 @@
 <?php
 /**
  * Smarty plugin
- * 
+ *
  * @package Smarty
  * @subpackage Debug
  */
 
 /**
  * Smarty debug_print_var modifier plugin
- * 
+ *
  * Type:     modifier<br>
  * Name:     debug_print_var<br>
  * Purpose:  formats variable contents for display in the console
  *
- * @author Monte Ohrt <monte at ohrt dot com> 
+ * @author Monte Ohrt <monte at ohrt dot com>
  * @param array|object $var     variable to be formatted
  * @param integer      $depth   maximum recursion depth if $var is an array
  * @param integer      $length  maximum string length if $var is a string
- * @return string 
+ * @return string
  */
 function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
 {
@@ -34,9 +34,9 @@ function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
                  . '<b>' . strtr($curr_key, $_replace) . '</b> =&gt; '
                  . smarty_modifier_debug_print_var($curr_val, ++$depth, $length);
                 $depth--;
-            } 
+            }
             break;
-            
+
         case 'object' :
             $object_vars = get_object_vars($var);
             $results = '<b>' . get_class($var) . ' Object (' . count($object_vars) . ')</b>';
@@ -45,9 +45,9 @@ function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
                  . '<b> -&gt;' . strtr($curr_key, $_replace) . '</b> = '
                  . smarty_modifier_debug_print_var($curr_val, ++$depth, $length);
                 $depth--;
-            } 
+            }
             break;
-            
+
         case 'boolean' :
         case 'NULL' :
         case 'resource' :
@@ -59,15 +59,15 @@ function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
                 $results = 'null';
             } else {
                 $results = htmlspecialchars((string) $var);
-            } 
+            }
             $results = '<i>' . $results . '</i>';
             break;
-            
+
         case 'integer' :
         case 'float' :
             $results = htmlspecialchars((string) $var);
             break;
-            
+
         case 'string' :
             $results = strtr($var, $_replace);
             if (Smarty::$_MBSTRING) {
@@ -82,7 +82,7 @@ function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
 
             $results = htmlspecialchars('"' . $results . '"');
             break;
-            
+
         case 'unknown type' :
         default :
             $results = strtr((string) $var, $_replace);
@@ -95,11 +95,9 @@ function smarty_modifier_debug_print_var ($var, $depth = 0, $length = 40)
                     $results = substr($results, 0, $length - 3) . '...';
                 }
             }
-             
+
             $results = htmlspecialchars($results);
-    } 
+    }
 
     return $results;
-} 
-
-?>
+}

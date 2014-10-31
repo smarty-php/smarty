@@ -11,12 +11,12 @@
 
 /**
  * Smarty Internal Plugin Compile Section Class
- * 
+ *
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -42,8 +42,8 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
     /**
      * Compiles code for the {section} tag
      *
-     * @param array  $args     array with attributes from parser
-     * @param object $compiler compiler object
+     * @param  array  $args     array with attributes from parser
+     * @param  object $compiler compiler object
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -65,14 +65,14 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
         foreach ($_attr as $attr_name => $attr_value) {
             switch ($attr_name) {
                 case 'loop':
-                    $output .= "{$section_props}['loop'] = is_array(\$_loop=$attr_value) ? count(\$_loop) : max(0, (int)\$_loop); unset(\$_loop);\n";
+                    $output .= "{$section_props}['loop'] = is_array(\$_loop=$attr_value) ? count(\$_loop) : max(0, (int) \$_loop); unset(\$_loop);\n";
                     break;
 
                 case 'show':
                     if (is_bool($attr_value))
                         $show_attr_value = $attr_value ? 'true' : 'false';
                     else
-                        $show_attr_value = "(bool)$attr_value";
+                        $show_attr_value = "(bool) $attr_value";
                     $output .= "{$section_props}['show'] = $show_attr_value;\n";
                     break;
 
@@ -82,11 +82,11 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
 
                 case 'max':
                 case 'start':
-                    $output .= "{$section_props}['$attr_name'] = (int)$attr_value;\n";
+                    $output .= "{$section_props}['$attr_name'] = (int) $attr_value;\n";
                     break;
 
                 case 'step':
-                    $output .= "{$section_props}['$attr_name'] = ((int)$attr_value) == 0 ? 1 : (int)$attr_value;\n";
+                    $output .= "{$section_props}['$attr_name'] = ((int) $attr_value) == 0 ? 1 : (int) $attr_value;\n";
                     break;
             }
         }
@@ -131,6 +131,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
         $output .= "{$section_props}['last']       = ({$section_props}['iteration'] == {$section_props}['total']);\n";
 
         $output .= "?>";
+
         return $output;
     }
 
@@ -138,17 +139,17 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase {
 
 /**
  * Smarty Internal Plugin Compile Sectionelse Class
- * 
+ *
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase
+{
     /**
      * Compiles code for the {sectionelse} tag
      *
-     * @param array  $args     array with attributes from parser
-     * @param object $compiler compiler object
+     * @param  array  $args     array with attributes from parser
+     * @param  object $compiler compiler object
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -166,17 +167,17 @@ class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase {
 
 /**
  * Smarty Internal Plugin Compile Sectionclose Class
- * 
+ *
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
+{
     /**
      * Compiles code for the {/section} tag
      *
-     * @param array  $args     array with attributes from parser
-     * @param object $compiler compiler object
+     * @param  array  $args     array with attributes from parser
+     * @param  object $compiler compiler object
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -199,5 +200,3 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase {
     }
 
 }
-
-?>

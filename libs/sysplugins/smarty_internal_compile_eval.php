@@ -15,8 +15,8 @@
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -42,8 +42,8 @@ class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase {
     /**
      * Compiles code for the {eval} tag
      *
-     * @param array  $args     array with attributes from parser
-     * @param object $compiler compiler object
+     * @param  array  $args     array with attributes from parser
+     * @param  object $compiler compiler object
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -65,9 +65,8 @@ class Smarty_Internal_Compile_Eval extends Smarty_Internal_CompileBase {
         } else {
             $_output .= "echo \$_template->fetch();";
         }
+
         return "<?php $_output ?>";
     }
 
 }
-
-?>

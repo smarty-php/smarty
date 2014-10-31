@@ -16,8 +16,8 @@
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -43,8 +43,8 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
     /**
      * Compiles code for the {insert} tag
      *
-     * @param array  $args     array with attributes from parser
-     * @param object $compiler compiler object
+     * @param  array  $args     array with attributes from parser
+     * @param  object $compiler compiler object
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -82,7 +82,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
                     $_dir = $compiler->smarty->trusted_dir;
                 }
                 if (!empty($_dir)) {
-                    foreach((array)$_dir as $_script_dir) {
+                    foreach ((array) $_dir as $_script_dir) {
                         $_script_dir = rtrim($_script_dir, '/\\') . DS;
                         if (file_exists($_script_dir . $_script)) {
                             $_filepath = $_script_dir . $_script;
@@ -134,9 +134,8 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase {
                 $_output .= "echo {$_function}({$_params},\$_smarty_tpl);?>";
             }
         }
+
         return $_output;
     }
 
 }
-
-?>

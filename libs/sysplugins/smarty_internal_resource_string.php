@@ -18,13 +18,13 @@
  * @package Smarty
  * @subpackage TemplateResources
  */
-class Smarty_Internal_Resource_String extends Smarty_Resource {
-
+class Smarty_Internal_Resource_String extends Smarty_Resource
+{
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty_Template_Source   $source    source object
-     * @param Smarty_Internal_Template $_template template object
+     * @param  Smarty_Template_Source   $source    source object
+     * @param  Smarty_Internal_Template $_template template object
      * @return void
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template=null)
@@ -38,18 +38,18 @@ class Smarty_Internal_Resource_String extends Smarty_Resource {
      * Load template's source from $resource_name into current template object
      *
      * @uses decode() to decode base64 and urlencoded template_resources
-     * @param Smarty_Template_Source $source source object
-     * @return string template source
+     * @param  Smarty_Template_Source $source source object
+     * @return string                 template source
      */
     public function getContent(Smarty_Template_Source $source)
     {
         return $this->decode($source->name);
     }
-    
+
     /**
      * decode base64 and urlencode
      *
-     * @param string $string template_resource to decode
+     * @param  string $string template_resource to decode
      * @return string decoded template_resource
      */
     protected function decode($string)
@@ -62,18 +62,19 @@ class Smarty_Internal_Resource_String extends Smarty_Resource {
                 return urldecode(substr($string, 10));
             }
         }
-        
+
         return $string;
     }
-    
+
     /**
      * modify resource_name according to resource handlers specifications
      *
-     * @param Smarty $smarty        Smarty instance
-     * @param string $resource_name resource_name to make unique
+     * @param  Smarty $smarty        Smarty instance
+     * @param  string $resource_name resource_name to make unique
+     * @param  boolean $is_config    flag for config resource
      * @return string unique resource name
      */
-    protected function buildUniqueResourceName(Smarty $smarty, $resource_name)
+    protected function buildUniqueResourceName(Smarty $smarty, $resource_name, $is_config = false)
     {
         return get_class($this) . '#' .$this->decode($resource_name);
     }
@@ -83,8 +84,8 @@ class Smarty_Internal_Resource_String extends Smarty_Resource {
      *
      * Always returns an empty string.
      *
-     * @param Smarty_Template_Source $source source object
-     * @return string resource's basename
+     * @param  Smarty_Template_Source $source source object
+     * @return string                 resource's basename
      */
     protected function getBasename(Smarty_Template_Source $source)
     {
@@ -92,5 +93,3 @@ class Smarty_Internal_Resource_String extends Smarty_Resource {
     }
 
 }
-
-?>

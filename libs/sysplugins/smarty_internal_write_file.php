@@ -13,14 +13,14 @@
  * @package Smarty
  * @subpackage PluginsInternal
  */
-class Smarty_Internal_Write_File {
-
+class Smarty_Internal_Write_File
+{
     /**
      * Writes file in a safe way to disk
      *
-     * @param string $_filepath complete filepath
-     * @param string $_contents file content
-     * @param Smarty $smarty    smarty instance
+     * @param  string  $_filepath complete filepath
+     * @param  string  $_contents file content
+     * @param  Smarty  $smarty    smarty instance
      * @return boolean true
      */
     public static function writeFile($_filepath, $_contents, Smarty $smarty)
@@ -42,13 +42,14 @@ class Smarty_Internal_Write_File {
         if (!file_put_contents($_tmp_file, $_contents)) {
             error_reporting($_error_reporting);
             throw new SmartyException("unable to write file {$_tmp_file}");
+
             return false;
         }
-        
+
         /*
          * Windows' rename() fails if the destination exists,
          * Linux' rename() properly handles the overwrite.
-         * Simply unlink()ing a file might cause other processes 
+         * Simply unlink()ing a file might cause other processes
          * currently reading that file to fail, but linux' rename()
          * seems to be smart enough to handle that for us.
          */
@@ -71,6 +72,7 @@ class Smarty_Internal_Write_File {
         if (!$success) {
             error_reporting($_error_reporting);
             throw new SmartyException("unable to write file {$_filepath}");
+
             return false;
         }
 
@@ -80,9 +82,8 @@ class Smarty_Internal_Write_File {
             umask($old_umask);
         }
         error_reporting($_error_reporting);
+
         return true;
     }
 
 }
-
-?>

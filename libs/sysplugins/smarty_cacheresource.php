@@ -13,7 +13,8 @@
 * @subpackage Cacher
 * @author Rodney Rehm
 */
-abstract class Smarty_CacheResource {
+abstract class Smarty_CacheResource
+{
     /**
     * cache for Smarty_CacheResource instances
     * @var array
@@ -35,7 +36,7 @@ abstract class Smarty_CacheResource {
     * @param Smarty_Internal_Template $_template template object
     * @return void
     */
-    public abstract function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template);
+    abstract public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template);
 
     /**
     * populate Cached Object with timestamp and exists from Resource
@@ -43,7 +44,7 @@ abstract class Smarty_CacheResource {
     * @param Smarty_Template_Cached $source cached object
     * @return void
     */
-    public abstract function populateTimestamp(Smarty_Template_Cached $cached);
+    abstract public function populateTimestamp(Smarty_Template_Cached $cached);
 
     /**
     * Read the cached template and process header
@@ -52,7 +53,7 @@ abstract class Smarty_CacheResource {
     * @param Smarty_Template_Cached $cached cached object
     * @return booelan true or false if the cached content does not exist
     */
-    public abstract function process(Smarty_Internal_Template $_template, Smarty_Template_Cached $cached=null);
+    abstract public function process(Smarty_Internal_Template $_template, Smarty_Template_Cached $cached=null);
 
     /**
     * Write the rendered template output to cache
@@ -61,7 +62,7 @@ abstract class Smarty_CacheResource {
     * @param string $content content to cache
     * @return boolean success
     */
-    public abstract function writeCachedContent(Smarty_Internal_Template $_template, $content);
+    abstract public function writeCachedContent(Smarty_Internal_Template $_template, $content);
 
     /**
     * Return cached content
@@ -74,8 +75,10 @@ abstract class Smarty_CacheResource {
         if ($_template->cached->handler->process($_template)) {
             ob_start();
             $_template->properties['unifunc']($_template);
+
             return ob_get_clean();
         }
+
         return null;
     }
 
@@ -86,7 +89,7 @@ abstract class Smarty_CacheResource {
     * @param integer $exp_time expiration time (number of seconds, not timestamp)
     * @return integer number of cache files deleted
     */
-    public abstract function clearAll(Smarty $smarty, $exp_time=null);
+    abstract public function clearAll(Smarty $smarty, $exp_time=null);
 
     /**
     * Empty cache for a specific template
@@ -98,8 +101,7 @@ abstract class Smarty_CacheResource {
     * @param integer $exp_time expiration time (number of seconds, not timestamp)
     * @return integer number of cache files deleted
     */
-    public abstract function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time);
-
+    abstract public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time);
 
     public function locked(Smarty $smarty, Smarty_Template_Cached $cached)
     {
@@ -114,6 +116,7 @@ abstract class Smarty_CacheResource {
             }
             sleep(1);
         }
+
         return $hadLock;
     }
 
@@ -135,7 +138,6 @@ abstract class Smarty_CacheResource {
         return true;
     }
 
-
     /**
     * Load Cache Resource Handler
     *
@@ -153,7 +155,7 @@ abstract class Smarty_CacheResource {
         if (isset($smarty->_cacheresource_handlers[$type])) {
             return $smarty->_cacheresource_handlers[$type];
         }
-        
+
         // try registered resource
         if (isset($smarty->registered_cache_resources[$type])) {
             // do not cache these instances as they may vary from instance to instance
@@ -165,6 +167,7 @@ abstract class Smarty_CacheResource {
                 $cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($type);
                 self::$resources[$type] = new $cache_resource_class();
             }
+
             return $smarty->_cacheresource_handlers[$type] = self::$resources[$type];
         }
         // try plugins dir
@@ -173,6 +176,7 @@ abstract class Smarty_CacheResource {
             if (!isset(self::$resources[$type])) {
                 self::$resources[$type] = new $cache_resource_class();
             }
+
             return $smarty->_cacheresource_handlers[$type] = self::$resources[$type];
         }
         // give up
@@ -204,7 +208,8 @@ abstract class Smarty_CacheResource {
 * @subpackage TemplateResources
 * @author Rodney Rehm
 */
-class Smarty_Template_Cached {
+class Smarty_Template_Cached
+{
     /**
     * Source Filepath
     * @var string
@@ -300,6 +305,7 @@ class Smarty_Template_Cached {
         //
         if (!($_template->caching == Smarty::CACHING_LIFETIME_CURRENT || $_template->caching == Smarty::CACHING_LIFETIME_SAVED) || $_template->source->recompiled) {
             $handler->populate($this, $_template);
+
             return;
         }
         while (true) {
@@ -328,7 +334,7 @@ class Smarty_Template_Cached {
                     if ($smarty->debugging) {
                         Smarty_Internal_Debug::start_cache($_template);
                     }
-                    if($handler->process($_template, $this) === false) {
+                    if ($handler->process($_template, $this) === false) {
                         $this->valid = false;
                     } else {
                         $this->processed = true;
@@ -347,6 +353,7 @@ class Smarty_Template_Cached {
             }
             if (!$this->valid && $_template->smarty->cache_locking) {
                 $this->handler->acquireLock($_template->smarty, $this);
+
                 return;
             } else {
                 return;
@@ -371,11 +378,12 @@ class Smarty_Template_Cached {
                 if ($_template->smarty->cache_locking) {
                     $this->handler->releaseLock($_template->smarty, $this);
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 
 }
-?>

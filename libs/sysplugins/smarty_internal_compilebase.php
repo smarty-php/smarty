@@ -13,8 +13,8 @@
  * @package Smarty
  * @subpackage Compiler
  */
-abstract class Smarty_Internal_CompileBase {
-
+abstract class Smarty_Internal_CompileBase
+{
     /**
      * Array of names of required attribute required by tag
      *
@@ -49,9 +49,9 @@ abstract class Smarty_Internal_CompileBase {
      * the corresponding list. The keyword '_any' specifies that any attribute will be accepted
      * as valid
      *
-     * @param object $compiler   compiler object
-     * @param array  $attributes attributes applied to the tag
-     * @return array of mapped attributes for further processing
+     * @param  object $compiler   compiler object
+     * @param  array  $attributes attributes applied to the tag
+     * @return array  of mapped attributes for further processing
      */
     public function getAttributes($compiler, $attributes)
     {
@@ -64,7 +64,7 @@ abstract class Smarty_Internal_CompileBase {
                 if (in_array(trim($mixed, '\'"'), $this->option_flags)) {
                     $_indexed_attr[trim($mixed, '\'"')] = true;
                     // shorthand attribute ?
-                } else if (isset($this->shorttag_order[$key])) {
+                } elseif (isset($this->shorttag_order[$key])) {
                     $_indexed_attr[$this->shorttag_order[$key]] = $mixed;
                 } else {
                     // too many shorthands
@@ -77,13 +77,13 @@ abstract class Smarty_Internal_CompileBase {
                 if (in_array($kv['key'], $this->option_flags)) {
                     if (is_bool($kv['value'])) {
                         $_indexed_attr[$kv['key']] = $kv['value'];
-                    } else if (is_string($kv['value']) && in_array(trim($kv['value'], '\'"'), array('true', 'false'))) {
+                    } elseif (is_string($kv['value']) && in_array(trim($kv['value'], '\'"'), array('true', 'false'))) {
                         if (trim($kv['value']) == 'true') {
                             $_indexed_attr[$kv['key']] = true;
                         } else {
                             $_indexed_attr[$kv['key']] = false;
                         }
-                    } else if (is_numeric($kv['value']) && in_array($kv['value'], array(0, 1))) {
+                    } elseif (is_numeric($kv['value']) && in_array($kv['value'], array(0, 1))) {
                         if ($kv['value'] == 1) {
                             $_indexed_attr[$kv['key']] = true;
                         } else {
@@ -129,9 +129,9 @@ abstract class Smarty_Internal_CompileBase {
      *
      * Optionally additional data can be saved on stack
      *
-     * @param object    $compiler   compiler object
-     * @param string    $openTag    the opening tag's name
-     * @param mixed     $data       optional data saved
+     * @param object $compiler compiler object
+     * @param string $openTag  the opening tag's name
+     * @param mixed  $data     optional data saved
      */
     public function openTag($compiler, $openTag, $data = null)
     {
@@ -143,9 +143,9 @@ abstract class Smarty_Internal_CompileBase {
      *
      * Raise an error if this stack-top doesn't match with expected opening tags
      *
-     * @param object       $compiler    compiler object
-     * @param array|string $expectedTag the expected opening tag names
-     * @return mixed any type the opening tag's name or saved data
+     * @param  object       $compiler    compiler object
+     * @param  array|string $expectedTag the expected opening tag names
+     * @return mixed        any type the opening tag's name or saved data
      */
     public function closeTag($compiler, $expectedTag)
     {
@@ -163,14 +163,14 @@ abstract class Smarty_Internal_CompileBase {
                 }
             }
             // wrong nesting of tags
-            $compiler->trigger_template_error("unclosed {" . $_openTag . "} tag");
+            $compiler->trigger_template_error("unclosed {$compiler->smarty->left_delimiter}" . $_openTag . "{$compiler->smarty->right_delimiter} tag");
+
             return;
         }
         // wrong nesting of tags
         $compiler->trigger_template_error("unexpected closing tag", $compiler->lex->taglineno);
+
         return;
     }
 
 }
-
-?>

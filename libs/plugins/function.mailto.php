@@ -55,6 +55,7 @@ function smarty_function_mailto($params, $template)
 
     if (empty($params['address'])) {
         trigger_error("mailto: missing 'address' parameter",E_USER_WARNING);
+
         return;
     } else {
         $address = $params['address'];
@@ -91,10 +92,11 @@ function smarty_function_mailto($params, $template)
     if ($mail_parms) {
         $address .= '?' . join('&', $mail_parms);
     }
-    
+
     $encode = (empty($params['encode'])) ? 'none' : $params['encode'];
     if (!isset($_allowed_encoding[$encode])) {
         trigger_error("mailto: 'encode' parameter must be none, javascript, javascript_charcode or hex", E_USER_WARNING);
+
         return;
     }
     // FIXME: (rodneyrehm) document.write() excues me what? 1998 has passed!
@@ -110,7 +112,7 @@ function smarty_function_mailto($params, $template)
     } elseif ($encode == 'javascript_charcode') {
         $string = '<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>';
 
-        for($x = 0, $y = strlen($string); $x < $y; $x++) {
+        for ($x = 0, $y = strlen($string); $x < $y; $x++) {
             $ord[] = ord($string[$x]);
         }
 
@@ -126,6 +128,7 @@ function smarty_function_mailto($params, $template)
         preg_match('!^(.*)(\?.*)$!', $address, $match);
         if (!empty($match[2])) {
             trigger_error("mailto: hex encoding does not work with extra attributes. Try javascript.",E_USER_WARNING);
+
             return;
         }
         $address_encode = '';
@@ -142,11 +145,10 @@ function smarty_function_mailto($params, $template)
         }
 
         $mailto = "&#109;&#97;&#105;&#108;&#116;&#111;&#58;";
+
         return '<a href="' . $mailto . $address_encode . '" ' . $extra . '>' . $text_encode . '</a>';
     } else {
         // no encoding
         return '<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>';
     }
 }
-
-?>

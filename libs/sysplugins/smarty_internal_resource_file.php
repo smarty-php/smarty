@@ -16,8 +16,8 @@
  * @package Smarty
  * @subpackage TemplateResources
  */
-class Smarty_Internal_Resource_File extends Smarty_Resource {
-
+class Smarty_Internal_Resource_File extends Smarty_Resource
+{
     /**
      * populate Source Object with meta data from Resource
      *
@@ -55,9 +55,9 @@ class Smarty_Internal_Resource_File extends Smarty_Resource {
     /**
      * Load template's source from file into current template object
      *
-     * @param Smarty_Template_Source $source source object
-     * @return string template source
-     * @throws SmartyException if source cannot be loaded
+     * @param  Smarty_Template_Source $source source object
+     * @return string                 template source
+     * @throws SmartyException        if source cannot be loaded
      */
     public function getContent(Smarty_Template_Source $source)
     {
@@ -73,8 +73,8 @@ class Smarty_Internal_Resource_File extends Smarty_Resource {
     /**
      * Determine basename for compiled filename
      *
-     * @param Smarty_Template_Source $source source object
-     * @return string resource's basename
+     * @param  Smarty_Template_Source $source source object
+     * @return string                 resource's basename
      */
     public function getBasename(Smarty_Template_Source $source)
     {
@@ -82,9 +82,8 @@ class Smarty_Internal_Resource_File extends Smarty_Resource {
         if (($_pos = strpos($_file, ']')) !== false) {
             $_file = substr($_file, $_pos + 1);
         }
+
         return basename($_file);
     }
 
 }
-
-?>

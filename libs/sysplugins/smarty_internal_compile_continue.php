@@ -15,8 +15,8 @@
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase
+{
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -35,9 +35,9 @@ class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase {
     /**
      * Compiles code for the {continue} tag
      *
-     * @param array  $args      array with attributes from parser
-     * @param object $compiler  compiler object
-     * @param array  $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -69,10 +69,8 @@ class Smarty_Internal_Compile_Continue extends Smarty_Internal_CompileBase {
         if ($level_count != 0) {
             $compiler->trigger_template_error("cannot continue {$_levels} level(s)", $compiler->lex->taglineno);
         }
-        $compiler->has_code = true;
+
         return "<?php continue {$_levels}?>";
     }
 
 }
-
-?>

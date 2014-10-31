@@ -16,8 +16,8 @@
     * @package Smarty
     * @subpackage Cacher
     */
-    class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
-
+    class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
+    {
         /**
         * populate Cached Object with meta data from Resource
         *
@@ -87,6 +87,7 @@
         public function process(Smarty_Internal_Template $_template, Smarty_Template_Cached $cached=null)
         {
             $_smarty_tpl = $_template;
+
             return @include $_template->cached->filepath;
         }
 
@@ -106,6 +107,7 @@
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -186,7 +188,7 @@
                             @rmdir($_file->getPathname());
                         }
                     } else {
-                        $_parts = explode($_dir_sep, str_replace('\\', '/', substr((string)$_file, $_dir_length)));
+                        $_parts = explode($_dir_sep, str_replace('\\', '/', substr((string) $_file, $_dir_length)));
                         $_parts_count = count($_parts);
                         // check name
                         if (isset($resource_name)) {
@@ -209,23 +211,24 @@
                                 if ($_parts[$i] != $_cache_id_parts[$i]) continue 2;
                             }
                         }
-                        // expired ? 
-                        if  (isset($exp_time)) {
+                        // expired ?
+                        if (isset($exp_time)) {
                             if ($exp_time < 0) {
-                                preg_match('#\'cache_lifetime\' =>\s*(\d*)#', file_get_contents($_file), $match); 
-                                if ($_time < (@filemtime($_file) + $match[1])) { 
-                                    continue; 
+                                preg_match('#\'cache_lifetime\' =>\s*(\d*)#', file_get_contents($_file), $match);
+                                if ($_time < (@filemtime($_file) + $match[1])) {
+                                    continue;
                                 }
                             } else {
                                 if ($_time - @filemtime($_file) < $exp_time) {
                                     continue;
-                                } 
+                                }
                             }
                         }
                         $_count += @unlink((string) $_file) ? 1 : 0;
                     }
                 }
             }
+
             return $_count;
         }
 
@@ -244,6 +247,7 @@
                 clearstatcache();
             }
             $t = @filemtime($cached->lock_id);
+
             return $t && (time() - $t < $smarty->locking_timeout);
         }
 
@@ -271,5 +275,3 @@
             @unlink($cached->lock_id);
         }
     }
-
-?>

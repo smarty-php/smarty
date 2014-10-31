@@ -19,8 +19,8 @@
  * @property Smarty_Config_Compiled $compiled
  * @ignore
  */
-class Smarty_Internal_Config {
-
+class Smarty_Internal_Config
+{
     /**
      * Samrty instance
      *
@@ -72,8 +72,8 @@ class Smarty_Internal_Config {
      * Constructor of config file object
      *
      * @param string $config_resource config file resource name
-     * @param Smarty $smarty Smarty instance
-     * @param object $data object for config vars storage
+     * @param Smarty $smarty          Smarty instance
+     * @param object $data            object for config vars storage
      */
     public function __construct($config_resource, $smarty, $data = null)
     {
@@ -104,7 +104,7 @@ class Smarty_Internal_Config {
         $_compile_id = isset($this->smarty->compile_id) ? preg_replace('![^\w\|]+!', '_', $this->smarty->compile_id) : null;
         $_flag = (int) $this->smarty->config_read_hidden + (int) $this->smarty->config_booleanize * 2
                 + (int) $this->smarty->config_overwrite * 4;
-        $_filepath = sha1($this->source->name . $_flag);
+        $_filepath = sha1($this->source->filepath . $_flag);
         // if use_sub_dirs, break file into directories
         if ($this->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
@@ -117,6 +117,7 @@ class Smarty_Internal_Config {
             $_filepath = $_compile_id . $_compile_dir_sep . $_filepath;
         }
         $_compile_dir = $this->smarty->getCompileDir();
+
         return $_compile_dir . $_filepath . '.' . basename($this->source->name) . '.config' . '.php';
     }
 
@@ -163,6 +164,7 @@ class Smarty_Internal_Config {
                 $this->compiled_config = file_get_contents($this->getCompiledFilepath());
             }
         }
+
         return $this->compiled_config;
     }
 
@@ -202,8 +204,8 @@ class Smarty_Internal_Config {
     /**
      * load config variables
      *
-     * @param mixed $sections array of section names, single section or null
-     * @param object $scope global,parent or local
+     * @param mixed  $sections array of section names, single section or null
+     * @param object $scope    global,parent or local
      */
     public function loadConfigVars($sections = null, $scope = 'local')
     {
@@ -257,8 +259,8 @@ class Smarty_Internal_Config {
     /**
      * set Smarty property in template context
      *
-     * @param string $property_name property name
-     * @param mixed  $value         value
+     * @param  string          $property_name property name
+     * @param  mixed           $value         value
      * @throws SmartyException if $property_name is not valid
      */
     public function __set($property_name, $value)
@@ -267,6 +269,7 @@ class Smarty_Internal_Config {
             case 'source':
             case 'compiled':
                 $this->$property_name = $value;
+
                 return;
         }
 
@@ -276,7 +279,7 @@ class Smarty_Internal_Config {
     /**
      * get Smarty property in template context
      *
-     * @param string $property_name property name
+     * @param  string          $property_name property name
      * @throws SmartyException if $property_name is not valid
      */
     public function __get($property_name)
@@ -287,10 +290,12 @@ class Smarty_Internal_Config {
                     throw new SmartyException("Unable to parse resource name \"{$this->config_resource}\"");
                 }
                 $this->source = Smarty_Resource::config($this);
+
                 return $this->source;
 
             case 'compiled':
                 $this->compiled = $this->source->getCompiled($this);
+
                 return $this->compiled;
         }
 
@@ -298,5 +303,3 @@ class Smarty_Internal_Config {
     }
 
 }
-
-?>

@@ -16,8 +16,8 @@
  * @package Smarty
  * @subpackage Config
  */
-class Smarty_Internal_Config_File_Compiler {
-
+class Smarty_Internal_Config_File_Compiler
+{
     /**
      * Lexer object
      *
@@ -69,7 +69,7 @@ class Smarty_Internal_Config_File_Compiler {
      * Method to compile a Smarty template.
      *
      * @param  Smarty_Internal_Config $config config object
-     * @return bool true if compiling succeeded, false if it failed
+     * @return bool                   true if compiling succeeded, false if it failed
      */
     public function compileSource(Smarty_Internal_Config $config)
     {
@@ -140,5 +140,3 @@ class Smarty_Internal_Config_File_Compiler {
     }
 
 }
-
-?>

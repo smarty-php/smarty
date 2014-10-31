@@ -15,8 +15,8 @@
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
+{
     /**
      * Compiles code for the {for} tag
      *
@@ -31,9 +31,9 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
      * The parser is gereration different sets of attribute by which this compiler can
      * determin which syntax is used.
      *
-     * @param array  $args      array with attributes from parser
-     * @param object $compiler  compiler object
-     * @param array  $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -54,7 +54,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
                 $output .= " \$_smarty_tpl->tpl_vars[$_statement[var]] = new Smarty_Variable;";
                 $output .= " \$_smarty_tpl->tpl_vars[$_statement[var]]->value = $_statement[value];\n";
             }
-            $output .= "  if ($_attr[ifexp]){ for (\$_foo=true;$_attr[ifexp]; \$_smarty_tpl->tpl_vars[$_attr[var]]->value$_attr[step]){\n";
+            $output .= "  if ($_attr[ifexp]) { for (\$_foo=true;$_attr[ifexp]; \$_smarty_tpl->tpl_vars[$_attr[var]]->value$_attr[step]) {\n";
         } else {
             $_statement = $_attr['start'];
             $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]] = new Smarty_Variable;";
@@ -64,12 +64,12 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
                 $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->step = 1;";
             }
             if (isset($_attr['max'])) {
-                $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->total = (int)min(ceil((\$_smarty_tpl->tpl_vars[$_statement[var]]->step > 0 ? $_attr[to]+1 - ($_statement[value]) : $_statement[value]-($_attr[to])+1)/abs(\$_smarty_tpl->tpl_vars[$_statement[var]]->step)),$_attr[max]);\n";
+                $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->total = (int) min(ceil((\$_smarty_tpl->tpl_vars[$_statement[var]]->step > 0 ? $_attr[to]+1 - ($_statement[value]) : $_statement[value]-($_attr[to])+1)/abs(\$_smarty_tpl->tpl_vars[$_statement[var]]->step)),$_attr[max]);\n";
             } else {
-                $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->total = (int)ceil((\$_smarty_tpl->tpl_vars[$_statement[var]]->step > 0 ? $_attr[to]+1 - ($_statement[value]) : $_statement[value]-($_attr[to])+1)/abs(\$_smarty_tpl->tpl_vars[$_statement[var]]->step));\n";
+                $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->total = (int) ceil((\$_smarty_tpl->tpl_vars[$_statement[var]]->step > 0 ? $_attr[to]+1 - ($_statement[value]) : $_statement[value]-($_attr[to])+1)/abs(\$_smarty_tpl->tpl_vars[$_statement[var]]->step));\n";
             }
-            $output .= "if (\$_smarty_tpl->tpl_vars[$_statement[var]]->total > 0){\n";
-            $output .= "for (\$_smarty_tpl->tpl_vars[$_statement[var]]->value = $_statement[value], \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration = 1;\$_smarty_tpl->tpl_vars[$_statement[var]]->iteration <= \$_smarty_tpl->tpl_vars[$_statement[var]]->total;\$_smarty_tpl->tpl_vars[$_statement[var]]->value += \$_smarty_tpl->tpl_vars[$_statement[var]]->step, \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration++){\n";
+            $output .= "if (\$_smarty_tpl->tpl_vars[$_statement[var]]->total > 0) {\n";
+            $output .= "for (\$_smarty_tpl->tpl_vars[$_statement[var]]->value = $_statement[value], \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration = 1;\$_smarty_tpl->tpl_vars[$_statement[var]]->iteration <= \$_smarty_tpl->tpl_vars[$_statement[var]]->total;\$_smarty_tpl->tpl_vars[$_statement[var]]->value += \$_smarty_tpl->tpl_vars[$_statement[var]]->step, \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration++) {\n";
             $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->first = \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration == 1;";
             $output .= "\$_smarty_tpl->tpl_vars[$_statement[var]]->last = \$_smarty_tpl->tpl_vars[$_statement[var]]->iteration == \$_smarty_tpl->tpl_vars[$_statement[var]]->total;";
         }
@@ -90,14 +90,14 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase {
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
+{
     /**
      * Compiles code for the {forelse} tag
      *
-     * @param array  $args      array with attributes from parser
-     * @param object $compiler  compiler object
-     * @param array  $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -107,6 +107,7 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase {
 
         list($openTag, $nocache) = $this->closeTag($compiler, array('for'));
         $this->openTag($compiler, 'forelse', array('forelse', $nocache));
+
         return "<?php }} else { ?>";
     }
 
@@ -118,14 +119,14 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase {
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
+{
     /**
      * Compiles code for the {/for} tag
      *
-     * @param array  $args      array with attributes from parser
-     * @param object $compiler  compiler object
-     * @param array  $parameter array with compilation parameter
+     * @param  array  $args      array with attributes from parser
+     * @param  object $compiler  compiler object
+     * @param  array  $parameter array with compilation parameter
      * @return string compiled code
      */
     public function compile($args, $compiler, $parameter)
@@ -147,5 +148,3 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase {
     }
 
 }
-
-?>

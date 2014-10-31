@@ -15,8 +15,8 @@
 * @package Smarty
 * @subpackage Compiler
 */
-class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_CompileBase {
-
+class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_CompileBase
+{
     /**
     * Attribute definition: Overwrites base class.
     *
@@ -90,8 +90,8 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                     foreach ($compiler->template->smarty->registered_filters[Smarty::FILTER_VARIABLE] as $key => $function) {
                         if (!is_array($function)) {
                             $output = "{$function}({$output},\$_smarty_tpl)";
-                        } else if (is_object($function[0])) {
-                            $output = "\$_smarty_tpl->smarty->registered_filters[Smarty::FILTER_VARIABLE][{$key}][0]->{$function[1]}({$output},\$_smarty_tpl)";
+                        } elseif (is_object($function[0])) {
+                            $output = "\$_smarty_tpl->smarty->registered_filters[Smarty::FILTER_VARIABLE]['{$key}'][0]->{$function[1]}({$output},\$_smarty_tpl)";
                         } else {
                             $output = "{$function[0]}::{$function[1]}({$output},\$_smarty_tpl)";
                         }
@@ -99,7 +99,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                 }
                 // auto loaded filters
                 if (isset($compiler->smarty->autoload_filters[Smarty::FILTER_VARIABLE])) {
-                    foreach ((array)$compiler->template->smarty->autoload_filters[Smarty::FILTER_VARIABLE] as $name) {
+                    foreach ((array) $compiler->template->smarty->autoload_filters[Smarty::FILTER_VARIABLE] as $name) {
                         $result = $this->compile_output_filter($compiler, $name, $output);
                         if ($result !== false) {
                             $output = $result;
@@ -123,6 +123,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
             $compiler->has_output = true;
             $output = "<?php echo {$output};?>";
         }
+
         return $output;
     }
 
@@ -148,9 +149,8 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
             // not found
             return false;
         }
+
         return "{$plugin_name}({$output},\$_smarty_tpl)";
     }
 
 }
-
-?>
