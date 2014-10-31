@@ -7,7 +7,7 @@
  * MySQL as the storage resource for Smarty's templates and configs.
  *
  * Note that this MySQL implementation fetches the source and timestamps in
- * a single database query, instead of two seperate like resource.mysql.php does.
+ * a single database query, instead of two separate like resource.mysql.php does.
  *
  * Table definition:
  * <pre>CREATE TABLE IF NOT EXISTS `templates` (

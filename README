@@ -120,7 +120,7 @@ $smarty->unregisterObject($object_name)
 $smarty->unregisterFilter($type, $function_name)
 $smarty->unregisterResource($resource_type)
 
-$smarty->compileAllTemplates($extention = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
+$smarty->compileAllTemplates($extension = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
 $smarty->clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
 $smarty->testInstall()
 

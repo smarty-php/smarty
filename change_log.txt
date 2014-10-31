@@ -1,10 +1,43 @@
 
-﻿==== Smarty-3.1.13  =====
+﻿===== trunk  =====
+27.06.2013
+- bugfix removed PHP 5.5 deprecated preg_replace /e option in modifier capitalize (forum topic 24389)
+
+17.06.2013
+- fixed spelling in sources and documentation (from smarty-developers forum Veres Lajos)
+- enhancement added constant SMARTY::CLEAR_EXPIRED for the change of 26.05.2013 (forum topic 24310)
+- bugfix added smarty_security.php to composer.json (Issue 135)
+
+26.05.2013
+- enhancement an expire_time of -1 in clearCache() and clearAllCache() will delete outdated cache files
+  by their individual cache_lifetime used at creation (forum topic 24310)
+
+21.05.2013
+- bugfix modifier strip_tags:true was compiled into wrong code (Forum Topic 24287)
+- bugfix /n after ?> in Smarty.class.php did start output buffering (Issue 138)
+
+25.04.2013
+- bugfix escape and wordrap modifier could be compiled into wrong code when used in {nocache}{/nocache}
+  section but caching is disabled  (Forum Topic 24260)
+  
+05.04.2013
+- bugfix post filter must not run when compiling inheritance child blocks (Forum Topic 24094)
+- bugfix after the fix for Issue #130 compiler exceptions got double escaped (Forum Topic 24199)
+
+28.02.2013
+- bugfix nocache blocks could be lost when using CACHING_LIFETIME_SAVED (Issue #133)
+- bugfix Compile ID gets nulled when compiling child blocks (Issue #134)
+
+
+24.01.2013
+- bugfix wrong tag type in smarty_internal_templatecompilerbase.php could cause wrong plugin search order (Forum Topic 24028)
+
+===== Smarty-3.1.13 =====
 13.01.2013
 - enhancement allow to disable exception message escaping by SmartyException::$escape = false;  (Issue #130)
 
 09.01.2013
-- bugfix compilation did fail when a prefilter did modify an {extends} tag (Forum Topic 23966)
+- bugfix compilation did fail when a prefilter did modify an {extends} tag c
 - bugfix template inheritance could fail if nested {block} tags in childs did contain {$smarty.block.child} (Issue #127)
 - bugfix template inheritance could fail if {block} tags in childs did have similar name as used plugins (Issue #128)
 - added abstract method declaration doCompile() in Smarty_Internal_TemplateCompilerBase (Forum Topic 23969)
@@ -418,7 +451,7 @@
 03/09/2011
 - bugfix createTemplate() must default to cache_id and compile_id of Smarty object
 - bugfix Smarty_CacheResource_KeyValueStore must include $source->uid in cache filepath to keep templates with same
-  name but different folders seperated
+  name but different folders separated
 - added cacheresource.apc.php example in demo folder
 
 02/09/2011
@@ -609,7 +642,7 @@
 - changed ./ and ../ behaviour
 
 14/02/2011
-- added {block ... hide} option to supress block if no child is defined
+- added {block ... hide} option to suppress block if no child is defined
 
 13/02/2011
 - update handling of recursive subtemplate calls
@@ -723,7 +756,7 @@
 - bugfix on compiler object destruction. compiler_object property was by mistake unset.
 
 09/03/2011
--bugfix a variable filter should run before modifers on an output tag (see change of 23/07/2010)
+-bugfix a variable filter should run before modifiers on an output tag (see change of 23/07/2010)
 
 08/03/2011
 - bugfix loading config file without section should load only defaults
@@ -1027,10 +1060,10 @@ request_use_auto_globals
 - bugfix passing scope attributes in doublequoted strings did not work at {include} {assign} and {append}
 
 25/07/2010
-- another bugfix of change from 23/07/2010 when compiling modifer
+- another bugfix of change from 23/07/2010 when compiling modifier
 
 24/07/2010
-- bugfix of change from 23/07/2010 when compiling modifer
+- bugfix of change from 23/07/2010 when compiling modifier
 
 23/07/2010
 - changed execution order. A variable filter does now run before modifiers on output of variables
@@ -1337,7 +1370,7 @@ request_use_auto_globals
 - bugfix on {if} tags 
 
 01/12/2010
-- changed back modifer handling in parser. Some restrictions still apply:
+- changed back modifier handling in parser. Some restrictions still apply:
     if modifiers are used in side {if...} expression or in mathematical expressions 
     parentheses must be used.
 - bugfix the {function..} tag did not accept the name attribute in double quotes
@@ -1949,7 +1982,7 @@ NOTICE: existing compiled template and cache files must be deleted
 - fixed exceptions in function plugins
 - fixed notice error in Smarty.class.php
 - allow chained objects to span multiple lines
-- fixed error in modifers 
+- fixed error in modifiers 
 
 03/20/2009
 - moved /plugins folder into /libs folder
@@ -1957,7 +1990,7 @@ NOTICE: existing compiled template and cache files must be deleted
 - autoappend a directory separator if the xxxxx_dir definition have no trailing one
 
 03/19/2009
-- allow array definition as modifer parameter
+- allow array definition as modifier parameter
 - changed modifier to use multi byte string funktions. 
 
 03/17/2009
