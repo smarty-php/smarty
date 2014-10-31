@@ -1392,10 +1392,12 @@ class Smarty extends Smarty_Internal_TemplateBase {
         // add the SMARTY_DIR to the list of muted directories
         if (!isset(Smarty::$_muted_directories[SMARTY_DIR])) {
             $smarty_dir = realpath(SMARTY_DIR);
-            Smarty::$_muted_directories[SMARTY_DIR] = array(
-                'file' => $smarty_dir,
-                'length' => strlen($smarty_dir),
-            );
+            if ($smarty_dir !== false) {
+                Smarty::$_muted_directories[SMARTY_DIR] = array(
+                    'file' => $smarty_dir,
+                    'length' => strlen($smarty_dir),
+                );
+            }
         }
 
         // walk the muted directories and test against $errfile
@@ -1403,6 +1405,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
             if (!$dir) {
                 // resolve directory and length for speedy comparisons
                 $file = realpath($key);
+                if ($file === false) {
+                    // this directory does not exist, remove and skip it
+                    unset(Smarty::$_muted_directories[$key]);
+                    continue;
+                }
                 $dir = array(
                     'file' => $file,
                     'length' => strlen($file),
@@ -1481,8 +1488,9 @@ if (Smarty::$_CHARSET !== 'UTF-8') {
  * @package Smarty
  */
 class SmartyException extends Exception {
+    public static $escape = true;
     public function __construct($message) {
-        $this->message = htmlentities($message);
+        $this->message = self::$escape ? htmlentities($message) : $message;
     }
 }
 

@@ -89,8 +89,8 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
         } else {
             $_name = trim($_match[3], '\'"');
             if ($_match[8] != 'hide' || isset($template->block_data[$_name])) {        // replace {$smarty.block.child}
-                // do we have {$smart.block.child} in nested {block} tags?
-                if (0 != preg_match_all("!({$_ldl}{$al}block\s+)(name=)?(\w+|'.*'|\".*\")([\s\S]*?)(hide)?(\s*{$_rdl})([\s\S]*?)({$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl})([\s\S]*?{$_ldl}{$al}/block\s*{$_rdl})!", $block_content, $_match2)) {
+                // get nested block tags
+                if (0 != preg_match_all("!({$_ldl}{$al}block\s+)(name=)?(\w+|'.*'|\".*\")([\s\S]*?)(hide)?(\s*{$_rdl})([\s\S]*?)(.*)?({$_ldl}{$al}/block\s*{$_rdl})!", $block_content, $_match2)) {
                     foreach ($_match2[3] as $key => $name) {
                         // get it's replacement
                         $_name2 = trim($name, '\'"');
@@ -101,12 +101,17 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
                                 $replacement = '';
                             }
                             // replace {$smarty.block.child} tag
-                            $search = array("!({$_ldl}{$al}block[\s\S]*?{$name}[\s\S]*?{$_rdl})([\s\S]*?)({$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl})([\s\S]*?)({$_ldl}{$al}/block\s*{$_rdl})!", "/§§§child§§§/");
-                            $replace = array('\2§§§child§§§\4', $replacement);
-                            $block_content = preg_replace($search, $replace, $block_content);
+                            if (preg_match("!{$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl}!",$_match2[7][$key])) {
+                                 $replacement =  preg_replace("!({$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl})!", $replacement, $_match2[7][$key]);
+                                 $block_content = preg_replace("!(({$_ldl}{$al}block)(.*)?{$name}(.*)?({$_rdl}[\s\S]*?{$_ldl}{$al}/block\s*{$_rdl}))!", $replacement, $block_content);
+                           }
+                             if (preg_match("!{$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl}!",$_match2[8][$key])) {
+                                 $replacement =  preg_replace("!{$_ldl}{$al}\\\$smarty\.block\.child\s*{$_rdl}!", $replacement, $_match2[8][$key]);
+                                 $block_content = preg_replace("!(({$_ldl}{$al}block)(.*)?{$name}(.*)?({$_rdl})(.*)?({$_ldl}{$al}/block\s*{$_rdl}))!", $replacement, $block_content);
+                             }
                         } else {
                             // remove hidden blocks
-                            $block_content = preg_replace("!({$_ldl}{$al}block[\s\S]*?{$name}[\s\S]*?{$_rdl}[\s\S]*?{$_ldl}{$al}/block\s*{$_rdl})!", '', $block_content);
+                            $block_content = preg_replace("!(({$_ldl}{$al}block)(.*)?{$name}(.*)?({$_rdl}[\s\S]*?{$_ldl}{$al}/block\s*{$_rdl}))!", '', $block_content);
                         }
                     }
                 }
