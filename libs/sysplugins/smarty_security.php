@@ -79,7 +79,7 @@ class Smarty_Security
     /**
      * This is an array of trusted PHP modifiers.
      * If empty all modifiers are allowed.
-     * To disable all modifier set $modifiers = null.
+     * To disable all modifier set $php_modifiers = null.
      *
      * @var array
      */

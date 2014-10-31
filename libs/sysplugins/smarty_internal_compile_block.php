@@ -78,6 +78,12 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         $_attr = $this->getAttributes($compiler, $args);
         $_name = trim($_attr['name'], "\"'");
 
+        // existing child must override parent settings
+        if (isset($compiler->template->block_data[$_name]) && $compiler->template->block_data[$_name]['mode'] == 'replace') {
+            $_attr['append'] = false;
+            $_attr['prepend'] = false;
+        }
+
         // check if we process an inheritance child template
         if ($compiler->inheritance_child) {
             array_unshift(self::$nested_block_names, $_name);
@@ -377,7 +383,7 @@ class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_Compil
 
         // update template with original template resource of {block}
         if (trim($_attr['type'], "'") == 'file') {
-            $compiler->template->template_resource = realpath(trim($_attr['file'], "'"));
+            $compiler->template->template_resource = 'file:' . realpath(trim($_attr['file'], "'"));
         } else {
             $compiler->template->template_resource = trim($_attr['resource'], "'");
         }
