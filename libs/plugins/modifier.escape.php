@@ -39,10 +39,10 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                 return htmlspecialchars($string, ENT_QUOTES, $char_set, $double_encode);
             } else {
                 if ($double_encode) {
-                    // php <5.3.2 - only handle double encoding
+                    // php <5.2.3 - only handle double encoding
                     return htmlspecialchars($string, ENT_QUOTES, $char_set);
                 } else {
-                    // php <5.3.2 - prevent double encoding
+                    // php <5.2.3 - prevent double encoding
                     $string = preg_replace('!&(#?\w+);!', '%%%SMARTY_START%%%\\1%%%SMARTY_END%%%', $string);
                     $string = htmlspecialchars($string, ENT_QUOTES, $char_set);
                     $string = str_replace(array('%%%SMARTY_START%%%', '%%%SMARTY_END%%%'), array('&', ';'), $string);
@@ -58,10 +58,10 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                     $string = htmlspecialchars($string, ENT_QUOTES, $char_set, $double_encode);
                 } else {
                     if ($double_encode) {
-                        // php <5.3.2 - only handle double encoding
+                        // php <5.2.3 - only handle double encoding
                         $string = htmlspecialchars($string, ENT_QUOTES, $char_set);
                     } else {
-                        // php <5.3.2 - prevent double encoding
+                        // php <5.2.3 - prevent double encoding
                         $string = preg_replace('!&(#?\w+);!', '%%%SMARTY_START%%%\\1%%%SMARTY_END%%%', $string);
                         $string = htmlspecialchars($string, ENT_QUOTES, $char_set);
                         $string = str_replace(array('%%%SMARTY_START%%%', '%%%SMARTY_END%%%'), array('&', ';'), $string);

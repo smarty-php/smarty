@@ -39,7 +39,11 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase {
         if ($compiler->tag_nocache || $compiler->nocache) {
             $_nocache = 'true';
             // create nocache var to make it know for further compiling
-            $compiler->template->tpl_vars[trim($_attr['var'], "'")] = new Smarty_variable(null, true);
+            if (isset($compiler->template->tpl_vars[trim($_attr['var'], "'")])) {
+                $compiler->template->tpl_vars[trim($_attr['var'], "'")]->nocache = true;
+            } else {
+                $compiler->template->tpl_vars[trim($_attr['var'], "'")] = new Smarty_variable(null, true);
+            }
         }
         // scope setup
         if (isset($_attr['scope'])) {

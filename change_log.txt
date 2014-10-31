@@ -1,4 +1,50 @@
-﻿===== Smarty-3.1.11  =====
+
+﻿===== Smarty-3.1.12  =====
+14.09.2012
+- bugfix template inheritance failed to compile with delimiters {/ and /} (Forum Topic 23008)
+
+11.09.2012
+- bugfix escape Smarty exception messages to avoid possible script execution
+
+10.09.2012
+- bugfix tag option flags and shorttag attributes did not work when rdel started with '=' (Forum Topic 22979)
+
+31.08.2012
+- bugfix resolving relative paths broke in some circumstances (Issue #114)
+
+22.08.2012
+- bugfix test MBString availability through mb_split, as it could've been compiled without regex support (--enable-mbregex).
+  Either we get MBstring's full package, or we pretend it's not there at all.
+
+21.08.2012
+- bugfix $auto_literal = false did not work with { block} tags in child templates 
+  (problem was reintroduced after fix in 3.1.7)(Forum Topic 20581)
+
+17.08.2012
+- bugfix compiled code of nocache sections could contain wrong escaping (Forum Topic 22810)
+
+15.08.2012
+- bugfix template inheritance did produce wrong code if subtemplates with {block} was
+  included several times (from smarty-developers forum)
+
+14.08.2012
+- bugfix PHP5.2 compatibility compromised by SplFileInfo::getBasename() (Issue 110)
+
+01.08.2012
+- bugfix avoid PHP error on $smarty->configLoad(...) with invalid section specification (Forum Topic 22608)
+
+30.07.2012
+-bugfix {assign} in a nocache section should not overwrite existing variable values 
+   during compilation (issue 109)
+   
+28.07.2012
+- bugfix array access of config variables did not work (Forum Topic 22527)
+
+19.07.2012
+- bugfix the default plugin handler did create wrong compiled code for static class methods
+  from external script files (issue 108)
+  
+===== Smarty-3.1.11 =====
 30.06.2012
 - bugfix {block.. hide} did not work as nested child (Forum Topic 22216)
 
