@@ -160,6 +160,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         if ($compiler->smarty->debugging) {
             Smarty_Internal_Debug::ignore($_tpl);
         }
+        $_tpl->tpl_vars = $compiler->template->tpl_vars;
         $_tpl->variable_filters = $compiler->template->variable_filters;
         $_tpl->properties['nocache_hash'] = $compiler->template->properties['nocache_hash'];
         $_tpl->allow_relative_path = true;
@@ -330,8 +331,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
             } else {
                 $_output = $compiler->parser->current_buffer->to_smarty_php();
             }
-            unset($compiler->template->block_data[$_name]['compiled']);
         }
+        unset($compiler->template->block_data[$_name]['compiled']);
         // reset flags
         $compiler->parser->current_buffer = $saved_data[2];
         if ($compiler->nocache) {

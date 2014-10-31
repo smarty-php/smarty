@@ -491,17 +491,21 @@ abstract class Smarty_Resource
     /**
      * modify template_resource according to resource handlers specifications
      *
-     * @param  string $smarty            Smarty instance
+     * @param  Smarty_Internal_template $template            Smarty instance
      * @param  string $template_resource template_resource to extracate resource handler and name of
      * @return string unique resource name
      */
-    public static function getUniqueTemplateName($smarty, $template_resource)
+    public static function getUniqueTemplateName($template, $template_resource)
     {
-        self::parseResourceName($template_resource, $smarty->default_resource_type, $name, $type);
+        self::parseResourceName($template_resource, $template->smarty->default_resource_type, $name, $type);
         // TODO: optimize for Smarty's internal resource types
-        $resource = Smarty_Resource::load($smarty, $type);
-
-        return $resource->buildUniqueResourceName($smarty, $name);
+        $resource = Smarty_Resource::load($template->smarty, $type);
+        // go relative to a given template?
+        $_file_is_dotted = $name[0] == '.' && ($name[1] == '.' || $name[1] == '/' || $name[1] == "\\");
+        if ($template instanceof Smarty_Internal_Template && $_file_is_dotted && ($template->source->type == 'file' || $template->parent->source->type == 'extends')) {
+            $name = dirname($template->source->filepath) . DS . $name;
+        }
+        return $resource->buildUniqueResourceName($template->smarty, $name);
     }
 
     /**
@@ -524,7 +528,14 @@ abstract class Smarty_Resource
         // parse resource_name, load resource handler, identify unique resource name
         self::parseResourceName($template_resource, $smarty->default_resource_type, $name, $type);
         $resource = Smarty_Resource::load($smarty, $type);
-        $unique_resource_name = $resource->buildUniqueResourceName($smarty, $name);
+        // go relative to a given template?
+        $_file_is_dotted = isset($name[0]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/' || $name[1] == "\\");
+        if ($_file_is_dotted && isset($_template) && $_template->parent instanceof Smarty_Internal_Template && ($_template->parent->source->type == 'file' || $_template->parent->source->type == 'extends')) {
+            $name2 = dirname($_template->parent->source->filepath) . DS . $name;
+        } else {
+            $name2 = $name;
+        }
+        $unique_resource_name = $resource->buildUniqueResourceName($smarty, $name2);
 
         // check runtime cache
         $_cache_key = 'template|' . $unique_resource_name;

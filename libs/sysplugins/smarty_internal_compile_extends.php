@@ -50,17 +50,12 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
         if (strpos($_attr['file'], '$_tmp') !== false) {
             $compiler->trigger_template_error('illegal value for file attribute', $compiler->lex->taglineno);
         }
-        // add tag to call parent template at the end of source
 
-        if ($compiler->has_variable_string || !((substr_count($_attr['file'], '"') == 2 || substr_count($_attr['file'], "'") == 2))
-            || substr_count($_attr['file'], '(') != 0 || substr_count($_attr['file'], '$_smarty_tpl->') != 0
-        ) {
-            $compiler->trigger_template_error('variable template file name not allowed', $compiler->lex->taglineno);
-        }
-
-        $name = trim($_attr['file'],"\"'");
+        $name = $_attr['file'];
+        $_smarty_tpl = $compiler->template;
+        eval("\$tpl_name = $name;");
         // create template object
-        $_template = new $compiler->smarty->template_class($name, $compiler->smarty, $compiler->template);
+        $_template = new $compiler->smarty->template_class($tpl_name, $compiler->smarty, $compiler->template);
         // check for recursion
         $uid = $_template->source->uid;
         if (isset($compiler->extends_uid[$uid])) {
