@@ -91,7 +91,7 @@ class _smarty_tag extends _smarty_parsetree
     public function assign_to_var()
     {
         $var = sprintf('$_tmp%d', ++Smarty_Internal_Templateparser::$prefix_number);
-        $this->parser->compiler->prefix_code[] = sprintf('<?php ob_start();?>%s<?php %s=ob_get_clean();?>', $this->data, $var);
+        $this->parser->compiler->prefix_code[] = sprintf("<?php ob_start();\n%s\n%s=ob_get_clean();?>", preg_replace(array('/^\s*<\?php\s+/','/\s*\?>\s*$/'), '', $this->data), $var);
 
         return $var;
     }
@@ -271,7 +271,9 @@ class _smarty_template_buffer extends _smarty_parsetree
      */
     public function append_subtree(_smarty_parsetree $subtree)
     {
-        $this->subtrees[] = $subtree;
+        if ($subtree->data !== '') {
+            $this->subtrees[] = $subtree;
+        }
     }
 
     /**
@@ -283,50 +285,47 @@ class _smarty_template_buffer extends _smarty_parsetree
     {
         $code = '';
         for ($key = 0, $cnt = count($this->subtrees); $key < $cnt; $key ++) {
-            if ($key + 2 < $cnt) {
-                if ($this->subtrees[$key] instanceof _smarty_linebreak && $this->subtrees[$key + 1] instanceof _smarty_tag && $this->subtrees[$key + 1]->data == '' && $this->subtrees[$key + 2] instanceof _smarty_linebreak) {
-                    $key = $key + 1;
+            if ($this->subtrees[$key] instanceof _smarty_text) {
+                $subtree = $this->subtrees[$key]->to_smarty_php();
+                while ($key + 1 < $cnt && ($this->subtrees[$key+1] instanceof _smarty_text || $this->subtrees[$key +1]->data == '')) {
+                    $key++;
+                    if ($this->subtrees[$key]->data == '') {
+                        continue;
+                    }
+                    $subtree .= $this->subtrees[$key]->to_smarty_php();
+                }
+                if ($subtree == '') {
                     continue;
                 }
-                if (substr($this->subtrees[$key]->data, - 1) == '<' && $this->subtrees[$key + 1]->data == '' && substr($this->subtrees[$key + 2]->data, - 1) == '?') {
-                    $key = $key + 2;
+                $code .= preg_replace('/(<%|%>|<\?php|<\?|\?>|<\/?script)/', "<?php echo '\$1'; ?>\n", $subtree);
+                continue;
+            }
+            if ($this->subtrees[$key] instanceof _smarty_tag) {
+                $subtree = $this->subtrees[$key]->to_smarty_php();
+                while ($key + 1 < $cnt && ($this->subtrees[$key+1] instanceof _smarty_tag || $this->subtrees[$key +1]->data == '')) {
+                    $key++;
+                    if ($this->subtrees[$key]->data == '') {
+                        continue;
+                    }
+                    $newCode = $this->subtrees[$key]->to_smarty_php();
+                    if ((preg_match('/^\s*<\?php\s+/', $newCode) &&  preg_match('/\s*\?>\s*$/', $subtree))) {
+                        $subtree = preg_replace('/\s*\?>\s*$/', "\n", $subtree);
+                        $subtree .= preg_replace('/^\s*<\?php\s+/', '', $newCode);
+                    } else {
+                        $subtree .= $newCode;
+                    }
+                }
+                if ($subtree == '') {
                     continue;
                 }
-            }
-            if (substr($code, - 1) == '<') {
-                $subtree = $this->subtrees[$key]->to_smarty_php();
-                if (substr($subtree, 0, 1) == '?') {
-                    $code = substr($code, 0, strlen($code) - 1) . '<<?php ?>?' . substr($subtree, 1);
-                } elseif ($this->parser->asp_tags && substr($subtree, 0, 1) == '%') {
-                    $code = substr($code, 0, strlen($code) - 1) . '<<?php ?>%' . substr($subtree, 1);
-                } else {
-                    $code .= $subtree;
-                }
-                continue;
-            }
-            if ($this->parser->asp_tags && substr($code, - 1) == '%') {
-                $subtree = $this->subtrees[$key]->to_smarty_php();
-                if (substr($subtree, 0, 1) == '>') {
-                    $code = substr($code, 0, strlen($code) - 1) . '%<?php ?>>' . substr($subtree, 1);
-                } else {
-                    $code .= $subtree;
-                }
-                continue;
-            }
-            if (substr($code, - 1) == '?') {
-                $subtree = $this->subtrees[$key]->to_smarty_php();
-                if (substr($subtree, 0, 1) == '>') {
-                    $code = substr($code, 0, strlen($code) - 1) . '?<?php ?>>' . substr($subtree, 1);
-                } else {
-                    $code .= $subtree;
-                }
+                $code .= $subtree;
                 continue;
             }
             $code .= $this->subtrees[$key]->to_smarty_php();
         }
-
         return $code;
     }
+
 }
 
 /**
@@ -354,38 +353,6 @@ class _smarty_text extends _smarty_parsetree
      * Return buffer content
      *
      * @return strint text
-     */
-    public function to_smarty_php()
-    {
-        return $this->data;
-    }
-}
-
-/**
- * template linebreaks
- *
- * @package    Smarty
- * @subpackage Compiler
- * @ignore
- */
-class _smarty_linebreak extends _smarty_parsetree
-{
-    /**
-     * Create buffer with linebreak content
-     *
-     * @param object $parser parser object
-     * @param string $data   linebreak string
-     */
-    public function __construct($parser, $data)
-    {
-        $this->parser = $parser;
-        $this->data = $data;
-    }
-
-    /**
-     * Return linebrak
-     *
-     * @return string linebreak
      */
     public function to_smarty_php()
     {
