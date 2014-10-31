@@ -262,11 +262,11 @@ class Smarty_Compiler extends Smarty {
         reset($this->_folded_blocks);
 
         /* replace special blocks by "{php}" */
-        $source_content = preg_replace($search.'e', "'"
+        $source_content = preg_replace_callback($search, create_function ('$matches', "return '"
                                        . $this->_quote_replace($this->left_delimiter) . 'php'
-                                       . "' . str_repeat(\"\n\", substr_count('\\0', \"\n\")) .'"
+                                       . "' . str_repeat(\"\n\", substr_count('\$matches[1]', \"\n\")) .'"
                                        . $this->_quote_replace($this->right_delimiter)
-                                       . "'"
+                                       . "';")
                                        , $source_content);
 
         /* Gather all template tags. */
@@ -2122,7 +2122,7 @@ class Smarty_Compiler extends Smarty {
                 return null;
 
             case 'template':
-                $compiled_ref = "'$this->_current_file'";
+                $compiled_ref = "'" . addslashes($this->_current_file) . "'";
                 $_max_index = 1;
                 break;
 
