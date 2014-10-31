@@ -166,10 +166,10 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $nocache = false;
             $_smarty_tpl = $compiler->template;
             eval("\$tpl_name = $include_file;");
-            if (!isset($compiler->smarty->merged_templates_func[$tpl_name][$uid]) || $compiler->inheritance) {
+            if (!isset($compiler->smarty->merged_templates_func[$tpl_name][$uid])) {
                 $tpl = new $compiler->smarty->template_class ($tpl_name, $compiler->smarty, $compiler->template, $compiler->template->cache_id, $compiler->template->compile_id);
                 // save unique function name
-                $compiler->smarty->merged_templates_func[$tpl_name][$uid]['func'] = $tpl->properties['unifunc'] = 'content_' . str_replace('.', '_', uniqid('', true));
+                $compiler->smarty->merged_templates_func[$tpl_name][$uid]['func'] = $tpl->properties['unifunc'] = 'content_' . str_replace(array('.',','), '_', uniqid('', true));
                 // use current nocache hash for inlined code
                 $compiler->smarty->merged_templates_func[$tpl_name][$uid]['nocache_hash'] = $tpl->properties['nocache_hash'] = $compiler->template->properties['nocache_hash'];
                 if ($compiler->template->caching && $_caching == self::CACHING_NOCACHE_CODE) {

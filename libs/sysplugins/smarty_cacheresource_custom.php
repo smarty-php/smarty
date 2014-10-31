@@ -186,8 +186,34 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
     {
         $this->cache = array();
+        $cache_name = null;
 
-        return $this->delete($resource_name, $cache_id, $compile_id, $exp_time);
+        if (isset($resource_name)) {
+            $_save_stat = $smarty->caching;
+            $smarty->caching = true;
+            $tpl = new $smarty->template_class($resource_name, $smarty);
+            $smarty->caching = $_save_stat;
+
+            if ($tpl->source->exists) {
+                $cache_name = $tpl->source->name;
+            } else {
+                return 0;
+            }
+            // remove from template cache
+            if ($smarty->allow_ambiguous_resources) {
+                $_templateId = $tpl->source->unique_resource . $tpl->cache_id . $tpl->compile_id;
+            } else {
+                $_templateId = $smarty->joined_template_dir . '#' . $resource_name . $tpl->cache_id . $tpl->compile_id;
+            }
+            if (isset($_templateId[150])) {
+                $_templateId = sha1($_templateId);
+            }
+            unset($smarty->template_objects[$_templateId]);
+            // template object no longer needed
+            unset($tpl);
+        }
+
+        return $this->delete($cache_name, $cache_id, $compile_id, $exp_time);
     }
 
     /**

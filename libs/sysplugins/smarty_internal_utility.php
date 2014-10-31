@@ -182,7 +182,7 @@ class Smarty_Internal_Utility
      */
     public static function clearCompiledTemplate($resource_name, $compile_id, $exp_time, Smarty $smarty)
     {
-        $_compile_dir = $smarty->getCompileDir();
+        $_compile_dir = realpath($smarty->getCompileDir());
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
         if (isset($resource_name)) {

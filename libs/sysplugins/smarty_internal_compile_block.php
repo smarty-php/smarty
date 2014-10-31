@@ -376,6 +376,13 @@ class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_Compil
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
+        // update template with original template resource of {block}
+        $compiler->template->template_resource = realpath(trim($_attr['file'], "'"));
+        // source object
+        unset ($compiler->template->source);
+        $exists = $compiler->template->source->exists;
+
+
         // must merge includes
         if ($_attr['nocache'] == true) {
             $compiler->tag_nocache = true;
