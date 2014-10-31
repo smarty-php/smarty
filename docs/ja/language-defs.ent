@@ -1,8 +1,0 @@
-<!-- $Revision$ -->
-<!-- EN-Revision: 1602 Maintainer: takagi Status: ready -->
-<!-- CREDITS: mat-sh,daichi,joe -->
-
-<!ENTITY SMARTYManual      "Smarty マニュアル">
-<!ENTITY SMARTYDesigners   "テンプレートデザイナのための Smarty">
-<!ENTITY SMARTYProgrammers "プログラマのための Smarty">
-<!ENTITY Appendixes        "付録">
