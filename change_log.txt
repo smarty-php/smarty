@@ -1,5 +1,42 @@
 
- ===== trunk =====
+ ===== 3.1.19-dev ===== (xx.xx.2014)
+ 19.04.2014
+ - bugfix calling createTemplate(template, data) with empty data array caused notice of array to string conversion (Issue 189)
+ - bugfix clearCompiledTemplate() did not delete files on WINDOWS when a compile_id was specified
+ 
+ 18.04.2014
+ - revert bugfix of 5.4.2015 because %-e date format is not supported on all operating systems
+
+
+ ===== 3.1.18 ===== (07.04.2014)
+ 06.04.2014 
+ - bugfix template inheritance fail when using custom resource after patch of 8.3.2014 (Issue 187)
+ - bugfix update of composer file (Issue 168 and 184)
+
+ 05.04.2014
+ - bugfix default date format leads to extra spaces when displaying dates with single digit days (Issue 165)
+ 
+ 26.03.2014
+ - bugfix Smart_Resource_Custom should not lowercase the resource name (Issue 183)
+ 
+ 24.03.2014
+ - bugfix using a {foreach} property like @iteration could fail when used in inheritance parent templates (Issue 182)
+ 
+ 20.03.2014
+ - bugfix $smarty->auto_literal and mbsting.func_overload 2, 6 or 7 did fail (forum topic 24899)
+ 
+ 18.03.2014
+ - revert change of 17.03.2014
+ 
+17.03.2014
+ - bugfix $smarty->auto_literal and mbsting.func_overload 2, 6 or 7 did fail (forum topic 24899)
+ 
+ 15.03.2014
+ - bugfix Smarty_CacheResource_Keyvaluestore did use different keys on read/writes and clearCache() calls (Issue 169)
+
+ 13.03.2014
+ - bugfix clearXxx() change of 27.1.2014 did not work when specifing cache_id or compile_id  (forum topic 24868 and 24867)
+ 
  ===== 3.1.17 =====
  08.03.2014
  - bugfix relative file path {include} within {block} of child templates did throw exception on first call (Issue 177)

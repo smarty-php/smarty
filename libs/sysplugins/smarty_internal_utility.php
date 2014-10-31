@@ -182,9 +182,9 @@ class Smarty_Internal_Utility
      */
     public static function clearCompiledTemplate($resource_name, $compile_id, $exp_time, Smarty $smarty)
     {
-        $_compile_dir = realpath($smarty->getCompileDir());
+        $_compile_dir = realpath($smarty->getCompileDir()).'/';
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
-        $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
+        $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;
             $smarty->caching = false;
@@ -218,7 +218,7 @@ class Smarty_Internal_Utility
             $_dir .= $_compile_id . $_dir_sep;
         }
         if (isset($_compile_id)) {
-            $_compile_id_part = $_compile_dir . $_compile_id . $_dir_sep;
+            $_compile_id_part = str_replace('\\','/',$_compile_dir . $_compile_id . $_dir_sep);
             $_compile_id_part_length = strlen($_compile_id_part);
         }
         $_count = 0;
@@ -233,7 +233,7 @@ class Smarty_Internal_Utility
             if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false)
                 continue;
 
-            $_filepath = (string) $_file;
+            $_filepath = str_replace('\\','/',(string) $_file);
 
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
@@ -242,7 +242,7 @@ class Smarty_Internal_Utility
                 }
             } else {
                 $unlink = false;
-                if ((!isset($_compile_id) || (isset($_filepath[$_compile_id_part_length]) && !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length)))
+                if ((!isset($_compile_id) || (isset($_filepath[$_compile_id_part_length]) && $a = !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length)))
                     && (!isset($resource_name)
                         || (isset($_filepath[$_resource_part_1_length])
                             && substr_compare($_filepath, $_resource_part_1, -$_resource_part_1_length, $_resource_part_1_length) == 0)

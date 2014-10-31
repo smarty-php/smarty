@@ -34,7 +34,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         if ($template === null && $this instanceof $this->template_class) {
             $template = $this;
         }
-        if (!empty($cache_id) && is_object($cache_id)) {
+        if ($cache_id !== null && is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
         }

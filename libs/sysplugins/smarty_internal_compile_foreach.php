@@ -49,7 +49,6 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase
      */
     public function compile($args, $compiler, $parameter)
     {
-        $tpl = $compiler->template;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
@@ -80,12 +79,12 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase
         $ItemVarName = '$' . trim($item, '\'"') . '@';
         // evaluates which Smarty variables and properties have to be computed
         if ($has_name) {
-            $usesSmartyFirst = strpos($tpl->source->content, $SmartyVarName . 'first') !== false;
-            $usesSmartyLast = strpos($tpl->source->content, $SmartyVarName . 'last') !== false;
-            $usesSmartyIndex = strpos($tpl->source->content, $SmartyVarName . 'index') !== false;
-            $usesSmartyIteration = strpos($tpl->source->content, $SmartyVarName . 'iteration') !== false;
-            $usesSmartyShow = strpos($tpl->source->content, $SmartyVarName . 'show') !== false;
-            $usesSmartyTotal = strpos($tpl->source->content, $SmartyVarName . 'total') !== false;
+            $usesSmartyFirst = strpos($compiler->lex->data, $SmartyVarName . 'first') !== false;
+            $usesSmartyLast = strpos($compiler->lex->data, $SmartyVarName . 'last') !== false;
+            $usesSmartyIndex = strpos($compiler->lex->data, $SmartyVarName . 'index') !== false;
+            $usesSmartyIteration = strpos($compiler->lex->data, $SmartyVarName . 'iteration') !== false;
+            $usesSmartyShow = strpos($compiler->lex->data, $SmartyVarName . 'show') !== false;
+            $usesSmartyTotal = strpos($compiler->lex->data, $SmartyVarName . 'total') !== false;
         } else {
             $usesSmartyFirst = false;
             $usesSmartyLast = false;
@@ -93,12 +92,12 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase
             $usesSmartyShow = false;
         }
 
-        $usesPropFirst = $usesSmartyFirst || strpos($tpl->source->content, $ItemVarName . 'first') !== false;
-        $usesPropLast = $usesSmartyLast || strpos($tpl->source->content, $ItemVarName . 'last') !== false;
-        $usesPropIndex = $usesPropFirst || strpos($tpl->source->content, $ItemVarName . 'index') !== false;
-        $usesPropIteration = $usesPropLast || strpos($tpl->source->content, $ItemVarName . 'iteration') !== false;
-        $usesPropShow = strpos($tpl->source->content, $ItemVarName . 'show') !== false;
-        $usesPropTotal = $usesSmartyTotal || $usesSmartyShow || $usesPropShow || $usesPropLast || strpos($tpl->source->content, $ItemVarName . 'total') !== false;
+        $usesPropFirst = $usesSmartyFirst || strpos($compiler->lex->data, $ItemVarName . 'first') !== false;
+        $usesPropLast = $usesSmartyLast || strpos($compiler->lex->data, $ItemVarName . 'last') !== false;
+        $usesPropIndex = $usesPropFirst || strpos($compiler->lex->data, $ItemVarName . 'index') !== false;
+        $usesPropIteration = $usesPropLast || strpos($compiler->lex->data, $ItemVarName . 'iteration') !== false;
+        $usesPropShow = strpos($compiler->lex->data, $ItemVarName . 'show') !== false;
+        $usesPropTotal = $usesSmartyTotal || $usesSmartyShow || $usesPropShow || $usesPropLast || strpos($compiler->lex->data, $ItemVarName . 'total') !== false;
         // generate output code
         $output = "<?php ";
         $output .= " \$_smarty_tpl->tpl_vars[$item] = new Smarty_Variable; \$_smarty_tpl->tpl_vars[$item]->_loop = false;\n";
