@@ -1,18 +1,17 @@
 <?php
 /**
  * Smarty Internal Plugin Compile Capture
- *
  * Compiles the {capture} tag
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Capture Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
@@ -37,6 +36,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
      *
      * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -55,13 +55,12 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
 
         return $_output;
     }
-
 }
 
 /**
  * Smarty Internal Plugin Compile Captureclose Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
@@ -71,6 +70,7 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
      *
      * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -93,5 +93,4 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
 
         return $_output;
     }
-
 }

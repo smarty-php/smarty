@@ -1,19 +1,18 @@
 <?php
 /**
  * Smarty Internal Plugin Compile Debug
- *
  * Compiles the {debug} tag.
  * It opens a window the the Smarty Debugging Console.
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Debug Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Debug extends Smarty_Internal_CompileBase
@@ -23,6 +22,7 @@ class Smarty_Internal_Compile_Debug extends Smarty_Internal_CompileBase
      *
      * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -38,5 +38,4 @@ class Smarty_Internal_Compile_Debug extends Smarty_Internal_CompileBase
 
         return $_output;
     }
-
 }

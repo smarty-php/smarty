@@ -2,18 +2,17 @@
 
 /**
  * Smarty Internal Plugin Compile extend
- *
  * Compiles the {extends} tag
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile extend Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
@@ -36,8 +35,9 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {extends} tag
      *
-     * @param array $args     array with attributes from parser
+     * @param array  $args     array with attributes from parser
      * @param object $compiler compiler object
+     *
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -52,6 +52,9 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
         }
 
         $name = $_attr['file'];
+        /** @var Smarty_Internal_Template $_smarty_tpl
+         * used in evaluated code
+         */
         $_smarty_tpl = $compiler->template;
         eval("\$tpl_name = $name;");
         // create template object
@@ -59,7 +62,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
         // check for recursion
         $uid = $_template->source->uid;
         if (isset($compiler->extends_uid[$uid])) {
-            $compiler->trigger_template_error("illegal recursive call of \"$include_file\"", $this->lex->line - 1);
+            $compiler->trigger_template_error("illegal recursive call of \"$include_file\"", $compiler->lex->line - 1);
         }
         $compiler->extends_uid[$uid] = true;
         if (empty($_template->source->components)) {
@@ -69,7 +72,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
                 array_unshift($compiler->sources, $source);
                 $uid = $source->uid;
                 if (isset($compiler->extends_uid[$uid])) {
-                    $compiler->trigger_template_error("illegal recursive call of \"{$sorce->filepath}\"", $this->lex->line - 1);
+                    $compiler->trigger_template_error("illegal recursive call of \"{$source->filepath}\"", $compiler->lex->line - 1);
                 }
                 $compiler->extends_uid[$uid] = true;
             }

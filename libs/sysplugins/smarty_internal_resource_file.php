@@ -2,18 +2,17 @@
 /**
  * Smarty Internal Plugin Resource File
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage TemplateResources
- * @author Uwe Tews
- * @author Rodney Rehm
+ * @author     Uwe Tews
+ * @author     Rodney Rehm
  */
 
 /**
  * Smarty Internal Plugin Resource File
- *
  * Implements the file system as resource for Smarty templates
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage TemplateResources
  */
 class Smarty_Internal_Resource_File extends Smarty_Resource
@@ -24,7 +23,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      * @param Smarty_Template_Source   $source    source object
      * @param Smarty_Internal_Template $_template template object
      */
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template=null)
+    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
     {
         $source->filepath = $this->buildFilepath($source, $_template);
 
@@ -33,7 +32,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                 $source->smarty->security_policy->isTrustedResourceDir($source->filepath);
             }
 
-            $source->uid = sha1($source->filepath);
+            $source->uid = sha1(realpath($source->filepath));
             if ($source->smarty->compile_check && !isset($source->timestamp)) {
                 $source->timestamp = @filemtime($source->filepath);
                 $source->exists = !!$source->timestamp;
@@ -56,6 +55,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      * Load template's source from file into current template object
      *
      * @param  Smarty_Template_Source $source source object
+     *
      * @return string                 template source
      * @throws SmartyException        if source cannot be loaded
      */
@@ -74,6 +74,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      * Determine basename for compiled filename
      *
      * @param  Smarty_Template_Source $source source object
+     *
      * @return string                 resource's basename
      */
     public function getBasename(Smarty_Template_Source $source)
@@ -85,5 +86,4 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
 
         return basename($_file);
     }
-
 }

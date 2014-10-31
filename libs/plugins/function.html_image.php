@@ -2,13 +2,12 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsFunction
  */
 
 /**
  * Smarty {html_image} function plugin
- *
  * Type:     function<br>
  * Name:     html_image<br>
  * Date:     Feb 24, 2003<br>
@@ -24,15 +23,18 @@
  * - path_prefix - prefix for path output (optional, default empty)
  * </pre>
  *
- * @link http://www.smarty.net/manual/en/language.function.html.image.php {html_image}
- *      (Smarty online manual)
- * @author Monte Ohrt <monte at ohrt dot com>
- * @author credits to Duda <duda@big.hu>
+ * @link    http://www.smarty.net/manual/en/language.function.html.image.php {html_image}
+ *          (Smarty online manual)
+ * @author  Monte Ohrt <monte at ohrt dot com>
+ * @author  credits to Duda <duda@big.hu>
  * @version 1.0
+ *
  * @param array                    $params   parameters
  * @param Smarty_Internal_Template $template template object
+ *
+ * @throws SmartyException
  * @return string
- * @uses smarty_function_escape_special_chars()
+ * @uses    smarty_function_escape_special_chars()
  */
 function smarty_function_html_image($params, $template)
 {
@@ -112,7 +114,7 @@ function smarty_function_html_image($params, $template)
             }
         } else {
             // local file
-            if (!$template->smarty->security_policy->isTrustedResourceDir($params['file'])) {
+            if (!$template->smarty->security_policy->isTrustedResourceDir($_image_path)) {
                 return;
             }
         }

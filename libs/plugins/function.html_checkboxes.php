@@ -2,13 +2,12 @@
 /**
  * Smarty plugin
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage PluginsFunction
  */
 
 /**
  * Smarty {html_checkboxes} function plugin
- *
  * File:       function.html_checkboxes.php<br>
  * Type:       function<br>
  * Name:       html_checkboxes<br>
@@ -32,15 +31,17 @@
  * - escape     (optional) - escape the content (not value), defaults to true
  * </pre>
  *
- * @link http://www.smarty.net/manual/en/language.function.html.checkboxes.php {html_checkboxes}
- *      (Smarty online manual)
+ * @link       http://www.smarty.net/manual/en/language.function.html.checkboxes.php {html_checkboxes}
+ *             (Smarty online manual)
  * @author     Christopher Kvarme <christopher.kvarme@flashjab.com>
- * @author credits to Monte Ohrt <monte at ohrt dot com>
+ * @author     credits to Monte Ohrt <monte at ohrt dot com>
  * @version    1.0
- * @param array $params parameters
+ *
+ * @param array  $params   parameters
  * @param object $template template object
+ *
  * @return string
- * @uses smarty_function_escape_special_chars()
+ * @uses       smarty_function_escape_special_chars()
  */
 function smarty_function_html_checkboxes($params, $template)
 {
@@ -89,7 +90,7 @@ function smarty_function_html_checkboxes($params, $template)
                             if (method_exists($_sel, "__toString")) {
                                 $_sel = smarty_function_escape_special_chars((string) $_sel->__toString());
                             } else {
-                                trigger_error("html_checkboxes: selected attribute contains an object of class '". get_class($_sel) ."' without __toString() method", E_USER_NOTICE);
+                                trigger_error("html_checkboxes: selected attribute contains an object of class '" . get_class($_sel) . "' without __toString() method", E_USER_NOTICE);
                                 continue;
                             }
                         } else {
@@ -101,7 +102,7 @@ function smarty_function_html_checkboxes($params, $template)
                     if (method_exists($_val, "__toString")) {
                         $selected = smarty_function_escape_special_chars((string) $_val->__toString());
                     } else {
-                        trigger_error("html_checkboxes: selected attribute is an object of class '". get_class($_val) ."' without __toString() method", E_USER_NOTICE);
+                        trigger_error("html_checkboxes: selected attribute is an object of class '" . get_class($_val) . "' without __toString() method", E_USER_NOTICE);
                     }
                 } else {
                     $selected = smarty_function_escape_special_chars((string) $_val);
@@ -116,7 +117,8 @@ function smarty_function_html_checkboxes($params, $template)
             case 'assign':
                 break;
 
-            case 'strict': break;
+            case 'strict':
+                break;
 
             case 'disabled':
             case 'readonly':
@@ -131,11 +133,11 @@ function smarty_function_html_checkboxes($params, $template)
 
                     break;
                 }
-                // omit break; to fall through!
+            // omit break; to fall through!
 
             default:
                 if (!is_array($_val)) {
-                    $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+                    $extra .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_val) . '"';
                 } else {
                     trigger_error("html_checkboxes: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
                 }
@@ -143,17 +145,18 @@ function smarty_function_html_checkboxes($params, $template)
         }
     }
 
-    if (!isset($options) && !isset($values))
-        return ''; /* raise error here? */
+    if (!isset($options) && !isset($values)) {
+        return '';
+    } /* raise error here? */
 
     $_html_result = array();
 
     if (isset($options)) {
-        foreach ($options as $_key=>$_val) {
+        foreach ($options as $_key => $_val) {
             $_html_result[] = smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids, $escape);
         }
     } else {
-        foreach ($values as $_i=>$_key) {
+        foreach ($values as $_i => $_key) {
             $_val = isset($output[$_i]) ? $output[$_i] : '';
             $_html_result[] = smarty_function_html_checkboxes_output($name, $_key, $_val, $selected, $extra, $separator, $labels, $label_ids, $escape);
         }
@@ -164,10 +167,9 @@ function smarty_function_html_checkboxes($params, $template)
     } else {
         return implode("\n", $_html_result);
     }
-
 }
 
-function smarty_function_html_checkboxes_output($name, $value, $output, $selected, $extra, $separator, $labels, $label_ids, $escape=true)
+function smarty_function_html_checkboxes_output($name, $value, $output, $selected, $extra, $separator, $labels, $label_ids, $escape = true)
 {
     $_output = '';
 
@@ -175,7 +177,7 @@ function smarty_function_html_checkboxes_output($name, $value, $output, $selecte
         if (method_exists($value, "__toString")) {
             $value = (string) $value->__toString();
         } else {
-            trigger_error("html_options: value is an object of class '". get_class($value) ."' without __toString() method", E_USER_NOTICE);
+            trigger_error("html_options: value is an object of class '" . get_class($value) . "' without __toString() method", E_USER_NOTICE);
 
             return '';
         }
@@ -187,7 +189,7 @@ function smarty_function_html_checkboxes_output($name, $value, $output, $selecte
         if (method_exists($output, "__toString")) {
             $output = (string) $output->__toString();
         } else {
-            trigger_error("html_options: output is an object of class '". get_class($output) ."' without __toString() method", E_USER_NOTICE);
+            trigger_error("html_options: output is an object of class '" . get_class($output) . "' without __toString() method", E_USER_NOTICE);
 
             return '';
         }
@@ -229,7 +231,7 @@ function smarty_function_html_checkboxes_output($name, $value, $output, $selecte
         $_output .= '</label>';
     }
 
-    $_output .=  $separator;
+    $_output .= $separator;
 
     return $_output;
 }

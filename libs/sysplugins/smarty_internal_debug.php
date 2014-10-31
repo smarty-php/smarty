@@ -1,18 +1,17 @@
 <?php
 /**
  * Smarty Internal Plugin Debug
- *
  * Class to collect data for the Smarty Debugging Consol
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Debug
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Debug Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Debug
  */
 class Smarty_Internal_Debug extends Smarty_Internal_Data
@@ -187,6 +186,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
      * Recursively gets variables from all template/data scopes
      *
      * @param  Smarty_Internal_Template|Smarty_Data $obj object to debug
+     *
      * @return StdClass
      */
     public static function get_debug_vars($obj)
@@ -218,13 +218,14 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             }
         }
 
-        return (object)array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
+        return (object) array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
     }
 
     /**
      * Return key into $template_data for template
      *
      * @param  object $template template object
+     *
      * @return string key into $template_data
      */
     private static function get_key($template)
@@ -250,5 +251,4 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             return $key;
         }
     }
-
 }

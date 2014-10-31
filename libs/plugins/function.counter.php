@@ -1,22 +1,24 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage PluginsFunction
  */
 
 /**
  * Smarty {counter} function plugin
- *
  * Type:     function<br>
  * Name:     counter<br>
  * Purpose:  print out a counter value
  *
  * @author Monte Ohrt <monte at ohrt dot com>
- * @link http://www.smarty.net/manual/en/language.function.counter.php {counter}
- *       (Smarty online manual)
+ * @link   http://www.smarty.net/manual/en/language.function.counter.php {counter}
+ *         (Smarty online manual)
+ *
  * @param array                    $params   parameters
  * @param Smarty_Internal_Template $template template object
+ *
  * @return string|null
  */
 function smarty_function_counter($params, $template)
@@ -26,11 +28,11 @@ function smarty_function_counter($params, $template)
     $name = (isset($params['name'])) ? $params['name'] : 'default';
     if (!isset($counters[$name])) {
         $counters[$name] = array(
-            'start'=>1,
-            'skip'=>1,
-            'direction'=>'up',
-            'count'=>1
-            );
+            'start'     => 1,
+            'skip'      => 1,
+            'direction' => 'up',
+            'count'     => 1
+        );
     }
     $counter =& $counters[$name];
 
@@ -66,11 +68,11 @@ function smarty_function_counter($params, $template)
         $counter['direction'] = $params['direction'];
     }
 
-    if ($counter['direction'] == "down")
+    if ($counter['direction'] == "down") {
         $counter['count'] -= $counter['skip'];
-    else
+    } else {
         $counter['count'] += $counter['skip'];
+    }
 
     return $retval;
-
 }

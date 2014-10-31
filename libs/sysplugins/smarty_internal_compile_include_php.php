@@ -1,18 +1,17 @@
 <?php
 /**
  * Smarty Internal Plugin Compile Include PHP
- *
  * Compiles the {include_php} tag
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Uwe Tews
+ * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Insert Class
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  */
 class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
@@ -44,6 +43,8 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
      *
      * @param  array  $args     array with attributes from parser
      * @param  object $compiler compiler object
+     *
+     * @throws SmartyException
      * @return string compiled code
      */
     public function compile($args, $compiler)
@@ -54,8 +55,9 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
-        $_output = '<?php ';
-
+        /** @var Smarty_Internal_Template $_smarty_tpl
+         * used in evaluated code
+         */
         $_smarty_tpl = $compiler->template;
         $_filepath = false;
         eval('$_file = ' . $_attr['file'] . ';');
@@ -71,7 +73,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
                 foreach ((array) $_dir as $_script_dir) {
                     $_script_dir = rtrim($_script_dir, '/\\') . DS;
                     if (file_exists($_script_dir . $_file)) {
-                        $_filepath = $_script_dir .  $_file;
+                        $_filepath = $_script_dir . $_file;
                         break;
                     }
                 }
@@ -102,5 +104,4 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
             return "<?php include{$_once} ('{$_filepath}');?>\n";
         }
     }
-
 }

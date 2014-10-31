@@ -1,17 +1,16 @@
 <?php
 /**
  * Smarty Internal Plugin Templateparser Parsetrees
- *
  * These are classes to build parsetrees in the template parser
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
- * @author Thue Kristensen
- * @author Uwe Tews
+ * @author     Thue Kristensen
+ * @author     Uwe Tews
  */
 
 /**
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  * @ignore
  */
@@ -19,14 +18,23 @@ abstract class _smarty_parsetree
 {
     /**
      * Parser object
+     *
      * @var object
      */
     public $parser;
     /**
      * Buffer content
+     *
      * @var mixed
      */
     public $data;
+
+    /**
+     * Subtree array
+     *
+     * @var array
+     */
+    public $subtrees = array();
 
     /**
      * Return buffer
@@ -34,13 +42,12 @@ abstract class _smarty_parsetree
      * @return string buffer content
      */
     abstract public function to_smarty_php();
-
 }
 
 /**
  * A complete smarty tag.
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  * @ignore
  */
@@ -48,6 +55,7 @@ class _smarty_tag extends _smarty_parsetree
 {
     /**
      * Saved block nesting level
+     *
      * @var int
      */
     public $saved_block_nesting;
@@ -76,7 +84,7 @@ class _smarty_tag extends _smarty_parsetree
     }
 
     /**
-     * Return complied code that loads the evaluated outout of buffer content into a temporary variable
+     * Return complied code that loads the evaluated output of buffer content into a temporary variable
      *
      * @return string template code
      */
@@ -87,13 +95,12 @@ class _smarty_tag extends _smarty_parsetree
 
         return $var;
     }
-
 }
 
 /**
  * Code fragment inside a tag.
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  * @ignore
  */
@@ -120,13 +127,12 @@ class _smarty_code extends _smarty_parsetree
     {
         return sprintf("(%s)", $this->data);
     }
-
 }
 
 /**
  * Double quoted string inside a tag.
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  * @ignore
  */
@@ -198,13 +204,12 @@ class _smarty_doublequoted extends _smarty_parsetree
 
         return $code;
     }
-
 }
 
 /**
  * Raw chars as part of a double quoted string.
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  * @ignore
  */
@@ -231,13 +236,12 @@ class _smarty_dq_content extends _smarty_parsetree
     {
         return '"' . $this->data . '"';
     }
-
 }
 
 /**
  * Template element
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  * @ignore
  */
@@ -278,18 +282,18 @@ class _smarty_template_buffer extends _smarty_parsetree
     public function to_smarty_php()
     {
         $code = '';
-        for ($key = 0, $cnt = count($this->subtrees); $key < $cnt; $key++) {
+        for ($key = 0, $cnt = count($this->subtrees); $key < $cnt; $key ++) {
             if ($key + 2 < $cnt) {
                 if ($this->subtrees[$key] instanceof _smarty_linebreak && $this->subtrees[$key + 1] instanceof _smarty_tag && $this->subtrees[$key + 1]->data == '' && $this->subtrees[$key + 2] instanceof _smarty_linebreak) {
                     $key = $key + 1;
                     continue;
                 }
-                if (substr($this->subtrees[$key]->data, -1) == '<' && $this->subtrees[$key + 1]->data == '' && substr($this->subtrees[$key + 2]->data, -1) == '?') {
+                if (substr($this->subtrees[$key]->data, - 1) == '<' && $this->subtrees[$key + 1]->data == '' && substr($this->subtrees[$key + 2]->data, - 1) == '?') {
                     $key = $key + 2;
                     continue;
                 }
             }
-            if (substr($code, -1) == '<') {
+            if (substr($code, - 1) == '<') {
                 $subtree = $this->subtrees[$key]->to_smarty_php();
                 if (substr($subtree, 0, 1) == '?') {
                     $code = substr($code, 0, strlen($code) - 1) . '<<?php ?>?' . substr($subtree, 1);
@@ -300,7 +304,7 @@ class _smarty_template_buffer extends _smarty_parsetree
                 }
                 continue;
             }
-            if ($this->parser->asp_tags && substr($code, -1) == '%') {
+            if ($this->parser->asp_tags && substr($code, - 1) == '%') {
                 $subtree = $this->subtrees[$key]->to_smarty_php();
                 if (substr($subtree, 0, 1) == '>') {
                     $code = substr($code, 0, strlen($code) - 1) . '%<?php ?>>' . substr($subtree, 1);
@@ -309,7 +313,7 @@ class _smarty_template_buffer extends _smarty_parsetree
                 }
                 continue;
             }
-            if (substr($code, -1) == '?') {
+            if (substr($code, - 1) == '?') {
                 $subtree = $this->subtrees[$key]->to_smarty_php();
                 if (substr($subtree, 0, 1) == '>') {
                     $code = substr($code, 0, strlen($code) - 1) . '?<?php ?>>' . substr($subtree, 1);
@@ -323,13 +327,12 @@ class _smarty_template_buffer extends _smarty_parsetree
 
         return $code;
     }
-
 }
 
 /**
  * template text
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  * @ignore
  */
@@ -356,13 +359,12 @@ class _smarty_text extends _smarty_parsetree
     {
         return $this->data;
     }
-
 }
 
 /**
  * template linebreaks
  *
- * @package Smarty
+ * @package    Smarty
  * @subpackage Compiler
  * @ignore
  */
@@ -389,5 +391,4 @@ class _smarty_linebreak extends _smarty_parsetree
     {
         return $this->data;
     }
-
 }
