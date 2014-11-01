@@ -112,8 +112,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 }
             }
         }
-        // must reset merge template date
-        $_template->smarty->merged_templates_func = array();
         // get rendered template
         // disable caching for evaluated code
         if ($_template->source->recompiled) {
@@ -220,6 +218,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             }
             if ($_template->parent instanceof Smarty_Internal_Template) {
                 $_template->parent->properties['file_dependency'] = array_merge($_template->parent->properties['file_dependency'], $_template->properties['file_dependency']);
+                $_template->parent->properties['tpl_function'] = array_merge($_template->parent->properties['tpl_function'], $_template->properties['tpl_function']);
                 foreach ($_template->required_plugins as $code => $tmp1) {
                     foreach ($tmp1 as $name => $tmp) {
                         foreach ($tmp as $type => $data) {
@@ -249,7 +248,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                     if (isset($cache_parts[0][$curr_idx])) {
                         $_template->properties['has_nocache_code'] = true;
                         // remove nocache tags from cache output
-                        $output .= preg_replace("!/\*/?%%SmartyNocache:{$_template->properties['nocache_hash']}%%\*/!", '', $cache_parts[0][$curr_idx]);
+                        //$output .= preg_replace("!/\*/?%%SmartyNocache:{$_template->properties['nocache_hash']}%%\*/!", '', $cache_parts[0][$curr_idx]);
+                        $output .= $cache_parts[1][$curr_idx];
                     }
                 }
                 if (!$no_output_filter && !$_template->has_nocache_code && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))) {
@@ -259,18 +259,45 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 /** @var Smarty_Internal_Template $_smarty_tpl
                  * used in evaluated code
                  */
+
                 $_smarty_tpl = $_template;
+                //                $_template->properties['type'] = 'cache';
+                ///                $_template->properties['cache_lifetime'] = $this->cache_lifetime;
+                //                $_template->properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
+                //                $content = $_template->createTemplateCodeFrame($output, true);
+
                 try {
                     ob_start();
                     eval("?>" . $output);
+                    ob_get_clean();
+                    }
+                catch (Exception $e) {
+                    ob_get_clean();
+                    throw $e;
+                }
+
+                // write cache file content
+                $_template->writeCachedContent($output);
+                unset($output);
+                $_template->cached->handler->process($_template);
+                try {
+                    ob_start();
+                    array_unshift($_template->_capture_stack, array());
+                    //
+                    // render cached template
+                    //
+                    $_template->properties['unifunc']($_template);
+                    // any unclosed {capture} tags ?
+                    if (isset($_template->_capture_stack[0][0])) {
+                        $_template->capture_error();
+                    }
+                    array_shift($_template->_capture_stack);
                     $_output = ob_get_clean();
                 }
                 catch (Exception $e) {
                     ob_get_clean();
                     throw $e;
                 }
-                // write cache file content
-                $_template->writeCachedContent($output);
                 if ($this->smarty->debugging) {
                     Smarty_Internal_Debug::end_cache($_template);
                 }
@@ -849,7 +876,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 }
             } else {
                 throw new SmartyException("property '$property_name' does not exist.");
-           }
+            }
         }
         if ($name == 'Smarty') {
             throw new SmartyException("PHP5 requires you to call __construct() instead of Smarty()");

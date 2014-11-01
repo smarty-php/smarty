@@ -143,7 +143,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         // if called by {$smarty.block.child} we must search the name of enclosing {block}
         if ($_name == null) {
             $stack_count = count($compiler->_tag_stack);
-            while (--$stack_count >= 0) {
+            while (-- $stack_count >= 0) {
                 if ($compiler->_tag_stack[$stack_count][0] == 'block') {
                     $_name = trim($compiler->_tag_stack[$stack_count][1][0]['name'], "\"'");
                     break;
@@ -173,20 +173,18 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         $_tpl->compiler->suppressHeader = true;
         $_tpl->compiler->suppressFilter = true;
         $_tpl->compiler->suppressTemplatePropertyHeader = true;
-        $_tpl->compiler->suppressMergedTemplates = true;
         $nocache = $compiler->nocache || $compiler->tag_nocache;
         if (strpos($compiler->template->block_data[$_name]['source'], self::parent) !== false) {
-            $_output = str_replace(self::parent, $compiler->parser->current_buffer->to_smarty_php(), $_tpl->compiler->compileTemplate($_tpl, $nocache));
+            $_output = str_replace(self::parent, $compiler->parser->current_buffer->to_smarty_php(), $_tpl->compiler->compileTemplate($_tpl, $nocache, $compiler->parent_compiler));
         } elseif ($compiler->template->block_data[$_name]['mode'] == 'prepend') {
-            $_output = $_tpl->compiler->compileTemplate($_tpl, $nocache) . $compiler->parser->current_buffer->to_smarty_php();
+            $_output = $_tpl->compiler->compileTemplate($_tpl, $nocache, $compiler->parent_compiler) . $compiler->parser->current_buffer->to_smarty_php();
         } elseif ($compiler->template->block_data[$_name]['mode'] == 'append') {
-            $_output = $compiler->parser->current_buffer->to_smarty_php() . $_tpl->compiler->compileTemplate($_tpl, $nocache);
+            $_output = $compiler->parser->current_buffer->to_smarty_php() . $_tpl->compiler->compileTemplate($_tpl, $nocache, $compiler->parent_compiler);
         } elseif (!empty($compiler->template->block_data[$_name])) {
-            $_output = $_tpl->compiler->compileTemplate($_tpl, $nocache);
+            $_output = $_tpl->compiler->compileTemplate($_tpl, $nocache, $compiler->parent_compiler);
         }
         $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $_tpl->properties['file_dependency']);
-        $compiler->template->properties['function'] = array_merge($compiler->template->properties['function'], $_tpl->properties['function']);
-        $compiler->merged_templates = array_merge($compiler->merged_templates, $_tpl->compiler->merged_templates);
+        $compiler->template->properties['tpl_function'] = array_merge($compiler->template->properties['tpl_function'], $_tpl->properties['tpl_function']);
         $compiler->template->variable_filters = $_tpl->variable_filters;
         if ($_tpl->has_nocache_code) {
             $compiler->template->has_nocache_code = true;
@@ -221,7 +219,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         // if called by {$smarty.block.parent} we must search the name of enclosing {block}
         if ($_name == null) {
             $stack_count = count($compiler->_tag_stack);
-            while (--$stack_count >= 0) {
+            while (-- $stack_count >= 0) {
                 if ($compiler->_tag_stack[$stack_count][0] == 'block') {
                     $_name = trim($compiler->_tag_stack[$stack_count][1][0]['name'], "\"'");
                     break;
@@ -245,7 +243,6 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
      *
      * @param        $compiler
      * @param string $source source text
-     *
      */
     static function blockSource($compiler, $source)
     {

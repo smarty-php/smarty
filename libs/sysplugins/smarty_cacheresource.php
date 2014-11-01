@@ -386,11 +386,7 @@ class Smarty_Template_Cached
                     if ($smarty->debugging) {
                         Smarty_Internal_Debug::start_cache($_template);
                     }
-                    if ($handler->process($_template, $this) === false) {
-                        $this->valid = false;
-                    } else {
-                        $this->processed = true;
-                    }
+                    $this->process($_template);
                     if ($smarty->debugging) {
                         Smarty_Internal_Debug::end_cache($_template);
                     }
@@ -410,6 +406,20 @@ class Smarty_Template_Cached
             } else {
                 return;
             }
+        }
+    }
+
+    /**
+     * Process cached template
+     *
+     * @param Smarty_Internal_Template $_template template object
+     */
+    public function process(Smarty_Internal_Template $_template)
+    {
+        if ($this->handler->process($_template, $this) === false) {
+            $this->valid = false;
+        } else {
+            $this->processed = true;
         }
     }
 
