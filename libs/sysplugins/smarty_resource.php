@@ -762,7 +762,11 @@ class Smarty_Template_Source
     public function getCompiled($_template)
     {
         // check runtime cache
-        $_cache_key = $this->unique_resource . '#' . $_template->compile_id;
+        $_cache_key = $this->unique_resource . '#';
+        if ($_template->caching) {
+            $_cache_key .= 'caching#';
+        }
+        $_cache_key .= $_template->compile_id;
         if (isset(Smarty_Resource::$compileds[$_cache_key])) {
             return Smarty_Resource::$compileds[$_cache_key];
         }

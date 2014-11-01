@@ -2,7 +2,7 @@
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
- * 
+ * SVN:         $Id: Smarty.class.php 4897 2014-10-14 22:29:58Z Uwe.Tews@googlemail.com $
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -24,7 +24,7 @@
  * @author    Uwe Tews
  * @author    Rodney Rehm
  * @package   Smarty
- * @version   3.1.22-dev
+ * @version   3.1-DEV
  */
 
 /**
@@ -110,8 +110,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = 'Smarty-3.1.22-dev/1';
-
+    const SMARTY_VERSION = 'Smarty-3.1.21-dev/2';
 
     /**
      * define variable scopes
@@ -494,12 +493,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**#@-*/
 
     /**
-     * global template functions
-     *
-     * @var array
-     */
-    public $template_functions = array();
-    /**
      * resource type used if none given
      * Must be an valid key of $registered_resources.
      *
@@ -657,19 +650,13 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var bool
      */
     public $_parserdebug = false;
-    /**
-     * Saved parameter of merged templates during compilation
-     *
-     * @var array
-     */
-    public $merged_templates_func = array();
 
     /**
      * Cache of is_file results of loadPlugin()
-     * 
+     *
      * @var array
      */
-    public static $_is_file_cache= array();
+    public static $_is_file_cache = array();
 
     /**#@-*/
 
@@ -687,10 +674,10 @@ class Smarty extends Smarty_Internal_TemplateBase
         $this->start_time = microtime(true);
         // set default dirs
         $this->setTemplateDir('.' . DS . 'templates' . DS)
-            ->setCompileDir('.' . DS . 'templates_c' . DS)
-            ->setPluginsDir(SMARTY_PLUGINS_DIR)
-            ->setCacheDir('.' . DS . 'cache' . DS)
-            ->setConfigDir('.' . DS . 'configs' . DS);
+             ->setCompileDir('.' . DS . 'templates_c' . DS)
+             ->setPluginsDir(SMARTY_PLUGINS_DIR)
+             ->setCacheDir('.' . DS . 'cache' . DS)
+             ->setConfigDir('.' . DS . 'configs' . DS);
 
         $this->debug_tpl = 'file:' . dirname(__FILE__) . '/debug.tpl';
         if (isset($_SERVER['SCRIPT_NAME'])) {
@@ -986,8 +973,8 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Add config directory(s)
      *
-     * @param string|array        $config_dir directory(s) of config sources
-     * @param mixed $key        key of the array element to assign the config dir to
+     * @param string|array $config_dir directory(s) of config sources
+     * @param mixed        $key        key of the array element to assign the config dir to
      *
      * @return Smarty current Smarty instance for chaining
      */
