@@ -36,7 +36,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         if ($template === null && $this instanceof $this->template_class) {
             $template = $this;
         }
-        if ($cache_id !== null && is_object($cache_id)) {
+         if ($cache_id !== null && is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
         }
@@ -47,6 +47,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         $_template = ($template instanceof $this->template_class)
             ? $template
             : $this->smarty->createTemplate($template, $cache_id, $compile_id, $parent, false);
+        if ($this->smarty->debugging) {
+            Smarty_Internal_Debug::start_template($_template);
+        }
         // if called by Smarty object make sure we use current caching status
         if ($this instanceof Smarty) {
             $_template->caching = $this->caching;
@@ -385,9 +388,12 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             } else {
                 echo $_output;
             }
+            if ($this->smarty->debugging) {
+                Smarty_Internal_Debug::end_template($_template);
+            }
             // debug output
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::display_debug($_template);
+                Smarty_Internal_Debug::display_debug($_template, true);
             }
             if ($merge_tpl_vars) {
                 // restore local variables
@@ -401,6 +407,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 // restore local variables
                 $_template->tpl_vars = $save_tpl_vars;
                 $_template->config_vars = $save_config_vars;
+            }
+            if ($this->smarty->debugging) {
+                Smarty_Internal_Debug::end_template($_template);
             }
             // return fetched content
             return $_output;
@@ -450,12 +459,17 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * creates a data object
      *
      * @param object $parent next higher level of Smarty variables
+     * @param string $name optional data block name
      *
      * @returns Smarty_Data data object
      */
-    public function createData($parent = null)
+    public function createData($parent = null, $name = null)
     {
-        return new Smarty_Data($parent, $this);
+        $dataObj = new Smarty_Data($parent, $this, $name);
+        if ($this->debugging) {
+            Smarty_Internal_Debug::register_data($dataObj);
+        }
+        return $dataObj;
     }
 
     /**

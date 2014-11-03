@@ -5,7 +5,7 @@
         <title>Smarty Debug Console</title>
         <style type="text/css">
             {literal}
-            body, h1, h2, td, th, p {
+            body, h1, h2, h3, td, th, p {
                 font-family: sans-serif;
                 font-weight: normal;
                 font-size: 0.9em;
@@ -31,6 +31,13 @@
                 padding: 2px;
                 border-top: 1px solid black;
             }
+            h3 {
+                text-align: left;
+                font-weight: bold;
+                color: black;
+                font-size: 0.7em;
+                padding: 2px;
+            }
 
             body {
                 background: black;
@@ -54,7 +61,6 @@
                 font-family: monospace;
                 vertical-align: top;
                 text-align: left;
-                width: 50%;
             }
 
             td {
@@ -74,8 +80,20 @@
                 font-style: italic;
             }
 
+            #bold div {
+                color: black;
+                font-weight: bold;
+            }
+            #blue h3 {
+                color: blue;
+            }
+            #normal div {
+                color: black;
+                font-weight: normal;
+            }
             #table_assigned_vars th {
                 color: blue;
+                font-weight: bold;
             }
 
             #table_config_vars th {
@@ -88,17 +106,16 @@
     <body>
 
     <h1>Smarty Debug Console
-        -  {if isset($template_name)}{$template_name|debug_print_var nofilter}{else}Total Time {$execution_time|string_format:"%.5f"}{/if}</h1>
+        -  {if isset($template_name)}{$template_name|debug_print_var nofilter} {/if}{if !empty($template_data)}Total Time {$execution_time|string_format:"%.5f"}{/if}</h1>
 
     {if !empty($template_data)}
         <h2>included templates &amp; config files (load time in seconds)</h2>
         <div>
             {foreach $template_data as $template}
                 <font color=brown>{$template.name}</font>
-                <span class="exectime">
-   (compile {$template['compile_time']|string_format:"%.5f"}) (render {$template['render_time']|string_format:"%.5f"}) (cache {$template['cache_time']|string_format:"%.5f"}
-                    )
-  </span>
+                <br>&nbsp;&nbsp;<span class="exectime">
+                (compile {$template['compile_time']|string_format:"%.5f"}) (render {$template['render_time']|string_format:"%.5f"}) (cache {$template['cache_time']|string_format:"%.5f"})
+                 </span>
                 <br>
             {/foreach}
         </div>
@@ -109,19 +126,24 @@
     <table id="table_assigned_vars">
         {foreach $assigned_vars as $vars}
             <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
-                <th>${$vars@key|escape:'html'}</th>
-                <td>{$vars|debug_print_var nofilter}</td>
-            </tr>
-        {/foreach}
+                <td><h3><font color=blue>${$vars@key|escape:'html'}</font></h3>
+                    {if isset($vars['nocache'])}<b>Nocache</b></br>{/if}
+                    {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']}{/if}
+                </td>
+                <td><h3>Value</h3>{$vars['value']|debug_print_var nofilter}</td>
+                <td>{if isset($vars['attributes'])}<h3>Attributes</h3>{$vars['attributes']|debug_print_var nofilter} {/if}</td>
+         {/foreach}
     </table>
 
-    <h2>assigned config file variables (outer template scope)</h2>
+    <h2>assigned config file variables</h2>
 
     <table id="table_config_vars">
         {foreach $config_vars as $vars}
             <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
-                <th>{$vars@key|escape:'html'}</th>
-                <td>{$vars|debug_print_var nofilter}</td>
+                <td><h3><font color=blue>#{$vars@key|escape:'html'}#</font></h3>
+                    {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']}{/if}
+                </td>
+                <td>{$vars['value']|debug_print_var nofilter}</td>
             </tr>
         {/foreach}
 

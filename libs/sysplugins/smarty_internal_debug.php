@@ -137,11 +137,53 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     }
 
     /**
+     * Start logging of cache time
+     *
+     * @param object $template cached template
+     */
+    public static function start_template($template)
+    {
+        $key = self::get_key($template);
+        self::$template_data[$key]['start_template_time'] = microtime(true);
+    }
+
+    /**
+     * End logging of cache time
+     *
+     * @param object $template cached template
+     */
+    public static function end_template($template)
+    {
+        $key = self::get_key($template);
+        self::$template_data[$key]['total_time'] += microtime(true) - self::$template_data[$key]['start_template_time'];
+        self::$template_data[$key]['properties'] = $template->properties;
+
+    }
+
+    /**
+     * Register template object
+     *
+     * @param object $template cached template
+     */
+    public static function register_template($template)
+    {
+    }
+
+    /**
+     * Register data object
+     *
+     * @param object $data data object
+     */
+    public static function register_data($data)
+    {
+    }
+
+    /**
      * Opens a window for the Smarty Debugging Consol and display the data
      *
      * @param Smarty_Internal_Template|Smarty $obj object to debug
      */
-    public static function display_debug($obj)
+    public static function display_debug($obj, $full = false)
     {
         // prepare information of assigned variables
         $ptr = self::get_debug_vars($obj);
@@ -171,7 +213,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         if ($obj instanceof Smarty_Internal_Template) {
             $_template->assign('template_name', $obj->source->type . ':' . $obj->source->name);
         }
-        if ($obj instanceof Smarty) {
+        if ($obj instanceof Smarty || $full) {
             $_template->assign('template_data', self::$template_data);
         } else {
             $_template->assign('template_data', null);
@@ -180,6 +222,10 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $_template->assign('config_vars', $_config_vars);
         $_template->assign('execution_time', microtime(true) - $smarty->start_time);
         echo $_template->fetch();
+        if ($full) {
+            self::$ignore_uid = array();
+            self::$template_data = array();
+        }
     }
 
     /**
@@ -191,29 +237,74 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
      */
     public static function get_debug_vars($obj)
     {
-        $config_vars = $obj->config_vars;
+        $config_vars = array();
+        foreach ($obj->config_vars as $key => $var) {
+            $config_vars[$key]['value'] = $var;
+            if ($obj instanceof Smarty_Internal_Template) {
+                $config_vars[$key]['scope'] = $obj->source->type . ':' . $obj->source->name;
+            } elseif ($obj instanceof Smarty_Data) {
+                $tpl_vars[$key]['scope'] = $obj->dataObjectName;
+            } else {
+                $config_vars[$key]['scope'] = 'Smarty object';
+            }
+        }
         $tpl_vars = array();
         foreach ($obj->tpl_vars as $key => $var) {
-            $tpl_vars[$key] = clone $var;
+            foreach ($var as $varkey => $varvalue) {
+                if ($varkey == 'value') {
+                    $tpl_vars[$key][$varkey] = $varvalue;
+                } else if ($varkey == 'nocache') {
+                    if ($varvalue == true) {
+                        $tpl_vars[$key][$varkey] = $varvalue;
+                    }
+                } else {
+                    if ($varkey != 'scope' || $varvalue !== 0)
+                    $tpl_vars[$key]['attributes'][$varkey] = $varvalue;
+                }
+            }
             if ($obj instanceof Smarty_Internal_Template) {
-                $tpl_vars[$key]->scope = $obj->source->type . ':' . $obj->source->name;
+                $tpl_vars[$key]['scope'] = $obj->source->type . ':' . $obj->source->name;
             } elseif ($obj instanceof Smarty_Data) {
-                $tpl_vars[$key]->scope = 'Data object';
+                $tpl_vars[$key]['scope'] = $obj->dataObjectName;
             } else {
-                $tpl_vars[$key]->scope = 'Smarty root';
+                $tpl_vars[$key]['scope'] = 'Smarty object';
             }
         }
 
         if (isset($obj->parent)) {
             $parent = self::get_debug_vars($obj->parent);
+            foreach($parent->tpl_vars as $name => $pvar){
+                if (isset($tpl_vars[$name]) && $tpl_vars[$name]['value'] === $pvar['value']) {
+                    $tpl_vars[$name]['scope'] = $pvar['scope'];
+                }
+            }
             $tpl_vars = array_merge($parent->tpl_vars, $tpl_vars);
+
+            foreach($parent->config_vars as $name => $pvar){
+                if (isset($config_vars[$name]) && $config_vars[$name]['value'] === $pvar['value']) {
+                    $config_vars[$name]['scope'] = $pvar['scope'];
+                }
+            }
             $config_vars = array_merge($parent->config_vars, $config_vars);
         } else {
-            foreach (Smarty::$global_tpl_vars as $name => $var) {
-                if (!array_key_exists($name, $tpl_vars)) {
-                    $clone = clone $var;
-                    $clone->scope = 'Global';
-                    $tpl_vars[$name] = $clone;
+            foreach (Smarty::$global_tpl_vars as $key => $var) {
+                if (!array_key_exists($key, $tpl_vars)) {
+                    foreach ($var as $varkey => $varvalue) {
+                        if ($varkey == 'value') {
+                            $tpl_vars[$key][$varkey] = $varvalue;
+                        } else {
+                            if ($varkey == 'nocache') {
+                                if ($varvalue == true) {
+                                    $tpl_vars[$key][$varkey] = $varvalue;
+                                }
+                            } else {
+                                if ($varkey != 'scope' || $varvalue !== 0) {
+                                    $tpl_vars[$key]['attributes'][$varkey] = $varvalue;
+                                }
+                            }
+                        }
+                    }
+                    $tpl_vars[$key]['scope'] = 'Global';
                 }
             }
         }
@@ -247,6 +338,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             self::$template_data[$key]['compile_time'] = 0;
             self::$template_data[$key]['render_time'] = 0;
             self::$template_data[$key]['cache_time'] = 0;
+            self::$template_data[$key]['total_time'] = 0;
 
             return $key;
         }

@@ -110,7 +110,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = 'Smarty-3.1.21-dev/2';
+    const SMARTY_VERSION = '3.1.22-dev/2';
 
     /**
      * define variable scopes
@@ -1337,7 +1337,11 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $tpl->tpl_vars[$_key] = new Smarty_variable($_val);
             }
         }
-
+        if ($this->debugging) {
+            if ($this->debugging) {
+                Smarty_Internal_Debug::register_template($tpl);
+            }
+        }
         return $tpl;
     }
 
