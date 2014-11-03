@@ -1,6 +1,15 @@
  ===== 3.1.22-dev ===== (xx.xx.2014)
+ 03.11.2014
+ - bugfix Debug Console did not show included subtemplates since 3.1.17 (forum 25301)
+ - bugfix Modifier debug_print_var did not limit recursion or prevent recursive object display at Debug Console
+    (ATTENTION: parameter order has changed to be able to specify maximum recursion)
+ - bugfix Debug consol did not include subtemplate information with $smarty->merge_compiled_includes = true 
+ - improvement The template variables are no longer displayed as objects on the Debug Console
+ - improvement $smarty->createData($parent = null, $name = null) new optional name parameter for display at Debug Console
+ - addition of some hooks for future extension of Debug Console
+
  01.11.2014
- -bugfix and enhancement on subtemplate {include} and template {function} tags.
+ - bugfix and enhancement on subtemplate {include} and template {function} tags.
    * Calling a template which has a nocache section could fail if it was called from a cached and a not cached subtemplate.
    * Calling the same subtemplate cached and not cached with the $smarty->merge_compiled_includes enabled could cause problems
    * Many smaller related changes
