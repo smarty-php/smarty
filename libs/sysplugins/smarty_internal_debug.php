@@ -221,6 +221,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $_template->assign('assigned_vars', $_assigned_vars);
         $_template->assign('config_vars', $_config_vars);
         $_template->assign('execution_time', microtime(true) - $smarty->start_time);
+        $_template->assign('display_mode', $smarty->debugging == 2 || !$full);
         echo $_template->fetch();
         if ($full) {
             self::$ignore_uid = array();
