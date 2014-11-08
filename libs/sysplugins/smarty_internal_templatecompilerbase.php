@@ -768,6 +768,18 @@ abstract class Smarty_Internal_TemplateCompilerBase
     }
 
     /**
+     * Generate nocache code string
+     *
+     * @param string $code PHP code
+     *
+     * @return string
+     */
+    public function makeNocacheCode($code)
+    {
+        return "echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/<?php " . str_replace("^#^", "'", addcslashes($code, '\'\\')) . "?>/*/%%SmartyNocache:{$this->nocache_hash}%%*/';\n";
+    }
+
+    /**
      *  push current file and line offset on stack for tracing {block} source lines
      *
      * @param string $file  new filename
