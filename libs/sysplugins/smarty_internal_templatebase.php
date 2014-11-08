@@ -36,7 +36,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         if ($template === null && $this instanceof $this->template_class) {
             $template = $this;
         }
-         if ($cache_id !== null && is_object($cache_id)) {
+        if ($cache_id !== null && is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
         }
@@ -258,27 +258,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 if (!$no_output_filter && !$_template->has_nocache_code && (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))) {
                     $output = Smarty_Internal_Filter_Handler::runFilter('output', $output, $_template);
                 }
-                // rendering (must be done before writing cache file because of {function} nocache handling)
-                /** @var Smarty_Internal_Template $_smarty_tpl
-                 * used in evaluated code
-                 */
-
-                $_smarty_tpl = $_template;
-                //                $_template->properties['type'] = 'cache';
-                ///                $_template->properties['cache_lifetime'] = $this->cache_lifetime;
-                //                $_template->properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
-                //                $content = $_template->createTemplateCodeFrame($output, true);
-
-                try {
-                    ob_start();
-                    eval("?>" . $output);
-                    ob_get_clean();
-                    }
-                catch (Exception $e) {
-                    ob_get_clean();
-                    throw $e;
-                }
-
                 // write cache file content
                 $_template->writeCachedContent($output);
                 unset($output);
@@ -459,7 +438,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * creates a data object
      *
      * @param object $parent next higher level of Smarty variables
-     * @param string $name optional data block name
+     * @param string $name   optional data block name
      *
      * @returns Smarty_Data data object
      */
