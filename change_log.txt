@@ -1,4 +1,9 @@
  ===== 3.1.22-dev ===== (xx.xx.2014)
+ 08.11.2014
+ - bugfix subtemplate called in nocache mode could be called with wrong compile_id when it did change on one of the calling templates
+ - improvement add code of template functions called in nocache mode dynamically to cache file (related to bugfix of 01.11.2014)
+ - bugfix Debug Console did not include all data from merged compiled subtemplates
+
  04.11.2014
  - new feature $smarty->debug = true; => overwrite existing Debug Console window (old behaviour)
                $smarty->debug = 2; => individual Debug Console window by template name
