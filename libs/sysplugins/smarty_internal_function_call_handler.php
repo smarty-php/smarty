@@ -8,7 +8,10 @@
  */
 
 /**
- * This class does call function defined with the {function} tag
+ * This class does handles template functions defined with the {function} tag missing in cache file.
+ * It can happen when the template function was called with the nocache option or within a nocache section.
+ * The template function will be loaded from it's compiled template file, executed and added to the cache file
+ * for later use.
  *
  * @package    Smarty
  * @subpackage PluginsInternal
@@ -21,7 +24,7 @@ class Smarty_Internal_Function_Call_Handler
      *
      * @param string                   $_name    template function name
      * @param Smarty_Internal_Template $_smarty_tpl
-     * @param                          $_function
+     * @param string                   $_function PHP function name
      * @param array                    $_params  Smarty variables passed as call parameter
      * @param bool                     $_nocache nocache flag
      *
@@ -30,24 +33,37 @@ class Smarty_Internal_Function_Call_Handler
     public static function call($_name, Smarty_Internal_Template $_smarty_tpl, $_function, $_params, $_nocache)
     {
         $funcParam = $_smarty_tpl->properties['tpl_function']['param'][$_name];
-        $code = file_get_contents($funcParam['compiled_filepath']);
-        if (preg_match("/\/\* {$_function} \*\/([\S\s]*?)\/\*\/ {$_function} \*\//", $code, $match)) {
-            $output = "\n";
-            $output .= $match[0];
-            $output .= "?>\n";
-        }
-        unset($code, $match);
-        eval($output);
-        if (function_exists($_function)) {
-            $_function ($_smarty_tpl, $_params);
-            $tplPtr = $_smarty_tpl;
-            while (isset($tplPtr->parent) && !isset($tplPtr->parent->cached)) {
-                $tplPtr = $tplPtr->parent;
+        if (is_file($funcParam['compiled_filepath'])) {
+            // read compiled file
+            $code = file_get_contents($funcParam['compiled_filepath']);
+            // grab template function
+            if (preg_match("/\/\* {$_function} \*\/([\S\s]*?)\/\*\/ {$_function} \*\//", $code, $match)) {
+                $code = "\n";
+                $code .= $match[0];
+                $code .= "?>\n";
+                unset($match);
+                $output = '';
+                // make PHP function known
+                eval($code);
+                if (function_exists($_function)) {
+                    // call template function
+                    $_function ($_smarty_tpl, $_params);
+                    // search cache file template
+                    $tplPtr = $_smarty_tpl;
+                    while (!isset($tplPtr->cached) && isset($tplPtr->parent)) {
+                        $tplPtr = $tplPtr->parent;
+                    }
+                    // add template function code to cache file
+                    if (isset($tplPtr->cached)) {
+                        $cache = $tplPtr->cached;
+                        $content = $cache->read($tplPtr);
+                        if ($content) {
+                            $cache->write($tplPtr, $content . "<?php " . $code);
+                        }
+                    }
+                    return true;
+                }
             }
-            if (isset($tplPtr->parent->cached)) {
-                $cached = $tplPtr->parent->cached;
-            }
-            return true;
         }
         return false;
     }
