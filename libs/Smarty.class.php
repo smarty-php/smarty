@@ -1594,58 +1594,6 @@ if (Smarty::$_CHARSET !== 'UTF-8') {
     Smarty::$_UTF8_MODIFIER = '';
 }
 
-/**
- * Smarty exception class
- *
- * @package Smarty
- */
-class SmartyException extends Exception
-{
-    public static $escape = false;
-
-    public function __toString()
-    {
-        return ' --> Smarty: ' . (self::$escape ? htmlentities($this->message) : $this->message) . ' <-- ';
-    }
-}
-
-/**
- * Smarty compiler exception class
- *
- * @package Smarty
- */
-class SmartyCompilerException extends SmartyException
-{
-    public function __toString()
-    {
-        return ' --> Smarty Compiler: ' . $this->message . ' <-- ';
-    }
-
-    /**
-     * The line number of the template error
-     *
-     * @type int|null
-     */
-    public $line = null;
-    /**
-     * The template source snippet relating to the error
-     *
-     * @type string|null
-     */
-    public $source = null;
-    /**
-     * The raw text of the error message
-     *
-     * @type string|null
-     */
-    public $desc = null;
-    /**
-     * The resource identifier or template name
-     *
-     * @type string|null
-     */
-    public $template = null;
-}
 
 /**
  * Autoloader
@@ -1664,6 +1612,8 @@ function smartyAutoload($class)
         'smarty_resource_custom'             => true,
         'smarty_resource_uncompiled'         => true,
         'smarty_resource_recompiled'         => true,
+        'smartyexception'                    => true,
+        'smartycompilerexception'            => true,
     );
 
     if (!strncmp($_class, 'smarty_internal_', 16) || isset($_classes[$_class])) {
