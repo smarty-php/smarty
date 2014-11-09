@@ -683,6 +683,14 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (isset($_SERVER['SCRIPT_NAME'])) {
             $this->assignGlobal('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
         }
+
+        // Check if we're running on windows
+        Smarty::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+
+        // let PCRE (preg_*) treat strings as ISO-8859-1 if we're not dealing with UTF-8
+        if (Smarty::$_CHARSET !== 'UTF-8') {
+            Smarty::$_UTF8_MODIFIER = '';
+        }
     }
 
     /**
@@ -1584,14 +1592,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         restore_error_handler();
     }
-}
-
-// Check if we're running on windows
-Smarty::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
-
-// let PCRE (preg_*) treat strings as ISO-8859-1 if we're not dealing with UTF-8
-if (Smarty::$_CHARSET !== 'UTF-8') {
-    Smarty::$_UTF8_MODIFIER = '';
 }
 
 
