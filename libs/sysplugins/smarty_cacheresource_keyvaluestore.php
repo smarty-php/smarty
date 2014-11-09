@@ -127,6 +127,29 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
     }
 
     /**
+     * Read cached template from cache
+     *
+     * @param  Smarty_Internal_Template $_template template object
+     *
+     * @return string  content
+     */
+    public function readCachedContent(Smarty_Internal_Template $_template)
+    {
+        $content = $_template->cached->content ? $_template->cached->content : null;
+        $timestamp =  null;
+        if ($content === null) {
+            if (!$this->fetch($_template->cached->filepath, $_template->source->name, $_template->cache_id, $_template->compile_id, $content, $timestamp, $_template->source->uid)) {
+                return false;
+            }
+        }
+        if (isset($content)) {
+            return $content;
+        }
+        return false;
+    }
+
+
+    /**
      * Empty cache
      * {@internal the $exp_time argument is ignored altogether }}
      *

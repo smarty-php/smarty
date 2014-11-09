@@ -118,6 +118,21 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
     }
 
     /**
+     * Read cached template from cache
+     *
+     * @param  Smarty_Internal_Template $_template template object
+     *
+     * @return string  content
+     */
+    public function readCachedContent(Smarty_Internal_Template $_template)
+    {
+        if (is_file($_template->cached->filepath)) {
+            return file_get_contents($_template->cached->filepath);
+        }
+        return false;
+    }
+
+    /**
      * Empty cache
      *
      * @param Smarty  $smarty

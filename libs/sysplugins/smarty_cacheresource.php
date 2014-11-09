@@ -449,4 +449,19 @@ class Smarty_Template_Cached
 
         return false;
     }
+
+    /**
+     * Read cache content from handler
+     *
+     * @param Smarty_Internal_Template $_template template object
+     *
+     * @return string content
+     */
+    public function read(Smarty_Internal_Template $_template)
+    {
+        if (!$_template->source->recompiled) {
+            return $this->handler->readCachedContent($_template);
+        }
+        return false;
+    }
 }
