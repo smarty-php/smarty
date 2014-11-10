@@ -179,14 +179,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         if (!$this->source->recompiled) {
             $this->properties['file_dependency'] = array();
-            if ($this->source->components) {
-                // for the extends resource the compiler will fill it
-                // uses real resource for file dependency
-                // $source = end($this->source->components);
-                // $this->properties['file_dependency'][$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $source->type);
-            } else {
-                $this->properties['file_dependency'][$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $this->source->type);
-            }
         }
         // compile locking
         if ($this->smarty->compile_locking && !$this->source->recompiled) {
@@ -390,7 +382,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         if (isset($_smarty_tpl->properties['tpl_function']['param'][$name])) {
             if (!$_smarty_tpl->caching || ($_smarty_tpl->caching && $nocache) || $_smarty_tpl->properties['type'] !== 'cache') {
-                $_smarty_tpl->properties['tpl_function']['to_cache'][$name] = true;
+                //$_smarty_tpl->properties['tpl_function']['to_cache'][$name] = true;
                 $function = $_smarty_tpl->properties['tpl_function']['param'][$name]['call_name'];
             } else {
                 if (isset($_smarty_tpl->properties['tpl_function']['param'][$name]['call_name_caching'])) {
@@ -401,7 +393,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
             if (function_exists($function)) {
                 $function ($_smarty_tpl, $params);
-                return;
+                 return;
             }
             // try to load template function dynamically
             if (Smarty_Internal_Function_Call_Handler::call($name, $_smarty_tpl, $function, $params, $nocache)) {
@@ -481,7 +473,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $output .= $plugins_string . $content;
         $output .= "<?php \$_smarty_tpl->properties['type'] = \$_saved_type;?>\n";
         if (!$this->source->recompiled) {
-            $output .= "<?php }} ?>\n";
+            $output .= "<?php }\n}\n?>";
         }
         return $output;
     }

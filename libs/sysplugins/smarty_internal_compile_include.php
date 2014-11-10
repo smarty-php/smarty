@@ -52,13 +52,14 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {include} tag
      *
-     * @param  array  $args      array with attributes from parser
-     * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array                                  $args      array with attributes from parser
+     * @param  Smarty_Internal_SmartyTemplateCompiler $compiler  compiler object
+     * @param  array                                  $parameter array with compilation parameter
      *
+     * @throws SmartyCompilerException
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
+    public function compile($args, Smarty_Internal_SmartyTemplateCompiler $compiler, $parameter)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -83,13 +84,14 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             }
         }
 
-        $call_nocache = false;
         // assume caching is off
         $_caching = Smarty::CACHING_OFF;
 
         if ($_attr['nocache'] === true) {
             $compiler->tag_nocache = true;
         }
+
+        $call_nocache = $compiler->tag_nocache || $compiler->nocache;
 
         // caching was on and {include} is not in nocache mode
         if ($compiler->template->caching && !$compiler->nocache && !$compiler->tag_nocache) {
@@ -98,14 +100,17 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
 
         // flag if included template code should be merged into caller
         $merge_compiled_includes = ($compiler->smarty->merge_compiled_includes || ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes) || $_attr['inline'] === true) && !$compiler->template->source->recompiled;
-        if ($merge_compiled_includes && $_attr['inline'] !== true) {
+
             // variable template name ?
             if ($compiler->has_variable_string || !((substr_count($include_file, '"') == 2 || substr_count($include_file, "'") == 2))
                 || substr_count($include_file, '(') != 0 || substr_count($include_file, '$_smarty_tpl->') != 0
             ) {
                 $merge_compiled_includes = false;
-                $call_nocache = true;
-                if ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes) {
+                if ($compiler->template->caching) {
+                    // must use individual cache file
+                    $_attr['caching'] = 1;
+                }
+                if ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes && $_attr['inline'] !== true) {
                     $compiler->trigger_template_error(' variable template file names not allow within {block} tags');
                 }
             }
@@ -115,14 +120,16 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                     || substr_count($_attr['compile_id'], '(') != 0 || substr_count($_attr['compile_id'], '$_smarty_tpl->') != 0
                 ) {
                     $merge_compiled_includes = false;
-                    $_attr['caching'] = 1;
-                    $call_nocache = 1;
-                    if ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes) {
+                    if ($compiler->template->caching) {
+                            // must use individual cache file
+                        $_attr['caching'] = 1;
+                    }
+                    if ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes && $_attr['inline'] !== true) {
                         $compiler->trigger_template_error(' variable compile_id not allow within {block} tags');
                     }
                 }
             }
-        }
+
 
         /*
         * if the {include} tag provides individual parameter for caching or compile_id
@@ -156,8 +163,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $_compile_id = '$_smarty_tpl->compile_id';
         }
 
-        if ($compiler->template->caching && ($compiler->nocache || $compiler->tag_nocache)) {
-            //$merge_compiled_includes = false;
+        // if subtemplate will be called in nocache mode do not merge
+        if ($compiler->template->caching && $call_nocache) {
+            $merge_compiled_includes = false;
         }
 
         $has_compiled_template = false;
@@ -216,6 +224,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         $_vars_nc = '';
         if (!empty($_attr)) {
             if ($_parent_scope == Smarty::SCOPE_LOCAL) {
+                $_pairs = array();
                 // create variables
                 foreach ($_attr as $key => $value) {
                     $_pairs[] = "'$key'=>$value";
