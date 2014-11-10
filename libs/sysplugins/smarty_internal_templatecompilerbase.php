@@ -282,9 +282,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 Smarty_Internal_Debug::start_compile($this->template);
             }
             $no_sources = count($this->sources);
-            if ($loop || $no_sources) {
-                $this->template->properties['file_dependency'][$this->template->source->uid] = array($this->template->source->filepath, $this->template->source->timestamp, $this->template->source->type);
-            }
+            $this->parent_compiler->template->properties['file_dependency'][$this->template->source->uid] = array($this->template->source->filepath, $this->template->source->timestamp, $this->template->source->type);
             $loop ++;
             if ($no_sources) {
                 $this->inheritance_child = true;

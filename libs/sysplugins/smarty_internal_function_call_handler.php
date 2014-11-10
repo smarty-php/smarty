@@ -38,13 +38,12 @@ class Smarty_Internal_Function_Call_Handler
             $code = file_get_contents($funcParam['compiled_filepath']);
             // grab template function
             if (preg_match("/\/\* {$_function} \*\/([\S\s]*?)\/\*\/ {$_function} \*\//", $code, $match)) {
-                $code = "\n";
-                $code .= $match[0];
-                $code .= "?>\n";
-                unset($match);
+                // grab source info from file dependency
+                preg_match("/\s*'{$funcParam['source_uid']}'([\S\s]*?)\),/", $code, $match1);
+                 unset($code);
                 $output = '';
                 // make PHP function known
-                eval($code);
+                eval($match[0]);
                 if (function_exists($_function)) {
                     // call template function
                     $_function ($_smarty_tpl, $_params);
@@ -58,7 +57,11 @@ class Smarty_Internal_Function_Call_Handler
                         $cache = $tplPtr->cached;
                         $content = $cache->read($tplPtr);
                         if ($content) {
-                            $cache->write($tplPtr, $content . "<?php " . $code);
+// check if we must update file dependency
+                            if (!preg_match("/'{$funcParam['source_uid']}'([\S\s]*?)'nocache_hash'/", $content, $match2)) {
+                                $content = preg_replace("/('file_dependency'([\S\s]*?)\()/", "\\1{$match1[0]}", $content);
+                            }
+                            $cache->write($tplPtr, $content . "<?php " . $match[0] . "?>\n");
                         }
                     }
                     return true;

@@ -271,7 +271,9 @@ class _smarty_template_buffer extends _smarty_parsetree
      */
     public function append_subtree(_smarty_parsetree $subtree)
     {
-        if ($subtree->data !== '') {
+        if (!empty($subtree->subtrees)) {
+            $this->subtrees = array_merge($this->subtrees, $subtree->subtrees);
+        } else if ($subtree->data !== '') {
             $this->subtrees[] = $subtree;
         }
     }
