@@ -1,0 +1,13 @@
+
+
+This file contains a brief description of new features which have been added to Smarty 3.1
+
+Smarty 3.1.22
+
+    Namespace support within templates
+    ==================================
+    Within templates you can now use namespace specifications on:
+     - Constants                like    foo\bar\FOO
+     - Class names              like    foo\bar\Baz::FOO, foo\bar\Baz::$foo, foo\bar\Baz::foo()
+     - PHP function names       like    foo\bar\baz()
+

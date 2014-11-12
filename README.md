@@ -1,10 +1,15 @@
 #Smarty 3 template engine
 ##Distribution repository
-Starting with Smarty 3.1.21 Composer has been configured to load the packages from github.
+
+*Read the NEW_FEATURES file for recent extensions to Smarty 3.1 functionality*
+
+Smarty packages are now on github and can be installed with Composer.
  
 **NOTE: Because of this change you must clear your local composer cache with the "composer clearcache" command**
 
-To get the latest stable version use
+The "smarty/smarty" package will start at libs/....   subfolder.
+
+To get the latest stable version of Smarty 3.1 use
 
 	"require": {
 	   "smarty/smarty": "~3.1"
@@ -18,11 +23,11 @@ in your composer.json file.
 	   "smarty/smarty": "~3.1@dev"
 	}
 
-The "smarty/smarty" package will start at libs/....   subfolder.
+All stable releases since 3.1.11 are available
+For a specific version use something like
 
-To retrieve the development and documentation folders add
+	"require": {
+               	   "smarty/smarty": "3.1.19"
+    }
 
-     "require-dev": {
-         "smarty/smarty-dev": "~3.1@dev"
-     }
-
+Composer can also be used for Smarty2 versions 2.6.24 to 2.6.28
