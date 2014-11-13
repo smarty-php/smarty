@@ -31,7 +31,7 @@
         "classmap": [
             "libs/Smarty.class.php",
             "libs/SmartyBC.class.php",
-            "libs/sysplugins/smarty_security.php"
+            "libs/sysplugins/"
         ]
     },
     "extra": {

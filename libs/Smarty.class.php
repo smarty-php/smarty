@@ -2,7 +2,7 @@
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
- * SVN:         $Id: Smarty.class.php 4897 2014-10-14 22:29:58Z Uwe.Tews@googlemail.com $
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -70,33 +70,25 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
 }
 
 /**
- * register the class autoloader
+ * Try loading the Smmarty_Internal_Data class
+ *
+ * If we fail we must load Smarty's autoloader.
+ * Otherwise we may have a global autoloader like Composer
  */
-if (!defined('SMARTY_SPL_AUTOLOAD')) {
-    define('SMARTY_SPL_AUTOLOAD', 0);
-}
-
-if (SMARTY_SPL_AUTOLOAD && set_include_path(get_include_path() . PATH_SEPARATOR . SMARTY_SYSPLUGINS_DIR) !== false) {
-    $registeredAutoLoadFunctions = spl_autoload_functions();
-    if (!isset($registeredAutoLoadFunctions['spl_autoload'])) {
-        spl_autoload_register();
-    }
-} else {
-    spl_autoload_register('smartyAutoload');
+if (!class_exists('Smarty_Internal_Data', true)) {
+    require 'Autoloader.php';
+    Smarty_Autoloader::registerBC();
+    require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
 }
 
 /**
  * Load always needed external class files
  */
-/**
-include_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
-include_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
-include_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
-include_once SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
-include_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
-include_once SMARTY_SYSPLUGINS_DIR . 'smarty_cacheresource.php';
-include_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_cacheresource_file.php';
- * /
+require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
+require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
+require SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
+require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
+
 
 /**
  * This is the main Smarty class
@@ -1593,32 +1585,5 @@ class Smarty extends Smarty_Internal_TemplateBase
     public static function unmuteExpectedErrors()
     {
         restore_error_handler();
-    }
-}
-
-
-/**
- * Autoloader
- */
-function smartyAutoload($class)
-{
-    $_class = strtolower($class);
-    static $_classes = array(
-        'smarty_config_source'               => true,
-        'smarty_config_compiled'             => true,
-        'smarty_security'                    => true,
-        'smarty_cacheresource'               => true,
-        'smarty_cacheresource_custom'        => true,
-        'smarty_cacheresource_keyvaluestore' => true,
-        'smarty_resource'                    => true,
-        'smarty_resource_custom'             => true,
-        'smarty_resource_uncompiled'         => true,
-        'smarty_resource_recompiled'         => true,
-        'smartyexception'                    => true,
-        'smartycompilerexception'            => true,
-    );
-
-    if (!strncmp($_class, 'smarty_internal_', 16) || isset($_classes[$_class])) {
-        include SMARTY_SYSPLUGINS_DIR . $_class . '.php';
     }
 }
