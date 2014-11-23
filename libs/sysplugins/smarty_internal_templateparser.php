@@ -3667,14 +3667,14 @@ class Smarty_Internal_Templateparser#line 80 "smarty_internal_templateparser.php
     function yy_r35()
     {
         $this->_retvalue = '<?php ob_start();?>' . $this->compiler->compileTag($this->yystack[$this->yyidx + - 2]->minor, $this->yystack[$this->yyidx + 0]->minor) . '<?php echo ';
-        $this->_retvalue .= $this->compiler->compileTag('private_modifier', array(), array('modifierlist' => $this->yystack[$this->yyidx + - 1]->minor, 'value' => 'ob_get_clean()')) . '?>';
+        $this->_retvalue .= $this->compiler->compileTag('private_modifier', array(), array('modifierlist' => $this->yystack[$this->yyidx + - 1]->minor, 'value' => 'ob_get_clean()')) . ';?>';
     }
     #line 2447 "smarty_internal_templateparser.php"
     #line 380 "smarty_internal_templateparser.y"
     function yy_r36()
     {
         $this->_retvalue = '<?php ob_start();?>' . $this->compiler->compileTag($this->yystack[$this->yyidx + - 4]->minor, $this->yystack[$this->yyidx + 0]->minor, array('object_method' => $this->yystack[$this->yyidx + - 2]->minor)) . '<?php echo ';
-        $this->_retvalue .= $this->compiler->compileTag('private_modifier', array(), array('modifierlist' => $this->yystack[$this->yyidx + - 1]->minor, 'value' => 'ob_get_clean()')) . '?>';
+        $this->_retvalue .= $this->compiler->compileTag('private_modifier', array(), array('modifierlist' => $this->yystack[$this->yyidx + - 1]->minor, 'value' => 'ob_get_clean()')) . ';?>';
     }
     #line 2453 "smarty_internal_templateparser.php"
     #line 386 "smarty_internal_templateparser.y"

@@ -1,4 +1,7 @@
  ===== 3.1.22-dev ===== (xx.xx.2014)
+ 23.11.2014
+  - bugfix a plugin with attached modifier could fail if the tag was immediately followed by another Smarty tag (since 3.1.21) (forum 25326)
+
  13.11.2014
   - improvement move autoload code into Autoloader.php. Use Composer autoloader when possible
 
@@ -768,7 +771,7 @@
 
 15/07/2011
 - bugfix individual cache_lifetime of {include} did not work correctly inside {block} tags
-- added caches for Smarty_Template_Source and Smarty_Template_Compiled to reduce I/O for multiple cache_id rendering
+- added caches for Smarty_Internal_TemplateSource and Smarty_Internal_TemplateCompiled to reduce I/O for multiple cache_id rendering
 
 14/07/2011
 - made Smarty::loadPlugin() respect the include_path if required
