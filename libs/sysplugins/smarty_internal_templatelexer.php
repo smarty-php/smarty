@@ -818,11 +818,7 @@ class Smarty_Internal_Templatelexer
     function yy_r2_60($yy_subpatterns)
     {
 
-        if (defined($this->value)) {
-            $this->token = Smarty_Internal_Templateparser::TP_CONSTANT;
-        } else {
-            $this->token = Smarty_Internal_Templateparser::TP_ID;
-        }
+        $this->token = Smarty_Internal_Templateparser::TP_ID;
     }
 
     function yy_r2_61($yy_subpatterns)
