@@ -55,11 +55,18 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
             // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr['assign'];
         }
-        $_name = trim($_attr['name'], "'\"");
+        //$_name = trim($_attr['name'], "'\"");
+        $_name = $_attr['name'];
         unset($_attr['name'], $_attr['assign'], $_attr['nocache']);
         // set flag (compiled code of {function} must be included in cache file
         if (!$compiler->template->caching || $compiler->nocache || $compiler->tag_nocache) {
-            $compiler->parent_compiler->templateProperties['tpl_function']['to_cache'][$_name] = true;
+            // variable template name ?
+            if (!($compiler->has_variable_string || !((substr_count($_name, '"') == 2 || substr_count($_name, "'") == 2))
+                || substr_count($_name, '(') != 0 || substr_count($_name, '$_smarty_tpl->') != 0
+            )) {
+                $n = trim($_name, "'\"");
+                $compiler->parent_compiler->templateProperties['tpl_function']['to_cache'][$n] = true;
+            }
             $_nocache = 'true';
         } else {
             $_nocache = 'false';
@@ -76,9 +83,9 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
         //$compiler->suppressNocacheProcessing = true;
         // was there an assign attribute
         if (isset($_assign)) {
-            $_output = "<?php ob_start();\$_smarty_tpl->callTemplateFunction ('{$_name}', \$_smarty_tpl, {$_params}, {$_nocache}); \$_smarty_tpl->assign({$_assign}, ob_get_clean());?>\n";
+            $_output = "<?php ob_start();\$_smarty_tpl->callTemplateFunction ({$_name}, \$_smarty_tpl, {$_params}, {$_nocache}); \$_smarty_tpl->assign({$_assign}, ob_get_clean());?>\n";
         } else {
-            $_output = "<?php \$_smarty_tpl->callTemplateFunction ('{$_name}', \$_smarty_tpl, {$_params}, {$_nocache});?>\n";
+            $_output = "<?php \$_smarty_tpl->callTemplateFunction ({$_name}, \$_smarty_tpl, {$_params}, {$_nocache});?>\n";
         }
         return $_output;
     }
