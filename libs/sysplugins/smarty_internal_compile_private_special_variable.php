@@ -79,8 +79,11 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                     $compiler->trigger_template_error("(secure mode) constants not permitted");
                     break;
                 }
-
-                return "@constant({$_index[1]})";
+                if( strpos( $_index[1], '$') === false ){
+                    return "@constant('{$_index[1]}')";
+                } else {
+                    return "@constant({$_index[1]})";
+                }
 
             case 'config':
                 if (isset($_index[2])) {
