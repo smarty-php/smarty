@@ -1,4 +1,7 @@
  ===== 3.1.22-dev ===== (xx.xx.2014)
+ 11.12.2014
+  - bugfix resolve parser ambiguity between constant print tag {CONST} and other smarty tags after change of 09.12.2014
+  
  09.12.2014
   - bugfix variables $null, $true and $false did not work after the change of 12.11.2014 (forum 25342)
   - bugfix call of template function by a variable name did not work after latest changes (forum 25342)
