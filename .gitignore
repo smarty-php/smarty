@@ -216,3 +216,7 @@ pip-log.txt
 
 .idea/
 .idea\
+
+# Smarty
+lexer/*.php
+lexer/*.out
