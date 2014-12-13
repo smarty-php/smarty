@@ -1,4 +1,7 @@
  ===== 3.1.22-dev ===== (xx.xx.2014)
+ 13.12.2014
+  - improvement optimization of lexer and parser resulting in a up to 30% higher compiling speed
+ 
  11.12.2014
   - bugfix resolve parser ambiguity between constant print tag {CONST} and other smarty tags after change of 09.12.2014
   

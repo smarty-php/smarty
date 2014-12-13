@@ -9,25 +9,129 @@
  */
 
 /**
- * Smarty Internal Plugin Templatelexer
+ * Smarty_Internal_Templatelexer
+ * This is the template file lexer.
+ * It is generated from the smarty_internal_templatelexer.plex file
+ *
+ * @package    Smarty
+ * @subpackage Compiler
+ * @author     Uwe Tews
  */
 class Smarty_Internal_Templatelexer
 {
+    /**
+     * Source
+     *
+     * @var string
+     */
     public $data;
+    /**
+     * byte counter
+     *
+     * @var int
+     */
     public $counter;
+    /**
+     * token number
+     *
+     * @var int
+     */
     public $token;
+    /**
+     * token value
+     *
+     * @var string
+     */
     public $value;
-    public $node;
+    /**
+     * current line
+     *
+     * @var int
+     */
     public $line;
+    /**
+     * tag start line
+     *
+     * @var
+     */
     public $taglineno;
+    /**
+     * flag if parsing php script
+     *
+     * @var bool
+     */
     public $is_phpScript = false;
+    /**
+     * escaped left delimiter
+     *
+     * @var string
+     */
+    public $ldel = '';
+    /**
+     * escaped left delimiter length
+     *
+     * @var int
+     */
+    public $ldel_length = 0;
+    /**
+     * escaped right delimiter
+     *
+     * @var string
+     */
+    public $rdel = '';
+    /**
+     * escaped right delimiter length
+     *
+     * @var int
+     */
+    public $rdel_length = 0;
+    /**
+     * state number
+     *
+     * @var int
+     */
     public $state = 1;
-    public $smarty;
-    public $literal_cnt = 0;
-    private $heredoc_id_stack = Array();
+    /**
+     * Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty = null;
+    /**
+     * compiler object
+     *
+     * @var Smarty_Internal_TemplateCompilerBase
+     */
+    private $compiler = null;
+    /**
+     * literal tag nesting level
+     *
+     * @var int
+     */
+    private $literal_cnt = 0;
+    /**
+     * trace file
+     *
+     * @var resource
+     */
     public $yyTraceFILE;
+    /**
+     * trace prompt
+     *
+     * @var string
+     */
     public $yyTracePrompt;
+    /**
+     * state names
+     *
+     * @var array
+     */
     public $state_name = array(1 => 'TEXT', 2 => 'SMARTY', 3 => 'LITERAL', 4 => 'DOUBLEQUOTEDSTRING', 5 => 'CHILDBODY');
+    /**
+     * token names
+     *
+     * @var array
+     */
     public $smarty_token_names = array(        // Text for parser error messages
                                                'IDENTITY'        => '===',
                                                'NONEIDENTITY'    => '!==',
@@ -80,9 +184,14 @@ class Smarty_Internal_Templatelexer
                                                'TO'              => 'to',
     );
 
-    function __construct($data, $compiler)
+    /**
+     * constructor
+     *
+     * @param   string                             $data template source
+     * @param Smarty_Internal_TemplateCompilerBase $compiler
+     */
+    function __construct($data, Smarty_Internal_TemplateCompilerBase $compiler)
     {
-        //        $this->data = preg_replace("/(\r\n|\r|\n)/", "\n", $data);
         $this->data = $data;
         $this->counter = 0;
         if (preg_match('/^\xEF\xBB\xBF/', $this->data, $match)) {
@@ -174,7 +283,7 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -472,7 +581,7 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -975,7 +1084,7 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -1078,7 +1187,7 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -1253,7 +1362,7 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -1358,7 +1467,7 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -1474,7 +1583,7 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,

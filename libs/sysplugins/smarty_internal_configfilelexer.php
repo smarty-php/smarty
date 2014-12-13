@@ -9,25 +9,103 @@
  */
 
 /**
- * Smarty Internal Plugin Configfilelexer
+ * Smarty_Internal_Configfilelexer
+ * This is the config file lexer.
+ * It is generated from the smarty_internal_configfilelexer.plex file
+ *
+ * @package    Smarty
+ * @subpackage Compiler
+ * @author     Uwe Tews
  */
 class Smarty_Internal_Configfilelexer
 {
-
+    /**
+     * Source
+     *
+     * @var string
+     */
     public $data;
+    /**
+     * byte counter
+     *
+     * @var int
+     */
     public $counter;
+    /**
+     * token number
+     *
+     * @var int
+     */
     public $token;
+    /**
+     * token value
+     *
+     * @var string
+     */
     public $value;
-    public $node;
+    /**
+     * current line
+     *
+     * @var int
+     */
     public $line;
-    private $state = 1;
+    /**
+     * state number
+     *
+     * @var int
+     */
+    public $state = 1;
+    /**
+     * Smarty object
+     *
+     * @var Smarty
+     */
+    public $smarty = null;
+    /**
+     * compiler object
+     *
+     * @var Smarty_Internal_Config_File_Compiler
+     */
+    private $compiler = null;
+    /**
+     * copy of config_booleanize
+     *
+     * @var bool
+     */
+    private $configBooleanize = false;
+    /**
+     * trace file
+     *
+     * @var resource
+     */
     public $yyTraceFILE;
+    /**
+     * trace prompt
+     *
+     * @var string
+     */
     public $yyTracePrompt;
+    /**
+     * state names
+     *
+     * @var array
+     */
     public $state_name = array(1 => 'START', 2 => 'VALUE', 3 => 'NAKED_STRING_VALUE', 4 => 'COMMENT', 5 => 'SECTION', 6 => 'TRIPPLE');
-    public $smarty_token_names = array( // Text for parser error messages
+    /**
+     * token names
+     *
+     * @var array
+     */
+    public $smarty_token_names = array(        // Text for parser error messages
     );
 
-    function __construct($data, $compiler)
+    /**
+     * constructor
+     *
+     * @param   string                             $data template source
+     * @param Smarty_Internal_Config_File_Compiler $compiler
+     */
+    function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)
     {
         // set instance object
         self::instance($this);
@@ -39,6 +117,7 @@ class Smarty_Internal_Configfilelexer
         $this->line = 1;
         $this->compiler = $compiler;
         $this->smarty = $compiler->smarty;
+        $this->configBooleanize = $compiler->smarty->config_booleanize;
     }
 
     public static function &instance($new_instance = null)
@@ -115,7 +194,7 @@ class Smarty_Internal_Configfilelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -232,7 +311,7 @@ class Smarty_Internal_Configfilelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -321,7 +400,7 @@ class Smarty_Internal_Configfilelexer
     function yy_r2_7($yy_subpatterns)
     {
 
-        if (!$this->smarty->config_booleanize || !in_array(strtolower($this->value), Array("true", "false", "on", "off", "yes", "no"))) {
+        if (!$this->configBooleanize || !in_array(strtolower($this->value), Array("true", "false", "on", "off", "yes", "no"))) {
             $this->yypopstate();
             $this->yypushstate(self::NAKED_STRING_VALUE);
             return true; //reprocess in new state
@@ -359,7 +438,7 @@ class Smarty_Internal_Configfilelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -426,7 +505,7 @@ class Smarty_Internal_Configfilelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -504,7 +583,7 @@ class Smarty_Internal_Configfilelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -576,7 +655,7 @@ class Smarty_Internal_Configfilelexer
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = array_filter($yymatches, 'strlen'); // remove empty sub-patterns
+                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
                                         ' an empty string.  Input "' . substr($this->data,
@@ -643,4 +722,3 @@ class Smarty_Internal_Configfilelexer
         $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_TEXT;
     }
 }
-
