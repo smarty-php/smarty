@@ -1,0 +1,715 @@
+<?php
+/**
+* Smarty Internal Plugin Templatelexer
+*
+* This is the lexer to break the template source into tokens 
+* @package Smarty
+* @subpackage Compiler
+* @author Uwe Tews 
+*/
+/**
+* Smarty Internal Plugin Templatelexer
+*/
+class Smarty_Internal_Templatelexer
+{
+    public $data;
+    public $counter;
+    public $token;
+    public $value;
+    public $node;
+    public $line;
+    public $taglineno;
+    public $state = 1;
+    private $heredoc_id_stack = Array();
+    public $smarty_token_names = array (		// Text for parser error messages
+    				'IDENTITY'	=> '===',
+    				'NONEIDENTITY'	=> '!==',
+    				'EQUALS'	=> '==',
+    				'NOTEQUALS'	=> '!=',
+    				'GREATEREQUAL' => '(>=,ge)',
+    				'LESSEQUAL' => '(<=,le)',
+    				'GREATERTHAN' => '(>,gt)',
+    				'LESSTHAN' => '(<,lt)',
+    				'MOD' => '(%,mod)',
+    				'NOT'			=> '(!,not)',
+    				'LAND'		=> '(&&,and)',
+    				'LOR'			=> '(||,or)',
+    				'LXOR'			=> 'xor',
+    				'OPENP'		=> '(',
+    				'CLOSEP'	=> ')',
+    				'OPENB'		=> '[',
+    				'CLOSEB'	=> ']',
+    				'PTR'			=> '->',
+    				'APTR'		=> '=>',
+    				'EQUAL'		=> '=',
+    				'NUMBER'	=> 'number',
+    				'UNIMATH'	=> '+" , "-',
+    				'MATH'		=> '*" , "/" , "%',
+    				'INCDEC'	=> '++" , "--',
+    				'SPACE'		=> ' ',
+    				'DOLLAR'	=> '$',
+    				'SEMICOLON' => ';',
+    				'COLON'		=> ':',
+    				'DOUBLECOLON'		=> '::',
+    				'AT'		=> '@',
+    				'HATCH'		=> '#',
+    				'QUOTE'		=> '"',
+    				'BACKTICK'		=> '`',
+    				'VERT'		=> '|',
+    				'DOT'			=> '.',
+    				'COMMA'		=> '","',
+    				'ANDSYM'		=> '"&"',
+    				'QMARK'		=> '"?"',
+    				'ID'			=> 'identifier',
+    				'TEXT'		=> 'text',
+     				'FAKEPHPSTARTTAG'	=> 'Fake PHP start tag',
+     				'PHPSTARTTAG'	=> 'PHP start tag',
+     				'PHPENDTAG'	=> 'PHP end tag',
+ 						'LITERALSTART'  => 'Literal start',
+ 						'LITERALEND'    => 'Literal end',
+    				'LDELSLASH' => 'closing tag',
+    				'COMMENT' => 'comment',
+    				'AS' => 'as',
+    				'TO' => 'to',
+    				);
+    				
+    				
+    function __construct($data,$compiler)
+    {
+//        $this->data = preg_replace("/(\r\n|\r|\n)/", "\n", $data);
+        $this->data = $data;
+        $this->counter = 0;
+        $this->line = 1;
+        $this->smarty = $compiler->smarty;
+        $this->compiler = $compiler;
+        $this->ldel = preg_quote($this->smarty->left_delimiter,'/'); 
+        $this->ldel_length = strlen($this->smarty->left_delimiter); 
+        $this->rdel = preg_quote($this->smarty->right_delimiter,'/');
+        $this->smarty_token_names['LDEL'] =	$this->smarty->left_delimiter;
+        $this->smarty_token_names['RDEL'] =	$this->smarty->right_delimiter;
+        $this->mbstring_overload = ini_get('mbstring.func_overload') & 2;
+     }
+
+/*!lex2php
+%input $this->data
+%counter $this->counter
+%token $this->token
+%value $this->value
+%line $this->line
+linebreak = /[\t ]*[\r\n]+[\t ]*/
+text = /[\S\s]/
+textdoublequoted = /([^"\\]*?)((?:\\.[^"\\]*?)*?)(?=(SMARTYldel|\$|`\$|"))/
+dollarid = /\$[0-9]*[a-zA-Z_]\w*/
+all = /[\S\s]+/
+emptyjava = /\{\}/
+phpstarttag = /<\?(?:php\w+|=|[a-zA-Z]+)?/
+phpendtag = /\?>/
+aspstarttag = /<%/
+aspendtag = /%>/
+ldels = /SMARTYldel\s{1,}/
+rdels = /\s{1,}SMARTYrdel/
+ldelslash = /SMARTYldel\//
+ldelspaceslash = /SMARTYldel\s{1,}\//
+ldel = /SMARTYldel/
+rdel = /SMARTYrdel/
+smartyblockchild = /SMARTYldel[\$]smarty\.block\.childSMARTYrdel/
+integer = /\d+/
+hex =  /0[xX][0-9a-fA-F]+/
+math = /\s*(\*|\/|\%)\s*/
+comment = /SMARTYldel\*([\S\s]*?)\*SMARTYrdel/
+incdec = /\+\+|\-\-/
+unimath = /\s*(\+|\-)\s*/
+openP = /\s*\(\s*/
+closeP = /\s*\)/
+openB = /\[\s*/
+closeB = /\s*\]/
+dollar = /\$/
+dot = /\./
+comma = /\s*\,\s*/
+doublecolon = /\:\:/
+colon = /\s*\:\s*/
+at = /@/
+hatch = /#/
+semicolon = /\s*\;/
+equal = /\s*=\s*/
+space = /\s+/
+ptr = /\s*\->\s*/
+aptr = /\s*=>\s*/
+singlequotestring = /'[^'\\]*(?:\\.[^'\\]*)*'/
+backtick = /`/
+backtickdollar = /`\$/
+vert = /\|/
+andsym = /\s*\&\s*/
+qmark = /\s*\?\s*/
+constant = /([_]+[A-Z0-9][0-9A-Z_]*|[A-Z][0-9A-Z_]*)(?![0-9A-Z_]*[a-z])/
+attr = /\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\s?=\s?/
+id = /[0-9]*[a-zA-Z_]\w*/
+literalstart = /SMARTYldel\s*literal\s*SMARTYrdel/
+literalend = /SMARTYldel\s*\/literal\s*SMARTYrdel/
+stripstart = /SMARTYldelstripSMARTYrdel/
+stripend = /SMARTYldel\/stripSMARTYrdel/
+stripspacestart = /SMARTYldel\s{1,}strip\s{1,}SMARTYrdel/
+stripspaceend = /SMARTYldel\s{1,}\/strip\s{1,}SMARTYrdel/
+equals = /\s*==\s*|\s+eq\s+/
+notequals = /\s*!=\s*|\s*<>\s*|\s+(ne|neq)\s+/
+greaterthan = /\s*>\s*|\s+gt\s+/
+lessthan = /\s*<\s*|\s+lt\s+/
+greaterequal = /\s*>=\s*|\s+(ge|gte)\s+/
+lessequal = /\s*<=\s*|\s+(le|lte)\s+/
+mod = /\s+mod\s+/
+identity = /\s*===\s*/
+noneidentity = /\s*!==\s*/
+isoddby = /\s+is\s+odd\s+by\s+/
+isnotoddby = /\s+is\s+not\s+odd\s+by\s+/
+isodd = /\s+is\s+odd/
+isnotodd = /\s+is\s+not\s+odd/
+isevenby = /\s+is\s+even\s+by\s+/
+isnotevenby = /\s+is\s+not\s+even\s+by\s+/
+iseven = /\s+is\s+even/
+isnoteven = /\s+is\s+not\s+even/
+isdivby = /\s+is\s+div\s+by\s+/
+isnotdivby = /\s+is\s+not\s+div\s+by\s+/
+isin = /\s+is\s+in\s+/
+as = /\s+as\s+/
+to = /\s+to\s+/
+step = /\s+step\s+/
+ldelif = /SMARTYldel\s*(if|elseif|else if|while)\s+/
+ldelfor = /SMARTYldel\s*for\s+/
+ldelforeach = /SMARTYldel\s*foreach(?![^\s])/
+ldelsetfilter = /SMARTYldel\s*setfilter\s+/
+instanceof = /\s+instanceof\s+/
+not = /!\s*|not\s+/
+land = /\s*\&\&\s*|\s*and\s+/
+lor = /\s*\|\|\s*|\s*or\s+/
+lxor = /\s*xor\s+/
+typecast = /\((int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)\)\s*/
+double_quote = /"/
+single_quote = /'/
+*/
+/*!lex2php
+%statename TEXT
+smartyblockchild {
+  $this->token = Smarty_Internal_Templateparser::TP_SMARTYBLOCKCHILD;
+}
+emptyjava {
+  $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+}
+comment {
+  $this->token = Smarty_Internal_Templateparser::TP_COMMENT;
+}
+stripstart {
+    $this->token = Smarty_Internal_Templateparser::TP_STRIPON;
+}
+stripspacestart {
+  if ($this->smarty->auto_literal) {
+    $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+    $this->token = Smarty_Internal_Templateparser::TP_STRIPON;
+  }
+}
+stripend {
+    $this->token = Smarty_Internal_Templateparser::TP_STRIPOFF;
+}
+stripspaceend {
+  if ($this->smarty->auto_literal) {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+    $this->token = Smarty_Internal_Templateparser::TP_STRIPOFF;
+  }
+}
+literalstart {
+   $this->token = Smarty_Internal_Templateparser::TP_LITERALSTART;
+   $this->yypushstate(self::LITERAL);
+}
+ldelspaceslash {
+  if ($this->smarty->auto_literal) {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelif {
+  if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELIF;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelfor {
+  if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELFOR;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelforeach {
+  if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELFOREACH;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelsetfilter {
+  if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELSETFILTER;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldels {
+  if ($this->smarty->auto_literal) {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDEL;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelslash {
+  $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+}
+ldel {
+  $this->token = Smarty_Internal_Templateparser::TP_LDEL;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+}
+phpstarttag {
+  if (in_array($this->value, Array('<?', '<?=', '<?php'))) {
+    $this->token = Smarty_Internal_Templateparser::TP_PHPSTARTTAG;
+  } elseif ($this->value == '<?xml') {
+      $this->token = Smarty_Internal_Templateparser::TP_XMLTAG;
+  } else {
+    $this->token = Smarty_Internal_Templateparser::TP_FAKEPHPSTARTTAG;
+    $this->value = substr($this->value, 0, 2);
+  }
+ }
+phpendtag {
+  $this->token = Smarty_Internal_Templateparser::TP_PHPENDTAG;
+}
+aspstarttag {
+  $this->token = Smarty_Internal_Templateparser::TP_ASPSTARTTAG;
+}
+aspendtag {
+  $this->token = Smarty_Internal_Templateparser::TP_ASPENDTAG;
+}
+text {
+  if ($this->mbstring_overload) {
+    $to = mb_strlen($this->data,'latin1');
+  } else {
+    $to = strlen($this->data);
+  }
+  preg_match("/{$this->ldel}|<\?|\?>|<%|%>/",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
+  if (isset($match[0][1])) {
+    $to = $match[0][1];
+  }
+  if ($this->mbstring_overload) {
+    $this->value = mb_substr($this->data,$this->counter,$to-$this->counter,'latin1');
+  } else {
+    $this->value = substr($this->data,$this->counter,$to-$this->counter);
+  }
+  $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+}
+
+
+*/
+/*!lex2php
+%statename SMARTY
+singlequotestring {
+  $this->token = Smarty_Internal_Templateparser::TP_SINGLEQUOTESTRING;
+}
+ldelspaceslash {
+  if ($this->smarty->auto_literal) {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelif {
+  if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELIF;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelfor {
+  if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELFOR;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelforeach {
+  if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELFOREACH;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldels {
+  if ($this->smarty->auto_literal) {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDEL;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+rdels {
+  $this->token = Smarty_Internal_Templateparser::TP_RDEL;
+  $this->yypopstate();
+}
+ldelslash {
+  $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+}
+ldel {
+  $this->token = Smarty_Internal_Templateparser::TP_LDEL;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+}
+rdel {
+  $this->token = Smarty_Internal_Templateparser::TP_RDEL;
+     $this->yypopstate();
+}
+isin {
+  $this->token = Smarty_Internal_Templateparser::TP_ISIN;
+}
+as {
+  $this->token = Smarty_Internal_Templateparser::TP_AS;
+}
+to {
+  $this->token = Smarty_Internal_Templateparser::TP_TO;
+}
+step {
+  $this->token = Smarty_Internal_Templateparser::TP_STEP;
+}
+instanceof {
+  $this->token = Smarty_Internal_Templateparser::TP_INSTANCEOF;
+}
+identity{
+  $this->token = Smarty_Internal_Templateparser::TP_IDENTITY;
+}
+noneidentity{
+  $this->token = Smarty_Internal_Templateparser::TP_NONEIDENTITY;
+}
+equals{
+  $this->token = Smarty_Internal_Templateparser::TP_EQUALS;
+}
+notequals{
+  $this->token = Smarty_Internal_Templateparser::TP_NOTEQUALS;
+}
+greaterequal{
+  $this->token = Smarty_Internal_Templateparser::TP_GREATEREQUAL;
+}
+lessequal{
+  $this->token = Smarty_Internal_Templateparser::TP_LESSEQUAL;
+}
+greaterthan{
+  $this->token = Smarty_Internal_Templateparser::TP_GREATERTHAN;
+}
+lessthan{
+  $this->token = Smarty_Internal_Templateparser::TP_LESSTHAN;
+}
+mod{
+  $this->token = Smarty_Internal_Templateparser::TP_MOD;
+}
+not{
+  $this->token = Smarty_Internal_Templateparser::TP_NOT;
+}
+land {
+  $this->token = Smarty_Internal_Templateparser::TP_LAND;
+}
+lor {
+  $this->token = Smarty_Internal_Templateparser::TP_LOR;
+}
+lxor {
+  $this->token = Smarty_Internal_Templateparser::TP_LXOR;
+}
+isoddby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISODDBY;
+}
+isnotoddby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISNOTODDBY;
+}
+
+isodd  {
+  $this->token = Smarty_Internal_Templateparser::TP_ISODD;
+}
+isnotodd {
+  $this->token = Smarty_Internal_Templateparser::TP_ISNOTODD;
+}
+isevenby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISEVENBY;
+}
+isnotevenby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISNOTEVENBY;
+}
+iseven{
+  $this->token = Smarty_Internal_Templateparser::TP_ISEVEN;
+}
+isnoteven {
+  $this->token = Smarty_Internal_Templateparser::TP_ISNOTEVEN;
+}
+isdivby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISDIVBY;
+}
+isnotdivby {
+  $this->token = Smarty_Internal_Templateparser::TP_ISNOTDIVBY;
+}
+typecast {
+  $this->token = Smarty_Internal_Templateparser::TP_TYPECAST;
+}
+openP {
+  $this->token = Smarty_Internal_Templateparser::TP_OPENP;
+}
+closeP {
+  $this->token = Smarty_Internal_Templateparser::TP_CLOSEP;
+}
+openB {
+  $this->token = Smarty_Internal_Templateparser::TP_OPENB;
+}
+
+closeB {
+  $this->token = Smarty_Internal_Templateparser::TP_CLOSEB;
+}
+ptr {
+  $this->token = Smarty_Internal_Templateparser::TP_PTR; 
+}
+aptr {
+  $this->token = Smarty_Internal_Templateparser::TP_APTR;
+}
+equal {
+  $this->token = Smarty_Internal_Templateparser::TP_EQUAL;
+}
+incdec {
+  $this->token = Smarty_Internal_Templateparser::TP_INCDEC;
+}
+unimath {
+  $this->token = Smarty_Internal_Templateparser::TP_UNIMATH;
+}
+math {
+  $this->token = Smarty_Internal_Templateparser::TP_MATH;
+}
+dollar {
+  $this->token = Smarty_Internal_Templateparser::TP_DOLLAR;
+}
+semicolon {
+  $this->token = Smarty_Internal_Templateparser::TP_SEMICOLON;
+}
+doublecolon {
+  $this->token = Smarty_Internal_Templateparser::TP_DOUBLECOLON;
+}
+colon {
+  $this->token = Smarty_Internal_Templateparser::TP_COLON;
+}
+at {
+  $this->token = Smarty_Internal_Templateparser::TP_AT;
+}
+hatch {
+  $this->token = Smarty_Internal_Templateparser::TP_HATCH;
+}
+double_quote {
+  $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
+  $this->yypushstate(self::DOUBLEQUOTEDSTRING);
+}
+backtick {
+  $this->token = Smarty_Internal_Templateparser::TP_BACKTICK;
+  $this->yypopstate();
+}
+vert {
+  $this->token = Smarty_Internal_Templateparser::TP_VERT;
+}
+dot {
+  $this->token = Smarty_Internal_Templateparser::TP_DOT;
+}
+comma {
+  $this->token = Smarty_Internal_Templateparser::TP_COMMA;
+}
+andsym {
+  $this->token = Smarty_Internal_Templateparser::TP_ANDSYM;
+}
+qmark {
+  $this->token = Smarty_Internal_Templateparser::TP_QMARK;
+}
+hex {
+  $this->token = Smarty_Internal_Templateparser::TP_HEX;
+}
+attr {
+  $this->token = Smarty_Internal_Templateparser::TP_ATTR;
+}
+id {
+  $this->token = Smarty_Internal_Templateparser::TP_ID;
+}
+integer {
+  $this->token = Smarty_Internal_Templateparser::TP_INTEGER;
+}
+space {
+  $this->token = Smarty_Internal_Templateparser::TP_SPACE;
+}
+text {
+  $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+}
+*/
+
+/*!lex2php
+%statename LITERAL
+literalstart {
+  $this->token = Smarty_Internal_Templateparser::TP_LITERALSTART;
+  $this->yypushstate(self::LITERAL);
+}
+literalend {
+  $this->token = Smarty_Internal_Templateparser::TP_LITERALEND;
+  $this->yypopstate();
+}
+
+phpstarttag {
+  if (in_array($this->value, Array('<?', '<?=', '<?php'))) {
+    $this->token = Smarty_Internal_Templateparser::TP_PHPSTARTTAG;
+   } else {
+    $this->token = Smarty_Internal_Templateparser::TP_FAKEPHPSTARTTAG;
+    $this->value = substr($this->value, 0, 2);
+   }
+}
+phpendtag {
+  $this->token = Smarty_Internal_Templateparser::TP_PHPENDTAG;
+}
+aspstarttag {
+  $this->token = Smarty_Internal_Templateparser::TP_ASPSTARTTAG;
+}
+aspendtag {
+  $this->token = Smarty_Internal_Templateparser::TP_ASPENDTAG;
+}
+text {
+  if ($this->mbstring_overload) {
+    $to = mb_strlen($this->data,'latin1');
+  } else {
+    $to = strlen($this->data);
+  }
+  preg_match("/{$this->ldel}\/?literal{$this->rdel}|<\?|<%|\?>|%>/",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
+  if (isset($match[0][1])) {
+    $to = $match[0][1];
+  } else {
+    $this->compiler->trigger_template_error ("missing or misspelled literal closing tag");
+  }  
+  if ($this->mbstring_overload) {
+    $this->value = mb_substr($this->data,$this->counter,$to-$this->counter,'latin1');
+  } else {
+    $this->value = substr($this->data,$this->counter,$to-$this->counter);
+  }
+  $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
+}
+*/
+/*!lex2php
+%statename DOUBLEQUOTEDSTRING
+ldelspaceslash {
+  if ($this->smarty->auto_literal) {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelif {
+  if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELIF;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelfor {
+  if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELFOR;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelforeach {
+  if ($this->smarty->auto_literal && trim(substr($this->value,$this->ldel_length,1)) == '') {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDELFOREACH;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldels {
+  if ($this->smarty->auto_literal) {
+     $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+  } else {
+     $this->token = Smarty_Internal_Templateparser::TP_LDEL;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+  }
+}
+ldelslash {
+  $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+}
+ldel {
+  $this->token = Smarty_Internal_Templateparser::TP_LDEL;
+     $this->yypushstate(self::SMARTY);
+     $this->taglineno = $this->line;
+}
+double_quote {
+  $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
+  $this->yypopstate();
+}
+backtickdollar {
+  $this->token = Smarty_Internal_Templateparser::TP_BACKTICK;
+  $this->value = substr($this->value,0,-1);
+  $this->yypushstate(self::SMARTY);
+  $this->taglineno = $this->line;
+}
+dollarid {
+  $this->token = Smarty_Internal_Templateparser::TP_DOLLARID;
+}
+
+dollar {
+  $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+}
+textdoublequoted {
+  $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+}
+text {
+  if ($this->mbstring_overload) {
+    $to = mb_strlen($this->data,'latin1');
+  } else {
+    $to = strlen($this->data);
+  }
+  if ($this->mbstring_overload) {
+    $this->value = mb_substr($this->data,$this->counter,$to-$this->counter,'latin1');
+  } else {
+    $this->value = substr($this->data,$this->counter,$to-$this->counter);
+  }
+  $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+}
+*/
+}
+?>
