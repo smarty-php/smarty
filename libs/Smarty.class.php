@@ -650,7 +650,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var array
      */
-    public static $_is_file_cache = array();
+    public $_is_file_cache = array();
 
     /**#@-*/
 
@@ -1041,7 +1041,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         foreach ((array) $plugins_dir as $k => $v) {
             $this->plugins_dir[$k] = rtrim($v, '/\\') . DS;
         }
-
+        $this->_is_file_cache = array();
         return $this;
     }
 
@@ -1073,7 +1073,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
 
         $this->plugins_dir = array_unique($this->plugins_dir);
-
+        $this->_is_file_cache = array();
         return $this;
     }
 
@@ -1374,7 +1374,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         // if type is "internal", get plugin from sysplugins
         if (strtolower($_name_parts[1]) == 'internal') {
             $file = SMARTY_SYSPLUGINS_DIR . strtolower($plugin_name) . '.php';
-            if (isset(self::$_is_file_cache[$file]) ? self::$_is_file_cache[$file] : self::$_is_file_cache[$file] = is_file($file)) {
+            if (isset($this->_is_file_cache[$file]) ? $this->_is_file_cache[$file] : $this->_is_file_cache[$file] = is_file($file)) {
                 require_once($file);
                 return $file;
             } else {
@@ -1393,7 +1393,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $_plugin_dir . strtolower($_plugin_filename),
             );
             foreach ($names as $file) {
-                if (isset(self::$_is_file_cache[$file]) ? self::$_is_file_cache[$file] : self::$_is_file_cache[$file] = is_file($file)) {
+                if (isset($this->_is_file_cache[$file]) ? $this->_is_file_cache[$file] : $this->_is_file_cache[$file] = is_file($file)) {
                     require_once($file);
                     return $file;
                 }
