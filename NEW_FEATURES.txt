@@ -11,3 +11,11 @@ Smarty 3.1.22
      - Class names              like    foo\bar\Baz::FOO, foo\bar\Baz::$foo, foo\bar\Baz::foo()
      - PHP function names       like    foo\bar\baz()
 
+    Security
+    ========
+    The Smarty_Security class has the new property $disabled_special_smarty_vars.
+    It's an array which can be loaded with the $smarty special variable names like
+    'template_object', 'template', 'current_dir' and others which will be disabled.
+    Note: That this security checking is performed at compile time.
+
+    

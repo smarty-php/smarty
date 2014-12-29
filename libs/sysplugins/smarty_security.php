@@ -116,6 +116,12 @@ class Smarty_Security
      */
     public $disabled_modifiers = array();
     /**
+     * This is an array of disabled special $smarty variables.
+     *
+     * @var array
+     */
+    public $disabled_special_smarty_vars = array();
+    /**
      * This is an array of trusted streams.
      * If empty all streams are allowed.
      * To disable all streams set $streams = null.
@@ -269,6 +275,25 @@ class Smarty_Security
             return true;
         } else {
             $compiler->trigger_template_error("tag '{$tag_name}' not allowed by security setting", $compiler->lex->taglineno);
+        }
+
+        return false; // should not, but who knows what happens to the compiler in the future?
+    }
+    /**
+     * Check if special $smarty variable is trusted.
+     *
+     * @param  string $var_name
+     * @param  object $compiler compiler object
+     *
+     * @return boolean                 true if tag is trusted
+     * @throws SmartyCompilerException if modifier is not trusted
+     */
+    public function isTrustedSpecialSmartyVar($var_name, $compiler)
+    {
+        if (!in_array($var_name, $this->disabled_special_smarty_vars)) {
+            return true;
+        } else {
+            $compiler->trigger_template_error("special variable '\$smarty.{$var_name}' not allowed by security setting", $compiler->lex->taglineno);
         }
 
         return false; // should not, but who knows what happens to the compiler in the future?
