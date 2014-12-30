@@ -89,39 +89,12 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         if (!isset($_template->tpl_vars['smarty'])) {
             $_template->tpl_vars['smarty'] = new Smarty_Variable;
         }
-        if (isset($this->smarty->error_reporting)) {
-            $_smarty_old_error_level = error_reporting($this->smarty->error_reporting);
+        if (isset($_template->smarty->error_reporting)) {
+            $_smarty_old_error_level = error_reporting($_template->smarty->error_reporting);
         }
         // check URL debugging control
-        if (!$this->smarty->debugging && $this->smarty->debugging_ctrl == 'URL') {
-            if (isset($_SERVER['QUERY_STRING'])) {
-                $_query_string = $_SERVER['QUERY_STRING'];
-            } else {
-                $_query_string = '';
-            }
-            if (false !== strpos($_query_string, $this->smarty->smarty_debug_id)) {
-                if (false !== strpos($_query_string, $this->smarty->smarty_debug_id . '=on')) {
-                    // enable debugging for this browser session
-                    setcookie('SMARTY_DEBUG', true);
-                    $this->smarty->debugging = true;
-                } elseif (false !== strpos($_query_string, $this->smarty->smarty_debug_id . '=off')) {
-                    // disable debugging for this browser session
-                    setcookie('SMARTY_DEBUG', false);
-                    $this->smarty->debugging = false;
-                } else {
-                    // enable debugging for this page
-                    $this->smarty->debugging = true;
-                }
-            } else {
-                if (isset($_COOKIE['SMARTY_DEBUG'])) {
-                    $this->smarty->debugging = true;
-                }
-            }
-        }
-        // get rendered template
-        // disable caching for evaluated code
-        if ($_template->source->recompiled) {
-            $_template->caching = false;
+        if (!$_template->smarty->debugging && $_template->smarty->debugging_ctrl == 'URL') {
+            Smarty_Internal_Debug::debugUrl($_template);
         }
         // checks if template exists
         if (!$_template->source->exists) {
@@ -131,6 +104,11 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 $parent_resource = '';
             }
             throw new SmartyException("Unable to load template {$_template->source->type} '{$_template->source->name}'{$parent_resource}");
+        }
+        // get rendered template
+        // disable caching for evaluated code
+        if ($_template->source->recompiled) {
+            $_template->caching = false;
         }
         // read from cache or render
         if (!($_template->caching == Smarty::CACHING_LIFETIME_CURRENT || $_template->caching == Smarty::CACHING_LIFETIME_SAVED) || !$_template->cached->valid) {

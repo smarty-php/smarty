@@ -344,4 +344,35 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             return $key;
         }
     }
+
+    /**
+     * handle 'URL' debugging mode
+     *
+     * @param Smarty_Internal_Template $_template
+     */
+    public static function debugUrl(Smarty_Internal_Template $_template) {
+        if (isset($_SERVER['QUERY_STRING'])) {
+            $_query_string = $_SERVER['QUERY_STRING'];
+        } else {
+            $_query_string = '';
+        }
+        if (false !== strpos($_query_string, $_template->smarty->smarty_debug_id)) {
+            if (false !== strpos($_query_string, $_template->smarty->smarty_debug_id . '=on')) {
+                // enable debugging for this browser session
+                setcookie('SMARTY_DEBUG', true);
+                $_template->smarty->debugging = true;
+            } elseif (false !== strpos($_query_string, $_template->smarty->smarty_debug_id . '=off')) {
+                // disable debugging for this browser session
+                setcookie('SMARTY_DEBUG', false);
+                $_template->smarty->debugging = false;
+            } else {
+                // enable debugging for this page
+                $_template->smarty->debugging = true;
+            }
+        } else {
+            if (isset($_COOKIE['SMARTY_DEBUG'])) {
+                $_template->smarty->debugging = true;
+            }
+        }
+    }
 }
