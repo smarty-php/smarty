@@ -94,7 +94,7 @@ class Smarty_Internal_Configfileparser
         // set instance object
         self::instance($this);
         $this->lex = $lex;
-        $this->smarty = $compiler->smarty;
+        $this->smarty = $compiler->template->smarty;
         $this->compiler = $compiler;
         $this->configOverwrite = $compiler->smarty->config_overwrite;
         $this->configReadHidden = $compiler->smarty->config_read_hidden;
@@ -235,7 +235,6 @@ class Smarty_Internal_Configfileparser
     }
 }
 
-
 %token_prefix TPC_
 
 %parse_accept
@@ -243,7 +242,6 @@ class Smarty_Internal_Configfileparser
     $this->successful = !$this->internalError;
     $this->internalError = false;
     $this->retvalue = $this->_retvalue;
-    //echo $this->retvalue."\n\n";
 }
 
 %syntax_error
@@ -266,7 +264,8 @@ start(res) ::= global_vars sections. {
 
 // Global vars
 global_vars(res) ::= var_list(vl). {
-    $this->add_global_vars(vl); res = null;
+    $this->add_global_vars(vl);
+    res = null;
 }
 
 // Sections
