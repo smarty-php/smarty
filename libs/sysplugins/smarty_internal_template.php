@@ -383,12 +383,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @param object $_smarty_tpl template object
      * @param array  $params      parameter array
      * @param bool   $nocache     true if called nocache
+     *
+     * @throws SmartyException
      */
     public function callTemplateFunction($name, $_smarty_tpl, $params, $nocache)
     {
         if (isset($_smarty_tpl->properties['tpl_function']['param'][$name])) {
-            if (!$_smarty_tpl->caching || ($_smarty_tpl->caching && $nocache) || $_smarty_tpl->properties['type'] !== 'cache') {
-                //$_smarty_tpl->properties['tpl_function']['to_cache'][$name] = true;
+            if (!$_smarty_tpl->caching || ($_smarty_tpl->caching && $nocache)) {
                 $function = $_smarty_tpl->properties['tpl_function']['param'][$name]['call_name'];
             } else {
                 if (isset($_smarty_tpl->properties['tpl_function']['param'][$name]['call_name_caching'])) {
@@ -399,11 +400,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
             if (function_exists($function)) {
                 $function ($_smarty_tpl, $params);
-                 return;
-            }
-            // try to load template function dynamically
-            if (Smarty_Internal_Function_Call_Handler::call($name, $_smarty_tpl, $function, $params, $nocache)) {
                 return;
+            }
+            if ($_smarty_tpl->caching) {
+                // try to load template function dynamically
+                if (Smarty_Internal_Function_Call_Handler::call($name, $_smarty_tpl, $function, $params, $nocache)) {
+                    $function ($_smarty_tpl, $params);
+                    return;
+                }
             }
         }
         throw new SmartyException("Unable to find template function '{$name}'");
