@@ -94,10 +94,10 @@ class Smarty_Internal_Configfileparser
         // set instance object
         self::instance($this);
         $this->lex = $lex;
-        $this->smarty = $compiler->template->smarty;
+        $this->smarty = $compiler->smarty;
         $this->compiler = $compiler;
-        $this->configOverwrite = $compiler->smarty->config_overwrite;
-        $this->configReadHidden = $compiler->smarty->config_read_hidden;
+        $this->configOverwrite = $this->smarty->config_overwrite;
+        $this->configReadHidden = $this->smarty->config_read_hidden;
     }
 
     /**

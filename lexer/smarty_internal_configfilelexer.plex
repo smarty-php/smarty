@@ -117,7 +117,7 @@ class Smarty_Internal_Configfilelexer
         $this->line = 1;
         $this->compiler = $compiler;
         $this->smarty = $compiler->smarty;
-        $this->configBooleanize = $compiler->template->smarty->config_booleanize;
+        $this->configBooleanize = $this->smarty->config_booleanize;
     }
 
     public static function &instance($new_instance = null)
