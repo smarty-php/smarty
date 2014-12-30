@@ -50,6 +50,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         if ($this->smarty->debugging) {
             Smarty_Internal_Debug::start_template($_template);
         }
+        if (isset($_template->smarty->security_policy)) {
+            $_template->smarty->security_policy->startTemplate($_template);
+        }
         // if called by Smarty object make sure we use current caching status
         if ($this instanceof Smarty) {
             $_template->caching = $this->caching;
@@ -322,6 +325,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         }
         if (isset($this->error_reporting)) {
             error_reporting($_smarty_old_error_level);
+        }
+        if (isset($_template->smarty->security_policy)) {
+            $_template->smarty->security_policy->exitTemplate($_template);
         }
         // display or fetch
         if ($display) {

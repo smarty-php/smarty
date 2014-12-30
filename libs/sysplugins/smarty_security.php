@@ -141,7 +141,18 @@ class Smarty_Security
      * @var boolean
      */
     public $allow_super_globals = true;
-
+    /**
+     * max template nesting level
+     *
+     * @var int
+     */
+    public $max_template_nesting = 0;
+    /**
+     * current template nesting level
+     *
+     * @var int
+     */
+    private $_current_template_nesting = 0;
     /**
      * Cache for $resource_dir lookup
      *
@@ -501,5 +512,29 @@ class Smarty_Security
         }
 
         throw new SmartyException("directory '{$_filepath}' not allowed by security setting");
+    }
+
+    /**
+     * Start template processing
+     *
+     * @param $template
+     *
+     * @throws SmartyException
+     */
+    public function startTemplate($template) {
+        if ($this->max_template_nesting > 0 && $this->_current_template_nesting++ >= $this->max_template_nesting) {
+            throw new SmartyException("maximum template nesting level of '{$this->max_template_nesting}' exceeded when calling '{$template->template_resource}'");
+        }
+    }
+
+    /**
+     * Exit template processing
+     *
+     * @param $template
+     */
+    public function exitTemplate($template) {
+        if ($this->max_template_nesting > 0) {
+            $this->_current_template_nesting --;
+        }
     }
 }

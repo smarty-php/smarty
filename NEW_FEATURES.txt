@@ -13,9 +13,16 @@ Smarty 3.1.22
 
     Security
     ========
+    - disable special $smarty variable -
     The Smarty_Security class has the new property $disabled_special_smarty_vars.
     It's an array which can be loaded with the $smarty special variable names like
     'template_object', 'template', 'current_dir' and others which will be disabled.
-    Note: That this security checking is performed at compile time.
+    Note: That this security check is performed at compile time.
+
+    - limit template nesting -
+    Property $max_template_nesting of Smarty_Security does set the maximum template nesting level.
+    The main template is level 1. The nesting level is checked at run time. When the maximum will be exceeded
+    an Exception will be thrown. The default setting is 0 which does disable this check.
+
 
     

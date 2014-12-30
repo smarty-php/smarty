@@ -353,6 +353,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function getInlineSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $hash, $content_func)
     {
         $tpl = $this->setupInlineSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $hash);
+        if (isset($this->smarty->security_policy)) {
+            $this->smarty->security_policy->startTemplate($tpl);
+        }
 
         if ($this->smarty->debugging) {
             Smarty_Internal_Debug::start_template($tpl);
@@ -366,6 +369,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         if (!empty($tpl->properties['file_dependency'])) {
             $this->properties['file_dependency'] = array_merge($this->properties['file_dependency'], $tpl->properties['file_dependency']);
+        }
+        if (isset($this->smarty->security_policy)) {
+            $this->smarty->security_policy->exitTemplate($tpl);
         }
         return str_replace($tpl->properties['nocache_hash'], $this->properties['nocache_hash'], ob_get_clean());
     }

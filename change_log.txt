@@ -1,8 +1,12 @@
- ===== 3.1.22-dev ===== (xx.xx.2014)
+﻿ ===== 3.1.22-dev ===== (xx.xx.2014)
+ 29.12.2014
+ - new feature security can now limit the template nesting level by property $max_template_nesting
+                see also NEW_FEATURES.txt (forum 25370)
+
  29.12.2014
  - new feature security can now disable special $smarty variables listed in property $disabled_special_smarty_vars
-       see also NEW_FEATURES.txt (forum 25370)
- 
+                see also NEW_FEATURES.txt (forum 25370)
+
  27.12.2014
   - bugfix clear internal _is_file_cache when plugins_dir was modified
 
