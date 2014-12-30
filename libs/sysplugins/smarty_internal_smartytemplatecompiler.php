@@ -9,11 +9,6 @@
  */
 
 /**
- * @ignore
- */
-include 'smarty_internal_parsetree.php';
-
-/**
  * Class SmartyTemplateCompiler
  *
  * @package    Smarty

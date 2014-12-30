@@ -65,7 +65,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
         $compiler->compiles_template_function = true;
         // Init temporary context
         $compiler->template->required_plugins = array('compiled' => array(), 'nocache' => array());
-        $compiler->parser->current_buffer = new _smarty_template_buffer($compiler->parser);
+        $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template($compiler->parser);
         $compiler->template->has_nocache_code = false;
         $compiler->template->caching = true;
         return true;
@@ -106,7 +106,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $compiler->compiles_template_function = false;
         $compiler->parent_compiler->templateProperties['tpl_function']['param'][$_name]['called_functions'] = $compiler->called_functions;
         $compiler->parent_compiler->templateProperties['tpl_function']['param'][$_name]['compiled_filepath'] = $compiler->parent_compiler->template->compiled->filepath;
-        $compiler->parent_compiler->templateProperties['tpl_function']['param'][$_name]['source_uid'] = $compiler->template->source->uid;
+        $compiler->parent_compiler->templateProperties['tpl_function']['param'][$_name]['uid'] = $compiler->template->source->uid;
         $compiler->called_functions = array();
         $_parameter = $_attr;
         unset($_parameter['name']);
@@ -127,7 +127,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         }
         $_functionCode = $compiler->parser->current_buffer;
         // setup buffer for template function code
-        $compiler->parser->current_buffer = new _smarty_template_buffer($compiler->parser);
+        $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template($compiler->parser);
 
         $_funcName = "smarty_template_function_{$_name}_{$compiler->template->properties['nocache_hash']}";
         $_funcNameCaching = $_funcName . '_nocache';
@@ -154,18 +154,15 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
                 }
                 $output .= "?>/*/%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/';\n";
             }
-            //$output .= "\$saved_tpl_vars = \$_smarty_tpl->tpl_vars;\n";
             $output .= "ob_start();\n";
-           $output .=  $_paramsCode;
+            $output .= $_paramsCode;
             $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(\$value);\n}";
             $output .= "\$params = var_export(\$params, true);\n";
             $output .= "echo \"/*%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/<?php ";
-                    $output .= "\\\$saved_tpl_vars = \\\$_smarty_tpl->tpl_vars;\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->tpl_vars[\\\$key] = new Smarty_variable(\\\$value);\n}\n?>";
+            $output .= "\\\$saved_tpl_vars = \\\$_smarty_tpl->tpl_vars;\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->tpl_vars[\\\$key] = new Smarty_variable(\\\$value);\n}\n?>";
             $output .= "/*/%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/\n\";?>";
-  //          $output .= $compiler->makeNocacheCode("\$saved_tpl_vars = \$_smarty_tpl->tpl_vars;\nforeach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(\$value);\n}\n");
- //           $output .= substr($compiler->processNocacheCode('<?php ' . "\$saved_tpl_vars = \$_smarty_tpl->tpl_vars;\n" . $_paramsCode . "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(\$value);\n}\n" . "? >\n", true), 6);
-            $compiler->parser->current_buffer->append_subtree(new _smarty_tag($compiler->parser, $output));
-            $compiler->parser->current_buffer->append_subtree( $_functionCode);
+            $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
+            $compiler->parser->current_buffer->append_subtree($_functionCode);
             $output = "<?php echo \"/*%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/<?php ";
             $output .= "\\\$_smarty_tpl->tpl_vars = \\\$saved_tpl_vars;\n";
             $output .= "foreach (Smarty::\\\$global_tpl_vars as \\\$key => \\\$value) if(!isset(\\\$_smarty_tpl->tpl_vars[\\\$key])) \\\$_smarty_tpl->tpl_vars[\\\$key] = \\\$value;?>";
@@ -173,8 +170,8 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             $output .= "<?php echo str_replace('{$compiler->template->properties['nocache_hash']}', \$_smarty_tpl->properties['nocache_hash'], ob_get_clean());\n}\n}\n";
             $output .= "/*/ {$_funcName}_nocache */\n\n";
             $output .= "?>\n";
-            $compiler->parser->current_buffer->append_subtree(new _smarty_tag($compiler->parser, $output));
-            $_functionCode = new _smarty_tag($compiler->parser, preg_replace_callback("/((<\?php )?echo '\/\*%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%\*\/([\S\s]*?)\/\*\/%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%\*\/';(\?>\n)?)/", array($this, 'removeNocache'), $_functionCode->to_smarty_php()));
+            $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
+            $_functionCode = new Smarty_Internal_ParseTree_Tag($compiler->parser, preg_replace_callback("/((<\?php )?echo '\/\*%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%\*\/([\S\s]*?)\/\*\/%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%\*\/';(\?>\n)?)/", array($this, 'removeNocache'), $_functionCode->to_smarty_php()));
         }
         $compiler->parent_compiler->templateProperties['tpl_function']['param'][$_name]['call_name'] = $_funcName;
         $output = "<?php\n";
@@ -195,13 +192,13 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $output .= "\$saved_tpl_vars = \$_smarty_tpl->tpl_vars;\n";
         $output .= $_paramsCode;
         $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(\$value);\n}?>";
-        $compiler->parser->current_buffer->append_subtree(new _smarty_tag($compiler->parser, $output));
+        $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
         $compiler->parser->current_buffer->append_subtree($_functionCode);
         $output = "<?php \$_smarty_tpl->tpl_vars = \$saved_tpl_vars;\n";
         $output .= "foreach (Smarty::\$global_tpl_vars as \$key => \$value) if(!isset(\$_smarty_tpl->tpl_vars[\$key])) \$_smarty_tpl->tpl_vars[\$key] = \$value;\n}\n}\n";
         $output .= "/*/ {$_funcName} */\n\n";
         $output .= "?>\n";
-        $compiler->parser->current_buffer->append_subtree(new _smarty_tag($compiler->parser, $output));
+        $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
         $compiler->parent_compiler->templateFunctionCode .= $compiler->parser->current_buffer->to_smarty_php();
         // restore old buffer
         $compiler->parser->current_buffer = $saved_data[1];

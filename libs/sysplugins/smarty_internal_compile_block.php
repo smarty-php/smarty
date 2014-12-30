@@ -113,7 +113,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         $compiler->inheritance = true;
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
 
-        $compiler->parser->current_buffer = new _smarty_template_buffer($compiler->parser);
+        $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template($compiler->parser);
         $compiler->has_code = false;
 
         return true;
