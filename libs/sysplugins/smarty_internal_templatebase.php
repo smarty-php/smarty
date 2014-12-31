@@ -17,6 +17,38 @@
 abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
 {
     /**
+     * Global smarty instance
+     *
+     * @var Smarty
+     */
+    public $smarty = null;
+    /**
+     * Set this if you want different sets of cache files for the same
+     * templates.
+     *
+     * @var string
+     */
+    public $cache_id = null;
+    /**
+     * Set this if you want different sets of compiled files for the same
+     * templates.
+     *
+     * @var string
+     */
+    public $compile_id = null;
+    /**
+     * caching enabled
+     *
+     * @var boolean
+     */
+    public $caching = false;
+    /**
+     * cache lifetime in seconds
+     *
+     * @var integer
+     */
+    public $cache_lifetime = 3600;
+    /**
      * fetches a rendered Smarty template
      *
      * @param  string $template         the resource handle of the template file or template object

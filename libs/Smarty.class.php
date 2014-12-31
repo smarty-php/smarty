@@ -104,7 +104,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.22-dev/3';
+    const SMARTY_VERSION = '3.1.22-dev/5';
 
     /**
      * define variable scopes
@@ -298,12 +298,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $allow_ambiguous_resources = false;
     /**
-     * caching enabled
-     *
-     * @var boolean
-     */
-    public $caching = false;
-    /**
      * merge compiled includes
      *
      * @var boolean
@@ -316,31 +310,11 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $inheritance_merge_compiled_includes = true;
     /**
-     * cache lifetime in seconds
-     *
-     * @var integer
-     */
-    public $cache_lifetime = 3600;
-    /**
      * force cache file creation
      *
      * @var boolean
      */
     public $force_cache = false;
-    /**
-     * Set this if you want different sets of cache files for the same
-     * templates.
-     *
-     * @var string
-     */
-    public $cache_id = null;
-    /**
-     * Set this if you want different sets of compiled files for the same
-     * templates.
-     *
-     * @var string
-     */
-    public $compile_id = null;
     /**
      * template left-delimiter
      *
@@ -429,6 +403,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var int
      */
     public $error_reporting = null;
+
     /**
      * Internal flag for getTags()
      *
@@ -517,7 +492,26 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var array
      */
+    public $source_objects = array();
+    /**
+     * cached template objects
+     *
+     * @var array
+     */
     public $template_objects = array();
+
+    /**
+     * enable template resource caching
+     *
+     * @var bool
+     */
+    public $resource_caching = true;
+    /**
+     * enable template resource caching
+     *
+     * @var bool
+     */
+    public $template_resource_caching = false;
     /**
      * check If-Modified-Since headers
      *
@@ -627,12 +621,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $_tag_stack = array();
     /**
-     * self pointer to Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty;
-    /**
      * required by the compiler for BC
      *
      * @var string
@@ -644,6 +632,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var bool
      */
     public $_parserdebug = false;
+    /**#@-*/
 
     /**
      * Cache of is_file results of loadPlugin()

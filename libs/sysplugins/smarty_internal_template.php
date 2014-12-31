@@ -20,34 +20,17 @@
 class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
 {
     /**
-     * cache_id
-     *
-     * @var string
-     */
-    public $cache_id = null;
-    /**
-     * $compile_id
-     * @var string
-     */
-    public $compile_id = null;
-    /**
-     * caching enabled
-     *
-     * @var boolean
-     */
-    public $caching = null;
-    /**
-     * cache lifetime in seconds
-     *
-     * @var integer
-     */
-    public $cache_lifetime = null;
-    /**
      * Template resource
      *
      * @var string
      */
     public $template_resource = null;
+    /**
+     * Saved template Id
+     *
+     * @var null|string
+     */
+    public $templateId = null;
     /**
      * flag if compiled template is invalid and must be (re)compiled
      *
@@ -68,7 +51,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $properties = array('file_dependency' => array(),
                                'nocache_hash'    => '',
                                'tpl_function'    => array(),
-                               'type'            => 'compiled',
     );
     /**
      * required plugins
@@ -76,12 +58,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @var array
      */
     public $required_plugins = array('compiled' => array(), 'nocache' => array());
-    /**
-     * Global smarty instance
-     *
-     * @var Smarty
-     */
-    public $smarty = null;
     /**
      * blocks for template inheritance
      *
