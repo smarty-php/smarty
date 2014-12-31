@@ -1475,6 +1475,141 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * @param boolean $compile_check
+     */
+    public function setCompileCheck($compile_check)
+    {
+        $this->compile_check = $compile_check;
+    }
+
+    /**
+     * @param boolean $use_sub_dirs
+     */
+    public function setUseSubDirs($use_sub_dirs)
+    {
+        $this->use_sub_dirs = $use_sub_dirs;
+    }
+
+    /**
+     * @param boolean $caching
+     */
+    public function setCaching($caching)
+    {
+        $this->caching = $caching;
+    }
+
+    /**
+     * @param int $cache_lifetime
+     */
+    public function setCacheLifetime($cache_lifetime)
+    {
+        $this->cache_lifetime = $cache_lifetime;
+    }
+
+    /**
+     * @param string $compile_id
+     */
+    public function setCompileId($compile_id)
+    {
+        $this->compile_id = $compile_id;
+    }
+
+    /**
+     * @param string $cache_id
+     */
+    public function setCacheId($cache_id)
+    {
+        $this->cache_id = $cache_id;
+    }
+
+    /**
+     * @param int $error_reporting
+     */
+    public function setErrorReporting($error_reporting)
+    {
+        $this->error_reporting = $error_reporting;
+    }
+    /**
+     * @param boolean $escape_html
+     */
+    public function setEscapeHtml($escape_html)
+    {
+        $this->escape_html = $escape_html;
+    }
+
+    /**
+     * @param boolean $auto_literal
+     */
+    public function setAutoLiteral($auto_literal)
+    {
+        $this->auto_literal = $auto_literal;
+    }
+
+    /**
+     * @param boolean $merge_compiled_includes
+     */
+    public function setMergeCompiledIncludes($merge_compiled_includes)
+    {
+        $this->merge_compiled_includes = $merge_compiled_includes;
+    }
+
+    /**
+     * @param string $left_delimiter
+     */
+    public function setLeftDelimiter($left_delimiter)
+    {
+        $this->left_delimiter = $left_delimiter;
+    }
+
+    /**
+     * @param string $right_delimiter
+     */
+    public function setRightDelimiter($right_delimiter)
+    {
+        $this->right_delimiter = $right_delimiter;
+    }
+
+    /**
+     * @param boolean $debugging
+     */
+    public function setDebugging($debugging)
+    {
+        $this->debugging = $debugging;
+    }
+
+    /**
+     * @param boolean $config_overwrite
+     */
+    public function setConfigOverwrite($config_overwrite)
+    {
+        $this->config_overwrite = $config_overwrite;
+    }
+
+    /**
+     * @param boolean $config_booleanize
+     */
+    public function setConfigBooleanize($config_booleanize)
+    {
+        $this->config_booleanize = $config_booleanize;
+    }
+
+    /**
+     * @param boolean $config_read_hidden
+     */
+    public function setConfigReadHidden($config_read_hidden)
+    {
+        $this->config_read_hidden = $config_read_hidden;
+    }
+
+    /**
+     * @param boolean $compile_locking
+     */
+    public function setCompileLocking($compile_locking)
+    {
+        $this->compile_locking = $compile_locking;
+    }
+
+    /**
      * Error Handler to mute expected messages
      *
      * @link http://php.net/set_error_handler
