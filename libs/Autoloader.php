@@ -48,6 +48,21 @@ class Smarty_Autoloader
                                        'SmartyBC' => 'SmartyBC.class.php',
     );
 
+    private static $syspluginsClasses = array(
+        'smarty_config_source'                => true,
+        'smarty_security'                     => true,
+        'smarty_cacheresource'                => true,
+        'smarty_compiledresource'             => true,
+        'smarty_cacheresource_custom'         => true,
+        'smarty_cacheresource_keyvaluestore'  => true,
+        'smarty_resource'                     => true,
+        'smarty_resource_custom'              => true,
+        'smarty_resource_uncompiled'          => true,
+        'smarty_resource_recompiled'          => true,
+        'smartyexception'                     => true,
+        'smartycompilerexception'             => true,
+    );
+
     /**
      * Registers Smarty_Autoloader backward compatible to older installations.
      *
@@ -87,6 +102,18 @@ class Smarty_Autoloader
         }
     }
 
+    public static function saveClassExists($class)
+    {
+        if (class_exists($class, false)) {
+            return true;
+        }
+        $s = self::$fileCheck;
+        self::$fileCheck = true;
+        $r = class_exists($class);
+        self::$fileCheck = $s;
+        return $r;
+    }
+
     /**
      * Handles autoloading of classes.
      *
@@ -95,18 +122,29 @@ class Smarty_Autoloader
     public static function autoload($class)
     {
         // Request for Smarty or already unknown class
-        if (0 !== strpos($class, 'Smarty') || isset(self::$unknown[$class])) {
-            return;
-        }
-        if (isset(self::$rootClasses[$class]) && is_file($file = self::$SMARTY_DIR . self::$rootClasses[$class])) {
-            require $file;
+        if (isset(self::$unknown[$class])) {
             return;
         }
         $_class = strtolower($class);
-        if (is_file($file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php')) {
+        if (isset(self::$syspluginsClasses[$_class])) {
+            $_class = (self::$syspluginsClasses[$_class] === true) ? $_class : self::$syspluginsClasses[$_class];
+        } elseif (0 !== strpos($_class, 'smarty_internal_')) {
+            if (isset(self::$rootClasses[$class])) {
+                $file = self::$SMARTY_DIR . self::$rootClasses[$class];
+                if (!self::$fileCheck || is_file($file)) {
             require $file;
-        } else {
-            self::$unknown[$class] = true;
+            return;
         }
+            }
+            self::$unknown[$class] = true;
+            return;
+        }
+        $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
+        if (!self::$fileCheck || is_file($file)) {
+            require $file;
+            return;
+        }
+            self::$unknown[$class] = true;
+        return;
     }
 }
