@@ -9,6 +9,11 @@
  */
 
 /**
+ * @ignore
+ */
+//include 'smarty_internal_parsetree.php';
+
+/**
  * Class SmartyTemplateCompiler
  *
  * @package    Smarty
@@ -45,17 +50,10 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
     public $parser;
 
     /**
-     * Smarty object
-     *
-     * @var object
-     */
-    public $smarty;
-
-    /**
      * array of vars which can be compiled in local scope
      *
      * @var array
-     */
+*/
     public $local_var = array();
 
     /**
