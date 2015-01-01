@@ -71,7 +71,7 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
 
 /**
  * Try loading the Smmarty_Internal_Data class
- *
+ * 
  * If we fail we must load Smarty's autoloader.
  * Otherwise we may have a global autoloader like Composer
  */
@@ -88,7 +88,6 @@ require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
 require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
 require SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
 require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
-
 
 /**
  * This is the main Smarty class
@@ -632,6 +631,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var bool
      */
     public $_parserdebug = false;
+
     /**#@-*/
 
     /**
@@ -1287,18 +1287,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         } else {
             $data = null;
         }
-        // default to cache_id and compile_id of Smarty object
-        $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
-        $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
-        // already in template cache?
-        if ($this->allow_ambiguous_resources) {
-            $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template) . $cache_id . $compile_id;
-        } else {
-            $_templateId = $this->joined_template_dir . '#' . $template . $cache_id . $compile_id;
-        }
-        if (isset($_templateId[150])) {
-            $_templateId = sha1($_templateId);
-        }
+        $_templateId = $this->getTemplateId($template, $cache_id, $compile_id);
         if ($do_clone) {
             if (isset($this->template_objects[$_templateId])) {
                 // return cached template object
@@ -1309,6 +1298,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $tpl->config_vars = array();
             } else {
                 $tpl = new $this->template_class($template, clone $this, $parent, $cache_id, $compile_id);
+                $tpl->templateId = $_templateId;
             }
         } else {
             if (isset($this->template_objects[$_templateId])) {
@@ -1319,6 +1309,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $tpl->config_vars = array();
             } else {
                 $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
+                $tpl->templateId = $_templateId;
             }
         }
         // fill data if present
@@ -1529,6 +1520,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $this->error_reporting = $error_reporting;
     }
+
     /**
      * @param boolean $escape_html
      */

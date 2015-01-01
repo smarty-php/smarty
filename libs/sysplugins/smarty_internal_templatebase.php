@@ -48,6 +48,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @var integer
      */
     public $cache_lifetime = 3600;
+
     /**
      * fetches a rendered Smarty template
      *
@@ -465,6 +466,30 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             Smarty_Internal_Debug::register_data($dataObj);
         }
         return $dataObj;
+    }
+
+    /**
+     * Get unique template id
+     *
+     * @param string     $template_name
+     * @param null|mixed $cache_id
+     * @param null|mixed $compile_id
+     *
+     * @return string
+     */
+    public function getTemplateId($template_name, $cache_id = null, $compile_id = null)
+    {
+        $cache_id = isset($cache_id) ? $cache_id : $this->cache_id;
+        $compile_id = isset($compile_id) ? $compile_id : $this->compile_id;
+        if ($this->smarty->allow_ambiguous_resources) {
+            $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template_name) . "#{$cache_id}#{$compile_id}";
+        } else {
+            $_templateId = $this->smarty->joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}";
+        }
+        if (isset($_templateId[150])) {
+            $_templateId = sha1($_templateId);
+        }
+        return $_templateId;
     }
 
     /**
