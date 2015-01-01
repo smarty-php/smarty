@@ -10,12 +10,10 @@
  *
  * @package    Smarty
  * @author     Uwe Tews
- *
  *             Usage:
  *             include '...path/Autoloader.php';
  *             Smarty_Autoloader::register();
  *             $smarty = new Smarty();
- *
  *             Note:       This autoloader is not needed if you use Composer.
  *             Composer will automatically add the classes of the Smarty package to it common autoloader.
  */
@@ -49,18 +47,20 @@ class Smarty_Autoloader
     );
 
     private static $syspluginsClasses = array(
-        'smarty_config_source'                => true,
-        'smarty_security'                     => true,
-        'smarty_cacheresource'                => true,
-        'smarty_compiledresource'             => true,
-        'smarty_cacheresource_custom'         => true,
-        'smarty_cacheresource_keyvaluestore'  => true,
-        'smarty_resource'                     => true,
-        'smarty_resource_custom'              => true,
-        'smarty_resource_uncompiled'          => true,
-        'smarty_resource_recompiled'          => true,
-        'smartyexception'                     => true,
-        'smartycompilerexception'             => true,
+        'smarty_config_source'               => true,
+        'smarty_security'                    => true,
+        'smarty_cacheresource'               => true,
+        'smarty_compiledresource'            => true,
+        'smarty_cacheresource_custom'        => true,
+        'smarty_cacheresource_keyvaluestore' => true,
+        'smarty_resource'                    => true,
+        'smarty_resource_custom'             => true,
+        'smarty_resource_uncompiled'         => true,
+        'smarty_resource_recompiled'         => true,
+        'smarty_template_source'             => true,
+        'smarty_template_compiled'           => true,
+        'smartyexception'                    => true,
+        'smartycompilerexception'            => true,
     );
 
     /**
@@ -132,9 +132,9 @@ class Smarty_Autoloader
             if (isset(self::$rootClasses[$class])) {
                 $file = self::$SMARTY_DIR . self::$rootClasses[$class];
                 if (!self::$fileCheck || is_file($file)) {
-            require $file;
-            return;
-        }
+                    require $file;
+                    return;
+                }
             }
             self::$unknown[$class] = true;
             return;
@@ -144,7 +144,7 @@ class Smarty_Autoloader
             require $file;
             return;
         }
-            self::$unknown[$class] = true;
+        self::$unknown[$class] = true;
         return;
     }
 }
