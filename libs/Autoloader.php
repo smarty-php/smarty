@@ -59,6 +59,7 @@ class Smarty_Autoloader
         'smarty_resource_recompiled'         => true,
         'smarty_template_source'             => true,
         'smarty_template_compiled'           => true,
+        'smarty_template_cached'             => true,
         'smartyexception'                    => true,
         'smartycompilerexception'            => true,
     );
