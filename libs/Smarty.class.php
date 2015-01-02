@@ -71,22 +71,28 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
 
 /**
  * Try loading the Smmarty_Internal_Data class
- * 
+ *
  * If we fail we must load Smarty's autoloader.
  * Otherwise we may have a global autoloader like Composer
  */
-if (!class_exists('Smarty_Internal_Data', true)) {
-    require 'Autoloader.php';
-    Smarty_Autoloader::registerBC();
-    require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
+if (!class_exists('Smarty_Autoloader', false)) {
+    if (!class_exists('Smarty_Internal_Data', true)) {
+        require 'Autoloader.php';
+        Smarty_Autoloader::registerBC();
+    }
 }
 
 /**
  * Load always needed external class files
  */
+
+if (!class_exists('Smarty_Internal_Data', false)) {
+    require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
+}
 require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
 require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
 require SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
+require SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
 require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
 
 /**
@@ -632,8 +638,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $_parserdebug = false;
 
-    /**#@-*/
-
     /**
      * Cache of is_file results of loadPlugin()
      *
@@ -677,70 +681,49 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Class destructor
-     */
-    public function __destruct()
-    {
-        // intentionally left blank
-    }
-
-    /**
-     * <<magic>> set selfpointer on cloned object
-     */
-    public function __clone()
-    {
-        $this->smarty = $this;
-    }
-
-    /**
-     * <<magic>> Generic getter.
-     * Calls the appropriate getter function.
-     * Issues an E_USER_NOTICE if no valid getter is found.
+     * fetches a rendered Smarty template
      *
-     * @param  string $name property name
+     * @param  string $template         the resource handle of the template file or template object
+     * @param  mixed  $cache_id         cache id to be used with this template
+     * @param  mixed  $compile_id       compile id to be used with this template
+     * @param  object $parent           next higher level of Smarty variables
+     * @param  bool   $display          true: display, false: fetch
+     * @param  bool   $merge_tpl_vars   not used - left for BC
+     * @param  bool   $no_output_filter not used - left for BC
      *
-     * @return mixed
+     * @throws Exception
+     * @throws SmartyException
+     * @return string rendered template output
      */
-    public function __get($name)
+    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
     {
-        $allowed = array(
-            'template_dir' => 'getTemplateDir',
-            'config_dir'   => 'getConfigDir',
-            'plugins_dir'  => 'getPluginsDir',
-            'compile_dir'  => 'getCompileDir',
-            'cache_dir'    => 'getCacheDir',
-        );
-
-        if (isset($allowed[$name])) {
-            return $this->{$allowed[$name]}();
-        } else {
-            trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
+        if ($cache_id !== null && is_object($cache_id)) {
+            $parent = $cache_id;
+            $cache_id = null;
         }
+        if ($parent === null) {
+            $parent = $this;
+        }
+        // get template object
+        $_template = is_object($template) ? $template : $this->smarty->createTemplate($template, $cache_id, $compile_id, $parent, false);
+        // set caching in template object
+        $_template->caching = $this->caching;
+        // fetch template content
+        return $_template->render(true, false, $display);
     }
 
     /**
-     * <<magic>> Generic setter.
-     * Calls the appropriate setter function.
-     * Issues an E_USER_NOTICE if no valid setter is found.
+     * displays a Smarty template
      *
-     * @param string $name  property name
-     * @param mixed  $value parameter passed to setter
+     * @param string $template   the resource handle of the template file or template object
+     * @param mixed  $cache_id   cache id to be used with this template
+     * @param mixed  $compile_id compile id to be used with this template
+     * @param object $parent     next higher level of Smarty variables
      */
-    public function __set($name, $value)
+    public function display($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
-        $allowed = array(
-            'template_dir' => 'setTemplateDir',
-            'config_dir'   => 'setConfigDir',
-            'plugins_dir'  => 'setPluginsDir',
-            'compile_dir'  => 'setCompileDir',
-            'cache_dir'    => 'setCacheDir',
-        );
-
-        if (isset($allowed[$name])) {
-            $this->{$allowed[$name]}($value);
-        } else {
-            trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
-        }
+        // display template
+        $this->fetch($template, $cache_id, $compile_id, $parent, true);
     }
 
     /**
@@ -880,9 +863,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         foreach ((array) $template_dir as $k => $v) {
             $this->template_dir[$k] = preg_replace('#(\w+)(/|\\\\){1,}#', '$1$2', rtrim($v, '/\\')) . DS;
         }
-
         $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
-
         return $this;
     }
 
@@ -922,7 +903,6 @@ class Smarty extends Smarty_Internal_TemplateBase
             }
         }
         $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
-
         return $this;
     }
 
@@ -938,7 +918,6 @@ class Smarty extends Smarty_Internal_TemplateBase
         if ($index !== null) {
             return isset($this->template_dir[$index]) ? $this->template_dir[$index] : null;
         }
-
         return (array) $this->template_dir;
     }
 
@@ -955,9 +934,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         foreach ((array) $config_dir as $k => $v) {
             $this->config_dir[$k] = preg_replace('#(\w+)(/|\\\\){1,}#', '$1$2', rtrim($v, '/\\')) . DS;
         }
-
         $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
-
         return $this;
     }
 
@@ -997,7 +974,6 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
 
         $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
-
         return $this;
     }
 
@@ -1013,7 +989,6 @@ class Smarty extends Smarty_Internal_TemplateBase
         if ($index !== null) {
             return isset($this->config_dir[$index]) ? $this->config_dir[$index] : null;
         }
-
         return (array) $this->config_dir;
     }
 
@@ -1089,7 +1064,6 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (!isset(Smarty::$_muted_directories[$this->compile_dir])) {
             Smarty::$_muted_directories[$this->compile_dir] = null;
         }
-
         return $this;
     }
 
@@ -1599,6 +1573,73 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function setCompileLocking($compile_locking)
     {
         $this->compile_locking = $compile_locking;
+    }
+
+    /**
+     * Class destructor
+     */
+    public function __destruct()
+    {
+        // intentionally left blank
+    }
+
+    /**
+     * <<magic>> set selfpointer on cloned object
+     */
+    public function __clone()
+    {
+        $this->smarty = $this;
+    }
+
+    /**
+     * <<magic>> Generic getter.
+     * Calls the appropriate getter function.
+     * Issues an E_USER_NOTICE if no valid getter is found.
+     *
+     * @param  string $name property name
+     *
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        $allowed = array(
+            'template_dir' => 'getTemplateDir',
+            'config_dir'   => 'getConfigDir',
+            'plugins_dir'  => 'getPluginsDir',
+            'compile_dir'  => 'getCompileDir',
+            'cache_dir'    => 'getCacheDir',
+        );
+
+        if (isset($allowed[$name])) {
+            return $this->{$allowed[$name]}();
+        } else {
+            trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
+        }
+    }
+
+    /**
+     * <<magic>> Generic setter.
+     * Calls the appropriate setter function.
+     * Issues an E_USER_NOTICE if no valid setter is found.
+     *
+     * @param string $name  property name
+     * @param mixed  $value parameter passed to setter
+     */
+    public function __set($name, $value)
+    {
+        $allowed = array(
+            'template_dir' => 'setTemplateDir',
+            'config_dir'   => 'setConfigDir',
+            'plugins_dir'  => 'setPluginsDir',
+            'compile_dir'  => 'setCompileDir',
+            'cache_dir'    => 'setCacheDir',
+        );
+
+        if (isset($allowed[$name])) {
+            $this->{$allowed[$name]}($value);
+        } else {
+            trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
+        }
     }
 
     /**
