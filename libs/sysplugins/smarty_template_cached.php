@@ -125,7 +125,7 @@ class Smarty_Template_Cached
         //
         //    check if cache is valid
         //
-        if (!($_template->caching == Smarty::CACHING_LIFETIME_CURRENT || $_template->caching == Smarty::CACHING_LIFETIME_SAVED) || $_template->source->handler->recompiled) {
+        if (!($_template->caching == Smarty::CACHING_LIFETIME_CURRENT || $_template->caching == Smarty::CACHING_LIFETIME_SAVED) || $_template->source->recompiled) {
             $cached->handler->populate($cached, $_template);
 
             return $cached;
@@ -222,7 +222,7 @@ class Smarty_Template_Cached
      */
     public function write(Smarty_Internal_Template $_template, $content)
     {
-        if (!$_template->source->handler->recompiled) {
+        if (!$_template->source->recompiled) {
             if ($this->handler->writeCachedContent($_template, $content)) {
                 $this->content = null;
                 $this->timestamp = time();
@@ -248,7 +248,7 @@ class Smarty_Template_Cached
      */
     public function read(Smarty_Internal_Template $_template)
     {
-        if (!$_template->source->handler->recompiled) {
+        if (!$_template->source->recompiled) {
             return $this->handler->readCachedContent($_template);
         }
         return false;
