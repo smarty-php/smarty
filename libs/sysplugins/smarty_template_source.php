@@ -215,7 +215,7 @@ class Smarty_Template_Source
     {
         try {
             ob_start();
-            $this->renderUncompiled($_template->source, $_template);
+            $this->handler->renderUncompiled($_template->source, $_template);
             return ob_get_clean();
         }
         catch (Exception $e) {
