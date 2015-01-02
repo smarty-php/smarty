@@ -103,18 +103,6 @@ class Smarty_Autoloader
         }
     }
 
-    public static function saveClassExists($class)
-    {
-        if (class_exists($class, false)) {
-            return true;
-        }
-        $s = self::$fileCheck;
-        self::$fileCheck = true;
-        $r = class_exists($class);
-        self::$fileCheck = $s;
-        return $r;
-    }
-
     /**
      * Handles autoloading of classes.
      *
@@ -129,19 +117,20 @@ class Smarty_Autoloader
         $_class = strtolower($class);
         if (isset(self::$syspluginsClasses[$_class])) {
             $_class = (self::$syspluginsClasses[$_class] === true) ? $_class : self::$syspluginsClasses[$_class];
+            $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
+            require $file;
+            return;
         } elseif (0 !== strpos($_class, 'smarty_internal_')) {
             if (isset(self::$rootClasses[$class])) {
                 $file = self::$SMARTY_DIR . self::$rootClasses[$class];
-                if (!self::$fileCheck || is_file($file)) {
                     require $file;
                     return;
-                }
             }
             self::$unknown[$class] = true;
             return;
         }
         $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
-        if (!self::$fileCheck || is_file($file)) {
+        if (is_file($file)) {
             require $file;
             return;
         }
