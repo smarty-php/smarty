@@ -9,7 +9,7 @@
  * @author     Uwe Tews
  * @author     Rodney Rehm
  */
-class Smarty_Internal_Resource_PHP extends Smarty_Internal_Resource_File
+class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
 {
     /**
      * Flag that it's an uncompiled resource
