@@ -45,7 +45,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $path)) {
                 // the path gained from the parent template is relative to the current working directory
                 // as expansions (like include_path) have already been done
-                $path = getcwd() . '/' . $path;
+                $path = str_replace('\\', '/', getcwd()) . '/' . $path;
             }
             // normalize path
             $path = str_replace(array('\\', './'), array('/', ''), $path);
@@ -92,13 +92,15 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         // relative file name?
         if (empty($fileMatch['absolute'])) {
             foreach ($_directories as $_directory) {
-                if (!empty($fileMatch['rel2'])) {
+                if (empty($fileMatch['rel2'])) {
+                    $_filepath = $_directory . $fileMatch['file'];
+                } else if (false === strpos($_directory, '..')) {
                     for ($i = 1; $i <= substr_count($fileMatch['rel2'], '../') + 1; $i ++) {
                         $_directory = substr($_directory, 0, strrpos($_directory, '/'));
                     }
                     $_filepath = $_directory . '/' . $fileMatch['file'];
                 } else {
-                    $_filepath = $_directory . $fileMatch['file'];
+                    $_filepath = $_directory . $file;
                 }
                 if ($this->fileExists($source, $_filepath)) {
                     return $_filepath;
@@ -125,10 +127,10 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             }
         }
         // Could be relative to cwd
-        if (empty($fileMatch['rel1'])) {
-            $file = getcwd() . '/' . $fileMatch['file'];
+        $path = str_replace('\\', '/', getcwd());
+        if (empty($fileMatch['rel2'])) {
+            $file = $path . '/' . $fileMatch['file'];
         } else {
-            $path = getcwd();
             for ($i = 1; $i <= substr_count($fileMatch['rel2'], '../'); $i ++) {
                 $path = substr($path, 0, strrpos($path, '/'));
             }
@@ -139,7 +141,8 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         }
 
         // give up
-        return false;
+        $source->timestamp = false;
+        return $source->exists = false;
     }
 
     /**
@@ -152,8 +155,11 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     protected function fileExists(Smarty_Template_Source $source, $file)
     {
-        $source->timestamp = is_file($file) ? @filemtime($file) : false;
-        return $source->exists = !!$source->timestamp;
+        if (is_file($file)) {
+            $source->timestamp = filemtime($file);
+            return $source->exists = true;
+        }
+        return false;
     }
 
     /**
