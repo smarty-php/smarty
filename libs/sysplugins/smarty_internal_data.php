@@ -103,7 +103,7 @@ class Smarty_Internal_Data
     {
         if ($tpl_var != '') {
             $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache);
-            $this->tpl_vars[$tpl_var]->value = & $value;
+            $this->tpl_vars[$tpl_var]->value = &$value;
         }
 
         return $this;
@@ -191,10 +191,10 @@ class Smarty_Internal_Data
             }
             if ($merge && is_array($value)) {
                 foreach ($value as $_key => $_val) {
-                    $this->tpl_vars[$tpl_var]->value[$_key] = & $value[$_key];
+                    $this->tpl_vars[$tpl_var]->value[$_key] = &$value[$_key];
                 }
             } else {
-                $this->tpl_vars[$tpl_var]->value[] = & $value;
+                $this->tpl_vars[$tpl_var]->value[] = &$value;
             }
         }
 
@@ -205,7 +205,7 @@ class Smarty_Internal_Data
      * Returns a single or all template variables
      *
      * @param  string  $varname        variable name or null
-     * @param  object   $_ptr           optional pointer to data object
+     * @param  object  $_ptr           optional pointer to data object
      * @param  boolean $search_parents include parent templates?
      *
      * @return string  variable value or or array of variables
@@ -292,9 +292,7 @@ class Smarty_Internal_Data
     public function configLoad($config_file, $sections = null)
     {
         // load Config class
-        $config = new Smarty_Internal_Config($config_file, $this->smarty, $this);
-        $config->loadConfigVars($sections);
-
+        Smarty_Internal_Extension_Config::configLoad($this, $config_file, $sections);
         return $this;
     }
 
@@ -347,21 +345,32 @@ class Smarty_Internal_Data
      */
     public function getConfigVariable($variable, $error_enable = true)
     {
-        $_ptr = $this;
-        while ($_ptr !== null) {
-            if (isset($_ptr->config_vars[$variable])) {
-                // found it, return it
-                return $_ptr->config_vars[$variable];
-            }
-            // not found, try at parent
-            $_ptr = $_ptr->parent;
-        }
-        if ($this->smarty->error_unassigned && $error_enable) {
-            // force a notice
-            $x = $$variable;
-        }
+        return Smarty_Internal_Extension_Config::getConfigVariable($this, $variable, $error_enable = true);
+    }
 
-        return null;
+    /**
+     * Returns a single or all config variables
+     *
+     * @param  string $varname variable name or null
+     * @param bool    $search_parents
+     *
+     * @return string variable value or or array of variables
+     */
+    public function getConfigVars($varname = null, $search_parents = true)
+    {
+        return Smarty_Internal_Extension_Config::getConfigVars($this, $varname, $search_parents);
+    }
+
+    /**
+     * Deassigns a single or all config variables
+     *
+     * @param  string $varname variable name or null
+     *
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     */
+    public function clearConfig($varname = null)
+    {
+        return Smarty_Internal_Extension_Config::clearConfig($this, $varname);
     }
 
     /**
@@ -390,58 +399,6 @@ class Smarty_Internal_Data
         } else {
             return null;
         }
-    }
-
-    /**
-     * Returns a single or all config variables
-     *
-     * @param  string $varname variable name or null
-     * @param bool    $search_parents
-     *
-     * @return string variable value or or array of variables
-     */
-    public function getConfigVars($varname = null, $search_parents = true)
-    {
-        $_ptr = $this;
-        $var_array = array();
-        while ($_ptr !== null) {
-            if (isset($varname)) {
-                if (isset($_ptr->config_vars[$varname])) {
-                    return $_ptr->config_vars[$varname];
-                }
-            } else {
-                $var_array = array_merge($_ptr->config_vars, $var_array);
-            }
-            // not found, try at parent
-            if ($search_parents) {
-                $_ptr = $_ptr->parent;
-            } else {
-                $_ptr = null;
-            }
-        }
-        if (isset($varname)) {
-            return '';
-        } else {
-            return $var_array;
-        }
-    }
-
-    /**
-     * Deassigns a single or all config variables
-     *
-     * @param  string $varname variable name or null
-     *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
-     */
-    public function clearConfig($varname = null)
-    {
-        if (isset($varname)) {
-            unset($this->config_vars[$varname]);
-        } else {
-            $this->config_vars = array();
-        }
-
-        return $this;
     }
 }
 
@@ -477,15 +434,15 @@ class Smarty_Data extends Smarty_Internal_Data
     /**
      * create Smarty data object
      *
-     * @param Smarty|array $_parent parent template
-     * @param Smarty|Smarty_Internal_Template       $smarty  global smarty instance
-     * @param string $name optional data block name
+     * @param Smarty|array                    $_parent parent template
+     * @param Smarty|Smarty_Internal_Template $smarty  global smarty instance
+     * @param string                          $name    optional data block name
      *
      * @throws SmartyException
      */
     public function __construct($_parent = null, $smarty = null, $name = null)
     {
-        self::$count++;
+        self::$count ++;
         $this->dataObjectName = 'Data_object ' . (isset($name) ? "'{$name}'" : self::$count);
         $this->smarty = $smarty;
         if (is_object($_parent)) {

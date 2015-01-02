@@ -1,7 +1,8 @@
 ﻿ ===== 3.1.22-dev ===== (xx.xx.2015)
 
  - optimization restructure template processing by moving code into classes it better belongs to
-
+ - optimization restructure config file processing
+ 
  31.12.2014
  - bugfix use function_exists('mb_get_info') for setting Smarty::$_MBSTRING. 
    Function mb_split could be overloaded depending on php.ini mbstring.func_overload
