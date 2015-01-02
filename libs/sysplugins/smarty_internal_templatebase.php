@@ -342,12 +342,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function registerDefaultTemplateHandler($callback)
     {
-        if (is_callable($callback)) {
-            $this->smarty->default_template_handler_func = $callback;
-        } else {
-            throw new SmartyException("Default template handler '$callback' not callable");
-        }
-
+        Smarty_Internal_Extension_DefaultTemplateHandler::registerDefaultTemplateHandler($this, $callback);
         return $this;
     }
 
@@ -361,12 +356,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function registerDefaultConfigHandler($callback)
     {
-        if (is_callable($callback)) {
-            $this->smarty->default_config_handler_func = $callback;
-        } else {
-            throw new SmartyException("Default config handler '$callback' not callable");
-        }
-
+        Smarty_Internal_Extension_DefaultTemplateHandler::registerDefaultConfigHandler($this, $callback);
         return $this;
     }
 
