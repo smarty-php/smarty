@@ -73,4 +73,19 @@ class Smarty_Internal_Extension_CodeFrame
         $output .= "<?php }\n}\n?>";
         return $output;
     }
+
+    public static function createFunctionFrame(Smarty_Internal_Template $_template, $content = '')
+    {
+        if (!isset($_template->properties['unifunc'])) {
+            $_template->properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
+        }
+        $output = "<?php\n";
+        $output .= "/*%%SmartyHeaderCode:{$_template->properties['nocache_hash']}%%*/\n";
+        $output .= "function {$_template->properties['unifunc']} (\$_smarty_tpl) {\n";
+        $output .= "?>\n" . $content;
+        $output .= "<?php\n";
+        $output .= "/*/%%SmartyNocache:{$_template->properties['nocache_hash']}%%*/\n";
+        $output .= "}\n?>";
+        return $output;
+    }
 }

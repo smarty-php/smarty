@@ -110,7 +110,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                 // must use individual cache file
                 $_attr['caching'] = 1;
             }
-                if ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes && $_attr['inline'] !== true) {
+            if ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes && $_attr['inline'] !== true) {
                 $compiler->trigger_template_error(' variable template file names not allow within {block} tags');
             }
         }
@@ -124,12 +124,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                     // must use individual cache file
                     $_attr['caching'] = 1;
                 }
-                    if ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes && $_attr['inline'] !== true) {
+                if ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes && $_attr['inline'] !== true) {
                     $compiler->trigger_template_error(' variable compile_id not allow within {block} tags');
                 }
             }
         }
-
 
         /*
         * if the {include} tag provides individual parameter for caching or compile_id
@@ -197,9 +196,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                 // make sure whole chain gets compiled
                 $tpl->mustCompile = true;
                 if (!($tpl->source->uncompiled) && $tpl->source->exists) {
-
+                    $tpl->compiler->suppressTemplatePropertyHeader = true;
                     // get compiled code
-                    $compiled_code = $tpl->compiler->compileTemplate($tpl, null, $compiler->parent_compiler);
+                    $compiled_code = Smarty_Internal_Extension_CodeFrame::createFunctionFrame($tpl, $tpl->compiler->compileTemplate($tpl, null, $compiler->parent_compiler));
                     $compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$uid]['nocache_hash'] = $tpl->properties['nocache_hash'];
                     unset($tpl->compiler);
 
