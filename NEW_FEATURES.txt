@@ -24,5 +24,13 @@ Smarty 3.1.22
     The main template is level 1. The nesting level is checked at run time. When the maximum will be exceeded
     an Exception will be thrown. The default setting is 0 which does disable this check.
 
+    Compiled Templates
+    ==================
+    Smarty does now automatically detect a change of the $merge_compiled_includes and $escape_html
+    property and create different compiled templates files depending on the setting.
+
+    Same applies to config files and the $config_overwrite, $config_booleanize and
+    $config_read_hidden properties.
+
 
     

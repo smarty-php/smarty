@@ -94,7 +94,13 @@ class Smarty_Template_Compiled
     public function populateCompiledFilepath(Smarty_Internal_Template $_template)
     {
         $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w\|]+!', '_', $_template->compile_id) : null;
-        $_filepath = $_template->source->uid;
+        if ($_template->source->isConfig) {
+            $_flag = '_' . ((int) $_template->smarty->config_read_hidden + (int) $_template->smarty->config_booleanize * 2
+                    + (int) $_template->smarty->config_overwrite * 4);
+        } else {
+            $_flag = '_' . ((int) $_template->smarty->merge_compiled_includes + (int) $_template->smarty->escape_html * 2);
+        }
+        $_filepath = $_template->source->uid . $_flag;
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS
