@@ -36,6 +36,8 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             $_directories = $source->smarty->getTemplateDir();
         }
         preg_match('#^((?P<absolute>[\/]|[a-zA-Z]:[\/])|(\[(?P<index>[^\]]+)\])|((?P<rel1>\.[\/])?(?P<rel2>(\.\.[\/])*))|(?P<skip>[\/]))?(?P<file>.+)$#', $file, $fileMatch);
+        // save basename
+        $source->basename = $fileMatch['file'];
         // go relative to a given template?
         if ($_template && $_template->parent instanceof Smarty_Internal_Template && (!empty($fileMatch['rel1']) || !empty($fileMatch['rel2']))) {
             if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' && !$_template->parent->allow_relative_path) {
@@ -59,7 +61,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                 $file = $path . '/' . $fileMatch['file'];
             }
             // files relative to a template only get one shot
-            return $this->fileExists($source, $file) ? $file : false;
+            return is_file($file) ? $file : false;
         }
 
         $_filepath = null;
@@ -83,7 +85,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             }
             if ($_directory) {
                 $_filepath = $_directory . $fileMatch['file'];
-                if ($this->fileExists($source, $_filepath)) {
+                if (is_file($_filepath)) {
                     return $_filepath;
                 }
             }
@@ -94,15 +96,17 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             foreach ($_directories as $_directory) {
                 if (empty($fileMatch['rel2'])) {
                     $_filepath = $_directory . $fileMatch['file'];
-                } else if (false === strpos($_directory, '..')) {
-                    for ($i = 1; $i <= substr_count($fileMatch['rel2'], '../') + 1; $i ++) {
-                        $_directory = substr($_directory, 0, strrpos($_directory, '/'));
-                    }
-                    $_filepath = $_directory . '/' . $fileMatch['file'];
                 } else {
-                    $_filepath = $_directory . $file;
+                    if (false === strpos($_directory, '..')) {
+                        for ($i = 1; $i <= substr_count($fileMatch['rel2'], '../') + 1; $i ++) {
+                            $_directory = substr($_directory, 0, strrpos($_directory, '/'));
+                        }
+                        $_filepath = $_directory . '/' . $fileMatch['file'];
+                    } else {
+                        $_filepath = $_directory . $file;
+                    }
                 }
-                if ($this->fileExists($source, $_filepath)) {
+                if (is_file($_filepath)) {
                     return $_filepath;
                 }
                 if ($source->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_directory)) {
@@ -114,7 +118,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                     }
 
                     if ($_filepath !== false) {
-                        if ($this->fileExists($source, $_filepath)) {
+                        if (is_file($_filepath)) {
                             return $_filepath;
                         }
                     }
@@ -122,7 +126,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             }
         } else {
             // try absolute filepath
-            if ($this->fileExists($source, $file)) {
+            if (is_file($file)) {
                 return $file;
             }
         }
@@ -136,13 +140,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             }
             $file = $path . '/' . $fileMatch['file'];
         }
-        if ($this->fileExists($source, $file)) {
-            return $file;
-        }
-
-        // give up
-        $source->timestamp = false;
-        return $source->exists = false;
+        return is_file($file) ? $file : false;
     }
 
     /**
@@ -155,17 +153,15 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     protected function fileExists(Smarty_Template_Source $source, $file)
     {
-        if (is_file($file)) {
-            $source->timestamp = filemtime($file);
-            return $source->exists = true;
-        }
-        return false;
+        $source->timestamp = is_file($file) ? @filemtime($file) : false;
+        return $source->exists = !!$source->timestamp;
     }
 
     /**
      * populate Source Object with meta data from Resource
+
      *
-     * @param Smarty_Template_Source   $source    source object
+*@param Smarty_Template_Source   $source    source object
      * @param Smarty_Internal_Template $_template template object
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
@@ -182,6 +178,9 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                 $source->timestamp = @filemtime($source->filepath);
                 $source->exists = !!$source->timestamp;
             }
+        } else {
+            $source->timestamp = false;
+            $source->exists = false;
         }
     }
 
@@ -224,11 +223,6 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     public function getBasename(Smarty_Template_Source $source)
     {
-        $_file = $source->name;
-        if (($_pos = strpos($_file, ']')) !== false) {
-            $_file = substr($_file, $_pos + 1);
-        }
-
-        return basename($_file);
+        return $source->basename;
     }
 }

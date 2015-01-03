@@ -76,6 +76,12 @@ class Smarty_Template_Source
      * @var string
      */
     public $filepath = null;
+    /**
+     * Source File Base name
+     *
+     * @var string
+     */
+    public $basename = null;
 
     /**
      * The Components an extended template is made of
