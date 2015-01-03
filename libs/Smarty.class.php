@@ -223,19 +223,19 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var array
      */
-    private $template_dir = array();
+    private $template_dir = array('./templates/');
     /**
      * joined template directory string used in cache keys
      *
      * @var string
      */
-    public $joined_template_dir = null;
+    public $joined_template_dir = './templates/';
     /**
      * joined config directory string used in cache keys
      *
      * @var string
      */
-    public $joined_config_dir = null;
+    public $joined_config_dir = './config/';
     /**
      * default template handler
      *
@@ -259,7 +259,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string
      */
-    private $compile_dir = null;
+    private $compile_dir = './templates_c/';
     /**
      * plugins directory
      *
@@ -271,13 +271,13 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string
      */
-    private $cache_dir = null;
+    private $cache_dir = './templates_c/';
     /**
      * config directory
      *
      * @var array
      */
-    private $config_dir = array();
+    private $config_dir = array('./config/');
     /**
      * force template compiling?
      *
@@ -660,15 +660,11 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
         $this->start_time = microtime(true);
         // set default dirs
-        $this->setTemplateDir('./templates/')
-             ->setCompileDir('./templates_c/')
-             ->setPluginsDir(SMARTY_PLUGINS_DIR)
-             ->setCacheDir('./cache/')
-             ->setConfigDir('./configs/');
+        $this->setPluginsDir(SMARTY_PLUGINS_DIR);
 
         $this->debug_tpl = 'file:' . dirname(__FILE__) . '/debug.tpl';
         if (isset($_SERVER['SCRIPT_NAME'])) {
-            $this->assignGlobal('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
+            Smarty::$global_tpl_vars['SCRIPT_NAME'] = new Smarty_variable($_SERVER['SCRIPT_NAME']);
         }
 
         // Check if we're running on windows
