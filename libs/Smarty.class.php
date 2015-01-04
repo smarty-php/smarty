@@ -2,7 +2,6 @@
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
- *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -71,7 +70,6 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
 
 /**
  * Try loading the Smmarty_Internal_Data class
- *
  * If we fail we must load Smarty's autoloader.
  * Otherwise we may have a global autoloader like Composer
  */
@@ -272,7 +270,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string
      */
-    private $cache_dir = './templates_c/';
+    private $cache_dir = './cache/';
     /**
      * config directory
      *
@@ -953,9 +951,9 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $this->plugins_dir = array();
         foreach ((array) $plugins_dir as $k => $v) {
-            $this->plugins_dir[$k] = preg_replace(array('#\\\\#', '#([^\/]+)(/)*#', '#([^\/]+)$#'), array('/', '$1/'), $v);
+            $this->plugins_dir[$k] = rtrim($v, '/\\') . DS;
         }
-        $this->_is_file_cache = array();
+
         return $this;
     }
 
@@ -968,9 +966,26 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function addPluginsDir($plugins_dir)
     {
-        $this->_addDir('plugins_dir', $plugins_dir);
+        // make sure we're dealing with an array
+        $this->plugins_dir = (array) $this->plugins_dir;
+
+        if (is_array($plugins_dir)) {
+            foreach ($plugins_dir as $k => $v) {
+                if (is_int($k)) {
+                    // indexes are not merged but appended
+                    $this->plugins_dir[] = rtrim($v, '/\\') . DS;
+                } else {
+                    // string indexes are overridden
+                    $this->plugins_dir[$k] = rtrim($v, '/\\') . DS;
+                }
+            }
+        } else {
+            // append new directory
+            $this->plugins_dir[] = rtrim($plugins_dir, '/\\') . DS;
+        }
+
         $this->plugins_dir = array_unique($this->plugins_dir);
-        $this->_is_file_cache = array();
+
         return $this;
     }
 
@@ -993,10 +1008,11 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function setCompileDir($compile_dir)
     {
-        $this->compile_dir = preg_replace(array('#\\\\#', '#([^\/]+)(/)*#', '#([^\/]+)$#'), array('/', '$1/'), $compile_dir);
+        $this->compile_dir = rtrim($compile_dir, '/\\') . DS;
         if (!isset(Smarty::$_muted_directories[$this->compile_dir])) {
             Smarty::$_muted_directories[$this->compile_dir] = null;
         }
+
         return $this;
     }
 
@@ -1019,7 +1035,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function setCacheDir($cache_dir)
     {
-        $this->cache_dir = preg_replace(array('#\\\\#', '#([^\/]+)(/)*#', '#([^\/]+)$#'), array('/', '$1/'), $cache_dir);
+        $this->cache_dir = rtrim($cache_dir, '/\\') . DS;
         if (!isset(Smarty::$_muted_directories[$this->cache_dir])) {
             Smarty::$_muted_directories[$this->cache_dir] = null;
         }
