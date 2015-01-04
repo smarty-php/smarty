@@ -60,6 +60,9 @@ class Smarty_Autoloader
         'smarty_template_source'             => true,
         'smarty_template_compiled'           => true,
         'smarty_template_cached'             => true,
+        'smarty_data'                        => true,
+        'smarty_variable'                    => true,
+        'smarty_undefined_variable'          => true,
         'smartyexception'                    => true,
         'smartycompilerexception'            => true,
     );
@@ -123,8 +126,8 @@ class Smarty_Autoloader
         } elseif (0 !== strpos($_class, 'smarty_internal_')) {
             if (isset(self::$rootClasses[$class])) {
                 $file = self::$SMARTY_DIR . self::$rootClasses[$class];
-                    require $file;
-                    return;
+                require $file;
+                return;
             }
             self::$unknown[$class] = true;
             return;

@@ -127,7 +127,7 @@ class Smarty_Internal_Data
                 if ($_key != '') {
                     if (!isset($this->tpl_vars[$_key])) {
                         $tpl_var_inst = $this->getVariable($_key, null, true, false);
-                        if ($tpl_var_inst instanceof Undefined_Smarty_Variable) {
+                        if ($tpl_var_inst instanceof Smarty_Undefined_Variable) {
                             $this->tpl_vars[$_key] = new Smarty_variable(null, $nocache);
                         } else {
                             $this->tpl_vars[$_key] = clone $tpl_var_inst;
@@ -149,7 +149,7 @@ class Smarty_Internal_Data
             if ($tpl_var != '' && isset($value)) {
                 if (!isset($this->tpl_vars[$tpl_var])) {
                     $tpl_var_inst = $this->getVariable($tpl_var, null, true, false);
-                    if ($tpl_var_inst instanceof Undefined_Smarty_Variable) {
+                    if ($tpl_var_inst instanceof Smarty_Undefined_Variable) {
                         $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache);
                     } else {
                         $this->tpl_vars[$tpl_var] = clone $tpl_var_inst;
@@ -332,7 +332,7 @@ class Smarty_Internal_Data
             $x = $$variable;
         }
 
-        return new Undefined_Smarty_Variable;
+        return new Smarty_Undefined_Variable;
     }
 
     /**
@@ -399,151 +399,5 @@ class Smarty_Internal_Data
         } else {
             return null;
         }
-    }
-}
-
-/**
- * class for the Smarty data object
- * The Smarty data object will hold Smarty variables in the current scope
- *
- * @package    Smarty
- * @subpackage Template
- */
-class Smarty_Data extends Smarty_Internal_Data
-{
-    /**
-     * Counter
-     *
-     * @var int
-     */
-    static $count = 0;
-
-    /**
-     * Data block name
-     *
-     * @var string
-     */
-    public $dataObjectName = '';
-    /**
-     * Smarty object
-     *
-     * @var Smarty
-     */
-    public $smarty = null;
-
-    /**
-     * create Smarty data object
-     *
-     * @param Smarty|array                    $_parent parent template
-     * @param Smarty|Smarty_Internal_Template $smarty  global smarty instance
-     * @param string                          $name    optional data block name
-     *
-     * @throws SmartyException
-     */
-    public function __construct($_parent = null, $smarty = null, $name = null)
-    {
-        self::$count ++;
-        $this->dataObjectName = 'Data_object ' . (isset($name) ? "'{$name}'" : self::$count);
-        $this->smarty = $smarty;
-        if (is_object($_parent)) {
-            // when object set up back pointer
-            $this->parent = $_parent;
-        } elseif (is_array($_parent)) {
-            // set up variable values
-            foreach ($_parent as $_key => $_val) {
-                $this->tpl_vars[$_key] = new Smarty_variable($_val);
-            }
-        } elseif ($_parent != null) {
-            throw new SmartyException("Wrong type for template variables");
-        }
-    }
-}
-
-/**
- * class for the Smarty variable object
- * This class defines the Smarty variable object
- *
- * @package    Smarty
- * @subpackage Template
- */
-class Smarty_Variable
-{
-    /**
-     * template variable
-     *
-     * @var mixed
-     */
-    public $value = null;
-    /**
-     * if true any output of this variable will be not cached
-     *
-     * @var boolean
-     */
-    public $nocache = false;
-    /**
-     * the scope the variable will have  (local,parent or root)
-     *
-     * @var int
-     */
-    public $scope = Smarty::SCOPE_LOCAL;
-
-    /**
-     * create Smarty variable object
-     *
-     * @param mixed   $value   the value to assign
-     * @param boolean $nocache if true any output of this variable will be not cached
-     * @param int     $scope   the scope the variable will have  (local,parent or root)
-     */
-    public function __construct($value = null, $nocache = false, $scope = Smarty::SCOPE_LOCAL)
-    {
-        $this->value = $value;
-        $this->nocache = $nocache;
-        $this->scope = $scope;
-    }
-
-    /**
-     * <<magic>> String conversion
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->value;
-    }
-}
-
-/**
- * class for undefined variable object
- * This class defines an object for undefined variable handling
- *
- * @package    Smarty
- * @subpackage Template
- */
-class Undefined_Smarty_Variable
-{
-    /**
-     * Returns FALSE for 'nocache' and NULL otherwise.
-     *
-     * @param  string $name
-     *
-     * @return bool
-     */
-    public function __get($name)
-    {
-        if ($name == 'nocache') {
-            return false;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Always returns an empty string.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return "";
     }
 }
