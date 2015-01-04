@@ -953,7 +953,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         foreach ((array) $plugins_dir as $k => $v) {
             $this->plugins_dir[$k] = rtrim($v, '/\\') . DS;
         }
-
+        $this->_is_file_cache = array();
         return $this;
     }
 
@@ -985,7 +985,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
 
         $this->plugins_dir = array_unique($this->plugins_dir);
-
+        $this->_is_file_cache = array();
         return $this;
     }
 
