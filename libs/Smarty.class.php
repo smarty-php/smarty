@@ -92,6 +92,7 @@ if (!class_exists('Smarty_Internal_Data', false)) {
 require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
 require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
 require SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
+require SMARTY_SYSPLUGINS_DIR . 'smarty_variable.php';
 require SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
 require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
 
@@ -109,7 +110,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.22-dev/5';
+    const SMARTY_VERSION = '3.1.22-dev/6';
 
     /**
      * define variable scopes
@@ -235,7 +236,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string
      */
-    public $joined_config_dir = './config/';
+    public $joined_config_dir = './configs/';
     /**
      * default template handler
      *
@@ -277,7 +278,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var array
      */
-    private $config_dir = array('./config/');
+    private $config_dir = array('./configs/');
     /**
      * force template compiling?
      *
@@ -506,17 +507,17 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $template_objects = array();
 
     /**
-     * enable template resource caching
+     * enable resource caching
      *
      * @var bool
      */
-    public $resource_caching = true;
+    public $resource_caching = false;
     /**
      * enable template resource caching
      *
      * @var bool
      */
-    public $template_resource_caching = false;
+    public $template_resource_caching = true;
     /**
      * check If-Modified-Since headers
      *
@@ -664,7 +665,7 @@ class Smarty extends Smarty_Internal_TemplateBase
 
         $this->debug_tpl = 'file:' . dirname(__FILE__) . '/debug.tpl';
         if (isset($_SERVER['SCRIPT_NAME'])) {
-            Smarty::$global_tpl_vars['SCRIPT_NAME'] = new Smarty_variable($_SERVER['SCRIPT_NAME']);
+            Smarty::$global_tpl_vars['SCRIPT_NAME'] = new Smarty_Variable($_SERVER['SCRIPT_NAME']);
         }
 
         // Check if we're running on windows
