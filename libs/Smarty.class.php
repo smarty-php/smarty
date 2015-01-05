@@ -171,7 +171,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
      */
-    public static $_muted_directories = array();
+    public static $_muted_directories = array('./templates_c/' => null, './cache/' => null);
     /**
      * Flag denoting if Multibyte String functions are available
      */
@@ -264,7 +264,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var array
      */
-    private $plugins_dir = array();
+    private $plugins_dir = null;
     /**
      * cache directory
      *
@@ -658,8 +658,26 @@ class Smarty extends Smarty_Internal_TemplateBase
             mb_internal_encoding(Smarty::$_CHARSET);
         }
         $this->start_time = microtime(true);
-        // set default dirs
-        $this->setPluginsDir(SMARTY_PLUGINS_DIR);
+        // check default dirs for overloading
+        if ($this->template_dir[0] !== './templates/' || isset($this->template_dir[1])) {
+            $this->setTemplateDir($this->template_dir);
+        }
+        if ($this->config_dir[0] !== './configs/' || isset($this->config_dir[1])) {
+            $this->setConfigDir($this->config_dir);
+        }
+        if ($this->compile_dir !== './templates_c/') {
+            unset(self::$_muted_directories['./templates_c/']);
+            $this->setCompileDir($this->compile_dir);
+        }
+        if ($this->cache_dir !== './cache/') {
+            unset(self::$_muted_directories['./cache/']);
+            $this->setCacheDir($this->cache_dir);
+        }
+        if (isset($this->plugins_dir)) {
+            $this->setPluginsDir($this->plugins_dir);
+        } else {
+            $this->setPluginsDir(SMARTY_PLUGINS_DIR);
+        }
 
         $this->debug_tpl = 'file:' . dirname(__FILE__) . '/debug.tpl';
         if (isset($_SERVER['SCRIPT_NAME'])) {
