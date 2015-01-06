@@ -42,9 +42,9 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
                 $_nocache = ',true';
                 // create nocache var to make it know for further compiling
                 if (is_array($parameter['if condition']['var'])) {
-                    $compiler->template->tpl_vars[trim($parameter['if condition']['var']['var'], "'")] = new Smarty_variable(null, true);
+                    $compiler->template->tpl_vars[trim($parameter['if condition']['var']['var'], "'")] = new Smarty_Variable(null, true);
                 } else {
-                    $compiler->template->tpl_vars[trim($parameter['if condition']['var'], "'")] = new Smarty_variable(null, true);
+                    $compiler->template->tpl_vars[trim($parameter['if condition']['var'], "'")] = new Smarty_Variable(null, true);
                 }
             } else {
                 $_nocache = '';

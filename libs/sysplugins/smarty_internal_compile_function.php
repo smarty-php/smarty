@@ -156,10 +156,10 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             }
             $output .= "ob_start();\n";
             $output .= $_paramsCode;
-            $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(\$value);\n}";
+            $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value);\n}";
             $output .= "\$params = var_export(\$params, true);\n";
             $output .= "echo \"/*%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/<?php ";
-            $output .= "\\\$saved_tpl_vars = \\\$_smarty_tpl->tpl_vars;\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->tpl_vars[\\\$key] = new Smarty_variable(\\\$value);\n}\n?>";
+            $output .= "\\\$saved_tpl_vars = \\\$_smarty_tpl->tpl_vars;\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->tpl_vars[\\\$key] = new Smarty_Variable(\\\$value);\n}\n?>";
             $output .= "/*/%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/\n\";?>";
             $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
             $compiler->parser->current_buffer->append_subtree($_functionCode);
@@ -191,7 +191,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         }
         $output .= "\$saved_tpl_vars = \$_smarty_tpl->tpl_vars;\n";
         $output .= $_paramsCode;
-        $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_variable(\$value);\n}?>";
+        $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value);\n}?>";
         $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
         $compiler->parser->current_buffer->append_subtree($_functionCode);
         $output = "<?php \$_smarty_tpl->tpl_vars = \$saved_tpl_vars;\n";

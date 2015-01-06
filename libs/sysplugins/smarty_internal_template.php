@@ -459,7 +459,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (!empty($data)) {
             // set up variable values
             foreach ($data as $_key => $_val) {
-                $tpl->tpl_vars[$_key] = new Smarty_variable($_val);
+                $tpl->tpl_vars[$_key] = new Smarty_Variable($_val);
             }
         }
         return $tpl;
@@ -623,7 +623,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function createLocalArrayVariable($tpl_var, $nocache = false, $scope = Smarty::SCOPE_LOCAL)
     {
         if (!isset($this->tpl_vars[$tpl_var])) {
-            $this->tpl_vars[$tpl_var] = new Smarty_variable(array(), $nocache, $scope);
+            $this->tpl_vars[$tpl_var] = new Smarty_Variable(array(), $nocache, $scope);
         } else {
             $this->tpl_vars[$tpl_var] = clone $this->tpl_vars[$tpl_var];
             if ($scope != Smarty::SCOPE_LOCAL) {

@@ -55,12 +55,12 @@ class Smarty_Internal_Data
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $_key => $_val) {
                 if ($_key != '') {
-                    $this->tpl_vars[$_key] = new Smarty_variable($_val, $nocache);
+                    $this->tpl_vars[$_key] = new Smarty_Variable($_val, $nocache);
                 }
             }
         } else {
             if ($tpl_var != '') {
-                $this->tpl_vars[$tpl_var] = new Smarty_variable($value, $nocache);
+                $this->tpl_vars[$tpl_var] = new Smarty_Variable($value, $nocache);
             }
         }
 
@@ -79,7 +79,7 @@ class Smarty_Internal_Data
     public function assignGlobal($varname, $value = null, $nocache = false)
     {
         if ($varname != '') {
-            Smarty::$global_tpl_vars[$varname] = new Smarty_variable($value, $nocache);
+            Smarty::$global_tpl_vars[$varname] = new Smarty_Variable($value, $nocache);
             $ptr = $this;
             while ($ptr instanceof Smarty_Internal_Template) {
                 $ptr->tpl_vars[$varname] = clone Smarty::$global_tpl_vars[$varname];
@@ -102,7 +102,7 @@ class Smarty_Internal_Data
     public function assignByRef($tpl_var, &$value, $nocache = false)
     {
         if ($tpl_var != '') {
-            $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache);
+            $this->tpl_vars[$tpl_var] = new Smarty_Variable(null, $nocache);
             $this->tpl_vars[$tpl_var]->value = &$value;
         }
 
@@ -128,7 +128,7 @@ class Smarty_Internal_Data
                     if (!isset($this->tpl_vars[$_key])) {
                         $tpl_var_inst = $this->getVariable($_key, null, true, false);
                         if ($tpl_var_inst instanceof Smarty_Undefined_Variable) {
-                            $this->tpl_vars[$_key] = new Smarty_variable(null, $nocache);
+                            $this->tpl_vars[$_key] = new Smarty_Variable(null, $nocache);
                         } else {
                             $this->tpl_vars[$_key] = clone $tpl_var_inst;
                         }
@@ -150,7 +150,7 @@ class Smarty_Internal_Data
                 if (!isset($this->tpl_vars[$tpl_var])) {
                     $tpl_var_inst = $this->getVariable($tpl_var, null, true, false);
                     if ($tpl_var_inst instanceof Smarty_Undefined_Variable) {
-                        $this->tpl_vars[$tpl_var] = new Smarty_variable(null, $nocache);
+                        $this->tpl_vars[$tpl_var] = new Smarty_Variable(null, $nocache);
                     } else {
                         $this->tpl_vars[$tpl_var] = clone $tpl_var_inst;
                     }
@@ -184,7 +184,7 @@ class Smarty_Internal_Data
     {
         if ($tpl_var != '' && isset($value)) {
             if (!isset($this->tpl_vars[$tpl_var])) {
-                $this->tpl_vars[$tpl_var] = new Smarty_variable();
+                $this->tpl_vars[$tpl_var] = new Smarty_Variable();
             }
             if (!is_array($this->tpl_vars[$tpl_var]->value)) {
                 settype($this->tpl_vars[$tpl_var]->value, 'array');
