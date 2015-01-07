@@ -46,9 +46,9 @@ class Smarty_Internal_Extension_CodeFrame
                     foreach ($tmp as $data) {
                         $file = addslashes($data['file']);
                         if (is_Array($data['function'])) {
-                            $output .= "if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) include '{$file}';\n";
+                            $output .= "if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) require_once '{$file}';\n";
                         } else {
-                            $output .= "if (!is_callable('{$data['function']}')) include '{$file}';\n";
+                            $output .= "if (!is_callable('{$data['function']}')) require_once '{$file}';\n";
                         }
                     }
                 }
@@ -60,9 +60,9 @@ class Smarty_Internal_Extension_CodeFrame
                     foreach ($tmp as $data) {
                         $file = addslashes($data['file']);
                         if (is_Array($data['function'])) {
-                            $output .= addslashes("if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) include '{$file}';\n");
+                            $output .= addslashes("if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) require_once '{$file}';\n");
                         } else {
-                            $output .= addslashes("if (!is_callable('{$data['function']}')) include '{$file}';\n");
+                            $output .= addslashes("if (!is_callable('{$data['function']}')) require_once '{$file}';\n");
                         }
                     }
                 }

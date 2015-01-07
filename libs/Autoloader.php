@@ -11,7 +11,7 @@
  * @package    Smarty
  * @author     Uwe Tews
  *             Usage:
- *             include '...path/Autoloader.php';
+ *             require_once '...path/Autoloader.php';
  *             Smarty_Autoloader::register();
  *             $smarty = new Smarty();
  *             Note:       This autoloader is not needed if you use Composer.
@@ -47,24 +47,38 @@ class Smarty_Autoloader
     );
 
     private static $syspluginsClasses = array(
-        'smarty_config_source'               => true,
-        'smarty_security'                    => true,
-        'smarty_cacheresource'               => true,
-        'smarty_compiledresource'            => true,
-        'smarty_cacheresource_custom'        => true,
-        'smarty_cacheresource_keyvaluestore' => true,
-        'smarty_resource'                    => true,
-        'smarty_resource_custom'             => true,
-        'smarty_resource_uncompiled'         => true,
-        'smarty_resource_recompiled'         => true,
-        'smarty_template_source'             => true,
-        'smarty_template_compiled'           => true,
-        'smarty_template_cached'             => true,
-        'smarty_data'                        => true,
-        'smarty_variable'                    => true,
-        'smarty_undefined_variable'          => true,
-        'smartyexception'                    => true,
-        'smartycompilerexception'            => true,
+        'smarty_config_source'                  => true,
+        'smarty_security'                       => true,
+        'smarty_cacheresource'                  => true,
+        'smarty_compiledresource'               => true,
+        'smarty_cacheresource_custom'           => true,
+        'smarty_cacheresource_keyvaluestore'    => true,
+        'smarty_resource'                       => true,
+        'smarty_resource_custom'                => true,
+        'smarty_resource_uncompiled'            => true,
+        'smarty_resource_recompiled'            => true,
+        'smarty_template_source'                => true,
+        'smarty_template_compiled'              => true,
+        'smarty_template_cached'                => true,
+        'smarty_data'                           => true,
+        'smarty_variable'                       => true,
+        'smarty_undefined_variable'             => true,
+        'smartyexception'                       => true,
+        'smartycompilerexception'               => true,
+        'smarty_internal_data'                  => true,
+        'smarty_internal_template'              => true,
+        'smarty_internal_templatebase'          => true,
+        'smarty_internal_resource_file'         => true,
+        'smarty_internal_resource_extends'      => true,
+        'smarty_internal_resource_eval'         => true,
+        'smarty_internal_resource_string'       => true,
+        'smarty_internal_resource_registered'   => true,
+        'smarty_internal_extension_codeframe'   => true,
+        'smarty_internal_extension_config'      => true,
+        'smarty_internal_filter_handler'        => true,
+        'smarty_internal_function_call_handler' => true,
+        'smarty_internal_cacheresource_file'    => true,
+        'smarty_internal_write_file'    => true,
     );
 
     /**
@@ -121,12 +135,12 @@ class Smarty_Autoloader
         if (isset(self::$syspluginsClasses[$_class])) {
             $_class = (self::$syspluginsClasses[$_class] === true) ? $_class : self::$syspluginsClasses[$_class];
             $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
-            require $file;
+            require_once $file;
             return;
         } elseif (0 !== strpos($_class, 'smarty_internal_')) {
             if (isset(self::$rootClasses[$class])) {
                 $file = self::$SMARTY_DIR . self::$rootClasses[$class];
-                require $file;
+                require_once $file;
                 return;
             }
             self::$unknown[$class] = true;
@@ -134,7 +148,7 @@ class Smarty_Autoloader
         }
         $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
         if (is_file($file)) {
-            require $file;
+            require_once $file;
             return;
         }
         self::$unknown[$class] = true;
