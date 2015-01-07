@@ -75,7 +75,7 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
  */
 if (!class_exists('Smarty_Autoloader', false)) {
     if (!class_exists('Smarty_Internal_Data', true)) {
-        require 'Autoloader.php';
+        require_once 'Autoloader.php';
         Smarty_Autoloader::registerBC();
     }
 }
@@ -85,14 +85,13 @@ if (!class_exists('Smarty_Autoloader', false)) {
  */
 
 if (!class_exists('Smarty_Internal_Data', false)) {
-    require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
+    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
 }
-require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
-require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
-require SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
-require SMARTY_SYSPLUGINS_DIR . 'smarty_variable.php';
-require SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
-require SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_variable.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
 
 /**
  * This is the main Smarty class
@@ -1262,29 +1261,22 @@ class Smarty extends Smarty_Internal_TemplateBase
             $data = null;
         }
         $_templateId = $this->getTemplateId($template, $cache_id, $compile_id);
-        if ($do_clone) {
-            if (isset($this->template_objects[$_templateId])) {
-                // return cached template object
+        if (isset($this->template_objects[$_templateId])) {
+            if ($do_clone) {
                 $tpl = clone $this->template_objects[$_templateId];
                 $tpl->smarty = clone $tpl->smarty;
-                $tpl->parent = $parent;
-                $tpl->tpl_vars = array();
-                $tpl->config_vars = array();
             } else {
-                $tpl = new $this->template_class($template, clone $this, $parent, $cache_id, $compile_id);
-                $tpl->templateId = $_templateId;
-            }
-        } else {
-            if (isset($this->template_objects[$_templateId])) {
-                // return cached template object
                 $tpl = $this->template_objects[$_templateId];
-                $tpl->parent = $parent;
-                $tpl->tpl_vars = array();
-                $tpl->config_vars = array();
-            } else {
-                $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
-                $tpl->templateId = $_templateId;
             }
+            $tpl->parent = $parent;
+            $tpl->tpl_vars = array();
+            $tpl->config_vars = array();
+        } else {
+            $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
+            if ($do_clone) {
+                $tpl->smarty = clone $tpl->smarty;
+            }
+            $tpl->templateId = $_templateId;
         }
         // fill data if present
         if (!empty($data) && is_array($data)) {
