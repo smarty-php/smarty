@@ -1428,7 +1428,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function testInstall(&$errors = null)
     {
-        return Smarty_Internal_Utility::testInstall($this, $errors);
+        return Smarty_Internal_TestInstall::testInstall($this, $errors);
     }
 
     /**
