@@ -2,6 +2,7 @@
  
  21.01.2015
  - bugfix clearCompiledTemplates(), clearAll() and clear() could try to delete whole drive at wrong path permissions because realpath() fail (forum 25397)
+ - bugfix 'self::' and 'parent::' was interpreted in template syntax as static class 
  
  04.01.2015
  - push last weeks changes to github

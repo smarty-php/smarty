@@ -1,5 +1,4 @@
 <?php
-
 class TP_yyToken implements ArrayAccess
 {
     public $string = '';
@@ -73,13 +72,13 @@ class TP_yyStackEntry
     public $minor; /* The user-supplied minor token value.  This
                      ** is the value of the token  */
 }
-
 ;
 
 #line 13 "../smarty/lexer/smarty_internal_templateparser.y"
 
 /**
  * Smarty Internal Plugin Templateparser
+ *
  * This is the template parser.
  * It is generated from the smarty_internal_templateparser.y file
  *
@@ -2915,7 +2914,7 @@ class Smarty_Internal_Templateparser
     #line 926 "../smarty/lexer/smarty_internal_templateparser.y"
     function yy_r117()
     {
-        if (!$this->security || isset($this->smarty->registered_classes[$this->yystack[$this->yyidx + - 2]->minor]) || $this->smarty->security_policy->isTrustedStaticClass($this->yystack[$this->yyidx + - 2]->minor, $this->compiler)) {
+        if (!in_array(strtolower($this->yystack[$this->yyidx + - 2]->minor), array('self', 'parent')) && (!$this->security || isset($this->smarty->registered_classes[$this->yystack[$this->yyidx + - 2]->minor]) || $this->smarty->security_policy->isTrustedStaticClass($this->yystack[$this->yyidx + - 2]->minor, $this->compiler))) {
             if (isset($this->smarty->registered_classes[$this->yystack[$this->yyidx + - 2]->minor])) {
                 $this->_retvalue = $this->smarty->registered_classes[$this->yystack[$this->yyidx + - 2]->minor] . '::' . $this->yystack[$this->yyidx + 0]->minor;
             } else {

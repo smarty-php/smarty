@@ -924,7 +924,7 @@ value(res)       ::= NAMESPACE(c). {
 
                   // static class access
 value(res)       ::= ns1(c)DOUBLECOLON static_class_access(s). {
-    if (!$this->security || isset($this->smarty->registered_classes[c]) || $this->smarty->security_policy->isTrustedStaticClass(c, $this->compiler)) {
+    if (!in_array(strtolower(c), array('self', 'parent')) && (!$this->security || isset($this->smarty->registered_classes[c]) || $this->smarty->security_policy->isTrustedStaticClass(c, $this->compiler))) {
         if (isset($this->smarty->registered_classes[c])) {
             res = $this->smarty->registered_classes[c].'::'.s;
         } else {
