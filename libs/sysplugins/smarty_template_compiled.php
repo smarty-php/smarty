@@ -247,7 +247,8 @@ class Smarty_Template_Compiled
     public function write(Smarty_Internal_Template $_template, $code)
     {
         if (!$_template->source->recompiled) {
-            if (Smarty_Internal_Write_File::writeFile($this->filepath, $code, $_template->smarty) === true) {
+            $obj = new Smarty_Internal_Write_File();
+            if ($obj->writeFile($this->filepath, $code, $_template->smarty) === true) {
                 $this->timestamp = @filemtime($this->filepath);
                 $this->exists = !!$this->timestamp;
                 if ($this->exists) {
