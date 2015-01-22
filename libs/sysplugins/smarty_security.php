@@ -62,6 +62,34 @@ class Smarty_Security
      * @var array
      */
     public $static_classes = array();
+
+    /**
+     * This is an nested array of trusted classes and static methods.
+     * If empty access to all static classes and methods is allowed.
+     * Format:
+     * array (
+     *         'class_1' => array('method_1', 'method_2'), // allowed methods listed
+     *         'class_2' => array(),                       // all methods of class allowed
+     *       )
+     * If set to null none is allowed.
+     *
+     * @var array
+     */
+    public $trusted_static_methods = array();
+
+    /**
+     * This is an array of trusted static properties.
+     * If empty access to all static classes and properties is allowed.
+     * Format:
+     * array (
+     *         'class_1' => array('prop_1', 'prop_2'), // allowed properties listed
+     *         'class_2' => array(),                   // all properties of class allowed
+     *       )
+     * If set to null none is allowed.
+     *
+     * @var array
+     */
+    public $trusted_static_properties = array();
     /**
      * This is an array of trusted PHP functions.
      * If empty all functions are allowed.
@@ -239,6 +267,46 @@ class Smarty_Security
     }
 
     /**
+     * Check if static class method/property is trusted.
+     *
+     * @param  string $class_name
+     * @param  string $params
+     * @param  object $compiler compiler object
+     *
+     * @return boolean                 true if class method is trusted
+     * @throws SmartyCompilerException if static class method is not trusted
+     */
+    public function isTrustedStaticClassAccess($class_name, $params, $compiler)
+    {
+        if (!isset($params[2])) {
+            // fall back
+            return $this->isTrustedStaticClass($class_name, $compiler);
+        }
+        if ($params[2] == 'method') {
+            $allowed = $this->trusted_static_methods;
+            $name = substr($params[0], 0, strpos($params[0], '('));
+        } else {
+            $allowed = $this->trusted_static_properties;
+            // strip '$'
+            $name = substr($params[0], 1);
+        }
+        if (isset($allowed)) {
+            if (empty($allowed)) {
+                // fall back
+                return $this->isTrustedStaticClass($class_name, $compiler);
+            }
+            if (isset($allowed[$class_name])
+                && (empty($allowed[$class_name])
+                    || in_array($name, $allowed[$class_name]))
+            ) {
+                return true;
+            }
+        }
+        $compiler->trigger_template_error("access to static class '{$class_name}' {$params[2]} '{$name}' not allowed by security setting");
+        return false; // should not, but who knows what happens to the compiler in the future?
+    }
+
+    /**
      * Check if PHP modifier is trusted.
      *
      * @param  string $modifier_name
@@ -290,6 +358,7 @@ class Smarty_Security
 
         return false; // should not, but who knows what happens to the compiler in the future?
     }
+
     /**
      * Check if special $smarty variable is trusted.
      *
@@ -521,8 +590,9 @@ class Smarty_Security
      *
      * @throws SmartyException
      */
-    public function startTemplate($template) {
-        if ($this->max_template_nesting > 0 && $this->_current_template_nesting++ >= $this->max_template_nesting) {
+    public function startTemplate($template)
+    {
+        if ($this->max_template_nesting > 0 && $this->_current_template_nesting ++ >= $this->max_template_nesting) {
             throw new SmartyException("maximum template nesting level of '{$this->max_template_nesting}' exceeded when calling '{$template->template_resource}'");
         }
     }
@@ -532,7 +602,8 @@ class Smarty_Security
      *
      * @param $template
      */
-    public function exitTemplate($template) {
+    public function exitTemplate($template)
+    {
         if ($this->max_template_nesting > 0) {
             $this->_current_template_nesting --;
         }

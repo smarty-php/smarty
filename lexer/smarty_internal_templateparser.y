@@ -902,7 +902,7 @@ value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
     } else {
         $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.' = '. $this->compileVariable(vi['var']).vi['smarty_internal_index'].';?>';
     }
-    res = '$_tmp'.self::$prefix_number.'::'.r;
+    res = '$_tmp'.self::$prefix_number.'::'.r[0].r[1];
 
 }
 
@@ -924,11 +924,11 @@ value(res)       ::= NAMESPACE(c). {
 
                   // static class access
 value(res)       ::= ns1(c)DOUBLECOLON static_class_access(s). {
-    if (!in_array(strtolower(c), array('self', 'parent')) && (!$this->security || isset($this->smarty->registered_classes[c]) || $this->smarty->security_policy->isTrustedStaticClass(c, $this->compiler))) {
+    if (!in_array(strtolower(c), array('self', 'parent')) && (!$this->security || $this->smarty->security_policy->isTrustedStaticClassAccess(c, s, $this->compiler))) {
         if (isset($this->smarty->registered_classes[c])) {
-            res = $this->smarty->registered_classes[c].'::'.s;
+            res = $this->smarty->registered_classes[c].'::'.s[0].s[1];
         } else {
-            res = c.'::'.s;
+            res = c.'::'.s[0].s[1];
         } 
     } else {
         $this->compiler->trigger_template_error ("static class '".c."' is undefined or not allowed by security setting");
@@ -1256,27 +1256,27 @@ modparameter(res) ::= COLON array(mp). {
 
                   // static class methode call
 static_class_access(res)       ::= method(m). {
-    res = m;
+    res = array(m, '', 'method');
 }
 
                   // static class methode call with object chainig
 static_class_access(res)       ::= method(m) objectchain(oc). {
-    res = m.oc;
+    res = array(m, oc, 'method');
 }
 
                   // static class constant
 static_class_access(res)       ::= ID(v). {
-    res = v;
+    res = array(v, '');
 }
 
                   // static class variables
 static_class_access(res)       ::=  DOLLAR ID(v) arrayindex(a). {
-    res = '$'.v.a;
+    res = array('$'.v, a, 'property');
 }
 
                   // static class variables with object chain
 static_class_access(res)       ::= DOLLAR ID(v) arrayindex(a) objectchain(oc). {
-    res = '$'.v.a.oc;
+    res = array('$'.v, a.oc, 'property');
 }
 
 

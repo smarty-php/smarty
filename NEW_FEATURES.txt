@@ -24,6 +24,33 @@ Smarty 3.1.22
     The main template is level 1. The nesting level is checked at run time. When the maximum will be exceeded
     an Exception will be thrown. The default setting is 0 which does disable this check.
 
+    - trusted static methods -
+   The Smarty_Security class has the new property $trusted_static_methods to restrict access to static methods.
+   It's an nested array of trusted class and method names.
+         Format:
+         array (
+                    'class_1' => array('method_1', 'method_2'), // allowed methods
+                    'class_2' => array(),                       // all methods of class allowed
+               )
+   To disable access for all methods of all classes set $trusted_static_methods = null;
+   The default value is an empty array() which does enables all methods of all classes, but for backward compatibility
+   the setting of $static_classes will be checked.
+
+    - trusted static properties -
+   The Smarty_Security class has the new property $trusted_static_properties to restrict access to static properties.
+   It's an nested array of trusted class and property names.
+         Format:
+         array (
+                    'class_1' => array('prop_1', 'prop_2'), // allowed properties listed
+                    'class_2' => array(),                   // all properties of class allowed
+                }
+   To disable access for all properties of all classes set $trusted_static_properties = null;
+   The default value is an empty array() which does enables all properties of all classes, but for backward compatibility
+   the setting of $static_classes will be checked.
+
+
+
+
     Compiled Templates
     ==================
     Smarty does now automatically detect a change of the $merge_compiled_includes and $escape_html
