@@ -699,17 +699,19 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * fetches a rendered Smarty template
      *
-     * @param  string $template   the resource handle of the template file or template object
-     * @param  mixed  $cache_id   cache id to be used with this template
-     * @param  mixed  $compile_id compile id to be used with this template
-     * @param  object $parent     next higher level of Smarty variables
-     * @param  bool   $display    true: display, false: fetch
+     * @param  string $template         the resource handle of the template file or template object
+     * @param  mixed  $cache_id         cache id to be used with this template
+     * @param  mixed  $compile_id       compile id to be used with this template
+     * @param  object $parent           next higher level of Smarty variables
+     * @param  bool   $display          true: display, false: fetch
+     * @param  bool   $merge_tpl_vars   not used - left for BC
+     * @param  bool   $no_output_filter not used - left for BC
      *
      * @throws Exception
      * @throws SmartyException
      * @return string rendered template output
      */
-    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false)
+    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
     {
         if ($cache_id !== null && is_object($cache_id)) {
             $parent = $cache_id;
@@ -1060,7 +1062,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param string       $dirName directory property name
      * @param string|array $dir     directory string or array of strings
-     * @param mixed         $key     optional key
+     * @param mixed        $key     optional key
      */
     private function _addDir($dirName, $dir, $key = null)
     {
