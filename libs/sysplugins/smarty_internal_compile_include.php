@@ -197,9 +197,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                 $tpl->mustCompile = true;
                 if (!($tpl->source->uncompiled) && $tpl->source->exists) {
                     $tpl->compiler->suppressTemplatePropertyHeader = true;
+                    $compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$uid]['nocache_hash'] = $tpl->properties['nocache_hash'] = str_replace(array('.', ','), '_', uniqid(rand(), true));
                     // get compiled code
                     $compiled_code = Smarty_Internal_Extension_CodeFrame::createFunctionFrame($tpl, $tpl->compiler->compileTemplate($tpl, null, $compiler->parent_compiler));
-                    $compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$uid]['nocache_hash'] = $tpl->properties['nocache_hash'];
                     unset($tpl->compiler);
 
                     // remove header code

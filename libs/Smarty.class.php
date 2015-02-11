@@ -2,14 +2,17 @@
 /**
  * Project:     Smarty: the PHP compiling template engine
  * File:        Smarty.class.php
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
@@ -18,7 +21,8 @@
  * smarty-discussion-subscribe@googlegroups.com
  *
  * @link      http://www.smarty.net/
- * @copyright 2008 New Digital Group, Inc.
+ * @copyright 2015 New Digital Group, Inc.
+ * @copyright 2015 Uwe Tews
  * @author    Monte Ohrt <monte at ohrt dot com>
  * @author    Uwe Tews
  * @author    Rodney Rehm
@@ -107,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.22-dev/6';
+    const SMARTY_VERSION = '3.1.22-dev/7';
 
     /**
      * define variable scopes
@@ -391,7 +395,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Only used when $debugging_ctrl is set to 'URL'.
      * The name of the URL-parameter that activates debugging.
      *
-     * @var type
+     * @var string
      */
     public $smarty_debug_id = 'SMARTY_DEBUG';
     /**
@@ -695,19 +699,17 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * fetches a rendered Smarty template
      *
-     * @param  string $template         the resource handle of the template file or template object
-     * @param  mixed  $cache_id         cache id to be used with this template
-     * @param  mixed  $compile_id       compile id to be used with this template
-     * @param  object $parent           next higher level of Smarty variables
-     * @param  bool   $display          true: display, false: fetch
-     * @param  bool   $merge_tpl_vars   not used - left for BC
-     * @param  bool   $no_output_filter not used - left for BC
+     * @param  string $template   the resource handle of the template file or template object
+     * @param  mixed  $cache_id   cache id to be used with this template
+     * @param  mixed  $compile_id compile id to be used with this template
+     * @param  object $parent     next higher level of Smarty variables
+     * @param  bool   $display    true: display, false: fetch
      *
      * @throws Exception
      * @throws SmartyException
      * @return string rendered template output
      */
-    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
+    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false)
     {
         if ($cache_id !== null && is_object($cache_id)) {
             $parent = $cache_id;
@@ -873,9 +875,9 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $this->template_dir = array();
         foreach ((array) $template_dir as $k => $v) {
-            $this->template_dir[$k] = preg_replace(array('#\\\\#', '#([^\/]+)(/)*#', '#([^\/]+)$#', '#([^\/]+)$#'), array('/', '$1/'), $v);
+            $this->template_dir[$k] = rtrim(strtr($v, '\\', '/'), '/') . '/';
         }
-        $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
+        $this->joined_template_dir = join(' # ', $this->template_dir);
         return $this;
     }
 
@@ -891,7 +893,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function addTemplateDir($template_dir, $key = null)
     {
         $this->_addDir('template_dir', $template_dir, $key);
-        $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
+        $this->joined_template_dir = join(' # ', $this->template_dir);
         return $this;
     }
 
@@ -921,9 +923,9 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $this->config_dir = array();
         foreach ((array) $config_dir as $k => $v) {
-            $this->config_dir[$k] = preg_replace(array('#\\\\#', '#([^\/]+)(/)*#', '#([^\/]+)$#'), array('/', '$1/'), $v);
+            $this->config_dir[$k] = rtrim(strtr($v, '\\', '/'), '/') . '/';
         }
-        $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
+        $this->joined_config_dir = join(' # ', $this->config_dir);
         return $this;
     }
 
@@ -938,7 +940,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function addConfigDir($config_dir, $key = null)
     {
         $this->_addDir('config_dir', $config_dir, $key);
-        $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
+        $this->joined_config_dir = join(' # ', $this->config_dir);
         return $this;
     }
 
@@ -968,7 +970,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $this->plugins_dir = array();
         foreach ((array) $plugins_dir as $k => $v) {
-            $this->plugins_dir[$k] = rtrim($v, '/\\') . DS;
+            $this->plugins_dir[$k] = rtrim(strtr($v, '\\', '/'), '/') . '/';
         }
         $this->_is_file_cache = array();
         return $this;
@@ -983,24 +985,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function addPluginsDir($plugins_dir)
     {
-        // make sure we're dealing with an array
-        $this->plugins_dir = (array) $this->plugins_dir;
-
-        if (is_array($plugins_dir)) {
-            foreach ($plugins_dir as $k => $v) {
-                if (is_int($k)) {
-                    // indexes are not merged but appended
-                    $this->plugins_dir[] = rtrim($v, '/\\') . DS;
-                } else {
-                    // string indexes are overridden
-                    $this->plugins_dir[$k] = rtrim($v, '/\\') . DS;
-                }
-            }
-        } else {
-            // append new directory
-            $this->plugins_dir[] = rtrim($plugins_dir, '/\\') . DS;
-        }
-
+        $this->_addDir('plugins_dir', $plugins_dir);
         $this->plugins_dir = array_unique($this->plugins_dir);
         $this->_is_file_cache = array();
         return $this;
@@ -1025,7 +1010,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function setCompileDir($compile_dir)
     {
-        $this->compile_dir = rtrim($compile_dir, '/\\') . DS;
+        $this->compile_dir = rtrim(strtr($compile_dir, '\\', '/'), '/') . '/';
         if (!isset(Smarty::$_muted_directories[$this->compile_dir])) {
             Smarty::$_muted_directories[$this->compile_dir] = null;
         }
@@ -1052,7 +1037,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function setCacheDir($cache_dir)
     {
-        $this->cache_dir = rtrim($cache_dir, '/\\') . DS;
+        $this->cache_dir = rtrim(strtr($cache_dir, '\\', '/'), '/') . '/';
         if (!isset(Smarty::$_muted_directories[$this->cache_dir])) {
             Smarty::$_muted_directories[$this->cache_dir] = null;
         }
@@ -1071,9 +1056,11 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * @param      $dirName
-     * @param      $dir
-     * @param null $key
+     * add directories to given property name
+     *
+     * @param string       $dirName directory property name
+     * @param string|array $dir     directory string or array of strings
+     * @param mixed         $key     optional key
      */
     private function _addDir($dirName, $dir, $key = null)
     {
@@ -1082,7 +1069,7 @@ class Smarty extends Smarty_Internal_TemplateBase
 
         if (is_array($dir)) {
             foreach ($dir as $k => $v) {
-                $v = preg_replace(array('#\\\\#', '#([^\/]+)(/)*#', '#([^\/]+)$#'), array('/', '$1/'), $v);
+                $v = rtrim(strtr($v, '\\', '/'), '/') . '/';
                 if (is_int($k)) {
                     // indexes are not merged but appended
                     $this->{$dirName}[] = $v;
@@ -1092,7 +1079,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 }
             }
         } else {
-            $v = preg_replace(array('#\\\\#', '#([^\/]+)(/)*#', '#([^\/]+)$#'), array('/', '$1/'), $dir);
+            $v = rtrim(strtr($dir, '\\', '/'), '/') . '/';
             if ($key !== null) {
                 // override directory at specified index
                 $this->{$dirName}[$key] = $v;
@@ -1149,7 +1136,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Set autoload filters
      *
      * @param  array  $filters filters to load automatically
-     * @param  string $type    "pre", "output", … specify the filter type to set. Defaults to none treating $filters' keys as the appropriate types
+     * @param  string $type    "pre", "output", … specify the filter type to set. Defaults to none treating $filters'
+     *                         keys as the appropriate types
      *
      * @return Smarty current Smarty instance for chaining
      */
@@ -1168,7 +1156,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Add autoload filters
      *
      * @param  array  $filters filters to load automatically
-     * @param  string $type    "pre", "output", … specify the filter type to set. Defaults to none treating $filters' keys as the appropriate types
+     * @param  string $type    "pre", "output", … specify the filter type to set. Defaults to none treating $filters'
+     *                         keys as the appropriate types
      *
      * @return Smarty current Smarty instance for chaining
      */
@@ -1198,7 +1187,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param  string $type type of filter to get autoloads for. Defaults to all autoload filters
      *
-     * @return array  array( 'type1' => array( 'filter1', 'filter2', … ) ) or array( 'filter1', 'filter2', …) if $type was specified
+     * @return array  array( 'type1' => array( 'filter1', 'filter2', … ) ) or array( 'filter1', 'filter2', …) if $type
+     *                was specified
      */
     public function getAutoloadFilters($type = null)
     {
@@ -1576,7 +1566,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * <<magic>> set selfpointer on cloned object
+     * <<magic>> set self pointer on cloned object
      */
     public function __clone()
     {

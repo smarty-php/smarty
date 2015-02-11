@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.22-dev ===== (xx.xx.2015)
+ 11.02.2015
+ - bugfix recursive {includes} did create E_NOTICE message when $smarty->$merge_compiled_includes = true; (github issue #16)
+ 
  22.01.2015
  - new feature security can now control access to static methods and properties
                 see also NEW_FEATURES.txt
