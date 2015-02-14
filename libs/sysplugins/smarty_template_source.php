@@ -177,7 +177,7 @@ class Smarty_Template_Source
             throw new SmartyException('Missing template name');
         }
         // parse resource_name, load resource handler, identify unique resource name
-        Smarty_Resource::parseResourceName($template_resource, $smarty->default_resource_type, $name, $type);
+        list($name, $type) = Smarty_Resource::parseResourceName($template_resource, $smarty->default_resource_type);
         $resource = Smarty_Resource::load($smarty, $type);
         // if resource is not recompiling and resource name is not dotted we can check the source cache
         if ($smarty->resource_caching && !$resource->recompiled && !(isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/'))) {

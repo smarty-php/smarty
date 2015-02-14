@@ -213,12 +213,10 @@ abstract class Smarty_Resource
      *
      * @param  string $resource_name    template_resource or config_resource to parse
      * @param  string $default_resource the default resource_type defined in $smarty
-     * @param  string &$name            the parsed resource name
-     * @param  string &$type            the parsed resource type
      *
-     * @return void
+     * @return array with parsed resource name and type
      */
-    public static function parseResourceName($resource_name, $default_resource, &$name, &$type)
+    public static function parseResourceName($resource_name, $default_resource)
     {
         $parts = explode(':', $resource_name, 2);
         if (!isset($parts[1]) || !isset($parts[0][1])) {
@@ -230,6 +228,7 @@ abstract class Smarty_Resource
             $type = $parts[0];
             $name = $parts[1];
         }
+        return array($name, $type);
     }
 
     /**
@@ -251,7 +250,7 @@ abstract class Smarty_Resource
      */
     public static function getUniqueTemplateName($template, $template_resource)
     {
-        self::parseResourceName($template_resource, $template->smarty->default_resource_type, $name, $type);
+        list($name, $type) = self::parseResourceName($template_resource, $template->smarty->default_resource_type);
         // TODO: optimize for Smarty's internal resource types
         $resource = Smarty_Resource::load($template->smarty, $type);
         // go relative to a given template?
