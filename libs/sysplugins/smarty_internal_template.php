@@ -21,6 +21,13 @@
 class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
 {
     /**
+     * Global smarty instance
+     *
+     * @var Smarty
+     */
+    public $smarty = null;
+
+    /**
      * Template resource
      *
      * @var string
@@ -765,6 +772,23 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * Handle unknown class methods
+     *
+     * @param string $name unknown method-name
+     * @param array  $args argument array
+     *
+     * @throws SmartyException
+     */
+    public function __call($name, $args)
+    {
+        // method of Smarty object?
+        if (method_exists($this->smarty, $name)) {
+            return call_user_func_array(array($this->smarty, $name), $args);
+        }
+        // parent
+        return parent::__call($name, $args);
+    }
+        /**
      * set Smarty property in template context
      *
      * @param string $property_name property name

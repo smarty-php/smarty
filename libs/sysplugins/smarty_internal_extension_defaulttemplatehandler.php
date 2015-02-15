@@ -50,15 +50,15 @@ class Smarty_Internal_Extension_DefaultTemplateHandler
     /**
      * register template default handler
      *
-     * @param Smarty|Smarty_Internal_Template $obj
-     * @param mixed                           $callback
+     * @param Smarty $smarty
+     * @param mixed  $callback
      *
      * @throws SmartyException
      */
-    static function registerDefaultTemplateHandler($obj, $callback)
+    static function registerDefaultTemplateHandler(Smarty $smarty, $callback)
     {
         if (is_callable($callback)) {
-            $obj->smarty->default_template_handler_func = $callback;
+            $smarty->default_template_handler_func = $callback;
         } else {
             throw new SmartyException("Default template handler not callable");
         }
@@ -67,15 +67,15 @@ class Smarty_Internal_Extension_DefaultTemplateHandler
     /**
      * register config default handler
      *
-     * @param Smarty|Smarty_Internal_Template $obj
-     * @param mixed                           $callback
+     * @param Smarty $smarty
+     * @param mixed  $callback
      *
      * @throws SmartyException
      */
-    static function registerDefaultConfigHandler($obj, $callback)
+    static function registerDefaultConfigHandler(Smarty $smarty, $callback)
     {
         if (is_callable($callback)) {
-            $obj->smarty->default_config_handler_func = $callback;
+            $smarty->default_config_handler_func = $callback;
         } else {
             throw new SmartyException("Default config handler not callable");
         }

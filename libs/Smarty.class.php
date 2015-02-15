@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.22-dev/7';
+    const SMARTY_VERSION = '3.1.22-dev/8';
 
     /**
      * define variable scopes
@@ -655,8 +655,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function __construct()
     {
-        // selfpointer needed by some other class methods
-        $this->smarty = $this;
         if (is_callable('mb_internal_encoding')) {
             mb_internal_encoding(Smarty::$_CHARSET);
         }
@@ -721,7 +719,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             $parent = $this;
         }
         // get template object
-        $_template = is_object($template) ? $template : $this->smarty->createTemplate($template, $cache_id, $compile_id, $parent, false);
+        $_template = is_object($template) ? $template : $this->createTemplate($template, $cache_id, $compile_id, $parent, false);
         // set caching in template object
         $_template->caching = $this->caching;
         // fetch template content
@@ -1565,14 +1563,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function __destruct()
     {
         // intentionally left blank
-    }
-
-    /**
-     * <<magic>> set self pointer on cloned object
-     */
-    public function __clone()
-    {
-        $this->smarty = $this;
     }
 
     /**

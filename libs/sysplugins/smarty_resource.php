@@ -250,15 +250,16 @@ abstract class Smarty_Resource
      */
     public static function getUniqueTemplateName($template, $template_resource)
     {
-        list($name, $type) = self::parseResourceName($template_resource, $template->smarty->default_resource_type);
+        $smarty = isset($template->smarty) ? $template->smarty : $template;
+        list($name, $type) = self::parseResourceName($template_resource, $smarty->default_resource_type);
         // TODO: optimize for Smarty's internal resource types
-        $resource = Smarty_Resource::load($template->smarty, $type);
+        $resource = Smarty_Resource::load($smarty, $type);
         // go relative to a given template?
         $_file_is_dotted = $name[0] == '.' && ($name[1] == '.' || $name[1] == '/');
         if ($template instanceof Smarty_Internal_Template && $_file_is_dotted && ($template->source->type == 'file' || $template->parent->source->type == 'extends')) {
             $name = dirname($template->source->filepath) . DS . $name;
         }
-        return $resource->buildUniqueResourceName($template->smarty, $name);
+        return $resource->buildUniqueResourceName($smarty, $name);
     }
 
     /**

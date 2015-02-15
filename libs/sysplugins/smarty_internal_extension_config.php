@@ -14,7 +14,8 @@ class Smarty_Internal_Extension_Config
      */
     static function configLoad($obj, $config_file, $sections = null, $scope = 'local')
     {
-        $confObj = new $obj->smarty->template_class($config_file, $obj->smarty, $obj);
+        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $confObj = new $smarty->template_class($config_file, $smarty, $obj);
         $confObj->caching = Smarty::CACHING_OFF;
         $confObj->source = Smarty_Template_Config::load($confObj);
         $confObj->source->config_sections = $sections;
@@ -132,7 +133,7 @@ class Smarty_Internal_Extension_Config
             // not found, try at parent
             $_ptr = $_ptr->parent;
         }
-        if ($obj->smarty->error_unassigned && $error_enable) {
+        if ($smarty->error_unassigned && $error_enable) {
             // force a notice
             $x = $$variable;
         }
