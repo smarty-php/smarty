@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.22-dev/8';
+    const SMARTY_VERSION = '3.1.22-dev/9';
 
     /**
      * define variable scopes
@@ -1491,6 +1491,14 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function setAutoLiteral($auto_literal)
     {
         $this->auto_literal = $auto_literal;
+    }
+
+    /**
+     * @param boolean $force_compile
+     */
+    public function setForceCompile($force_compile)
+    {
+        $this->force_compile = $force_compile;
     }
 
     /**
