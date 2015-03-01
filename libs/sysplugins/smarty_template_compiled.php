@@ -149,12 +149,15 @@ class Smarty_Template_Compiled
             $compileCheck = $_template->smarty->compile_check;
             $_template->smarty->compile_check = false;
             if ($_template->source->recompiled) {
+                $level = ob_get_level();
+                ob_start();
                 try {
-                    ob_start();
                     eval("?>" . $this->code);
                 }
                 catch (Exception $e) {
-                    ob_get_clean();
+                    while (ob_get_level() > $level) {
+                        ob_end_clean();
+                    }
                     throw $e;
                 }
                 ob_get_clean();

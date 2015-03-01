@@ -219,13 +219,16 @@ class Smarty_Template_Source
      */
     public function renderUncompiled(Smarty_Internal_Template $_template)
     {
+        $level = ob_get_level();
+        ob_start();
         try {
-            ob_start();
             $this->handler->renderUncompiled($_template->source, $_template);
             return ob_get_clean();
         }
         catch (Exception $e) {
-            ob_get_clean();
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
             throw $e;
         }
     }
