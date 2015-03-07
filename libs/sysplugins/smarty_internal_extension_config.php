@@ -57,7 +57,7 @@ class Smarty_Internal_Extension_Config
         }
         // copy global config vars
         foreach ($_config_vars['vars'] as $variable => $value) {
-            if ($_template->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
+            if ($_template->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
                 $scope_ptr->config_vars[$variable] = $value;
             } else {
                 $scope_ptr->config_vars[$variable] = array_merge((array) $scope_ptr->config_vars[$variable], (array) $value);
@@ -69,7 +69,7 @@ class Smarty_Internal_Extension_Config
             foreach ((array) $sections as $_template_section) {
                 if (isset($_config_vars['sections'][$_template_section])) {
                     foreach ($_config_vars['sections'][$_template_section]['vars'] as $variable => $value) {
-                        if ($_template->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
+                        if ($_template->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
                             $scope_ptr->config_vars[$variable] = $value;
                         } else {
                             $scope_ptr->config_vars[$variable] = array_merge((array) $scope_ptr->config_vars[$variable], (array) $value);
