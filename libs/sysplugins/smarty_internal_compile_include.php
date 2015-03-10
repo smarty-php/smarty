@@ -136,7 +136,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         * a call in nocache mode.
         *
         */
-        if ($_attr['caching']) {
+        if ($_attr['nocache'] !== true && $_attr['caching']) {
             $_caching = $_new_caching = (int) $_attr['caching'];
             $call_nocache = true;
         } else {
