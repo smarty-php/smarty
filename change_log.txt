@@ -1,5 +1,7 @@
 ﻿ ===== 3.1.22-dev ===== (xx.xx.2015)
  14.03.2015
+ - bugfix  {nocache}  {/nocache} tags corrupted code when used within a nocache section caused by a nocache template variable.
+ 
  - bugfix  template functions defined with {function} in an included subtemplate could not be called in nocache
            mode with {call... nocache} if the subtemplate had it's own cache file {forum 25452}
  
