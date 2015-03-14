@@ -246,14 +246,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             if ($this->parent instanceof Smarty_Internal_Template) {
                 $this->parent->properties['file_dependency'] = array_merge($this->parent->properties['file_dependency'], $this->properties['file_dependency']);
                 $this->parent->properties['tpl_function'] = array_merge($this->parent->properties['tpl_function'], $this->properties['tpl_function']);
-                foreach ($this->required_plugins as $code => $tmp1) {
-                    foreach ($tmp1 as $name => $tmp) {
-                        foreach ($tmp as $type => $data) {
-                            $this->parent->required_plugins[$code][$name][$type] = $data;
-                        }
-                    }
-                }
-            }
+          }
             if ($this->smarty->debugging) {
                 Smarty_Internal_Debug::end_render($this);
             }
@@ -323,6 +316,16 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 Smarty_Internal_Debug::end_template($this);
             }
             // return fetched content
+            if ($this->parent instanceof Smarty_Internal_Template) {
+                $this->parent->properties['tpl_function'] = array_merge($this->parent->properties['tpl_function'], $this->properties['tpl_function']);
+                foreach ($this->required_plugins as $code => $tmp1) {
+                    foreach ($tmp1 as $name => $tmp) {
+                        foreach ($tmp as $type => $data) {
+                            $this->parent->required_plugins[$code][$name][$type] = $data;
+                        }
+                    }
+                }
+            }
             return $content;
         }
     }
