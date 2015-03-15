@@ -258,8 +258,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $this->cached->updateCache($this, $content, $no_output_filter);
                 $compile_check = $this->smarty->compile_check;
                 $this->smarty->compile_check = false;
-                $content = $this->cached->render($this);
+                if (!$this->cached->processed) {
+                    $this->cached->process($this);
+                }
                 $this->smarty->compile_check = $compile_check;
+                $content = $this->getRenderedTemplateCode();
                 if ($this->smarty->debugging) {
                     Smarty_Internal_Debug::end_cache($this);
                 }
