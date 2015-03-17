@@ -56,7 +56,7 @@ class Smarty_Internal_ParseTree_Tag extends Smarty_Internal_ParseTree
     public function assign_to_var()
     {
         $var = sprintf('$_tmp%d', ++ Smarty_Internal_Templateparser::$prefix_number);
-        $this->parser->compiler->prefix_code[] = sprintf("<?php ob_start();?>\n%s\n<?php %s=ob_get_clean();?>", $this->data, $var);
+        $this->parser->compiler->prefix_code[] = sprintf("<?php ob_start();?>%s<?php %s=ob_get_clean();?>", $this->data, $var);
 
         return $var;
     }
