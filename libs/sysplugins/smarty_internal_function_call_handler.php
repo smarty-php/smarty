@@ -32,7 +32,7 @@ class Smarty_Internal_Function_Call_Handler
      */
     public static function call($_name, Smarty_Internal_Template $_smarty_tpl, $_function, $_params, $_nocache)
     {
-        $funcParam = $_smarty_tpl->properties['tpl_function']['param'][$_name];
+        $funcParam = $_smarty_tpl->properties['tpl_function'][$_name];
         if (is_file($funcParam['compiled_filepath'])) {
             // read compiled file
             $code = file_get_contents($funcParam['compiled_filepath']);

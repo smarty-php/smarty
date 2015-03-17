@@ -58,7 +58,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public $properties = array('file_dependency' => array(),
                                'nocache_hash'    => '',
-                               'tpl_function'    => array('param' => array()),
+                               'tpl_function'    => array(),
     );
     /**
      * required plugins
@@ -229,7 +229,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $isCacheTpl = $this->caching == Smarty::CACHING_LIFETIME_CURRENT || $this->caching == Smarty::CACHING_LIFETIME_SAVED;
         if (!($isCacheTpl) || !$this->cached->valid) {
             if ($isCacheTpl) {
-                $this->properties['tpl_function']['param'] = array();
+                $this->properties['tpl_function'] = array();
             }
             // render template (not loaded and not in cache)
             if ($this->smarty->debugging) {
@@ -550,14 +550,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function callTemplateFunction($name, Smarty_Internal_Template $_smarty_tpl, $params, $nocache)
     {
-        if (isset($_smarty_tpl->properties['tpl_function']['param'][$name])) {
+        if (isset($_smarty_tpl->properties['tpl_function'][$name])) {
             if (!$_smarty_tpl->caching || ($_smarty_tpl->caching && $nocache)) {
-                $function = $_smarty_tpl->properties['tpl_function']['param'][$name]['call_name'];
+                $function = $_smarty_tpl->properties['tpl_function'][$name]['call_name'];
             } else {
-                if (isset($_smarty_tpl->properties['tpl_function']['param'][$name]['call_name_caching'])) {
-                    $function = $_smarty_tpl->properties['tpl_function']['param'][$name]['call_name_caching'];
+                if (isset($_smarty_tpl->properties['tpl_function'][$name]['call_name_caching'])) {
+                    $function = $_smarty_tpl->properties['tpl_function'][$name]['call_name_caching'];
                 } else {
-                    $function = $_smarty_tpl->properties['tpl_function']['param'][$name]['call_name'];
+                    $function = $_smarty_tpl->properties['tpl_function'][$name]['call_name'];
                 }
             }
             if (function_exists($function)) {
@@ -636,9 +636,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             if (isset($properties['file_dependency'])) {
                 $this->properties['file_dependency'] = array_merge($this->properties['file_dependency'], $properties['file_dependency']);
             }
-            //$this->properties['tpl_function']['param'] = isset($this->parent->properties['tpl_function']['param']) ? $this->parent->properties['tpl_function']['param'] : array();
-            if (isset($properties['tpl_function']['param'])) {
-                $this->properties['tpl_function']['param'] = array_merge($this->properties['tpl_function']['param'], $properties['tpl_function']['param']);
+            if (isset($properties['tpl_function'])) {
+                $this->properties['tpl_function'] = array_merge($this->properties['tpl_function'], $properties['tpl_function']);
             }
             $this->properties['version'] = $properties['version'];
             $this->properties['unifunc'] = $properties['unifunc'];

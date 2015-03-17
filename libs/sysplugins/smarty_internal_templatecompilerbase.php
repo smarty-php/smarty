@@ -379,7 +379,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         }
         // compile the smarty tag (required compile classes to compile the tag are autoloaded)
         if (($_output = $this->callTagCompiler($tag, $args, $parameter)) === false) {
-            if (isset($this->parent_compiler->templateProperties['tpl_function']['param'][$tag])) {
+            if (isset($this->parent_compiler->templateProperties['tpl_function'][$tag])) {
                 // template defined by {template} tag
                 $args['_attr']['name'] = "'" . $tag . "'";
                 $_output = $this->callTagCompiler('call', $args, $parameter);
