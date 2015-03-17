@@ -2,6 +2,8 @@
  16.03.2015
  - bugfix  problems with {function}{/function} and {call} tags in different subtemplate cache files {forum topic 25452}
  - bugfix  Smarty_Security->allow_constants=false; did not disallow direct usage of defined constants like {SMARTY_DIR} {forum topic 25457}
+ - bugfix  {block}{/block} tags did not work inside double quoted strings https://github.com/smarty-php/smarty/issues/18
+ 
  
  15.03.2015
  - bugfix  $smarty->compile_check must be restored before rendering of a just updated cache file {forum 25452}
