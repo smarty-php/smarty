@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.22-dev ===== (xx.xx.2015)
+ 20.03.2015
+  - bugfix make sure that function properties get saved only in compiled files containing the fuction definition {forum topic 25452}
+  
  16.03.2015
  - bugfix  problems with {function}{/function} and {call} tags in different subtemplate cache files {forum topic 25452}
  - bugfix  Smarty_Security->allow_constants=false; did not disallow direct usage of defined constants like {SMARTY_DIR} {forum topic 25457}

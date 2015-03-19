@@ -32,12 +32,19 @@ class Smarty_Internal_Extension_CodeFrame
         if (!isset($_template->properties['unifunc'])) {
             $_template->properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
         }
+        $properties = $_template->properties;
+        if (!$cache) {
+            unset($properties['tpl_function']);
+            if (!empty($_template->compiler->templateProperties)) {
+                $properties['tpl_function'] = $_template->compiler->templateProperties['tpl_function'];
+            }
+        }
         $output = "<?php\n";
         $output .= "/*%%SmartyHeaderCode:{$_template->properties['nocache_hash']}%%*/\n";
         if ($_template->smarty->direct_access_security) {
             $output .= "if(!defined('SMARTY_DIR')) exit('no direct access allowed');\n";
         }
-        $output .= "\$_valid = \$_smarty_tpl->decodeProperties(" . var_export($_template->properties, true) . ',' . ($cache ? 'true' : 'false') . ");\n";
+        $output .= "\$_valid = \$_smarty_tpl->decodeProperties(" . var_export($properties, true) . ',' . ($cache ? 'true' : 'false') . ");\n";
         $output .= "/*/%%SmartyHeaderCode%%*/\n";
         $output .= "if (\$_valid && !is_callable('{$_template->properties['unifunc']}')) {\n";
         $output .= "function {$_template->properties['unifunc']} (\$_smarty_tpl) {\n";

@@ -325,9 +325,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if ((isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) && !$this->suppressFilter && $_compiled_code != '') {
             $_compiled_code = Smarty_Internal_Filter_Handler::runFilter('post', $_compiled_code, $template);
         }
-        if (!empty($this->templateProperties)) {
-            $this->template->properties['tpl_function'] = $this->templateProperties['tpl_function'];
-        }
         if ($this->suppressTemplatePropertyHeader) {
             $_compiled_code .= $merged_code;
         } else {
