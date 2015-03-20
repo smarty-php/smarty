@@ -164,8 +164,9 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
             $compiler->parser->current_buffer->append_subtree($_functionCode);
             $output = "<?php echo \"/*%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/<?php ";
-            $output .= "\\\$_smarty_tpl->tpl_vars = \\\$saved_tpl_vars;\n";
-            $output .= "foreach (Smarty::\\\$global_tpl_vars as \\\$key => \\\$value) if(!isset(\\\$_smarty_tpl->tpl_vars[\\\$key])) \\\$_smarty_tpl->tpl_vars[\\\$key] = \\\$value;?>";
+            $output .= "foreach (Smarty::\\\$global_tpl_vars as \\\$key => \\\$value){\n";
+            $output .= "if (\\\$_smarty_tpl->tpl_vars[\\\$key] === \\\$value) \\\$saved_tpl_vars[\\\$key] = \\\$value;\n}\n";
+            $output .= "\\\$_smarty_tpl->tpl_vars = \\\$saved_tpl_vars;?>\n";
             $output .= "/*/%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/\";\n?>";
             $output .= "<?php echo str_replace('{$compiler->template->properties['nocache_hash']}', \$_smarty_tpl->properties['nocache_hash'], ob_get_clean());\n}\n}\n";
             $output .= "/*/ {$_funcName}_nocache */\n\n";
@@ -194,8 +195,9 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value);\n}?>";
         $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
         $compiler->parser->current_buffer->append_subtree($_functionCode);
-        $output = "<?php \$_smarty_tpl->tpl_vars = \$saved_tpl_vars;\n";
-        $output .= "foreach (Smarty::\$global_tpl_vars as \$key => \$value) if(!isset(\$_smarty_tpl->tpl_vars[\$key])) \$_smarty_tpl->tpl_vars[\$key] = \$value;\n}\n}\n";
+        $output = "<?php foreach (Smarty::\$global_tpl_vars as \$key => \$value){\n";
+        $output .= "if (\$_smarty_tpl->tpl_vars[\$key] === \$value) \$saved_tpl_vars[\$key] = \$value;\n}\n";
+        $output .= "\$_smarty_tpl->tpl_vars = \$saved_tpl_vars;\n}\n}\n";
         $output .= "/*/ {$_funcName} */\n\n";
         $output .= "?>\n";
         $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
