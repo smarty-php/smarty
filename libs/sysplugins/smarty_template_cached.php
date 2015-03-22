@@ -304,6 +304,19 @@ class Smarty_Template_Cached
         $_template->properties['cache_lifetime'] = $_template->cache_lifetime;
         $_template->properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
         $content = Smarty_Internal_Extension_CodeFrame::create($_template, $content, true);
+        if (!empty($_template->properties['tpl_function'])) {
+            foreach ($_template->properties['tpl_function'] as $funcParam) {
+                if (is_file($funcParam['compiled_filepath'])) {
+                    // read compiled file
+                    $code = file_get_contents($funcParam['compiled_filepath']);
+                    // grab template function
+                    if (preg_match("/\/\* {$funcParam['call_name']} \*\/([\S\s]*?)\/\*\/ {$funcParam['call_name']} \*\//", $code, $match)) {
+                        unset($code);
+                        $content .= "<?php " . $match[0] . "?>\n";
+                    }
+                }
+            }
+        }
         return $this->write($_template, $content);
     }
 

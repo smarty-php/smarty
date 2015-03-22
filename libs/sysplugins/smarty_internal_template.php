@@ -564,12 +564,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $function ($_smarty_tpl, $params);
                 return;
             }
-            if ($_smarty_tpl->caching) {
-                // try to load template function dynamically
-                if (Smarty_Internal_Function_Call_Handler::call($name, $_smarty_tpl, $function, $params, $nocache)) {
-                    $function ($_smarty_tpl, $params);
-                    return;
-                }
+            // try to load template function dynamically
+            if (Smarty_Internal_Function_Call_Handler::call($name, $_smarty_tpl, $function, $params, $nocache)) {
+                $function ($_smarty_tpl, $params);
+                return;
             }
         }
         throw new SmartyException("Unable to find template function '{$name}'");
