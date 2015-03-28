@@ -2549,8 +2549,8 @@ class Smarty_Internal_Templateparser
     function yy_r32()
     {
         if (defined($this->yystack[$this->yyidx + - 1]->minor)) {
-            if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-                $this->compiler->trigger_template_error("Security: access to constants not permitted");
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->isTrustedConstant($this->yystack[$this->yyidx + - 1]->minor, $this->compiler);
             }
             $this->_retvalue = $this->compiler->compileTag('private_print_expression', $this->yystack[$this->yyidx + 0]->minor, array('value' => $this->yystack[$this->yyidx + - 1]->minor));
         } else {
@@ -2562,8 +2562,8 @@ class Smarty_Internal_Templateparser
     function yy_r33()
     {
         if (defined($this->yystack[$this->yyidx + 0]->minor)) {
-            if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-                $this->compiler->trigger_template_error("Security: access to constants not permitted");
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->isTrustedConstant($this->yystack[$this->yyidx + 0]->minor, $this->compiler);
             }
             $this->_retvalue = $this->compiler->compileTag('private_print_expression', array(), array('value' => $this->yystack[$this->yyidx + 0]->minor));
         } else {
@@ -2575,8 +2575,8 @@ class Smarty_Internal_Templateparser
     function yy_r34()
     {
         if (defined($this->yystack[$this->yyidx + - 2]->minor)) {
-            if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-                $this->compiler->trigger_template_error("Security: access to constants not permitted");
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->isTrustedConstant($this->yystack[$this->yyidx + - 2]->minor, $this->compiler);
             }
             $this->_retvalue = $this->compiler->compileTag('private_print_expression', $this->yystack[$this->yyidx + 0]->minor, array('value' => $this->yystack[$this->yyidx + - 2]->minor, 'modifierlist' => $this->yystack[$this->yyidx + - 1]->minor));
         } else {
@@ -2733,8 +2733,8 @@ class Smarty_Internal_Templateparser
     function yy_r61()
     {
         if (defined($this->yystack[$this->yyidx + 0]->minor)) {
-            if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-                $this->compiler->trigger_template_error("Security: access to constants not permitted");
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->isTrustedConstant($this->yystack[$this->yyidx + 0]->minor, $this->compiler);
             }
             $this->_retvalue = array($this->yystack[$this->yyidx + - 2]->minor => $this->yystack[$this->yyidx + 0]->minor);
         } else {
@@ -2891,8 +2891,8 @@ class Smarty_Internal_Templateparser
     function yy_r108()
     {
         if (defined($this->yystack[$this->yyidx + 0]->minor)) {
-            if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-                $this->compiler->trigger_template_error("Security: access to constants not permitted");
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->isTrustedConstant($this->yystack[$this->yyidx + 0]->minor, $this->compiler);
             }
             $this->_retvalue = $this->yystack[$this->yyidx + 0]->minor;
         } else {
@@ -3012,8 +3012,8 @@ class Smarty_Internal_Templateparser
     function yy_r133()
     {
         if (defined($this->yystack[$this->yyidx + 0]->minor)) {
-            if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-                $this->compiler->trigger_template_error("Security: access to constants not permitted");
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->isTrustedConstant($this->yystack[$this->yyidx + 0]->minor, $this->compiler);
             }
             $this->_retvalue = "[" . $this->yystack[$this->yyidx + 0]->minor . "]";
         } else {

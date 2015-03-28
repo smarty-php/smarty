@@ -55,6 +55,12 @@ class Smarty_Security
      */
     public $trusted_uri = array();
     /**
+     * List of trusted constants names
+     *
+     * @var array
+     */
+    public $trusted_constants = array();
+    /**
      * This is an array of trusted static classes.
      * If empty access to all static classes is allowed.
      * If set to 'none' none is allowed.
@@ -408,6 +414,33 @@ class Smarty_Security
         }
 
         return false; // should not, but who knows what happens to the compiler in the future?
+    }
+
+    /**
+     * Check if constants are enabled or trusted
+     *
+     * @param  string $const    contant name
+     * @param  object $compiler compiler object
+     *
+     * @return bool
+     */
+    public function isTrustedConstant($const, $compiler)
+    {
+        if (in_array($const, array('true', 'false', 'null'))) {
+            return true;
+        }
+        if (!empty($this->trusted_constants)) {
+            if (!in_array($const, $this->trusted_constants)) {
+                $compiler->trigger_template_error("Security: access to constant '{$const}' not permitted");
+                return false;
+            }
+            return true;
+        }
+        if ($this->allow_constants) {
+            return true;
+        }
+        $compiler->trigger_template_error("Security: access to constants not permitted");
+        return false;
     }
 
     /**

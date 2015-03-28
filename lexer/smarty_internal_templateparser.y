@@ -486,8 +486,8 @@ smartytag(res)   ::= LDEL varindexed(vi) EQUAL expr(e) attributes(a). {
                   // tag with optional Smarty2 style attributes
 smartytag(res)   ::= LDEL ID(i) attributes(a). {
         if (defined(i)) {
-            if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-                 $this->compiler->trigger_template_error("Security: access to constants not permitted");
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->isTrustedConstant(i, $this->compiler);
             }
             res = $this->compiler->compileTag('private_print_expression',a,array('value'=>i));
         } else {
@@ -496,8 +496,8 @@ smartytag(res)   ::= LDEL ID(i) attributes(a). {
 }
 smartytag(res)   ::= LDEL ID(i). {
         if (defined(i)) {
-            if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-                 $this->compiler->trigger_template_error("Security: access to constants not permitted");
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->isTrustedConstant(i, $this->compiler);
             }
             res = $this->compiler->compileTag('private_print_expression',array(),array('value'=>i));
         } else {
@@ -509,8 +509,8 @@ smartytag(res)   ::= LDEL ID(i). {
                   // tag with modifier and optional Smarty2 style attributes
 smartytag(res)   ::= LDEL ID(i) modifierlist(l)attributes(a). {
         if (defined(i)) {
-            if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-                 $this->compiler->trigger_template_error("Security: access to constants not permitted");
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->isTrustedConstant(i, $this->compiler);
             }
             res = $this->compiler->compileTag('private_print_expression',a,array('value'=>i, 'modifierlist'=>l));
         } else {
@@ -656,8 +656,8 @@ attributes(res)  ::= . {
                   // attribute
 attribute(res)   ::= SPACE ID(v) EQUAL ID(id). {
     if (defined(id)) {
-        if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-             $this->compiler->trigger_template_error("Security: access to constants not permitted");
+        if (isset($this->smarty->security_policy)) {
+            $this->smarty->security_policy->isTrustedConstant(id, $this->compiler);
         }
         res = array(v=>id);
     } else {
@@ -880,8 +880,8 @@ value(res)       ::= DOT INTEGER(n1). {
                  // ID, true, false, null
 value(res)       ::= ID(id). {
     if (defined(id)) {
-        if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-             $this->compiler->trigger_template_error("Security: access to constants not permitted");
+        if (isset($this->smarty->security_policy)) {
+             $this->smarty->security_policy->isTrustedConstant(id, $this->compiler);
         }
         res = id;
     } else {
@@ -1040,9 +1040,9 @@ indexdef(res)    ::= DOT DOLLAR varvar(v) AT ID(p). {
 
 indexdef(res)   ::= DOT ID(i). {
     if (defined(i)) {
-        if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->allow_constants) {
-             $this->compiler->trigger_template_error("Security: access to constants not permitted");
-        }
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->isTrustedConstant(i, $this->compiler);
+            }
             res = "[". i ."]";
         } else {
             res = "['". i ."']";

@@ -50,6 +50,15 @@ Smarty 3.1.22
    the setting of $static_classes will be checked.
    Note: That this security check is performed at compile time.
 
+    - trusted constants .
+   The Smarty_Security class has the new property $trusted_constants to restrict access to constants.
+   It's an array of trusted constant names.
+         Format:
+         array (
+                    'SMARTY_DIR' , // allowed constant
+                }
+   If the array is empty (default) the usage of constants  can be controlled with the
+   Smarty_Security::$allow_constants property (default true)
 
 
 
