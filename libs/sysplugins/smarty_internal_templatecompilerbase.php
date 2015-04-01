@@ -578,6 +578,24 @@ abstract class Smarty_Internal_TemplateCompilerBase
     }
 
     /**
+     * compile variable
+     *
+     * @param string $variable
+     *
+     * @return string
+     */
+    public function compileVariable($variable)
+    {
+        if (strpos($variable, '(') == 0) {
+            // not a variable variable
+            $var = trim($variable, '\'');
+            $this->tag_nocache = $this->tag_nocache | $this->template->getVariable($var, null, true, false)->nocache;
+            $this->template->properties['variables'][$var] = $this->tag_nocache | $this->nocache;
+        }
+        return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';
+    }
+
+    /**
      * lazy loads internal compile plugin for tag and calls the compile method
      * compile objects cached for reuse.
      * class name format:  Smarty_Internal_Compile_TagName

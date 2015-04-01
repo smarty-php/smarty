@@ -173,24 +173,6 @@ class Smarty_Internal_Templateparser
     {
         $this->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($this, $code));
     }
-
-    /**
-     * compile variable
-     *
-     * @param string $variable
-     *
-     * @return string
-     */
-    public function compileVariable($variable)
-    {
-        if (strpos($variable, '(') == 0) {
-            // not a variable variable
-            $var = trim($variable, '\'');
-            $this->compiler->tag_nocache = $this->compiler->tag_nocache | $this->template->getVariable($var, null, true, false)->nocache;
-            $this->template->properties['variables'][$var] = $this->compiler->tag_nocache | $this->compiler->nocache;
-        }
-        return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';
-    }
 }
 
 %token_prefix TP_
@@ -826,7 +808,7 @@ expr(res)        ::= variable(v1) INSTANCEOF(i) ns1(v2). {
 // ternary
 //
 ternary(res)        ::= OPENP expr(v) CLOSEP  QMARK DOLLAR ID(e1) COLON  expr(e2). {
-    res = v.' ? '. $this->compileVariable("'".e1."'") . ' : '.e2;
+    res = v.' ? '. $this->compiler->compileVariable("'".e1."'") . ' : '.e2;
 }
 
 ternary(res)        ::= OPENP expr(v) CLOSEP  QMARK  expr(e1) COLON  expr(e2). {
@@ -915,7 +897,7 @@ value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
     if (vi['var'] == '\'smarty\'') {
         $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.' = '. $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).';?>';
     } else {
-        $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.' = '. $this->compileVariable(vi['var']).vi['smarty_internal_index'].';?>';
+        $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.' = '. $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].';?>';
     }
     res = '$_tmp'.self::$prefix_number.'::'.r[0].r[1];
 
@@ -980,7 +962,7 @@ variable(res)    ::= varindexed(vi). {
         // used for array reset,next,prev,end,current 
         $this->last_variable = vi['var'];
         $this->last_index = vi['smarty_internal_index'];
-        res = $this->compileVariable(vi['var']).vi['smarty_internal_index'];
+        res = $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'];
     }
 }
 
@@ -1031,11 +1013,11 @@ arrayindex        ::= . {
 // single index definition
                     // Smarty2 style index 
 indexdef(res)    ::= DOT DOLLAR varvar(v).  {
-    res = '['.$this->compileVariable(v).']';
+    res = '['.$this->compiler->compileVariable(v).']';
 }
 
 indexdef(res)    ::= DOT DOLLAR varvar(v) AT ID(p). {
-    res = '['.$this->compileVariable(v).'->'.p.']';
+    res = '['.$this->compiler->compileVariable(v).'->'.p.']';
 }
 
 indexdef(res)   ::= DOT ID(i). {
@@ -1108,7 +1090,7 @@ object(res)    ::= varindexed(vi) objectchain(oc). {
     if (vi['var'] == '\'smarty\'') {
         res =  $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).oc;
     } else {
-        res = $this->compileVariable(vi['var']).vi['smarty_internal_index'].oc;
+        res = $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].oc;
     }
 }
 
@@ -1134,7 +1116,7 @@ objectelement(res)::= PTR DOLLAR varvar(v) arrayindex(a). {
     if ($this->security) {
         $this->compiler->trigger_template_error (self::Err2);
     }
-    res = '->{'.$this->compileVariable(v).a.'}';
+    res = '->{'.$this->compiler->compileVariable(v).a.'}';
 }
 
 objectelement(res)::= PTR LDEL expr(e) RDEL arrayindex(a). {
@@ -1211,7 +1193,7 @@ method(res)     ::= DOLLAR ID(f) OPENP params(p) CLOSEP.  {
         $this->compiler->trigger_template_error (self::Err2);
     }
     self::$prefix_number++;
-    $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.'='.$this->compileVariable("'".f."'").';?>';
+    $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.'='.$this->compiler->compileVariable("'".f."'").';?>';
     res = '$_tmp'.self::$prefix_number.'('. implode(',',p) .')';
 }
 
