@@ -219,6 +219,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $parent_compiler = null;
 
     /**
+     * Strip preg pattern
+     *
+     * @var string
+     */
+    public $stripRegEx = '![\t ]*[\r\n]+[\t ]*!';
+
+    /**
      * method to compile a Smarty template
      *
      * @param  mixed $_content template source
@@ -593,6 +600,27 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->template->properties['variables'][$var] = $this->tag_nocache | $this->nocache;
         }
         return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';
+    }
+
+    /**
+     * This method is called from parser to process a text content section
+     * - remove text from inheritance child templates as they may generate output
+     * - strip text if strip is enabled
+     *
+     * @param string $text
+     *
+     * @return null|\Smarty_Internal_ParseTree_Text
+     */
+    public function processText($text) {
+        if ($this->inheritance_child && !$this->blockTagNestingLevel) {
+            return null;
+        }
+        if ($this->parser->strip) {
+            return new Smarty_Internal_ParseTree_Text($this->parser, preg_replace($this->stripRegEx, '', $text));
+        } else {
+            return new Smarty_Internal_ParseTree_Text($this->parser, $text);
+        }
+
     }
 
     /**

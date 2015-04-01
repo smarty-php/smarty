@@ -369,12 +369,16 @@ template_element(res)::= XMLTAG. {
 }
 
                       // template text
-template_element(res)::= TEXT(o). {
-        if ($this->strip) {
-            res = new Smarty_Internal_ParseTree_Text($this, preg_replace('![\t ]*[\r\n]+[\t ]*!', '', o));
-        } else {
-            res = new Smarty_Internal_ParseTree_Text($this, o);
-        }
+template_element(res)::= text_content(t). {
+        res = $this->compiler->processText(t);
+}
+
+text_content(res) ::= TEXT(o). {
+    res = o;
+}
+
+text_content(res) ::= text_content(t) TEXT(o). {
+    res = t . o;
 }
 
                       // strip on
