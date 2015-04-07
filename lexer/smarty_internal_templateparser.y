@@ -91,7 +91,7 @@ class Smarty_Internal_Templateparser
      *
      * @var bool
      */
-    private $strip = false;
+    public $strip = false;
     /**
      * compiler object
      *
