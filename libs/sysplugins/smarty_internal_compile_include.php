@@ -211,6 +211,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                     }
                     $compiler->parent_compiler->mergedSubTemplatesCode[$tpl->properties['unifunc']] = $compiled_code;
                     $has_compiled_template = true;
+                    $compiler->template->required_plugins = array_merge_recursive($compiler->template->required_plugins, $tpl->required_plugins);
                     unset ($tpl);
                 }
             } else {
