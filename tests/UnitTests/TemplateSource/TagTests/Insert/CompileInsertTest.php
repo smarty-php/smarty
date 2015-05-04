@@ -59,7 +59,7 @@ class CompileInsertTest extends PHPUnit_Smarty
         $this->assertEquals('param foo bar globalvar global', $this->smarty->fetch($tpl));
     }
     /**
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      * test insert plugin
      */
@@ -87,7 +87,25 @@ class CompileInsertTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testInsertPluginCaching1_2()
+    {
+        $this->smarty->addPluginsDir(__DIR__ . "/PHPunitplugins/");
+        global $insertglobal;
+        $insertglobal = 'changed global 2';
+        $this->smarty->caching = 1;
+        $tpl = $this->smarty->createTemplate('insertplugintest.tpl');
+        $tpl->assign('foo', 'buh', true);
+//        $this->assertTrue($tpl->isCached());
+        $this->assertEquals('param foo buh globalvar changed global 2', $this->smarty->fetch($tpl));
+    }
+
+    /**
+     *
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -102,6 +120,24 @@ class CompileInsertTest extends PHPUnit_Smarty
         $this->assertEquals('param foo bar globalvar changed global', $this->smarty->fetch('insertplugintest.tpl'));
     }
 
+    /**
+     *
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testInsertPluginCaching1_4()
+    {
+        global $insertglobal;
+        $this->smarty->addPluginsDir(__DIR__ . "/PHPunitplugins/");
+        if (true) {   //disabled
+            $insertglobal = 'changed global 4';
+            $this->smarty->caching = 1;
+            $this->smarty->assign('foo', 'buh', true);
+            $this->assertTrue($this->smarty->isCached('insertplugintest.tpl'));
+            $this->assertEquals('param foo buh globalvar changed global 4', $this->smarty->fetch('insertplugintest.tpl'));
+        }
+    }
     /**
      * test insert plugin caching 2
      */
@@ -118,7 +154,7 @@ class CompileInsertTest extends PHPUnit_Smarty
 
     /**
      * test insert plugin caching 2
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testInsertPluginCaching2_2()

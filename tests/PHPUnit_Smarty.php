@@ -295,10 +295,10 @@ KEY `expire` (`expire`)
     public function normalizeString($in)
     {
         if (is_string($in)) {
-            $in = str_replace("\r", '', $in);
-            $in = str_replace("\t", '    ', $in);
+            return str_replace(array("\r", "\t"), array('', '    '), $in);
+        } else {
+            return $in;
         }
-        return $in;
     }
 
     /**
@@ -319,8 +319,10 @@ KEY `expire` (`expire`)
         $dir = isset($dir) ? $dir : $this->smarty->getTemplateDir(0);
         switch ($type) {
             case 'file':
+            case 'filetest':
             case 'php':
-                return $this->normalizePath($dir . $name, true);
+            return $dir . $name;
+            return $this->normalizePath($dir . $name);
             case 'mysqltest':
             case 'mysql':
                 return sha1($type . ':' . $name);
@@ -347,13 +349,12 @@ KEY `expire` (`expire`)
         $type = isset($type) ? $type : $tpl->source->type;
         $name = isset($name) ? $name : $tpl->source->name;
         switch ($type) {
+            case 'php':
             case 'file':
                 if ($tpl instanceof Smarty) {
-                    return sha1(realpath($this->normalizePath($this->smarty->getTemplateDir(0) . $name)));
+                    return sha1(getcwd() . $this->normalizePath($this->smarty->getTemplateDir(0) . $name));
                 }
-                return sha1(realpath($tpl->source->filepath));
-            case 'php':
-                return sha1($tpl->source->filepath);
+                return sha1(getcwd() . $tpl->source->filepath);
             case 'mysqltest':
             case 'mysql':
                 return sha1($type . ':' . $name);
@@ -434,6 +435,12 @@ KEY `expire` (`expire`)
         $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
         $uid = $this->buildUid($tpl, $sp, $name, $type);
         $_flag = '';
+        if (isset($tpl->source) && $tpl->source->isConfig) {
+            $_flag = '_' . ((int) $tpl->smarty->config_read_hidden + (int) $tpl->smarty->config_booleanize * 2
+                    + (int) $tpl->smarty->config_overwrite * 4);
+        } else {
+            $_flag = '_' . ((int) $tpl->smarty->merge_compiled_includes + (int) $tpl->smarty->escape_html * 2);
+        }
         $_filepath = $uid . $_flag;
         // if use_sub_dirs, break file into directories
         if ($sub) {
@@ -485,7 +492,8 @@ KEY `expire` (`expire`)
     {
         $cacheType = isset($cacheType) ? $cacheType : $tpl->smarty->caching_type;
         switch ($cacheType) {
-            case 'file':$sep = DS;
+            case 'file':
+                $sep = DS;
                 $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
                 $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
@@ -523,19 +531,6 @@ KEY `expire` (`expire`)
             default:
                 throw new Exception("Unhandled cache resource type '{$cacheType}'");
         }
-    }
-
-    /**
-     * Prefilter to remove \r from template source
-     *
-     * @param string $tpl_source
-     * @param        $template
-     *
-     * @return mixed
-     */
-    function remove_cr($tpl_source, $template)
-    {
-        return str_replace(array("\r\n", "\r"), "\n", $tpl_source);
     }
 
     /**

@@ -447,7 +447,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -458,14 +458,13 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->assign('test', 6);
         $filepath = $this->buildSourcePath(null, 'cacheresource.tpl', 'file');
-        touch($filepath);
+        touch($filepath, $t = time());
         sleep(2);
         clearstatcache();
         $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
+        $this->assertEquals($t,$tpl->source->timestamp);
         $isCached = $tpl->isCached();
         $mustCompile = $tpl->mustCompile();
-        $this->assertFalse($isCached, 'isCached() must be false after touch of source');
-        $this->assertTrue($mustCompile, 'mustCompile() must be true after touch of source');
         $this->assertEquals('cache resource test:6 compiled:6 rendered:6', $this->smarty->fetch($tpl), 'recompile failed');
         $this->assertFalse($isCached, 'isCached() must be false after touch of source');
         $this->assertTrue($mustCompile, 'mustCompile() must be true after touch of source');

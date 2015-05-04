@@ -51,6 +51,51 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->assertEquals("default param default 1 2 1", $this->smarty->fetch('test_template_function_001.tpl'), $text);
     }
 
+     /**
+      * @run InSeparateProcess
+      * @preserveGlobalState disabled
+      * @dataProvider functionProvider
+     * test simple function call tag cached
+     */
+    public function testSimpleFunctionCached_002($text)
+    {
+        $this->smarty->setCaching(1);
+        $this->smarty->assign('param', 1);
+        $this->smarty->assign('default', 2);
+        $this->assertEquals("default param default 1 2 1", $this->smarty->fetch('test_template_function_002.tpl'), $text);
+    }
+
+
+    /**
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider functionProvider
+     * test simple function call tag cached no cache default variable
+     */
+    public function testSimpleFunctionCachedNocacheDefault_002_1($text)
+    {
+        $this->smarty->setCaching(1);
+        $this->smarty->setCompileId(1);
+        $this->smarty->assign('param', 1);
+        $this->smarty->assign('default', 2, true);
+        $this->assertEquals("default param default 1 2 1", $this->smarty->fetch('test_template_function_002.tpl'), $text);
+    }
+
+    /**
+     * test simple function call tag ached no cache default variable 2
+     *
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testSimpleFunctionCachedNocacheDefault_002_2()
+    {
+        $this->smarty->setCaching(1);
+        $this->smarty->setCompileId(1);
+        $this->smarty->assign('param', 4);
+        $this->smarty->assign('default', 8, true);
+        $this->assertEquals("default param default 1 8 4", $this->smarty->fetch('test_template_function_002.tpl'));
+    }
+
     /**
      * @run InSeparateProcess
      * @preserveGlobalState disabled
@@ -64,6 +109,23 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->smarty->assign('default', 2, true);
         $this->assertEquals("default 1", $this->smarty->fetch('test_template_function_003.tpl'));
     }
+
+    /**
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider functionProvider
+     * test simple function call tag plugin nocache
+     *
+     */
+    public function testSimpleFunctionCachedPluginNocache_003($text)
+    {
+        $this->smarty->setCaching(1);
+        $this->smarty->setCompileId(1);
+        $this->smarty->assign('param', 1);
+        $this->smarty->assign('default', 2, true);
+        $this->assertEquals("default 1", $this->smarty->fetch('test_template_function_003.tpl'));
+    }
+
 
     /**
      * @run InSeparateProcess
@@ -154,6 +216,61 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->assertContains('foo bar', $this->smarty->fetch($tpl), $text);
     }
 
+    /**
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider functionProviderInline
+     * test external function definition nocache call
+     *
+     */
+    public function testExternalDefinedFunctionNocachedCall1($merge, $text)
+    {
+        $this->smarty->setMergeCompiledIncludes($merge);
+        $cacheId = $merge ? 'merge' : null;
+        $this->smarty->caching = 1;
+        $this->smarty->cache_lifetime = 1000;
+        $tpl = $this->smarty->createTemplate('test_template_function_nocache_call.tpl', $cacheId);
+        $tpl->assign('foo', 'foo');
+        $this->assertContains('foo foo', $this->smarty->fetch($tpl), $text);
+    }
+
+    /**
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider functionProviderInline
+     * test external function definition nocache call 2
+     *
+     */
+    public function testExternalDefinedFunctionNocachedCall2($merge, $text)
+    {
+        $this->smarty->setMergeCompiledIncludes($merge);
+        $cacheId = $merge ? 'merge' : null;
+        $this->smarty->caching = 1;
+        $this->smarty->cache_lifetime = 1000;
+        $tpl = $this->smarty->createTemplate('test_template_function_nocache_call.tpl', $cacheId);
+        $this->assertTrue($this->smarty->isCached($tpl), $text);
+        $tpl->assign('foo', 'bar');
+        $this->assertContains('bar bar', $this->smarty->fetch($tpl), $text);
+    }
+
+    /**
+     * test external function definition nocache call 3
+     *
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider functionProviderInline
+     */
+    public function testExternalDefinedFunctionNocachedCall3($merge, $text)
+    {
+        $this->smarty->setMergeCompiledIncludes($merge);
+        $cacheId = $merge ? 'merge' : null;
+        $this->smarty->caching = 1;
+        $this->smarty->cache_lifetime = 1000;
+        $tpl = $this->smarty->createTemplate('test_template_function_nocache_call.tpl', $cacheId);
+        $this->assertTrue($this->smarty->isCached($tpl), $text);
+        $tpl->assign('foo', 'bar');
+        $this->assertContains('bar bar', $this->smarty->fetch($tpl), $text);
+    }
 
     /**
      * Function data provider inline
