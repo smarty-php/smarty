@@ -235,6 +235,80 @@ class FileResourceTest extends PHPUnit_Smarty
         $this->fail('Exception for unknown relative filepath has not been raised.');
     }
 
+    /**
+     *
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testRelativeFetch()
+    {
+        $this->smarty->setTemplateDir(array(
+                                          dirname(__FILE__) . '/does-not-exist/',
+                                          dirname(__FILE__) . '/templates/sub/',
+                                      ));
+        $this->smarty->security_policy = null;
+        $this->assertEquals('hello world', $this->smarty->fetch('./relative.tpl'));
+    }
+
+    /**
+     *
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testRelativeFetch2()
+    {
+         $this->smarty->setTemplateDir(array(
+                                          dirname(__FILE__) . '/does-not-exist/',
+                                          dirname(__FILE__) . '/templates/sub/',
+                                      ));
+        $this->smarty->security_policy = null;
+        $this->assertEquals('hello world', $this->smarty->fetch('../helloworld.tpl'));
+    }
+
+    /**
+     *
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testRelativeFetchCwd()
+    {
+        $cwd = getcwd();
+        chdir(dirname(__FILE__) . '/templates/sub/');
+        $dn = dirname(__FILE__);
+        $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setTemplateDir(array(
+                                          dirname(__FILE__) . '/does-not-exist/',
+                                      ));
+        $this->smarty->security_policy = null;
+        $this->assertEquals('hello world', $this->smarty->fetch('./relative.tpl'));
+        chdir($cwd);
+    }
+
+    /**
+     *
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testRelativeFetchCwd2()
+    {
+        $cwd = getcwd();
+        chdir(dirname(__FILE__) . '/templates/sub/');
+        $dn = dirname(__FILE__);
+        $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setTemplateDir(array(
+                                          dirname(__FILE__) . '/does-not-exist/',
+                                      ));
+        $this->smarty->security_policy = null;
+        $this->assertEquals('hello world', $this->smarty->fetch('../helloworld.tpl'));
+        chdir($cwd);
+    }
+
     protected function _relativeMap($map, $cwd = null)
     {
         foreach ($map as $file => $result) {
@@ -273,5 +347,204 @@ class FileResourceTest extends PHPUnit_Smarty
         if ($cwd !== null) {
             chdir($cwd);
         }
+    }
+
+    public function testRelativity()
+    {
+        $this->smarty->security_policy = null;
+
+        $cwd = getcwd();
+        $dn = dirname(__FILE__);
+        $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setTemplateDir(array(
+                                          $dn . '/templates/relativity/theory/',
+                                      ));
+
+        $map = array(
+            'foo.tpl'                               => 'theory',
+            './foo.tpl'                             => 'theory',
+            '././foo.tpl'                           => 'theory',
+            '../foo.tpl'                            => 'relativity',
+            '.././foo.tpl'                          => 'relativity',
+            './../foo.tpl'                          => 'relativity',
+            'einstein/foo.tpl'                      => 'einstein',
+            './einstein/foo.tpl'                    => 'einstein',
+            '../theory/einstein/foo.tpl'            => 'einstein',
+            'templates/relativity/relativity.tpl'   => 'relativity',
+            './templates/relativity/relativity.tpl' => 'relativity',
+        );
+
+        $this->_relativeMap($map);
+
+        $this->smarty->setTemplateDir(array(
+                                          'templates/relativity/theory/',
+                                      ));
+
+        $map = array(
+            'foo.tpl'                               => 'theory',
+            './foo.tpl'                             => 'theory',
+            '././foo.tpl'                           => 'theory',
+            '../foo.tpl'                            => 'relativity',
+            '.././foo.tpl'                          => 'relativity',
+            './../foo.tpl'                          => 'relativity',
+            'einstein/foo.tpl'                      => 'einstein',
+            './einstein/foo.tpl'                    => 'einstein',
+            '../theory/einstein/foo.tpl'            => 'einstein',
+            'templates/relativity/relativity.tpl'   => 'relativity',
+            './templates/relativity/relativity.tpl' => 'relativity',
+        );
+
+        $this->_relativeMap($map);
+    }
+
+    public function testRelativityCwd()
+    {
+        $this->smarty->security_policy = null;
+
+        $cwd = getcwd();
+        $dn = dirname(__FILE__);
+
+        $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setTemplateDir(array(
+                                          $dn . '/templates/',
+                                      ));
+        chdir($dn . '/templates/relativity/theory/');
+
+        $map = array(
+            'foo.tpl'                    => 'theory',
+            './foo.tpl'                  => 'theory',
+            '././foo.tpl'                => 'theory',
+            '../foo.tpl'                 => 'relativity',
+            '.././foo.tpl'               => 'relativity',
+            './../foo.tpl'               => 'relativity',
+            'einstein/foo.tpl'           => 'einstein',
+            './einstein/foo.tpl'         => 'einstein',
+            '../theory/einstein/foo.tpl' => 'einstein',
+        );
+
+        $this->_relativeMap($map, $cwd);
+    }
+
+    public function testRelativityPrecedence()
+    {
+        $this->smarty->security_policy = null;
+
+        $cwd = getcwd();
+        $dn = dirname(__FILE__);
+
+        $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setTemplateDir(array(
+                                          $dn . '/templates/relativity/theory/einstein/',
+                                      ));
+
+        $map = array(
+            'foo.tpl'       => 'einstein',
+            './foo.tpl'     => 'einstein',
+            '././foo.tpl'   => 'einstein',
+            '../foo.tpl'    => 'theory',
+            '.././foo.tpl'  => 'theory',
+            './../foo.tpl'  => 'theory',
+            '../../foo.tpl' => 'relativity',
+        );
+
+        chdir($dn . '/templates/relativity/theory/');
+        $this->_relativeMap($map, $cwd);
+
+        $map = array(
+            '../theory.tpl'           => 'theory',
+            './theory.tpl'            => 'theory',
+            '../../relativity.tpl'    => 'relativity',
+            '../relativity.tpl'       => 'relativity',
+            './einstein.tpl'          => 'einstein',
+            'einstein/einstein.tpl'   => 'einstein',
+            './einstein/einstein.tpl' => 'einstein',
+        );
+
+        chdir($dn . '/templates/relativity/theory/');
+        $this->_relativeMap($map, $cwd);
+    }
+
+    public function testRelativityRelRel()
+    {
+        $this->smarty->security_policy = null;
+
+        $cwd = getcwd();
+        $dn = dirname(__FILE__);
+
+        $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setTemplateDir(array(
+                                          '../..',
+                                      ));
+
+        $map = array(
+            'foo.tpl'     => 'relativity',
+            './foo.tpl'   => 'relativity',
+            '././foo.tpl' => 'relativity',
+        );
+
+        chdir($dn . '/templates/relativity/theory/einstein');
+        $this->_relativeMap($map, $cwd);
+
+        $map = array(
+            'relativity.tpl'      => 'relativity',
+            './relativity.tpl'    => 'relativity',
+            'theory/theory.tpl'   => 'theory',
+            './theory/theory.tpl' => 'theory',
+        );
+
+        chdir($dn . '/templates/relativity/theory/einstein/');
+        $this->_relativeMap($map, $cwd);
+
+        $map = array(
+            'foo.tpl'                         => 'theory',
+            './foo.tpl'                       => 'theory',
+            'theory.tpl'                      => 'theory',
+            './theory.tpl'                    => 'theory',
+            'einstein/einstein.tpl'           => 'einstein',
+            './einstein/einstein.tpl'         => 'einstein',
+            '../theory/einstein/einstein.tpl' => 'einstein',
+            '../relativity.tpl'               => 'relativity',
+            './../relativity.tpl'             => 'relativity',
+            '.././relativity.tpl'             => 'relativity',
+        );
+
+        $this->smarty->setTemplateDir(array(
+                                          '..',
+                                      ));
+        chdir($dn . '/templates/relativity/theory/einstein/');
+        $this->_relativeMap($map, $cwd);
+    }
+
+    public function testRelativityRelRel1()
+    {
+        $this->smarty->security_policy = null;
+
+        $cwd = getcwd();
+        $dn = dirname(__FILE__);
+        $this->smarty->setCompileDir($dn . '/templates_c/');
+        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setTemplateDir(array(
+                                          '..',
+                                      ));
+
+        $map = array(
+            'foo.tpl'                         => 'theory',
+            './foo.tpl'                       => 'theory',
+            'theory.tpl'                      => 'theory',
+            './theory.tpl'                    => 'theory',
+            'einstein/einstein.tpl'           => 'einstein',
+            './einstein/einstein.tpl'         => 'einstein',
+            '../theory/einstein/einstein.tpl' => 'einstein',
+            '../relativity.tpl'               => 'relativity',
+            './../relativity.tpl'             => 'relativity',
+            '.././relativity.tpl'             => 'relativity',
+        );
+
+        chdir($dn . '/templates/relativity/theory/einstein/');
+        $this->_relativeMap($map, $cwd);
     }
 }

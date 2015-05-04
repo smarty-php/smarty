@@ -203,6 +203,17 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     }
 
     /**
+     * test  nested child block with hide and auto_literal = false
+     */
+    public function testCompileBlockChildNestedHideAutoLiteralFalse_019()
+    {
+        $this->smarty->setAutoLiteral(false);
+        $result = $this->smarty->fetch('019_child_nested_hide_autoliteral.tpl');
+        $this->assertContains('nested block', $result);
+        $this->assertNotContains('should be hidden', $result);
+    }
+
+    /**
      * test  child/parent template chain starting in subtempates
      */
     public function testCompileBlockStartSubTemplates_020()
@@ -321,7 +332,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax Error in template ".\templates\025_parent.tpl"
+     * @expectedExceptionMessage Syntax Error in template &quot;.\templates\025_parent.tpl&quot;
      * @expectedExceptionMessage {$smarty.block.child} used out of context
      * test {$this->smarty.block.child} outside {block]
      */
@@ -332,7 +343,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax Error in template ".\templates\026_parent.tpl"
+     * @expectedExceptionMessage Syntax Error in template &quot;.\templates\026_parent.tpl&quot;
      * @expectedExceptionMessage $smarty.block is invalid
      * test {$this->smarty.block.parent} outside {block]
      */
@@ -343,7 +354,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax Error in template ".\templates\027_parent.tpl"
+     * @expectedExceptionMessage Syntax Error in template &quot;.\templates\027_parent.tpl&quot;
      * @expectedExceptionMessage $smarty.block is invalid
      * test {$this->smarty.block.parent} in parent template
      */

@@ -71,6 +71,20 @@ class DefaultPluginHandlerTest extends PHPUnit_Smarty
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals("localmodifier bar", $this->smarty->fetch('test_default_modifier.tpl'));
     }
+
+    public function testDefaultModifierStaticClassMethodCaching1()
+    {
+        $this->smarty->assign('foo', 'bar');
+        $this->smarty->caching = 1;
+        $this->assertEquals("staticmodifier bar", $this->smarty->fetch('test_default_static_modifier.tpl'));
+    }
+
+    public function testDefaultModifierStaticClassMethodCaching2()
+    {
+        $this->smarty->assign('foo', 'bar');
+        $this->smarty->caching = 1;
+        $this->assertEquals("staticmodifier bar", $this->smarty->fetch('test_default_static_modifier.tpl'));
+    }
 }
 
 function my_plugin_handler($tag, $type, $template, &$callback, &$script, &$cachable)

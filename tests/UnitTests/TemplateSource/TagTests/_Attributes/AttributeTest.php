@@ -23,67 +23,48 @@ class AttributeTest extends PHPUnit_Smarty
     {
         $this->cleanDirs();
     }
+
     /**
+     * @expectedException        SmartyCompilerException
+     * @expectedExceptionMessage Syntax Error in template &quot;b8ecd121bbbc031241b1116a9db691a759eceadf&quot;
+     * @expectedExceptionMessage missing &quot;var&quot; attribute
      * test required attribute
      */
     public function testRequiredAttributeVar()
     {
-        try {
-            $this->smarty->fetch('string:{assign value=1}');
-        }
-        catch (Exception $e) {
-            $this->assertContains('missing "var" attribute', $e->getMessage());
-
-            return;
-        }
-        $this->fail('Exception for required attribute "var" has not been raised.');
+        $this->smarty->fetch('string:{assign value=1}');
     }
 
     /**
+     * @expectedException        SmartyCompilerException
+     * @expectedExceptionMessage Syntax Error in template &quot;46d3649920e0043f055702ef3ceef0ecdc44b892&quot;
+     * @expectedExceptionMessage unexpected &quot;bar&quot; attribute
      * test unexpected attribute
      */
     public function testUnexpectedAttribute()
     {
-        try {
-            $this->smarty->fetch('string:{assign var=foo value=1 bar=2}');
-        }
-        catch (Exception $e) {
-            $this->assertContains('unexpected "bar" attribute', $e->getMessage());
-
-            return;
-        }
-        $this->fail('Exception for unexpected attribute "bar" has not been raised.');
+        $this->smarty->fetch('string:{assign var=foo value=1 bar=2}');
     }
 
     /**
+     * @expectedException        SmartyCompilerException
+     * @expectedExceptionMessage Syntax Error in template &quot;d6c824b50e89d8fe12b393ae8ab68daeb7b6c240&quot;
+     * @expectedExceptionMessage illegal value of option flag &quot;nocache&quot;
      * test illegal option value
      */
     public function testIllegalOptionValue()
     {
-        try {
-            $this->smarty->fetch('string:{assign var=foo value=1 nocache=buh}');
-        }
-        catch (Exception $e) {
-            $this->assertContains(htmlentities('illegal value of option flag'), $e->getMessage());
-
-            return;
-        }
-        $this->fail('Exception for illegal value of option flag has not been raised.');
+        $this->smarty->fetch('string:{assign var=foo value=1 nocache=buh}');
     }
 
     /**
+     * @expectedException        SmartyCompilerException
+     * @expectedExceptionMessage Syntax Error in template &quot;a119616ffa139e7b1145b1cd36adbff7bc9be7cf&quot;
+     * @expectedExceptionMessage too many shorthand attributes
      * test too many shorthands
      */
     public function testTooManyShorthands()
     {
-        try {
-            $this->smarty->fetch('string:{assign foo 1 2}');
-        }
-        catch (Exception $e) {
-            $this->assertContains('too many shorthand attributes', $e->getMessage());
-
-            return;
-        }
-        $this->fail('Exception for too many shorthand attributes has not been raised.');
+        $this->smarty->fetch('string:{assign foo 1 2}');
     }
 }

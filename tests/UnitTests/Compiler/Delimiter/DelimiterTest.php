@@ -67,4 +67,14 @@ class DelimiterTest extends PHPUnit_Smarty
         $this->assertEquals("hello world", $this->smarty->fetch($tpl));
     }
 
+    /**
+     * test {= =} delimiter for conficts with option flags
+     */
+    public function testDelimiter5()
+    {
+        $this->smarty->left_delimiter = '{=';
+        $this->smarty->right_delimiter = '=}';
+        $tpl = $this->smarty->createTemplate('eval:{=assign var=foo value="hello world" nocache=}{=$foo=}');
+        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
+    }
 }
