@@ -349,9 +349,9 @@ KEY `expire` (`expire`)
         switch ($type) {
             case 'file':
                 if ($tpl instanceof Smarty) {
-                    return sha1($this->normalizePath($this->smarty->getTemplateDir(0) . $name, true));
+                    return sha1(realpath($this->normalizePath($this->smarty->getTemplateDir(0) . $name)));
                 }
-                return sha1($tpl->source->filepath);
+                return sha1(realpath($tpl->source->filepath));
             case 'php':
                 return sha1($tpl->source->filepath);
             case 'mysqltest':
