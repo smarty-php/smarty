@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <individualFolders>true</individualFolders>
+    <cacheResource>
+        <MemcacheEnable>false</MemcacheEnable>
+        <ApcEnable>false</ApcEnable>
+        <MysqlEnable>false</MysqlEnable>
+    </cacheResource>
+    <resource>
+        <MysqlEnable>false</MysqlEnable>
+    </resource>
+    <mysql>
+        <DB_DSN>mysql:dbname=test;host=localhost</DB_DSN>
+        <DB_USER>smarty</DB_USER>
+        <DB_PASSWD></DB_PASSWD>
+    </mysql>
+</config>

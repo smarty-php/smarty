@@ -1,0 +1,1 @@
+I1{include file='test_include_001_2.tpl' cache_lifetime=30}

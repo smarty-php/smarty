@@ -1,0 +1,1 @@
+{block 'b1'}no >{$smarty.block.child}< child{/block}

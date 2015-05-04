@@ -1,0 +1,1 @@
+{$foo|scriptmodifier:'scriptmodifier default '}

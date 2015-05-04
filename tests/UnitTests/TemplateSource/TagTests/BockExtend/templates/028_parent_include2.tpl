@@ -1,0 +1,1 @@
+{block 'i2'}child{$smarty.block.child}include{block 'n2'}{/block}{/block}
