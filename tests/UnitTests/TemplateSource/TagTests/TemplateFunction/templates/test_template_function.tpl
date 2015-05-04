@@ -1,0 +1,1 @@
+{include file='template_function_lib.tpl'}{call name=template_func1}

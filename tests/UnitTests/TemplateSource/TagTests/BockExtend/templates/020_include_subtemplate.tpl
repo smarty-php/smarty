@@ -1,0 +1,1 @@
+{block name="b"}-dummy-{/block}

@@ -1,0 +1,1 @@
+{block name='index'}{/block}

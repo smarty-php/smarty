@@ -1,0 +1,1 @@
+{$x} {testblock}{$y}{/testblock} {$z}

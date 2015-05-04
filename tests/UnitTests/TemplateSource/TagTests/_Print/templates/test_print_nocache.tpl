@@ -1,0 +1,1 @@
+{$foo nocache=true}{$bar}
