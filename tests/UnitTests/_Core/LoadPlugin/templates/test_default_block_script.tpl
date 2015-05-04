@@ -1,1 +1,0 @@
-{scriptblock}foo bar{/scriptblock}

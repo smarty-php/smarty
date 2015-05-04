@@ -1,1 +1,0 @@
-{function name=functest default='default'}{$default} {$param nocache}{/function}{call name=functest param='param'} {call name=functest param=$param} {call name=functest param=$param default=$default}

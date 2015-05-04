@@ -1,1 +1,0 @@
-{assign var="global" value="global" scope="global"}

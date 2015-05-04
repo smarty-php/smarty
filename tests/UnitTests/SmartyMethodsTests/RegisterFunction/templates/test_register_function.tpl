@@ -1,1 +1,0 @@
-{testfunction value=$x} {$y}

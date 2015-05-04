@@ -1,1 +1,0 @@
-{include file='template_function_lib.tpl'}{call 'template_func1' nocache}

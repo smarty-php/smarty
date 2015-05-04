@@ -1,1 +1,0 @@
-{$smarty.block.child}{block 'b1'}{/block}

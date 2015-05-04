@@ -1,1 +1,0 @@
-{block 'b1'}b1-{include $foo}-b1{/block}

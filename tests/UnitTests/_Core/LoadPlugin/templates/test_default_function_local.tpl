@@ -1,1 +1,0 @@
-{localfunction value='foo bar'}

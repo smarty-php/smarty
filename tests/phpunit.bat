@@ -1,1 +1,0 @@
-php ../../phpunit/phpunit/phpunit ./

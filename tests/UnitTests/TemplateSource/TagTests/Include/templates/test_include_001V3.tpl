@@ -1,1 +1,0 @@
-I1{include file='test_include_001_2V3.tpl' cache_lifetime=30}

@@ -1,1 +1,0 @@
-{scriptcompilerfunction value='foo bar'}

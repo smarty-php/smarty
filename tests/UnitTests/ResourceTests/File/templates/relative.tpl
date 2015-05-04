@@ -1,1 +1,0 @@
-{include file="./helloworld.tpl"}

@@ -1,1 +1,0 @@
-{$foo=2} in include {$foo}

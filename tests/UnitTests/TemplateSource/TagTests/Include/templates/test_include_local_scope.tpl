@@ -1,1 +1,0 @@
-before include {$foo} {include file='test_include_local_scope_sub.tpl'} after include {$foo}

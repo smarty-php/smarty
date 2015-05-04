@@ -1,1 +1,0 @@
-{$foo|default:""} /* should compile something with @silence error suppression */

@@ -1,1 +1,0 @@
-{block 'i1'}include{block 'n1'}{/block}{/block}

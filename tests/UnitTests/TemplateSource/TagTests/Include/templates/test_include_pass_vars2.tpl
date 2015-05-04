@@ -1,1 +1,0 @@
-{include file='test_include_pass_vars2_sub.tpl' myvar1=1 myvar2=2}

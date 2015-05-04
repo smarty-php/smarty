@@ -1,1 +1,0 @@
-{block 'b1'}parent{block 'p1'}{/block}{/block}

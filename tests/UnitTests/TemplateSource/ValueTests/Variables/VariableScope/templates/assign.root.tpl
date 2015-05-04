@@ -1,1 +1,0 @@
-{assign var="root" value="root" scope="root"} {$local|default:"no-local"} {include "assign.global.tpl"} {$parent|default:"no-parent"} {$root|default:"no-root"} {$global|default:"no-global"}

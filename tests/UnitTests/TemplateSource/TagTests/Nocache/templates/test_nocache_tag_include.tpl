@@ -1,1 +1,0 @@
-<br>include {nocache}{$foo + 4}{/nocache}{$bar}

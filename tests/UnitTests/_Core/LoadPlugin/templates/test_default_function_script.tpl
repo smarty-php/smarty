@@ -1,1 +1,0 @@
-{scriptfunction value='foo bar'}
