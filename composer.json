@@ -1,5 +1,4 @@
 {
-    "minimum-stability": "dev",
     "name": "smarty/smarty",
     "type": "library",
     "description": "Smarty - the compiling PHP template engine",
