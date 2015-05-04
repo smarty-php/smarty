@@ -4,10 +4,10 @@
 For installing the PHPUnit test by composer use the following:
 
     "require-dev": {
-        "smarty/smarty-phpunit": "3.1.12"
+        "smarty/smarty-phpunit": "3.1.13"
     }
 
-Replace 3.1.12 with the installed Smarty version number.
+Replace 3.1.13 with the installed Smarty version number.
 
 Starting with Smarty version 3.1.22 the "require-dev" section will be added
 to the composer.json file of the Smarty distribution.

@@ -351,4 +351,63 @@ class PluginFunctionHtmlCheckboxesTest extends PHPUnit_Smarty
 
         $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
     }
+
+    public function testDisabledStrict1()
+    {
+        $n = "\n";
+        $expected = '<label><input type="checkbox" name="id[]" value="1000" disabled="disabled" />Joe Schmoe</label><br />'
+            . $n . '<label><input type="checkbox" name="id[]" value="1001" checked="checked" disabled="disabled" />Jack Smith</label><br />'
+            . $n . '<label><input type="checkbox" name="id[]" value="1002" disabled="disabled" />Jane Johnson</label><br />'
+            . $n . '<label><input type="checkbox" name="id[]" value="1003" disabled="disabled" />Charlie Brown</label><br />';
+
+        $tpl = $this->smarty->createTemplate('eval:{html_checkboxes name="id" options=$cust_radios selected=$customer_id separator="<br />" disabled=true strict=true}');
+        $tpl->assign('customer_id', new _object_toString(1001));
+        $tpl->assign('cust_radios', array(
+            1000 => 'Joe Schmoe',
+            1001 => 'Jack Smith',
+            1002 => 'Jane Johnson',
+            1003 => 'Charlie Brown',
+        ));
+
+        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+    }
+    public function testDisabledStrict2()
+    {
+        $n = "\n";
+        $expected = '<label><input type="checkbox" name="id[]" value="1000" />Joe Schmoe</label><br />'
+            . $n . '<label><input type="checkbox" name="id[]" value="1001" checked="checked" />Jack Smith</label><br />'
+            . $n . '<label><input type="checkbox" name="id[]" value="1002" />Jane Johnson</label><br />'
+            . $n . '<label><input type="checkbox" name="id[]" value="1003" />Charlie Brown</label><br />';
+
+        $tpl = $this->smarty->createTemplate('eval:{html_checkboxes name="id" options=$cust_radios selected=$customer_id separator="<br />" disabled=1 strict=true}');
+        $tpl->assign('customer_id', new _object_toString(1001));
+        $tpl->assign('cust_radios', array(
+            1000 => 'Joe Schmoe',
+            1001 => 'Jack Smith',
+            1002 => 'Jane Johnson',
+            1003 => 'Charlie Brown',
+        ));
+
+        $this->assertEquals($expected, $tpl->fetch());
+
+     }
+    public function testDisabledStrict3()
+    {
+        $n = "\n";
+        $expected = '<label><input type="checkbox" name="id[]" value="1000" disabled="disabled" />Joe Schmoe</label><br />'
+            . $n . '<label><input type="checkbox" name="id[]" value="1001" checked="checked" disabled="disabled" />Jack Smith</label><br />'
+            . $n . '<label><input type="checkbox" name="id[]" value="1002" disabled="disabled" />Jane Johnson</label><br />'
+            . $n . '<label><input type="checkbox" name="id[]" value="1003" disabled="disabled" />Charlie Brown</label><br />';
+
+        $tpl = $this->smarty->createTemplate('eval:{html_checkboxes name="id" options=$cust_radios selected=$customer_id separator="<br />" disabled="disabled" strict=true}');
+        $tpl->assign('customer_id', new _object_toString(1001));
+        $tpl->assign('cust_radios', array(
+            1000 => 'Joe Schmoe',
+            1001 => 'Jack Smith',
+            1002 => 'Jane Johnson',
+            1003 => 'Charlie Brown',
+        ));
+
+        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+    }
 }

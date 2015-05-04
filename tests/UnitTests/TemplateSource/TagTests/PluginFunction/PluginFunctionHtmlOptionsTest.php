@@ -443,4 +443,58 @@ class PluginFunctionHtmlOptionsTest extends PHPUnit_Smarty
 
         $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
     }
+
+    public function testDisabledStrict()
+    {
+        $n = "\n";
+        $expected = '<select name="foo">'
+            . $n . '<option value="1800">Joe Schmoe</option>'
+            . $n . '<option value="9904" selected="selected">Jack Smith</option>'
+            . $n . '<option value="2003">Charlie Brown</option>'
+            . $n . '</select>' . $n;
+
+        $tpl = $this->smarty->createTemplate('eval:{html_options name="foo" options=$myOptions selected=$mySelect disabled=1 strict=true}');
+        $tpl->assign('mySelect', new _object_toString(9904));
+        $tpl->assign('myOptions', array(
+            1800 => 'Joe Schmoe',
+            9904 => 'Jack Smith',
+            2003 => 'Charlie Brown',
+        ));
+
+        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+
+        $n = "\n";
+        $expected = '<select name="foo" disabled="disabled">'
+            . $n . '<option value="1800">Joe Schmoe</option>'
+            . $n . '<option value="9904" selected="selected">Jack Smith</option>'
+            . $n . '<option value="2003">Charlie Brown</option>'
+            . $n . '</select>' . $n;
+
+        $tpl = $this->smarty->createTemplate('eval:{html_options name="foo" options=$myOptions selected=$mySelect disabled=true strict=true}');
+        $tpl->assign('mySelect', new _object_toString(9904));
+        $tpl->assign('myOptions', array(
+            1800 => 'Joe Schmoe',
+            9904 => 'Jack Smith',
+            2003 => 'Charlie Brown',
+        ));
+
+        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+
+        $n = "\n";
+        $expected = '<select name="foo" disabled="disabled">'
+            . $n . '<option value="1800">Joe Schmoe</option>'
+            . $n . '<option value="9904" selected="selected">Jack Smith</option>'
+            . $n . '<option value="2003">Charlie Brown</option>'
+            . $n . '</select>' . $n;
+
+        $tpl = $this->smarty->createTemplate('eval:{html_options name="foo" options=$myOptions selected=$mySelect disabled="disabled" strict=true}');
+        $tpl->assign('mySelect', new _object_toString(9904));
+        $tpl->assign('myOptions', array(
+            1800 => 'Joe Schmoe',
+            9904 => 'Jack Smith',
+            2003 => 'Charlie Brown',
+        ));
+
+        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+    }
 }
