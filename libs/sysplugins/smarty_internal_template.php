@@ -599,8 +599,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                         $mtime = $this->source->timestamp;
                     } else {
                         // file and php types can be checked without loading the respective resource handlers
-                        $mtime = @filemtime($_file_to_check[0]);
-                    }
+                        $mtime = is_file($_file_to_check[0]) ? @filemtime($_file_to_check[0]) : false;
+                     }
                 } elseif ($_file_to_check[2] == 'string') {
                     continue;
                 } else {

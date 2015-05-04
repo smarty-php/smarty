@@ -169,8 +169,10 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
 
             $source->uid = sha1(getcwd() . $source->filepath);
             if ($source->smarty->compile_check && !isset($source->timestamp)) {
-                $source->timestamp = @filemtime($source->filepath);
-                $source->exists = !!$source->timestamp;
+                $source->timestamp = $source->exists = is_file($source->filepath);
+                if ($source->exists) {
+                    $source->timestamp = @filemtime($source->filepath);
+                }
             }
         } else {
             $source->timestamp = false;
@@ -185,8 +187,10 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     public function populateTimestamp(Smarty_Template_Source $source)
     {
-        $source->timestamp = @filemtime($source->filepath);
-        $source->exists = !!$source->timestamp;
+        $source->timestamp = $source->exists = is_file($source->filepath);
+        if ($source->exists) {
+            $source->timestamp = @filemtime($source->filepath);
+        }
     }
 
     /**

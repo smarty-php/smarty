@@ -35,8 +35,10 @@ class Smarty_Internal_Extension_DefaultTemplateHandler
         $_return = call_user_func_array($default_handler,
                                         array($source->type, $source->name, &$_content, &$_timestamp, $source->smarty));
         if (is_string($_return)) {
-            $source->timestamp = @filemtime($_return);
-            $source->exists = !!$source->timestamp;
+            $source->exists = is_file($_return);
+            if ($source->exists) {
+                $source->timestamp = filemtime($_return);
+            }
             $source->filepath = $_return;
         } elseif ($_return === true) {
             $source->content = $_content;

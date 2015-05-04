@@ -130,8 +130,10 @@ class Smarty_Template_Compiled
         }
 
         $this->filepath = $_compile_dir . $_filepath . '.' . $_template->source->type . $_basename . $_cache . '.php';
-        $this->timestamp = @filemtime($this->filepath);
-        $this->exists = !!$this->timestamp;
+        $this->timestamp = $this->exists = is_file($this->filepath);
+        if ($this->exists) {
+            $this->timestamp = @filemtime($this->filepath);
+        }
     }
 
     /**
@@ -252,12 +254,12 @@ class Smarty_Template_Compiled
         if (!$_template->source->recompiled) {
             $obj = new Smarty_Internal_Write_File();
             if ($obj->writeFile($this->filepath, $code, $_template->smarty) === true) {
-                $this->timestamp = @filemtime($this->filepath);
-                $this->exists = !!$this->timestamp;
+                $this->timestamp = $this->exists = is_file($this->filepath);
                 if ($this->exists) {
+                    $this->timestamp = @filemtime($this->filepath);
                     return true;
                 }
-            }
+             }
             return false;
         } else {
             $this->code = $code;
