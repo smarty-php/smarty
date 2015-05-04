@@ -21,15 +21,11 @@
     ],
     "support": {
         "irc": "irc://irc.freenode.org/smarty",
-        "issues": "https://github.com/smarty-php/smarty/issues",
+        "issues": "http://code.google.com/p/smarty-php/issues/list",
         "forum": "http://www.smarty.net/forums/"
     },
     "require": {
         "php": ">=5.2"
-    },
-    "require-dev": {
-        "smarty/smarty-phpunit": "~3.1@dev",
-        "smarty/smarty-lexer": "~3.1@dev"
     },
     "autoload": {
         "classmap": [
