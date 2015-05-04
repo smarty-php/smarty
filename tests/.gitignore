@@ -8,5 +8,5 @@
 testdox.html
 TestResults.tap
 TestResults.txt
-templates_c/*.php
-cache/*.php
+*/templates_c/*.php
+*/cache/*.php
