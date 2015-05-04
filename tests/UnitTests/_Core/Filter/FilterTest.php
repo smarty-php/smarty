@@ -131,6 +131,19 @@ class FilterTest extends PHPUnit_Smarty
         $tpl->assign('foo', '<?php ?>');
         $this->assertEquals('&lt;?php ?&gt;', $this->smarty->fetch($tpl));
     }
+
+    /**
+     * test registered post filter
+     */
+    public function testRegisteredVariableFilter2()
+    {
+        $var = new VarFilter();
+
+        $this->smarty->registerFilter(Smarty::FILTER_VARIABLE, array($var, 'variablefilter'));
+        $tpl = $this->smarty->createTemplate('string:{$foo}');
+        $tpl->assign('foo', 'bar');
+        $this->assertEquals('var{$foo}bar', $this->smarty->fetch($tpl));
+    }
 }
 
 Class VarFilter

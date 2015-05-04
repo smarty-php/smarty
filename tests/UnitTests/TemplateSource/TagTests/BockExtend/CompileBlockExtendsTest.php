@@ -332,8 +332,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax Error in template &quot;.\templates\025_parent.tpl&quot;
-     * @expectedExceptionMessage {$smarty.block.child} used out of context
+     * @expectedExceptionMessage Syntax error in template ".\templates\025_parent.tpl"
+     * @expectedExceptionMessage tag {$smarty.block.child} used outside {block} tags
      * test {$this->smarty.block.child} outside {block]
      */
     public function testSmartyBlockChildOutsideBlock_025()
@@ -343,8 +343,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax Error in template &quot;.\templates\026_parent.tpl&quot;
-     * @expectedExceptionMessage $smarty.block is invalid
+     * @expectedExceptionMessage Syntax error in template ".\templates\026_parent.tpl"
+     * @expectedExceptionMessage tag {$smarty.block.parent} used outside {block} tags
      * test {$this->smarty.block.parent} outside {block]
      */
     public function testSmartyBlockParentOutsideBlock_026()
@@ -354,8 +354,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax Error in template &quot;.\templates\027_parent.tpl&quot;
-     * @expectedExceptionMessage $smarty.block is invalid
+     * @expectedExceptionMessage Syntax error in template ".\templates\027_parent.tpl"
+     * @expectedExceptionMessage illegal {$smarty.block.parent} in parent template
      * test {$this->smarty.block.parent} in parent template
      */
     public function testSmartyBlockParentInParent_027()

@@ -848,7 +848,30 @@ class PluginFunctionHtmlSelectTimeTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('eval:{html_select_time time=' . $this->now . ' use_24_hours=false display_meridian=false}');
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
     }
-
+    public function testMeridian3()
+    {
+        $n = "\n";
+        $time = mktime(0, 15, 11, 2, 20, 2011);
+        $result = '<select name="Time_Hour">' . $n . '<option value="01">01</option>
+<option value="02">02</option>
+<option value="03">03</option>
+<option value="04">04</option>
+<option value="05">05</option>
+<option value="06">06</option>
+<option value="07">07</option>
+<option value="08">08</option>
+<option value="09">09</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12" selected="selected">12</option>
+</select>
+<select name="Time_Meridian">
+<option value="am">AM</option>
+<option value="pm">PM</option>
+</select>';
+        $tpl = $this->smarty->createTemplate('eval:{html_select_time time=' . $time . ' use_24_hours=false display_minutes=false display_seconds=false}');
+        $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
+    }
     public function testMeridian4()
     {
         $n = "\n";

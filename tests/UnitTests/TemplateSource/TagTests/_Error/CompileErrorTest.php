@@ -35,8 +35,8 @@ class CompileErrorTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax Error in template &quot;2510bcd51cbc69725f2c3d3484b2c70c00ddaeba&quot;
-     * @expectedExceptionMessage unknown tag &quot;unknown&quot;
+     * @expectedExceptionMessage Syntax error in template "2510bcd51cbc69725f2c3d3484b2c70c00ddaeba"
+     * @expectedExceptionMessage unknown tag "unknown"
      * test unkown tag error
      */
     public function testUnknownTagError()
@@ -56,8 +56,8 @@ class CompileErrorTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax Error in template &quot;599a9cf0e3623a3206bd02a0f5c151d5f5f3f69e&quot;
-     * @expectedExceptionMessage Unexpected &quot;}&quot;
+     * @expectedExceptionMessage Syntax error in template "599a9cf0e3623a3206bd02a0f5c151d5f5f3f69e"
+     * @expectedExceptionMessage Unexpected "}"
      * test syntax error
      */
     public function testSyntaxError()
