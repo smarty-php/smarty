@@ -4,8 +4,6 @@
 *Read the NEW_FEATURES file for recent extensions to Smarty 3.1 functionality*
 
 Smarty packages are now on github and can be installed with Composer.
- 
-**NOTE: Because of this change you must clear your local composer cache with the "composer clearcache" command**
 
 The "smarty/smarty" package will start at libs/....   subfolder.
 
@@ -31,3 +29,6 @@ For a specific version use something like
     }
 
 Composer can also be used for Smarty2 versions 2.6.24 to 2.6.28
+
+Starting with version 3.1.22 a "require-dev" section has been added in commposer.json
+to load the PHPUnit test and the lexer/parser generator,
