@@ -53,6 +53,16 @@ public function testPHP_REMOVEphp()
 
     }
     /**
+     * test <script language='php'>...</script> tag
+     * PHP_REMOVE
+     */
+    public function testPHP_REMOVEscript()
+    {
+        $this->smarty->setPhpHandling(Smarty::PHP_REMOVE);
+        $content = $this->smarty->fetch("string:a<script language='php'> echo 'hello world';</script>e");
+        $this->assertEquals("a echo 'hello world';e", $content, "remove <script language='php'>");
+    }
+    /**
      * test <?php...\> tag
      * PHP_PASSTHRU
      */
@@ -74,6 +84,16 @@ public function testPHP_REMOVEphp()
         $this->smarty->setPhpHandling(Smarty::PHP_PASSTHRU);
          $content = $this->smarty->fetch("string:pa<% echo 'hello world';%>pe");
         $this->assertEquals("pa<% echo 'hello world';%>pe", $content, 'passthru <% %>');
+    }
+    /**
+     * test <script language='php'>...</script> tag
+     * PHP_PASSTHRU
+     */
+    public function testPHP_PASSTHRUscript()
+    {
+        $this->smarty->setPhpHandling(Smarty::PHP_PASSTHRU);
+        $content = $this->smarty->fetch("string:pa<script language='php'> echo 'hello world';</script>pe");
+        $this->assertEquals("pa<script language=\'php\'> echo 'hello world';</script>pe", $content, "passthru <script language='php'>");
     }
     /**
      * test <?php...\> tag
@@ -99,6 +119,16 @@ public function testPHP_REMOVEphp()
         $this->assertEquals("qa&lt;% echo 'hello world';%&gt;qe", $content, 'qoute <% %>');
     }
     /**
+     * test <script language='php'>...</script> tag
+     * PHP_QUOTE
+     */
+    public function testPHP_QUOTEscript()
+    {
+        $this->smarty->setPhpHandling(Smarty::PHP_QUOTE);
+        $content = $this->smarty->fetch("string:qa<script language='php'> echo 'hello world';</script>qe");
+        $this->assertEquals("qa&lt;script language=&#039;php&#039;&gt; echo 'hello world';&lt;/script&gt;qe", $content, "quote <script language='php'>");
+    }
+    /**
      * test <?php...\> tag
      * PHP_ALLOW
      */
@@ -119,6 +149,16 @@ public function testPHP_REMOVEphp()
         $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
         $content = $this->smartyBC->fetch("string:aa <% echo 'hello world';%> ae");
         $this->assertEquals('aa hello world ae', $content, 'allow <% %>');
+    }
+    /**
+     * test <script language='php'>...</script> tag
+     * PHP_ALLOW
+     */
+    public function testPHP_ALLOWscript()
+    {
+        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
+        $content = $this->smartyBC->fetch("string:aa <script language='php'> echo 'hello world';</script> ae");
+        $this->assertEquals('aa hello world ae', $content, "allow <script language='php'>");
     }
     /**
      * test <?php...\> tag
