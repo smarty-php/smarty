@@ -21,7 +21,7 @@
     ],
     "support": {
         "irc": "irc://irc.freenode.org/smarty",
-        "issues": "http://code.google.com/p/smarty-php/issues/list",
+        "issues": "https://github.com/smarty-php/smarty/issues",
         "forum": "http://www.smarty.net/forums/"
     },
     "require": {
