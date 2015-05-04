@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.22-dev ===== (xx.xx.2015)
+ 04.05.2015
+  - bugfix Smarty_Resource::parseResourceName incompatible with Google AppEngine (https://github.com/smarty-php/smarty/issues/22)
+  
  28.04.2015
   - bugfix plugins of merged subtemplates not loaded in 3.1.22-dev (forum topic 25508) 2nd fix
 

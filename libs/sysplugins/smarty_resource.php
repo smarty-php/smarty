@@ -218,15 +218,15 @@ abstract class Smarty_Resource
      */
     public static function parseResourceName($resource_name, $default_resource)
     {
-        $parts = explode(':', $resource_name, 2);
-        if (!isset($parts[1]) || !isset($parts[0][1])) {
+         if (preg_match('/^([A-Za-z0-9_\-]{2,})[:]/', $resource_name, $match)) {
+            $type = $match[1];
+            $name = substr($resource_name, strlen($match[0]));
+        } else {
             // no resource given, use default
             // or single character before the colon is not a resource type, but part of the filepath
             $type = $default_resource;
             $name = $resource_name;
-        } else {
-            $type = $parts[0];
-            $name = $parts[1];
+
         }
         return array($name, $type);
     }
