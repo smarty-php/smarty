@@ -25,7 +25,7 @@
     "forum": "http://www.smarty.net/forums/"
   },
   "require": {
-    "phpunit/phpunit": "~4",
+    "phpunit/phpunit": "~4@stable",
     "php": ">=5.2"
   },
   "autoload": {
