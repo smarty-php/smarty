@@ -408,7 +408,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
     /**
      * Compile Tag
      * This is a call back from the lexer/parser
-     * It executes the required compile plugin for the Smarty tag
+     *
+     * Save current prefix code
+     * Compile tag
+     * Merge tag prefix code with saved one
+     * (required nested tags in attributes)
      *
      * @param  string $tag       tag name
      * @param  array  $args      array with tag attributes
@@ -420,6 +424,27 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function compileTag($tag, $args, $parameter = array())
     {
+        $this->prefixCodeStack[] = $this->prefix_code;
+        $this->prefix_code = array();
+        $result = $this->compileTag2($tag, $args, $parameter);
+        $this->prefix_code = array_merge($this->prefix_code, array_pop($this->prefixCodeStack));
+        return $result;
+    }
+
+    /**
+     * Compile Tag
+     *
+     * @param  string $tag       tag name
+     * @param  array  $args      array with tag attributes
+     * @param  array  $parameter array with compilation parameter
+     *
+     * @throws SmartyCompilerException
+     * @throws SmartyException
+     * @return string compiled code
+     */
+    private function compileTag2($tag, $args, $parameter)
+    {
+        $plugin_type = '';
         // $args contains the attributes parsed and compiled by the lexer/parser
         // assume that tag does compile into code, but creates no HTML output
         $this->has_code = true;
