@@ -380,7 +380,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $merged_code .= $code;
             }
         }
-        $_compiled_code = '';
         // run postfilter if required on compiled template code
         if ((isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) && !$this->suppressFilter && $_compiled_code != '') {
             $_compiled_code = Smarty_Internal_Filter_Handler::runFilter('post', $_compiled_code, $template);
