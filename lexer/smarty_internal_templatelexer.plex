@@ -61,6 +61,12 @@ class Smarty_Internal_Templatelexer
      * @var bool
      */
     public $is_phpScript = false;
+   /**
+     * php code type
+     *
+     * @var string
+     */
+    public $phpType = '';
     /**
      * escaped left delimiter
      *
@@ -227,11 +233,12 @@ class Smarty_Internal_Templatelexer
      namespace = /([0-9]*[a-zA-Z_]\w*)?(\\[0-9]*[a-zA-Z_]\w*)+/
      all = /[\S\s]+/
      emptyjava = /\{\}/
-     phpstarttag = /(<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)|(<\?(?:php\w+|=|[a-zA-Z]+)?)/
-     phpendtag = /\?>/
-     phpendscript = /<\/script>/
-     aspstarttag = /<%/
-     aspendtag = /%>/
+     xmltag = /<\?xml\s+([\S\s]*?)\?>/
+     php = /(<\?(?:php\s+|=)?)((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*(.)*?\*\/)|.)*?)\?>/
+     phpscript = /<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*(.)*?\*\/)|.)*?)<\/script>/
+     phptag = /(SMARTYldel\s*php\s*(.)*?SMARTYrdel((.)*?)SMARTYldel\s*\/php\s*SMARTYrdel)|(SMARTYldel\s*[\/]?php\s*(.)*?SMARTYrdel)/
+     asp = /<%((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*(.)*?\*\/)|.)*?)%>/
+     unmatched = /(<(\?(?:php\s+|=)?|(script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)|%))|\?>|%>/
      slash = /\//
      ldel = /SMARTYldel\s*/
      rdel = /\s*SMARTYrdel/
@@ -372,6 +379,15 @@ class Smarty_Internal_Templatelexer
           $this->taglineno = $this->line;
        }
      }
+     phptag {
+       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
+         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+       } else {
+          $this->token = Smarty_Internal_Templateparser::TP_PHP;
+          $this->phpType = 'tag';
+          $this->taglineno = $this->line;
+       }
+     }
      ldel slash {
        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
@@ -390,38 +406,36 @@ class Smarty_Internal_Templatelexer
           $this->taglineno = $this->line;
        }
      }
-     phpstarttag {
-        if (($script = strpos($this->value, '<s') === 0) || in_array($this->value, Array('<?', '<?=', '<?php'))) {
-         if ($script) {
-            $this->is_phpScript = true;
-         }
-         $this->token = Smarty_Internal_Templateparser::TP_PHPSTARTTAG;
-       } elseif ($this->value == '<?xml') {
-           $this->token = Smarty_Internal_Templateparser::TP_XMLTAG;
-       } else {
-         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-         //$this->value = substr($this->value, 0, 2);
-       }
-      }
-     phpendtag {
-       $this->token = Smarty_Internal_Templateparser::TP_PHPENDTAG;
-     }
-     phpendscript {
-       $this->token = Smarty_Internal_Templateparser::TP_PHPENDSCRIPT;
-     }
      rdel {
        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
-     aspstarttag {
-       $this->token = Smarty_Internal_Templateparser::TP_ASPSTARTTAG;
+     xmltag {
+        $this->token = Smarty_Internal_Templateparser::TP_XMLTAG;
+        $this->taglineno = $this->line;
      }
-     aspendtag {
-       $this->token = Smarty_Internal_Templateparser::TP_ASPENDTAG;
+     asp {
+        $this->phpType = 'asp';
+        $this->taglineno = $this->line;
+        $this->token = Smarty_Internal_Templateparser::TP_PHP;
+     }
+     php {
+        $this->phpType = 'php';
+        $this->taglineno = $this->line;
+        $this->token = Smarty_Internal_Templateparser::TP_PHP;
+     }
+     phpscript {
+        $this->phpType = 'script';
+        $this->taglineno = $this->line;
+        $this->token = Smarty_Internal_Templateparser::TP_PHP;
+     }
+     unmatched {
+        $this->phpType = 'unmatched';
+        $this->taglineno = $this->line;
+        $this->token = Smarty_Internal_Templateparser::TP_PHP;
      }
      text {
-       $phpEndScript = $this->is_phpScript ? '|<\\/script>' : '';
        $to = strlen($this->data);
-       preg_match("/{$this->ldel}|<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>{$phpEndScript}/",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
+       preg_match("/{$this->ldel}|<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>/",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
        if (isset($match[0][1])) {
          $to = $match[0][1];
        }

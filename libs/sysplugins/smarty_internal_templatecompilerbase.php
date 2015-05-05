@@ -19,10 +19,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
 {
     /**
      * Smarty object
+     *
      * @var Smarty
      */
     public $smarty = null;
-    
+
     /**
      * hash for nocache sections
      *
@@ -234,12 +235,14 @@ abstract class Smarty_Internal_TemplateCompilerBase
 
     /**
      * Flag true when tag is compiled as nocache
+     *
      * @var bool
      */
     public $tag_nocache = false;
 
     /**
      * Flag to restart parsing
+     *
      * @var bool
      */
     public $abort_and_recompile = false;
@@ -253,18 +256,28 @@ abstract class Smarty_Internal_TemplateCompilerBase
 
     /**
      * Prefix code  stack
+     *
      * @var array
      */
     public $prefixCodeStack = array();
 
     /**
      * Tag has compiled code
+     *
      * @var bool
      */
     public $has_code = false;
 
     /**
+     * A variable string was compiled
+     *
+     * @var bool
+     */
+    public $has_variable_string = false;
+
+    /**
      * Tag creates output
+     *
      * @var bool
      */
     public $has_output = false;
@@ -296,9 +309,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
     /**
      * Method to compile a Smarty template
      *
-     * @param  Smarty_Internal_Template $template template object to compile
-     * @param  bool                     $nocache  true is shall be compiled in nocache mode
-     * @param null|Smarty_Internal_TemplateCompilerBase                      $parent_compiler
+     * @param  Smarty_Internal_Template                 $template template object to compile
+     * @param  bool                                     $nocache  true is shall be compiled in nocache mode
+     * @param null|Smarty_Internal_TemplateCompilerBase $parent_compiler
      *
      * @return bool true if compiling succeeded, false if it failed
      */

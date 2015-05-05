@@ -1,6 +1,7 @@
 ﻿ ===== 3.1.22-dev ===== (xx.xx.2015)
  05.05.2015
  - optimization on cache update when main template is modified
+ - optimization move <?php ?> handling from parser to new compiler module
 
  05.05.2015
   - bugfix code could be messed up when {tags} are used in multiple attributes https://github.com/smarty-php/smarty/issues/23

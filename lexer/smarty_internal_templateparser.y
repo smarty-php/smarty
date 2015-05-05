@@ -116,25 +116,15 @@ class Smarty_Internal_Templateparser
      * @var int
      */
     public $block_nesting_level = 0;
-    /**
-     * xml tag flag
-     *
-     * @var bool
-     */
-    private $is_xml = false;
+
     /**
      * security object
      *
      * @var Smarty_Security
      */
     private $security = null;
-    /**
-     * asp enabled
-     *
-     * @var bool
-     */
-    private $asp_tags = false;
-    /**
+
+     /**
      * PHP tag handling mode
      *
      * @var int
@@ -160,7 +150,6 @@ class Smarty_Internal_Templateparser
         } else {
             $this->php_handling = $this->smarty->php_handling;
         }
-        $this->asp_tags = (ini_get('asp_tags') != '0');
         $this->current_buffer = $this->root_buffer = new Smarty_Internal_ParseTree_Template($this);
     }
 
@@ -252,119 +241,25 @@ template_element(res)::= COMMENT(c). {
 template_element(res) ::= literal(l). {
     res = new Smarty_Internal_ParseTree_Text($this, l);
 }
-
-                      // '<?php' | '<script language=php>' tag
-template_element(res)::= PHPSTARTTAG(st). {
-    if (strpos(st, '<s') === 0) {
-        $this->lex->is_phpScript = true;
-    }
-    if ($this->php_handling == Smarty::PHP_PASSTHRU) {
-        if ($this->lex->is_phpScript) {
-            $s = addcslashes(st, "'");
-            res = new Smarty_Internal_ParseTree_Text($this, $s);
-        } else {
-            res = new Smarty_Internal_ParseTree_Text($this, st);
-        }
-    } elseif ($this->php_handling == Smarty::PHP_QUOTE) {
-        res = new Smarty_Internal_ParseTree_Text($this, htmlspecialchars(st, ENT_QUOTES));
-    } elseif ($this->php_handling == Smarty::PHP_ALLOW) {
-        if (!($this->smarty instanceof SmartyBC)) {
-            $this->compiler->trigger_template_error (self::Err3);
-        }
-        res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode('<?php ', true));
-    } elseif ($this->php_handling == Smarty::PHP_REMOVE) {
-        res = null;
-    }
-}
-
-                      // '?>' tag
-template_element(res)::= PHPENDTAG(st). {
-    if ($this->is_xml) {
-        $this->compiler->tag_nocache = true; 
-        $this->is_xml = false;
-        $save = $this->template->has_nocache_code; 
-        res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode("<?php echo '?>';?>\n", $this->compiler, true));
-        $this->template->has_nocache_code = $save;
-    } elseif ($this->php_handling == Smarty::PHP_PASSTHRU) {
-        res = new Smarty_Internal_ParseTree_Text($this, st);
-    } elseif ($this->php_handling == Smarty::PHP_QUOTE) {
-        res = new Smarty_Internal_ParseTree_Text($this, htmlspecialchars('?>', ENT_QUOTES));
-    } elseif ($this->php_handling == Smarty::PHP_ALLOW) {
-        res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode('?>', true));
-    } elseif ($this->php_handling == Smarty::PHP_REMOVE) {
-        res = null;
-    }
-}
-                      // '</script>' tag (only for PHP)
-template_element(res)::= PHPENDSCRIPT(st). {
-    if (!$this->lex->is_phpScript) {
-        res = new Smarty_Internal_ParseTree_Text($this, st);
+                      // php tags
+template_element(res)::= PHP(o). {
+    $code = $this->compiler->compileTag('private_php',array(array('code' => o), array('type' => $this->lex->phpType )),array());
+    if ($this->compiler->has_code && !empty($code)) {
+        $tmp =''; foreach ($this->compiler->prefix_code as $code) {$tmp.=$code;} $this->compiler->prefix_code=array();
+        res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode($tmp.$code,true));
     } else {
-        $this->lex->is_phpScript = false;
-        if ($this->php_handling == Smarty::PHP_PASSTHRU) {
-            res = new Smarty_Internal_ParseTree_Text($this, st);
-        } elseif ($this->php_handling == Smarty::PHP_QUOTE) {
-            res = new Smarty_Internal_ParseTree_Text($this, htmlspecialchars(st, ENT_QUOTES));
-        } elseif ($this->php_handling == Smarty::PHP_ALLOW) {
-            res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode('?>', true));
-        } elseif ($this->php_handling == Smarty::PHP_REMOVE) {
-            res = null;
-        }
+        res = null;
     }
 }
 
-                      // '<%' tag
-template_element(res)::= ASPSTARTTAG(st). {
-    if ($this->php_handling == Smarty::PHP_PASSTHRU) {
-        res = new Smarty_Internal_ParseTree_Text($this, st);
-    } elseif ($this->php_handling == Smarty::PHP_QUOTE) {
-        res = new Smarty_Internal_ParseTree_Text($this, htmlspecialchars(st, ENT_QUOTES));
-    } elseif ($this->php_handling == Smarty::PHP_ALLOW) {
-        if ($this->asp_tags) {
-            if (!($this->smarty instanceof SmartyBC)) {
-                $this->compiler->trigger_template_error (self::Err3);
-            }
-            res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode('<%', true));
-        } else {
-            res = new Smarty_Internal_ParseTree_Text($this, st);
-        }
-    } elseif ($this->php_handling == Smarty::PHP_REMOVE) {
-        if ($this->asp_tags) {
-            res = null;
-        } else {
-            res = new Smarty_Internal_ParseTree_Text($this, st);
-        }
-    }
-}
-  
-                      // '%>' tag
-template_element(res)::= ASPENDTAG(st). {
-    if ($this->php_handling == Smarty::PHP_PASSTHRU) {
-        res = new Smarty_Internal_ParseTree_Text($this, st);
-    } elseif ($this->php_handling == Smarty::PHP_QUOTE) {
-        res = new Smarty_Internal_ParseTree_Text($this, htmlspecialchars('%>', ENT_QUOTES));
-    } elseif ($this->php_handling == Smarty::PHP_ALLOW) {
-        if ($this->asp_tags) {
-            res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode('%>', true));
-        } else {
-            res = new Smarty_Internal_ParseTree_Text($this, st);
-        }
-    } elseif ($this->php_handling == Smarty::PHP_REMOVE) {
-        if ($this->asp_tags) {
-            res = null;
-        } else {
-            res = new Smarty_Internal_ParseTree_Text($this, st);
-        }
-    }
-}
 
 
                       // XML tag
-template_element(res)::= XMLTAG. {
+template_element(res)::= XMLTAG(x). {
     $this->compiler->tag_nocache = true;
-    $this->is_xml = true; 
+    $xml = x;
     $save = $this->template->has_nocache_code; 
-    res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode("<?php echo '<?xml';?>", $this->compiler, true));
+    res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode("<?php echo '{$xml}';?>", $this->compiler, true));
     $this->template->has_nocache_code = $save;
 }
 

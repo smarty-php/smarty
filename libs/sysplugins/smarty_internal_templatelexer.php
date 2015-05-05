@@ -62,6 +62,12 @@ class Smarty_Internal_Templatelexer
      */
     public $is_phpScript = false;
     /**
+     * php code type
+     *
+     * @var string
+     */
+    public $phpType = '';
+    /**
      * escaped left delimiter
      *
      * @var string
@@ -265,20 +271,21 @@ class Smarty_Internal_Templatelexer
             9  => 0,
             10 => 0,
             11 => 0,
-            12 => 0,
-            13 => 0,
-            14 => 2,
-            17 => 0,
-            18 => 0,
+            12 => 6,
             19 => 0,
             20 => 0,
             21 => 0,
-            22 => 0,
+            22 => 1,
+            24 => 6,
+            31 => 7,
+            39 => 6,
+            46 => 3,
+            50 => 0,
         );
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
-        $yy_global_pattern = "/\G(\\{\\})|\G(" . $this->ldel . "\\*([\S\s]*?)\\*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" . $this->ldel . "\\s*foreach(?![^\s]))|\G(" . $this->ldel . "\\s*setfilter\\s+)|\G(" . $this->ldel . "\\s*\/)|\G(" . $this->ldel . "\\s*)|\G((<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|(<\\?(?:php\\w+|=|[a-zA-Z]+)?))|\G(\\?>)|\G(<\/script>)|\G(\\s*" . $this->rdel . ")|\G(<%)|\G(%>)|\G([\S\s])/iS";
+        $yy_global_pattern = "/\G(\\{\\})|\G(" . $this->ldel . "\\*([\S\s]*?)\\*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" . $this->ldel . "\\s*foreach(?![^\s]))|\G(" . $this->ldel . "\\s*setfilter\\s+)|\G((" . $this->ldel . "\\s*php\\s*(.)*?" . $this->rdel . "((.)*?)" . $this->ldel . "\\s*\/php\\s*" . $this->rdel . ")|(" . $this->ldel . "\\s*[\/]?php\\s*(.)*?" . $this->rdel . "))|\G(" . $this->ldel . "\\s*\/)|\G(" . $this->ldel . "\\s*)|\G(\\s*" . $this->rdel . ")|\G(<\\?xml\\s+([\S\s]*?)\\?>)|\G(<%((('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\")|(\/\\*(.)*?\\*\/)|.)*?)%>)|\G((<\\?(?:php\\s+|=)?)((('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\")|(\/\\*(.)*?\\*\/)|.)*?)\\?>)|\G(<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>((('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\")|(\/\\*(.)*?\\*\/)|.)*?)<\/script>)|\G((<(\\?(?:php\\s+|=)?|(script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|%))|\\?>|%>)|\G([\S\s])/iS";
 
         do {
             if (preg_match($yy_global_pattern, $this->data, $yymatches, null, $this->counter)) {
@@ -425,13 +432,25 @@ class Smarty_Internal_Templatelexer
         if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
             $this->token = Smarty_Internal_Templateparser::TP_TEXT;
         } else {
+            $this->token = Smarty_Internal_Templateparser::TP_PHP;
+            $this->phpType = 'tag';
+            $this->taglineno = $this->line;
+        }
+    }
+
+    function yy_r1_19($yy_subpatterns)
+    {
+
+        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
+            $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+        } else {
             $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
             $this->yypushstate(self::SMARTY);
             $this->taglineno = $this->line;
         }
     }
 
-    function yy_r1_13($yy_subpatterns)
+    function yy_r1_20($yy_subpatterns)
     {
 
         if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
@@ -443,58 +462,56 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    function yy_r1_14($yy_subpatterns)
-    {
-
-        if (($script = strpos($this->value, '<s') === 0) || in_array($this->value, Array('<?', '<?=', '<?php'))) {
-            if ($script) {
-                $this->is_phpScript = true;
-            }
-            $this->token = Smarty_Internal_Templateparser::TP_PHPSTARTTAG;
-        } elseif ($this->value == '<?xml') {
-            $this->token = Smarty_Internal_Templateparser::TP_XMLTAG;
-        } else {
-            $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-            //$this->value = substr($this->value, 0, 2);
-        }
-    }
-
-    function yy_r1_17($yy_subpatterns)
-    {
-
-        $this->token = Smarty_Internal_Templateparser::TP_PHPENDTAG;
-    }
-
-    function yy_r1_18($yy_subpatterns)
-    {
-
-        $this->token = Smarty_Internal_Templateparser::TP_PHPENDSCRIPT;
-    }
-
-    function yy_r1_19($yy_subpatterns)
+    function yy_r1_21($yy_subpatterns)
     {
 
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
-    function yy_r1_20($yy_subpatterns)
-    {
-
-        $this->token = Smarty_Internal_Templateparser::TP_ASPSTARTTAG;
-    }
-
-    function yy_r1_21($yy_subpatterns)
-    {
-
-        $this->token = Smarty_Internal_Templateparser::TP_ASPENDTAG;
-    }
-
     function yy_r1_22($yy_subpatterns)
     {
 
-        $phpEndScript = $this->is_phpScript ? '|<\\/script>' : '';
+        $this->token = Smarty_Internal_Templateparser::TP_XMLTAG;
+        $this->taglineno = $this->line;
+    }
+
+    function yy_r1_24($yy_subpatterns)
+    {
+
+        $this->phpType = 'asp';
+        $this->taglineno = $this->line;
+        $this->token = Smarty_Internal_Templateparser::TP_PHP;
+    }
+
+    function yy_r1_31($yy_subpatterns)
+    {
+
+        $this->phpType = 'php';
+        $this->taglineno = $this->line;
+        $this->token = Smarty_Internal_Templateparser::TP_PHP;
+    }
+
+    function yy_r1_39($yy_subpatterns)
+    {
+
+        $this->phpType = 'script';
+        $this->taglineno = $this->line;
+        $this->token = Smarty_Internal_Templateparser::TP_PHP;
+    }
+
+    function yy_r1_46($yy_subpatterns)
+    {
+
+        $this->phpType = 'unmatched';
+        $this->taglineno = $this->line;
+        $this->token = Smarty_Internal_Templateparser::TP_PHP;
+    }
+
+    function yy_r1_50($yy_subpatterns)
+    {
+
         $to = strlen($this->data);
-        preg_match("/{$this->ldel}|<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>{$phpEndScript}/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
+        preg_match("/{$this->ldel}|<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
         if (isset($match[0][1])) {
             $to = $match[0][1];
         }
