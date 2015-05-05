@@ -138,6 +138,9 @@ class Smarty_Template_Cached
                 } else {
                     $cached->valid = true;
                 }
+                if ($cached->valid && $_template->source->timestamp > $cached->timestamp) {
+                    $cached->valid = false;
+                }
                 if ($cached->valid && $_template->caching == Smarty::CACHING_LIFETIME_CURRENT && $_template->cache_lifetime >= 0 && time() > ($cached->timestamp + $_template->cache_lifetime)) {
                     // lifetime expired
                     $cached->valid = false;

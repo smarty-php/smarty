@@ -1,6 +1,9 @@
 ﻿ ===== 3.1.22-dev ===== (xx.xx.2015)
  05.05.2015
- - bugfix code could be messed up when {tags} are used in multiple attributes https://github.com/smarty-php/smarty/issues/23
+ - optimization on cache update when main template is modified
+
+ 05.05.2015
+  - bugfix code could be messed up when {tags} are used in multiple attributes https://github.com/smarty-php/smarty/issues/23
  
  04.05.2015
   - bugfix Smarty_Resource::parseResourceName incompatible with Google AppEngine (https://github.com/smarty-php/smarty/issues/22)
