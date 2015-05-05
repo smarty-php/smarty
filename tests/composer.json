@@ -24,6 +24,7 @@
     "issues": "http://code.google.com/p/smarty-php/issues/list",
     "forum": "http://www.smarty.net/forums/"
   },
+  "minimum-stability" : "stable",
   "require": {
     "phpunit/phpunit": "*",
     "php": ">=5.2"
