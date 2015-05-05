@@ -18,6 +18,12 @@
 abstract class Smarty_Internal_TemplateCompilerBase
 {
     /**
+     * Smarty object
+     * @var Smarty
+     */
+    public $smarty = null;
+    
+    /**
      * hash for nocache sections
      *
      * @var mixed
@@ -197,6 +203,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @var string
      */
     public $templateFunctionCode = '';
+
     /**
      * flags for used modifier plugins
      *
@@ -217,6 +224,50 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @var Smarty_Internal_TemplateCompilerBase
      */
     public $parent_compiler = null;
+
+    /**
+     * Flag true when compiling nocache section
+     *
+     * @var bool
+     */
+    public $nocache = false;
+
+    /**
+     * Flag true when tag is compiled as nocache
+     * @var bool
+     */
+    public $tag_nocache = false;
+
+    /**
+     * Flag to restart parsing
+     * @var bool
+     */
+    public $abort_and_recompile = false;
+
+    /**
+     * Compiled tag prefix code
+     *
+     * @var array
+     */
+    public $prefix_code = array();
+
+    /**
+     * Prefix code  stack
+     * @var array
+     */
+    public $prefixCodeStack = array();
+
+    /**
+     * Tag has compiled code
+     * @var bool
+     */
+    public $has_code = false;
+
+    /**
+     * Tag creates output
+     * @var bool
+     */
+    public $has_output = false;
 
     /**
      * Strip preg pattern
@@ -247,8 +298,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
      *
      * @param  Smarty_Internal_Template $template template object to compile
      * @param  bool                     $nocache  true is shall be compiled in nocache mode
+     * @param null|Smarty_Internal_TemplateCompilerBase                      $parent_compiler
      *
-     * @return bool             true if compiling succeeded, false if it failed
+     * @return bool true if compiling succeeded, false if it failed
      */
     public function compileTemplate(Smarty_Internal_Template $template, $nocache = null, $parent_compiler = null)
     {
@@ -328,6 +380,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $merged_code .= $code;
             }
         }
+        $_compiled_code = '';
         // run postfilter if required on compiled template code
         if ((isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) && !$this->suppressFilter && $_compiled_code != '') {
             $_compiled_code = Smarty_Internal_Filter_Handler::runFilter('post', $_compiled_code, $template);
@@ -611,7 +664,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
      *
      * @return null|\Smarty_Internal_ParseTree_Text
      */
-    public function processText($text) {
+    public function processText($text)
+    {
         if ($this->inheritance_child && !$this->blockTagNestingLevel) {
             return null;
         }
@@ -620,7 +674,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
         } else {
             return new Smarty_Internal_ParseTree_Text($this->parser, $text);
         }
-
     }
 
     /**
@@ -641,11 +694,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
     {
         // check if tag allowed by security
         if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this)) {
-        	// re-use object if already exists
+            // re-use object if already exists
             if (!isset(self::$_tag_objects[$tag])) {
-        		// lazy load internal compiler plugin
-        		$class_name = 'Smarty_Internal_Compile_' . $tag;
-        		if ($this->smarty->loadPlugin($class_name)) {
+                // lazy load internal compiler plugin
+                $class_name = 'Smarty_Internal_Compile_' . $tag;
+                if ($this->smarty->loadPlugin($class_name)) {
                     self::$_tag_objects[$tag] = new $class_name;
                 } else {
                     return false;
@@ -842,7 +895,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
 
     /**
      *  restore file and line offset
-
      */
     public function popTrace()
     {
@@ -883,6 +935,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             // individual error message
             $error_text .= $args;
         } else {
+            $expect = array();
             // expected token from parser
             $error_text .= ' - Unexpected "' . $this->lex->value . '"';
             if (count($this->parser->yy_get_expected_tokens($this->parser->yymajor)) <= 4) {
