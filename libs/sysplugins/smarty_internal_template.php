@@ -223,10 +223,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->caching = false;
         }
         // read from cache or render
-        if ($this->caching && !isset($this->cached)) {
-            $this->cached = Smarty_Template_Cached::load($this);
-        }
         $isCacheTpl = $this->caching == Smarty::CACHING_LIFETIME_CURRENT || $this->caching == Smarty::CACHING_LIFETIME_SAVED;
+        if ($isCacheTpl) {
+            if (!isset($this->cached)) {
+                $this->cached = Smarty_Template_Cached::load($this);
+            }
+            $this->cached->isCached($this, true);
+        }
         if (!($isCacheTpl) || !$this->cached->valid) {
             if ($isCacheTpl) {
                 $this->properties['tpl_function'] = array();
