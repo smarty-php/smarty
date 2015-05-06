@@ -26,6 +26,7 @@ class CacheResourceCustomApcTest extends CacheResourceCustomMemcacheTest
         }
         $this->setUpSmarty(__DIR__);
         parent::setUp();
+        $this->smarty->setCachingType('apc');
         $this->smarty->addPluginsDir(SMARTY_DIR . '../demo/plugins/');
     }
 }

@@ -372,6 +372,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->assertEquals(1, $this->smarty->clearAllCache(500));
     }
 
+
     private function writeCachedContent($tpl)
     {
         $tpl->writeCachedContent("echo 'hello world';\n");

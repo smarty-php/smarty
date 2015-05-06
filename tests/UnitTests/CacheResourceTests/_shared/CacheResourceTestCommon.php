@@ -518,4 +518,91 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
         $this->assertTrue($tpl->isCached(), 'isCached() must be true  after recompilation');
         $this->assertEquals('cache resource test:9 compiled:8 rendered:8', $this->smarty->fetch($tpl));
     }
+
+    /**
+     * Test
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testIsCachedCacheNotLocked()
+    {
+        if ($this->smarty->caching_type != 'file') {
+            $this->markTestSkipped('test skip for caching type not == file');
+        }
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 1000;
+        $this->smarty->assign('test', 10);
+        $this->smarty->cache_locking = true;
+        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
+        $start = time();
+        $this->assertTrue($tpl->isCached(), 'isCached() must be true  after recompilation');
+        $this->assertTrue((time() - $start) <= 2);
+    }
+    /**
+     * Test
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testIsCachedCacheisLocked()
+    {
+        if ($this->smarty->caching_type != 'file') {
+            $this->markTestSkipped('test skip for caching type not == file');
+        }
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 1000;
+        $this->smarty->assign('test', 11);
+        $this->smarty->cache_locking = true;
+        $this->smarty->locking_timeout = 4;
+        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
+        $start = time();
+        touch($tpl->cached->lock_id);
+        $this->assertTrue($tpl->isCached(), 'isCached() must be true  after recompilation');
+        $this->assertTrue((time() - $start) > 3);
+        @unlink($tpl->cached->lock_id);
+    }
+    /**
+     * Test
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testFetchCacheNotLocked()
+    {
+        if ($this->smarty->caching_type != 'file') {
+            $this->markTestSkipped('test skip for caching type not == file');
+        }
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 1000;
+        $this->smarty->assign('test', 12);
+        $this->smarty->cache_locking = true;
+        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
+        $start = time();
+        $this->assertEquals('cache resource test:12 compiled:8 rendered:8', $this->smarty->fetch($tpl));
+        $this->assertTrue((time() - $start) <= 2);
+    }
+    /**
+     * Test
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testFetchCacheisLocked()
+    {
+        if ($this->smarty->caching_type != 'file') {
+            $this->markTestSkipped('test skip for caching type not == file');
+        }
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 1000;
+        $this->smarty->assign('test', 13);
+        $this->smarty->cache_locking = true;
+        $this->smarty->locking_timeout = 4;
+        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
+        $start = time();
+        touch($tpl->cached->lock_id);
+        $this->assertEquals('cache resource test:13 compiled:8 rendered:8', $this->smarty->fetch($tpl));
+        $this->assertTrue((time() - $start) > 3);
+        @unlink($tpl->cached->lock_id);
+    }
 }
