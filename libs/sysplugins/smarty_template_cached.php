@@ -129,10 +129,17 @@ class Smarty_Template_Cached
         return $cached;
     }
 
-
+    /**
+     * Check if cache is valid, lock cache if required
+     *
+     * @param \Smarty_Internal_Template $_template
+     * @param bool                      $lock keep cache locked
+     *
+     * @return bool flag true if cache is valid
+     */
     public function isCached(Smarty_Internal_Template $_template, $lock = false)
     {
-        if ($this->valid  !== null) {
+        if ($this->valid !== null) {
             return $this->valid;
         }
         while (true) {
@@ -175,7 +182,7 @@ class Smarty_Template_Cached
                 if ($_template->smarty->cache_locking && !$lock) {
                     $this->handler->releaseLock($_template->smarty, $this);
                 }
-                    return $this->valid;
+                return $this->valid;
             }
             if ($this->valid && $_template->caching === Smarty::CACHING_LIFETIME_SAVED && $_template->properties['cache_lifetime'] >= 0 && (time() > ($_template->cached->timestamp + $_template->properties['cache_lifetime']))) {
                 $this->valid = false;

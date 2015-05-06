@@ -1,6 +1,7 @@
 ﻿ ===== 3.1.22-dev ===== (xx.xx.2015)
  06.05.2015
   - bugfix in 3.1.22-dev cache resource must not be loaded for subtemplates
+  - bugfix/improvement in 3.1.22-dev cache locking did not work as expected
   
  05.05.2015
   - optimization on cache update when main template is modified
