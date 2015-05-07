@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.22-dev/28';
+    const SMARTY_VERSION = '3.1.22-dev/29';
 
     /**
      * define variable scopes
@@ -137,6 +137,13 @@ class Smarty extends Smarty_Internal_TemplateBase
     const COMPILECHECK_OFF = 0;
     const COMPILECHECK_ON = 1;
     const COMPILECHECK_CACHEMISS = 2;
+
+    /**
+     * define debug modes
+     */
+    const DEBUG_OFF = 0;
+    const DEBUG_ON = 1;
+    const DEBUG_INDIVIDUAL = 2;
     /**
      * modes for handling of "<?php ... ?>" tags in templates.
      */

@@ -64,11 +64,23 @@ Smarty 3.1.22
 
     Compiled Templates
     ==================
-    Smarty does now automatically detect a change of the $merge_compiled_includes and $escape_html
-    property and create different compiled templates files depending on the setting.
+    Smarty does now automatically detects a change of the $merge_compiled_includes and $escape_html
+    property and creates different compiled templates files depending on the setting.
 
     Same applies to config files and the $config_overwrite, $config_booleanize and
     $config_read_hidden properties.
 
+    Debugging
+    =========
+    The layout of the debug window has been changed for better readability
+    
+    New class constants
+        Smarty::DEBUG_OFF
+        Smarty::DEBUG_ON
+        Smarty::DEBUG_INDIVIDUAL
+    have been introduced for setting the $debugging property.
 
+    Smarty::DEBUG_INDIVIDUAL will create for each display() and fetch() call an individual gebug window.
+
+    .
     

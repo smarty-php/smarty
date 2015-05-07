@@ -139,7 +139,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function fetch()
     {
-        return $this->render(true, false);
+        return $this->render(true, false, false);
     }
 
     /**
@@ -155,17 +155,17 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      *
      * @param  bool $merge_tpl_vars   if true parent template variables merged in to local scope
      * @param  bool $no_output_filter if true do not run output filter
-     * @param  bool $display          true: display, false: fetch
+     * @param  bool $display          true: display, false: fetch null: subtemplate
      *
      * @throws Exception
      * @throws SmartyException
      * @return string rendered template output
      */
-    public function render($merge_tpl_vars = false, $no_output_filter = true, $display = false)
+    public function render($merge_tpl_vars = false, $no_output_filter = true, $display = null)
     {
         $parentIsTpl = $this->parent instanceof Smarty_Internal_Template;
         if ($this->smarty->debugging) {
-            Smarty_Internal_Debug::start_template($this);
+            Smarty_Internal_Debug::start_template($this, $display);
         }
         $save_tpl_vars = null;
         $save_config_vars = null;
@@ -306,7 +306,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 echo $content;
             }
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::end_template($this);
+                Smarty_Internal_Debug::end_template($this, $display);
             }
             // debug output
             if ($this->smarty->debugging) {
@@ -325,7 +325,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $this->config_vars = $save_config_vars;
             }
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::end_template($this);
+                Smarty_Internal_Debug::end_template($this, $display);
+            }
+            if ($this->smarty->debugging == 2 and $display === false) {
+                if ($this->smarty->debugging) {
+                    Smarty_Internal_Debug::display_debug($this, true);
+                }
             }
             if ($parentIsTpl) {
                 $this->parent->properties['tpl_function'] = array_merge($this->parent->properties['tpl_function'], $this->properties['tpl_function']);
