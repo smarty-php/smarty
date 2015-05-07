@@ -62,6 +62,9 @@ class Smarty_Template_Compiled
      */
     static function load($_template)
     {
+        if (!isset($_template->source)) {
+            $_template->loadSource();
+        }
         // check runtime cache
         if (!$_template->source->recompiled && $_template->smarty->resource_caching) {
             $_cache_key = $_template->source->unique_resource . '#';

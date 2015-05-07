@@ -109,7 +109,13 @@ class Smarty_Template_Cached
     {
         $this->compile_id = $_template->compile_id;
         $this->cache_id = $_template->cache_id;
+        if (!isset($_template->source)) {
+            $_template->loadSource();
+        }
         $this->source = $_template->source;
+        if (!class_exists('Smarty_CacheResource', false)) {
+            require SMARTY_SYSPLUGINS_DIR . 'smarty_cacheresource.php';
+        }
         $this->handler = Smarty_CacheResource::load($_template->smarty);
     }
 

@@ -67,6 +67,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             }
         }
         // return cache status of template
+        if (!isset($template->cached)) {
+            $template->loadCached();
+        }
         return $template->cached->isCached($template);
     }
 

@@ -1,6 +1,7 @@
 ﻿ ===== 3.1.22-dev ===== (xx.xx.2015)
  07.05.2015
   - improvement of the debugging console. Read NEW_FEATURES.txt
+  - optimization of resource class loading
 
  06.05.2015
   - bugfix in 3.1.22-dev cache resource must not be loaded for subtemplates
