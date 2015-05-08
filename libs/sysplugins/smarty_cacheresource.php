@@ -21,7 +21,7 @@ abstract class Smarty_CacheResource
      * @var array
      */
     protected static $sysplugins = array(
-        'file' => true,
+        'file' => 'smarty_internal_cacheresource_file.php',
     );
 
     /**
@@ -116,7 +116,7 @@ abstract class Smarty_CacheResource
         // theoretically locking_timeout should be checked against time_limit (max_execution_time)
         $start = microtime(true);
         $hadLock = null;
-        while ($this->hasLock($smarty, $cached)) {
+        while ($r = $this->hasLock($smarty, $cached)) {
             $hadLock = true;
             if (microtime(true) - $start > $smarty->locking_timeout) {
                 // abort waiting for lock release
@@ -198,6 +198,9 @@ abstract class Smarty_CacheResource
         // try sysplugins dir
         if (isset(self::$sysplugins[$type])) {
             $cache_resource_class = 'Smarty_Internal_CacheResource_' . ucfirst($type);
+            if (!class_exists($cache_resource_class, false)) {
+                require SMARTY_SYSPLUGINS_DIR . self::$sysplugins[$type];
+            }
             return $smarty->_cacheresource_handlers[$type] = new $cache_resource_class();
         }
         // try plugins dir

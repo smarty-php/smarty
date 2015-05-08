@@ -53,12 +53,12 @@ abstract class Smarty_Resource
      * @var array
      */
     protected static $sysplugins = array(
-        'file'    => true,
-        'string'  => true,
-        'extends' => true,
-        'stream'  => true,
-        'eval'    => true,
-        'php'     => true
+        'file'    => 'smarty_internal_resource_file.php',
+        'string'  => 'smarty_internal_resource_string.php',
+        'extends' => 'smarty_internal_resource_extends.php',
+        'stream'  => 'smarty_internal_resource_stream.php',
+        'eval'    => 'smarty_internal_resource_eval.php',
+        'php'     => 'smarty_internal_resource_php.php'
     );
 
     /**
@@ -171,6 +171,9 @@ abstract class Smarty_Resource
         // try sysplugins dir
         if (isset(self::$sysplugins[$type])) {
             $_resource_class = 'Smarty_Internal_Resource_' . ucfirst($type);
+            if (!class_exists($_resource_class, false)) {
+                require SMARTY_SYSPLUGINS_DIR . self::$sysplugins[$type];
+            }
             return $smarty->_resource_handlers[$type] = new $_resource_class();
         }
 
