@@ -145,18 +145,20 @@ class Smarty_Template_Cached
      */
     public function isCached(Smarty_Internal_Template $_template, $lock = false)
     {
-        if ($this->valid !== null) {
-            return $this->valid;
+        if ($this->valid === true) {
+            return true;
+        }
+        $force = $_template->smarty->force_compile || $_template->smarty->force_cache;
+        if (!$lock && ($force || !$_template->caching)) {
+            return $this->valid = false;
         }
         while (true) {
             while (true) {
+                $this->handler->populate($this, $_template);
                 if ($this->timestamp === false || $_template->smarty->force_compile || $_template->smarty->force_cache) {
                     $this->valid = false;
                 } else {
                     $this->valid = true;
-                }
-                if ($this->valid && $_template->source->timestamp > $this->timestamp) {
-                    $this->valid = false;
                 }
                 if ($this->valid && $_template->caching == Smarty::CACHING_LIFETIME_CURRENT && $_template->cache_lifetime >= 0 && time() > ($this->timestamp + $_template->cache_lifetime)) {
                     // lifetime expired
@@ -167,9 +169,8 @@ class Smarty_Template_Cached
                 }
                 if (!$this->handler->locked($_template->smarty, $this)) {
                     $this->handler->acquireLock($_template->smarty, $this);
-                    break;
+                    break 2;
                 }
-                $this->handler->populate($this, $_template);
             }
             if ($this->valid) {
                 if (!$_template->smarty->cache_locking || $this->handler->locked($_template->smarty, $this) === null) {
@@ -177,7 +178,11 @@ class Smarty_Template_Cached
                     if ($_template->smarty->debugging) {
                         Smarty_Internal_Debug::start_cache($_template);
                     }
-                    $this->process($_template);
+                    if ($this->handler->process($_template, $this) === false) {
+                        $this->valid = false;
+                    } else {
+                        $this->processed = true;
+                    }
                     if ($_template->smarty->debugging) {
                         Smarty_Internal_Debug::end_cache($_template);
                     }
@@ -185,23 +190,21 @@ class Smarty_Template_Cached
                     continue;
                 }
             } else {
-                if ($_template->smarty->cache_locking && !$lock) {
-                    $this->handler->releaseLock($_template->smarty, $this);
-                }
                 return $this->valid;
             }
             if ($this->valid && $_template->caching === Smarty::CACHING_LIFETIME_SAVED && $_template->properties['cache_lifetime'] >= 0 && (time() > ($_template->cached->timestamp + $_template->properties['cache_lifetime']))) {
                 $this->valid = false;
             }
-            if (!$this->valid && $_template->smarty->cache_locking && $lock) {
+            if (!$this->valid && $_template->smarty->cache_locking) {
                 $this->handler->acquireLock($_template->smarty, $this);
+
+                return $this->valid;
+            } else {
+                return $this->valid;
             }
-            if ($_template->smarty->cache_locking && !$lock) {
-                $this->handler->releaseLock($_template->smarty, $this);
-            }
-            return $this->valid;
         }
-    }
+        return $this->valid =false;
+   }
 
     /**
      * Process cached template
@@ -252,12 +255,18 @@ class Smarty_Template_Cached
                 $this->timestamp = time();
                 $this->exists = true;
                 $this->valid = true;
+                $this->processed = false;
                 if ($_template->smarty->cache_locking) {
                     $this->handler->releaseLock($_template->smarty, $this);
                 }
 
                 return true;
             }
+            $this->content = null;
+            $this->timestamp = false;
+            $this->exists = false;
+            $this->valid = false;
+            $this->processed = false;
         }
 
         return false;

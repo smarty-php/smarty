@@ -116,7 +116,7 @@ abstract class Smarty_CacheResource
         // theoretically locking_timeout should be checked against time_limit (max_execution_time)
         $start = microtime(true);
         $hadLock = null;
-        while ($r = $this->hasLock($smarty, $cached)) {
+        while ($this->hasLock($smarty, $cached)) {
             $hadLock = true;
             if (microtime(true) - $start > $smarty->locking_timeout) {
                 // abort waiting for lock release
