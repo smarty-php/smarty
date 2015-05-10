@@ -139,23 +139,18 @@ class Smarty_Template_Cached
      * Check if cache is valid, lock cache if required
      *
      * @param \Smarty_Internal_Template $_template
-     * @param bool                      $lock keep cache locked
      *
      * @return bool flag true if cache is valid
      */
-    public function isCached(Smarty_Internal_Template $_template, $lock = false)
+    public function isCached(Smarty_Internal_Template $_template)
     {
-        if ($this->valid === true) {
-            return true;
-        }
-        $force = $_template->smarty->force_compile || $_template->smarty->force_cache;
-        if (!$lock && ($force || !$_template->caching)) {
-            return $this->valid = false;
+        if ($this->valid !== null) {
+            return $this->valid;
         }
         while (true) {
             while (true) {
                 $this->handler->populate($this, $_template);
-                if ($this->timestamp === false || $_template->smarty->force_compile || $_template->smarty->force_cache) {
+                if ($this->exists === false || $_template->smarty->force_compile || $_template->smarty->force_cache) {
                     $this->valid = false;
                 } else {
                     $this->valid = true;
@@ -187,6 +182,7 @@ class Smarty_Template_Cached
                         Smarty_Internal_Debug::end_cache($_template);
                     }
                 } else {
+                    $this->is_locked = true;
                     continue;
                 }
             } else {
@@ -195,16 +191,17 @@ class Smarty_Template_Cached
             if ($this->valid && $_template->caching === Smarty::CACHING_LIFETIME_SAVED && $_template->properties['cache_lifetime'] >= 0 && (time() > ($_template->cached->timestamp + $_template->properties['cache_lifetime']))) {
                 $this->valid = false;
             }
-            if (!$this->valid && $_template->smarty->cache_locking) {
-                $this->handler->acquireLock($_template->smarty, $this);
-
-                return $this->valid;
-            } else {
-                return $this->valid;
+            if ($_template->smarty->cache_locking) {
+                if (!$this->valid) {
+                    $this->handler->acquireLock($_template->smarty, $this);
+                } elseif ($this->is_locked) {
+                    $this->handler->releaseLock($_template->smarty, $this);
+                }
             }
+            return $this->valid;
         }
-        return $this->valid =false;
-   }
+        return $this->valid = false;
+    }
 
     /**
      * Process cached template
