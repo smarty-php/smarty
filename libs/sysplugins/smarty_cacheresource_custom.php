@@ -182,9 +182,9 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     public function readCachedContent(Smarty_Internal_Template $_template)
     {
         $content = $_template->cached->content ? $_template->cached->content : null;
-        $timestamp =  null;
+        $timestamp = null;
         if ($content === null) {
-            $timestamp =  null;
+            $timestamp = null;
             $this->fetch(
                 $_template->cached->filepath,
                 $_template->source->name,
@@ -269,15 +269,14 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      */
     public function hasLock(Smarty $smarty, Smarty_Template_Cached $cached)
     {
-        $id =  $cached->lock_id;
+        $id = $cached->lock_id;
         $name = $cached->source->name . '.lock';
 
-        $mtime = $this->fetchTimestamp($id, $name, null, null);
+        $mtime = $this->fetchTimestamp($id, $name, $cached->cache_id, $cached->compile_id);
         if ($mtime === null) {
-            $this->fetch($id, $name, null, null, $content, $mtime);
+            $this->fetch($id, $name, $cached->cache_id, $cached->compile_id, $content, $mtime);
         }
-        $stat = $mtime && ($t = time()) - $mtime < $smarty->locking_timeout;
-        return $stat ? $mtime : $stat;
+        return $mtime && ($t = time()) - $mtime < $smarty->locking_timeout;
     }
 
     /**
@@ -291,7 +290,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     public function acquireLock(Smarty $smarty, Smarty_Template_Cached $cached)
     {
         $cached->is_locked = true;
-        $id =  $cached->lock_id;
+        $id = $cached->lock_id;
         $name = $cached->source->name . '.lock';
         $this->save($id, $name, $cached->cache_id, $cached->compile_id, $smarty->locking_timeout, '');
     }
@@ -308,6 +307,6 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     {
         $cached->is_locked = false;
         $name = $cached->source->name . '.lock';
-        $this->delete($name,  $cached->cache_id, $cached->compile_id, null);
+        $this->delete($name, $cached->cache_id, $cached->compile_id, null);
     }
 }
