@@ -47,7 +47,6 @@ class Smarty_Template_Compiled
 
     /**
      * create Compiled Object container
-
      */
     public function __construct()
     {
@@ -262,7 +261,7 @@ class Smarty_Template_Compiled
                     $this->timestamp = @filemtime($this->filepath);
                     return true;
                 }
-             }
+            }
             return false;
         } else {
             $this->code = $code;
