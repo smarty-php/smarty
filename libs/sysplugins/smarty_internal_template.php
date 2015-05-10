@@ -228,7 +228,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             if (!isset($this->cached)) {
                 $this->loadCached();
             }
-            $this->cached->isCached($this, true);
+            $this->cached->isCached($this);
         }
         if (!($isCacheTpl) || !$this->cached->valid) {
             if ($isCacheTpl) {
@@ -306,7 +306,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 echo $content;
             }
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::end_template($this, $display);
+                Smarty_Internal_Debug::end_template($this);
             }
             // debug output
             if ($this->smarty->debugging) {
@@ -325,7 +325,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $this->config_vars = $save_config_vars;
             }
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::end_template($this, $display);
+                Smarty_Internal_Debug::end_template($this);
             }
             if ($this->smarty->debugging == 2 and $display === false) {
                 if ($this->smarty->debugging) {
@@ -774,7 +774,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         Smarty_CacheResource::invalidLoadedCache($this->smarty);
 
-        return $this->cached->handler->clear($this->smarty, $this->template_name, $this->cache_id, $this->compile_id, $exp_time);
+        return $this->cached->handler->clear($this->smarty, $this->template_resource, $this->cache_id, $this->compile_id, $exp_time);
     }
 
     /**
@@ -835,6 +835,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @param string $name unknown method-name
      * @param array  $args argument array
      *
+     * @return mixed
      * @throws SmartyException
      */
     public function __call($name, $args)
@@ -900,8 +901,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             case 'compiler':
                 $this->loadCompiler();
                 return $this->compiler;
-           default:
-               // Smarty property ?
+            default:
+                // Smarty property ?
                 if (property_exists($this->smarty, $property_name)) {
                     return $this->smarty->$property_name;
                 }
