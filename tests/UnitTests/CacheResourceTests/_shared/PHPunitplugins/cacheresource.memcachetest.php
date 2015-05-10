@@ -4,6 +4,19 @@ require_once SMARTY_DIR . '../demo/plugins/cacheresource.memcache.php';
 
 class Smarty_CacheResource_Memcachetest extends Smarty_CacheResource_Memcache
 {
+    public $lockTime = 0;
+
+    public function hasLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    {
+        if ($this->lockTime) {
+            $this->lockTime--;
+            if (!$this->lockTime) {
+                $this->releaseLock($smarty, $cached);
+            }
+        }
+        return parent::hasLock($smarty, $cached);
+    }
+
     public function get(Smarty_Internal_Template $_template)
     {
         $this->contents = array();

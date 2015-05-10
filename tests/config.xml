@@ -5,6 +5,8 @@
         <MemcacheEnable>false</MemcacheEnable>
         <ApcEnable>false</ApcEnable>
         <MysqlEnable>false</MysqlEnable>
+        <PdoEnable>false</PdoEnable>
+        <PdoGzipEnable>false</PdoGzipEnable>
     </cacheResource>
     <resource>
         <MysqlEnable>false</MysqlEnable>

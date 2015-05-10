@@ -18,8 +18,8 @@ class CacheResourceCustomPDOGzipTest extends CacheResourceTestCommon
 
     public function setUp($dir = null, $clear = true)
     {
-        if (self::$config['cacheResource']['MysqlEnable'] != 'true') {
-            $this->markTestSkipped('mysql tests are disabled');
+        if (self::$config['cacheResource']['PdoGzipEnable'] != 'true') {
+            $this->markTestSkipped('mysql Pdo Gzip tests are disabled');
         }
         if (self::$init) {
             $this->getConnection();
@@ -28,8 +28,8 @@ class CacheResourceCustomPDOGzipTest extends CacheResourceTestCommon
         parent::setUp();
         $this->smarty->setCachingType('pdo');
         $this->smarty->addPluginsDir(SMARTY_DIR . '../demo/plugins/');
-        $this->assertTrue(false !== $this->smarty->loadPlugin('Smarty_CacheResource_Pdo_Gzip'), 'loadPlugin() could not load PDOGzip cache resource');
-        $this->smarty->registerCacheResource('pdo', new Smarty_CacheResource_Pdo_Gzip($this->getPDO(), 'output_cache'));
+        $this->assertTrue(false !== $this->smarty->loadPlugin('Smarty_CacheResource_Pdo_Gziptest'), 'loadPlugin() could not load PDOGzip cache resource');
+        $this->smarty->registerCacheResource('pdo', new Smarty_CacheResource_Pdo_Gziptest($this->getPDO(), 'output_cache'));
     }
 
     public function testInit()

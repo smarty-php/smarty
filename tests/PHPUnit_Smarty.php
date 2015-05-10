@@ -82,7 +82,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
     {
         error_reporting(E_ALL | E_STRICT);
         self::$init = true;
-        self::$pdo = null;
+        //self::$pdo = null;
         if (self::$config == null) {
             $xml = simplexml_load_file(__DIR__ . '/config.xml');
             $json_string = json_encode($xml);
@@ -99,7 +99,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      */
     public static function tearDownAfterClass()
     {
-        self::$pdo = null;
+        //self::$pdo = null;
     }
 
     /**
@@ -171,18 +171,17 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      */
     final public function getConnection()
     {
-        if (self::$pdo == null) {
+        if (PHPUnit_Smarty::$pdo == null) {
             try {
-                self::$pdo = new PDO(self::$config['mysql']['DB_DSN'], self::$config['mysql']['DB_USER'], self::$config['mysql']['DB_PASSWD']);
+                PHPUnit_Smarty::$pdo = new PDO(self::$config['mysql']['DB_DSN'], self::$config['mysql']['DB_USER'], self::$config['mysql']['DB_PASSWD']);
             }
             catch (PDOException $e) {
                 throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
             }
             $timezone = date_default_timezone_get();
-            self::$pdo->exec("SET time_zone = '{$timezone}';");
-         }
+            PHPUnit_Smarty::$pdo->exec("SET time_zone = '{$timezone}';");
+        }
     }
-
 
     /**
      * Create table for Mysql resource
@@ -191,8 +190,8 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
     public function initMysqlResource()
     {
         $this->getConnection();
-        self::$pdo->exec("DROP TABLE `templates`");
-        self::$pdo->exec("CREATE TABLE IF NOT EXISTS `templates` (
+        PHPUnit_Smarty::$pdo->exec("DROP TABLE `templates`");
+        PHPUnit_Smarty::$pdo->exec("CREATE TABLE IF NOT EXISTS `templates` (
  `name` varchar(100) NOT NULL,
  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  `source` text,
@@ -207,8 +206,8 @@ PRIMARY KEY (`name`)
     public function initMysqlCache()
     {
         $this->getConnection();
-        self::$pdo->exec("DROP TABLE `output_cache`");
-        self::$pdo->exec("CREATE TABLE IF NOT EXISTS `output_cache` (
+        PHPUnit_Smarty::$pdo->exec("DROP TABLE `output_cache`");
+        PHPUnit_Smarty::$pdo->exec("CREATE TABLE IF NOT EXISTS `output_cache` (
 `id` char(40) NOT NULL COMMENT 'sha1 hash',
 `name` varchar(250) NOT NULL,
 `cache_id` varchar(250) DEFAULT NULL,
@@ -282,7 +281,7 @@ KEY `expire` (`expire`)
      */
     final public function getPDO()
     {
-        return self::$pdo;
+        return PHPUnit_Smarty::$pdo;
     }
 
     /**
@@ -321,8 +320,8 @@ KEY `expire` (`expire`)
             case 'file':
             case 'filetest':
             case 'php':
-            return $dir . $name;
-            return $this->normalizePath($dir . $name);
+                return $dir . $name;
+                return $this->normalizePath($dir . $name);
             case 'mysqltest':
             case 'mysql':
                 return sha1($type . ':' . $name);
@@ -351,6 +350,7 @@ KEY `expire` (`expire`)
         switch ($type) {
             case 'php':
             case 'file':
+            case 'filetest':
                 if ($tpl instanceof Smarty) {
                     return sha1(getcwd() . $this->normalizePath($this->smarty->getTemplateDir(0) . $name));
                 }
@@ -400,6 +400,7 @@ KEY `expire` (`expire`)
         $type = isset($type) ? $type : $tpl->source->type;
         switch ($type) {
             case 'file':
+            case 'filetest':
                 if (($_pos = strpos($name, ']')) !== false) {
                     $name = substr($name, $_pos + 1);
                 }
@@ -493,6 +494,7 @@ KEY `expire` (`expire`)
         $cacheType = isset($cacheType) ? $cacheType : $tpl->smarty->caching_type;
         switch ($cacheType) {
             case 'file':
+            case 'filetest':
                 $sep = DS;
                 $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;

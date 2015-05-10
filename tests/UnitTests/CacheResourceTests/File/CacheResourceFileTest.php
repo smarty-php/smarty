@@ -20,6 +20,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->setUpSmarty(__DIR__);
         parent::setUp();
+        $this->smarty->setCachingType('filetest');
     }
 
 

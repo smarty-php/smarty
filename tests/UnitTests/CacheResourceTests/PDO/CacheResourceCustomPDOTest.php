@@ -18,8 +18,8 @@ class CacheResourceCustomPDOTest extends CacheResourceTestCommon
 
     public function setUp($dir = null, $clear = true)
     {
-        if (self::$config['cacheResource']['MysqlEnable'] != 'true') {
-            $this->markTestSkipped('mysql tests are disabled');
+        if (self::$config['cacheResource']['PdoEnable'] != 'true') {
+            $this->markTestSkipped('mysql Pdo tests are disabled');
         }
         if (self::$init) {
             $this->getConnection();
@@ -28,8 +28,8 @@ class CacheResourceCustomPDOTest extends CacheResourceTestCommon
         parent::setUp();
         $this->smarty->setCachingType('pdo');
         $this->smarty->addPluginsDir(SMARTY_DIR . '../demo/plugins/');
-        $this->assertTrue(false !== $this->smarty->loadPlugin('Smarty_CacheResource_Pdo'), 'loadPlugin() could not load PDO cache resource');
-        $this->smarty->registerCacheResource('pdo', new Smarty_CacheResource_Pdo($this->getPDO(), 'output_cache'));
+        $this->assertTrue(false !== $this->smarty->loadPlugin('Smarty_CacheResource_Pdotest'), 'loadPlugin() could not load PDO cache resource');
+        $this->smarty->registerCacheResource('pdo', new Smarty_CacheResource_Pdotest($this->getPDO(), 'output_cache'));
     }
 
     public function testInit()

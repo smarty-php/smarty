@@ -367,242 +367,140 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
         $this->assertNull($tpl->cached->handler->getCachedContent($tpl3));
         $this->assertEquals('hello world', $tpl->cached->handler->getCachedContent($tpl4));
     }
-
-    /**
-     *
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testIsCachedPrepare()
-    {
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 1);
-        // compile and cache
-        $this->assertEquals('cache resource test:1 compiled:1 rendered:1', $this->smarty->fetch('cacheresource.tpl'));
-    }
-
-    /**
-     *
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testIsCached()
-    {
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 2);
-        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $this->assertTrue($tpl->isCached());
-        $this->assertEquals('cache resource test:2 compiled:1 rendered:1', $this->smarty->fetch($tpl));
-    }
-
-    /**
-     *
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testIsCachedCachingDisabled()
-    {
-        $this->smarty->assign('test', 3);
-        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $this->assertFalse($tpl->isCached());
-        $this->assertEquals('cache resource test:3 compiled:3 rendered:3', $this->smarty->fetch($tpl));
-    }
-
-    /**
-     *
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testForceCache()
-    {
-        $this->smarty->caching = true;
-        $this->smarty->setForceCache(true);
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 4);
-        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $this->assertFalse($tpl->isCached(), 'isCached() must be false at forceCache');
-        $this->assertEquals('cache resource test:4 compiled:1 rendered:4', $this->smarty->fetch($tpl));
-    }
-
-    /**
-     *
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testIsCachedAftertestForceCache()
-    {
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 5);
-        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $this->assertTrue($tpl->isCached(), 'isCached() must be true after forceCache');
-        $this->assertEquals('cache resource test:5 compiled:1 rendered:4', $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testIsCachedTouchedSource()
-    {
-        sleep(2);
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 6);
-        $filepath = $this->buildSourcePath(null, 'cacheresource.tpl', 'file');
-        touch($filepath, $t = time());
-        sleep(2);
-        clearstatcache();
-        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $this->assertEquals($t,$tpl->source->timestamp);
-        $isCached = $tpl->isCached();
-        $mustCompile = $tpl->mustCompile();
-        $this->assertEquals('cache resource test:6 compiled:6 rendered:6', $this->smarty->fetch($tpl), 'recompile failed');
-        $this->assertFalse($isCached, 'isCached() must be false after touch of source');
-        $this->assertTrue($mustCompile, 'mustCompile() must be true after touch of source');
-    }
-
-    /**
-     *
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testIsCachedAfterTouch()
-    {
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 7);
-        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $this->assertTrue($tpl->isCached(), 'isCached() must be true after recompilation');
-        $this->assertEquals('cache resource test:7 compiled:6 rendered:6', $this->smarty->fetch($tpl));
-    }
-
-    /**
-     *
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testIsCachedForceCompile()
-    {
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setForceCompile(true);
-        $this->smarty->assign('test', 8);
-        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $this->assertFalse($tpl->isCached(), 'isCached() must be false at force compile');
-        $this->assertEquals('cache resource test:8 compiled:8 rendered:8', $this->smarty->fetch($tpl));
-    }
-
-    /**
-     *
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testIsCachedAfterForceCompile()
-    {
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 9);
-        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $this->assertTrue($tpl->isCached(), 'isCached() must be true  after recompilation');
-        $this->assertEquals('cache resource test:9 compiled:8 rendered:8', $this->smarty->fetch($tpl));
-    }
-
     /**
      * Test
-     * @run InSeparateProcess
+     * @run inSeparateProcess
      * @preserveGlobalState disabled
+     * @dataProvider data
      *
      */
-    public function testIsCachedCacheNotLocked()
+    public function testCache($lockTime, $lockTimeout, $compile_id, $cache_id, $isCached, $tmin, $tmax, $forceCompile, $forceCache, $update, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
     {
-        if ($this->smarty->caching_type != 'file') {
-            $this->markTestSkipped('test skip for caching type not == file');
+        if ($testNumber == 27) {
+            $i =0;
         }
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 10);
-        $this->smarty->cache_locking = true;
+        $this->smarty->assign('test', $testNumber);
+        if ($lockTimeout) {
+            $this->smarty->cache_locking = true;
+            $this->smarty->locking_timeout = $lockTimeout;
+        }
+        $this->smarty->compile_id = $compile_id;
+        $this->smarty->cache_id = $cache_id;
+        $this->smarty->force_compile = $forceCompile;
+        $this->smarty->force_cache = $forceCache;
+        if ($update) {
+            sleep(1);
+            $filepath = $this->buildSourcePath(null, 'cacheresource.tpl', 'file');
+            touch($filepath, $t = time());
+             clearstatcache();
+        }
         $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
+        if ($update) {
+            $this->assertEquals($t,$tpl->source->timestamp, $testName . ' - source touch');
+        }
+        if ($lockTime) {
+            $tpl->cached->handler->acquireLock($this->smarty, $tpl->cached);
+            $tpl->cached->handler->lockTime = $lockTime;
+            $tpl->cached->is_locked = false;
+        }
         $start = time();
-        $this->assertTrue($tpl->isCached(), 'isCached() must be true  after recompilation');
-        $this->assertTrue((time() - $start) <= 2);
+        if (isset($isCached)) {
+            $this->assertEquals($isCached, $tpl->isCached(), $testName . ' - isCached()');
+            if ($lockTimeout) {
+                $time = time() - $start;
+                $this->assertTrue($time >= $tmin && $time <= $tmax, $testName . ' - isCached() - lock time');
+                $this->assertEquals(!$isCached, $tpl->cached->handler->hasLock($this->smarty, $tpl->cached), $testName . ' - isCached() - lock status');
+            } else {
+                $this->assertFalse($tpl->cached->handler->hasLock($this->smarty, $tpl->cached), $testName . ' - isCached() - unexpected lock');
+            }
+        }
+        $this->assertEquals("cache resource test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $this->smarty->fetch($tpl), $testName . ' - fetch() failure');
+        if ($lockTime) {
+            $time = time() - $start;
+            $this->assertTrue($time >= $tmin && $time <= $tmax, $testName . ' - fetch() - lock time');
+        }
+        $this->assertFalse($tpl->cached->handler->hasLock($this->smarty, $tpl->cached, $testName . ' - lock not removed'));
+    }
+
+    public function data(){
+        return array(
+            /*
+             * lock time
+             * locking_timeout 0 = no cache_locking
+             * compile_id
+             * cache_id
+             * isCached()  expected result (null = no isCached test)
+             * min elapsed time
+             * max elapsed time
+             * force compile
+             * force cache
+             * source update
+             * test nr
+             * result compile nr
+             * result render nr
+             * text
+             */
+            array(0, 0, null, null, false, 0, 0, false, false, false, 1, 1, 1, 'locking off - create cache'),
+            array(0, 0, 1, null, false, 0, 0, false, false, false, 2, 2, 2, 'locking off - create cache compile_id'),
+            array(0, 0, null, 2, false, 0, 0, false, false, false, 3, 1, 3, 'locking off - create cache cache_id'),
+            array(0, 0, 3, 4, false, 0, 0, false, false, false, 4, 4, 4, 'locking off - create cache cache_id & compile_id'),
+            array(0, 0, null, null, null, 0, 0, false, false, false, 5, 1, 1, 'locking off - fetch'),
+            array(0, 0, 1, null, null, 0, 0, false, false, false, 6, 2, 2, 'locking off - fetch compile_id'),
+            array(0, 0, null, 2, null, 0, 0, false, false, false, 7, 1, 3, 'locking off - fetch cache_id'),
+            array(0, 0, 3, 4, null, 0, 0, false, false, false, 8, 4, 4, 'locking off - fetch cache_id & compile_id'),
+            array(0, 0, null, null, true,0, 0, false, false, false, 9, 1, 1, 'locking off - isCached & fetch'),
+            array(0, 0, 1, null, true, 0, 0, false, false, false, 10, 2, 2, 'locking off - isCached & fetch compile_id'),
+            array(0, 0, null, 2, true, 0, 0, false, false, false, 11, 1, 3, 'locking off - isCached & fetch cache_id'),
+            array(0, 0, 3, 4, true, 0, 0, false, false, false, 12, 4, 4, 'locking off - isCached & fetch cache_id & compile_id'),
+            array(0, 0, null, null, false, 0, 0, true, false, false, 13, 13, 13, 'locking off - force compile'),
+            array(0, 0, null, null, true, 0, 0, false, false, false, 14, 13, 13, 'locking off - after force compile'),
+            array(0, 0, null, null, false, 0, 0, false, true, false, 15, 13, 15, 'locking off - force cache'),
+            array(0, 0, null, null, true, 0, 0, false, false, false, 16, 13, 15, 'locking off - after force cache'),
+            array(0, 0, null, null, false, 0, 0, false, false, true, 17, 17, 17, 'locking off - new source'),
+            array(0, 0, null, null, true, 0, 0, false, false, false, 18, 17, 17, 'locking off - after new source'),
+            array(0, 5, null, null, null, 0, 1, false, false, false, 19, 17, 17, 'not locked - fetch'),
+            array(0, 5, null, null, true, 0, 1, false, false, false, 20, 17, 17, 'not locked - isCached & fetch'),
+            array(0, 5, null, null, false, 0, 1, false, false, true, 21, 21, 21, 'not locked - new source'),
+            array(0, 5, null, null, true, 0, 1, false, false, false, 22, 21, 21, 'not locked - after new source'),
+            array(4, 10, null, null, null, 2, 6, false, false, false, 23, 21, 21, 'locked - fetch'),
+            array(4, 10, null, null, true, 2, 6, false, false, false, 24, 21, 21, 'locked - isCached & fetch'),
+            array(4, 10, null, null, false, 2, 6, false, false, true, 25, 25, 25, 'locked - new source'),
+            array(4, 10, null, null, true, 2, 6, false, false, false, 26, 25, 25, 'locked - after new source'),
+            array(10, 4, null, null, null, 2, 6, false, false, false, 27, 25, 25, 'lock timeout - fetch'),
+            array(10, 4, null, null, true, 2, 6, false, false, false, 28, 25, 25, 'lock timeout - isCached & fetch'),
+            array(10, 4, null, null, false, 2, 6, false, false, true, 29, 29, 29, 'lock timeout - new source'),
+            array(10, 4, null, null, true, 2, 6, false, false, false, 30, 29, 29, 'lock timeout - after new source'),
+            array(4, 10, 5, null, false, 2, 6, false, false, false, 31, 31, 31, 'locked - new compiled'),
+            array(10, 4, 6, null, false, 2, 6, false, false, false, 32, 32, 32, 'lock timeout - new compiled'),
+        );
     }
     /**
-     * Test
+     *
      * @run InSeparateProcess
      * @preserveGlobalState disabled
      *
      */
-    public function testIsCachedCacheisLocked()
+    public function testCachingDisabled1()
     {
-        if ($this->smarty->caching_type != 'file') {
-            $this->markTestSkipped('test skip for caching type not == file');
-        }
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 11);
-        $this->smarty->cache_locking = true;
-        $this->smarty->locking_timeout = 4;
+        $this->smarty->assign('test', 50);
         $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $start = time();
-        touch($tpl->cached->lock_id);
-        $this->assertTrue($tpl->isCached(), 'isCached() must be true  after recompilation');
-        $this->assertTrue((time() - $start) > 3);
-        @unlink($tpl->cached->lock_id);
+        $this->assertFalse($tpl->isCached(), 'isCached() status');
+        $this->assertEquals('cache resource test:50 compiled:50 rendered:50', $this->smarty->fetch($tpl), 'fetch()');
     }
     /**
-     * Test
+     *
      * @run InSeparateProcess
      * @preserveGlobalState disabled
      *
      */
-    public function testFetchCacheNotLocked()
+    public function testCachingDisabled2()
     {
-        if ($this->smarty->caching_type != 'file') {
-            $this->markTestSkipped('test skip for caching type not == file');
-        }
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 12);
-        $this->smarty->cache_locking = true;
+        $this->smarty->assign('test', 51);
         $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $start = time();
-        $this->assertEquals('cache resource test:12 compiled:8 rendered:8', $this->smarty->fetch($tpl));
-        $this->assertTrue((time() - $start) <= 2);
+        $this->assertFalse($tpl->isCached(), 'isCached() status');
+        $this->assertEquals('cache resource test:51 compiled:50 rendered:51', $this->smarty->fetch($tpl), 'fetch()');
     }
-    /**
-     * Test
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testFetchCacheisLocked()
-    {
-        if ($this->smarty->caching_type != 'file') {
-            $this->markTestSkipped('test skip for caching type not == file');
-        }
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('test', 13);
-        $this->smarty->cache_locking = true;
-        $this->smarty->locking_timeout = 4;
-        $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
-        $start = time();
-        touch($tpl->cached->lock_id);
-        $this->assertEquals('cache resource test:13 compiled:8 rendered:8', $this->smarty->fetch($tpl));
-        $this->assertTrue((time() - $start) > 3);
-        @unlink($tpl->cached->lock_id);
-    }
+
 }
