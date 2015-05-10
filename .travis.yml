@@ -17,4 +17,5 @@ allow_failures:
 install:
    - composer require smarty/smarty-php:3.1.*@dev
 
+
 script: phpunit --configuration ../smarty-php/phpunit.xml
