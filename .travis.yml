@@ -15,7 +15,7 @@ allow_failures:
     - php: hhvm-nightly
 
 install:
-   - composer require smarty/smarty-php:3.1.*@dev
+   - composer require smarty/smarty-php:3.1.22
 
 
 script: phpunit --configuration ../smarty-php/phpunit.xml
