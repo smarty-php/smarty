@@ -1,6 +1,6 @@
 <?php
 /**
- * Smarty Internal Plugin Compile Print Expression
+ * Smarty Internal Plugin Compile PHP Expression
  * Compiles any tag which will output an expression or variable
  *
  * @package    Smarty
@@ -9,7 +9,7 @@
  */
 
 /**
- * Smarty Internal Plugin Compile Print Expression Class
+ * Smarty Internal Plugin Compile PHP Expression Class
  *
  * @package    Smarty
  * @subpackage Compiler
