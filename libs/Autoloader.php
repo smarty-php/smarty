@@ -60,6 +60,7 @@ class Smarty_Autoloader
         'smarty_template_source'                => true,
         'smarty_template_compiled'              => true,
         'smarty_template_cached'                => true,
+        'smarty_template_config'                => true,
         'smarty_data'                           => true,
         'smarty_variable'                       => true,
         'smarty_undefined_variable'             => true,
