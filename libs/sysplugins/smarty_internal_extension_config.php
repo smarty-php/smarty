@@ -133,7 +133,7 @@ class Smarty_Internal_Extension_Config
             // not found, try at parent
             $_ptr = $_ptr->parent;
         }
-        if ($smarty->error_unassigned && $error_enable) {
+        if ($obj->error_unassigned && $error_enable) {
             // force a notice
             $x = $$variable;
         }
