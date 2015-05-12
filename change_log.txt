@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.23-dev ===== (xx.xx.2015)
+ 12.05.2015
+  - bugfix of smaller performance issue introduce in 3.1.22 when caching is enabled
+   
  ===== 3.1.22 ===== (10.05.2015)
  10.05.2015
   - bugfix custom cache resource did not observe compile_id and cache_id when $cache_locking == true
