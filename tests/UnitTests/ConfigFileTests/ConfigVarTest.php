@@ -376,4 +376,19 @@ class ConfigVarTest extends PHPUnit_Smarty
         $this->smarty->configLoad('db4:foo.conf');
         $this->assertEquals("bar", $this->smarty->fetch('eval:{#foo#}'));
     }
+    public function testConfigUndefinedSilent()
+    {
+        $this->assertEquals("", $this->smarty->fetch('eval:{#foo#}'));
+    }
+
+    public function testConfigUndefinedNotice()
+    {
+        $this->smarty->error_unassigned = true;
+        try {
+            $this->assertEquals("", $this->smarty->fetch('eval:{#foo#}'));
+        }
+        catch (Exception $e) {
+            $this->assertEquals('Undefined variable: foo', $e->getMessage());
+        }
+    }
 }
