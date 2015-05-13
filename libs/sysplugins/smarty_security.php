@@ -108,7 +108,6 @@ class Smarty_Security
         'count', 'sizeof',
         'in_array', 'is_array',
         'time',
-        'nl2br',
     );
     /**
      * This is an array of trusted PHP modifiers.
@@ -119,7 +118,8 @@ class Smarty_Security
      */
     public $php_modifiers = array(
         'escape',
-        'count'
+        'count',
+        'nl2br',
     );
     /**
      * This is an array of allowed tags.
