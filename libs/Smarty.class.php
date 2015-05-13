@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.24-dev/3';
+    const SMARTY_VERSION = '3.1.24-dev/4';
 
     /**
      * define variable scopes
@@ -686,8 +686,6 @@ class Smarty extends Smarty_Internal_TemplateBase
         } else {
             $this->setPluginsDir(SMARTY_PLUGINS_DIR);
         }
-
-        $this->debug_tpl = 'file:' . dirname(__FILE__) . '/debug.tpl';
         if (isset($_SERVER['SCRIPT_NAME'])) {
             Smarty::$global_tpl_vars['SCRIPT_NAME'] = new Smarty_Variable($_SERVER['SCRIPT_NAME']);
         }
