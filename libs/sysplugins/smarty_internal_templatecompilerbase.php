@@ -855,6 +855,24 @@ abstract class Smarty_Internal_TemplateCompilerBase
     }
 
     /**
+     * Append code segments and remove unneeded ?> <?php transitions
+     *
+     * @param string $left
+     * @param string $right
+     *
+     * @return string
+     */
+    public function appendCode($left, $right) {
+        if ( preg_match('/\s*\?>\s*$/', $left) && preg_match('/^\s*<\?php\s+/', $right)) {
+            $left = preg_replace('/\s*\?>\s*$/', "\n", $left);
+            $left .= preg_replace('/^\s*<\?php\s+/', '', $right);
+        } else {
+            $left .= $right;
+        }
+        return $left;
+    }
+
+    /**
      * Inject inline code for nocache template sections
      * This method gets the content of each template element from the parser.
      * If the content is compiled code and it should be not cached the code is injected
