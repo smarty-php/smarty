@@ -157,7 +157,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     /**
      * End logging of cache time
      *
-     * @param o\Smarty_Internal_Template $template cached template
+     * @param \Smarty_Internal_Template $template cached template
      */
     public static function end_cache(Smarty_Internal_Template $template)
     {
@@ -196,32 +196,45 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             $savedIndex = self::$index;
             self::$index = 9999;
         }
+        if ($obj instanceof Smarty) {
+            $smarty = $obj;
+        } else {
+            $smarty = $obj->smarty;
+        }
+        // create fresh instance of smarty for displaying the debug console
+        // to avoid problems if the application did overload the Smarty class
+        $debObj = new Smarty();
+        // copy the working dirs from application
+        $debObj->setCompileDir($smarty->getCompileDir());
+        // init properties by hand as user may have edited the original Smarty class
+        $debObj->setPluginsDir(is_dir(__DIR__ . '/../plugins') ? __DIR__ . '/../plugins' : $smarty->getPluginsDir());
+        $debObj->force_compile = false;
+        $debObj->compile_check = true;
+        $debObj->left_delimiter = '{';
+        $debObj->right_delimiter = '}';
+        $debObj->security_policy = null;
+        $debObj->debugging = false;
+        $debObj->debugging_ctrl = 'NONE';
+        $debObj->error_reporting = E_ALL & ~E_NOTICE;
+        $debObj->debug_tpl = isset($smarty->debug_tpl) ? $smarty->debug_tpl : 'file:' . __DIR__ . '/../debug.tpl';
+        $debObj->registered_plugins = array();
+        $debObj->registered_resources = array();
+        $debObj->registered_filters = array();
+        $debObj->autoload_filters = array();
+        $debObj->default_modifiers = array();
+        $debObj->escape_html = true;
+        $debObj->caching = false;
+        $debObj->compile_id = null;
+        $debObj->cache_id = null;
         // prepare information of assigned variables
         $ptr = self::get_debug_vars($obj);
-        if ($obj instanceof Smarty) {
-            $smarty = clone $obj;
-        } else {
-            $smarty = clone $obj->smarty;
-        }
-        $debugging = $smarty->debugging;
         $_assigned_vars = $ptr->tpl_vars;
         ksort($_assigned_vars);
         $_config_vars = $ptr->config_vars;
         ksort($_config_vars);
-        $smarty->registered_filters = array();
-        $smarty->autoload_filters = array();
-        $smarty->default_modifiers = array();
-        $smarty->force_compile = false;
-        $smarty->left_delimiter = '{';
-        $smarty->right_delimiter = '}';
-        $smarty->debugging = false;
-        $smarty->debugging_ctrl = 'NONE';
-        $smarty->force_compile = false;
-        $_template = new Smarty_Internal_Template($smarty->debug_tpl, $smarty);
-        $_template->caching = false;
-        $_template->smarty->disableSecurity();
-        $_template->cache_id = null;
-        $_template->compile_id = null;
+        $debugging = $smarty->debugging;
+
+        $_template = new Smarty_Internal_Template($debObj->debug_tpl, $debObj);
         if ($obj instanceof Smarty_Internal_Template) {
             $_template->assign('template_name', $obj->source->type . ':' . $obj->source->name);
         }
