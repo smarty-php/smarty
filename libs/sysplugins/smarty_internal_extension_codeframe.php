@@ -11,7 +11,6 @@
 /**
  * Class Smarty_Internal_Extension_CodeFrame
  * Create code frame for compiled and cached templates
-
  */
 class Smarty_Internal_Extension_CodeFrame
 {
@@ -78,11 +77,19 @@ class Smarty_Internal_Extension_CodeFrame
                 $output .= "?>/*/%%SmartyNocache:{$_template->properties['nocache_hash']}%%*/';\n";
             }
         }
-        $output .= "?>\n" . $content;
-        $output .= "<?php }\n}\n?>";
-        return $output;
+        $output .= "?>\n";
+        $output = self::appendCode($output, $content);
+        return self::appendCode($output, "<?php }\n}\n?>");
     }
 
+    /**
+     * Create code frame of compiled template function
+     *
+     * @param \Smarty_Internal_Template $_template
+     * @param string                    $content
+     *
+     * @return string
+     */
     public static function createFunctionFrame(Smarty_Internal_Template $_template, $content = '')
     {
         if (!isset($_template->properties['unifunc'])) {
@@ -97,5 +104,24 @@ class Smarty_Internal_Extension_CodeFrame
         $output .= "/*/%%SmartyNocache:{$_template->properties['nocache_hash']}%%*/\n";
         $output .= "}\n}\n?>";
         return $output;
+    }
+
+    /**
+     * Append code segments and remove unneeded ?> <?php transitions
+     *
+     * @param string $left
+     * @param string $right
+     *
+     * @return string
+     */
+    public static function appendCode($left, $right)
+    {
+        if (preg_match('/\s*\?>$/', $left) && preg_match('/^<\?php\s+/', $right)) {
+            $left = preg_replace('/\s*\?>$/', "\n", $left);
+            $left .= preg_replace('/^<\?php\s+/', '', $right);
+        } else {
+            $left .= $right;
+        }
+        return $left;
     }
 }

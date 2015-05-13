@@ -1,14 +1,13 @@
 <?php
 /**
- * Smarty Internal Plugin Templateparser Parsetrees
- * These are classes to build parsetrees in the template parser
+ * Smarty Internal Plugin Templateparser Parse Tree
+ * These are classes to build parse tree  in the template parser
  *
  * @package    Smarty
  * @subpackage Compiler
  * @author     Thue Kristensen
  * @author     Uwe Tews
  */
-
 
 /**
  * Raw chars as part of a double quoted string.

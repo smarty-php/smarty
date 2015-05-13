@@ -1,7 +1,7 @@
 <?php
 /**
- * Smarty Internal Plugin Templateparser Parsetrees
- * These are classes to build parsetrees in the template parser
+ * Smarty Internal Plugin Templateparser Parse Tree
+ * These are classes to build parse tree in the template parser
  *
  * @package    Smarty
  * @subpackage Compiler
@@ -18,6 +18,7 @@
  */
 class Smarty_Internal_ParseTree_Tag extends Smarty_Internal_ParseTree
 {
+
     /**
      * Saved block nesting level
      *
@@ -56,7 +57,9 @@ class Smarty_Internal_ParseTree_Tag extends Smarty_Internal_ParseTree
     public function assign_to_var()
     {
         $var = sprintf('$_tmp%d', ++ Smarty_Internal_Templateparser::$prefix_number);
-        $this->parser->compiler->prefix_code[] = sprintf("<?php ob_start();?>%s<?php %s=ob_get_clean();?>", $this->data, $var);
+        $tmp = $this->parser->compiler->appendCode('<?php ob_start();?>', $this->data);
+        $tmp = $this->parser->compiler->appendCode($tmp, "<?php {$var}=ob_get_clean();?>");
+        $this->parser->compiler->prefix_code[] = sprintf("%s", $tmp);
 
         return $var;
     }

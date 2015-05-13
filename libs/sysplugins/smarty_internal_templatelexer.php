@@ -19,176 +19,147 @@
  */
 class Smarty_Internal_Templatelexer
 {
+
     /**
      * Source
      *
      * @var string
      */
     public $data;
+
     /**
      * byte counter
      *
      * @var int
      */
     public $counter;
+
     /**
      * token number
      *
      * @var int
      */
     public $token;
+
     /**
      * token value
      *
      * @var string
      */
     public $value;
+
     /**
      * current line
      *
      * @var int
      */
     public $line;
+
     /**
      * tag start line
      *
      * @var
      */
     public $taglineno;
+
     /**
      * flag if parsing php script
      *
      * @var bool
      */
     public $is_phpScript = false;
+
     /**
      * php code type
      *
      * @var string
      */
     public $phpType = '';
+
     /**
      * escaped left delimiter
      *
      * @var string
      */
     public $ldel = '';
+
     /**
      * escaped left delimiter length
      *
      * @var int
      */
     public $ldel_length = 0;
+
     /**
      * escaped right delimiter
      *
      * @var string
      */
     public $rdel = '';
+
     /**
      * escaped right delimiter length
      *
      * @var int
      */
     public $rdel_length = 0;
+
     /**
      * state number
      *
      * @var int
      */
     public $state = 1;
+
     /**
      * Smarty object
      *
      * @var Smarty
      */
     public $smarty = null;
+
     /**
      * compiler object
      *
      * @var Smarty_Internal_TemplateCompilerBase
      */
     private $compiler = null;
+
     /**
      * literal tag nesting level
      *
      * @var int
      */
     private $literal_cnt = 0;
+
     /**
      * trace file
      *
      * @var resource
      */
     public $yyTraceFILE;
+
     /**
      * trace prompt
      *
      * @var string
      */
     public $yyTracePrompt;
+
     /**
      * state names
      *
      * @var array
      */
     public $state_name = array(1 => 'TEXT', 2 => 'SMARTY', 3 => 'LITERAL', 4 => 'DOUBLEQUOTEDSTRING', 5 => 'CHILDBODY');
+
     /**
      * token names
      *
      * @var array
      */
     public $smarty_token_names = array(        // Text for parser error messages
-                                               'IDENTITY'        => '===',
-                                               'NONEIDENTITY'    => '!==',
-                                               'EQUALS'          => '==',
-                                               'NOTEQUALS'       => '!=',
-                                               'GREATEREQUAL'    => '(>=,ge)',
-                                               'LESSEQUAL'       => '(<=,le)',
-                                               'GREATERTHAN'     => '(>,gt)',
-                                               'LESSTHAN'        => '(<,lt)',
-                                               'MOD'             => '(%,mod)',
-                                               'NOT'             => '(!,not)',
-                                               'LAND'            => '(&&,and)',
-                                               'LOR'             => '(||,or)',
-                                               'LXOR'            => 'xor',
-                                               'OPENP'           => '(',
-                                               'CLOSEP'          => ')',
-                                               'OPENB'           => '[',
-                                               'CLOSEB'          => ']',
-                                               'PTR'             => '->',
-                                               'APTR'            => '=>',
-                                               'EQUAL'           => '=',
-                                               'NUMBER'          => 'number',
-                                               'UNIMATH'         => '+" , "-',
-                                               'MATH'            => '*" , "/" , "%',
-                                               'INCDEC'          => '++" , "--',
-                                               'SPACE'           => ' ',
-                                               'DOLLAR'          => '$',
-                                               'SEMICOLON'       => ';',
-                                               'COLON'           => ':',
-                                               'DOUBLECOLON'     => '::',
-                                               'AT'              => '@',
-                                               'HATCH'           => '#',
-                                               'QUOTE'           => '"',
-                                               'BACKTICK'        => '`',
-                                               'VERT'            => '|',
-                                               'DOT'             => '.',
-                                               'COMMA'           => '","',
-                                               'ANDSYM'          => '"&"',
-                                               'QMARK'           => '"?"',
-                                               'ID'              => 'identifier',
-                                               'TEXT'            => 'text',
-                                               'FAKEPHPSTARTTAG' => 'Fake PHP start tag',
-                                               'PHPSTARTTAG'     => 'PHP start tag',
-                                               'PHPENDTAG'       => 'PHP end tag',
-                                               'LITERALSTART'    => 'Literal start',
-                                               'LITERALEND'      => 'Literal end',
-                                               'LDELSLASH'       => 'closing tag',
-                                               'COMMENT'         => 'comment',
-                                               'AS'              => 'as',
-                                               'TO'              => 'to',
-    );
+                                               'IDENTITY' => '===', 'NONEIDENTITY' => '!==', 'EQUALS' => '==', 'NOTEQUALS' => '!=', 'GREATEREQUAL' => '(>=,ge)', 'LESSEQUAL' => '(<=,le)', 'GREATERTHAN' => '(>,gt)', 'LESSTHAN' => '(<,lt)', 'MOD' => '(%,mod)', 'NOT' => '(!,not)', 'LAND' => '(&&,and)', 'LOR' => '(||,or)', 'LXOR' => 'xor', 'OPENP' => '(', 'CLOSEP' => ')', 'OPENB' => '[', 'CLOSEB' => ']', 'PTR' => '->', 'APTR' => '=>', 'EQUAL' => '=', 'NUMBER' => 'number', 'UNIMATH' => '+" , "-', 'MATH' => '*" , "/" , "%', 'INCDEC' => '++" , "--', 'SPACE' => ' ', 'DOLLAR' => '$', 'SEMICOLON' => ';', 'COLON' => ':', 'DOUBLECOLON' => '::', 'AT' => '@', 'HATCH' => '#', 'QUOTE' => '"', 'BACKTICK' => '`', 'VERT' => '|', 'DOT' => '.', 'COMMA' => '","', 'ANDSYM' => '"&"', 'QMARK' => '"?"', 'ID' => 'identifier', 'TEXT' => 'text', 'FAKEPHPSTARTTAG' => 'Fake PHP start tag', 'PHPSTARTTAG' => 'PHP start tag', 'PHPENDTAG' => 'PHP end tag', 'LITERALSTART' => 'Literal start', 'LITERALEND' => 'Literal end', 'LDELSLASH' => 'closing tag', 'COMMENT' => 'comment', 'AS' => 'as', 'TO' => 'to',);
 
     /**
      * constructor
@@ -221,6 +192,7 @@ class Smarty_Internal_Templatelexer
     }
 
     private $_yy_state = 1;
+
     private $_yy_stack = array();
 
     public function yylex()
@@ -261,27 +233,7 @@ class Smarty_Internal_Templatelexer
 
     public function yylex1()
     {
-        $tokenMap = array(
-            1  => 0,
-            2  => 1,
-            4  => 0,
-            5  => 0,
-            6  => 0,
-            7  => 1,
-            9  => 0,
-            10 => 0,
-            11 => 0,
-            12 => 6,
-            19 => 0,
-            20 => 0,
-            21 => 0,
-            22 => 1,
-            24 => 6,
-            31 => 7,
-            39 => 6,
-            46 => 3,
-            50 => 0,
-        );
+        $tokenMap = array(1 => 0, 2 => 1, 4 => 0, 5 => 0, 6 => 0, 7 => 1, 9 => 0, 10 => 0, 11 => 0, 12 => 6, 19 => 0, 20 => 0, 21 => 0, 22 => 1, 24 => 6, 31 => 7, 39 => 6, 46 => 3, 50 => 0,);
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
@@ -292,16 +244,13 @@ class Smarty_Internal_Templatelexer
                 $yysubmatches = $yymatches;
                 $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                                                                              $this->counter, 5) . '... state TEXT');
+                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state TEXT');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
-                    $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                                                $tokenMap[$this->token]);
+                    $yysubmatches = array_slice($yysubmatches, $this->token + 1, $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -326,8 +275,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
-                                    ': ' . $this->data[$this->counter]);
+                throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -521,75 +469,7 @@ class Smarty_Internal_Templatelexer
 
     public function yylex2()
     {
-        $tokenMap = array(
-            1  => 0,
-            2  => 0,
-            3  => 1,
-            5  => 0,
-            6  => 0,
-            7  => 0,
-            8  => 0,
-            9  => 0,
-            10 => 0,
-            11 => 0,
-            12 => 0,
-            13 => 0,
-            14 => 0,
-            15 => 1,
-            17 => 1,
-            19 => 1,
-            21 => 0,
-            22 => 0,
-            23 => 0,
-            24 => 0,
-            25 => 0,
-            26 => 0,
-            27 => 0,
-            28 => 0,
-            29 => 0,
-            30 => 0,
-            31 => 0,
-            32 => 0,
-            33 => 0,
-            34 => 0,
-            35 => 0,
-            36 => 0,
-            37 => 0,
-            38 => 3,
-            42 => 0,
-            43 => 0,
-            44 => 0,
-            45 => 0,
-            46 => 0,
-            47 => 0,
-            48 => 0,
-            49 => 0,
-            50 => 1,
-            52 => 1,
-            54 => 0,
-            55 => 0,
-            56 => 0,
-            57 => 2,
-            60 => 0,
-            61 => 0,
-            62 => 0,
-            63 => 0,
-            64 => 0,
-            65 => 0,
-            66 => 0,
-            67 => 0,
-            68 => 0,
-            69 => 0,
-            70 => 0,
-            71 => 0,
-            72 => 0,
-            73 => 1,
-            75 => 0,
-            76 => 0,
-            77 => 0,
-            78 => 0,
-            79 => 0,
-        );
+        $tokenMap = array(1 => 0, 2 => 0, 3 => 1, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 0, 14 => 0, 15 => 1, 17 => 1, 19 => 1, 21 => 0, 22 => 0, 23 => 0, 24 => 0, 25 => 0, 26 => 0, 27 => 0, 28 => 0, 29 => 0, 30 => 0, 31 => 0, 32 => 0, 33 => 0, 34 => 0, 35 => 0, 36 => 0, 37 => 0, 38 => 3, 42 => 0, 43 => 0, 44 => 0, 45 => 0, 46 => 0, 47 => 0, 48 => 0, 49 => 0, 50 => 1, 52 => 1, 54 => 0, 55 => 0, 56 => 0, 57 => 2, 60 => 0, 61 => 0, 62 => 0, 63 => 0, 64 => 0, 65 => 0, 66 => 0, 67 => 0, 68 => 0, 69 => 0, 70 => 0, 71 => 0, 72 => 0, 73 => 1, 75 => 0, 76 => 0, 77 => 0, 78 => 0, 79 => 0,);
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
@@ -600,16 +480,13 @@ class Smarty_Internal_Templatelexer
                 $yysubmatches = $yymatches;
                 $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                                                                              $this->counter, 5) . '... state SMARTY');
+                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state SMARTY');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
-                    $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                                                $tokenMap[$this->token]);
+                    $yysubmatches = array_slice($yysubmatches, $this->token + 1, $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -634,8 +511,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
-                                    ': ' . $this->data[$this->counter]);
+                throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -1088,11 +964,7 @@ class Smarty_Internal_Templatelexer
 
     public function yylex3()
     {
-        $tokenMap = array(
-            1 => 0,
-            2 => 0,
-            3 => 0,
-        );
+        $tokenMap = array(1 => 0, 2 => 0, 3 => 0,);
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
@@ -1103,16 +975,13 @@ class Smarty_Internal_Templatelexer
                 $yysubmatches = $yymatches;
                 $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                                                                              $this->counter, 5) . '... state LITERAL');
+                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state LITERAL');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
-                    $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                                                $tokenMap[$this->token]);
+                    $yysubmatches = array_slice($yysubmatches, $this->token + 1, $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -1137,8 +1006,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
-                                    ': ' . $this->data[$this->counter]);
+                throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -1181,21 +1049,7 @@ class Smarty_Internal_Templatelexer
 
     public function yylex4()
     {
-        $tokenMap = array(
-            1  => 1,
-            3  => 0,
-            4  => 0,
-            5  => 0,
-            6  => 0,
-            7  => 0,
-            8  => 0,
-            9  => 0,
-            10 => 0,
-            11 => 0,
-            12 => 0,
-            13 => 3,
-            17 => 0,
-        );
+        $tokenMap = array(1 => 1, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 3, 17 => 0,);
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
@@ -1206,16 +1060,13 @@ class Smarty_Internal_Templatelexer
                 $yysubmatches = $yymatches;
                 $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                                                                              $this->counter, 5) . '... state DOUBLEQUOTEDSTRING');
+                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state DOUBLEQUOTEDSTRING');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
-                    $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                                                $tokenMap[$this->token]);
+                    $yysubmatches = array_slice($yysubmatches, $this->token + 1, $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -1240,8 +1091,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
-                                    ': ' . $this->data[$this->counter]);
+                throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -1365,12 +1215,7 @@ class Smarty_Internal_Templatelexer
 
     public function yylex5()
     {
-        $tokenMap = array(
-            1 => 0,
-            2 => 0,
-            3 => 0,
-            4 => 0,
-        );
+        $tokenMap = array(1 => 0, 2 => 0, 3 => 0, 4 => 0,);
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
@@ -1381,16 +1226,13 @@ class Smarty_Internal_Templatelexer
                 $yysubmatches = $yymatches;
                 $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                                                                              $this->counter, 5) . '... state CHILDBODY');
+                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state CHILDBODY');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
-                    $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                                                $tokenMap[$this->token]);
+                    $yysubmatches = array_slice($yysubmatches, $this->token + 1, $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -1415,8 +1257,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
-                                    ': ' . $this->data[$this->counter]);
+                throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -1469,13 +1310,7 @@ class Smarty_Internal_Templatelexer
 
     public function yylex6()
     {
-        $tokenMap = array(
-            1 => 0,
-            2 => 0,
-            3 => 0,
-            4 => 1,
-            6 => 0,
-        );
+        $tokenMap = array(1 => 0, 2 => 0, 3 => 0, 4 => 1, 6 => 0,);
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
@@ -1486,16 +1321,13 @@ class Smarty_Internal_Templatelexer
                 $yysubmatches = $yymatches;
                 $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                                                                              $this->counter, 5) . '... state CHILDBLOCK');
+                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state CHILDBLOCK');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
-                    $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                                                $tokenMap[$this->token]);
+                    $yysubmatches = array_slice($yysubmatches, $this->token + 1, $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -1520,8 +1352,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
-                                    ': ' . $this->data[$this->counter]);
+                throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
@@ -1587,11 +1418,7 @@ class Smarty_Internal_Templatelexer
 
     public function yylex7()
     {
-        $tokenMap = array(
-            1 => 0,
-            2 => 0,
-            3 => 0,
-        );
+        $tokenMap = array(1 => 0, 2 => 0, 3 => 0,);
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
         }
@@ -1602,16 +1429,13 @@ class Smarty_Internal_Templatelexer
                 $yysubmatches = $yymatches;
                 $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 if (!count($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                                                                              $this->counter, 5) . '... state CHILDLITERAL');
+                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state CHILDLITERAL');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
                 if ($tokenMap[$this->token]) {
                     // extract sub-patterns for passing to lex function
-                    $yysubmatches = array_slice($yysubmatches, $this->token + 1,
-                                                $tokenMap[$this->token]);
+                    $yysubmatches = array_slice($yysubmatches, $this->token + 1, $tokenMap[$this->token]);
                 } else {
                     $yysubmatches = array();
                 }
@@ -1636,8 +1460,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
-                                    ': ' . $this->data[$this->counter]);
+                throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[$this->counter]);
             }
             break;
         } while (true);
