@@ -126,11 +126,11 @@
     <table id="table_assigned_vars">
         {foreach $assigned_vars as $vars}
             <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
-                <td><h3><font color=blue>${$vars@key|escape:'html'}</font></h3>
+                <td><h3><font color=blue>${$vars@key}</font></h3>
                     {if isset($vars['nocache'])}<b>Nocache</b></br>{/if}
-                    {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']}{/if}
+                    {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var:null:80 nofilter}{/if}
                 </td>
-                <td><h3>Value</h3>{$vars['value']|debug_print_var nofilter}</td>
+                <td><h3>Value</h3>{$vars['value']|debug_print_var:null:80 nofilter}</td>
                 <td>{if isset($vars['attributes'])}<h3>Attributes</h3>{$vars['attributes']|debug_print_var nofilter} {/if}</td>
          {/foreach}
     </table>
@@ -140,10 +140,10 @@
     <table id="table_config_vars">
         {foreach $config_vars as $vars}
             <tr class="{if $vars@iteration % 2 eq 0}odd{else}even{/if}">
-                <td><h3><font color=blue>#{$vars@key|escape:'html'}#</font></h3>
-                    {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']}{/if}
+                <td><h3><font color=blue>#{$vars@key}#</font></h3>
+                    {if isset($vars['scope'])}<b>Origin:</b> {$vars['scope']|debug_print_var:null:80 nofilter}{/if}
                 </td>
-                <td>{$vars['value']|debug_print_var nofilter}</td>
+                <td>{$vars['value']|debug_print_var:null:80 nofilter}</td>
             </tr>
         {/foreach}
 
