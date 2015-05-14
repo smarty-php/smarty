@@ -17,6 +17,7 @@
  */
 abstract class Smarty_Internal_TemplateCompilerBase
 {
+
     /**
      * Smarty object
      *
@@ -128,6 +129,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @var string
      */
     public $trace_filepath = '';
+
     /**
      * stack for tracing file and line of nested {block} tags
      *
@@ -466,8 +468,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->template->used_tags[] = array($tag, $args);
         }
         // check nocache option flag
-        if (in_array("'nocache'", $args) || in_array(array('nocache' => 'true'), $args)
-            || in_array(array('nocache' => '"true"'), $args) || in_array(array('nocache' => "'true'"), $args)
+        if (in_array("'nocache'", $args) || in_array(array('nocache' => 'true'), $args) || in_array(array('nocache' => '"true"'), $args) || in_array(array('nocache' => "'true'"), $args)
         ) {
             $this->tag_nocache = true;
         }
@@ -507,8 +508,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 // check if tag is a registered object
                 if (isset($this->smarty->registered_objects[$tag]) && isset($parameter['object_method'])) {
                     $method = $parameter['object_method'];
-                    if (!in_array($method, $this->smarty->registered_objects[$tag][3]) &&
-                        (empty($this->smarty->registered_objects[$tag][1]) || in_array($method, $this->smarty->registered_objects[$tag][1]))
+                    if (!in_array($method, $this->smarty->registered_objects[$tag][3]) && (empty($this->smarty->registered_objects[$tag][1]) || in_array($method, $this->smarty->registered_objects[$tag][1]))
                     ) {
                         return $this->callTagCompiler('private_object_function', $args, $parameter, $tag, $method);
                     } elseif (in_array($method, $this->smarty->registered_objects[$tag][3])) {
@@ -820,9 +820,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         $callback = null;
         $script = null;
         $cacheable = true;
-        $result = call_user_func_array(
-            $this->smarty->default_plugin_handler_func, array($tag, $plugin_type, $this->template, &$callback, &$script, &$cacheable)
-        );
+        $result = call_user_func_array($this->smarty->default_plugin_handler_func, array($tag, $plugin_type, $this->template, &$callback, &$script, &$cacheable));
         if ($result) {
             $this->tag_nocache = $this->tag_nocache || !$cacheable;
             if ($script !== null) {
@@ -862,8 +860,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
      *
      * @return string
      */
-    public function appendCode($left, $right) {
-        if ( preg_match('/\s*\?>\s*$/', $left) && preg_match('/^\s*<\?php\s+/', $right)) {
+    public function appendCode($left, $right)
+    {
+        if (preg_match('/\s*\?>\s*$/', $left) && preg_match('/^\s*<\?php\s+/', $right)) {
             $left = preg_replace('/\s*\?>\s*$/', "\n", $left);
             $left .= preg_replace('/^\s*<\?php\s+/', '', $right);
         } else {
@@ -888,8 +887,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // If the template is not evaluated and we have a nocache section and or a nocache tag
         if ($is_code && !empty($content)) {
             // generate replacement code
-            if ((!($this->template->source->recompiled) || $this->forceNocache) && $this->template->caching && !$this->suppressNocacheProcessing &&
-                ($this->nocache || $this->tag_nocache)
+            if ((!($this->template->source->recompiled) || $this->forceNocache) && $this->template->caching && !$this->suppressNocacheProcessing && ($this->nocache || $this->tag_nocache)
             ) {
                 $this->template->has_nocache_code = true;
                 $_output = addcslashes($content, '\'\\');

@@ -16,6 +16,7 @@
  */
 class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
 {
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -23,6 +24,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('name');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -30,6 +32,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('name');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -57,9 +60,8 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
         }
         unset($_attr['nocache']);
         $_name = trim($_attr['name'], "'\"");
-
-        $save = array($_attr, $compiler->parser->current_buffer,
-                      $compiler->template->has_nocache_code, $compiler->template->required_plugins, $compiler->template->caching);
+        $compiler->parent_compiler->templateProperties['tpl_function'][$_name] = array();
+        $save = array($_attr, $compiler->parser->current_buffer, $compiler->template->has_nocache_code, $compiler->template->required_plugins, $compiler->template->caching);
         $this->openTag($compiler, 'function', $save);
         // set flag that we are compiling a template function
         $compiler->compiles_template_function = true;
@@ -80,6 +82,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
  */
 class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
 {
+
     /**
      * Compiler object
      *
@@ -90,11 +93,11 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {/function} tag
      *
-     * @param  array  $args      array with attributes from parser
-     * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array                                       $args      array with attributes from parser
+     * @param object|\Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param  array                                       $parameter array with compilation parameter
      *
-     * @return boolean true
+     * @return bool true
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
