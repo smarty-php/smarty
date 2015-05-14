@@ -7,7 +7,7 @@
       - display Smarty version number
       - Truncate lenght of Origin display and extend strin value display to 80 character
   - bugfix in Smarty_Security  'nl2br' should be a trusted modifier, not PHP function (code.google issue 223)
-  - bugfix template functions failed when calling the function recursively with function name as tag name https://github.com/smarty-php/smarty/issues/28
+  - bugfix template functions failed when calling the function recursively with function name as tag name https://github.com/smarty-php/smarty/issues/35
   
  12.05.2015
   - bugfix {$smarty.constant.TEST} did fail  on undefined constant https://github.com/smarty-php/smarty/issues/28
