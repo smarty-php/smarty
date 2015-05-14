@@ -273,6 +273,27 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
+     * test external function definition nocache call 3
+     *
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testExternalDefinedFunctionRecursion()
+    {
+        $this->assertEquals('12345', $this->smarty->fetch('test_template_function_recursion2.tpl'));
+    }
+    /**
+     * test external function definition nocache call 3
+     *
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testExternalDefinedFunctionRecursion2()
+    {
+        $this->assertEquals('12345', $this->smarty->fetch('test_template_function_recursion2.tpl'));
+    }
+
+    /**
      * Function data provider inline
      */
     public function functionProviderInline()
