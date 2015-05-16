@@ -27,7 +27,19 @@ class Smarty_Variable
      * @var int
      */
     public $scope = Smarty::SCOPE_LOCAL;
-
+    /**
+     * the iteration the value is in (if it is used in a loop)
+     *
+     * @var int
+     */
+    public $iteration = 0;
+    /**
+     * the total number of elements this varaible iterates over (if it is used in a loop)
+     *
+     * @var int
+     */
+    public $total = 0;
+    
     /**
      * create Smarty variable object
      *
