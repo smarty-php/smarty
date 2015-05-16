@@ -139,7 +139,7 @@ public function testPHP_REMOVE_php()
         if (ini_get('asp_tags')) {
             $this->assertEquals('aa hello world multiline ae', $content, 'allow <% %>');
         } else {
-            $this->assertEquals("aa <% echo 'hello world';%> ae", $content, 'allow asp disabled <% %>');
+            $this->assertEquals("aa <% echo 'hello world';\n echo ' multiline';%> ae", $content, 'allow asp disabled <% %>');
         }
     }
     /**
