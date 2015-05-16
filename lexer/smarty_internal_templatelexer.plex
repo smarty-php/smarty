@@ -245,7 +245,7 @@ class Smarty_Internal_Templatelexer
      smartyblockchildparent = /[\$]smarty\.block\.(child|parent)/
      integer = /\d+/
      hex =  /0[xX][0-9a-fA-F]+/
-     math = /\s*(\*|\/|\%)\s*/
+     math = /\s*([*]{1,2}|[%\/^&]|[<>]{2})\s*/
      comment = /SMARTYldel\*([\S\s]*?)\*SMARTYrdel/
      incdec = /\+\+|\-\-/
      unimath = /\s*(\+|\-)\s*/
@@ -276,25 +276,9 @@ class Smarty_Internal_Templatelexer
      id = /[0-9]*[a-zA-Z_]\w*/
      literal = /literal/
      strip = /strip/
-     equals = /\s*==\s*|\s+eq\s+/
-     notequals = /\s*!=\s*|\s*<>\s*|\s+(ne|neq)\s+/
-     greaterthan = /\s*>\s*|\s+gt\s+/
-     lessthan = /\s*<\s*|\s+lt\s+/
-     greaterequal = /\s*>=\s*|\s+(ge|gte)\s+/
-     lessequal = /\s*<=\s*|\s+(le|lte)\s+/
-     mod = /\s+mod\s+/
-     identity = /\s*===\s*/
-     noneidentity = /\s*!==\s*/
-     isoddby = /\s+is\s+odd\s+by\s+/
-     isnotoddby = /\s+is\s+not\s+odd\s+by\s+/
-     isodd = /\s+is\s+odd/
-     isnotodd = /\s+is\s+not\s+odd/
-     isevenby = /\s+is\s+even\s+by\s+/
-     isnotevenby = /\s+is\s+not\s+even\s+by\s+/
-     iseven = /\s+is\s+even/
-     isnoteven = /\s+is\s+not\s+even/
-     isdivby = /\s+is\s+div\s+by\s+/
-     isnotdivby = /\s+is\s+not\s+div\s+by\s+/
+     lop = /\s*(([!=][=]{1,2})|([<][=>]?)|([>][=]?)|[&|]{2})\s*/
+     tlop = /\s+(eq|ne|neg|gt|ge|gte|lt|le|lte|mod|and|or|xor|(is\s+(not\s+)?(odd|even|div)\s+by))\s+/
+     scond = /\s+is\s+(not\s+)?(odd|even)/
      isin = /\s+is\s+in\s+/
      as = /\s+as\s+/
      to = /\s+to\s+/
@@ -306,9 +290,6 @@ class Smarty_Internal_Templatelexer
      setfilter = /setfilter\s+/
      instanceof = /\s+instanceof\s+/
      not = /!\s*|not\s+/
-     land = /\s*\&\&\s*|\s*and\s+/
-     lor = /\s*\|\|\s*|\s*or\s+/
-     lxor = /\s*xor\s+/
      typecast = /\((int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)\)\s*/
      double_quote = /"/
      single_quote = /'/
@@ -480,75 +461,17 @@ class Smarty_Internal_Templatelexer
      instanceof {
        $this->token = Smarty_Internal_Templateparser::TP_INSTANCEOF;
      }
-     identity{
-       $this->token = Smarty_Internal_Templateparser::TP_IDENTITY;
+     lop {
+       $this->token = Smarty_Internal_Templateparser::TP_LOGOP;
      }
-     noneidentity{
-       $this->token = Smarty_Internal_Templateparser::TP_NONEIDENTITY;
+     tlop {
+       $this->token = Smarty_Internal_Templateparser::TP_TLOGOP;
      }
-     equals{
-       $this->token = Smarty_Internal_Templateparser::TP_EQUALS;
-     }
-     notequals{
-       $this->token = Smarty_Internal_Templateparser::TP_NOTEQUALS;
-     }
-     greaterequal{
-       $this->token = Smarty_Internal_Templateparser::TP_GREATEREQUAL;
-     }
-     lessequal{
-       $this->token = Smarty_Internal_Templateparser::TP_LESSEQUAL;
-     }
-     greaterthan{
-       $this->token = Smarty_Internal_Templateparser::TP_GREATERTHAN;
-     }
-     lessthan{
-       $this->token = Smarty_Internal_Templateparser::TP_LESSTHAN;
-     }
-     mod{
-       $this->token = Smarty_Internal_Templateparser::TP_MOD;
+     scond {
+       $this->token = Smarty_Internal_Templateparser::TP_SINGLECOND;
      }
      not{
        $this->token = Smarty_Internal_Templateparser::TP_NOT;
-     }
-     land {
-       $this->token = Smarty_Internal_Templateparser::TP_LAND;
-     }
-     lor {
-       $this->token = Smarty_Internal_Templateparser::TP_LOR;
-     }
-     lxor {
-       $this->token = Smarty_Internal_Templateparser::TP_LXOR;
-     }
-     isoddby {
-       $this->token = Smarty_Internal_Templateparser::TP_ISODDBY;
-     }
-     isnotoddby {
-       $this->token = Smarty_Internal_Templateparser::TP_ISNOTODDBY;
-     }
-
-     isodd  {
-       $this->token = Smarty_Internal_Templateparser::TP_ISODD;
-     }
-     isnotodd {
-       $this->token = Smarty_Internal_Templateparser::TP_ISNOTODD;
-     }
-     isevenby {
-       $this->token = Smarty_Internal_Templateparser::TP_ISEVENBY;
-     }
-     isnotevenby {
-       $this->token = Smarty_Internal_Templateparser::TP_ISNOTEVENBY;
-     }
-     iseven{
-       $this->token = Smarty_Internal_Templateparser::TP_ISEVEN;
-     }
-     isnoteven {
-       $this->token = Smarty_Internal_Templateparser::TP_ISNOTEVEN;
-     }
-     isdivby {
-       $this->token = Smarty_Internal_Templateparser::TP_ISDIVBY;
-     }
-     isnotdivby {
-       $this->token = Smarty_Internal_Templateparser::TP_ISNOTDIVBY;
      }
      typecast {
        $this->token = Smarty_Internal_Templateparser::TP_TYPECAST;
@@ -562,7 +485,6 @@ class Smarty_Internal_Templatelexer
      openB {
        $this->token = Smarty_Internal_Templateparser::TP_OPENB;
      }
-
      closeB {
        $this->token = Smarty_Internal_Templateparser::TP_CLOSEB;
      }

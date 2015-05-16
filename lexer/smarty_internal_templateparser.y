@@ -660,8 +660,11 @@ expr(res)        ::= expr(e) modifierlist(l). {
 
 // if expression
                     // simple expression
-expr(res)        ::= expr(e1) ifcond(c) expr(e2). {
-    res = e1.c.e2;
+expr(res)        ::= expr(e1) lop(c) expr(e2). {
+    res = (isset(c['pre']) ? c['pre'] : '') . e1.c['op'].e2 . (isset(c['pre']) ? ')' : '');
+}
+expr(res)        ::= expr(e1) scond(c). {
+    res = c . e1 . ')';
 }
 
 expr(res)        ::= expr(e1) ISIN array(a).  {
@@ -672,53 +675,9 @@ expr(res)        ::= expr(e1) ISIN value(v).  {
     res = 'in_array('.e1.',(array)'.v.')';
 }
 
-expr(res)        ::= expr(e1) lop(o) expr(e2).  {
-    res = e1.o.e2;
-}
-
-expr(res)        ::= expr(e1) ISDIVBY expr(e2). {
-    res = '!('.e1.' % '.e2.')';
-}
-
-expr(res)        ::= expr(e1) ISNOTDIVBY expr(e2).  {
-    res = '('.e1.' % '.e2.')';
-}
-
-expr(res)        ::= expr(e1) ISEVEN. {
-    res = '!(1 & '.e1.')';
-}
-
-expr(res)        ::= expr(e1) ISNOTEVEN.  {
-    res = '(1 & '.e1.')';
-}
-
-expr(res)        ::= expr(e1) ISEVENBY expr(e2).  {
-    res = '!(1 & '.e1.' / '.e2.')';
-}
-
-expr(res)        ::= expr(e1) ISNOTEVENBY expr(e2). {
-    res = '(1 & '.e1.' / '.e2.')';
-}
-
-expr(res)        ::= expr(e1) ISODD.  {
-    res = '(1 & '.e1.')';
-}
-
-expr(res)        ::= expr(e1) ISNOTODD. {
-    res = '!(1 & '.e1.')';
-}
-
-expr(res)        ::= expr(e1) ISODDBY expr(e2). {
-    res = '(1 & '.e1.' / '.e2.')';
-}
-
-expr(res)        ::= expr(e1) ISNOTODDBY expr(e2).  {
-    res = '!(1 & '.e1.' / '.e2.')';
-}
-
 expr(res)        ::= variable(v1) INSTANCEOF(i) ns1(v2). {
       res = v1.i.v2;
-    }
+}
 
 
 //
@@ -1199,52 +1158,45 @@ static_class_access(res)       ::= DOLLAR ID(v) arrayindex(a) objectchain(oc). {
 
 
 // if conditions and operators
-ifcond(res)        ::= EQUALS. {
-    res = '==';
+lop(res)        ::= LOGOP(o). {
+    res['op'] = ' '. trim(o) . ' ';
 }
 
-ifcond(res)        ::= NOTEQUALS. {
-    res = '!=';
+lop(res)        ::= TLOGOP(o). {
+    static $lops = array(
+        'eq' => array('op' => ' == ', 'pre' => null),
+        'ne' => array('op' => ' != ', 'pre' => null),
+        'neq' => array('op' => ' != ', 'pre' => null),
+        'gt' => array('op' => ' > ', 'pre' => null),
+        'ge' => array('op' => ' >= ', 'pre' => null),
+        'gte' => array('op' => ' >= ', 'pre' => null),
+        'lt' => array('op' => ' < ', 'pre' => null),
+        'le' => array('op' => ' <= ', 'pre' => null),
+        'lte' => array('op' => ' <= ', 'pre' => null),
+        'mod' => array('op' => ' % ', 'pre' => null),
+        'and' => array('op' => ' && ', 'pre' => null),
+        'or' => array('op' => ' || ', 'pre' => null),
+        'xor' => array('op' => ' xor ', 'pre' => null),
+        'isdivby' => array('op' => ' % ', 'pre' => '!('),
+        'isnotdivby' => array('op' => ' % ', 'pre' => '('),
+        'isevenby' => array('op' => ' / ', 'pre' => '!(1 & '),
+        'isnotevenby' => array('op' => ' / ', 'pre' => '(1 & '),
+        'isoddby' => array('op' => ' / ', 'pre' => '(1 & '),
+        'isnotoddby' => array('op' => ' / ', 'pre' => '!(1 & '),
+        );
+    $op = strtolower(str_replace(' ', '', o));
+    res = $lops[$op];
 }
 
-ifcond(res)        ::= GREATERTHAN. {
-    res = '>';
-}
-
-ifcond(res)        ::= LESSTHAN. {
-    res = '<';
-}
-
-ifcond(res)        ::= GREATEREQUAL. {
-    res = '>=';
-}
-
-ifcond(res)        ::= LESSEQUAL. {
-    res = '<=';
-}
-
-ifcond(res)        ::= IDENTITY. {
-    res = '===';
-}
-
-ifcond(res)        ::= NONEIDENTITY. {
-    res = '!==';
-}
-
-ifcond(res)        ::= MOD. {
-    res = '%';
-}
-
-lop(res)        ::= LAND. {
-    res = '&&';
-}
-
-lop(res)        ::= LOR. {
-    res = '||';
-}
-
-lop(res)        ::= LXOR. {
-    res = ' XOR ';
+scond(res)  ::= SINGLECOND(o). {
+        static $scond = array (
+            'iseven' => '!(1 & ',
+            'isnoteven' => '(1 & ',
+            'isodd' => '(1 & ',
+            'isnotodd' => '!(1 & ',
+        );
+   $op = strtolower(str_replace(' ', '', o));
+   res = $scond[$op];
 }
 
 //
