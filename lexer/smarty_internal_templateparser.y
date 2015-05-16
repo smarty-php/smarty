@@ -162,6 +162,25 @@ class Smarty_Internal_Templateparser
     {
         $this->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($this, $code));
     }
+
+   /**
+     *  merge PHP code with prefix code and return parse tree tag object
+     *
+     * @param string $code
+     *
+     * @return Smarty_Internal_ParseTree_Tag
+     */
+    public function mergePrefixCode($code)
+    {
+        $tmp ='';
+        foreach ($this->compiler->prefix_code as $preCode) {
+            $tmp = empty($tmp) ? $preCode : $this->compiler->appendCode($tmp, $preCode);
+        }
+        $this->compiler->prefix_code=array();
+        $tmp = empty($tmp) ? $code : $this->compiler->appendCode($tmp, $code);
+        return new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode($tmp,true));
+    }
+
 }
 
 %token_prefix TP_
@@ -222,12 +241,11 @@ template       ::= .
 //
                       // Smarty tag
 template_element(res)::= smartytag(st) RDEL. {
-    if ($this->compiler->has_code) {
-        $tmp =''; foreach ($this->compiler->prefix_code as $code) {$tmp.=$code;} $this->compiler->prefix_code=array();
-        res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode($tmp.st,true));
-    } else { 
-        res = null;
-    }  
+     if ($this->compiler->has_code) {
+         res = $this->mergePrefixCode(st);
+     } else {
+         res = null;
+     }
     $this->compiler->has_variable_string = false;
     $this->block_nesting_level = count($this->compiler->_tag_stack);
 } 
@@ -805,7 +823,8 @@ value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
                   // Smarty tag
 value(res)       ::= smartytag(st) RDEL. {
     self::$prefix_number++;
-    $this->compiler->prefix_code[] = '<?php ob_start();?>'.st.'<?php $_tmp'.self::$prefix_number.'=ob_get_clean();?>';
+    $tmp = $this->compiler->appendCode('<?php ob_start();?>', st);
+    $this->compiler->prefix_code[] = $this->compiler->appendCode($tmp, '<?php $_tmp'.self::$prefix_number.'=ob_get_clean();?>');
     res = '$_tmp'.self::$prefix_number;
 }
 
