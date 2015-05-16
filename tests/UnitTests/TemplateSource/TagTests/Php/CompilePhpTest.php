@@ -96,8 +96,8 @@ public function testPHP_REMOVE_php()
     public function testPHP_QUOTE_php()
     {
         $this->smarty->setPhpHandling(Smarty::PHP_QUOTE);
-        $content = $this->smarty->fetch("string:qa<?php echo 'hello world'; ?>qe");
-        $this->assertEquals("qa&lt;?php echo 'hello world'; ?&gt;qe", $content, 'qoute <?php ?>');
+        $content = $this->smarty->fetch("string:qa<?php echo 'hello world';\necho ' multiline'; ?>qe");
+        $this->assertEquals("qa&lt;?php echo 'hello world';\necho ' multiline'; ?&gt;qe", $content, 'qoute <?php ?>');
     }
     /**
      * test <%...%> tag
@@ -135,9 +135,9 @@ public function testPHP_REMOVE_php()
     public function testPHP_ALLOW_asp()
     {
         $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch("string:aa <% echo 'hello world';%> ae");
+        $content = $this->smartyBC->fetch("string:aa <% echo 'hello world';\n echo ' multiline';%> ae");
         if (ini_get('asp_tags')) {
-            $this->assertEquals('aa hello world ae', $content, 'allow <% %>');
+            $this->assertEquals('aa hello world multiline ae', $content, 'allow <% %>');
         } else {
             $this->assertEquals("aa <% echo 'hello world';%> ae", $content, 'allow asp disabled <% %>');
         }
@@ -149,8 +149,8 @@ public function testPHP_REMOVE_php()
     public function testPHP_ALLOW_script()
     {
         $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch("string:aa <script language='php'> echo 'hello world';</script> ae");
-        $this->assertEquals('aa hello world ae', $content, "allow <script language='php'>");
+        $content = $this->smartyBC->fetch("string:aa <script language='php'> echo 'hello world';\n echo ' multiline';</script> ae");
+        $this->assertEquals('aa hello world multiline ae', $content, "allow <script language='php'>");
     }
     /**
      * test <?php...\> tag
@@ -159,8 +159,8 @@ public function testPHP_REMOVE_php()
     public function testPHP_ALLOW_php2()
     {
         $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch("string:aa <?php echo '<?php'; ?> ae");
-        $this->assertEquals('aa <?php ae', $content);
+        $content = $this->smartyBC->fetch("string:aa <?php echo '<?php';\necho ' ?>'; ?> ae");
+        $this->assertEquals('aa <?php ?> ae', $content);
     }
     /**
      * test <?php...\> tag
