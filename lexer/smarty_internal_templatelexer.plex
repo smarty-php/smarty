@@ -234,10 +234,10 @@ class Smarty_Internal_Templatelexer
      all = /[\S\s]+/
      emptyjava = /\{\}/
      xmltag = /<\?xml\s+([\S\s]*?)\?>/
-     php = /(<\?(?:php\s+|=)?)((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*(.)*?\*\/)|.)*?)\?>/
-     phpscript = /<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*(.)*?\*\/)|.)*?)<\/script>/
-     phptag = /(SMARTYldel\s*php\s*(.)*?SMARTYrdel((.)*?)SMARTYldel\s*\/php\s*SMARTYrdel)|(SMARTYldel\s*[\/]?php\s*(.)*?SMARTYrdel)/
-     asp = /<%((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*(.)*?\*\/)|.)*?)%>/
+     php = /(<\?(?:php\s+|=)?)((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*[\S\s]*?\*\/)|[\S\s])*?)\?>/
+     phpscript = /<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*[\S\s]*?\*\/)|[\S\s])*?)<\/script>/
+     phptag = /(SMARTYldel\s*php\s*(.)*?SMARTYrdel([\S\s]*?)SMARTYldel\s*\/php\s*SMARTYrdel)|(SMARTYldel\s*[\/]?php\s*(.)*?SMARTYrdel)/
+     asp = /<%((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*[\S\s]*?\*\/)|[\S\s])*?)%>/
      unmatched = /(<(\?(?:php\s+|=)?|(script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)|%))|\?>|%>/
      slash = /\//
      ldel = /SMARTYldel\s*/
