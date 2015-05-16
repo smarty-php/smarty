@@ -703,9 +703,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function processText($text)
     {
-        if ($this->inheritance_child && !$this->blockTagNestingLevel) {
-            return null;
-        }
         if ($this->parser->strip) {
             return new Smarty_Internal_ParseTree_Text($this->parser, preg_replace($this->stripRegEx, '', $text));
         } else {
