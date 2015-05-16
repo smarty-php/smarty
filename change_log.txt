@@ -3,6 +3,7 @@
   - bugfix {php}{/php} did work just for single lines https://github.com/smarty-php/smarty/issues/33
   - improvement remove not needed ?><?php transitions from compiled code
   - improvement reduce number of lexer tokens on operators and if conditions
+  - improvement higher compilation speed by modified lexer/parser generator at "smarty/smarty-lexer"
  
  13.05.2015
   - improvement remove not needed ?><?php transitions from compiled code

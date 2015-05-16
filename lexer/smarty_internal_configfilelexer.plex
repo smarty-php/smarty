@@ -91,6 +91,19 @@ class Smarty_Internal_Configfilelexer
      * @var array
      */
     public $state_name = array(1 => 'START', 2 => 'VALUE', 3 => 'NAKED_STRING_VALUE', 4 => 'COMMENT', 5 => 'SECTION', 6 => 'TRIPPLE');
+
+    /**
+     * storage for assembled token patterns
+     *
+     * @var sring
+     */
+    private $yy_global_pattern1 = null;
+    private $yy_global_pattern2 = null;
+    private $yy_global_pattern3 = null;
+    private $yy_global_pattern4 = null;
+    private $yy_global_pattern5 = null;
+    private $yy_global_pattern6 = null;
+
     /**
      * token names
      *

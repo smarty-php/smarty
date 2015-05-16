@@ -132,26 +132,29 @@ class Smarty_Internal_Templatelexer
      *
      * @var array
      */
-    public $state_name = array(1 => 'TEXT', 2 => 'SMARTY', 3 => 'LITERAL', 4 => 'DOUBLEQUOTEDSTRING', 5 => 'CHILDBODY');
+    public $state_name = array(1 => 'TEXT', 2 => 'SMARTY', 3 => 'LITERAL', 4 => 'DOUBLEQUOTEDSTRING',
+            5 => 'CHILDBODY', 6 => 'CHILDBLOCK', 7 => 'CHILDLITERAL');
+
+    /**
+     * storage for assembled token patterns
+     *
+     * @var sring
+     */
+    private $yy_global_pattern1 = null;
+    private $yy_global_pattern2 = null;
+    private $yy_global_pattern3 = null;
+    private $yy_global_pattern4 = null;
+    private $yy_global_pattern5 = null;
+    private $yy_global_pattern6 = null;
+    private $yy_global_pattern7 = null;
+
     /**
      * token names
      *
      * @var array
      */
-    public $smarty_token_names = array(        // Text for parser error messages
-                                               'IDENTITY'        => '===',
-                                               'NONEIDENTITY'    => '!==',
-                                               'EQUALS'          => '==',
-                                               'NOTEQUALS'       => '!=',
-                                               'GREATEREQUAL'    => '(>=,ge)',
-                                               'LESSEQUAL'       => '(<=,le)',
-                                               'GREATERTHAN'     => '(>,gt)',
-                                               'LESSTHAN'        => '(<,lt)',
-                                               'MOD'             => '(%,mod)',
+   public $smarty_token_names = array(        // Text for parser error messages
                                                'NOT'             => '(!,not)',
-                                               'LAND'            => '(&&,and)',
-                                               'LOR'             => '(||,or)',
-                                               'LXOR'            => 'xor',
                                                'OPENP'           => '(',
                                                'CLOSEP'          => ')',
                                                'OPENB'           => '[',
@@ -172,22 +175,21 @@ class Smarty_Internal_Templatelexer
                                                'HATCH'           => '#',
                                                'QUOTE'           => '"',
                                                'BACKTICK'        => '`',
-                                               'VERT'            => '|',
+                                               'VERT'            => '"|" modifier',
                                                'DOT'             => '.',
                                                'COMMA'           => '","',
-                                               'ANDSYM'          => '"&"',
                                                'QMARK'           => '"?"',
-                                               'ID'              => 'identifier',
+                                               'ID'              => 'id, name',
                                                'TEXT'            => 'text',
-                                               'FAKEPHPSTARTTAG' => 'Fake PHP start tag',
-                                               'PHPSTARTTAG'     => 'PHP start tag',
-                                               'PHPENDTAG'       => 'PHP end tag',
-                                               'LITERALSTART'    => 'Literal start',
-                                               'LITERALEND'      => 'Literal end',
-                                               'LDELSLASH'       => 'closing tag',
+                                               'LDELSLASH'       => '{/..} closing tag',
+                                               'LDEL'            => '{...} Smarty tag',
                                                'COMMENT'         => 'comment',
                                                'AS'              => 'as',
                                                'TO'              => 'to',
+                                               'PHP'             => '"<?php", "<%", "{php}" tag',
+                                               'LOGOP'           => '"<", "==" ... logical operator',
+                                               'TLOGOP'           => '"lt", "eq" ... logical operator; "is div by" ... if condition',
+                                               'SCOND'           => '"is even" ... if condition',
     );
 
     /**
