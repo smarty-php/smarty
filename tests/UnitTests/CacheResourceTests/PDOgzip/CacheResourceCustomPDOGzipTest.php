@@ -18,7 +18,7 @@ class CacheResourceCustomPDOGzipTest extends CacheResourceTestCommon
 
     public function setUp($dir = null, $clear = true)
     {
-        if (PdoGzipCacheEnable != truw) {
+        if (PdoGzipCacheEnable != true) {
             $this->markTestSkipped('mysql Pdo Gzip tests are disabled');
         }
         if (self::$init) {
