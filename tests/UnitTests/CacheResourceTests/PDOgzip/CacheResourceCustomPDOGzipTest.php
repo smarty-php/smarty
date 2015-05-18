@@ -18,7 +18,7 @@ class CacheResourceCustomPDOGzipTest extends CacheResourceTestCommon
 
     public function setUp($dir = null, $clear = true)
     {
-        if (self::$config['cacheResource']['PdoGzipEnable'] != 'true') {
+        if (PdoGzipCacheEnable != truw) {
             $this->markTestSkipped('mysql Pdo Gzip tests are disabled');
         }
         if (self::$init) {
@@ -38,3 +38,4 @@ class CacheResourceCustomPDOGzipTest extends CacheResourceTestCommon
         $this->initMysqlCache();
     }
 }
+

@@ -22,7 +22,7 @@ class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
      */
     public function setUp()
     {
-        if (self::$config['cacheResource']['MemcacheEnable'] != 'true') {
+        if (MemCacheEnable != true) {
             $this->markTestSkipped('Memcache tests are disabled');
         } else {
             if (!class_exists('Memcache')) {
@@ -33,7 +33,6 @@ class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
         parent::setUp();
         $this->smarty->setCachingType('memcachetest');
     }
-
 
     public function testInit()
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Smarty PHPunit tests for cache resource file
+ * Smarty PHPunit tests for cache resource Pdo
  *
  * @package PHPunit
  * @author  Uwe Tews
@@ -18,7 +18,7 @@ class CacheResourceCustomPDOTest extends CacheResourceTestCommon
 
     public function setUp($dir = null, $clear = true)
     {
-        if (self::$config['cacheResource']['PdoEnable'] != 'true') {
+        if (PdoCacheEnable != true) {
             $this->markTestSkipped('mysql Pdo tests are disabled');
         }
         if (self::$init) {
@@ -38,3 +38,4 @@ class CacheResourceCustomPDOTest extends CacheResourceTestCommon
         $this->initMysqlCache();
     }
 }
+

@@ -1,12 +1,13 @@
 <?php
 /**
- * Smarty PHPunit tests for cache resource file
+ * Smarty PHPunit tests for cache resource mysql
  *
  * @package PHPunit
  * @author  Uwe Tews
  */
 
 include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
+
 /**
  * class for cache resource file tests
  *
@@ -17,7 +18,7 @@ class CacheResourceCustomMysqlTest extends CacheResourceTestCommon
 
     public function setUp()
     {
-        if (self::$config['cacheResource']['MysqlEnable'] != 'true') {
+        if (MysqlCacheEnable != true) {
             $this->markTestSkipped('mysql tests are disabled');
         }
         if (self::$init) {
@@ -34,3 +35,4 @@ class CacheResourceCustomMysqlTest extends CacheResourceTestCommon
         $this->initMysqlCache();
     }
 }
+

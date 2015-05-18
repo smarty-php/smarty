@@ -15,20 +15,20 @@ class ResourcePluginTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
-        if (self::$config['cacheResource']['MysqlEnable'] != 'true') {
+        if (MysqlResourceEnable != true) {
             $this->markTestSkipped('mysql tests are disabled');
         }
         if (self::$init) {
             $this->getConnection();
         }
         $this->setUpSmarty(__DIR__);
-     }
-
+    }
 
     public function testInit()
     {
         $this->cleanDirs();
     }
+
     /**
      * test resource plugin rendering
      */
@@ -58,7 +58,6 @@ class ResourcePluginTest extends PHPUnit_Smarty
         $this->assertEquals('hello world', $this->smarty->fetch('db2a:test'));
     }
 
-
     /**
      * test resource plugin non-existent compiled cache of a recompiling resource
      */
@@ -71,7 +70,6 @@ class ResourcePluginTest extends PHPUnit_Smarty
         $this->assertFalse($tpl->compiled->filepath);
     }
 
-
     /**
      * test resource plugin timestamp
      */
@@ -82,5 +80,5 @@ class ResourcePluginTest extends PHPUnit_Smarty
         $this->assertTrue(is_integer($tpl->source->timestamp));
         $this->assertEquals(10, strlen($tpl->source->timestamp));
     }
+}
 
- }

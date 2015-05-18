@@ -82,16 +82,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
     {
         error_reporting(E_ALL | E_STRICT);
         self::$init = true;
-        //self::$pdo = null;
-        if (self::$config == null) {
-            $xml = simplexml_load_file(__DIR__ . '/config.xml');
-            $json_string = json_encode($xml);
-            self::$config = json_decode($json_string, true);
-            if (empty(self::$config['mysql']['DB_PASSWD'])) {
-                self::$config['mysql']['DB_PASSWD'] = null;
-            }
-        }
-    }
+     }
 
     /**
      * This method is called after the last test of this test class is run.
@@ -133,7 +124,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
             if (!is_dir($dir . '/configs')) {
                 mkdir($dir . '/configs');
             }
-            if (self::$config['individualFolders'] != 'true') {
+            if (individualFolders != 'true') {
                 $dir = __DIR__;
             }
             if (!is_dir($dir . '/templates_c')) {
@@ -150,7 +141,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
         // instance Smarty class
         if ($this->loadSmarty) {
             $this->smarty = new Smarty;
-            if (self::$config['individualFolders'] != 'true') {
+            if (individualFolders != 'true') {
                 $this->smarty->setCompileDir(__DIR__ . '/templates_c');
                 $this->smarty->setCacheDir(__DIR__ . '/cache');
             }
@@ -158,7 +149,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
         // instance SmartyBC class
         if ($this->loadSmartyBC) {
             $this->smartyBC = new SmartyBC;
-            if (self::$config['individualFolders'] != 'true') {
+            if (individualFolders != 'true') {
                 $this->smartyBC->setCompileDir(__DIR__ . '/templates_c');
                 $this->smartyBC->setCacheDir(__DIR__ . '/cache');
             }
@@ -173,7 +164,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
     {
         if (PHPUnit_Smarty::$pdo == null) {
             try {
-                PHPUnit_Smarty::$pdo = new PDO(self::$config['mysql']['DB_DSN'], self::$config['mysql']['DB_USER'], self::$config['mysql']['DB_PASSWD']);
+                PHPUnit_Smarty::$pdo = new PDO(DB_DSN, DB_USER, DB_PASSWD);
             }
             catch (PDOException $e) {
                 throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());

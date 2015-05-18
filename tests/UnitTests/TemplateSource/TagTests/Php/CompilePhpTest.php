@@ -292,8 +292,8 @@ public function testPHP_REMOVE_php()
      */
     public function testPHP_Tag_Literal()
     {
-        $content = $this->smartyBC->fetch("string:aa { php} echo 'hallo'; {/php} ae");
-        $this->assertEquals('aa { php} echo \'hallo\'; {/php} ae', $content);
+        $content = $this->smartyBC->fetch("string:aa { php} echo 'hallo'; { /php} ae");
+        $this->assertEquals('aa { php} echo \'hallo\'; { /php} ae', $content);
     }
     /**
      * test unmatched {php} tag
