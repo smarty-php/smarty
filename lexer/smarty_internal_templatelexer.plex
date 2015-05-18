@@ -132,8 +132,8 @@ class Smarty_Internal_Templatelexer
      *
      * @var array
      */
-    public $state_name = array(1 => 'TEXT', 2 => 'SMARTY', 3 => 'LITERAL', 4 => 'DOUBLEQUOTEDSTRING',
-            5 => 'CHILDBODY', 6 => 'CHILDBLOCK', 7 => 'CHILDLITERAL');
+    public $state_name = array(1 => 'TEXT', 2 => 'TAG', 3 => 'TAGBODY', 4 => 'LITERAL', 5 => 'DOUBLEQUOTEDSTRING',
+            6 => 'CHILDBODY', 7 => 'CHILDBLOCK', 8 => 'CHILDLITERAL');
 
     /**
      * storage for assembled token patterns
@@ -147,6 +147,7 @@ class Smarty_Internal_Templatelexer
     private $yy_global_pattern5 = null;
     private $yy_global_pattern6 = null;
     private $yy_global_pattern7 = null;
+    private $yy_global_pattern8 = null;
 
     /**
      * token names
@@ -231,7 +232,6 @@ class Smarty_Internal_Templatelexer
      linebreak = /[\t ]*[\r\n]+[\t ]*/
      text = /[\S\s]/
      textdoublequoted = /([^"\\]*?)((?:\\.[^"\\]*?)*?)(?=(SMARTYldel|\$|`\$|"))/
-     dollarid = /\$[0-9]*[a-zA-Z_]\w*/
      namespace = /([0-9]*[a-zA-Z_]\w*)?(\\[0-9]*[a-zA-Z_]\w*)+/
      all = /[\S\s]+/
      emptyjava = /\{\}/
@@ -244,6 +244,8 @@ class Smarty_Internal_Templatelexer
      slash = /\//
      ldel = /SMARTYldel\s*/
      rdel = /\s*SMARTYrdel/
+     nocacherdel = /(\s+nocache)?\s*SMARTYrdel/
+     notblockid = /(?:(?!block)[0-9]*[a-zA-Z_]\w*)/
      smartyblockchildparent = /[\$]smarty\.block\.(child|parent)/
      integer = /\d+/
      hex =  /0[xX][0-9a-fA-F]+/
@@ -262,16 +264,14 @@ class Smarty_Internal_Templatelexer
      colon = /\s*\:\s*/
      at = /@/
      hatch = /#/
-     semicolon = /\s*\;/
+     semicolon = /\s*\;\s*/
      equal = /\s*=\s*/
      space = /\s+/
      ptr = /\s*\->\s*/
      aptr = /\s*=>\s*/
      singlequotestring = /'[^'\\]*(?:\\.[^'\\]*)*'/
      backtick = /`/
-     backtickdollar = /`\$/
      vert = /\|/
-     andsym = /\s*\&\s*/
      qmark = /\s*\?\s*/
      constant = /([_]+[A-Z0-9][0-9A-Z_]*|[A-Z][0-9A-Z_]*)(?![0-9A-Z_]*[a-z])/
      attr = /\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\s*=\s*/
@@ -304,20 +304,6 @@ class Smarty_Internal_Templatelexer
      comment {
        $this->token = Smarty_Internal_Templateparser::TP_COMMENT;
      }
-     ldel strip rdel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false)  {
-         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-         $this->token = Smarty_Internal_Templateparser::TP_STRIPON;
-       }
-     }
-     ldel slash strip rdel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-         $this->token = Smarty_Internal_Templateparser::TP_STRIPOFF;
-       }
-     }
      ldel literal rdel {
        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
           $this->token = Smarty_Internal_Templateparser::TP_TEXT;
@@ -326,67 +312,12 @@ class Smarty_Internal_Templatelexer
          $this->yypushstate(self::LITERAL);
         }
      }
-     ldel if {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDELIF;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
-       }
-     }
-     ldel for {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDELFOR;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
-       }
-     }
-     ldel foreach {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDELFOREACH;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
-       }
-     }
-     ldel setfilter {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDELSETFILTER;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
-       }
-     }
-     phptag {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_PHP;
-          $this->phpType = 'tag';
-          $this->taglineno = $this->line;
-       }
-     }
-     ldel slash {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-         $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
-         $this->yypushstate(self::SMARTY);
-         $this->taglineno = $this->line;
-       }
-     }
      ldel {
        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
        } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDEL;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
+          $this->yypushstate(self::TAG);
+          return true;
        }
      }
      rdel {
@@ -425,11 +356,67 @@ class Smarty_Internal_Templatelexer
        $this->value = substr($this->data,$this->counter,$to-$this->counter);
        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
-
-
      */
      /*!lex2php
-     %statename SMARTY
+     %statename TAG
+     ldel if {
+          $this->token = Smarty_Internal_Templateparser::TP_LDELIF;
+          $this->yybegin(self::TAGBODY);
+          $this->taglineno = $this->line;
+     }
+     ldel for {
+          $this->token = Smarty_Internal_Templateparser::TP_LDELFOR;
+          $this->yybegin(self::TAGBODY);
+          $this->taglineno = $this->line;
+     }
+     ldel foreach {
+          $this->token = Smarty_Internal_Templateparser::TP_LDELFOREACH;
+          $this->yybegin(self::TAGBODY);
+          $this->taglineno = $this->line;
+     }
+     ldel setfilter {
+          $this->token = Smarty_Internal_Templateparser::TP_LDELSETFILTER;
+          $this->yybegin(self::TAGBODY);
+          $this->taglineno = $this->line;
+     }
+     phptag {
+          $this->yypopstate();
+          $this->token = Smarty_Internal_Templateparser::TP_PHP;
+          $this->phpType = 'tag';
+          $this->taglineno = $this->line;
+     }
+     ldel id nocacherdel {
+          $this->yypopstate();
+          $this->token = Smarty_Internal_Templateparser::TP_SIMPLETAG;
+          $this->taglineno = $this->line;
+     }
+     ldel slash notblockid rdel {
+         $this->yypopstate();
+         $this->token = Smarty_Internal_Templateparser::TP_CLOSETAG;
+         $this->taglineno = $this->line;
+     }
+     ldel dollar id nocacherdel {
+          $this->yypopstate();
+          $this->token = Smarty_Internal_Templateparser::TP_SIMPELOUTPUT;
+          $this->taglineno = $this->line;
+     }
+     ldel slash {
+         $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
+         $this->yybegin(self::TAGBODY);
+         $this->taglineno = $this->line;
+     }
+     ldel {
+          $this->token = Smarty_Internal_Templateparser::TP_LDEL;
+          $this->yybegin(self::TAGBODY);
+          $this->taglineno = $this->line;
+     }
+     */
+     /*!lex2php
+     %statename TAGBODY     
+     rdel {
+       $this->token = Smarty_Internal_Templateparser::TP_RDEL;
+       $this->yypopstate();
+     }
      double_quote {
        $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
        $this->yypushstate(self::DOUBLEQUOTEDSTRING);
@@ -441,12 +428,11 @@ class Smarty_Internal_Templatelexer
           $this->token = Smarty_Internal_Templateparser::TP_SMARTYBLOCKCHILDPARENT;
           $this->taglineno = $this->line;
      }
+     dollar id {
+       $this->token = Smarty_Internal_Templateparser::TP_DOLLARID;
+     }
      dollar {
        $this->token = Smarty_Internal_Templateparser::TP_DOLLAR;
-     }
-     rdel {
-       $this->token = Smarty_Internal_Templateparser::TP_RDEL;
-       $this->yypopstate();
      }
      isin {
        $this->token = Smarty_Internal_Templateparser::TP_ISIN;
@@ -555,9 +541,6 @@ class Smarty_Internal_Templatelexer
      colon {
        $this->token = Smarty_Internal_Templateparser::TP_COLON;
      }
-     andsym {
-       $this->token = Smarty_Internal_Templateparser::TP_ANDSYM;
-     }
      qmark {
        $this->token = Smarty_Internal_Templateparser::TP_QMARK;
      }
@@ -567,49 +550,12 @@ class Smarty_Internal_Templatelexer
      space {
        $this->token = Smarty_Internal_Templateparser::TP_SPACE;
      }
-     ldel if {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDELIF;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
-       }
-     }
-     ldel for {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDELFOR;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
-       }
-     }
-     ldel foreach {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDELFOREACH;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
-       }
-     }
-     ldel slash {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-         $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
-         $this->yypushstate(self::SMARTY);
-         $this->taglineno = $this->line;
-       }
-     }
      ldel {
        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
        } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDEL;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
+          $this->yypushstate(self::TAG);
+          return true;
        }
      }
      text {
@@ -646,72 +592,50 @@ class Smarty_Internal_Templatelexer
      */
      /*!lex2php
      %statename DOUBLEQUOTEDSTRING
-     ldel if {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDELIF;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
-       }
-     }
-     ldel for {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDELFOR;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
-       }
-     }
-     ldel foreach {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->token = Smarty_Internal_Templateparser::TP_LDELFOREACH;
-          $this->yypushstate(self::SMARTY);
-          $this->taglineno = $this->line;
-       }
-     }
      ldel literal rdel {
          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
      ldel slash literal rdel {
          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
-
      ldel slash {
        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
        } else {
-         $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
-         $this->yypushstate(self::SMARTY);
-         $this->taglineno = $this->line;
+          $this->yypushstate(self::TAG);
+          return true;
+       }
+     }
+     ldel id {
+       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
+          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+       } else {
+          $this->yypushstate(self::TAG);
+          return true;
        }
      }
      ldel {
        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
        } else {
           $this->token = Smarty_Internal_Templateparser::TP_LDEL;
-          $this->yypushstate(self::SMARTY);
           $this->taglineno = $this->line;
+          $this->yypushstate(self::TAGBODY);
        }
      }
      double_quote {
        $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
        $this->yypopstate();
      }
-     backtickdollar {
+     backtick dollar {
        $this->token = Smarty_Internal_Templateparser::TP_BACKTICK;
        $this->value = substr($this->value,0,-1);
-       $this->yypushstate(self::SMARTY);
+       $this->yypushstate(self::TAGBODY);
        $this->taglineno = $this->line;
      }
-     dollarid {
+     dollar id {
        $this->token = Smarty_Internal_Templateparser::TP_DOLLARID;
      }
-
      dollar {
        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
