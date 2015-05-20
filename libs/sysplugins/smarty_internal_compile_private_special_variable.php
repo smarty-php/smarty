@@ -35,7 +35,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                 case 'foreach':
                     $name = trim($_index[1], "'");
                     $foreachVar = "'__foreach_{$name}'";
-                    return "isset(\$_smarty_tpl->tpl_vars[$foreachVar]->value[{$_index[2]}]) ? \$_smarty_tpl->tpl_vars[$foreachVar]->value[{$_index[2]}] : null";
+                    return "(isset(\$_smarty_tpl->tpl_vars[$foreachVar]->value[{$_index[2]}]) ? \$_smarty_tpl->tpl_vars[$foreachVar]->value[{$_index[2]}] : null)";
                 case 'section':
                     return "\$_smarty_tpl->getVariable('smarty')->value$parameter";
                 case 'capture':
