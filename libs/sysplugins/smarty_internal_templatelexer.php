@@ -255,7 +255,7 @@ class Smarty_Internal_Templatelexer
     public function yylex1()
     {
         if (!isset($this->yy_global_pattern1)) {
-            $this->yy_global_pattern1 = "/\G(\\{\\})|\G(" . $this->ldel . "\\*([\S\s]*?)\\*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*)|\G(\\s*" . $this->rdel . ")|\G(<\\?xml\\s+([\S\s]*?)\\?>)|\G(<%((('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\")|(\/\\*[\S\s]*?\\*\/)|[\S\s])*?)%>)|\G((<\\?(?:php\\s+|=)?)((('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\")|(\/\\*[\S\s]*?\\*\/)|[\S\s])*?)\\?>)|\G(<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>((('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\")|(\/\\*[\S\s]*?\\*\/)|[\S\s])*?)<\/script>)|\G((<(\\?(?:php\\s+|=)?|(script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|%))|\\?>|%>)|\G([\S\s])/iS";
+            $this->yy_global_pattern1 = "/\G(\\{\\})|\G(" . $this->ldel . "[*]((?:(?![*]" . $this->rdel . ")[\S\s][^*]*))*[*]" . $this->rdel . ")|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*)|\G(\\s*" . $this->rdel . ")|\G(<[?]xml\\s+([\S\s]*?)[?]>)|\G(<[%]((?:(?![%]>)[^\/][^%'\"\/]*)(([\/][*](?:(?![*][\/])[\S\s][^*]*)*[*][\/])|([\/][\/][^\n]*)|('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"))*)*[%]>)|\G(<[?](?:php(?=[\s=]))?((?:(?![?]>)[^\/][^?'\"\/]*)(([\/][*](?:(?![*][\/])[\S\s][^*]*)*[*][\/])|([\/][\/][^\n]*)|('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"))*)*[?]>)|\G(<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>((?:(?!<\/script>)[^\/][^<'\"\/]*)(([\/][*](?:(?![*][\/])[\S\s][^*]*)*[*][\/])|([\/][\/][^\n]*)|('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"))*)*<\/script>)|\G(((<[?](?:php\\s+|=)?)|(<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*[>])|<[%]|[?][>]|[%][>]))|\G([\S\s])/iS";
         }
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
@@ -354,7 +354,7 @@ class Smarty_Internal_Templatelexer
         $this->token = Smarty_Internal_Templateparser::TP_PHP;
     }
 
-    function yy_r1_15()
+    function yy_r1_16()
     {
 
         $this->phpType = 'php';
@@ -362,7 +362,7 @@ class Smarty_Internal_Templatelexer
         $this->token = Smarty_Internal_Templateparser::TP_PHP;
     }
 
-    function yy_r1_22()
+    function yy_r1_23()
     {
 
         $this->phpType = 'script';
@@ -370,7 +370,7 @@ class Smarty_Internal_Templatelexer
         $this->token = Smarty_Internal_Templateparser::TP_PHP;
     }
 
-    function yy_r1_28()
+    function yy_r1_30()
     {
 
         $this->phpType = 'unmatched';
@@ -378,11 +378,11 @@ class Smarty_Internal_Templatelexer
         $this->token = Smarty_Internal_Templateparser::TP_PHP;
     }
 
-    function yy_r1_32()
+    function yy_r1_34()
     {
 
         $to = strlen($this->data);
-        preg_match("/{$this->ldel}|<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
+        preg_match("/{$this->ldel}|<[?]|<%|[?]>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
         if (isset($match[0][1])) {
             $to = $match[0][1];
         }
@@ -393,7 +393,7 @@ class Smarty_Internal_Templatelexer
     public function yylex2()
     {
         if (!isset($this->yy_global_pattern2)) {
-            $this->yy_global_pattern2 = "/\G(" . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" . $this->ldel . "\\s*foreach(?![^\s]))|\G(" . $this->ldel . "\\s*setfilter\\s+)|\G((" . $this->ldel . "\\s*php\\s*(.)*?" . $this->rdel . "([\S\s]*?)" . $this->ldel . "\\s*\/php\\s*" . $this->rdel . ")|(" . $this->ldel . "\\s*[\/]?php\\s*(.)*?" . $this->rdel . "))|\G(" . $this->ldel . "\\s*[0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/(?:(?!block)[0-9]*[a-zA-Z_]\\w*)\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\\$[0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/)|\G(" . $this->ldel . "\\s*)/iS";
+            $this->yy_global_pattern2 = "/\G(" . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" . $this->ldel . "\\s*foreach(?![^\s]))|\G(" . $this->ldel . "\\s*setfilter\\s+)|\G(((" . $this->ldel . "\\s*php\\s*(.)*?" . $this->rdel . ")((?:(?!(" . $this->ldel . "\\s*[\/]php\\s*" . $this->rdel . "))[^\/{][^" . preg_quote($this->smarty->left_delimiter[0]) . "'\"\/]*)(([\/][*](?:(?![*][\/])[\S\s][^*]*)*[*][\/])|([\/][\/][^\n]*)|('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"))*)*(" . $this->ldel . "\\s*[\/]php\\s*" . $this->rdel . ")?)|(" . $this->ldel . "\\s*[\/]?php\\s*" . $this->rdel . "))|\G(" . $this->ldel . "\\s*[0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/(?:(?!block)[0-9]*[a-zA-Z_]\\w*)\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\\$[0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*\/)|\G(" . $this->ldel . "\\s*)/iS";
         }
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
@@ -478,7 +478,7 @@ class Smarty_Internal_Templatelexer
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_12()
+    function yy_r2_19()
     {
 
         $this->yypopstate();
@@ -486,7 +486,7 @@ class Smarty_Internal_Templatelexer
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_14()
+    function yy_r2_21()
     {
 
         $this->yypopstate();
@@ -494,7 +494,7 @@ class Smarty_Internal_Templatelexer
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_15()
+    function yy_r2_22()
     {
 
         $this->yypopstate();
@@ -502,7 +502,7 @@ class Smarty_Internal_Templatelexer
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_17()
+    function yy_r2_24()
     {
 
         $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
@@ -510,7 +510,7 @@ class Smarty_Internal_Templatelexer
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_18()
+    function yy_r2_25()
     {
 
         $this->token = Smarty_Internal_Templateparser::TP_LDEL;
@@ -521,7 +521,7 @@ class Smarty_Internal_Templatelexer
     public function yylex3()
     {
         if (!isset($this->yy_global_pattern3)) {
-            $this->yy_global_pattern3 = "/\G(\\s*" . $this->rdel . ")|\G(\")|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|\G([$]smarty\\.block\\.(child|parent))|\G(\\$[0-9]*[a-zA-Z_]\\w*)|\G(\\$)|\G(\\s+is\\s+in\\s+)|\G(\\s+as\\s+)|\G(\\s+to\\s+)|\G(\\s+step\\s+)|\G(\\s+instanceof\\s+)|\G(\\s*(([!=][=]{1,2})|([<][=>]?)|([>][=]?)|[&|]{2})\\s*)|\G(\\s+(eq|ne|neg|gt|ge|gte|lt|le|lte|mod|and|or|xor|(is\\s+(not\\s+)?(odd|even|div)\\s+by))\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even))|\G(!\\s*|not\\s+)|\G(\\((int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)\\)\\s*)|\G(\\s*\\(\\s*)|\G(\\s*\\))|\G(\\[\\s*)|\G(\\s*\\])|\G(\\s*->\\s*)|\G(\\s*=>\\s*)|\G(\\s*=\\s*)|\G(\\+\\+|--)|\G(\\s*(\\+|-)\\s*)|\G(\\s*([*]{1,2}|[%\/^&]|[<>]{2})\\s*)|\G(@)|\G(#)|\G(\\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\\s*=\\s*)|\G(([0-9]*[a-zA-Z_]\\w*)?(\\\\[0-9]*[a-zA-Z_]\\w*)+)|\G([0-9]*[a-zA-Z_]\\w*)|\G(\\d+)|\G(`)|\G(\\|)|\G(\\.)|\G(\\s*,\\s*)|\G(\\s*;\\s*)|\G(::)|\G(\\s*:\\s*)|\G(\\s*\\?\\s*)|\G(0[xX][0-9a-fA-F]+)|\G(\\s+)|\G(" . $this->ldel . "\\s*)|\G([\S\s])/iS";
+            $this->yy_global_pattern3 = "/\G(\\s*" . $this->rdel . ")|\G(\")|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|\G([$]smarty\\.block\\.(child|parent))|\G(\\$[0-9]*[a-zA-Z_]\\w*)|\G(\\$)|\G(\\s+is\\s+in\\s+)|\G(\\s+as\\s+)|\G(\\s+to\\s+)|\G(\\s+step\\s+)|\G(\\s+instanceof\\s+)|\G(\\s*(([!=][=]{1,2})|([<][=>]?)|([>][=]?)|[&|]{2})\\s*)|\G(\\s+(eq|ne|neg|gt|ge|gte|lt|le|lte|mod|and|or|xor|(is\\s+(not\\s+)?(odd|even|div)\\s+by))\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even))|\G(!\\s*|not\\s+)|\G(\\((int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)\\)\\s*)|\G(\\s*\\(\\s*)|\G(\\s*\\))|\G(\\[\\s*)|\G(\\s*\\])|\G(\\s*->\\s*)|\G(\\s*=>\\s*)|\G(\\s*=\\s*)|\G(\\+\\+|--)|\G(\\s*(\\+|-)\\s*)|\G(\\s*([*]{1,2}|[%\/^&]|[<>]{2})\\s*)|\G(@)|\G(#)|\G(\\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\\s*=\\s*)|\G(([0-9]*[a-zA-Z_]\\w*)?(\\\\[0-9]*[a-zA-Z_]\\w*)+)|\G([0-9]*[a-zA-Z_]\\w*)|\G(\\d+)|\G(`)|\G(\\|)|\G(\\.)|\G(\\s*,\\s*)|\G(\\s*;\\s*)|\G(::)|\G(\\s*:\\s*)|\G(\\s*[?]\\s*)|\G(0[xX][0-9a-fA-F]+)|\G(\\s+)|\G(" . $this->ldel . "\\s*)|\G([\S\s])/iS";
         }
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input

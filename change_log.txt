@@ -2,6 +2,7 @@
  19.05.2015
   - bugfix compiler did overwrite existing variable value when setting the nocache attribute https://github.com/smarty-php/smarty/issues/39
   - bugfix output filter trimwhitespace could run into the pcre.backtrack_limit on large output (code.google issue 220)
+  - bugfix compiler could run into the pcre.backtrack_limit on larger comment or {php} tag sections (forum 25538)
 
  18.05.2015
   - improvement introduce shortcuts in lexer/parser rules for most frequent terms for higher

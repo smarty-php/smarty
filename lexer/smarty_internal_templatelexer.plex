@@ -235,12 +235,12 @@ class Smarty_Internal_Templatelexer
      namespace = /([0-9]*[a-zA-Z_]\w*)?(\\[0-9]*[a-zA-Z_]\w*)+/
      all = /[\S\s]+/
      emptyjava = /\{\}/
-     xmltag = /<\?xml\s+([\S\s]*?)\?>/
-     php = /(<\?(?:php\s+|=)?)((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*[\S\s]*?\*\/)|[\S\s])*?)\?>/
-     phpscript = /<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*[\S\s]*?\*\/)|[\S\s])*?)<\/script>/
-     phptag = /(SMARTYldel\s*php\s*(.)*?SMARTYrdel([\S\s]*?)SMARTYldel\s*\/php\s*SMARTYrdel)|(SMARTYldel\s*[\/]?php\s*(.)*?SMARTYrdel)/
-     asp = /<%((('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*")|(\/\*[\S\s]*?\*\/)|[\S\s])*?)%>/
-     unmatched = /(<(\?(?:php\s+|=)?|(script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)|%))|\?>|%>/
+     xmltag = /<[?]xml\s+([\S\s]*?)[?]>/
+     php = #<[?](?:php(?=[\s=]))?((?:(?![?]>)[^/][^?'"/]*)(([/][*](?:(?![*][/])[\S\s][^*]*)*[*][/])|([/][/][^\n]*)|('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*"))*)*[?]>#
+     asp = #<[%]((?:(?![%]>)[^/][^%'"/]*)(([/][*](?:(?![*][/])[\S\s][^*]*)*[*][/])|([/][/][^\n]*)|('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*"))*)*[%]>#
+     phpscript = #<script\s+language\s*=\s*["']?\s*php\s*["']?\s*>((?:(?!</script>)[^/][^<'"/]*)(([/][*](?:(?![*][/])[\S\s][^*]*)*[*][/])|([/][/][^\n]*)|('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*"))*)*</script>#
+     phptag = #((SMARTYldel\s*php\s*(.)*?SMARTYrdel)((?:(?!(SMARTYldel\s*[/]php\s*SMARTYrdel))[^/\{][^SMARTYldelFIRST'"/]*)(([/][*](?:(?![*][/])[\S\s][^*]*)*[*][/])|([/][/][^\n]*)|('[^'\\]*(?:\\.[^'\\]*)*')|("[^"\\]*(?:\\.[^"\\]*)*"))*)*(SMARTYldel\s*[/]php\s*SMARTYrdel)?)|(SMARTYldel\s*[/]?php\s*SMARTYrdel)#
+     unmatched = /((<[?](?:php\s+|=)?)|(<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*[>])|<[%]|[?][>]|[%][>])/
      slash = /\//
      ldel = /SMARTYldel\s*/
      rdel = /\s*SMARTYrdel/
@@ -250,7 +250,7 @@ class Smarty_Internal_Templatelexer
      integer = /\d+/
      hex =  /0[xX][0-9a-fA-F]+/
      math = /\s*([*]{1,2}|[%\/^&]|[<>]{2})\s*/
-     comment = /SMARTYldel\*([\S\s]*?)\*SMARTYrdel/
+     comment = /SMARTYldel[*]((?:(?![*]SMARTYrdel)[\S\s][^*]*))*[*]SMARTYrdel/
      incdec = /\+\+|\-\-/
      unimath = /\s*(\+|\-)\s*/
      openP = /\s*\(\s*/
@@ -272,7 +272,7 @@ class Smarty_Internal_Templatelexer
      singlequotestring = /'[^'\\]*(?:\\.[^'\\]*)*'/
      backtick = /`/
      vert = /\|/
-     qmark = /\s*\?\s*/
+     qmark = /\s*[?]\s*/
      constant = /([_]+[A-Z0-9][0-9A-Z_]*|[A-Z][0-9A-Z_]*)(?![0-9A-Z_]*[a-z])/
      attr = /\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\s*=\s*/
      id = /[0-9]*[a-zA-Z_]\w*/
@@ -349,7 +349,7 @@ class Smarty_Internal_Templatelexer
      }
      text {
        $to = strlen($this->data);
-       preg_match("/{$this->ldel}|<\?|<%|\?>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>/",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
+       preg_match("/{$this->ldel}|<[?]|<%|[?]>|%>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>/",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
        if (isset($match[0][1])) {
          $to = $match[0][1];
        }
