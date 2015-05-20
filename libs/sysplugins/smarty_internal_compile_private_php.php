@@ -16,6 +16,7 @@
  */
 class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
 {
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -50,11 +51,14 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                 $this->php_handling = $compiler->smarty->php_handling;
             }
             if ($this->php_handling == Smarty::PHP_REMOVE) {
-                $output = preg_replace(array('#^(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)#', '#(\?>)|(%>)|(<\/script>)$#'), '', $_attr['code']);
+                $output = preg_replace(array('#^(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)#',
+                                           '#(\?>)|(%>)|(<\/script>)$#'), '', $_attr['code']);
                 $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Text($compiler->parser, $output));
                 return '';
             } elseif ($this->php_handling == Smarty::PHP_QUOTE) {
-                $output = preg_replace_callback(array('#^(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)#', '#(\?>)|(%>)|(<\/script>)$#'), function ($match) {return htmlspecialchars($match[0], ENT_QUOTES);}, $_attr['code']);
+                $output = preg_replace_callback(array('#^(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)#',
+                                                    '#(\?>)|(%>)|(<\/script>)$#'), array($this,
+                                                    'quote'), $_attr['code']);
                 $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Text($compiler->parser, $output));
                 return '';
             } elseif ($this->php_handling == Smarty::PHP_PASSTHRU || ($_attr['type'] == 'asp' && !$this->asp_tags) || $_attr['type'] == 'unmatched') {
@@ -86,7 +90,17 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                     $compiler->trigger_template_error("illegal value of option flag \"{$match[2]}\"", $compiler->lex->taglineno);
                 }
             }
-            return preg_replace(array("#^{$ldel}\\s*php\\s*(.)*?{$rdel}#", "#{$ldel}\\s*/\\s*php\\s*{$rdel}$#"), array('<?php ', '?>'), $_attr['code']);
+            return preg_replace(array("#^{$ldel}\\s*php\\s*(.)*?{$rdel}#",
+                                    "#{$ldel}\\s*/\\s*php\\s*{$rdel}$#"), array('<?php ', '?>'), $_attr['code']);
         }
+    }
+
+    /*
+ * Call back function for $php_handling = PHP_QUOTE
+ *
+ */
+    private function quote($match)
+    {
+        return htmlspecialchars($match[0], ENT_QUOTES);
     }
 }

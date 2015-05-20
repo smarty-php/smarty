@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.24.dev ===== (xx.xx.2015)
+ 21.05.2015
+  - bugfix broken PHP 5.2 compatibility when compiling <?php tags https://github.com/smarty-php/smarty/issues/40
+  
  19.05.2015
   - bugfix compiler did overwrite existing variable value when setting the nocache attribute https://github.com/smarty-php/smarty/issues/39
   - bugfix output filter trimwhitespace could run into the pcre.backtrack_limit on large output (code.google issue 220)
