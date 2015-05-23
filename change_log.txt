@@ -1,4 +1,8 @@
 ﻿ ===== 3.1.24.dev ===== (xx.xx.2015)
+ 23.05.2015
+  - improvement on php_handling to allow very large PHP sections, better error handling
+  - improvement allow extreme large comment sections (forum 25538)
+  
  21.05.2015
   - bugfix broken PHP 5.2 compatibility when compiling <?php tags https://github.com/smarty-php/smarty/issues/40
   - bugfix named {foreach} comparison like $smarty.foreach.foobar.index > 1 did compile into wrong code https://github.com/smarty-php/smarty/issues/41

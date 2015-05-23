@@ -124,13 +124,6 @@ class Smarty_Internal_Templateparser
      */
     private $security = null;
 
-     /**
-     * PHP tag handling mode
-     *
-     * @var int
-     */
-    private $php_handling = 0;
-
     /**
      * constructor
      *
@@ -143,13 +136,7 @@ class Smarty_Internal_Templateparser
         $this->compiler = $compiler;
         $this->template = $this->compiler->template;
         $this->smarty = $this->template->smarty;
-        $this->compiler->has_variable_string = false;
-        $this->compiler->prefix_code = array();
-        if ($this->security = isset($this->smarty->security_policy)) {
-            $this->php_handling = $this->smarty->security_policy->php_handling;
-        } else {
-            $this->php_handling = $this->smarty->php_handling;
-        }
+        $this->security = isset($this->smarty->security_policy) ? $this->smarty->security_policy : false;
         $this->current_buffer = $this->root_buffer = new Smarty_Internal_ParseTree_Template($this);
     }
 
@@ -250,11 +237,6 @@ template_element(res)::= smartytag(st). {
     $this->block_nesting_level = count($this->compiler->_tag_stack);
 } 
 
-                      // comments
-template_element(res)::= COMMENT(c). {
-    res = null;
-}
-
                       // Literal
 template_element(res) ::= literal(l). {
     res = new Smarty_Internal_ParseTree_Text($this, l);
@@ -268,17 +250,6 @@ template_element(res)::= PHP(o). {
     } else {
         res = null;
     }
-}
-
-
-
-                      // XML tag
-template_element(res)::= XMLTAG(x). {
-    $this->compiler->tag_nocache = true;
-    $xml = x;
-    $save = $this->template->has_nocache_code; 
-    res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode("<?php echo '{$xml}';?>", $this->compiler, true));
-    $this->template->has_nocache_code = $save;
 }
 
                       // template text
@@ -411,8 +382,8 @@ smartytag(res)::= SIMPLETAG(t). {
         res = null;;
     } else {
         if (defined($tag)) {
-            if (isset($this->smarty->security_policy)) {
-               $this->smarty->security_policy->isTrustedConstant($tag, $this->compiler);
+            if ($this->security) {
+               $this->security->isTrustedConstant($tag, $this->compiler);
             }
             res = $this->compiler->compileTag('private_print_expression',array(),array('value'=>$tag));
         } else {
@@ -428,8 +399,8 @@ smartytag(res)::= SIMPLETAG(t). {
                   // tag with optional Smarty2 style attributes
 tag(res)   ::= LDEL ID(i) attributes(a). {
         if (defined(i)) {
-            if (isset($this->smarty->security_policy)) {
-                $this->smarty->security_policy->isTrustedConstant(i, $this->compiler);
+            if ($this->security) {
+                $this->security->isTrustedConstant(i, $this->compiler);
             }
             res = $this->compiler->compileTag('private_print_expression',a,array('value'=>i));
         } else {
@@ -438,8 +409,8 @@ tag(res)   ::= LDEL ID(i) attributes(a). {
 }
 tag(res)   ::= LDEL ID(i). {
         if (defined(i)) {
-            if (isset($this->smarty->security_policy)) {
-                $this->smarty->security_policy->isTrustedConstant(i, $this->compiler);
+            if ($this->security) {
+                $this->security->isTrustedConstant(i, $this->compiler);
             }
             res = $this->compiler->compileTag('private_print_expression',array(),array('value'=>i));
         } else {
@@ -451,8 +422,8 @@ tag(res)   ::= LDEL ID(i). {
                   // tag with modifier and optional Smarty2 style attributes
 tag(res)   ::= LDEL ID(i) modifierlist(l)attributes(a). {
         if (defined(i)) {
-            if (isset($this->smarty->security_policy)) {
-                $this->smarty->security_policy->isTrustedConstant(i, $this->compiler);
+            if ($this->security) {
+                $this->security->isTrustedConstant(i, $this->compiler);
             }
             res = $this->compiler->compileTag('private_print_expression',a,array('value'=>i, 'modifierlist'=>l));
         } else {
@@ -607,8 +578,8 @@ attributes(res)  ::= . {
                   // attribute
 attribute(res)   ::= SPACE ID(v) EQUAL ID(id). {
     if (defined(id)) {
-        if (isset($this->smarty->security_policy)) {
-            $this->smarty->security_policy->isTrustedConstant(id, $this->compiler);
+        if ($this->security) {
+            $this->security->isTrustedConstant(id, $this->compiler);
         }
         res = array(v=>id);
     } else {
@@ -788,8 +759,8 @@ value(res)       ::= DOT INTEGER(n1). {
                  // ID, true, false, null
 value(res)       ::= ID(id). {
     if (defined(id)) {
-        if (isset($this->smarty->security_policy)) {
-             $this->smarty->security_policy->isTrustedConstant(id, $this->compiler);
+        if ($this->security) {
+             $this->security->isTrustedConstant(id, $this->compiler);
         }
         res = id;
     } else {
@@ -847,7 +818,7 @@ value(res)       ::= NAMESPACE(c). {
 
                   // static class access
 value(res)       ::= ns1(c)DOUBLECOLON static_class_access(s). {
-    if (!in_array(strtolower(c), array('self', 'parent')) && (!$this->security || $this->smarty->security_policy->isTrustedStaticClassAccess(c, s, $this->compiler))) {
+    if (!in_array(strtolower(c), array('self', 'parent')) && (!$this->security || $this->security->isTrustedStaticClassAccess(c, s, $this->compiler))) {
         if (isset($this->smarty->registered_classes[c])) {
             res = $this->smarty->registered_classes[c].'::'.s[0].s[1];
         } else {
@@ -957,8 +928,8 @@ indexdef(res)    ::= DOT varvar(v) AT ID(p). {
 
 indexdef(res)   ::= DOT ID(i). {
     if (defined(i)) {
-            if (isset($this->smarty->security_policy)) {
-                $this->smarty->security_policy->isTrustedConstant(i, $this->compiler);
+            if ($this->security) {
+                $this->security->isTrustedConstant(i, $this->compiler);
             }
             res = '['. i .']';
         } else {
@@ -1102,7 +1073,7 @@ objectelement(res)::= PTR method(f).  {
 // function
 //
 function(res)     ::= ns1(f) OPENP params(p) CLOSEP. {
-    if (!$this->security || $this->smarty->security_policy->isTrustedPhpFunction(f, $this->compiler)) {
+    if (!$this->security || $this->security->isTrustedPhpFunction(f, $this->compiler)) {
         if (strcasecmp(f,'isset') === 0 || strcasecmp(f,'empty') === 0 || strcasecmp(f,'array') === 0 || is_callable(f)) {
             $func_name = strtolower(f);
             if ($func_name == 'isset') {

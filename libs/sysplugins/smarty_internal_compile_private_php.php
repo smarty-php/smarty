@@ -40,31 +40,30 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         $compiler->has_code = false;
-        $this->asp_tags = (ini_get('asp_tags') != '0');
-        if ($_attr['type'] == 'tag' && !($compiler->smarty instanceof SmartyBC)) {
-            $compiler->trigger_template_error('{php}[/php} tags not allowed. Use SmartyBC to enable them', $compiler->lex->taglineno);
+        if ($_attr['type'] == 'xml') {
+            $compiler->tag_nocache = true;
+            $save = $compiler->template->has_nocache_code;
+            $compiler->template->has_nocache_code = $save;
+            $output = addcslashes($_attr['code'], "'\\");
+            $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" . $output . "';?>", $compiler, true)));
+            return '';
         }
         if ($_attr['type'] != 'tag') {
-            if (isset($compiler->smarty->security_policy)) {
-                $this->php_handling = $compiler->smarty->security_policy->php_handling;
-            } else {
-                $this->php_handling = $compiler->smarty->php_handling;
-            }
-            if ($this->php_handling == Smarty::PHP_REMOVE) {
-                $output = preg_replace(array('#^(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)#',
-                                           '#(\?>)|(%>)|(<\/script>)$#'), '', $_attr['code']);
+             if ($compiler->php_handling == Smarty::PHP_REMOVE) {
+                return '';
+            } elseif ($compiler->php_handling == Smarty::PHP_QUOTE) {
+                $output = preg_replace_callback('#(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)|(\?>)|(%>)|(<\/script>)#i', array($this,
+                    'quote'), $_attr['code']);
                 $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Text($compiler->parser, $output));
                 return '';
-            } elseif ($this->php_handling == Smarty::PHP_QUOTE) {
-                $output = preg_replace_callback(array('#^(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)#',
-                                                    '#(\?>)|(%>)|(<\/script>)$#'), array($this,
-                                                    'quote'), $_attr['code']);
-                $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Text($compiler->parser, $output));
+            } elseif ($compiler->php_handling == Smarty::PHP_PASSTHRU || $_attr['type'] == 'unmatched') {
+                $compiler->tag_nocache = true;
+                $save = $compiler->template->has_nocache_code;
+                $compiler->template->has_nocache_code = $save;
+                $output = addcslashes($_attr['code'], "'\\");
+                $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" . $output . "';?>", $compiler, true)));
                 return '';
-            } elseif ($this->php_handling == Smarty::PHP_PASSTHRU || ($_attr['type'] == 'asp' && !$this->asp_tags) || $_attr['type'] == 'unmatched') {
-                $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Text($compiler->parser, $_attr['code']));
-                return '';
-            } elseif ($this->php_handling == Smarty::PHP_ALLOW) {
+            } elseif ($compiler->php_handling == Smarty::PHP_ALLOW) {
                 if (!($compiler->smarty instanceof SmartyBC)) {
                     $compiler->trigger_template_error('$smarty->php_handling PHP_ALLOW not allowed. Use SmartyBC to enable it', $compiler->lex->taglineno);
                 }
@@ -75,14 +74,12 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
             }
         } else {
             $compiler->has_code = true;
+            if (!($compiler->smarty instanceof SmartyBC)) {
+                $compiler->trigger_template_error('{php}[/php} tags not allowed. Use SmartyBC to enable them', $compiler->lex->taglineno);
+            }
             $ldel = preg_quote($compiler->smarty->left_delimiter, '#');
             $rdel = preg_quote($compiler->smarty->right_delimiter, '#');
-            if (!preg_match("#{$ldel}\\s*/\\s*php\\s*{$rdel}$#", $_attr['code'], $match)) {
-                $compiler->trigger_template_error('Missing {/php} closing tag', $compiler->lex->taglineno);
-            }
-            if (!preg_match("#^({$ldel}\\s*php\\s*)((.)*?)({$rdel})#", $_attr['code'], $match)) {
-                $compiler->trigger_template_error('Missing {php} open tag', $compiler->lex->taglineno);
-            }
+            preg_match("#^({$ldel}php\\s*)((.)*?)({$rdel})#", $_attr['code'], $match);
             if (!empty($match[2])) {
                 if ('nocache' == trim($match[2])) {
                     $compiler->tag_nocache = true;
@@ -95,10 +92,96 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         }
     }
 
+    /**
+     * Lexer code for PHP tags
+     *
+     * This code has been moved from lexer here fo easier debugging and maintenance
+     *
+     * @param $lex
+     */
+    public function parsePhp($lex)
+    {
+        $close = 0;
+        $lex->taglineno = $lex->line;
+        $closeTag = '?>';
+        if (strpos($lex->value, '<?xml') === 0) {
+            $lex->phpType = 'xml';
+        } elseif (strpos($lex->value, '<?') === 0) {
+            $lex->phpType = 'php';
+        } elseif (strpos($lex->value, '<%') === 0) {
+            $lex->phpType = 'asp';
+            $closeTag = '%>';
+        } elseif (strpos($lex->value, '%>') === 0) {
+            $lex->phpType = 'unmatched';
+        } elseif (strpos($lex->value, '?>') === 0) {
+            $lex->phpType = 'unmatched';
+        } elseif (strpos($lex->value, '<s') === 0) {
+            $lex->phpType = 'script';
+            $closeTag = '</script>';
+        } elseif (strpos($lex->value, $lex->smarty->left_delimiter) === 0) {
+            if ($lex->isAutoLiteral()) {
+                $lex->token = Smarty_Internal_Templateparser::TP_TEXT;
+                return;
+            }
+            $closeTag = "{$lex->smarty->left_delimiter}/php{$lex->smarty->right_delimiter}";
+            if ($lex->value == $closeTag) {
+                $lex->compiler->trigger_template_error("unexpected closing tag '{$closeTag}'");
+            }
+            $lex->phpType = 'tag';
+        }
+        if ($lex->phpType == 'unmatched') {
+            return;
+        }
+        if (($lex->phpType == 'php' || $lex->phpType == 'asp') && ($lex->compiler->php_handling == Smarty::PHP_PASSTHRU || $lex->compiler->php_handling == Smarty::PHP_QUOTE)) {
+            return;
+        }
+        $start = $lex->counter + strlen($lex->value);
+        $body = true;
+        if (preg_match('~' . preg_quote($closeTag, '~') . '~i', $lex->data, $match, PREG_OFFSET_CAPTURE, $start)) {
+            $close = $match[0][1];
+        } else {
+            $lex->compiler->trigger_template_error("missing closing tag '{$closeTag}'");
+        }
+        while ($body) {
+            if (preg_match('~([/][*])|([/][/][^\n]*)|(\'[^\'\\\\]*(?:\\.[^\'\\\\]*)*\')|("[^"\\\\]*(?:\\.[^"\\\\]*)*")~', $lex->data, $match, PREG_OFFSET_CAPTURE, $start)) {
+                $value = $match[0][0];
+                $from = $pos = $match[0][1];
+                if ($pos > $close) {
+                    $body = false;
+                } else {
+                    $start = $pos + strlen($value);
+                    $phpCommentStart = $value == '/*';
+                    if ($phpCommentStart) {
+                        $phpCommentEnd = preg_match('~([*][/])~', $lex->data, $match, PREG_OFFSET_CAPTURE, $start);
+                        if ($phpCommentEnd) {
+                            $pos2 = $match[0][1];
+                            $start = $pos2 + strlen($match[0][0]);
+                        }
+                    }
+                    while ($close > $pos && $close < $start) {
+                        if (preg_match('~' . preg_quote($closeTag, '~') . '~i', $lex->data, $match, PREG_OFFSET_CAPTURE, $from)) {
+                            $close = $match[0][1];
+                            $from = $close + strlen($match[0][0]);
+                        } else {
+                            $lex->compiler->trigger_template_error("missing closing tag '{$closeTag}'");
+                        }
+                    }
+                    if ($phpCommentStart && (!$phpCommentEnd || $pos2 > $close)) {
+                        $lex->taglineno = $lex->line + substr_count(substr($lex->data, $lex->counter, $start), "\n");
+                        $lex->compiler->trigger_template_error("missing PHP comment closing tag '*/'");
+                    }
+                }
+            } else {
+                $body = false;
+            }
+        }
+        $lex->value = substr($lex->data, $lex->counter, $close + strlen($closeTag) - $lex->counter);
+    }
+
     /*
- * Call back function for $php_handling = PHP_QUOTE
- *
- */
+     * Call back function for $php_handling = PHP_QUOTE
+     *
+     */
     private function quote($match)
     {
         return htmlspecialchars($match[0], ENT_QUOTES);
