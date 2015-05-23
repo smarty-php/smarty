@@ -43,13 +43,13 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         if ($_attr['type'] == 'xml') {
             $compiler->tag_nocache = true;
             $save = $compiler->template->has_nocache_code;
-            $compiler->template->has_nocache_code = $save;
             $output = addcslashes($_attr['code'], "'\\");
             $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" . $output . "';?>", $compiler, true)));
+            $compiler->template->has_nocache_code = $save;
             return '';
         }
         if ($_attr['type'] != 'tag') {
-             if ($compiler->php_handling == Smarty::PHP_REMOVE) {
+            if ($compiler->php_handling == Smarty::PHP_REMOVE) {
                 return '';
             } elseif ($compiler->php_handling == Smarty::PHP_QUOTE) {
                 $output = preg_replace_callback('#(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)|(\?>)|(%>)|(<\/script>)#i', array($this,
@@ -59,9 +59,9 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
             } elseif ($compiler->php_handling == Smarty::PHP_PASSTHRU || $_attr['type'] == 'unmatched') {
                 $compiler->tag_nocache = true;
                 $save = $compiler->template->has_nocache_code;
-                $compiler->template->has_nocache_code = $save;
                 $output = addcslashes($_attr['code'], "'\\");
                 $compiler->parser->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" . $output . "';?>", $compiler, true)));
+                $compiler->template->has_nocache_code = $save;
                 return '';
             } elseif ($compiler->php_handling == Smarty::PHP_ALLOW) {
                 if (!($compiler->smarty instanceof SmartyBC)) {
