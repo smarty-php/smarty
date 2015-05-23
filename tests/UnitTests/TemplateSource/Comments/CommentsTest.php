@@ -82,4 +82,9 @@ class CommentsTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate("eval:I{* multi \nline *}\nJ");
         $this->assertEquals("I\nJ", $this->smarty->fetch($tpl));
     }
+    public function testTextComment5()
+    {
+        $tpl = $this->smarty->createTemplate("longcomment.tpl");
+        $this->assertEquals("I\nJ", $this->smarty->fetch($tpl));
+    }
 }
