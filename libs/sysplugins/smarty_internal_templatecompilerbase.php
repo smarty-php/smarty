@@ -208,6 +208,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $templateFunctionCode = '';
 
     /**
+     * php_handling setting either from Smarty or security
+     *
+     * @var int
+     */
+    public $php_handling = 0;
+
+    /**
      * flags for used modifier plugins
      *
      * @var array
@@ -319,6 +326,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function compileTemplate(Smarty_Internal_Template $template, $nocache = null, $parent_compiler = null)
     {
+        // save template object in compiler class
+        $this->template = $template;
+        if (isset($this->template->smarty->security_policy)) {
+            $this->php_handling = $this->template->smarty->security_policy->php_handling;
+        } else {
+            $this->php_handling = $this->template->smarty->php_handling;
+        }
         $this->parent_compiler = $parent_compiler ? $parent_compiler : $this;
         $nocache = isset($nocache) ? $nocache : false;
         if (empty($template->properties['nocache_hash'])) {
@@ -329,8 +343,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // flag for nochache sections
         $this->nocache = $nocache;
         $this->tag_nocache = false;
-        // save template object in compiler class
-        $this->template = $template;
         // reset has nocache code flag
         $this->template->has_nocache_code = false;
         $save_source = $this->template->source;
@@ -363,6 +375,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $this->inheritance_child = false;
             }
             do {
+                // flag for nochache sections
+                $this->nocache = $nocache;
+                $this->tag_nocache = false;
+                // reset has nocache code flag
+                $this->template->has_nocache_code = false;
+                $this->has_variable_string = false;
+                $this->prefix_code = array();
                 $_compiled_code = '';
                 // flag for aborting current and start recompile
                 $this->abort_and_recompile = false;
