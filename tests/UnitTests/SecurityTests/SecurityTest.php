@@ -223,7 +223,7 @@ class SecurityTest extends PHPUnit_Smarty
     public function testSmartyPhpRemove()
     {
         $this->smarty->security_policy->php_handling = Smarty::PHP_REMOVE;
-        $this->assertEquals(' echo "hello world"; ', $this->smarty->fetch('eval:<?php echo "hello world"; ?>'));
+        $this->assertEquals('', $this->smarty->fetch('eval:<?php echo "hello world"; ?>'));
     }
 
     public function testSmartyPhpRemoveAsp()
@@ -233,7 +233,7 @@ class SecurityTest extends PHPUnit_Smarty
             $this->markTestSkipped('asp tags disabled in php.ini');
         }
         $this->smarty->security_policy->php_handling = Smarty::PHP_REMOVE;
-        $this->assertEquals(' echo "hello world"; ', $this->smarty->fetch('eval:<% echo "hello world"; %>'));
+        $this->assertEquals('', $this->smarty->fetch('eval:<% echo "hello world"; %>'));
     }
 
     /**
