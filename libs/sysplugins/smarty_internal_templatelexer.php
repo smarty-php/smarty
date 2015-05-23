@@ -340,7 +340,6 @@ class Smarty_Internal_Templatelexer
 
         $obj = new Smarty_Internal_Compile_Private_Php();
         $obj->parsePhp($this);
-        $this->token = Smarty_Internal_Templateparser::TP_PHP;
     }
 
     function yy_r1_15()

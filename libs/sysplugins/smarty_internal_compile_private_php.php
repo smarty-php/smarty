@@ -101,6 +101,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
      */
     public function parsePhp($lex)
     {
+        $lex->token = Smarty_Internal_Templateparser::TP_PHP;
         $close = 0;
         $lex->taglineno = $lex->line;
         $closeTag = '?>';

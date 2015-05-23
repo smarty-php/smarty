@@ -328,7 +328,6 @@ class Smarty_Internal_Templatelexer
      phpstart {
        $obj = new Smarty_Internal_Compile_Private_Php();
        $obj->parsePhp($this);
-       $this->token = Smarty_Internal_Templateparser::TP_PHP;
      }
      ldel literal rdel {
        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
