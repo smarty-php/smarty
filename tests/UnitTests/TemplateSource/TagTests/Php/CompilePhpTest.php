@@ -28,162 +28,29 @@ class CompilePhpTest extends PHPUnit_Smarty
         $this->cleanDirs();
     }
 
-/**
- * test <?php...\> tag
- * PHP_REMOVE
- */
-public function testPHP_REMOVE_php()
-{
-    $this->smarty->setPhpHandling(Smarty::PHP_REMOVE);
-    $content = $this->smarty->fetch("string:a<?php echo 'hello world'; ?>e");
-    $this->assertEquals("a echo 'hello world'; e", $content, 'remove <?php ?>');
-}
 
     /**
-     * test <%...%> tag
-     * PHP_REMOVE
+     * Test
+     * @run inSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider data
+     *
      */
-    public function testPHP_REMOVE_asp()
+    public function testPHP($phpHandling, $templateFile, $result, $testName)
     {
-        $this->smarty->setPhpHandling(Smarty::PHP_REMOVE);
-        $content = $this->smarty->fetch("string:a<% echo 'hello world';%>e");
-        $this->assertEquals("a echo 'hello world';e", $content, 'remove <% %>');
-    }
-    /**
-     * test <script language='php'>...</script> tag
-     * PHP_REMOVE
-     */
-    public function testPHP_REMOVE_script()
-    {
-        $this->smarty->setPhpHandling(Smarty::PHP_REMOVE);
-        $content = $this->smarty->fetch("string:a<script language='php'> echo 'hello world';</script>e");
-        $this->assertEquals("a echo 'hello world';e", $content, "remove <script language='php'>");
-    }
-    /**
-     * test <?php...\> tag
-     * PHP_PASSTHRU
-     */
-    public function testPHP_PASSTHRU_php()
-    {
-        $this->smarty->setPhpHandling(Smarty::PHP_PASSTHRU);
-        $content = $this->smarty->fetch("string:pa<?php echo 'hello world'; ?>pe");
-        $this->assertEquals("pa<?php echo 'hello world'; ?>pe", $content, 'passthru <?php ?>');
-    }
-    /**
-     * test <%...%> tag
-     * PHP_PASSTHRU
-     */
-    public function testPHP_PASSTHRU_asp()
-    {
-        $this->smarty->setPhpHandling(Smarty::PHP_PASSTHRU);
-        $content = $this->smarty->fetch("string:pa<% echo 'hello world';%>pe");
-        $this->assertEquals("pa<% echo 'hello world';%>pe", $content, 'passthru <% %>');
-    }
-    /**
-     * test <script language='php'>...</script> tag
-     * PHP_PASSTHRU
-     */
-    public function testPHP_PASSTHRU_script()
-    {
-        $this->smarty->setPhpHandling(Smarty::PHP_PASSTHRU);
-        $content = $this->smarty->fetch("string:pa<script language='php'> echo 'hello world';</script>pe");
-        $this->assertEquals("pa<script language='php'> echo 'hello world';</script>pe", $content, "passthru <script language='php'>");
-    }
-    /**
-     * test <?php...\> tag
-     * PHP_QUOTE
-     */
-    public function testPHP_QUOTE_php()
-    {
-        $this->smarty->setPhpHandling(Smarty::PHP_QUOTE);
-        $content = $this->smarty->fetch("string:qa<?php echo 'hello world';\necho ' multiline'; ?>qe");
-        $this->assertEquals("qa&lt;?php echo 'hello world';\necho ' multiline'; ?&gt;qe", $content, 'qoute <?php ?>');
-    }
-    /**
-     * test <%...%> tag
-     * PHP_QUOTE
-     */
-    public function testPHP_QUOTE_asp()
-    {
-        $this->smarty->setPhpHandling(Smarty::PHP_QUOTE);
-        $content = $this->smarty->fetch("string:qa<% echo 'hello world';%>qe");
-        $this->assertEquals("qa&lt;% echo 'hello world';%&gt;qe", $content, 'qoute <% %>');
-    }
-    /**
-     * test <script language='php'>...</script> tag
-     * PHP_QUOTE
-     */
-    public function testPHP_QUOTE_script()
-    {
-        $this->smarty->setPhpHandling(Smarty::PHP_QUOTE);
-        $content = $this->smarty->fetch("string:qa<script language='php'> echo 'hello world';</script>qe");
-        $this->assertEquals("qa&lt;script language=&#039;php&#039;&gt; echo 'hello world';&lt;/script&gt;qe", $content, "quote <script language='php'>");
-    }
-    /**
-     * test <?php...\> tag
-     * PHP_ALLOW
-     */
-    public function testPHP_ALLOW_php()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch("string:aa <?php echo 'hello world'; ?> ae");
-    }
-    /**
-     * test <%...%> tag
-     * PHP_ALLOW
-     */
-    public function testPHP_ALLOW_asp()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch("string:aa <% echo 'hello world';\n echo ' multiline';%> ae");
-        if (ini_get('asp_tags')) {
-            $this->assertEquals('aa hello world multiline ae', $content, 'allow <% %>');
-        } else {
-            $this->assertEquals("aa <% echo 'hello world';\n echo ' multiline';%> ae", $content, 'allow asp disabled <% %>');
+        $result = str_replace("\r", '', $result);
+        $this->smartyBC->php_handling = $phpHandling;
+        $this->smartyBC->compile_id = $testName;
+        $tpl = $this->smartyBC->createTemplate($templateFile);
+        if ($phpHandling == Smarty::PHP_PASSTHRU || $phpHandling == Smarty::PHP_QUOTE) {
+            $result = str_replace("\r", '', $tpl->source->content);
         }
+        if ($phpHandling == Smarty::PHP_QUOTE) {
+            $result = preg_replace_callback('#(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)|(\?>)|(%>)|(<\/script>)#i', array($this, 'quote'), $result);
+        }
+        $content = $tpl->fetch();
+        $this->assertEquals($result, $content, $testName);
     }
-    /**
-     * test <script language='php'>...</script> tag
-     * PHP_ALLOW
-     */
-    public function testPHP_ALLOW_script()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch("string:aa <script language='php'> echo 'hello world';\n echo ' multiline';</script> ae");
-        $this->assertEquals('aa hello world multiline ae', $content, "allow <script language='php'>");
-    }
-    /**
-     * test <?php...\> tag
-     * PHP_ALLOW
-     */
-    public function testPHP_ALLOW_php2()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch("string:aa <?php echo '<?php';\necho ' ?>'; ?> ae");
-        $this->assertEquals('aa <?php ?> ae', $content);
-    }
-    /**
-     * test <?php...\> tag
-     * PHP_ALLOW
-     */
-    public function testPHP_ALLOW_php3()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch("string:aa <?php echo '?>'; ?> ae");
-        $this->assertEquals('aa ?> ae', $content);
-    }
-    /**
-     * test <?php...\> tag
-     * PHP_ALLOW
-     */
-    public function testPHP_ALLOW_php4()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch("string:aa <?php /* ?> */ echo '?>'; ?> ae");
-        $this->assertEquals('aa ?> ae', $content);
-    }
-
-
     /**
      * @expectedException        SmartyCompilerException
      * @expectedExceptionMessage $smarty->php_handling PHP_ALLOW not allowed. Use SmartyBC to enable it
@@ -196,84 +63,22 @@ public function testPHP_REMOVE_php()
     }
 
     /**
-     * test <?=...\> shorttag
-     * default is PASSTHRU
-     */
-    public function testShortTag()
-    {
-        $this->smartyBC->assign('foo', 'bar');
-        $content = $this->smartyBC->fetch('eval:<?=$foo?>');
-        $this->assertEquals('<?=$foo?>', $content);
-    }
-
-    /**
-     * test unmatched <?php
-     *
-     */
-    public function testUnmatched_php()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch('string:aa <?php ee');
-        $this->assertEquals('aa <?php ee', $content);
-    }
-    /**
-     * test unmatched ?>
-     *
-     */
-    public function testUnmatched_php_close()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch('string:aa ?> ee');
-        $this->assertEquals('aa ?> ee', $content);
-    }
-    /**
-     * test unmatched <%
-     *
-     */
-    public function testUnmatched_asp()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch('string:aa <% ee');
-        $this->assertEquals('aa <% ee', $content);
-    }
-    /**
-     * test unmatched %>
-     *
-     */
-    public function testUnmatched_asp_close()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch('string:aa %> ee');
-        $this->assertEquals('aa %> ee', $content);
-    }
-    /**
-     * test unmatched <script language='php'>
-     *
-     */
-    public function testUnmatched_script()
-    {
-        $this->smartyBC->setPhpHandling(Smarty::PHP_ALLOW);
-        $content = $this->smartyBC->fetch("string:aa <script language='php'> echo 'hello world'; ae");
-        $this->assertEquals("aa <script language='php'> echo 'hello world'; ae", $content);
-    }
-    /**
-     * test {php}{/php} tag
-     * PHP_ALLOW
-     */
-    public function testPHP_Tag()
-    {
-        $content = $this->smartyBC->fetch("string:aa {php} echo 'hallo'; {/php} ae");
-        $this->assertEquals('aa hallo ae', $content);
-    }
-    /**
      * test {php nocache}{/php} tag
-     * PHP_ALLOW
      */
-    public function testPHP_Tag_Nocache()
+    public function testPHP_Tag_Nocache1()
     {
         $this->smartyBC->caching = 1;
-        $content = $this->smartyBC->fetch("string:aa {php nocache} echo 'hallo'; {/php} ae");
-        $this->assertEquals('aa hallo ae', $content);
+        $this->smartyBC->assign('foo', 'foo');
+        $content = $this->smartyBC->fetch('phptag_nocache.tpl');
+        $this->assertEquals('-->foo<--', $content);
+    }
+
+    public function testPHP_Tag_Nocache2()
+    {
+        $this->smartyBC->caching = 1;
+        $this->smartyBC->assign('foo', 'bar');
+        $content = $this->smartyBC->fetch('phptag_nocache.tpl');
+        $this->assertEquals('-->bar<--', $content);
     }
     /**
      * test {php no cache}illegal option
@@ -286,33 +91,66 @@ public function testPHP_REMOVE_php()
         $content = $this->smartyBC->fetch("string:aa {php no cache} echo 'hallo'; {/php} ae");
     }
 
-    /**
-     * test { php}{/php} tag
-     * PHP_Tag Literal
-     */
-    public function testPHP_Tag_Literal()
+
+    public function data()
     {
-        $content = $this->smartyBC->fetch("string:aa { php} echo 'hallo'; { /php} ae");
-        $this->assertEquals('aa { php} echo \'hallo\'; { /php} ae', $content);
+        $shortTag = ini_get('short_open_tag') == 1;
+        $aspTag = ini_get('asp_tags') == 1;
+
+        return array(
+            /*
+            * php_handling
+            * template file
+            * result
+            * text
+            */
+            array(Smarty::PHP_REMOVE, 'php.tpl', '--><--', 'PHP_REMOVE, \'php.tpl\''),
+            array(Smarty::PHP_PASSTHRU, 'php.tpl', '', 'PHP_PASSTHRU, \'php.tpl\''),
+            array(Smarty::PHP_QUOTE, 'php.tpl', '', 'PHP_QUOTE, \'php.tpl\''),
+            array(Smarty::PHP_ALLOW, 'php.tpl', '--> hello world <?php ?> <--', 'PHP_ALLOW, \'php.tpl\''),
+            array(Smarty::PHP_REMOVE, 'php_line_comment.tpl', '--><--', 'PHP_REMOVE, \'php_line_comment.tpl\''),
+            array(Smarty::PHP_PASSTHRU, 'php_line_comment.tpl', '', 'PHP_PASSTHRU, \'php_line_comment.tpl\''),
+            array(Smarty::PHP_QUOTE, 'php_line_comment.tpl', '', 'PHP_QUOTE, \'php_line_comment.tpl\''),
+            array(Smarty::PHP_ALLOW, 'php_line_comment.tpl', '--> hello world <?php ?> <--', 'PHP_ALLOW, \'php_line_comment.tpl\''),
+            array(Smarty::PHP_REMOVE, 'php_block_comment.tpl', '--><--', 'PHP_REMOVE, \'php_block_comment.tpl\''),
+            array(Smarty::PHP_PASSTHRU, 'php_block_comment.tpl', '', 'PHP_PASSTHRU, \'php_block_comment.tpl\''),
+            array(Smarty::PHP_QUOTE, 'php_block_comment.tpl', '', 'PHP_QUOTE, \'php_block_comment.tpl\''),
+            array(Smarty::PHP_ALLOW, 'php_block_comment.tpl', '--> hello world <?php ?> <--', 'PHP_ALLOW, \'php_block_comment.tpl\''),
+            array(Smarty::PHP_REMOVE, 'php2.tpl', '--><--', 'PHP_REMOVE, \'php2.tpl\''),
+            array(Smarty::PHP_PASSTHRU, 'php2.tpl', '', 'PHP_PASSTHRU, \'php2.tpl\''),
+            array(Smarty::PHP_QUOTE, 'php2.tpl', '', 'PHP_QUOTE, \'php2.tpl\''),
+            array(Smarty::PHP_ALLOW, 'php2.tpl', $shortTag ? '--> hello world <?  ?> <--' : '--><? echo \' hello world \';
+echo \'<?  \';
+echo \'?> \';
+?><--', 'PHP_ALLOW, \'php2.tpl\''),
+            array(Smarty::PHP_REMOVE, 'asp.tpl', '--><--', 'PHP_REMOVE, \'asp.tpl\''),
+            array(Smarty::PHP_PASSTHRU, 'asp.tpl', '', 'PHP_PASSTHRU, \'asp.tpl\''),
+            array(Smarty::PHP_QUOTE, 'asp.tpl', '', 'PHP_QUOTE, \'asp.tpl\''),
+            array(Smarty::PHP_ALLOW, 'asp.tpl', $aspTag ? '-->hello world <% %> <--' : '--><% echo \'hello world \';
+echo \'<% \';
+echo \'%> \';
+%><--', 'PHP_ALLOW, \'asp.tpl\''),
+            array(Smarty::PHP_REMOVE, 'script.tpl', '--><--', 'PHP_REMOVE, \'script.tpl\''),
+            array(Smarty::PHP_PASSTHRU, 'script.tpl', '', 'PHP_PASSTHRU, \'script.tpl\''),
+            array(Smarty::PHP_QUOTE, 'script.tpl', '', 'PHP_QUOTE, \'script.tpl\''),
+            array(Smarty::PHP_ALLOW, 'script.tpl', '--> hello world <script language=\'php\'> </script> <--', 'PHP_ALLOW, \'script.tpl\''),
+            array(Smarty::PHP_ALLOW, 'phptag.tpl', '--> hello world {php} {/php} <--', 'PHP_ALLOW, \'phptag.tpl\''),
+            array(Smarty::PHP_ALLOW, 'phptag_line_comment.tpl', '--> hello world {php} {/php} <--', 'PHP_ALLOW, \'phptag_line_comment.tpl\''),
+            array(Smarty::PHP_ALLOW, 'phptag_block_comment.tpl', '--> hello world {php} {/php} <--', 'PHP_ALLOW, \'phptag_block_comment.tpl\''),
+            array(Smarty::PHP_ALLOW, 'phptag_literal.tpl', '-->{ php} echo \' hello world \';
+echo \'foo \';
+echo \'bar \';
+$foo = 3;
+{ /php}<--', 'PHP_ALLOW, \'phptag_literal.tpl\''),
+        );
     }
-    /**
-     * test unmatched {php} tag
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Missing {/php} closing tag
-     *
-     */
-    public function testPHP_Tag_unmatch()
+    /*
+ * Call back function for $php_handling = PHP_QUOTE
+ *
+ */
+    private function quote($match)
     {
-        $content = $this->smartyBC->fetch("string:aa {php} echo 'hallo';  ae");
+        return htmlspecialchars($match[0], ENT_QUOTES);
     }
-    /**
-     * test unmatched {/php} tag
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Missing {php} open tag
-     *
-     */
-    public function testPHP_TagOpen_unmatch()
-    {
-        $content = $this->smartyBC->fetch("string:aa {/php}  ae");
-    }
+
 }
