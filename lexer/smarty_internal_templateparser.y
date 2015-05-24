@@ -1237,7 +1237,7 @@ lop(res)        ::= TLOGOP(o). {
         'isoddby' => array('op' => ' / ', 'pre' => '(1 & '),
         'isnotoddby' => array('op' => ' / ', 'pre' => '!(1 & '),
         );
-    $op = strtolower(str_replace(' ', '', o));
+    $op = strtolower(preg_replace('/\s*/', '', o));
     res = $lops[$op];
 }
 

@@ -293,7 +293,7 @@ class Smarty_Internal_Templatelexer
      literal = ~literal~
      strip = ~strip~
      lop = ~\s*(([!=][=]{1,2})|([<][=>]?)|([>][=]?)|[&|]{2})\s*~
-     tlop = ~\s+(eq|ne|neg|gt|ge|gte|lt|le|lte|mod|and|or|xor|(is\s+(not\s+)?(odd|even|div)\s+by))\s+~
+     tlop = ~\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor|(is\s+(not\s+)?(odd|even|div)\s+by))\s+~
      scond = ~\s+is\s+(not\s+)?(odd|even)~
      isin = ~\s+is\s+in\s+~
      as = ~\s+as\s+~

@@ -2202,7 +2202,7 @@ class Smarty_Internal_Templateparser
                              'isnotevenby' => array('op' => ' / ', 'pre' => '(1 & '),
                              'isoddby'     => array('op' => ' / ', 'pre' => '(1 & '),
                              'isnotoddby'  => array('op' => ' / ', 'pre' => '!(1 & '),);
-        $op = strtolower(str_replace(' ', '', $this->yystack[$this->yyidx + 0]->minor));
+        $op = strtolower(preg_replace('/\s*/', '', $this->yystack[$this->yyidx + 0]->minor));
         $this->_retvalue = $lops[$op];
     }
 
