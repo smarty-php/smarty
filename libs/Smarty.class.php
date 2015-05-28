@@ -27,7 +27,7 @@
  * @author    Uwe Tews
  * @author    Rodney Rehm
  * @package   Smarty
- * @version   3.1-DEV
+ * @version   3.1.25-dev
  */
 
 /**
@@ -73,7 +73,7 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
 }
 
 /**
- * Try loading the Smmarty_Internal_Data class
+ * Try loading the Smarty_Internal_Data class
  * If we fail we must load Smarty's autoloader.
  * Otherwise we may have a global autoloader like Composer
  */
