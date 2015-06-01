@@ -106,7 +106,9 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         $lex->taglineno = $lex->line;
         $closeTag = '?>';
         if (strpos($lex->value, '<?xml') === 0) {
-            $lex->phpType = 'xml';
+            $lex->is_xml = true;
+            $lex->token = Smarty_Internal_Templateparser::TP_NOCACHE;
+            return;
         } elseif (strpos($lex->value, '<?') === 0) {
             $lex->phpType = 'php';
         } elseif (strpos($lex->value, '<%') === 0) {
@@ -115,6 +117,11 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         } elseif (strpos($lex->value, '%>') === 0) {
             $lex->phpType = 'unmatched';
         } elseif (strpos($lex->value, '?>') === 0) {
+            if ($lex->is_xml) {
+                $lex->is_xml = false;
+                $lex->token = Smarty_Internal_Templateparser::TP_NOCACHE;
+                return;
+            }
             $lex->phpType = 'unmatched';
         } elseif (strpos($lex->value, '<s') === 0) {
             $lex->phpType = 'script';

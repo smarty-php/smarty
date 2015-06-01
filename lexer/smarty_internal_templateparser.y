@@ -252,6 +252,13 @@ template_element(res)::= PHP(o). {
     }
 }
 
+                      // nocache code
+template_element(res)::= NOCACHE(c). {
+        $this->compiler->tag_nocache = true;
+        $save = $this->template->has_nocache_code;
+        res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode("<?php echo '{c}';?>\n", $this->compiler, true));
+        $this->template->has_nocache_code = $save;
+}
                       // template text
 template_element(res)::= text_content(t). {
         res = $this->compiler->processText(t);

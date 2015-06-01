@@ -128,8 +128,14 @@ class Smarty_Internal_Templatelexer
      *
      * @var string
      */
-
     public $yyTracePrompt;
+
+    /**
+    * XML flag true while processing xml
+    *
+    * @var bool
+    */
+    public $is_xml = false;
 
     /**
      * state names

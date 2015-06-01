@@ -19,7 +19,6 @@
  */
 class Smarty_Internal_Templatelexer
 {
-
     /**
      * Source
      *
@@ -143,8 +142,14 @@ class Smarty_Internal_Templatelexer
      *
      * @var string
      */
-
     public $yyTracePrompt;
+
+    /**
+     * XML flag true while processing xml
+     *
+     * @var bool
+     */
+    public $is_xml = false;
 
     /**
      * state names
@@ -1318,6 +1323,7 @@ class Smarty_Internal_Templatelexer
         $this->value = substr($this->data, $this->counter, $to - $this->counter);
         $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
     }
+
 }
 
      
