@@ -39,6 +39,7 @@ class XmlTest extends PHPUnit_Smarty
      */
     public function testXmlPhpQuote()
     {
+        $this->smarty->compile_id = 'PHP_QUOTE';
         $this->smarty->security_policy->php_handling = Smarty::PHP_QUOTE;
         $tpl = $this->smarty->createTemplate('xml.tpl');
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>', $this->smarty->fetch($tpl));
@@ -49,13 +50,14 @@ class XmlTest extends PHPUnit_Smarty
      */
     public function testXmlPhpAllow()
     {
+        $this->smarty->compile_id = 'PHP_ALLOW';
         $this->smarty->security_policy->php_handling = Smarty::PHP_ALLOW;
         $tpl = $this->smarty->createTemplate('xml.tpl');
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>', $this->smarty->fetch($tpl));
     }
 
     /**
-     * test standard xml
+     * test xml caching
      */
     public function testXmlCaching()
     {
@@ -66,11 +68,12 @@ class XmlTest extends PHPUnit_Smarty
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>', $content);
     }
 
-    /*
-    * test standard xml
-    */
+    /**
+     * test xml caching PhpQuote
+     */
     public function testXmlCachingPhpQuote()
     {
+        $this->smarty->compile_id = 'PHP_QUOTE';
         $this->smarty->security_policy->php_handling = Smarty::PHP_QUOTE;
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
@@ -78,15 +81,44 @@ class XmlTest extends PHPUnit_Smarty
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>', $content);
     }
 
-    /*
-    * test standard xml
-    */
+    /**
+     * test xml caching PhpAllow
+     */
     public function testXmlCachingPhpAllow()
     {
+        $this->smarty->compile_id = 'PHP_ALLOW';
         $this->smarty->security_policy->php_handling = Smarty::PHP_ALLOW;
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $content = $this->smarty->fetch('xml.tpl');
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>', $content);
+    }
+    /**
+     * test xml with variable
+     */
+    public function testXmlVariable()
+    {
+        $this->smarty->assign('foo','bar');
+        $content = $this->smarty->fetch('xmlvar.tpl');
+        $this->assertEquals('<?xml version="1.0" encoding="bar"?>', $content);
+    }
+    /**
+     * test xml with nocache variable
+     */
+    public function testXmlVariableNocache1()
+    {
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 1000;
+        $this->smarty->assign('foo','bar',true);
+        $content = $this->smarty->fetch('xmlvar.tpl');
+        $this->assertEquals('<?xml version="1.0" encoding="bar"?>', $content);
+    }
+    public function testXmlVariableNocache2()
+    {
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 1000;
+        $this->smarty->assign('foo','foo',true);
+        $content = $this->smarty->fetch('xmlvar.tpl');
+        $this->assertEquals('<?xml version="1.0" encoding="foo"?>', $content);
     }
 }
