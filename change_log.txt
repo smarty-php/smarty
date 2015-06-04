@@ -1,5 +1,8 @@
 ﻿ ===== 3.1.25-dev===== (xx.xx.2015)
- 01.06.2105
+ 04.06.2015
+  - bugfix possible error message on unset() while compiling {block} tags https://github.com/smarty-php/smarty/issues/46
+
+ 01.06.2015
   - bugfix <?xml ... ?> including template variables broken  since 3.1.22 https://github.com/smarty-php/smarty/issues/47
   
  27.05.2015
