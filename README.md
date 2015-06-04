@@ -3,7 +3,7 @@
 
 *Read the NEW_FEATURES file for recent extensions to Smarty 3.1 functionality*
 
-Smarty packages are now on github and can be installed with Composer.
+Smarty versions 3.1.11 or later are now on github and can be installed with Composer.
 
 
 The "smarty/smarty" package will start at libs/....   subfolder.
@@ -22,20 +22,19 @@ in your composer.json file.
 	   "smarty/smarty": "~3.1@dev"
 	}
 
-All stable releases since 3.1.11 are available
 For a specific version use something like
 
 	"require": {
                	   "smarty/smarty": "3.1.19"
     }
 
-PHPUnit test can be installed by corresponding comper entries like
+PHPUnit test can be installed by corresponding composer entries like
 
 	"require": {
                	   "smarty/smarty-phpunit": "3.1.19"
     }
 
-Similar applies for the lxer/parser generator
+Similar applies for the lexer/parser generator
 
 	"require": {
                	   "smarty/smarty-lexer": "3.1.19"
