@@ -485,9 +485,16 @@ class Smarty_Internal_Templatelexer
     function yy_r2_9()
     {
 
-        $this->yypopstate();
-        $this->token = Smarty_Internal_Templateparser::TP_SIMPELOUTPUT;
-        $this->taglineno = $this->line;
+        if ($this->_yy_stack[count($this->_yy_stack) - 1] == self::TEXT) {
+            $this->yypopstate();
+            $this->token = Smarty_Internal_Templateparser::TP_SIMPLEOUTPUT;
+            $this->taglineno = $this->line;
+        } else {
+            $this->value = $this->smarty->left_delimiter;
+            $this->token = Smarty_Internal_Templateparser::TP_LDEL;
+            $this->yybegin(self::TAGBODY);
+            $this->taglineno = $this->line;
+        }
     }
 
     function yy_r2_11()

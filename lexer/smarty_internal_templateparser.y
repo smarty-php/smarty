@@ -320,7 +320,7 @@ smartytag(res)   ::= tag(t) RDEL. {
 //
 // output tags start here
 //
-smartytag(res)   ::= SIMPELOUTPUT(i). {
+smartytag(res)   ::= SIMPLEOUTPUT(i). {
     $var = trim(substr(i, $this->lex->ldel_length, -$this->lex->rdel_length), ' $');
     if (preg_match('/^(.*)(\s+nocache)$/', $var, $match)) {
         res = $this->compiler->compileTag('private_print_expression',array('nocache'),array('value'=>$this->compiler->compileVariable('\''.$match[1].'\'')));
@@ -948,7 +948,6 @@ indexdef(res)   ::= DOT INTEGER(n). {
     res = '['. n .']';
 }
 
-
 indexdef(res)   ::= DOT LDEL expr(e) RDEL. {
     res = '['. e .']';
 }
@@ -1009,10 +1008,6 @@ varvar(res)      ::= varvar(v1) varvarele(v2). {
                     // fix sections of element
 varvarele(res)   ::= ID(s). {
     res = '\''.s.'\'';
-}
-varvarele(res)   ::= SIMPELOUTPUT(i). {
-    $var = trim(substr(i, $this->lex->ldel_length, -$this->lex->rdel_length), ' $');
-    res = $this->compiler->compileVariable('\''.$var.'\'');
 }
 
                     // variable sections of element
