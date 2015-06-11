@@ -286,7 +286,11 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($this->yy_global_pattern1, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                if (strlen($yysubmatches[0]) < 200) {
+                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                } else {
+                    $yymatches = array_filter($yymatches, 'strlen');
+                }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state TEXT');
                 }
@@ -399,7 +403,11 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($this->yy_global_pattern2, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                if (strlen($yysubmatches[0]) < 200) {
+                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                } else {
+                    $yymatches = array_filter($yymatches, 'strlen');
+                }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state TAG');
                 }
@@ -525,7 +533,11 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($this->yy_global_pattern3, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                if (strlen($yysubmatches[0]) < 200) {
+                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                } else {
+                    $yymatches = array_filter($yymatches, 'strlen');
+                }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state TAGBODY     ');
                 }
@@ -852,7 +864,11 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($this->yy_global_pattern4, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                if (strlen($yysubmatches[0]) < 200) {
+                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                } else {
+                    $yymatches = array_filter($yymatches, 'strlen');
+                }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state LITERAL');
                 }
@@ -932,7 +948,11 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($this->yy_global_pattern5, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                if (strlen($yysubmatches[0]) < 200) {
+                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                } else {
+                    $yymatches = array_filter($yymatches, 'strlen');
+                }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state DOUBLEQUOTEDSTRING');
                 }
@@ -1067,7 +1087,11 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($this->yy_global_pattern6, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                if (strlen($yysubmatches[0]) < 200) {
+                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                } else {
+                    $yymatches = array_filter($yymatches, 'strlen');
+                }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state CHILDBODY');
                 }
@@ -1157,7 +1181,11 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($this->yy_global_pattern7, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                if (strlen($yysubmatches[0]) < 200) {
+                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                } else {
+                    $yymatches = array_filter($yymatches, 'strlen');
+                }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state CHILDBLOCK');
                 }
@@ -1260,7 +1288,11 @@ class Smarty_Internal_Templatelexer
         do {
             if (preg_match($this->yy_global_pattern8, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                if (strlen($yysubmatches[0]) < 200) {
+                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                } else {
+                    $yymatches = array_filter($yymatches, 'strlen');
+                }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' . substr($this->data, $this->counter, 5) . '... state CHILDLITERAL');
                 }
