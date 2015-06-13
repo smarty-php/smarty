@@ -298,8 +298,8 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      */
     protected function getMetaTimestamp(&$content)
     {
-        $s = unpack("N", substr($content, 0, 4));
-        $m = unpack("N", substr($content, 4, 4));
+        $s = unpack("N", $content[0] . $content[1] . $content[2] . $content[3]);
+        $m = unpack("N", $content[4] . $content[5] . $content[6] . $content[7]);
         $content = substr($content, 8);
 
         return $s[1] + ($m[1] / 100000000);

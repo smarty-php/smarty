@@ -1,7 +1,10 @@
 ﻿ ===== 3.1.25-dev===== (xx.xx.2015)
+ 13.06.2015
+  - bugfix a custom cache resource using smarty_cachereource_keyvaluestore.php did fail if php.ini mbstring.func_overload = 2 (forum topic 25568)
+
  11.06.2015
   - bugfix the lexer could hang on very large quoted strings (forum topic 25570)
-  
+
  08.06.2015
   - bugfix using {$foo} as array index like $bar.{$foo} or in double quoted string like "some {$foo} thing" failed https://github.com/smarty-php/smarty/issues/49
 
