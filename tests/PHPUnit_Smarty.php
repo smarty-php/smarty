@@ -74,6 +74,10 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
         'PHPUnit_Smarty' => array('config', 'pdo', 'init'),
     );
 
+    private $dsMap = array('/' => array(array('\\', '/./'), '/.'),
+                           '\\' => array(array('/', '\\.\\'), '\\.'),
+    );
+
     /**
      * This method is called before the first test of this test class is run.
      *
@@ -311,8 +315,7 @@ KEY `expire` (`expire`)
             case 'file':
             case 'filetest':
             case 'php':
-                return $dir . $name;
-                return $this->normalizePath($dir . $name);
+                 return $this->normalizePath($dir . $name);
             case 'mysqltest':
             case 'mysql':
                 return sha1($type . ':' . $name);
@@ -343,9 +346,9 @@ KEY `expire` (`expire`)
             case 'file':
             case 'filetest':
                 if ($tpl instanceof Smarty) {
-                    return sha1(getcwd() . $this->normalizePath($this->smarty->getTemplateDir(0) . $name));
+                    return sha1($this->normalizePath($this->smarty->getTemplateDir(0) . $name));
                 }
-                return sha1(getcwd() . $tpl->source->filepath);
+                return sha1($tpl->source->filepath);
             case 'mysqltest':
             case 'mysql':
                 return sha1($type . ':' . $name);
@@ -357,21 +360,21 @@ KEY `expire` (`expire`)
     }
 
     /**
-     * Normalize file path
+     * Normalize path
+     *  - remove /./ and /../
+     *  - make it absolute
      *
-     * @param  string $path input path
-     * @param bool    $ds   if true use system directory separator
+     * @param string     $path file path
      *
      * @return string
      */
-    public function normalizePath($path, $ds = false)
-    {
-        $path = str_replace(array('\\', '/./'), '/', $path);
-        while ($path !== $new = preg_replace('#[^\.\/]+/\.\./#', '', $path)) {
-            $path = $new;
+    public function normalizePath($path) {
+        if ($path[0] == '.') {
+            $path = getcwd() . DS . $path;
         }
-        if (DS !== '/' && $ds) {
-            $path = str_replace('/', DS, $path);
+        $path = str_replace($this->dsMap[DS][0], DS, $path);
+        while (strrpos($path, $this->dsMap[DS][1]) !== false) {
+            $path = preg_replace('#([\\\/][.][\\\/])|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DS, $path);
         }
         return $path;
     }

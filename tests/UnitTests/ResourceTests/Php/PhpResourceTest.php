@@ -36,7 +36,7 @@ class PhpResourceTest extends PHPUnit_Smarty
     public function testGetTemplateFilepath()
     {
         $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
-        $this->assertEquals("./templates/phphelloworld.php", str_replace('\\', '/', $tpl->source->filepath));
+        $this->assertEquals($this->normalizePath("./templates/phphelloworld.php"), $tpl->source->filepath);
     }
 
     /**

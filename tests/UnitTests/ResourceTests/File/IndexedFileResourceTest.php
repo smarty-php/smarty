@@ -12,42 +12,35 @@ class IndexedFileResourceTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(__DIR__);
-        $path = str_replace(array("\\", "/"), DS, dirname(__FILE__));
-        $this->smarty->addTemplateDir($path . DS. 'templates_2');
+        $this->smarty->addTemplateDir(__DIR__ . '/templates_2');
         // note that 10 is a string!
-        $this->smarty->addTemplateDir($path . DS. 'templates_3', '10');
-        $this->smarty->addTemplateDir($path . DS . 'templates_4', 'foo');
+        $this->smarty->addTemplateDir(__DIR__ . '/templates_3', '10');
+        $this->smarty->addTemplateDir(__DIR__ . '/templates_4', 'foo');
     }
 
-    protected function relative($path)
-    {
-        $path = str_replace(str_replace("\\", "/", dirname(__FILE__)), '.', str_replace("\\", "/", $path));
-
-        return $path;
-    }
 
     public function testGetTemplateFilepath()
     {
         $tpl = $this->smarty->createTemplate('dirname.tpl');
-        $this->assertEquals("./templates/dirname.tpl", $this->relative($tpl->source->filepath));
+        $this->assertEquals($this->normalizePath("./templates/dirname.tpl"), $tpl->source->filepath);
     }
 
     public function testGetTemplateFilepathNumber()
     {
         $tpl = $this->smarty->createTemplate('[1]dirname.tpl');
-        $this->assertEquals('./templates_2/dirname.tpl', $this->relative($tpl->source->filepath));
+        $this->assertEquals($this->normalizePath('./templates_2/dirname.tpl'), $tpl->source->filepath);
     }
 
     public function testGetTemplateFilepathNumeric()
     {
         $tpl = $this->smarty->createTemplate('[10]dirname.tpl');
-        $this->assertEquals('./templates_3/dirname.tpl', $this->relative($tpl->source->filepath));
+        $this->assertEquals($this->normalizePath('./templates_3/dirname.tpl'), $tpl->source->filepath);
     }
 
     public function testGetTemplateFilepathName()
     {
         $tpl = $this->smarty->createTemplate('[foo]dirname.tpl');
-        $this->assertEquals('./templates_4/dirname.tpl', $this->relative($tpl->source->filepath));
+        $this->assertEquals($this->normalizePath('./templates_4/dirname.tpl'), $tpl->source->filepath);
     }
 
     public function testFetch()

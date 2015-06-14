@@ -123,6 +123,7 @@ class HttpModifiedSinceTest extends PHPUnit_Smarty
     public function testEnabledCached3()
     {
 
+        //$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
         $_SERVER['SMARTY_PHPUNIT_HEADERS'] = array();
         $_SERVER['HTTP_IF_MODIFIED_SINCE'] = gmdate('D, d M Y H:i:s', time() + 10) . ' GMT';
         $this->smarty->setCacheModifiedCheck(true);
