@@ -2,6 +2,7 @@
  14.06.2015
   - bugfix a relative sub template path could fail if template_dir path did contain /../ https://github.com/smarty-php/smarty/issues/50
   - optimization rework of path normalization
+  - bugfix an output tag with variable, modifier followed by an operator like {$foo|modifier+1} did fail https://github.com/smarty-php/smarty/issues/53
 
  13.06.2015
   - bugfix a custom cache resource using smarty_cachereource_keyvaluestore.php did fail if php.ini mbstring.func_overload = 2 (forum topic 25568)
