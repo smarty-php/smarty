@@ -1,4 +1,8 @@
 ﻿ ===== 3.1.25-dev===== (xx.xx.2015)
+ 14.06.2015
+  - bugfix a relative sub template path could fail if template_dir path did contain /../ https://github.com/smarty-php/smarty/issues/50
+  - optimization rework of path normalization
+
  13.06.2015
   - bugfix a custom cache resource using smarty_cachereource_keyvaluestore.php did fail if php.ini mbstring.func_overload = 2 (forum topic 25568)
 
