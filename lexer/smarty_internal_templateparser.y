@@ -387,7 +387,7 @@ smartytag(res)::= SIMPLETAG(t). {
             res = $this->compiler->compileTag('private_print_expression',array(),array('value'=>$tag));
         } else {
             if (preg_match('/^(.*)(\s+nocache)$/', $tag, $match)) {
-                res = $this->compiler->compileTag($match[1],array('nocache'));
+                res = $this->compiler->compileTag($match[1],array("'nocache'"));
             } else {
                 res = $this->compiler->compileTag($tag,array());
             }

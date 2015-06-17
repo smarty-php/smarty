@@ -1375,7 +1375,7 @@ class Smarty_Internal_Templateparser
                 $this->_retvalue = $this->compiler->compileTag('private_print_expression', array(), array('value' => $tag));
             } else {
                 if (preg_match('/^(.*)(\s+nocache)$/', $tag, $match)) {
-                    $this->_retvalue = $this->compiler->compileTag($match[1], array('nocache'));
+                    $this->_retvalue = $this->compiler->compileTag($match[1], array("'nocache'"));
                 } else {
                     $this->_retvalue = $this->compiler->compileTag($tag, array());
                 }
