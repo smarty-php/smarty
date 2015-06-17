@@ -17,9 +17,6 @@
  */
 class Smarty_Internal_Resource_File extends Smarty_Resource
 {
-
-    private $dsMap = array('/' => array(array('\\', '/./'), '/.'), '\\' => array(array('/', '\\.\\'), '\\.'));
-
     /**
      * build template filepath by traversing the template_dir array
      *
@@ -127,9 +124,9 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         if ($path[0] == '.') {
             $path = getcwd() . DS . $path;
         }
-        $path = str_replace($this->dsMap[DS][0], DS, $path);
-        while (strrpos($path, $this->dsMap[DS][1]) !== false) {
-            $path = preg_replace('#([\\\/][.][\\\/])|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DS, $path);
+        $path = preg_replace('#[\\\/]+([.][\\\/]+)*([.](?![.]))?#', DS, $path);
+        while (strrpos($path, DS . '.') !== false) {
+            $path = preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/]?)#', DS, $path);
         }
         return $path;
     }
