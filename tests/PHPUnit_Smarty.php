@@ -74,9 +74,6 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
         'PHPUnit_Smarty' => array('config', 'pdo', 'init'),
     );
 
-    private $dsMap = array('/' => array(array('\\', '/./'), '/.'),
-                           '\\' => array(array('/', '\\.\\'), '\\.'),
-    );
 
     /**
      * This method is called before the first test of this test class is run.
@@ -372,9 +369,9 @@ KEY `expire` (`expire`)
         if ($path[0] == '.') {
             $path = getcwd() . DS . $path;
         }
-        $path = str_replace($this->dsMap[DS][0], DS, $path);
-        while (strrpos($path, $this->dsMap[DS][1]) !== false) {
-            $path = preg_replace('#([\\\/][.][\\\/])|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DS, $path);
+        $path = preg_replace('#[\\\/]+([.][\\\/]+)*([.](?![.]))?#', DS, $path);
+        while (strrpos($path, DS . '.') !== false) {
+            $path = preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/]?)#', DS, $path);
         }
         return $path;
     }
