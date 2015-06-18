@@ -103,6 +103,9 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      */
     public function __construct($name = null, array $data = array(), $dataName = '')
     {
+        if (!defined('individualFolders')) {
+            define('individualFolders', true);
+        }
         parent::__construct($name, $data, $dataName);
         $this->backupStaticAttributesBlacklist[get_class($this)] = array('init', 'config', 'pdo');
     }
@@ -369,9 +372,9 @@ KEY `expire` (`expire`)
         if ($path[0] == '.') {
             $path = getcwd() . DS . $path;
         }
-        $path = preg_replace('#[\\\/]+([.][\\\/]+)*([.](?![.]))?#', DS, $path);
-        while (strrpos($path, DS . '.') !== false) {
-            $path = preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/]?)#', DS, $path);
+        $path = preg_replace('#[\\\/]+([.][\\\/]+)*#', DS, $path);
+        while (strrpos($path, '.' . DS) !== false) {
+            $path = preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DS, $path);
         }
         return $path;
     }
