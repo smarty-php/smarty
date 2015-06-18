@@ -124,9 +124,9 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         if ($path[0] == '.') {
             $path = getcwd() . DS . $path;
         }
-        $path = preg_replace('#[\\\/]+([.][\\\/]+)*([.](?![.]))?#', DS, $path);
-        while (strrpos($path, DS . '.') !== false) {
-            $path = preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/]?)#', DS, $path);
+        $path = preg_replace('#[\\\/]+([.][\\\/]+)*#', DS, $path);
+        while (strrpos($path, '.' . DS) !== false) {
+            $path = preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DS, $path);
         }
         return $path;
     }
