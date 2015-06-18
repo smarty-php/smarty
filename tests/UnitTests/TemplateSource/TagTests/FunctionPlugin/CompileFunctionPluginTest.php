@@ -30,7 +30,7 @@ class CompileFunctionPluginTest extends PHPUnit_Smarty
     {
         $this->smarty->setCaching(true);
         $tpl = $this->smarty->createTemplate('functionplugintestnocache.tpl', $this->smarty);
-        $this->assertEquals("1", $this->smarty->fetch($tpl));
+        $this->assertEquals("2", $this->smarty->fetch($tpl));
         $this->assertContains("%%*/<?php \$_smarty = \$_smarty_tpl->smarty; if (!is_callable(\\'smarty_function_counter\\'))", file_get_contents($tpl->compiled->filepath));
     }
 
