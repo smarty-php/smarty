@@ -2,6 +2,20 @@
 
 This file contains a brief description of new features which have been added to Smarty 3.1
 
+Smarty 3.1.28
+
+    Filter support
+    ==============
+    Optional filter names
+      An optional filter name was added to $smarty->registerFilter(). It can be used to unregister a filter by name.
+      - $smarty->registerFilter('output', $callback, 'name');
+        $smarty->unregister('output', 'name');
+
+    Closures
+      $smarty->registerFilter() does now accept closures.
+      - $smarty->registerFilter('pre', function($source) {return $source;});
+      If no optional filter name was specified it gets the default name 'closure'.
+
 Smarty 3.1.22
 
     Namespace support within templates

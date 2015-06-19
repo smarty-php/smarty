@@ -23,6 +23,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @var string
      */
     public $cache_id = null;
+
     /**
      * Set this if you want different sets of compiled files for the same
      * templates.
@@ -30,12 +31,14 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @var string
      */
     public $compile_id = null;
+
     /**
      * caching enabled
      *
      * @var boolean
      */
     public $caching = false;
+
     /**
      * cache lifetime in seconds
      *
@@ -46,7 +49,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     /**
      * test if cache is valid
      *
-     * @param  string|object $template   the resource handle of the template file or template object
+     * @param  string|\Smarty_Internal_Template $template   the resource handle of the template file or template object
      * @param  mixed         $cache_id   cache id to be used with this template
      * @param  mixed         $compile_id compile id to be used with this template
      * @param  object        $parent     next higher level of Smarty variables
@@ -121,7 +124,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @param  string   $type       plugin type
      * @param  string   $tag        name of template tag
      * @param  callback $callback   PHP callback to register
-     * @param  boolean  $cacheable  if true (default) this fuction is cachable
+     * @param  boolean  $cacheable  if true (default) this function is cache able
      * @param  array    $cache_attr caching attributes if any
      *
      * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or
@@ -174,7 +177,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     public function registerResource($type, $callback)
     {
         $smarty = isset($this->smarty) ? $this->smarty : $this;
-        $smarty->registered_resources[$type] = $callback instanceof Smarty_Resource ? $callback : array($callback, false);
+        $smarty->registered_resources[$type] = $callback instanceof Smarty_Resource ? $callback : array($callback,
+            false);
 
         return $this;
     }
@@ -265,8 +269,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         }
         // register the object
         $smarty = isset($this->smarty) ? $this->smarty : $this;
-        $smarty->registered_objects[$object_name] =
-            array($object_impl, (array) $allowed, (boolean) $smarty_args, (array) $block_methods);
+        $smarty->registered_objects[$object_name] = array($object_impl, (array) $allowed, (boolean) $smarty_args,
+            (array) $block_methods);
 
         return $this;
     }
@@ -387,57 +391,33 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     /**
      * Registers a filter function
      *
-     * @param  string   $type filter type
-     * @param  callback $callback
+     * @param  string     $type filter type
+     * @param  callback   $callback
+     * @param null|string $name option filter name
      *
-     * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or
+     * @return \Smarty_Internal_TemplateBase current Smarty_Internal_Templatebase (or Smarty or
      *                                      Smarty_Internal_Template) instance for chaining
+     * @throws \SmartyException
      */
-    public function registerFilter($type, $callback)
+    public function registerFilter($type, $callback, $name = null)
     {
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        $smarty->registered_filters[$type][$this->_get_filter_name($callback)] = $callback;
-
+        Smarty_Internal_Extension_Filter::registerFilter($this, $type, $callback, $name);
         return $this;
     }
 
     /**
      * Unregisters a filter function
      *
-     * @param  string   $type filter type
-     * @param  callback $callback
+     * @param  string          $type filter type
+     * @param  callback|string $callback
      *
      * @return Smarty_Internal_Templatebase current Smarty_Internal_Templatebase (or Smarty or
      *                                      Smarty_Internal_Template) instance for chaining
      */
     public function unregisterFilter($type, $callback)
     {
-        $name = $this->_get_filter_name($callback);
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        if (isset($smarty->registered_filters[$type][$name])) {
-            unset($smarty->registered_filters[$type][$name]);
-        }
-
+        Smarty_Internal_Extension_Filter::unregisterFilter($this, $type, $callback);
         return $this;
-    }
-
-    /**
-     * Return internal filter name
-     *
-     * @param  callback $function_name
-     *
-     * @return string   internal filter name
-     */
-    public function _get_filter_name($function_name)
-    {
-        if (is_array($function_name)) {
-            $_class_name = (is_object($function_name[0]) ?
-                get_class($function_name[0]) : $function_name[0]);
-
-            return $_class_name . '_' . $function_name[1];
-        } else {
-            return $function_name;
-        }
     }
 
     /**
@@ -446,24 +426,12 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @param  string $type filter type
      * @param  string $name filter name
      *
+     * @return bool
      * @throws SmartyException if filter could not be loaded
      */
     public function loadFilter($type, $name)
     {
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        $_plugin = "smarty_{$type}filter_{$name}";
-        $_filter_name = $_plugin;
-        if ($smarty->loadPlugin($_plugin)) {
-            if (class_exists($_plugin, false)) {
-                $_plugin = array($_plugin, 'execute');
-            }
-            if (is_callable($_plugin)) {
-                $smarty->registered_filters[$type][$_filter_name] = $_plugin;
-
-                return true;
-            }
-        }
-        throw new SmartyException("{$type}filter \"{$name}\" not callable");
+        return Smarty_Internal_Extension_Filter::loadFilter($this, $type, $name);
     }
 
     /**
@@ -477,12 +445,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function unloadFilter($type, $name)
     {
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        $_filter_name = "smarty_{$type}filter_{$name}";
-        if (isset($smarty->registered_filters[$type][$_filter_name])) {
-            unset ($smarty->registered_filters[$type][$_filter_name]);
-        }
-
+        Smarty_Internal_Extension_Filter::unloadFilter($this, $type, $name);
         return $this;
     }
 
@@ -491,7 +454,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      *
      * @param  string $match match string
      *
-     * @return string replacemant
+     * @return string replacement
      */
     private function replaceCamelcase($match)
     {

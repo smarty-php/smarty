@@ -43,22 +43,21 @@ class Smarty_Internal_Filter_Handler
                         $output = $plugin_name($output, $template);
                     } elseif (class_exists($plugin_name, false)) {
                         // loaded class of filter plugin
+                        if (!is_callable(array($plugin_name, 'execute'))) {
+                            throw new SmartyException("Auto load {$type}-filter plugin method \"{$plugin_name}::execute\" not callable");
+                        }
                         $output = call_user_func(array($plugin_name, 'execute'), $output, $template);
                     }
                 } else {
                     // nothing found, throw exception
-                    throw new SmartyException("Unable to load filter {$plugin_name}");
+                    throw new SmartyException("Unable to auto load {$type}-filter plugin \"{$plugin_name}\"");
                 }
             }
         }
         // loop over registerd filters of specified type
         if (!empty($template->smarty->registered_filters[$type])) {
             foreach ($template->smarty->registered_filters[$type] as $key => $name) {
-                if (is_array($template->smarty->registered_filters[$type][$key])) {
                     $output = call_user_func($template->smarty->registered_filters[$type][$key], $output, $template);
-                } else {
-                    $output = $template->smarty->registered_filters[$type][$key]($output, $template);
-                }
             }
         }
         // return filtered output
