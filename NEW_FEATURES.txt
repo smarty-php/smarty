@@ -15,6 +15,10 @@ Smarty 3.1.28
       $smarty->registerFilter() does now accept closures.
       - $smarty->registerFilter('pre', function($source) {return $source;});
       If no optional filter name was specified it gets the default name 'closure'.
+      If you register multiple closures register each with a unique filter name.
+      - $smarty->registerFilter('pre', function($source) {return $source;}, 'clousre_1');
+      - $smarty->registerFilter('pre', function($source) {return $source;}, 'clousre_2');
+      
 
 Smarty 3.1.22
 
