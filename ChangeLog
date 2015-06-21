@@ -1,3 +1,7 @@
+2015-06-21  Uwe Tews
+
+    * PHP7 raises E_DEPRECATED use __construct for compatibility 
+
 2013-09-30
 
     * Fixed old vulnerability bug https://bugs.gentoo.org/show_bug.cgi?id=356615
