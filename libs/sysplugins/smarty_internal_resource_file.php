@@ -36,7 +36,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     protected function buildFilepath(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
     {
         $file = $source->name;
-        $this->invDS = (DS == '/') ? '\\' : '/';
+        $this->invDS = (DS == '/') ? '\\\\' : '\\/';
         preg_match('#(^(?P<absolute>[\\\/]|[a-zA-Z]:[\\\/])|(\[(?P<index>[^\]]+)\])|(?P<rel>\.[\\\/]))|((?P<rel2>\.[\\\/])|(?P<ds>[' . $this->invDS . ']))#', $file, $fileMatch);
         // save basename
         if (!empty($fileMatch['absolute'])) {
