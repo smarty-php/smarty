@@ -18,6 +18,13 @@
 class Smarty_Internal_Resource_File extends Smarty_Resource
 {
     /**
+     * Inverse DS
+     *
+     * @var string
+     */
+    private $invDS = '';
+
+    /**
      * build template filepath by traversing the template_dir array
      *
      * @param Smarty_Template_Source    $source    source object
@@ -29,7 +36,8 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     protected function buildFilepath(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
     {
         $file = $source->name;
-        preg_match('#^(?P<absolute>[\\\/]|[a-zA-Z]:[\\\/])|(\[(?P<index>[^\]]+)\])|(?P<rel>\.[\\\/])#', $file, $fileMatch);
+        $this->invDS = (DS == '/') ? '\\' : '/';
+        preg_match('#(^(?P<absolute>[\\\/]|[a-zA-Z]:[\\\/])|(\[(?P<index>[^\]]+)\])|(?P<rel>\.[\\\/]))|((?P<rel2>\.[\\\/])|(?P<ds>[' . $this->invDS . ']))#', $file, $fileMatch);
         // save basename
         if (!empty($fileMatch['absolute'])) {
             $file = $this->normalizePath($file);
@@ -83,10 +91,11 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             }
         }
 
+        $normalize = !empty($fileMatch['rel']) || !empty($fileMatch['rel2']) || !empty($fileMatch['ds']);
         // relative file name?
         foreach ($_directories as $_directory) {
             $_filepath = $_directory . $file;
-            $path = $this->normalizePath($_filepath);
+            $path = $normalize ? $this->normalizePath($_filepath) : $_filepath;
             if (is_file($path)) {
                 return $path;
             }
@@ -124,9 +133,10 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         if ($path[0] == '.') {
             $path = getcwd() . DS . $path;
         }
-        $path = preg_replace('#[\\\/]+([.][\\\/]+)*#', DS, $path);
-        while (strrpos($path, '.' . DS) !== false) {
-            $path = preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DS, $path);
+        $first = true;
+        while (strrpos($path, '.' . DS) !== false || ($first && strrpos($path, $this->invDS) !== false)) {
+            $path = preg_replace('#([\\\/]+([.][\\\/]+)+)|([\\\/]+([^\\\/]+[\\\/]+){2}([.][.][\\\/]+){2})|([\\\/]+[^\\\/]+[\\\/]+[.][.][\\\/]+)|[' . $this->invDS . ']+#', DS, $path);
+            $first = false;
         }
         return $path;
     }
@@ -196,7 +206,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         if ($source->timestamp) {
             return file_get_contents($source->filepath);
         }
-        if ($source instanceof Smarty_Config_Source) {
+        if ($source instanceof Smarty_Template_Config) {
             throw new SmartyException("Unable to read config {$source->type} '{$source->name}'");
         }
         throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");
