@@ -50,9 +50,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * test if cache is valid
      *
      * @param  string|\Smarty_Internal_Template $template   the resource handle of the template file or template object
-     * @param  mixed         $cache_id   cache id to be used with this template
-     * @param  mixed         $compile_id compile id to be used with this template
-     * @param  object        $parent     next higher level of Smarty variables
+     * @param  mixed                            $cache_id   cache id to be used with this template
+     * @param  mixed                            $compile_id compile id to be used with this template
+     * @param  object                           $parent     next higher level of Smarty variables
      *
      * @return boolean       cache status
      */
@@ -251,27 +251,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function registerObject($object_name, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
     {
-        // test if allowed methods callable
-        if (!empty($allowed)) {
-            foreach ((array) $allowed as $method) {
-                if (!is_callable(array($object_impl, $method)) && !property_exists($object_impl, $method)) {
-                    throw new SmartyException("Undefined method or property '$method' in registered object");
-                }
-            }
-        }
-        // test if block methods callable
-        if (!empty($block_methods)) {
-            foreach ((array) $block_methods as $method) {
-                if (!is_callable(array($object_impl, $method))) {
-                    throw new SmartyException("Undefined method '$method' in registered object");
-                }
-            }
-        }
-        // register the object
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        $smarty->registered_objects[$object_name] = array($object_impl, (array) $allowed, (boolean) $smarty_args,
-            (array) $block_methods);
-
+        Smarty_Internal_Extension_Object::registerObject($this, $object_name, $object_impl, $allowed, $smarty_args, $block_methods);
         return $this;
     }
 
@@ -285,15 +265,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function getRegisteredObject($name)
     {
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        if (!isset($smarty->registered_objects[$name])) {
-            throw new SmartyException("'$name' is not a registered object");
-        }
-        if (!is_object($smarty->registered_objects[$name][0])) {
-            throw new SmartyException("registered '$name' is not an object");
-        }
-
-        return $smarty->registered_objects[$name][0];
+        return Smarty_Internal_Extension_Object::getRegisteredObject($this, $name);
     }
 
     /**
@@ -306,11 +278,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function unregisterObject($name)
     {
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        if (isset($smarty->registered_objects[$name])) {
-            unset($smarty->registered_objects[$name]);
-        }
-
+        Smarty_Internal_Extension_Object::unregisterObject($this, $name);
         return $this;
     }
 
@@ -326,14 +294,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function registerClass($class_name, $class_impl)
     {
-        // test if exists
-        if (!class_exists($class_impl)) {
-            throw new SmartyException("Undefined class '$class_impl' in register template class");
-        }
-        // register the class
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        $smarty->registered_classes[$class_name] = $class_impl;
-
+        Smarty_Internal_Extension_Object::registerClass($this, $class_name, $class_impl);
         return $this;
     }
 

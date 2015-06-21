@@ -3,6 +3,7 @@
   - optimization  of template/config file normalization
   - optimization  of directory handling / build realpath
   - optimization  of filter execution
+  - move  registerObject / registerClass into extension
 
  19.06.2015
   - improvement allow closures as callback at $smarty->registerFilter() https://github.com/smarty-php/smarty/issues/59
