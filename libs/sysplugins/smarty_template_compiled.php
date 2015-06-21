@@ -61,29 +61,31 @@ class Smarty_Template_Compiled
      */
     static function load($_template)
     {
+        $smarty = $_template->smarty;
         if (!isset($_template->source)) {
             $_template->loadSource();
         }
+        $source = $_template->source;
         // check runtime cache
-        if (!$_template->source->recompiled && $_template->smarty->resource_caching) {
-            $_cache_key = $_template->source->unique_resource . '#';
+        if (!$source->recompiled && $smarty->resource_caching) {
+            $_cache_key = $source->unique_resource . '#';
             if ($_template->caching) {
                 $_cache_key .= 'caching#';
             }
             $_cache_key .= $_template->compile_id;
-            if (isset($_template->source->compileds[$_cache_key])) {
-                return $_template->source->compileds[$_cache_key];
+            if (isset($source->compileds[$_cache_key])) {
+                return $source->compileds[$_cache_key];
             }
         }
         $compiled = new Smarty_Template_Compiled();
-        if (method_exists($_template->source->handler, 'populateCompiledFilepath')) {
-            $_template->source->handler->populateCompiledFilepath($compiled, $_template);
+        if (method_exists($source->handler, 'populateCompiledFilepath')) {
+            $source->handler->populateCompiledFilepath($compiled, $_template);
         } else {
             $compiled->populateCompiledFilepath($_template);
         }
         // runtime cache
-        if (!$_template->source->recompiled && $_template->smarty->resource_caching) {
-            $_template->source->compileds[$_cache_key] = $compiled;
+        if (!$source->recompiled && $smarty->resource_caching) {
+            $source->compileds[$_cache_key] = $compiled;
         }
         return $compiled;
     }
