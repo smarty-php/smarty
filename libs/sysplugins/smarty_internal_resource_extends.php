@@ -44,7 +44,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
                 throw new SmartyException("Resource type {$s->type} cannot be used with the extends resource type");
             }
             $sources[$s->uid] = $s;
-            $uid .= realpath($s->filepath);
+            $uid .= $source->smarty->_realpath($s->filepath);
             if ($_template && $_template->smarty->compile_check) {
                 $exists = $exists && $s->exists;
             }

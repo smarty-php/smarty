@@ -382,13 +382,13 @@ class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_Compil
 
         // update template with original template resource of {block}
         if (trim($_attr['type'], "'") == 'file') {
-            $compiler->template->template_resource = 'file:' . realpath(trim($_attr['file'], "'"));
+            $compiler->template->template_resource = 'file:' . $compiler->template->smarty->_realpath(trim($_attr['file'], "'"));
         } else {
             $compiler->template->template_resource = trim($_attr['resource'], "'");
         }
         // source object
         unset ($compiler->template->source);
-        $exists = $compiler->template->source->exists;
+        $compiler->template->loadSource();
 
         // must merge includes
         if ($_attr['nocache'] == true) {
