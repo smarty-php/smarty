@@ -32,35 +32,38 @@ class Smarty_Internal_Filter_Handler
      */
     public static function runFilter($type, $content, Smarty_Internal_Template $template)
     {
-        $output = $content;
         // loop over autoload filters of specified type
         if (!empty($template->smarty->autoload_filters[$type])) {
             foreach ((array) $template->smarty->autoload_filters[$type] as $name) {
                 $plugin_name = "Smarty_{$type}filter_{$name}";
-                if ($template->smarty->loadPlugin($plugin_name)) {
+                if (function_exists($plugin_name)) {
+                    $callback = $plugin_name;
+                } elseif (class_exists($plugin_name, false) && is_callable(array($plugin_name, 'execute'))) {
+                    $callback = array($plugin_name, 'execute');
+                } elseif ($template->smarty->loadPlugin($plugin_name, false)) {
                     if (function_exists($plugin_name)) {
                         // use loaded Smarty2 style plugin
-                        $output = $plugin_name($output, $template);
-                    } elseif (class_exists($plugin_name, false)) {
+                        $callback = $plugin_name;
+                    } elseif (class_exists($plugin_name, false) && is_callable(array($plugin_name, 'execute'))) {
                         // loaded class of filter plugin
-                        if (!is_callable(array($plugin_name, 'execute'))) {
-                            throw new SmartyException("Auto load {$type}-filter plugin method \"{$plugin_name}::execute\" not callable");
-                        }
-                        $output = call_user_func(array($plugin_name, 'execute'), $output, $template);
+                        $callback = array($plugin_name, 'execute');
+                    } else {
+                        throw new SmartyException("Auto load {$type}-filter plugin method \"{$plugin_name}::execute\" not callable");
                     }
                 } else {
                     // nothing found, throw exception
                     throw new SmartyException("Unable to auto load {$type}-filter plugin \"{$plugin_name}\"");
                 }
+                $content = call_user_func($callback, $content, $template);
             }
         }
-        // loop over registerd filters of specified type
+        // loop over registered filters of specified type
         if (!empty($template->smarty->registered_filters[$type])) {
             foreach ($template->smarty->registered_filters[$type] as $key => $name) {
-                    $output = call_user_func($template->smarty->registered_filters[$type][$key], $output, $template);
+                $content = call_user_func($template->smarty->registered_filters[$type][$key], $content, $template);
             }
         }
         // return filtered output
-        return $output;
+        return $content;
     }
 }
