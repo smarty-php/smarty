@@ -130,9 +130,6 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     public function normalizePath($path)
     {
-        if ($path[0] == '.') {
-            $path = getcwd() . DS . $path;
-        }
         $first = true;
         while (strrpos($path, '.' . DS) !== false || ($first && strrpos($path, $this->invDS) !== false)) {
             $path = preg_replace('#([\\\/]+([.][\\\/]+)+)|([\\\/]+([^\\\/]+[\\\/]+){2}([.][.][\\\/]+){2})|([\\\/]+[^\\\/]+[\\\/]+[.][.][\\\/]+)|[' . $this->invDS . ']+#', DS, $path);
