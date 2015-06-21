@@ -76,6 +76,8 @@ class Smarty_Autoloader
         'smarty_internal_resource_registered'   => true,
         'smarty_internal_extension_codeframe'   => true,
         'smarty_internal_extension_config'      => true,
+        'smarty_internal_extension_filter'      => true,
+        'smarty_internal_extension_object'      => true,
         'smarty_internal_filter_handler'        => true,
         'smarty_internal_function_call_handler' => true,
         'smarty_internal_cacheresource_file'    => true,
