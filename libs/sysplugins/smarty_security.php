@@ -34,6 +34,7 @@ class Smarty_Security
      * @var integer
      */
     public $php_handling = Smarty::PHP_PASSTHRU;
+
     /**
      * This is the list of template directories that are considered secure.
      * $template_dir is in this list implicitly.
@@ -41,6 +42,7 @@ class Smarty_Security
      * @var array
      */
     public $secure_dir = array();
+
     /**
      * This is an array of directories where trusted php scripts reside.
      * {@link $security} is disabled during their inclusion/execution.
@@ -48,18 +50,21 @@ class Smarty_Security
      * @var array
      */
     public $trusted_dir = array();
+
     /**
      * List of regular expressions (PCRE) that include trusted URIs
      *
      * @var array
      */
     public $trusted_uri = array();
+
     /**
      * List of trusted constants names
      *
      * @var array
      */
     public $trusted_constants = array();
+
     /**
      * This is an array of trusted static classes.
      * If empty access to all static classes is allowed.
@@ -96,6 +101,7 @@ class Smarty_Security
      * @var array
      */
     public $trusted_static_properties = array();
+
     /**
      * This is an array of trusted PHP functions.
      * If empty all functions are allowed.
@@ -103,12 +109,8 @@ class Smarty_Security
      *
      * @var array
      */
-    public $php_functions = array(
-        'isset', 'empty',
-        'count', 'sizeof',
-        'in_array', 'is_array',
-        'time',
-    );
+    public $php_functions = array('isset', 'empty', 'count', 'sizeof', 'in_array', 'is_array', 'time',);
+
     /**
      * This is an array of trusted PHP modifiers.
      * If empty all modifiers are allowed.
@@ -116,11 +118,8 @@ class Smarty_Security
      *
      * @var array
      */
-    public $php_modifiers = array(
-        'escape',
-        'count',
-        'nl2br',
-    );
+    public $php_modifiers = array('escape', 'count', 'nl2br',);
+
     /**
      * This is an array of allowed tags.
      * If empty no restriction by allowed_tags.
@@ -128,6 +127,7 @@ class Smarty_Security
      * @var array
      */
     public $allowed_tags = array();
+
     /**
      * This is an array of disabled tags.
      * If empty no restriction by disabled_tags.
@@ -135,6 +135,7 @@ class Smarty_Security
      * @var array
      */
     public $disabled_tags = array();
+
     /**
      * This is an array of allowed modifier plugins.
      * If empty no restriction by allowed_modifiers.
@@ -142,6 +143,7 @@ class Smarty_Security
      * @var array
      */
     public $allowed_modifiers = array();
+
     /**
      * This is an array of disabled modifier plugins.
      * If empty no restriction by disabled_modifiers.
@@ -149,12 +151,14 @@ class Smarty_Security
      * @var array
      */
     public $disabled_modifiers = array();
+
     /**
      * This is an array of disabled special $smarty variables.
      *
      * @var array
      */
     public $disabled_special_smarty_vars = array();
+
     /**
      * This is an array of trusted streams.
      * If empty all streams are allowed.
@@ -163,60 +167,70 @@ class Smarty_Security
      * @var array
      */
     public $streams = array('file');
+
     /**
      * + flag if constants can be accessed from template
      *
      * @var boolean
      */
     public $allow_constants = true;
+
     /**
      * + flag if super globals can be accessed from template
      *
      * @var boolean
      */
     public $allow_super_globals = true;
+
     /**
      * max template nesting level
      *
      * @var int
      */
     public $max_template_nesting = 0;
+
     /**
      * current template nesting level
      *
      * @var int
      */
     private $_current_template_nesting = 0;
+
     /**
      * Cache for $resource_dir lookup
      *
      * @var array
      */
     protected $_resource_dir = null;
+
     /**
      * Cache for $template_dir lookup
      *
      * @var array
      */
     protected $_template_dir = null;
+
     /**
      * Cache for $config_dir lookup
      *
      * @var array
      */
     protected $_config_dir = null;
+
     /**
      * Cache for $secure_dir lookup
      *
      * @var array
      */
     protected $_secure_dir = null;
+
     /**
      * Cache for $php_resource_dir lookup
      *
      * @var array
      */
     protected $_php_resource_dir = null;
+
     /**
      * Cache for $trusted_dir lookup
      *
@@ -301,10 +315,7 @@ class Smarty_Security
                 // fall back
                 return $this->isTrustedStaticClass($class_name, $compiler);
             }
-            if (isset($allowed[$class_name])
-                && (empty($allowed[$class_name])
-                    || in_array($name, $allowed[$class_name]))
-            ) {
+            if (isset($allowed[$class_name]) && (empty($allowed[$class_name]) || in_array($name, $allowed[$class_name]))) {
                 return true;
             }
         }
@@ -344,9 +355,10 @@ class Smarty_Security
     public function isTrustedTag($tag_name, $compiler)
     {
         // check for internal always required tags
-        if (in_array($tag_name, array('assign', 'call', 'private_filter', 'private_block_plugin', 'private_function_plugin', 'private_object_block_function',
-                                      'private_object_function', 'private_registered_function', 'private_registered_block', 'private_special_variable', 'private_print_expression', 'private_modifier'))
-        ) {
+        if (in_array($tag_name, array('assign', 'call', 'private_filter', 'private_block_plugin',
+            'private_function_plugin', 'private_object_block_function', 'private_object_function',
+            'private_registered_function', 'private_registered_block', 'private_special_variable',
+            'private_print_expression', 'private_modifier'))) {
             return true;
         }
         // check security settings
@@ -419,7 +431,7 @@ class Smarty_Security
     /**
      * Check if constants are enabled or trusted
      *
-     * @param  string $const    contant name
+     * @param  string $const    constant name
      * @param  object $compiler compiler object
      *
      * @return bool
@@ -478,10 +490,7 @@ class Smarty_Security
         $_config_dir = $this->smarty->getConfigDir();
 
         // check if index is outdated
-        if ((!$this->_template_dir || $this->_template_dir !== $_template_dir)
-            || (!$this->_config_dir || $this->_config_dir !== $_config_dir)
-            || (!empty($this->secure_dir) && (!$this->_secure_dir || $this->_secure_dir !== $this->secure_dir))
-        ) {
+        if ((!$this->_template_dir || $this->_template_dir !== $_template_dir) || (!$this->_config_dir || $this->_config_dir !== $_config_dir) || (!empty($this->secure_dir) && (!$this->_secure_dir || $this->_secure_dir !== $this->secure_dir))) {
             $this->_resource_dir = array();
             $_template = true;
             $_config = true;
@@ -500,7 +509,7 @@ class Smarty_Security
         if ($_config) {
             $this->_config_dir = $_config_dir;
             foreach ($_config_dir as $directory) {
-               $this->_resource_dir[$directory] = true;
+                $this->_resource_dir[$directory] = true;
             }
         }
 
@@ -639,4 +648,35 @@ class Smarty_Security
             $this->_current_template_nesting --;
         }
     }
+
+    /**
+     * Loads security class and enables security
+     *
+     * @param \Smarty                 $smarty
+     * @param  string|Smarty_Security $security_class if a string is used, it must be class-name
+     *
+     * @return \Smarty current Smarty instance for chaining
+     * @throws \SmartyException when an invalid class name is provided
+     */
+    public static function enableSecurity(Smarty $smarty, $security_class)
+    {
+        if ($security_class instanceof Smarty_Security) {
+            $smarty->security_policy = $security_class;
+            return;
+        } elseif (is_object($security_class)) {
+            throw new SmartyException("Class '" . get_class($security_class) . "' must extend Smarty_Security.");
+        }
+        if ($security_class == null) {
+            $security_class = $smarty->security_class;
+        }
+        if (!class_exists($security_class)) {
+            throw new SmartyException("Security class '$security_class' is not defined");
+        } elseif ($security_class !== 'Smarty_Security' && !is_subclass_of($security_class, 'Smarty_Security')) {
+            throw new SmartyException("Class '$security_class' must extend Smarty_Security.");
+        } else {
+            $smarty->security_policy = new $security_class($smarty);
+        }
+        return;
+    }
+
 }

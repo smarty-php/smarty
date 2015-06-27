@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/11';
+    const SMARTY_VERSION = '3.1.28-dev/12';
 
     /**
      * define variable scopes
@@ -913,24 +913,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function enableSecurity($security_class = null)
     {
-        if ($security_class instanceof Smarty_Security) {
-            $this->security_policy = $security_class;
-
-            return $this;
-        } elseif (is_object($security_class)) {
-            throw new SmartyException("Class '" . get_class($security_class) . "' must extend Smarty_Security.");
-        }
-        if ($security_class == null) {
-            $security_class = $this->security_class;
-        }
-        if (!class_exists($security_class)) {
-            throw new SmartyException("Security class '$security_class' is not defined");
-        } elseif ($security_class !== 'Smarty_Security' && !is_subclass_of($security_class, 'Smarty_Security')) {
-            throw new SmartyException("Class '$security_class' must extend Smarty_Security.");
-        } else {
-            $this->security_policy = new $security_class($this);
-        }
-
+        Smarty_Security::enableSecurity($this, $security_class);
         return $this;
     }
 
