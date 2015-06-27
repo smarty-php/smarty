@@ -260,7 +260,8 @@ class Smarty_Internal_Templatelexer
      namespace = ~([0-9]*[a-zA-Z_]\w*)?(\\[0-9]*[a-zA-Z_]\w*)+~
      all = ~[\S\s]+~
      emptyjava = ~[{][}]~
-     phpstart = ~(<[?]((php\s+|=)|\s+))|(<[%])|(<[?]xml\s+)|(<script\s+language\s*=\s*["']?\s*php\s*["']?\s*>)|([?][>])|([%][>])|(SMARTYldel\s*php(.*?)SMARTYrdel)|(SMARTYldel\s*[/]phpSMARTYrdel)~
+     phptag = ~(SMARTYldel\s*php(.*?)SMARTYrdel)|(SMARTYldel\s*[/]phpSMARTYrdel)~
+     phpstart = ~(<[?]((php\s+|=)|\s+))|(<[%])|(<[?]xml\s+)|(<script\s+language\s*=\s*["']?\s*php\s*["']?\s*>)|([?][>])|([%][>])~
      slash = ~[/]~
      ldel = ~SMARTYldel\s*~
      rdel = ~\s*SMARTYrdel~
@@ -330,6 +331,10 @@ class Smarty_Internal_Templatelexer
         }
         $this->value = substr($this->data,$this->counter,$to-$this->counter);
         return false;
+     }
+     phptag {
+       $obj = new Smarty_Internal_Compile_Private_Php();
+       $obj->parsePhp($this);
      }
      ldel literal rdel {
        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {

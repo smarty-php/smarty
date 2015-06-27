@@ -277,7 +277,7 @@ class Smarty_Internal_Templatelexer
     public function yylex1()
     {
         if (!isset($this->yy_global_pattern1)) {
-            $this->yy_global_pattern1 = "/\G([{][}])|\G(" . $this->ldel . "[*])|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*)|\G(\\s*" . $this->rdel . ")|\G((<[?]((php\\s+|=)|\\s+))|(<[%])|(<[?]xml\\s+)|(<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|([?][>])|([%][>])|(" . $this->ldel . "\\s*php(.*?)" . $this->rdel . ")|(" . $this->ldel . "\\s*[\/]php" . $this->rdel . "))|\G([\S\s])/isS";
+            $this->yy_global_pattern1 = "/\G([{][}])|\G(" . $this->ldel . "[*])|\G((" . $this->ldel . "\\s*php(.*?)" . $this->rdel . ")|(" . $this->ldel . "\\s*[\/]php" . $this->rdel . "))|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*)|\G(\\s*" . $this->rdel . ")|\G((<[?]((php\\s+|=)|\\s+))|(<[%])|(<[?]xml\\s+)|(<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|([?][>])|([%][>]))|\G([\S\s])/isS";
         }
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
@@ -347,6 +347,13 @@ class Smarty_Internal_Templatelexer
     function yy_r1_3()
     {
 
+        $obj = new Smarty_Internal_Compile_Private_Php();
+        $obj->parsePhp($this);
+    }
+
+    function yy_r1_7()
+    {
+
         if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
             $this->token = Smarty_Internal_Templateparser::TP_TEXT;
         } else {
@@ -355,7 +362,7 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    function yy_r1_4()
+    function yy_r1_8()
     {
 
         if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
@@ -366,20 +373,20 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    function yy_r1_5()
+    function yy_r1_9()
     {
 
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
-    function yy_r1_6()
+    function yy_r1_10()
     {
 
         $obj = new Smarty_Internal_Compile_Private_Php();
         $obj->parsePhp($this);
     }
 
-    function yy_r1_18()
+    function yy_r1_19()
     {
 
         $to = strlen($this->data);
