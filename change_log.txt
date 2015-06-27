@@ -1,10 +1,6 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
- 21.06.2015
-  - optimization  of template/config file normalization
-  - optimization  of directory handling / build realpath
-  - optimization  of filter execution
-  - move  registerObject / registerClass into extension
-  - update  realpath handling
+ 27.06.2015
+  - bugfix resolve naming conflict between custom Smarty delimiter '<%' and PHP ASP tags https://github.com/smarty-php/smarty/issues/64
 
  19.06.2015
   - improvement allow closures as callback at $smarty->registerFilter() https://github.com/smarty-php/smarty/issues/59
