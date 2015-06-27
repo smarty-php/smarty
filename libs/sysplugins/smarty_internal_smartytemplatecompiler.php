@@ -106,7 +106,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
             $this->lex->PrintTrace();
         }
         // get tokens from lexer and parse them
-        while ($this->lex->yylex() && !$this->abort_and_recompile) {
+        while ($this->lex->yylex()) {
             if ($this->smarty->_parserdebug) {
                 echo "<pre>Line {$this->lex->line} Parsing  {$this->parser->yyTokenName[$this->lex->token]} Token " .
                     htmlentities($this->lex->value) . "</pre>";
@@ -114,10 +114,6 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
             $this->parser->doParse($this->lex->token, $this->lex->value);
         }
 
-        if ($this->abort_and_recompile) {
-            // exit here on abort
-            return false;
-        }
         // finish parsing process
         $this->parser->doParse(0, 0);
         if ($mbEncoding) {

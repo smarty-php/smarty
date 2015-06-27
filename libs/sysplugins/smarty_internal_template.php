@@ -825,7 +825,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function loadCompiler()
     {
-        $this->smarty->loadPlugin($this->source->compiler_class);
+        if (!class_exists($this->source->compiler_class)) {
+            $this->smarty->loadPlugin($this->source->compiler_class);
+        }
         $this->compiler = new $this->source->compiler_class($this->source->template_lexer_class, $this->source->template_parser_class, $this->smarty);
     }
 

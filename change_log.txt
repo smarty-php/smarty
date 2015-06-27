@@ -5,6 +5,7 @@
   - update Smarty security with new realpath handling
   - update {include_php} with new realpath handling
   - move $smarty->loadPlugin() into extension
+  - minor compiler optimizations
 
  19.06.2015
   - improvement allow closures as callback at $smarty->registerFilter() https://github.com/smarty-php/smarty/issues/59
