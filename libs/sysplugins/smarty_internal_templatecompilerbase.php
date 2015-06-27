@@ -638,9 +638,19 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 if (isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK][$base_tag]) || isset($this->default_handler_plugins[Smarty::PLUGIN_BLOCK][$base_tag])) {
                     return $this->callTagCompiler('private_registered_block', $args, $parameter, $tag);
                 }
+                // registered function tag ?
+                if (isset($this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION][$tag])) {
+                    return $this->callTagCompiler('private_registered_function', $args, $parameter, $tag);
+                }
                 // block plugin?
                 if ($function = $this->getPlugin($base_tag, Smarty::PLUGIN_BLOCK)) {
                     return $this->callTagCompiler('private_block_plugin', $args, $parameter, $tag, $function);
+                }
+                // function plugin?
+                if ($function = $this->getPlugin($tag, Smarty::PLUGIN_FUNCTION)) {
+                    if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this)) {
+                        return $this->callTagCompiler('private_function_plugin', $args, $parameter, $tag, $function);
+                    }
                 }
                 // registered compiler plugin ?
                 if (isset($this->smarty->registered_plugins[Smarty::PLUGIN_COMPILER][$tag])) {
