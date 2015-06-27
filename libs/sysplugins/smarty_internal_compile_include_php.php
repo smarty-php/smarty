@@ -23,6 +23,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('file');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -30,6 +31,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('file');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -62,7 +64,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
         $_filepath = false;
         eval('$_file = ' . $_attr['file'] . ';');
         if (!isset($compiler->smarty->security_policy) && file_exists($_file)) {
-            $_filepath = $_file;
+            $_filepath = $compiler->smarty->_realpath($_file);
         } else {
             if (isset($compiler->smarty->security_policy)) {
                 $_dir = $compiler->smarty->security_policy->trusted_dir;
@@ -71,9 +73,9 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
             }
             if (!empty($_dir)) {
                 foreach ((array) $_dir as $_script_dir) {
-                    $_script_dir = rtrim($_script_dir, '/\\') . DS;
-                    if (file_exists($_script_dir . $_file)) {
-                        $_filepath = $_script_dir . $_file;
+                    $_path = $compiler->smarty->_realpath($_script_dir . DS . $_file);
+                    if (file_exists($_path)) {
+                        $_filepath = $_path;
                         break;
                     }
                 }
