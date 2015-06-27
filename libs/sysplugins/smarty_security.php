@@ -492,7 +492,6 @@ class Smarty_Security
         if ($_template) {
             $this->_template_dir = $_template_dir;
             foreach ($_template_dir as $directory) {
-                $directory = realpath($directory);
                 $this->_resource_dir[$directory] = true;
             }
         }
@@ -501,8 +500,7 @@ class Smarty_Security
         if ($_config) {
             $this->_config_dir = $_config_dir;
             foreach ($_config_dir as $directory) {
-                $directory = realpath($directory);
-                $this->_resource_dir[$directory] = true;
+               $this->_resource_dir[$directory] = true;
             }
         }
 
@@ -510,13 +508,13 @@ class Smarty_Security
         if ($_secure) {
             $this->_secure_dir = $this->secure_dir;
             foreach ((array) $this->secure_dir as $directory) {
-                $directory = realpath($directory);
+                $directory = $this->smarty->_realpath($directory . DS);
                 $this->_resource_dir[$directory] = true;
             }
         }
 
-        $_filepath = realpath($filepath);
-        $directory = dirname($_filepath);
+        $_filepath = $filepath;
+        $directory = dirname($_filepath) . DS;
         $_directory = array();
         while (true) {
             // remember the directory to add it to _resource_dir in case we're successful
@@ -587,13 +585,13 @@ class Smarty_Security
 
             $this->_trusted_dir = $this->trusted_dir;
             foreach ((array) $this->trusted_dir as $directory) {
-                $directory = realpath($directory);
+                $directory = $this->smarty->_realpath($directory . DS);
                 $this->_php_resource_dir[$directory] = true;
             }
         }
 
-        $_filepath = realpath($filepath);
-        $directory = dirname($_filepath);
+        $_filepath = $this->smarty->_realpath($filepath);
+        $directory = dirname($_filepath) . DS;
         $_directory = array();
         while (true) {
             // remember the directory to add it to _resource_dir in case we're successful
