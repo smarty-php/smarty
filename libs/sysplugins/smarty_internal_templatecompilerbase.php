@@ -728,23 +728,18 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function callTagCompiler($tag, $args, $param1 = null, $param2 = null, $param3 = null)
     {
-        // check if tag allowed by security
-        if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this)) {
-            // re-use object if already exists
-            if (!isset(self::$_tag_objects[$tag])) {
-                // lazy load internal compiler plugin
-                $class_name = 'Smarty_Internal_Compile_' . $tag;
-                if ($this->smarty->loadPlugin($class_name)) {
-                    self::$_tag_objects[$tag] = new $class_name;
-                } else {
-                    return false;
-                }
+        // re-use object if already exists
+        if (!isset(self::$_tag_objects[$tag])) {
+            // lazy load internal compiler plugin
+            $class_name = 'Smarty_Internal_Compile_' . $tag;
+            if ((class_exists($class_name) || $this->smarty->loadPlugin($class_name)) && (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))) {
+                self::$_tag_objects[$tag] = new $class_name;
+            } else {
+                return false;
             }
-            // compile this tag
-            return self::$_tag_objects[$tag]->compile($args, $this, $param1, $param2, $param3);
         }
-        // no internal compile plugin for this tag
-        return false;
+        // compile this tag
+        return self::$_tag_objects[$tag]->compile($args, $this, $param1, $param2, $param3);
     }
 
     /**
