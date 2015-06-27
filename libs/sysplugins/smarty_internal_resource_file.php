@@ -36,7 +36,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     protected function buildFilepath(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
     {
         $file = $source->name;
-        $this->invDS = (DS == '/') ? '\\\\' : '\\/';
+        $this->invDS = (DS == '/') ? '\\\\' : '/';
         preg_match('#(^(?P<absolute>[\\\/]|[a-zA-Z]:[\\\/])|(\[(?P<index>[^\]]+)\])|(?P<rel>\.[\\\/]))|((?P<rel2>\.[\\\/])|(?P<ds>[' . $this->invDS . ']))#', $file, $fileMatch);
         // save basename
         if (!empty($fileMatch['absolute'])) {
@@ -99,7 +99,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             if (is_file($path)) {
                 return $path;
             }
-            if ($source->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_directory)) {
+            if ($source->smarty->use_include_path && !preg_match('/^([\\\/]|[a-zA-Z]:[\\\/])/', $_directory)) {
                 // try PHP include_path
                 if (function_exists('stream_resolve_include_path')) {
                     $_filepath = stream_resolve_include_path($_filepath);
@@ -131,7 +131,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     public function normalizePath($path)
     {
         $first = true;
-        while (strrpos($path, '.' . DS) !== false || ($first && strrpos($path, $this->invDS) !== false)) {
+        while (strrpos($path, '.' . DS) !== false || ($first && strrpos($path, $this->invDS[0]) !== false)) {
             $path = preg_replace('#([\\\/]+([.][\\\/]+)+)|([\\\/]+([^\\\/]+[\\\/]+){2}([.][.][\\\/]+){2})|([\\\/]+[^\\\/]+[\\\/]+[.][.][\\\/]+)|[' . $this->invDS . ']+#', DS, $path);
             $first = false;
         }
