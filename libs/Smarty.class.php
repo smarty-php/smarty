@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/10';
+    const SMARTY_VERSION = '3.1.28-dev/11';
 
     /**
      * define variable scopes
@@ -1483,7 +1483,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
     {
-        return Smarty_Internal_Utility::clearCompiledTemplate($resource_name, $compile_id, $exp_time, $this);
+        return Smarty_Internal_Extension_ClearCompiled::clearCompiledTemplate($this, $resource_name, $compile_id, $exp_time);
     }
 
     /**

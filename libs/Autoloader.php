@@ -25,65 +25,65 @@ class Smarty_Autoloader
      * @var string
      */
     public static $SMARTY_DIR = '';
+
     /**
      * Filepath to Smarty internal plugins
      *
      * @var string
      */
     public static $SMARTY_SYSPLUGINS_DIR = '';
+
     /**
      * Array of not existing classes to avoid is_file calls for  already tested classes
      *
      * @var array
      */
     public static $unknown = array();
+
     /**
      * Array with Smarty core classes and their filename
      *
      * @var array
      */
-    public static $rootClasses = array('Smarty'   => 'Smarty.class.php',
-                                       'SmartyBC' => 'SmartyBC.class.php',
-    );
+    public static $rootClasses = array('Smarty' => 'Smarty.class.php', 'SmartyBC' => 'SmartyBC.class.php',);
 
-    private static $syspluginsClasses = array(
-        'smarty_config_source'                  => true,
-        'smarty_security'                       => true,
-        'smarty_cacheresource'                  => true,
-        'smarty_compiledresource'               => true,
-        'smarty_cacheresource_custom'           => true,
-        'smarty_cacheresource_keyvaluestore'    => true,
-        'smarty_resource'                       => true,
-        'smarty_resource_custom'                => true,
-        'smarty_resource_uncompiled'            => true,
-        'smarty_resource_recompiled'            => true,
-        'smarty_template_source'                => true,
-        'smarty_template_compiled'              => true,
-        'smarty_template_cached'                => true,
-        'smarty_template_config'                => true,
-        'smarty_data'                           => true,
-        'smarty_variable'                       => true,
-        'smarty_undefined_variable'             => true,
-        'smartyexception'                       => true,
-        'smartycompilerexception'               => true,
-        'smarty_internal_data'                  => true,
-        'smarty_internal_template'              => true,
-        'smarty_internal_templatebase'          => true,
-        'smarty_internal_resource_file'         => true,
-        'smarty_internal_resource_extends'      => true,
-        'smarty_internal_resource_eval'         => true,
-        'smarty_internal_resource_string'       => true,
-        'smarty_internal_resource_registered'   => true,
-        'smarty_internal_extension_codeframe'   => true,
-        'smarty_internal_extension_config'      => true,
-        'smarty_internal_extension_filter'      => true,
-        'smarty_internal_extension_object'      => true,
-        'smarty_internal_extension_loadplugin'  => true,
-        'smarty_internal_filter_handler'        => true,
-        'smarty_internal_function_call_handler' => true,
-        'smarty_internal_cacheresource_file'    => true,
-        'smarty_internal_write_file'    => true,
-    );
+    private static $syspluginsClasses = array('smarty_config_source'                    => true,
+                                              'smarty_security'                         => true,
+                                              'smarty_cacheresource'                    => true,
+                                              'smarty_compiledresource'                 => true,
+                                              'smarty_cacheresource_custom'             => true,
+                                              'smarty_cacheresource_keyvaluestore'      => true,
+                                              'smarty_resource'                         => true,
+                                              'smarty_resource_custom'                  => true,
+                                              'smarty_resource_uncompiled'              => true,
+                                              'smarty_resource_recompiled'              => true,
+                                              'smarty_template_source'                  => true,
+                                              'smarty_template_compiled'                => true,
+                                              'smarty_template_cached'                  => true,
+                                              'smarty_template_config'                  => true,
+                                              'smarty_data'                             => true,
+                                              'smarty_variable'                         => true,
+                                              'smarty_undefined_variable'               => true,
+                                              'smartyexception'                         => true,
+                                              'smartycompilerexception'                 => true,
+                                              'smarty_internal_data'                    => true,
+                                              'smarty_internal_template'                => true,
+                                              'smarty_internal_templatebase'            => true,
+                                              'smarty_internal_resource_file'           => true,
+                                              'smarty_internal_resource_extends'        => true,
+                                              'smarty_internal_resource_eval'           => true,
+                                              'smarty_internal_resource_string'         => true,
+                                              'smarty_internal_resource_registered'     => true,
+                                              'smarty_internal_extension_codeframe'     => true,
+                                              'smarty_internal_extension_config'        => true,
+                                              'smarty_internal_extension_filter'        => true,
+                                              'smarty_internal_extension_object'        => true,
+                                              'smarty_internal_extension_loadplugin'    => true,
+                                              'smarty_internal_extension_clearcompiled' => true,
+                                              'smarty_internal_filter_handler'          => true,
+                                              'smarty_internal_function_call_handler'   => true,
+                                              'smarty_internal_cacheresource_file'      => true,
+                                              'smarty_internal_write_file'              => true,);
 
     /**
      * Registers Smarty_Autoloader backward compatible to older installations.
