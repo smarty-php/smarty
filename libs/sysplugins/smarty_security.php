@@ -201,28 +201,28 @@ class Smarty_Security
      *
      * @var array
      */
-    protected $_resource_dir = null;
+    protected $_resource_dir = array();
 
     /**
      * Cache for $template_dir lookup
      *
      * @var array
      */
-    protected $_template_dir = null;
+    protected $_template_dir = array();
 
     /**
      * Cache for $config_dir lookup
      *
      * @var array
      */
-    protected $_config_dir = null;
+    protected $_config_dir = array();
 
     /**
      * Cache for $secure_dir lookup
      *
      * @var array
      */
-    protected $_secure_dir = null;
+    protected $_secure_dir = array();
 
     /**
      * Cache for $php_resource_dir lookup
@@ -475,51 +475,47 @@ class Smarty_Security
     /**
      * Check if directory of file resource is trusted.
      *
-     * @param  string $filepath
+     * @param  string   $filepath
+     * @param null|bool $isConfig
      *
-     * @return boolean         true if directory is trusted
-     * @throws SmartyException if directory is not trusted
+     * @return bool true if directory is trusted
+     * @throws \SmartyException if directory is not trusted
      */
-    public function isTrustedResourceDir($filepath)
+    public function isTrustedResourceDir($filepath, $isConfig = null)
     {
-        $_template = false;
-        $_config = false;
-        $_secure = false;
-
-        $_template_dir = $this->smarty->getTemplateDir();
-        $_config_dir = $this->smarty->getConfigDir();
-
-        // check if index is outdated
-        if ((!$this->_template_dir || $this->_template_dir !== $_template_dir) || (!$this->_config_dir || $this->_config_dir !== $_config_dir) || (!empty($this->secure_dir) && (!$this->_secure_dir || $this->_secure_dir !== $this->secure_dir))) {
-            $this->_resource_dir = array();
-            $_template = true;
-            $_config = true;
-            $_secure = !empty($this->secure_dir);
-        }
-
-        // rebuild template dir index
-        if ($_template) {
-            $this->_template_dir = $_template_dir;
-            foreach ($_template_dir as $directory) {
-                $this->_resource_dir[$directory] = true;
+        if ($isConfig !== true) {
+            $_dir = $this->smarty->getTemplateDir();
+            if ($this->_template_dir !== $_dir) {
+                foreach ($this->_template_dir as $directory) {
+                    unset($this->_resource_dir[$directory]);
+                }
+                foreach ($_dir as $directory) {
+                    $this->_resource_dir[$directory] = true;
+                }
+                $this->_template_dir = $_dir;
             }
         }
-
-        // rebuild config dir index
-        if ($_config) {
-            $this->_config_dir = $_config_dir;
-            foreach ($_config_dir as $directory) {
-                $this->_resource_dir[$directory] = true;
+        if ($isConfig !== false) {
+            $_dir = $this->smarty->getConfigDir();
+            if ($this->_config_dir !== $_dir) {
+                foreach ($this->_config_dir as $directory) {
+                    unset($this->_resource_dir[$directory]);
+                }
+                foreach ($_dir as $directory) {
+                    $this->_resource_dir[$directory] = true;
+                }
+                $this->_config_dir = $_dir;
             }
         }
-
-        // rebuild secure dir index
-        if ($_secure) {
-            $this->_secure_dir = $this->secure_dir;
+        if ($this->_secure_dir !== (array) $this->secure_dir) {
+            foreach ($this->_secure_dir as $directory) {
+                unset($this->_resource_dir[$directory]);
+            }
             foreach ((array) $this->secure_dir as $directory) {
                 $directory = $this->smarty->_realpath($directory . DS);
                 $this->_resource_dir[$directory] = true;
             }
+            $this->_secure_dir = (array) $this->secure_dir;
         }
 
         $_filepath = $filepath;

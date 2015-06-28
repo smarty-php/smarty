@@ -164,7 +164,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
 
         if ($source->filepath !== false) {
             if (is_object($source->smarty->security_policy)) {
-                $source->smarty->security_policy->isTrustedResourceDir($source->filepath);
+                $source->smarty->security_policy->isTrustedResourceDir($source->filepath, $source->isConfig);
             }
             $source->exists = true;
             $source->uid = sha1($source->filepath);
