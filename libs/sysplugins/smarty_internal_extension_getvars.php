@@ -3,7 +3,7 @@
 /**
  * Smarty Extension GetVars
  *
- * Auto load filter methods
+ * getTemplateVars() and getVariable() methods
  *
  * @package    Smarty
  * @subpackage PluginsInternal
