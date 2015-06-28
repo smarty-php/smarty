@@ -6,6 +6,7 @@
   - move $smarty->getTemplateVars() into extension
   - move getStreamVariable() into extension
   - move $smarty->append() and $smarty->appendByRef() into extension
+  - optimize autoloader
 
  27.06.2015
   - bugfix resolve naming conflict between custom Smarty delimiter '<%' and PHP ASP tags https://github.com/smarty-php/smarty/issues/64
