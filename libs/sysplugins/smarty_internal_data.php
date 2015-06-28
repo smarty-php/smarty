@@ -121,53 +121,7 @@ class Smarty_Internal_Data
      */
     public function append($tpl_var, $value = null, $merge = false, $nocache = false)
     {
-        if (is_array($tpl_var)) {
-            // $tpl_var is an array, ignore $value
-            foreach ($tpl_var as $_key => $_val) {
-                if ($_key != '') {
-                    if (!isset($this->tpl_vars[$_key])) {
-                        $tpl_var_inst = $this->getVariable($_key, null, true, false);
-                        if ($tpl_var_inst instanceof Smarty_Undefined_Variable) {
-                            $this->tpl_vars[$_key] = new Smarty_Variable(null, $nocache);
-                        } else {
-                            $this->tpl_vars[$_key] = clone $tpl_var_inst;
-                        }
-                    }
-                    if (!(is_array($this->tpl_vars[$_key]->value) || $this->tpl_vars[$_key]->value instanceof ArrayAccess)) {
-                        settype($this->tpl_vars[$_key]->value, 'array');
-                    }
-                    if ($merge && is_array($_val)) {
-                        foreach ($_val as $_mkey => $_mval) {
-                            $this->tpl_vars[$_key]->value[$_mkey] = $_mval;
-                        }
-                    } else {
-                        $this->tpl_vars[$_key]->value[] = $_val;
-                    }
-                }
-            }
-        } else {
-            if ($tpl_var != '' && isset($value)) {
-                if (!isset($this->tpl_vars[$tpl_var])) {
-                    $tpl_var_inst = $this->getVariable($tpl_var, null, true, false);
-                    if ($tpl_var_inst instanceof Smarty_Undefined_Variable) {
-                        $this->tpl_vars[$tpl_var] = new Smarty_Variable(null, $nocache);
-                    } else {
-                        $this->tpl_vars[$tpl_var] = clone $tpl_var_inst;
-                    }
-                }
-                if (!(is_array($this->tpl_vars[$tpl_var]->value) || $this->tpl_vars[$tpl_var]->value instanceof ArrayAccess)) {
-                    settype($this->tpl_vars[$tpl_var]->value, 'array');
-                }
-                if ($merge && is_array($value)) {
-                    foreach ($value as $_mkey => $_mval) {
-                        $this->tpl_vars[$tpl_var]->value[$_mkey] = $_mval;
-                    }
-                } else {
-                    $this->tpl_vars[$tpl_var]->value[] = $value;
-                }
-            }
-        }
-
+        Smarty_Internal_Extension_Append::append($this, $tpl_var, $value, $merge, $nocache);
         return $this;
     }
 
@@ -182,22 +136,7 @@ class Smarty_Internal_Data
      */
     public function appendByRef($tpl_var, &$value, $merge = false)
     {
-        if ($tpl_var != '' && isset($value)) {
-            if (!isset($this->tpl_vars[$tpl_var])) {
-                $this->tpl_vars[$tpl_var] = new Smarty_Variable();
-            }
-            if (!is_array($this->tpl_vars[$tpl_var]->value)) {
-                settype($this->tpl_vars[$tpl_var]->value, 'array');
-            }
-            if ($merge && is_array($value)) {
-                foreach ($value as $_key => $_val) {
-                    $this->tpl_vars[$tpl_var]->value[$_key] = &$value[$_key];
-                }
-            } else {
-                $this->tpl_vars[$tpl_var]->value[] = &$value;
-            }
-        }
-
+        Smarty_Internal_Extension_Append::appendByRef($this, $tpl_var, $value, $merge);
         return $this;
     }
 

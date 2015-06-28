@@ -82,6 +82,7 @@ class Smarty_Autoloader
                                               'smarty_internal_extension_loadplugin'     => true,
                                               'smarty_internal_extension_clearcompiled'  => true,
                                               'smarty_internal_extension_getvars'        => true,
+                                              'smarty_internal_extension_append'         => true,
                                               'smarty_internal_filter_handler'           => true,
                                               'smarty_internal_function_call_handler'    => true,
                                               'smarty_internal_cacheresource_file'       => true,
