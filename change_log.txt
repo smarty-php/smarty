@@ -2,6 +2,7 @@
  28.06.2015
   - move $smarty->enableSecurity() into Smarty_Security class
   - optimize security isTrustedResourceDir()
+  - move auto load filter methods into extension
 
  27.06.2015
   - bugfix resolve naming conflict between custom Smarty delimiter '<%' and PHP ASP tags https://github.com/smarty-php/smarty/issues/64

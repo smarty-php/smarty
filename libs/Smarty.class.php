@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/13';
+    const SMARTY_VERSION = '3.1.28-dev/14';
 
     /**
      * define variable scopes
@@ -1249,12 +1249,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function setAutoloadFilters($filters, $type = null)
     {
-        if ($type !== null) {
-            $this->autoload_filters[$type] = (array) $filters;
-        } else {
-            $this->autoload_filters = (array) $filters;
-        }
-
+        Smarty_Internal_Extension_AutoLoadFilter::setAutoloadFilters($this, $filters, $type);
         return $this;
     }
 
@@ -1269,22 +1264,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function addAutoloadFilters($filters, $type = null)
     {
-        if ($type !== null) {
-            if (!empty($this->autoload_filters[$type])) {
-                $this->autoload_filters[$type] = array_merge($this->autoload_filters[$type], (array) $filters);
-            } else {
-                $this->autoload_filters[$type] = (array) $filters;
-            }
-        } else {
-            foreach ((array) $filters as $key => $value) {
-                if (!empty($this->autoload_filters[$key])) {
-                    $this->autoload_filters[$key] = array_merge($this->autoload_filters[$key], (array) $value);
-                } else {
-                    $this->autoload_filters[$key] = (array) $value;
-                }
-            }
-        }
-
+        Smarty_Internal_Extension_AutoLoadFilter::addAutoloadFilters($this, $filters, $type);
         return $this;
     }
 
@@ -1298,10 +1278,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function getAutoloadFilters($type = null)
     {
-        if ($type !== null) {
-            return isset($this->autoload_filters[$type]) ? $this->autoload_filters[$type] : array();
-        }
-        return $this->autoload_filters;
+        return Smarty_Internal_Extension_AutoLoadFilter::getAutoloadFilters($this, $type);
     }
 
     /**
