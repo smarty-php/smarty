@@ -9,6 +9,7 @@
   - optimize autoloader
   - optimize file path normalization
   - bugfix PATH_SEPARATOR was replaced by mistake in autoloader
+  - remove redundant code
 
  27.06.2015
   - bugfix resolve naming conflict between custom Smarty delimiter '<%' and PHP ASP tags https://github.com/smarty-php/smarty/issues/64

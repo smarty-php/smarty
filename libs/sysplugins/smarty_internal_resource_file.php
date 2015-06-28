@@ -30,7 +30,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     {
         $file = $source->name;
         // absolute file ?
-        if ($file[0] == '/' || $file[1] == ':' ) {
+        if ($file[0] == '/' || $file[1] == ':') {
             $file = $source->smarty->_realpath($file);
             return is_file($file) ? $file : false;
         }
@@ -90,11 +90,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             }
             if ($source->smarty->use_include_path && !preg_match('/^([\\\/]|[a-zA-Z]:[\\\/])/', $_directory)) {
                 // try PHP include_path
-                if (function_exists('stream_resolve_include_path')) {
-                    $_filepath = stream_resolve_include_path($_filepath);
-                } else {
-                    $_filepath = Smarty_Internal_Get_Include_Path::getIncludePath($_filepath);
-                }
+                $_filepath = Smarty_Internal_Get_Include_Path::getIncludePath($_filepath);
                 if ($_filepath !== false) {
                     $path = $source->smarty->_realpath($_filepath);
                     if (is_file($path)) {
@@ -107,7 +103,6 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         $path = $source->smarty->_realpath($file);
         return is_file($path) ? $path : false;
     }
-
 
     /**
      * test is file exists and save timestamp

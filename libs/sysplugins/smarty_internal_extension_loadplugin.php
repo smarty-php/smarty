@@ -49,8 +49,6 @@ class Smarty_Internal_Extension_LoadPlugin
         // plugin filename is expected to be: [type].[name].php
         $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php";
 
-        $_stream_resolve_include_path = function_exists('stream_resolve_include_path');
-
         // loop through plugin dirs and find the plugin
         foreach ($smarty->getPluginsDir() as $_plugin_dir) {
             $names = array($_plugin_dir . $_plugin_filename, $_plugin_dir . strtolower($_plugin_filename),);
@@ -61,15 +59,9 @@ class Smarty_Internal_Extension_LoadPlugin
                 }
                 if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
                     // try PHP include_path
-                    if ($_stream_resolve_include_path) {
-                        $file = stream_resolve_include_path($file);
-                    } else {
-                        $file = Smarty_Internal_Get_Include_Path::getIncludePath($file);
-                    }
-
+                    $file = Smarty_Internal_Get_Include_Path::getIncludePath($file);
                     if ($file !== false) {
                         require_once($file);
-
                         return $file;
                     }
                 }
