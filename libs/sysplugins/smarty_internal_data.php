@@ -325,21 +325,6 @@ class Smarty_Internal_Data
      */
     public function getStreamVariable($variable)
     {
-        $_result = '';
-        $fp = fopen($variable, 'r+');
-        if ($fp) {
-            while (!feof($fp) && ($current_line = fgets($fp)) !== false) {
-                $_result .= $current_line;
-            }
-            fclose($fp);
-
-            return $_result;
-        }
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        if ($smarty->error_unassigned) {
-            throw new SmartyException('Undefined stream variable "' . $variable . '"');
-        } else {
-            return null;
-        }
+        return Smarty_Internal_Extension_GetStreamVar::getStreamVariable($this, $variable);
     }
 }
