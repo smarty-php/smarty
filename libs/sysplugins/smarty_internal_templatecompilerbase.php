@@ -391,6 +391,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         $this->smarty->_current_file = $this->template->source->filepath;
         // free memory
         unset($this->parser->root_buffer, $this->parser->current_buffer, $this->parser, $this->lex);
+        self::$_tag_objects = array();
         // return compiled code to template object
         $merged_code = '';
         if (!empty($this->mergedSubTemplatesCode)) {
@@ -741,15 +742,16 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // re-use object if already exists
         if (!isset(self::$_tag_objects[$tag])) {
             // lazy load internal compiler plugin
-            $class_name = 'Smarty_Internal_Compile_' . $tag;
-            if ((class_exists($class_name) || $this->smarty->loadPlugin($class_name)) && (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))) {
+            $class_name = 'Smarty_Internal_Compile_' . ucfirst($tag);
+            if (class_exists($class_name) && (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))) {
                 self::$_tag_objects[$tag] = new $class_name;
             } else {
+                self::$_tag_objects[$tag] = false;
                 return false;
             }
         }
         // compile this tag
-        return self::$_tag_objects[$tag]->compile($args, $this, $param1, $param2, $param3);
+        return self::$_tag_objects[$tag] === false ? false : self::$_tag_objects[$tag]->compile($args, $this, $param1, $param2, $param3);
     }
 
     /**
