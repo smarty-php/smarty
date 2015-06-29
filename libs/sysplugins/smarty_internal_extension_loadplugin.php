@@ -29,42 +29,61 @@ class Smarty_Internal_Extension_LoadPlugin
         if ($check && (is_callable($plugin_name) || class_exists($plugin_name, false))) {
             return true;
         }
-        // Plugin name is expected to be: Smarty_[Type]_[Name]
-        $_name_parts = explode('_', $plugin_name, 3);
-        // class name must have three parts to be valid plugin
-        // count($_name_parts) < 3 === !isset($_name_parts[2])
-        if (!isset($_name_parts[2]) || strtolower($_name_parts[0]) !== 'smarty') {
+        if (!preg_match('#^smarty_((internal)|([^_]+))_(.+)$#i', $plugin_name, $match)) {
             throw new SmartyException("plugin {$plugin_name} is not a valid name format");
         }
-        // if type is "internal", get plugin from sysplugins
-        if (strtolower($_name_parts[1]) == 'internal') {
+        if (!empty($match[2])) {
             $file = SMARTY_SYSPLUGINS_DIR . strtolower($plugin_name) . '.php';
-            if (isset($smarty->_is_file_cache[$file]) ? $smarty->_is_file_cache[$file] : $smarty->_is_file_cache[$file] = is_file($file)) {
-                require_once($file);
-                return $file;
+            if (isset($smarty->_is_file_cache[$file])) {
+                if ($smarty->_is_file_cache[$file] !== false) {
+                    return $smarty->_is_file_cache[$file];
+                } else {
+                    return false;
+                }
             } else {
-                return false;
+                if (is_file($file)) {
+                    $smarty->_is_file_cache[$file] = $file;
+                    require_once($file);
+                    return $file;
+                } else {
+                    $smarty->_is_file_cache[$file] = false;
+                    return false;
+                }
             }
         }
         // plugin filename is expected to be: [type].[name].php
-        $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php";
-
+        $_plugin_filename = "{$match[1]}.{$match[4]}.php";
+        $_lower_filename = strtolower($_plugin_filename);
+        $_different = $_lower_filename != $_plugin_filename;
         // loop through plugin dirs and find the plugin
+        $names = array();
         foreach ($smarty->getPluginsDir() as $_plugin_dir) {
-            $names = array($_plugin_dir . $_plugin_filename, $_plugin_dir . strtolower($_plugin_filename),);
-            foreach ($names as $file) {
-                if (isset($smarty->_is_file_cache[$file]) ? $smarty->_is_file_cache[$file] : $smarty->_is_file_cache[$file] = is_file($file)) {
-                    require_once($file);
-                    return $file;
+            $names[] = $_plugin_dir . $_plugin_filename;
+            if ($_different) {
+                $names[] = $_plugin_dir . $_lower_filename;
+            }
+        }
+        foreach ($names as $path) {
+            $file = $smarty->use_include_path ? $smarty->_realpath($path) : $path;
+            if (isset($smarty->_is_file_cache[$file])) {
+                if ($smarty->_is_file_cache[$file] !== false) {
+                    return $smarty->_is_file_cache[$file];
                 }
-                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_plugin_dir)) {
-                    // try PHP include_path
-                    $file = Smarty_Internal_Get_Include_Path::getIncludePath($file);
-                    if ($file !== false) {
-                        require_once($file);
-                        return $file;
-                    }
-                }
+            }
+            if (is_file($file)) {
+                $smarty->_is_file_cache[$file] = $file;
+                require_once($file);
+                return $file;
+            }
+            $smarty->_is_file_cache[$file] = $file;
+        }
+        if ($smarty->use_include_path) {
+            // try PHP include_path
+            $path = Smarty_Internal_Get_Include_Path::getIncludePath($names, null, $smarty);
+            if ($path !== false) {
+                $smarty->_is_file_cache[$path] = $path;
+                require_once($path);
+                return $path;
             }
         }
         // no plugin loaded

@@ -46,11 +46,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             return is_file($path) ? $path : false;
         }
 
-        if ($source->isConfig) {
-            $_directories = $source->smarty->getConfigDir();
-        } else {
-            $_directories = $source->smarty->getTemplateDir();
-        }
+        $_directories = $source->smarty->getTemplateDir(null, $source->isConfig);
         // template_dir index?
         if ($file[0] == '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
             $index = $fileMatch[1];
@@ -83,25 +79,21 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
 
         // relative file name?
         foreach ($_directories as $_directory) {
-            $_filepath = $_directory . $file;
-            $path = $source->smarty->_realpath($_filepath);
+            $path = $_directory . $file;
             if (is_file($path)) {
-                return $path;
-            }
-            if ($source->smarty->use_include_path && !preg_match('/^([\\\/]|[a-zA-Z]:[\\\/])/', $_directory)) {
-                // try PHP include_path
-                $_filepath = Smarty_Internal_Get_Include_Path::getIncludePath($_filepath);
-                if ($_filepath !== false) {
-                    $path = $source->smarty->_realpath($_filepath);
-                    if (is_file($path)) {
-                        return $path;
-                    }
-                }
+                return $source->smarty->_realpath($path);
             }
         }
         // Could be relative to cwd
         $path = $source->smarty->_realpath($file);
-        return is_file($path) ? $path : false;
+        if (is_file($path)) {
+            return $path;
+        }
+        // Use include path ?
+        if ($source->smarty->use_include_path) {
+            return Smarty_Internal_Get_Include_Path::getIncludePath($_directories, $file, $source->smarty);
+        }
+        return false;
     }
 
     /**

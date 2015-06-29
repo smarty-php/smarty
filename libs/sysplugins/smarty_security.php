@@ -490,6 +490,9 @@ class Smarty_Security
                     unset($this->_resource_dir[$directory]);
                 }
                 foreach ($_dir as $directory) {
+                    if ($this->smarty->use_include_path) {
+                        $directory = $this->smarty->_realpath($directory);
+                    }
                     $this->_resource_dir[$directory] = true;
                 }
                 $this->_template_dir = $_dir;
@@ -502,6 +505,9 @@ class Smarty_Security
                     unset($this->_resource_dir[$directory]);
                 }
                 foreach ($_dir as $directory) {
+                    if ($this->smarty->use_include_path) {
+                        $directory = $this->smarty->_realpath($directory);
+                    }
                     $this->_resource_dir[$directory] = true;
                 }
                 $this->_config_dir = $_dir;

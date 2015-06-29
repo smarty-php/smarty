@@ -933,7 +933,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Set template directory
      *
      * @param  string|array $template_dir directory(s) of template sources
-     * @param bool          $isConfig  true for config_dir
+     * @param bool          $isConfig     true for config_dir
      *
      * @return \Smarty current Smarty instance for chaining
      */
@@ -952,7 +952,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param  string|array $template_dir directory(s) of template sources
      * @param  string       $key          of the array element to assign the template dir to
-     * @param bool          $isConfig  true for config_dir
+     * @param bool          $isConfig     true for config_dir
      *
      * @return Smarty          current Smarty instance for chaining
      */
@@ -973,8 +973,8 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Get template directories
      *
-     * @param mixed $index index of directory to get, null to get all
-     * @param bool          $isConfig  true for config_dir
+     * @param mixed $index    index of directory to get, null to get all
+     * @param bool  $isConfig true for config_dir
      *
      * @return array list of template directories, or directory of $index
      */
@@ -989,7 +989,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
         if ($this->_flags[$type] == false) {
             foreach ($this->{$type} as $k => $v) {
-                $this->{$type}[$k] = $this->_realpath($v . DS);
+                $this->{$type}[$k] = $this->_realpath($v . DS, $this->use_include_path);
             }
             $this->_flags[$type] = true;
         }
@@ -1085,7 +1085,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $plugins_dir = (array) $this->plugins_dir;
                 $this->plugins_dir = array();
                 foreach ($plugins_dir as $v) {
-                    $this->plugins_dir[] = $this->_realpath($v . DS);
+                    $this->plugins_dir[] = $this->_realpath($v . DS, $this->use_include_path);
                 }
                 $this->plugins_dir = array_unique($this->plugins_dir);
             }
@@ -1175,7 +1175,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         $rp = $this->_flags[$dirName];
         if (is_array($dir)) {
             foreach ($dir as $k => $v) {
-                $path = $rp ? $this->_realpath($v . DS) : $v;
+                $path = $rp ? $this->_realpath($v . DS, $this->use_include_path) : $v;
                 if (is_int($k)) {
                     // indexes are not merged but appended
                     $this->{$dirName}[] = $path;
@@ -1185,7 +1185,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 }
             }
         } else {
-            $path = $rp ? $this->_realpath($dir . DS) : $dir;
+            $path = $rp ? $this->_realpath($dir . DS, $this->use_include_path) : $dir;
             if ($key !== null) {
                 // override directory at specified index
                 $this->{$dirName}[$key] = $path;
@@ -1384,18 +1384,19 @@ class Smarty extends Smarty_Internal_TemplateBase
      *  - remove /./ and /../
      *  - make it absolute
      *
-     * @param string $path file path
+     * @param string $path     file path
+     * @param bool   $relative leave $path relative
      *
      * @return string
      */
-    public function _realpath($path)
+    public function _realpath($path, $relative = false)
     {
         static $pattern = null;
         static $pattern2 = null;
-        if ($path[0] !== '/' && $path[1] !== ':') {
+        if (!$relative && $path[0] !== '/' && $path[1] !== ':') {
             $path = getcwd() . DS . $path;
         }
-        while (preg_match(isset($pattern) ? $pattern : $pattern = '#([.][\\\/])|[' . (DS == '/' ? '\\\\' : '/') . ']|[\\\/]{2,}#', $path)) {
+        while (preg_match(isset($pattern) ? $pattern : $pattern = '#([\\\/][.]+[\\\/])|[' . (DS == '/' ? '\\\\' : '/') . ']|[\\\/]{2,}#', $path)) {
             $path = preg_replace(isset($pattern2) ? $pattern2 : $pattern2 = '#([\\\/]+([.][\\\/]+)+)|([\\\/]+([^\\\/]+[\\\/]+){2}([.][.][\\\/]+){2})|([\\\/]+[^\\\/]+[\\\/]+[.][.][\\\/]+)|[\\\/]{2,}|[' . (DS == '/' ? '\\\\' : '/') . ']+#', DS, $path);
         }
         return $path;
