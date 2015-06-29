@@ -158,7 +158,7 @@ class Smarty_Template_Cached
                     // lifetime expired
                     $this->valid = false;
                 }
-                if ($this->valid && $_template->source->timestamp > $this->timestamp) {
+                if ($this->valid && $_template->smarty->compile_check && $_template->source->timestamp > $this->timestamp) {
                     $this->valid = false;
                 }
                 if ($this->valid || !$_template->smarty->cache_locking) {

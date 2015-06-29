@@ -150,7 +150,7 @@ class Smarty_Template_Compiled
     public function process(Smarty_Internal_Template $_template)
     {
         $_smarty_tpl = $_template;
-        if ($_template->source->recompiled || !$_template->compiled->exists || $_template->smarty->force_compile) {
+        if ($_template->source->recompiled || !$_template->compiled->exists || $_template->smarty->force_compile || ($_template->smarty->compile_check  && $_template->source->timestamp > $_template->compiled->timestamp)) {
             $this->compileTemplateSource($_template);
             $compileCheck = $_template->smarty->compile_check;
             $_template->smarty->compile_check = false;
