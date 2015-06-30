@@ -75,7 +75,7 @@ class Smarty_Internal_Extension_LoadPlugin
                 require_once($file);
                 return $file;
             }
-            $smarty->_is_file_cache[$file] = $file;
+            $smarty->_is_file_cache[$file] = false;
         }
         if ($smarty->use_include_path) {
             // try PHP include_path
