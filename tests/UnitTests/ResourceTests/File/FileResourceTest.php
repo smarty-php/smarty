@@ -77,8 +77,8 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue(is_integer($tpl->source->timestamp));
-        $this->assertEquals(10, strlen($tpl->source->timestamp));
+        $this->assertTrue(is_integer($tpl->source->getTimeStamp()));
+        $this->assertEquals(10, strlen($tpl->source->getTimeStamp()));
     }
 
     public function testGetTemplateSource()
@@ -112,7 +112,7 @@ class FileResourceTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         // create dummy compiled file
         file_put_contents($tpl->compiled->filepath, '<?php ?>');
-        touch($tpl->compiled->filepath, $tpl->source->timestamp);
+        touch($tpl->compiled->filepath, $tpl->source->getTimeStamp());
     }
 
     /**
@@ -121,9 +121,9 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testGetCompiledTimestamp()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue(is_integer($tpl->compiled->timestamp));
-        $this->assertEquals(10, strlen($tpl->compiled->timestamp));
-        $this->assertEquals($tpl->compiled->timestamp, $tpl->source->timestamp);
+        $this->assertTrue(is_integer($tpl->compiled->getTimeStamp()));
+        $this->assertEquals(10, strlen($tpl->compiled->getTimeStamp()));
+        $this->assertEquals($tpl->compiled->getTimeStamp(), $tpl->source->getTimeStamp());
     }
 
     public function testMustCompileExisting()
@@ -378,7 +378,7 @@ class FileResourceTest extends PHPUnit_Smarty
         $this->_relativeMap($map);
 
         $this->smarty->setTemplateDir(array(
-                                          'templates/relativity/theory/',
+                                          './templates/relativity/theory/',
                                       ));
 
         $map = array(

@@ -32,7 +32,19 @@ class CompileIncludePhpTest extends PHPUnit_Smarty
     public function testIncludePhpStringFileName()
     {
         $this->smartyBC->disableSecurity();
-        $tpl = $this->smartyBC->createTemplate("eval:start {include_php file='scripts/test_include_php.php'} end");
+        $tpl = $this->smartyBC->createTemplate('include_php.tpl');
+        $result = $this->smartyBC->fetch($tpl);
+        $this->assertContains("test include php", $result);
+    }
+
+    /**
+     * test include_php from trusted dir
+     */
+    public function testIncludePhpTrusted()
+    {
+        $this->smartyBC->enableSecurity();
+        $this->smartyBC->security_policy->trusted_dir = '.\\scripts\\';
+        $tpl = $this->smartyBC->createTemplate('include_php_trusted.tpl');
         $result = $this->smartyBC->fetch($tpl);
         $this->assertContains("test include php", $result);
     }

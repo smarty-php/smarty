@@ -47,8 +47,8 @@ class RegisteredResourceTest extends PHPUnit_Smarty
     public function testResourcePluginTimestamp()
     {
         $tpl = $this->smarty->createTemplate('rr:test');
-        $this->assertTrue(is_integer($tpl->source->timestamp));
-        $this->assertEquals(10, strlen($tpl->source->timestamp));
+        $this->assertTrue(is_integer($tpl->source->getTimeStamp()));
+        $this->assertEquals(10, strlen($tpl->source->getTimeStamp()));
     }
 
     /**

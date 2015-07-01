@@ -398,7 +398,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
         }
         $tpl = $this->smarty->createTemplate('cacheresource.tpl', $this->smarty);
         if ($update) {
-            $this->assertEquals($t,$tpl->source->timestamp, $testName . ' - source touch');
+            $this->assertEquals($t,$tpl->source->getTimeStamp(), $testName . ' - source touch');
         }
         if ($lockTime) {
             $tpl->cached->handler->acquireLock($this->smarty, $tpl->cached);

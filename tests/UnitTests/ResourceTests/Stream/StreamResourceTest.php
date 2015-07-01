@@ -51,7 +51,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->source->timestamp);
+        $this->assertFalse($tpl->source->getTimeStamp());
     }
 
     /**
@@ -105,7 +105,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testGetCompiledTimestamp()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->compiled->timestamp);
+        $this->assertFalse($tpl->compiled->getTimeStamp());
     }
 
     /**
