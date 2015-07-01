@@ -8,10 +8,6 @@
  * @author     Uwe Tews
  */
 
-/**
- * @ignore
- */
-//include 'smarty_internal_parsetree.php';
 
 /**
  * Class SmartyTemplateCompiler
@@ -34,20 +30,6 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * @var string
      */
     public $parser_class;
-
-    /**
-     * Lexer object
-     *
-     * @var object
-     */
-    public $lex;
-
-    /**
-     * Parser object
-     *
-     * @var object
-     */
-    public $parser;
 
     /**
      * array of vars which can be compiled in local scope
@@ -76,8 +58,10 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * method to compile a Smarty template
      *
      * @param  mixed $_content template source
+     * @param bool   $isTemplateSource
      *
-     * @return bool  true if compiling succeeded, false if it failed
+     * @return bool true if compiling succeeded, false if it failed
+     * @throws \SmartyCompilerException
      */
     protected function doCompile($_content, $isTemplateSource = false)
     {
@@ -126,7 +110,6 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
             $this->trigger_template_error("unclosed {$this->smarty->left_delimiter}" . $openTag . "{$this->smarty->right_delimiter} tag");
         }
         // return compiled code
-        // return str_replace(array("? >\n<?php","? ><?php"), array('',''), $this->parser->retvalue);
         return $this->parser->retvalue;
     }
 }
