@@ -2,6 +2,7 @@
  01.07.2015
   - optimize compile check handling
   - update {foreach} compiler
+  - bugfix debugging console did not display string values containing \n, \r or \t correctly https://github.com/smarty-php/smarty/issues/66
 
  28.06.2015
   - move $smarty->enableSecurity() into Smarty_Security class
