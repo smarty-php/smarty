@@ -282,6 +282,29 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase
 
         return $output;
     }
+
+    /**
+     * Compiles code for the {$smarty.foreach} tag
+     *
+     * @param  array                                $args      array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param  array                                $parameter array with compilation parameter
+     *
+     * @return string compiled code
+     * @throws \SmartyCompilerException
+     */
+    public static function compileSpecialVariable($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    {
+        if (!isset($parameter[1]) || false === $name = $compiler->getId($parameter[1])) {
+            $compiler->trigger_template_error("missing or illegal \$Smarty.foreach name attribute", $compiler->lex->taglineno);
+        }
+        if ((!isset($parameter[2]) || false === $property = $compiler->getId($parameter[2])) || !in_array(strtolower($property), array('first', 'last', 'index', 'iteration', 'show', 'total'))) {
+            $compiler->trigger_template_error("missing or illegal \$Smarty.foreach property attribute", $compiler->lex->taglineno);
+        }
+        $property = strtolower($property);
+        $foreachVar = "'__foreach_{$name}'";
+        return "(isset(\$_smarty_tpl->tpl_vars[{$foreachVar}]->value['{$property}']) ? \$_smarty_tpl->tpl_vars[{$foreachVar}]->value['{$property}'] : null)";
+    }
 }
 
 /**

@@ -25,17 +25,18 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
         $_index = preg_split("/\]\[/", substr($parameter, 1, strlen($parameter) - 2));
         $compiled_ref = ' ';
-        $variable = trim($_index[0], "'");
+        $variable = $compiler->getId($_index[0]);
+        if ($variable === false) {
+            $compiler->trigger_template_error("special \$Smarty variable name index can not be variable", $compiler->lex->taglineno);
+         }
         if (!isset($compiler->smarty->security_policy) || $compiler->smarty->security_policy->isTrustedSpecialSmartyVar($variable, $compiler)) {
-            switch ($variable) {
+             switch ($variable) {
                 case 'foreach':
-                    $name = trim($_index[1], "'");
-                    $foreachVar = "'__foreach_{$name}'";
-                    return "(isset(\$_smarty_tpl->tpl_vars[$foreachVar]->value[{$_index[2]}]) ? \$_smarty_tpl->tpl_vars[$foreachVar]->value[{$_index[2]}] : null)";
+                    return Smarty_Internal_Compile_Foreach::compileSpecialVariable(array(), $compiler, $_index);
                 case 'section':
                     return "\$_smarty_tpl->getVariable('smarty')->value$parameter";
                 case 'capture':
