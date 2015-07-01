@@ -55,7 +55,7 @@ class PhpResourceTest extends PHPUnit_Smarty
      * public function testGetTemplateSource()
      * {
      * $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
-     * $this->assertContains('php hello world', $tpl->source->content);
+     * $this->assertContains('php hello world', $tpl->source->getContent());
      * }
      * /**
      * test usesCompiler

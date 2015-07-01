@@ -72,7 +72,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testGetTemplateSource()
     {
         $tpl = $this->smarty->createTemplate('string:hello world{$foo}');
-        $this->assertEquals('hello world{$foo}', $tpl->source->content);
+        $this->assertEquals('hello world{$foo}', $tpl->source->getContent());
     }
 
     /**

@@ -60,7 +60,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testGetTemplateSource()
     {
         $tpl = $this->smarty->createTemplate('global:mytest', null, null, $this->smarty);
-        $this->assertEquals('hello world {$foo}', $tpl->source->content);
+        $this->assertEquals('hello world {$foo}', $tpl->source->getContent());
     }
 
     /**

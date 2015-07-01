@@ -43,7 +43,7 @@ class CompilePhpTest extends PHPUnit_Smarty
         $this->smartyBC->compile_id = $testName;
         $tpl = $this->smartyBC->createTemplate($templateFile);
         if ($phpHandling == Smarty::PHP_PASSTHRU || $phpHandling == Smarty::PHP_QUOTE) {
-            $result = str_replace("\r", '', $tpl->source->content);
+            $result = str_replace("\r", '', $tpl->source->getContent());
         }
         if ($phpHandling == Smarty::PHP_QUOTE) {
             $result = preg_replace_callback('#(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)|(\?>)|(%>)|(<\/script>)#i', array($this, 'quote'), $result);

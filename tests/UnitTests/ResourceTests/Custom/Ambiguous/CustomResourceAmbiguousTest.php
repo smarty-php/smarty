@@ -70,7 +70,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertTrue($tpl->source->exists);
-        $this->assertEquals('case1', $tpl->source->content);
+        $this->assertEquals('case1', $tpl->source->getContent());
     }
 
     /**
@@ -90,7 +90,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertTrue($tpl->source->exists);
-        $this->assertEquals('case2', $tpl->source->content);
+        $this->assertEquals('case2', $tpl->source->getContent());
     }
 
     /**
@@ -109,11 +109,11 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $resource_handler->setSegment('case1');
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertTrue($tpl->source->exists);
-        $this->assertEquals('case1', $tpl->source->content);
+        $this->assertEquals('case1', $tpl->source->getContent());
 
         $resource_handler->setSegment('case2');
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertTrue($tpl->source->exists);
-        $this->assertEquals('case2', $tpl->source->content);
+        $this->assertEquals('case2', $tpl->source->getContent());
     }
 }
