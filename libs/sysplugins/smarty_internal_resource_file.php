@@ -106,8 +106,9 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     protected function fileExists(Smarty_Template_Source $source, $file)
     {
-        $source->timestamp = is_file($file) ? @filemtime($file) : false;
-        return $source->exists = !!$source->timestamp;
+        $source->timestamp = $source->exists = is_file($file);
+        $source->timestamp = $source->exists ? filemtime($file) : false;
+        return $source->exists;
     }
 
     /**
@@ -126,8 +127,8 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             }
             $source->exists = true;
             $source->uid = sha1($source->filepath);
-            if ($source->smarty->compile_check && !isset($source->timestamp)) {
-                $source->timestamp = @filemtime($source->filepath);
+            if ($source->smarty->compile_check == 1) {
+                $source->timestamp = filemtime($source->filepath);
             }
         } else {
             $source->timestamp = false;
@@ -142,9 +143,11 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     public function populateTimestamp(Smarty_Template_Source $source)
     {
-        $source->timestamp = $source->exists = is_file($source->filepath);
+        if (!$source->exists) {
+            $source->timestamp = $source->exists = is_file($source->filepath);
+        }
         if ($source->exists) {
-            $source->timestamp = @filemtime($source->filepath);
+            $source->timestamp = filemtime($source->filepath);
         }
     }
 

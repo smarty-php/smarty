@@ -77,6 +77,19 @@ class Smarty_Template_Source
      */
     public $filepath = null;
     /**
+     * Source Timestamp
+     *
+     * @var integer
+     */
+    public $timestamp = null;
+
+    /**
+     * Source Existence
+     *
+     * @var boolean
+     */
+    public $exists = false;
+    /**
      * Source File Base name
      *
      * @var string
@@ -234,6 +247,18 @@ class Smarty_Template_Source
     }
 
     /**
+     * Get source time stamp
+     *
+     * @return int
+     */
+    public function getTimeStamp() {
+        if (!isset($this->timestamp)) {
+            $this->handler->populateTimestamp($this);
+       }
+        return $this->timestamp;
+    }
+
+    /**
      * <<magic>> Generic Setter.
      *
      * @param  string $property_name valid: timestamp, exists, content, template
@@ -245,9 +270,7 @@ class Smarty_Template_Source
     {
         switch ($property_name) {
             // regular attributes
-            case 'timestamp':
-            case 'exists':
-            case 'content':
+           case 'content':
                 // required for extends: only
             case 'template':
                 $this->$property_name = $value;
@@ -269,12 +292,6 @@ class Smarty_Template_Source
     public function __get($property_name)
     {
         switch ($property_name) {
-            case 'timestamp':
-            case 'exists':
-                $this->handler->populateTimestamp($this);
-
-                return $this->$property_name;
-
             case 'content':
                 return $this->content = $this->handler->getContent($this);
 

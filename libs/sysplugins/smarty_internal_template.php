@@ -248,7 +248,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $content = $this->source->renderUncompiled($this);
             }
             if (!$this->source->recompiled && empty($this->properties['file_dependency'][$this->source->uid])) {
-                $this->properties['file_dependency'][$this->source->uid] = array($this->source->filepath, $this->source->timestamp, $this->source->type);
+                $this->properties['file_dependency'][$this->source->uid] = array($this->source->filepath, $this->source->getTimeStamp(), $this->source->type);
             }
             if ($parentIsTpl) {
                 $this->parent->properties['file_dependency'] = array_merge($this->parent->properties['file_dependency'], $this->properties['file_dependency']);
@@ -406,8 +406,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
         }
         if ($this->mustCompile === null) {
-            $this->mustCompile = (!$this->source->uncompiled && ($this->smarty->force_compile || $this->source->recompiled || $this->compiled->timestamp === false ||
-                    ($this->smarty->compile_check && $this->compiled->timestamp < $this->source->timestamp)));
+            $this->mustCompile = (!$this->source->uncompiled && ($this->smarty->force_compile || $this->source->recompiled || !$this->compiled->exists ||
+                    ($this->smarty->compile_check && $this->compiled->getTimeStamp() < $this->source->getTimeStamp())));
         }
 
         return $this->mustCompile;
@@ -598,22 +598,23 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (Smarty::SMARTY_VERSION != $properties['version']) {
             // new version must rebuild
             $is_valid = false;
-        } elseif ((!$cache && $this->smarty->compile_check || $cache && ($this->smarty->compile_check === true || $this->smarty->compile_check === Smarty::COMPILECHECK_ON)) && !empty($properties['file_dependency'])) {
+        } elseif (!empty($properties['file_dependency']) && ((!$cache && $this->smarty->compile_check) || $this->smarty->compile_check == 1)) {
             // check file dependencies at compiled code
             foreach ($properties['file_dependency'] as $_file_to_check) {
                 if ($_file_to_check[2] == 'file' || $_file_to_check[2] == 'php') {
-                    if ($this->source->filepath == $_file_to_check[0] && isset($this->source->timestamp)) {
+                    if ($this->source->filepath == $_file_to_check[0]) {
                         // do not recheck current template
-                        $mtime = $this->source->timestamp;
+                        continue;
+                        //$mtime = $this->source->getTimeStamp();
                     } else {
                         // file and php types can be checked without loading the respective resource handlers
-                        $mtime = is_file($_file_to_check[0]) ? @filemtime($_file_to_check[0]) : false;
+                        $mtime = is_file($_file_to_check[0]) ? filemtime($_file_to_check[0]) : false;
                     }
                 } elseif ($_file_to_check[2] == 'string') {
                     continue;
                 } else {
                     $source = Smarty_Resource::source(null, $this->smarty, $_file_to_check[0]);
-                    $mtime = $source->timestamp;
+                    $mtime = $source->getTimeStamp();
                 }
                 if (!$mtime || $mtime > $_file_to_check[1]) {
                     $is_valid = false;

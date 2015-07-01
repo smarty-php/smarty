@@ -134,9 +134,9 @@ class Smarty_Template_Compiled
         }
 
         $this->filepath = $_compile_dir . $_filepath . '.' . $_template->source->type . $_basename . $_cache . '.php';
-        $this->timestamp = $this->exists = is_file($this->filepath);
-        if ($this->exists) {
-            $this->timestamp = @filemtime($this->filepath);
+        $this->exists = is_file($this->filepath);
+        if (!$this->exists) {
+            $this->timestamp = false;
         }
     }
 
@@ -150,7 +150,7 @@ class Smarty_Template_Compiled
     public function process(Smarty_Internal_Template $_template)
     {
         $_smarty_tpl = $_template;
-        if ($_template->source->recompiled || !$_template->compiled->exists || $_template->smarty->force_compile || ($_template->smarty->compile_check  && $_template->source->timestamp > $_template->compiled->timestamp)) {
+        if ($_template->source->recompiled || !$_template->compiled->exists || $_template->smarty->force_compile || ($_template->smarty->compile_check && $_template->source->getTimeStamp() > $_template->compiled->getTimeStamp())) {
             $this->compileTemplateSource($_template);
             $compileCheck = $_template->smarty->compile_check;
             $_template->smarty->compile_check = false;
@@ -219,7 +219,7 @@ class Smarty_Template_Compiled
         }
         // compile locking
         if (!$_template->source->recompiled) {
-            if ($saved_timestamp = $_template->compiled->timestamp) {
+            if ($saved_timestamp = $_template->compiled->getTimeStamp()) {
                 touch($_template->compiled->filepath);
             }
         }
@@ -260,7 +260,7 @@ class Smarty_Template_Compiled
             if ($obj->writeFile($this->filepath, $code, $_template->smarty) === true) {
                 $this->timestamp = $this->exists = is_file($this->filepath);
                 if ($this->exists) {
-                    $this->timestamp = @filemtime($this->filepath);
+                    $this->timestamp = filemtime($this->filepath);
                     return true;
                 }
             }
@@ -286,5 +286,16 @@ class Smarty_Template_Compiled
             return file_get_contents($this->filepath);
         }
         return isset($this->content) ? $this->content : false;
+    }
+    /**
+     * Get compiled time stamp
+     *
+     * @return int
+     */
+    public function getTimeStamp() {
+        if ($this->exists && !isset($this->timestamp)) {
+            $this->timestamp = @filemtime($this->filepath);
+        }
+        return $this->timestamp;
     }
 }
