@@ -147,6 +147,21 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase
             }
         }
 
+        // search parent compiler template source
+        $nextCompiler = $compiler;
+        while ($nextCompiler !== $nextCompiler->parent_compiler) {
+            $nextCompiler = $nextCompiler->parent_compiler;
+            preg_match_all($preg, $nextCompiler->template->source->content, $match, PREG_SET_ORDER);
+            foreach ($match as $m) {
+                if (isset($m[3]) && !empty($m[3])) {
+                    $itemAttr[strtolower($m[3])] = true;
+                }
+                if ($has_name && isset($m[12]) && !empty($m[12])) {
+                    $smartyAttr[strtolower($m[12])] = true;
+                }
+            }
+        }
+
         if (!isset($itemAttr['index']) && (isset($itemAttr['first']) || isset($itemAttr['last']))) {
             $itemAttr['iteration'] = true;
         }
