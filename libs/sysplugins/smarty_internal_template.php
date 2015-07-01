@@ -167,6 +167,18 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if ($this->smarty->debugging) {
             Smarty_Internal_Debug::start_template($this, $display);
         }
+        // checks if template exists
+        if (!isset($this->source)) {
+            $this->loadSource();
+        }
+        if (!$this->source->exists) {
+            if ($parentIsTpl) {
+                $parent_resource = " in '{$this->parent->template_resource}'";
+            } else {
+                $parent_resource = '';
+            }
+            throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
+        }
         $save_tpl_vars = null;
         $save_config_vars = null;
         // merge all variable scopes into template
@@ -205,18 +217,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         // check URL debugging control
         if (!$this->smarty->debugging && $this->smarty->debugging_ctrl == 'URL') {
             Smarty_Internal_Debug::debugUrl($this);
-        }
-        if (!isset($this->source)) {
-            $this->loadSource();
-        }
-        // checks if template exists
-        if (!$this->source->exists) {
-            if ($parentIsTpl) {
-                $parent_resource = " in '{$this->parent->template_resource}'";
-            } else {
-                $parent_resource = '';
-            }
-            throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
         }
         // disable caching for evaluated code
         if ($this->source->recompiled) {
