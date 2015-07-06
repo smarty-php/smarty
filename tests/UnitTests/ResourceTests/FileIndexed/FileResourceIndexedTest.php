@@ -7,7 +7,7 @@
  * @author                 Rodney Rehm
  * @backupStaticAttributes enabled
  */
-class IndexedFileResourceTest extends PHPUnit_Smarty
+class FileResourceIndexedTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
@@ -16,8 +16,12 @@ class IndexedFileResourceTest extends PHPUnit_Smarty
         // note that 10 is a string!
         $this->smarty->addTemplateDir(__DIR__ . '/templates_3', '10');
         $this->smarty->addTemplateDir(__DIR__ . '/templates_4', 'foo');
-    }
+     }
 
+    public function testInit()
+    {
+        $this->cleanDirs();
+    }
 
     public function testGetTemplateFilepath()
     {
