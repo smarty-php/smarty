@@ -298,6 +298,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $has_output = false;
 
     /**
+     * Universal cache
+     *
+     * @var array
+     */
+    public $cache = array();
+
+    /**
      * Strip preg pattern
      *
      * @var string
@@ -386,7 +393,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->prefix_code = array();
             $_compiled_code = '';
             // get template source
-            $_content = $this->template->source->content;
+            $_content = $this->template->source->getContent();
             if ($_content != '') {
                 // run pre filter if required
                 if ((isset($this->smarty->autoload_filters['pre']) || isset($this->smarty->registered_filters['pre'])) && !$this->suppressFilter) {
@@ -429,8 +436,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $_compiled_code .= $this->templateFunctionCode;
             }
         }
-        // unset content because template inheritance could have replace source with parent code
-        unset ($template->source->content);
         $this->parent_compiler = null;
         $this->template = null;
         return $_compiled_code;
@@ -955,7 +960,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function getVariableName($input)
     {
-        if (preg_match('~^[$]_smarty_tpl->tpl_vars\[[\'"]*([0-9]*[a-zA-Z_]\w*)[\'"]*\]~', $input, $match)) {
+        if (preg_match('~^[$]_smarty_tpl->tpl_vars\[[\'"]*([0-9]*[a-zA-Z_]\w*)[\'"]*\]->value$~', $input, $match)) {
             return $match[1];
         }
         return false;

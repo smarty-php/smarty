@@ -45,14 +45,6 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
     public $option_flags = array('hide', 'append', 'prepend', 'nocache');
 
     /**
-     * Attribute definition: Overwrites base class.
-     *
-     * @var array
-     * @see Smarty_Internal_CompileBase
-     */
-    public $optional_attributes = array('internal_file', 'internal_uid', 'internal_line');
-
-    /**
      * nested child block names
      *
      * @var array
@@ -90,11 +82,13 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         if ($compiler->inheritance_child) {
             array_unshift(self::$nested_block_names, $_name);
             // build {block} for child block
-            self::$block_data[$_name]['source'] = "{$compiler->smarty->left_delimiter}private_child_block name={$_attr['name']} file='{$compiler->template->source->filepath}' type='{$compiler->template->source->type}' resource='{$compiler->template->template_resource}'" . " uid='{$compiler->template->source->uid}' line={$compiler->lex->line}";
+            self::$block_data[$_name]['source'] = "{$compiler->smarty->left_delimiter}private_child_block name={$_attr['name']} uid='{$compiler->template->source->uid}' line={$compiler->lex->line}";
             if ($_attr['nocache']) {
                 self::$block_data[$_name]['source'] .= ' nocache';
             }
             self::$block_data[$_name]['source'] .= $compiler->smarty->right_delimiter;
+            // save source object
+            $compiler->cache["source_{$compiler->template->source->uid}"] = $compiler->template->source;
 
             $save = array($_attr, $compiler->inheritance);
             $this->openTag($compiler, 'block', $save);
@@ -186,6 +180,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
             $_output = $_tpl->compiler->compileTemplate($_tpl, $nocache, $compiler->parent_compiler);
         }
         $compiler->template->properties['file_dependency'] = array_merge($compiler->template->properties['file_dependency'], $_tpl->properties['file_dependency']);
+        unset($compiler->template->properties['file_dependency'][$_tpl->source->uid]);
         $compiler->template->properties['tpl_function'] = array_merge($compiler->template->properties['tpl_function'], $_tpl->properties['tpl_function']);
         $compiler->template->variable_filters = $_tpl->variable_filters;
         if ($_tpl->has_nocache_code) {
@@ -368,7 +363,7 @@ class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_Compil
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $required_attributes = array('name', 'file', 'uid', 'line', 'type', 'resource');
+    public $required_attributes = array('name', 'uid', 'line');
 
     /**
      * Compiles code for the {private_child_block} tag
@@ -382,16 +377,9 @@ class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_Compil
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-
-        // update template with original template resource of {block}
-        if (trim($_attr['type'], "'") == 'file') {
-            $compiler->template->template_resource = 'file:' . $compiler->template->smarty->_realpath(trim($_attr['file'], "'"));
-        } else {
-            $compiler->template->template_resource = trim($_attr['resource'], "'");
-        }
-        // source object
-        unset ($compiler->template->source);
-        $compiler->template->loadSource();
+        $uid = trim($_attr['uid'], "\"'");
+        // update template with original template source of {block}
+        $compiler->template->source = $compiler->parent_compiler->cache["source_{$uid}"];
 
         // must merge includes
         if ($_attr['nocache'] == true) {
@@ -400,7 +388,7 @@ class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_Compil
         $save = array($_attr, $compiler->nocache);
 
         // set trace back to child block
-        $compiler->pushTrace(trim($_attr['file'], "\"'"), trim($_attr['uid'], "\"'"), $_attr['line'] - $compiler->lex->line);
+        $compiler->pushTrace(trim($_attr['file'], "\"'"), $uid, $_attr['line'] - $compiler->lex->line);
 
         $this->openTag($compiler, 'private_child_block', $save);
 
