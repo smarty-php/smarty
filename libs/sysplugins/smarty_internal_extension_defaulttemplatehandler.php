@@ -21,10 +21,9 @@ class Smarty_Internal_Extension_DefaultTemplateHandler
      * get default content from template of config resource handler
      *
      * @param Smarty_Internal_Template        $_template
-     * @param Smarty_Internal_Template_Source $source
-     * @param  Smarty_Resource                $resObj
+     * @param Smarty_Template_Source $source
      */
-    static function _getDefault(Smarty_Internal_Template $_template, &$source, &$resObj)
+    static function _getDefault(Smarty_Internal_Template $_template, $source)
     {
         if ($source->isConfig) {
             $default_handler = $_template->smarty->default_config_handler_func;

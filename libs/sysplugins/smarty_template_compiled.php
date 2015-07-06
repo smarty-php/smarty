@@ -225,6 +225,7 @@ class Smarty_Template_Compiled
         }
         // call compiler
         try {
+            $_template->loadCompiler();
             $code = $_template->compiler->compileTemplate($_template);
         }
         catch (Exception $e) {

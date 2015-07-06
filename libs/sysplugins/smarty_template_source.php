@@ -76,6 +76,7 @@ class Smarty_Template_Source
      * @var string
      */
     public $filepath = null;
+
     /**
      * Source Timestamp
      *
@@ -89,6 +90,7 @@ class Smarty_Template_Source
      * @var boolean
      */
     public $exists = false;
+
     /**
      * Source File Base name
      *
@@ -116,12 +118,14 @@ class Smarty_Template_Source
      * @var Smarty
      */
     public $smarty = null;
+
     /**
      * Resource is source
      *
      * @var bool
      */
     public $isConfig = false;
+
     /**
      * Source is bypassing compiler
      *
@@ -135,12 +139,20 @@ class Smarty_Template_Source
      * @var boolean
      */
     public $recompiled = false;
+
     /**
      * cache for Smarty_Template_Compiled instances
      *
      * @var array
      */
     public $compileds = array();
+
+    /**
+     * Template source content eventually set by default handler
+     *
+     * @var string
+     */
+    public $content = null;
 
     /**
      * create Source Object container
@@ -205,15 +217,14 @@ class Smarty_Template_Source
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $type, $name);
         $resource->populate($source, $_template);
         if ((!isset($source->exists) || !$source->exists) && isset($_template->smarty->default_template_handler_func)) {
-            Smarty_Internal_Extension_DefaultTemplateHandler::_getDefault($_template, $source, $resObj);
+            Smarty_Internal_Extension_DefaultTemplateHandler::_getDefault($_template, $source);
         }
         // on recompiling resources we are done
         if ($smarty->resource_caching && !$resource->recompiled) {
             // may by we have already $unique_resource
             $is_relative = false;
             if (!isset($unique_resource)) {
-                $is_relative = isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/') &&
-                    ($type == 'file' || (isset($_template->parent->source) && $_template->parent->source->type == 'extends'));
+                $is_relative = isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/') && ($type == 'file' || (isset($_template->parent->source) && $_template->parent->source->type == 'extends'));
                 $unique_resource = $resource->buildUniqueResourceName($smarty, $is_relative ? $source->filepath . $name : $name);
             }
             $source->unique_resource = $unique_resource;
@@ -229,6 +240,9 @@ class Smarty_Template_Source
      * render the uncompiled source
      *
      * @param Smarty_Internal_Template $_template template object
+     *
+     * @return string
+     * @throws \Exception
      */
     public function renderUncompiled(Smarty_Internal_Template $_template)
     {
@@ -251,52 +265,21 @@ class Smarty_Template_Source
      *
      * @return int
      */
-    public function getTimeStamp() {
+    public function getTimeStamp()
+    {
         if (!isset($this->timestamp)) {
             $this->handler->populateTimestamp($this);
-       }
+        }
         return $this->timestamp;
     }
 
     /**
-     * <<magic>> Generic Setter.
+     * Get source content
      *
-     * @param  string $property_name valid: timestamp, exists, content, template
-     * @param  mixed  $value         new value (is not checked)
-     *
-     * @throws SmartyException if $property_name is not valid
+     * @return string
      */
-    public function __set($property_name, $value)
+    public function getContent()
     {
-        switch ($property_name) {
-            // regular attributes
-           case 'content':
-                // required for extends: only
-            case 'template':
-                $this->$property_name = $value;
-                break;
-
-            default:
-                throw new SmartyException("source property '$property_name' does not exist.");
-        }
-    }
-
-    /**
-     * <<magic>> Generic getter.
-     *
-     * @param  string $property_name valid: timestamp, exists, content
-     *
-     * @return mixed
-     * @throws SmartyException if $property_name is not valid
-     */
-    public function __get($property_name)
-    {
-        switch ($property_name) {
-            case 'content':
-                return $this->content = $this->handler->getContent($this);
-
-            default:
-                throw new SmartyException("source property '$property_name' does not exist.");
-        }
+        return isset($this->content) ? $this->content : $this->handler->getContent($this);
     }
 }

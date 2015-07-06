@@ -84,7 +84,6 @@ abstract class Smarty_Resource
 
     /**
      * Load template's source into current template object
-     * {@internal The loaded source is assigned to $_template->source->content directly.}}
      *
      * @param  Smarty_Template_Source $source source object
      *

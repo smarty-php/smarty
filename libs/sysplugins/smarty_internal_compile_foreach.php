@@ -151,7 +151,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase
         $nextCompiler = $compiler;
         while ($nextCompiler !== $nextCompiler->parent_compiler) {
             $nextCompiler = $nextCompiler->parent_compiler;
-            preg_match_all($preg, $nextCompiler->template->source->content, $match, PREG_SET_ORDER);
+            preg_match_all($preg, $nextCompiler->template->source->getContent(), $match, PREG_SET_ORDER);
             foreach ($match as $m) {
                 if (isset($m[3]) && !empty($m[3])) {
                     $itemAttr[strtolower($m[3])] = true;

@@ -1,6 +1,7 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
  06.07.2015
   - optimize {block} compilation
+  - optimization get rid of __get and __set in source object
 
  01.07.2015
   - optimize compile check handling

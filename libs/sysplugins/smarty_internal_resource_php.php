@@ -43,7 +43,7 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
      */
     public function getContent(Smarty_Template_Source $source)
     {
-        if ($source->timestamp) {
+        if ($source->exists) {
             return '';
         }
         throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");

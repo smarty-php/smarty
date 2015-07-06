@@ -161,7 +161,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     public function getContent(Smarty_Template_Source $source)
     {
-        if ($source->timestamp) {
+        if ($source->exists) {
             return file_get_contents($source->filepath);
         }
         if ($source instanceof Smarty_Template_Config) {

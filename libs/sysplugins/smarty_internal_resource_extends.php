@@ -39,13 +39,13 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
         $components = explode('|', $source->name);
         $exists = true;
         foreach ($components as $component) {
-            $s = Smarty_Resource::source(null, $source->smarty, $component);
+            $s = Smarty_Template_Source::load(null, $source->smarty, $component);
             if ($s->type == 'php') {
                 throw new SmartyException("Resource type {$s->type} cannot be used with the extends resource type");
             }
             $sources[$s->uid] = $s;
             $uid .= $source->smarty->_realpath($s->filepath);
-            if ($_template && $_template->smarty->compile_check) {
+            if ($_template) {
                 $exists = $exists && $s->exists;
             }
         }
@@ -53,11 +53,9 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
         $source->filepath = $s->filepath;
         $source->uid = sha1($uid);
         $source->exists = $exists;
-        if ($_template && $_template->smarty->compile_check) {
+        if ($_template) {
             $source->timestamp = $s->timestamp;
         }
-        // need the template at getContent()
-        $source->template = $_template;
     }
 
     /**
@@ -71,7 +69,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
         foreach ($source->components as $s) {
             $source->exists = $source->exists && $s->exists;
         }
-        $source->timestamp = $s->timestamp;
+        $source->timestamp = $source->exists ? $s->getTimeStamp() : false;
     }
 
     /**
@@ -93,7 +91,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
         $_content = '';
         foreach ($_components as $_component) {
             // read content
-            $_content .= $_component->content;
+            $_content .= $_component->getContent();
         }
         return $_content;
     }

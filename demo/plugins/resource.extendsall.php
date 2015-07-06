@@ -23,7 +23,7 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
         $uid = '';
         $sources = array();
         $exists = true;
-        foreach ($_template->smarty->getTemplateDir() as $key => $directory) {
+        foreach ($source->smarty->getTemplateDir() as $key => $directory) {
             try {
                 $s = Smarty_Resource::source(null, $source->smarty, '[' . $key . ']' . $source->name);
                 if (!$s->exists) {
@@ -38,9 +38,7 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
 
         if (!$sources) {
             $source->exists = false;
-            $source->template = $_template;
-
-            return;
+             return;
         }
 
         $sources = array_reverse($sources, true);
@@ -52,9 +50,7 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
         $source->uid = sha1($uid);
         $source->exists = $exists;
         if ($_template && $_template->smarty->compile_check) {
-            $source->timestamp = $s->timestamp;
+            $source->timestamp = $s->getTimeStamp();
         }
-        // need the template at getContent()
-        $source->template = $_template;
     }
 }
