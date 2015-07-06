@@ -388,7 +388,7 @@ class Smarty_Internal_Compile_Private_Child_Block extends Smarty_Internal_Compil
         $save = array($_attr, $compiler->nocache);
 
         // set trace back to child block
-        $compiler->pushTrace(trim($_attr['file'], "\"'"), $uid, $_attr['line'] - $compiler->lex->line);
+        $compiler->pushTrace($compiler->template->source->filepath, $uid, $_attr['line'] - $compiler->lex->line);
 
         $this->openTag($compiler, 'private_child_block', $save);
 
