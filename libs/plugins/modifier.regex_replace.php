@@ -19,10 +19,11 @@
  * @param string       $string  input string
  * @param string|array $search  regular expression(s) to search for
  * @param string|array $replace string(s) that should be replaced
+ * @param int          $limit   the maximum number of replacements
  *
  * @return string
  */
-function smarty_modifier_regex_replace($string, $search, $replace)
+function smarty_modifier_regex_replace($string, $search, $replace, $limit = -1)
 {
     if (is_array($search)) {
         foreach ($search as $idx => $s) {
@@ -32,7 +33,7 @@ function smarty_modifier_regex_replace($string, $search, $replace)
         $search = _smarty_regex_replace_check($search);
     }
 
-    return preg_replace($search, $replace, $string);
+    return preg_replace($search, $replace, $string, $limit);
 }
 
 /**
