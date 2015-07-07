@@ -64,10 +64,35 @@ class FileResourceIndexedTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('[10]dirname.tpl');
         $this->assertEquals('templates_3', $this->smarty->fetch($tpl));
     }
+    public function testFetchNumeric2()
+    {
+        $tpl = $this->smarty->createTemplate('[10, 1]dirname10.tpl');
+        $this->assertEquals('templates_3', $this->smarty->fetch($tpl));
+    }
+    public function testFetchNumeric3()
+    {
+        $tpl = $this->smarty->createTemplate('[10, 1]dirname1.tpl');
+        $this->assertEquals('templates_2', $this->smarty->fetch($tpl));
+    }
 
     public function testFetchName()
     {
         $tpl = $this->smarty->createTemplate('[foo]dirname.tpl');
+        $this->assertEquals('templates_4', $this->smarty->fetch($tpl));
+    }
+    public function testFetchName1()
+    {
+        $tpl = $this->smarty->createTemplate('[10,0,1,foo]dirname_foo.tpl');
+        $this->assertEquals('dirname_foo', $this->smarty->fetch($tpl));
+    }
+    public function testFetchName2()
+    {
+        $tpl = $this->smarty->createTemplate('[0,1,foo,10]dirname_x.tpl');
+        $this->assertEquals('templates_2', $this->smarty->fetch($tpl));
+    }
+    public function testFetchName3()
+    {
+        $tpl = $this->smarty->createTemplate('[0,10,foo,1]dirname_x.tpl');
         $this->assertEquals('templates_4', $this->smarty->fetch($tpl));
     }
 
