@@ -239,6 +239,20 @@ class Smarty_Security
     protected $_trusted_dir = null;
 
     /**
+     * Cache for $_include_path lookup
+     *
+     * @var string
+     */
+    protected $_include_path = '';
+
+    /**
+     * Cache for $_include_array lookup
+     *
+     * @var array
+     */
+    protected $_include_dir = array();
+
+    /**
      * @param Smarty $smarty
      */
     public function __construct($smarty)
@@ -356,9 +370,10 @@ class Smarty_Security
     {
         // check for internal always required tags
         if (in_array($tag_name, array('assign', 'call', 'private_filter', 'private_block_plugin',
-            'private_function_plugin', 'private_object_block_function', 'private_object_function',
-            'private_registered_function', 'private_registered_block', 'private_special_variable',
-            'private_print_expression', 'private_modifier'))) {
+                                      'private_function_plugin', 'private_object_block_function',
+                                      'private_object_function', 'private_registered_function',
+                                      'private_registered_block', 'private_special_variable',
+                                      'private_print_expression', 'private_modifier'))) {
             return true;
         }
         // check security settings
@@ -483,6 +498,26 @@ class Smarty_Security
      */
     public function isTrustedResourceDir($filepath, $isConfig = null)
     {
+        if ($this->smarty->use_include_path) {
+            $_include_path = get_include_path();
+        } else {
+            $_include_path = '';
+        }
+        if ($this->_include_path != $_include_path) {
+            foreach ($this->_include_dir as $directory) {
+                unset($this->_resource_dir[$directory]);
+            }
+            if ($this->smarty->use_include_path) {
+                $this->_include_dir = array();
+                $_dirs = (array) explode(PATH_SEPARATOR, get_include_path());
+                foreach ($_dirs as $_dir) {
+                    $directory = $this->smarty->_realpath($_dir . DS, true);
+                    $this->_include_dir[] = $directory;
+                    $this->_resource_dir[$directory] = true;
+                }
+            }
+            $this->_include_path = $_include_path;
+        }
         if ($isConfig !== true) {
             $_dir = $this->smarty->getTemplateDir();
             if ($this->_template_dir !== $_dir) {
@@ -490,9 +525,6 @@ class Smarty_Security
                     unset($this->_resource_dir[$directory]);
                 }
                 foreach ($_dir as $directory) {
-                    if ($this->smarty->use_include_path) {
-                        $directory = $this->smarty->_realpath($directory);
-                    }
                     $this->_resource_dir[$directory] = true;
                 }
                 $this->_template_dir = $_dir;
@@ -505,9 +537,6 @@ class Smarty_Security
                     unset($this->_resource_dir[$directory]);
                 }
                 foreach ($_dir as $directory) {
-                    if ($this->smarty->use_include_path) {
-                        $directory = $this->smarty->_realpath($directory);
-                    }
                     $this->_resource_dir[$directory] = true;
                 }
                 $this->_config_dir = $_dir;
@@ -518,7 +547,7 @@ class Smarty_Security
                 unset($this->_resource_dir[$directory]);
             }
             foreach ((array) $this->secure_dir as $directory) {
-                $directory = $this->smarty->_realpath($directory . DS);
+                $directory = $this->smarty->_realpath($directory . DS, true);
                 $this->_resource_dir[$directory] = true;
             }
             $this->_secure_dir = (array) $this->secure_dir;
@@ -538,11 +567,11 @@ class Smarty_Security
                 return true;
             }
             // abort if we've reached root
-            if (($pos = strrpos($directory, DS)) === false || !isset($directory[1])) {
+            if (!preg_match('#[\\\/][^\\\/]+[\\\/]$#', $directory)) {
                 break;
             }
             // bubble up one level
-            $directory = substr($directory, 0, $pos);
+            $directory = preg_replace('#[\\\/][^\\\/]+[\\\/]$#', DS, $directory);
         }
 
         // give up
@@ -596,12 +625,12 @@ class Smarty_Security
 
             $this->_trusted_dir = $this->trusted_dir;
             foreach ((array) $this->trusted_dir as $directory) {
-                $directory = $this->smarty->_realpath($directory . DS);
+                $directory = $this->smarty->_realpath($directory . DS, true);
                 $this->_php_resource_dir[$directory] = true;
             }
         }
 
-        $_filepath = $this->smarty->_realpath($filepath);
+        $_filepath = $this->smarty->_realpath($filepath, true);
         $directory = dirname($_filepath) . DS;
         $_directory = array();
         while (true) {
