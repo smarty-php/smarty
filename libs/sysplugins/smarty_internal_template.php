@@ -133,21 +133,33 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     /**
      * fetches rendered template
      *
+     * @param  string $template         the resource handle of the template file or template object
+     * @param  mixed  $cache_id         cache id to be used with this template
+     * @param  mixed  $compile_id       compile id to be used with this template
+     * @param  object $parent           next higher level of Smarty variables
+     *
      * @throws Exception
      * @throws SmartyException
      * @return string rendered template output
      */
-    public function fetch()
+    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
-        return $this->render(true, false, false);
+        return isset($template) ? $this->smarty->fetch($template, $cache_id, $compile_id, $parent) : $this->render(true, false, false);
     }
 
     /**
      * displays a Smarty template
+     *
+     * @param  string $template   the resource handle of the template file or template object
+     * @param  mixed  $cache_id   cache id to be used with this template
+     * @param  mixed  $compile_id compile id to be used with this template
+     * @param  object $parent     next higher level of Smarty variables
+     *
+     * @return string
      */
-    public function display()
+    public function display($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
-        $this->render(true, false, true);
+        return isset($template) ? $this->smarty->fetch($template, $cache_id, $compile_id, $parent, true) : $this->render(true, false, true);
     }
 
     /**

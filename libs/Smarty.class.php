@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/22';
+    const SMARTY_VERSION = '3.1.28-dev/24';
 
     /**
      * define variable scopes
@@ -791,7 +791,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @throws SmartyException
      * @return string rendered template output
      */
-    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
+    public function fetch($template, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
     {
         if ($cache_id !== null && is_object($cache_id)) {
             $parent = $cache_id;
@@ -816,7 +816,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param mixed  $compile_id compile id to be used with this template
      * @param object $parent     next higher level of Smarty variables
      */
-    public function display($template = null, $cache_id = null, $compile_id = null, $parent = null)
+    public function display($template, $cache_id = null, $compile_id = null, $parent = null)
     {
         // display template
         $this->fetch($template, $cache_id, $compile_id, $parent, true);
