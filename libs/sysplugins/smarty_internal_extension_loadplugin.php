@@ -64,7 +64,7 @@ class Smarty_Internal_Extension_LoadPlugin
             }
         }
         foreach ($names as $path) {
-            $file = $smarty->use_include_path ? $smarty->_realpath($path) : $path;
+            $file = $smarty->use_include_path ? $smarty->_realpath($path, false) : $path;
             if (isset($smarty->_is_file_cache[$file])) {
                 if ($smarty->_is_file_cache[$file] !== false) {
                     return $smarty->_is_file_cache[$file];

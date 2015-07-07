@@ -62,9 +62,10 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
          */
         $_smarty_tpl = $compiler->template;
         $_filepath = false;
+        $_file = null;
         eval('$_file = ' . $_attr['file'] . ';');
         if (!isset($compiler->smarty->security_policy) && file_exists($_file)) {
-            $_filepath = $compiler->smarty->_realpath($_file);
+            $_filepath = $compiler->smarty->_realpath($_file, true);
         } else {
             if (isset($compiler->smarty->security_policy)) {
                 $_dir = $compiler->smarty->security_policy->trusted_dir;
@@ -73,7 +74,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
             }
             if (!empty($_dir)) {
                 foreach ((array) $_dir as $_script_dir) {
-                    $_path = $compiler->smarty->_realpath($_script_dir . DS . $_file);
+                    $_path = $compiler->smarty->_realpath($_script_dir . DS . $_file, true);
                     if (file_exists($_path)) {
                         $_filepath = $_path;
                         break;

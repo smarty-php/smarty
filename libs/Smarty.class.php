@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/24';
+    const SMARTY_VERSION = '3.1.28-dev/25';
 
     /**
      * define variable scopes
@@ -989,7 +989,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
         if ($this->_flags[$type] == false) {
             foreach ($this->{$type} as $k => $v) {
-                $this->{$type}[$k] = $this->_realpath($v . DS, $this->use_include_path);
+                $this->{$type}[$k] = $this->_realpath($v . DS, true);
             }
             $this->_flags[$type] = true;
         }
@@ -1085,7 +1085,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $plugins_dir = (array) $this->plugins_dir;
                 $this->plugins_dir = array();
                 foreach ($plugins_dir as $v) {
-                    $this->plugins_dir[] = $this->_realpath($v . DS, $this->use_include_path);
+                    $this->plugins_dir[] = $this->_realpath($v . DS, true);
                 }
                 $this->plugins_dir = array_unique($this->plugins_dir);
             }
@@ -1104,7 +1104,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function setCompileDir($compile_dir)
     {
-        $this->compile_dir = $this->_realpath($compile_dir . DS);
+        $this->compile_dir = $this->_realpath($compile_dir . DS, true);
         if (!isset(Smarty::$_muted_directories[$this->compile_dir])) {
             Smarty::$_muted_directories[$this->compile_dir] = null;
         }
@@ -1120,7 +1120,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function getCompileDir()
     {
         if (!isset($this->_flags['compile_dir'])) {
-            $this->compile_dir = $this->_realpath($this->compile_dir . DS);
+            $this->compile_dir = $this->_realpath($this->compile_dir . DS, true);
             if (!isset(Smarty::$_muted_directories[$this->compile_dir])) {
                 Smarty::$_muted_directories[$this->compile_dir] = null;
             }
@@ -1138,7 +1138,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function setCacheDir($cache_dir)
     {
-        $this->cache_dir = $this->_realpath($cache_dir . DS);
+        $this->cache_dir = $this->_realpath($cache_dir . DS, true);
         if (!isset(Smarty::$_muted_directories[$this->cache_dir])) {
             Smarty::$_muted_directories[$this->cache_dir] = null;
         }
@@ -1154,7 +1154,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function getCacheDir()
     {
         if (!isset($this->_flags['cache_dir'])) {
-            $this->cache_dir = $this->_realpath($this->cache_dir . DS);
+            $this->cache_dir = $this->_realpath($this->cache_dir . DS, true);
             if (!isset(Smarty::$_muted_directories[$this->cache_dir])) {
                 Smarty::$_muted_directories[$this->cache_dir] = null;
             }
@@ -1175,7 +1175,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         $rp = $this->_flags[$dirName];
         if (is_array($dir)) {
             foreach ($dir as $k => $v) {
-                $path = $rp ? $this->_realpath($v . DS, $this->use_include_path) : $v;
+                $path = $rp ? $this->_realpath($v . DS, true) : $v;
                 if (is_int($k)) {
                     // indexes are not merged but appended
                     $this->{$dirName}[] = $path;
@@ -1185,7 +1185,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 }
             }
         } else {
-            $path = $rp ? $this->_realpath($dir . DS, $this->use_include_path) : $dir;
+            $path = $rp ? $this->_realpath($dir . DS, true) : $dir;
             if ($key !== null) {
                 // override directory at specified index
                 $this->{$dirName}[$key] = $path;
@@ -1382,22 +1382,25 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Normalize path
      *  - remove /./ and /../
-     *  - make it absolute
+     *  - make it absolute if required
      *
      * @param string $path     file path
-     * @param bool   $relative leave $path relative
+     * @param bool   $realpath leave $path relative
      *
      * @return string
      */
-    public function _realpath($path, $relative = false)
+    public function _realpath($path, $realpath = null)
     {
         static $pattern = null;
         static $pattern2 = null;
-        if (!$relative && $path[0] !== '/' && $path[1] !== ':') {
+        if ($realpath !== null && $path[0] !== '/' && $path[1] !== ':') {
             $path = getcwd() . DS . $path;
         }
         while (preg_match(isset($pattern) ? $pattern : $pattern = '#([\\\/][.]+[\\\/])|[' . (DS == '/' ? '\\\\' : '/') . ']|[\\\/]{2,}#', $path)) {
             $path = preg_replace(isset($pattern2) ? $pattern2 : $pattern2 = '#([\\\/]+([.][\\\/]+)+)|([\\\/]+([^\\\/]+[\\\/]+){2}([.][.][\\\/]+){2})|([\\\/]+[^\\\/]+[\\\/]+[.][.][\\\/]+)|[\\\/]{2,}|[' . (DS == '/' ? '\\\\' : '/') . ']+#', DS, $path);
+        }
+        if ($realpath === false && ($path[0] == '/' || $path[1] == ':')) {
+            $path = str_ireplace(getcwd(), '.', $path);
         }
         return $path;
     }

@@ -31,12 +31,16 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         $file = $source->name;
         // absolute file ?
         if ($file[0] == '/' || $file[1] == ':') {
-            $file = $source->smarty->_realpath($file);
+            $file = $source->smarty->_realpath($file, true);
             return is_file($file) ? $file : false;
         }
         // go relative to a given template?
-        if ($file[0] == '.' && $_template && $_template->parent instanceof Smarty_Internal_Template && preg_match('#^[.]{1,2}[\\\/]#', $file)) {
-            if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' && !$_template->parent->allow_relative_path) {
+        if ($file[0] == '.' && $_template && $_template->parent instanceof Smarty_Internal_Template &&
+            preg_match('#^[.]{1,2}[\\\/]#', $file)
+        ) {
+            if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' &&
+                !$_template->parent->allow_relative_path
+            ) {
                 throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
             }
             $path = dirname($_template->parent->source->filepath) . DS . $file;
@@ -81,7 +85,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         foreach ($_directories as $_directory) {
             $path = $_directory . $file;
             if (is_file($path)) {
-                return $source->smarty->_realpath($path);
+                return $source->smarty->_realpath($path, true);
             }
         }
         // Could be relative to cwd
