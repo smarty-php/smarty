@@ -58,7 +58,8 @@ class FileIncludePathTest extends PHPUnit_Smarty
     }
     public function testInclude5()
     {
-        $this->assertContains('include_test4', $this->smarty->fetch('test5.tpl'));
+        $this->smarty->setTemplateDir(array('./'));
+        $this->assertContains('include path root', $this->smarty->fetch('test5.tpl'));
     }
 
  }
