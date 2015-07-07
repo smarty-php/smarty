@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/25';
+    const SMARTY_VERSION = '3.1.28-dev/26';
 
     /**
      * define variable scopes
@@ -1396,8 +1396,10 @@ class Smarty extends Smarty_Internal_TemplateBase
         if ($realpath !== null && $path[0] !== '/' && $path[1] !== ':') {
             $path = getcwd() . DS . $path;
         }
-        while (preg_match(isset($pattern) ? $pattern : $pattern = '#([\\\/][.]+[\\\/])|[' . (DS == '/' ? '\\\\' : '/') . ']|[\\\/]{2,}#', $path)) {
-            $path = preg_replace(isset($pattern2) ? $pattern2 : $pattern2 = '#([\\\/]+([.][\\\/]+)+)|([\\\/]+([^\\\/]+[\\\/]+){2}([.][.][\\\/]+){2})|([\\\/]+[^\\\/]+[\\\/]+[.][.][\\\/]+)|[\\\/]{2,}|[' . (DS == '/' ? '\\\\' : '/') . ']+#', DS, $path);
+        while (preg_match(isset($pattern) ? $pattern : $pattern = '#([\\\/][.]+[\\\/])|[' . (DS == '/' ? '\\\\' : '/') .
+            ']|[\\\/]{2,}#', $path)) {
+            $path = preg_replace(isset($pattern2) ? $pattern2 : $pattern2 = '#([\\\/]+([.][\\\/]+)+)|([\\\/]+([^\\\/]+[\\\/]+){2}([.][.][\\\/]+){2})|([\\\/]+[^\\\/]+[\\\/]+[.][.][\\\/]+)|[\\\/]{2,}|[' .
+                (DS == '/' ? '\\\\' : '/') . ']+#', DS, $path);
         }
         if ($realpath === false && ($path[0] == '/' || $path[1] == ':')) {
             $path = str_ireplace(getcwd(), '.', $path);

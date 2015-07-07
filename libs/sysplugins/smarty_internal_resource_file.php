@@ -53,31 +53,33 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         $_directories = $source->smarty->getTemplateDir(null, $source->isConfig);
         // template_dir index?
         if ($file[0] == '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
-            $index = $fileMatch[1];
-            $_directory = null;
-            // try string indexes
-            if (isset($_directories[$index])) {
-                $_directory = $_directories[$index];
-            } elseif (is_numeric($index)) {
-                // try numeric index
-                $index = (int) $index;
+            $file = $fileMatch[2];
+            $_indices = explode(',', $fileMatch[1]);
+            $_index_dirs = array();
+            foreach ($_indices as $index) {
+                $index = trim($index);
+                // try string indexes
                 if (isset($_directories[$index])) {
-                    $_directory = $_directories[$index];
-                } else {
-                    // try at location index
-                    $keys = array_keys($_directories);
-                    $_directory = $_directories[$keys[$index]];
+                    $_index_dirs[] = $_directories[$index];
+                } elseif (is_numeric($index)) {
+                    // try numeric index
+                    $index = (int) $index;
+                    if (isset($_directories[$index])) {
+                        $_index_dirs[] = $_directories[$index];
+                    } else {
+                        // try at location index
+                        $keys = array_keys($_directories);
+                        if (isset($_directories[$keys[$index]])) {
+                            $_index_dirs[] = $_directories[$keys[$index]];
+                        }
+                    }
                 }
             }
-            if ($_directory) {
-                $path = $_directory . $fileMatch[2];
-                $path = $source->smarty->_realpath($path);
-                if (is_file($path)) {
-                    return $path;
-                }
-            } else {
+            if (empty($_index_dirs)) {
                 // index not found
                 return false;
+            } else {
+                $_directories = $_index_dirs;
             }
         }
 
@@ -85,13 +87,15 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         foreach ($_directories as $_directory) {
             $path = $_directory . $file;
             if (is_file($path)) {
-                return $source->smarty->_realpath($path, true);
+                return $source->smarty->_realpath($path);
             }
         }
-        // Could be relative to cwd
-        $path = $source->smarty->_realpath($file);
-        if (is_file($path)) {
-            return $path;
+        if (!isset($_index_dirs)) {
+            // Could be relative to cwd
+            $path = $source->smarty->_realpath($file, true);
+            if (is_file($path)) {
+                return $path;
+            }
         }
         // Use include path ?
         if ($source->smarty->use_include_path) {

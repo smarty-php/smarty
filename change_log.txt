@@ -2,6 +2,8 @@
  07.07.2015
   - improvement allow fetch() or display() called on a template object to get output from other template
      like $template->fetch('foo.tpl') https://github.com/smarty-php/smarty/issues/70
+  - improvement Added $limit parameter to regex_replace modifier #71
+  - new feature multiple indices on file: resource
 
  06.07.2015
   - optimize {block} compilation

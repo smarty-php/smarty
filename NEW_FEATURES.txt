@@ -4,6 +4,20 @@ This file contains a brief description of new features which have been added to 
 
 Smarty 3.1.28
 
+    Modifier regex_replace
+    ======================
+    An optional limit parameter was added
+
+    fetch() and display()
+    =====================
+    The fetch() and display() methods of the template object accept now optionally the same paramter
+    as the corresponding Smarty methods the get tne content of another template.
+
+    File: resource
+    ==============
+    Multiple template_dir entries can now be selected  by a comma separated list of indices.
+    The template_dir array is searched in the order of the indices. (could be used to change the default search order)
+
     Filter support
     ==============
     Optional filter names
