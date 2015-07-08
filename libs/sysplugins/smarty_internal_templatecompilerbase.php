@@ -760,7 +760,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // re-use object if already exists
         if (!isset($this->_tag_objects[$tag])) {
             // lazy load internal compiler plugin
-            $class_name = 'Smarty_Internal_Compile_' . ucfirst($tag);
+            $_tag=explode('_', $tag);
+            $_tag=array_map(function($word) { return ucfirst($word); }, $_tag);
+            $class_name = 'Smarty_Internal_Compile_' . implode('_',$_tag);
             if (class_exists($class_name) && (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))) {
                 $this->_tag_objects[$tag] = new $class_name;
             } else {
