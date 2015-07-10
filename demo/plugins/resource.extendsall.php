@@ -25,7 +25,7 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
         $exists = true;
         foreach ($source->smarty->getTemplateDir() as $key => $directory) {
             try {
-                $s = Smarty_Template_Source::load(null, $source->smarty, '[' . $key . ']' . $source->name);
+                $s = Smarty_Template_Source::load(null, $source->smarty, 'file:[' . $key . ']' . $source->name);
                 if (!$s->exists) {
                     continue;
                 }
