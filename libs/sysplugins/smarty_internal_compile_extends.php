@@ -24,6 +24,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('file');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -52,32 +53,39 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
         }
 
         $name = $_attr['file'];
-        /** @var Smarty_Internal_Template $_smarty_tpl
-         * used in evaluated code
-         */
-        $_smarty_tpl = $compiler->template;
-        eval("\$tpl_name = $name;");
-        // create template object
-        $_template = new $compiler->smarty->template_class($tpl_name, $compiler->smarty, $compiler->template);
+        if ($compiler->has_variable_string || !((substr_count($name, '"') == 2 || substr_count($name, "'") == 2)) ||
+            substr_count($name, '(') != 0 || substr_count($name, '$_smarty_tpl->') != 0
+        ) {
+            /** @var Smarty_Internal_Template $_smarty_tpl
+             * used in evaluated code
+             */
+            $_smarty_tpl = $compiler->template;
+            eval("\$tpl_name = {$name};");
+        } else {
+            $tpl_name = trim($name, '\'"');
+        }
+        // create source object
+        $_source = Smarty_Template_Source::load(null, $compiler->smarty, $tpl_name);
         // check for recursion
-        $uid = $_template->source->uid;
+        $uid = $_source->uid;
         if (isset($compiler->extends_uid[$uid])) {
-            $compiler->trigger_template_error("illegal recursive call of \"$include_file\"", $compiler->lex->line - 1);
+            $compiler->trigger_template_error("illegal recursive call of \"{$_source->filepath}\"", $compiler->lex->line -
+                                                                                                  1);
         }
         $compiler->extends_uid[$uid] = true;
-        if (empty($_template->source->components)) {
-            array_unshift($compiler->sources, $_template->source);
+        if (empty($_source->components)) {
+            array_unshift($compiler->sources, $_source);
         } else {
-            foreach ($_template->source->components as $source) {
+            foreach ($_source->components as $source) {
                 array_unshift($compiler->sources, $source);
                 $uid = $source->uid;
                 if (isset($compiler->extends_uid[$uid])) {
-                    $compiler->trigger_template_error("illegal recursive call of \"{$source->filepath}\"", $compiler->lex->line - 1);
+                    $compiler->trigger_template_error("illegal recursive call of \"{$source->filepath}\"", $compiler->lex->line -
+                                                                                                         1);
                 }
                 $compiler->extends_uid[$uid] = true;
             }
         }
-        unset ($_template);
         $compiler->inheritance_child = true;
         $compiler->lex->yypushstate(Smarty_Internal_Templatelexer::CHILDBODY);
         return '';
