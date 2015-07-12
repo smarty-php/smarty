@@ -22,18 +22,21 @@ class Smarty_Internal_Data
      * @var string
      */
     public $template_class = 'Smarty_Internal_Template';
+
     /**
      * template variables
      *
      * @var array
      */
     public $tpl_vars = array();
+
     /**
      * parent template (if any)
      *
      * @var Smarty_Internal_Template
      */
     public $parent = null;
+
     /**
      * configuration settings
      *
@@ -42,13 +45,21 @@ class Smarty_Internal_Data
     public $config_vars = array();
 
     /**
+     * universal cache
+     *
+     * @var array()
+     */
+    public $_cache = array();
+
+    /**
      * assigns a Smarty variable
      *
      * @param  array|string $tpl_var the template variable name(s)
      * @param  mixed        $value   the value to assign
      * @param  boolean      $nocache if true any output of this variable will be not cached
      *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     *                              chaining
      */
     public function assign($tpl_var, $value = null, $nocache = false)
     {
@@ -74,7 +85,8 @@ class Smarty_Internal_Data
      * @param  mixed   $value   the value to assign
      * @param  boolean $nocache if true any output of this variable will be not cached
      *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     *                              chaining
      */
     public function assignGlobal($varname, $value = null, $nocache = false)
     {
@@ -97,7 +109,8 @@ class Smarty_Internal_Data
      * @param          $value
      * @param  boolean $nocache if true any output of this variable will be not cached
      *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     *                              chaining
      */
     public function assignByRef($tpl_var, &$value, $nocache = false)
     {
@@ -117,7 +130,8 @@ class Smarty_Internal_Data
      * @param  boolean      $merge   flag if array elements shall be merged
      * @param  boolean      $nocache if true any output of this variable will be not cached
      *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     *                              chaining
      */
     public function append($tpl_var, $value = null, $merge = false, $nocache = false)
     {
@@ -132,7 +146,8 @@ class Smarty_Internal_Data
      * @param  mixed   &$value  the referenced value to append
      * @param  boolean $merge   flag if array elements shall be merged
      *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     *                              chaining
      */
     public function appendByRef($tpl_var, &$value, $merge = false)
     {
@@ -159,7 +174,8 @@ class Smarty_Internal_Data
      *
      * @param  string|array $tpl_var the template variable(s) to clear
      *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     *                              chaining
      */
     public function clearAssign($tpl_var)
     {
@@ -177,7 +193,8 @@ class Smarty_Internal_Data
     /**
      * clear all the assigned template variables.
      *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     *                              chaining
      */
     public function clearAllAssign()
     {
@@ -192,7 +209,8 @@ class Smarty_Internal_Data
      * @param  string $config_file filename
      * @param  mixed  $sections    array of section names, single section or null
      *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     *                              chaining
      */
     public function configLoad($config_file, $sections = null)
     {
@@ -247,7 +265,8 @@ class Smarty_Internal_Data
      *
      * @param  string $varname variable name or null
      *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     *                              chaining
      */
     public function clearConfig($varname = null)
     {
