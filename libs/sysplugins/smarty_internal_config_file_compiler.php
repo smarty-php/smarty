@@ -100,7 +100,7 @@ class Smarty_Internal_Config_File_Compiler
     public function compileTemplate(Smarty_Internal_Template $template)
     {
         $this->template = $template;
-        $this->template->properties['file_dependency'][$this->template->source->uid] = array($this->template->source->name, $this->template->source->getTimeStamp(), $this->template->source->type);
+        $this->template->properties['file_dependency'][$this->template->source->uid] = array($this->template->source->filepath, $this->template->source->getTimeStamp(), $this->template->source->type);
         if ($this->smarty->debugging) {
             Smarty_Internal_Debug::start_compile($this->template);
         }
