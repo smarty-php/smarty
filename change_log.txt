@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
+ 20.07.2015
+  - bugfix config files got recompiled on each request
+
  12.07.2015
   - optimize {extends} compilation
 

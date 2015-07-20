@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/28';
+    const SMARTY_VERSION = '3.1.28-dev/29';
 
     /**
      * define variable scopes
@@ -1419,7 +1419,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Compile all config files
      *
      * @param  string $extension     file extension
-     * @param  bool   $force_compile force all to recompile
+     * @param  bool   $force_compile force all to recompile<
      * @param  int    $time_limit
      * @param  int    $max_errors
      *

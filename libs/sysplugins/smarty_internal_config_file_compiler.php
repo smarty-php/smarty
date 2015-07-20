@@ -30,6 +30,7 @@ class Smarty_Internal_Config_File_Compiler
      * @var string
      */
     public $parser_class;
+
     /**
      * Lexer object
      *
@@ -100,12 +101,15 @@ class Smarty_Internal_Config_File_Compiler
     public function compileTemplate(Smarty_Internal_Template $template)
     {
         $this->template = $template;
-        $this->template->properties['file_dependency'][$this->template->source->uid] = array($this->template->source->name, $this->template->source->getTimeStamp(), $this->template->source->type);
+        $this->template->properties['file_dependency'][$this->template->source->uid] = array($this->template->source->filepath,
+                                                                                             $this->template->source->getTimeStamp(),
+                                                                                             $this->template->source->type);
         if ($this->smarty->debugging) {
             Smarty_Internal_Debug::start_compile($this->template);
         }
         // init the lexer/parser to compile the config file
-        $lex = new $this->lexer_class(str_replace(array("\r\n", "\r"), "\n", $template->source->getContent()) . "\n", $this);
+        $lex = new $this->lexer_class(str_replace(array("\r\n", "\r"), "\n", $template->source->getContent()) .
+                                      "\n", $this);
         $parser = new $this->parser_class($lex, $this);
 
         if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2) {
@@ -135,10 +139,12 @@ class Smarty_Internal_Config_File_Compiler
             Smarty_Internal_Debug::end_compile($this->template);
         }
         // template header code
-        $template_header = "<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") . "\n";
+        $template_header = "<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " .
+            strftime("%Y-%m-%d %H:%M:%S") . "\n";
         $template_header .= "         compiled from \"" . $this->template->source->filepath . "\" */ ?>\n";
 
-        $code = '<?php Smarty_Internal_Extension_Config::loadConfigVars($_smarty_tpl, ' . var_export($this->config_data, true) . '); ?>';
+        $code = '<?php Smarty_Internal_Extension_Config::loadConfigVars($_smarty_tpl, ' .
+            var_export($this->config_data, true) . '); ?>';
         return $template_header . Smarty_Internal_Extension_CodeFrame::create($this->template, $code);
     }
 
