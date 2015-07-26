@@ -86,17 +86,21 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      *
      * @param Smarty_Internal_Template $_template template object
      * @param Smarty_Template_Cached   $cached    cached object
+     * @param bool                     $update flag if called because cache update
      *
      * @return boolean true or false if the cached content does not exist
      */
-    public function process(Smarty_Internal_Template $_template, Smarty_Template_Cached $cached = null)
+    public function process(Smarty_Internal_Template $_template, Smarty_Template_Cached $cached = null, $update = false)
     {
         /** @var Smarty_Internal_Template $_smarty_tpl
          * used in included file
          */
         $_smarty_tpl = $_template;
-
-        return @include $_template->cached->filepath;
+        if (strpos(phpversion(), 'hhvm') !== false) {
+            return Smarty_Internal_Extension_Hhvm::includeHhvm($_template, $_template->cached->filepath);
+        } else {
+            return @include $_template->cached->filepath;
+        }
     }
 
     /**

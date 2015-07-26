@@ -176,7 +176,11 @@ class Smarty_Template_Compiled
                 if (function_exists('opcache_invalidate')) {
                     opcache_invalidate($_template->compiled->filepath);
                 }
-                include($_template->compiled->filepath);
+                if (strpos(phpversion(), 'hhvm') !== false) {
+                    Smarty_Internal_Extension_Hhvm::includeHhvm($_template, $_template->compiled->filepath);
+                } else {
+                    include($_template->compiled->filepath);
+                }
             }
             $_template->smarty->compile_check = $compileCheck;
         } else {
@@ -188,7 +192,11 @@ class Smarty_Template_Compiled
                 if (function_exists('opcache_invalidate')) {
                     opcache_invalidate($_template->compiled->filepath);
                 }
-                include($_template->compiled->filepath);
+                if (strpos(phpversion(), 'hhvm') !== false) {
+                    Smarty_Internal_Extension_Hhvm::includeHhvm($_template, $_template->compiled->filepath);
+                } else {
+                    include($_template->compiled->filepath);
+                }
                 $_template->smarty->compile_check = $compileCheck;
             }
         }

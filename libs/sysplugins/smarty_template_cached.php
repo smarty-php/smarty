@@ -210,10 +210,11 @@ class Smarty_Template_Cached
      * Process cached template
      *
      * @param Smarty_Internal_Template $_template template object
+     * @param bool                     $update flag if called because cache update
      */
-    public function process(Smarty_Internal_Template $_template)
+    public function process(Smarty_Internal_Template $_template, $update = false)
     {
-        if ($this->handler->process($_template, $this) === false) {
+        if ($this->handler->process($_template, $this, $update) === false) {
             $this->valid = false;
         }
         if ($this->valid) {

@@ -291,7 +291,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                     $this->properties['tpl_function'] = $this->parent->properties['tpl_function'];
                 }
                 if (!$this->cached->processed) {
-                    $this->cached->process($this);
+                    $this->cached->process($this, true);
                 }
                 $this->smarty->compile_check = $compile_check;
                 $content = $this->getRenderedTemplateCode();
