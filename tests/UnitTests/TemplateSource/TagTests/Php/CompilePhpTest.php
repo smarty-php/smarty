@@ -119,7 +119,7 @@ class CompilePhpTest extends PHPUnit_Smarty
             array(Smarty::PHP_REMOVE, 'php2.tpl', '--><--', 'PHP_REMOVE, \'php2.tpl\''),
             array(Smarty::PHP_PASSTHRU, 'php2.tpl', '', 'PHP_PASSTHRU, \'php2.tpl\''),
             array(Smarty::PHP_QUOTE, 'php2.tpl', '', 'PHP_QUOTE, \'php2.tpl\''),
-            array(Smarty::PHP_ALLOW, 'php2.tpl', $shortTag ? '--> hello world <?  ?> <--' : '--><? echo \' hello world \';
+            array(Smarty::PHP_ALLOW, 'php2.tpl', $shortTag || strpos(phpversion(), 'hhvm') !== false ? '--> hello world <?  ?> <--' : '--><? echo \' hello world \';
 echo \'<?  \';
 echo \'?> \';
 ?><--', 'PHP_ALLOW, \'php2.tpl\''),
