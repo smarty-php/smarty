@@ -97,7 +97,7 @@ class CompilePhpTest extends PHPUnit_Smarty
         $shortTag = ini_get('short_open_tag') == 1;
         $aspTag = ini_get('asp_tags') == 1;
 
-        return array(
+        $data = array(
             /*
             * php_handling
             * template file
@@ -133,7 +133,6 @@ echo \'%> \';
             array(Smarty::PHP_REMOVE, 'script.tpl', '--><--', 'PHP_REMOVE, \'script.tpl\''),
             array(Smarty::PHP_PASSTHRU, 'script.tpl', '', 'PHP_PASSTHRU, \'script.tpl\''),
             array(Smarty::PHP_QUOTE, 'script.tpl', '', 'PHP_QUOTE, \'script.tpl\''),
-            array(Smarty::PHP_ALLOW, 'script.tpl', '--> hello world <script language=\'php\'> </script> <--', 'PHP_ALLOW, \'script.tpl\''),
             array(Smarty::PHP_ALLOW, 'phptag.tpl', '--> hello world {php} {/php} <--', 'PHP_ALLOW, \'phptag.tpl\''),
             array(Smarty::PHP_ALLOW, 'phptag_line_comment.tpl', '--> hello world {php} {/php} <--', 'PHP_ALLOW, \'phptag_line_comment.tpl\''),
             array(Smarty::PHP_ALLOW, 'phptag_block_comment.tpl', '--> hello world {php} {/php} <--', 'PHP_ALLOW, \'phptag_block_comment.tpl\''),
@@ -143,6 +142,10 @@ echo \'bar \';
 $foo = 3;
 { /php}<--', 'PHP_ALLOW, \'phptag_literal.tpl\''),
         );
+        if (version_compare(phpversion(), '7.0.0', '<')) {
+            $data[] = array(Smarty::PHP_ALLOW, 'script.tpl', '--> hello world <script language=\'php\'> </script> <--', 'PHP_ALLOW, \'script.tpl\'');
+        }
+        return $data;
     }
     /*
  * Call back function for $php_handling = PHP_QUOTE
