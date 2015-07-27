@@ -575,7 +575,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             if (!is_array($function)) {
                                 return $function($new_args, $this);
                             } elseif (is_object($function[0])) {
-                                return $this->smarty->registered_plugins[$plugin_type][$tag][0][0]->$function[1]($new_args, $this);
+                                return $this->smarty->registered_plugins[$plugin_type][$tag][0][0]->{$function[1]}($new_args, $this);
                             } else {
                                 return call_user_func_array($function, array($new_args, $this));
                             }
