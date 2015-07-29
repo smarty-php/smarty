@@ -16,6 +16,8 @@ class CompileSectionTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(__DIR__);
+        error_reporting(E_ALL | E_STRICT);
+        $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
     }
 
 
