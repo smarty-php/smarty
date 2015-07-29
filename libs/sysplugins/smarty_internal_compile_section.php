@@ -343,9 +343,9 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
                     } elseif ($smartyAttr['value']['step'] < 0) {
                         $total_code[14] = - $smartyAttr['value']['step'];
                     }
-                    $total_code[3] = $total_code[4] = $total_code[11] = '';
+                    $total_code[4] = '';
                     if ($smartyAttr['value']['step'] > 0) {
-                        $total_code[8] = $total_code[9] = '';
+                        $total_code[8] = $total_code[9] = $total_code[10] = '';
                     } else {
                         $total_code[5] = $total_code[6] = $total_code[7] = $total_code[8] = '';
                     }
