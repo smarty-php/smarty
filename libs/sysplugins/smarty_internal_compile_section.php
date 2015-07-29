@@ -151,7 +151,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
                         $v = (int) $attr_value;
                         $t = 0;
                     } else {
-                        $v = "(is_array(\$_loop=$attr_value) ? count(\$_loop) : max(0, (int) \$_loop))";
+                        $v = "(is_array(@\$_loop=$attr_value) ? count(\$_loop) : max(0, (int) \$_loop))";
                         $t = 1;
                     }
                     if (isset($smartyAttr['isSmarty']['loop'])) {
@@ -180,7 +180,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
                         $t = 0;
                         break;
                     }
-                    $smartyAttr['initLocal']['step'] = "((int)$attr_value) == 0 ? 1 : (int)$attr_value";
+                    $smartyAttr['initLocal']['step'] = "((int)@$attr_value) == 0 ? 1 : (int)@$attr_value";
                     $v = "{$local}step";
                     $t = 2;
                     break;
@@ -192,7 +192,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
                         $t = 0;
                         break;
                     }
-                    $v = "(int) $attr_value";
+                    $v = "(int)@$attr_value";
                     $t = 3;
                     break;
             }
