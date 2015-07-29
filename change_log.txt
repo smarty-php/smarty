@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
+ 29.07.2015
+  - optimize {section} compiler for speed and size of compiled code
+
  28.07.2015
   - update for PHP 7 compatibility
 
