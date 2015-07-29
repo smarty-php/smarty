@@ -434,7 +434,8 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
         }
         $property = strtolower($property);
         $sectionVar = "'__section_{$name}'";
-        return "(isset(\$_smarty_tpl->tpl_vars[{$sectionVar}]->value['{$property}']) ? \$_smarty_tpl->tpl_vars[{$sectionVar}]->value['{$property}'] : null)";
+        //return "(isset(\$_smarty_tpl->tpl_vars[{$sectionVar}]->value['{$property}']) ? \$_smarty_tpl->tpl_vars[{$sectionVar}]->value['{$property}'] : null)";
+        return "\$_smarty_tpl->tpl_vars[{$sectionVar}]->value['{$property}']";
     }
 }
 
