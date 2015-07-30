@@ -14,7 +14,7 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
+class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_ForeachSection
 {
     /**
      * Attribute definition: Overwrites base class.
@@ -48,6 +48,35 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
     public $counter = 0;
 
     /**
+     * Name of this tag
+     *
+     * @var string
+     */
+    public $tagName = 'section';
+
+    /**
+     * Valid properties of $smarty.section.name.xxx variable
+     *
+     * @var array
+     */
+    public static $nameProperties = array('first', 'last', 'index', 'iteration', 'show', 'total', 'rownum',
+                                          'index_prev', 'index_next');
+
+    /**
+     * {section} tag has no item properties
+     *
+     * @var array
+     */
+    public $itemProperties = null;
+
+    /**
+     * {section} tag has always name attribute
+     *
+     * @var bool
+     */
+    public $isNamed = true;
+
+    /**
      * Compiles code for the {section} tag
      *
      * @param  array  $args     array with attributes from parser
@@ -73,76 +102,22 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
         $sectionVar = "\$_smarty_tpl->tpl_vars['__section_{$attributes['name']}']->value";
         $local = "\$section_{$attributes['no']}_";
+        $initLocal = array('saved' => "isset(\$_smarty_tpl->tpl_vars['__section_{$attributes['name']}']) ? \$_smarty_tpl->tpl_vars['__section_{$attributes['name']}'] : false",);
+        $initNamedProperty = array();
+        $initFor = array();
+        $incFor = array();
+        $cmpFor = array();
+        $propValue = array('index'     => "{$sectionVar}['index']", 'show' => 'true', 'step' => 1,
+                           'iteration' => "{$local}iteration",
 
-        // prepare preg
-        $smartyPreg = "|([\$]smarty[.]section[.]{$attributes['name']}[.]((first)|(last)|(index)|(iteration)|(show)|(total)|(rownum)|(index_prev)|(index_next)))";
-        $itemPreg = "(\[{$attributes['name']}[.]((first)|(last)|(index)|(iteration)|(show)|(total)|(rownum)|(index_prev)|(index_next))\])";
-        $preg = '~(' . $itemPreg . $smartyPreg . ')\W~i';
-        $smartyAttr = array('initLocal' => array('s_name' => "isset(\$_smarty_tpl->tpl_vars['__section_{$attributes['name']}']) ? \$_smarty_tpl->tpl_vars['__section_{$attributes['name']}'] : false",),
-                            'isSmarty'  => array('index' => true,), 'initSmarty' => array(), 'initFor' => array(),
-                            'incFor'    => array(),
-                            'value'     => array('index'     => "{$sectionVar}['index']", 'show' => 'true', 'step' => 1,
-                                                 'iteration' => "{$local}iteration",
-
-                            ), 'type'   => array('index' => 2, 'iteration' => 2, 'show' => 0, 'step' => 0,),
-                            'cmpFor'    => array(), 'before' => array(), 'after' => array(),);
-
-        // search template source
-        preg_match_all($preg, $compiler->lex->data, $match, PREG_SET_ORDER);
-        foreach ($match as $m) {
-            if (isset($m[3]) && !empty($m[3])) {
-                $smartyAttr['isSmarty'][strtolower($m[3])] = true;
-            }
-            if (isset($m[14]) && !empty($m[14])) {
-                $smartyAttr['isSmarty'][strtolower($m[14])] = true;
-            }
+        );
+        $propType = array('index' => 2, 'iteration' => 2, 'show' => 0, 'step' => 0,);
+        // search for used tag attributes
+        $this->scanForProperties($attributes, $compiler);
+        if (!empty($this->matchResults['named'])) {
+            $namedAttr = $this->matchResults['named'];
         }
-
-        // search {block} sources
-        foreach ($compiler->template->block_data as $b) {
-            if (isset($b['source'])) {
-                preg_match_all($preg, $b['source'], $match, PREG_SET_ORDER);
-                foreach ($match as $m) {
-                    if (isset($m[3]) && !empty($m[3])) {
-                        $smartyAttr['isSmarty'][strtolower($m[3])] = true;
-                    }
-                    if (isset($m[14]) && !empty($m[14])) {
-                        $smartyAttr['isSmarty'][strtolower($m[14])] = true;
-                    }
-                }
-            }
-        }
-        if (class_exists('Smarty_Internal_Compile_Block', false)) {
-            foreach (Smarty_Internal_Compile_Block::$block_data as $b) {
-                if (isset($b['source'])) {
-                    preg_match_all($preg, $b['source'], $match, PREG_SET_ORDER);
-                    foreach ($match as $m) {
-                        if (isset($m[3]) && !empty($m[3])) {
-                            $smartyAttr['isSmarty'][strtolower($m[3])] = true;
-                        }
-                        if (isset($m[14]) && !empty($m[14])) {
-                            $smartyAttr['isSmarty'][strtolower($m[14])] = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        // search parent compiler template source
-        $nextCompiler = $compiler;
-        while ($nextCompiler !== $nextCompiler->parent_compiler) {
-            $nextCompiler = $nextCompiler->parent_compiler;
-            preg_match_all($preg, $nextCompiler->template->source->getContent(), $match, PREG_SET_ORDER);
-            foreach ($match as $m) {
-                if (isset($m[3]) && !empty($m[3])) {
-                    $smartyAttr['isSmarty'][strtolower($m[3])] = true;
-                }
-                if (isset($m[14]) && !empty($m[14])) {
-                    $smartyAttr['isSmarty'][strtolower($m[14])] = true;
-                }
-            }
-        }
-
+        $namedAttr['index'] = true;
         $output = "<?php ";
         foreach ($_attr as $attr_name => $attr_value) {
             switch ($attr_name) {
@@ -154,13 +129,13 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
                         $v = "(is_array(@\$_loop=$attr_value) ? count(\$_loop) : max(0, (int) \$_loop))";
                         $t = 1;
                     }
-                    if (isset($smartyAttr['isSmarty']['loop'])) {
-                        $smartyAttr['initSmarty']['loop'] = "'loop' => {$v}";
+                    if (isset($namedAttr['loop'])) {
+                        $initNamedProperty['loop'] = "'loop' => {$v}";
                         if ($t == 1) {
                             $v = "{$sectionVar}['loop']";
                         }
                     } elseif ($t == 1) {
-                        $smartyAttr['initLocal']['loop'] = $v;
+                        $initLocal['loop'] = $v;
                         $v = "{$local}loop";
                     }
                     break;
@@ -180,7 +155,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
                         $t = 0;
                         break;
                     }
-                    $smartyAttr['initLocal']['step'] = "((int)@$attr_value) == 0 ? 1 : (int)@$attr_value";
+                    $initLocal['step'] = "((int)@$attr_value) == 0 ? 1 : (int)@$attr_value";
                     $v = "{$local}step";
                     $t = 2;
                     break;
@@ -199,213 +174,207 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_CompileBase
             if ($t == 3 && $compiler->getId($attr_value)) {
                 $t = 1;
             }
-            $smartyAttr['value'][$attr_name] = $v;
-            $smartyAttr['type'][$attr_name] = $t;
+            $propValue[$attr_name] = $v;
+            $propType[$attr_name] = $t;
         }
 
-        if (isset($smartyAttr['isSmarty']['step'])) {
-            $smartyAttr['initSmarty']['step'] = $smartyAttr['value']['step'];
+        if (isset($namedAttr['step'])) {
+            $initNamedProperty['step'] = $propValue['step'];
         }
-        if (isset($smartyAttr['isSmarty']['iteration'])) {
-            $smartyAttr['value']['iteration'] = "{$sectionVar}['iteration']";
+        if (isset($namedAttr['iteration'])) {
+            $propValue['iteration'] = "{$sectionVar}['iteration']";
         }
-        $smartyAttr['incFor']['iteration'] = "{$smartyAttr['value']['iteration']}++";
-        $smartyAttr['initFor']['iteration'] = "{$smartyAttr['value']['iteration']} = 1";
+        $incFor['iteration'] = "{$propValue['iteration']}++";
+        $initFor['iteration'] = "{$propValue['iteration']} = 1";
 
-        if ($smartyAttr['type']['step'] == 0) {
-            if ($smartyAttr['value']['step'] == 1) {
-                $smartyAttr['incFor']['index'] = "{$sectionVar}['index']++";
-            } elseif ($smartyAttr['value']['step'] > 1) {
-                $smartyAttr['incFor']['index'] = "{$sectionVar}['index'] += {$smartyAttr['value']['step']}";
+        if ($propType['step'] == 0) {
+            if ($propValue['step'] == 1) {
+                $incFor['index'] = "{$sectionVar}['index']++";
+            } elseif ($propValue['step'] > 1) {
+                $incFor['index'] = "{$sectionVar}['index'] += {$propValue['step']}";
             } else {
-                $smartyAttr['incFor']['index'] = "{$sectionVar}['index'] -= " . - $smartyAttr['value']['step'];
+                $incFor['index'] = "{$sectionVar}['index'] -= " . - $propValue['step'];
             }
         } else {
-            $smartyAttr['incFor']['index'] = "{$sectionVar}['index'] += {$smartyAttr['value']['step']}";
+            $incFor['index'] = "{$sectionVar}['index'] += {$propValue['step']}";
         }
 
-        if (!isset($smartyAttr['value']['max'])) {
-            $smartyAttr['value']['max'] = $smartyAttr['value']['loop'];
-            $smartyAttr['type']['max'] = $smartyAttr['type']['loop'];
-        } elseif ($smartyAttr['type']['max'] != 0) {
-            $smartyAttr['value']['max'] = "{$smartyAttr['value']['max']} < 0 ? {$smartyAttr['value']['loop']} : {$smartyAttr['value']['max']}";
-            $smartyAttr['type']['max'] = 1;
+        if (!isset($propValue['max'])) {
+            $propValue['max'] = $propValue['loop'];
+            $propType['max'] = $propType['loop'];
+        } elseif ($propType['max'] != 0) {
+            $propValue['max'] = "{$propValue['max']} < 0 ? {$propValue['loop']} : {$propValue['max']}";
+            $propType['max'] = 1;
         } else {
-            if ($smartyAttr['value']['max'] < 0) {
-                $smartyAttr['value']['max'] = $smartyAttr['value']['loop'];
-                $smartyAttr['type']['max'] = $smartyAttr['type']['loop'];
+            if ($propValue['max'] < 0) {
+                $propValue['max'] = $propValue['loop'];
+                $propType['max'] = $propType['loop'];
             }
         }
 
-        if (!isset($smartyAttr['value']['start'])) {
-            $start_code = array(1 => "{$smartyAttr['value']['step']} > 0 ? ", 2 => '0', 3 => ' : ',
-                                4 => $smartyAttr['value']['loop'], 5 => ' - 1');
-            if ($smartyAttr['type']['loop'] == 0) {
+        if (!isset($propValue['start'])) {
+            $start_code = array(1 => "{$propValue['step']} > 0 ? ", 2 => '0', 3 => ' : ', 4 => $propValue['loop'],
+                                5 => ' - 1');
+            if ($propType['loop'] == 0) {
                 $start_code[5] = '';
-                $start_code[4] = $smartyAttr['value']['loop'] - 1;
+                $start_code[4] = $propValue['loop'] - 1;
             }
-            if ($smartyAttr['type']['step'] == 0) {
-                if ($smartyAttr['value']['step'] > 0) {
+            if ($propType['step'] == 0) {
+                if ($propValue['step'] > 0) {
                     $start_code = array(1 => '0');
-                    $smartyAttr['type']['start'] = 0;
+                    $propType['start'] = 0;
                 } else {
                     $start_code[1] = $start_code[2] = $start_code[3] = '';
-                    $smartyAttr['type']['start'] = $smartyAttr['type']['loop'];
+                    $propType['start'] = $propType['loop'];
                 }
             } else {
-                $smartyAttr['type']['start'] = 1;
+                $propType['start'] = 1;
             }
-            $smartyAttr['value']['start'] = join('', $start_code);
+            $propValue['start'] = join('', $start_code);
         } else {
-            $start_code = array(1 => "{$smartyAttr['value']['start']} < 0 ? ", 2 => 'max(',
-                                3 => "{$smartyAttr['value']['step']} > 0 ? ", 4 => '0', 5 => ' : ', 6 => '-1',
-                                7 => ', ', 8 => "{$smartyAttr['value']['start']} + {$smartyAttr['value']['loop']}",
-                                10 => ')', 11 => ' : ', 12 => 'min(', 13 => $smartyAttr['value']['start'], 14 => ', ',
-                                15 => "{$smartyAttr['value']['step']} > 0 ? ", 16 => $smartyAttr['value']['loop'],
-                                17 => ' : ', 18 => $smartyAttr['type']['loop'] == 0 ? $smartyAttr['value']['loop'] -
-                    1 : "{$smartyAttr['value']['loop']} - 1", 19 => ')');
-            if ($smartyAttr['type']['step'] == 0) {
+            $start_code = array(1  => "{$propValue['start']} < 0 ? ", 2 => 'max(', 3 => "{$propValue['step']} > 0 ? ",
+                                4  => '0', 5 => ' : ', 6 => '-1', 7 => ', ',
+                                8  => "{$propValue['start']} + {$propValue['loop']}", 10 => ')', 11 => ' : ',
+                                12 => 'min(', 13 => $propValue['start'], 14 => ', ',
+                                15 => "{$propValue['step']} > 0 ? ", 16 => $propValue['loop'], 17 => ' : ',
+                                18 => $propType['loop'] == 0 ? $propValue['loop'] - 1 : "{$propValue['loop']} - 1",
+                                19 => ')');
+            if ($propType['step'] == 0) {
                 $start_code[3] = $start_code[5] = $start_code[15] = $start_code[17] = '';
-                if ($smartyAttr['value']['step'] > 0) {
+                if ($propValue['step'] > 0) {
                     $start_code[6] = $start_code[18] = '';
                 } else {
                     $start_code[4] = $start_code[16] = '';
                 }
             }
-            if ($smartyAttr['type']['start'] == 0) {
-                if ($smartyAttr['type']['loop'] == 0) {
-                    $start_code[8] = $smartyAttr['value']['start'] + $smartyAttr['value']['loop'];
+            if ($propType['start'] == 0) {
+                if ($propType['loop'] == 0) {
+                    $start_code[8] = $propValue['start'] + $propValue['loop'];
                 }
-                $smartyAttr['type']['start'] = $smartyAttr['type']['step'] + $smartyAttr['type']['loop'];
+                $propType['start'] = $propType['step'] + $propType['loop'];
                 $start_code[1] = '';
-                if ($smartyAttr['value']['start'] < 0) {
+                if ($propValue['start'] < 0) {
                     for ($i = 11; $i <= 19; $i ++) {
                         $start_code[$i] = '';
                     }
-                    if ($smartyAttr['type']['start'] == 0) {
-                        $start_code = array(max($smartyAttr['value']['step'] >
-                                                0 ? 0 : - 1, $smartyAttr['value']['start'] +
-                                                $smartyAttr['value']['loop']));
+                    if ($propType['start'] == 0) {
+                        $start_code = array(max($propValue['step'] > 0 ? 0 : - 1, $propValue['start'] +
+                                                                                $propValue['loop']));
                     }
                 } else {
                     for ($i = 1; $i <= 11; $i ++) {
                         $start_code[$i] = '';
                     }
-                    if ($smartyAttr['type']['start'] == 0) {
-                        $start_code = array(min($smartyAttr['value']['step'] >
-                                                0 ? $smartyAttr['value']['loop'] : $smartyAttr['value']['loop'] -
-                            1, $smartyAttr['value']['start']));
+                    if ($propType['start'] == 0) {
+                        $start_code = array(min($propValue['step'] > 0 ? $propValue['loop'] : $propValue['loop'] -
+                            1, $propValue['start']));
                     }
                 }
             }
-            $smartyAttr['value']['start'] = join('', $start_code);
+            $propValue['start'] = join('', $start_code);
         }
-        if ($smartyAttr['type']['start'] != 0) {
-            $smartyAttr['initLocal']['start'] = $smartyAttr['value']['start'];
-            $smartyAttr['value']['start'] = "{$local}start";
+        if ($propType['start'] != 0) {
+            $initLocal['start'] = $propValue['start'];
+            $propValue['start'] = "{$local}start";
         }
 
-        $smartyAttr['initFor']['index'] = "{$sectionVar}['index'] = {$smartyAttr['value']['start']}";
+        $initFor['index'] = "{$sectionVar}['index'] = {$propValue['start']}";
 
         if (!isset($_attr['start']) && !isset($_attr['step']) && !isset($_attr['max'])) {
-            $smartyAttr['value']['total'] = $smartyAttr['value']['loop'];
-            $smartyAttr['type']['total'] = $smartyAttr['type']['loop'];
+            $propValue['total'] = $propValue['loop'];
+            $propType['total'] = $propType['loop'];
         } else {
-            $smartyAttr['type']['total'] = $smartyAttr['type']['start'] + $smartyAttr['type']['loop'] +
-                $smartyAttr['type']['step'] + $smartyAttr['type']['max'];
-            if ($smartyAttr['type']['total'] == 0) {
-                $smartyAttr['value']['total'] = min(ceil(($smartyAttr['value']['step'] >
-                                                         0 ? $smartyAttr['value']['loop'] -
-                                                             $smartyAttr['value']['start'] : $smartyAttr['value']['start'] +
-                                                             1) /
-                                                         abs($smartyAttr['value']['step'])), $smartyAttr['value']['max']);
+            $propType['total'] = $propType['start'] + $propType['loop'] + $propType['step'] + $propType['max'];
+            if ($propType['total'] == 0) {
+                $propValue['total'] = min(ceil(($propValue['step'] > 0 ? $propValue['loop'] -
+                                                   $propValue['start'] : $propValue['start'] + 1) /
+                                               abs($propValue['step'])), $propValue['max']);
             } else {
-                $total_code = array(1  => 'min(', 2 => 'ceil(', 3 => '(', 4 => "{$smartyAttr['value']['step']} > 0 ? ",
-                                    5  => $smartyAttr['value']['loop'], 6 => ' - ', 7 => $smartyAttr['value']['start'],
-                                    8  => ' : ', 9 => $smartyAttr['value']['start'], 10 => '+ 1', 11 => ')', 12 => '/ ',
-                                    13 => 'abs(', 14 => $smartyAttr['value']['step'], 15 => ')', 16 => ')',
-                                    17 => ", {$smartyAttr['value']['max']})",);
-                if (!isset($smartyAttr['value']['max'])) {
+                $total_code = array(1  => 'min(', 2 => 'ceil(', 3 => '(', 4 => "{$propValue['step']} > 0 ? ",
+                                    5  => $propValue['loop'], 6 => ' - ', 7 => $propValue['start'], 8 => ' : ',
+                                    9  => $propValue['start'], 10 => '+ 1', 11 => ')', 12 => '/ ', 13 => 'abs(',
+                                    14 => $propValue['step'], 15 => ')', 16 => ')', 17 => ", {$propValue['max']})",);
+                if (!isset($propValue['max'])) {
                     $total_code[1] = $total_code[17] = '';
                 }
-                if ($smartyAttr['type']['loop'] + $smartyAttr['type']['start'] == 0) {
-                    $total_code[5] = $smartyAttr['value']['loop'] - $smartyAttr['value']['start'];
+                if ($propType['loop'] + $propType['start'] == 0) {
+                    $total_code[5] = $propValue['loop'] - $propValue['start'];
                     $total_code[6] = $total_code[7] = '';
                 }
-                if ($smartyAttr['type']['start'] == 0) {
-                    $total_code[9] = $smartyAttr['value']['start'] + 1;
+                if ($propType['start'] == 0) {
+                    $total_code[9] = $propValue['start'] + 1;
                     $total_code[10] = '';
                 }
-                if ($smartyAttr['type']['step'] == 0) {
+                if ($propType['step'] == 0) {
                     $total_code[13] = $total_code[15] = '';
-                    if ($smartyAttr['value']['step'] == 1 || $smartyAttr['value']['step'] == - 1) {
+                    if ($propValue['step'] == 1 || $propValue['step'] == - 1) {
                         $total_code[2] = $total_code[12] = $total_code[14] = $total_code[16] = '';
-                    } elseif ($smartyAttr['value']['step'] < 0) {
-                        $total_code[14] = - $smartyAttr['value']['step'];
+                    } elseif ($propValue['step'] < 0) {
+                        $total_code[14] = - $propValue['step'];
                     }
                     $total_code[4] = '';
-                    if ($smartyAttr['value']['step'] > 0) {
+                    if ($propValue['step'] > 0) {
                         $total_code[8] = $total_code[9] = $total_code[10] = '';
                     } else {
                         $total_code[5] = $total_code[6] = $total_code[7] = $total_code[8] = '';
                     }
                 }
-                $smartyAttr['value']['total'] = join('', $total_code);
+                $propValue['total'] = join('', $total_code);
             }
         }
 
-        if (isset($smartyAttr['isSmarty']['total'])) {
-            $smartyAttr['initSmarty']['total'] = "'total' => {$smartyAttr['value']['total']}";
-            if ($smartyAttr['type']['total'] > 0) {
-                $smartyAttr['value']['total'] = "{$sectionVar}['total']";
+        if (isset($namedAttr['total'])) {
+            $initNamedProperty['total'] = "'total' => {$propValue['total']}";
+            if ($propType['total'] > 0) {
+                $propValue['total'] = "{$sectionVar}['total']";
             }
-        } elseif ($smartyAttr['type']['total'] > 0) {
-            $smartyAttr['initLocal']['total'] = $smartyAttr['value']['total'];
-            $smartyAttr['value']['total'] = "{$local}total";
+        } elseif ($propType['total'] > 0) {
+            $initLocal['total'] = $propValue['total'];
+            $propValue['total'] = "{$local}total";
         }
 
-        $smartyAttr['cmpFor']['iteration'] = "{$smartyAttr['value']['iteration']} <= {$smartyAttr['value']['total']}";
+        $cmpFor['iteration'] = "{$propValue['iteration']} <= {$propValue['total']}";
 
-        foreach ($smartyAttr['initLocal'] as $key => $code) {
+        foreach ($initLocal as $key => $code) {
             $output .= "{$local}{$key} = {$code};\n";
         }
 
-        $_vars = 'array(' . join(', ', $smartyAttr['initSmarty']) . ')';
+        $_vars = 'array(' . join(', ', $initNamedProperty) . ')';
         $output .= "\$_smarty_tpl->tpl_vars['__section_{$attributes['name']}'] = new Smarty_Variable({$_vars});\n";
-        $cond_code = "{$smartyAttr['value']['total']} != 0";
-        if ($smartyAttr['type']['total'] == 0) {
-            if ($smartyAttr['value']['total'] == 0) {
+        $cond_code = "{$propValue['total']} != 0";
+        if ($propType['total'] == 0) {
+            if ($propValue['total'] == 0) {
                 $cond_code = 'false';
             } else {
                 $cond_code = 'true';
             }
         }
-        if ($smartyAttr['type']['show'] > 0) {
-            $output .= "{$local}show = {$smartyAttr['value']['show']} ? {$cond_code} : false;\n";
+        if ($propType['show'] > 0) {
+            $output .= "{$local}show = {$propValue['show']} ? {$cond_code} : false;\n";
             $output .= "if ({$local}show) {\n";
-        } elseif ($smartyAttr['value']['show'] == 'true') {
+        } elseif ($propValue['show'] == 'true') {
             $output .= "if ({$cond_code}) {\n";
         } else {
             $output .= "if (false) {\n";
         }
-        $jinit = join(', ', $smartyAttr['initFor']);
-        $jcmp = join(', ', $smartyAttr['cmpFor']);
-        $jinc = join(', ', $smartyAttr['incFor']);
+        $jinit = join(', ', $initFor);
+        $jcmp = join(', ', $cmpFor);
+        $jinc = join(', ', $incFor);
         $output .= "for ({$jinit}; {$jcmp}; {$jinc}){\n";
-        if (isset($smartyAttr['rownum'])) {
-            $output .= "{$sectionVar}['rownum'] = {$smartyAttr['value']['iteration']};\n";
+        if (isset($namedAttr['rownum'])) {
+            $output .= "{$sectionVar}['rownum'] = {$propValue['iteration']};\n";
         }
-        if (isset($smartyAttr['index_prev'])) {
-            $output .= "{$sectionVar}['index_prev'] = {$smartyAttr['value']['index']} - {$smartyAttr['value']['step']};\n";
+        if (isset($namedAttr['index_prev'])) {
+            $output .= "{$sectionVar}['index_prev'] = {$propValue['index']} - {$propValue['step']};\n";
         }
-        if (isset($smartyAttr['index_next'])) {
-            $output .= "{$sectionVar}['index_next'] = {$smartyAttr['value']['index']} + {$smartyAttr['value']['step']};\n";
+        if (isset($namedAttr['index_next'])) {
+            $output .= "{$sectionVar}['index_next'] = {$propValue['index']} + {$propValue['step']};\n";
         }
-        if (isset($smartyAttr['first'])) {
-            $output .= "{$sectionVar}['first'] = ({$smartyAttr['value']['iteration']} == 1);\n";
+        if (isset($namedAttr['first'])) {
+            $output .= "{$sectionVar}['first'] = ({$propValue['iteration']} == 1);\n";
         }
-        if (isset($smartyAttr['last'])) {
-            $output .= "{$sectionVar}['last'] = ({$smartyAttr['value']['iteration']} == {$smartyAttr['value']['total']});\n";
+        if (isset($namedAttr['last'])) {
+            $output .= "{$sectionVar}['last'] = ({$propValue['iteration']} == {$propValue['total']});\n";
         }
         $output .= "?>";
 
@@ -500,8 +469,8 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
         } else {
             $output .= "}\n}\n";
         }
-        $output .= "if (\$section_{$attributes['no']}_s_name) {\n";
-        $output .= "\$_smarty_tpl->tpl_vars['__section_{$attributes['name']}'] = \$section_{$attributes['no']}_s_name;\n";
+        $output .= "if (\$section_{$attributes['no']}_saved) {\n";
+        $output .= "\$_smarty_tpl->tpl_vars['__section_{$attributes['name']}'] = \$section_{$attributes['no']}_saved;\n";
         $output .= "}\n";
         $output .= "?>";
 

@@ -29,22 +29,25 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
     {
         $_index = preg_split("/\]\[/", substr($parameter, 1, strlen($parameter) - 2));
         $compiled_ref = ' ';
-        $variable = $compiler->getId($_index[0]);
+        $variable = strtolower($compiler->getId($_index[0]));
         if ($variable === false) {
             $compiler->trigger_template_error("special \$Smarty variable name index can not be variable", $compiler->lex->taglineno);
-         }
-        if (!isset($compiler->smarty->security_policy) || $compiler->smarty->security_policy->isTrustedSpecialSmartyVar($variable, $compiler)) {
-             switch ($variable) {
+        }
+        if (!isset($compiler->smarty->security_policy) ||
+            $compiler->smarty->security_policy->isTrustedSpecialSmartyVar($variable, $compiler)
+        ) {
+            switch ($variable) {
                 case 'foreach':
-                    return Smarty_Internal_Compile_Foreach::compileSpecialVariable(array(), $compiler, $_index);
                 case 'section':
-                    return Smarty_Internal_Compile_Section::compileSpecialVariable(array(), $compiler, $_index);
-                 case 'capture':
+                    return Smarty_Internal_Compile_Private_ForeachSection::compileSpecialVariable(array(), $compiler, $_index);
+                case 'capture':
                     return "Smarty::\$_smarty_vars$parameter";
                 case 'now':
                     return 'time()';
                 case 'cookies':
-                    if (isset($compiler->smarty->security_policy) && !$compiler->smarty->security_policy->allow_super_globals) {
+                    if (isset($compiler->smarty->security_policy) &&
+                        !$compiler->smarty->security_policy->allow_super_globals
+                    ) {
                         $compiler->trigger_template_error("(secure mode) super globals not permitted");
                         break;
                     }
@@ -57,7 +60,9 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                 case 'server':
                 case 'session':
                 case 'request':
-                    if (isset($compiler->smarty->security_policy) && !$compiler->smarty->security_policy->allow_super_globals) {
+                    if (isset($compiler->smarty->security_policy) &&
+                        !$compiler->smarty->security_policy->allow_super_globals
+                    ) {
                         $compiler->trigger_template_error("(secure mode) super globals not permitted");
                         break;
                     }
@@ -79,11 +84,13 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                     return "'$_version'";
 
                 case 'const':
-                    if (isset($compiler->smarty->security_policy) && !$compiler->smarty->security_policy->allow_constants) {
+                    if (isset($compiler->smarty->security_policy) &&
+                        !$compiler->smarty->security_policy->allow_constants
+                    ) {
                         $compiler->trigger_template_error("(secure mode) constants not permitted");
                         break;
                     }
-                    if (strpos($_index[1], '$') === false && strpos($_index[1], '\'') === false ) {
+                    if (strpos($_index[1], '$') === false && strpos($_index[1], '\'') === false) {
                         return "@constant('{$_index[1]}')";
                     } else {
                         return "@constant({$_index[1]})";
