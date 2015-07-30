@@ -38,8 +38,8 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                 case 'foreach':
                     return Smarty_Internal_Compile_Foreach::compileSpecialVariable(array(), $compiler, $_index);
                 case 'section':
-                    return "\$_smarty_tpl->getVariable('smarty')->value$parameter";
-                case 'capture':
+                    return Smarty_Internal_Compile_Section::compileSpecialVariable(array(), $compiler, $_index);
+                 case 'capture':
                     return "Smarty::\$_smarty_vars$parameter";
                 case 'now':
                     return 'time()';
