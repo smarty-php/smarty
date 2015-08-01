@@ -1079,10 +1079,18 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if (!isset($line)) {
             $line = $this->lex->line;
         }
+        if (in_array($this->template->source->type, array('eval', 'string'))) {
+            $templateName = $this->template->source->type . ':' .
+                trim(preg_replace('![\t\r\n]+!', ' ', strlen($this->lex->data) > 40 ? substr($this->lex->data, 0, 40) .
+                    '...' : $this->lex->data));
+        } else {
+            $templateName = $this->template->source->type . ':' . $this->template->source->filepath;
+        }
+
         //        $line += $this->trace_line_offset;
         $match = preg_split("/\n/", $this->lex->data);
         $error_text = 'Syntax error in template "' .
-            (empty($this->trace_filepath) ? $this->template->source->filepath : $this->trace_filepath) . '"  on line ' .
+            (empty($this->trace_filepath) ? $templateName : $this->trace_filepath) . '"  on line ' .
             ($line + $this->trace_line_offset) . ' "' . trim(preg_replace('![\t\r\n]+!', ' ', $match[$line - 1])) .
             '" ';
         if (isset($args)) {
