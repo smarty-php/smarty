@@ -26,7 +26,6 @@ class AttributeTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax error in template "b8ecd121bbbc031241b1116a9db691a759eceadf"
      * @expectedExceptionMessage missing "var" attribute
      * test required attribute
      */
@@ -37,7 +36,6 @@ class AttributeTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax error in template "46d3649920e0043f055702ef3ceef0ecdc44b892"
      * @expectedExceptionMessage unexpected "bar" attribute
      * test unexpected attribute
      */
@@ -48,7 +46,6 @@ class AttributeTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax error in template "d6c824b50e89d8fe12b393ae8ab68daeb7b6c240"
      * @expectedExceptionMessage illegal value of option flag "nocache"
      * test illegal option value
      */
@@ -59,7 +56,6 @@ class AttributeTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax error in template "a119616ffa139e7b1145b1cd36adbff7bc9be7cf"
      * @expectedExceptionMessage too many shorthand attributes
      * test too many shorthands
      */

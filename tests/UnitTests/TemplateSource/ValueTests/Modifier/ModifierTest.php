@@ -166,7 +166,6 @@ class ModifierTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Syntax error in template "4d2e368c483a648d14bbd59592da92aff3b96a2f"
      * @expectedExceptionMessage unknown modifier "unknown"
      * test unknown modifier error
      */
