@@ -228,10 +228,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->tpl_vars = $tpl_vars;
             $this->config_vars = $config_vars;
         }
-        // dummy local smarty variable
-        if (!isset($this->tpl_vars['smarty'])) {
-            $this->tpl_vars['smarty'] = new Smarty_Variable;
-        }
         $_smarty_old_error_level = isset($this->smarty->error_reporting) ? error_reporting($this->smarty->error_reporting) : null;
         // check URL debugging control
         if (!$this->smarty->debugging && $this->smarty->debugging_ctrl == 'URL') {
@@ -511,8 +507,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         // get variables from calling scope
         if ($parent_scope == Smarty::SCOPE_LOCAL) {
             $tpl->tpl_vars = $this->tpl_vars;
-            $tpl->tpl_vars['smarty'] = clone $this->tpl_vars['smarty'];
-        } elseif ($parent_scope == Smarty::SCOPE_PARENT) {
+         } elseif ($parent_scope == Smarty::SCOPE_PARENT) {
             $tpl->tpl_vars = &$this->tpl_vars;
         } elseif ($parent_scope == Smarty::SCOPE_GLOBAL) {
             $tpl->tpl_vars = &Smarty::$global_tpl_vars;
