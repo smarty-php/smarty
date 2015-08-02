@@ -1,6 +1,7 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
  02.08.2015
   - optimization and code cleanup of {foreach} and {section} compiler
+  - rework {capture} compiler
 
  01.08.2015
   - update DateTime object can be instance of DateTimeImmutable since PHP5.5 https://github.com/smarty-php/smarty/pull/75

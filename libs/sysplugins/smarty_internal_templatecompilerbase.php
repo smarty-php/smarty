@@ -306,6 +306,12 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $cache = array();
 
     /**
+     * Stack during {capture} compilation
+     *
+     * @var array
+     */
+    public $_capture_stack = array();
+    /**
      * Strip preg pattern
      *
      * @var string

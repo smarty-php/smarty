@@ -23,6 +23,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('name');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -34,12 +35,12 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {capture} tag
      *
-     * @param  array  $args     array with attributes from parser
-     * @param  object $compiler compiler object
+     * @param  array                                $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -55,6 +56,27 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
 
         return $_output;
     }
+
+    /**
+     * Compiles code for the {$smarty.capture.xxx}
+     *
+     * @param  array                                $args      array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param  array                                $parameter array with compilation parameter
+     *
+     * @return string compiled code
+     * @throws \SmartyCompilerException
+     */
+    public static function compileSpecialVariable($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    {
+        // make all lower case
+        $parameter = array_map('strtolower', $parameter);
+        $tag = trim($parameter[0], '"\'');
+        if (!isset($parameter[1]) || false === $name = $compiler->getId($parameter[1])) {
+            $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", $compiler->lex->taglineno);
+        }
+        return "isset(\$_smarty_tpl->_cache['__smarty_capture']['{$name}']) ? \$_smarty_tpl->_cache['__smarty_capture']['{$name}'] : null";
+    }
 }
 
 /**
@@ -68,12 +90,12 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {/capture} tag
      *
-     * @param  array  $args     array with attributes from parser
-     * @param  object $compiler compiler object
+     * @param  array                                $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -88,7 +110,7 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
         $_output .= "if (!empty(\$_capture_buffer)) {\n";
         $_output .= " if (isset(\$_capture_assign)) \$_smarty_tpl->assign(\$_capture_assign, ob_get_contents());\n";
         $_output .= " if (isset( \$_capture_append)) \$_smarty_tpl->append( \$_capture_append, ob_get_contents());\n";
-        $_output .= " Smarty::\$_smarty_vars['capture'][\$_capture_buffer]=ob_get_clean();\n";
+        $_output .= "\$_smarty_tpl->_cache['__smarty_capture'][\$_capture_buffer]=ob_get_clean();\n";
         $_output .= "} else \$_smarty_tpl->capture_error();?>";
 
         return $_output;

@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/37';
+    const SMARTY_VERSION = '3.1.28-dev/38';
 
     /**
      * define variable scopes
@@ -687,13 +687,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var boolean
      */
     public $escape_html = false;
-
-    /**
-     * global internal smarty vars
-     *
-     * @var array
-     */
-    public static $_smarty_vars = array();
 
     /**
      * start time for execution time calculation
