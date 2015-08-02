@@ -232,7 +232,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
         ) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} property attribute", $compiler->lex->taglineno);
         }
-        $tagVar = "'__{$tag}_{$name}'";
+        $tagVar = "'__smarty_{$tag}_{$name}'";
         return "(isset(\$_smarty_tpl->tpl_vars[{$tagVar}]->value['{$property}']) ? \$_smarty_tpl->tpl_vars[{$tagVar}]->value['{$property}'] : null)";
     }
 }
