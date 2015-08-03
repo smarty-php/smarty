@@ -119,7 +119,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      *
      * @param  Smarty_Internal_Template $_template template object
      * @param  Smarty_Template_Cached   $cached    cached object
-     * @param bool                     $update flag if called because cache update
+     * @param bool                      $update    flag if called because cache update
      *
      * @return boolean                 true or false if the cached content does not exist
      */
@@ -131,14 +131,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
         $content = $cached->content ? $cached->content : null;
         $timestamp = $cached->timestamp ? $cached->timestamp : null;
         if ($content === null || !$timestamp) {
-            $this->fetch(
-                $_template->cached->filepath,
-                $_template->source->name,
-                $_template->cache_id,
-                $_template->compile_id,
-                $content,
-                $timestamp
-            );
+            $this->fetch($_template->cached->filepath, $_template->source->name, $_template->cache_id, $_template->compile_id, $content, $timestamp);
         }
         if (isset($content)) {
             /** @var Smarty_Internal_Template $_smarty_tpl
@@ -163,14 +156,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      */
     public function writeCachedContent(Smarty_Internal_Template $_template, $content)
     {
-        return $this->save(
-            $_template->cached->filepath,
-            $_template->source->name,
-            $_template->cache_id,
-            $_template->compile_id,
-            $_template->properties['cache_lifetime'],
-            $content
-        );
+        return $this->save($_template->cached->filepath, $_template->source->name, $_template->cache_id, $_template->compile_id, $_template->properties['cache_lifetime'], $content);
     }
 
     /**
@@ -186,14 +172,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
         $timestamp = null;
         if ($content === null) {
             $timestamp = null;
-            $this->fetch(
-                $_template->cached->filepath,
-                $_template->source->name,
-                $_template->cache_id,
-                $_template->compile_id,
-                $content,
-                $timestamp
-            );
+            $this->fetch($_template->cached->filepath, $_template->source->name, $_template->cache_id, $_template->compile_id, $content, $timestamp);
         }
         if (isset($content)) {
             return $content;
@@ -211,9 +190,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      */
     public function clearAll(Smarty $smarty, $exp_time = null)
     {
-        $this->cache = array();
-
-        return $this->delete(null, null, null, $exp_time);
+         return $this->delete(null, null, null, $exp_time);
     }
 
     /**
@@ -229,7 +206,6 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      */
     public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
     {
-        $this->cache = array();
         $cache_name = null;
 
         if (isset($resource_name)) {
@@ -244,17 +220,11 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
                 return 0;
             }
             // remove from template cache
-            if ($smarty->allow_ambiguous_resources) {
-                $_templateId = $tpl->source->unique_resource . $tpl->cache_id . $tpl->compile_id;
-            } else {
-                $_templateId = $smarty->joined_template_dir . '#' . $resource_name . $tpl->cache_id . $tpl->compile_id;
+            foreach ($smarty->template_objects as $key => $_tpl) {
+                if (isset($_tpl->cached) && $_tpl->source->uid == $tpl->source->uid) {
+                    unset($smarty->template_objects[$key]);
+                }
             }
-            if (isset($_templateId[150])) {
-                $_templateId = sha1($_templateId);
-            }
-            unset($smarty->template_objects[$_templateId]);
-            // template object no longer needed
-            unset($tpl);
         }
 
         return $this->delete($cache_name, $cache_id, $compile_id, $exp_time);

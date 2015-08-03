@@ -20,9 +20,7 @@ abstract class Smarty_CacheResource
      *
      * @var array
      */
-    protected static $sysplugins = array(
-        'file' => 'smarty_internal_cacheresource_file.php',
-    );
+    protected static $sysplugins = array('file' => 'smarty_internal_cacheresource_file.php',);
 
     /**
      * populate Cached Object with meta data from Resource
@@ -48,7 +46,7 @@ abstract class Smarty_CacheResource
      *
      * @param Smarty_Internal_Template $_template template object
      * @param Smarty_Template_Cached   $cached    cached object
-     * @param bool                     $update flag if called because cache update
+     * @param bool                     $update    flag if called because cache update
      *
      * @return bool true or false if the cached content does not exist
      */

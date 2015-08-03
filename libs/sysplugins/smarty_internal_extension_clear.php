@@ -50,15 +50,6 @@ class Smarty_Internal_Extension_Clear
 
             // remove from template cache
             $tpl->source; // have the template registered before unset()
-            if ($smarty->allow_ambiguous_resources) {
-                $_templateId = $tpl->source->unique_resource . $tpl->cache_id . $tpl->compile_id;
-            } else {
-                $_templateId = $smarty->joined_template_dir . '#' . $resource_name . $tpl->cache_id . $tpl->compile_id;
-            }
-            if (isset($_templateId[150])) {
-                $_templateId = sha1($_templateId);
-            }
-            unset($smarty->template_objects[$_templateId]);
 
             if ($tpl->source->exists) {
                 $_resourcename_parts = basename(str_replace('^', '/', $tpl->cached->filepath));
@@ -118,6 +109,12 @@ class Smarty_Internal_Extension_Clear
                             if ($_time - @filemtime($_file) < $exp_time) {
                                 continue;
                             }
+                        }
+                    }
+                    // remove from template cache
+                    foreach ($smarty->template_objects as $key => $tpl) {
+                        if (isset($tpl->cached) && $tpl->cached->filepath == $_file) {
+                            unset($smarty->template_objects[$key]);
                         }
                     }
                     $_count += @unlink((string) $_file) ? 1 : 0;

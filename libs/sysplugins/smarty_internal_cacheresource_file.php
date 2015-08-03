@@ -153,7 +153,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      */
     public function clearAll(Smarty $smarty, $exp_time = null)
     {
-        return $this->clear($smarty, null, null, null, $exp_time);
+        return Smarty_Internal_Extension_Clear::clear($smarty, null, null, null, $exp_time);
     }
 
     /**

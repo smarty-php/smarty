@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
+ 03.08.2015
+  - rework clear cache methods
+
  02.08.2015
   - optimization and code cleanup of {foreach} and {section} compiler
   - rework {capture} compiler
