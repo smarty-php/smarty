@@ -154,9 +154,11 @@ class Smarty_Internal_Utility
                 flush();
                 $_start_time = microtime(true);
                 try {
-                    $_config = new Smarty_Internal_Config($_config_file, $smarty);
-                    if ($_config->mustCompile()) {
-                        $_config->compileConfigSource();
+                    $confObj = new $smarty->template_class($_config_file, $smarty);
+                    $confObj->caching = Smarty::CACHING_OFF;
+                    $confObj->source = Smarty_Template_Config::load($confObj);
+                    if ($confObj->mustCompile()) {
+                        $confObj->compileTemplateSource();
                         $_count ++;
                         echo ' compiled in  ', microtime(true) - $_start_time, ' seconds';
                         flush();
