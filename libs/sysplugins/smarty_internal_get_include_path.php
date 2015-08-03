@@ -160,9 +160,9 @@ class Smarty_Internal_Get_Include_Path
                     $_u_dir = self::$_user_dirs[$dir_n] = $dir;
                 }
             }
-            $_d_path = $_u_dir . (isset($file) ? $file : '');
             if (self::$_has_stream_include) {
                 // available since PHP 5.3.2
+                $_d_path = $_u_dir . (isset($file) ? $file : '');
                 self::$stream[$_d_path] = isset(self::$stream[$_d_path]) ? self::$stream[$_d_path] : ($path = stream_resolve_include_path($_d_path)) ? is_file($path) : false;
                 if (self::$stream[$_d_path]) {
                     return self::$isFile[$dir_n][$file] = self::$stream[$_d_path];
@@ -172,9 +172,17 @@ class Smarty_Internal_Get_Include_Path
                 $path = self::$isPath[$key][$dir_n] = isset(self::$isPath[$key][$dir_n]) ? self::$isPath[$key][$dir_n] : is_dir($_i_path .
                                                                                                                                 $_u_dir) ? $_i_path .
                     substr($_u_dir, 2) : false;
-                $_file = self::$isFile[$dir_n][$file] = ($path && is_file($path . $file)) ? $path . $file : false;
-                if ($_file) {
-                    return $_file;
+                if ($path === false) {
+                    continue;
+                }
+                if (isset($file)) {
+                    $_file = self::$isFile[$dir_n][$file] = ($path && is_file($path . $file)) ? $path . $file : false;
+                    if ($_file) {
+                        return $_file;
+                    }
+                } else {
+                    // no file was given return directory path
+                    return $path;
                 }
             }
         }

@@ -2,6 +2,7 @@
  03.08.2015
   - rework clear cache methods
   - bugfix compileAllConfig() was broken since 3.1.22 because of the changes in config file processing
+  - improve getIncludePath() to return directory if no file was given
 
  02.08.2015
   - optimization and code cleanup of {foreach} and {section} compiler
