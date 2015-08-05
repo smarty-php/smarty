@@ -111,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/39';
+    const SMARTY_VERSION = '3.1.28-dev/40';
 
     /**
      * define variable scopes
@@ -1405,7 +1405,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function compileAllTemplates($extension = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
     {
-        return Smarty_Internal_Utility::compileAllTemplates($extension, $force_compile, $time_limit, $max_errors, $this);
+        return Smarty_Internal_Extension_CompileAll::compileAll($extension, $force_compile, $time_limit, $max_errors, $this);
     }
 
     /**
@@ -1420,7 +1420,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function compileAllConfig($extension = '.conf', $force_compile = false, $time_limit = 0, $max_errors = null)
     {
-        return Smarty_Internal_Utility::compileAllConfig($extension, $force_compile, $time_limit, $max_errors, $this);
+        return Smarty_Internal_Extension_CompileAll::compileAll($extension, $force_compile, $time_limit, $max_errors, $this, true);
     }
 
     /**
@@ -1610,7 +1610,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function __destruct()
     {
-        // intentionally left blank
+        $i =0;// intentionally left blank
     }
 
     /**

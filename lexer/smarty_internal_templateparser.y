@@ -79,7 +79,7 @@ class Smarty_Internal_Templateparser
      *
      * @var Smarty_Internal_Templatelexer
      */
-    private $lex;
+    public $lex;
     /**
      * internal error flag
      *
@@ -122,7 +122,7 @@ class Smarty_Internal_Templateparser
      *
      * @var Smarty_Security
      */
-    private $security = null;
+    public $security = null;
 
     /**
      * constructor
@@ -137,7 +137,7 @@ class Smarty_Internal_Templateparser
         $this->template = $this->compiler->template;
         $this->smarty = $this->template->smarty;
         $this->security = isset($this->smarty->security_policy) ? $this->smarty->security_policy : false;
-        $this->current_buffer = $this->root_buffer = new Smarty_Internal_ParseTree_Template($this);
+        $this->current_buffer = $this->root_buffer = new Smarty_Internal_ParseTree_Template();
     }
 
     /**
@@ -147,7 +147,7 @@ class Smarty_Internal_Templateparser
      */
     public function insertPhpCode($code)
     {
-        $this->current_buffer->append_subtree(new Smarty_Internal_ParseTree_Tag($this, $code));
+        $this->current_buffer->append_subtree($this, new Smarty_Internal_ParseTree_Tag($this, $code));
     }
 
    /**
@@ -199,7 +199,7 @@ class Smarty_Internal_Templateparser
     // complete template
     //
 start(res)       ::= template. {
-    res = $this->root_buffer->to_smarty_php();
+    res = $this->root_buffer->to_smarty_php($this);
 }
 
     //
@@ -208,7 +208,7 @@ start(res)       ::= template. {
                       // single template element
 template       ::= template_element(e). {
     if (e != null) {
-        $this->current_buffer->append_subtree(e);
+        $this->current_buffer->append_subtree($this, e);
     }
 }
 
@@ -216,7 +216,7 @@ template       ::= template_element(e). {
 template       ::= template template_element(e). {
     if (e != null) {
         // because of possible code injection
-        $this->current_buffer->append_subtree(e);
+        $this->current_buffer->append_subtree($this, e);
     }
 }
 
@@ -239,7 +239,7 @@ template_element(res)::= smartytag(st). {
 
                       // Literal
 template_element(res) ::= literal(l). {
-    res = new Smarty_Internal_ParseTree_Text($this, l);
+    res = new Smarty_Internal_ParseTree_Text(l);
 }
                       // php tags
 template_element(res)::= PHP(o). {
@@ -1286,12 +1286,12 @@ doublequoted_with_quotes(res) ::= QUOTE QUOTE. {
 }
 
 doublequoted_with_quotes(res) ::= QUOTE doublequoted(s) QUOTE. {
-    res = s->to_smarty_php();
+    res = s->to_smarty_php($this);
 }
 
 
 doublequoted(res)          ::= doublequoted(o1) doublequotedcontent(o2). {
-    o1->append_subtree(o2);
+    o1->append_subtree($this, o2);
     res = o1;
 }
 
@@ -1300,23 +1300,23 @@ doublequoted(res)          ::= doublequotedcontent(o). {
 }
 
 doublequotedcontent(res)           ::=  BACKTICK variable(v) BACKTICK. {
-    res = new Smarty_Internal_ParseTree_Code($this, '(string)'.v);
+    res = new Smarty_Internal_ParseTree_Code('(string)'.v);
 }
 
 doublequotedcontent(res)           ::=  BACKTICK expr(e) BACKTICK. {
-    res = new Smarty_Internal_ParseTree_Code($this, '(string)'.e);
+    res = new Smarty_Internal_ParseTree_Code('(string)'.e);
 }
 
 doublequotedcontent(res)           ::=  DOLLARID(i). {
-    res = new Smarty_Internal_ParseTree_Code($this, '(string)$_smarty_tpl->tpl_vars[\''. substr(i,1) .'\']->value');
+    res = new Smarty_Internal_ParseTree_Code('(string)$_smarty_tpl->tpl_vars[\''. substr(i,1) .'\']->value');
 }
 
 doublequotedcontent(res)           ::=  LDEL variable(v) RDEL. {
-    res = new Smarty_Internal_ParseTree_Code($this, '(string)'.v);
+    res = new Smarty_Internal_ParseTree_Code('(string)'.v);
 }
 
 doublequotedcontent(res)           ::=  LDEL expr(e) RDEL. {
-    res = new Smarty_Internal_ParseTree_Code($this, '(string)('.e.')');
+    res = new Smarty_Internal_ParseTree_Code('(string)('.e.')');
 }
 
 doublequotedcontent(res)     ::=  smartytag(st). {
@@ -1324,6 +1324,6 @@ doublequotedcontent(res)     ::=  smartytag(st). {
 }
 
 doublequotedcontent(res)           ::=  TEXT(o). {
-    res = new Smarty_Internal_ParseTree_DqContent($this, o);
+    res = new Smarty_Internal_ParseTree_DqContent(o);
 }
 

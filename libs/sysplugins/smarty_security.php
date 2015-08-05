@@ -389,12 +389,12 @@ class Smarty_Security
             if (empty($this->disabled_tags) || !in_array($tag_name, $this->disabled_tags)) {
                 return true;
             } else {
-                $compiler->trigger_template_error("tag '{$tag_name}' disabled by security setting", $compiler->lex->taglineno);
+                $compiler->trigger_template_error("tag '{$tag_name}' disabled by security setting", null, true);
             }
         } elseif (in_array($tag_name, $this->allowed_tags) && !in_array($tag_name, $this->disabled_tags)) {
             return true;
         } else {
-            $compiler->trigger_template_error("tag '{$tag_name}' not allowed by security setting", $compiler->lex->taglineno);
+            $compiler->trigger_template_error("tag '{$tag_name}' not allowed by security setting", null, true);
         }
 
         return false; // should not, but who knows what happens to the compiler in the future?
@@ -414,7 +414,7 @@ class Smarty_Security
         if (!in_array($var_name, $this->disabled_special_smarty_vars)) {
             return true;
         } else {
-            $compiler->trigger_template_error("special variable '\$smarty.{$var_name}' not allowed by security setting", $compiler->lex->taglineno);
+            $compiler->trigger_template_error("special variable '\$smarty.{$var_name}' not allowed by security setting", null, true);
         }
 
         return false; // should not, but who knows what happens to the compiler in the future?
@@ -440,14 +440,14 @@ class Smarty_Security
             if (empty($this->disabled_modifiers) || !in_array($modifier_name, $this->disabled_modifiers)) {
                 return true;
             } else {
-                $compiler->trigger_template_error("modifier '{$modifier_name}' disabled by security setting", $compiler->lex->taglineno);
+                $compiler->trigger_template_error("modifier '{$modifier_name}' disabled by security setting", null, true);
             }
         } elseif (in_array($modifier_name, $this->allowed_modifiers) &&
             !in_array($modifier_name, $this->disabled_modifiers)
         ) {
             return true;
         } else {
-            $compiler->trigger_template_error("modifier '{$modifier_name}' not allowed by security setting", $compiler->lex->taglineno);
+            $compiler->trigger_template_error("modifier '{$modifier_name}' not allowed by security setting", null, true);
         }
 
         return false; // should not, but who knows what happens to the compiler in the future?
@@ -639,9 +639,9 @@ class Smarty_Security
     /**
      * Exit template processing
      *
-     * @param $template
+     * @internal param $template
      */
-    public function exitTemplate($template)
+    public function exitTemplate()
     {
         if ($this->max_template_nesting > 0) {
             $this->_current_template_nesting --;

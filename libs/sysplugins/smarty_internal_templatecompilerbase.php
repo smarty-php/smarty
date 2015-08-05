@@ -26,13 +26,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $smarty = null;
 
     /**
-     * Lexer object
-     *
-     * @var object
-     */
-    public $lex;
-
-    /**
      * Parser object
      *
      * @var object
@@ -311,6 +304,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @var array
      */
     public $_capture_stack = array();
+
+    private $savedSource = null;
+
     /**
      * Strip preg pattern
      *
@@ -344,114 +340,131 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @param null|Smarty_Internal_TemplateCompilerBase $parent_compiler
      *
      * @return bool true if compiling succeeded, false if it failed
+     * @throws \Exception
      */
     public function compileTemplate(Smarty_Internal_Template $template, $nocache = null, $parent_compiler = null)
     {
         // save template object in compiler class
         $this->template = $template;
-        if (isset($this->template->smarty->security_policy)) {
-            $this->php_handling = $this->template->smarty->security_policy->php_handling;
-        } else {
-            $this->php_handling = $this->template->smarty->php_handling;
-        }
-        $this->parent_compiler = $parent_compiler ? $parent_compiler : $this;
-        $nocache = isset($nocache) ? $nocache : false;
-        if (empty($template->properties['nocache_hash'])) {
-            $template->properties['nocache_hash'] = $this->nocache_hash;
-        } else {
-            $this->nocache_hash = $template->properties['nocache_hash'];
-        }
-        $save_source = $this->template->source;
-        // template header code
-        $template_header = '';
-        if (!$this->suppressHeader) {
-            $template_header .= "<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " .
-                strftime("%Y-%m-%d %H:%M:%S") . "\n";
-            $template_header .= "         compiled from \"" . $this->template->source->filepath . "\" */ ?>\n";
-        }
-
-        if (empty($this->template->source->components)) {
-            $this->sources = array($template->source);
-        } else {
-            // we have array of inheritance templates by extends: resource
-            $this->sources = array_reverse($template->source->components);
-        }
-        $loop = 0;
-        // the $this->sources array can get additional elements while compiling by the {extends} tag
-        while ($this->template->source = array_shift($this->sources)) {
-            $this->smarty->_current_file = $this->template->source->filepath;
-            if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::start_compile($this->template);
-            }
-            $no_sources = count($this->sources);
-            $this->parent_compiler->template->properties['file_dependency'][$this->template->source->uid] = array($this->template->source->filepath,
-                                                                                                                  $this->template->source->getTimeStamp(),
-                                                                                                                  $this->template->source->type);
-            $loop ++;
-            if ($no_sources) {
-                $this->inheritance_child = true;
+        $this->savedSource = $this->template->source;
+        try {
+            if (isset($this->template->smarty->security_policy)) {
+                $this->php_handling = $this->template->smarty->security_policy->php_handling;
             } else {
-                $this->inheritance_child = false;
+                $this->php_handling = $this->template->smarty->php_handling;
             }
-            // flag for nochache sections
-            $this->nocache = $nocache;
-            $this->tag_nocache = false;
-            // reset has nocache code flag
-            $this->template->has_nocache_code = false;
-            $this->has_variable_string = false;
-            $this->prefix_code = array();
-            $_compiled_code = '';
-            // get template source
-            $_content = $this->template->source->getContent();
-            if ($_content != '') {
-                // run pre filter if required
-                if ((isset($this->smarty->autoload_filters['pre']) ||
-                        isset($this->smarty->registered_filters['pre'])) && !$this->suppressFilter
-                ) {
-                    $_content = Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $template);
+            $this->parent_compiler = $parent_compiler ? $parent_compiler : $this;
+            $nocache = isset($nocache) ? $nocache : false;
+            if (empty($template->properties['nocache_hash'])) {
+                $template->properties['nocache_hash'] = $this->nocache_hash;
+            } else {
+                $this->nocache_hash = $template->properties['nocache_hash'];
+            }
+            // template header code
+            $template_header = '';
+            if (!$this->suppressHeader) {
+                $template_header .= "<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " .
+                    strftime("%Y-%m-%d %H:%M:%S") . "\n";
+                $template_header .= "         compiled from \"" . $this->template->source->filepath . "\" */ ?>\n";
+            }
+
+            if (empty($this->template->source->components)) {
+                $this->sources = array($template->source);
+            } else {
+                // we have array of inheritance templates by extends: resource
+                $this->sources = array_reverse($template->source->components);
+            }
+            $loop = 0;
+            // the $this->sources array can get additional elements while compiling by the {extends} tag
+            while ($this->template->source = array_shift($this->sources)) {
+                $this->smarty->_current_file = $this->template->source->filepath;
+                if ($this->smarty->debugging) {
+                    Smarty_Internal_Debug::start_compile($this->template);
                 }
-                // call compiler
-                $_compiled_code = $this->doCompile($_content, true);
+                $no_sources = count($this->sources);
+                $this->parent_compiler->template->properties['file_dependency'][$this->template->source->uid] = array($this->template->source->filepath,
+                                                                                                                      $this->template->source->getTimeStamp(),
+                                                                                                                      $this->template->source->type);
+                $loop ++;
+                if ($no_sources) {
+                    $this->inheritance_child = true;
+                } else {
+                    $this->inheritance_child = false;
+                }
+                // flag for nochache sections
+                $this->nocache = $nocache;
+                $this->tag_nocache = false;
+                // reset has nocache code flag
+                $this->template->has_nocache_code = false;
+                $this->has_variable_string = false;
+                $this->prefix_code = array();
+                $_compiled_code = '';
+                // get template source
+                $_content = $this->template->source->getContent();
+                if ($_content != '') {
+                    // run pre filter if required
+                    if ((isset($this->smarty->autoload_filters['pre']) ||
+                            isset($this->smarty->registered_filters['pre'])) && !$this->suppressFilter
+                    ) {
+                        $_content = Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $template);
+                    }
+                    // call compiler
+                    $_compiled_code = $this->doCompile($_content, true);
+                }
+                if ($this->smarty->debugging) {
+                    Smarty_Internal_Debug::end_compile($this->template);
+                }
+                // free memory
+                unset($this->parser->lex, $this->parser->root_buffer, $this->parser->current_buffer, $this->parser);
             }
-            if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::end_compile($this->template);
+            // restore source
+            $this->template->source = $this->savedSource;
+            $this->savedSource = null;
+            $this->smarty->_current_file = $this->template->source->filepath;
+            // return compiled code to template object
+            $merged_code = '';
+            if (!empty($this->mergedSubTemplatesCode)) {
+                foreach ($this->mergedSubTemplatesCode as $code) {
+                    $merged_code .= $code;
+                }
             }
-        }
-        // restore source
-        $this->template->source = $save_source;
-        unset($save_source);
-        $this->smarty->_current_file = $this->template->source->filepath;
-        // free memory
-        unset($this->parser->root_buffer, $this->parser->current_buffer, $this->parser, $this->lex);
-        // return compiled code to template object
-        $merged_code = '';
-        if (!empty($this->mergedSubTemplatesCode)) {
-            foreach ($this->mergedSubTemplatesCode as $code) {
-                $merged_code .= $code;
-            }
-        }
-        // run post filter if required on compiled template code
-        if ((isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) &&
-            !$this->suppressFilter && $_compiled_code != ''
-        ) {
-            $_compiled_code = Smarty_Internal_Filter_Handler::runFilter('post', $_compiled_code, $template);
-        }
-        if ($this->suppressTemplatePropertyHeader) {
-            $_compiled_code .= $merged_code;
-        } else {
-            $_compiled_code = $template_header .
-                Smarty_Internal_Extension_CodeFrame::create($template, $_compiled_code) . $merged_code;
-        }
-        if (!empty($this->templateFunctionCode)) {
             // run post filter if required on compiled template code
             if ((isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) &&
-                !$this->suppressFilter
+                !$this->suppressFilter && $_compiled_code != ''
             ) {
-                $_compiled_code .= Smarty_Internal_Filter_Handler::runFilter('post', $this->templateFunctionCode, $template);
+                $_compiled_code = Smarty_Internal_Filter_Handler::runFilter('post', $_compiled_code, $template);
+            }
+            if ($this->suppressTemplatePropertyHeader) {
+                $_compiled_code .= $merged_code;
             } else {
-                $_compiled_code .= $this->templateFunctionCode;
+                $_compiled_code = $template_header .
+                    Smarty_Internal_Extension_CodeFrame::create($template, $_compiled_code) . $merged_code;
+            }
+            if (!empty($this->templateFunctionCode)) {
+                // run post filter if required on compiled template code
+                if ((isset($this->smarty->autoload_filters['post']) ||
+                        isset($this->smarty->registered_filters['post'])) && !$this->suppressFilter
+                ) {
+                    $_compiled_code .= Smarty_Internal_Filter_Handler::runFilter('post', $this->templateFunctionCode, $template);
+                } else {
+                    $_compiled_code .= $this->templateFunctionCode;
+                }
             }
         }
+        catch (Exception $e) {
+            // restore source
+            $this->template->source = $this->savedSource;
+            $this->savedSource = null;
+            $this->smarty->_current_file = $this->template->source->filepath;
+            // free memory
+            $this->parent_compiler = null;
+            $this->template = null;
+            $this->_tag_stack = array();
+            $this->_tag_objects = array();
+            $this->parser = null;
+            throw $e;
+        }
+
         $this->parent_compiler = null;
         $this->template = null;
         return $_compiled_code;
@@ -557,7 +570,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     } else {
                         // throw exception
                         $this->trigger_template_error('not allowed method "' . $method . '" in registered object "' .
-                                                      $tag . '"', $this->lex->taglineno);
+                                                      $tag . '"', null, true);
                     }
                 }
                 // check if tag is registered
@@ -682,8 +695,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     } else {
                         // throw exception
                         $this->trigger_template_error('not allowed closing tag method "' . $method .
-                                                      '" in registered object "' . $base_tag .
-                                                      '"', $this->lex->taglineno);
+                                                      '" in registered object "' . $base_tag . '"', null, true);
                     }
                 }
                 // registered block tag ?
@@ -738,7 +750,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     throw new SmartyException("Plugin \"{$tag}\" not callable");
                 }
             }
-            $this->trigger_template_error("unknown tag \"" . $tag . "\"", $this->lex->taglineno);
+            $this->trigger_template_error("unknown tag \"" . $tag . "\"", null, true);
         }
     }
 
@@ -772,9 +784,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function processText($text)
     {
         if ($this->parser->strip) {
-            return new Smarty_Internal_ParseTree_Text($this->parser, preg_replace($this->stripRegEx, '', $text));
+            return new Smarty_Internal_ParseTree_Text(preg_replace($this->stripRegEx, '', $text));
         } else {
-            return new Smarty_Internal_ParseTree_Text($this->parser, $text);
+            return new Smarty_Internal_ParseTree_Text($text);
         }
     }
 
@@ -798,9 +810,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if (!isset($this->_tag_objects[$tag])) {
             // lazy load internal compiler plugin
             $_tag = explode('_', $tag);
-            $_tag = array_map(function ($word) {
-                return ucfirst($word);
-            }, $_tag);
+            $_tag = array_map('ucfirst', $_tag);
             $class_name = 'Smarty_Internal_Compile_' . implode('_', $_tag);
             if (class_exists($class_name) &&
                 (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))
@@ -1074,27 +1084,35 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * In this case the parser is called to obtain information about expected tokens.
      * If parameter $args contains a string this is used as error message
      *
-     * @param  string $args individual error message or null
-     * @param  string $line line-number
+     * @param  string   $args    individual error message or null
+     * @param  string   $line    line-number
+     * @param null|bool $tagline if true the line number of last tag
      *
-     * @throws SmartyCompilerException when an unexpected token is found
+     * @throws \SmartyCompilerException when an unexpected token is found
      */
-    public function trigger_template_error($args = null, $line = null)
+    public function trigger_template_error($args = null, $line = null, $tagline = null)
     {
-        // get template source line which has error
-        if (!isset($line)) {
-            $line = $this->lex->line;
+        $lex = $this->parser->lex;
+        if ($tagline === true) {
+            // get line number of Tag
+            $line = $lex->taglineno;
+        } elseif (!isset($line)) {
+            // get template source line which has error
+            $line = $lex->line;
+        } else {
+            $line = (int) $line;
         }
+
         if (in_array($this->template->source->type, array('eval', 'string'))) {
             $templateName = $this->template->source->type . ':' .
-                trim(preg_replace('![\t\r\n]+!', ' ', strlen($this->lex->data) > 40 ? substr($this->lex->data, 0, 40) .
-                    '...' : $this->lex->data));
+                trim(preg_replace('![\t\r\n]+!', ' ', strlen($lex->data) > 40 ? substr($lex->data, 0, 40) .
+                    '...' : $lex->data));
         } else {
             $templateName = $this->template->source->type . ':' . $this->template->source->filepath;
         }
 
         //        $line += $this->trace_line_offset;
-        $match = preg_split("/\n/", $this->lex->data);
+        $match = preg_split("/\n/", $lex->data);
         $error_text = 'Syntax error in template "' .
             (empty($this->trace_filepath) ? $templateName : $this->trace_filepath) . '"  on line ' .
             ($line + $this->trace_line_offset) . ' "' . trim(preg_replace('![\t\r\n]+!', ' ', $match[$line - 1])) .
@@ -1105,13 +1123,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
         } else {
             $expect = array();
             // expected token from parser
-            $error_text .= ' - Unexpected "' . $this->lex->value . '"';
+            $error_text .= ' - Unexpected "' . $lex->value . '"';
             if (count($this->parser->yy_get_expected_tokens($this->parser->yymajor)) <= 4) {
                 foreach ($this->parser->yy_get_expected_tokens($this->parser->yymajor) as $token) {
                     $exp_token = $this->parser->yyTokenName[$token];
-                    if (isset($this->lex->smarty_token_names[$exp_token])) {
+                    if (isset($lex->smarty_token_names[$exp_token])) {
                         // token type from lexer
-                        $expect[] = '"' . $this->lex->smarty_token_names[$exp_token] . '"';
+                        $expect[] = '"' . $lex->smarty_token_names[$exp_token] . '"';
                     } else {
                         // otherwise internal token name
                         $expect[] = $this->parser->yyTokenName[$token];

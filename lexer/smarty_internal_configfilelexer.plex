@@ -95,7 +95,7 @@ class Smarty_Internal_Configfilelexer
     /**
      * storage for assembled token patterns
      *
-     * @var sring
+     * @var string
      */
     private $yy_global_pattern1 = null;
     private $yy_global_pattern2 = null;

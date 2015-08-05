@@ -93,7 +93,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
         unset($_attr['name']);
         foreach ($attributes as $a => $v) {
             if ($v === false) {
-                $compiler->trigger_template_error("'{$a}' attribute/variable has illegal value", $compiler->lex->taglineno);
+                $compiler->trigger_template_error("'{$a}' attribute/variable has illegal value", null, true);
             }
         }
         $local = "\$__section_{$attributes['name']}_" . $this->counter ++ . '_';

@@ -155,7 +155,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
      */
     public function matchTemplateSource(Smarty_Internal_TemplateCompilerBase $compiler)
     {
-        $this->matchProperty($compiler->lex->data);
+        $this->matchProperty($compiler->parser->lex->data);
     }
 
     /**
@@ -205,7 +205,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
             }
         }
 
-        $this->matchProperty($compiler->lex->data);
+        $this->matchProperty($compiler->parser->lex->data);
     }
 
     /**
@@ -224,13 +224,13 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
         $parameter = array_map('strtolower', $parameter);
         $tag = trim($parameter[0], '"\'');
         if (!isset($parameter[1]) || false === $name = $compiler->getId($parameter[1])) {
-            $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", $compiler->lex->taglineno);
+            $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
         }
         $className = 'Smarty_Internal_Compile_' . ucfirst($tag);
         if ((!isset($parameter[2]) || false === $property = $compiler->getId($parameter[2])) ||
             !in_array($property, $className::$nameProperties)
         ) {
-            $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} property attribute", $compiler->lex->taglineno);
+            $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} property attribute", null, true);
         }
         $tagVar = "'__smarty_{$tag}_{$name}'";
         return "(isset(\$_smarty_tpl->tpl_vars[{$tagVar}]->value['{$property}']) ? \$_smarty_tpl->tpl_vars[{$tagVar}]->value['{$property}'] : null)";

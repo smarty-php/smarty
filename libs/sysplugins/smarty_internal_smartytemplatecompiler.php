@@ -8,7 +8,6 @@
  * @author     Uwe Tews
  */
 
-
 /**
  * Class SmartyTemplateCompiler
  *
@@ -69,14 +68,14 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
           tags in the templates are replaces with PHP code,
           then written to compiled files. */
         // init the lexer/parser to compile the template
-        $this->lex = new $this->lexer_class(str_replace(array("\r\n", "\r"), "\n", $_content), $this);
-        $this->parser = new $this->parser_class($this->lex, $this);
+        $this->parser = new $this->parser_class(new $this->lexer_class(str_replace(array("\r\n",
+                                                                                         "\r"), "\n", $_content), $this), $this);
         if ($isTemplateSource) {
             $this->parser->insertPhpCode("<?php\n\$_smarty_tpl->properties['nocache_hash'] = '{$this->nocache_hash}';\n?>\n");
         }
         if ($this->inheritance_child) {
             // start state on child templates
-            $this->lex->yypushstate(Smarty_Internal_Templatelexer::CHILDBODY);
+            $this->parser->lex->yypushstate(Smarty_Internal_Templatelexer::CHILDBODY);
         }
         if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2) {
             $mbEncoding = mb_internal_encoding();
@@ -87,15 +86,15 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
 
         if ($this->smarty->_parserdebug) {
             $this->parser->PrintTrace();
-            $this->lex->PrintTrace();
+            $this->parser->lex->PrintTrace();
         }
         // get tokens from lexer and parse them
-        while ($this->lex->yylex()) {
+        while ($this->parser->lex->yylex()) {
             if ($this->smarty->_parserdebug) {
-                echo "<pre>Line {$this->lex->line} Parsing  {$this->parser->yyTokenName[$this->lex->token]} Token " .
-                    htmlentities($this->lex->value) . "</pre>";
+                echo "<pre>Line {$this->parser->lex->line} Parsing  {$this->parser->yyTokenName[$this->parser->lex->token]} Token " .
+                    htmlentities($this->parser->lex->value) . "</pre>";
             }
-            $this->parser->doParse($this->lex->token, $this->lex->value);
+            $this->parser->doParse($this->parser->lex->token, $this->parser->lex->value);
         }
 
         // finish parsing process
@@ -107,7 +106,8 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         if (count($this->_tag_stack) > 0) {
             // get stacked info
             list($openTag, $_data) = array_pop($this->_tag_stack);
-            $this->trigger_template_error("unclosed {$this->smarty->left_delimiter}" . $openTag . "{$this->smarty->right_delimiter} tag");
+            $this->trigger_template_error("unclosed {$this->smarty->left_delimiter}" . $openTag .
+                                          "{$this->smarty->right_delimiter} tag");
         }
         // return compiled code
         return $this->parser->retvalue;

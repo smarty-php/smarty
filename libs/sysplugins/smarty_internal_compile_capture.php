@@ -73,7 +73,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
         $parameter = array_map('strtolower', $parameter);
         $tag = trim($parameter[0], '"\'');
         if (!isset($parameter[1]) || false === $name = $compiler->getId($parameter[1])) {
-            $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", $compiler->lex->taglineno);
+            $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
         }
         return "isset(\$_smarty_tpl->_cache['__smarty_capture']['{$name}']) ? \$_smarty_tpl->_cache['__smarty_capture']['{$name}'] : null";
     }

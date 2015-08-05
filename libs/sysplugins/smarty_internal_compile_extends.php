@@ -36,20 +36,22 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {extends} tag
      *
-     * @param array  $args     array with attributes from parser
-     * @param object $compiler compiler object
+     * @param array                                        $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
+     * @throws \SmartyCompilerException
+     * @throws \SmartyException
      */
-    public function compile($args, $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         if ($_attr['nocache'] === true) {
-            $compiler->trigger_template_error('nocache option not allowed', $compiler->lex->taglineno);
+            $compiler->trigger_template_error('nocache option not allowed', null, true);
         }
         if (strpos($_attr['file'], '$_tmp') !== false) {
-            $compiler->trigger_template_error('illegal value for file attribute', $compiler->lex->taglineno);
+            $compiler->trigger_template_error('illegal value for file attribute', null, true);
         }
 
         $name = $_attr['file'];
@@ -60,7 +62,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
              * used in evaluated code
              */
             $_smarty_tpl = $compiler->template;
-            eval("\$tpl_name = {$name};");
+            eval("\$tpl_name = @{$name};");
         } else {
             $tpl_name = trim($name, '\'"');
         }
@@ -69,7 +71,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
         // check for recursion
         $uid = $_source->uid;
         if (isset($compiler->extends_uid[$uid])) {
-            $compiler->trigger_template_error("illegal recursive call of \"{$_source->filepath}\"", $compiler->lex->line -
+            $compiler->trigger_template_error("illegal recursive call of \"{$_source->filepath}\"", $compiler->parser->lex->line -
                                                                                                   1);
         }
         $compiler->extends_uid[$uid] = true;
@@ -80,14 +82,14 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
                 array_unshift($compiler->sources, $source);
                 $uid = $source->uid;
                 if (isset($compiler->extends_uid[$uid])) {
-                    $compiler->trigger_template_error("illegal recursive call of \"{$source->filepath}\"", $compiler->lex->line -
+                    $compiler->trigger_template_error("illegal recursive call of \"{$source->filepath}\"", $compiler->parser->lex->line -
                                                                                                          1);
                 }
                 $compiler->extends_uid[$uid] = true;
             }
         }
         $compiler->inheritance_child = true;
-        $compiler->lex->yypushstate(Smarty_Internal_Templatelexer::CHILDBODY);
+        $compiler->parser->lex->yypushstate(Smarty_Internal_Templatelexer::CHILDBODY);
         return '';
     }
 }

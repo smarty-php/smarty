@@ -21,6 +21,7 @@ abstract class Smarty_Internal_CompileBase
      * @var array
      */
     public $required_attributes = array();
+
     /**
      * Array of names of optional attribute required by tag
      * use array('_any') if there is no restriction of attributes names
@@ -28,12 +29,14 @@ abstract class Smarty_Internal_CompileBase
      * @var array
      */
     public $optional_attributes = array();
+
     /**
      * Shorttag attribute order defined by its names
      *
      * @var array
      */
     public $shorttag_order = array();
+
     /**
      * Array of names of valid option flags
      *
@@ -68,7 +71,7 @@ abstract class Smarty_Internal_CompileBase
                     $_indexed_attr[$this->shorttag_order[$key]] = $mixed;
                 } else {
                     // too many shorthands
-                    $compiler->trigger_template_error('too many shorthand attributes', $compiler->lex->taglineno);
+                    $compiler->trigger_template_error('too many shorthand attributes', null, true);
                 }
                 // named attribute
             } else {
@@ -90,7 +93,7 @@ abstract class Smarty_Internal_CompileBase
                             $_indexed_attr[$kv['key']] = false;
                         }
                     } else {
-                        $compiler->trigger_template_error("illegal value of option flag \"{$kv['key']}\"", $compiler->lex->taglineno);
+                        $compiler->trigger_template_error("illegal value of option flag \"{$kv['key']}\"", null, true);
                     }
                     // must be named attribute
                 } else {
@@ -102,7 +105,7 @@ abstract class Smarty_Internal_CompileBase
         // check if all required attributes present
         foreach ($this->required_attributes as $attr) {
             if (!array_key_exists($attr, $_indexed_attr)) {
-                $compiler->trigger_template_error("missing \"" . $attr . "\" attribute", $compiler->lex->taglineno);
+                $compiler->trigger_template_error("missing \"" . $attr . "\" attribute", null, true);
             }
         }
         // check for not allowed attributes
@@ -110,7 +113,7 @@ abstract class Smarty_Internal_CompileBase
             $tmp_array = array_merge($this->required_attributes, $this->optional_attributes, $this->option_flags);
             foreach ($_indexed_attr as $key => $dummy) {
                 if (!in_array($key, $tmp_array) && $key !== 0) {
-                    $compiler->trigger_template_error("unexpected \"" . $key . "\" attribute", $compiler->lex->taglineno);
+                    $compiler->trigger_template_error("unexpected \"" . $key . "\" attribute", null, true);
                 }
             }
         }
@@ -162,12 +165,13 @@ abstract class Smarty_Internal_CompileBase
                 }
             }
             // wrong nesting of tags
-            $compiler->trigger_template_error("unclosed {$compiler->smarty->left_delimiter}" . $_openTag . "{$compiler->smarty->right_delimiter} tag");
+            $compiler->trigger_template_error("unclosed {$compiler->smarty->left_delimiter}" . $_openTag .
+                                              "{$compiler->smarty->right_delimiter} tag");
 
             return;
         }
         // wrong nesting of tags
-        $compiler->trigger_template_error("unexpected closing tag", $compiler->lex->taglineno);
+        $compiler->trigger_template_error("unexpected closing tag", null, true);
 
         return;
     }

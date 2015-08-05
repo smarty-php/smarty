@@ -18,13 +18,6 @@ abstract class Smarty_Internal_ParseTree
 {
 
     /**
-     * Parser object
-     *
-     * @var object
-     */
-    public $parser;
-
-    /**
      * Buffer content
      *
      * @var mixed
@@ -41,9 +34,21 @@ abstract class Smarty_Internal_ParseTree
     /**
      * Return buffer
      *
+     * @param \Smarty_Internal_Templateparser $parser
+     *
      * @return string buffer content
      */
-    abstract public function to_smarty_php();
+    abstract public function to_smarty_php(Smarty_Internal_Templateparser $parser);
+
+    /**
+     * Template data object destructor
+     */
+    public function __destruct()
+    {
+        $this->data = null;
+        $this->subtrees = null;
+    }
+
 }
 
 

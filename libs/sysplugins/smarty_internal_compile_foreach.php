@@ -110,14 +110,14 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         }
         foreach ($attributes as $a => $v) {
             if ($v === false) {
-                $compiler->trigger_template_error("'{$a}' attribute/variable has illegal value", $compiler->lex->taglineno);
+                $compiler->trigger_template_error("'{$a}' attribute/variable has illegal value", null, true);
             }
         }
         $fromName = $compiler->getVariableName($_attr['from']);
         if ($fromName) {
             foreach (array('item', 'key') as $a) {
                 if (isset($attributes[$a]) && $attributes[$a] == $fromName) {
-                    $compiler->trigger_template_error("'{$a}' and 'from' may not have same variable name '{$fromName}'", $compiler->lex->taglineno);
+                    $compiler->trigger_template_error("'{$a}' and 'from' may not have same variable name '{$fromName}'", null, true);
                 }
             }
         }
