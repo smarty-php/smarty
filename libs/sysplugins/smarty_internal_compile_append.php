@@ -19,13 +19,13 @@ class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign
     /**
      * Compiles code for the {append} tag
      *
-     * @param  array  $args      array with attributes from parser
-     * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param  array                                       $args      array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param  array                                       $parameter array with compilation parameter
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
         // the following must be assigned at runtime because it will be overwritten in parent class
         $this->required_attributes = array('var', 'value');
