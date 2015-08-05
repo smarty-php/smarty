@@ -47,6 +47,13 @@ class Smarty_Template_Compiled
     public $code = null;
 
     /**
+     * unique function name for compiled template code
+     *
+     * @var string
+     */
+    public $unifunc = '';
+
+    /**
      * create Compiled Object container
      */
     public function __construct()
@@ -173,14 +180,7 @@ class Smarty_Template_Compiled
                 ob_get_clean();
                 $this->code = null;
             } else {
-                if (function_exists('opcache_invalidate')) {
-                    opcache_invalidate($_template->compiled->filepath);
-                }
-                if (strpos(phpversion(), 'hhvm') !== false) {
-                    Smarty_Internal_Extension_Hhvm::includeHhvm($_template, $_template->compiled->filepath);
-                } else {
-                    include($_template->compiled->filepath);
-                }
+                $this->loadCompiledTemplate($_template);
             }
             $_template->smarty->compile_check = $compileCheck;
         } else {
@@ -189,19 +189,31 @@ class Smarty_Template_Compiled
                 $this->compileTemplateSource($_template);
                 $compileCheck = $_template->smarty->compile_check;
                 $_template->smarty->compile_check = false;
-                if (function_exists('opcache_invalidate')) {
-                    opcache_invalidate($_template->compiled->filepath);
-                }
-                if (strpos(phpversion(), 'hhvm') !== false) {
-                    Smarty_Internal_Extension_Hhvm::includeHhvm($_template, $_template->compiled->filepath);
-                } else {
-                    include($_template->compiled->filepath);
-                }
+                $this->loadCompiledTemplate($_template);
                 $_template->smarty->compile_check = $compileCheck;
             }
         }
         $this->unifunc = $_template->properties['unifunc'];
         $this->processed = true;
+    }
+
+    /**
+     * Load fresh compiled template by including the PHP file
+     * HHVM requires a work around because of a PHP incompatibility
+     *
+     * @param \Smarty_Internal_Template $_template
+     */
+    private function loadCompiledTemplate(Smarty_Internal_Template $_template)
+    {
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($_template->compiled->filepath);
+        }
+        $_smarty_tpl = $_template;
+        if (strpos(phpversion(), 'hhvm') !== false) {
+            Smarty_Internal_Extension_Hhvm::includeHhvm($_template, $_template->compiled->filepath);
+        } else {
+            include($_template->compiled->filepath);
+        }
     }
 
     /**

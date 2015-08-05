@@ -27,24 +27,7 @@ class Smarty_Internal_Extension_Append
             // $tpl_var is an array, ignore $value
             foreach ($tpl_var as $_key => $_val) {
                 if ($_key != '') {
-                    if (!isset($obj->tpl_vars[$_key])) {
-                        $tpl_var_inst = Smarty_Internal_Extension_GetVars::getVariable($obj, $_key, null, true, false);
-                        if ($tpl_var_inst instanceof Smarty_Undefined_Variable) {
-                            $obj->tpl_vars[$_key] = new Smarty_Variable(null, $nocache);
-                        } else {
-                            $obj->tpl_vars[$_key] = clone $tpl_var_inst;
-                        }
-                    }
-                    if (!(is_array($obj->tpl_vars[$_key]->value) || $obj->tpl_vars[$_key]->value instanceof ArrayAccess)) {
-                        settype($obj->tpl_vars[$_key]->value, 'array');
-                    }
-                    if ($merge && is_array($_val)) {
-                        foreach ($_val as $_mkey => $_mval) {
-                            $obj->tpl_vars[$_key]->value[$_mkey] = $_mval;
-                        }
-                    } else {
-                        $obj->tpl_vars[$_key]->value[] = $_val;
-                    }
+                    self::append($obj, $_key, $_val, $merge, $nocache);
                 }
             }
         } else {

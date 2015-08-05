@@ -661,11 +661,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             if (isset($properties['cache_lifetime'])) {
                 $this->properties['cache_lifetime'] = $properties['cache_lifetime'];
             }
-            if (isset($properties['file_dependency'])) {
-                $this->properties['file_dependency'] = array_merge($this->properties['file_dependency'], $properties['file_dependency']);
-            }
-            if (isset($properties['tpl_function'])) {
-                $this->properties['tpl_function'] = array_merge($this->properties['tpl_function'], $properties['tpl_function']);
+            foreach (array('file_dependency', 'tpl_function') as $property) {
+                if (isset($properties[$property])) {
+                    $this->properties[$property] = array_merge($this->properties[$property], $properties[$property]);
+                }
             }
             $this->properties['version'] = $properties['version'];
             $this->properties['unifunc'] = $properties['unifunc'];
