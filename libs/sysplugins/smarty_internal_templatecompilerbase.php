@@ -30,7 +30,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      *
      * @var object
      */
-    public $parser;
+    public $parser = null;
 
     /**
      * hash for nocache sections
@@ -305,7 +305,19 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public $_capture_stack = array();
 
+    /**
+     * Saved source resource
+     *
+     * @var \Smarty_Template_Source
+     */
     private $savedSource = null;
+
+    /**
+     * Stack for {setfilter} {/setfilter}
+     *
+     * @var array
+     */
+    public $variable_filter_stack = array();
 
     /**
      * Strip preg pattern
