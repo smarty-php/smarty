@@ -27,7 +27,7 @@ class Smarty_Internal_Extension_ClearCompiled
         if ($_compile_dir == '/') { //We should never want to delete this!
             return 0;
         }
-        $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
+        $_compile_id = isset($compile_id) ? preg_replace('![^\w]+!', '_', $compile_id) : null;
         $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;

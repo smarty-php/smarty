@@ -3,6 +3,7 @@
   - avoid possible circular object referances caused by parser/lexer objects
   - rewrite compileAll... utility methods
   - commit several  internal improvements
+  - bugfix Smarty failed when compile_id did contain "|"
 
  03.08.2015
   - rework clear cache methods

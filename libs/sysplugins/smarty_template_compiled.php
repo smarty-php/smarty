@@ -102,7 +102,7 @@ class Smarty_Template_Compiled
      **/
     public function populateCompiledFilepath(Smarty_Internal_Template $_template)
     {
-        $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w\|]+!', '_', $_template->compile_id) : null;
+        $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w]+!', '_', $_template->compile_id) : null;
         if ($_template->source->isConfig) {
             $_flag = '_' .
                 ((int) $_template->smarty->config_read_hidden + (int) $_template->smarty->config_booleanize * 2 +
@@ -131,7 +131,7 @@ class Smarty_Template_Compiled
         // set basename if not specified
         $_basename = $_template->source->handler->getBasename($_template->source);
         if ($_basename === null) {
-            $_basename = basename(preg_replace('![^\w\/]+!', '_', $_template->source->name));
+            $_basename = basename(preg_replace('![^\w]+!', '_', $_template->source->name));
         }
         // separate (optional) basename by dot
         if ($_basename) {
@@ -159,7 +159,6 @@ class Smarty_Template_Compiled
             ($_template->smarty->compile_check &&
                 $_template->source->getTimeStamp() > $_template->compiled->getTimeStamp())
         ) {
-            $_template->source->compileds = array();
             $this->compileTemplateSource($_template);
             $compileCheck = $_template->smarty->compile_check;
             $_template->smarty->compile_check = false;
@@ -184,7 +183,6 @@ class Smarty_Template_Compiled
         } else {
             include($_template->compiled->filepath);
             if ($_template->mustCompile) {
-                $_template->source->compileds = array();
                 $this->compileTemplateSource($_template);
                 $compileCheck = $_template->smarty->compile_check;
                 $_template->smarty->compile_check = false;
@@ -243,6 +241,7 @@ class Smarty_Template_Compiled
      */
     public function compileTemplateSource(Smarty_Internal_Template $_template)
     {
+        $_template->source->compileds = array();
         if (!$_template->source->recompiled) {
             $_template->properties['file_dependency'] = array();
         }
