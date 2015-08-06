@@ -74,7 +74,7 @@ class Smarty_Template_Config extends Smarty_Template_Source
      */
     public function __construct(Smarty_Resource $handler, Smarty $smarty, $resource, $type, $name)
     {
-        $this->handler = clone $handler; // Note: prone to circular references
+        $this->handler = $handler; // Note: prone to circular references
         $this->resource = $resource;
         $this->type = $type;
         $this->name = $name;
