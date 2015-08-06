@@ -216,7 +216,7 @@ class Smarty_Template_Source
         // create new source  object
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $type, $name);
         $resource->populate($source, $_template);
-        if ((!isset($source->exists) || !$source->exists) && isset($_template->smarty->default_template_handler_func)) {
+        if (!$source->exists && isset($_template->smarty->default_template_handler_func)) {
             Smarty_Internal_Extension_DefaultTemplateHandler::_getDefault($_template, $source);
         }
         // on recompiling resources we are done
