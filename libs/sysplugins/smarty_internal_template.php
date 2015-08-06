@@ -300,7 +300,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                     Smarty_Internal_Debug::end_cache($this);
                 }
             } else {
-                if (!empty($this->properties['nocache_hash']) && !empty($this->parent->properties['nocache_hash'])) {
+                if ($this->parent instanceof Smarty_Internal_Template && !empty($this->properties['nocache_hash']) && !empty($this->parent->properties['nocache_hash'])) {
                     // replace nocache_hash
                     $content = str_replace("{$this->properties['nocache_hash']}", $this->parent->properties['nocache_hash'], $content);
                     $this->parent->has_nocache_code = $this->parent->has_nocache_code || $this->has_nocache_code;
