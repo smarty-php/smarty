@@ -415,7 +415,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     Smarty_Internal_Debug::end_compile($this->template);
                 }
                 // free memory
-                unset($this->parser->lex, $this->parser->root_buffer, $this->parser->current_buffer, $this->parser);
+                $this->parser = null;
             }
             // restore source
             $this->template->source = $this->savedSource;
@@ -452,6 +452,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
             }
         }
         catch (Exception $e) {
+            $this->_tag_stack = array();
+            $this->_tag_objects = array();
             // restore source
             $this->template->source = $this->savedSource;
             $this->savedSource = null;
@@ -459,8 +461,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
             // free memory
             $this->parent_compiler = null;
             $this->template = null;
-            $this->_tag_stack = array();
-            $this->_tag_objects = array();
             $this->parser = null;
             throw $e;
         }
