@@ -1315,23 +1315,9 @@ class Smarty extends Smarty_Internal_TemplateBase
         } else {
             $data = null;
         }
-        $_templateId = $this->getTemplateId($template, $cache_id, $compile_id);
-        if (isset($this->template_objects[$_templateId])) {
-            if ($do_clone) {
-                $tpl = clone $this->template_objects[$_templateId];
-                $tpl->smarty = clone $tpl->smarty;
-            } else {
-                $tpl = $this->template_objects[$_templateId];
-            }
-            $tpl->parent = $parent;
-            $tpl->tpl_vars = array();
-            $tpl->config_vars = array();
-        } else {
-            $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
-            if ($do_clone) {
-                $tpl->smarty = clone $tpl->smarty;
-            }
-            $tpl->templateId = $_templateId;
+        $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
+        if ($do_clone) {
+            $tpl->smarty = clone $tpl->smarty;
         }
         // fill data if present
         if (!empty($data) && is_array($data)) {
@@ -1610,7 +1596,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function __destruct()
     {
-        $i =0;// intentionally left blank
+        $i = 0;// intentionally left blank
     }
 
     /**
