@@ -13,6 +13,7 @@
  */
 class RegisteredResourceTest extends PHPUnit_Smarty
 {
+
     public function setUp()
     {
         $this->setUpSmarty(__DIR__);
@@ -122,7 +123,7 @@ function getSource($name, &$source, $smarty)
 function getTimestamp($name, &$timestamp, $smarty)
 {
     // always pretend the template is brand new
-    $timestamp = time();
+    $timestamp = (int) floor(time() / 100) * 100;
 
     return true;
 }
