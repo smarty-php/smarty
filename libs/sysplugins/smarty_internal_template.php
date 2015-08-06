@@ -28,6 +28,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $smarty = null;
 
     /**
+     * Source instance
+     *
+     * @var Smarty_Template_Source|Smarty_Template_Config
+     */
+    public $source = null;
+
+    /**
      * Template resource
      *
      * @var string
@@ -131,6 +138,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $this->parent = $_parent;
         // Template resource
         $this->template_resource = $template_resource;
+        $this->source = Smarty_Template_Source::load($this);
         // copy block data of template inheritance
         if ($this->parent instanceof Smarty_Internal_Template) {
             $this->block_data = $this->parent->block_data;
@@ -187,9 +195,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             Smarty_Internal_Debug::start_template($this, $display);
         }
         // checks if template exists
-        if (!isset($this->source)) {
-            $this->loadSource();
-        }
         if (!$this->source->exists) {
             if ($parentIsTpl) {
                 $parent_resource = " in '{$this->parent->template_resource}'";
@@ -801,19 +806,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Load source resource
-     *
-     * @throws SmartyException
-     */
-    public function loadSource()
-    {
-        $this->source = Smarty_Template_Source::load($this);
-        if ($this->smarty->template_resource_caching && !$this->source->recompiled && isset($this->templateId)) {
-            $this->smarty->template_objects[$this->templateId] = $this;
-        }
-    }
-
-    /**
      * Load compiled object
      *
      */
@@ -884,7 +876,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function __set($property_name, $value)
     {
         switch ($property_name) {
-            case 'source':
             case 'compiled':
             case 'cached':
             case 'compiler':
@@ -911,10 +902,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function __get($property_name)
     {
         switch ($property_name) {
-            case 'source':
-                $this->loadSource();
-                return $this->source;
-
             case 'compiled':
                 $this->loadCompiled();
                 return $this->compiled;
