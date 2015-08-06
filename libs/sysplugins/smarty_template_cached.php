@@ -109,9 +109,6 @@ class Smarty_Template_Cached
     {
         $this->compile_id = $_template->compile_id;
         $this->cache_id = $_template->cache_id;
-        if (!isset($_template->source)) {
-            $_template->loadSource();
-        }
         $this->source = $_template->source;
         if (!class_exists('Smarty_CacheResource', false)) {
             require SMARTY_SYSPLUGINS_DIR . 'smarty_cacheresource.php';
@@ -393,8 +390,7 @@ class Smarty_Template_Cached
                         $_SERVER['SMARTY_PHPUNIT_HEADERS'][] = 'Last-Modified: ' . gmdate('D, d M Y H:i:s', $this->timestamp) . ' GMT';
                     }
                     break;
-
-                default:
+               default:
                     header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $this->timestamp) . ' GMT');
                     break;
             }
