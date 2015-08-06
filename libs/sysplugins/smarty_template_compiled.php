@@ -70,9 +70,6 @@ class Smarty_Template_Compiled
     static function load($_template)
     {
         $smarty = $_template->smarty;
-        if (!isset($_template->source)) {
-            $_template->loadSource();
-        }
         $source = $_template->source;
         // check runtime cache
         if (!$source->recompiled && $smarty->resource_caching) {
@@ -162,6 +159,7 @@ class Smarty_Template_Compiled
             ($_template->smarty->compile_check &&
                 $_template->source->getTimeStamp() > $_template->compiled->getTimeStamp())
         ) {
+            $_template->source->compileds = array();
             $this->compileTemplateSource($_template);
             $compileCheck = $_template->smarty->compile_check;
             $_template->smarty->compile_check = false;
@@ -186,6 +184,7 @@ class Smarty_Template_Compiled
         } else {
             include($_template->compiled->filepath);
             if ($_template->mustCompile) {
+                $_template->source->compileds = array();
                 $this->compileTemplateSource($_template);
                 $compileCheck = $_template->smarty->compile_check;
                 $_template->smarty->compile_check = false;

@@ -34,8 +34,9 @@ class Smarty_Internal_Extension_ClearCompiled
             $smarty->caching = false;
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
-            $tpl->loadSource(); // have the template registered before unset()
             if ($tpl->source->exists) {
+                // remove from compileds cache
+                $tpl->source->compileds = array();
                 // remove from template cache
                 $_templateId = $tpl->getTemplateId($resource_name);
                 if (isset($smarty->template_objects[$_templateId])) {
@@ -81,12 +82,13 @@ class Smarty_Internal_Extension_ClearCompiled
                 }
             } else {
                 $unlink = false;
-                if ((!isset($_compile_id) || (isset($_filepath[$_compile_id_part_length]) && $a = !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length)))
-                    && (!isset($resource_name)
-                        || (isset($_filepath[$_resource_part_1_length])
-                            && substr_compare($_filepath, $_resource_part_1, - $_resource_part_1_length, $_resource_part_1_length) == 0)
-                        || (isset($_filepath[$_resource_part_2_length])
-                            && substr_compare($_filepath, $_resource_part_2, - $_resource_part_2_length, $_resource_part_2_length) == 0))
+                if ((!isset($_compile_id) || (isset($_filepath[$_compile_id_part_length]) &&
+                            $a = !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length))) &&
+                    (!isset($resource_name) || (isset($_filepath[$_resource_part_1_length]) &&
+                            substr_compare($_filepath, $_resource_part_1, - $_resource_part_1_length, $_resource_part_1_length) ==
+                            0) || (isset($_filepath[$_resource_part_2_length]) &&
+                            substr_compare($_filepath, $_resource_part_2, - $_resource_part_2_length, $_resource_part_2_length) ==
+                            0))
                 ) {
                     if (isset($exp_time)) {
                         if (time() - @filemtime($_filepath) >= $exp_time) {
@@ -103,9 +105,11 @@ class Smarty_Internal_Extension_ClearCompiled
             }
         }
         // clear compiled cache
-        Smarty_Resource::$sources = array();
-        Smarty_Resource::$compileds = array();
-
+        if (!isset($resource_name)) {
+            foreach ($smarty->source_objects as $source) {
+                $source->compileds = array();
+            }
+        }
         return $_count;
     }
 }
