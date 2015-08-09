@@ -104,22 +104,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         return false;
     }
 
-    /**
-     * test is file exists and save timestamp
-     *
-     * @param  Smarty_Template_Source $source source object
-     * @param  string                 $file   file name
-     *
-     * @return bool                   true if file exists
-     */
-    protected function fileExists(Smarty_Template_Source $source, $file)
-    {
-        $source->timestamp = $source->exists = is_file($file);
-        $source->timestamp = $source->exists ? filemtime($file) : false;
-        return $source->exists;
-    }
-
-    /**
+     /**
      * populate Source Object with meta data from Resource
      *
      * @param Smarty_Template_Source   $source    source object
