@@ -70,7 +70,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     {
         $key = self::get_key($template);
         self::$template_data[self::$index][$key]['total_time'] += microtime(true) - self::$template_data[self::$index][$key]['start_template_time'];
-        self::$template_data[self::$index][$key]['properties'] = $template->properties;
+        //self::$template_data[self::$index][$key]['properties'] = $template->properties;
     }
 
     /**
