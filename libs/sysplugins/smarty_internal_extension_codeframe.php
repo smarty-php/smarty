@@ -26,34 +26,32 @@ class Smarty_Internal_Extension_CodeFrame
     public static function create(Smarty_Internal_Template $_template, $content = '', $cache = false)
     {
         // build property code
-        $_template->properties['has_nocache_code'] = $_template->has_nocache_code || !empty($_template->required_plugins['nocache']);
-        $_template->properties['version'] = Smarty::SMARTY_VERSION;
-        if (!isset($_template->properties['unifunc'])) {
-            $_template->properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
-        }
-        $properties = $_template->properties;
+        $properties['has_nocache_code'] = $_template->compiled->has_nocache_code;
+        $properties['version'] = Smarty::SMARTY_VERSION;
+        $properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
+        $properties['tpl_function'] = $_template->tpl_function;
         if (!$cache) {
-            unset($properties['tpl_function']);
-            if (!empty($_template->compiler->templateProperties)) {
-                $properties['tpl_function'] = $_template->compiler->templateProperties['tpl_function'];
-            }
+            $properties['file_dependency'] = $_template->compiled->file_dependency;
+        } else {
+            $properties['file_dependency'] = $_template->cached->file_dependency;
         }
         $output = "<?php\n";
-        $output .= "/*%%SmartyHeaderCode:{$_template->properties['nocache_hash']}%%*/\n";
+        $output .= "/*%%SmartyHeaderCode:{$_template->compiled->nocache_hash}%%*/\n";
         if ($_template->smarty->direct_access_security) {
             $output .= "if(!defined('SMARTY_DIR')) exit('no direct access allowed');\n";
         }
-        $output .= "\$_valid = \$_smarty_tpl->decodeProperties(" . var_export($properties, true) . ',' . ($cache ? 'true' : 'false') . ");\n";
+        $output .= "\$_valid = \$_smarty_tpl->decodeProperties(" . var_export($properties, true) . ',' .
+            ($cache ? 'true' : 'false') . ");\n";
         $output .= "/*/%%SmartyHeaderCode%%*/\n";
-        $output .= "if (\$_valid && !is_callable('{$_template->properties['unifunc']}')) {\n";
-        $output .= "function {$_template->properties['unifunc']} (\$_smarty_tpl) {\n";
+        $output .= "if (\$_valid && !is_callable('{$properties['unifunc']}')) {\n";
+        $output .= "function {$properties['unifunc']} (\$_smarty_tpl) {\n";
         // include code for plugins
         if (!$cache) {
             if (!empty($_template->required_plugins['compiled'])) {
                 foreach ($_template->required_plugins['compiled'] as $tmp) {
                     foreach ($tmp as $data) {
                         $file = addslashes($data['file']);
-                        if (is_Array($data['function'])) {
+                        if (is_array($data['function'])) {
                             $output .= "if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) require_once '{$file}';\n";
                         } else {
                             $output .= "if (!is_callable('{$data['function']}')) require_once '{$file}';\n";
@@ -63,7 +61,7 @@ class Smarty_Internal_Extension_CodeFrame
             }
             if (!empty($_template->required_plugins['nocache'])) {
                 $_template->has_nocache_code = true;
-                $output .= "echo '/*%%SmartyNocache:{$_template->properties['nocache_hash']}%%*/<?php \$_smarty = \$_smarty_tpl->smarty; ";
+                $output .= "echo '/*%%SmartyNocache:{$_template->compiled->nocache_hash}%%*/<?php \$_smarty = \$_smarty_tpl->smarty; ";
                 foreach ($_template->required_plugins['nocache'] as $tmp) {
                     foreach ($tmp as $data) {
                         $file = addslashes($data['file']);
@@ -74,7 +72,7 @@ class Smarty_Internal_Extension_CodeFrame
                         }
                     }
                 }
-                $output .= "?>/*/%%SmartyNocache:{$_template->properties['nocache_hash']}%%*/';\n";
+                $output .= "?>/*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%*/';\n";
             }
         }
         $output .= "?>\n";
@@ -92,16 +90,13 @@ class Smarty_Internal_Extension_CodeFrame
      */
     public static function createFunctionFrame(Smarty_Internal_Template $_template, $content = '')
     {
-        if (!isset($_template->properties['unifunc'])) {
-            $_template->properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
-        }
         $output = "<?php\n";
-        $output .= "/*%%SmartyHeaderCode:{$_template->properties['nocache_hash']}%%*/\n";
-        $output .= "if (\$_valid && !is_callable('{$_template->properties['unifunc']}')) {\n";
-        $output .= "function {$_template->properties['unifunc']} (\$_smarty_tpl) {\n";
+        $output .= "/*%%SmartyHeaderCode:{$_template->compiled->nocache_hash}%%*/\n";
+        $output .= "if (\$_valid && !is_callable('{$_template->compiled->unifunc}')) {\n";
+        $output .= "function {$_template->compiled->unifunc} (\$_smarty_tpl) {\n";
         $output .= "?>\n" . $content;
         $output .= "<?php\n";
-        $output .= "/*/%%SmartyNocache:{$_template->properties['nocache_hash']}%%*/\n";
+        $output .= "/*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%*/\n";
         $output .= "}\n}\n?>";
         return $output;
     }

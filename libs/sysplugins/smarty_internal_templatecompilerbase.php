@@ -367,10 +367,10 @@ abstract class Smarty_Internal_TemplateCompilerBase
             }
             $this->parent_compiler = $parent_compiler ? $parent_compiler : $this;
             $nocache = isset($nocache) ? $nocache : false;
-            if (empty($template->properties['nocache_hash'])) {
-                $template->properties['nocache_hash'] = $this->nocache_hash;
+            if (empty($template->compiled->nocache_hash)) {
+                $template->compiled->nocache_hash = $this->nocache_hash;
             } else {
-                $this->nocache_hash = $template->properties['nocache_hash'];
+                $this->nocache_hash = $template->compiled->nocache_hash;
             }
             // template header code
             $template_header = '';
@@ -387,6 +387,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $this->sources = array_reverse($template->source->components);
             }
             $loop = 0;
+            $_compiled_code = '';
             // the $this->sources array can get additional elements while compiling by the {extends} tag
             while ($this->template->source = array_shift($this->sources)) {
                 $this->smarty->_current_file = $this->template->source->filepath;
@@ -394,9 +395,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     Smarty_Internal_Debug::start_compile($this->template);
                 }
                 $no_sources = count($this->sources);
-                $this->parent_compiler->template->properties['file_dependency'][$this->template->source->uid] = array($this->template->source->filepath,
-                                                                                                                      $this->template->source->getTimeStamp(),
-                                                                                                                      $this->template->source->type);
+                $this->parent_compiler->template->compiled->file_dependency[$this->template->source->uid] = array($this->template->source->filepath,
+                                                                                                                  $this->template->source->getTimeStamp(),
+                                                                                                                  $this->template->source->type);
                 $loop ++;
                 if ($no_sources) {
                     $this->inheritance_child = true;
@@ -407,10 +408,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $this->nocache = $nocache;
                 $this->tag_nocache = false;
                 // reset has nocache code flag
-                $this->template->has_nocache_code = false;
+                $this->template->compiled->has_nocache_code = false;
                 $this->has_variable_string = false;
                 $this->prefix_code = array();
-                $_compiled_code = '';
                 // get template source
                 $_content = $this->template->source->getContent();
                 if ($_content != '') {
@@ -538,7 +538,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         }
         // compile the smarty tag (required compile classes to compile the tag are auto loaded)
         if (($_output = $this->callTagCompiler($tag, $args, $parameter)) === false) {
-            if (isset($this->parent_compiler->templateProperties['tpl_function'][$tag])) {
+            if (isset($this->parent_compiler->template->tpl_function[$tag])) {
                 // template defined by {template} tag
                 $args['_attr']['name'] = "'" . $tag . "'";
                 $_output = $this->callTagCompiler('call', $args, $parameter);
@@ -779,7 +779,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             // not a variable variable
             $var = trim($variable, '\'');
             $this->tag_nocache = $this->tag_nocache | $this->template->getVariable($var, null, true, false)->nocache;
-            $this->template->properties['variables'][$var] = $this->tag_nocache | $this->nocache;
+            // todo $this->template->compiled->properties['variables'][$var] = $this->tag_nocache | $this->nocache;
         }
         return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';
     }
@@ -982,7 +982,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             if ((!($this->template->source->recompiled) || $this->forceNocache) && $this->template->caching &&
                 !$this->suppressNocacheProcessing && ($this->nocache || $this->tag_nocache)
             ) {
-                $this->template->has_nocache_code = true;
+                $this->template->compiled->has_nocache_code = true;
                 $_output = addcslashes($content, '\'\\');
                 $_output = str_replace("^#^", "'", $_output);
                 $_output = "<?php echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/" . $_output .

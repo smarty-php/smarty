@@ -205,7 +205,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                 $compiler->smarty->allow_ambiguous_resources = true;
                 $tpl = new $compiler->smarty->template_class ($tpl_name, $compiler->smarty, $compiler->template, $compiler->template->cache_id, $c_id, $_caching);
                 // save unique function name
-                $compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$uid]['func'] = $tpl->properties['unifunc'] = 'content_' .
+                $compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$uid]['func'] = $tpl->compiled->unifunc = 'content_' .
                     str_replace(array('.', ','), '_', uniqid('', true));
                 if ($compiler->inheritance) {
                     $tpl->compiler->inheritance = true;
@@ -214,20 +214,20 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                 $tpl->mustCompile = true;
                 if (!($tpl->source->uncompiled) && $tpl->source->exists) {
                     $tpl->compiler->suppressTemplatePropertyHeader = true;
-                    $compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$uid]['nocache_hash'] = $tpl->properties['nocache_hash'] = str_replace(array('.',
-                                                                                                                                                               ','), '_', uniqid(rand(), true));
+                    $compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$uid]['nocache_hash'] = $tpl->compiled->nocache_hash = str_replace(array('.',
+                                                                                                                                                           ','), '_', uniqid(rand(), true));
                     // get compiled code
                     $compiled_code = Smarty_Internal_Extension_CodeFrame::createFunctionFrame($tpl, $tpl->compiler->compileTemplate($tpl, null, $compiler->parent_compiler));
                     unset($tpl->compiler);
 
                     // remove header code
-                    $compiled_code = preg_replace("/(<\?php \/\*%%SmartyHeaderCode:{$tpl->properties['nocache_hash']}%%\*\/(.+?)\/\*\/%%SmartyHeaderCode%%\*\/\?>\n)/s", '', $compiled_code);
-                    if ($tpl->has_nocache_code) {
+                    $compiled_code = preg_replace("/(<\?php \/\*%%SmartyHeaderCode:{$tpl->compiled->nocache_hash}%%\*\/(.+?)\/\*\/%%SmartyHeaderCode%%\*\/\?>\n)/s", '', $compiled_code);
+                    if ($tpl->compiled->has_nocache_code) {
                         // replace nocache_hash
-                        $compiled_code = str_replace("{$tpl->properties['nocache_hash']}", $compiler->template->properties['nocache_hash'], $compiled_code);
-                        $compiler->template->has_nocache_code = true;
+                        $compiled_code = str_replace("{$tpl->compiled->nocache_hash}", $compiler->template->compiled->nocache_hash, $compiled_code);
+                        $compiler->template->compiled->has_nocache_code = true;
                     }
-                    $compiler->parent_compiler->mergedSubTemplatesCode[$tpl->properties['unifunc']] = $compiled_code;
+                    $compiler->parent_compiler->mergedSubTemplatesCode[$tpl->compiled->unifunc] = $compiled_code;
                     $has_compiled_template = true;
                     if (!empty($tpl->required_plugins['compiled'])) {
                         foreach ($tpl->required_plugins['compiled'] as $name => $callBack) {
@@ -279,7 +279,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             if ($update_compile_id) {
                 $_output .= $compiler->makeNocacheCode("\$_compile_id_save[] = \$_smarty_tpl->compile_id;\n\$_smarty_tpl->compile_id = {$_compile_id};\n");
             }
-            if (!empty($_vars_nc) && $_caching == 9999 && $_smarty_tpl->caching) {
+            if (!empty($_vars_nc) && $_caching == 9999 && $compiler->template->caching) {
                 //$compiler->suppressNocacheProcessing = false;
                 $_output .= substr($compiler->processNocacheCode('<?php ' . $_vars_nc . "?>\n", true), 6, - 3);
                 //$compiler->suppressNocacheProcessing = true;
