@@ -29,7 +29,7 @@ class Smarty_Internal_Extension_Config
             Smarty_Internal_Debug::end_render($confObj);
         }
         if ($obj instanceof Smarty_Internal_Template) {
-            $obj->properties['file_dependency'][$confObj->source->uid] = array($confObj->source->filepath, $confObj->source->getTimeStamp(), $confObj->source->type);
+            $obj->compiled->file_dependency[$confObj->source->uid] = array($confObj->source->filepath, $confObj->source->getTimeStamp(), $confObj->source->type);
         }
     }
 

@@ -1451,9 +1451,9 @@ class Smarty_Internal_Templateparser
     function yy_r7()
     {
         $this->compiler->tag_nocache = true;
-        $save = $this->template->has_nocache_code;
+        $save = $this->template->compiled->has_nocache_code;
         $this->_retvalue = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode("<?php echo '{$this->yystack[$this->yyidx + 0]->minor}';?>\n", $this->compiler, true));
-        $this->template->has_nocache_code = $save;
+        $this->template->compiled->has_nocache_code = $save;
     }
 
     #line 263 "../smarty/lexer/smarty_internal_templateparser.y"

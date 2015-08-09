@@ -42,12 +42,12 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         $compiler->has_code = false;
         if ($_attr['type'] == 'xml') {
             $compiler->tag_nocache = true;
-            $save = $compiler->template->has_nocache_code;
+            $save = $compiler->template->compiled->has_nocache_code;
             $output = addcslashes($_attr['code'], "'\\");
             $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" .
                                                                                                                                                                     $output .
                                                                                                                                                                     "';?>", $compiler, true)));
-            $compiler->template->has_nocache_code = $save;
+            $compiler->template->compiled->has_nocache_code = $save;
             return '';
         }
         if ($_attr['type'] != 'tag') {
@@ -60,12 +60,12 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                 return '';
             } elseif ($compiler->php_handling == Smarty::PHP_PASSTHRU || $_attr['type'] == 'unmatched') {
                 $compiler->tag_nocache = true;
-                $save = $compiler->template->has_nocache_code;
+                $save = $compiler->template->compiled->has_nocache_code;
                 $output = addcslashes($_attr['code'], "'\\");
                 $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" .
                                                                                                                                                                         $output .
                                                                                                                                                                         "';?>", $compiler, true)));
-                $compiler->template->has_nocache_code = $save;
+                $compiler->template->compiled->has_nocache_code = $save;
                 return '';
             } elseif ($compiler->php_handling == Smarty::PHP_ALLOW) {
                 if (!($compiler->smarty instanceof SmartyBC)) {

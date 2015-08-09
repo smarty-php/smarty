@@ -96,6 +96,7 @@ require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_variable.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
 
 /**
  * This is the main Smarty class
@@ -554,13 +555,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var string
      */
     public $caching_type = 'file';
-
-    /**
-     * internal config properties
-     *
-     * @var array
-     */
-    public $properties = array();
 
     /**
      * config type

@@ -46,6 +46,6 @@ class Smarty_Internal_Nocache_Insert
             $_tpl = $_tpl->parent;
         }
 
-        return "/*%%SmartyNocache:{$_tpl->properties['nocache_hash']}%%*/" . $_output . "/*/%%SmartyNocache:{$_tpl->properties['nocache_hash']}%%*/";
+        return "/*%%SmartyNocache:{$_tpl->compiled->nocache_hash}%%*/" . $_output . "/*/%%SmartyNocache:{$_tpl->compiled->nocache_hash}%%*/";
     }
 }

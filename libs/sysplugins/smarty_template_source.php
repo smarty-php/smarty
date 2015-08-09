@@ -205,7 +205,7 @@ class Smarty_Template_Source
         list($name, $type) = Smarty_Resource::parseResourceName($template_resource, $smarty->default_resource_type);
         $resource = Smarty_Resource::load($smarty, $type);
         // if resource is not recompiling and resource name is not dotted we can check the source cache
-        if ($smarty->resource_caching && !$resource->recompiled && !(isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/'))) {
+        if (($smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON) && !$resource->recompiled && !(isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/'))) {
             $unique_resource = $resource->buildUniqueResourceName($smarty, $name);
             if (isset($smarty->source_objects[$unique_resource])) {
                 return $smarty->source_objects[$unique_resource];
@@ -220,7 +220,7 @@ class Smarty_Template_Source
             Smarty_Internal_Extension_DefaultTemplateHandler::_getDefault($_template, $source);
         }
         // on recompiling resources we are done
-        if ($smarty->resource_caching && !$resource->recompiled) {
+        if (($smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON) && !$resource->recompiled) {
             // may by we have already $unique_resource
             $is_relative = false;
             if (!isset($unique_resource)) {
