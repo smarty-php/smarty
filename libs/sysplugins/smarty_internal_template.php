@@ -48,14 +48,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public $mustCompile = null;
 
- 
-    /**
-     * required plugins
-     *
-     * @var array
-     */
-    public $required_plugins = array('compiled' => array(), 'nocache' => array());
-
     /**
      * blocks for template inheritance
      *
@@ -340,10 +332,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
             if ($parentIsTpl) {
                 $this->parent->tpl_function = array_merge($this->parent->tpl_function, $this->tpl_function);
-                foreach ($this->required_plugins as $code => $tmp1) {
-                   foreach ($tmp1 as $name => $tmp) {
+                foreach ($this->compiled->required_plugins as $code => $tmp1) {
+                    foreach ($tmp1 as $name => $tmp) {
                         foreach ($tmp as $type => $data) {
-                            $this->parent->required_plugins[$code][$name][$type] = $data;
+                            $this->parent->compiled->required_plugins[$code][$name][$type] = $data;
                         }
                     }
                 }

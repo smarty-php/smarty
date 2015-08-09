@@ -142,11 +142,11 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
         $path = $compiler->smarty->loadPlugin($plugin_name, false);
         if ($path) {
             if ($compiler->template->caching) {
-                $compiler->template->required_plugins['nocache'][$name][Smarty::FILTER_VARIABLE]['file'] = $path;
-                $compiler->template->required_plugins['nocache'][$name][Smarty::FILTER_VARIABLE]['function'] = $plugin_name;
+                $compiler->parent_compiler->template->compiled->required_plugins['nocache'][$name][Smarty::FILTER_VARIABLE]['file'] = $path;
+                $compiler->parent_compiler->template->compiled->required_plugins['nocache'][$name][Smarty::FILTER_VARIABLE]['function'] = $plugin_name;
             } else {
-                $compiler->template->required_plugins['compiled'][$name][Smarty::FILTER_VARIABLE]['file'] = $path;
-                $compiler->template->required_plugins['compiled'][$name][Smarty::FILTER_VARIABLE]['function'] = $plugin_name;
+                $compiler->parent_compiler->template->compiled->required_plugins['compiled'][$name][Smarty::FILTER_VARIABLE]['file'] = $path;
+                $compiler->parent_compiler->template->compiled->required_plugins['compiled'][$name][Smarty::FILTER_VARIABLE]['function'] = $plugin_name;
             }
         } else {
             // not found

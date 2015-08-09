@@ -850,18 +850,18 @@ abstract class Smarty_Internal_TemplateCompilerBase
     {
         $function = null;
         if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
-            if (isset($this->template->required_plugins['nocache'][$plugin_name][$plugin_type])) {
-                $function = $this->template->required_plugins['nocache'][$plugin_name][$plugin_type]['function'];
-            } elseif (isset($this->template->required_plugins['compiled'][$plugin_name][$plugin_type])) {
-                $this->template->required_plugins['nocache'][$plugin_name][$plugin_type] = $this->template->required_plugins['compiled'][$plugin_name][$plugin_type];
-                $function = $this->template->required_plugins['nocache'][$plugin_name][$plugin_type]['function'];
+            if (isset($this->parent_compiler->template->compiled->required_plugins['nocache'][$plugin_name][$plugin_type])) {
+                $function = $this->parent_compiler->template->compiled->required_plugins['nocache'][$plugin_name][$plugin_type]['function'];
+            } elseif (isset($this->parent_compiler->template->compiled->required_plugins['compiled'][$plugin_name][$plugin_type])) {
+                $this->parent_compiler->template->compiled->required_plugins['nocache'][$plugin_name][$plugin_type] = $this->parent_compiler->template->compiled->required_plugins['compiled'][$plugin_name][$plugin_type];
+                $function = $this->parent_compiler->template->compiled->required_plugins['nocache'][$plugin_name][$plugin_type]['function'];
             }
         } else {
-            if (isset($this->template->required_plugins['compiled'][$plugin_name][$plugin_type])) {
-                $function = $this->template->required_plugins['compiled'][$plugin_name][$plugin_type]['function'];
-            } elseif (isset($this->template->required_plugins['nocache'][$plugin_name][$plugin_type])) {
-                $this->template->required_plugins['compiled'][$plugin_name][$plugin_type] = $this->template->required_plugins['nocache'][$plugin_name][$plugin_type];
-                $function = $this->template->required_plugins['compiled'][$plugin_name][$plugin_type]['function'];
+            if (isset($this->parent_compiler->template->compiled->required_plugins['compiled'][$plugin_name][$plugin_type])) {
+                $function = $this->parent_compiler->template->compiled->required_plugins['compiled'][$plugin_name][$plugin_type]['function'];
+            } elseif (isset($this->parent_compiler->template->compiled->required_plugins['nocache'][$plugin_name][$plugin_type])) {
+                $this->parent_compiler->template->compiled->required_plugins['compiled'][$plugin_name][$plugin_type] = $this->parent_compiler->template->compiled->required_plugins['nocache'][$plugin_name][$plugin_type];
+                $function = $this->parent_compiler->template->compiled->required_plugins['compiled'][$plugin_name][$plugin_type]['function'];
             }
         }
         if (isset($function)) {
@@ -877,11 +877,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
 
         if (is_string($file)) {
             if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
-                $this->template->required_plugins['nocache'][$plugin_name][$plugin_type]['file'] = $file;
-                $this->template->required_plugins['nocache'][$plugin_name][$plugin_type]['function'] = $function;
+                $this->parent_compiler->template->compiled->required_plugins['nocache'][$plugin_name][$plugin_type]['file'] = $file;
+                $this->parent_compiler->template->compiled->required_plugins['nocache'][$plugin_name][$plugin_type]['function'] = $function;
             } else {
-                $this->template->required_plugins['compiled'][$plugin_name][$plugin_type]['file'] = $file;
-                $this->template->required_plugins['compiled'][$plugin_name][$plugin_type]['function'] = $function;
+                $this->parent_compiler->template->compiled->required_plugins['compiled'][$plugin_name][$plugin_type]['file'] = $file;
+                $this->parent_compiler->template->compiled->required_plugins['compiled'][$plugin_name][$plugin_type]['function'] = $function;
             }
             if ($plugin_type == 'modifier') {
                 $this->modifier_plugins[$plugin_name] = true;
@@ -918,11 +918,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
             if ($script !== null) {
                 if (is_file($script)) {
                     if ($this->template->caching && ($this->nocache || $this->tag_nocache)) {
-                        $this->template->required_plugins['nocache'][$tag][$plugin_type]['file'] = $script;
-                        $this->template->required_plugins['nocache'][$tag][$plugin_type]['function'] = $callback;
+                        $this->parent_compiler->template->compiled->required_plugins['nocache'][$tag][$plugin_type]['file'] = $script;
+                        $this->parent_compiler->template->compiled->required_plugins['nocache'][$tag][$plugin_type]['function'] = $callback;
                     } else {
-                        $this->template->required_plugins['compiled'][$tag][$plugin_type]['file'] = $script;
-                        $this->template->required_plugins['compiled'][$tag][$plugin_type]['function'] = $callback;
+                        $this->parent_compiler->template->compiled->required_plugins['compiled'][$tag][$plugin_type]['file'] = $script;
+                        $this->parent_compiler->template->compiled->required_plugins['compiled'][$tag][$plugin_type]['function'] = $callback;
                     }
                     require_once $script;
                 } else {
@@ -989,8 +989,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     "/*/%%SmartyNocache:{$this->nocache_hash}%%*/';?>\n";
                 // make sure we include modifier plugins for nocache code
                 foreach ($this->modifier_plugins as $plugin_name => $dummy) {
-                    if (isset($this->template->required_plugins['compiled'][$plugin_name]['modifier'])) {
-                        $this->template->required_plugins['nocache'][$plugin_name]['modifier'] = $this->template->required_plugins['compiled'][$plugin_name]['modifier'];
+                    if (isset($this->parent_compiler->template->compiled->required_plugins['compiled'][$plugin_name]['modifier'])) {
+                        $this->parent_compiler->template->compiled->required_plugins['nocache'][$plugin_name]['modifier'] = $this->parent_compiler->template->compiled->required_plugins['compiled'][$plugin_name]['modifier'];
                     }
                 }
             } else {

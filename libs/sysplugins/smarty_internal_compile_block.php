@@ -167,6 +167,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         $_tpl->compiled->nocache_hash = $compiler->template->compiled->nocache_hash;
         $_tpl->allow_relative_path = true;
         $_tpl->loadCompiler();
+        $_tpl->compiler->parent_compiler = $compiler;
         $_tpl->compiler->_tag_objects = $compiler->_tag_objects;
         $_tpl->compiler->inheritance = true;
         $_tpl->compiler->suppressHeader = true;
@@ -192,7 +193,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         if ($_tpl->compiled->has_nocache_code) {
             $compiler->template->compiled->has_nocache_code = true;
         }
-        foreach ($_tpl->required_plugins as $key => $tmp1) {
+        foreach ($_tpl->compiled->required_plugins as $key => $tmp1) {
             if ($compiler->nocache && $compiler->template->caching) {
                 $code = 'nocache';
             } else {
@@ -200,7 +201,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
             }
             foreach ($tmp1 as $name => $tmp) {
                 foreach ($tmp as $type => $data) {
-                    $compiler->template->required_plugins[$code][$name][$type] = $data;
+                    $compiler->parent_compiler->template->compiled->required_plugins[$code][$name][$type] = $data;
                 }
             }
         }

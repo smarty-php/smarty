@@ -229,20 +229,6 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                     }
                     $compiler->parent_compiler->mergedSubTemplatesCode[$tpl->compiled->unifunc] = $compiled_code;
                     $has_compiled_template = true;
-                    if (!empty($tpl->required_plugins['compiled'])) {
-                        foreach ($tpl->required_plugins['compiled'] as $name => $callBack) {
-                            if (!isset($compiler->template->required_plugins['compiled'][$name])) {
-                                $compiler->template->required_plugins['compiled'][$name] = $callBack;
-                            }
-                        }
-                    }
-                    if (!empty($tpl->required_plugins['nocache'])) {
-                        foreach ($tpl->required_plugins['nocache'] as $name => $callBack) {
-                            if (!isset($compiler->template->required_plugins['nocache'][$name])) {
-                                $compiler->template->required_plugins['nocache'][$name] = $callBack;
-                            }
-                        }
-                    }
                     unset ($tpl);
                 }
             } else {

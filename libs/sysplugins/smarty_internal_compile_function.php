@@ -140,23 +140,6 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             $output .= "/* {$_funcNameCaching} */\n";
             $output .= "if (!function_exists('{$_funcNameCaching}')) {\n";
             $output .= "function {$_funcNameCaching} (\$_smarty_tpl,\$params) {\n";
-            // build plugin include code
-            if (!empty($compiler->template->required_plugins['compiled'])) {
-                foreach ($compiler->template->required_plugins['compiled'] as $tmp) {
-                    foreach ($tmp as $data) {
-                        $output .= "if (!is_callable('{$data['function']}')) require_once '{$data['file']}';\n";
-                    }
-                }
-            }
-            if (!empty($compiler->template->required_plugins['nocache'])) {
-                $output .= "echo '/*%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/<?php ";
-                foreach ($compiler->template->required_plugins['nocache'] as $tmp) {
-                    foreach ($tmp as $data) {
-                        $output .= "if (!is_callable(\'{$data['function']}\')) require_once \'{$data['file']}\';\n";
-                    }
-                }
-                $output .= "?>/*/%%SmartyNocache:{$compiler->template->properties['nocache_hash']}%%*/';\n";
-            }
             $output .= "ob_start();\n";
             $output .= "\$_smarty_tpl->compiled->has_nocache_code = true;\n";
             $output .= $_paramsCode;
@@ -186,17 +169,6 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $output .= "/* {$_funcName} */\n";
         $output .= "if (!function_exists('{$_funcName}')) {\n";
         $output .= "function {$_funcName}(\$_smarty_tpl,\$params) {\n";
-        // build plugin include code
-        if (!empty($compiler->template->required_plugins['nocache'])) {
-            $compiler->template->required_plugins['compiled'] = array_merge($compiler->template->required_plugins['compiled'], $compiler->template->required_plugins['nocache']);
-        }
-        if (!empty($compiler->template->required_plugins['compiled'])) {
-            foreach ($compiler->template->required_plugins['compiled'] as $tmp) {
-                foreach ($tmp as $data) {
-                    $output .= "if (!is_callable('{$data['function']}')) require_once '{$data['file']}';\n";
-                }
-            }
-        }
         $output .= "\$saved_tpl_vars = \$_smarty_tpl->tpl_vars;\n";
         $output .= $_paramsCode;
         $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value);\n}?>";
@@ -209,6 +181,14 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $output .= "?>\n";
         $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
         $compiler->parent_compiler->templateFunctionCode .= $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
+        // nocache plugins must be copied
+        if (!empty($compiler->template->compiled->required_plugins['nocache'])) {
+            foreach ($compiler->template->compiled->required_plugins['nocache'] as $plugin => $tmp) {
+                foreach ($tmp as $type => $data) {
+                    $compiler->parent_compiler->template->compiled->required_plugins['compiled'][$plugin][$type] = $data;
+                }
+            }
+        }
         // restore old buffer
 
         $compiler->parser->current_buffer = $saved_data[1];

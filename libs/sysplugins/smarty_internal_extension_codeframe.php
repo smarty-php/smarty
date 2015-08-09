@@ -47,8 +47,8 @@ class Smarty_Internal_Extension_CodeFrame
         $output .= "function {$properties['unifunc']} (\$_smarty_tpl) {\n";
         // include code for plugins
         if (!$cache) {
-            if (!empty($_template->required_plugins['compiled'])) {
-                foreach ($_template->required_plugins['compiled'] as $tmp) {
+            if (!empty($_template->compiled->required_plugins['compiled'])) {
+                foreach ($_template->compiled->required_plugins['compiled'] as $tmp) {
                     foreach ($tmp as $data) {
                         $file = addslashes($data['file']);
                         if (is_array($data['function'])) {
@@ -59,10 +59,10 @@ class Smarty_Internal_Extension_CodeFrame
                     }
                 }
             }
-            if (!empty($_template->required_plugins['nocache'])) {
-                $_template->has_nocache_code = true;
+            if ($_template->caching && !empty($_template->compiled->required_plugins['nocache'])) {
+                $_template->compiled->has_nocache_code = true;
                 $output .= "echo '/*%%SmartyNocache:{$_template->compiled->nocache_hash}%%*/<?php \$_smarty = \$_smarty_tpl->smarty; ";
-                foreach ($_template->required_plugins['nocache'] as $tmp) {
+                foreach ($_template->compiled->required_plugins['nocache'] as $tmp) {
                     foreach ($tmp as $data) {
                         $file = addslashes($data['file']);
                         if (is_Array($data['function'])) {
