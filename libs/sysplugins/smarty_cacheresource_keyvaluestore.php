@@ -123,7 +123,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
     {
         $this->addMetaTimestamp($content);
 
-        return $this->write(array($_template->cached->filepath => $content), $_template->properties['cache_lifetime']);
+        return $this->write(array($_template->cached->filepath => $content), $_template->cache_lifetime);
     }
 
     /**
