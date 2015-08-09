@@ -574,7 +574,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 return;
             }
             // try to load template function dynamically
-            if (Smarty_Internal_Function_Call_Handler::call($name, $_smarty_tpl, $function, $params, $nocache)) {
+            if (Smarty_Internal_Function_Call_Handler::call($name, $_smarty_tpl, $function)) {
                 $function ($_smarty_tpl, $params);
                 return;
             }

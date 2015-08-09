@@ -25,8 +25,6 @@ class Smarty_Internal_Function_Call_Handler
      * @param string                   $_name     template function name
      * @param Smarty_Internal_Template $_smarty_tpl
      * @param string                   $_function PHP function name
-     * @param array                    $_params   Smarty variables passed as call parameter
-     * @param bool                     $_nocache  nocache flag
      *
      * @return bool
      */
