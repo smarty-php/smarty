@@ -178,7 +178,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     {
         $smarty = isset($this->smarty) ? $this->smarty : $this;
         $smarty->registered_resources[$type] = $callback instanceof Smarty_Resource ? $callback : array($callback,
-            false);
+                                                                                                        false);
 
         return $this;
     }
@@ -457,6 +457,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                     $status = true;
                 } elseif (property_exists($this->smarty, $property_name)) {
                     $status = false;
+                } elseif (in_array($name, $this->smarty->obsoleteProperties)) {
+                    return null;
+                } else {
                 }
                 $_resolved_property_source[$property_name] = $status;
             }

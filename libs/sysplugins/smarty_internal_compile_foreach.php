@@ -87,6 +87,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
+        $compiler->loopNesting++;
         // init
         $this->isNamed = false;
         // check and get attributes
@@ -317,8 +318,7 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        // check and get attributes
-        $_attr = $this->getAttributes($compiler, $args);
+        $compiler->loopNesting--;
         // must endblock be nocache?
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;

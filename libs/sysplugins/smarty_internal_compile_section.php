@@ -87,6 +87,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
+        $compiler->loopNesting++;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         $attributes = array('name' => $compiler->getId($_attr['name']));
@@ -118,7 +119,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
             $namedAttr = $this->matchResults['named'];
         }
         $namedAttr['index'] = true;
-        $output = "<?php ";
+        $output = "<?php\n";
         foreach ($_attr as $attr_name => $attr_value) {
             switch ($attr_name) {
                 case 'loop':
@@ -428,9 +429,7 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
-        // check and get attributes
-        $_attr = $this->getAttributes($compiler, $args);
-
+        $compiler->loopNesting--;
         // must endblock be nocache?
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;

@@ -320,6 +320,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $variable_filter_stack = array();
 
     /**
+     * Loop nesting count
+     *
+     * @var int
+     */
+    public $loopNesting = 0;
+
+    /**
      * Strip preg pattern
      *
      * @var string

@@ -112,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/44';
+    const SMARTY_VERSION = '3.1.28-dev/45';
 
     /**
      * define variable scopes
@@ -191,6 +191,17 @@ class Smarty extends Smarty_Internal_TemplateBase
     const PLUGIN_MODIFIER = 'modifier';
 
     const PLUGIN_MODIFIERCOMPILER = 'modifiercompiler';
+
+    /**
+     * Resource caching modes
+     */
+    const RESOURCE_CACHE_OFF = 0;
+
+    const RESOURCE_CACHE_AUTOMATIC = 1; // cache template objects by rules
+
+    const RESOURCE_CACHE_TEMPLATE = 2; // cache all template objects
+
+    const RESOURCE_CACHE_ON = 4;    // cache source nad compiled resources
 
     /**#@-*/
 
@@ -582,14 +593,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var bool
      */
-    public $resource_caching = false;
-
-    /**
-     * enable template resource caching
-     *
-     * @var bool
-     */
-    public $template_resource_caching = true;
+    public $resource_cache_mode = 1;
 
     /**
      * check If-Modified-Since headers
@@ -723,6 +727,13 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var bool
      */
     public $_parserdebug = false;
+
+    /**
+     * removed properties
+     *
+     * @var array
+     */
+    public $obsoleteProperties = array('resource_caching', 'template_resource_caching');
 
     /**#@-*/
 
@@ -1610,6 +1621,8 @@ class Smarty extends Smarty_Internal_TemplateBase
 
         if (isset($allowed[$name])) {
             return $this->{$allowed[$name]}();
+        } elseif (in_array($name, $this->obsoleteProperties)) {
+            return null;
         } else {
             trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
         }
@@ -1631,6 +1644,8 @@ class Smarty extends Smarty_Internal_TemplateBase
 
         if (isset($allowed[$name])) {
             $this->{$allowed[$name]}($value);
+        } elseif (in_array($name, $this->obsoleteProperties)) {
+            return;
         } else {
             trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
         }
