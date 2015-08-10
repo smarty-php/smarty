@@ -539,13 +539,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      *
      * @returns object template content
      */
-    public function getInlineSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl, $hash, $content_func)
+    public function getInlineSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl, $content_func)
     {
         $tpl = $this->setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl);
         if (!isset($tpl->compiled)) {
             $tpl->compiled = $this->compiled;
         }
-        $tpl->compiled->nocache_hash = $hash;
         if ($this->smarty->debugging) {
             Smarty_Internal_Debug::start_template($tpl);
             Smarty_Internal_Debug::start_render($tpl);
