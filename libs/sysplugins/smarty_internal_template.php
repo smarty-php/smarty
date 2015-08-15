@@ -14,9 +14,9 @@
  * @package    Smarty
  * @subpackage Template
  *
- * @property Smarty_Template_Source   $source
- * @property Smarty_Template_Compiled $compiled
- * @property Smarty_Template_Cached   $cached
+ * @property Smarty_Template_Source|Smarty_Template_Config $source
+ * @property Smarty_Template_Compiled                      $compiled
+ * @property Smarty_Template_Cached                        $cached
  */
 class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
 {
@@ -102,15 +102,19 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * Some of the global Smarty settings copied to template scope
      * It load the required template resources and caching plugins
      *
-     * @param string                   $template_resource template resource string
-     * @param Smarty                   $smarty            Smarty instance
-     * @param Smarty_Internal_Template $_parent           back pointer to parent object with variables or null
-     * @param mixed                    $_cache_id         cache   id or null
-     * @param mixed                    $_compile_id       compile id or null
-     * @param bool                     $_caching          use caching?
-     * @param int                      $_cache_lifetime   cache life-time in seconds
+     * @param string                                                  $template_resource template resource string
+     * @param Smarty                                                  $smarty            Smarty instance
+     * @param \Smarty_Internal_Template|\Smarty|\Smarty_Internal_Data $_parent           back pointer to parent object
+     *                                                                                   with variables or null
+     * @param mixed                                                   $_cache_id         cache   id or null
+     * @param mixed                                                   $_compile_id       compile id or null
+     * @param bool                                                    $_caching          use caching?
+     * @param int                                                     $_cache_lifetime   cache life-time in seconds
+     * @param string                                                    $_templateId        optional from extern
+     *
+     * @throws \SmartyException
      */
-    public function __construct($template_resource, $smarty, $_parent = null, $_cache_id = null, $_compile_id = null, $_caching = null, $_cache_lifetime = null)
+    public function __construct($template_resource, Smarty $smarty, Smarty_Internal_Data $_parent = null, $_cache_id = null, $_compile_id = null, $_caching = null, $_cache_lifetime = null, $_templateId = null)
     {
         $this->smarty = &$smarty;
         // Smarty parameter
@@ -125,7 +129,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         // Template resource
         $this->template_resource = $template_resource;
         $this->source = Smarty_Template_Source::load($this);
-        $this->templateId = $this->getTemplateId($template_resource, $this->cache_id, $this->compile_id);
+        $this->templateId = isset($_templateId) ? $_templateId : $this->getTemplateId($template_resource, $this->cache_id, $this->compile_id);
         // copy block data of template inheritance
         if ($this->parent instanceof Smarty_Internal_Template) {
             $this->block_data = $this->parent->block_data;
@@ -252,7 +256,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             } else {
                 $content = $this->source->renderUncompiled($this);
             }
-            if ($parentIsTpl) {
+            if ($parentIsTpl && !empty($this->tpl_function)) {
                 $this->parent->tpl_function = array_merge($this->parent->tpl_function, $this->tpl_function);
             }
             if ($this->smarty->debugging) {
@@ -444,38 +448,65 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * Get unique template id
+     *
+     * @param string     $template_name
+     * @param null|mixed $cache_id
+     * @param null|mixed $compile_id
+     *
+     * @return string
+     */
+    public function getTemplateId($template_name, $cache_id = null, $compile_id = null)
+    {
+        $cache_id = isset($cache_id) ? $cache_id : $this->cache_id;
+        $compile_id = isset($compile_id) ? $compile_id : $this->compile_id;
+        if ($this->smarty->allow_ambiguous_resources) {
+            $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template_name) . "#{$cache_id}#{$compile_id}";
+        } else {
+            $_templateId = $this->smarty->joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}";
+        }
+        if (isset($_templateId[150])) {
+            $_templateId = sha1($_templateId);
+        }
+        return $_templateId;
+    }
+
+    /**
      * Template code runtime function to get subtemplate content
      *
-     * @param string  $template       the resource handle of the template file
-     * @param mixed   $cache_id       cache id to be used with this template
-     * @param mixed   $compile_id     compile id to be used with this template
+     * @param string  $template       template name
+     * @param mixed   $cache_id       cache id
+     * @param mixed   $compile_id     compile id
      * @param integer $caching        cache mode
      * @param integer $cache_lifetime life time of cache data
-     * @param         $data
+     * @param array   $data           passed parameter template variables
      * @param int     $parent_scope   scope in which {include} should execute
+     * @param bool    $cache_tpl_obj  cache template object
      *
-     * @returns string template content
+     * @return string template content
+     * @throws \SmartyException
      */
-    public function getSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl)
+    public function getSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj)
     {
-        $tpl = $this->setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl);
+        $tpl = $this->setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj);
         return $tpl->render();
     }
 
     /**
      * Template code runtime function to set up an inline subtemplate
      *
-     * @param string  $template       the resource handle of the template file
-     * @param mixed   $cache_id       cache id to be used with this template
-     * @param mixed   $compile_id     compile id to be used with this template
+     * @param string  $template       template name
+     * @param mixed   $cache_id       cache id
+     * @param mixed   $compile_id     compile id
      * @param integer $caching        cache mode
      * @param integer $cache_lifetime life time of cache data
      * @param array   $data           passed parameter template variables
      * @param int     $parent_scope   scope in which {include} should execute
+     * @param bool    $cache_tpl_obj  cache template object
      *
-     * @returns \Smarty_Internal_Template template object
+     * @return \Smarty_Internal_Template template object
      */
-    public function setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl)
+    public function setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj)
     {
         $_templateId = $this->getTemplateId($template, $cache_id, $compile_id);
         // already in template cache?
@@ -489,11 +520,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $tpl->caching = $caching;
             $tpl->cache_lifetime = $cache_lifetime;
         } else {
-            $tpl = new $this->smarty->template_class($template, $this->smarty, $this, $cache_id, $compile_id, $caching, $cache_lifetime);
+            $tpl = new $this->smarty->template_class($template, $this->smarty, $this, $cache_id, $compile_id, $caching, $cache_lifetime, $_templateId);
         }
         if (!$tpl->source->recompiled && !isset($this->smarty->template_objects[$_templateId]) &&
             (isset($this->smarty->template_objects[$this->templateId]) ||
-                ($cache_tpl && $this->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC) ||
+                ($cache_tpl_obj && $this->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC) ||
                 $this->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
         ) {
             $this->smarty->template_objects[$_templateId] = $tpl;
@@ -527,21 +558,22 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     /**
      * Template code runtime function to set up an inline subtemplate
      *
-     * @param string  $template       the resource handle of the template file
-     * @param mixed   $cache_id       cache id to be used with this template
-     * @param mixed   $compile_id     compile id to be used with this template
+     * @param string  $template       template name
+     * @param mixed   $cache_id       cache id
+     * @param mixed   $compile_id     compile id
      * @param integer $caching        cache mode
      * @param integer $cache_lifetime life time of cache data
      * @param array   $data           passed parameter template variables
      * @param int     $parent_scope   scope in which {include} should execute
-     * @param string  $hash           nocache hash code
+     * @param bool    $cache_tpl_obj  cache template object
      * @param string  $content_func   name of content function
      *
-     * @returns object template content
+     * @return string template content
+     * @throws \Exception
      */
-    public function getInlineSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl, $content_func)
+    public function getInlineSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj, $content_func)
     {
-        $tpl = $this->setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl);
+        $tpl = $this->setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj);
         if (!isset($tpl->compiled)) {
             $tpl->compiled = $this->compiled;
         }
@@ -641,9 +673,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             ) {
                 $is_valid = false;
             }
-            if (isset($properties['cache_lifetime'])) {
-                $this->cached->cache_lifetime = $properties['cache_lifetime'];
-            }
+            $this->cached->cache_lifetime = $properties['cache_lifetime'];
             $this->cached->valid = $is_valid;
             $resource = $this->cached;
         } else {
@@ -655,7 +685,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $resource->has_nocache_code = $properties['has_nocache_code'];
             //            $this->compiled->nocache_hash = $properties['nocache_hash'];
             $resource->file_dependency = $properties['file_dependency'];
-            $this->tpl_function = $properties['tpl_function'];
+            if (isset($properties['tpl_function'])) {
+                $this->tpl_function = $properties['tpl_function'];
+            }
         }
         return $is_valid;
     }
