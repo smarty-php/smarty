@@ -132,7 +132,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 $level = ob_get_level();
                 ob_start();
                 try {
-                    eval("?>" . $this->buffer);
+                    eval("?>" . $this->content);
                 }
                 catch (Exception $e) {
                     while (ob_get_level() > $level) {
@@ -141,7 +141,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                     throw $e;
                 }
                 ob_get_clean();
-                $this->buffer = null;
+                $this->content = null;
             } else {
                 $this->loadCompiledTemplate($_template);
             }
@@ -192,7 +192,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if (!$this->processed) {
             $this->process($_template);
         }
-        if (isset($_template->cached)){
+        if (isset($_template->cached)) {
             $_template->cached->file_dependency = array_merge($_template->cached->file_dependency, $this->file_dependency);
         }
         return $_template->getRenderedTemplateCode($this->unifunc);
@@ -263,7 +263,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             }
             return false;
         } else {
-            $this->buffer = $code;
+            $this->content = $code;
         }
         $this->timestamp = time();
         $this->exists = true;
@@ -282,19 +282,6 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if (!$_template->source->recompiled) {
             return file_get_contents($this->filepath);
         }
-        return isset($this->buffer) ? $this->buffer : false;
-    }
-
-    /**
-     * Get compiled time stamp
-     *
-     * @return int
-     */
-    public function getTimeStamp()
-    {
-        if ($this->exists && !isset($this->timestamp)) {
-            $this->timestamp = @filemtime($this->filepath);
-        }
-        return $this->timestamp;
+        return isset($this->content) ? $this->content : false;
     }
 }

@@ -67,11 +67,11 @@ abstract class Smarty_Template_Resource_Base
     public $file_dependency = array();
 
     /**
-     * Code of recompiled template resource
+     * Content buffer
      *
-     * @var string|null
+     * @var string
      */
-    public $buffer = null;
+    public $content = null;
 
     /**
      * required plugins
@@ -79,6 +79,13 @@ abstract class Smarty_Template_Resource_Base
      * @var array
      */
     public $required_plugins = array();
+
+    /**
+     * Known template functions
+     *
+     * @var array
+     */
+    public $tpl_function = array();
 
     /**
      * Process resource
@@ -125,7 +132,7 @@ abstract class Smarty_Template_Resource_Base
             }
             return false;
         } else {
-            $this->buffer = $code;
+            $this->content = $code;
         }
         $this->timestamp = time();
         $this->exists = true;
