@@ -29,11 +29,14 @@ class Smarty_Internal_Extension_CodeFrame
         $properties['has_nocache_code'] = $_template->compiled->has_nocache_code;
         $properties['version'] = Smarty::SMARTY_VERSION;
         $properties['unifunc'] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
-        $properties['tpl_function'] = $_template->tpl_function;
+        if (!empty($_template->tpl_function)) {
+            $properties['tpl_function'] = $_template->tpl_function;
+        }
         if (!$cache) {
             $properties['file_dependency'] = $_template->compiled->file_dependency;
         } else {
             $properties['file_dependency'] = $_template->cached->file_dependency;
+            $properties['cache_lifetime'] = $_template->cache_lifetime;
         }
         $output = "<?php\n";
         $output .= "/*%%SmartyHeaderCode:{$_template->compiled->nocache_hash}%%*/\n";
