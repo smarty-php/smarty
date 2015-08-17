@@ -103,9 +103,15 @@ abstract class Smarty_Resource
     public function buildUniqueResourceName(Smarty $smarty, $resource_name, $isConfig = false)
     {
         if ($isConfig) {
-            return get_class($this) . '#' . $smarty->joined_config_dir . '#' . $resource_name;
+            if (!isset($smarty->_joined_config_dir)) {
+                $smarty->getTemplateDir(null, true);
+            }
+            return get_class($this) . '#' . $smarty->_joined_config_dir . '#' . $resource_name;
         } else {
-            return get_class($this) . '#' . $smarty->joined_template_dir . '#' . $resource_name;
+            if (!isset($smarty->_joined_template_dir)) {
+                $smarty->getTemplateDir();
+            }
+            return get_class($this) . '#' . $smarty->_joined_template_dir . '#' . $resource_name;
         }
     }
 

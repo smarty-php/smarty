@@ -444,7 +444,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if ($this->smarty->allow_ambiguous_resources) {
             $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template_name) . "#{$cache_id}#{$compile_id}";
         } else {
-            $_templateId = $this->smarty->joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}";
+            $_templateId = $this->smarty->_joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}";
         }
         if (isset($_templateId[150])) {
             $_templateId = sha1($_templateId);

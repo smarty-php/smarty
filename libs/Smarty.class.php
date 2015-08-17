@@ -289,14 +289,14 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string
      */
-    public $joined_template_dir = '';
+    public $_joined_template_dir = null;
 
     /**
      * joined config directory string used in cache keys
      *
      * @var string
      */
-    public $joined_config_dir = '';
+    public $_joined_config_dir = null;
 
     /**
      * default template handler
@@ -908,7 +908,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function setTemplateDir($template_dir, $isConfig = false)
     {
         $type = $isConfig ? 'config_dir' : 'template_dir';
-        $joined = 'joined_' . $type;
+        $joined = '_joined_' . $type;
         $this->{$type} = (array) $template_dir;
         $this->{$joined} = join(' # ', $this->{$type});
         $this->_cache[$type . '_new'] = true;
@@ -928,7 +928,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function addTemplateDir($template_dir, $key = null, $isConfig = false)
     {
         $type = $isConfig ? 'config_dir' : 'template_dir';
-        $joined = 'joined_' . $type;
+        $joined = '_joined_' . $type;
         if (!isset($this->_cache[$type])) {
             $this->{$type} = (array) $this->{$type};
             $this->{$joined} = join(' # ', $this->{$type});
@@ -952,7 +952,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $type = $isConfig ? 'config_dir' : 'template_dir';
         if (!isset($this->_cache[$type])) {
-            $joined = 'joined_' . $type;
+            $joined = '_joined_' . $type;
             $this->{$type} = (array) $this->{$type};
             $this->{$joined} = join(' # ', $this->{$type});
             $this->_cache[$type] = false;
