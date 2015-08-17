@@ -17,9 +17,17 @@
  * @property Smarty_Template_Source|Smarty_Template_Config $source
  * @property Smarty_Template_Compiled                      $compiled
  * @property Smarty_Template_Cached                        $cached
+ * @method bool mustCompile()
  */
 class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
 {
+    /**
+     * This object type (Smarty = 1, template = 2, data = 4)
+     *
+     * @var int
+     */
+    public $_objType = 2;
+
     /**
      * Global smarty instance
      *
@@ -400,33 +408,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Returns if the current template must be compiled by the Smarty compiler
-     * It does compare the timestamps of template source and the compiled templates and checks the force compile
-     * configuration
-     *
-     * @throws SmartyException
-     * @return boolean true if the template must be compiled
-     */
-    public function mustCompile()
-    {
-        if (!$this->source->exists) {
-            if ($this->parent instanceof Smarty_Internal_Template) {
-                $parent_resource = " in '$this->parent->template_resource}'";
-            } else {
-                $parent_resource = '';
-            }
-            throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
-        }
-        if ($this->mustCompile === null) {
-            $this->mustCompile = (!$this->source->uncompiled &&
-                ($this->smarty->force_compile || $this->source->recompiled || !$this->compiled->exists ||
-                    ($this->smarty->compile_check && $this->compiled->getTimeStamp() < $this->source->getTimeStamp())));
-        }
-
-        return $this->mustCompile;
-    }
-
-    /**
      * Compiles the template
      * If the template is not evaluated the compiled template is saved on disk
      */
@@ -804,20 +785,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function capture_error()
     {
         throw new SmartyException("Not matching {capture} open/close in \"{$this->template_resource}\"");
-    }
-
-    /**
-     * Empty cache for this template
-     *
-     * @param integer $exp_time expiration time
-     *
-     * @return integer number of cache files deleted
-     */
-    public function clearCache($exp_time = null)
-    {
-        Smarty_CacheResource::invalidLoadedCache($this->smarty);
-
-        return $this->cached->handler->clear($this->smarty, $this->template_resource, $this->cache_id, $this->compile_id, $exp_time);
     }
 
     /**

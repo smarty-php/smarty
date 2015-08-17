@@ -785,7 +785,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if (strpos($variable, '(') == 0) {
             // not a variable variable
             $var = trim($variable, '\'');
-            $this->tag_nocache = $this->tag_nocache | $this->template->getVariable($var, null, true, false)->nocache;
+            $this->tag_nocache = $this->tag_nocache | $this->template->_getVariable($var, null, true, false)->nocache;
             // todo $this->template->compiled->properties['variables'][$var] = $this->tag_nocache | $this->nocache;
         }
         return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';

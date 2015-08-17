@@ -14,10 +14,7 @@
  * @package    Smarty
  * @subpackage TemplateResources
  * @author     Uwe Tews
- * @property integer $timestamp Source Timestamp
- * @property boolean $exists    Source Existence
- * @property boolean $template  Extended Template reference
- * @property string  $content   Source Content
+ *
  */
 class Smarty_Template_Config extends Smarty_Template_Source
 {
@@ -89,7 +86,7 @@ class Smarty_Template_Config extends Smarty_Template_Source
      * @param  Smarty                   $smarty            smarty object
      * @param  string                   $template_resource resource identifier
      *
-     * @return Smarty_Template_Source Source Object
+     * @return Smarty_Template_Config Source Object
      * @throws SmartyException
      */
     public static function load(Smarty_Internal_Template $_template = null, Smarty $smarty = null, $template_resource = null)
@@ -110,7 +107,7 @@ class Smarty_Template_Config extends Smarty_Template_Source
         $source = new Smarty_Template_Config($resource, $smarty, $template_resource, $type, $name);
         $resource->populate($source, $_template);
         if (!$source->exists && isset($_template->smarty->default_config_handler_func)) {
-            Smarty_Internal_Extension_DefaultTemplateHandler::_getDefault($_template, $source);
+            Smarty_Internal_Method_RegisterDefaultTemplateHandler::_getDefaultTemplate($source);
         }
         $source->unique_resource = $resource->buildUniqueResourceName($smarty, $name, true);
         return $source;

@@ -1,26 +1,35 @@
 <?php
 
 /**
- * Smarty Extension GetStreamVar
+ * Smarty Method GetStreamVariable
  *
- * getStreamVariable() method
+ * Smarty::getStreamVariable() method
  *
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  */
-class Smarty_Internal_Extension_GetStreamVar
+class Smarty_Internal_Method_GetStreamVariable
 {
+    /**
+     * Valid for all objects
+     *
+     * @var int
+     */
+    public $objMap = 7;
+
     /**
      * gets  a stream variable
      *
-     * @param         $obj
-     * @param  string $variable the stream of the variable
+     * @api Smarty::getStreamVariable()
+     *
+     * @param \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty $data
+     * @param  string                                                 $variable the stream of the variable
      *
      * @return mixed
      * @throws \SmartyException
      */
-    public static function getStreamVariable($obj, $variable)
+    public function getStreamVariable(Smarty_Internal_Data $data, $variable)
     {
         $_result = '';
         $fp = fopen($variable, 'r+');
@@ -32,7 +41,7 @@ class Smarty_Internal_Extension_GetStreamVar
 
             return $_result;
         }
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = isset($data->smarty) ? $data->smarty : $data;
         if ($smarty->error_unassigned) {
             throw new SmartyException('Undefined stream variable "' . $variable . '"');
         } else {

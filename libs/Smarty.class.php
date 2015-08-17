@@ -102,6 +102,12 @@ require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
  * This is the main Smarty class
  *
  * @package Smarty
+ *
+ * @method int clearAllCache(int $exp_time = null, string $type = null)
+ * @method int clearCache(string $template_name, string $cache_id = null, string $compile_id = null, int $exp_time = null, string $type = null)
+ * @method int compileAllTemplates(Smarty $smarty, string $extension = '.tpl', bool $force_compile = false, int $time_limit = 0, int $max_errors = null)
+ * @method int compileAllConfig(Smarty $smarty, string $extension = '.conf', bool $force_compile = false, int $time_limit = 0, int $max_errors = null)
+ *
  */
 class Smarty extends Smarty_Internal_TemplateBase
 {
@@ -112,7 +118,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/45';
+    const SMARTY_VERSION = '3.1.28-dev/47';
 
     /**
      * define variable scopes
@@ -729,11 +735,25 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $_parserdebug = false;
 
     /**
+     * This object type (Smarty = 1, template = 2, data = 4)
+     *
+     * @var int
+     */
+    public $_objType = 1;
+
+    /**
      * removed properties
      *
      * @var array
      */
     public $obsoleteProperties = array('resource_caching', 'template_resource_caching');
+
+    /**
+     * Extension object cache
+     *
+     * @var array
+     */
+    public static $extObjCache = array();
 
     /**#@-*/
 
@@ -849,43 +869,6 @@ class Smarty extends Smarty_Internal_TemplateBase
 
             return $_result;
         }
-    }
-
-    /**
-     * Empty cache folder
-     *
-     * @param  integer $exp_time expiration time
-     * @param  string  $type     resource type
-     *
-     * @return integer number of cache files deleted
-     */
-    public function clearAllCache($exp_time = null, $type = null)
-    {
-        // load cache resource and call clearAll
-        $_cache_resource = Smarty_CacheResource::load($this, $type);
-        Smarty_CacheResource::invalidLoadedCache($this);
-
-        return $_cache_resource->clearAll($this, $exp_time);
-    }
-
-    /**
-     * Empty cache for a specific template
-     *
-     * @param  string  $template_name template name
-     * @param  string  $cache_id      cache id
-     * @param  string  $compile_id    compile id
-     * @param  integer $exp_time      expiration time
-     * @param  string  $type          resource type
-     *
-     * @return integer number of cache files deleted
-     */
-    public function clearCache($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
-    {
-        // load cache resource and call clear
-        $_cache_resource = Smarty_CacheResource::load($this, $type);
-        Smarty_CacheResource::invalidLoadedCache($this);
-
-        return $_cache_resource->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
     }
 
     /**
@@ -1185,119 +1168,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Set default modifiers
-     *
-     * @param  array|string $modifiers modifier or list of modifiers to set
-     *
-     * @return Smarty       current Smarty instance for chaining
-     */
-    public function setDefaultModifiers($modifiers)
-    {
-        $this->default_modifiers = (array) $modifiers;
-
-        return $this;
-    }
-
-    /**
-     * Add default modifiers
-     *
-     * @param  array|string $modifiers modifier or list of modifiers to add
-     *
-     * @return Smarty       current Smarty instance for chaining
-     */
-    public function addDefaultModifiers($modifiers)
-    {
-        if (is_array($modifiers)) {
-            $this->default_modifiers = array_merge($this->default_modifiers, $modifiers);
-        } else {
-            $this->default_modifiers[] = $modifiers;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get default modifiers
-     *
-     * @return array list of default modifiers
-     */
-    public function getDefaultModifiers()
-    {
-        return $this->default_modifiers;
-    }
-
-    /**
-     * Set autoload filters
-     *
-     * @param  array  $filters filters to load automatically
-     * @param  string $type    "pre", "output", … specify the filter type to set. Defaults to none treating $filters'
-     *                         keys as the appropriate types
-     *
-     * @return Smarty current Smarty instance for chaining
-     */
-    public function setAutoloadFilters($filters, $type = null)
-    {
-        Smarty_Internal_Extension_AutoLoadFilter::setAutoloadFilters($this, $filters, $type);
-        return $this;
-    }
-
-    /**
-     * Add autoload filters
-     *
-     * @param  array  $filters filters to load automatically
-     * @param  string $type    "pre", "output", … specify the filter type to set. Defaults to none treating $filters'
-     *                         keys as the appropriate types
-     *
-     * @return Smarty current Smarty instance for chaining
-     */
-    public function addAutoloadFilters($filters, $type = null)
-    {
-        Smarty_Internal_Extension_AutoLoadFilter::addAutoloadFilters($this, $filters, $type);
-        return $this;
-    }
-
-    /**
-     * Get autoload filters
-     *
-     * @param  string $type type of filter to get autoloads for. Defaults to all autoload filters
-     *
-     * @return array  array( 'type1' => array( 'filter1', 'filter2', … ) ) or array( 'filter1', 'filter2', …) if $type
-     *                was specified
-     */
-    public function getAutoloadFilters($type = null)
-    {
-        return Smarty_Internal_Extension_AutoLoadFilter::getAutoloadFilters($this, $type);
-    }
-
-    /**
-     * return name of debugging template
-     *
-     * @return string
-     */
-    public function getDebugTemplate()
-    {
-        return $this->debug_tpl;
-    }
-
-    /**
-     * set the debug template
-     *
-     * @param  string $tpl_name
-     *
-     * @return Smarty          current Smarty instance for chaining
-     * @throws SmartyException if file is not readable
-     */
-    public function setDebugTemplate($tpl_name)
-    {
-        if (!is_readable($tpl_name)) {
-            throw new SmartyException("Unknown file '{$tpl_name}'");
-        }
-        $this->debug_tpl = $tpl_name;
-
-        return $this;
-    }
-
-    /**
      * creates a template object
      *
      * @param  string  $template   the resource handle of the template file
@@ -1385,74 +1255,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Compile all template files
-     *
-     * @param  string $extension     file extension
-     * @param  bool   $force_compile force all to recompile
-     * @param  int    $time_limit
-     * @param  int    $max_errors
-     *
-     * @return integer number of template files recompiled
-     */
-    public function compileAllTemplates($extension = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
-    {
-        return Smarty_Internal_Extension_CompileAll::compileAll($extension, $force_compile, $time_limit, $max_errors, $this);
-    }
-
-    /**
-     * Compile all config files
-     *
-     * @param  string $extension     file extension
-     * @param  bool   $force_compile force all to recompile<
-     * @param  int    $time_limit
-     * @param  int    $max_errors
-     *
-     * @return integer number of template files recompiled
-     */
-    public function compileAllConfig($extension = '.conf', $force_compile = false, $time_limit = 0, $max_errors = null)
-    {
-        return Smarty_Internal_Extension_CompileAll::compileAll($extension, $force_compile, $time_limit, $max_errors, $this, true);
-    }
-
-    /**
-     * Delete compiled template file
-     *
-     * @param  string  $resource_name template name
-     * @param  string  $compile_id    compile id
-     * @param  integer $exp_time      expiration time
-     *
-     * @return integer number of template files deleted
-     */
-    public function clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
-    {
-        return Smarty_Internal_Extension_ClearCompiled::clearCompiledTemplate($this, $resource_name, $compile_id, $exp_time);
-    }
-
-    /**
-     * Return array of tag/attributes of all tags used by an template
-     *
-     * @param Smarty_Internal_Template $template
-     *
-     * @return array  of tag/attributes
-     */
-    public function getTags(Smarty_Internal_Template $template)
-    {
-        return Smarty_Internal_Utility::getTags($template);
-    }
-
-    /**
-     * Run installation test
-     *
-     * @param  array $errors Array to write errors into, rather than outputting them
-     *
-     * @return boolean true if setup is fine, false if something is wrong
-     */
-    public function testInstall(&$errors = null)
-    {
-        return Smarty_Internal_TestInstall::testInstall($this, $errors);
-    }
-
-    /**
      * @param boolean $compile_check
      */
     public function setCompileCheck($compile_check)
@@ -1466,38 +1268,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function setUseSubDirs($use_sub_dirs)
     {
         $this->use_sub_dirs = $use_sub_dirs;
-    }
-
-    /**
-     * @param boolean $caching
-     */
-    public function setCaching($caching)
-    {
-        $this->caching = $caching;
-    }
-
-    /**
-     * @param int $cache_lifetime
-     */
-    public function setCacheLifetime($cache_lifetime)
-    {
-        $this->cache_lifetime = $cache_lifetime;
-    }
-
-    /**
-     * @param string $compile_id
-     */
-    public function setCompileId($compile_id)
-    {
-        $this->compile_id = $compile_id;
-    }
-
-    /**
-     * @param string $cache_id
-     */
-    public function setCacheId($cache_id)
-    {
-        $this->cache_id = $cache_id;
     }
 
     /**
@@ -1597,6 +1367,32 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * @param string $default_resource_type
+     */
+    public function setDefaultResourceType($default_resource_type)
+    {
+        $this->default_resource_type = $default_resource_type;
+    }
+
+    /**
+     * @param string $caching_type
+     */
+    public function setCachingType($caching_type)
+    {
+        $this->caching_type = $caching_type;
+    }
+
+    /**
+     * Test install
+     *
+     * @param null $errors
+     */
+    public function testInstall(&$errors = null)
+    {
+        Smarty_Internal_TestInstall::testInstall($this, $errors);
+    }
+
+    /**
      * Class destructor
      */
     public function __destruct()
@@ -1647,7 +1443,11 @@ class Smarty extends Smarty_Internal_TemplateBase
         } elseif (in_array($name, $this->obsoleteProperties)) {
             return;
         } else {
-            trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
+            if (is_object($value) && method_exists($value, $name)) {
+                $this->$name = $value;
+            } else {
+                trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
+            }
         }
     }
 

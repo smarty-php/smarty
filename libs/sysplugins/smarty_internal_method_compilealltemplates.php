@@ -1,29 +1,54 @@
 <?php
 
 /**
- * Smarty Extension CompileAll
+ * Smarty Method CompileAllTemplates
  *
- * $smarty->clearCompiledTemplate() method
+ * Smarty::compileAllTemplates() method
  *
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  */
-class Smarty_Internal_Extension_CompileAll
+class Smarty_Internal_Method_CompileAllTemplates
 {
+    /**
+     * Valid for Smarty object
+     *
+     * @var int
+     */
+    public $objMap = 1;
+
+    /**
+     * Compile all template files
+     *
+     * @api  Smarty::compileAllTemplates()
+     *
+     * @param \Smarty $smarty
+     * @param  string $extension     file extension
+     * @param  bool   $force_compile force all to recompile
+     * @param  int    $time_limit
+     * @param  int    $max_errors
+     *
+     * @return integer number of template files recompiled
+     */
+    public function compileAllTemplates(Smarty $smarty, $extension = '.tpl', $force_compile = false, $time_limit = 0, $max_errors = null)
+    {
+        return $this->compileAll($smarty, $extension, $force_compile, $time_limit, $max_errors);
+    }
+
     /**
      * Compile all template or config files
      *
+     * @param \Smarty $smarty
      * @param  string $extension     template file name extension
      * @param  bool   $force_compile force all to recompile
      * @param  int    $time_limit    set maximum execution time
      * @param  int    $max_errors    set maximum allowed errors
-     * @param  Smarty $smarty        Smarty instance
      * @param bool    $isConfig      flag true if called for config files
      *
      * @return int number of template files compiled
      */
-    public static function compileAll($extension, $force_compile, $time_limit, $max_errors, Smarty $smarty, $isConfig = false)
+    protected function compileAll(Smarty $smarty, $extension, $force_compile, $time_limit, $max_errors, $isConfig = false)
     {
         // switch off time limit
         if (function_exists('set_time_limit')) {
@@ -53,6 +78,7 @@ class Smarty_Internal_Extension_CompileAll
                 $_smarty = clone $smarty;
                 $_smarty->force_compile = $force_compile;
                 try {
+                    /* @var Smarty_Internal_Template $_tpl */
                     $_tpl = new $smarty->template_class($_file, $_smarty);
                     $_tpl->caching = Smarty::CACHING_OFF;
                     $_tpl->source = $isConfig ? Smarty_Template_Config::load($_tpl) : Smarty_Template_Source::load($_tpl);

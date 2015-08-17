@@ -23,6 +23,7 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('file');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -30,6 +31,7 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('file', 'section');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -41,7 +43,7 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {config_load} tag
      *
-     * @param  array                                       $args     array with attributes from parser
+     * @param  array                                $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
@@ -75,7 +77,7 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
             }
         }
         // create config object
-        $_output = "<?php  Smarty_Internal_Extension_Config::configLoad(\$_smarty_tpl, $conf_file, $section, '$scope');?>";
+        $_output = "<?php  \$_smarty_tpl->configLoad($conf_file, $section, '$scope');?>";
 
         return $_output;
     }

@@ -7,10 +7,7 @@
  * @package    Smarty
  * @subpackage TemplateResources
  * @author     Rodney Rehm
- * @property integer $timestamp Source Timestamp
- * @property boolean $exists    Source Existence
- * @property boolean $template  Extended Template reference
- * @property string  $content   Source Content
+ *
  */
 class Smarty_Template_Source
 {
@@ -217,7 +214,7 @@ class Smarty_Template_Source
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $type, $name);
         $resource->populate($source, $_template);
         if (!$source->exists && isset($_template->smarty->default_template_handler_func)) {
-            Smarty_Internal_Extension_DefaultTemplateHandler::_getDefault($_template, $source);
+            Smarty_Internal_Method_RegisterDefaultTemplateHandler::_getDefaultTemplate($source);
         }
         // on recompiling resources we are done
         if (($smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON) && !$resource->recompiled) {

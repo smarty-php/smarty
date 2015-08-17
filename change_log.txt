@@ -1,6 +1,10 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
+ xx.xx.2015
+ - introduce Smarty::$resource_cache_mode and cache template object of {include} inside loop
+ - load seldom used Smarty API methods dynamically to reduce memory footprint 
+
  06.08.2015
-  - avoid possible circular object referances caused by parser/lexer objects
+  - avoid possible circular object references caused by parser/lexer objects
   - rewrite compileAll... utility methods
   - commit several  internal improvements
   - bugfix Smarty failed when compile_id did contain "|"

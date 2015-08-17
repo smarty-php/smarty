@@ -73,8 +73,8 @@ abstract class Smarty_CacheResource
     {
         if ($_template->cached->handler->process($_template)) {
             ob_start();
-            $_template->cached->unifunc($_template);
-
+            $unifunc = $_template->cached->unifunc;
+            $unifunc($_template);
             return ob_get_clean();
         }
 

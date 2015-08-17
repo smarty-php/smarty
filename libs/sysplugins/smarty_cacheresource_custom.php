@@ -139,7 +139,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
              */
             $_smarty_tpl = $_template;
             eval("?>" . $content);
-
+            $cached->content = null;
             return true;
         }
 
@@ -190,7 +190,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      */
     public function clearAll(Smarty $smarty, $exp_time = null)
     {
-         return $this->delete(null, null, null, $exp_time);
+        return $this->delete(null, null, null, $exp_time);
     }
 
     /**

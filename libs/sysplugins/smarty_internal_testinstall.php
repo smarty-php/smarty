@@ -19,7 +19,6 @@ class Smarty_Internal_TestInstall
      * diagnose Smarty setup
      * If $errors is secified, the diagnostic report will be appended to the array, rather than being output.
      *
-     * @param  Smarty $smarty Smarty instance to test
      * @param  array  $errors array to push results into rather than outputting them
      *
      * @return bool   status, true if everything is fine, false else
@@ -47,7 +46,7 @@ class Smarty_Internal_TestInstall
                     if ($_stream_resolve_include_path) {
                         $template_dir = stream_resolve_include_path($_template_dir);
                     } else {
-                        $template_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_template_dir);
+                        $template_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_template_dir, null, $smarty);
                     }
 
                     if ($template_dir !== false) {
@@ -166,7 +165,7 @@ class Smarty_Internal_TestInstall
                     if ($_stream_resolve_include_path) {
                         $plugin_dir = stream_resolve_include_path($_plugin_dir);
                     } else {
-                        $plugin_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_plugin_dir);
+                        $plugin_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_plugin_dir, null, $smarty);
                     }
 
                     if ($plugin_dir !== false) {
@@ -288,7 +287,6 @@ class Smarty_Internal_TestInstall
         // test if all registered config_dir are accessible
         foreach ($smarty->getConfigDir() as $config_dir) {
             $_config_dir = $config_dir;
-            $config_dir = realpath($config_dir);
             // resolve include_path or fail existence
             if (!$config_dir) {
                 if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_config_dir)) {
@@ -296,7 +294,7 @@ class Smarty_Internal_TestInstall
                     if ($_stream_resolve_include_path) {
                         $config_dir = stream_resolve_include_path($_config_dir);
                     } else {
-                        $config_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_config_dir);
+                        $config_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_config_dir, null, $smarty);
                     }
 
                     if ($config_dir !== false) {
@@ -404,8 +402,6 @@ class Smarty_Internal_TestInstall
                 "smarty_internal_data.php"                                  => true,
                 "smarty_internal_debug.php"                                 => true,
                 "smarty_internal_extension_codeframe.php"                   => true,
-                "smarty_internal_extension_config.php"                      => true,
-                "smarty_internal_extension_defaulttemplatehandler.php"      => true,
                 "smarty_internal_filter_handler.php"                        => true,
                 "smarty_internal_function_call_handler.php"                 => true,
                 "smarty_internal_get_include_path.php"                      => true,
@@ -430,7 +426,6 @@ class Smarty_Internal_TestInstall
                 "smarty_internal_templatecompilerbase.php"                  => true,
                 "smarty_internal_templatelexer.php"                         => true,
                 "smarty_internal_templateparser.php"                        => true,
-                "smarty_internal_utility.php"                               => true,
                 "smarty_internal_write_file.php"                            => true,
                 "smarty_resource.php"                                       => true,
                 "smarty_resource_custom.php"                                => true,

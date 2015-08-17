@@ -1,28 +1,39 @@
 <?php
 
 /**
- * Smarty Extension ClearCompiled
+ * Smarty Method ClearCompiledTemplate
  *
- * $smarty->clearCompiledTemplate() method
+ * Smarty::clearCompiledTemplate() method
  *
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  */
-class Smarty_Internal_Extension_ClearCompiled
+class Smarty_Internal_Method_ClearCompiledTemplate
 {
+    /**
+     * Valid for Smarty object
+     *
+     * @var int
+     */
+    public $objMap = 1;
+
     /**
      * Delete compiled template file
      *
-     * @param  Smarty  $smarty        Smarty instance
+     * @api  Smarty::clearCompiledTemplate()
+     * @link http://www.smarty.net/docs/en/api.clear.compiled.template.tpl
+     *
+     * @param \Smarty  $smarty
      * @param  string  $resource_name template name
      * @param  string  $compile_id    compile id
      * @param  integer $exp_time      expiration time
      *
      * @return integer number of template files deleted
      */
-    public static function clearCompiledTemplate(Smarty $smarty, $resource_name, $compile_id, $exp_time)
+    public function clearCompiledTemplate(Smarty $smarty, $resource_name = null, $compile_id = null, $exp_time = null)
     {
+
         $_compile_dir = $smarty->getCompileDir();
         if ($_compile_dir == '/') { //We should never want to delete this!
             return 0;
@@ -32,6 +43,7 @@ class Smarty_Internal_Extension_ClearCompiled
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;
             $smarty->caching = false;
+            /* @var Smarty_Internal_Template $tpl */
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
             if ($tpl->source->exists) {
@@ -47,7 +59,6 @@ class Smarty_Internal_Extension_ClearCompiled
             } else {
                 return 0;
             }
-
             $_resource_part_2 = str_replace('.php', '.cache.php', $_resource_part_1);
             $_resource_part_2_length = strlen($_resource_part_2);
         }
