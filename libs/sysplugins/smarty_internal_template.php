@@ -308,15 +308,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 if ($this->smarty->debugging) {
                     $this->smarty->_debug->end_cache($this);
                 }
-            } else {
-                if ($this->parent instanceof Smarty_Internal_Template && !empty($this->compiled->nocache_hash) &&
-                    !empty($this->parent->compiled->nocache_hash)
-                ) {
-                    // replace nocache_hash
-                    $content = str_replace("{$this->compiled->nocache_hash}", $this->parent->compiled->nocache_hash, $content);
-                    $this->parent->compiled->has_nocache_code = $this->parent->compiled->has_nocache_code ||
-                        $this->compiled->has_nocache_code;
-                }
             }
         } else {
             if ($this->smarty->debugging) {
@@ -588,7 +579,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->smarty->_debug->end_template($tpl);
             $this->smarty->_debug->end_render($tpl);
         }
-        return str_replace($tpl->compiled->nocache_hash, $this->compiled->nocache_hash, $output);
+        if ($caching == 9999 && $tpl->compiled->has_nocache_code) {
+            $this->cached->hashes[$tpl->compiled->nocache_hash] = true;
+        }
     }
 
     /**

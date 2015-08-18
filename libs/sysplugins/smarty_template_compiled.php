@@ -207,6 +207,9 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             $_template->cached->file_dependency = array_merge($_template->cached->file_dependency, $this->file_dependency);
         }
         $_template->getRenderedTemplateCode($this->unifunc);
+        if ($_template->caching && $this->has_nocache_code) {
+            $_template->cached->hashes[$this->nocache_hash] = true;
+        }
     }
 
     /**

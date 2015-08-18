@@ -66,6 +66,13 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
     public $source = null;
 
     /**
+     * Nocache hash codes of processed compiled templates
+     * 
+     * @var array
+     */
+    public $hashes = array();
+
+    /**
      * create Cached Object container
      *
      * @param Smarty_Internal_Template $_template template object
@@ -264,14 +271,21 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
      * Sanitize content and write it to cache resource
      *
      * @param Smarty_Internal_Template $_template
-     * @param string                   $content
      * @param bool                     $no_output_filter
      *
-     * @throws SmartyException
+     * @throws \SmartyException
      */
     public function updateCache(Smarty_Internal_Template $_template, $no_output_filter)
     {
         $content = ob_get_clean();
+        unset($this->hashes[$_template->compiled->nocache_hash]);
+        if (!empty($this->hashes)) {
+            $hash_array = array();
+            foreach ($this->hashes as $hash => $foo) {
+                $hash_array[] = "/{$hash}/";
+            }
+            $content = preg_replace($hash_array, $_template->compiled->nocache_hash, $content);
+        }
         $_template->cached->has_nocache_code = false;
         // get text between non-cached items
         $cache_split = preg_split("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s", $content);
