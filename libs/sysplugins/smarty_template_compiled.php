@@ -19,6 +19,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      */
     public $nocache_hash = null;
 
+
     /**
      * create Compiled Object container
      */
@@ -154,6 +155,18 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 $_template->smarty->compile_check = false;
                 $this->loadCompiledTemplate($_template);
                 $_template->smarty->compile_check = $compileCheck;
+            }
+        }
+        if (!$_template->source->isConfig && !isset($_template->smarty->template_objects[$_template->templateId]) &&
+            $_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC &&
+            $_template->parent instanceof Smarty_Internal_Template && isset($_template->parent->compiled)
+        ) {
+            foreach ($_template->parent->compiled->includes as $key => $count) {
+                $_template->compiled->includes[$key] = isset($_template->compiled->includes[$key]) ? $_template->compiled->includes[$key] +
+                    $count : $count;
+            }
+            if (!in_array($_template->source->type, array('eval', 'string')) && $_template->compiled->includes[$_template->source->type . ':' . $_template->source->name] > 1) {
+                $_template->smarty->template_objects[$_template->templateId] =   $_template;
             }
         }
         $this->processed = true;

@@ -88,6 +88,13 @@ abstract class Smarty_Template_Resource_Base
     public $tpl_function = array();
 
     /**
+     * Included subtemplates
+     *
+     * @var array
+     */
+    public $includes = array();
+
+    /**
      * Process resource
      *
      * @param Smarty_Internal_Template $_template template object

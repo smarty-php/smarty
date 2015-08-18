@@ -70,6 +70,14 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
 
         // save possible attributes
         $include_file = $_attr['file'];
+        if ($compiler->has_variable_string ||
+            !((substr_count($include_file, '"') == 2 || substr_count($include_file, "'") == 2)) ||
+            substr_count($include_file, '(') != 0 || substr_count($include_file, '$_smarty_tpl->') != 0
+        ) {
+            $variable_template = true;
+        } else {
+            $variable_template = false;
+        }
 
         if (isset($_attr['assign'])) {
             // output will be stored in a smarty variable instead of being displayed
@@ -89,7 +97,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         }
 
         //
-        if ($compiler->loopNesting > 0) {
+        if ($variable_template || $compiler->loopNesting > 0) {
             $_cache_tpl = 'true';
         } else {
             $_cache_tpl = 'false';
@@ -115,10 +123,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
 
         if ($merge_compiled_includes && $_attr['inline'] !== true) {
             // variable template name ?
-            if ($compiler->has_variable_string ||
-                !((substr_count($include_file, '"') == 2 || substr_count($include_file, "'") == 2)) ||
-                substr_count($include_file, '(') != 0 || substr_count($include_file, '$_smarty_tpl->') != 0
-            ) {
+            if ($variable_template) {
                 $merge_compiled_includes = false;
                 if ($compiler->template->caching) {
                     // must use individual cache file
@@ -262,6 +267,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         } else {
             $_vars = 'array()';
         }
+        $this->logInclude($compiler, $include_file, $variable_template);
+
         $update_compile_id = $compiler->template->caching && !$compiler->tag_nocache && !$compiler->nocache &&
             $_compile_id != '$_smarty_tpl->compile_id';
         if ($has_compiled_template && !$call_nocache) {
@@ -305,5 +312,27 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         }
         $_output .= "?>\n";
         return $_output;
+    }
+
+    /**
+     * log include count
+     *
+     * @param \Smarty_Internal_SmartyTemplateCompiler $compiler
+     * @param   string                                $include_file
+     * @param    bool                                 $variable_template
+     */
+    private function logInclude(Smarty_Internal_SmartyTemplateCompiler $compiler, $include_file, $variable_template)
+    {
+        if ($variable_template) {
+            return;
+        }
+        list($name, $type) = Smarty_Resource::parseResourceName(trim($include_file, '\'"'), $compiler->template->smarty->default_resource_type);
+        if (in_array($type, array('eval', 'string'))) {
+            return;
+        }
+        $include_name = $type . ':' . $name;
+        $compiled = $compiler->parent_compiler->template->compiled;
+        $compiled->includes[$include_name] = isset($compiled->includes[$include_name]) ? $compiled->includes[$include_name] +
+            1 : 1;
     }
 }

@@ -118,7 +118,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @param mixed                                                   $_compile_id       compile id or null
      * @param bool                                                    $_caching          use caching?
      * @param int                                                     $_cache_lifetime   cache life-time in seconds
-     * @param string                                                    $_templateId        optional from extern
+     * @param string                                                  $_templateId       optional from extern
      *
      * @throws \SmartyException
      */
@@ -660,6 +660,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         } else {
             $this->mustCompile = !$is_valid;
             $resource = $this->compiled;
+            $resource->includes = $properties['includes'];
         }
         if ($is_valid) {
             $resource->unifunc = $properties['unifunc'];
