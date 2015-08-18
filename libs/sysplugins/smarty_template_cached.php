@@ -88,15 +88,15 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
      */
     static function load(Smarty_Internal_Template $_template)
     {
-        $_template->cached = $cached = new Smarty_Template_Cached($_template);
-        $cached->handler->populate($cached, $_template);
+        $_template->cached = new Smarty_Template_Cached($_template);
+        $_template->cached->handler->populate($_template->cached, $_template);
         // caching enabled ?
         if (!($_template->caching == Smarty::CACHING_LIFETIME_CURRENT ||
                 $_template->caching == Smarty::CACHING_LIFETIME_SAVED) || $_template->source->recompiled
         ) {
-            $cached->valid = false;
+            $_template->cached->valid = false;
         }
-        return $cached;
+        return $_template->cached;
     }
 
     /**

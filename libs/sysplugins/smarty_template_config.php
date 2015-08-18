@@ -92,24 +92,23 @@ class Smarty_Template_Config extends Smarty_Template_Source
     public static function load(Smarty_Internal_Template $_template = null, Smarty $smarty = null, $template_resource = null)
     {
         static $_incompatible_resources = array('extends' => true, 'php' => true);
-        $smarty = $_template->smarty;
         $template_resource = $_template->template_resource;
         if (empty($template_resource)) {
             throw new SmartyException('Missing config name');
         }
         // parse resource_name, load resource handler
-        list($name, $type) = Smarty_Resource::parseResourceName($template_resource, $smarty->default_config_type);
+        list($name, $type) = Smarty_Resource::parseResourceName($template_resource, $_template->smarty->default_config_type);
         // make sure configs are not loaded via anything smarty can't handle
         if (isset($_incompatible_resources[$type])) {
             throw new SmartyException ("Unable to use resource '{$type}' for config");
         }
-        $resource = Smarty_Resource::load($smarty, $type);
-        $source = new Smarty_Template_Config($resource, $smarty, $template_resource, $type, $name);
+        $resource = Smarty_Resource::load($_template->smarty, $type);
+        $source = new Smarty_Template_Config($resource, $_template->smarty, $template_resource, $type, $name);
         $resource->populate($source, $_template);
         if (!$source->exists && isset($_template->smarty->default_config_handler_func)) {
             Smarty_Internal_Method_RegisterDefaultTemplateHandler::_getDefaultTemplate($source);
         }
-        $source->unique_resource = $resource->buildUniqueResourceName($smarty, $name, true);
+        $source->unique_resource = $resource->buildUniqueResourceName($_template->smarty, $name, true);
         return $source;
     }
 }
