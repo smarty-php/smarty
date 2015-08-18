@@ -46,11 +46,11 @@ class Smarty_Internal_Method_ConfigLoad
         $confObj->source->scope = $scope;
         $confObj->compiled = Smarty_Template_Compiled::load($confObj);
         if ($confObj->smarty->debugging) {
-            Smarty_Internal_Debug::start_render($confObj);
+            $confObj->smarty->_debug->start_render($confObj);
         }
         $confObj->compiled->render($confObj);
         if ($confObj->smarty->debugging) {
-            Smarty_Internal_Debug::end_render($confObj);
+            $confObj->smarty->_debug->end_render($confObj);
         }
         if ($data instanceof Smarty_Internal_Template) {
             $data->compiled->file_dependency[$confObj->source->uid] = array($confObj->source->filepath,

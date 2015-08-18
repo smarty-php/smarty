@@ -742,6 +742,13 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $_objType = 1;
 
     /**
+     * Debug object
+     *
+     * @var Smarty_Internal_Debug
+     */
+    public $_debug = null;
+
+    /**
      * removed properties
      *
      * @var array
@@ -1190,6 +1197,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         } else {
             $data = null;
         }
+        /* var Smarty $tpl */
         $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
         if ($do_clone) {
             $tpl->smarty = clone $tpl->smarty;
@@ -1202,7 +1210,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             }
         }
         if ($this->debugging) {
-            Smarty_Internal_Debug::register_template($tpl);
+            $tpl->smarty->_debug = new Smarty_Internal_Debug();
         }
         return $tpl;
     }

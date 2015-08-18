@@ -399,7 +399,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             while ($this->template->source = array_shift($this->sources)) {
                 $this->smarty->_current_file = $this->template->source->filepath;
                 if ($this->smarty->debugging) {
-                    Smarty_Internal_Debug::start_compile($this->template);
+                    $this->smarty->_debug->start_compile($this->template);
                 }
                 $no_sources = count($this->sources);
                 $this->parent_compiler->template->compiled->file_dependency[$this->template->source->uid] = array($this->template->source->filepath,
@@ -431,7 +431,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     $_compiled_code = $this->doCompile($_content, true);
                 }
                 if ($this->smarty->debugging) {
-                    Smarty_Internal_Debug::end_compile($this->template);
+                    $this->smarty->_debug->end_compile($this->template);
                 }
                 // free memory
                 $this->parser = null;
@@ -1067,7 +1067,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function pushTrace($file, $uid, $line, $debug = true)
     {
         if ($this->smarty->debugging && $debug) {
-            Smarty_Internal_Debug::end_compile($this->template);
+            $this->smarty->_debug->end_compile($this->template);
         }
         array_push($this->trace_stack, array($this->smarty->_current_file, $this->trace_filepath, $this->trace_uid,
                                              $this->trace_line_offset));
@@ -1075,7 +1075,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         $this->trace_uid = $uid;
         $this->trace_line_offset = $line;
         if ($this->smarty->debugging) {
-            Smarty_Internal_Debug::start_compile($this->template);
+            $this->smarty->_debug->start_compile($this->template);
         }
     }
 
@@ -1085,7 +1085,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function popTrace()
     {
         if ($this->smarty->debugging) {
-            Smarty_Internal_Debug::end_compile($this->template);
+            $this->smarty->_debug->end_compile($this->template);
         }
         $r = array_pop($this->trace_stack);
         $this->smarty->_current_file = $r[0];
@@ -1093,7 +1093,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         $this->trace_uid = $r[2];
         $this->trace_line_offset = $r[3];
         if ($this->smarty->debugging) {
-            Smarty_Internal_Debug::start_compile($this->template);
+            $this->smarty->_debug->start_compile($this->template);
         }
     }
 

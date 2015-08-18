@@ -142,7 +142,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
                 if (!$_template->smarty->cache_locking || $this->handler->locked($_template->smarty, $this) === null) {
                     // load cache file for the following checks
                     if ($_template->smarty->debugging) {
-                        Smarty_Internal_Debug::start_cache($_template);
+                        $_template->smarty->_debug->start_cache($_template);
                     }
                     if ($this->handler->process($_template, $this) === false) {
                         $this->valid = false;
@@ -150,7 +150,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
                         $this->processed = true;
                     }
                     if ($_template->smarty->debugging) {
-                        Smarty_Internal_Debug::end_cache($_template);
+                        $_template->smarty->_debug->end_cache($_template);
                     }
                 } else {
                     $this->is_locked = true;

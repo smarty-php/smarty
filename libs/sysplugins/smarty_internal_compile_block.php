@@ -160,7 +160,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         $_tpl = new Smarty_Internal_template('string:' .
                                              $compiler->template->block_data[$_name]['source'], $compiler->smarty, $compiler->template, $compiler->template->cache_id, $compiler->template->compile_id, $compiler->template->caching, $compiler->template->cache_lifetime);
         if ($compiler->smarty->debugging) {
-            Smarty_Internal_Debug::ignore($_tpl);
+            $compiler->smarty->_debug->ignore($_tpl);
         }
         $_tpl->tpl_vars = $compiler->template->tpl_vars;
         $_tpl->variable_filters = $compiler->template->variable_filters;

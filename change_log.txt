@@ -3,6 +3,7 @@
   - introduce Smarty::$resource_cache_mode and cache template object of {include} inside loop
   - load seldom used Smarty API methods dynamically to reduce memory footprint
   - cache template object of {include} if same template is included several times
+  - convert debug console processing to object
 
  06.08.2015
   - avoid possible circular object references caused by parser/lexer objects

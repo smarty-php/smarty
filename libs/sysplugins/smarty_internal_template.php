@@ -173,7 +173,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function display($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
-        return isset($template) ? $this->smarty->fetch($template, $cache_id, $compile_id, $parent, true) : $this->render(true, false, true);
+        $this->fetch($template, $cache_id, $compile_id, $parent, true);
     }
 
     /**
@@ -191,7 +191,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         $parentIsTpl = $this->parent instanceof Smarty_Internal_Template;
         if ($this->smarty->debugging) {
-            Smarty_Internal_Debug::start_template($this, $display);
+            $this->smarty->_debug->start_template($this, $display);
         }
         // checks if template exists
         if (!$this->source->exists) {
@@ -233,9 +233,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->config_vars = $config_vars;
         }
         $_smarty_old_error_level = isset($this->smarty->error_reporting) ? error_reporting($this->smarty->error_reporting) : null;
-        // check URL debugging control
+       // check URL debugging control
         if (!$this->smarty->debugging && $this->smarty->debugging_ctrl == 'URL') {
-            Smarty_Internal_Debug::debugUrl($this);
+            $this->smarty->_debug->debugUrl($this);
         }
         // disable caching for evaluated code
         if ($this->source->recompiled) {
@@ -253,7 +253,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (!($isCacheTpl) || !$this->cached->valid) {
             // render template (not loaded and not in cache)
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::start_render($this);
+                $this->smarty->_debug->start_render($this);
             }
             if (!$this->source->uncompiled) {
                 // render compiled code
@@ -268,12 +268,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $this->parent->tpl_function = array_merge($this->parent->tpl_function, $this->tpl_function);
             }
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::end_render($this);
+                $this->smarty->_debug->end_render($this);
             }
             // write to cache when necessary
             if (!$this->source->recompiled && $isCacheTpl) {
                 if ($this->smarty->debugging) {
-                    Smarty_Internal_Debug::start_cache($this);
+                    $this->smarty->_debug->start_cache($this);
                 }
                 $this->cached->updateCache($this, $content, $no_output_filter);
                 $compile_check = $this->smarty->compile_check;
@@ -287,7 +287,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $this->smarty->compile_check = $compile_check;
                 $content = $this->getRenderedTemplateCode($this->cached->unifunc);
                 if ($this->smarty->debugging) {
-                    Smarty_Internal_Debug::end_cache($this);
+                    $this->smarty->_debug->end_cache($this);
                 }
             } else {
                 if ($this->parent instanceof Smarty_Internal_Template && !empty($this->compiled->nocache_hash) &&
@@ -301,11 +301,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
         } else {
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::start_cache($this);
+                $this->smarty->_debug->start_cache($this);
             }
             $content = $this->cached->render($this);
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::end_cache($this);
+                $this->smarty->_debug->end_cache($this);
             }
         }
         if ((!$this->caching || $this->cached->has_nocache_code || $this->source->recompiled) && !$no_output_filter &&
@@ -324,11 +324,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 echo $content;
             }
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::end_template($this);
+                $this->smarty->_debug->end_template($this);
             }
             // debug output
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::display_debug($this, true);
+                $this->smarty->_debug->display_debug($this, true);
             }
             if ($merge_tpl_vars) {
                 // restore local variables
@@ -343,11 +343,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $this->config_vars = $save_config_vars;
             }
             if ($this->smarty->debugging) {
-                Smarty_Internal_Debug::end_template($this);
+                $this->smarty->_debug->end_template($this);
             }
             if ($this->smarty->debugging == 2 and $display === false) {
                 if ($this->smarty->debugging) {
-                    Smarty_Internal_Debug::display_debug($this, true);
+                    $this->smarty->_debug->display_debug($this, true);
                 }
             }
             if ($parentIsTpl) {
@@ -491,6 +491,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         $_templateId = $this->getTemplateId($template, $cache_id, $compile_id);
         // already in template cache?
+        /* @var Smarty_Internal_Template $tpl */
         if (isset($this->smarty->template_objects[$_templateId])) {
             // clone cached template object because of possible recursive call
             $tpl = clone $this->smarty->template_objects[$_templateId];
@@ -559,13 +560,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $tpl->compiled = $this->compiled;
         }
         if ($this->smarty->debugging) {
-            Smarty_Internal_Debug::start_template($tpl);
-            Smarty_Internal_Debug::start_render($tpl);
+            $this->smarty->_debug->start_template($tpl);
+            $this->smarty->_debug->start_render($tpl);
         }
         $output = $tpl->getRenderedTemplateCode($content_func);
         if ($this->smarty->debugging) {
-            Smarty_Internal_Debug::end_template($tpl);
-            Smarty_Internal_Debug::end_render($tpl);
+            $this->smarty->_debug->end_template($tpl);
+            $this->smarty->_debug->end_render($tpl);
         }
         return str_replace($tpl->compiled->nocache_hash, $this->compiled->nocache_hash, $output);
     }
@@ -660,7 +661,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         } else {
             $this->mustCompile = !$is_valid;
             $resource = $this->compiled;
-            $resource->includes = $properties['includes'];
+            $resource->includes = isset($properties['includes']) ? $properties['includes'] : array();
         }
         if ($is_valid) {
             $resource->unifunc = $properties['unifunc'];
