@@ -569,6 +569,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $tpl = $this->setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj);
         if (!isset($tpl->compiled)) {
             $tpl->compiled = $this->compiled;
+            if ($tpl->compiled->includes[$tpl->source->type . ':' . $tpl->source->name] > 1) {
+                $tpl->smarty->template_objects[$tpl->templateId] =   $tpl;
+            }
         }
         if ($this->smarty->debugging) {
             $this->smarty->_debug->start_template($tpl);
