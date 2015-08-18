@@ -202,7 +202,9 @@ class Smarty_Template_Source
         list($name, $type) = Smarty_Resource::parseResourceName($template_resource, $smarty->default_resource_type);
         $resource = Smarty_Resource::load($smarty, $type);
         // if resource is not recompiling and resource name is not dotted we can check the source cache
-        if (($smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON) && !$resource->recompiled && !(isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/'))) {
+        if (($smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON) && !$resource->recompiled &&
+            !(isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/'))
+        ) {
             $unique_resource = $resource->buildUniqueResourceName($smarty, $name);
             if (isset($smarty->source_objects[$unique_resource])) {
                 return $smarty->source_objects[$unique_resource];
@@ -221,8 +223,11 @@ class Smarty_Template_Source
             // may by we have already $unique_resource
             $is_relative = false;
             if (!isset($unique_resource)) {
-                $is_relative = isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/') && ($type == 'file' || (isset($_template->parent->source) && $_template->parent->source->type == 'extends'));
-                $unique_resource = $resource->buildUniqueResourceName($smarty, $is_relative ? $source->filepath . $name : $name);
+                $is_relative = isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/') &&
+                    ($type == 'file' ||
+                        (isset($_template->parent->source) && $_template->parent->source->type == 'extends'));
+                $unique_resource = $resource->buildUniqueResourceName($smarty, $is_relative ? $source->filepath .
+                    $name : $name);
             }
             $source->unique_resource = $unique_resource;
             // save in runtime cache if not relative
@@ -243,18 +248,7 @@ class Smarty_Template_Source
      */
     public function renderUncompiled(Smarty_Internal_Template $_template)
     {
-        $level = ob_get_level();
-        ob_start();
-        try {
-            $this->handler->renderUncompiled($_template->source, $_template);
-            return ob_get_clean();
-        }
-        catch (Exception $e) {
-            while (ob_get_level() > $level) {
-                ob_end_clean();
-            }
-            throw $e;
-        }
+        $this->handler->renderUncompiled($_template->source, $_template);
     }
 
     /**

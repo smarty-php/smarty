@@ -817,7 +817,22 @@ class Smarty extends Smarty_Internal_TemplateBase
         // set caching in template object
         $_template->caching = $this->caching;
         // fetch template content
-        return $_template->render(true, false, $display);
+        $level = ob_get_level();
+        try {
+            $_smarty_old_error_level = isset($this->error_reporting) ? error_reporting($this->error_reporting) : null;
+            ob_start();
+            $result = $_template->render(true, false, $display);
+            if (isset($_smarty_old_error_level)) {
+                error_reporting($_smarty_old_error_level);
+            }
+            return $result === null ? ob_get_clean() : $result;
+        }
+        catch (Exception $e) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+            throw $e;
+        }
     }
 
     /**

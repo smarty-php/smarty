@@ -206,7 +206,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if (isset($_template->cached)) {
             $_template->cached->file_dependency = array_merge($_template->cached->file_dependency, $this->file_dependency);
         }
-        return $_template->getRenderedTemplateCode($this->unifunc);
+        $_template->getRenderedTemplateCode($this->unifunc);
     }
 
     /**
@@ -222,6 +222,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $_template->source->compileds = array();
         $this->file_dependency = array();
         $this->tpl_function = array();
+        $this->includes = array();
         $this->nocache_hash = null;
         $this->unifunc = null;
         // compile locking

@@ -208,7 +208,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
         if (!$this->processed) {
             $this->process($_template);
         }
-        return $_template->getRenderedTemplateCode($this->unifunc);
+        $_template->getRenderedTemplateCode($this->unifunc);
     }
 
     /**
@@ -269,31 +269,33 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
      *
      * @throws SmartyException
      */
-    public function updateCache(Smarty_Internal_Template $_template, $content, $no_output_filter)
+    public function updateCache(Smarty_Internal_Template $_template, $no_output_filter)
     {
+        $content = ob_get_clean();
         $_template->cached->has_nocache_code = false;
         // get text between non-cached items
         $cache_split = preg_split("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s", $content);
         // get non-cached items
         preg_match_all("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s", $content, $cache_parts);
-        $output = '';
+        $content = '';
         // loop over items, stitch back together
         foreach ($cache_split as $curr_idx => $curr_split) {
             // escape PHP tags in template content
-            $output .= preg_replace('/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/', "<?php echo '\$1'; ?>\n", $curr_split);
+            $content .= preg_replace('/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/', "<?php echo '\$1'; ?>\n", $curr_split);
             if (isset($cache_parts[0][$curr_idx])) {
                 $_template->cached->has_nocache_code = true;
-                $output .= $cache_parts[1][$curr_idx];
+                $content .= $cache_parts[1][$curr_idx];
             }
         }
         if (!$no_output_filter && !$_template->compiled->has_nocache_code &&
             (isset($_template->smarty->autoload_filters['output']) ||
                 isset($_template->smarty->registered_filters['output']))
         ) {
-            $output = Smarty_Internal_Filter_Handler::runFilter('output', $output, $_template);
+            $content = Smarty_Internal_Filter_Handler::runFilter('output', $content, $_template);
         }
         // write cache file content
-        $this->writeCachedContent($_template, $output);
+        $this->writeCachedContent($_template, $content);
+        ob_start();
     }
 
     /**

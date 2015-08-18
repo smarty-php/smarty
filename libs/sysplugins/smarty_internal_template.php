@@ -151,14 +151,34 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @param  mixed  $cache_id   cache id to be used with this template
      * @param  mixed  $compile_id compile id to be used with this template
      * @param  object $parent     next higher level of Smarty variables
+     * @param  bool   $_display   true: display, false: fetch
      *
-     * @throws Exception
-     * @throws SmartyException
-     * @return string rendered template output
+     * @return string
+     * @throws \Exception
      */
-    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null)
+    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $_display = false)
     {
-        return isset($template) ? $this->smarty->fetch($template, $cache_id, $compile_id, $parent) : $this->render(true, false, false);
+        if (isset($template)) {
+            return $this->smarty->fetch($template, $cache_id, $compile_id, $parent, $_display);
+        } else {
+            // fetch template content
+            $level = ob_get_level();
+            try {
+                $_smarty_old_error_level = isset($this->smarty->error_reporting) ? error_reporting($this->smarty->error_reporting) : null;
+                ob_start();
+                $result = $this->render(true, false, $_display);
+                if (isset($_smarty_old_error_level)) {
+                    error_reporting($_smarty_old_error_level);
+                }
+                return $result === null ? ob_get_clean() : $result;
+            }
+            catch (Exception $e) {
+                while (ob_get_level() > $level) {
+                    ob_end_clean();
+                }
+                throw $e;
+            }
+        }
     }
 
     /**
@@ -232,7 +252,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->tpl_vars = $tpl_vars;
             $this->config_vars = $config_vars;
         }
-        $_smarty_old_error_level = isset($this->smarty->error_reporting) ? error_reporting($this->smarty->error_reporting) : null;
        // check URL debugging control
         if (!$this->smarty->debugging && $this->smarty->debugging_ctrl == 'URL') {
             $this->smarty->_debug->debugUrl($this);
@@ -260,9 +279,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 if (!isset($this->compiled)) {
                     $this->loadCompiled();
                 }
-                $content = $this->compiled->render($this);
+                $this->compiled->render($this);
             } else {
-                $content = $this->source->renderUncompiled($this);
+                $this->source->renderUncompiled($this);
             }
             if ($parentIsTpl && !empty($this->tpl_function)) {
                 $this->parent->tpl_function = array_merge($this->parent->tpl_function, $this->tpl_function);
@@ -275,7 +294,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 if ($this->smarty->debugging) {
                     $this->smarty->_debug->start_cache($this);
                 }
-                $this->cached->updateCache($this, $content, $no_output_filter);
+                $this->cached->updateCache($this, $no_output_filter);
                 $compile_check = $this->smarty->compile_check;
                 $this->smarty->compile_check = false;
                 if ($parentIsTpl) {
@@ -285,7 +304,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                     $this->cached->process($this, true);
                 }
                 $this->smarty->compile_check = $compile_check;
-                $content = $this->getRenderedTemplateCode($this->cached->unifunc);
+                $this->getRenderedTemplateCode($this->cached->unifunc);
                 if ($this->smarty->debugging) {
                     $this->smarty->_debug->end_cache($this);
                 }
@@ -303,25 +322,23 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             if ($this->smarty->debugging) {
                 $this->smarty->_debug->start_cache($this);
             }
-            $content = $this->cached->render($this);
+            $this->cached->render($this);
             if ($this->smarty->debugging) {
                 $this->smarty->_debug->end_cache($this);
             }
         }
+        $content = null;
         if ((!$this->caching || $this->cached->has_nocache_code || $this->source->recompiled) && !$no_output_filter &&
             (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))
         ) {
-            $content = Smarty_Internal_Filter_Handler::runFilter('output', $content, $this);
-        }
-        if (isset($_smarty_old_error_level)) {
-            error_reporting($_smarty_old_error_level);
+            $content = Smarty_Internal_Filter_Handler::runFilter('output', ob_get_clean(), $this);
         }
         // display or fetch
         if ($display) {
             if ($this->caching && $this->smarty->cache_modified_check) {
-                $this->cached->cacheModifiedCheck($this, $content);
+                $this->cached->cacheModifiedCheck($this, isset($content) ? $content : ob_get_clean());
             } else {
-                echo $content;
+                echo isset($content) ? $content : ob_get_clean();
             }
             if ($this->smarty->debugging) {
                 $this->smarty->_debug->end_template($this);
@@ -361,7 +378,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 }
             }
             // return cache content
-            return $content;
+            return $content === null ? null: $content;
         }
     }
 
@@ -377,7 +394,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         $level = ob_get_level();
         try {
-            ob_start();
             if (empty($unifunc) || !is_callable($unifunc)) {
                 throw new SmartyException("Invalid compiled template for '{$this->template_resource}'");
             }
@@ -397,11 +413,15 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             if (isset($this->smarty->security_policy)) {
                 $this->smarty->security_policy->exitTemplate();
             }
-            return ob_get_clean();
+            return null;
         }
         catch (Exception $e) {
             while (ob_get_level() > $level) {
                 ob_end_clean();
+            }
+            array_shift($this->_capture_stack);
+            if (isset($this->smarty->security_policy)) {
+                $this->smarty->security_policy->exitTemplate();
             }
             throw $e;
         }
@@ -470,7 +490,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function getSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj)
     {
         $tpl = $this->setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj);
-        return $tpl->render();
+        $tpl->render();
     }
 
     /**
@@ -563,7 +583,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->smarty->_debug->start_template($tpl);
             $this->smarty->_debug->start_render($tpl);
         }
-        $output = $tpl->getRenderedTemplateCode($content_func);
+        $tpl->getRenderedTemplateCode($content_func);
         if ($this->smarty->debugging) {
             $this->smarty->_debug->end_template($tpl);
             $this->smarty->_debug->end_render($tpl);
