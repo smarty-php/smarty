@@ -334,6 +334,14 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $stripRegEx = '![\t ]*[\r\n]+[\t ]*!';
 
     /**
+     * plugin search order
+     *
+     * @var array
+     */
+    public $plugin_search_order = array('function', 'block', 'compiler', 'class');
+
+
+    /**
      * method to compile a Smarty template
      *
      * @param mixed $_content template source
@@ -363,6 +371,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function compileTemplate(Smarty_Internal_Template $template, $nocache = null, $parent_compiler = null)
     {
+        if (property_exists($template->smarty, 'plugin_search_order')) {
+            $this->plugin_search_order = $template->smarty->plugin_search_order;
+        }
         // save template object in compiler class
         $this->template = $template;
         $this->savedSource = $this->template->source;
@@ -626,7 +637,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     }
                 }
                 // check plugins from plugins folder
-                foreach ($this->smarty->plugin_search_order as $plugin_type) {
+                foreach ($this->plugin_search_order as $plugin_type) {
                     if ($plugin_type == Smarty::PLUGIN_COMPILER &&
                         $this->smarty->loadPlugin('smarty_compiler_' . $tag) &&
                         (!isset($this->smarty->security_policy) ||
@@ -667,7 +678,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 if (is_callable($this->smarty->default_plugin_handler_func)) {
                     $found = false;
                     // look for already resolved tags
-                    foreach ($this->smarty->plugin_search_order as $plugin_type) {
+                    foreach ($this->plugin_search_order as $plugin_type) {
                         if (isset($this->default_handler_plugins[$plugin_type][$tag])) {
                             $found = true;
                             break;
@@ -675,7 +686,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     }
                     if (!$found) {
                         // call default handler
-                        foreach ($this->smarty->plugin_search_order as $plugin_type) {
+                        foreach ($this->plugin_search_order as $plugin_type) {
                             if ($this->getPluginFromDefaultHandler($tag, $plugin_type)) {
                                 $found = true;
                                 break;

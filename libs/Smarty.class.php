@@ -443,16 +443,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $allow_php_templates = false;
 
-    /**
-     * Should compiled-templates be prevented from being called directly?
-     * {@internal
-     * Currently used by Smarty_Internal_Template only.
-     * }}
-     *
-     * @var boolean
-     */
-    public $direct_access_security = true;
-
     /**#@-*/
     /**
      * debug mode
@@ -616,13 +606,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $registered_plugins = array();
 
     /**
-     * plugin search order
-     *
-     * @var array
-     */
-    public $plugin_search_order = array('function', 'block', 'compiler', 'class');
-
-    /**
      * registered objects
      *
      * @var array
@@ -700,20 +683,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $start_time = 0;
 
     /**
-     * default file permissions
-     *
-     * @var int
-     */
-    public $_file_perms = 0644;
-
-    /**
-     * default dir permissions
-     *
-     * @var int
-     */
-    public $_dir_perms = 0771;
-
-    /**
      * block tag hierarchy
      *
      * @var array
@@ -753,7 +722,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var array
      */
-    public $obsoleteProperties = array('resource_caching', 'template_resource_caching');
+    public $obsoleteProperties = array('resource_caching', 'template_resource_caching', 'direct_access_security' , '_dir_perms', '_file_perms', 'plugin_search_order');
 
     /**
      * Extension object cache
@@ -804,7 +773,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function fetch($template, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
     {
-        $this->_cache['core'] = array();
         if ($cache_id !== null && is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
