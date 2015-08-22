@@ -757,67 +757,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * fetches a rendered Smarty template
-     *
-     * @param  string $template         the resource handle of the template file or template object
-     * @param  mixed  $cache_id         cache id to be used with this template
-     * @param  mixed  $compile_id       compile id to be used with this template
-     * @param  object $parent           next higher level of Smarty variables
-     * @param  bool   $display          true: display, false: fetch
-     * @param  bool   $merge_tpl_vars   not used - left for BC
-     * @param  bool   $no_output_filter not used - left for BC
-     *
-     * @throws Exception
-     * @throws SmartyException
-     * @return string rendered template output
-     */
-    public function fetch($template, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
-    {
-        if ($cache_id !== null && is_object($cache_id)) {
-            $parent = $cache_id;
-            $cache_id = null;
-        }
-        if ($parent === null) {
-            $parent = $this;
-        }
-        // get template object
-        $_template = is_object($template) ? $template : $this->createTemplate($template, $cache_id, $compile_id, $parent, false);
-        // set caching in template object
-        $_template->caching = $this->caching;
-        // fetch template content
-        $level = ob_get_level();
-        try {
-            $_smarty_old_error_level = isset($this->error_reporting) ? error_reporting($this->error_reporting) : null;
-            ob_start();
-            $result = $_template->render(true, false, $display);
-            if (isset($_smarty_old_error_level)) {
-                error_reporting($_smarty_old_error_level);
-            }
-            return $result === null ? ob_get_clean() : $result;
-        }
-        catch (Exception $e) {
-            while (ob_get_level() > $level) {
-                ob_end_clean();
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * displays a Smarty template
-     *
-     * @param string $template   the resource handle of the template file or template object
-     * @param mixed  $cache_id   cache id to be used with this template
-     * @param mixed  $compile_id compile id to be used with this template
-     * @param object $parent     next higher level of Smarty variables
-     */
-    public function display($template, $cache_id = null, $compile_id = null, $parent = null)
-    {
-        // display template
-        $this->fetch($template, $cache_id, $compile_id, $parent, true);
-    }
-
-    /**
      * Check if a template resource exists
      *
      * @param  string $resource_name template name
@@ -1180,10 +1119,20 @@ class Smarty extends Smarty_Internal_TemplateBase
         } else {
             $data = null;
         }
-        /* var Smarty $tpl */
-        $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id);
+        $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
+        if (isset($this->_cache['isCached'][$_templateId])) {
+            $tpl = $do_clone  ? clone $this->_cache['isCached'][$_templateId] : $this->_cache['isCached'][$_templateId];
+            $tpl->parent = $parent;
+            $tpl->tpl_vars = array();
+            $tpl->config_vars = array();
+        } else {
+            /* @var Smarty_Internal_Template $tpl */
+            $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id, null, null, $_templateId);
+        }
         if ($do_clone) {
             $tpl->smarty = clone $tpl->smarty;
+        } elseif ($parent === null) {
+            $tpl->parent = $this;
         }
         // fill data if present
         if (!empty($data) && is_array($data)) {
@@ -1212,6 +1161,31 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function loadPlugin($plugin_name, $check = true)
     {
         return Smarty_Internal_Extension_LoadPlugin::loadPlugin($this, $plugin_name, $check);
+    }
+
+    /**
+     * Get unique template id
+     *
+     * @param string     $template_name
+     * @param null|mixed $cache_id
+     * @param null|mixed $compile_id
+     *
+     * @return string
+     */
+    public function _getTemplateId($template_name, $cache_id = null, $compile_id = null)
+    {
+        $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
+        $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
+
+        if ($this->allow_ambiguous_resources) {
+            $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template_name) . "#{$cache_id}#{$compile_id}";
+        } else {
+            $_templateId = $this->_joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}";
+        }
+        if (isset($_templateId[150])) {
+            $_templateId = sha1($_templateId);
+        }
+        return $_templateId;
     }
 
     /**

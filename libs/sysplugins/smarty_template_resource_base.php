@@ -2,7 +2,6 @@
 
 /**
  * Smarty Template Resource Base Object
- * Meta Data Container for Template Resource Files
  *
  * @package    Smarty
  * @subpackage TemplateResources
@@ -101,64 +100,50 @@ abstract class Smarty_Template_Resource_Base
      */
     abstract public function process(Smarty_Internal_Template $_template);
 
-    /**
-     * render template code
+     /**
+     * get rendered template content by calling compiled or cached template code
      *
-     * @param Smarty_Internal_Template $_template
+     * @param string $unifunc function with template code
      *
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
-    public function render(Smarty_Internal_Template $_template)
+    public function getRenderedTemplateCode(Smarty_Internal_Template $_template, $unifunc = null)
     {
-
-        if (!$this->processed) {
-            $this->process($_template);
-        }
-        return $_template->getRenderedTemplateCode($this->unifunc);
-    }
-
-    /**
-     * Write compiled code by handler
-     *
-     * @param Smarty_Internal_Template $_template template object
-     * @param string                   $code      compiled code
-     *
-     * @return boolean success
-     */
-    public function write(Smarty_Internal_Template $_template, $code)
-    {
-        if (!$_template->source->recompiled) {
-            $obj = new Smarty_Internal_Write_File();
-            if ($obj->writeFile($this->filepath, $code, $_template->smarty) === true) {
-                $this->timestamp = $this->exists = is_file($this->filepath);
-                if ($this->exists) {
-                    $this->timestamp = filemtime($this->filepath);
-                    return true;
-                }
+        $unifunc = isset($unifunc) ? $unifunc : $this->unifunc;
+        $level = ob_get_level();
+        try {
+            if (empty($unifunc) || !is_callable($unifunc)) {
+                throw new SmartyException("Invalid compiled template for '{$_template->template_resource}'");
             }
-            return false;
-        } else {
-            $this->content = $code;
+            if (isset($_template->smarty->security_policy)) {
+                $_template->smarty->security_policy->startTemplate($_template);
+            }
+            array_unshift($_template->_capture_stack, array());
+            //
+            // render compiled or saved template code
+            //
+            $unifunc($_template);
+            // any unclosed {capture} tags ?
+            if (isset($_template->_capture_stack[0][0])) {
+                $_template->capture_error();
+            }
+            array_shift($_template->_capture_stack);
+            if (isset($_template->smarty->security_policy)) {
+                $_template->smarty->security_policy->exitTemplate();
+            }
+            return null;
         }
-        $this->timestamp = time();
-        $this->exists = true;
-        return true;
-    }
-
-    /**
-     * Read compiled content from handler
-     *
-     * @param Smarty_Internal_Template $_template template object
-     *
-     * @return string content
-     */
-    public function read(Smarty_Internal_Template $_template)
-    {
-        if (!$_template->source->recompiled) {
-            return file_get_contents($this->filepath);
+        catch (Exception $e) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+            array_shift($_template->_capture_stack);
+            if (isset($_template->smarty->security_policy)) {
+                $_template->smarty->security_policy->exitTemplate();
+            }
+            throw $e;
         }
-        return isset($this->content) ? $this->content : false;
     }
 
     /**

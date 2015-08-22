@@ -67,7 +67,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
 
     /**
      * Nocache hash codes of processed compiled templates
-     * 
+     *
      * @var array
      */
     public $hashes = array();
@@ -104,6 +104,59 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
             $_template->cached->valid = false;
         }
         return $_template->cached;
+    }
+
+    /**
+     * Render cache template
+     *
+     * @param \Smarty_Internal_Template $_template
+     * @param  bool                     $no_output_filter
+     *
+     * @throws \Exception
+     */
+    public function render(Smarty_Internal_Template $_template, $no_output_filter = true)
+    {
+        if ($this->isCached($_template)) {
+            if ($_template->smarty->debugging) {
+                $_template->smarty->_debug->start_cache($_template);
+            }
+            if (!$this->processed) {
+                $this->process($_template);
+            }
+            $this->getRenderedTemplateCode($_template);
+            if ($_template->smarty->debugging) {
+                $_template->smarty->_debug->end_cache($_template);
+            }
+            return;
+        } elseif ($_template->source->handler->uncompiled) {
+            $_template->source->render($_template);
+        } else {
+            if (!isset($_template->compiled)) {
+                $_template->loadCompiled();
+            }
+            $_template->compiled->render($_template);
+        }
+        // write to cache when necessary
+        if ($_template->source->handler->recompiled) {
+            return;
+        }
+        if ($_template->smarty->debugging) {
+            $_template->smarty->_debug->start_cache($_template);
+        }
+        $_template->cached->updateCache($_template, $no_output_filter);
+        $compile_check = $_template->smarty->compile_check;
+        $_template->smarty->compile_check = false;
+        if (isset($this->parent) && $this->parent->_objType == 2) {
+            $_template->compiled->unifunc = $_template->parent->compiled->unifunc;
+        }
+        if (!$_template->cached->processed) {
+            $_template->cached->process($_template, true);
+        }
+        $_template->smarty->compile_check = $compile_check;
+        $this->getRenderedTemplateCode($_template);
+        if ($_template->smarty->debugging) {
+            $_template->smarty->_debug->end_cache($_template);
+        }
     }
 
     /**
@@ -200,22 +253,6 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
         } else {
             $this->processed = false;
         }
-    }
-
-    /**
-     * Render cached template
-     *
-     * @param Smarty_Internal_Template $_template
-     *
-     * @return string
-     * @throws Exception
-     */
-    public function render(Smarty_Internal_Template $_template)
-    {
-        if (!$this->processed) {
-            $this->process($_template);
-        }
-        $_template->getRenderedTemplateCode($this->unifunc);
     }
 
     /**

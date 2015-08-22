@@ -252,6 +252,27 @@ class Smarty_Template_Source
     }
 
     /**
+     * Render uncompiled source
+     *
+     * @param \Smarty_Internal_Template $_template
+     */
+    public function render(Smarty_Internal_Template $_template)
+    {
+        if ($_template->source->handler->uncompiled) {
+            if ($_template->smarty->debugging) {
+                $_template->smarty->_debug->start_render($_template);
+            }
+            $this->handler->renderUncompiled($_template->source, $_template);
+            if (isset($_template->parent) && $_template->parent->_objType == 2 && !empty($_template->tpl_function)) {
+                $_template->parent->tpl_function = array_merge($_template->parent->tpl_function, $_template->tpl_function);
+            }
+            if ($_template->smarty->debugging) {
+                $_template->smarty->_debug->end_render($_template);
+            }
+        }
+    }
+
+    /**
      * Get source time stamp
      *
      * @return int

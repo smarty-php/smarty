@@ -45,14 +45,8 @@ class Smarty_Internal_Method_ConfigLoad
         $confObj->source->config_sections = $sections;
         $confObj->source->scope = $scope;
         $confObj->compiled = Smarty_Template_Compiled::load($confObj);
-        if ($confObj->smarty->debugging) {
-            $confObj->smarty->_debug->start_render($confObj);
-        }
         $confObj->compiled->render($confObj);
-        if ($confObj->smarty->debugging) {
-            $confObj->smarty->_debug->end_render($confObj);
-        }
-        if ($data instanceof Smarty_Internal_Template) {
+        if ($data->_objType == 2) {
             $data->compiled->file_dependency[$confObj->source->uid] = array($confObj->source->filepath,
                                                                             $confObj->source->getTimeStamp(),
                                                                             $confObj->source->type);

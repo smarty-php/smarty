@@ -75,6 +75,128 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     public $cache_lifetime = 3600;
 
     /**
+     * fetches a rendered Smarty template
+     *
+     * @param  string $template         the resource handle of the template file or template object
+     * @param  mixed  $cache_id         cache id to be used with this template
+     * @param  mixed  $compile_id       compile id to be used with this template
+     * @param  object $parent           next higher level of Smarty variables
+     * @param  bool   $display          not used - left for BC
+     * @param  bool   $merge_tpl_vars   not used - left for BC
+     * @param  bool   $no_output_filter not used - left for BC
+     *
+     * @throws Exception
+     * @throws SmartyException
+     * @return string rendered template output
+     */
+    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
+    {
+        $result = $this->_execute($template, $cache_id, $compile_id, $parent, 'fetch');
+        return $result === null ? ob_get_clean() : $result;
+    }
+
+    /**
+     * displays a Smarty template
+     *
+     * @param string $template   the resource handle of the template file or template object
+     * @param mixed  $cache_id   cache id to be used with this template
+     * @param mixed  $compile_id compile id to be used with this template
+     * @param object $parent     next higher level of Smarty variables
+     */
+    public function display($template = null, $cache_id = null, $compile_id = null, $parent = null)
+    {
+        // display template
+        $this->_execute($template, $cache_id, $compile_id, $parent, 'display');
+    }
+
+    /**
+     * test if cache is valid
+     *
+     * @api  Smarty::isCached()
+     * @link http://www.smarty.net/docs/en/api.is.cached.tpl
+     *
+     * @param  null|string|\Smarty_Internal_Template $template   the resource handle of the template file or template object
+     * @param  mixed                                 $cache_id   cache id to be used with this template
+     * @param  mixed                                 $compile_id compile id to be used with this template
+     * @param  object                                $parent     next higher level of Smarty variables
+     *
+     * @return boolean       cache status
+     */
+    public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null)
+    {
+        return $this->_execute($template, $cache_id, $compile_id, $parent, 'isCached');
+    }
+
+    /**
+     * fetches a rendered Smarty template
+     *
+     * @param  string $template   the resource handle of the template file or template object
+     * @param  mixed  $cache_id   cache id to be used with this template
+     * @param  mixed  $compile_id compile id to be used with this template
+     * @param  object $parent     next higher level of Smarty variables
+     * @param  string $function   function name
+     *
+     * @return mixed
+     * @throws \Exception
+     * @throws \SmartyException
+     */
+    private function _execute($template, $cache_id, $compile_id, $parent, $function)
+    {
+        /* @var Smarty $smarty */
+        $smarty = $this->_objType == 1 ? $this : $this->smarty;
+        if ($template === null) {
+            if ($this->_objType != 2) {
+                throw new SmartyException($function . '():Missing \'$template\' parameter');
+            } else {
+                $template = $this;
+            }
+        } elseif (is_object($template)) {
+            if (!isset($template->_objType) || $template->_objType != 2) {
+                throw new SmartyException($function . '():Template object expected');
+            }
+        } else {
+            // get template object
+            /* @var Smarty_Internal_Template $template */
+            $template = $smarty->createTemplate($template, $cache_id, $compile_id, $parent, false);
+            if ($this->_objType == 1) {
+                // set caching in template object
+                $template->caching = $this->caching;
+            }
+        }
+        // fetch template content
+        $level = ob_get_level();
+        try {
+            $_smarty_old_error_level = ($this->_objType == 1 &&
+                isset($smarty->error_reporting)) ? error_reporting($smarty->error_reporting) : null;
+            if ($function == 'isCached') {
+                if ($template->caching) {
+                    // return cache status of template
+                    if (!isset($template->cached)) {
+                        $template->loadCached();
+                    }
+                    $result = $template->cached->isCached($template);
+                    $template->smarty->_cache['isCached'][$template->templateId] = $template;
+                } else {
+                    return false;
+                }
+            } else {
+                ob_start();
+                $result = $template->render(true, false, $function == 'display');
+            }
+            if (isset($_smarty_old_error_level)) {
+                error_reporting($_smarty_old_error_level);
+            }
+            return $result;
+        }
+        catch (Exception $e) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+            throw $e;
+        }
+    }
+
+    /**
      * Registers plugin to be used in templates
      * NOTE: this method can be safely removed for dynamic loading
      *
@@ -231,40 +353,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         $smarty->registered_objects[$object_name] = array($object, (array) $allowed_methods_properties,
                                                           (boolean) $format, (array) $block_methods);
         return $this;
-    }
-
-    /**
-     * test if cache is valid
-     *
-     * @api  Smarty::isCached()
-     * @link http://www.smarty.net/docs/en/api.is.cached.tpl
-     *
-     * @param  string|\Smarty_Internal_Template $template   the resource handle of the template file or template object
-     * @param  mixed                            $cache_id   cache id to be used with this template
-     * @param  mixed                            $compile_id compile id to be used with this template
-     * @param  object                           $parent     next higher level of Smarty variables
-     *
-     * @return boolean       cache status
-     */
-    public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null)
-    {
-        if ($template === null && $this instanceof $this->template_class) {
-            $template = $this;
-        } else {
-            if (!($template instanceof $this->template_class)) {
-                if ($parent === null) {
-                    $parent = $this;
-                }
-                /* @var Smarty $smarty */
-                $smarty = isset($this->smarty) ? $this->smarty : $this;
-                $template = $smarty->createTemplate($template, $cache_id, $compile_id, $parent, false);
-            }
-        }
-        // return cache status of template
-        if (!isset($template->cached)) {
-            $template->loadCached();
-        }
-        return $template->cached->isCached($template);
     }
 
     /**

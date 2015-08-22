@@ -997,7 +997,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // If the template is not evaluated and we have a nocache section and or a nocache tag
         if ($is_code && !empty($content)) {
             // generate replacement code
-            if ((!($this->template->source->recompiled) || $this->forceNocache) && $this->template->caching &&
+            if ((!($this->template->source->handler->recompiled) || $this->forceNocache) && $this->template->caching &&
                 !$this->suppressNocacheProcessing && ($this->nocache || $this->tag_nocache)
             ) {
                 $this->template->compiled->has_nocache_code = true;

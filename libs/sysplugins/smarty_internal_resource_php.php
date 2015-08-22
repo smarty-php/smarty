@@ -25,6 +25,14 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
     protected $short_open_tag;
 
     /**
+     * Resource does implement populateCompiledFilepath() method
+     *
+     * @var bool
+     */
+    public $hasCompiledHandler = true;
+
+
+    /**
      * Create a new PHP Resource
 
      */
@@ -64,7 +72,7 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
             throw new SmartyException("PHP templates are disabled");
         }
         if (!$source->exists) {
-            if ($_template->parent instanceof Smarty_Internal_Template) {
+            if ($_template->parent->_objType == 2) {
                 $parent_resource = " in '{$_template->parent->template_resource}'";
             } else {
                 $parent_resource = '';

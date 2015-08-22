@@ -7,6 +7,7 @@
   - use output buffers for better performance and less memory usage
   - optimize nocache hash processing
   - remove not really needed properties
+  - optimize rendering
 
  06.08.2015
   - avoid possible circular object references caused by parser/lexer objects

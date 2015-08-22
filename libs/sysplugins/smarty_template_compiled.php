@@ -19,7 +19,6 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      */
     public $nocache_hash = null;
 
-
     /**
      * create Compiled Object container
      */
@@ -48,7 +47,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             }
         }
         $compiled = new Smarty_Template_Compiled();
-        if (method_exists($_template->source->handler, 'populateCompiledFilepath')) {
+        if ($_template->source->handler->hasCompiledHandler) {
             $_template->source->handler->populateCompiledFilepath($compiled, $_template);
         } else {
             $compiled->populateCompiledFilepath($_template);
@@ -199,16 +198,24 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      */
     public function render(Smarty_Internal_Template $_template)
     {
-
+        if ($_template->smarty->debugging) {
+            $_template->smarty->_debug->start_render($_template);
+        }
         if (!$this->processed) {
             $this->process($_template);
         }
         if (isset($_template->cached)) {
             $_template->cached->file_dependency = array_merge($_template->cached->file_dependency, $this->file_dependency);
         }
-        $_template->getRenderedTemplateCode($this->unifunc);
+        $this->getRenderedTemplateCode($_template);
         if ($_template->caching && $this->has_nocache_code) {
             $_template->cached->hashes[$this->nocache_hash] = true;
+        }
+        if (isset($_template->parent) && $_template->parent->_objType == 2 && !empty($_template->tpl_function)) {
+            $_template->parent->tpl_function = array_merge($_template->parent->tpl_function, $_template->tpl_function);
+        }
+        if ($_template->smarty->debugging) {
+            $_template->smarty->_debug->end_render($_template);
         }
     }
 

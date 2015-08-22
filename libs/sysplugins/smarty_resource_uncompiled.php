@@ -24,6 +24,13 @@ abstract class Smarty_Resource_Uncompiled extends Smarty_Resource
     public $uncompiled = true;
 
     /**
+     * Resource does implement populateCompiledFilepath() method
+     *
+     * @var bool
+     */
+    public $hasCompiledHandler = true;
+
+    /**
      * Render and output the template (without using the compiler)
      *
      * @param  Smarty_Template_Source   $source    source object
