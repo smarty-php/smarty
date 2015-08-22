@@ -65,7 +65,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
             $source->content = $_content;
             $source->timestamp = $_timestamp;
             $source->exists = true;
-            $source->recompiled = true;
+            $source->handler->recompiled = true;
             $source->filepath = false;
         }
     }

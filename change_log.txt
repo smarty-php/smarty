@@ -9,6 +9,7 @@
   - remove not really needed properties
   - optimize rendering
   - move caching to Smarty::_cache
+  - remove properties with redundant content
 
  06.08.2015
   - avoid possible circular object references caused by parser/lexer objects

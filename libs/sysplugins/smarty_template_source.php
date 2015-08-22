@@ -12,27 +12,6 @@
 class Smarty_Template_Source
 {
     /**
-     * Name of the Class to compile this resource's contents with
-     *
-     * @var string
-     */
-    public $compiler_class = null;
-
-    /**
-     * Name of the Class to tokenize this resource's contents with
-     *
-     * @var string
-     */
-    public $template_lexer_class = null;
-
-    /**
-     * Name of the Class to parse this resource's contents with
-     *
-     * @var string
-     */
-    public $template_parser_class = null;
-
-    /**
      * Unique Template ID
      *
      * @var string
@@ -124,20 +103,6 @@ class Smarty_Template_Source
     public $isConfig = false;
 
     /**
-     * Source is bypassing compiler
-     *
-     * @var boolean
-     */
-    public $uncompiled = false;
-
-    /**
-     * Source must be recompiled on every occasion
-     *
-     * @var boolean
-     */
-    public $recompiled = false;
-
-    /**
      * cache for Smarty_Template_Compiled instances
      *
      * @var array
@@ -165,13 +130,6 @@ class Smarty_Template_Source
     public function __construct(Smarty_Resource $handler, Smarty $smarty, $resource, $type, $name)
     {
         $this->handler = $handler; // Note: prone to circular references
-
-        $this->recompiled = $handler->recompiled;
-        $this->uncompiled = $handler->uncompiled;
-        $this->compiler_class = $handler->compiler_class;
-        $this->template_lexer_class = $handler->template_lexer_class;
-        $this->template_parser_class = $handler->template_parser_class;
-
         $this->smarty = $smarty;
         $this->resource = $resource;
         $this->type = $type;

@@ -119,7 +119,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         // flag if included template code should be merged into caller
         $merge_compiled_includes = ($compiler->smarty->merge_compiled_includes ||
                 ($compiler->inheritance && $compiler->smarty->inheritance_merge_compiled_includes) ||
-                $_attr['inline'] === true) && !$compiler->template->source->recompiled;
+                $_attr['inline'] === true) && !$compiler->template->source->handler->recompiled;
 
         if ($merge_compiled_includes && $_attr['inline'] !== true) {
             // variable template name ?
@@ -215,7 +215,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             if (!isset($compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$uid])) {
                 $compiler->smarty->allow_ambiguous_resources = true;
                 $tpl = new $compiler->smarty->template_class ($tpl_name, $compiler->smarty, $compiler->template, $compiler->template->cache_id, $c_id, $_caching);
-                if (!($tpl->source->uncompiled) && $tpl->source->exists) {
+                if (!($tpl->source->handler->uncompiled) && $tpl->source->exists) {
                     $tpl->compiled = new Smarty_Template_Compiled();
                     $tpl->compiled->nocache_hash = $compiler->parent_compiler->template->compiled->nocache_hash;
                     $tpl->loadCompiler();

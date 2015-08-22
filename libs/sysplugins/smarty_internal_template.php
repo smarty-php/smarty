@@ -228,7 +228,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
         }
         $content = null;
-        if ((!$this->caching || $this->cached->has_nocache_code || $this->source->recompiled) && !$no_output_filter &&
+        if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) && !$no_output_filter &&
             (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))
         ) {
             $content = Smarty_Internal_Filter_Handler::runFilter('output', ob_get_clean(), $this);
@@ -390,9 +390,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $_templateId = $this->smarty->_getTemplateId($template, $cache_id, $compile_id);
         // already in template cache?
         /* @var Smarty_Internal_Template $tpl */
-        if (isset($this->smarty->template_objects[$_templateId])) {
+        if (isset($this->smarty->_cache['template_objects'][$_templateId])) {
             // clone cached template object because of possible recursive call
-            $tpl = clone $this->smarty->template_objects[$_templateId];
+            $tpl = clone $this->smarty->_cache['template_objects'][$_templateId];
             $tpl->parent = $this;
             if ((bool) $tpl->caching !== (bool) $caching) {
                 unset($tpl->compiled);
@@ -752,10 +752,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function loadCompiler()
     {
-        if (!class_exists($this->source->compiler_class)) {
-            $this->smarty->loadPlugin($this->source->compiler_class);
+        if (!class_exists($this->source->handler->compiler_class)) {
+            $this->smarty->loadPlugin($this->source->handler->compiler_class);
         }
-        $this->compiler = new $this->source->compiler_class($this->source->template_lexer_class, $this->source->template_parser_class, $this->smarty);
+        $this->compiler = new $this->source->handler->compiler_class($this->source->handler->template_lexer_class, $this->source->handler->template_parser_class, $this->smarty);
     }
 
     /**

@@ -19,27 +19,6 @@
 class Smarty_Template_Config extends Smarty_Template_Source
 {
     /**
-     * Name of the Class to compile this resource's contents with
-     *
-     * @var string
-     */
-    public $compiler_class = 'Smarty_Internal_Config_File_Compiler';
-
-    /**
-     * Name of the Class to tokenize this resource's contents with
-     *
-     * @var string
-     */
-    public $template_lexer_class = 'Smarty_Internal_Configfilelexer';
-
-    /**
-     * Name of the Class to parse this resource's contents with
-     *
-     * @var string
-     */
-    public $template_parser_class = 'Smarty_Internal_Configfileparser';
-
-    /**
      * array of section names, single section or null
      *
      * @var null|string|array
@@ -71,7 +50,11 @@ class Smarty_Template_Config extends Smarty_Template_Source
      */
     public function __construct(Smarty_Resource $handler, Smarty $smarty, $resource, $type, $name)
     {
-        $this->handler = $handler; // Note: prone to circular references
+        // must clone handler as we change class names
+        $this->handler = clone $handler; // Note: prone to circular references
+        $this->handler->compiler_class = 'Smarty_Internal_Config_File_Compiler';
+        $this->handler->template_lexer_class = 'Smarty_Internal_Configfilelexer';
+        $this->handler->template_parser_class = 'Smarty_Internal_Configfileparser';
         $this->resource = $resource;
         $this->type = $type;
         $this->name = $name;
