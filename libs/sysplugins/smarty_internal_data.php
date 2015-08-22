@@ -163,7 +163,7 @@ class Smarty_Internal_Data
         if ($varname != '') {
             Smarty::$global_tpl_vars[$varname] = new Smarty_Variable($value, $nocache);
             $ptr = $this;
-            while ($ptr instanceof Smarty_Internal_Template) {
+            while ($ptr->_objType == 2) {
                 $ptr->tpl_vars[$varname] = clone Smarty::$global_tpl_vars[$varname];
                 $ptr = $ptr->parent;
             }

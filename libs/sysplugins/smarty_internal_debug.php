@@ -200,7 +200,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             $savedIndex = $this->index;
             $this->index = 9999;
         }
-        if ($obj instanceof Smarty) {
+        if ($obj->_objType == 1) {
             $smarty = $obj;
         } else {
             $smarty = $obj->smarty;
@@ -239,10 +239,10 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $debugging = $smarty->debugging;
 
         $_template = new Smarty_Internal_Template($debObj->debug_tpl, $debObj);
-        if ($obj instanceof Smarty_Internal_Template) {
+        if ($obj->_objType == 2) {
             $_template->assign('template_name', $obj->source->type . ':' . $obj->source->name);
         }
-        if ($obj instanceof Smarty || $full) {
+        if ($obj->_objType == 1 || $full) {
             $_template->assign('template_data', $this->template_data[$this->index]);
         } else {
             $_template->assign('template_data', null);
@@ -273,9 +273,9 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $config_vars = array();
         foreach ($obj->config_vars as $key => $var) {
             $config_vars[$key]['value'] = $var;
-            if ($obj instanceof Smarty_Internal_Template) {
+            if ($obj->_objType == 2) {
                 $config_vars[$key]['scope'] = $obj->source->type . ':' . $obj->source->name;
-            } elseif ($obj instanceof Smarty_Data) {
+            } elseif ($obj->_objType == 4) {
                 $tpl_vars[$key]['scope'] = $obj->dataObjectName;
             } else {
                 $config_vars[$key]['scope'] = 'Smarty object';
@@ -298,9 +298,9 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
                     }
                 }
             }
-            if ($obj instanceof Smarty_Internal_Template) {
+            if ($obj->_objType == 2) {
                 $tpl_vars[$key]['scope'] = $obj->source->type . ':' . $obj->source->name;
-            } elseif ($obj instanceof Smarty_Data) {
+            } elseif ($obj->_objType == 4) {
                 $tpl_vars[$key]['scope'] = $obj->dataObjectName;
             } else {
                 $tpl_vars[$key]['scope'] = 'Smarty object';

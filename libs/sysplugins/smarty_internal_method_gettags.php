@@ -34,9 +34,9 @@ class Smarty_Internal_Method_GetTags
     {
         /* @var Smarty $smarty */
         $smarty = isset($this->smarty) ? $this->smarty : $obj;
-        if ($obj instanceof Smarty_Internal_Template && !isset($template)) {
+        if ($obj->_objType == 2 && !isset($template)) {
             $tpl = clone $obj;
-        } elseif (isset($template) && $template instanceof Smarty_Internal_Template) {
+        } elseif (isset($template) && $template->_objType == 2) {
             $tpl = clone $template;
         } elseif (isset($template) && is_string($template)) {
             /* @var Smarty_Internal_Template $tpl */

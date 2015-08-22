@@ -35,7 +35,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             return is_file($file) ? $file : false;
         }
         // go relative to a given template?
-        if ($file[0] == '.' && $_template && $_template->parent instanceof Smarty_Internal_Template &&
+        if ($file[0] == '.' && $_template && $_template->parent->_objType == 2 &&
             preg_match('#^[.]{1,2}[\\\/]#', $file)
         ) {
             if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' &&
@@ -104,7 +104,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         return false;
     }
 
-     /**
+    /**
      * populate Source Object with meta data from Resource
      *
      * @param Smarty_Template_Source   $source    source object
