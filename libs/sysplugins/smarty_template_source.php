@@ -98,14 +98,14 @@ class Smarty_Template_Source
     /**
      * The Components an extended template is made of
      *
-     * @var array
+     * @var \Smarty_Resource
      */
     public $components = null;
 
     /**
      * Resource Handler
      *
-     * @var Smarty_Resource
+     * @var \Smarty_Resource|\Smarty_Resource_Uncompiled|\Smarty_Resource_Recompiled
      */
     public $handler = null;
 
@@ -200,39 +200,40 @@ class Smarty_Template_Source
         }
         // parse resource_name, load resource handler, identify unique resource name
         list($name, $type) = Smarty_Resource::parseResourceName($template_resource, $smarty->default_resource_type);
-        $resource = Smarty_Resource::load($smarty, $type);
+
+        $handler = Smarty_Resource::load($smarty, $type);
         // if resource is not recompiling and resource name is not dotted we can check the source cache
-        if (($smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON) && !$resource->recompiled &&
+        if (($smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON) && !$handler->recompiled &&
             !(isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/'))
         ) {
-            $unique_resource = $resource->buildUniqueResourceName($smarty, $name);
-            if (isset($smarty->source_objects[$unique_resource])) {
-                return $smarty->source_objects[$unique_resource];
+            $unique_resource = $handler->buildUniqueResourceName($smarty, $name);
+            if (isset($smarty->_cache['source_objects'][$unique_resource])) {
+                return $smarty->_cache['source_objects'][$unique_resource];
             }
         } else {
             $unique_resource = null;
         }
         // create new source  object
-        $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $type, $name);
-        $resource->populate($source, $_template);
+        $source = new Smarty_Template_Source($handler, $smarty, $template_resource, $type, $name);
+        $handler->populate($source, $_template);
         if (!$source->exists && isset($_template->smarty->default_template_handler_func)) {
             Smarty_Internal_Method_RegisterDefaultTemplateHandler::_getDefaultTemplate($source);
         }
         // on recompiling resources we are done
-        if (($smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON) && !$resource->recompiled) {
+        if (($smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON) && !$handler->recompiled) {
             // may by we have already $unique_resource
             $is_relative = false;
             if (!isset($unique_resource)) {
                 $is_relative = isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/') &&
                     ($type == 'file' ||
                         (isset($_template->parent->source) && $_template->parent->source->type == 'extends'));
-                $unique_resource = $resource->buildUniqueResourceName($smarty, $is_relative ? $source->filepath .
+                $unique_resource = $handler->buildUniqueResourceName($smarty, $is_relative ? $source->filepath .
                     $name : $name);
             }
             $source->unique_resource = $unique_resource;
             // save in runtime cache if not relative
             if (!$is_relative) {
-                $smarty->source_objects[$unique_resource] = $source;
+               $smarty->_cache['source_objects'][$unique_resource] = $source;
             }
         }
         return $source;

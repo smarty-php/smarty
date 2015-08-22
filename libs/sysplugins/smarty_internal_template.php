@@ -205,11 +205,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (!$this->smarty->debugging && $this->smarty->debugging_ctrl == 'URL') {
             $this->smarty->_debug->debugUrl($this);
         }
-        if ($this->source->uncompiled) {
+        if ($this->source->handler->uncompiled) {
             $this->source->render($this);
         } else {
             // disable caching for evaluated code
-            if ($this->source->recompiled) {
+            if ($this->source->handler->recompiled) {
                 $this->caching = false;
             }
             // read from cache or render
@@ -491,11 +491,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function cacheTpl($cache_tpl_obj)
     {
-        if (!$this->source->handler->recompiled && (isset($this->smarty->template_objects[$this->parent->templateId]) ||
+        if (!$this->source->handler->recompiled && (isset($this->smarty->_cache['template_objects'][$this->parent->templateId]) ||
                 ($cache_tpl_obj && $this->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC) ||
                 $this->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
         ) {
-            $this->smarty->->template_objects[$tpl->templateId] = $this;
+            $this->smarty->_cache['template_objects'][$this->templateId] = $this;
         }
     }
 

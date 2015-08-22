@@ -185,14 +185,14 @@ abstract class Smarty_CacheResource
         }
 
         // try smarty's cache
-        if (isset($smarty->_cacheresource_handlers[$type])) {
-            return $smarty->_cacheresource_handlers[$type];
+        if (isset($smarty->_cache['cacheresource_handlers'][$type])) {
+            return $smarty->_cache['cacheresource_handlers'][$type];
         }
 
         // try registered resource
         if (isset($smarty->registered_cache_resources[$type])) {
             // do not cache these instances as they may vary from instance to instance
-            return $smarty->_cacheresource_handlers[$type] = $smarty->registered_cache_resources[$type];
+            return $smarty->_cache['cacheresource_handlers'][$type] = $smarty->registered_cache_resources[$type];
         }
         // try sysplugins dir
         if (isset(self::$sysplugins[$type])) {
@@ -200,12 +200,12 @@ abstract class Smarty_CacheResource
             if (!class_exists($cache_resource_class, false)) {
                 require SMARTY_SYSPLUGINS_DIR . self::$sysplugins[$type];
             }
-            return $smarty->_cacheresource_handlers[$type] = new $cache_resource_class();
+            return $smarty->_cache['cacheresource_handlers'][$type] = new $cache_resource_class();
         }
         // try plugins dir
         $cache_resource_class = 'Smarty_CacheResource_' . ucfirst($type);
         if ($smarty->loadPlugin($cache_resource_class)) {
-            return $smarty->_cacheresource_handlers[$type] = new $cache_resource_class();
+            return $smarty->_cache['cacheresource_handlers'][$type] = new $cache_resource_class();
         }
         // give up
         throw new SmartyException("Unable to load cache resource '{$type}'");
@@ -218,7 +218,7 @@ abstract class Smarty_CacheResource
      */
     public static function invalidLoadedCache(Smarty $smarty)
     {
-        foreach ($smarty->template_objects as $tpl) {
+        foreach ($smarty->_cache['template_objects'] as $tpl) {
             if (isset($tpl->cached)) {
                 $tpl->cached->valid = false;
                 $tpl->cached->processed = false;

@@ -154,7 +154,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 $_template->smarty->compile_check = $compileCheck;
             }
         }
-        if (!$_template->source->isConfig && !isset($_template->smarty->template_objects[$_template->templateId]) &&
+        if (!isset($_template->smarty->_cache['template_objects'][$_template->templateId]) &&
             $_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC &&
             $_template->parent instanceof Smarty_Internal_Template && isset($_template->parent->compiled)
         ) {
@@ -163,7 +163,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                     $count : $count;
             }
             if (!in_array($_template->source->type, array('eval', 'string')) && $_template->compiled->includes[$_template->source->type . ':' . $_template->source->name] > 1) {
-                $_template->smarty->template_objects[$_template->templateId] =   $_template;
+                $_template->smarty->_cache['template_objects'][$_template->templateId] =   $_template;
             }
         }
         $this->processed = true;

@@ -220,9 +220,9 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
                 return 0;
             }
             // remove from template cache
-            foreach ($smarty->template_objects as $key => $_tpl) {
+            foreach ($smarty->_cache['template_objects'] as $key => $_tpl) {
                 if (isset($_tpl->cached) && $_tpl->source->uid == $tpl->source->uid) {
-                    unset($smarty->template_objects[$key]);
+                    unset($smarty->_cache['template_objects'][$key]);
                 }
             }
         }

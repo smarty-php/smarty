@@ -50,9 +50,9 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                 // remove from compileds cache
                 $tpl->source->compileds = array();
                 // remove from template cache
-                $_templateId = $tpl->getTemplateId($resource_name);
-                if (isset($smarty->template_objects[$_templateId])) {
-                    unset($smarty->template_objects[$_templateId]);
+                $_templateId = $tpl->smarty->_getTemplateId($resource_name);
+                if (isset($smarty->_cache['template_objects'][$_templateId])) {
+                    unset($smarty->_cache['template_objects'][$_templateId]);
                 }
                 $_resource_part_1 = basename(str_replace('^', DS, $tpl->compiled->filepath));
                 $_resource_part_1_length = strlen($_resource_part_1);
@@ -116,8 +116,8 @@ class Smarty_Internal_Method_ClearCompiledTemplate
             }
         }
         // clear compiled cache
-        if (!isset($resource_name)) {
-            foreach ($smarty->source_objects as $source) {
+        if (!isset($resource_name) && isset($smarty->_cache['source_objects'])) {
+            foreach ($smarty->_cache['source_objects'] as $source) {
                 $source->compileds = array();
             }
         }

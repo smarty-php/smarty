@@ -571,20 +571,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $default_config_type = 'file';
 
     /**
-     * cached template objects
-     *
-     * @var array
-     */
-    public $source_objects = array();
-
-    /**
-     * cached template objects
-     *
-     * @var array
-     */
-    public $template_objects = array();
-
-    /**
      * enable resource caching
      *
      * @var bool
@@ -634,25 +620,11 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $registered_resources = array();
 
     /**
-     * resource handler cache
-     *
-     * @var array
-     */
-    public $_resource_handlers = array();
-
-    /**
      * registered cache resources
      *
      * @var array
      */
     public $registered_cache_resources = array();
-
-    /**
-     * cache resource handler cache
-     *
-     * @var array
-     */
-    public $_cacheresource_handlers = array();
 
     /**
      * autoload filter
@@ -766,11 +738,11 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function templateExists($resource_name)
     {
         // create template object
-        $save = $this->template_objects;
+        $save = $this->_cache['template_objects'];
         $tpl = new $this->template_class($resource_name, $this);
         // check if it does exists
         $result = $tpl->source->exists;
-        $this->template_objects = $save;
+        $this->_cache['template_objects'] = $save;
 
         return $result;
     }

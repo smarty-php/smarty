@@ -112,9 +112,9 @@ class Smarty_Internal_Extension_Clear
                         }
                     }
                     // remove from template cache
-                    foreach ($smarty->template_objects as $key => $tpl) {
+                    foreach ($smarty->_cache['template_objects'] as $key => $tpl) {
                         if (isset($tpl->cached) && $tpl->cached->filepath == $_file) {
-                            unset($smarty->template_objects[$key]);
+                            unset($smarty->_cache['template_objects'][$key]);
                         }
                     }
                     $_count += @unlink((string) $_file) ? 1 : 0;
