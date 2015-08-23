@@ -77,14 +77,14 @@ class Smarty_Template_Source
     /**
      * The Components an extended template is made of
      *
-     * @var \Smarty_Resource
+     * @var \Smarty_Template_Source[]
      */
     public $components = null;
 
     /**
      * Resource Handler
      *
-     * @var \Smarty_Resource|\Smarty_Resource_Uncompiled|\Smarty_Resource_Recompiled
+     * @var \Smarty_Resource
      */
     public $handler = null;
 
@@ -105,7 +105,7 @@ class Smarty_Template_Source
     /**
      * cache for Smarty_Template_Compiled instances
      *
-     * @var array
+     * @var Smarty_Template_Compiled[]
      */
     public $compileds = array();
 
