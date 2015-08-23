@@ -216,12 +216,13 @@ abstract class Smarty_CacheResource
      *
      * @param Smarty $smarty Smarty object
      */
-    public static function invalidLoadedCache(Smarty $smarty)
+    public function invalidLoadedCache(Smarty $smarty)
     {
-        foreach ($smarty->_cache['template_objects'] as $tpl) {
-            if (isset($tpl->cached)) {
-                $tpl->cached->valid = false;
-                $tpl->cached->processed = false;
+        if (isset($smarty->_cache['template_objects'])) {
+            foreach ($smarty->_cache['template_objects'] as $key => $tpl) {
+                if (isset($tpl->cached)) {
+                    unset ($smarty->_cache['template_objects'][$key]);
+                }
             }
         }
     }

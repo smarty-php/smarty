@@ -34,7 +34,9 @@ class Smarty_Internal_Method_ClearAllCache
     {
         // load cache resource and call clearAll
         $_cache_resource = Smarty_CacheResource::load($smarty, $type);
-        Smarty_CacheResource::invalidLoadedCache($smarty);
+        if ($smarty->caching_type != 'file') {
+            $_cache_resource->invalidLoadedCache($smarty);
+        }
 
         return $_cache_resource->clearAll($smarty, $exp_time);
     }

@@ -165,9 +165,11 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
             $this->invalidate(null);
         }
         // remove from template cache
-        foreach ($smarty->_cache['template_objects'] as $key => $tpl) {
-            if (isset($tpl->cached)) {
-                unset($smarty->_cache['template_objects'][$key]);
+        if (isset($smarty->_cache['template_objects'])) {
+            foreach ($smarty->_cache['template_objects'] as $key => $tpl) {
+                if (isset($tpl->cached)) {
+                    unset($smarty->_cache['template_objects'][$key]);
+                }
             }
         }
         return - 1;
@@ -196,9 +198,13 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
         $this->delete(array($cid));
         $this->invalidate($cid, $resource_name, $cache_id, $compile_id, $uid);
         // remove from template cache
-        foreach ($smarty->_cache['template_objects'] as $key => $tpl) {
-            if ($tpl->source->uid == $uid && isset($tpl->cached)) {
-                unset($smarty->_cache['template_objects'][$key]);
+        if (isset($resource_name) && isset($smarty->_cache['template_objects'])) {
+            if (isset($smarty->_cache['template_objects'])) {
+                foreach ($smarty->_cache['template_objects'] as $key => $tpl) {
+                    if ($tpl->source->uid == $uid && isset($tpl->cached)) {
+                        unset($smarty->_cache['template_objects'][$key]);
+                    }
+                }
             }
         }
         return - 1;
@@ -217,7 +223,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
     protected function getTemplateUid(Smarty $smarty, $resource_name)
     {
         if (isset($resource_name)) {
-            $source = new Smarty_Template_Source(null, $smarty, $resource_name);
+            $source = Smarty_Template_Source::load(null, $smarty, $resource_name);
             if ($source->exists) {
                 return $source->uid;
             }
