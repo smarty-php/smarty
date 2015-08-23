@@ -63,7 +63,7 @@ class PhpResourceTest extends PHPUnit_Smarty
     public function testUsesCompiler()
     {
         $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
-        $this->assertTrue($tpl->source->uncompiled);
+        $this->assertTrue($tpl->source->handler->uncompiled);
     }
 
     /**
@@ -72,7 +72,7 @@ class PhpResourceTest extends PHPUnit_Smarty
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
-        $this->assertFalse($tpl->source->recompiled);
+        $this->assertFalse($tpl->source->handler->recompiled);
     }
 
     /**

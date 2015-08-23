@@ -89,7 +89,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
         }
         // TODO
         //Smarty::$_resource_cache = array();
-        $this->smarty->template_objects = array();
+        //$this->smarty->_cache['template_objects'] = array();
 
         return $this->_files;
     }

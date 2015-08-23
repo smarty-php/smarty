@@ -129,6 +129,8 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
                 mkdir($dir . '/configs');
             }
             if (individualFolders != 'true') {
+                $this->cleanDir($dir . '/templates_c');
+                $this->cleanDir($dir . '/cache');
                 $dir = __DIR__;
             }
             if (!is_dir($dir . '/templates_c')) {
@@ -529,49 +531,6 @@ KEY `expire` (`expire`)
         }
     }
 
-    /**
-     * Remove Smarty object from cached resources
-     *
-     */
-    public function clearResourceCache()
-    {
-        if (class_exists('Smarty_Resource', false)) {
-            if (isset(Smarty_Resource::$sources) && !empty(Smarty_Resource::$sources)) {
-                foreach (Smarty_Resource::$sources as $obj) {
-                    if (isset($obj->smarty)) {
-                        $obj->smarty = null;
-                    }
-                }
-                Smarty_Resource::$sources = array();
-            }
-            if (isset(Smarty_Resource::$compileds) && !empty(Smarty_Resource::$compileds)) {
-                foreach (Smarty_Resource::$compileds as $obj) {
-                    if (isset($obj->smarty)) {
-                        $obj->smarty = null;
-                    }
-                }
-                Smarty_Resource::$compileds = array();
-            }
-            if (isset(Smarty_Resource::$resources) && !empty(Smarty_Resource::$resources)) {
-                foreach (Smarty_Resource::$resources as $obj) {
-                    if (isset($obj->smarty)) {
-                        $obj->smarty = null;
-                    }
-                }
-                Smarty_Resource::$resources = array();
-            }
-        }
-        if (class_exists('Smarty_CacheResource', false)) {
-            if (isset(Smarty_CacheResource::$resources) && !empty(Smarty_CacheResource::$resources)) {
-                foreach (Smarty_CacheResource::$resources as $obj) {
-                    if (isset($obj->smarty)) {
-                        $obj->smarty = null;
-                    }
-                }
-                Smarty_CacheResource::$resources = array();
-            }
-        }
-    }
 
     /**
      * Tears down the fixture
@@ -580,7 +539,6 @@ KEY `expire` (`expire`)
      */
     protected function tearDown()
     {
-        $this->clearResourceCache();
         if (isset($this->smarty->smarty)) {
             $this->smarty->smarty = null;
         }

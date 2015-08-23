@@ -30,7 +30,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
 
     public function compiledPrefilter($text, Smarty_Internal_Template $tpl)
     {
-        return str_replace('#', $tpl->getVariable('test'), $text);
+        return str_replace('#', $tpl->_getVariable('test'), $text);
     }
 
     /**
@@ -376,7 +376,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
      */
     public function testCache($lockTime, $lockTimeout, $compile_id, $cache_id, $isCached, $tmin, $tmax, $forceCompile, $forceCache, $update, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
     {
-        if ($testNumber == 27) {
+        if ($testNumber == 13) {
             $i =0;
         }
         $this->smarty->caching = true;

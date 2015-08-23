@@ -52,7 +52,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
         $this->assertContains('Grandchild Page Title', $result);
-        $this->smarty->template_objects = null;
+        $this->smarty->_cache['template_objects'] = null;
         $tpl2 = $this->smarty->createTemplate('extends:021_parent.tpl|021_child.tpl|021_grandchild.tpl');
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
@@ -74,7 +74,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
         $this->assertContains('Grandchild Page Title', $result);
-        $this->smarty->template_objects = null;
+        $this->smarty->_cache['template_objects'] = null;
         $tpl2 = $this->smarty->createTemplate('extends:021_parent.tpl|021_child.tpl|021_grandchild.tpl');
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
@@ -96,7 +96,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
         $this->assertContains('Grandchild Page Title', $result);
-        $this->smarty->template_objects = null;
+        $this->smarty->_cache['template_objects'] = null;
         $tpl2 = $this->smarty->createTemplate('extends:021_parent.tpl|021_child.tpl|021_grandchild.tpl');
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
@@ -118,7 +118,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
         $this->assertContains('Grandchild Page Title', $result);
-        $this->smarty->template_objects = null;
+        $this->smarty->_cache['template_objects'] = null;
         $tpl2 = $this->smarty->createTemplate('extends:021_parent.tpl|021_child.tpl|021_grandchild.tpl');
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);

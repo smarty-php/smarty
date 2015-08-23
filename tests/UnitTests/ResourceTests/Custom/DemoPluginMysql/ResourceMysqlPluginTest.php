@@ -46,7 +46,7 @@ if (defined(MysqlResourceEnable) && MysqlResourceEnable == 'true') {
             //       $this->smarty->addPluginsDir(SMARTY_DIR . "../demo/plugins/");
             $this->smarty->addPluginsDir("./PHPunitplugins/");
             $tpl = $this->smarty->createTemplate('mysqltest:test.tpl');
-            $this->assertEquals(strtotime("2010-12-25 22:00:00"), $tpl->source->timestamp);
+            $this->assertEquals(strtotime("2010-12-25 22:00:00"), $tpl->source->getTimeStamp());
         }
 
         /**
@@ -81,7 +81,7 @@ if (defined(MysqlResourceEnable) && MysqlResourceEnable == 'true') {
             //       $this->smarty->addPluginsDir(SMARTY_DIR . "../demo/plugins/");
             $this->smarty->addPluginsDir("./PHPunitplugins/");
             $tpl = $this->smarty->createTemplate('mysqlstest:test.tpl');
-            $this->assertEquals(strtotime("2010-12-25 22:00:00"), $tpl->source->timestamp);
+            $this->assertEquals(strtotime("2010-12-25 22:00:00"), $tpl->source->getTimeStamp());
         }
     }
 }

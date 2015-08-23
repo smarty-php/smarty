@@ -79,7 +79,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testUsesCompiler()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertFalse($tpl->source->uncompiled);
+        $this->assertFalse($tpl->source->handler->uncompiled);
     }
 
     /**
@@ -88,7 +88,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertTrue($tpl->source->recompiled);
+        $this->assertTrue($tpl->source->handler->recompiled);
     }
 
     /**
