@@ -117,6 +117,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      */
     public function setUpSmarty($dir = null)
     {
+        static $s_dir;
         // set up current working directory
         chdir($dir);
         self::$cwd = getcwd();
@@ -129,8 +130,13 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
                 mkdir($dir . '/configs');
             }
             if (individualFolders != 'true') {
-                $this->cleanDir($dir . '/templates_c');
-                $this->cleanDir($dir . '/cache');
+                if (!isset($s_dir[$dir])) {
+                    $this->cleanDir($dir . '/templates_c');
+                    file_put_contents($dir . '/templates_c/dummy.txt', ' ');
+                    $this->cleanDir($dir . '/cache');
+                    file_put_contents($dir . '/cache/dummy.txt', ' ');
+                    $s_dir[$dir] = true;
+                }
                 $dir = __DIR__;
             }
             if (!is_dir($dir . '/templates_c')) {
