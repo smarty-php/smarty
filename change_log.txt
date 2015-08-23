@@ -14,7 +14,8 @@
   - optimize use_include_path processing
   - relocate properties for size optimization
   - remove redundant code
-
+  - bugfix compiling super globals like {$smarty.get.foo} did fail in the master branch https://github.com/smarty-php/smarty/issues/77
+  
  06.08.2015
   - avoid possible circular object references caused by parser/lexer objects
   - rewrite compileAll... utility methods
