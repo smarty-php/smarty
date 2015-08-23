@@ -162,8 +162,11 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 $_template->compiled->includes[$key] = isset($_template->compiled->includes[$key]) ? $_template->compiled->includes[$key] +
                     $count : $count;
             }
-            if (!$_template->source->isConfig && !in_array($_template->source->type, array('eval', 'string')) && $_template->compiled->includes[$_template->source->type . ':' . $_template->source->name] > 1) {
-                $_template->smarty->_cache['template_objects'][$_template->templateId] =   $_template;
+            if (!$_template->source->isConfig && !in_array($_template->source->type, array('eval', 'string'))) {
+                $key = $_template->source->type . ':' . $_template->source->name;
+                if (isset($_template->compiled->includes[$key]) && $_template->compiled->includes[$key] > 1) {
+                    $_template->smarty->_cache['template_objects'][$_template->templateId] = $_template;
+                }
             }
         }
         $this->processed = true;
