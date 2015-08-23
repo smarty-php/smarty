@@ -108,16 +108,14 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                         }
                     }
                 }
-                if (isset($compiler->template->variable_filters)) {
-                    foreach ($compiler->template->variable_filters as $filter) {
-                        if (count($filter) == 1 &&
-                            ($result = $this->compile_output_filter($compiler, $filter[0], $output)) !== false
-                        ) {
-                            $output = $result;
-                        } else {
-                            $output = $compiler->compileTag('private_modifier', array(), array('modifierlist' => array($filter),
-                                                                                               'value'        => $output));
-                        }
+                foreach ($compiler->variable_filters as $filter) {
+                    if (count($filter) == 1 &&
+                        ($result = $this->compile_output_filter($compiler, $filter[0], $output)) !== false
+                    ) {
+                        $output = $result;
+                    } else {
+                        $output = $compiler->compileTag('private_modifier', array(), array('modifierlist' => array($filter),
+                                                                                           'value'        => $output));
                     }
                 }
             }

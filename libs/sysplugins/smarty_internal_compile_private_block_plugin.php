@@ -60,7 +60,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             // maybe nocache because of nocache variables or nocache plugin
             $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
             // compile code
-            $output = "<?php \$_smarty_tpl->smarty->_tag_stack[] = array('{$tag}', {$_params}); \$_block_repeat=true; echo {$function}({$_params}, null, \$_smarty_tpl, \$_block_repeat);while (\$_block_repeat) { ob_start();?>";
+            $output = "<?php \$_smarty_tpl->smarty->_cache['tag_stack'][] = array('{$tag}', {$_params}); \$_block_repeat=true; echo {$function}({$_params}, null, \$_smarty_tpl, \$_block_repeat);while (\$_block_repeat) { ob_start();?>";
         } else {
             // must endblock be nocache?
             if ($compiler->nocache) {
@@ -81,7 +81,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             }
             $output = "<?php \$_block_content = ob_get_clean(); \$_block_repeat=false;" . $mod_pre .
                 " echo {$function}({$_params}, \$_block_content, \$_smarty_tpl, \$_block_repeat); " . $mod_post .
-                " } array_pop(\$_smarty_tpl->smarty->_tag_stack);?>";
+                " } array_pop(\$_smarty_tpl->smarty->_cache['tag_stack']);?>";
         }
 
         return $output . "\n";

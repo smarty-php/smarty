@@ -64,34 +64,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $block_data = array();
 
     /**
-     * variable filters
-     *
-     * @var array
-     */
-    public $variable_filters = array();
-
-    /**
-     * optional log of tag/attributes
-     *
-     * @var array
-     */
-    public $used_tags = array();
-
-    /**
-     * internal flag to allow relative path in child template blocks
-     *
-     * @var bool
-     */
-    public $allow_relative_path = false;
-
-    /**
-     * internal capture runtime stack
-     *
-     * @var array
-     */
-    public $_capture_stack = array(0 => array());
-
-    /**
      * Template Id
      *
      * @var string
@@ -302,16 +274,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             if (isset($this->smarty->security_policy)) {
                 $this->smarty->security_policy->startTemplate($this);
             }
-            array_unshift($this->_capture_stack, array());
-            //
+             //
             // render compiled or saved template code
             //
             $unifunc($this);
             // any unclosed {capture} tags ?
-            if (isset($this->_capture_stack[0][0])) {
+            if (isset($this->_cache['capture_stack'][0])) {
                 $this->capture_error();
             }
-            array_shift($this->_capture_stack);
             if (isset($this->smarty->security_policy)) {
                 $this->smarty->security_policy->exitTemplate();
             }
@@ -321,7 +291,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
-            array_shift($this->_capture_stack);
             if (isset($this->smarty->security_policy)) {
                 $this->smarty->security_policy->exitTemplate();
             }

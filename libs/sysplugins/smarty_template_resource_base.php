@@ -119,16 +119,14 @@ abstract class Smarty_Template_Resource_Base
             if (isset($_template->smarty->security_policy)) {
                 $_template->smarty->security_policy->startTemplate($_template);
             }
-            array_unshift($_template->_capture_stack, array());
             //
             // render compiled or saved template code
             //
             $unifunc($_template);
             // any unclosed {capture} tags ?
-            if (isset($_template->_capture_stack[0][0])) {
+            if (isset($_template->_cache['capture_stack'][0])) {
                 $_template->capture_error();
             }
-            array_shift($_template->_capture_stack);
             if (isset($_template->smarty->security_policy)) {
                 $_template->smarty->security_policy->exitTemplate();
             }
@@ -138,8 +136,7 @@ abstract class Smarty_Template_Resource_Base
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
-            array_shift($_template->_capture_stack);
-            if (isset($_template->smarty->security_policy)) {
+             if (isset($_template->smarty->security_policy)) {
                 $_template->smarty->security_policy->exitTemplate();
             }
             throw $e;

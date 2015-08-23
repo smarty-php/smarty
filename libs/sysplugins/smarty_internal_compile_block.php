@@ -163,11 +163,11 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
             $compiler->smarty->_debug->ignore($_tpl);
         }
         $_tpl->tpl_vars = $compiler->template->tpl_vars;
-        $_tpl->variable_filters = $compiler->template->variable_filters;
         $_tpl->compiled = new Smarty_Template_Compiled();
         $_tpl->compiled->nocache_hash = $compiler->template->compiled->nocache_hash;
-        $_tpl->allow_relative_path = true;
+        $_tpl->_cache['allow_relative_path'] = true;
         $_tpl->loadCompiler();
+        $_tpl->compiler->variable_filters = $compiler->variable_filters;
         $_tpl->compiler->parent_compiler = $compiler;
         $_tpl->compiler->_tag_objects = $compiler->_tag_objects;
         $_tpl->compiler->inheritance = true;
@@ -190,7 +190,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
         $compiler->template->compiled->file_dependency = array_merge($compiler->template->compiled->file_dependency, $_tpl->compiled->file_dependency);
         unset($compiler->template->compiled->file_dependency[$_tpl->source->uid]);
         $compiler->template->tpl_function = array_merge($compiler->template->tpl_function, $_tpl->tpl_function);
-        $compiler->template->variable_filters = $_tpl->variable_filters;
+        $compiler->variable_filters = $_tpl->compiler->variable_filters;
         if ($_tpl->compiled->has_nocache_code) {
             $compiler->template->compiled->has_nocache_code = true;
         }

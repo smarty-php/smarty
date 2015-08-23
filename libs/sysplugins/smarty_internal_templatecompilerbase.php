@@ -320,6 +320,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $variable_filter_stack = array();
 
     /**
+     * variable filters for {setfilter} {/setfilter}
+     *
+     * @var array
+     */
+    public $variable_filters = array();
+
+   /**
      * Loop nesting count
      *
      * @var int
@@ -545,8 +552,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
         $this->has_code = true;
         $this->has_output = false;
         // log tag/attributes
-        if (isset($this->smarty->get_used_tags) && $this->smarty->get_used_tags) {
-            $this->template->used_tags[] = array($tag, $args);
+        if (isset($this->smarty->_cache['get_used_tags'])) {
+            $this->template->_cache['used_tags'][] = array($tag, $args);
         }
         // check nocache option flag
         if (in_array("'nocache'", $args) || in_array(array('nocache' => 'true'), $args) ||

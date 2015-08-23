@@ -486,13 +486,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $error_reporting = null;
 
-    /**
-     * Internal flag for getTags()
-     *
-     * @var boolean
-     */
-    public $get_used_tags = false;
-
     /**#@+
      * config var settings
      */
@@ -653,13 +646,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var int
      */
     public $start_time = 0;
-
-    /**
-     * block tag hierarchy
-     *
-     * @var array
-     */
-    public $_tag_stack = array();
 
     /**
      * required by the compiler for BC

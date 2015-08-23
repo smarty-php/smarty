@@ -39,7 +39,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             preg_match('#^[.]{1,2}[\\\/]#', $file)
         ) {
             if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' &&
-                !$_template->parent->allow_relative_path
+                !isset($_template->parent->_cache['allow_relative_path'])
             ) {
                 throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
             }
