@@ -29,14 +29,16 @@ class Smarty_Internal_Write_File
     {
         $_error_reporting = error_reporting();
         error_reporting($_error_reporting & ~E_NOTICE & ~E_WARNING);
-        if ($smarty->_file_perms !== null) {
+        $_file_perms = property_exists($smarty, '_file_perms') ? $smarty->_file_perms : 0644;
+        $_dir_perms = property_exists($smarty, '_dir_perms') ? (isset($smarty->_dir_perms) ? $smarty->_dir_perms : 0777)  : 0771;
+        if ($_file_perms !== null) {
             $old_umask = umask(0);
         }
 
         $_dirpath = dirname($_filepath);
         // if subdirs, create dir structure
         if ($_dirpath !== '.' && !file_exists($_dirpath)) {
-            mkdir($_dirpath, $smarty->_dir_perms === null ? 0777 : $smarty->_dir_perms, true);
+            mkdir($_dirpath, $_dir_perms, true);
         }
 
         // write to tmp file, then move to overt file lock race condition
@@ -76,9 +78,9 @@ class Smarty_Internal_Write_File
             error_reporting($_error_reporting);
             throw new SmartyException("unable to write file {$_filepath}");
         }
-        if ($smarty->_file_perms !== null) {
+        if ($_file_perms !== null) {
             // set file permissions
-            chmod($_filepath, $smarty->_file_perms);
+            chmod($_filepath, $_file_perms);
             umask($old_umask);
         }
         error_reporting($_error_reporting);
