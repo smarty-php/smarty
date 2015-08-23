@@ -129,16 +129,14 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
             }
             return;
         } elseif ($_template->source->handler->uncompiled) {
+            ob_start();
             $_template->source->render($_template);
         } else {
+            ob_start();
             if (!isset($_template->compiled)) {
                 $_template->loadCompiled();
             }
             $_template->compiled->render($_template);
-        }
-        // write to cache when necessary
-        if ($_template->source->handler->recompiled) {
-            return;
         }
         if ($_template->smarty->debugging) {
             $_template->smarty->_debug->start_cache($_template);
@@ -346,7 +344,6 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
         }
         // write cache file content
         $this->writeCachedContent($_template, $content);
-        ob_start();
     }
 
     /**
