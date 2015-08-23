@@ -257,48 +257,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * get rendered template content by calling compiled or cached template code
-     *
-     * @param string $unifunc function with template code
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function getRenderedTemplateCode($unifunc)
-    {
-        $level = ob_get_level();
-        try {
-            if (empty($unifunc) || !is_callable($unifunc)) {
-                throw new SmartyException("Invalid compiled template for '{$this->template_resource}'");
-            }
-            if (isset($this->smarty->security_policy)) {
-                $this->smarty->security_policy->startTemplate($this);
-            }
-             //
-            // render compiled or saved template code
-            //
-            $unifunc($this);
-            // any unclosed {capture} tags ?
-            if (isset($this->_cache['capture_stack'][0])) {
-                $this->capture_error();
-            }
-            if (isset($this->smarty->security_policy)) {
-                $this->smarty->security_policy->exitTemplate();
-            }
-            return null;
-        }
-        catch (Exception $e) {
-            while (ob_get_level() > $level) {
-                ob_end_clean();
-            }
-            if (isset($this->smarty->security_policy)) {
-                $this->smarty->security_policy->exitTemplate();
-            }
-            throw $e;
-        }
-    }
-
-    /**
      * Compiles the template
      * If the template is not evaluated the compiled template is saved on disk
      */
@@ -443,7 +401,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->smarty->_debug->start_template($tpl);
             $this->smarty->_debug->start_render($tpl);
         }
-        $tpl->getRenderedTemplateCode($content_func);
+        $tpl->compiled->getRenderedTemplateCode($tpl, $content_func);
         if ($this->smarty->debugging) {
             $this->smarty->_debug->end_template($tpl);
             $this->smarty->_debug->end_render($tpl);

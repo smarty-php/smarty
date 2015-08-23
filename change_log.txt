@@ -13,6 +13,7 @@
   - optimize Smarty::templateExists()
   - optimize use_include_path processing
   - relocate properties for size optimization
+  - remove redundant code
 
  06.08.2015
   - avoid possible circular object references caused by parser/lexer objects
