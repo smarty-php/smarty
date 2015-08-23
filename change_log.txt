@@ -11,6 +11,7 @@
   - move caching to Smarty::_cache
   - remove properties with redundant content
   - optimize Smarty::templateExists()
+  - optimize use_include_path processing
 
  06.08.2015
   - avoid possible circular object references caused by parser/lexer objects

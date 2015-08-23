@@ -39,40 +39,33 @@ class Smarty_Internal_Get_Include_Path
     /**
      * stream cache
      *
-     * @var array
-     */
-    static $stream = array();
-
-    /**
-     * stream cache
-     *
-     * @var array
+     * @var string[]
      */
     static $isFile = array();
 
     /**
      * stream cache
      *
-     * @var array
+     * @var string[]
      */
     static $isPath = array();
 
     /**
      * stream cache
      *
-     * @var array
+     * @var int[]
      */
     static $number = array();
 
     /**
      * status cache
      *
-     * @var null
+     * @var bool
      */
     static $_has_stream_include = null;
 
     /**
-     * Numger for array index
+     * Number for array index
      *
      * @var int
      */
@@ -81,15 +74,12 @@ class Smarty_Internal_Get_Include_Path
     /**
      * Check if include path was updated
      *
-     * @return bool
+     * @param \Smarty $smarty
      *
+     * @return bool
      */
     public static function isNewIncludePath(Smarty $smarty)
     {
-        if (!isset(self::$_has_stream_include)) {
-            self::$_has_stream_include = ($smarty->use_include_path === 2) &&
-                function_exists('stream_resolve_include_path');
-        }
         $_i_path = get_include_path();
         if (self::$_include_path != $_i_path) {
             self::$_include_dirs = array();
@@ -111,6 +101,8 @@ class Smarty_Internal_Get_Include_Path
     /**
      * return array with include path directories
      *
+     * @param \Smarty $smarty
+     *
      * @return array
      */
     public static function getIncludePathDirs(Smarty $smarty)
@@ -131,7 +123,9 @@ class Smarty_Internal_Get_Include_Path
      */
     public static function getIncludePath($dirs, $file, Smarty $smarty)
     {
-        self::isNewIncludePath($smarty);
+        if (!(isset(self::$_has_stream_include) ? self::$_has_stream_include : self::$_has_stream_include = function_exists('stream_resolve_include_path'))) {
+            self::isNewIncludePath($smarty);
+        }
         // try PHP include_path
         foreach ($dirs as $dir) {
             $dir_n = isset(self::$number[$dir]) ? self::$number[$dir] : self::$number[$dir] = self::$counter ++;
@@ -146,43 +140,40 @@ class Smarty_Internal_Get_Include_Path
                 if (false === self::$_user_dirs[$dir_n]) {
                     continue;
                 } else {
-                    $_u_dir = self::$_user_dirs[$dir_n];
+                    $dir = self::$_user_dirs[$dir_n];
                 }
             } else {
                 if ($dir[0] == '/' || $dir[1] == ':') {
-                    $_u_dir = str_ireplace(getcwd(), '.', $dir);
-                    if ($_u_dir[0] == '/' || $_u_dir[1] == ':') {
+                    $dir = str_ireplace(getcwd(), '.', $dir);
+                    if ($dir[0] == '/' || $dir[1] == ':') {
                         self::$_user_dirs[$dir_n] = false;
                         continue;
                     }
-                    self::$_user_dirs[$dir_n] = $_u_dir;
-                } else {
-                    $_u_dir = self::$_user_dirs[$dir_n] = $dir;
                 }
+                $dir = substr($dir, 2);
+                self::$_user_dirs[$dir_n] = $dir;
             }
             if (self::$_has_stream_include) {
-                // available since PHP 5.3.2
-                $_d_path = $_u_dir . (isset($file) ? $file : '');
-                self::$stream[$_d_path] = isset(self::$stream[$_d_path]) ? self::$stream[$_d_path] : ($path = stream_resolve_include_path($_d_path)) ? is_file($path) : false;
-                if (self::$stream[$_d_path]) {
-                    return self::$isFile[$dir_n][$file] = self::$stream[$_d_path];
+                $path = stream_resolve_include_path($dir . (isset($file) ? $file : ''));
+                if ($path) {
+                    return self::$isFile[$dir_n][$file] = $path;
                 }
-            }
-            foreach (self::$_include_dirs as $key => $_i_path) {
-                $path = self::$isPath[$key][$dir_n] = isset(self::$isPath[$key][$dir_n]) ? self::$isPath[$key][$dir_n] : is_dir($_i_path .
-                                                                                                                                $_u_dir) ? $_i_path .
-                    substr($_u_dir, 2) : false;
-                if ($path === false) {
-                    continue;
-                }
-                if (isset($file)) {
-                    $_file = self::$isFile[$dir_n][$file] = ($path && is_file($path . $file)) ? $path . $file : false;
-                    if ($_file) {
-                        return $_file;
+            } else {
+                foreach (self::$_include_dirs as $key => $_i_path) {
+                    $path = isset(self::$isPath[$key][$dir_n]) ? self::$isPath[$key][$dir_n] : self::$isPath[$key][$dir_n] = is_dir($_dir_path = $_i_path .
+                        $dir) ? $_dir_path : false;
+                    if ($path === false) {
+                        continue;
                     }
-                } else {
-                    // no file was given return directory path
-                    return $path;
+                    if (isset($file)) {
+                        $_file = self::$isFile[$dir_n][$file] = (is_file($path . $file)) ? $path . $file : false;
+                        if ($_file) {
+                            return $_file;
+                        }
+                    } else {
+                        // no file was given return directory path
+                        return $path;
+                    }
                 }
             }
         }
