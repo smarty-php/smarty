@@ -35,7 +35,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             return is_file($file) ? $file : false;
         }
         // go relative to a given template?
-        if ($file[0] == '.' && $_template && $_template->parent->_objType == 2 &&
+        if ($file[0] == '.' && $_template && isset($_template->parent) && $_template->parent->_objType == 2 &&
             preg_match('#^[.]{1,2}[\\\/]#', $file)
         ) {
             if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' &&

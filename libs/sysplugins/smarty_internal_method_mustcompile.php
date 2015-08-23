@@ -31,7 +31,7 @@ class Smarty_Internal_Method_MustCompile
     public function mustCompile(Smarty_Internal_Template $_template)
     {
         if (!$_template->source->exists) {
-            if ($_template->parent->_objType == 2) {
+            if (isset($_template->parent) && $_template->parent->_objType == 2) {
                 $parent_resource = " in '$_template->parent->template_resource}'";
             } else {
                 $parent_resource = '';
