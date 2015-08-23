@@ -205,30 +205,30 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (!$this->smarty->debugging && $this->smarty->debugging_ctrl == 'URL') {
             $this->smarty->_debug->debugUrl($this);
         }
-        if ($this->source->handler->uncompiled) {
+        // disable caching for evaluated code
+        if ($this->source->handler->recompiled) {
+            $this->caching = false;
+        }
+        // read from cache or render
+        $isCacheTpl = $this->caching == Smarty::CACHING_LIFETIME_CURRENT ||
+            $this->caching == Smarty::CACHING_LIFETIME_SAVED;
+        if ($isCacheTpl) {
+            if (!isset($this->cached)) {
+                $this->loadCached();
+            }
+            $this->cached->render($this, $no_output_filter);
+        } elseif ($this->source->handler->uncompiled) {
             $this->source->render($this);
         } else {
-            // disable caching for evaluated code
-            if ($this->source->handler->recompiled) {
-                $this->caching = false;
+            if (!isset($this->compiled)) {
+                $this->loadCompiled();
             }
-            // read from cache or render
-            $isCacheTpl = $this->caching == Smarty::CACHING_LIFETIME_CURRENT ||
-                $this->caching == Smarty::CACHING_LIFETIME_SAVED;
-            if ($isCacheTpl) {
-                if (!isset($this->cached)) {
-                    $this->loadCached();
-                }
-                $this->cached->render($this, $no_output_filter);
-            } else {
-                if (!isset($this->compiled)) {
-                    $this->loadCompiled();
-                }
-                $this->compiled->render($this);
-            }
+            $this->compiled->render($this);
         }
+
         $content = null;
-        if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) && !$no_output_filter &&
+        if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
+            !$no_output_filter &&
             (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))
         ) {
             $content = Smarty_Internal_Filter_Handler::runFilter('output', ob_get_clean(), $this);
@@ -397,7 +397,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             if ((bool) $tpl->caching !== (bool) $caching) {
                 unset($tpl->compiled);
             }
-             if ($parent_scope = Smarty::SCOPE_LOCAL) {
+            if ($parent_scope = Smarty::SCOPE_LOCAL) {
                 $tpl->tpl_vars = $this->tpl_vars;
                 $tpl->config_vars = $this->config_vars;
             }
@@ -433,7 +433,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $tpl->config_vars = &$this->config_vars;
             } else {
                 $tpl->tpl_vars = &$scope_ptr->tpl_vars;
-                $tpl->config_vars = &$scope_ptr->$this->config_vars;
+                $tpl->config_vars = &$scope_ptr->config_vars;
             }
         }
         if (!empty($data)) {
@@ -491,7 +491,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function cacheTpl($cache_tpl_obj)
     {
-        if (!$this->source->handler->recompiled && (isset($this->smarty->_cache['template_objects'][$this->parent->templateId]) ||
+        if (!$this->source->handler->recompiled &&
+            (isset($this->smarty->_cache['template_objects'][$this->parent->templateId]) ||
                 ($cache_tpl_obj && $this->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC) ||
                 $this->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
         ) {
