@@ -737,14 +737,9 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function templateExists($resource_name)
     {
-        // create template object
-        $save = $this->_cache['template_objects'];
-        $tpl = new $this->template_class($resource_name, $this);
-        // check if it does exists
-        $result = $tpl->source->exists;
-        $this->_cache['template_objects'] = $save;
-
-        return $result;
+        // create source object
+        $source = Smarty_Template_Source::load(null, $this, $resource_name);
+        return $source->exists;
     }
 
     /**
