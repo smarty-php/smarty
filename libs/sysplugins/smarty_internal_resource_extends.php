@@ -39,22 +39,23 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
         $components = explode('|', $source->name);
         $exists = true;
         foreach ($components as $component) {
-            $s = Smarty_Template_Source::load(null, $source->smarty, $component);
-            if ($s->type == 'php') {
-                throw new SmartyException("Resource type {$s->type} cannot be used with the extends resource type");
+            /* @var \Smarty_Template_Source $_s */
+            $_s = Smarty_Template_Source::load(null, $source->smarty, $component);
+            if ($_s->type == 'php') {
+                throw new SmartyException("Resource type {$_s->type} cannot be used with the extends resource type");
             }
-            $sources[$s->uid] = $s;
-            $uid .= $source->smarty->_realpath($s->filepath, true);
+            $sources[$_s->uid] = $_s;
+            $uid .= $source->smarty->_realpath($_s->filepath, true);
             if ($_template) {
-                $exists = $exists && $s->exists;
+                $exists = $exists && $_s->exists;
             }
         }
         $source->components = $sources;
-        $source->filepath = $s->filepath;
+        $source->filepath = $_s->filepath;
         $source->uid = sha1($uid);
         $source->exists = $exists;
         if ($_template) {
-            $source->timestamp = $s->timestamp;
+            $source->timestamp = $_s->timestamp;
         }
     }
 
@@ -66,10 +67,11 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
     public function populateTimestamp(Smarty_Template_Source $source)
     {
         $source->exists = true;
-        foreach ($source->components as $s) {
-            $source->exists = $source->exists && $s->exists;
+        /* @var \Smarty_Template_Source $_s */
+        foreach ($source->components as $_s) {
+            $source->exists = $source->exists && $_s->exists;
         }
-        $source->timestamp = $source->exists ? $s->getTimeStamp() : false;
+        $source->timestamp = $source->exists ? $_s->getTimeStamp() : false;
     }
 
     /**
@@ -89,9 +91,10 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
         $_components = array_reverse($source->components);
 
         $_content = '';
-        foreach ($_components as $_component) {
+        /* @var \Smarty_Template_Source $_s */
+        foreach ($_components as $_s) {
             // read content
-            $_content .= $_component->getContent();
+            $_content .= $_s->getContent();
         }
         return $_content;
     }
