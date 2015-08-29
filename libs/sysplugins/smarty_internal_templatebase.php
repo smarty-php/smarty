@@ -75,6 +75,13 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     public $cache_lifetime = 3600;
 
     /**
+     * universal cache
+     *
+     * @var array()
+     */
+    public $_cache = array();
+
+    /**
      * fetches a rendered Smarty template
      *
      * @param  string $template         the resource handle of the template file or template object

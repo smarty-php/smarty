@@ -54,13 +54,6 @@ class Smarty_Internal_Data
     public $config_vars = array();
 
     /**
-     * universal cache
-     *
-     * @var array()
-     */
-    public $_cache = array();
-
-    /**
      * Cache for property information from generic getter/setter
      * Preloaded with names which should not use with generic getter/setter
      *
@@ -336,24 +329,22 @@ class Smarty_Internal_Data
      */
     public function __call($name, $args)
     {
-        static $_resolved_property_name = array();
-
-        if (!isset(Smarty::$extObjCache[$name])) {
+        $smarty = $this->_objType == 1 ? $this : $this->smarty;
+        if (!isset($smarty->_cache['extObjCache'][$name])) {
 
             $class = 'Smarty_Internal_Method_' . ucfirst($name);
             if (preg_match('/^(set|get)([A-Z].*)$/', $name, $match)) {
                 if (!isset($this->_property_info[$prop = $match[2]])) {
-                    $smarty = isset($this->smarty) ? $this->smarty : $this;
                     if (!isset($this->_property_info[$prop])) {
                         // convert camel case to underscored name
-                        $_resolved_property_name[$prop] = $pn = strtolower(join('_', preg_split('/([A-Z][^A-Z]*)/', $prop, - 1, PREG_SPLIT_NO_EMPTY |
+                        $smarty->_cache['resolvedProp'][$prop] = $pn = strtolower(join('_', preg_split('/([A-Z][^A-Z]*)/', $prop, - 1, PREG_SPLIT_NO_EMPTY |
                                                                                                                   PREG_SPLIT_DELIM_CAPTURE)));
                         $this->_property_info[$prop] = property_exists($this, $pn) ? 1 : ($this->_objType == 2 &&
                         property_exists($smarty, $pn) ? 2 : 0);
                     }
                 }
                 if ($this->_property_info[$prop]) {
-                    $pn = $_resolved_property_name[$prop];
+                    $pn = $smarty->_cache['resolvedProp'][$prop];
                     if ($match[1] == 'get') {
                         return $this->_property_info[$prop] == 1 ? $this->$pn : $this->smarty->$pn;
                     } else {
@@ -365,10 +356,10 @@ class Smarty_Internal_Data
                 }
             }
             if (class_exists($class)) {
-                $callback = array(Smarty::$extObjCache[$name] = new $class(), $name);
+                $callback = array($smarty->_cache['extObjCache'][$name] = new $class(), $name);
             }
         } else {
-            $callback = array(Smarty::$extObjCache[$name], $name);
+            $callback = array($smarty->_cache['extObjCache'][$name], $name);
         }
         if (isset($callback) && $callback[0]->objMap | $this->_objType) {
             array_unshift($args, $this);
