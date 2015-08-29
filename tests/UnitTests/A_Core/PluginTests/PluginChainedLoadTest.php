@@ -18,6 +18,11 @@ class PluginChainedLoadTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
+    public function testInit()
+    {
+        $this->cleanDirs();
+    }
+
     public function testPluginChainedLoad()
     {
         $this->smarty->addPluginsDir(__DIR__ . "/PHPunitplugins/");

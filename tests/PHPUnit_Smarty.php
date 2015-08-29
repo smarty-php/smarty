@@ -132,9 +132,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
             if (individualFolders != 'true') {
                 if (!isset($s_dir[$dir])) {
                     $this->cleanDir($dir . '/templates_c');
-                    file_put_contents($dir . '/templates_c/dummy.txt', ' ');
                     $this->cleanDir($dir . '/cache');
-                    file_put_contents($dir . '/cache/dummy.txt', ' ');
                     $s_dir[$dir] = true;
                 }
                 $dir = __DIR__;

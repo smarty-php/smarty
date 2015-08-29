@@ -23,29 +23,70 @@ class ExtendsResourceTest extends PHPUnit_Smarty
     {
         $this->cleanDirs();
     }
+
+    public function compiledPrefilter($text, Smarty_Internal_Template $tpl)
+    {
+        return str_replace('#', $tpl->_getVariable('test'), $text);
+    }
+
     /**
      * test  child/parent template chain with prepend
+     * @dataProvider data
      */
-    public function testCompileBlockChildPrepend_003()
+    public function testCompileBlockChildPrepend_003($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
     {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->caching = $caching;
+        $this->smarty->inheritance_merge_compiled_includes = $merge;
+        if ($merge) {
+            $this->smarty->compile_id = 1;
+        }
         $result = $this->smarty->fetch('extends:003_parent.tpl|003_child_prepend.tpl');
-        $this->assertContains("prepend - Default Title", $result);
+        $this->assertContains("prepend - Default Title", $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
     }
     /**
      * test  child/parent template chain with apppend
+     * @dataProvider data
      */
-    public function testCompileBlockChildAppend_004()
+    public function testCompileBlockChildAppend_004($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
     {
-        $this->smarty->merge_compiled_includes = true;
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->caching = $caching;
+        $this->smarty->inheritance_merge_compiled_includes = $merge;
+        if ($merge) {
+            $this->smarty->compile_id = 1;
+        }
         $result = $this->smarty->fetch('extends:004_parent.tpl|004_child_append.tpl');
-        $this->assertContains("Default Title - append", $result);
+        $this->assertContains("Default Title - append", $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
     }
+
+    /**
+     * test  child/parent template chain with apppend
+     * @dataProvider data
+     */
+    public function testCompileBlockAssignInChild_040($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->caching = $caching;
+        $this->smarty->inheritance_merge_compiled_includes = $merge;
+        if ($merge) {
+            $this->smarty->compile_id = 1;
+        }
+        $result = $this->smarty->fetch('extends:040_parent.tpl|040_child.tpl');
+        $this->assertContains("var-bar-var", $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+    }
+
     /**
      * test  grandchild/child/parent dependency test1
      */
     public function testCompileBlockGrandChildMustCompile_021_1()
     {
-        $this->cleanDirs();
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('extends:021_parent.tpl|021_child.tpl|021_grandchild.tpl');
@@ -124,14 +165,26 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $result = $this->smarty->fetch($tpl2);
         $this->assertContains('Grandchild Page Title', $result);
     }
-    /**
-     * test  child/parent template chain with prepend
-     */
-    public function testCompileBlockChildPrepend_0032()
-    {
-        $this->smarty->caching = true;
-        $result = $this->smarty->fetch('extends:003_parent.tpl|003_child_prepend.tpl');
-        $this->assertContains("prepend - Default Title", $result);
+
+    public function data(){
+        return array(
+            /*
+             * caching
+             * merging
+             * test nr
+             * result compile nr
+             * result render nr
+             * text
+             */
+            array(false, false, 1, 1, 1, 'no caching, no merge - new'),
+            array(false, false, 2, 1, 2, 'no caching, no merge - exits'),
+            array(true, false, 3, 3, 3, 'caching, no merge - new'),
+            array(true, false, 4, 3, 3, 'caching, no merge - exits'),
+            array(false, true, 5, 5, 5, 'no caching, merge - new'),
+            array(false, true, 6, 5, 6, 'no caching, merge - exits'),
+            array(true, true, 7, 7, 7, 'caching, merge - new'),
+            array(true, true, 8, 7, 7, 'caching, merge - exits'),
+        );
     }
 
 }

@@ -19,6 +19,11 @@ class OutputFilterTrimWhitespaceTest extends PHPUnit_Smarty
         $this->smarty->loadFilter('output', 'trimwhitespace');
     }
 
+    public function testInit()
+    {
+        $this->cleanDirs();
+    }
+
     public function testWhitespace()
     {
         $expected =

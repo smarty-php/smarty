@@ -18,6 +18,11 @@ class PluginModifierCountSentencesTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
+    public function testInit()
+    {
+        $this->cleanDirs();
+    }
+
     public function testDefault()
     {
         $tpl = $this->smarty->createTemplate('string:{"hello world."|count_sentences}');
