@@ -1,4 +1,40 @@
-In Smarty 3.1 template inheritance is a compile time process. All the extending of {block} tags 
+Starting with version 3.1.28 template inheritance is no longer a compile time process.
+All {block} tag parent/child relations are resolved at run time.
+This does resolve all known existing restrictions (see below).
+
+The $smarty::$inheritance_merge_compiled_includes property has been removed.
+Any access to it is ignored.
+
+This does enable some new features:
+
+Any code outside root {block} tags in child templates is now executed but any output will be ignored.
+
+   {extends 'foo.tpl}
+   {$bar = 'on'}           // assigns variable $bar seen in parent templates
+   {block 'buh'}{/block}
+
+   {extends 'foo.tpl}
+   {$bar}           // the output of variable bar is ignored
+   {block 'buh'}{/block}
+
+{block} tags can be dynamically en/disabled by conditions.
+
+   {block 'root}
+      {if $foo}
+         {block 'v1}
+             ....
+         {/block}
+      {else}
+         {block 'v1}
+             ....
+         {/block}
+      {/if}
+   {/block}
+
+
+
+THE FOLLOWING RESTRICTIONS ARE NO LONGER EXISTING:
+In Smarty 3.1 template inheritance is a compile time process. All the extending of {block} tags
 is done at compile time and the parent and child templates are compiled in a single compiled template.
 {include} subtemplate could also {block} tags. Such subtemplate could not compiled by it's own because
 it could be used in other context where the {block} extended with a different result. For that reasion
@@ -28,8 +64,4 @@ You must now manually merge all {include} subtemplate which do contain {block} t
    global compile_id as well  $smarty->compile_id = $bar;
 3. If call templates with different template_dir configurations and a parent could same named child template from different folders
    you must make the folder name part of the compile_id.
-
-
-In the upcomming major release Smarty 3.2 inheritance will no longer be a compile time process. 
-All restrictions will be then removed.
 

@@ -78,6 +78,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $tpl_function = array();
 
     /**
+     * Template is inheritance child template
+     *
+     * @var bool
+     */
+    public $isChild = false;
+
+    /**
      * Create template data object
      * Some of the global Smarty settings copied to template scope
      * It load the required template resources and caching plugins
@@ -292,10 +299,16 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @return string template content
      * @throws \SmartyException
      */
-    public function getSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj)
+    public function getSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj, $isChild)
     {
         $tpl = $this->setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj);
+        $tpl->isChild = $isChild;
         $tpl->render();
+        if ($tpl->isChild && !isset($this->_Block) && isset($tpl->_Block) &&
+            ($this->isChild || !empty($this->source->components))
+        ) {
+            $this->_Block = $tpl->_Block;
+        }
     }
 
     /**
@@ -309,6 +322,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @param array   $data           passed parameter template variables
      * @param int     $parent_scope   scope in which {include} should execute
      * @param bool    $cache_tpl_obj  cache template object
+     * @param bool    $isChild        flag if subtemplate is an inheritance child
      *
      * @return \Smarty_Internal_Template template object
      */
@@ -332,6 +346,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         } else {
             $tpl = clone $this;
             $tpl->parent = $this;
+            $tpl->isChild = false;
             if ($tpl->templateId !== $_templateId) {
                 $tpl->templateId = $_templateId;
                 $tpl->template_resource = $template;
@@ -383,12 +398,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @param array   $data           passed parameter template variables
      * @param int     $parent_scope   scope in which {include} should execute
      * @param bool    $cache_tpl_obj  cache template object
+     * @param bool    $isChild        flag if subtemplate is an inheritance child
      * @param string  $content_func   name of content function
      *
      * @return string template content
      * @throws \Exception
      */
-    public function getInlineSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj, $content_func)
+    public function getInlineSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj, $isChild, $content_func)
     {
         $tpl = $this->setupSubTemplate($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $parent_scope, $cache_tpl_obj);
         if (!isset($tpl->compiled)) {
@@ -397,6 +413,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $tpl->cacheTpl(true);
             }
         }
+        $tpl->isChild = $isChild;
         if ($this->smarty->debugging) {
             $this->smarty->_debug->start_template($tpl);
             $this->smarty->_debug->start_render($tpl);
@@ -408,6 +425,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         if ($caching == 9999 && $tpl->compiled->has_nocache_code) {
             $this->cached->hashes[$tpl->compiled->nocache_hash] = true;
+        }
+        if (!isset($this->_Block) && $isChild && isset($tpl->_Block) &&
+            ($this->isChild || !empty($this->source->components))
+        ) {
+            $this->_Block = $tpl->_Block;
         }
     }
 
@@ -516,6 +538,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $resource = $this->cached;
         } else {
             $this->mustCompile = !$is_valid;
+            $this->isChild = $properties['isChild'];
             $resource = $this->compiled;
             $resource->includes = isset($properties['includes']) ? $properties['includes'] : array();
         }

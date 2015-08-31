@@ -233,6 +233,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     public function compileTemplateSource(Smarty_Internal_Template $_template)
     {
         $_template->source->compileds = array();
+        $_template->isChild = false;
         $this->file_dependency = array();
         $this->tpl_function = array();
         $this->includes = array();

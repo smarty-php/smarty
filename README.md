@@ -1,8 +1,10 @@
 #Smarty 3 template engine
 ##Distribution repository
 
-*Read the NEW_FEATURES file for recent extensions to Smarty 3.1 functionality*
-
+```
+* Smarty 3.1.28 introduces run time template inheritance *
+*Read the NEW_FEATURES and INHERITANCE_RELEASE_NOTES file for recent extensions to Smarty 3.1 functionality*
+```
 Smarty versions 3.1.11 or later are now on github and can be installed with Composer.
 
 

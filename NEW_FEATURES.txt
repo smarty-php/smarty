@@ -4,13 +4,18 @@ This file contains a brief description of new features which have been added to 
 
 Smarty 3.1.28
 
+    Template inheritance
+    ====================
+    Template inheritance is now processed in run time.
+    See the INHERITANCE_RELEASE_NOTES
+
     Modifier regex_replace
     ======================
     An optional limit parameter was added
 
     fetch() and display()
     =====================
-    The fetch() and display() methods of the template object accept now optionally the same paramter
+    The fetch() and display() methods of the template object accept now optionally the same parameter
     as the corresponding Smarty methods the get tne content of another template.
 
     File: resource

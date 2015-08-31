@@ -1,11 +1,11 @@
 <?php
-/**
- * Smarty Internal Plugin Templatelexer
- * This is the lexer to break the template source into tokens
+/*
+ * This file is part of Smarty.
  *
- * @package    Smarty
- * @subpackage Compiler
- * @author     Uwe Tews
+ * (c) 2015 Uwe Tews
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 /**
@@ -13,9 +13,8 @@
  * This is the template file lexer.
  * It is generated from the smarty_internal_templatelexer.plex file
  *
- * @package    Smarty
- * @subpackage Compiler
- * @author     Uwe Tews
+ *
+ * @author Uwe Tews <uwe.tews@googlemail.com>
  */
 class Smarty_Internal_Templatelexer
 {
@@ -25,84 +24,98 @@ class Smarty_Internal_Templatelexer
      * @var string
      */
     public $data;
+
     /**
      * byte counter
      *
      * @var int
      */
     public $counter;
+
     /**
      * token number
      *
      * @var int
      */
     public $token;
+
     /**
      * token value
      *
      * @var string
      */
     public $value;
+
     /**
      * current line
      *
      * @var int
      */
     public $line;
+
     /**
      * tag start line
      *
      * @var
      */
     public $taglineno;
+
     /**
      * php code type
      *
      * @var string
      */
     public $phpType = '';
+
     /**
      * escaped left delimiter
      *
      * @var string
      */
     public $ldel = '';
+
     /**
      * escaped left delimiter length
      *
      * @var int
      */
     public $ldel_length = 0;
+
     /**
      * escaped right delimiter
      *
      * @var string
      */
     public $rdel = '';
+
     /**
      * escaped right delimiter length
      *
      * @var int
      */
     public $rdel_length = 0;
+
     /**
      * state number
      *
      * @var int
      */
     public $state = 1;
+
     /**
      * Smarty object
      *
      * @var Smarty
      */
     public $smarty = null;
+
     /**
      * compiler object
      *
      * @var Smarty_Internal_TemplateCompilerBase
      */
     public $compiler = null;
+
     /**
      * literal tag nesting level
      *
@@ -142,8 +155,7 @@ class Smarty_Internal_Templatelexer
      *
      * @var array
      */
-    public $state_name = array(1 => 'TEXT', 2 => 'TAG', 3 => 'TAGBODY', 4 => 'LITERAL', 5 => 'DOUBLEQUOTEDSTRING',
-            6 => 'CHILDBODY', 7 => 'CHILDBLOCK', 8 => 'CHILDLITERAL');
+    public $state_name = array(1 => 'TEXT', 2 => 'TAG', 3 => 'TAGBODY', 4 => 'LITERAL', 5 => 'DOUBLEQUOTEDSTRING',);
 
     /**
      * storage for assembled token patterns
@@ -159,12 +171,6 @@ class Smarty_Internal_Templatelexer
     private $yy_global_pattern4 = null;
 
     private $yy_global_pattern5 = null;
-
-    private $yy_global_pattern6 = null;
-
-    private $yy_global_pattern7 = null;
-
-    private $yy_global_pattern8 = null;
 
     /**
      * token names
@@ -404,7 +410,7 @@ class Smarty_Internal_Templatelexer
      ldel dollar id nocacherdel {
          if ($this->_yy_stack[count($this->_yy_stack)-1] == self::TEXT) {
             $this->yypopstate();
-            $this->token = Smarty_Internal_Templateparser::TP_SIMPLEOUTPUT;
+            $this->token = Smarty_Internal_Templateparser::TP_SIMPELOUTPUT;
             $this->taglineno = $this->line;
          } else {
             $this->value = $this->smarty->left_delimiter;
@@ -425,7 +431,7 @@ class Smarty_Internal_Templatelexer
      }
      */
      /*!lex2php
-     %statename TAGBODY     
+     %statename TAGBODY
      rdel {
        $this->token = Smarty_Internal_Templateparser::TP_RDEL;
        $this->yypopstate();
@@ -661,115 +667,6 @@ class Smarty_Internal_Templatelexer
        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
      */
-     /*!lex2php
-     %statename CHILDBODY
-     ldel strip rdel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          return false;
-       } else {
-         $this->token = Smarty_Internal_Templateparser::TP_STRIPON;
-       }
-     }
-     ldel slash strip rdel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          return false;
-       } else {
-         $this->token = Smarty_Internal_Templateparser::TP_STRIPOFF;
-       }
-     }
-     ldel block  {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          return false;
-       } else {
-         $this->yypopstate();
-         return true;
-       }
-     }
-     text {
-       $to = strlen($this->data);
-       preg_match("~SMARTYldel\s*(([/])?strip\s*SMARTYrdel|block\s+)~i",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
-       if (isset($match[0][1])) {
-         $to = $match[0][1];
-       }
-       $this->value = substr($this->data,$this->counter,$to-$this->counter);
-       return false;
-     }
-
-     */
-     /*!lex2php
-     %statename CHILDBLOCK
-     ldel literal rdel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-       } else {
-         $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-         $this->yypushstate(self::CHILDLITERAL);
-        }
-     }
-     ldel block {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-       } else {
-         $this->yypopstate();
-         return true;
-       }
-     }
-     ldel slash block {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-       } else {
-         $this->yypopstate();
-         return true;
-       }
-     }
-     ldel smartyblockchildparent {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-       } else {
-         $this->yypopstate();
-         return true;
-       }
-     }
-     text {
-       $to = strlen($this->data);
-       preg_match("~SMARTYldel\s*(literal\s*SMARTYrdel|([/])?block(\s|SMARTYrdel)|[\$]smarty\.block\.(child|parent))~i",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
-       if (isset($match[0][1])) {
-         $to = $match[0][1];
-       }
-       $this->value = substr($this->data,$this->counter,$to-$this->counter);
-       $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-     }
-     */
-     /*!lex2php
-     %statename CHILDLITERAL
-     ldel literal rdel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-       } else {
-         $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-         $this->yypushstate(self::CHILDLITERAL);
-       }
-     }
-     ldel slash literal rdel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-       } else {
-         $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-         $this->yypopstate();
-       }
-     }
-     text {
-       $to = strlen($this->data);
-       preg_match("~{$this->ldel}[/]?literal\s*{$this->rdel}~i",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
-       if (isset($match[0][1])) {
-         $to = $match[0][1];
-       } else {
-         $this->compiler->trigger_template_error ("missing or misspelled literal closing tag");
-       }
-       $this->value = substr($this->data,$this->counter,$to-$this->counter);
-       $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-     }
-     */
- }
+  }
 
      

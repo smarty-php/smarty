@@ -1,4 +1,8 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
+ 01.09.2015
+  - improvement convert template inheritance into runtime processing
+  - bugfix {$smarty.block.parent} did always reference the root parent block https://github.com/smarty-php/smarty/issues/68
+
  23.08.2015
   - introduce Smarty::$resource_cache_mode and cache template object of {include} inside loop
   - load seldom used Smarty API methods dynamically to reduce memory footprint

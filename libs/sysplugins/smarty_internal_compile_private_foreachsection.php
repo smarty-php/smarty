@@ -192,20 +192,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
      */
     public function matchBlockSource(Smarty_Internal_TemplateCompilerBase $compiler)
     {
-        foreach ($compiler->template->block_data as $b) {
-            if (isset($b['source'])) {
-                $this->matchProperty($b['source']);
-            }
-        }
-        if (class_exists('Smarty_Internal_Compile_Block', false)) {
-            foreach (Smarty_Internal_Compile_Block::$block_data as $b) {
-                if (isset($b['source'])) {
-                    $this->matchProperty($b['source']);
-                }
-            }
-        }
 
-        $this->matchProperty($compiler->parser->lex->data);
     }
 
     /**

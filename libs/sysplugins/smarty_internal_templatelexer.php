@@ -1,11 +1,11 @@
 <?php
-/**
- * Smarty Internal Plugin Templatelexer
- * This is the lexer to break the template source into tokens
+/*
+ * This file is part of Smarty.
  *
- * @package    Smarty
- * @subpackage Compiler
- * @author     Uwe Tews
+ * (c) 2015 Uwe Tews
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 /**
@@ -13,9 +13,8 @@
  * This is the template file lexer.
  * It is generated from the smarty_internal_templatelexer.plex file
  *
- * @package    Smarty
- * @subpackage Compiler
- * @author     Uwe Tews
+ *
+ * @author Uwe Tews <uwe.tews@googlemail.com>
  */
 class Smarty_Internal_Templatelexer
 {
@@ -156,8 +155,7 @@ class Smarty_Internal_Templatelexer
      *
      * @var array
      */
-    public $state_name = array(1 => 'TEXT', 2 => 'TAG', 3 => 'TAGBODY', 4 => 'LITERAL', 5 => 'DOUBLEQUOTEDSTRING',
-                               6 => 'CHILDBODY', 7 => 'CHILDBLOCK', 8 => 'CHILDLITERAL');
+    public $state_name = array(1 => 'TEXT', 2 => 'TAG', 3 => 'TAGBODY', 4 => 'LITERAL', 5 => 'DOUBLEQUOTEDSTRING',);
 
     /**
      * storage for assembled token patterns
@@ -173,12 +171,6 @@ class Smarty_Internal_Templatelexer
     private $yy_global_pattern4 = null;
 
     private $yy_global_pattern5 = null;
-
-    private $yy_global_pattern6 = null;
-
-    private $yy_global_pattern7 = null;
-
-    private $yy_global_pattern8 = null;
 
     /**
      * token names
@@ -523,7 +515,7 @@ class Smarty_Internal_Templatelexer
 
         if ($this->_yy_stack[count($this->_yy_stack) - 1] == self::TEXT) {
             $this->yypopstate();
-            $this->token = Smarty_Internal_Templateparser::TP_SIMPLEOUTPUT;
+            $this->token = Smarty_Internal_Templateparser::TP_SIMPELOUTPUT;
             $this->taglineno = $this->line;
         } else {
             $this->value = $this->smarty->left_delimiter;
@@ -570,7 +562,7 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' .
-                                        substr($this->data, $this->counter, 5) . '... state TAGBODY     ');
+                                        substr($this->data, $this->counter, 5) . '... state TAGBODY');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -1121,321 +1113,6 @@ class Smarty_Internal_Templatelexer
         $to = strlen($this->data);
         $this->value = substr($this->data, $this->counter, $to - $this->counter);
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-    }
-
-    public function yylex6()
-    {
-        if (!isset($this->yy_global_pattern6)) {
-            $this->yy_global_pattern6 = "/\G(" . $this->ldel . "\\s*strip\\s*" . $this->rdel . ")|\G(" . $this->ldel .
-                "\\s*[\/]strip\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*block)|\G([\S\s])/isS";
-        }
-        if ($this->counter >= strlen($this->data)) {
-            return false; // end of input
-        }
-
-        do {
-            if (preg_match($this->yy_global_pattern6, $this->data, $yymatches, null, $this->counter)) {
-                $yysubmatches = $yymatches;
-                if (strlen($yysubmatches[0]) < 200) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
-                } else {
-                    $yymatches = array_filter($yymatches, 'strlen');
-                }
-                if (empty($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' .
-                                        substr($this->data, $this->counter, 5) . '... state CHILDBODY');
-                }
-                next($yymatches); // skip global match
-                $this->token = key($yymatches); // token number
-                $this->value = current($yymatches); // token value
-                $r = $this->{'yy_r6_' . $this->token}();
-                if ($r === null) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
-                    // accept this token
-                    return true;
-                } elseif ($r === true) {
-                    // we have changed state
-                    // process this token in the new state
-                    return $this->yylex();
-                } elseif ($r === false) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= strlen($this->data)) {
-                        return false; // end of input
-                    }
-                    // skip this token
-                    continue;
-                }
-            } else {
-                throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[$this->counter]);
-            }
-            break;
-        } while (true);
-    } // end function
-
-    const CHILDBODY = 6;
-
-    function yy_r6_1()
-    {
-
-        if ($this->smarty->auto_literal &&
-        isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false
-        ) {
-            return false;
-        } else {
-            $this->token = Smarty_Internal_Templateparser::TP_STRIPON;
-        }
-    }
-
-    function yy_r6_2()
-    {
-
-        if ($this->smarty->auto_literal &&
-        isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false
-        ) {
-            return false;
-        } else {
-            $this->token = Smarty_Internal_Templateparser::TP_STRIPOFF;
-        }
-    }
-
-    function yy_r6_3()
-    {
-
-        if ($this->smarty->auto_literal &&
-        isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false
-        ) {
-            return false;
-        } else {
-            $this->yypopstate();
-            return true;
-        }
-    }
-
-    function yy_r6_4()
-    {
-
-        $to = strlen($this->data);
-        preg_match("~" . $this->ldel . "\s*(([/])?strip\s*" . $this->rdel .
-                   "|block\s+)~i", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
-        if (isset($match[0][1])) {
-            $to = $match[0][1];
-        }
-        $this->value = substr($this->data, $this->counter, $to - $this->counter);
-        return false;
-    }
-
-    public function yylex7()
-    {
-        if (!isset($this->yy_global_pattern7)) {
-            $this->yy_global_pattern7 = "/\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel .
-                "\\s*block)|\G(" . $this->ldel . "\\s*[\/]block)|\G(" . $this->ldel .
-                "\\s*[$]smarty\\.block\\.(child|parent))|\G([\S\s])/isS";
-        }
-        if ($this->counter >= strlen($this->data)) {
-            return false; // end of input
-        }
-
-        do {
-            if (preg_match($this->yy_global_pattern7, $this->data, $yymatches, null, $this->counter)) {
-                $yysubmatches = $yymatches;
-                if (strlen($yysubmatches[0]) < 200) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
-                } else {
-                    $yymatches = array_filter($yymatches, 'strlen');
-                }
-                if (empty($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' .
-                                        substr($this->data, $this->counter, 5) . '... state CHILDBLOCK');
-                }
-                next($yymatches); // skip global match
-                $this->token = key($yymatches); // token number
-                $this->value = current($yymatches); // token value
-                $r = $this->{'yy_r7_' . $this->token}();
-                if ($r === null) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
-                    // accept this token
-                    return true;
-                } elseif ($r === true) {
-                    // we have changed state
-                    // process this token in the new state
-                    return $this->yylex();
-                } elseif ($r === false) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= strlen($this->data)) {
-                        return false; // end of input
-                    }
-                    // skip this token
-                    continue;
-                }
-            } else {
-                throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[$this->counter]);
-            }
-            break;
-        } while (true);
-    } // end function
-
-    const CHILDBLOCK = 7;
-
-    function yy_r7_1()
-    {
-
-        if ($this->smarty->auto_literal &&
-        isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false
-        ) {
-            $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-        } else {
-            $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-            $this->yypushstate(self::CHILDLITERAL);
-        }
-    }
-
-    function yy_r7_2()
-    {
-
-        if ($this->smarty->auto_literal &&
-        isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false
-        ) {
-            $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-        } else {
-            $this->yypopstate();
-            return true;
-        }
-    }
-
-    function yy_r7_3()
-    {
-
-        if ($this->smarty->auto_literal &&
-        isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false
-        ) {
-            $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-        } else {
-            $this->yypopstate();
-            return true;
-        }
-    }
-
-    function yy_r7_4()
-    {
-
-        if ($this->smarty->auto_literal &&
-        isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false
-        ) {
-            $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-        } else {
-            $this->yypopstate();
-            return true;
-        }
-    }
-
-    function yy_r7_6()
-    {
-
-        $to = strlen($this->data);
-        preg_match("~" . $this->ldel . "\s*(literal\s*" . $this->rdel . "|([/])?block(\s|" . $this->rdel .
-                   ")|[\$]smarty\.block\.(child|parent))~i", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
-        if (isset($match[0][1])) {
-            $to = $match[0][1];
-        }
-        $this->value = substr($this->data, $this->counter, $to - $this->counter);
-        $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-    }
-
-    public function yylex8()
-    {
-        if (!isset($this->yy_global_pattern8)) {
-            $this->yy_global_pattern8 = "/\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel .
-                "\\s*[\/]literal\\s*" . $this->rdel . ")|\G([\S\s])/isS";
-        }
-        if ($this->counter >= strlen($this->data)) {
-            return false; // end of input
-        }
-
-        do {
-            if (preg_match($this->yy_global_pattern8, $this->data, $yymatches, null, $this->counter)) {
-                $yysubmatches = $yymatches;
-                if (strlen($yysubmatches[0]) < 200) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
-                } else {
-                    $yymatches = array_filter($yymatches, 'strlen');
-                }
-                if (empty($yymatches)) {
-                    throw new Exception('Error: lexing failed because a rule matched' . ' an empty string.  Input "' .
-                                        substr($this->data, $this->counter, 5) . '... state CHILDLITERAL');
-                }
-                next($yymatches); // skip global match
-                $this->token = key($yymatches); // token number
-                $this->value = current($yymatches); // token value
-                $r = $this->{'yy_r8_' . $this->token}();
-                if ($r === null) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
-                    // accept this token
-                    return true;
-                } elseif ($r === true) {
-                    // we have changed state
-                    // process this token in the new state
-                    return $this->yylex();
-                } elseif ($r === false) {
-                    $this->counter += strlen($this->value);
-                    $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= strlen($this->data)) {
-                        return false; // end of input
-                    }
-                    // skip this token
-                    continue;
-                }
-            } else {
-                throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[$this->counter]);
-            }
-            break;
-        } while (true);
-    } // end function
-
-    const CHILDLITERAL = 8;
-
-    function yy_r8_1()
-    {
-
-        if ($this->smarty->auto_literal &&
-        isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false
-        ) {
-            $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-        } else {
-            $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-            $this->yypushstate(self::CHILDLITERAL);
-        }
-    }
-
-    function yy_r8_2()
-    {
-
-        if ($this->smarty->auto_literal &&
-        isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false
-        ) {
-            $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-        } else {
-            $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
-            $this->yypopstate();
-        }
-    }
-
-    function yy_r8_3()
-    {
-
-        $to = strlen($this->data);
-        preg_match("~{$this->ldel}[/]?literal\s*{$this->rdel}~i", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
-        if (isset($match[0][1])) {
-            $to = $match[0][1];
-        } else {
-            $this->compiler->trigger_template_error("missing or misspelled literal closing tag");
-        }
-        $this->value = substr($this->data, $this->counter, $to - $this->counter);
-        $this->token = Smarty_Internal_Templateparser::TP_BLOCKSOURCE;
     }
 
 }
