@@ -715,6 +715,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function __set($property_name, $value)
     {
+        if ($property_name[0] == '_') {
+            $this->$property_name = $value;
+            return;
+        }
         switch ($property_name) {
             case 'compiled':
             case 'cached':
@@ -741,6 +745,16 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function __get($property_name)
     {
+        // object properties of runtime template extensions will start with '_'
+        if ($property_name[0] == '_') {
+            $class = 'Smarty_Internal_Runtime' . $property_name;
+            if (!class_exists($class, false)) {
+                require SMARTY_SYSPLUGINS_DIR . strtolower($class) . '.php';
+            }
+            if (class_exists($class, false)) {
+                return $this->$property_name = new $class();
+            }
+        }
         switch ($property_name) {
             case 'compiled':
                 $this->loadCompiled();
