@@ -76,9 +76,9 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
         //$compiler->suppressNocacheProcessing = true;
         // was there an assign attribute
         if (isset($_assign)) {
-            $_output = "<?php ob_start();\$_smarty_tpl->callTemplateFunction ({$_name}, \$_smarty_tpl, {$_params}, {$_nocache}); \$_smarty_tpl->assign({$_assign}, ob_get_clean());?>\n";
+            $_output = "<?php ob_start();\n\$_smarty_tpl->_Function->callTemplateFunction({$_name}, \$_smarty_tpl, {$_params}, {$_nocache});\n\$_smarty_tpl->assign({$_assign}, ob_get_clean());?>\n";
         } else {
-            $_output = "<?php \$_smarty_tpl->callTemplateFunction ({$_name}, \$_smarty_tpl, {$_params}, {$_nocache});?>\n";
+            $_output = "<?php \$_smarty_tpl->_Function->callTemplateFunction({$_name}, \$_smarty_tpl, {$_params}, {$_nocache});?>\n";
         }
         return $_output;
     }
