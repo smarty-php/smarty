@@ -34,7 +34,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
     {
-        $uid = sha1(getcwd());
+        $uid = '';
         $sources = array();
         $components = explode('|', $source->name);
         $exists = true;
@@ -45,7 +45,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
                 throw new SmartyException("Resource type {$_s->type} cannot be used with the extends resource type");
             }
             $sources[$_s->uid] = $_s;
-            $uid .= $source->smarty->_realpath($_s->filepath, true);
+            $uid .= $_s->filepath;
             if ($_template) {
                 $exists = $exists && $_s->exists;
             }
