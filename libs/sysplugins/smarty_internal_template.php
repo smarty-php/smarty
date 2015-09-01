@@ -57,13 +57,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $mustCompile = null;
 
     /**
-     * blocks for template inheritance
-     *
-     * @var array
-     */
-    public $block_data = array();
-
-    /**
      * Template Id
      *
      * @var null|string
@@ -290,56 +283,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Cache resources for current template
-     *
-     * @param bool $cache_tpl_obj force caching
-     */
-    public function cacheTpl($cache_tpl_obj)
-    {
-        if (!$this->source->handler->recompiled &&
-            (isset($this->smarty->_cache['template_objects'][$this->parent->templateId]) ||
-                ($cache_tpl_obj && $this->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC) ||
-                $this->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
-        ) {
-            $this->smarty->_cache['template_objects'][$this->templateId] = $this;
-        }
-    }
-
-    /**
-     * Call template function
-     *
-     * @param string                           $name        template function name
-     * @param object|\Smarty_Internal_Template $_smarty_tpl template object
-     * @param array                            $params      parameter array
-     * @param bool                             $nocache     true if called nocache
-     *
-     * @throws \SmartyException
-     */
-    public function callTemplateFunction($name, Smarty_Internal_Template $_smarty_tpl, $params, $nocache)
-    {
-        if (isset($_smarty_tpl->tpl_function[$name])) {
-            if (!$_smarty_tpl->caching || ($_smarty_tpl->caching && $nocache)) {
-                $function = $_smarty_tpl->tpl_function[$name]['call_name'];
-            } else {
-                if (isset($_smarty_tpl->tpl_function[$name]['call_name_caching'])) {
-                    $function = $_smarty_tpl->tpl_function[$name]['call_name_caching'];
-                } else {
-                    $function = $_smarty_tpl->tpl_function[$name]['call_name'];
-                }
-            }
-            if (function_exists($function)) {
-                $function ($_smarty_tpl, $params);
-                return;
-            }
-            // try to load template function dynamically
-            if (Smarty_Internal_Function_Call_Handler::call($name, $_smarty_tpl, $function)) {
-                $function ($_smarty_tpl, $params);
-                return;
-            }
-        }
-        throw new SmartyException("Unable to find template function '{$name}'");
-    }
-   /**
      * This function is executed automatically when a compiled or cached template file is included
      * - Decode saved properties from compiled template and cache files
      * - Check if compiled or cache file is valid
@@ -360,7 +303,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         ) {
             // check file dependencies at compiled code
             foreach ($properties['file_dependency'] as $_file_to_check) {
-                if ($_file_to_check[2] == 'file' || $_file_to_check[2] == 'php') {
+                if ($_file_to_check[2] == 'file' || $_file_to_check[2] == 'extends' || $_file_to_check[2] == 'php') {
                     if ($this->source->filepath == $_file_to_check[0]) {
                         // do not recheck current template
                         continue;
@@ -431,55 +374,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 settype($this->tpl_vars[$tpl_var]->value, 'array');
             }
         }
-    }
-
-    /**
-     * Template code runtime function to get pointer to template variable array of requested scope
-     *
-     * @param  int $scope requested variable scope
-     *
-     * @return array array of template variables
-     */
-    public function &getScope($scope)
-    {
-        if ($scope == Smarty::SCOPE_PARENT && !empty($this->parent)) {
-            return $this->parent->tpl_vars;
-        } elseif ($scope == Smarty::SCOPE_ROOT && !empty($this->parent)) {
-            $ptr = $this->parent;
-            while (!empty($ptr->parent)) {
-                $ptr = $ptr->parent;
-            }
-
-            return $ptr->tpl_vars;
-        } elseif ($scope == Smarty::SCOPE_GLOBAL) {
-            return Smarty::$global_tpl_vars;
-        }
-        $null = null;
-
-        return $null;
-    }
-
-    /**
-     * Get parent or root of template parent chain
-     *
-     * @param  int $scope parent or root scope
-     *
-     * @return mixed object
-     */
-    public function getScopePointer($scope)
-    {
-        if ($scope == Smarty::SCOPE_PARENT && !empty($this->parent)) {
-            return $this->parent;
-        } elseif ($scope == Smarty::SCOPE_ROOT && !empty($this->parent)) {
-            $ptr = $this->parent;
-            while (!empty($ptr->parent)) {
-                $ptr = $ptr->parent;
-            }
-
-            return $ptr;
-        }
-
-        return null;
     }
 
     /**

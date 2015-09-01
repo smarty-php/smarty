@@ -115,7 +115,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         $source->filepath = $this->buildFilepath($source, $_template);
 
         if ($source->filepath !== false) {
-            if (is_object($source->smarty->security_policy)) {
+            if (isset($source->smarty->security_policy) && is_object($source->smarty->security_policy)) {
                 $source->smarty->security_policy->isTrustedResourceDir($source->filepath, $source->isConfig);
             }
             $source->exists = true;

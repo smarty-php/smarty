@@ -42,9 +42,6 @@ class Smarty_Internal_Extension_CodeFrame
         }
         $output = "<?php\n";
         $output .= "/*%%SmartyHeaderCode:{$_template->compiled->nocache_hash}%%*/\n";
-        if ($_template->smarty->direct_access_security) {
-            $output .= "if(!defined('SMARTY_DIR')) exit('no direct access allowed');\n";
-        }
         $output .= "\$_valid = \$_smarty_tpl->decodeProperties(" . var_export($properties, true) . ',' .
             ($cache ? 'true' : 'false') . ");\n";
         $output .= "/*/%%SmartyHeaderCode%%*/\n";
@@ -97,6 +94,7 @@ class Smarty_Internal_Extension_CodeFrame
     {
         $output = "<?php\n";
         $output .= "/*%%SmartyHeaderCode:{$_template->compiled->nocache_hash}%%*/\n";
+        $output .= "/* {$_template->source->type}:{$_template->source->name} */\n";
         $output .= "if (\$_valid && !is_callable('{$_template->compiled->unifunc}')) {\n";
         $output .= "function {$_template->compiled->unifunc} (\$_smarty_tpl) {\n";
         $output .= "?>\n" . $content;
@@ -116,8 +114,8 @@ class Smarty_Internal_Extension_CodeFrame
      */
     public static function appendCode($left, $right)
     {
-        if (preg_match('/\s*\?>$/', $left) && preg_match('/^<\?php\s+/', $right)) {
-            $left = preg_replace('/\s*\?>$/', "\n", $left);
+        if (preg_match('/\s*\?>[\n]?$/', $left) && preg_match('/^<\?php\s+/', $right)) {
+            $left = preg_replace('/\s*\?>[\n]?$/', "\n", $left);
             $left .= preg_replace('/^<\?php\s+/', '', $right);
         } else {
             $left .= $right;

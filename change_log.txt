@@ -4,6 +4,7 @@
   - bugfix {$smarty.block.parent} did always reference the root parent block https://github.com/smarty-php/smarty/issues/68
   - move subtemplate code into runtime extension and optimize for size and speed
   - move template function code into runtime extension
+  - remove unneeded code and properties, minor fixes
 
  23.08.2015
   - introduce Smarty::$resource_cache_mode and cache template object of {include} inside loop
