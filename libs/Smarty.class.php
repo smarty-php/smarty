@@ -118,7 +118,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/48';
+    const SMARTY_VERSION = '3.1.28-dev/54';
 
     /**
      * define variable scopes
@@ -207,7 +207,7 @@ class Smarty extends Smarty_Internal_TemplateBase
 
     const RESOURCE_CACHE_TEMPLATE = 2; // cache all template objects
 
-    const RESOURCE_CACHE_ON = 4;    // cache source nad compiled resources
+    const RESOURCE_CACHE_ON = 4;    // cache source and compiled resources
 
     /**#@-*/
 
@@ -675,7 +675,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     private static $obsoleteProperties = array('resource_caching', 'template_resource_caching',
                                                'direct_access_security', '_dir_perms', '_file_perms',
-                                               'plugin_search_order');
+                                               'plugin_search_order', 'inheritance_merge_compiled_includes');
 
     private static $accessMap = array('template_dir' => 'getTemplateDir', 'config_dir' => 'getConfigDir',
                                       'plugins_dir'  => 'getPluginsDir', 'compile_dir' => 'getCompileDir',
@@ -1064,15 +1064,14 @@ class Smarty extends Smarty_Internal_TemplateBase
         } else {
             $data = null;
         }
-        $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
-        if (isset($this->_cache['isCached'][$_templateId])) {
+        if ($this->caching && isset($this->_cache['isCached'][$_templateId = $this->_getTemplateId($template, $cache_id, $compile_id)])) {
             $tpl = $do_clone ? clone $this->_cache['isCached'][$_templateId] : $this->_cache['isCached'][$_templateId];
             $tpl->parent = $parent;
             $tpl->tpl_vars = array();
             $tpl->config_vars = array();
         } else {
             /* @var Smarty_Internal_Template $tpl */
-            $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id, null, null, $_templateId);
+            $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id, null, null);
         }
         if ($do_clone) {
             $tpl->smarty = clone $tpl->smarty;

@@ -125,7 +125,6 @@ class Smarty_Template_Source
      * @param string          $type     type of resource
      * @param string          $name     resource name
      *
-     * @internal param string $unique_resource unique resource name
      */
     public function __construct(Smarty_Resource $handler, Smarty $smarty, $resource, $type, $name)
     {
@@ -147,7 +146,8 @@ class Smarty_Template_Source
      * @return Smarty_Template_Source Source Object
      * @throws SmartyException
      */
-    public static function load(Smarty_Internal_Template $_template = null, Smarty $smarty = null, $template_resource = null)
+    public static function load(Smarty_Internal_Template $_template = null, Smarty $smarty = null,
+                                $template_resource = null)
     {
         if ($_template) {
             $smarty = $_template->smarty;
@@ -157,9 +157,19 @@ class Smarty_Template_Source
             throw new SmartyException('Missing template name');
         }
         // parse resource_name, load resource handler, identify unique resource name
-        list($name, $type) = Smarty_Resource::parseResourceName($template_resource, $smarty->default_resource_type);
+        if (preg_match('/^([A-Za-z0-9_\-]{2,})[:]/', $template_resource, $match)) {
+            $type = $match[1];
+            $name = substr($template_resource, strlen($match[0]));
+        } else {
+            // no resource given, use default
+            // or single character before the colon is not a resource type, but part of the filepath
+            $type = $smarty->default_resource_type;
+            $name = $template_resource;
+        }
 
-        $handler = Smarty_Resource::load($smarty, $type);
+        $handler = isset($smarty->_cache['resource_handlers'][$type]) ?
+            $smarty->_cache['resource_handlers'][$type] :
+            Smarty_Resource::load($smarty, $type);
         // if resource is not recompiling and resource name is not dotted we can check the source cache
         if (($smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON) && !$handler->recompiled &&
             !(isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/'))
@@ -185,13 +195,13 @@ class Smarty_Template_Source
                 $is_relative = isset($name[1]) && $name[0] == '.' && ($name[1] == '.' || $name[1] == '/') &&
                     ($type == 'file' ||
                         (isset($_template->parent->source) && $_template->parent->source->type == 'extends'));
-                $unique_resource = $handler->buildUniqueResourceName($smarty, $is_relative ? $source->filepath .
-                    $name : $name);
+                $unique_resource =
+                    $handler->buildUniqueResourceName($smarty, $is_relative ? $source->filepath . $name : $name);
             }
             $source->unique_resource = $unique_resource;
             // save in runtime cache if not relative
             if (!$is_relative) {
-               $smarty->_cache['source_objects'][$unique_resource] = $source;
+                $smarty->_cache['source_objects'][$unique_resource] = $source;
             }
         }
         return $source;
@@ -223,7 +233,8 @@ class Smarty_Template_Source
             }
             $this->handler->renderUncompiled($_template->source, $_template);
             if (isset($_template->parent) && $_template->parent->_objType == 2 && !empty($_template->tpl_function)) {
-                $_template->parent->tpl_function = array_merge($_template->parent->tpl_function, $_template->tpl_function);
+                $_template->parent->tpl_function =
+                    array_merge($_template->parent->tpl_function, $_template->tpl_function);
             }
             if ($_template->smarty->debugging) {
                 $_template->smarty->_debug->end_render($_template);

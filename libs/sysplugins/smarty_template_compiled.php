@@ -20,13 +20,6 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     public $nocache_hash = null;
 
     /**
-     * create Compiled Object container
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * get a Compiled Object of this source
      *
      * @param  Smarty_Internal_Template $_template template object
@@ -36,7 +29,9 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     static function load($_template)
     {
         // check runtime cache
-        if (!$_template->source->handler->recompiled && ($_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)) {
+        if (!$_template->source->handler->recompiled &&
+            ($_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
+        ) {
             $_cache_key = $_template->source->unique_resource . '#';
             if ($_template->caching) {
                 $_cache_key .= 'caching#';
@@ -53,7 +48,9 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             $compiled->populateCompiledFilepath($_template);
         }
         // runtime cache
-        if (!$_template->source->handler->recompiled && ($_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)) {
+        if (!$_template->source->handler->recompiled &&
+            ($_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
+        ) {
             $_template->source->compileds[$_cache_key] = $compiled;
         }
         return $compiled;
@@ -72,8 +69,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 ((int) $_template->smarty->config_read_hidden + (int) $_template->smarty->config_booleanize * 2 +
                     (int) $_template->smarty->config_overwrite * 4);
         } else {
-            $_flag = '_' .
-                ((int) $_template->smarty->merge_compiled_includes + (int) $_template->smarty->escape_html * 2);
+            $_flag =
+                '_' . ((int) $_template->smarty->merge_compiled_includes + (int) $_template->smarty->escape_html * 2);
         }
         $_filepath = $_template->source->uid . $_flag;
         // if use_sub_dirs, break file into directories
@@ -119,8 +116,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     public function process(Smarty_Internal_Template $_template)
     {
         $_smarty_tpl = $_template;
-        if ($_template->source->handler->recompiled || !$_template->compiled->exists || $_template->smarty->force_compile ||
-            ($_template->smarty->compile_check &&
+        if ($_template->source->handler->recompiled || !$_template->compiled->exists ||
+            $_template->smarty->force_compile || ($_template->smarty->compile_check &&
                 $_template->source->getTimeStamp() > $_template->compiled->getTimeStamp())
         ) {
             $this->compileTemplateSource($_template);
@@ -154,19 +151,20 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 $_template->smarty->compile_check = $compileCheck;
             }
         }
-        if (!isset($_template->smarty->_cache['template_objects'][$_template->templateId]) &&
-            $_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC &&
-            $_template->parent instanceof Smarty_Internal_Template && isset($_template->parent->compiled)
+        if ($_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC && isset($_template->parent) &&
+            isset($_template->parent->compiled) && !$_template->source->isConfig &&
+            !in_array($_template->source->type, array('eval', 'string')) &&
+            !empty($_template->parent->compiled->includes) &&
+            isset($_template->smarty->_cache['template_objects'][$_template->_getTemplateId()])
         ) {
             foreach ($_template->parent->compiled->includes as $key => $count) {
-                $_template->compiled->includes[$key] = isset($_template->compiled->includes[$key]) ? $_template->compiled->includes[$key] +
-                    $count : $count;
+                $_template->compiled->includes[$key] =
+                    isset($_template->compiled->includes[$key]) ? $_template->compiled->includes[$key] + $count :
+                        $count;
             }
-            if (!$_template->source->isConfig && !in_array($_template->source->type, array('eval', 'string'))) {
-                $key = $_template->source->type . ':' . $_template->source->name;
-                if (isset($_template->compiled->includes[$key]) && $_template->compiled->includes[$key] > 1) {
-                    $_template->smarty->_cache['template_objects'][$_template->templateId] = $_template;
-                }
+            $key = $_template->source->type . ':' . $_template->source->name;
+            if (isset($_template->compiled->includes[$key]) && $_template->compiled->includes[$key] > 1) {
+                $_template->smarty->_cache['template_objects'][$_template->templateId] = $_template;
             }
         }
         $this->processed = true;
@@ -208,7 +206,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             $this->process($_template);
         }
         if (isset($_template->cached)) {
-            $_template->cached->file_dependency = array_merge($_template->cached->file_dependency, $this->file_dependency);
+            $_template->cached->file_dependency =
+                array_merge($_template->cached->file_dependency, $this->file_dependency);
         }
         $this->getRenderedTemplateCode($_template);
         if ($_template->caching && $this->has_nocache_code) {

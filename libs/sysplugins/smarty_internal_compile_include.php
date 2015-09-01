@@ -275,10 +275,10 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             }
             if (isset($_assign)) {
                 $_output .= "ob_start();\n";
-                $_output .= "\$_smarty_tpl->getInlineSubTemplate({$include_file}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_parent_scope}, {$_cache_tpl}, {$_isChild}, '{$compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$t_hash]['func']}');\n";
+                $_output .= "\$_smarty_tpl->_Inline->renderInline(\$_smarty_tpl, {$include_file}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_parent_scope}, {$_cache_tpl}, {$_isChild}, '{$compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$t_hash]['func']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$t_hash]['uid']}');\n";
                 $_output .= "\$_smarty_tpl->tpl_vars[$_assign] = new Smarty_Variable(ob_get_clean());\n";
             } else {
-                $_output .= "\$_smarty_tpl->getInlineSubTemplate({$include_file}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_parent_scope}, {$_cache_tpl}, {$_isChild}, '{$compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$t_hash]['func']}');\n";
+                $_output .= "\$_smarty_tpl->_Inline->renderInline(\$_smarty_tpl, {$include_file}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_parent_scope}, {$_cache_tpl}, {$_isChild}, '{$compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$t_hash]['func']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$tpl_name][$t_hash]['uid']}');\n";
             }
             if ($update_compile_id) {
                 $_output .= $compiler->makeNocacheCode("\$_smarty_tpl->compile_id = array_pop(\$_compile_id_save);\n");
@@ -298,10 +298,10 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         // was there an assign attribute
         if (isset($_assign)) {
             $_output .= "ob_start();\n";
-            $_output .= "\$_smarty_tpl->getSubTemplate($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, {$_cache_tpl});\n";
+            $_output .= "\$_smarty_tpl->_Subtemplate->renderSubtemplate(\$_smarty_tpl, $include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, {$_cache_tpl}, {$_isChild});\n";
             $_output .= "\$_smarty_tpl->tpl_vars[$_assign] = new Smarty_Variable(ob_get_clean());\n";
         } else {
-            $_output .= "\$_smarty_tpl->getSubTemplate($include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, {$_cache_tpl});\n";
+            $_output .= "\$_smarty_tpl->_Subtemplate->renderSubtemplate(\$_smarty_tpl, $include_file, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, {$_cache_tpl}, {$_cache_tpl}, {$_isChild});\n";
         }
         if ($update_compile_id) {
             $_output .= "\$_smarty_tpl->compile_id = array_pop(\$_compile_id_save);\n";

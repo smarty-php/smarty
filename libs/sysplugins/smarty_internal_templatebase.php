@@ -182,7 +182,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                         $template->loadCached();
                     }
                     $result = $template->cached->isCached($template);
-                    $template->smarty->_cache['isCached'][$template->templateId] = $template;
+                    $template->smarty->_cache['isCached'][$template->_getTemplateId()] = $template;
                 } else {
                     return false;
                 }
