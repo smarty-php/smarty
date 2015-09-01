@@ -323,14 +323,18 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
         }
         $_template->cached->has_nocache_code = false;
         // get text between non-cached items
-        $cache_split = preg_split("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s", $content);
+        $cache_split =
+            preg_split("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s",
+                       $content);
         // get non-cached items
-        preg_match_all("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s", $content, $cache_parts);
+        preg_match_all("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s",
+                       $content, $cache_parts);
         $content = '';
         // loop over items, stitch back together
         foreach ($cache_split as $curr_idx => $curr_split) {
             // escape PHP tags in template content
-            $content .= preg_replace('/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/', "<?php echo '\$1'; ?>\n", $curr_split);
+            $content .= preg_replace('/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/',
+                                     "<?php echo '\$1'; ?>\n", $curr_split);
             if (isset($cache_parts[0][$curr_idx])) {
                 $_template->cached->has_nocache_code = true;
                 $content .= $cache_parts[1][$curr_idx];
@@ -369,7 +373,8 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
                     // read compiled file
                     $code = file_get_contents($funcParam['compiled_filepath']);
                     // grab template function
-                    if (preg_match("/\/\* {$funcParam['call_name']} \*\/([\S\s]*?)\/\*\/ {$funcParam['call_name']} \*\//", $code, $match)) {
+                    if (preg_match("/\/\* {$funcParam['call_name']} \*\/([\S\s]*?)\/\*\/ {$funcParam['call_name']} \*\//",
+                                   $code, $match)) {
                         unset($code);
                         $content .= "<?php " . $match[0] . "?>\n";
                     }
@@ -388,8 +393,8 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
     public function cacheModifiedCheck(Smarty_Internal_Template $_template, $content)
     {
         $_isCached = $_template->isCached() && !$_template->compiled->has_nocache_code;
-        $_last_modified_date = @substr($_SERVER['HTTP_IF_MODIFIED_SINCE'], 0, strpos($_SERVER['HTTP_IF_MODIFIED_SINCE'], 'GMT') +
-                                                                         3);
+        $_last_modified_date =
+            @substr($_SERVER['HTTP_IF_MODIFIED_SINCE'], 0, strpos($_SERVER['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
         if ($_isCached && $this->timestamp <= strtotime($_last_modified_date)) {
             switch (PHP_SAPI) {
                 case 'cgi': // php-cgi < 5.3
@@ -407,7 +412,13 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
                     break;
 
                 default:
-                    header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
+                    if ( /* ^phpunit */
+                    !empty($_SERVER['SMARTY_PHPUNIT_DISABLE_HEADERS']) /* phpunit$ */
+                    ) {
+                        $_SERVER['SMARTY_PHPUNIT_HEADERS'][] = '304 Not Modified';
+                    } else {
+                        header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
+                    }
                     break;
             }
         } else {
@@ -416,8 +427,8 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
                     if ( /* ^phpunit */
                     !empty($_SERVER['SMARTY_PHPUNIT_DISABLE_HEADERS']) /* phpunit$ */
                     ) {
-                        $_SERVER['SMARTY_PHPUNIT_HEADERS'][] = 'Last-Modified: ' .
-                            gmdate('D, d M Y H:i:s', $this->timestamp) . ' GMT';
+                        $_SERVER['SMARTY_PHPUNIT_HEADERS'][] =
+                            'Last-Modified: ' . gmdate('D, d M Y H:i:s', $this->timestamp) . ' GMT';
                     }
                     break;
                 default:
