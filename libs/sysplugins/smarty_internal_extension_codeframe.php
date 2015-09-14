@@ -35,7 +35,6 @@ class Smarty_Internal_Extension_CodeFrame
         if (!$cache) {
             $properties['file_dependency'] = $_template->compiled->file_dependency;
             $properties['includes'] = $_template->compiled->includes;
-            $properties['isChild'] = $_template->isChild;
         } else {
             $properties['file_dependency'] = $_template->cached->file_dependency;
             $properties['cache_lifetime'] = $_template->cache_lifetime;

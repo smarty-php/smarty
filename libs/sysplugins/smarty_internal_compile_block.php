@@ -65,7 +65,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        if ($compiler->blockTagNestingLevel == 0 && $compiler->template->isChild) {
+        if ($compiler->blockTagNestingLevel == 0 && $compiler->inheritanceChild) {
             $this->option_flags = array('hide', 'nocache', 'append', 'prepend');
         } else {
             $this->option_flags = array('hide', 'nocache');
@@ -101,7 +101,8 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
     static function compileChildBlock(Smarty_Internal_TemplateCompilerBase $compiler, $_name = null)
     {
         if (!$compiler->blockTagNestingLevel) {
-            $compiler->trigger_template_error(' tag {$smarty.block.child} used outside {block} tags ', $compiler->parser->lex->taglineno);
+            $compiler->trigger_template_error(' tag {$smarty.block.child} used outside {block} tags ',
+                                              $compiler->parser->lex->taglineno);
         }
         $compiler->has_code = true;
         $compiler->suppressNocacheProcessing = true;
@@ -120,11 +121,13 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase
      */
     static function compileParentBlock(Smarty_Internal_TemplateCompilerBase $compiler, $_name = null)
     {
-        if (!$compiler->template->isChild) {
-            $compiler->trigger_template_error(' tag {$smarty.block.parent} used in parent template ', $compiler->parser->lex->taglineno);
+        if (!$compiler->inheritanceChild) {
+            $compiler->trigger_template_error(' tag {$smarty.block.parent} used in parent template ',
+                                              $compiler->parser->lex->taglineno);
         }
         if (!$compiler->blockTagNestingLevel) {
-            $compiler->trigger_template_error(' tag {$smarty.block.parent} used outside {block} tags ', $compiler->parser->lex->taglineno);
+            $compiler->trigger_template_error(' tag {$smarty.block.parent} used outside {block} tags ',
+                                              $compiler->parser->lex->taglineno);
         }
         $compiler->suppressNocacheProcessing = true;
         $compiler->has_code = true;
@@ -157,8 +160,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
         // setup buffer for template function code
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
 
-        $_funcNameCaching = $_funcName = preg_replace('![^\w]+!', '_', "block_function_{$_name}_" .
-                                                                uniqid(rand(), true));
+        $_funcNameCaching =
+        $_funcName = preg_replace('![^\w]+!', '_', "block_function_{$_name}_" . uniqid(rand(), true));
         if ($compiler->template->compiled->has_nocache_code) {
             //            $compiler->parent_compiler->template->tpl_function[$_name]['call_name_caching'] = $_funcNameCaching;
             $_funcNameCaching .= '_nocache';
@@ -168,34 +171,47 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
             $output .= "function {$_funcNameCaching} (\$_smarty_tpl, \$block) {\n";
             $output .= "/*/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n";
             $output .= "\$_smarty_tpl->cached->hashes['{$compiler->template->compiled->nocache_hash}'] = true;\n?>\n";
-            $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
+            $compiler->parser->current_buffer->append_subtree($compiler->parser,
+                                                              new Smarty_Internal_ParseTree_Tag($compiler->parser,
+                                                                                                $output));
             $compiler->parser->current_buffer->append_subtree($compiler->parser, $_functionCode);
             $output = "<?php /*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n";
             $output .= "\n}\n}\n";
             $output .= "/*/ {$_funcName}_nocache */\n\n";
             $output .= "?>\n";
-            $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
-            $compiler->parent_compiler->templateFunctionCode .= $f = $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
+            $compiler->parser->current_buffer->append_subtree($compiler->parser,
+                                                              new Smarty_Internal_ParseTree_Tag($compiler->parser,
+                                                                                                $output));
+            $compiler->parent_compiler->templateFunctionCode .= $f =
+                $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
             $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
-            $_functionCode = new Smarty_Internal_ParseTree_Tag($compiler->parser, preg_replace_callback("/((<\?php )?echo '\/\*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%\*\/([\S\s]*?)\/\*\/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%\*\/';(\?>\n)?)/", array($this,
-                                                                                                                                                                                                                                                                                                          'removeNocache'), $_functionCode->to_smarty_php($compiler->parser)));
+            $_functionCode = new Smarty_Internal_ParseTree_Tag($compiler->parser,
+                                                               preg_replace_callback("/((<\?php )?echo '\/\*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%\*\/([\S\s]*?)\/\*\/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%\*\/';(\?>\n)?)/",
+                                                                                     array($this, 'removeNocache'),
+                                                                                     $_functionCode->to_smarty_php($compiler->parser)));
         }
         $output = "<?php\n";
         $output .= "/* {$_funcName}  {$compiler->template->source->type}:{$compiler->template->source->name} */\n";
         $output .= "if (!function_exists('{$_funcName}')) {\n";
         $output .= "function {$_funcName}(\$_smarty_tpl, \$block) {?>";
-        $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
+        $compiler->parser->current_buffer->append_subtree($compiler->parser,
+                                                          new Smarty_Internal_ParseTree_Tag($compiler->parser,
+                                                                                            $output));
         $compiler->parser->current_buffer->append_subtree($compiler->parser, $_functionCode);
         $output = "<?php\n}\n}\n";
         $output .= "/*/ {$_funcName} */\n";
         $output .= "?>\n";
-        $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
-        $compiler->parent_compiler->templateFunctionCode .= $f = $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
+        $compiler->parser->current_buffer->append_subtree($compiler->parser,
+                                                          new Smarty_Internal_ParseTree_Tag($compiler->parser,
+                                                                                            $output));
+        $compiler->parent_compiler->templateFunctionCode .= $f =
+            $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
         // nocache plugins must be copied
         if (!empty($compiler->template->compiled->required_plugins['nocache'])) {
             foreach ($compiler->template->compiled->required_plugins['nocache'] as $plugin => $tmp) {
                 foreach ($tmp as $type => $data) {
-                    $compiler->parent_compiler->template->compiled->required_plugins['compiled'][$plugin][$type] = $data;
+                    $compiler->parent_compiler->template->compiled->required_plugins['compiled'][$plugin][$type] =
+                        $data;
                 }
             }
         }
@@ -216,13 +232,15 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
             unset($compiler->callChildBlock[$compiler->blockTagNestingLevel]);
         }
         $compiler->blockTagNestingLevel --;
-        if ($compiler->blockTagNestingLevel == 0 && $compiler->template->isChild) {
+        // inner {block} or child template {block} must register block
+        if ($compiler->blockTagNestingLevel == 0 && $compiler->inheritanceChild) {
             $_function = 'register';
         } else {
             $_function = 'call';
         }
         $cm = $compiler->template->caching ? 'true' : 'false';
-        $output = "<?php \n\$_smarty_tpl->_Block->{$_function}Block(\$_smarty_tpl, array('caching' => {$cm}, 'function' => '{$_funcNameCaching}'";
+        $output =
+            "<?php \n\$_smarty_tpl->_Block->{$_function}Block(\$_smarty_tpl, array('caching' => {$cm}, 'function' => '{$_funcNameCaching}'";
         foreach ($_parameter as $name => $stat) {
             if ($stat !== false) {
                 $output .= ", '{$name}' => {$stat}";
@@ -241,7 +259,9 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
      */
     function removeNocache($match)
     {
-        $code = preg_replace("/((<\?php )?echo '\/\*%%SmartyNocache:{$this->compiler->template->compiled->nocache_hash}%%\*\/)|(\/\*\/%%SmartyNocache:{$this->compiler->template->compiled->nocache_hash}%%\*\/';(\?>\n)?)/", '', $match[0]);
+        $code =
+            preg_replace("/((<\?php )?echo '\/\*%%SmartyNocache:{$this->compiler->template->compiled->nocache_hash}%%\*\/)|(\/\*\/%%SmartyNocache:{$this->compiler->template->compiled->nocache_hash}%%\*\/';(\?>\n)?)/",
+                         '', $match[0]);
         $code = str_replace(array('\\\'', '\\\\\''), array('\'', '\\\''), $code);
         return $code;
     }

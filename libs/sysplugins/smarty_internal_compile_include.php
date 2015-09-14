@@ -65,9 +65,6 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_SmartyTemplateCompiler $compiler, $parameter)
     {
-        if (!isset($parameter['isChild'])) {
-            $parameter['isChild'] = false;
-        }
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
@@ -100,6 +97,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             }
         } else {
             $variable_template = true;
+        }
+        if ($compiler->inheritanceForceChild) {
+            $hashResourceName .= '-child';
         }
 
         if (isset($_attr['assign'])) {
@@ -223,7 +223,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                     $tpl->compiled = new Smarty_Template_Compiled();
                     $tpl->compiled->nocache_hash = $compiler->parent_compiler->template->compiled->nocache_hash;
                     $tpl->loadCompiler();
-                    $tpl->isChild = $parameter['isChild'];
+                    $tpl->compiler->inheritanceChild =
+                    $tpl->compiler->inheritanceForceChild = $compiler->inheritanceForceChild;
+                    $tpl->compiler->inheritance = $compiler->inheritance;
                     // save unique function name
                     $compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['func'] =
                     $tpl->compiled->unifunc = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
@@ -237,6 +239,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                                                                                               $tpl->compiler->compileTemplate($tpl,
                                                                                                                               null,
                                                                                                                               $compiler->parent_compiler));
+                    $compiler->inheritanceParentIsChild = $tpl->compiler->inheritanceChild;
+                    $compiler->inheritance = $tpl->compiler->inheritance;
                     unset($tpl->compiler);
 
                     // remove header code

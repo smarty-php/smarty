@@ -480,7 +480,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $resource = $this->cached;
         } else {
             $this->mustCompile = !$is_valid;
-            $this->isChild = $properties['isChild'];
             $resource = $this->compiled;
             $resource->includes = isset($properties['includes']) ? $properties['includes'] : array();
         }
@@ -658,11 +657,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         // object properties of runtime template extensions will start with '_'
         if ($property_name[0] == '_') {
+            $property_name[1] = chr(ord($property_name[1]) & 0xDF);
             $class = 'Smarty_Internal_Runtime' . $property_name;
-            if (!class_exists($class, false)) {
-                require SMARTY_SYSPLUGINS_DIR . strtolower($class) . '.php';
-            }
-            if (class_exists($class, false)) {
+            if (class_exists($class)) {
                 return $this->$property_name = new $class();
             }
         }

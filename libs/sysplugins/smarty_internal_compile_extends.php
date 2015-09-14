@@ -53,8 +53,10 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_CompileBase
         if (strpos($_attr['file'], '$_tmp') !== false) {
             $compiler->trigger_template_error('illegal value for file attribute', $compiler->parser->lex->line - 1);
         }
+        // save template name
         $compiler->extendsFileName = $_attr['file'];
-        $compiler->template->isChild = true;
+        // process {block} in child template mode
+        $compiler->inheritanceChild = true;
         $compiler->has_code = false;
         return '';
     }
