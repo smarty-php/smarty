@@ -82,13 +82,16 @@ class Smarty_Internal_Extension_Clear
                         }
                     }
                     // check compile id
-                    if (isset($_compile_id) && (!isset($_parts[$_parts_count - 2 - $_compile_id_offset]) || $_parts[$_parts_count - 2 - $_compile_id_offset] != $_compile_id)) {
+                    if (isset($_compile_id) && (!isset($_parts[$_parts_count - 2 - $_compile_id_offset]) ||
+                            $_parts[$_parts_count - 2 - $_compile_id_offset] != $_compile_id)
+                    ) {
                         continue;
                     }
                     // check cache id
                     if (isset($_cache_id)) {
                         // count of cache id parts
-                        $_parts_count = (isset($_compile_id)) ? $_parts_count - 2 - $_compile_id_offset : $_parts_count - 1 - $_compile_id_offset;
+                        $_parts_count = (isset($_compile_id)) ? $_parts_count - 2 - $_compile_id_offset :
+                            $_parts_count - 1 - $_compile_id_offset;
                         if ($_parts_count < $_cache_id_parts_count) {
                             continue;
                         }
@@ -114,12 +117,15 @@ class Smarty_Internal_Extension_Clear
                     // remove from template cache
                     if (isset($smarty->_cache['template_objects'])) {
                         foreach ($smarty->_cache['template_objects'] as $key => $tpl) {
-                            if (isset($tpl->cached) && $tpl->cached->filepath == (string)$_file) {
+                            if (isset($tpl->cached) && $tpl->cached->filepath == (string) $_file) {
                                 unset($smarty->_cache['template_objects'][$key]);
                             }
                         }
                     }
                     $_count += @unlink((string) $_file) ? 1 : 0;
+                    if (function_exists('opcache_invalidate')) {
+                        opcache_invalidate((string) $_file);
+                    }
                 }
             }
         }

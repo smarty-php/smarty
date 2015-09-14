@@ -4,6 +4,11 @@ This file contains a brief description of new features which have been added to 
 
 Smarty 3.1.28
 
+    OPCACHE
+    =======
+    Smarty does now invalidate automatically updated and cleared compiled or cached template files in OPCACHE.
+    Correct operation is no longer dependent on OPCACHE configuration settings.
+
     Template inheritance
     ====================
     Template inheritance is now processed in run time.
@@ -117,7 +122,7 @@ Smarty 3.1.22
         Smarty::DEBUG_INDIVIDUAL
     have been introduced for setting the $debugging property.
 
-    Smarty::DEBUG_INDIVIDUAL will create for each display() and fetch() call an individual gebug window.
+    Smarty::DEBUG_INDIVIDUAL will create for each display() and fetch() call an individual debug window.
 
     .
     
