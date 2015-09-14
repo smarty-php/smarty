@@ -96,7 +96,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @throws SmartyException
      * @return string rendered template output
      */
-    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
+    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false,
                           $merge_tpl_vars = true, $no_output_filter = false)
     {
         $result = $this->_execute($template, $cache_id, $compile_id, $parent, 'fetch');
