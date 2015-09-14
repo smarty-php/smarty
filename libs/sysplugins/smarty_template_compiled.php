@@ -151,11 +151,11 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 $_template->smarty->compile_check = $compileCheck;
             }
         }
-        if ($_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC && isset($_template->parent) &&
-            isset($_template->parent->compiled) && !$_template->source->isConfig &&
-            !in_array($_template->source->type, array('eval', 'string')) &&
+        if (isset($_template->parent) && isset($_template->parent->compiled) &&
             !empty($_template->parent->compiled->includes) &&
-            isset($_template->smarty->_cache['template_objects'][$_template->_getTemplateId()])
+            $_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC &&
+            !$_template->source->handler->recompiled && $_template->source->type != 'string' &&
+            !isset($_template->smarty->_cache['template_objects'][$_template->_getTemplateId()])
         ) {
             foreach ($_template->parent->compiled->includes as $key => $count) {
                 $_template->compiled->includes[$key] =
@@ -232,7 +232,6 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     public function compileTemplateSource(Smarty_Internal_Template $_template)
     {
         $_template->source->compileds = array();
-        $_template->isChild = false;
         $this->file_dependency = array();
         $this->tpl_function = array();
         $this->includes = array();
