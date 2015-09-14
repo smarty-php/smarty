@@ -71,13 +71,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $tpl_function = array();
 
     /**
-     * Template is inheritance child template
-     *
-     * @var bool
-     */
-    public $isChild = false;
-
-    /**
      * Create template data object
      * Some of the global Smarty settings copied to template scope
      * It load the required template resources and caching plugins
