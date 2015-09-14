@@ -1,10 +1,15 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
- 01.09.2015
+ 14.09.2015
+  - optimize autoloader
+  
+ 30.08.2015
+  - size optimization move some runtime functions into extension
+  - optimize inline template processing
+  - optimization merge inheritance child and parent templates into one compiled template file
+
+ 29.08.2015
   - improvement convert template inheritance into runtime processing
   - bugfix {$smarty.block.parent} did always reference the root parent block https://github.com/smarty-php/smarty/issues/68
-  - move subtemplate code into runtime extension and optimize for size and speed
-  - move template function code into runtime extension
-  - remove unneeded code and properties, minor fixes
 
  23.08.2015
   - introduce Smarty::$resource_cache_mode and cache template object of {include} inside loop
@@ -322,8 +327,8 @@
  - bugfix Debug Console did not include all data from merged compiled subtemplates
 
  04.11.2014
- - new feature $smarty->debug = true; => overwrite existing Debug Console window (old behaviour)
-               $smarty->debug = 2; => individual Debug Console window by template name
+ - new feature $smarty->debugging = true; => overwrite existing Debug Console window (old behaviour)
+               $smarty->debugging = 2; => individual Debug Console window by template name
  
  03.11.2014
  - bugfix Debug Console did not show included subtemplates since 3.1.17 (forum 25301)

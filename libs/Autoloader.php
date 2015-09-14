@@ -41,15 +41,6 @@ class Smarty_Autoloader
     public static $rootClasses = array('smarty' => 'Smarty.class.php', 'smartybc' => 'SmartyBC.class.php',);
 
     /**
-     * Array of often auto loaded classes which may skip is_file() test
-     *
-     * @var array
-     */
-    private static $classes = array('smarty_config_source'   => true, 'smarty_security' => true,
-                                    'smarty_cacheresource'   => true, 'smarty_compiledresource' => true,
-                                    'smarty_template_config' => true,);
-
-    /**
      * Registers Smarty_Autoloader backward compatible to older installations.
      *
      * @param bool $prepend Whether to prepend the autoloader or not.
@@ -89,9 +80,6 @@ class Smarty_Autoloader
         } else {
             spl_autoload_register(array(__CLASS__, 'autoload'));
         }
-        foreach (self::$rootClasses as $class => $file) {
-            self::$classes[$class] = self::$SMARTY_DIR . $file;
-        }
     }
 
     /**
@@ -102,28 +90,33 @@ class Smarty_Autoloader
     public static function autoload($class)
     {
         $_class = strtolower($class);
-        if (0 !== strpos($_class, 'smarty')) {
-            return;
-        }
-        $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
-        if (0 === strpos($_class, 'smarty_internal')) {
-            if (0 === strpos($_class, 'smarty_internal_compile')) {
-                if (is_file($file)) {
-                    require_once $file;
+        if (preg_match('/^(smarty_((internal_(compile_)?)|((template_(source|config|cache|compiled|resource_base))|((cached|compiled)?resource)|(variable|security)))|(smarty(bc)?)$)/', $_class, $match)) {
+            $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
+            if (!empty($match[3])) {
+                if (!empty($match[4])) {
+                    if (is_file($file)) {
+                        require $file;
+                    }
+                    return;
+                } else {
+                    @include $file;
                     return;
                 }
-            } else {
+            } elseif (!empty($match[5])) {
                 @include $file;
+                return;
+            } elseif (!empty($match[11]) && isset(self::$rootClasses[$_class])) {
+                $file = self::$rootClasses[$_class];
+                require $file;
                 return;
             }
         }
-        if (isset(self::$classes[$_class])) {
-            $file = self::$classes[$_class] === true ? $file : self::$classes[$_class];
-            require_once $file;
+        if (0 !== strpos($_class, 'smarty')) {
             return;
         }
+        $file = isset($file) ? $file : self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
         if (is_file($file)) {
-            require_once $file;
+            require $file;
             return;
         }
         return;

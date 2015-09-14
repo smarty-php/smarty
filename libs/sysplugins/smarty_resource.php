@@ -35,12 +35,12 @@ abstract class Smarty_Resource
      *
      * @var array
      */
-    protected static $sysplugins = array('file'    => 'smarty_internal_resource_file.php',
-                                         'string'  => 'smarty_internal_resource_string.php',
-                                         'extends' => 'smarty_internal_resource_extends.php',
-                                         'stream'  => 'smarty_internal_resource_stream.php',
-                                         'eval'    => 'smarty_internal_resource_eval.php',
-                                         'php'     => 'smarty_internal_resource_php.php');
+    public static $sysplugins = array('file'    => 'smarty_internal_resource_file.php',
+                                      'string'  => 'smarty_internal_resource_string.php',
+                                      'extends' => 'smarty_internal_resource_extends.php',
+                                      'stream'  => 'smarty_internal_resource_stream.php',
+                                      'eval'    => 'smarty_internal_resource_eval.php',
+                                      'php'     => 'smarty_internal_resource_php.php');
 
     /**
      * Flag if resource does implement populateCompiledFilepath() method
@@ -152,16 +152,14 @@ abstract class Smarty_Resource
 
         // try registered resource
         if (isset($smarty->registered_resources[$type])) {
-            return $smarty->_cache['resource_handlers'][$type] = $smarty->registered_resources[$type] instanceof
-            Smarty_Resource ? $smarty->registered_resources[$type] : new Smarty_Internal_Resource_Registered();
+            return $smarty->_cache['resource_handlers'][$type] =
+                $smarty->registered_resources[$type] instanceof Smarty_Resource ? $smarty->registered_resources[$type] :
+                    new Smarty_Internal_Resource_Registered();
         }
 
         // try sysplugins dir
         if (isset(self::$sysplugins[$type])) {
             $_resource_class = 'Smarty_Internal_Resource_' . ucfirst($type);
-            if (!class_exists($_resource_class, false)) {
-                require SMARTY_SYSPLUGINS_DIR . self::$sysplugins[$type];
-            }
             return $smarty->_cache['resource_handlers'][$type] = new $_resource_class();
         }
 
@@ -171,10 +169,9 @@ abstract class Smarty_Resource
             if (class_exists($_resource_class, false)) {
                 return $smarty->_cache['resource_handlers'][$type] = new $_resource_class();
             } else {
-                $smarty->registerResource($type, array("smarty_resource_{$type}_source",
-                                                       "smarty_resource_{$type}_timestamp",
-                                                       "smarty_resource_{$type}_secure",
-                                                       "smarty_resource_{$type}_trusted"));
+                $smarty->registerResource($type,
+                                          array("smarty_resource_{$type}_source", "smarty_resource_{$type}_timestamp",
+                                                "smarty_resource_{$type}_secure", "smarty_resource_{$type}_trusted"));
                 // give it another try, now that the resource is registered properly
                 return self::load($smarty, $type);
             }
@@ -263,7 +260,8 @@ abstract class Smarty_Resource
      *
      * @return Smarty_Template_Source   Source Object
      */
-    public static function source(Smarty_Internal_Template $_template = null, Smarty $smarty = null, $template_resource = null)
+    public static function source(Smarty_Internal_Template $_template = null, Smarty $smarty = null,
+                                  $template_resource = null)
     {
         return Smarty_Template_Source::load($_template, $smarty, $template_resource);
     }

@@ -94,6 +94,7 @@ if (!class_exists('Smarty_Internal_Data', false)) {
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_variable.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
@@ -118,7 +119,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/54';
+    const SMARTY_VERSION = '3.1.28-dev/55';
 
     /**
      * define variable scopes
