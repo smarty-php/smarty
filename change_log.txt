@@ -5,6 +5,7 @@
   - update template inheritance processing
   - move code of {call} processing back into Smarty_Internal_Template class
   - improvement invalidate OPCACHE for cleared compiled and cached template files (forum topic 25557)
+  - bugfix unintended multiple debug windows (forum topic 25699)
   
  30.08.2015
   - size optimization move some runtime functions into extension

@@ -43,16 +43,12 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
      * @var int
      */
     public $offset = 0;
-    
-    public function __construct() {
-    
-}
 
     /**
      * Start logging template
      *
      * @param \Smarty_Internal_Template $template template
-     * @param null                                $mode true: display   false: fetch  null: subtemolate
+     * @param null                      $mode     true: display   false: fetch  null: subtemplate
      */
     public function start_template(Smarty_Internal_Template $template, $mode = null)
     {
@@ -73,7 +69,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     public function end_template(Smarty_Internal_Template $template)
     {
         $key = $this->get_key($template);
-        $this->template_data[$this->index][$key]['total_time'] += microtime(true) - $this->template_data[$this->index][$key]['start_template_time'];
+        $this->template_data[$this->index][$key]['total_time'] +=
+            microtime(true) - $this->template_data[$this->index][$key]['start_template_time'];
         //$this->template_data[$this->index][$key]['properties'] = $template->properties;
     }
 
@@ -89,7 +86,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             $key = $template->compiler->trace_uid;
             if (!isset($this->template_data[$this->index][$key])) {
                 if (isset($_is_stringy[$template->source->type])) {
-                    $this->template_data[$this->index][$key]['name'] = '\'' . substr($template->source->name, 0, 25) . '...\'';
+                    $this->template_data[$this->index][$key]['name'] =
+                        '\'' . substr($template->source->name, 0, 25) . '...\'';
                 } else {
                     $this->template_data[$this->index][$key]['name'] = $template->source->filepath;
                 }
@@ -122,7 +120,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
 
             $key = $this->get_key($template);
         }
-        $this->template_data[$this->index][$key]['compile_time'] += microtime(true) - $this->template_data[$this->index][$key]['start_time'];
+        $this->template_data[$this->index][$key]['compile_time'] +=
+            microtime(true) - $this->template_data[$this->index][$key]['start_time'];
     }
 
     /**
@@ -144,7 +143,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     public function end_render(Smarty_Internal_Template $template)
     {
         $key = $this->get_key($template);
-        $this->template_data[$this->index][$key]['render_time'] += microtime(true) - $this->template_data[$this->index][$key]['start_time'];
+        $this->template_data[$this->index][$key]['render_time'] +=
+            microtime(true) - $this->template_data[$this->index][$key]['start_time'];
     }
 
     /**
@@ -166,7 +166,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     public function end_cache(Smarty_Internal_Template $template)
     {
         $key = $this->get_key($template);
-        $this->template_data[$this->index][$key]['cache_time'] += microtime(true) - $this->template_data[$this->index][$key]['start_time'];
+        $this->template_data[$this->index][$key]['cache_time'] +=
+            microtime(true) - $this->template_data[$this->index][$key]['start_time'];
     }
 
     /**
@@ -367,7 +368,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             return $key;
         } else {
             if (isset($_is_stringy[$template->source->type])) {
-                $this->template_data[$this->index][$key]['name'] = '\'' . substr($template->source->name, 0, 25) . '...\'';
+                $this->template_data[$this->index][$key]['name'] =
+                    '\'' . substr($template->source->name, 0, 25) . '...\'';
             } else {
                 $this->template_data[$this->index][$key]['name'] = $template->source->filepath;
             }
