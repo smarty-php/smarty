@@ -97,6 +97,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @return string rendered template output
      */
     public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
+                          $merge_tpl_vars = true, $no_output_filter = false)
     {
         $result = $this->_execute($template, $cache_id, $compile_id, $parent, 'fetch');
         return $result === null ? ob_get_clean() : $result;
@@ -173,8 +174,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         // fetch template content
         $level = ob_get_level();
         try {
-            $_smarty_old_error_level = ($this->_objType == 1 &&
-                isset($smarty->error_reporting)) ? error_reporting($smarty->error_reporting) : null;
+            $_smarty_old_error_level =
+                ($this->_objType == 1 && isset($smarty->error_reporting)) ? error_reporting($smarty->error_reporting) :
+                    null;
             if ($function == 'isCached') {
                 if ($template->caching) {
                     // return cache status of template
@@ -336,7 +338,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException
      */
-    public function registerObject($object_name, $object, $allowed_methods_properties = array(), $format = true, $block_methods = array())
+    public function registerObject($object_name, $object, $allowed_methods_properties = array(), $format = true,
+                                   $block_methods = array())
     {
         /* @var Smarty $smarty */
         $smarty = isset($this->smarty) ? $this->smarty : $this;
@@ -357,8 +360,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             }
         }
         // register the object
-        $smarty->registered_objects[$object_name] = array($object, (array) $allowed_methods_properties,
-                                                          (boolean) $format, (array) $block_methods);
+        $smarty->registered_objects[$object_name] =
+            array($object, (array) $allowed_methods_properties, (boolean) $format, (array) $block_methods);
         return $this;
     }
 

@@ -3,6 +3,7 @@
   - optimize autoloader
   - optimize subtemplate handling
   - update template inheritance processing
+  - move code of {call} processing back into Smarty_Internal_Template class
   
  30.08.2015
   - size optimization move some runtime functions into extension
