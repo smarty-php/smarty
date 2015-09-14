@@ -28,7 +28,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     /**
      * Parser object
      *
-     * @var object
+     * @var Smarty_Internal_Templateparser
      */
     public $parser = null;
 
@@ -96,11 +96,32 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $sources = array();
 
     /**
+     * flag when compiling inheritance template
+     *
+     * @var bool
+     */
+    public $inheritance = false;
+
+    /**
      * flag when compiling inheritance child template
      *
      * @var bool
      */
-    public $inheritance_child = false;
+    public $inheritanceChild= false;
+
+    /**
+     * Force all subtemplate calls to be inheritance childs
+     *
+     * @var bool
+     */
+    public $inheritanceForceChild = false;
+
+    /**
+     * Flag if compiled parent template is child of other parent
+     *
+     * @var bool
+     */
+    public $inheritanceParentIsChild = false;
 
     /**
      * uid of templates called by {extends} for recursion check
@@ -108,6 +129,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @var array
      */
     public $extends_uid = array();
+
+    /**
+     * Template name of {extends} tag
+     *
+     * @var null|string
+     */
+    public $extendsFileName = null;
 
     /**
      * source line offset for error messages
@@ -411,8 +439,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     strftime("%Y-%m-%d %H:%M:%S") . "\n";
                 $template_header .= "         compiled from \"" . $this->template->source->filepath . "\" */ ?>\n";
             }
-
-            $_compiled_code = '';
             $this->smarty->_current_file = $this->template->source->filepath;
             if ($this->smarty->debugging) {
                 $this->smarty->_debug->start_compile($this->template);
@@ -420,9 +446,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->parent_compiler->template->compiled->file_dependency[$this->template->source->uid] =
                 array($this->template->source->filepath, $this->template->source->getTimeStamp(),
                       $this->template->source->type);
-            // compile for child template?
-            $this->inheritance_child = $this->template->isChild;
-            // flag for nochache sections
+            // flag for nocache sections
             $this->nocache = $nocache;
             $this->tag_nocache = false;
             // reset has nocache code flag
@@ -513,7 +537,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      *
      * @param $parser
      *
-     * @throws \Smarty_Exception
+     * @throws \SmartyException
      */
     public function processInheritance($parser)
     {
@@ -521,42 +545,48 @@ abstract class Smarty_Internal_TemplateCompilerBase
             // child did use {extends}
             $name = $this->extendsFileName;
             $this->extendsFileName = null;
-            if (!$this->inheritance_child) {
-                // drop any output of child templates
+            if (!$this->inheritanceForceChild && !$this->inheritance) {
+                 // drop any output of child templates
                 array_unshift($parser->current_buffer->subtrees,
-                              new Smarty_Internal_ParseTree_Tag($parser, "<?php ob_start();?>\n"));
-                $parser->current_buffer->append_subtree($parser, new Smarty_Internal_ParseTree_Tag($parser,
-                                                                                                   "<?php ob_end_clean();?>\n"));
+                              new Smarty_Internal_ParseTree_Tag($parser, "<?php ob_start();\n\$_smarty_tpl->_Block = new Smarty_Internal_Runtime_Block();?>\n"));
+                $this->inheritance = true;
             }
-            $parser->current_buffer->append_subtree($parser, new Smarty_Internal_ParseTree_Tag($parser,
-                                                                                               $this->compileTag('include',
+            $include = new Smarty_Internal_ParseTree_Tag($parser, $this->compileTag('include',
                                                                                                                  array($name,
                                                                                                                        array('scope' => 'parent'),
-                                                                                                                       array('inline' => true)),
-                                                                                                                 array('isChild' => $this->inheritance_child))));
+                                                                                                                       array('inline' => true))));
+            if (!$this->inheritanceForceChild && !$this->inheritanceParentIsChild) {
+                $parser->current_buffer->append_subtree($parser, new Smarty_Internal_ParseTree_Tag($parser,
+                                                                                                   "<?php ob_end_clean();?>\n"));
+                $this->inheritance = false;
+            }
+            $this->inheritanceParentIsChild = false;
+            $parser->current_buffer->append_subtree($parser, $include);
             return;
         }
         // template list of extends: resource ?
         if (!empty($this->sources)) {
-            if (!$this->inheritance_child) {
+            if (!$this->inheritanceForceChild) {
                 // drop any output of child templates
                 $parser->current_buffer->append_subtree($parser, new Smarty_Internal_ParseTree_Tag($parser,
-                                                                                                   "<?php ob_start();?>\n"));
+                                                                                                   "<?php ob_start();\n\$_smarty_tpl->_Block = new Smarty_Internal_Runtime_Block();?>\n"));
             }
             while (!empty($this->sources)) {
                 $source = array_shift($this->sources);
-                if (!$this->inheritance_child && empty($this->sources)) {
+                if (!$this->inheritanceForceChild && empty($this->sources)) {
                     // drop any output of child templates
                     $parser->current_buffer->append_subtree($parser, new Smarty_Internal_ParseTree_Tag($parser,
                                                                                                        "<?php ob_end_clean();?>\n"));
                 }
+                $forceChild = $this->inheritanceForceChild;
+                $this->inheritanceForceChild = $this->inheritanceForceChild || !empty($this->sources);
                 $parser->current_buffer->append_subtree($parser, new Smarty_Internal_ParseTree_Tag($parser,
                                                                                                    $this->compileTag('include',
                                                                                                                      array("'{$source->resource}'",
                                                                                                                            array('scope' => 'parent'),
-                                                                                                                           array('inline' => true)),
-                                                                                                                     array('isChild' => $this->inheritance_child ||
-                                                                                                                         !empty($this->sources)))));
+                                                                                                                           array('inline' => true)))));
+                // restore value
+                $this->inheritanceForceChild = $forceChild;
             }
         }
     }
