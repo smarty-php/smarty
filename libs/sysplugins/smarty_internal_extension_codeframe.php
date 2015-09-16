@@ -23,7 +23,7 @@ class Smarty_Internal_Extension_CodeFrame
      *
      * @return string
      */
-    public static function create(Smarty_Internal_Template $_template, $content = '', $cache = false)
+    public static function create(Smarty_Internal_Template $_template, $content = '', $functions = '', $cache = false)
     {
         // build property code
         $properties['has_nocache_code'] = $_template->compiled->has_nocache_code;
@@ -40,10 +40,8 @@ class Smarty_Internal_Extension_CodeFrame
             $properties['cache_lifetime'] = $_template->cache_lifetime;
         }
         $output = "<?php\n";
-        $output .= "/*%%SmartyHeaderCode:{$_template->compiled->nocache_hash}%%*/\n";
         $output .= "\$_valid = \$_smarty_tpl->decodeProperties(" . var_export($properties, true) . ',' .
             ($cache ? 'true' : 'false') . ");\n";
-        $output .= "/*/%%SmartyHeaderCode%%*/\n";
         $output .= "if (\$_valid && !is_callable('{$properties['unifunc']}')) {\n";
         $output .= "function {$properties['unifunc']} (\$_smarty_tpl) {\n";
         // include code for plugins
@@ -77,48 +75,11 @@ class Smarty_Internal_Extension_CodeFrame
             }
         }
         $output .= "?>\n";
-        $output = self::appendCode($output, $content);
-        return self::appendCode($output, "<?php }\n}\n?>");
-    }
-
-    /**
-     * Create code frame of compiled template function
-     *
-     * @param \Smarty_Internal_Template $_template
-     * @param string                    $content
-     *
-     * @return string
-     */
-    public static function createFunctionFrame(Smarty_Internal_Template $_template, $content = '')
-    {
-        $output = "<?php\n";
-        $output .= "/*%%SmartyHeaderCode:{$_template->compiled->nocache_hash}%%*/\n";
-        $output .= "/* {$_template->source->type}:{$_template->source->name} */\n";
-        $output .= "if (\$_valid && !is_callable('{$_template->compiled->unifunc}')) {\n";
-        $output .= "function {$_template->compiled->unifunc} (\$_smarty_tpl) {\n";
-        $output .= "?>\n" . $content;
-        $output .= "<?php\n";
-        $output .= "/*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%*/\n";
-        $output .= "}\n}\n?>";
-        return $output;
-    }
-
-    /**
-     * Append code segments and remove unneeded ?> <?php transitions
-     *
-     * @param string $left
-     * @param string $right
-     *
-     * @return string
-     */
-    public static function appendCode($left, $right)
-    {
-        if (preg_match('/\s*\?>[\n]?$/', $left) && preg_match('/^<\?php\s+/', $right)) {
-            $left = preg_replace('/\s*\?>[\n]?$/', "\n", $left);
-            $left .= preg_replace('/^<\?php\s+/', '', $right);
-        } else {
-            $left .= $right;
-        }
-        return $left;
+        $output .= $content;
+        $output .= "<?php }\n?>";
+        $output .= $functions;
+        $output .= "<?php }\n";
+        // remove unneeded PHP tags
+        return preg_replace('/\s*\?>[\n]?<\?php\s/', "\n", $output);
     }
 }

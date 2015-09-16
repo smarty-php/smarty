@@ -66,8 +66,6 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
         $save = array($_attr, $compiler->parser->current_buffer, $compiler->template->compiled->has_nocache_code,
                       $compiler->template->caching);
         $this->openTag($compiler, 'function', $save);
-        // set flag that we are compiling a template function
-        $compiler->compiles_template_function = true;
         // Init temporary context
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
         $compiler->template->compiled->has_nocache_code = false;
@@ -107,8 +105,6 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $saved_data = $this->closeTag($compiler, array('function'));
         $_attr = $saved_data[0];
         $_name = trim($_attr['name'], "'\"");
-        // reset flag that we are compiling a template function
-        $compiler->compiles_template_function = false;
         $compiler->parent_compiler->template->tpl_function[$_name]['called_functions'] = $compiler->called_functions;
         $compiler->parent_compiler->template->tpl_function[$_name]['compiled_filepath'] = $compiler->parent_compiler->template->compiled->filepath;
         $compiler->parent_compiler->template->tpl_function[$_name]['uid'] = $compiler->template->source->uid;
@@ -182,7 +178,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $output .= "/*/ {$_funcName} */\n\n";
         $output .= "?>\n";
         $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $output));
-        $compiler->parent_compiler->templateFunctionCode .= $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
+        $compiler->parent_compiler->blockOrFunctionCode .= $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
         // nocache plugins must be copied
         if (!empty($compiler->template->compiled->required_plugins['nocache'])) {
             foreach ($compiler->template->compiled->required_plugins['nocache'] as $plugin => $tmp) {

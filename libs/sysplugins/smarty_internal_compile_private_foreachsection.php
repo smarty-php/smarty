@@ -175,8 +175,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
                 if ($_content != '') {
                     // run pre filter if required
                     if ((isset($nextCompiler->smarty->autoload_filters['pre']) ||
-                            isset($nextCompiler->smarty->registered_filters['pre'])) && !$nextCompiler->suppressFilter
-                    ) {
+                            isset($nextCompiler->smarty->registered_filters['pre']))) {
                         $_content = Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $nextCompiler->template);
                     }
                     $this->matchProperty($_content);

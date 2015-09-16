@@ -107,7 +107,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      *
      * @var bool
      */
-    public $inheritanceChild= false;
+    public $inheritanceChild = false;
 
     /**
      * Force all subtemplate calls to be inheritance childs
@@ -187,39 +187,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $forceNocache = false;
 
     /**
-     * suppress Smarty header code in compiled template
-     *
-     * @var bool
-     */
-    public $suppressHeader = false;
-
-    /**
-     * suppress template property header code in compiled template
-     *
-     * @var bool
-     */
-    public $suppressTemplatePropertyHeader = false;
-
-    /**
-     * suppress pre and post filter
-     *
-     * @var bool
-     */
-    public $suppressFilter = false;
-
-    /**
      * flag if compiled template file shall we written
      *
      * @var bool
      */
     public $write_compiled_code = true;
-
-    /**
-     * flag if currently a template function is compiled
-     *
-     * @var bool
-     */
-    public $compiles_template_function = false;
 
     /**
      * called sub functions from template function
@@ -229,11 +201,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $called_functions = array();
 
     /**
-     * compiled template function code
+     * compiled template or block function code
      *
      * @var string
      */
-    public $templateFunctionCode = '';
+    public $blockOrFunctionCode = '';
 
     /**
      * php_handling setting either from Smarty or security
@@ -313,27 +285,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $has_output = false;
 
     /**
-     * Universal cache
-     *
-     * @var array
-     */
-    public $cache = array();
-
-    /**
-     * Stack during {capture} compilation
-     *
-     * @var array
-     */
-    public $_capture_stack = array();
-
-    /**
-     * Saved source resource
-     *
-     * @var \Smarty_Template_Source
-     */
-    private $savedSource = null;
-
-    /**
      * Stack for {setfilter} {/setfilter}
      *
      * @var array
@@ -410,16 +361,42 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @return bool true if compiling succeeded, false if it failed
      * @throws \Exception
      */
-    public function compileTemplate(Smarty_Internal_Template $template, $nocache = null, $parent_compiler = null)
+    public function compileTemplate(Smarty_Internal_Template $template, $nocache = null,
+                                    Smarty_Internal_TemplateCompilerBase $parent_compiler = null)
     {
-        if (property_exists($template->smarty, 'plugin_search_order')) {
-            $this->plugin_search_order = $template->smarty->plugin_search_order;
-        }
-        // save template object in compiler class
-        $this->template = $template;
-        $this->savedSource = $this->template->source;
+        // get code frame of compiled template
+        $_compiled_code =
+            "<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") .
+            "\n         compiled from \"" . $template->source->filepath . "\" */ ?>\n" .
+            Smarty_Internal_Extension_CodeFrame::create($template, $this->compileTemplateSource($template, $nocache,
+                                                                                                $parent_compiler),
+                                                        $this->postFilter($this->blockOrFunctionCode) .
+                                                        join('', $this->mergedSubTemplatesCode));
+        return $_compiled_code;
+    }
 
+    /**
+     * Compile template source and run optional post filter
+     *
+     * @param \Smarty_Internal_Template             $template
+     * @param null|bool                             $nocache flag if template must be compiled in nocache mode
+     * @param \Smarty_Internal_TemplateCompilerBase $parent_compiler
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function compileTemplateSource(Smarty_Internal_Template $template, $nocache = null,
+                                          Smarty_Internal_TemplateCompilerBase $parent_compiler = null)
+    {
         try {
+            // save template object in compiler class
+            $this->template = $template;
+            if (property_exists($this->template->smarty, 'plugin_search_order')) {
+                $this->plugin_search_order = $this->template->smarty->plugin_search_order;
+            }
+            if ($this->smarty->debugging) {
+                $this->smarty->_debug->start_compile($this->template);
+            }
             if (isset($this->template->smarty->security_policy)) {
                 $this->php_handling = $this->template->smarty->security_policy->php_handling;
             } else {
@@ -432,20 +409,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
             } else {
                 $this->nocache_hash = $template->compiled->nocache_hash;
             }
-            // template header code
-            $template_header = '';
-            if (!$this->suppressHeader) {
-                $template_header .= "<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " .
-                    strftime("%Y-%m-%d %H:%M:%S") . "\n";
-                $template_header .= "         compiled from \"" . $this->template->source->filepath . "\" */ ?>\n";
-            }
-            $this->smarty->_current_file = $this->template->source->filepath;
-            if ($this->smarty->debugging) {
-                $this->smarty->_debug->start_compile($this->template);
-            }
-            $this->parent_compiler->template->compiled->file_dependency[$this->template->source->uid] =
-                array($this->template->source->filepath, $this->template->source->getTimeStamp(),
-                      $this->template->source->type);
             // flag for nocache sections
             $this->nocache = $nocache;
             $this->tag_nocache = false;
@@ -453,83 +416,82 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->template->compiled->has_nocache_code = false;
             $this->has_variable_string = false;
             $this->prefix_code = array();
+            // add file dependency
+            $this->parent_compiler->template->compiled->file_dependency[$this->template->source->uid] =
+                array($this->template->source->filepath, $this->template->source->getTimeStamp(),
+                      $this->template->source->type);
+            $this->smarty->_current_file = $this->template->source->filepath;
             // get template source
             if (!empty($this->template->source->components)) {
                 // we have array of inheritance templates by extends: resource
-                $this->sources = array_reverse($template->source->components);
+                $this->sources = array_reverse($this->template->source->components);
                 $_content = '';
             } else {
                 // get template source
                 $_content = $this->template->source->getContent();
             }
-            if ($_content != '') {
-                // run pre filter if required
-                if ($_content != '' && ((isset($this->smarty->autoload_filters['pre']) ||
-                            isset($this->smarty->registered_filters['pre'])) && !$this->suppressFilter)
-                ) {
-                    $_content = Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $template);
-                }
-            }
-            // call compiler
-            $_compiled_code = $this->doCompile($_content, true);
+
+            $_compiled_code = $this->postFilter($this->doCompile($this->preFilter($_content), true));
+        }
+        catch (Exception $e) {
             if ($this->smarty->debugging) {
                 $this->smarty->_debug->end_compile($this->template);
             }
-            // free memory
-            $this->parser = null;
-            // restore source
-            $this->template->source = $this->savedSource;
-            $this->savedSource = null;
-            $this->smarty->_current_file = $this->template->source->filepath;
-            // return compiled code to template object
-            $merged_code = '';
-            if (!empty($this->mergedSubTemplatesCode)) {
-                foreach ($this->mergedSubTemplatesCode as $code) {
-                    $merged_code .= $code;
-                }
-            }
-            // run post filter if required on compiled template code
-            if ((isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post'])) &&
-                !$this->suppressFilter && $_compiled_code != ''
-            ) {
-                $_compiled_code = Smarty_Internal_Filter_Handler::runFilter('post', $_compiled_code, $template);
-            }
-            if ($this->suppressTemplatePropertyHeader) {
-                $_compiled_code .= $merged_code;
-            } else {
-                $_compiled_code =
-                    $template_header . Smarty_Internal_Extension_CodeFrame::create($template, $_compiled_code) .
-                    $merged_code;
-            }
-            if (!empty($this->templateFunctionCode)) {
-                // run post filter if required on compiled template code
-                if ((isset($this->smarty->autoload_filters['post']) ||
-                        isset($this->smarty->registered_filters['post'])) && !$this->suppressFilter
-                ) {
-                    $_compiled_code .= Smarty_Internal_Filter_Handler::runFilter('post', $this->templateFunctionCode,
-                                                                                 $template);
-                } else {
-                    $_compiled_code .= $this->templateFunctionCode;
-                }
-            }
-        }
-        catch (Exception $e) {
             $this->_tag_stack = array();
             $this->_tag_objects = array();
-            // restore source
-            $this->template->source = $this->savedSource;
-            $this->savedSource = null;
-            $this->smarty->_current_file = $this->template->source->filepath;
             // free memory
             $this->parent_compiler = null;
             $this->template = null;
             $this->parser = null;
             throw $e;
         }
-
+        if ($this->smarty->debugging) {
+            $this->smarty->_debug->end_compile($this->template);
+        }
         $this->parent_compiler = null;
         $this->template = null;
+        $this->parser = null;
         return $_compiled_code;
+    }
+
+    /**
+     * Optionally process compiled code by post filter
+     *
+     * @param string $code compiled code
+     *
+     * @return string
+     * @throws \SmartyException
+     */
+    public function postFilter($code)
+    {
+        // run post filter if on code
+        if (!empty($code) &&
+            (isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post']))
+        ) {
+            return Smarty_Internal_Filter_Handler::runFilter('post', $code, $this->template);
+        } else {
+            return $code;
+        }
+    }
+
+    /**
+     * Run optional prefilter
+     *
+     * @param string $_content template source
+     *
+     * @return string
+     * @throws \SmartyException
+     */
+    public function preFilter($_content)
+    {
+        // run pre filter if required
+        if ($_content != '' &&
+            ((isset($this->smarty->autoload_filters['pre']) || isset($this->smarty->registered_filters['pre'])))
+        ) {
+            return Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $this->template);
+        } else {
+            return $_content;
+        }
     }
 
     /**
@@ -546,15 +508,14 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $name = $this->extendsFileName;
             $this->extendsFileName = null;
             if (!$this->inheritanceForceChild && !$this->inheritance) {
-                 // drop any output of child templates
-                array_unshift($parser->current_buffer->subtrees,
-                              new Smarty_Internal_ParseTree_Tag($parser, "<?php ob_start();\n\$_smarty_tpl->_Block = new Smarty_Internal_Runtime_Block();?>\n"));
+                // drop any output of child templates
+                array_unshift($parser->current_buffer->subtrees, new Smarty_Internal_ParseTree_Tag($parser,
+                                                                                                   "<?php ob_start();\n\$_smarty_tpl->_Block = new Smarty_Internal_Runtime_Block();?>\n"));
                 $this->inheritance = true;
             }
-            $include = new Smarty_Internal_ParseTree_Tag($parser, $this->compileTag('include',
-                                                                                                                 array($name,
-                                                                                                                       array('scope' => 'parent'),
-                                                                                                                       array('inline' => true))));
+            $include = new Smarty_Internal_ParseTree_Tag($parser, $this->compileTag('include', array($name,
+                                                                                                     array('scope' => 'parent'),
+                                                                                                     array('inline' => true))));
             if (!$this->inheritanceForceChild && !$this->inheritanceParentIsChild) {
                 $parser->current_buffer->append_subtree($parser, new Smarty_Internal_ParseTree_Tag($parser,
                                                                                                    "<?php ob_end_clean();?>\n"));
@@ -1175,47 +1136,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
     {
         return "echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/<?php " .
         str_replace("^#^", "'", addcslashes($code, '\'\\')) . "?>/*/%%SmartyNocache:{$this->nocache_hash}%%*/';\n";
-    }
-
-    /**
-     *  push current file and line offset on stack for tracing {block} source lines
-     *
-     * @param string $file  new filename
-     * @param string $uid   uid of file
-     * @param int    $line  line offset to source
-     * @param bool   $debug false debug end_compile shall not be called
-     */
-    public function pushTrace($file, $uid, $line, $debug = true)
-    {
-        if ($this->smarty->debugging && $debug) {
-            $this->smarty->_debug->end_compile($this->template);
-        }
-        array_push($this->trace_stack, array($this->smarty->_current_file, $this->trace_filepath, $this->trace_uid,
-                                             $this->trace_line_offset));
-        $this->trace_filepath = $this->smarty->_current_file = $file;
-        $this->trace_uid = $uid;
-        $this->trace_line_offset = $line;
-        if ($this->smarty->debugging) {
-            $this->smarty->_debug->start_compile($this->template);
-        }
-    }
-
-    /**
-     *  restore file and line offset
-     */
-    public function popTrace()
-    {
-        if ($this->smarty->debugging) {
-            $this->smarty->_debug->end_compile($this->template);
-        }
-        $r = array_pop($this->trace_stack);
-        $this->smarty->_current_file = $r[0];
-        $this->trace_filepath = $r[1];
-        $this->trace_uid = $r[2];
-        $this->trace_line_offset = $r[3];
-        if ($this->smarty->debugging) {
-            $this->smarty->_debug->start_compile($this->template);
-        }
     }
 
     /**

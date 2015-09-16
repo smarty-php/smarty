@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
+ 16.09.2015
+  - update compiler by moving no longer needed properties, code optimizations and other
+
  14.09.2015
   - optimize autoloader
   - optimize subtemplate handling

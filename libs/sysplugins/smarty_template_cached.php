@@ -366,7 +366,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
             // don't write cache file
             return false;
         }
-        $content = Smarty_Internal_Extension_CodeFrame::create($_template, $content, true);
+        $content = Smarty_Internal_Extension_CodeFrame::create($_template, $content, '', true);
         if (!empty($_template->cached->tpl_function)) {
             foreach ($_template->cached->tpl_function as $funcParam) {
                 if (is_file($funcParam['compiled_filepath'])) {

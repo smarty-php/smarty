@@ -165,9 +165,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
         if ($compiler->template->compiled->has_nocache_code) {
             //            $compiler->parent_compiler->template->tpl_function[$_name]['call_name_caching'] = $_funcNameCaching;
             $_funcNameCaching .= '_nocache';
-            $output = "<?php\n";
-            $output .= "/* {$_funcNameCaching} {$compiler->template->source->type}:{$compiler->template->source->name} */\n";
-            $output .= "if (!function_exists('{$_funcNameCaching}')) {\n";
+            $output = "<?php\n\n";
+            $output .= "/* {block '{$_name}'} {$compiler->template->source->type}:{$compiler->template->source->name} */\n";
             $output .= "function {$_funcNameCaching} (\$_smarty_tpl, \$block) {\n";
             $output .= "/*/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n";
             $output .= "\$_smarty_tpl->cached->hashes['{$compiler->template->compiled->nocache_hash}'] = true;\n?>\n";
@@ -176,13 +175,13 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
                                                                                                 $output));
             $compiler->parser->current_buffer->append_subtree($compiler->parser, $_functionCode);
             $output = "<?php /*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n";
-            $output .= "\n}\n}\n";
-            $output .= "/*/ {$_funcName}_nocache */\n\n";
+            $output .= "\n}\n";
+            $output .= "/* {/block '{$_name}'} */\n\n";
             $output .= "?>\n";
             $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                               new Smarty_Internal_ParseTree_Tag($compiler->parser,
                                                                                                 $output));
-            $compiler->parent_compiler->templateFunctionCode .= $f =
+            $compiler->blockOrFunctionCode .= $f =
                 $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
             $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
             $_functionCode = new Smarty_Internal_ParseTree_Tag($compiler->parser,
@@ -190,21 +189,20 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_CompileBase
                                                                                      array($this, 'removeNocache'),
                                                                                      $_functionCode->to_smarty_php($compiler->parser)));
         }
-        $output = "<?php\n";
-        $output .= "/* {$_funcName}  {$compiler->template->source->type}:{$compiler->template->source->name} */\n";
-        $output .= "if (!function_exists('{$_funcName}')) {\n";
+        $output = "<?php\n\n";
+        $output .= "/* {block '{$_name}'}  {$compiler->template->source->type}:{$compiler->template->source->name} */\n";
         $output .= "function {$_funcName}(\$_smarty_tpl, \$block) {?>";
         $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                           new Smarty_Internal_ParseTree_Tag($compiler->parser,
                                                                                             $output));
         $compiler->parser->current_buffer->append_subtree($compiler->parser, $_functionCode);
-        $output = "<?php\n}\n}\n";
-        $output .= "/*/ {$_funcName} */\n";
+        $output = "<?php\n}\n";
+        $output .= "/* {/block '{$_name}'} */\n\n";
         $output .= "?>\n";
         $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                           new Smarty_Internal_ParseTree_Tag($compiler->parser,
                                                                                             $output));
-        $compiler->parent_compiler->templateFunctionCode .= $f =
+        $compiler->blockOrFunctionCode .= $f =
             $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
         // nocache plugins must be copied
         if (!empty($compiler->template->compiled->required_plugins['nocache'])) {
