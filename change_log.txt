@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
+ 17.09.2015
+  - bugfix {foreach} first attribute was not correctly reset since commit 05a8fa2 of 02.08.2015 https://github.com/smarty-php/smarty/issues/90
+
  16.09.2015
   - update compiler by moving no longer needed properties, code optimizations and other
 
