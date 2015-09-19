@@ -697,6 +697,10 @@ expr(res)        ::= variable(v1) INSTANCEOF(i) ns1(v2). {
       res = v1.i.v2;
 }
 
+expr(res)        ::= variable(v1) INSTANCEOF(i) variable(v2). {
+      res = v1.i.v2;
+}
+
 
 //
 // ternary
