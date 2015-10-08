@@ -31,58 +31,68 @@ class Smarty_Internal_Templateparser
      * @var bool
      */
     public $successful = true;
+
     /**
      * return value
      *
      * @var mixed
      */
     public $retvalue = 0;
+
     /**
      * counter for prefix code
      *
      * @var int
      */
     public static $prefix_number = 0;
+
     /**
      * @var
      */
     public $yymajor;
+
     /**
      * last index of array variable
      *
      * @var mixed
      */
     public $last_index;
+
     /**
      * last variable name
      *
      * @var string
      */
     public $last_variable;
+
     /**
      * root parse tree buffer
      *
      * @var Smarty_Internal_ParseTree
      */
     public $root_buffer;
+
     /**
      * current parse tree object
      *
      * @var Smarty_Internal_ParseTree
      */
     public $current_buffer;
+
     /**
      * lexer object
      *
      * @var Smarty_Internal_Templatelexer
      */
     public $lex;
+
     /**
      * internal error flag
      *
      * @var bool
      */
     private $internalError = false;
+
     /**
      * {strip} status
      *
@@ -95,18 +105,21 @@ class Smarty_Internal_Templateparser
      * @var Smarty_Internal_TemplateCompilerBase
      */
     public $compiler = null;
+
     /**
      * smarty object
      *
      * @var Smarty
      */
     public $smarty = null;
+
     /**
      * template object
      *
      * @var Smarty_Internal_Template
      */
     public $template = null;
+
     /**
      * block nesting level
      *
@@ -120,6 +133,20 @@ class Smarty_Internal_Templateparser
      * @var Smarty_Security
      */
     public $security = null;
+
+    /**
+     * template prefix array
+     *
+     * @var \Smarty_Internal_ParseTree[]
+     */
+    public $template_prefix = array();
+
+    /**
+     * security object
+     *
+     * @var \Smarty_Internal_ParseTree[]
+     */
+    public $template_postfix = array();
 
     /**
      * constructor
@@ -196,7 +223,8 @@ class Smarty_Internal_Templateparser
     // complete template
     //
 start(res)       ::= template. {
-    $this->compiler->processInheritance($this);
+    $this->root_buffer->prepend_array($this, $this->template_prefix);
+    $this->root_buffer->append_array($this, $this->template_postfix);
     res = $this->root_buffer->to_smarty_php($this);
 }
 
@@ -794,7 +822,7 @@ value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
     self::$prefix_number++;
     if (vi['var'] == '\'smarty\'') {
         $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.' = '. $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).';?>';
-    } else {
+     } else {
         $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.' = '. $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].';?>';
     }
     res = '$_tmp'.self::$prefix_number.'::'.r[0].r[1];
@@ -802,7 +830,7 @@ value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
 
                   // Smarty tag
 value(res)       ::= smartytag(st). {
-    self::$prefix_number++;
+   self::$prefix_number++;
     $tmp = $this->compiler->appendCode('<?php ob_start();?>', st);
     $this->compiler->prefix_code[] = $this->compiler->appendCode($tmp, '<?php $_tmp'.self::$prefix_number.'=ob_get_clean();?>');
     res = '$_tmp'.self::$prefix_number;
@@ -839,11 +867,7 @@ ns1(res)           ::= ID(i). {
 
 ns1(res)           ::= NAMESPACE(i). {
     res = i;
-}
-
-//ns1(res)           ::= variable(v). {
-//    res = v;
-//}
+    }
 
 
 
