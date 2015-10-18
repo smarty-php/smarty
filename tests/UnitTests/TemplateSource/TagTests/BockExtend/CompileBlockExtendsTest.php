@@ -552,7 +552,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     }
 
     /**
-     * @expectedException        SmartyCompilerException
+     * @expectedException        SmartyException
      * @expectedExceptionMessage tag {$smarty.block.parent} used in parent template
      * test {$this->smarty.block.parent} in parent template
      */

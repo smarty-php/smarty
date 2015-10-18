@@ -34,7 +34,7 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
                                           './templates_4',
                                       ));
 
-        $expected = "templates\n    templates_3\n    templates\n\ntemplates_4";
+        $expected = "templates\n\n    templates_3\n    templates\n\ntemplates_4";
         $this->assertEquals($expected, $this->smarty->fetch('extendsall:extendsall.tpl'));
     }
 
