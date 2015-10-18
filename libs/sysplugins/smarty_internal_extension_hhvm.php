@@ -21,8 +21,7 @@ class Smarty_Internal_Extension_Hhvm
     static function includeHhvm(Smarty_Internal_Template $_template, $file)
     {
         $_smarty_tpl = $_template;
-        $tmp_file = $_template->smarty->getCompileDir() . 'hhvm' .
-            str_replace(array('.', ','), '_', uniqid(rand(), true)) . '.php';
+        $tmp_file = $file . preg_replace('![^\w]+!', '_', uniqid(rand(), true)) . '.php';
         file_put_contents($tmp_file, file_get_contents($file));
         $result = @include $tmp_file;
         @unlink($tmp_file);
