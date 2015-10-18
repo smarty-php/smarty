@@ -2,7 +2,8 @@
  18.10.2015
   - optimize filepath normalization
   - rework of template inheritance
-  
+  - speed and size optimizations
+
  18.09.2015
   - bugfix {if $foo instanceof $bar} failed to compile if 2nd value is a variable https://github.com/smarty-php/smarty/issues/92
   

@@ -186,19 +186,20 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->compiled->render($this);
         }
 
-        $content = null;
-        if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
-            !$no_output_filter &&
-            (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))
-        ) {
-            $content = Smarty_Internal_Filter_Handler::runFilter('output', ob_get_clean(), $this);
-        }
         // display or fetch
         if ($display) {
             if ($this->caching && $this->smarty->cache_modified_check) {
                 $this->cached->cacheModifiedCheck($this, isset($content) ? $content : ob_get_clean());
             } else {
-                echo isset($content) ? $content : ob_get_clean();
+                if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
+                    !$no_output_filter && (isset($this->smarty->autoload_filters['output']) ||
+                        isset($this->smarty->registered_filters['output']))
+                ) {
+                    echo Smarty_Internal_Filter_Handler::runFilter('output', ob_get_clean(), $this);
+                } else {
+                    ob_end_flush();
+                    flush();
+                }
             }
             if ($this->smarty->debugging) {
                 $this->smarty->_debug->end_template($this);
@@ -239,8 +240,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                     }
                 }
             }
+            if (!$no_output_filter &&
+                (!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
+                (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))
+            ) {
+                return Smarty_Internal_Filter_Handler::runFilter('output', ob_get_clean(), $this);
+            }
             // return cache content
-            return $content === null ? null : $content;
+            return null;
         }
     }
 
@@ -337,14 +344,14 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                         $cache_tpl_obj = true;
                     }
                     if (isset($tpl->compiled->file_dependency[$uid])) {
-                        $info = $tpl->compiled->file_dependency[$uid];
+                        list($filepath, $timestamp, $resource) = $tpl->compiled->file_dependency[$uid];
                         $tpl->source =
-                            new Smarty_Template_Source(isset($tpl->smarty->_cache['resource_handlers'][$info[2]]) ?
-                                                           $tpl->smarty->_cache['resource_handlers'][$info[2]] :
-                                                           Smarty_Resource::load($tpl->smarty, $info[2]), $tpl->smarty,
-                                                       $info[0], $info[2], $info[0]);
-                        $tpl->source->filepath = $info[0];
-                        $tpl->source->timestamp = $info[1];
+                            new Smarty_Template_Source(isset($tpl->smarty->_cache['resource_handlers'][$resource]) ?
+                                                           $tpl->smarty->_cache['resource_handlers'][$resource] :
+                                                           Smarty_Resource::load($tpl->smarty, $resource), $tpl->smarty,
+                                                       $filepath, $resource, $filepath);
+                        $tpl->source->filepath = $filepath;
+                        $tpl->source->timestamp = $timestamp;
                         $tpl->source->exist = true;
                         $tpl->source->uid = $uid;
                     } else {

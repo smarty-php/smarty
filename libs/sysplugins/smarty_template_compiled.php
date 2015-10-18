@@ -155,7 +155,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             !empty($_template->parent->compiled->includes) &&
             $_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC &&
             !$_template->source->handler->recompiled && $_template->source->type != 'string' &&
-            !isset($_template->smarty->_cache['template_objects'][$_template->_getTemplateId()])
+            (!isset($_template->smarty->_cache['template_objects']) || !isset($_template->smarty->_cache['template_objects'][$_template->_getTemplateId()]))
         ) {
             foreach ($_template->parent->compiled->includes as $key => $count) {
                 $_template->compiled->includes[$key] =
@@ -164,7 +164,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             }
             $key = $_template->source->type . ':' . $_template->source->name;
             if (isset($_template->compiled->includes[$key]) && $_template->compiled->includes[$key] > 1) {
-                $_template->smarty->_cache['template_objects'][$_template->templateId] = $_template;
+                $_template->smarty->_cache['template_objects'][isset($_template->templateId) ? $_template->templateId : $_template->_getTemplateId()] = $_template;
             }
         }
         $this->processed = true;
@@ -182,7 +182,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             opcache_invalidate($_template->compiled->filepath);
         }
         $_smarty_tpl = $_template;
-        if (strpos(phpversion(), 'hhvm') !== false) {
+        if (defined('HHVM_VERSION')) {
             Smarty_Internal_Extension_Hhvm::includeHhvm($_template, $_template->compiled->filepath);
         } else {
             include($_template->compiled->filepath);
