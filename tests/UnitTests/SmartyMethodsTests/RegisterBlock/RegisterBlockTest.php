@@ -109,7 +109,7 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -125,7 +125,7 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -142,7 +142,7 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -158,7 +158,7 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -175,7 +175,7 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -191,7 +191,7 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -208,7 +208,7 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */

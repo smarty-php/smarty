@@ -24,7 +24,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->cleanDirs();
     }
      /**
-      * @runinSeparateProcess
+      * @runInSeparateProcess
       * @preserveGlobalState disabled
       * @dataProvider functionProvider
      * test simple function call tag
@@ -38,7 +38,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProvider
      * test simple function call tag cached
@@ -52,7 +52,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
      /**
-      * @runinSeparateProcess
+      * @runInSeparateProcess
       * @preserveGlobalState disabled
       * @dataProvider functionProvider
      * test simple function call tag cached
@@ -67,7 +67,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProvider
      * test simple function call tag cached no cache default variable
@@ -97,7 +97,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProviderCaching
      * test simple function call tag plugin
@@ -112,7 +112,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProvider
      * test simple function call tag plugin nocache
@@ -129,7 +129,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProvider
      * test simple function call tag 2
@@ -142,7 +142,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProvider
      * test simple function call recursive
@@ -153,7 +153,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProviderInline
      * test inherited function call tag
@@ -166,7 +166,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProviderInline
      * test function definition in include
@@ -181,7 +181,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProviderInline
      * test external function definition cached
@@ -199,7 +199,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProviderInline
      * test external function definition cached 2
@@ -218,7 +218,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProviderInline
      * test external function definition nocache call
@@ -236,7 +236,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProviderInline
      * test external function definition nocache call 2
@@ -257,7 +257,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     /**
      * test external function definition nocache call 3
      *
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProviderInline
      */
@@ -276,7 +276,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     /**
      * test external defined recursion
      *
-     * @runinSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProvider
      */
