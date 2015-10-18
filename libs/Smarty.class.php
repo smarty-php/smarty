@@ -1146,17 +1146,22 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function _realpath($path, $realpath = null)
     {
         static $pattern = null;
-        static $pattern2 = null;
+        static $nds = null;
         if ($pattern == null) {
-            $pattern = '#[' . (DS == '/' ? '\\\\' : '/') . ']|([\\\/]([\\\/]|([.]+[\\\/])))#';
-            $pattern2 = '#([\\\/]+[^\\\/]+[\\\/]+[.]([\\\/]+[.])*[.][\\\/]+([.][\\\/]+)*)|([\\\/]+([.][\\\/]+)+)|[\\\/]{2,}|[' .
-                (DS == '/' ? '\\\\' : '/') . ']+#';
+            $nds = DS == '/' ? '\\' : '/';
+            $ds = '\\' . DS;
+            $pattern = "#([{$ds}]+[^{$ds}]+[{$ds}]+[.]([{$ds}]+[.])*[.][{$ds}]+([.][{$ds}]+)*)|([{$ds}]+([.][{$ds}]+)+)|[{$ds}]{2,}#";
         }
+        // normalize DS
+        if (strpos($path, $nds) !== false) {
+            $path = str_replace($nds, DS, $path);
+        }
+
         if ($realpath === true && $path[0] !== '/' && $path[1] !== ':') {
             $path = getcwd() . DS . $path;
         }
-        while (preg_match($pattern, $path)) {
-            $path = preg_replace($pattern2, DS, $path);
+        while ((strpos($path, '.' . DS) !== false) || (strpos($path, DS . DS) !== false)) {
+            $path = preg_replace($pattern, DS, $path);
         }
         if ($realpath === false && ($path[0] == '/' || $path[1] == ':')) {
             $path = str_ireplace(getcwd(), '.', $path);

@@ -49,6 +49,10 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             // files relative to a template only get one shot
             return is_file($path) ? $path : false;
         }
+        // normalize DS
+        if (strpos($file, DS == '/' ? '\\' : '/') !== false) {
+            $file = str_replace(DS == '/' ? '\\' : '/', DS, $file);
+        }
 
         $_directories = $source->smarty->getTemplateDir(null, $source->isConfig);
         // template_dir index?
@@ -87,7 +91,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         foreach ($_directories as $_directory) {
             $path = $_directory . $file;
             if (is_file($path)) {
-                return $source->smarty->_realpath($path);
+                return (strpos($path, '.' . DS) !== false) ? $source->smarty->_realpath($path) : $path;
             }
         }
         if (!isset($_index_dirs)) {
