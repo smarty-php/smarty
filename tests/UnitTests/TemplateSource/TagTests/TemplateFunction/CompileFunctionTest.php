@@ -84,7 +84,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     /**
      * test simple function call tag cached no cache default variable 2
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testSimpleFunctionCachedNocacheDefault_002_2()

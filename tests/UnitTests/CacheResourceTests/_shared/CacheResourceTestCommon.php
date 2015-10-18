@@ -491,7 +491,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
     }
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
