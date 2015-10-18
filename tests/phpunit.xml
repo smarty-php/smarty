@@ -9,19 +9,6 @@
         beStrictAboutOutputDuringTests="true"
         stopOnFailure="false">
 
-    <php>
-        <const name="individualFolders" value="true"/>
-        <const name="MemCacheEnable" value="false"/>
-        <const name="ApcCacheEnable" value="false"/>
-        <const name="MysqlCacheEnable" value="false"/>
-        <const name="PdoCacheEnable" value="false"/>
-        <const name="PdoGzipCacheEnable" value="false"/>
-        <const name="MysqlResourceEnable" value="false"/>
-        <const name="DB_DSN" value="mysql:dbname=test;host=localhost"/>
-        <const name="DB_USER" value="smarty"/>
-        <const name="DB_PASSWD" value=""/>
-    </php>
-
     <filter>
         <testsuites>
             <testsuite name="Smarty Test Suite">
@@ -42,6 +29,7 @@
     </filter>
     <logging>
         highlight="false" lowUpperBound="35" highLowerBound="70"/>
+        <log type="tap" target="TestResults.tap"/>
     </logging>
 
 </phpunit>

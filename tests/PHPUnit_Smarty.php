@@ -4,6 +4,7 @@
  *
  */
 
+include_once __DIR__ . '/Config.php';
 /**
  * Smarty Test Case Fixture
  */
