@@ -201,7 +201,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
             $compiler->parser->current_buffer->append_subtree($compiler->parser, $_functionCode);
             $output = "<?php\n";
             if (isset($_assign)) {
-                $output .= "\$_smarty_tpl->tpl_vars[{$_assign}] = new Smarty_Variable(ob_get_contents());\n";
+                $output .= "\$_smarty_tpl->tpl_vars[{$_assign}] = new Smarty_Variable(ob_get_clean());\n";
             }
             $output .= "/*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n";
             $output .= "}\n";
@@ -232,7 +232,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $compiler->parser->current_buffer->append_subtree($compiler->parser, $_functionCode);
         $output = "<?php\n";
         if (isset($_assign)) {
-            $output .= "\$_smarty_tpl->tpl_vars[{$_assign}] = new Smarty_Variable(ob_get_contents());\n";
+            $output .= "\$_smarty_tpl->tpl_vars[{$_assign}] = new Smarty_Variable(ob_get_clean());\n";
         }
         $output .= "}\n";
         $output .= "/* {/block '{$_name}'} */\n\n";
