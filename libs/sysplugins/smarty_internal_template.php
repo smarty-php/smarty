@@ -17,6 +17,7 @@
  * @property Smarty_Template_Source|Smarty_Template_Config $source
  * @property Smarty_Template_Compiled                      $compiled
  * @property Smarty_Template_Cached                        $cached
+ * @property Smarty_Internal_Runtime_Inheritance           $_inheritance
  * @method bool mustCompile()
  */
 class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
@@ -314,10 +315,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
             $tpl->tpl_function = $this->tpl_function;
             // copy inheritance object?
-            if (isset($this->_Block)) {
-                $tpl->_Block = $this->_Block;
+            if (isset($this->_inheritance)) {
+                $tpl->_inheritance = $this->_inheritance;
             } else {
-                unset($tpl->_Block);
+                unset($tpl->_inheritance);
             }
         } else {
             $tpl = clone $this;
@@ -692,8 +693,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         // object properties of runtime template extensions will start with '_'
         if ($property_name[0] == '_') {
-            $property_name[1] = chr(ord($property_name[1]) & 0xDF);
             $class = 'Smarty_Internal_Runtime' . $property_name;
+            $class[24] = chr(ord($class[24]) & 0xDF);
             if (class_exists($class)) {
                 return $this->$property_name = new $class();
             }
