@@ -9,6 +9,8 @@
 /**
  * class for string resource tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class StringResourceTest extends PHPUnit_Smarty

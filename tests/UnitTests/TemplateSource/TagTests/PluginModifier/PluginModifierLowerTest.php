@@ -8,6 +8,9 @@
 
 /**
  * class for modifier tests
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
+ * @backupStaticAttributes enabled
  */
 class PluginModifierLowerTest extends PHPUnit_Smarty
 {

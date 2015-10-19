@@ -9,6 +9,8 @@
 /**
  * class for resource plugins tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class ResourcePluginTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for register->templateFunction / unregister->templateFunction methods tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  *
  */

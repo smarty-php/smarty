@@ -11,6 +11,8 @@ include_once __DIR__ . '/../Memcache/CacheResourceCustomMemcacheTest.php';
 /**
  * class for cache resource file tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CacheResourceCustomApcTest extends CacheResourceCustomMemcacheTest

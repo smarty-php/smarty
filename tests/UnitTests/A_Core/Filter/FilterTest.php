@@ -9,6 +9,8 @@
 /**
  * class for filter tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class FilterTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for {insert} tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileInsertTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for variable variables tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class VariableVariableTest extends PHPUnit_Smarty

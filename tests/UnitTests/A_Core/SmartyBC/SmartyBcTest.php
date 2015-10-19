@@ -9,6 +9,8 @@
 /**
  * class SmartyBC class tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class SmartyBcTest extends PHPUnit_Smarty

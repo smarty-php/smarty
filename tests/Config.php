@@ -6,7 +6,7 @@
 /*
  * Smarty PHPUnit Config
  */
-define('individualFolders', true);
+define('individualFolders', false);
 define('MemCacheEnable', false);
 define('ApcCacheEnable', false);
 define('MysqlCacheEnable', false);

@@ -10,6 +10,8 @@
 /**
  * class for delete compiled template tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class ClearCompiledTest extends PHPUnit_Smarty

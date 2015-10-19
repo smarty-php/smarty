@@ -9,6 +9,8 @@
 /**
  * class for templateExists tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class TemplateExistsTest extends PHPUnit_Smarty

@@ -9,8 +9,10 @@
 /**
  * class for double quoted string tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
- */
+*/
 class DoubleQuotedStringTest extends PHPUnit_Smarty
 {
     public function setUp()

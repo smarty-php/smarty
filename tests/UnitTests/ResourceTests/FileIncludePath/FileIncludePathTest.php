@@ -5,6 +5,8 @@
  *
  * @package                PHPunit
  * @author                 Rodney Rehm
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class FileIncludePathTest extends PHPUnit_Smarty

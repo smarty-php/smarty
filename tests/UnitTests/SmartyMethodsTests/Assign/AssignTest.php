@@ -9,6 +9,8 @@
 /**
  * class for assign tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class AssignTest extends PHPUnit_Smarty

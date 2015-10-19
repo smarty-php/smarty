@@ -9,6 +9,8 @@
 /**
  * class for strip tags tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileStripTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for {for} tag tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileForTest extends PHPUnit_Smarty

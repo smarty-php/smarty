@@ -9,7 +9,9 @@
 /**
  * class for {php} and <?php...?> tag tests
  *
- * @backupStaticAt tributes enabled
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
+ * @backupStaticAttributes enabled
  */
 class CompilePhpTest extends PHPUnit_Smarty
 {
@@ -31,7 +33,7 @@ class CompilePhpTest extends PHPUnit_Smarty
 
     /**
      * Test
-     * @run inSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider data
      *

@@ -9,6 +9,8 @@
 /**
  * class for compiler tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileErrorTest extends PHPUnit_Smarty

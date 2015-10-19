@@ -9,6 +9,8 @@
 /**
  * class for assign tags tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileAssignTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for array tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class ArrayTest extends PHPUnit_Smarty

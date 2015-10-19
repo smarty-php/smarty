@@ -9,6 +9,8 @@
 /**
  * class for plugin handler tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class DefaultPluginHandlerTest extends PHPUnit_Smarty

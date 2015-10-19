@@ -9,6 +9,8 @@
 /**
  * class for block extends compiler tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileBlockExtendsTest extends PHPUnit_Smarty
@@ -55,6 +57,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChild_002($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -73,6 +77,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain with prepend
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildPrepend_003($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -91,6 +97,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain with apppend
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildAppend_004($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -109,6 +117,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain with apppend and shorttags
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildAppendShortag_005($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -127,6 +137,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain with {$this->smarty.block.child)
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildSmartyChild_006($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -145,6 +157,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain with {$this->smarty.block.parent)
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildSmartyParent_007($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -163,7 +177,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain loading plugin
-     * @run SeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider data
      */
@@ -184,6 +198,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test parent template with nested blocks
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockParentNested_009($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -202,6 +218,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain with nested block
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildNested_010($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -220,6 +238,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain with nested block and include
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildNestedInclude_011($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -238,6 +258,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent template chain
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockGrandChild_012($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -256,6 +278,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent template chain prepend
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockGrandChildPrepend_013($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -274,6 +298,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent template chain with {$this->smarty.block.child}
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockGrandChildSmartyChild_014($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -292,6 +318,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent template chain append
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockGrandChildAppend_015($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -310,6 +338,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent template chain with nested block
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockGrandChildNested_016($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -328,6 +358,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent template chain with nested {$this->smarty.block.child}
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockGrandChildNested_017($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -346,6 +378,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  nested child block with hide
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildNestedHide_018($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -365,6 +399,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  nested child block with hide and auto_literal = false
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildNestedHideAutoLiteralFalse_019($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -385,6 +421,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain starting in subtempates
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockStartSubTemplates_020($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -408,6 +446,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent template chain with nested {$this->smarty.block.child} and {include nocache}
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockGrandChildNested_030($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -427,6 +467,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent dependency test1
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testCompileBlockGrandChildMustCompile_021_1()
     {
@@ -569,6 +611,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testSmartyBlockVariablePartentInclude_28($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)

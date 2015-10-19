@@ -9,6 +9,8 @@
 /**
  * class for demo resource plugin extendaall tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class ResourceExtendsAllPluginTest extends PHPUnit_Smarty

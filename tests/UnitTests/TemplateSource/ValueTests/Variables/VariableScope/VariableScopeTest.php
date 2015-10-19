@@ -9,6 +9,8 @@
 /**
  * class for variable scope test
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class VariableScopeTest extends PHPUnit_Smarty

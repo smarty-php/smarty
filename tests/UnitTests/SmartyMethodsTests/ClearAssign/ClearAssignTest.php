@@ -9,6 +9,8 @@
 /**
  * class for clearing assigned variables tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class ClearAssignTest extends PHPUnit_Smarty

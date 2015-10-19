@@ -9,6 +9,8 @@
 /**
  * class for getTemplateVars method test
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class GetTemplateVarsTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for {setfilter} tag tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileSetfilterTest extends PHPUnit_Smarty

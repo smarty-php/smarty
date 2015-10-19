@@ -9,6 +9,8 @@
 /**
  * class for {function} tag tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileFunctionTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for capture tags tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileCaptureTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for delimiter tags tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileDelimiterTest extends PHPUnit_Smarty

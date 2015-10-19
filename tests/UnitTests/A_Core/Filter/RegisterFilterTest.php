@@ -9,6 +9,8 @@
 /**
  * class for register_filter / unregister_filter methods tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class RegisterFilterTest extends PHPUnit_Smarty

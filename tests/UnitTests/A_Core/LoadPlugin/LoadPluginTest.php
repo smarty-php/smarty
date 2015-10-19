@@ -9,6 +9,8 @@
 /**
  * class core function tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class LoadPluginTest extends PHPUnit_Smarty

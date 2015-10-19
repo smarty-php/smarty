@@ -9,7 +9,9 @@
 /**
  * class for config variable tests
  *
- * @b ackupStaticAttributes enabled
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
+ * @backupStaticAttributes enabled
  */
 class ConfigVarTest extends PHPUnit_Smarty
 {

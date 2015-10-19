@@ -9,6 +9,8 @@
 /**
  * class for assignGlobal method  and {assignGlobal} tag tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class AssignGlobalTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for tag attribute tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class AttributeTest extends PHPUnit_Smarty

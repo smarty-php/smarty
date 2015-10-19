@@ -9,6 +9,8 @@
 /**
  * class for <?xml...> tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class XmlTest extends PHPUnit_Smarty

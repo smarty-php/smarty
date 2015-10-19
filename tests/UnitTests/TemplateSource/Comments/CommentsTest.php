@@ -9,6 +9,8 @@
 /**
  * class for security test
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CommentsTest extends PHPUnit_Smarty

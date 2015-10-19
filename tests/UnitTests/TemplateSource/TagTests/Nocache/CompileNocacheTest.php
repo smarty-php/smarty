@@ -9,6 +9,8 @@
 /**
  * class for {nocache} tag tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileNocacheTest extends PHPUnit_Smarty

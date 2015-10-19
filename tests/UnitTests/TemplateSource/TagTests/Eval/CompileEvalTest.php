@@ -9,6 +9,8 @@
 /**
  * class for {eval} tag tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileEvalTest extends PHPUnit_Smarty

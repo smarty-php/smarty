@@ -9,6 +9,8 @@
 /**
  * class for {section} tag tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileSectionTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for append tags tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileAppendTest extends PHPUnit_Smarty

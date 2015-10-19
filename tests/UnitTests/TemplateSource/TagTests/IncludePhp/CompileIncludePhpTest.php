@@ -9,6 +9,8 @@
 /**
  * class for {include_php} tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileIncludePhpTest extends PHPUnit_Smarty

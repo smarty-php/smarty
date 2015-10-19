@@ -9,6 +9,8 @@
 /**
  * class for appendByRef tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class AppendByRefBCTest extends PHPUnit_Smarty

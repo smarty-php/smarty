@@ -9,6 +9,8 @@
 /**
  * class for PHP resource tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class OutputFilterTrimWhitespaceTest extends PHPUnit_Smarty

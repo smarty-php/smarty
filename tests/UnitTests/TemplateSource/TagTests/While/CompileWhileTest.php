@@ -9,6 +9,8 @@
 /**
  * class for {while} tag tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileWhileTest extends PHPUnit_Smarty

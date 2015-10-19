@@ -9,8 +9,10 @@
 /**
  * class for modifier tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
- */
+*/
 class PluginModifierRegexReplaceTest extends PHPUnit_Smarty
 {
     public function setUp()

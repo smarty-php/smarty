@@ -9,6 +9,8 @@
 /**
  * class for function plugin tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileFunctionPluginTest extends PHPUnit_Smarty

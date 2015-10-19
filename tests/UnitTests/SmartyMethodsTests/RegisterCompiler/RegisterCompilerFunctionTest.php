@@ -9,6 +9,8 @@
 /**
  * class for register->compilerFunction / unregister->compilerFunction methods tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class RegisterCompilerFunctionTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for extends resource tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class ExtendsResourceTest extends PHPUnit_Smarty
@@ -31,6 +33,8 @@ class ExtendsResourceTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain with prepend
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildPrepend_003($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -48,6 +52,8 @@ class ExtendsResourceTest extends PHPUnit_Smarty
     }
     /**
      * test  child/parent template chain with apppend
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockChildAppend_004($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -66,6 +72,8 @@ class ExtendsResourceTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain with apppend
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider data
      */
     public function testCompileBlockAssignInChild_040($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
@@ -84,6 +92,8 @@ class ExtendsResourceTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent dependency test1
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testCompileBlockGrandChildMustCompile_021_1()
     {

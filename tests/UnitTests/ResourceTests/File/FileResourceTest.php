@@ -9,6 +9,8 @@
 /**
  * class for file resource tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class FileResourceTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@ if (defined(MysqlResourceEnable) && MysqlResourceEnable == 'true') {
     /**
      * class for resource plugins tests
      *
+     * @runTestsInSeparateProcess
+     * @preserveGlobalState disabled
      * @backupStaticAttributes enabled
      */
     class ResourceMysqlPluginTest extends PHPUnit_Smarty

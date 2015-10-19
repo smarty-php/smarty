@@ -9,6 +9,8 @@
 /**
  * class for spacing test
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class SpacingTest extends PHPUnit_Smarty

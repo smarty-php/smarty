@@ -9,6 +9,8 @@
 /**
  * class for function tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class FunctionTest extends PHPUnit_Smarty

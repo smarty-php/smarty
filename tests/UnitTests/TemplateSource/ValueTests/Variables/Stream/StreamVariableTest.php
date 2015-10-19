@@ -9,6 +9,8 @@
 /**
  * class for stream variables tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class StreamVariableTest extends PHPUnit_Smarty

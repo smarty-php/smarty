@@ -9,6 +9,8 @@
 /**
  * class for register->block / unregister->block methods tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class RegisterBlockTest extends PHPUnit_Smarty

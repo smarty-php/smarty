@@ -9,6 +9,8 @@
 /**
  * class for loadFilter method tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class LoadFilterTest extends PHPUnit_Smarty

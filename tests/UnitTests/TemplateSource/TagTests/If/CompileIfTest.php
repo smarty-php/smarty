@@ -9,8 +9,10 @@
 /**
  * class for {if} tag tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
- */
+*/
 class CompileIfTest extends PHPUnit_Smarty
 {
     public function setUp()

@@ -9,6 +9,8 @@
 /**
  * class for append tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class AppendTest extends PHPUnit_Smarty

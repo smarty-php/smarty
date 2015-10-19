@@ -9,6 +9,8 @@
 /**
  * class for security test
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class SecurityTest extends PHPUnit_Smarty

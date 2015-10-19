@@ -9,6 +9,8 @@
 /**
  * class for stream resource tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class StreamResourceTest extends PHPUnit_Smarty

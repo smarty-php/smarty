@@ -9,6 +9,8 @@
 /**
  * class for cache resource file tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class HttpModifiedSinceTest extends PHPUnit_Smarty

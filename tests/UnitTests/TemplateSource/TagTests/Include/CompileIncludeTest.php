@@ -9,6 +9,8 @@
 /**
  * class for {include} tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileIncludeTest extends PHPUnit_Smarty
@@ -44,7 +46,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * test spacing
      *
-     * @rrunInSeparateProcess
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProviderCaching
      */
     public function testSpacing_001V2($merge, $caching, $text)
@@ -61,7 +64,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * test spacing
      *
-     * @rrunInSeparateProcess
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProviderCaching
      */
     public function testSpacing_001V3($merge, $caching, $text)

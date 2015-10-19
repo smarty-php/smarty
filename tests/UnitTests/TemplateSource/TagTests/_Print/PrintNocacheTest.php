@@ -9,6 +9,8 @@
 /**
  * class for variable output with nocache attribute tag tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class PrintNocacheTest extends PHPUnit_Smarty

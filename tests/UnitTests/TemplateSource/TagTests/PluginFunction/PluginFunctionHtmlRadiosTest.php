@@ -10,6 +10,9 @@ require_once(dirname(__FILE__) . '/helpers/_object_tostring.php');
 
 /**
  * class for modifier tests
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
+ * @backupStaticAttributes enabled
  */
 class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
 {

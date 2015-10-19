@@ -9,6 +9,8 @@
 /**
  * class for registered object function tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class CompileRegisteredObjectFunctionTest extends PHPUnit_Smarty

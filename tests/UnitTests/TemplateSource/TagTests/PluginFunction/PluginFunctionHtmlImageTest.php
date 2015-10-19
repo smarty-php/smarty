@@ -9,6 +9,8 @@
 /**
  * class for modifier tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class PluginFunctionHtmlImageTest extends PHPUnit_Smarty

@@ -9,6 +9,8 @@
 /**
  * class for register->resource tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class RegisteredResourceTest extends PHPUnit_Smarty

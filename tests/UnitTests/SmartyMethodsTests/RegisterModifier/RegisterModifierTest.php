@@ -9,6 +9,8 @@
 /**
  * class for register->modifier / unregister->modifier methods tests
  *
+ * @runTestsInSeparateProcess
+ * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
 class RegisterModifierTest extends PHPUnit_Smarty
