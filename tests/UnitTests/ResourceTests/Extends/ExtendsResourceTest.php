@@ -217,7 +217,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('extends:021_parent.tpl|021_child.tpl|021_grandchild.tpl');
-        $this->assertFalse($tpl->isCached());
+        $this->assertTrue($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
         $this->assertContains('Grandchild Page Title', $result);
     }
