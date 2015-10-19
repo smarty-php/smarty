@@ -529,7 +529,18 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
         $this->assertContains('Grandchild Page Title', $result);
-        $this->smarty->_cache['template_objects'] = null;
+    }
+    /**
+     * test  grandchild/child/parent dependency test3
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testCompileBlockGrandChildMustCompile_021_32()
+    {
+        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 1000;
         $tpl2 = $this->smarty->createTemplate('021_grandchild.tpl');
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
@@ -553,7 +564,18 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
         $this->assertContains('Grandchild Page Title', $result);
-        $this->smarty->_cache['template_objects'] = null;
+    }
+
+    /**
+     * test  grandchild/child/parent dependency test4
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testCompileBlockGrandChildMustCompile_021_42()
+    {
+        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 1000;
         $tpl2 = $this->smarty->createTemplate('021_grandchild.tpl');
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
