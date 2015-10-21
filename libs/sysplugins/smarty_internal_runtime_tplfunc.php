@@ -1,36 +1,63 @@
 <?php
+
 /**
- * Smarty Internal Plugin Function Call Handler
+ * Tplfunc Runtime Methods callTemplateFunction
  *
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
- */
-
-/**
- * This class does handles template functions defined with the {function} tag missing in cache file.
- * It can happen when the template function was called with the nocache option or within a nocache section.
- * The template function will be loaded from it's compiled template file, executed and added to the cache file
- * for later use.
  *
- * @package    Smarty
- * @subpackage PluginsInternal
- */
-class Smarty_Internal_Function_Call_Handler
+ **/
+class Smarty_Internal_Runtime_Tplfunc
 {
     /**
-     * This function handles calls to template functions defined by {function}
-     * It does create a PHP function at the first call
+     * Call template function
      *
+     * @param \Smarty_Internal_Template $tpl     template object
+     * @param string                    $name    template function name
+     * @param array                     $params  parameter array
+     * @param bool                      $nocache true if called nocache
+     *
+     * @throws \SmartyException
+     */
+    public function callTemplateFunction(\Smarty_Internal_Template $tpl, $name, $params, $nocache)
+    {
+        if (isset($tpl->tpl_function[$name])) {
+            if (!$tpl->caching || ($tpl->caching && $nocache)) {
+                $function = $tpl->tpl_function[$name]['call_name'];
+            } else {
+                if (isset($tpl->tpl_function[$name]['call_name_caching'])) {
+                    $function = $tpl->tpl_function[$name]['call_name_caching'];
+                } else {
+                    $function = $tpl->tpl_function[$name]['call_name'];
+                }
+            }
+            if (function_exists($function)) {
+                $function ($tpl, $params);
+                return;
+            }
+            // try to load template function dynamically
+            if ($this->addTplFuncToCache($tpl, $name, $function)) {
+                $function ($tpl, $params);
+                return;
+            }
+        }
+        throw new SmartyException("Unable to find template function '{$name}'");
+    }
+
+    /**
+     *
+     * Add template function to cache file for nocache calls
+     *
+     * @param Smarty_Internal_Template $tpl
      * @param string                   $_name     template function name
-     * @param Smarty_Internal_Template $_smarty_tpl
      * @param string                   $_function PHP function name
      *
      * @return bool
      */
-    public static function call($_name, Smarty_Internal_Template $_smarty_tpl, $_function)
+    public function addTplFuncToCache(Smarty_Internal_Template $tpl, $_name, $_function)
     {
-        $funcParam = $_smarty_tpl->tpl_function[$_name];
+        $funcParam = $tpl->tpl_function[$_name];
         if (is_file($funcParam['compiled_filepath'])) {
             // read compiled file
             $code = file_get_contents($funcParam['compiled_filepath']);
@@ -43,7 +70,7 @@ class Smarty_Internal_Function_Call_Handler
                 eval($match[0]);
                 if (function_exists($_function)) {
                     // search cache file template
-                    $tplPtr = $_smarty_tpl;
+                    $tplPtr = $tpl;
                     while (!isset($tplPtr->cached) && isset($tplPtr->parent)) {
                         $tplPtr = $tplPtr->parent;
                     }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Runtime Method callBlock,callParentBlock, callChildBlock, registerBlock
+ * Inheritance Runtime Methods processBlock, endChild, init
  *
  * @package    Smarty
  * @subpackage PluginsInternal

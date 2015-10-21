@@ -248,7 +248,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             if (isset($_assign)) {
                 $_output .= "ob_start();\n";
             }
-            $_output .= "\$_smarty_tpl->renderInline(\$_smarty_tpl->setupSubTemplate({$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_parent_scope}, {$_cache_tpl}, '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['uid']}'), '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['func']}');\n";
+            $_output .= "\$_smarty_tpl->_inline->render(\$_smarty_tpl, {$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_parent_scope}, {$_cache_tpl}, '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['func']}');\n";
             if (isset($_assign)) {
                 $_output .= "\$_smarty_tpl->tpl_vars[$_assign] = new Smarty_Variable(ob_get_clean());\n";
             }
@@ -271,7 +271,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         if (isset($_assign)) {
             $_output .= "ob_start();\n";
         }
-        $_output .= "\$_smarty_tpl->setupSubTemplate({$fullResourceName}, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, {$_cache_tpl})->render();\n";
+        $_output .= "\$_smarty_tpl->_subtemplate->render(\$_smarty_tpl, {$fullResourceName}, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, {$_cache_tpl});\n";
         if (isset($_assign)) {
             $_output .= "\$_smarty_tpl->tpl_vars[$_assign] = new Smarty_Variable(ob_get_clean());\n";
         }
