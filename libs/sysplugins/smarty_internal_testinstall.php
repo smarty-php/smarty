@@ -46,7 +46,7 @@ class Smarty_Internal_TestInstall
                     if ($_stream_resolve_include_path) {
                         $template_dir = stream_resolve_include_path($_template_dir);
                     } else {
-                        $template_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_template_dir, null, $smarty);
+                        $template_dir = $smarty->ext->_getIncludePath->getIncludePath($_template_dir, null, $smarty);
                     }
 
                     if ($template_dir !== false) {
@@ -165,7 +165,7 @@ class Smarty_Internal_TestInstall
                     if ($_stream_resolve_include_path) {
                         $plugin_dir = stream_resolve_include_path($_plugin_dir);
                     } else {
-                        $plugin_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_plugin_dir, null, $smarty);
+                        $plugin_dir = $smarty->ext->_getIncludePath->getIncludePath($_plugin_dir, null, $smarty);
                     }
 
                     if ($plugin_dir !== false) {
@@ -294,7 +294,7 @@ class Smarty_Internal_TestInstall
                     if ($_stream_resolve_include_path) {
                         $config_dir = stream_resolve_include_path($_config_dir);
                     } else {
-                        $config_dir = Smarty_Internal_Get_Include_Path::getIncludePath($_config_dir, null, $smarty);
+                        $config_dir = $smarty->ext->_getIncludePath->getIncludePath($_config_dir, null, $smarty);
                     }
 
                     if ($config_dir !== false) {
