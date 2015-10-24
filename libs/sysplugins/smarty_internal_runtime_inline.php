@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Inline Runtime Methods render
+ * Inline Runtime Methods render, setSourceByUid, setupSubTemplate
  *
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  *
  **/
-class Smarty_Internal_Runtime_Inline extends Smarty_Internal_Runtime_Subtemplate
+class Smarty_Internal_Runtime_Inline extends Smarty_Internal_Runtime_SubTemplate
 {
 
     /**
@@ -21,18 +21,18 @@ class Smarty_Internal_Runtime_Inline extends Smarty_Internal_Runtime_Subtemplate
      * @param integer                   $caching        cache mode
      * @param integer                   $cache_lifetime life time of cache data
      * @param array                     $data           passed parameter template variables
-     * @param int                       $parent_scope   scope in which {include} should execute
-     * @param bool                      $cache_tpl_obj  cache template object
+     * @param int                       $scope          scope in which {include} should execute
+     * @param bool                      $forceTplCache  cache template object
      * @param string                    $uid            file dependency uid
      * @param string                    $content_func   function name
      *
      * @throws \Exception
      */
     public function render(\Smarty_Internal_Template $parent, $template, $cache_id, $compile_id, $caching,
-                           $cache_lifetime, $data, $parent_scope, $cache_tpl_obj, $uid, $content_func)
+                           $cache_lifetime, $data, $scope, $forceTplCache, $uid, $content_func)
     {
-        $tpl = $this->setupSubtemplate($parent, $template, $cache_id, $compile_id, $caching, $cache_lifetime, $data,
-                                       $parent_scope, $cache_tpl_obj, $uid);
+        $tpl = $this->setupSubTemplate($parent, $template, $cache_id, $compile_id, $caching, $cache_lifetime, $data,
+                                       $scope, $uid);
         if ($parent->smarty->debugging) {
             $parent->smarty->_debug->start_template($tpl);
             $parent->smarty->_debug->start_render($tpl);
@@ -45,6 +45,7 @@ class Smarty_Internal_Runtime_Inline extends Smarty_Internal_Runtime_Subtemplate
         if ($tpl->caching == 9999 && $tpl->compiled->has_nocache_code) {
             $parent->cached->hashes[$tpl->compiled->nocache_hash] = true;
         }
+        $this->updateTemplateCache($tpl, $forceTplCache);
     }
 
     /**

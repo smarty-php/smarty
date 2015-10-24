@@ -17,12 +17,6 @@
  * @property Smarty_Template_Source|Smarty_Template_Config $source
  * @property Smarty_Template_Compiled                      $compiled
  * @property Smarty_Template_Cached                        $cached
- * @property Smarty_Internal_Runtime_Inheritance           $_inheritance
- * @property Smarty_Internal_Runtime_Subtemplate           $_subtemplate
- * @property Smarty_Internal_Runtime_Inline                $_inline
- * @property Smarty_Internal_Runtime_Tplfunc               $_tplfunc
- * @property Smarty_Internal_Runtime_Var                   $_var
- * @property Smarty_Internal_Runtime_Foreach               $_foreach
  * @method bool mustCompile()
  */
 class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
@@ -77,6 +71,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $tpl_function = array();
 
     /**
+     * Scope in which template is rendered
+     *
+     * @var int
+     */
+    public $scope = 0;
+
+    /**
      * Create template data object
      * Some of the global Smarty settings copied to template scope
      * It load the required template resources and caching plugins
@@ -108,6 +109,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         // Template resource
         $this->template_resource = $template_resource;
         $this->source = Smarty_Template_Source::load($this);
+        parent::__construct();
     }
 
     /**
@@ -427,14 +429,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function __set($property_name, $value)
     {
-        if ($property_name[0] == '_') {
-            $this->$property_name = $value;
-            return;
-        }
         switch ($property_name) {
             case 'compiled':
             case 'cached':
             case 'compiler':
+            case 'tpl_vars':
+            case 'config_vars':
                 $this->$property_name = $value;
                 return;
             default:
@@ -457,14 +457,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function __get($property_name)
     {
-        // object properties of runtime template extensions will start with '_'
-        if ($property_name[0] == '_') {
-            $class = 'Smarty_Internal_Runtime' . $property_name;
-            $class[24] = chr(ord($class[24]) & 0xDF);
-            if (class_exists($class)) {
-                return $this->$property_name = new $class();
-            }
-        }
         switch ($property_name) {
             case 'compiled':
                 $this->loadCompiled();

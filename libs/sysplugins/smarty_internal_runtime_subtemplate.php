@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Subtemplate Runtime Methods render, setupSubtemplate
+ * Sub Template Runtime Methods render, setupSubTemplate
  *
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  *
  **/
-class Smarty_Internal_Runtime_Subtemplate
+class Smarty_Internal_Runtime_SubTemplate
 {
 
     /**
@@ -21,16 +21,17 @@ class Smarty_Internal_Runtime_Subtemplate
      * @param integer                   $caching        cache mode
      * @param integer                   $cache_lifetime life time of cache data
      * @param array                     $data           passed parameter template variables
-     * @param int                       $parent_scope   scope in which {include} should execute
-     * @param bool                      $cache_tpl_obj  cache template object
+     * @param int                       $scope          scope in which {include} should execute
+     * @param bool                      $forceTplCache  cache template object
      *
      */
     public function render(Smarty_Internal_Template $parent, $template, $cache_id, $compile_id, $caching,
-                           $cache_lifetime, $data, $parent_scope, $cache_tpl_obj)
+                           $cache_lifetime, $data, $scope, $forceTplCache)
     {
-        $this->setupSubtemplate($parent, $template, $cache_id, $compile_id, $caching, $cache_lifetime, $data,
-                                $parent_scope, $cache_tpl_obj)
-             ->render();
+        $tpl = $this->setupSubTemplate($parent, $template, $cache_id, $compile_id, $caching, $cache_lifetime, $data,
+                                       $scope);
+        $tpl->render();
+        $this->updateTemplateCache($tpl, $forceTplCache);
     }
 
     /**
@@ -43,15 +44,14 @@ class Smarty_Internal_Runtime_Subtemplate
      * @param integer                   $caching        cache mode
      * @param integer                   $cache_lifetime life time of cache data
      * @param array                     $data           passed parameter template variables
-     * @param int                       $parent_scope   scope in which {include} should execute
-     * @param bool                      $cache_tpl_obj  cache template object
+     * @param int                       $scope          scope in which {include} should execute
      * @param string|null               $uid            source uid
      *
      * @return \Smarty_Internal_Template template object
      * @throws \SmartyException
      */
-    public function setupSubtemplate(Smarty_Internal_Template $parent, $template, $cache_id, $compile_id, $caching,
-                                     $cache_lifetime, $data, $parent_scope, $cache_tpl_obj, $uid = null)
+    public function setupSubTemplate(Smarty_Internal_Template $parent, $template, $cache_id, $compile_id, $caching,
+                                     $cache_lifetime, $data, $scope, $uid = null)
     {
         // if there are cached template objects calculate $templateID
         $_templateId = isset($parent->smarty->_cache['template_objects']) ?
@@ -67,7 +67,7 @@ class Smarty_Internal_Runtime_Subtemplate
                 unset($tpl->compiled);
             }
             // get variables from calling scope
-            if ($parent_scope == Smarty::SCOPE_LOCAL) {
+            if ($scope == Smarty::SCOPE_LOCAL) {
                 $tpl->tpl_vars = $parent->tpl_vars;
                 $tpl->config_vars = $parent->config_vars;
             }
@@ -89,9 +89,6 @@ class Smarty_Internal_Runtime_Subtemplate
                 // $uid is set if template is inline
                 if (isset($uid)) {
                     $this->setSourceByUid($tpl, $uid);
-                    // if template is called multiple times set flag to to cache template objects
-                    $cache_tpl_obj = $cache_tpl_obj || (isset($tpl->compiled->includes[$tpl->template_resource]) &&
-                            $tpl->compiled->includes[$tpl->template_resource] > 1);
                 } else {
                     $tpl->source = null;
                     unset($tpl->compiled);
@@ -100,14 +97,6 @@ class Smarty_Internal_Runtime_Subtemplate
                     $tpl->source = Smarty_Template_Source::load($tpl);
                 }
                 unset($tpl->cached);
-                // check if template object should be cached
-                if (!$tpl->source->handler->recompiled && (isset($tpl->parent->templateId) &&
-                        isset($tpl->smarty->_cache['template_objects'][$tpl->parent->templateId]) ||
-                        ($cache_tpl_obj && $tpl->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC) ||
-                        $tpl->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
-                ) {
-                    $tpl->smarty->_cache['template_objects'][$tpl->_getTemplateId()] = $tpl;
-                }
             }
         }
         $tpl->caching = $caching;
@@ -116,14 +105,19 @@ class Smarty_Internal_Runtime_Subtemplate
             $tpl->cached = $parent->cached;
         }
         // get variables from calling scope
-        if ($parent_scope != Smarty::SCOPE_LOCAL) {
-            if ($parent_scope == Smarty::SCOPE_PARENT) {
+        if ($scope != $tpl->scope) {
+            if ($tpl->scope != Smarty::SCOPE_LOCAL) {
+                unset($tpl->tpl_vars, $tpl->config_vars);
+                $tpl->tpl_vars = array();
+                $tpl->config_vars = array();
+            }
+            if ($scope == Smarty::SCOPE_PARENT) {
                 $tpl->tpl_vars = &$parent->tpl_vars;
                 $tpl->config_vars = &$parent->config_vars;
-            } elseif ($parent_scope == Smarty::SCOPE_GLOBAL) {
+            } elseif ($scope == Smarty::SCOPE_GLOBAL) {
                 $tpl->tpl_vars = &Smarty::$global_tpl_vars;
                 $tpl->config_vars = $parent->config_vars;
-            } elseif ($parent_scope == Smarty::SCOPE_ROOT) {
+            } elseif ($scope == Smarty::SCOPE_ROOT) {
                 $ptr = $tpl->parent;
                 while (!empty($ptr->parent)) {
                     $ptr = $ptr->parent;
@@ -134,6 +128,7 @@ class Smarty_Internal_Runtime_Subtemplate
                 $tpl->tpl_vars = $parent->tpl_vars;
                 $tpl->config_vars = $parent->config_vars;
             }
+            $tpl->scope = $scope;
         }
 
         if (!empty($data)) {
@@ -143,5 +138,32 @@ class Smarty_Internal_Runtime_Subtemplate
             }
         }
         return $tpl;
+    }
+
+    public function updateTemplateCache(Smarty_Internal_Template $tpl, $forceTplCache)
+    {
+        if (isset($tpl->smarty->_cache['template_objects'][$tpl->_getTemplateId()]) ||
+            $tpl->source->handler->recompiled
+        ) {
+            return;
+        }
+        // if template is called multiple times set flag to to cache template objects
+        $forceTplCache = $forceTplCache || (isset($tpl->compiled->includes[$tpl->template_resource]) &&
+                $tpl->compiled->includes[$tpl->template_resource] > 1);
+        // check if template object should be cached
+        if ((isset($tpl->parent->templateId) &&
+            isset($tpl->smarty->_cache['template_objects'][$tpl->parent->templateId]) ||
+            ($forceTplCache && $tpl->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC) ||
+            $tpl->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
+        ) {
+            $tpl->parent = null;
+            if ($tpl->scope != Smarty::SCOPE_LOCAL) {
+                unset($tpl->tpl_vars, $tpl->config_vars);
+                $tpl->scope = Smarty::SCOPE_LOCAL;
+            }
+            $tpl->tpl_vars = array();
+            $tpl->config_vars = array();
+            $tpl->smarty->_cache['template_objects'][$tpl->_getTemplateId()] = $tpl;
+        }
     }
 }
