@@ -42,7 +42,6 @@ class Smarty_Internal_Method_AppendByRef
                 $data->tpl_vars[$tpl_var]->value[] = &$value;
             }
         }
-
         return $data;
     }
 }

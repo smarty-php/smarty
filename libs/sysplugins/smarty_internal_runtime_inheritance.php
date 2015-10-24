@@ -72,8 +72,8 @@ class Smarty_Internal_Runtime_Inheritance
     {
         // if template was from an inner block or template is a parent template create new inheritance root
         if ($initChild && ($this->blockNesting || $this->state == 3)) {
-            $tpl->_inheritance = new Smarty_Internal_Runtime_Inheritance();
-            $tpl->_inheritance->init($tpl, $initChild, $blockNames);
+            $tpl->ext->_inheritance = new Smarty_Internal_Runtime_Inheritance();
+            $tpl->ext->_inheritance->init($tpl, $initChild, $blockNames);
             return;
         }
         // start of child sub template(s)
@@ -118,11 +118,16 @@ class Smarty_Internal_Runtime_Inheritance
      *    if found call it, otherwise call current block
      *  - ignored for outer level blocks in child templates
      *
-     * $type 1 = {$smarty.block.child}:
+     * $type 1 = {block}:
+     *  - nested {block}
+     *  - search in inheritance template hierarchy for child blocks
+     *    if found call it, otherwise call current block
+     *
+     * $type 2 = {$smarty.block.child}:
      *  - search in inheritance template hierarchy for child blocks
      *    if found call it, otherwise ignore
      *
-     * $type 2 = {$smarty.block.parent}:
+     * $type 3 = {$smarty.block.parent}:
      *  - get block id from parent stack and call parent block
      *
      * @param \Smarty_Internal_Template $tpl       template object of caller

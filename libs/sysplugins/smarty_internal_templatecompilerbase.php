@@ -317,10 +317,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                     Smarty_Internal_TemplateCompilerBase $parent_compiler = null)
     {
         // get code frame of compiled template
-        $_compiled_code =
-            "<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") .
-            "\n         compiled from \"" . $template->source->filepath . "\" */ ?>\n" .
-            Smarty_Internal_Extension_CodeFrame::create($template, $this->compileTemplateSource($template, $nocache,
+        $_compiled_code = $template->smarty->ext->_codeFrame->create($template, $this->compileTemplateSource($template, $nocache,
                                                                                                 $parent_compiler),
                                                         $this->postFilter($this->blockOrFunctionCode) .
                                                         join('', $this->mergedSubTemplatesCode));
@@ -420,7 +417,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if (!empty($code) &&
             (isset($this->smarty->autoload_filters['post']) || isset($this->smarty->registered_filters['post']))
         ) {
-            return Smarty_Internal_Filter_Handler::runFilter('post', $code, $this->template);
+            return $this->smarty->ext->_filterHandler->runFilter('post', $code, $this->template);
         } else {
             return $code;
         }
@@ -440,7 +437,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if ($_content != '' &&
             ((isset($this->smarty->autoload_filters['pre']) || isset($this->smarty->registered_filters['pre'])))
         ) {
-            return Smarty_Internal_Filter_Handler::runFilter('pre', $_content, $this->template);
+            return $this->smarty->ext->_filterHandler->runFilter('pre', $_content, $this->template);
         } else {
             return $_content;
         }
@@ -747,7 +744,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if (strpos($variable, '(') == 0) {
             // not a variable variable
             $var = trim($variable, '\'');
-            $this->tag_nocache = $this->tag_nocache | $this->template->_getVariable($var, null, true, false)->nocache;
+            $this->tag_nocache = $this->tag_nocache | $this->template->ext->getTemplateVars->_getVariable($this->template, $var, null, true, false)->nocache;
             // todo $this->template->compiled->properties['variables'][$var] = $this->tag_nocache | $this->nocache;
         }
         return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';

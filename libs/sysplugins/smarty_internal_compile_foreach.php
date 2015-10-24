@@ -184,7 +184,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
             $output .= "{$local}{$k} = {$code}\n";
         }
         $output .= "{$itemVar} = new Smarty_Variable();\n";
-        $output .= "{$local}total = \$_smarty_tpl->_foreach->count(\$_from);\n";
+        $output .= "{$local}total = \$_smarty_tpl->smarty->ext->_foreach->count(\$_from);\n";
         if (isset($itemAttr['show'])) {
             $output .= "{$itemVar}->show = ({$local}total > 0);\n";
         }

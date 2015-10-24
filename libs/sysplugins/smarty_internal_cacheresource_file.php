@@ -96,8 +96,9 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
          * used in included file
          */
         $_smarty_tpl = $_template;
+        $_template->cached->valid = false;
         if ($update && strpos(phpversion(), 'hhvm') !== false) {
-            return Smarty_Internal_Extension_Hhvm::includeHhvm($_template, $_template->cached->filepath);
+            return $_template->smarty->ext->_hhvm->includeHhvm($_template, $_template->cached->filepath);
         } else {
             return @include $_template->cached->filepath;
         }
@@ -113,8 +114,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      */
     public function writeCachedContent(Smarty_Internal_Template $_template, $content)
     {
-        $obj = new Smarty_Internal_Write_File();
-        if ($obj->writeFile($_template->cached->filepath, $content, $_template->smarty) === true) {
+        if ($_template->smarty->ext->_writeFile->writeFile($_template->cached->filepath, $content, $_template->smarty) === true) {
             if (function_exists('opcache_invalidate')) {
                 opcache_invalidate($_template->cached->filepath);
             }

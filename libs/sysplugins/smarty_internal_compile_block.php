@@ -122,7 +122,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         $compiler->has_code = true;
         $compiler->suppressNocacheProcessing = true;
         $compiler->_cache['blockParams'][$compiler->_cache['blockNesting']][1] = true;
-        $output = "<?php \n\$_smarty_tpl->_inheritance->processBlock(\$_smarty_tpl, 2, {$compiler->_cache['blockName'][$compiler->_cache['blockNesting']]}, null, \$_blockParentStack);\n?>\n";
+        $output = "<?php \n\$_smarty_tpl->ext->_inheritance->processBlock(\$_smarty_tpl, 2, {$compiler->_cache['blockName'][$compiler->_cache['blockNesting']]}, null, \$_blockParentStack);\n?>\n";
         return $output;
     }
 
@@ -142,7 +142,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         }
         $compiler->suppressNocacheProcessing = true;
         $compiler->has_code = true;
-        $output = "<?php \n\$_smarty_tpl->_inheritance->processBlock(\$_smarty_tpl, 3, {$compiler->_cache['blockName'][$compiler->_cache['blockNesting']]}, null, \$_blockParentStack);\n?>\n";
+        $output = "<?php \n\$_smarty_tpl->ext->_inheritance->processBlock(\$_smarty_tpl, 3, {$compiler->_cache['blockName'][$compiler->_cache['blockNesting']]}, null, \$_blockParentStack);\n?>\n";
         return $output;
     }
 }
@@ -259,10 +259,10 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $compiler->parser->current_buffer = $_buffer;
         $output = "<?php \n";
         if ($compiler->_cache['blockNesting'] == 1) {
-            $output .= "\$_smarty_tpl->_inheritance->processBlock(\$_smarty_tpl, 0, {$compiler->_cache['blockName'][$compiler->_cache['blockNesting']]}, " .
+            $output .= "\$_smarty_tpl->ext->_inheritance->processBlock(\$_smarty_tpl, 0, {$compiler->_cache['blockName'][$compiler->_cache['blockNesting']]}, " .
                 var_export($_block, true) . ");\n";
         } else {
-            $output .= "\$_smarty_tpl->_inheritance->processBlock(\$_smarty_tpl, 0, {$compiler->_cache['blockName'][$compiler->_cache['blockNesting']]}, " .
+            $output .= "\$_smarty_tpl->ext->_inheritance->processBlock(\$_smarty_tpl, 0, {$compiler->_cache['blockName'][$compiler->_cache['blockNesting']]}, " .
                 var_export($_block, true) . ", \$_blockParentStack);\n";
 
         }

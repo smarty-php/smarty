@@ -2197,29 +2197,31 @@ class Smarty_Internal_Templateparser
     #line 905 "../smarty/lexer/smarty_internal_templateparser.y"
     function yy_r118()
     {
-        $this->_retvalue = '$_smarty_tpl->_getConfigVariable( \'' . $this->yystack[$this->yyidx + - 1]->minor . '\')';
+        $this->_retvalue = '$_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  \'' .
+            $this->yystack[$this->yyidx + - 1]->minor . '\')';
     }
 
     #line 909 "../smarty/lexer/smarty_internal_templateparser.y"
     function yy_r119()
     {
-        $this->_retvalue =
-            '(is_array($tmp = $_smarty_tpl->_getConfigVariable( \'' . $this->yystack[$this->yyidx + - 2]->minor .
-            '\')) ? $tmp' . $this->yystack[$this->yyidx + 0]->minor . ' :null)';
+        $this->_retvalue = '(is_array($tmp = $_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  \'' .
+            $this->yystack[$this->yyidx + - 2]->minor . '\')) ? $tmp' . $this->yystack[$this->yyidx + 0]->minor .
+            ' :null)';
     }
 
     #line 913 "../smarty/lexer/smarty_internal_templateparser.y"
     function yy_r120()
     {
-        $this->_retvalue = '$_smarty_tpl->_getConfigVariable( ' . $this->yystack[$this->yyidx + - 1]->minor . ')';
+        $this->_retvalue = '$_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  ' .
+            $this->yystack[$this->yyidx + - 1]->minor . ')';
     }
 
     #line 917 "../smarty/lexer/smarty_internal_templateparser.y"
     function yy_r121()
     {
-        $this->_retvalue =
-            '(is_array($tmp = $_smarty_tpl->_getConfigVariable( ' . $this->yystack[$this->yyidx + - 2]->minor .
-            ')) ? $tmp' . $this->yystack[$this->yyidx + 0]->minor . ' : null)';
+        $this->_retvalue = '(is_array($tmp = $_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  ' .
+            $this->yystack[$this->yyidx + - 2]->minor . ')) ? $tmp' . $this->yystack[$this->yyidx + 0]->minor .
+            ' : null)';
     }
 
     #line 921 "../smarty/lexer/smarty_internal_templateparser.y"
@@ -2449,8 +2451,8 @@ class Smarty_Internal_Templateparser
                         $this->compiler->trigger_template_error('Illegal number of paramer in "isset()"');
                     }
                     $par = implode(',', $this->yystack[$this->yyidx + - 1]->minor);
-                    if (strncasecmp($par, '$_smarty_tpl->_getConfigVariable',
-                                    strlen('$_smarty_tpl->_getConfigVariable')) === 0
+                    if (strncasecmp($par, '$_smarty_tpl->smarty->ext->_config->_getConfigVariable',
+                                    strlen('$_smarty_tpl->smarty->ext->_config->_getConfigVariable')) === 0
                     ) {
                         self::$prefix_number ++;
                         $this->compiler->prefix_code[] =

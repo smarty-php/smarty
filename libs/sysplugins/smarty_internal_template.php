@@ -202,7 +202,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                     !$no_output_filter && (isset($this->smarty->autoload_filters['output']) ||
                         isset($this->smarty->registered_filters['output']))
                 ) {
-                    echo Smarty_Internal_Filter_Handler::runFilter('output', ob_get_clean(), $this);
+                    echo $this->smarty->ext->_filterHandler->runFilter('output', ob_get_clean(), $this);
                 } else {
                     ob_end_flush();
                     flush();
@@ -247,7 +247,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 (!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
                 (isset($this->smarty->autoload_filters['output']) || isset($this->smarty->registered_filters['output']))
             ) {
-                return Smarty_Internal_Filter_Handler::runFilter('output', ob_get_clean(), $this);
+                return $this->smarty->ext->_filterHandler->runFilter('output', ob_get_clean(), $this);
             }
             // return cache content
             return null;
@@ -284,75 +284,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         return isset($this->templateId) ? $this->templateId : $this->templateId =
             $this->smarty->_getTemplateId($this->template_resource, $this->cache_id, $this->compile_id);
-    }
-
-    /**
-     * This function is executed automatically when a compiled or cached template file is included
-     * - Decode saved properties from compiled template and cache files
-     * - Check if compiled or cache file is valid
-     *
-     * @param  array $properties special template properties
-     * @param  bool  $cache      flag if called from cache file
-     *
-     * @return bool  flag if compiled or cache file is valid
-     */
-    public function decodeProperties($properties, $cache = false)
-    {
-        $is_valid = true;
-        if (Smarty::SMARTY_VERSION != $properties['version']) {
-            // new version must rebuild
-            $is_valid = false;
-        } elseif (!empty($properties['file_dependency']) &&
-            ((!$cache && $this->smarty->compile_check) || $this->smarty->compile_check == 1)
-        ) {
-            // check file dependencies at compiled code
-            foreach ($properties['file_dependency'] as $_file_to_check) {
-                if ($_file_to_check[2] == 'file' || $_file_to_check[2] == 'extends' || $_file_to_check[2] == 'php') {
-                    if ($this->source->filepath == $_file_to_check[0]) {
-                        // do not recheck current template
-                        continue;
-                        //$mtime = $this->source->getTimeStamp();
-                    } else {
-                        // file and php types can be checked without loading the respective resource handlers
-                        $mtime = is_file($_file_to_check[0]) ? filemtime($_file_to_check[0]) : false;
-                    }
-                } elseif ($_file_to_check[2] == 'string') {
-                    continue;
-                } else {
-                    $source = Smarty_Template_Source::load(null, $this->smarty, $_file_to_check[0]);
-                    $mtime = $source->getTimeStamp();
-                }
-                if (!$mtime || $mtime > $_file_to_check[1]) {
-                    $is_valid = false;
-                    break;
-                }
-            }
-        }
-        if ($cache) {
-            // CACHING_LIFETIME_SAVED cache expiry has to be validated here since otherwise we'd define the unifunc
-            if ($this->caching === Smarty::CACHING_LIFETIME_SAVED && $properties['cache_lifetime'] >= 0 &&
-                (time() > ($this->cached->timestamp + $properties['cache_lifetime']))
-            ) {
-                $is_valid = false;
-            }
-            $this->cached->cache_lifetime = $properties['cache_lifetime'];
-            $this->cached->valid = $is_valid;
-            $resource = $this->cached;
-        } else {
-            $this->mustCompile = !$is_valid;
-            $resource = $this->compiled;
-            $resource->includes = isset($properties['includes']) ? $properties['includes'] : array();
-        }
-        if ($is_valid) {
-            $resource->unifunc = $properties['unifunc'];
-            $resource->has_nocache_code = $properties['has_nocache_code'];
-            //            $this->compiled->nocache_hash = $properties['nocache_hash'];
-            $resource->file_dependency = $properties['file_dependency'];
-            if (isset($properties['tpl_function'])) {
-                $this->tpl_function = $properties['tpl_function'];
-            }
-        }
-        return $is_valid;
     }
 
     /**

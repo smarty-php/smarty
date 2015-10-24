@@ -514,7 +514,7 @@ class Smarty_Security
             }
             if ($this->smarty->use_include_path) {
                 $this->_include_dir = array();
-                $_dirs = Smarty_Internal_Get_Include_Path::getIncludePathDirs($this->smarty);
+                $_dirs = $this->smarty->ext->_getIncludePath->getIncludePathDirs($this->smarty);
                 foreach ($_dirs as $directory) {
                     $this->_include_dir[] = $directory;
                     $this->_resource_dir[$directory] = true;

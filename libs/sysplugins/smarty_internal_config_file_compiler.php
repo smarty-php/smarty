@@ -145,7 +145,7 @@ class Smarty_Internal_Config_File_Compiler
 
         $code = '<?php Smarty_Internal_Method_ConfigLoad::_loadConfigVars($_smarty_tpl, ' .
             var_export($this->config_data, true) . '); ?>';
-        return $template_header . Smarty_Internal_Extension_CodeFrame::create($this->template, $code);
+        return $template_header . $this->template->smarty->ext->_codeFrame->create($this->template, $code);
     }
 
     /**

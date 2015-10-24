@@ -150,7 +150,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     private function _execute($template, $cache_id, $compile_id, $parent, $function)
     {
-        /* @var Smarty $smarty */
+        /* @var Smarty $this ->smarty */
         $smarty = $this->_objType == 1 ? $this : $this->smarty;
         if ($template === null) {
             if ($this->_objType != 2) {
@@ -207,7 +207,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
 
     /**
      * Registers plugin to be used in templates
-     * NOTE: this method can be safely removed for dynamic loading
      *
      * @api  Smarty::registerPlugin()
      * @link http://www.smarty.net/docs/en/api.register.plugin.tpl
@@ -223,21 +222,11 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function registerPlugin($type, $name, $callback, $cacheable = true, $cache_attr = null)
     {
-        /* @var Smarty $smarty */
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        if (isset($smarty->registered_plugins[$type][$name])) {
-            throw new SmartyException("Plugin tag \"{$name}\" already registered");
-        } elseif (!is_callable($callback)) {
-            throw new SmartyException("Plugin \"{$name}\" not callable");
-        } else {
-            $smarty->registered_plugins[$type][$name] = array($callback, (bool) $cacheable, (array) $cache_attr);
-        }
-        return $this;
+        return $this->ext->registerPlugin->registerPlugin($this, $type, $name, $callback, $cacheable, $cache_attr);
     }
 
     /**
      * load a filter of specified type and name
-     * NOTE: this method can be safely removed for dynamic loading
      *
      * @api  Smarty::loadFilter()
      * @link http://www.smarty.net/docs/en/api.load.filter.tpl
@@ -250,32 +239,11 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function loadFilter($type, $name)
     {
-        /* @var Smarty $smarty */
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        if (!in_array($type, array('pre', 'post', 'output', 'variable'))) {
-            throw new SmartyException("Illegal filter type \"{$type}\"");
-        }
-        $_plugin = "smarty_{$type}filter_{$name}";
-        $_filter_name = $_plugin;
-        if (is_callable($_plugin)) {
-            $smarty->registered_filters[$type][$_filter_name] = $_plugin;
-            return true;
-        }
-        if ($smarty->loadPlugin($_plugin)) {
-            if (class_exists($_plugin, false)) {
-                $_plugin = array($_plugin, 'execute');
-            }
-            if (is_callable($_plugin)) {
-                $smarty->registered_filters[$type][$_filter_name] = $_plugin;
-                return true;
-            }
-        }
-        throw new SmartyException("{$type}filter \"{$name}\" not found or callable");
+        return $this->ext->loadFilter->loadFilter($this, $type, $name);
     }
 
     /**
      * Registers a filter function
-     * NOTE: this method can be safely removed for dynamic loading
      *
      * @api  Smarty::registerFilter()
      * @link http://www.smarty.net/docs/en/api.register.filter.tpl
@@ -289,42 +257,11 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function registerFilter($type, $callback, $name = null)
     {
-        /* @var Smarty $smarty */
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        if (!in_array($type, array('pre', 'post', 'output', 'variable'))) {
-            throw new SmartyException("Illegal filter type \"{$type}\"");
-        }
-        $name = isset($name) ? $name : $this->_getFilterName($callback);
-        if (!is_callable($callback)) {
-            throw new SmartyException("{$type}filter \"{$name}\" not callable");
-        }
-        $smarty->registered_filters[$type][$name] = $callback;
-        return $this;
-    }
-
-    /**
-     * Return internal filter name
-     *
-     * @param  callback $function_name
-     *
-     * @return string   internal filter name
-     */
-    public function _getFilterName($function_name)
-    {
-        if (is_array($function_name)) {
-            $_class_name = (is_object($function_name[0]) ? get_class($function_name[0]) : $function_name[0]);
-
-            return $_class_name . '_' . $function_name[1];
-        } elseif (is_string($function_name)) {
-            return $function_name;
-        } else {
-            return 'closure';
-        }
+        return $this->ext->registerFilter->registerFilter($this, $type, $callback, $name);
     }
 
     /**
      * Registers object to be used in templates
-     * NOTE: this method can be safely removed for dynamic loading
      *
      * @api  Smarty::registerObject()
      * @link http://www.smarty.net/docs/en/api.register.object.tpl
@@ -341,28 +278,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     public function registerObject($object_name, $object, $allowed_methods_properties = array(), $format = true,
                                    $block_methods = array())
     {
-        /* @var Smarty $smarty */
-        $smarty = isset($this->smarty) ? $this->smarty : $this;
-        // test if allowed methods callable
-        if (!empty($allowed_methods_properties)) {
-            foreach ((array) $allowed_methods_properties as $method) {
-                if (!is_callable(array($object, $method)) && !property_exists($object, $method)) {
-                    throw new SmartyException("Undefined method or property '$method' in registered object");
-                }
-            }
-        }
-        // test if block methods callable
-        if (!empty($block_methods)) {
-            foreach ((array) $block_methods as $method) {
-                if (!is_callable(array($object, $method))) {
-                    throw new SmartyException("Undefined method '$method' in registered object");
-                }
-            }
-        }
-        // register the object
-        $smarty->registered_objects[$object_name] =
-            array($object, (array) $allowed_methods_properties, (boolean) $format, (array) $block_methods);
-        return $this;
+        return $this->ext->registerObject->registerObject($this, $object_name, $object, $allowed_methods_properties,
+                                                          $format, $block_methods);
     }
 
     /**

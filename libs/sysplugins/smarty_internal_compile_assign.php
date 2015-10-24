@@ -61,7 +61,7 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
         }
         // compiled output
         if (isset($parameter['smarty_internal_index'])) {
-            $output = "<?php \$_smarty_tpl->_var->createLocalArrayVariable(\$_smarty_tpl, $_attr[var], $_nocache, $_scope);\n\$_smarty_tpl->tpl_vars[$_attr[var]]->value$parameter[smarty_internal_index] = $_attr[value];";
+            $output = "<?php \$_smarty_tpl->smarty->ext->_var->createLocalArrayVariable(\$_smarty_tpl, $_attr[var], $_nocache, $_scope);\n\$_smarty_tpl->tpl_vars[$_attr[var]]->value$parameter[smarty_internal_index] = $_attr[value];";
         } else {
             // implement Smarty2's behaviour of variables assigned by reference
             if ($compiler->template->smarty instanceof SmartyBC) {

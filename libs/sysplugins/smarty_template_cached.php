@@ -344,7 +344,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
             (isset($_template->smarty->autoload_filters['output']) ||
                 isset($_template->smarty->registered_filters['output']))
         ) {
-            $content = Smarty_Internal_Filter_Handler::runFilter('output', $content, $_template);
+            $content = $_template->smarty->ext->_filterHandler->runFilter('output', $content, $_template);
         }
         // write cache file content
         $this->writeCachedContent($_template, $content);
@@ -366,7 +366,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
             // don't write cache file
             return false;
         }
-        $content = Smarty_Internal_Extension_CodeFrame::create($_template, $content, '', true);
+        $content = $_template->smarty->ext->_codeFrame->create($_template, $content, '', true);
         if (!empty($_template->cached->tpl_function)) {
             foreach ($_template->cached->tpl_function as $funcParam) {
                 if (is_file($funcParam['compiled_filepath'])) {

@@ -91,6 +91,7 @@ if (!class_exists('Smarty_Autoloader', false)) {
 if (!class_exists('Smarty_Internal_Data', false)) {
     require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
 }
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_extension_handler.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
@@ -119,7 +120,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/68';
+    const SMARTY_VERSION = '3.1.28-dev/70';
 
     /**
      * define variable scopes
@@ -689,6 +690,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function __construct()
     {
+        parent::__construct();
         if (is_callable('mb_internal_encoding')) {
             mb_internal_encoding(Smarty::$_CHARSET);
         }
@@ -1105,7 +1107,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function loadPlugin($plugin_name, $check = true)
     {
-        return Smarty_Internal_Extension_LoadPlugin::loadPlugin($this, $plugin_name, $check);
+        return $this->ext->loadPlugin->loadPlugin($this, $plugin_name, $check);
     }
 
     /**

@@ -45,7 +45,7 @@ class Smarty_Internal_Method_Append
         } else {
             if ($tpl_var != '' && isset($value)) {
                 if (!isset($data->tpl_vars[$tpl_var])) {
-                    $tpl_var_inst = $data->_getVariable($tpl_var, null, true, false);
+                    $tpl_var_inst = $data->ext->getTemplateVars->_getVariable($data, $tpl_var, null, true, false);
                     if ($tpl_var_inst instanceof Smarty_Undefined_Variable) {
                         $data->tpl_vars[$tpl_var] = new Smarty_Variable(null, $nocache);
                     } else {
@@ -66,7 +66,6 @@ class Smarty_Internal_Method_Append
                 }
             }
         }
-
         return $data;
     }
 }

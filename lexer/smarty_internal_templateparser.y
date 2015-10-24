@@ -903,19 +903,19 @@ variable(res)    ::= object(o). {
 
                   // config variable
 variable(res)    ::= HATCH ID(i) HATCH. {
-    res = '$_smarty_tpl->_getConfigVariable( \''. i .'\')';
+    res = '$_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  \''. i .'\')';
 }
 
 variable(res)    ::= HATCH ID(i) HATCH arrayindex(a). {
-    res = '(is_array($tmp = $_smarty_tpl->_getConfigVariable( \''. i .'\')) ? $tmp'.a.' :null)';
+    res = '(is_array($tmp = $_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  \''. i .'\')) ? $tmp'.a.' :null)';
 }
 
 variable(res)    ::= HATCH variable(v) HATCH. {
-    res = '$_smarty_tpl->_getConfigVariable( '. v .')';
+    res = '$_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  '. v .')';
 }
 
 variable(res)    ::= HATCH variable(v) HATCH arrayindex(a). {
-    res = '(is_array($tmp = $_smarty_tpl->_getConfigVariable( '. v .')) ? $tmp'.a.' : null)';
+    res = '(is_array($tmp = $_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  '. v .')) ? $tmp'.a.' : null)';
 }
 
 varindexed(res)  ::= DOLLARID(i) arrayindex(a). {
@@ -1106,7 +1106,7 @@ function(res)     ::= ns1(f) OPENP params(p) CLOSEP. {
                     $this->compiler->trigger_template_error ('Illegal number of paramer in "isset()"');
                 }
                 $par = implode(',',p);
-                if (strncasecmp($par,'$_smarty_tpl->_getConfigVariable',strlen('$_smarty_tpl->_getConfigVariable')) === 0) {
+                if (strncasecmp($par,'$_smarty_tpl->smarty->ext->_config->_getConfigVariable',strlen('$_smarty_tpl->smarty->ext->_config->_getConfigVariable')) === 0) {
                     self::$prefix_number++;
                     $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.'='.str_replace(')',', false)',$par).';?>';
                     $isset_par = '$_tmp'.self::$prefix_number;
