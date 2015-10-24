@@ -5,6 +5,7 @@
  */
 
 include_once __DIR__ . '/Config.php';
+
 /**
  * Smarty Test Case Fixture
  */
@@ -71,10 +72,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $backupStaticAttributesBlacklist = array(
-        'PHPUnit_Smarty' => array('config', 'pdo', 'init'),
-    );
-
+    protected $backupStaticAttributesBlacklist = array('PHPUnit_Smarty' => array('config', 'pdo', 'init'),);
 
     /**
      * This method is called before the first test of this test class is run.
@@ -84,7 +82,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
     {
         error_reporting(E_ALL | E_STRICT);
         self::$init = true;
-     }
+    }
 
     /**
      * This method is called after the last test of this test class is run.
@@ -322,7 +320,7 @@ KEY `expire` (`expire`)
             case 'file':
             case 'filetest':
             case 'php':
-                 return $this->normalizePath($dir . $name);
+                return $this->normalizePath($dir . $name);
             case 'mysqltest':
             case 'mysql':
                 return sha1($type . ':' . $name);
@@ -371,17 +369,20 @@ KEY `expire` (`expire`)
      *  - remove /./ and /../
      *  - make it absolute
      *
-     * @param string     $path file path
+     * @param string $path file path
      *
      * @return string
      */
-    public function normalizePath($path) {
+    public function normalizePath($path)
+    {
         if ($path[0] == '.') {
             $path = getcwd() . DS . $path;
         }
         $path = preg_replace('#[\\\/]+([.][\\\/]+)*#', DS, $path);
         while (strrpos($path, '.' . DS) !== false) {
-            $path = preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DS, $path);
+            $path =
+                preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DS,
+                             $path);
         }
         return $path;
     }
@@ -430,7 +431,8 @@ KEY `expire` (`expire`)
      * @return string
      * @throws \Exception
      */
-    public function buildCompiledPath(Smarty_Internal_Template $tpl, $sub = true, $caching = false, $compile_id = null, $name = null, $type = null, $dir = null)
+    public function buildCompiledPath(Smarty_Internal_Template $tpl, $sub = true, $caching = false, $compile_id = null,
+                                      $name = null, $type = null, $dir = null)
     {
         $sep = DS;
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
@@ -438,18 +440,17 @@ KEY `expire` (`expire`)
         $uid = $this->buildUid($tpl, $sp, $name, $type);
         $_flag = '';
         if (isset($tpl->source) && $tpl->source->isConfig) {
-            $_flag = '_' . ((int) $tpl->smarty->config_read_hidden + (int) $tpl->smarty->config_booleanize * 2
-                    + (int) $tpl->smarty->config_overwrite * 4);
+            $_flag = '_' . ((int) $tpl->smarty->config_read_hidden + (int) $tpl->smarty->config_booleanize * 2 +
+                    (int) $tpl->smarty->config_overwrite * 4);
         } else {
             $_flag = '_' . ((int) $tpl->smarty->merge_compiled_includes + (int) $tpl->smarty->escape_html * 2);
         }
         $_filepath = $uid . $_flag;
         // if use_sub_dirs, break file into directories
         if ($sub) {
-            $_filepath = substr($_filepath, 0, 2) . $sep
-                . substr($_filepath, 2, 2) . $sep
-                . substr($_filepath, 4, 2) . $sep
-                . $_filepath;
+            $_filepath =
+                substr($_filepath, 0, 2) . $sep . substr($_filepath, 2, 2) . $sep . substr($_filepath, 4, 2) . $sep .
+                $_filepath;
         }
         $_compile_dir_sep = $sub ? $sep : '^';
         if (isset($_compile_id)) {
@@ -490,7 +491,8 @@ KEY `expire` (`expire`)
      * @return string
      * @throws \Exception
      */
-    public function buildCachedPath($tpl, $sub = true, $cache_id = null, $compile_id = null, $name = null, $type = null, $dir = null, $cacheType = null)
+    public function buildCachedPath($tpl, $sub = true, $cache_id = null, $compile_id = null, $name = null, $type = null,
+                                    $dir = null, $cacheType = null)
     {
         $cacheType = isset($cacheType) ? $cacheType : $tpl->smarty->caching_type;
         switch ($cacheType) {
@@ -504,10 +506,9 @@ KEY `expire` (`expire`)
                 $_filepath = $uid;
                 // if use_sub_dirs, break file into directories
                 if ($sub) {
-                    $_filepath = substr($_filepath, 0, 2) . $sep
-                        . substr($_filepath, 2, 2) . $sep
-                        . substr($_filepath, 4, 2) . $sep
-                        . $_filepath;
+                    $_filepath =
+                        substr($_filepath, 0, 2) . $sep . substr($_filepath, 2, 2) . $sep . substr($_filepath, 4, 2) .
+                        $sep . $_filepath;
                 }
                 $_compile_dir_sep = $sub ? $sep : '^';
                 if (isset($_cache_id)) {
@@ -535,7 +536,6 @@ KEY `expire` (`expire`)
                 throw new Exception("Unhandled cache resource type '{$cacheType}'");
         }
     }
-
 
     /**
      * Tears down the fixture

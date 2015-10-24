@@ -30,7 +30,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
 
     public function compiledPrefilter($text, Smarty_Internal_Template $tpl)
     {
-        return str_replace('#', $tpl->_getVariable('test'), $text);
+        return str_replace('#', $tpl->getTemplateVars('test'), $text);
     }
 
     /**

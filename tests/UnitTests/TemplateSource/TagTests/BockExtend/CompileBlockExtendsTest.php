@@ -23,7 +23,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     public function compiledPrefilter($text, Smarty_Internal_Template $tpl)
     {
-        return str_replace('#', $tpl->_getVariable('test'), $text);
+        return str_replace('#', $tpl->getTemplateVars('test'), $text);
     }
 
     public function testInit()
@@ -633,6 +633,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  child/parent template chain
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider data

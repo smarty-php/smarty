@@ -52,7 +52,7 @@ class FilterTest extends PHPUnit_Smarty
     public function testLoadedOutputFilter()
     {
         $this->smarty->loadFilter(Smarty::FILTER_OUTPUT, 'trimwhitespace');
-        $tpl = $this->smarty->createTemplate('eval:{"    <br>hello world"}');
+        $tpl = $this->smarty->createTemplate('string:{"    <br>hello world"}');
         $this->assertEquals("<br>hello world", $this->smarty->fetch($tpl));
     }
 
