@@ -217,15 +217,6 @@ abstract class Smarty_Resource
     }
 
     /**
-     * modify resource_name according to resource handlers specifications
-     *
-     * @param  Smarty $smarty        Smarty instance
-     * @param  string $resource_name resource_name to make unique
-     *
-     * @return string unique resource name
-     */
-
-    /**
      * modify template_resource according to resource handlers specifications
      *
      * @param  \Smarty_Internal_Template|\Smarty $obj               Smarty instance
