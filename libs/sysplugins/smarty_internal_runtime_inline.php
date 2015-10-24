@@ -8,7 +8,7 @@
  * @author     Uwe Tews
  *
  **/
-class Smarty_Internal_Runtime_Inline extends Smarty_Internal_Runtime_SubTemplate
+class Smarty_Internal_Runtime_Inline
 {
 
     /**
@@ -31,8 +31,8 @@ class Smarty_Internal_Runtime_Inline extends Smarty_Internal_Runtime_SubTemplate
     public function render(\Smarty_Internal_Template $parent, $template, $cache_id, $compile_id, $caching,
                            $cache_lifetime, $data, $scope, $forceTplCache, $uid, $content_func)
     {
-        $tpl = $this->setupSubTemplate($parent, $template, $cache_id, $compile_id, $caching, $cache_lifetime, $data,
-                                       $scope, $uid);
+        $tpl = $parent->smarty->ext->_subTemplate->setupSubTemplate($parent, $template, $cache_id, $compile_id, $caching, $cache_lifetime, $data,
+                                       $scope, $forceTplCache, $uid);
         if ($parent->smarty->debugging) {
             $parent->smarty->_debug->start_template($tpl);
             $parent->smarty->_debug->start_render($tpl);
@@ -45,7 +45,6 @@ class Smarty_Internal_Runtime_Inline extends Smarty_Internal_Runtime_SubTemplate
         if ($tpl->caching == 9999 && $tpl->compiled->has_nocache_code) {
             $parent->cached->hashes[$tpl->compiled->nocache_hash] = true;
         }
-        $this->updateTemplateCache($tpl, $forceTplCache);
     }
 
     /**
@@ -56,22 +55,31 @@ class Smarty_Internal_Runtime_Inline extends Smarty_Internal_Runtime_SubTemplate
      *
      * @throws \SmartyException
      */
-    public function setSourceByUid(Smarty_Internal_Template $tpl, $uid)
+    public function setSource(Smarty_Internal_Template $tpl, $uid = null)
     {
-        // inline templates have same compiled resource
-        $tpl->compiled = $tpl->parent->compiled;
-        if (isset($tpl->compiled->file_dependency[$uid])) {
-            list($filepath, $timestamp, $resource) = $tpl->compiled->file_dependency[$uid];
-            $tpl->source = new Smarty_Template_Source(isset($tpl->smarty->_cache['resource_handlers'][$resource]) ?
-                                                          $tpl->smarty->_cache['resource_handlers'][$resource] :
-                                                          Smarty_Resource::load($tpl->smarty, $resource), $tpl->smarty,
-                                                      $filepath, $resource, $filepath);
-            $tpl->source->filepath = $filepath;
-            $tpl->source->timestamp = $timestamp;
-            $tpl->source->exists = true;
-            $tpl->source->uid = $uid;
+        // $uid is set if template is inline
+        if (isset($uid)) {
+            // inline templates have same compiled resource
+            $tpl->compiled = $tpl->parent->compiled;
+            if (isset($tpl->compiled->file_dependency[$uid])) {
+                list($filepath, $timestamp, $resource) = $tpl->compiled->file_dependency[$uid];
+                $tpl->source = new Smarty_Template_Source(isset($tpl->smarty->_cache['resource_handlers'][$resource]) ?
+                                                              $tpl->smarty->_cache['resource_handlers'][$resource] :
+                                                              Smarty_Resource::load($tpl->smarty, $resource),
+                                                          $tpl->smarty, $filepath, $resource, $filepath);
+                $tpl->source->filepath = $filepath;
+                $tpl->source->timestamp = $timestamp;
+                $tpl->source->exists = true;
+                $tpl->source->uid = $uid;
+            } else {
+                $tpl->source = null;
+            }
         } else {
             $tpl->source = null;
+            unset($tpl->compiled);
+        }
+        if (!isset($tpl->source)) {
+            $tpl->source = Smarty_Template_Source::load($tpl);
         }
     }
 }

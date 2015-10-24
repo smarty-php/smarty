@@ -152,24 +152,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 $_template->smarty->compile_check = $compileCheck;
             }
         }
-        if (isset($_template->parent) && isset($_template->parent->compiled) &&
-            !empty($_template->parent->compiled->includes) &&
-            $_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC &&
-            !$_template->source->handler->recompiled && $_template->source->type != 'string' &&
-            (!isset($_template->smarty->_cache['template_objects']) ||
-                !isset($_template->smarty->_cache['template_objects'][$_template->_getTemplateId()]))
-        ) {
-            foreach ($_template->parent->compiled->includes as $key => $count) {
-                $_template->compiled->includes[$key] =
-                    isset($_template->compiled->includes[$key]) ? $_template->compiled->includes[$key] + $count :
-                        $count;
-            }
-            $key = $_template->source->type . ':' . $_template->source->name;
-            if (isset($_template->compiled->includes[$key]) && $_template->compiled->includes[$key] > 1) {
-                $_template->smarty->_cache['template_objects'][isset($_template->templateId) ? $_template->templateId :
-                    $_template->_getTemplateId()] = $_template;
-            }
-        }
+        $_template->smarty->ext->_subTemplate->registerSubTemplates($_template);
+
         $this->processed = true;
     }
 

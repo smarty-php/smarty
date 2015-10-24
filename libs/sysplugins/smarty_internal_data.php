@@ -175,6 +175,27 @@ class Smarty_Internal_Data
     }
 
     /**
+     * Follow the parent chain an merge template and config variables
+     *
+     * @param \Smarty_Internal_Data|null $data
+     */
+    public function _mergeVars(Smarty_Internal_Data $data = null) {
+        if (isset($data)) {
+            if (!empty($this->tpl_vars)) {
+                $data->tpl_vars = array_merge($this->tpl_vars, $data->tpl_vars);
+            }
+            if (!empty($this->config_vars)) {
+                $data->config_vars = array_merge($this->config_vars, $data->config_vars);
+            }
+        } else {
+            $data = $this;
+        }
+        if (isset($this->parent))  {
+            $this->parent->_mergeVars($data);
+        }
+    }
+
+    /**
      * Handle unknown class methods
      *
      * @param string $name unknown method-name

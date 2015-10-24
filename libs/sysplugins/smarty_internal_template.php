@@ -123,7 +123,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @throws SmartyException
      * @return string rendered template output
      */
-    public function render($merge_tpl_vars = false, $no_output_filter = true, $display = null)
+    public function render($no_output_filter = true, $display = null)
     {
         $parentIsTpl = isset($this->parent) && $this->parent->_objType == 2;
         if ($this->smarty->debugging) {
@@ -137,36 +137,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $parent_resource = '';
             }
             throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
-        }
-        $save_tpl_vars = null;
-        $save_config_vars = null;
-        // merge all variable scopes into template
-        if ($merge_tpl_vars) {
-            // save local variables
-            $save_tpl_vars = $this->tpl_vars;
-            $save_config_vars = $this->config_vars;
-            $ptr_array = array($this);
-            $ptr = $this;
-            while (isset($ptr->parent)) {
-                $ptr_array[] = $ptr = $ptr->parent;
-            }
-            $ptr_array = array_reverse($ptr_array);
-            $parent_ptr = reset($ptr_array);
-            $tpl_vars = $parent_ptr->tpl_vars;
-            $config_vars = $parent_ptr->config_vars;
-            while ($parent_ptr = next($ptr_array)) {
-                if (!empty($parent_ptr->tpl_vars)) {
-                    $tpl_vars = array_merge($tpl_vars, $parent_ptr->tpl_vars);
-                }
-                if (!empty($parent_ptr->config_vars)) {
-                    $config_vars = array_merge($config_vars, $parent_ptr->config_vars);
-                }
-            }
-            if (!empty(Smarty::$global_tpl_vars)) {
-                $tpl_vars = array_merge(Smarty::$global_tpl_vars, $tpl_vars);
-            }
-            $this->tpl_vars = $tpl_vars;
-            $this->config_vars = $config_vars;
         }
         // check URL debugging control
         if (!$this->smarty->debugging && $this->smarty->debugging_ctrl == 'URL') {
@@ -213,18 +183,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 // debug output
                 $this->smarty->_debug->display_debug($this, true);
             }
-            if ($merge_tpl_vars) {
-                // restore local variables
-                $this->tpl_vars = $save_tpl_vars;
-                $this->config_vars = $save_config_vars;
-            }
             return '';
         } else {
-            if ($merge_tpl_vars) {
-                // restore local variables
-                $this->tpl_vars = $save_tpl_vars;
-                $this->config_vars = $save_config_vars;
-            }
             if ($this->smarty->debugging) {
                 $this->smarty->_debug->end_template($this);
                 if ($this->smarty->debugging == 2 and $display === false) {

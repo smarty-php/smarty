@@ -88,17 +88,20 @@ if (!class_exists('Smarty_Autoloader', false)) {
  * Load always needed external class files
  */
 
-if (!class_exists('Smarty_Internal_Data', false)) {
-    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
+
+if (false) {
+    if (!class_exists('Smarty_Internal_Data', false)) {
+        require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
+    }
+    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_extension_handler.php';
+    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
+    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
+    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
+    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
+    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_variable.php';
+    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
+    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
 }
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_extension_handler.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_variable.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
 
 /**
  * This is the main Smarty class
@@ -120,7 +123,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/71';
+    const SMARTY_VERSION = '3.1.28-dev/72';
 
     /**
      * define variable scopes
@@ -1119,15 +1122,16 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @return string
      */
-    public function _getTemplateId($template_name, $cache_id = null, $compile_id = null)
+    public function _getTemplateId($template_name, $cache_id = null, $compile_id = null, $caching = null)
     {
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
+        $caching = (int) ($caching === null ? $this->caching : $caching);
 
         if ($this->allow_ambiguous_resources) {
-            $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template_name) . "#{$cache_id}#{$compile_id}";
+            $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template_name) . "#{$cache_id}#{$compile_id}#{$caching}";
         } else {
-            $_templateId = $this->_joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}";
+            $_templateId = $this->_joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}#{$caching}";
         }
         if (isset($_templateId[150])) {
             $_templateId = sha1($_templateId);

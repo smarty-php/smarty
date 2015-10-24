@@ -11,6 +11,8 @@
 class Smarty_Internal_Runtime_SubTemplate
 {
 
+    public $tplObjects = array();
+    public $subTplInfo = array();
     /**
      * Runtime function to render subtemplate
      *
@@ -27,11 +29,8 @@ class Smarty_Internal_Runtime_SubTemplate
      */
     public function render(Smarty_Internal_Template $parent, $template, $cache_id, $compile_id, $caching,
                            $cache_lifetime, $data, $scope, $forceTplCache)
-    {
-        $tpl = $this->setupSubTemplate($parent, $template, $cache_id, $compile_id, $caching, $cache_lifetime, $data,
-                                       $scope);
-        $tpl->render();
-        $this->updateTemplateCache($tpl, $forceTplCache);
+    {$this->setupSubTemplate($parent, $template, $cache_id, $compile_id, $caching, $cache_lifetime, $data,
+                                                           $scope, $forceTplCache)->render();
     }
 
     /**
@@ -45,38 +44,38 @@ class Smarty_Internal_Runtime_SubTemplate
      * @param integer                   $cache_lifetime life time of cache data
      * @param array                     $data           passed parameter template variables
      * @param int                       $scope          scope in which {include} should execute
+     * @param                           $forceTplCache
      * @param string|null               $uid            source uid
      *
      * @return \Smarty_Internal_Template template object
-     * @throws \SmartyException
      */
     public function setupSubTemplate(Smarty_Internal_Template $parent, $template, $cache_id, $compile_id, $caching,
-                                     $cache_lifetime, $data, $scope, $uid = null)
+                                     $cache_lifetime, $data, $scope, $forceTplCache, $uid = null)
     {
         // if there are cached template objects calculate $templateID
-        $_templateId = isset($parent->smarty->_cache['template_objects']) ?
-            $parent->smarty->_getTemplateId($template, $cache_id, $compile_id) : null;
+        $_templateId = !empty($this->tplObjects) ?
+            $parent->smarty->_getTemplateId($template, $cache_id, $compile_id, $caching) : null;
         // already in template cache?
         /* @var Smarty_Internal_Template $tpl */
-        if (isset($parent->smarty->_cache['template_objects'][$_templateId])) {
+        if (isset($this->tplObjects[$_templateId])) {
             // clone cached template object because of possible recursive call
-            $tpl = clone $parent->smarty->_cache['template_objects'][$_templateId];
+            $tpl = clone $this->tplObjects[$_templateId];
             $tpl->parent = $parent;
             // if $caching mode changed the compiled resource is invalid
             if ((bool) $tpl->caching !== (bool) $caching) {
                 unset($tpl->compiled);
             }
             // get variables from calling scope
-            if ($scope == Smarty::SCOPE_LOCAL) {
+            if ($scope == Smarty::SCOPE_LOCAL && $tpl->scope == Smarty::SCOPE_LOCAL) {
                 $tpl->tpl_vars = $parent->tpl_vars;
                 $tpl->config_vars = $parent->config_vars;
             }
             $tpl->tpl_function = $parent->tpl_function;
             // copy inheritance object?
-            if (isset($parent->_inheritance)) {
-                $tpl->_inheritance = $parent->_inheritance;
+            if (isset($parent->ext->_inheritance)) {
+                $tpl->ext->_inheritance = $parent->ext->_inheritance;
             } else {
-                unset($tpl->_inheritance);
+                unset($tpl->ext->_inheritance);
             }
         } else {
             $tpl = clone $parent;
@@ -86,15 +85,10 @@ class Smarty_Internal_Runtime_SubTemplate
                 $tpl->template_resource = $template;
                 $tpl->cache_id = $cache_id;
                 $tpl->compile_id = $compile_id;
-                // $uid is set if template is inline
                 if (isset($uid)) {
-                    $this->setSourceByUid($tpl, $uid);
+                    $tpl->ext->_inline->setSource($tpl, $uid);
                 } else {
-                    $tpl->source = null;
-                    unset($tpl->compiled);
-                }
-                if (!isset($tpl->source)) {
-                    $tpl->source = Smarty_Template_Source::load($tpl);
+                  $this->setSource($tpl, $uid);
                 }
                 unset($tpl->cached);
             }
@@ -107,6 +101,7 @@ class Smarty_Internal_Runtime_SubTemplate
         // get variables from calling scope
         if ($scope != $tpl->scope) {
             if ($tpl->scope != Smarty::SCOPE_LOCAL) {
+                //We must get rid of pointers
                 unset($tpl->tpl_vars, $tpl->config_vars);
                 $tpl->tpl_vars = array();
                 $tpl->config_vars = array();
@@ -131,6 +126,21 @@ class Smarty_Internal_Runtime_SubTemplate
             $tpl->scope = $scope;
         }
 
+        if (!isset($this->tplObjects[$tpl->_getTemplateId()]) &&
+            !$tpl->source->handler->recompiled
+        ) {
+            // if template is called multiple times set flag to to cache template objects
+            $forceTplCache = $forceTplCache ||
+                (isset($this->subTplInfo[$tpl->template_resource]) && $this->subTplInfo[$tpl->template_resource] > 1);
+            // check if template object should be cached
+            if ($tpl->parent->_objType == 2 && isset($this->tplObjects[$tpl->parent->templateId]) ||
+                ($forceTplCache && $tpl->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC) ||
+                ($tpl->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
+            ) {
+                $this->tplObjects[$tpl->_getTemplateId()] = $tpl;
+            }
+        }
+
         if (!empty($data)) {
             // set up variable values
             foreach ($data as $_key => $_val) {
@@ -140,30 +150,37 @@ class Smarty_Internal_Runtime_SubTemplate
         return $tpl;
     }
 
-    public function updateTemplateCache(Smarty_Internal_Template $tpl, $forceTplCache)
+    /**
+     * Set source object of inline template by $uid
+     *
+     * @param \Smarty_Internal_Template $tpl
+     * @param  string                   $uid
+     *
+     * @throws \SmartyException
+     */
+    public function setSource(Smarty_Internal_Template $tpl, $uid = null)
     {
-        if (isset($tpl->smarty->_cache['template_objects'][$tpl->_getTemplateId()]) ||
-            $tpl->source->handler->recompiled
-        ) {
-            return;
-        }
-        // if template is called multiple times set flag to to cache template objects
-        $forceTplCache = $forceTplCache || (isset($tpl->compiled->includes[$tpl->template_resource]) &&
-                $tpl->compiled->includes[$tpl->template_resource] > 1);
-        // check if template object should be cached
-        if ((isset($tpl->parent->templateId) &&
-            isset($tpl->smarty->_cache['template_objects'][$tpl->parent->templateId]) ||
-            ($forceTplCache && $tpl->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_AUTOMATIC) ||
-            $tpl->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
-        ) {
-            $tpl->parent = null;
-            if ($tpl->scope != Smarty::SCOPE_LOCAL) {
-                unset($tpl->tpl_vars, $tpl->config_vars);
-                $tpl->scope = Smarty::SCOPE_LOCAL;
-            }
-            $tpl->tpl_vars = array();
-            $tpl->config_vars = array();
-            $tpl->smarty->_cache['template_objects'][$tpl->_getTemplateId()] = $tpl;
+        //load source
+        $tpl->source = null;
+        unset($tpl->compiled);
+        if (!isset($tpl->source)) {
+            $tpl->source = Smarty_Template_Source::load($tpl);
         }
     }
+
+    /**
+     * Get called subtemplates and its call count from compiled template
+     *
+     * @param \Smarty_Internal_Template $tpl
+     */
+    public function registerSubTemplates(Smarty_Internal_Template $tpl) {
+    foreach ($tpl->compiled->includes as $name => $count) {
+        if (isset($this->subTplInfo[$name])) {
+            $this->subTplInfo[$name] += $count;
+        } else {
+            $this->subTplInfo[$name] = $count;
+        }
+    }
+
+}
 }

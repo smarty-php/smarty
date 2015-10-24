@@ -88,18 +88,14 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @param  mixed  $cache_id         cache id to be used with this template
      * @param  mixed  $compile_id       compile id to be used with this template
      * @param  object $parent           next higher level of Smarty variables
-     * @param  bool   $display          not used - left for BC
-     * @param  bool   $merge_tpl_vars   not used - left for BC
-     * @param  bool   $no_output_filter not used - left for BC
      *
      * @throws Exception
      * @throws SmartyException
      * @return string rendered template output
      */
-    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false,
-                          $merge_tpl_vars = true, $no_output_filter = false)
+    public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
-        $result = $this->_execute($template, $cache_id, $compile_id, $parent, 'fetch');
+        $result = $this->_execute($template, $cache_id, $compile_id, $parent, 0);
         return $result === null ? ob_get_clean() : $result;
     }
 
@@ -114,7 +110,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     public function display($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
         // display template
-        $this->_execute($template, $cache_id, $compile_id, $parent, 'display');
+        $this->_execute($template, $cache_id, $compile_id, $parent, 1);
     }
 
     /**
@@ -132,7 +128,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
-        return $this->_execute($template, $cache_id, $compile_id, $parent, 'isCached');
+        return $this->_execute($template, $cache_id, $compile_id, $parent, 2);
     }
 
     /**
@@ -142,7 +138,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @param  mixed  $cache_id   cache id to be used with this template
      * @param  mixed  $compile_id compile id to be used with this template
      * @param  object $parent     next higher level of Smarty variables
-     * @param  string $function   function name
+     * @param  string $function  function type 0 = fetch,  1 = display, 2 = isCache
      *
      * @return mixed
      * @throws \Exception
@@ -177,7 +173,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             $_smarty_old_error_level =
                 ($this->_objType == 1 && isset($smarty->error_reporting)) ? error_reporting($smarty->error_reporting) :
                     null;
-            if ($function == 'isCached') {
+            if ($function == 2) {
                 if ($template->caching) {
                     // return cache status of template
                     if (!isset($template->cached)) {
@@ -190,7 +186,16 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 }
             } else {
                 ob_start();
-                $result = $template->render(true, false, $function == 'display');
+                $save_tpl_vars = $template->tpl_vars;
+                $save_config_vars = $template->config_vars;
+                $template->_mergeVars();
+                if (!empty(Smarty::$global_tpl_vars)) {
+                    $template->tpl_vars = array_merge(Smarty::$global_tpl_vars, $template->tpl_vars);
+                }
+                $result = $template->render(false, $function);
+                // restore local variables
+                $template->tpl_vars = $save_tpl_vars;
+                $template->config_vars = $save_config_vars;
             }
             if (isset($_smarty_old_error_level)) {
                 error_reporting($_smarty_old_error_level);
