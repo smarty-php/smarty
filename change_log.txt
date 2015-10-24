@@ -2,6 +2,7 @@
  24.10.2015
   - new extension handler to load functions when called
   - improve recovery from ivalid compiled template code
+  - improve autoloader speed
   
  21.10.2015
   - move some code into runtime extensions

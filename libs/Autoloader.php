@@ -73,8 +73,8 @@ class Smarty_Autoloader
     public static function register($prepend = false)
     {
         self::$SMARTY_DIR = defined('SMARTY_DIR') ? SMARTY_DIR : dirname(__FILE__) . DIRECTORY_SEPARATOR;
-        self::$SMARTY_SYSPLUGINS_DIR = defined('SMARTY_SYSPLUGINS_DIR') ? SMARTY_SYSPLUGINS_DIR : self::$SMARTY_DIR .
-            'sysplugins' . DIRECTORY_SEPARATOR;
+        self::$SMARTY_SYSPLUGINS_DIR = defined('SMARTY_SYSPLUGINS_DIR') ? SMARTY_SYSPLUGINS_DIR :
+            self::$SMARTY_DIR . 'sysplugins' . DIRECTORY_SEPARATOR;
         if (version_compare(phpversion(), '5.3.0', '>=')) {
             spl_autoload_register(array(__CLASS__, 'autoload'), true, $prepend);
         } else {
@@ -90,22 +90,23 @@ class Smarty_Autoloader
     public static function autoload($class)
     {
         $_class = strtolower($class);
-        if (preg_match('/^(smarty_((internal_(compile_)?)|((template_(source|config|cache|compiled|resource_base))|((cached|compiled)?resource)|(variable|security)))|(smarty(bc)?)$)/', $_class, $match)) {
-            $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
-            if (!empty($match[3])) {
-                if (!empty($match[4])) {
-                    if (is_file($file)) {
-                        require $file;
-                    }
-                    return;
-                } else {
-                    @include $file;
-                    return;
+        $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
+        if (strpos($_class, 'smarty_internal_') === 0) {
+            if (strpos($_class, 'smarty_internal_compile_') === 0) {
+                if (is_file($file)) {
+                    require $file;
                 }
-            } elseif (!empty($match[5])) {
+                return;
+            }
+            @include $file;
+            return;
+        }
+        if (preg_match('/^(smarty_(((template_(source|config|cache|compiled|resource_base))|((cached|compiled)?resource)|(variable|security)))|(smarty(bc)?)$)/',
+                       $_class, $match)) {
+            if (!empty($match[3])) {
                 @include $file;
                 return;
-            } elseif (!empty($match[11]) && isset(self::$rootClasses[$_class])) {
+            } elseif (!empty($match[9]) && isset(self::$rootClasses[$_class])) {
                 $file = self::$rootClasses[$_class];
                 require $file;
                 return;
@@ -114,7 +115,6 @@ class Smarty_Autoloader
         if (0 !== strpos($_class, 'smarty')) {
             return;
         }
-        $file = isset($file) ? $file : self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
         if (is_file($file)) {
             require $file;
             return;
