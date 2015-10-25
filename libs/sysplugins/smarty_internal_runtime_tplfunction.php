@@ -83,7 +83,7 @@ class Smarty_Internal_Runtime_TplFunction
                             if (!preg_match("/'{$funcParam['uid']}'(.*?)'nocache_hash'/", $content, $match2)) {
                                 $content = preg_replace("/('file_dependency'(.*?)\()/", "\\1{$match1[0]}", $content);
                             }
-                            $cache->write($tplPtr, preg_replace('/\s*\?>\s*$/', "\n", $content) . "\n" .
+                            $tplPtr->smarty->ext->_updateCache->write($cache, $tplPtr, preg_replace('/\s*\?>\s*$/', "\n", $content) . "\n" .
                                                  preg_replace(array('/^\s*<\?php\s+/', '/\s*\?>\s*$/'), "\n",
                                                               $match[0]));
                         }
