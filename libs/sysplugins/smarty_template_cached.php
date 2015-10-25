@@ -128,32 +128,8 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
                 $_template->smarty->_debug->end_cache($_template);
             }
             return;
-        } elseif ($_template->source->handler->uncompiled) {
-            ob_start();
-            $_template->source->render($_template);
         } else {
-            ob_start();
-            if (!isset($_template->compiled)) {
-                $_template->loadCompiled();
-            }
-            $_template->compiled->render($_template);
-        }
-        if ($_template->smarty->debugging) {
-            $_template->smarty->_debug->start_cache($_template);
-        }
-        $_template->cached->updateCache($_template, $no_output_filter);
-        $compile_check = $_template->smarty->compile_check;
-        $_template->smarty->compile_check = false;
-        if (isset($this->parent) && $this->parent->_objType == 2) {
-            $_template->compiled->unifunc = $_template->parent->compiled->unifunc;
-        }
-        if (!$_template->cached->processed) {
-            $_template->cached->process($_template, true);
-        }
-        $_template->smarty->compile_check = $compile_check;
-        $this->getRenderedTemplateCode($_template);
-        if ($_template->smarty->debugging) {
-            $_template->smarty->_debug->end_cache($_template);
+            $_template->smarty->ext->_updateCache->updateCache($this, $_template, $no_output_filter);
         }
     }
 
@@ -254,40 +230,6 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
     }
 
     /**
-     * Write this cache object to handler
-     *
-     * @param Smarty_Internal_Template $_template template object
-     * @param string                   $content   content to cache
-     *
-     * @return boolean success
-     */
-    public function write(Smarty_Internal_Template $_template, $content)
-    {
-        if (!$_template->source->handler->recompiled) {
-            if ($this->handler->writeCachedContent($_template, $content)) {
-                $this->content = null;
-                $this->timestamp = time();
-                $this->exists = true;
-                $this->valid = true;
-                $this->cache_lifetime = $_template->cache_lifetime;
-                $this->processed = false;
-                if ($_template->smarty->cache_locking) {
-                    $this->handler->releaseLock($_template->smarty, $this);
-                }
-
-                return true;
-            }
-            $this->content = null;
-            $this->timestamp = false;
-            $this->exists = false;
-            $this->valid = false;
-            $this->processed = false;
-        }
-
-        return false;
-    }
-
-    /**
      * Read cache content from handler
      *
      * @param Smarty_Internal_Template $_template template object
@@ -300,142 +242,5 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
             return $this->handler->readCachedContent($_template);
         }
         return false;
-    }
-
-    /**
-     * Sanitize content and write it to cache resource
-     *
-     * @param Smarty_Internal_Template $_template
-     * @param bool                     $no_output_filter
-     *
-     * @throws \SmartyException
-     */
-    public function updateCache(Smarty_Internal_Template $_template, $no_output_filter)
-    {
-        $content = ob_get_clean();
-        unset($this->hashes[$_template->compiled->nocache_hash]);
-        if (!empty($this->hashes)) {
-            $hash_array = array();
-            foreach ($this->hashes as $hash => $foo) {
-                $hash_array[] = "/{$hash}/";
-            }
-            $content = preg_replace($hash_array, $_template->compiled->nocache_hash, $content);
-        }
-        $_template->cached->has_nocache_code = false;
-        // get text between non-cached items
-        $cache_split =
-            preg_split("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s",
-                       $content);
-        // get non-cached items
-        preg_match_all("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s",
-                       $content, $cache_parts);
-        $content = '';
-        // loop over items, stitch back together
-        foreach ($cache_split as $curr_idx => $curr_split) {
-            // escape PHP tags in template content
-            $content .= preg_replace('/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/',
-                                     "<?php echo '\$1'; ?>\n", $curr_split);
-            if (isset($cache_parts[0][$curr_idx])) {
-                $_template->cached->has_nocache_code = true;
-                $content .= $cache_parts[1][$curr_idx];
-            }
-        }
-        if (!$no_output_filter && !$_template->compiled->has_nocache_code &&
-            (isset($_template->smarty->autoload_filters['output']) ||
-                isset($_template->smarty->registered_filters['output']))
-        ) {
-            $content = $_template->smarty->ext->_filterHandler->runFilter('output', $content, $_template);
-        }
-        // write cache file content
-        $this->writeCachedContent($_template, $content);
-    }
-
-    /**
-     * Writes the content to cache resource
-     *
-     * @param Smarty_Internal_Template $_template
-     * @param string                   $content
-     *
-     * @return bool
-     */
-    public function writeCachedContent(Smarty_Internal_Template $_template, $content)
-    {
-        if ($_template->source->handler->recompiled || !($_template->caching == Smarty::CACHING_LIFETIME_CURRENT ||
-                $_template->caching == Smarty::CACHING_LIFETIME_SAVED)
-        ) {
-            // don't write cache file
-            return false;
-        }
-        $content = $_template->smarty->ext->_codeFrame->create($_template, $content, '', true);
-        if (!empty($_template->cached->tpl_function)) {
-            foreach ($_template->cached->tpl_function as $funcParam) {
-                if (is_file($funcParam['compiled_filepath'])) {
-                    // read compiled file
-                    $code = file_get_contents($funcParam['compiled_filepath']);
-                    // grab template function
-                    if (preg_match("/\/\* {$funcParam['call_name']} \*\/([\S\s]*?)\/\*\/ {$funcParam['call_name']} \*\//",
-                                   $code, $match)) {
-                        unset($code);
-                        $content .= "<?php " . $match[0] . "?>\n";
-                    }
-                }
-            }
-        }
-        return $this->write($_template, $content);
-    }
-
-    /**
-     * check client side cache
-     *
-     * @param Smarty_Internal_Template $_template
-     * @param  string                  $content
-     */
-    public function cacheModifiedCheck(Smarty_Internal_Template $_template, $content)
-    {
-        $_isCached = $_template->isCached() && !$_template->compiled->has_nocache_code;
-        $_last_modified_date =
-            @substr($_SERVER['HTTP_IF_MODIFIED_SINCE'], 0, strpos($_SERVER['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
-        if ($_isCached && $this->timestamp <= strtotime($_last_modified_date)) {
-            switch (PHP_SAPI) {
-                case 'cgi': // php-cgi < 5.3
-                case 'cgi-fcgi': // php-cgi >= 5.3
-                case 'fpm-fcgi': // php-fpm >= 5.3.3
-                    header('Status: 304 Not Modified');
-                    break;
-
-                case 'cli':
-                    if ( /* ^phpunit */
-                    !empty($_SERVER['SMARTY_PHPUNIT_DISABLE_HEADERS']) /* phpunit$ */
-                    ) {
-                        $_SERVER['SMARTY_PHPUNIT_HEADERS'][] = '304 Not Modified';
-                    }
-                    break;
-
-                default:
-                    if ( /* ^phpunit */
-                    !empty($_SERVER['SMARTY_PHPUNIT_DISABLE_HEADERS']) /* phpunit$ */
-                    ) {
-                        $_SERVER['SMARTY_PHPUNIT_HEADERS'][] = '304 Not Modified';
-                    } else {
-                        header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
-                    }
-                    break;
-            }
-        } else {
-            switch (PHP_SAPI) {
-                case 'cli':
-                    if ( /* ^phpunit */
-                    !empty($_SERVER['SMARTY_PHPUNIT_DISABLE_HEADERS']) /* phpunit$ */
-                    ) {
-                        $_SERVER['SMARTY_PHPUNIT_HEADERS'][] =
-                            'Last-Modified: ' . gmdate('D, d M Y H:i:s', $this->timestamp) . ' GMT';
-                    }
-                    break;
-                default:
-                    header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $this->timestamp) . ' GMT');
-                    break;
-            }
-            echo $content;
-        }
     }
 }

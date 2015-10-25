@@ -1,7 +1,8 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
  24.10.2015
   - more optimizations of template processing
-  
+  - bugfix Error when using {include} within {capture} https://github.com/smarty-php/smarty/issues/100
+
  21.10.2015
   - move some code into runtime extensions
 

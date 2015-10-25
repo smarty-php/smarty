@@ -23,6 +23,10 @@
  * @property Smarty_Internal_Runtime_CodeFrame $_codeFrame
  * @property Smarty_Internal_Runtime_FilterHandler $_filterHandler
  * @property Smarty_Internal_Runtime_GetIncludePath $_getIncludePath
+ * @property Smarty_Internal_Runtime_Source $_source
+ * @property Smarty_Internal_Runtime_IsCached $_isCached
+ * @property Smarty_Internal_Runtime_CacheModify $_cacheModify
+ * @property Smarty_Internal_Runtime_UpdateCache $_updateCache
  * @property Smarty_Internal_Method_GetTemplateVars $getTemplateVars
  * @property Smarty_Internal_Method_Append $append
  * @property Smarty_Internal_Method_AppendByRef $appendByRef
