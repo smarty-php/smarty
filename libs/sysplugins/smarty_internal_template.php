@@ -232,7 +232,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function writeCachedContent($content)
     {
-        return $this->cached->writeCachedContent($this, $content);
+        return $this->smarty->ext->_updateCache->writeCachedContent($this->cached, $this, $content);
     }
 
     /**
