@@ -166,7 +166,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         // display or fetch
         if ($display) {
             if ($this->caching && $this->smarty->cache_modified_check) {
-                $this->smarty->ext->_cachemodify->cacheModifiedCheck($this->cached, $this, isset($content) ? $content : ob_get_clean());
+                $this->smarty->ext->_cachemodify->cacheModifiedCheck($this->cached, $this,
+                                                                     isset($content) ? $content : ob_get_clean());
             } else {
                 if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
                     !$no_output_filter && (isset($this->smarty->autoload_filters['output']) ||
@@ -324,8 +325,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             case 'compiled':
             case 'cached':
             case 'compiler':
-            case 'tpl_vars':
-            case 'config_vars':
                 $this->$property_name = $value;
                 return;
             default:

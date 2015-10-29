@@ -39,7 +39,7 @@ class Smarty_Internal_Method_Append
             // $tpl_var is an array, ignore $value
             foreach ($tpl_var as $_key => $_val) {
                 if ($_key != '') {
-                    self::append($data, $_key, $_val, $merge, $nocache);
+                    $this->append($data, $_key, $_val, $merge, $nocache);
                 }
             }
         } else {
@@ -64,6 +64,9 @@ class Smarty_Internal_Method_Append
                 } else {
                     $data->tpl_vars[$tpl_var]->value[] = $value;
                 }
+            }
+            if ($data->_objType == 2 && $data->scope) {
+                $data->ext->_updateScope->updateScope($data, $tpl_var);
             }
         }
         return $data;

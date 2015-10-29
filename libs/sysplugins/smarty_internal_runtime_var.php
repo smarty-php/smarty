@@ -16,18 +16,13 @@ class Smarty_Internal_Runtime_Var
      * @param \Smarty_Internal_Template $tpl     template object
      * @param string                    $varName template variable name
      * @param bool                      $nocache cache mode of variable
-     * @param int                       $scope   scope of variable
      */
-    public function createLocalArrayVariable(\Smarty_Internal_Template $tpl, $varName, $nocache = false,
-                                             $scope = Smarty::SCOPE_LOCAL)
+    public function createLocalArrayVariable(\Smarty_Internal_Template $tpl, $varName, $nocache = false)
     {
         if (!isset($tpl->tpl_vars[$varName])) {
-            $tpl->tpl_vars[$varName] = new Smarty_Variable(array(), $nocache, $scope);
+            $tpl->tpl_vars[$varName] = new Smarty_Variable(array(), $nocache);
         } else {
             $tpl->tpl_vars[$varName] = clone $tpl->tpl_vars[$varName];
-            if ($scope != Smarty::SCOPE_LOCAL) {
-                $tpl->tpl_vars[$varName]->scope = $scope;
-            }
             if (!(is_array($tpl->tpl_vars[$varName]->value) ||
                 $tpl->tpl_vars[$varName]->value instanceof ArrayAccess)
             ) {

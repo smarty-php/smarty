@@ -37,13 +37,6 @@ class Smarty_Data extends Smarty_Internal_Data
      * @var Smarty
      */
     public $smarty = null;
- 
-    /**
-     * This object type (Smarty = 1, template = 2, data = 4)
-     *
-     * @var int
-     */
-    public $_objType = 4;
 
     /**
      * create Smarty data object

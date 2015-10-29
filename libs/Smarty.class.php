@@ -87,21 +87,16 @@ if (!class_exists('Smarty_Autoloader', false)) {
 /**
  * Load always needed external class files
  */
-
-
-if (false) {
-    if (!class_exists('Smarty_Internal_Data', false)) {
-        require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
-    }
-    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_extension_handler.php';
-    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
-    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
-    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
-    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
-    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_variable.php';
-    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
-    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
+if (!class_exists('Smarty_Internal_Data', false)) {
+    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
 }
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_extension_handler.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_variable.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
 
 /**
  * This is the main Smarty class
@@ -123,18 +118,24 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/73';
+    const SMARTY_VERSION = '3.1.28-dev/75';
 
     /**
      * define variable scopes
      */
     const SCOPE_LOCAL = 0;
 
-    const SCOPE_PARENT = 1;
+    const SCOPE_PARENT = 2;
 
-    const SCOPE_ROOT = 2;
+    const SCOPE_TPL_ROOT = 4;
 
-    const SCOPE_GLOBAL = 3;
+    const SCOPE_ROOT = 8;
+
+    const SCOPE_SMARTY = 16;
+
+    const SCOPE_GLOBAL = 32;
+
+    const SCOPE_BUBBLE_UP = 64;
 
     /**
      * define caching modes
@@ -262,7 +263,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
 
     /**
-     * auto literal on delimiters with whitspace
+     * auto literal on delimiters with whitespace
      *
      * @var boolean
      */
@@ -276,7 +277,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $error_unassigned = false;
 
     /**
-     * look up relative filepaths in include_path
+     * look up relative file path in include_path
      *
      * @var boolean
      */
@@ -1070,7 +1071,9 @@ class Smarty extends Smarty_Internal_TemplateBase
         } else {
             $data = null;
         }
-        if ($this->caching && isset($this->_cache['isCached'][$_templateId = $this->_getTemplateId($template, $cache_id, $compile_id)])) {
+        if ($this->caching &&
+            isset($this->_cache['isCached'][$_templateId = $this->_getTemplateId($template, $cache_id, $compile_id)])
+        ) {
             $tpl = $do_clone ? clone $this->_cache['isCached'][$_templateId] : $this->_cache['isCached'][$_templateId];
             $tpl->parent = $parent;
             $tpl->tpl_vars = array();
@@ -1119,6 +1122,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param string     $template_name
      * @param null|mixed $cache_id
      * @param null|mixed $compile_id
+     * @param null       $caching
      *
      * @return string
      */
@@ -1129,7 +1133,8 @@ class Smarty extends Smarty_Internal_TemplateBase
         $caching = (int) ($caching === null ? $this->caching : $caching);
 
         if ($this->allow_ambiguous_resources) {
-            $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template_name) . "#{$cache_id}#{$compile_id}#{$caching}";
+            $_templateId =
+                Smarty_Resource::getUniqueTemplateName($this, $template_name) . "#{$cache_id}#{$compile_id}#{$caching}";
         } else {
             $_templateId = $this->_joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}#{$caching}";
         }
@@ -1156,7 +1161,8 @@ class Smarty extends Smarty_Internal_TemplateBase
         if ($pattern == null) {
             $nds = DS == '/' ? '\\' : '/';
             $ds = '\\' . DS;
-            $pattern = "#([{$ds}]+[^{$ds}]+[{$ds}]+[.]([{$ds}]+[.])*[.][{$ds}]+([.][{$ds}]+)*)|([{$ds}]+([.][{$ds}]+)+)|[{$ds}]{2,}#";
+            $pattern =
+                "#([{$ds}]+[^{$ds}]+[{$ds}]+[.]([{$ds}]+[.])*[.][{$ds}]+([.][{$ds}]+)*)|([{$ds}]+([.][{$ds}]+)+)|[{$ds}]{2,}#";
         }
         // normalize DS
         if (strpos($path, $nds) !== false) {
@@ -1386,8 +1392,8 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (!isset(Smarty::$_muted_directories[SMARTY_DIR])) {
             $smarty_dir = realpath(SMARTY_DIR);
             if ($smarty_dir !== false) {
-                Smarty::$_muted_directories[SMARTY_DIR] = array('file'   => $smarty_dir,
-                                                                'length' => strlen($smarty_dir),);
+                Smarty::$_muted_directories[SMARTY_DIR] =
+                    array('file' => $smarty_dir, 'length' => strlen($smarty_dir),);
             }
         }
 
@@ -1413,7 +1419,8 @@ class Smarty extends Smarty_Internal_TemplateBase
         // or the error was within smarty but masked to be ignored
         if (!$_is_muted_directory || ($errno && $errno & error_reporting())) {
             if (Smarty::$_previous_error_handler) {
-                return call_user_func(Smarty::$_previous_error_handler, $errno, $errstr, $errfile, $errline, $errcontext);
+                return call_user_func(Smarty::$_previous_error_handler, $errno, $errstr, $errfile, $errline,
+                                      $errcontext);
             } else {
                 return false;
             }

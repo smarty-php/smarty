@@ -43,7 +43,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $option_flags = array('nocache', 'inline', 'caching');
+    public $option_flags = array('nocache', 'inline', 'caching', 'bubble_up');
 
     /**
      * Attribute definition: Overwrites base class.
@@ -113,10 +113,17 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                 $_parent_scope = Smarty::SCOPE_ROOT;
             } elseif ($_attr['scope'] == 'global') {
                 $_parent_scope = Smarty::SCOPE_GLOBAL;
+            } elseif ($_attr['scope'] == 'smarty') {
+                $_parent_scope = Smarty::SCOPE_SMARTY;
+            } elseif ($_attr['scope'] == 'tpl_root') {
+                $_parent_scope = Smarty::SCOPE_TPL_ROOT;
             }
         }
+        if ($_attr['bubble_up'] === true) {
+            $_parent_scope = $_parent_scope + Smarty::SCOPE_BUBBLE_UP;
+        }
 
-        //
+        // set flag to cache subtemplate object when called within loop or template name is variable.
         if ($cache_tpl || $variable_template || $compiler->loopNesting > 0) {
             $_cache_tpl = 'true';
         } else {
@@ -215,7 +222,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             }
         }
         // delete {include} standard attributes
-        unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['compile_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']);
+        unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['compile_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline'], $_attr['bubble_up']);
         // remaining attributes must be assigned as smarty variable
         $_vars_nc = '';
         if (!empty($_attr)) {
@@ -248,9 +255,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             if (isset($_assign)) {
                 $_output .= "ob_start();\n";
             }
-            $_output .= "\$_smarty_tpl->smarty->ext->_inline->render(\$_smarty_tpl, {$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_parent_scope}, {$_cache_tpl}, '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['func']}');\n";
+            $_output .= "\$_smarty_tpl->smarty->ext->_subtemplate->render(\$_smarty_tpl, {$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_parent_scope}, {$_cache_tpl}, '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['func']}');\n";
             if (isset($_assign)) {
-                $_output .= "\$_smarty_tpl->tpl_vars[$_assign] = new Smarty_Variable(ob_get_clean());\n";
+                $_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean());\n";
             }
             if ($update_compile_id) {
                 $_output .= $compiler->makeNocacheCode("\$_smarty_tpl->compile_id = array_pop(\$_compile_id_save);\n");
@@ -273,7 +280,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         }
         $_output .= "\$_smarty_tpl->smarty->ext->_subtemplate->render(\$_smarty_tpl, {$fullResourceName}, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, {$_cache_tpl});\n";
         if (isset($_assign)) {
-            $_output .= "\$_smarty_tpl->tpl_vars[$_assign] = new Smarty_Variable(ob_get_clean());\n";
+            $_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean());\n";
         }
         if ($update_compile_id) {
             $_output .= "\$_smarty_tpl->compile_id = array_pop(\$_compile_id_save);\n";
