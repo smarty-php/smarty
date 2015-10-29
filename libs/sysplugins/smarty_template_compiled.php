@@ -169,7 +169,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             opcache_invalidate($_template->compiled->filepath);
         }
         $_smarty_tpl = $_template;
-        if (strpos(phpversion(), 'hhvm') !== false) {
+        if (defined('HHVM_VERSION')) {
             $_template->smarty->ext->_hhvm->includeHhvm($_template, $_template->compiled->filepath);
         } else {
             include($_template->compiled->filepath);

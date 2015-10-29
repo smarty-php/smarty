@@ -157,9 +157,9 @@ class Smarty_Template_Source
             throw new SmartyException('Missing template name');
         }
         // parse resource_name, load resource handler, identify unique resource name
-        if (preg_match('/^([A-Za-z0-9_\-]{2,})[:]/', $template_resource, $match)) {
+        if (preg_match('/^([A-Za-z0-9_\-]{2,})[:]([\s\S]*)$/', $template_resource, $match)) {
             $type = $match[1];
-            $name = substr($template_resource, strlen($match[0]));
+            $name = $match[2];
         } else {
             // no resource given, use default
             // or single character before the colon is not a resource type, but part of the filepath
