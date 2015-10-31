@@ -45,6 +45,13 @@ class SmartyBC extends Smarty
     public $_version = self::SMARTY_VERSION;
 
     /**
+     * This is an array of directories where trusted php scripts reside.
+     *
+     * @var array
+     */
+    public $trusted_dir = array();
+
+    /**
      * Initialize new SmartyBC object
      *
      * @param array $options options to set during initialization, e.g. array( 'forceCompile' => false )
