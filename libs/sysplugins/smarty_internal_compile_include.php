@@ -54,6 +54,14 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
     public $optional_attributes = array('_any');
 
     /**
+     * Valid scope names
+     *
+     * @var array
+     */
+    public $valid_scopes = array('local'  => true, 'parent' => true, 'root' => true, 'global' => true,
+                                 'smarty' => true, 'tpl_root' => true);
+
+    /**
      * Compiles code for the {include} tag
      *
      * @param  array                                  $args      array with attributes from parser
@@ -104,23 +112,29 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $_assign = $_attr['assign'];
         }
 
-        $_parent_scope = Smarty::SCOPE_LOCAL;
+        // scope setup
+        $_scope = Smarty::SCOPE_LOCAL;
         if (isset($_attr['scope'])) {
             $_attr['scope'] = trim($_attr['scope'], "'\"");
-            if ($_attr['scope'] == 'parent') {
-                $_parent_scope = Smarty::SCOPE_PARENT;
-            } elseif ($_attr['scope'] == 'root') {
-                $_parent_scope = Smarty::SCOPE_ROOT;
-            } elseif ($_attr['scope'] == 'global') {
-                $_parent_scope = Smarty::SCOPE_GLOBAL;
-            } elseif ($_attr['scope'] == 'smarty') {
-                $_parent_scope = Smarty::SCOPE_SMARTY;
-            } elseif ($_attr['scope'] == 'tpl_root') {
-                $_parent_scope = Smarty::SCOPE_TPL_ROOT;
+            if (!isset($this->valid_scopes[$_attr['scope']])) {
+                $compiler->trigger_template_error("illegal value '{$_attr['scope']}' for \"scope\" attribute", null, true);
             }
-        }
-        if ($_attr['bubble_up'] === true) {
-            $_parent_scope = $_parent_scope + Smarty::SCOPE_BUBBLE_UP;
+            if ($_attr['scope'] != 'local') {
+                if ($_attr['scope'] == 'parent') {
+                    $_scope = Smarty::SCOPE_PARENT;
+                } elseif ($_attr['scope'] == 'root') {
+                    $_scope = Smarty::SCOPE_ROOT;
+                } elseif ($_attr['scope'] == 'global') {
+                    $_scope = Smarty::SCOPE_GLOBAL;
+                } elseif ($_attr['scope'] == 'smarty') {
+                    $_scope = Smarty::SCOPE_SMARTY;
+                } elseif ($_attr['scope'] == 'tpl_root') {
+                    $_scope = Smarty::SCOPE_TPL_ROOT;
+                }
+                if ($_attr['bubble_up'] === true) {
+                    $_scope = $_scope + Smarty::SCOPE_BUBBLE_UP;
+                }
+            }
         }
 
         // set flag to cache subtemplate object when called within loop or template name is variable.
@@ -226,7 +240,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         // remaining attributes must be assigned as smarty variable
         $_vars_nc = '';
         if (!empty($_attr)) {
-            if ($_parent_scope == Smarty::SCOPE_LOCAL) {
+            if ($_scope == Smarty::SCOPE_LOCAL) {
                 $_pairs = array();
                 // create variables
                 foreach ($_attr as $key => $value) {
@@ -255,7 +269,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             if (isset($_assign)) {
                 $_output .= "ob_start();\n";
             }
-            $_output .= "\$_smarty_tpl->smarty->ext->_subtemplate->render(\$_smarty_tpl, {$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_parent_scope}, {$_cache_tpl}, '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['func']}');\n";
+            $_output .= "\$_smarty_tpl->smarty->ext->_subtemplate->render(\$_smarty_tpl, {$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_scope}, {$_cache_tpl}, '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['func']}');\n";
             if (isset($_assign)) {
                 $_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean());\n";
             }
@@ -278,7 +292,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         if (isset($_assign)) {
             $_output .= "ob_start();\n";
         }
-        $_output .= "\$_smarty_tpl->smarty->ext->_subtemplate->render(\$_smarty_tpl, {$fullResourceName}, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_parent_scope, {$_cache_tpl});\n";
+        $_output .= "\$_smarty_tpl->smarty->ext->_subtemplate->render(\$_smarty_tpl, {$fullResourceName}, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_scope, {$_cache_tpl});\n";
         if (isset($_assign)) {
             $_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean());\n";
         }
