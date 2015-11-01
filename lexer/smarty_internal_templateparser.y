@@ -903,19 +903,19 @@ variable(res)    ::= object(o). {
 
                   // config variable
 variable(res)    ::= HATCH ID(i) HATCH. {
-    res = '$_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  \''. i .'\')';
+    res = $this->compiler->compileConfigVariable("'" . i . "'");
 }
 
 variable(res)    ::= HATCH ID(i) HATCH arrayindex(a). {
-    res = '(is_array($tmp = $_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  \''. i .'\')) ? $tmp'.a.' :null)';
+    res = '(is_array($tmp = ' . $this->compiler->compileConfigVariable("'" . i . "'") . ') ? $tmp'.a.' :null)';
 }
 
 variable(res)    ::= HATCH variable(v) HATCH. {
-    res = '$_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  '. v .')';
+    res = $this->compiler->compileConfigVariable(v);
 }
 
 variable(res)    ::= HATCH variable(v) HATCH arrayindex(a). {
-    res = '(is_array($tmp = $_smarty_tpl->smarty->ext->_config->_getConfigVariable($_smarty_tpl,  '. v .')) ? $tmp'.a.' : null)';
+    res = '(is_array($tmp = ' . $this->compiler->compileConfigVariable(v) . ') ? $tmp'.a.' : null)';
 }
 
 varindexed(res)  ::= DOLLARID(i) arrayindex(a). {

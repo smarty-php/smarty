@@ -59,8 +59,8 @@ class Smarty_Internal_Runtime_SubTemplate
                 unset($tpl->compiled);
             }
             // get variables from calling scope
-                $tpl->tpl_vars = $parent->tpl_vars;
-                $tpl->config_vars = $parent->config_vars;
+            $tpl->tpl_vars = $parent->tpl_vars;
+            $tpl->config_vars = $parent->config_vars;
             // get template functions
             $tpl->tpl_function = $parent->tpl_function;
             // copy inheritance object?
@@ -114,22 +114,25 @@ class Smarty_Internal_Runtime_SubTemplate
         if ($scope & ~Smarty::SCOPE_BUBBLE_UP) {
             if ($scope == Smarty::SCOPE_GLOBAL) {
                 $tpl->tpl_vars = Smarty::$global_tpl_vars;
+                $tpl->config_vars = $tpl->smarty->config_vars;
                 $scopePtr = true;
-            } elseif ($scope == Smarty::SCOPE_PARENT) {
-                $scopePtr = $parent;
-            } elseif ($scope == Smarty::SCOPE_SMARTY) {
-                $scopePtr = $tpl->smarty;
             } else {
-                $scopePtr = $tpl;
-                while (isset($scopePtr->parent)) {
-                    if ($scopePtr->parent->_objType != 2 && $scope & Smarty::SCOPE_TPL_ROOT) {
-                        break;
+                if ($scope == Smarty::SCOPE_PARENT) {
+                    $scopePtr = $parent;
+                } elseif ($scope == Smarty::SCOPE_SMARTY) {
+                    $scopePtr = $tpl->smarty;
+                } else {
+                    $scopePtr = $tpl;
+                    while (isset($scopePtr->parent)) {
+                        if ($scopePtr->parent->_objType != 2 && $scope & Smarty::SCOPE_TPL_ROOT) {
+                            break;
+                        }
+                        $scopePtr = $scopePtr->parent;
                     }
-                    $scopePtr = $scopePtr->parent;
                 }
+                $tpl->tpl_vars = $scopePtr->tpl_vars;
+                $tpl->config_vars = $scopePtr->config_vars;
             }
-            $tpl->tpl_vars = $scopePtr->tpl_vars;
-            $tpl->config_vars = $scopePtr->config_vars;
         }
 
         if (!isset($this->tplObjects[$tpl->_getTemplateId()]) && !$tpl->source->handler->recompiled) {
@@ -174,6 +177,7 @@ class Smarty_Internal_Runtime_SubTemplate
         if ($scopePtr) {
             if ($scope == Smarty::SCOPE_GLOBAL) {
                 Smarty::$global_tpl_vars = $tpl->tpl_vars;
+                $tpl->smarty->config_vars = $tpl->config_vars;
             } else {
                 $scopePtr->tpl_vars = $tpl->tpl_vars;
                 $scopePtr->config_vars = $tpl->config_vars;
@@ -186,7 +190,8 @@ class Smarty_Internal_Runtime_SubTemplate
      *
      * @param \Smarty_Internal_Template $tpl
      */
-    public function registerSubTemplates(Smarty_Internal_Template $tpl) {
+    public function registerSubTemplates(Smarty_Internal_Template $tpl)
+    {
         foreach ($tpl->compiled->includes as $name => $count) {
             if (isset($this->subTplInfo[$name])) {
                 $this->subTplInfo[$name] += $count;
@@ -194,6 +199,5 @@ class Smarty_Internal_Runtime_SubTemplate
                 $this->subTplInfo[$name] = $count;
             }
         }
-
     }
 }

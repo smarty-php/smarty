@@ -317,10 +317,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                     Smarty_Internal_TemplateCompilerBase $parent_compiler = null)
     {
         // get code frame of compiled template
-        $_compiled_code = $template->smarty->ext->_codeFrame->create($template, $this->compileTemplateSource($template, $nocache,
-                                                                                                $parent_compiler),
-                                                        $this->postFilter($this->blockOrFunctionCode) .
-                                                        join('', $this->mergedSubTemplatesCode));
+        $_compiled_code = $template->smarty->ext->_codeFrame->create($template,
+                                                                     $this->compileTemplateSource($template, $nocache,
+                                                                                                  $parent_compiler),
+                                                                     $this->postFilter($this->blockOrFunctionCode) .
+                                                                     join('', $this->mergedSubTemplatesCode));
         return $_compiled_code;
     }
 
@@ -744,10 +745,24 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if (strpos($variable, '(') == 0) {
             // not a variable variable
             $var = trim($variable, '\'');
-            $this->tag_nocache = $this->tag_nocache | $this->template->ext->getTemplateVars->_getVariable($this->template, $var, null, true, false)->nocache;
+            $this->tag_nocache = $this->tag_nocache |
+                $this->template->ext->getTemplateVars->_getVariable($this->template, $var, null, true, false)->nocache;
             // todo $this->template->compiled->properties['variables'][$var] = $this->tag_nocache | $this->nocache;
         }
         return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';
+    }
+
+    /**
+     * compile config variable
+     *
+     * @param string $variable
+     *
+     * @return string
+     */
+    public function compileConfigVariable($variable)
+    {
+        // return '$_smarty_tpl->config_vars[' . $variable . ']';
+        return '$_smarty_tpl->smarty->ext->configLoad->_getConfigVariable($_smarty_tpl, ' . $variable . ')';
     }
 
     /**

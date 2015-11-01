@@ -471,7 +471,6 @@ class Smarty_Internal_TestInstall
                                         'smarty_internal_resource_string.php'                       => true,
                                         'smarty_internal_runtime_cachemodify.php'                   => true,
                                         'smarty_internal_runtime_codeframe.php'                     => true,
-                                        'smarty_internal_runtime_config.php'                        => true,
                                         'smarty_internal_runtime_filterhandler.php'                 => true,
                                         'smarty_internal_runtime_foreach.php'                       => true,
                                         'smarty_internal_runtime_getincludepath.php'                => true,

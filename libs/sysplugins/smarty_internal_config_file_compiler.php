@@ -108,8 +108,10 @@ class Smarty_Internal_Config_File_Compiler
             $this->smarty->_debug->start_compile($this->template);
         }
         // init the lexer/parser to compile the config file
+        /* @var Smarty_Internal_ConfigFileLexer $lex */
         $lex = new $this->lexer_class(str_replace(array("\r\n", "\r"), "\n", $template->source->getContent()) .
                                       "\n", $this);
+        /* @var Smarty_Internal_ConfigFileParser $parser */
         $parser = new $this->parser_class($lex, $this);
 
         if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2) {
@@ -143,7 +145,7 @@ class Smarty_Internal_Config_File_Compiler
             strftime("%Y-%m-%d %H:%M:%S") . "\n";
         $template_header .= "         compiled from \"" . $this->template->source->filepath . "\" */ ?>\n";
 
-        $code = '<?php Smarty_Internal_Method_ConfigLoad::_loadConfigVars($_smarty_tpl, ' .
+        $code = '<?php $_smarty_tpl->smarty->ext->configLoad->_loadConfigVars($_smarty_tpl, ' .
             var_export($this->config_data, true) . '); ?>';
         return $template_header . $this->template->smarty->ext->_codeFrame->create($this->template, $code);
     }
