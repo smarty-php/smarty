@@ -321,7 +321,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         $compiler->smarty->allow_ambiguous_resources = true;
         /* @var Smarty_Internal_Template $tpl */
         $tpl =
-            new $compiler->smarty->template_class (trim($fullResourceName, "'"), $compiler->smarty, $compiler->template,
+            new $compiler->smarty->template_class (trim($fullResourceName, '"\''), $compiler->smarty, $compiler->template,
                                                    $compiler->template->cache_id, $c_id, $_caching);
         if (!($tpl->source->handler->uncompiled) && $tpl->source->exists) {
             $compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['uid'] = $tpl->source->uid;
