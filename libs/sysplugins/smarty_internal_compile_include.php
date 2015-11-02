@@ -97,7 +97,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                     } else {
                         $compiled->includes[$fullResourceName] = 1;
                     }
-                    $fullResourceName = "'{$fullResourceName}'";
+                    $fullResourceName = '"' . $fullResourceName . '"';
                 }
             }
             if (empty($match[5])) {
