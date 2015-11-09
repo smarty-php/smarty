@@ -207,7 +207,15 @@ function smarty_function_fetch($params, $template)
             return;
         }
     } else {
-        $content = @file_get_contents($params['file']);
+        $file = $params['file'];
+        $asTemplate = (isset($params['asTemplate'])) ? (bool) $params['asTemplate'] : false;
+
+        if ($asTemplate === true) {
+            $content = $template->fetch($file);
+        } else {
+            $content = @file_get_contents($file);
+        }
+
         if ($content === false) {
             throw new SmartyException("{fetch} cannot read resource '" . $params['file'] . "'");
         }
