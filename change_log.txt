@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
+ 25.11.2015
+  -bugfix a left delimter like '[%' did fail on [%$var_[%$variable%]%] (forum topic 25798)
+
  02.11.2015
   - bugfix {include} with variable file name like {include file="foo_`$bar`.tpl"} did fail in 3.1.28-dev https://github.com/smarty-php/smarty/issues/102
 

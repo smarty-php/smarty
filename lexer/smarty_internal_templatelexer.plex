@@ -436,7 +436,15 @@ class Smarty_Internal_Templatelexer
        $this->token = Smarty_Internal_Templateparser::TP_RDEL;
        $this->yypopstate();
      }
-     double_quote {
+     ldel {
+        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
+          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+        } else {
+           $this->yypushstate(self::TAG);
+           return true;
+        }
+     }
+    double_quote {
        $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
        $this->yypushstate(self::DOUBLEQUOTEDSTRING);
      }
@@ -568,14 +576,6 @@ class Smarty_Internal_Templatelexer
      }
      space {
        $this->token = Smarty_Internal_Templateparser::TP_SPACE;
-     }
-     ldel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
-          $this->yypushstate(self::TAG);
-          return true;
-       }
      }
      text {
        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
