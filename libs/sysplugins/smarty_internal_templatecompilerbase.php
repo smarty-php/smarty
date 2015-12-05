@@ -777,7 +777,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function processText($text)
     {
         if ($this->parser->strip) {
-            return new Smarty_Internal_ParseTree_Text(preg_replace($this->stripRegEx, '', $text));
+            return new Smarty_Internal_ParseTree_Text(preg_replace($this->stripRegEx, ' ', $text));
         } else {
             return new Smarty_Internal_ParseTree_Text($text);
         }
