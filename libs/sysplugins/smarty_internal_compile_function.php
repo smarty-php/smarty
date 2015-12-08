@@ -62,7 +62,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
         }
         unset($_attr['nocache']);
         $_name = trim($_attr['name'], "'\"");
-        $compiler->parent_compiler->template->tpl_function[$_name] = array();
+        $compiler->parent_compiler->tpl_function[$_name] = $compiler->parent_compiler->template->tpl_function[$_name] = array();
         $save = array($_attr, $compiler->parser->current_buffer, $compiler->template->compiled->has_nocache_code,
                       $compiler->template->caching);
         $this->openTag($compiler, 'function', $save);
@@ -105,9 +105,9 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $saved_data = $this->closeTag($compiler, array('function'));
         $_attr = $saved_data[0];
         $_name = trim($_attr['name'], "'\"");
-        $compiler->parent_compiler->template->tpl_function[$_name]['called_functions'] = $compiler->called_functions;
-        $compiler->parent_compiler->template->tpl_function[$_name]['compiled_filepath'] = $compiler->parent_compiler->template->compiled->filepath;
-        $compiler->parent_compiler->template->tpl_function[$_name]['uid'] = $compiler->template->source->uid;
+        $compiler->parent_compiler->tpl_function[$_name]['called_functions'] = $compiler->parent_compiler->template->tpl_function[$_name]['called_functions'] = $compiler->called_functions;
+        $compiler->parent_compiler->tpl_function[$_name]['compiled_filepath'] = $compiler->parent_compiler->template->tpl_function[$_name]['compiled_filepath'] = $compiler->parent_compiler->template->compiled->filepath;
+        $compiler->parent_compiler->tpl_function[$_name]['uid'] = $compiler->parent_compiler->template->tpl_function[$_name]['uid'] = $compiler->template->source->uid;
         $compiler->called_functions = array();
         $_parameter = $_attr;
         unset($_parameter['name']);
@@ -133,7 +133,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $_funcName = "smarty_template_function_{$_name}_{$compiler->template->compiled->nocache_hash}";
         $_funcNameCaching = $_funcName . '_nocache';
         if ($compiler->template->compiled->has_nocache_code) {
-            $compiler->parent_compiler->template->tpl_function[$_name]['call_name_caching'] = $_funcNameCaching;
+            $compiler->parent_compiler->tpl_function[$_name]['call_name_caching'] = $compiler->parent_compiler->template->tpl_function[$_name]['call_name_caching'] = $_funcNameCaching;
             $output = "<?php\n";
             $output .= "/* {$_funcNameCaching} */\n";
             $output .= "if (!function_exists('{$_funcNameCaching}')) {\n";
@@ -162,7 +162,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             $_functionCode = new Smarty_Internal_ParseTree_Tag($compiler->parser, preg_replace_callback("/((<\?php )?echo '\/\*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%\*\/([\S\s]*?)\/\*\/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%\*\/';(\?>\n)?)/", array($this,
                                                                                                                                                                                                                                                                                                           'removeNocache'), $_functionCode->to_smarty_php($compiler->parser)));
         }
-        $compiler->parent_compiler->template->tpl_function[$_name]['call_name'] = $_funcName;
+        $compiler->parent_compiler->tpl_function[$_name]['call_name'] = $compiler->parent_compiler->template->tpl_function[$_name]['call_name'] = $_funcName;
         $output = "<?php\n";
         $output .= "/* {$_funcName} */\n";
         $output .= "if (!function_exists('{$_funcName}')) {\n";

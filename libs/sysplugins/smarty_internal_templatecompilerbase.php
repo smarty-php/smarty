@@ -150,6 +150,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $write_compiled_code = true;
 
     /**
+     * Template functions
+     *
+     * @var array
+     */
+    public $tpl_function = array();
+
+    /**
      * called sub functions from template function
      *
      * @var array
@@ -321,7 +328,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                                                      $this->compileTemplateSource($template, $nocache,
                                                                                                   $parent_compiler),
                                                                      $this->postFilter($this->blockOrFunctionCode) .
-                                                                     join('', $this->mergedSubTemplatesCode));
+                                                                     join('', $this->mergedSubTemplatesCode), false, $this);
         return $_compiled_code;
     }
 
