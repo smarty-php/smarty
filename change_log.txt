@@ -1,5 +1,8 @@
 ﻿ ===== 3.1.28-dev===== (xx.xx.2015)
  09.12.2015
+  - bugix Smarty did fail under PHP 7.0.0 with use_include_path = true;
+  
+ 09.12.2015
   -bugfix {strip} should exclude some html tags from stripping, related to fix for https://github.com/smarty-php/smarty/issues/111
  
  08.12.2015
