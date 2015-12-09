@@ -28,9 +28,26 @@ class CompileStripTest extends PHPUnit_Smarty
     /**
      * test strip tag
      */
-    public function testStrip()
+    public function testStripTag()
     {
-        $tpl = $this->smarty->createTemplate("eval:{strip}<table>\n </table>{/strip}");
-        $this->assertEquals('<table></table>', $this->smarty->fetch($tpl));
+        $this->assertContains('foobar  buh', $this->smarty->fetch('strip.tpl'));
+    }
+    /**
+     * test strip tag multi line html
+     */
+    public function testStripMultiLineHtmlTag()
+    {
+        $this->assertContains('<div style="float: right; cursor: url;">[<a onmouseover="this.style.cursor=\'pointer\'" onmouseup="document.getElementById(\'screenEdit_($screen.id)\').style.display=\'none\'";>X</a>]</div>foobar', $this->smarty->fetch('strip_multi_line_html_tag.tpl'));
+    }
+    /**
+     * test strip tag multi line html
+     */
+    public function testStripMultiLineTextareaHtmlTag()
+    {
+        $this->assertContains(preg_replace('/[\r]/', '', '<textarea>
+
+                some text
+
+            </textarea>   foobar'), $this->smarty->fetch('strip_multi_line_textarea_html_tag.tpl'));
     }
 }
