@@ -783,12 +783,58 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function processText($text)
     {
+        $store = array();
+        $_store = 0;
+        $_offset = 0;
         if ($this->parser->strip) {
-            return new Smarty_Internal_ParseTree_Text(preg_replace($this->stripRegEx, ' ', $text));
-        } else {
+            if (strpos($text, '<') !== false) {
+                // capture html elements not to be messed with
+                $_offset = 0;
+                if (preg_match_all('#(<script[^>]*>.*?</script[^>]*>)|(<textarea[^>]*>.*?</textarea[^>]*>)|(<pre[^>]*>.*?</pre[^>]*>)#is',
+                                   $text, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+                    foreach ($matches as $match) {
+                        $store[] = $match[ 0 ][ 0 ];
+                        $_length = strlen($match[ 0 ][ 0 ]);
+                        $replace = '@!@SMARTY:' . $_store . ':SMARTY@!@';
+                        $text = substr_replace($text, $replace, $match[ 0 ][ 1 ] - $_offset, $_length);
+
+                        $_offset += $_length - strlen($replace);
+                        $_store ++;
+                    }
+                }
+
+                $expressions = array(// replace multiple spaces between tags by a single space
+                                     // can't remove them entirely, becaue that might break poorly implemented CSS display:inline-block elements
+                                     '#(:SMARTY@!@|>)\s+(?=@!@SMARTY:|<)#s'                                    => '\1 \2',
+                                     // remove spaces between attributes (but not in attribute values!)
+                                     '#(([a-z0-9]\s*=\s*("[^"]*?")|(\'[^\']*?\'))|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \5',
+                                     '#^\s+<#Ss'                                                               => '<',
+                                     '#>\s+$#Ss'                                                               => '>',
+                                     $this->stripRegEx                                                         => ''
+                );
+
+                $text = preg_replace(array_keys($expressions), array_values($expressions), $text);
+                $_offset = 0;
+                if (preg_match_all('#@!@SMARTY:([0-9]+):SMARTY@!@#is', $text, $matches,
+                                   PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+                    foreach ($matches as $match) {
+                        $_length = strlen($match[ 0 ][ 0 ]);
+                        $replace = $store[ $match[ 1 ][ 0 ] ];
+                        $text = substr_replace($text, $replace, $match[ 0 ][ 1 ] + $_offset, $_length);
+
+                        $_offset += strlen($replace) - $_length;
+                        $_store ++;
+                    }
+                }
+            } else {
+                $text = preg_replace($this->stripRegEx, '', $text);
+            }
+        }
+        if ($text) {
             return new Smarty_Internal_ParseTree_Text($text);
         }
-    }
+        return null;
+     }
 
     /**
      * lazy loads internal compile plugin for tag and calls the compile method
