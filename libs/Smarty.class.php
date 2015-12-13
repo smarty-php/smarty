@@ -118,7 +118,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.28-dev/79';
+    const SMARTY_VERSION = '3.1.28-dev/80';
 
     /**
      * define variable scopes
