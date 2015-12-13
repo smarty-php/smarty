@@ -138,10 +138,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
             throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
         }
-        // check URL debugging control
-        if (!$this->smarty->debugging && $this->smarty->debugging_ctrl == 'URL') {
-            $this->smarty->_debug->debugUrl($this);
-        }
         // disable caching for evaluated code
         if ($this->source->handler->recompiled) {
             $this->caching = false;
