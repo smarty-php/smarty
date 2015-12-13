@@ -184,7 +184,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         } else {
             if ($this->smarty->debugging) {
                 $this->smarty->_debug->end_template($this);
-                if ($this->smarty->debugging == 2 and !$display) {
+                if ($this->smarty->debugging === 2 && $display === false) {
                     $this->smarty->_debug->display_debug($this, true);
                 }
             }
