@@ -31,7 +31,7 @@ Smarty 3.1.28
     Multiple template_dir entries can now be selected  by a comma separated list of indices.
     The template_dir array is searched in the order of the indices. (Could be used to change the default search order)
     Example:
-        $smarty->display([1],[0]foo.bar');
+        $smarty->display('[1],[0]foo.bar');
         
     Filter support
     ==============
