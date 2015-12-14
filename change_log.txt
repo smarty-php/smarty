@@ -10,10 +10,10 @@
   - bugfix Debug Console could display incorrect data when using subtemplates
   
  09.12.2015
-  - bugix Smarty did fail under PHP 7.0.0 with use_include_path = true;
+  - bugfix Smarty did fail under PHP 7.0.0 with use_include_path = true;
   
  09.12.2015
-  -bugfix {strip} should exclude some html tags from stripping, related to fix for https://github.com/smarty-php/smarty/issues/111
+  - bugfix {strip} should exclude some html tags from stripping, related to fix for https://github.com/smarty-php/smarty/issues/111
  
  08.12.2015
   - bugfix internal template function data got stored in wrong compiled file https://github.com/smarty-php/smarty/issues/114
