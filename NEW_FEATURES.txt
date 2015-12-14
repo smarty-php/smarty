@@ -21,7 +21,7 @@ Smarty 3.1.28
     fetch() and display()
     =====================
     The fetch() and display() methods of the template object accept now optionally the same parameter
-    as the corresponding Smarty methods to get tne content of another template.
+    as the corresponding Smarty methods to get the content of another template.
     Example:
         $template->display();           Does display template of template object
         $template->display('foo.tpl');  Does display template 'foo.bar' 
