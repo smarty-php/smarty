@@ -657,7 +657,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             if (!is_array($function)) {
                                 return $function($new_args, $this);
                             } elseif (is_object($function[0])) {
-                                return $this->default_handler_plugins[$plugin_type][$tag][0][0]->$function[1]($new_args,
+                                return $this->default_handler_plugins[$plugin_type][$tag][0][0]->{$function[1]}($new_args,
                                                                                                               $this);
                             } else {
                                 return call_user_func_array($function, array($new_args, $this));
@@ -716,7 +716,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     if (!is_array($function)) {
                         return $function($args, $this);
                     } elseif (is_object($function[0])) {
-                        return $this->smarty->registered_plugins[Smarty::PLUGIN_COMPILER][$tag][0][0]->$function[1]($args,
+                        return $this->smarty->registered_plugins[Smarty::PLUGIN_COMPILER][$tag][0][0]->{$function[1]}($args,
                                                                                                                     $this);
                     } else {
                         return call_user_func_array($function, array($args, $this));
