@@ -677,19 +677,20 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * removed properties
      *
-     * @var array
+     * @var string[]
      */
     private static $obsoleteProperties = array('resource_caching', 'template_resource_caching',
                                                'direct_access_security', '_dir_perms', '_file_perms',
                                                'plugin_search_order', 'inheritance_merge_compiled_includes');
 
-    private static $accessMapGet = array('template_dir' => 'getTemplateDir', 'config_dir' => 'getConfigDir',
-                                         'plugins_dir'  => 'getPluginsDir', 'compile_dir' => 'getCompileDir',
-                                         'cache_dir'    => 'getCacheDir',);
-
-    private static $accessMapSet = array('template_dir' => 'setTemplateDir', 'config_dir' => 'setConfigDir',
-                                         'plugins_dir'  => 'setPluginsDir', 'compile_dir' => 'setCompileDir',
-                                         'cache_dir'    => 'setCacheDir',);
+    /**
+     * List of private properties which will call getter/setter ona direct access
+     *
+     * @var array
+     */
+    private static $accessMap = array('template_dir' => 'TemplateDir', 'config_dir' => 'ConfigDir',
+                                      'plugins_dir'  => 'PluginsDir', 'compile_dir' => 'CompileDir',
+                                      'cache_dir'    => 'CacheDir',);
 
     /**#@-*/
 
@@ -1347,8 +1348,9 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function __get($name)
     {
 
-        if (isset(self::$accessMapGet[$name])) {
-            return $this->{self::$accessMapGet[$name]}();
+        if (isset(self::$accessMap[$name])) {
+            $method = 'get' . self::$accessMap[$name];
+            return $this->{$method}();
         } elseif (in_array($name, self::$obsoleteProperties)) {
             return null;
         } else {
@@ -1366,8 +1368,9 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function __set($name, $value)
     {
-        if (isset(self::$accessMapSet[$name])) {
-            $this->{self::$accessMapSet[$name]}($value);
+        if (isset(self::$accessMap[$name])) {
+            $method = 'set' . self::$accessMap[$name];
+            $this->{$method}($value);
         } elseif (in_array($name, self::$obsoleteProperties)) {
             return;
         } else {
