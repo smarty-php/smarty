@@ -118,7 +118,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.29-dev/6';
+    const SMARTY_VERSION = '3.1.29-dev/7';
 
     /**
      * define variable scopes
@@ -683,9 +683,13 @@ class Smarty extends Smarty_Internal_TemplateBase
                                                'direct_access_security', '_dir_perms', '_file_perms',
                                                'plugin_search_order', 'inheritance_merge_compiled_includes');
 
-    private static $accessMap = array('template_dir' => 'getTemplateDir', 'config_dir' => 'getConfigDir',
-                                      'plugins_dir'  => 'getPluginsDir', 'compile_dir' => 'getCompileDir',
-                                      'cache_dir'    => 'getCacheDir',);
+    private static $accessMapGet = array('template_dir' => 'getTemplateDir', 'config_dir' => 'getConfigDir',
+                                         'plugins_dir'  => 'getPluginsDir', 'compile_dir' => 'getCompileDir',
+                                         'cache_dir'    => 'getCacheDir',);
+
+    private static $accessMapSet = array('template_dir' => 'setTemplateDir', 'config_dir' => 'setConfigDir',
+                                         'plugins_dir'  => 'setPluginsDir', 'compile_dir' => 'setCompileDir',
+                                         'cache_dir'    => 'setCacheDir',);
 
     /**#@-*/
 
@@ -1343,8 +1347,8 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function __get($name)
     {
 
-        if (isset(self::$accessMap[$name])) {
-            return $this->{self::$accessMap[$name]}();
+        if (isset(self::$accessMapGet[$name])) {
+            return $this->{self::$accessMapGet[$name]}();
         } elseif (in_array($name, self::$obsoleteProperties)) {
             return null;
         } else {
@@ -1362,8 +1366,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function __set($name, $value)
     {
-        if (isset(self::$accessMap[$name])) {
-            $this->{self::$accessMap[$name]}($value);
+        if (isset(self::$accessMapSet[$name])) {
+            $this->{self::$accessMapSet[$name]}($value);
         } elseif (in_array($name, self::$obsoleteProperties)) {
             return;
         } else {
