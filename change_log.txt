@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.29-dev ===== (xx.xx.2015)
+ 16.12.2015
+  - bugfix {foreach} did fail if from atrribute is a Generator class https://github.com/smarty-php/smarty/issues/128
+  
  15.12.2015
   - bugfix  {$smarty.cookies.foo} did return the $_COOKIE array not the 'foo' value https://github.com/smarty-php/smarty/issues/122
   - bugfix  a call to clearAllCache() and other should clear all internal template object caches (forum topic 25828)
