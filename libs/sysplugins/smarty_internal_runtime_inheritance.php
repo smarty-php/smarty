@@ -215,7 +215,11 @@ class Smarty_Internal_Runtime_Inheritance
             $this->processBlock($tpl, 3, $name, null, $appendStack);
         }
         // call block of current stack level
-        $block[ 0 ]($tpl, $callStack);
+        if (isset($block[6])) {
+            $block[6]($tpl, $callStack);
+        } else {
+            $block[0]($tpl, $callStack);
+        }
         // {block prepend} ?
         if (isset($block[ 'prepend' ])) {
             $prependStack = $callStack;
