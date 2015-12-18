@@ -292,7 +292,26 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->compile_id = 1;
         }
         $result = $this->smarty->fetch('013_grandchild_prepend.tpl');
-        $this->assertContains('grandchild prepend - Page Title', $result, $testName . ' - content');
+        $this->assertContains('grandchild prepend - child', $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+    }
+    /**
+     * test  grandchild/child/parent template chain prepend
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider data
+     */
+    public function testCompileBlockGrandChildPrepend_013_2($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->caching = $caching;
+        $this->smarty->merge_compiled_includes = $merge;
+        if ($merge) {
+            $this->smarty->compile_id = 1;
+        }
+        $result = $this->smarty->fetch('013_2_grandchild_prepend.tpl');
+        $this->assertContains('grandchild prepend - child prepend - parent', $result, $testName . ' - content');
         $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
     }
 
@@ -446,7 +465,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent template chain with nested {$this->smarty.block.child} and {include nocache}
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider data
      */
