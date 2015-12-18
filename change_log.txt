@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.29-dev ===== (xx.xx.2015)
+ 18.12.2015
+  - bugfix regression when mdifier parameter was follow by math https://github.com/smarty-php/smarty/issues/132
+  
  17.12.2015
   - bugfix {$smarty.capture.nameFail} did lowercase capture name https://github.com/smarty-php/smarty/issues/135
   - bugfix using {block append/prepend} on same block in multiple levels of inheritance templates could fail (forum topic 25827)
