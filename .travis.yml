@@ -14,7 +14,6 @@ matrix:
     - php: hhvm
 
 before_script:
-    - travis_retry composer self-update
     - travis_retry composer --prefer-source --dev install
 
 install:
