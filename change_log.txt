@@ -1,7 +1,8 @@
 ﻿ ===== 3.1.29-dev ===== (xx.xx.2015)
  19.12.2015
   - bugfix using $smarty.capture.foo in expressions could fail https://github.com/smarty-php/smarty/pull/138
-  
+  - bugfix broken PHP 5.2 compatibility
+    
  18.12.2015
   - bugfix regression when modifier parameter was follow by math https://github.com/smarty-php/smarty/issues/132
   
