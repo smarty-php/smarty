@@ -1,7 +1,7 @@
 ﻿ ===== 3.1.29-dev ===== (xx.xx.2015)
  19.12.2015
   - bugfix using $smarty.capture.foo in expressions could fail https://github.com/smarty-php/smarty/pull/138
-  - bugfix broken PHP 5.2 compatibility
+  - bugfix broken PHP 5.2 compatibility https://github.com/smarty-php/smarty/issues/139
   - remove no longer used code
   - improvement make sure that compiled and cache templates never can contain a trailing '?>?
     

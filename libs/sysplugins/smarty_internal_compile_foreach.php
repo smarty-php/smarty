@@ -59,7 +59,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
      *
      * @var array
      */
-    public static $nameProperties = array('first', 'last', 'index', 'iteration', 'show', 'total');
+    public $nameProperties = array('first', 'last', 'index', 'iteration', 'show', 'total');
 
     /**
      * Valid properties of $item@xxx variable

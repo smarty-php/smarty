@@ -59,7 +59,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
      *
      * @var array
      */
-    public static $nameProperties = array('first', 'last', 'index', 'iteration', 'show', 'total', 'rownum',
+    public $nameProperties = array('first', 'last', 'index', 'iteration', 'show', 'total', 'rownum',
                                           'index_prev', 'index_next');
 
     /**
