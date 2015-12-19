@@ -74,7 +74,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
         if (!$name) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
         }
-        return "isset(\$_smarty_tpl->_cache['__smarty_capture']['{$name}']) ? \$_smarty_tpl->_cache['__smarty_capture']['{$name}'] : null";
+        return "(isset(\$_smarty_tpl->_cache['__smarty_capture']['{$name}']) ? \$_smarty_tpl->_cache['__smarty_capture']['{$name}'] : null)";
     }
 }
 
