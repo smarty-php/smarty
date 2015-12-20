@@ -118,7 +118,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.29-dev/15';
+    const SMARTY_VERSION = '3.1.29-dev/16';
 
     /**
      * define variable scopes
@@ -1178,7 +1178,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             $path = str_replace($nds, DS, $path);
         }
 
-        if ($realpath === true && $path[0] !== '/' && $path[1] !== ':') {
+        if ($realpath === true && (($path[0] !== '/' && DS == '/') || ($path[1] !== ':' && DS != '/'))) {
             $path = getcwd() . DS . $path;
         }
         while ((strpos($path, '.' . DS) !== false) || (strpos($path, DS . DS) !== false)) {
