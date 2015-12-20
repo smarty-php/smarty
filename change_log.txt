@@ -3,6 +3,7 @@
   - bugfix failure when the default resource type was set to 'extendsall' https://github.com/smarty-php/smarty/issues/123
   - update compilation of Smarty special variables
   - bugfix add addition check for OS type on normalizaition of file path https://github.com/smarty-php/smarty/issues/134
+  - bugfix the source uid of the extendsall resource must contain $template_dir settings https://github.com/smarty-php/smarty/issues/123
   
  19.12.2015
   - bugfix using $smarty.capture.foo in expressions could fail https://github.com/smarty-php/smarty/pull/138
