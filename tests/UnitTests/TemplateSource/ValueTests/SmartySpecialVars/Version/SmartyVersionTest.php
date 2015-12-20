@@ -13,7 +13,7 @@
  * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
-class SmartyDelimiterTest extends PHPUnit_Smarty
+class SmartyVersionTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
