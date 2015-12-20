@@ -1,0 +1,1 @@
+{$smarty.post.fooBar nocache}
