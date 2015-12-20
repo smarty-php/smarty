@@ -85,9 +85,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                     return 'dirname($_smarty_tpl->source->filepath)';
 
                 case 'version':
-                    $_version = Smarty::SMARTY_VERSION;
-
-                    return "'$_version'";
+                     return "Smarty::SMARTY_VERSION";
 
                 case 'const':
                     if (isset($compiler->smarty->security_policy) &&
@@ -109,17 +107,11 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                         return "\$_smarty_tpl->smarty->ext->configload->_getConfigVariable(\$_smarty_tpl, $_index[1])";
                     }
                 case 'ldelim':
-                    $_ldelim = $compiler->smarty->left_delimiter;
-
-                    return "'$_ldelim'";
-
+                    return "\$_smarty_tpl->smarty->left_delimiter";
                 case 'rdelim':
-                    $_rdelim = $compiler->smarty->right_delimiter;
-
-                    return "'$_rdelim'";
-
+                    return "\$_smarty_tpl->smarty->right_delimiter";
                 default:
-                    $compiler->trigger_template_error('$smarty.' . trim($_index[ 0 ], "'") . ' is invalid');
+                    $compiler->trigger_template_error('$smarty.' . trim($_index[ 0 ], "'") . ' is not defined');
                     break;
             }
             if (isset($_index[ 1 ])) {
