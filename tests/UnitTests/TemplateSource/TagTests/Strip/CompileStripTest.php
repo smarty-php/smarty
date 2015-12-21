@@ -42,6 +42,13 @@ class CompileStripTest extends PHPUnit_Smarty
     /**
      * test strip tag multi line html
      */
+    public function testStripHtmlTag()
+    {
+        $this->assertContains('<ul><li><a href="#">BlaBla</a></li><li><a href="#">BlaBla</a></li></ul>', $this->smarty->fetch('strip_html_tag.tpl'));
+    }
+    /**
+     * test strip tag multi line html
+     */
     public function testStripMultiLineTextareaHtmlTag()
     {
         $this->assertContains(preg_replace('/[\r]/', '', '<textarea>
