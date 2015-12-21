@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 21.12.2015
+  - bugfix a filepath starting with '/' or '\' on windows should normalize to the root dir
+    of current working drive https://github.com/smarty-php/smarty/issues/134
  ===== 3.1.29 ===== (21.12.2015)
  21.12.2015
   - optimization improve speed of filetime checks on extends and extendsall resource
