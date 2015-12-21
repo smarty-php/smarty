@@ -1,5 +1,4 @@
-﻿ ===== 3.1.29-dev ===== (xx.xx.2015)
- ===== 3.1.28-p1 ===== (21.12.2015)
+﻿ ===== 3.1.29 ===== (21.12.2015)
  21.12.2015
   - optimization improve speed of filetime checks on extends and extendsall resource
   
