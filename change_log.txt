@@ -3,6 +3,7 @@
   - bugfix a filepath starting with '/' or '\' on windows should normalize to the root dir
     of current working drive https://github.com/smarty-php/smarty/issues/134
   - optimization of filepath normalization
+  - bugfix {strip} must remove all blanks between html tags https://github.com/smarty-php/smarty/issues/136
   
  ===== 3.1.29 ===== (21.12.2015)
  21.12.2015
