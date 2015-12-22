@@ -118,7 +118,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/3';
+    const SMARTY_VERSION = '3.1.30-dev/4';
 
     /**
      * define variable scopes
@@ -288,7 +288,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var array
      */
-    private $template_dir = array('./templates/');
+    protected $template_dir = array('./templates/');
 
     /**
      * joined template directory string used in cache keys
@@ -330,28 +330,28 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string
      */
-    private $compile_dir = './templates_c/';
+    protected $compile_dir = './templates_c/';
 
     /**
      * plugins directory
      *
      * @var array
      */
-    private $plugins_dir = null;
+    protected $plugins_dir = null;
 
     /**
      * cache directory
      *
      * @var string
      */
-    private $cache_dir = './cache/';
+    protected $cache_dir = './cache/';
 
     /**
      * config directory
      *
      * @var array
      */
-    private $config_dir = array('./configs/');
+    protected $config_dir = array('./configs/');
 
     /**
      * force template compiling?
