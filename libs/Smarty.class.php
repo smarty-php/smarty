@@ -118,7 +118,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/4';
+    const SMARTY_VERSION = '3.1.30-dev/5';
 
     /**
      * define variable scopes
@@ -679,16 +679,16 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string[]
      */
-    private static $obsoleteProperties = array('resource_caching', 'template_resource_caching',
+    private $obsoleteProperties = array('resource_caching', 'template_resource_caching',
                                                'direct_access_security', '_dir_perms', '_file_perms',
                                                'plugin_search_order', 'inheritance_merge_compiled_includes');
 
     /**
-     * List of private properties which will call getter/setter ona direct access
+     * List of private properties which will call getter/setter on a direct access
      *
-     * @var array
+     * @var string[]
      */
-    private static $accessMap = array('template_dir' => 'TemplateDir', 'config_dir' => 'ConfigDir',
+    private $accessMap = array('template_dir' => 'TemplateDir', 'config_dir' => 'ConfigDir',
                                       'plugins_dir'  => 'PluginsDir', 'compile_dir' => 'CompileDir',
                                       'cache_dir'    => 'CacheDir',);
 
@@ -711,7 +711,6 @@ class Smarty extends Smarty_Internal_TemplateBase
 
         // Check if we're running on windows
         Smarty::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
-
         // let PCRE (preg_*) treat strings as ISO-8859-1 if we're not dealing with UTF-8
         if (Smarty::$_CHARSET !== 'UTF-8') {
             Smarty::$_UTF8_MODIFIER = '';
@@ -961,11 +960,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function setCompileDir($compile_dir)
     {
-        $this->compile_dir = $this->_realpath($compile_dir . DS, true);
-        if (!isset(Smarty::$_muted_directories[ $this->compile_dir ])) {
-            Smarty::$_muted_directories[ $this->compile_dir ] = null;
-        }
-        $this->_cache[ 'compile_dir' ] = true;
+        $this->_normalizeDir('compile_dir', $compile_dir);
         return $this;
     }
 
@@ -977,11 +972,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function getCompileDir()
     {
         if (!isset($this->_cache[ 'compile_dir' ])) {
-            $this->compile_dir = $this->_realpath($this->compile_dir . DS, true);
-            if (!isset(Smarty::$_muted_directories[ $this->compile_dir ])) {
-                Smarty::$_muted_directories[ $this->compile_dir ] = null;
-            }
-            $this->_cache[ 'compile_dir' ] = true;
+            $this->_normalizeDir('compile_dir', $this->compile_dir);
         }
         return $this->compile_dir;
     }
@@ -995,11 +986,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function setCacheDir($cache_dir)
     {
-        $this->cache_dir = $this->_realpath($cache_dir . DS, true);
-        if (!isset(Smarty::$_muted_directories[ $this->cache_dir ])) {
-            Smarty::$_muted_directories[ $this->cache_dir ] = null;
-        }
-        $this->_cache[ 'cache_dir' ] = true;
+        $this->_normalizeDir('cache_dir', $cache_dir);
         return $this;
     }
 
@@ -1011,13 +998,24 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function getCacheDir()
     {
         if (!isset($this->_cache[ 'cache_dir' ])) {
-            $this->cache_dir = $this->_realpath($this->cache_dir . DS, true);
-            if (!isset(Smarty::$_muted_directories[ $this->cache_dir ])) {
-                Smarty::$_muted_directories[ $this->cache_dir ] = null;
-            }
-            $this->_cache[ 'cache_dir' ] = true;
+            $this->_normalizeDir('cache_dir', $this->cache_dir);
         }
         return $this->cache_dir;
+    }
+
+    /**
+     * Normalize and set directory string
+     *
+     * @param string $dirName cache_dir or compile_dir
+     * @param string $dir     filepath of folder
+     */
+    private function _normalizeDir($dirName, $dir)
+    {
+        $this->{$dirName} = $this->_realpath($dir . DS, true);
+        if (!isset(Smarty::$_muted_directories[ $this->{$dirName} ])) {
+            Smarty::$_muted_directories[ $this->{$dirName} ] = null;
+        }
+        $this->_cache[ $dirName ] = true;
     }
 
     /**
@@ -1168,29 +1166,26 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _realpath($path, $realpath = null)
     {
-        static $pattern = null;
-        static $nds = null;
-        if ($pattern == null) {
+        static $nds;
+        if ($nds == null) {
             $nds = DS == '/' ? '\\' : '/';
-            $ds = '\\' . DS;
-            $pattern =
-                "#([{$ds}][^{$ds}]+[{$ds}]([.]?[{$ds}])*[.][.][{$ds}]([.]?[{$ds}])*)+|([{$ds}]([.]?[{$ds}])+)#";
         }
         // normalize DS
         if (strpos($path, $nds) !== false) {
             $path = str_replace($nds, DS, $path);
         }
-
         if (DS != '/' && $path[ 0 ] == DS) {
             $path = substr(getcwd(), 0, 2) . $path;
         } else {
-            if ($realpath !== null && $path[ 0 ] !== '/' && $path[ 1 ] !== ':') {
+            if ($realpath !== null && $path[ 0 ] != '/' && $path[ 1 ] != ':') {
                 $path = getcwd() . DS . $path;
             }
         }
         $count = 1;
-        while ($count && ((strpos($path, '.' . DS) !== false) || (strpos($path, DS . DS) !== false))) {
-            $path = preg_replace($pattern, DS, $path, -1, $count);
+        while ($count && ((strpos($path, '.' . DS) != false) || (strpos($path, DS . DS) != false))) {
+            $path =
+                preg_replace('#([\\\\/][^\\\\/]+[\\\\/]([.]?[\\\\/])*[.][.][\\\\/]([.]?[\\\\/])*)+|([\\\\/]([.]?[\\\\/])+)#',
+                             DS, $path, - 1, $count);
         }
         if ($realpath === false && ($path[ 0 ] == '/' || $path[ 1 ] == ':')) {
             $path = str_ireplace(getcwd(), '.', $path);
@@ -1356,10 +1351,10 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function __get($name)
     {
 
-        if (isset(self::$accessMap[ $name ])) {
-            $method = 'get' . self::$accessMap[ $name ];
+        if (isset($this->accessMap[ $name ])) {
+            $method = 'get' . $this->accessMap[ $name ];
             return $this->{$method}();
-        } elseif (in_array($name, self::$obsoleteProperties)) {
+        } elseif (in_array($name, $this->obsoleteProperties)) {
             return null;
         } else {
             trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
@@ -1376,10 +1371,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function __set($name, $value)
     {
-        if (isset(self::$accessMap[ $name ])) {
-            $method = 'set' . self::$accessMap[ $name ];
-            $this->{$method}($value);
-        } elseif (in_array($name, self::$obsoleteProperties)) {
+        if (isset($this->accessMap[ $name ])) {
+            } elseif (in_array($name, $this->obsoleteProperties)) {
             return;
         } else {
             if (is_object($value) && method_exists($value, $name)) {
