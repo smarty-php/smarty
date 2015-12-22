@@ -18,9 +18,9 @@ class Smarty_Internal_Runtime_CodeFrame
      * Create code frame for compiled and cached templates
      *
      * @param Smarty_Internal_Template              $_template
-     * @param string                                $content optional template content
+     * @param string                                $content   optional template content
      * @param string                                $functions compiled template function and block code
-     * @param bool                                  $cache   flag for cache file
+     * @param bool                                  $cache     flag for cache file
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
      *
      * @return string
@@ -49,8 +49,8 @@ class Smarty_Internal_Runtime_CodeFrame
         $output .= "/* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") .
             "\n  from \"" . $_template->source->filepath . "\" */\n\n";
 
-        $dec = "\$_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties(\$_smarty_tpl, " .
-            var_export($properties, true) . ',' . ($cache ? 'true' : 'false') . ")";
+        $dec = "\$_smarty_tpl->_decodeProperties(\$_smarty_tpl, " . var_export($properties, true) . ',' .
+            ($cache ? 'true' : 'false') . ")";
         $output .= "if ({$dec}) {\n";
         $output .= "function {$properties['unifunc']} (\$_smarty_tpl) {\n";
         // include code for plugins

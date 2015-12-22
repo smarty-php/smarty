@@ -14,16 +14,13 @@
  * @property Smarty_Internal_Runtime_SubTemplate      $_subTemplate
  * @property Smarty_Internal_Runtime_TplFunction      $_tplFunction
  * @property Smarty_Internal_Runtime_Var              $_var
- * @property Smarty_Internal_Runtime_Config           $_config
  * @property Smarty_Internal_Runtime_Foreach          $_foreach
  * @property Smarty_Internal_Runtime_Hhvm             $_hhvm
  * @property Smarty_Internal_Runtime_WriteFile        $_writeFile
- * @property Smarty_Internal_Runtime_ValidateCompiled $_validateCompiled
  * @property Smarty_Internal_Runtime_CodeFrame        $_codeFrame
  * @property Smarty_Internal_Runtime_FilterHandler    $_filterHandler
  * @property Smarty_Internal_Runtime_GetIncludePath   $_getIncludePath
  * @property Smarty_Internal_Runtime_UpdateScope      $_updateScope
- * @property Smarty_Internal_Runtime_IsCached         $_isCached
  * @property Smarty_Internal_Runtime_CacheModify      $_cacheModify
  * @property Smarty_Internal_Runtime_UpdateCache      $_updateCache
  * @property Smarty_Internal_Method_GetTemplateVars   $getTemplateVars

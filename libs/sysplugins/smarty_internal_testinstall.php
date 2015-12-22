@@ -480,7 +480,6 @@ class Smarty_Internal_TestInstall
                                         'smarty_internal_runtime_tplfunction.php'                   => true,
                                         'smarty_internal_runtime_updatecache.php'                   => true,
                                         'smarty_internal_runtime_updatescope.php'                   => true,
-                                        'smarty_internal_runtime_validatecompiled.php'              => true,
                                         'smarty_internal_runtime_var.php'                           => true,
                                         'smarty_internal_runtime_writefile.php'                     => true,
                                         'smarty_internal_smartytemplatecompiler.php'                => true,
