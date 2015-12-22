@@ -1372,6 +1372,8 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function __set($name, $value)
     {
         if (isset($this->accessMap[ $name ])) {
+            $method = 'set' . $this->accessMap[ $name ];
+            $this->{$method}($value);
             } elseif (in_array($name, $this->obsoleteProperties)) {
             return;
         } else {
