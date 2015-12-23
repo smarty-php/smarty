@@ -503,7 +503,7 @@ KEY `expire` (`expire`)
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
                 $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
                 $uid = $this->buildUid($tpl, $sp, $name, $type);
-                $_filepath = $uid;
+                $_filepath = sha1($uid . $this->smarty->_joined_template_dir);
                 // if use_sub_dirs, break file into directories
                 if ($sub) {
                     $_filepath =
@@ -531,7 +531,7 @@ KEY `expire` (`expire`)
                 $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
                 $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
-                return sha1($sp . $_cache_id . $_compile_id);
+                return sha1($sp .  $_cache_id . $_compile_id);
             default:
                 throw new Exception("Unhandled cache resource type '{$cacheType}'");
         }
