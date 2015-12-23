@@ -116,9 +116,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         }
         // clear template objects cache
         $smarty->_cache['isCached'] = array();
-        if (isset($smarty->ext->_subtemplate)) {
-            $smarty->ext->_subtemplate->tplObjects = array();
-        }
+        $smarty->_cache['tplObjects'] = array();
         return $_count;
     }
 }

@@ -152,8 +152,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 $_template->smarty->compile_check = $compileCheck;
             }
         }
-        $_template->smarty->ext->_subTemplate->registerSubTemplates($_template);
-
+        $_template->_subTemplateRegister();
         $this->processed = true;
     }
 

@@ -216,8 +216,6 @@ abstract class Smarty_CacheResource
     public function invalidLoadedCache(Smarty $smarty)
     {
         $smarty->_cache['isCached'] = array();
-        if (isset($smarty->ext->_subtemplate)) {
-            $smarty->ext->_subtemplate->tplObjects = array();
-        }
-    }
+        $smarty->_cache['tplObjects'] = array();
+     }
 }
