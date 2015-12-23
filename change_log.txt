@@ -2,7 +2,8 @@
  23.12.2015
   - optimization move internal method decodeProperties back into template object
   - optimization move subtemplate processing back into template object
-     
+  - new feature  Caching does now observe the template_dir setting and will create separate cache files if required
+   
  22.12.2015
   - change $xxx_dir properties from private to protected in case Smarty class gets extended
   - code optimizations

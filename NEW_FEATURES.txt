@@ -2,6 +2,12 @@
 
 This file contains a brief description of new features which have been added to Smarty 3.1
 
+Smarty 3.1.30
+
+    Caching
+    =======
+    Caching does now observe the template_dir setting and will create separate cache files if required
+
 Smarty 3.1.28
 
     OPCACHE
