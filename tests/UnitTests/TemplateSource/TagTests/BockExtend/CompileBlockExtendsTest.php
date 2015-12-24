@@ -18,6 +18,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(__DIR__);
+        //$this->smarty->setMergeCompiledIncludes(true);
     }
 
 
@@ -465,7 +466,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent template chain with nested {$this->smarty.block.child} and {include nocache}
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider data
      */
@@ -713,5 +714,20 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             array(true, true, 7, 7, 7, 'caching, merge - new'),
             array(true, true, 8, 7, 7, 'caching, merge - exits'),
         );
+    }
+
+    /*
+     * Test post filter on {block}
+     */
+    public function testPostFilter_031(){
+        function smarty_postfilter_test031($compiled, Smarty_Internal_Template $template)
+        {
+            return str_replace("'foo'", "'bar'", $compiled);
+        }
+        $this->smarty->loadFilter('post','test031');
+        $this->smarty->assign('foo','foo');
+        $this->smarty->assign('bar','bar');
+        $this->assertContains('bar', $this->smarty->fetch('031_post_filter.tpl'));
+
     }
 }
