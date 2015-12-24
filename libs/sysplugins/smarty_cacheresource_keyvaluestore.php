@@ -54,7 +54,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      */
     public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template)
     {
-        $cached->filepath = sha1($_template->source->uid . $_template->smarty->_joined_template_dir) . '#' . $this->sanitize($cached->source->resource) . '#' .
+        $cached->filepath = sha1($_template->source->uid) . '#' . $this->sanitize($cached->source->resource) . '#' .
             $this->sanitize($cached->cache_id) . '#' . $this->sanitize($cached->compile_id);
 
         $this->populateTimestamp($cached);

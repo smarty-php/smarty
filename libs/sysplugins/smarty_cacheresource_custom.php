@@ -84,7 +84,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     {
         $_cache_id = isset($cached->cache_id) ? preg_replace('![^\w\|]+!', '_', $cached->cache_id) : null;
         $_compile_id = isset($cached->compile_id) ? preg_replace('![^\w]+!', '_', $cached->compile_id) : null;
-        $path = $cached->source->filepath . $_template->smarty->_joined_template_dir. $_cache_id . $_compile_id;
+        $path = $cached->source->uid . $_cache_id . $_compile_id;
         $cached->filepath = sha1($path);
         if ($_template->smarty->cache_locking) {
             $cached->lock_id = sha1('lock.' . $path);
