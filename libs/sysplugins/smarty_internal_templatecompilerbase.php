@@ -407,7 +407,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->smarty->_debug->end_compile($this->template);
         }
         $this->parent_compiler = null;
-        $this->template = null;
         $this->parser = null;
         return $_compiled_code;
     }
