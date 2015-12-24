@@ -368,7 +368,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
         $this->assertEquals('hello world', $tpl->cached->handler->getCachedContent($tpl4));
     }
     /**
-     * Test
+     * Test caching
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider data
@@ -478,7 +478,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
     }
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -503,4 +503,40 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
         $this->assertEquals('cache resource test:51 compiled:50 rendered:51', $this->smarty->fetch($tpl), 'fetch()');
     }
 
+    /**
+     * Test caching
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider dataDir
+     *
+     */
+    public function testCachingTemplateDir($folder, $iscached, $merge, $result)
+    {
+        $this->smarty->setCaching(true);
+        if ($folder == 0) {
+            $this->smarty->setTemplateDir(array(__DIR__ . '/../_shared/templates', __DIR__ . '/../_shared/templates/a'));
+        } else {
+            $this->smarty->setTemplateDir(array(__DIR__ . '/../_shared/templates', __DIR__ . '/../_shared/templates/b'));
+        }
+        if ($merge) {
+            $this->smarty->setCompileId(1);
+            $this->smarty->setMergeCompiledIncludes(true);
+        }
+        $tpl = $this->smarty->createTemplate('templatedir.tpl', $this->smarty);
+        $this->assertEquals($iscached, $tpl->isCached());
+        $this->assertContains($result, $tpl->fetch());
+    }
+
+    public function dataDir(){
+        return array(
+            array(0,false,0, 'include a'),
+            array(0,true,0, 'include a'),
+            array(1,false,0, 'include b'),
+            array(1,true,0, 'include b'),
+            array(0,false,1, 'include a'),
+            array(0,true,1, 'include a'),
+            array(1,false,1, 'include b'),
+            array(1,true,1, 'include b'),
+            );
+    }
 }
