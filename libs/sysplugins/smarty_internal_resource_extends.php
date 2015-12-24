@@ -52,7 +52,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
         }
         $source->components = $sources;
         $source->filepath = $_s->filepath;
-        $source->uid = sha1($uid);
+        $source->uid = sha1($uid . $source->smarty->_joined_template_dir);
         $source->exists = $exists;
         if ($_template) {
             $source->timestamp = $_s->timestamp;

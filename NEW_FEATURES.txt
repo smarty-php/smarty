@@ -8,6 +8,12 @@ Smarty 3.1.30
     =======
     Caching does now observe the template_dir setting and will create separate cache files if required
 
+    Compiled Templates
+    ==================
+    The template_dir setting is now encoded in the uid of the file name.
+    The content of the compiled template may depend on the template_dir search order
+    {include .... inline} is used or $smarty->merge_compiled_includes is enabled
+
 Smarty 3.1.28
 
     OPCACHE

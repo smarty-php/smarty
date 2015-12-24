@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 24.12.2015
+  - new feature Compiler does now observe the template_dir setting and will create separate compiled files if required
+ 
  23.12.2015
   - optimization move internal method decodeProperties back into template object
   - optimization move subtemplate processing back into template object

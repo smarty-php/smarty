@@ -23,7 +23,7 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
         $uid = '';
         $sources = array();
         $timestamp = 0;
-        foreach ($_template->smarty->getTemplateDir() as $key => $directory) {
+        foreach ($source->smarty->getTemplateDir() as $key => $directory) {
             try {
                 $s = Smarty_Resource::source(null, $source->smarty, 'file:' . '[' . $key . ']' . $source->name);
                 if (!$s->exists) {
@@ -46,7 +46,7 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
         $s = current($sources);
         $source->components = $sources;
         $source->filepath = $s->filepath;
-        $source->uid = sha1($uid . $_template->smarty->_joined_template_dir);
+        $source->uid = sha1($uid . $source->smarty->_joined_template_dir);
         $source->exists = true;
         $source->timestamp = $timestamp;
     }

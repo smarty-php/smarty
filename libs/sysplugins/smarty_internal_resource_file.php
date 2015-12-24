@@ -123,7 +123,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                 $source->smarty->security_policy->isTrustedResourceDir($source->filepath, $source->isConfig);
             }
             $source->exists = true;
-            $source->uid = sha1($source->filepath);
+            $source->uid = sha1($source->filepath . ($source->isConfig ? $source->smarty->_joined_config_dir : $source->smarty->_joined_template_dir));
             if ($source->smarty->compile_check == 1) {
                 $source->timestamp = filemtime($source->filepath);
             }
