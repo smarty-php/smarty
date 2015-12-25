@@ -42,7 +42,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
         $this->smarty->caching = $caching;
-        $this->smarty->inheritance_merge_compiled_includes = $merge;
+        $this->smarty->merge_compiled_includes = $merge;
         if ($merge) {
             $this->smarty->compile_id = 1;
         }
@@ -61,7 +61,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
         $this->smarty->caching = $caching;
-        $this->smarty->inheritance_merge_compiled_includes = $merge;
+        $this->smarty->merge_compiled_includes = $merge;
         if ($merge) {
             $this->smarty->compile_id = 1;
         }
@@ -81,7 +81,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
         $this->smarty->caching = $caching;
-        $this->smarty->inheritance_merge_compiled_includes = $merge;
+        $this->smarty->merge_compiled_includes = $merge;
         if ($merge) {
             $this->smarty->compile_id = 1;
         }
