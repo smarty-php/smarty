@@ -475,7 +475,6 @@ class Smarty_Internal_TestInstall
                                         'smarty_internal_runtime_filterhandler.php'                 => true,
                                         'smarty_internal_runtime_foreach.php'                       => true,
                                         'smarty_internal_runtime_getincludepath.php'                => true,
-                                        'smarty_internal_runtime_hhvm.php'                          => true,
                                         'smarty_internal_runtime_inheritance.php'                   => true,
                                         'smarty_internal_runtime_tplfunction.php'                   => true,
                                         'smarty_internal_runtime_updatecache.php'                   => true,

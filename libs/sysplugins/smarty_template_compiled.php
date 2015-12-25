@@ -169,7 +169,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         }
         $_smarty_tpl = $_template;
         if (defined('HHVM_VERSION')) {
-            $_template->smarty->ext->_hhvm->includeHhvm($_template, $_template->compiled->filepath);
+            eval("?>" . file_get_contents($_template->compiled->filepath));
         } else {
             include($_template->compiled->filepath);
         }

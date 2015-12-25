@@ -98,7 +98,8 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         $_smarty_tpl = $_template;
         $_template->cached->valid = false;
         if ($update && defined('HHVM_VERSION')) {
-            return $_template->smarty->ext->_hhvm->includeHhvm($_template, $_template->cached->filepath);
+            eval("?>" . file_get_contents($_template->cached->filepath));
+            return true;
         } else {
             return @include $_template->cached->filepath;
         }
