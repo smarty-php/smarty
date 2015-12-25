@@ -88,7 +88,7 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
         $this->smarty->addPluginsDir(SMARTY_DIR . "../demo/plugins/");
         $this->smarty->setTemplateDir(array('./templates_3','./templates_2', './templates_1',));
         $this->smarty->setDefaultResourceType('extendsall');
-        $this->assertEquals('<p>data1 from templates3</p><p>data1 from templates1</p><p>data1 from templates2</p><p>data2 from templates1</p>', $this->smarty->fetch('template.tpl'));
+        $this->assertEquals('<p>data1 from templates1</p><p>data1 from templates3</p><p>data1 from templates2</p><p>data2 from templates1</p>', $this->smarty->fetch('template.tpl'));
     }
     /**
      * test  extendsall special application
@@ -118,7 +118,7 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
     }
     /**
      * test  extendsall special application
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testResourcePluginExtendsallSpecialApplication5()
@@ -127,7 +127,7 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
         $this->smarty->addPluginsDir(SMARTY_DIR . "../demo/plugins/");
         $this->smarty->setTemplateDir(array('./templates_3','./templates_2', './templates_1',));
         $this->smarty->setDefaultResourceType('extendsall');
-        $this->assertEquals('<p>data1 from templates3</p><p>data1 from templates1</p><p>data1 from templates2</p><p>data2 from templates1</p>', $this->smarty->fetch('template.tpl'));
+        $this->assertEquals('<p>data1 from templates1</p><p>data1 from templates3</p><p>data1 from templates2</p><p>data2 from templates1</p>', $this->smarty->fetch('template.tpl'));
     }
     /**
      * test  extendsall special application
@@ -140,6 +140,6 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
         $this->smarty->addPluginsDir(SMARTY_DIR . "../demo/plugins/");
         $this->smarty->setTemplateDir(array('./templates_3','./templates_2', './templates_1',));
         $this->smarty->setDefaultResourceType('extendsall');
-        $this->assertEquals('<p>data1 from templates3</p><p>data1 from templates1</p><p>data1 from templates2</p><p>data2 from templates1</p>', $this->smarty->fetch('template.tpl'));
+        $this->assertEquals('<p>data1 from templates1</p><p>data1 from templates3</p><p>data1 from templates2</p><p>data2 from templates1</p>', $this->smarty->fetch('template.tpl'));
     }
 }
