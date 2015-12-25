@@ -2,6 +2,8 @@
  25.12.2015
   - compile {block} tag code and its processing into classes
   - optimization replace hhvm extension by inline code
+  - new feature If ACP is enabled force an apc_compile_file() when compiled or cached template was updated
+
   
  24.12.2015
   - new feature Compiler does now observe the template_dir setting and will create separate compiled files if required

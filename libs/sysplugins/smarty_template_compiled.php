@@ -165,7 +165,9 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     private function loadCompiledTemplate(Smarty_Internal_Template $_template)
     {
         if (function_exists('opcache_invalidate')) {
-            opcache_invalidate($_template->compiled->filepath);
+            opcache_invalidate($_template->compiled->filepath, true);
+        } elseif (function_exists('apc_compile_file')) {
+            apc_compile_file($_template->compiled->filepath);
         }
         $_smarty_tpl = $_template;
         if (defined('HHVM_VERSION')) {

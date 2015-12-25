@@ -14,6 +14,10 @@ Smarty 3.1.30
     The content of the compiled template may depend on the template_dir search order
     {include .... inline} is used or $smarty->merge_compiled_includes is enabled
 
+    ACP
+    ===
+    If ACP is enabled force an apc_compile_file() when compiled or cached template was updated
+
 Smarty 3.1.28
 
     OPCACHE
