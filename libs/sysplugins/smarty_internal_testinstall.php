@@ -364,6 +364,7 @@ class Smarty_Internal_TestInstall
                                         'smarty_cacheresource_custom.php'                           => true,
                                         'smarty_cacheresource_keyvaluestore.php'                    => true,
                                         'smarty_data.php'                                           => true,
+                                        'smarty_internal_block.php'                                 => true,
                                         'smarty_internal_cacheresource_file.php'                    => true,
                                         'smarty_internal_compilebase.php'                           => true,
                                         'smarty_internal_compile_append.php'                        => true,
