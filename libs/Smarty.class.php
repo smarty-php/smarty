@@ -1194,6 +1194,14 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * Empty template objects cache
+     */
+    public function _clearTemplateCache() {
+        $this->_cache['isCached'] = array();
+        $this->_cache['tplObjects'] = array();
+    }
+
+    /**
      * @param boolean $compile_check
      */
     public function setCompileCheck($compile_check)
