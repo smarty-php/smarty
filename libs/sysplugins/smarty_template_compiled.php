@@ -221,7 +221,6 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     {
         $_template->source->compileds = array();
         $this->file_dependency = array();
-        $this->tpl_function = array();
         $this->includes = array();
         $this->nocache_hash = null;
         $this->unifunc = null;

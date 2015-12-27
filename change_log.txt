@@ -2,6 +2,7 @@
  27.12.2015
   - improve inheritance code
   - update external methods
+  - code fixes
  
  25.12.2015
   - compile {block} tag code and its processing into classes

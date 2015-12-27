@@ -90,7 +90,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
                 if (isset($compiler->smarty->security_policy)) {
                     $_dir = $compiler->smarty->security_policy->trusted_dir;
                 } else {
-                    $_dir = $compiler->smarty->trusted_dir;
+                    $_dir = $compiler->smarty instanceof SmartyBC ? $compiler->smarty->trusted_dir : null;
                 }
                 if (!empty($_dir)) {
                     foreach ((array) $_dir as $_script_dir) {

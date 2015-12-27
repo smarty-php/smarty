@@ -46,7 +46,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
             $output = addcslashes($_attr['code'], "'\\");
             $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" .
                                                                                                                                                                     $output .
-                                                                                                                                                                    "';?>", $compiler, true)));
+                                                                                                                                                                    "';?>", true)));
             $compiler->template->compiled->has_nocache_code = $save;
             return '';
         }
@@ -64,7 +64,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                 $output = addcslashes($_attr['code'], "'\\");
                 $compiler->parser->current_buffer->append_subtree($compiler->parser, new Smarty_Internal_ParseTree_Tag($compiler->parser, $compiler->processNocacheCode("<?php echo '" .
                                                                                                                                                                         $output .
-                                                                                                                                                                        "';?>", $compiler, true)));
+                                                                                                                                                                        "';?>", true)));
                 $compiler->template->compiled->has_nocache_code = $save;
                 return '';
             } elseif ($compiler->php_handling == Smarty::PHP_ALLOW) {
