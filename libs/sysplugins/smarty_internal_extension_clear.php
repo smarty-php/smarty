@@ -116,7 +116,7 @@ class Smarty_Internal_Extension_Clear
                     }
                     $_count += @unlink((string) $_file) ? 1 : 0;
                     if (function_exists('opcache_invalidate')) {
-                        opcache_invalidate((string) $_file);
+                        opcache_invalidate((string) $_file, true);
                     }
                 }
             }

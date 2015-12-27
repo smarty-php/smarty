@@ -111,7 +111,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                 if ($unlink && @unlink($_filepath)) {
                     $_count ++;
                     if (function_exists('opcache_invalidate')) {
-                        opcache_invalidate($_filepath);
+                        opcache_invalidate($_filepath, true);
                     }
                 }
             }
