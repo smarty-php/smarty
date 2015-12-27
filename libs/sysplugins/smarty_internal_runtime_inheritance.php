@@ -24,11 +24,11 @@ class Smarty_Internal_Runtime_Inheritance
     public $state = 0;
 
     /**
-     * Array of block parameter of known {block} tags
+     * Array of root child {block} objects
      *
-     * @var array
+     * @var Smarty_Internal_Block[]
      */
-    public $blockParameter = array();
+    public $childRoot = array();
 
     /**
      * inheritance template nesting level
@@ -45,20 +45,12 @@ class Smarty_Internal_Runtime_Inheritance
     public $tplIndex = - 1;
 
     /**
-     * Array of compiled template file path
+     * Array of source template names
      * - key template index
-     * only used when caching is enabled
      *
-     * @var []string
+     * @var string[]
      */
-    public $compiledFilePath = array();
-
-    /**
-     * Current {block} nesting level
-     *
-     * @var int
-     */
-    public $blockNesting = 0;
+    public $templateResource = array();
 
     /**
      * Initialize inheritance
@@ -70,8 +62,8 @@ class Smarty_Internal_Runtime_Inheritance
      */
     public function init(Smarty_Internal_Template $tpl, $initChild, $blockNames = array())
     {
-        // if template was from an inner block or template is a parent template create new inheritance root
-        if ($initChild && ($this->blockNesting || $this->state == 3)) {
+        // if called while executing parent template it must be a sub-template with new inheritance root
+        if ($initChild && $this->state == 3) {
             $tpl->ext->_inheritance = new Smarty_Internal_Runtime_Inheritance();
             $tpl->ext->_inheritance->init($tpl, $initChild, $blockNames);
             return;
@@ -88,7 +80,7 @@ class Smarty_Internal_Runtime_Inheritance
         // in parent state {include} will not increment template index
         if ($this->state != 3) {
             $this->tplIndex ++;
-            $this->compiledFilePath[ $this->tplIndex ] = $tpl->template_resource;
+            $this->templateResource[ $this->tplIndex ] = $tpl->template_resource;
         }
         // if state was waiting for parent change state to parent
         if ($this->state == 2) {

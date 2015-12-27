@@ -235,7 +235,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         if ($compiler->_cache[ 'blockNesting' ] == 1) {
             $output .= "new {$_className}(\$_smarty_tpl);\n";
         } else {
-            $output .= "new {$_className}(\$_smarty_tpl);\n";
+            $output .= "new {$_className}(\$_smarty_tpl, \$this->tplIndex);\n";
         }
         $output .= "?>\n";
         $compiler->_cache[ 'blockNesting' ] --;
