@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Smarty Method UnloadFilter
+ * Smarty Method MustCompile
  *
  * Smarty_Internal_Template::mustCompile() method
  *

@@ -103,11 +103,14 @@ require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
  *
  * @package Smarty
  *
+ * The following methods will be dynamically loaded by the extension handler when they are called.
+ * They are located in a corresponding Smarty_Internal_Method_xxxx class
+ *
  * @method int clearAllCache(int $exp_time = null, string $type = null)
  * @method int clearCache(string $template_name, string $cache_id = null, string $compile_id = null, int $exp_time = null, string $type = null)
  * @method int compileAllTemplates(Smarty $smarty, string $extension = '.tpl', bool $force_compile = false, int $time_limit = 0, int $max_errors = null)
  * @method int compileAllConfig(Smarty $smarty, string $extension = '.conf', bool $force_compile = false, int $time_limit = 0, int $max_errors = null)
- *
+ * @method int clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
  */
 class Smarty extends Smarty_Internal_TemplateBase
 {
@@ -732,31 +735,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Returns a single or all global  variables
-     *
-     * @param  string $varname variable name or null
-     *
-     * @return string variable value or or array of variables
-     */
-    public function getGlobal($varname = null)
-    {
-        if (isset($varname)) {
-            if (isset(self::$global_tpl_vars[ $varname ])) {
-                return self::$global_tpl_vars[ $varname ]->value;
-            } else {
-                return '';
-            }
-        } else {
-            $_result = array();
-            foreach (self::$global_tpl_vars AS $key => $var) {
-                $_result[ $key ] = $var->value;
-            }
-
-            return $_result;
-        }
-    }
-
-    /**
      * Loads security class and enables security
      *
      * @param  string|Smarty_Security $security_class if a string is used, it must be class-name
@@ -1340,14 +1318,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Class destructor
-     */
-    public function __destruct()
-    {
-        $i = 0;// intentionally left blank
-    }
-
-    /**
      * <<magic>> Generic getter.
      * Calls the appropriate getter function.
      * Issues an E_USER_NOTICE if no valid getter is found.
@@ -1367,6 +1337,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         } else {
             trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
         }
+        return null;
     }
 
     /**
@@ -1436,8 +1407,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 break;
             }
         }
-
-        // pass to next error handler if this error did not occur inside SMARTY_DIR
+       // pass to next error handler if this error did not occur inside SMARTY_DIR
         // or the error was within smarty but masked to be ignored
         if (!$_is_muted_directory || ($errno && $errno & error_reporting())) {
             if (Smarty::$_previous_error_handler) {

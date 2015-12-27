@@ -1,6 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
  27.12.2015
   - improve inheritance code
+  - update external methods
  
  25.12.2015
   - compile {block} tag code and its processing into classes

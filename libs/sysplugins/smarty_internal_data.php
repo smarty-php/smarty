@@ -14,13 +14,18 @@
  * @package    Smarty
  * @subpackage Template
  *
+ * @property int $scope
+
+ * The following methods will be dynamically loaded by the extension handler when they are called.
+ * They are located in a corresponding Smarty_Internal_Method_xxxx class
+ *
  * @method mixed getConfigVars(string $varName = null, bool $searchParents = true)
+ * @method mixed getGlobal(string $varName = null)
  * @method mixed getStreamVariable(string $variable)
  * @method Smarty_Internal_Data clearAssign(mixed $tpl_var)
  * @method Smarty_Internal_Data clearAllAssign()
  * @method Smarty_Internal_Data clearConfig(string $varName = null)
  * @method Smarty_Internal_Data configLoad(string $config_file, mixed $sections = null, string $scope = 'local')
- * @property int $scope
  */
 class Smarty_Internal_Data
 {

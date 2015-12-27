@@ -430,6 +430,7 @@ class Smarty_Internal_TestInstall
                                         'smarty_internal_method_getconfigvars.php'                  => true,
                                         'smarty_internal_method_getdebugtemplate.php'               => true,
                                         'smarty_internal_method_getdefaultmodifiers.php'            => true,
+                                        'smarty_internal_method_getglobal.php'                      => true,
                                         'smarty_internal_method_getregisteredobject.php'            => true,
                                         'smarty_internal_method_getstreamvariable.php'              => true,
                                         'smarty_internal_method_gettags.php'                        => true,

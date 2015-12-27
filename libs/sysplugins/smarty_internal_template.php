@@ -17,6 +17,10 @@
  * @property Smarty_Template_Source|Smarty_Template_Config $source
  * @property Smarty_Template_Compiled                      $compiled
  * @property Smarty_Template_Cached                        $cached
+ *
+ * The following methods will be dynamically loaded by the extension handler when they are called.
+ * They are located in a corresponding Smarty_Internal_Method_xxxx class
+ *
  * @method bool mustCompile()
  */
 class Smarty_Internal_Template extends Smarty_Internal_TemplateBase

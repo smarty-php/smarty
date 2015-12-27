@@ -9,34 +9,39 @@
  */
 
 /**
- * Class with shared template methods
+ * Class with shared smarty/template methods
  *
  * @package      Smarty
  * @subpackage   Template
  *
  * @property Smarty $smarty
- * @method Smarty_Internal_TemplateBase setAutoloadFilters(mixed $filters, string $type = null)
+ *
+ * The following methods will be dynamically loaded by the extension handler when they are called.
+ * They are located in a corresponding Smarty_Internal_Method_xxxx class
+ *
  * @method Smarty_Internal_TemplateBase addAutoloadFilters(mixed $filters, string $type = null)
+ * @method Smarty_Internal_TemplateBase addDefaultModifier(mixed $modifiers)
+ * @method Smarty_Internal_TemplateBase createData(Smarty_Internal_Data $parent = null, string $name = null)
  * @method array getAutoloadFilters(string $type = null)
- * @local_method Smarty_Internal_TemplateBase registerFilter(string $type, callback $callback, string $name = null)
- * @method Smarty_Internal_TemplateBase unregisterFilter(string $type, mixed $callback)
- * @method Smarty_Internal_TemplateBase unloadFilter(string $type, string $name)
  * @method string getDebugTemplate()
+ * @method array getDefaultModifier()
+ * @method array getTags(mixed $template = null)
+ * @method object getRegisteredObject(string $object_name)
+ * @method Smarty_Internal_TemplateBase registerCacheResource(string $name, Smarty_CacheResource $resource_handler)
+ * @method Smarty_Internal_TemplateBase registerClass(string $class_name, string $class_impl)
+ * @method Smarty_Internal_TemplateBase registerDefaultConfigHandler(callback $callback)
+ * @method Smarty_Internal_TemplateBase registerDefaultPluginHandler(callback $callback)
+ * @method Smarty_Internal_TemplateBase registerDefaultTemplateHandler(callback $callback)
+ * @method Smarty_Internal_TemplateBase registerResource(string $name, mixed $resource_handler)
+ * @method Smarty_Internal_TemplateBase setAutoloadFilters(mixed $filters, string $type = null)
  * @method Smarty_Internal_TemplateBase setDebugTemplate(string $tpl_name)
  * @method Smarty_Internal_TemplateBase setDefaultModifier(mixed $modifiers)
- * @method Smarty_Internal_TemplateBase addDefaultModifier(mixed $modifiers)
- * @method array getDefaultModifier()
- * @method Smarty_Internal_TemplateBase registerDefaultPluginHandler(callback $callback)
- * @method Smarty_Internal_TemplateBase registerResource(string $name, Smarty_Resource $resource_handler)
- * @method Smarty_Internal_TemplateBase unregisterResource(string $name)
- * @method Smarty_Internal_TemplateBase registerCacheResource(string $name, Smarty_CacheResource $resource_handler)
+ * @method Smarty_Internal_TemplateBase unloadFilter(string $type, string $name)
  * @method Smarty_Internal_TemplateBase unregisterCacheResource(string $name)
- * @method Smarty_Internal_TemplateBase unregisterPlugin(string $type, string $name)
  * @method Smarty_Internal_TemplateBase unregisterObject(string $object_name)
- * @method object getRegisteredObject(string $object_name)
- * @method Smarty_Internal_TemplateBase registerClass(string $class_name, string $class_impl)
- * @method Smarty_Internal_TemplateBase createData(Smarty_Internal_Data $parent = null, string $name = null)
- * @method array getTags(mixed $template = null)
+ * @method Smarty_Internal_TemplateBase unregisterPlugin(string $type, string $name)
+ * @method Smarty_Internal_TemplateBase unregisterFilter(string $type, mixed $callback)
+ * @method Smarty_Internal_TemplateBase unregisterResource(string $name)
  */
 abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
 {
