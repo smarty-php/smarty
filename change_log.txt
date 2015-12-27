@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 28.12.2015
+  - optimization of {foreach} code size and processing
+  
  27.12.2015
   - improve inheritance code
   - update external methods
