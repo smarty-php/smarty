@@ -10,7 +10,7 @@
  * class for block extends compiler tests
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  */
 class CompileBlockExtendsTest extends PHPUnit_Smarty
@@ -21,7 +21,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         //$this->smarty->setMergeCompiledIncludes(true);
     }
 
-
     public function compiledPrefilter($text, Smarty_Internal_Template $tpl)
     {
         return str_replace('#', $tpl->getTemplateVars('test'), $text);
@@ -31,6 +30,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     {
         $this->cleanDirs();
     }
+
     /**
      * test block default outout
      */
@@ -52,554 +52,684 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      */
     public function testCompileBlockParent_001()
     {
+        $this->smarty->assign('parent', 'parent');
         $result = $this->smarty->fetch('001_parent.tpl');
-        $this->assertContains('Default Title', $result);
+        $this->assertContains('(parent|b)content parent b(parent|/b)', $result);
     }
 
     /**
      * test  child/parent template chain
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChild_002($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChild_002($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber,
+                                              $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('002_child.tpl');
-        $this->assertContains('Page Title', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $this->assertContains('(child|b)content child b(child|/b)', $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  child/parent template chain with prepend
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChildPrepend_003($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildPrepend_003($caching, $merge, $testNumber, $compileTestNumber,
+                                                     $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('003_child_prepend.tpl');
-        $this->assertContains("prepend - Default Title", $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('003_child.tpl');
+        $this->assertContains('(child|b)content child b(child|/b)(parent|b)content parent b(parent|/b)', $result,
+                              $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
+    }
+
+    /**
+     * test  child/parent template chain with prepend
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        data
+     */
+    public function testCompileBlockGrandPrepend_003($caching, $merge, $testNumber, $compileTestNumber,
+                                                     $renderTestNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->assign('grand', 'grand', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
+        if ($merge) {
+            $this->smarty->setCompileId(1);
+        }
+        $result = $this->smarty->fetch('003_grand.tpl');
+        $this->assertContains('(grand|b)content grand b(grand|/b)(child|b)content child b(child|/b)(parent|b)content parent b(parent|/b)',
+                              $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  child/parent template chain with apppend
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChildAppend_004($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildAppend_004($caching, $merge, $testNumber, $compileTestNumber,
+                                                    $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->assign('grand', 'grand', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('004_child_append.tpl');
-        $this->assertContains("Default Title - append", $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('004_child.tpl');
+        $this->assertContains('(parent|b)content parent b(parent|/b)(child|b)content child b(child|/b)', $result,
+                              $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
+    }
+
+    /**
+     * test  grandchild/parent template chain with apppend
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        data
+     */
+    public function testCompileBlockGrandAppend_004($caching, $merge, $testNumber, $compileTestNumber,
+                                                    $renderTestNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->assign('grand', 'grand', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
+        if ($merge) {
+            $this->smarty->setCompileId(1);
+        }
+        $result = $this->smarty->fetch('004_grand.tpl');
+        $this->assertContains('(parent|b)content parent b(parent|/b)(child|b)content child b(child|/b)(grand|b)content grand b(grand|/b)',
+                              $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
+    }
+
+    /**
+     * test  grandchild/parent template chain with apppend
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        data
+     */
+    public function testCompileBlockGrandAppendPrepend_004($caching, $merge, $testNumber, $compileTestNumber,
+                                                           $renderTestNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->assign('grand', 'grand', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
+        if ($merge) {
+            $this->smarty->setCompileId(1);
+        }
+        $result = $this->smarty->fetch('004_grand2.tpl');
+        $this->assertContains('(parent|b)content parent b(parent|/b)(grand|b)content grand b(grand|/b)(child|b)content child b(child|/b)(grand|b)content grand b(grand|/b)',
+                              $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  child/parent template chain with apppend and shorttags
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChildAppendShortag_005($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildAppendShortag_005($caching, $merge, $testNumber, $compileTestNumber,
+                                                           $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('005_child_append_shorttag.tpl');
-        $this->assertContains("Default Title - append", $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('005_child.tpl');
+        $this->assertContains('(parent|b)content parent b(parent|/b)(child|b)content child b(child|/b)', $result,
+                              $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  child/parent template chain with {$this->smarty.block.child)
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChildSmartyChild_006($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildSmartyChild_006($caching, $merge, $testNumber, $compileTestNumber,
+                                                         $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('006_child_smartychild.tpl');
-        $this->assertContains('here is >child text< included', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('006_child.tpl');
+        $this->assertContains('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
+                              $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  child/parent template chain with {$this->smarty.block.parent)
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChildSmartyParent_007($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildSmartyParent_007($caching, $merge, $testNumber, $compileTestNumber,
+                                                          $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->assign('grand', 'grand', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('007_child_smartyparent.tpl');
-        $this->assertContains('parent block Default Title is here', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('007_child.tpl');
+        $this->assertContains('(child|b)content (parent|b)content parent b(parent|/b) b(child|/b)', $result,
+                              $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
+    }
+
+    /**
+     * test  grandchild/child/parent template chain with {$this->smarty.block.parent)
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        data
+     */
+    public function testCompileBlockChildSmartyParent_007_2($caching, $merge, $testNumber, $compileTestNumber,
+                                                            $renderTestNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->assign('grand', 'grand', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
+        if ($merge) {
+            $this->smarty->setCompileId(1);
+        }
+        $result = $this->smarty->fetch('007_grand.tpl');
+        $this->assertContains('(grand|b)content (child|b)content (parent|b)content parent b(parent|/b) b(child|/b) b(grand|/b)',
+                              $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  child/parent template chain loading plugin
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChildPlugin_008($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildPlugin_008($caching, $merge, $testNumber, $compileTestNumber,
+                                                    $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->assign('grand', 'grand', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('008_child_plugin.tpl');
-        $this->assertContains('escaped &lt;text&gt; 1', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('008_child.tpl');
+        $this->assertContains('(child|b)content escaped &lt;text&gt; child 1 b(child|/b', $result,
+                              $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
-
 
     /**
      * test parent template with nested blocks
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockParentNested_009($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockParentNested_009($caching, $merge, $testNumber, $compileTestNumber,
+                                                     $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('009_parent_nested.tpl');
-        $this->assertContains('Title with -default- here', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('009_parent.tpl');
+        $this->assertContains('(parent|b)content (parent|c)content parent c(parent|/c) b(parent|/b)', $result,
+                              $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  child/parent template chain with nested block
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChildNested_010($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildNested_010($caching, $merge, $testNumber, $compileTestNumber,
+                                                    $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('010_child_nested.tpl');
-        $this->assertContains('Title with -content from child- here', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('010_child.tpl');
+        $this->assertContains('(parent|b)content (parent|c)content child c(parent|/c) b(parent|/b)', $result,
+                              $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  child/parent template chain with nested block and include
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChildNestedInclude_011($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildNestedInclude_011($caching, $merge, $testNumber, $compileTestNumber,
+                                                           $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->assign('grand', 'grand', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('011_grandchild_nested_include.tpl');
-        $this->assertContains('hello world', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('011_grand.tpl');
+        $this->assertContains('(child|b)content(child|c)content(child|n)content(include)content child i(/include)n(child|/n)c(child|/c)(grand|c)content grand c(grand|\c)b(child|/b)',
+                              $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
-     * test  grandchild/child/parent template chain
+     * test  template chain with nested block level test
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockGrandChild_012($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildNestedInclude_012($caching, $merge, $testNumber, $compileTestNumber,
+                                                           $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->assign('parent', 'parent', true);
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->assign('grand', 'grand', true);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('012_grandchild.tpl');
-        $this->assertContains('Grandchild Page Title', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
-    }
-
-    /**
-     * test  grandchild/child/parent template chain prepend
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @dataProvider data
-     */
-    public function testCompileBlockGrandChildPrepend_013($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
-        if ($merge) {
-            $this->smarty->compile_id = 1;
-        }
-        $result = $this->smarty->fetch('013_grandchild_prepend.tpl');
-        $this->assertContains('grandchild prepend - child', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
-    }
-    /**
-     * test  grandchild/child/parent template chain prepend
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @dataProvider data
-     */
-    public function testCompileBlockGrandChildPrepend_013_2($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
-        if ($merge) {
-            $this->smarty->compile_id = 1;
-        }
-        $result = $this->smarty->fetch('013_2_grandchild_prepend.tpl');
-        $this->assertContains('grandchild prepend - child prepend - parent', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
-    }
-
-    /**
-     * test  grandchild/child/parent template chain with {$this->smarty.block.child}
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @dataProvider data
-     */
-    public function testCompileBlockGrandChildSmartyChild_014($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
-        if ($merge) {
-            $this->smarty->compile_id = 1;
-        }
-        $result = $this->smarty->fetch('014_grandchild_smartychild.tpl');
-        $this->assertContains('child title with - grandchild content - here', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
-    }
-
-    /**
-     * test  grandchild/child/parent template chain append
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @dataProvider data
-     */
-    public function testCompileBlockGrandChildAppend_015($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
-        if ($merge) {
-            $this->smarty->compile_id = 1;
-        }
-        $result = $this->smarty->fetch('015_grandchild_append.tpl');
-        $this->assertContains('Page Title - grandchild append', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
-    }
-
-    /**
-     * test  grandchild/child/parent template chain with nested block
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @dataProvider data
-     */
-    public function testCompileBlockGrandChildNested_016($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
-        if ($merge) {
-            $this->smarty->compile_id = 1;
-        }
-        $result = $this->smarty->fetch('016_grandchild_nested.tpl');
-        $this->assertContains('child title with -grandchild content- here', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
-    }
-
-    /**
-     * test  grandchild/child/parent template chain with nested {$this->smarty.block.child}
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @dataProvider data
-     */
-    public function testCompileBlockGrandChildNested_017($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
-        if ($merge) {
-            $this->smarty->compile_id = 1;
-        }
-        $result = $this->smarty->fetch('017_grandchild_nested.tpl');
-        $this->assertContains('child pre -grandchild content- child post', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('012_grandgrand.tpl');
+        $this->assertContains('(grand|b)content (grandgrand|c)content c(grandgrand|\c)(grand|c)content c(grand|\c) b(grand|/b)',
+                              $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  nested child block with hide
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChildNestedHide_018($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildNestedHide_018($caching, $merge, $testNumber, $compileTestNumber,
+                                                        $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $result = $this->smarty->fetch('018_child_nested_hide.tpl');
-        $this->assertContains('nested block', $result);
-        $this->assertNotContains('should be hidden', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('018_child.tpl');
+        $this->assertContains('(child|b)content(child|c)content child c(child|/c)b(child|/b)', $result,
+                              $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
-     * test  nested child block with hide and auto_literal = false
+     * test  nested grand/child block with hide
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockChildNestedHideAutoLiteralFalse_019($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockChildNestedHide_018_2($caching, $merge, $testNumber, $compileTestNumber,
+                                                          $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
-        $this->smarty->setAutoLiteral(false);
-        $result = $this->smarty->fetch('019_child_nested_hide_autoliteral.tpl');
-        $this->assertContains('nested block', $result, $testName . ' - content');
-        $this->assertNotContains('should be hidden', $result, $testName . ' - content2');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $result = $this->smarty->fetch('018_grand.tpl');
+        $this->assertContains('(child|b)content(child|c)content child c(child|/c)(child|d)content (grand|d)content grand d(grand|/d) d(child|/d)b(child|/b)',
+                              $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
+    }
+
+    /**
+     * test  nested grandgrand/grand/child block with hide
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        data
+     */
+    public function testCompileBlockChildNestedHide_018_3($caching, $merge, $testNumber, $compileTestNumber,
+                                                          $renderTestNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
+        if ($merge) {
+            $this->smarty->setCompileId(1);
+        }
+        $result = $this->smarty->fetch('018_grandgrand.tpl');
+        $this->assertContains('(child|b)content(grand|c)content (grandgrand|c)content grandgrand c(grandgrand|/c) c(grand|/c)(child|d)content (grandgrand|d)content grandgrand d(grandgrand|/d) d(child|/d)b(child|/b)',
+                              $result, $testName . ' - content');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  child/parent template chain starting in subtempates
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testCompileBlockStartSubTemplates_020($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testCompileBlockStartSubTemplates_020($caching, $merge, $testNumber, $compileTestNumber,
+                                                          $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('020_include_root.tpl');
-        $this->assertContains('page 1', $result, $testName . ' - content1');
-        $this->assertContains('page 2', $result, $testName . ' - content2');
-        $this->assertContains('page 3', $result, $testName . ' - content3');
-        $this->assertContains('block 1', $result, $testName . ' - content4');
-        $this->assertContains('block 2', $result, $testName . ' - content5');
-        $this->assertContains('block 3', $result, $testName . ' - content6');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
-    }
-
-    /**
-     * test  grandchild/child/parent template chain with nested {$this->smarty.block.child} and {include nocache}
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @dataProvider data
-     */
-    public function testCompileBlockGrandChildNested_030($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
-        if ($merge) {
-            $this->smarty->compile_id = 1;
-        }
-        $result = $this->smarty->fetch('030_grandchild_nested.tpl');
-        $this->assertContains('child pre -grandchild content- child post', $result, $testName . ' - content');
-        $this->assertContains('include:' . $testNumber, $result, $testName . ' - content 2');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $this->assertContains('(include1)(include1|p)content 1 p(include1|\p)(include1|b)content 1 b(include1|\b)(\include1)',
+                              $result, $testName . ' - include 1');
+        $this->assertContains('(include2)(include2|p)content 2 p(include2|\p)(include2|b)content 2 b(include2|\b)(\include2)',
+                              $result, $testName . ' - include 1');
+        $this->assertContains('(include3)(include3|p)content 3 p(include3|\p)(include3|b)content 3 b(include3|\b)(\include3)',
+                              $result, $testName . ' - include 1');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  grandchild/child/parent dependency test1
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testCompileBlockGrandChildMustCompile_021_1()
     {
+        $this->smarty->assign('parent', 'parent');
+        $this->smarty->assign('child', 'child', true);
+        $this->smarty->assign('grand', 'grand', true);
         $this->smarty->setCompileDir('./templates_c/mustcompile');
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $tpl = $this->smarty->createTemplate('021_grandchild.tpl');
+        $tpl = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
-        $this->assertContains('Grandchild Page Title', $result);
-        $this->smarty->_cache['template_objects'] = null;
-        $tpl2 = $this->smarty->createTemplate('021_grandchild.tpl');
+        $this->assertContains('(grand|b)content grand b(grand|/b)(child|b)content child b(child|/b)(parent|b)content parent b(parent|/b)',
+                              $result);
+        $this->smarty->_clearTemplateCache();
+        $this->smarty->assign('parent', 'parent2');
+        $this->smarty->assign('child', 'child2', true);
+        $this->smarty->assign('grand', 'grand2', true);
+        $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
-        $this->assertContains('Grandchild Page Title', $result);
+        $this->assertContains('(grand|b)content grand2 b(grand|/b)(child|b)content child2 b(child|/b)(parent|b)content parent b(parent|/b)',
+                              $result);
+    }
+
+    /**
+     * test  grandchild/child/parent dependency test1
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testCompileBlockGrandChildMustCompile_021_12()
+    {
+        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 1000;
+        $this->smarty->assign('parent', 'parent3');
+        $this->smarty->assign('child', 'child3', true);
+        $this->smarty->assign('grand', 'grand3', true);
+        $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
+        $this->assertTrue($tpl2->isCached());
+        $result = $this->smarty->fetch($tpl2);
+        $this->assertContains('(grand|b)content grand3 b(grand|/b)(child|b)content child3 b(child|/b)(parent|b)content parent b(parent|/b)',
+                              $result);
     }
 
     /**
      * test  grandchild/child/parent dependency test2
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
     public function testCompileBlockGrandChildMustCompile_021_2()
     {
+        $this->smarty->assign('parent', 'parent4');
+        $this->smarty->assign('child', 'child4', true);
+        $this->smarty->assign('grand', 'grand4', true);
         $this->smarty->setCompileDir('./templates_c/mustcompile');
         sleep(2);
-        touch($this->smarty->getTemplateDir(0) . '021_grandchild.tpl');
+        touch($this->smarty->getTemplateDir(0) . '021_grand.tpl');
         clearstatcache();
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $tpl = $this->smarty->createTemplate('021_grandchild.tpl');
+        $tpl = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
-        $this->assertContains('Grandchild Page Title', $result);
-        $this->smarty->_cache['template_objects'] = null;
-        $tpl2 = $this->smarty->createTemplate('021_grandchild.tpl');
+        $this->assertContains('(grand|b)content grand4 b(grand|/b)(child|b)content child4 b(child|/b)(parent|b)content parent4 b(parent|/b)',
+                              $result);
+        $this->smarty->_clearTemplateCache();
+        $this->smarty->assign('parent', 'parent5');
+        $this->smarty->assign('child', 'child5', true);
+        $this->smarty->assign('grand', 'grand5', true);
+        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
-        $this->assertContains('Grandchild Page Title', $result);
+        $this->assertContains('(grand|b)content grand5 b(grand|/b)(child|b)content child5 b(child|/b)(parent|b)content parent4 b(parent|/b)',
+                              $result);
     }
 
     /**
      * test  grandchild/child/parent dependency test3
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
     public function testCompileBlockGrandChildMustCompile_021_3()
     {
+        $this->smarty->assign('parent', 'parent6');
+        $this->smarty->assign('child', 'child6', true);
+        $this->smarty->assign('grand', 'grand6', true);
         $this->smarty->setCompileDir('./templates_c/mustcompile');
         sleep(2);
         touch($this->smarty->getTemplateDir(0) . '021_child.tpl');
         clearstatcache();
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $tpl = $this->smarty->createTemplate('021_grandchild.tpl');
+        $tpl = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
-        $this->assertContains('Grandchild Page Title', $result);
+        $this->assertContains('(grand|b)content grand6 b(grand|/b)(child|b)content child6 b(child|/b)(parent|b)content parent6 b(parent|/b)',
+                              $result);
     }
+
     /**
      * test  grandchild/child/parent dependency test3
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
     public function testCompileBlockGrandChildMustCompile_021_32()
     {
+        $this->smarty->assign('parent', 'parent7');
+        $this->smarty->assign('child', 'child7', true);
+        $this->smarty->assign('grand', 'grand7', true);
         $this->smarty->setCompileDir('./templates_c/mustcompile');
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $tpl2 = $this->smarty->createTemplate('021_grandchild.tpl');
+        $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
-        $this->assertContains('Grandchild Page Title', $result);
+        $this->assertContains('(grand|b)content grand7 b(grand|/b)(child|b)content child7 b(child|/b)(parent|b)content parent6 b(parent|/b)',
+                              $result);
     }
 
     /**
      * test  grandchild/child/parent dependency test4
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testCompileBlockGrandChildMustCompile_021_4()
     {
+        $this->smarty->assign('parent', 'parent8');
+        $this->smarty->assign('child', 'child8', true);
+        $this->smarty->assign('grand', 'grand8', true);
         $this->smarty->setCompileDir('./templates_c/mustcompile');
         sleep(2);
         touch($this->smarty->getTemplateDir(0) . '021_parent.tpl');
         clearstatcache();
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $tpl = $this->smarty->createTemplate('021_grandchild.tpl');
+        $tpl = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
-        $this->assertContains('Grandchild Page Title', $result);
+        $this->assertContains('(grand|b)content grand8 b(grand|/b)(child|b)content child8 b(child|/b)(parent|b)content parent8 b(parent|/b)',
+                              $result);
     }
 
     /**
      * test  grandchild/child/parent dependency test4
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testCompileBlockGrandChildMustCompile_021_42()
     {
+        $this->smarty->assign('parent', 'parent9');
+        $this->smarty->assign('child', 'child9', true);
+        $this->smarty->assign('grand', 'grand9', true);
         $this->smarty->setCompileDir('./templates_c/mustcompile');
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $tpl2 = $this->smarty->createTemplate('021_grandchild.tpl');
+        $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
-        $this->assertContains('Grandchild Page Title', $result);
+        $this->assertContains('(grand|b)content grand9 b(grand|/b)(child|b)content child9 b(child|/b)(parent|b)content parent8 b(parent|/b)',
+                              $result);
     }
 
     /**
@@ -627,8 +757,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      */
     public function testSmartyBlockChildOutsideBlock_025()
     {
-         $this->smarty->fetch('025_parent.tpl');
-     }
+        $this->smarty->fetch('025_parent.tpl');
+    }
 
     /**
      * @expectedException        SmartyCompilerException
@@ -650,54 +780,80 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $result = $this->smarty->fetch('027_parent.tpl');
     }
 
-
     /**
      * test  child/parent template chain
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider data
+     * @dataProvider        data
      */
-    public function testSmartyBlockVariablePartentInclude_28($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testSmartyBlockVariablePartentInclude_28($caching, $merge, $testNumber, $compileTestNumber,
+                                                             $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
-        $this->smarty->compile_id = 10;
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
+        $this->smarty->setCompileId(10);
         if ($merge) {
-            $this->smarty->compile_id = 11;
+            $this->smarty->setCompileId(11);
         }
         $this->smarty->assign('foo', '028_parent_include1.tpl');
         $result = $this->smarty->fetch('028_child.tpl');
         $this->assertContains('b1-include-1--b1', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
     /**
      * test  child/parent template chain
+     *
      * @dataProvider data
      */
-    public function testSmartyBlockVariablePartentInclude_282($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+    public function testSmartyBlockVariablePartentInclude_282($caching, $merge, $testNumber, $compileTestNumber,
+                                                              $renderTestNumber, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
-        $this->smarty->caching = $caching;
-        $this->smarty->merge_compiled_includes = $merge;
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
         $this->smarty->assign('foo', '028_parent_include2.tpl');
         $result = $this->smarty->fetch('028_child.tpl');
         $this->assertContains('b1-child-i2-include-2--b1', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
     }
 
+    /**
+     * test  grandchild/child/parent template chain with nested {$this->smarty.block.child} and {include nocache}
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        data
+     */
+    public function testCompileBlockGrandChildNested_030($caching, $merge, $testNumber, $compileTestNumber,
+                                                         $renderTestNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
+        if ($merge) {
+            $this->smarty->setCompileId(1);
+        }
+        $result = $this->smarty->fetch('030_grandchild_nested.tpl');
+        $this->assertContains('child pre -grandchild content- child post', $result, $testName . ' - content');
+        $this->assertContains('include:' . $testNumber, $result, $testName . ' - content 2');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
+    }
 
-
-    public function data(){
-        return array(
-            /*
+    public function data()
+    {
+        return array(/*
              * caching
              * merging
              * test nr
@@ -705,29 +861,29 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
              * result render nr
              * text
              */
-            array(false, false, 1, 1, 1, 'no caching, no merge - new'),
-            array(false, false, 2, 1, 2, 'no caching, no merge - exits'),
-            array(true, false, 3, 3, 3, 'caching, no merge - new'),
-            array(true, false, 4, 3, 3, 'caching, no merge - exits'),
-            array(false, true, 5, 5, 5, 'no caching, merge - new'),
-            array(false, true, 6, 5, 6, 'no caching, merge - exits'),
-            array(true, true, 7, 7, 7, 'caching, merge - new'),
-            array(true, true, 8, 7, 7, 'caching, merge - exits'),
-        );
+                     array(false, false, 1, 1, 1, 'no caching, no merge - new'),
+                     array(false, false, 2, 1, 2, 'no caching, no merge - exits'),
+                     array(true, false, 3, 3, 3, 'caching, no merge - new'),
+                     array(true, false, 4, 3, 3, 'caching, no merge - exits'),
+                     array(false, true, 5, 5, 5, 'no caching, merge - new'),
+                     array(false, true, 6, 5, 6, 'no caching, merge - exits'),
+                     array(true, true, 7, 7, 7, 'caching, merge - new'),
+                     array(true, true, 8, 7, 7, 'caching, merge - exits'),);
     }
 
     /*
      * Test post filter on {block}
      */
-    public function testPostFilter_031(){
+    public function testPostFilter_031()
+    {
         function smarty_postfilter_test031($compiled, Smarty_Internal_Template $template)
         {
             return str_replace("'foo'", "'bar'", $compiled);
         }
-        $this->smarty->loadFilter('post','test031');
-        $this->smarty->assign('foo','foo');
-        $this->smarty->assign('bar','bar');
-        $this->assertContains('bar', $this->smarty->fetch('031_post_filter.tpl'));
 
+        $this->smarty->loadFilter('post', 'test031');
+        $this->smarty->assign('foo', 'foo');
+        $this->smarty->assign('bar', 'bar');
+        $this->assertContains('bar', $this->smarty->fetch('031_post_filter.tpl'));
     }
 }

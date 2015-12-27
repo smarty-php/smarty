@@ -1,1 +1,1 @@
-{block name='title'}Default Title{/block}
+{block name='b'}(parent|b)content {$parent} b(parent|/b){/block}

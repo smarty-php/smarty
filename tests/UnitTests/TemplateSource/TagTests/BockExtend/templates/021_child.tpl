@@ -1,2 +1,2 @@
 {extends file='021_parent.tpl'}
-{block name='title'}Page Title{/block}
+{block name='b' prepend}(child|b)content {$child} b(child|/b){/block}
