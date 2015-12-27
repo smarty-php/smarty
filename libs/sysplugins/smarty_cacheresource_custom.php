@@ -215,14 +215,6 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
             } else {
                 return 0;
             }
-            // remove from template cache
-            if (isset($smarty->_cache['template_objects'])) {
-                foreach ($smarty->_cache['template_objects'] as $key => $_tpl) {
-                    if (isset($_tpl->cached) && $_tpl->source->uid == $source->uid) {
-                        unset($smarty->_cache['template_objects'][$key]);
-                    }
-                }
-            }
         }
 
         return $this->delete($cache_name, $cache_id, $compile_id, $exp_time);

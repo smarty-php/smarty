@@ -164,14 +164,6 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
         if (!$this->purge()) {
             $this->invalidate(null);
         }
-        // remove from template cache
-        if (isset($smarty->_cache['template_objects'])) {
-            foreach ($smarty->_cache['template_objects'] as $key => $tpl) {
-                if (isset($tpl->cached)) {
-                    unset($smarty->_cache['template_objects'][$key]);
-                }
-            }
-        }
         return - 1;
     }
 
@@ -197,16 +189,6 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
             $this->sanitize($compile_id);
         $this->delete(array($cid));
         $this->invalidate($cid, $resource_name, $cache_id, $compile_id, $uid);
-        // remove from template cache
-        if (isset($resource_name) && isset($smarty->_cache['template_objects'])) {
-            if (isset($smarty->_cache['template_objects'])) {
-                foreach ($smarty->_cache['template_objects'] as $key => $tpl) {
-                    if ($tpl->source->uid == $uid && isset($tpl->cached)) {
-                        unset($smarty->_cache['template_objects'][$key]);
-                    }
-                }
-            }
-        }
         return - 1;
     }
 
