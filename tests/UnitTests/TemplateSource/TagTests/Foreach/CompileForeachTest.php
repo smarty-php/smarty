@@ -10,7 +10,7 @@
  * class for {foreach} tag tests
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  */
 class CompileForeachTest extends PHPUnit_Smarty
@@ -18,231 +18,255 @@ class CompileForeachTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(__DIR__);
+        //$this->smarty->force_compile = true;
     }
-
 
     public function testInit()
     {
         $this->cleanDirs();
     }
-     /**
+
+    /**
      * test {foreach} tag
      */
-    public function testForeach()
+    public function testForeach_001()
     {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[0,1,2,3,4,5,6,7,8,9]}{foreach item=x from=$foo}{$x}{/foreach}');
-        $this->assertEquals("0123456789", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        $this->assertEquals("0123456789", $this->smarty->fetch('001_foreach.tpl'));
     }
 
-    public function testForeachBreak()
+    public function testForeachBreak_002()
     {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[0,1,2,3,4,5,6,7,8,9]}{foreach item=x from=$foo}{if $x == 2}{break}{/if}{$x}{/foreach}');
-        $this->assertEquals("01", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        $this->assertEquals("01", $this->smarty->fetch('002_foreach.tpl'));
     }
 
-    public function testForeachContinue()
+    public function testForeachContinue_003()
     {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[0,1,2,3,4,5,6,7,8,9]}{foreach item=x from=$foo}{if $x == 2}{continue}{/if}{$x}{/foreach}');
-        $this->assertEquals("013456789", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        $this->assertEquals("013456789", $this->smarty->fetch('003_foreach.tpl'));
     }
 
-    public function testForeachNotElse()
+    public function testForeachNotElse_004()
     {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[0,1,2,3,4,5,6,7,8,9]}{foreach item=x from=$foo}{$x}{foreachelse}else{/foreach}');
-        $this->assertEquals("0123456789", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        $this->assertEquals("0123456789", $this->smarty->fetch('004_foreach.tpl'));
     }
 
-    public function testForeachElse()
+    public function testForeachElse_005()
+    {
+        $this->smarty->assign('foo', array());
+        $this->assertEquals("else", $this->smarty->fetch('005_foreach.tpl'));
+    }
+
+    public function testForeachElse_005_2()
     {
         $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x from=$foo}{$x}{foreachelse}else{/foreach}');
-        $this->assertEquals("else", $this->smarty->fetch($tpl));
+        $this->assertEquals("else", $this->smarty->fetch('005_foreach.tpl'));
     }
 
-    public function testForeachKey()
+    public function testForeachKey_006()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x key=y from=[9,8,7,6,5,4,3,2,1,0]}{$y}{$x}{foreachelse}else{/foreach}');
-        $this->assertEquals("09182736455463728190", $this->smarty->fetch($tpl));
+        $this->assertEquals("09182736455463728190", $this->smarty->fetch('006_foreach.tpl'));
     }
 
-    public function testForeachKeyProperty()
+    public function testForeachKeyProperty_007()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x from=[9,8,7,6,5,4,3,2,1,0]}{$x@key}{$x}{foreachelse}else{/foreach}');
-        $this->assertEquals("09182736455463728190", $this->smarty->fetch($tpl));
+        $this->assertEquals("09182736455463728190", $this->smarty->fetch('007_foreach.tpl'));
     }
 
-    public function testForeachTotal()
+    public function testForeachTotal_008()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x name=foo from=[0,1,2,3,4,5,6,7,8,9]}{$x}{foreachelse}else{/foreach}total{$smarty.foreach.foo.total}');
-        $this->assertEquals("0123456789total10", $this->smarty->fetch($tpl));
+        $this->assertEquals("0123456789total10", $this->smarty->fetch('008_foreach.tpl'));
     }
 
-    public function testForeachTotalProperty()
+    public function testForeachTotalProperty_009()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x from=[0,1,2,3,4,5,6,7,8,9]}{$x}{foreachelse}else{/foreach}total{$x@total}');
-        $this->assertEquals("0123456789total10", $this->smarty->fetch($tpl));
+        $this->assertEquals("0123456789total10", $this->smarty->fetch('009_foreach.tpl'));
     }
 
-    public function testForeachIndexIteration()
+    public function testForeachIndexIteration_010()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x name=foo from=[0,1,2,3,4,5,6,7,8,9]}{$smarty.foreach.foo.index}{$smarty.foreach.foo.iteration}{foreachelse}else{/foreach}');
-        $this->assertEquals("011223344556677889910", $this->smarty->fetch($tpl));
+        $this->assertEquals("011223344556677889910", $this->smarty->fetch('010_foreach.tpl'));
     }
 
-    public function testForeachIndexIterationProperty()
+    public function testForeachIndexIterationProperty_011()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x from=[0,1,2,3,4,5,6,7,8,9]}{$x@index}{$x@iteration}{foreachelse}else{/foreach}');
-        $this->assertEquals("011223344556677889910", $this->smarty->fetch($tpl));
+        $this->assertEquals("011223344556677889910", $this->smarty->fetch('011_foreach.tpl'));
     }
 
-    public function testForeachFirstLast()
+    public function testForeachFirstLast_012()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x name=foo from=[0,1,2,3,4,5,6,7,8,9]}{if $smarty.foreach.foo.first}first{/if}{if $smarty.foreach.foo.last}last{/if}{$x}{foreachelse}else{/foreach}');
-        $this->assertEquals("first012345678last9", $this->smarty->fetch($tpl));
+        $this->assertEquals("first012345678last9", $this->smarty->fetch('012_foreach.tpl'));
     }
 
-    public function testForeachFirstLastProperty()
+    public function testForeachFirstLastProperty_013()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x name=foo from=[0,1,2,3,4,5,6,7,8,9]}{if $x@first}first{/if}{if $x@last}last{/if}{$x}{foreachelse}else{/foreach}');
-        $this->assertEquals("first012345678last9", $this->smarty->fetch($tpl));
+        $this->assertEquals("first012345678last9", $this->smarty->fetch('013_foreach.tpl'));
     }
 
-    public function testForeachShowTrue()
+    public function testForeachShowTrue_014()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x name=foo from=[0,1]}{$x}{foreachelse}else{/foreach}{if $smarty.foreach.foo.show}show{else}noshow{/if}');
-        $this->assertEquals("01show", $this->smarty->fetch($tpl));
+        $this->assertEquals("01show", $this->smarty->fetch('014_foreach.tpl'));
     }
 
-    public function testForeachShowTrueProperty()
+    public function testForeachShowTrueProperty_015()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x name=foo from=[0,1]}{$x}{foreachelse}else{/foreach}{if $x@show}show{else}noshow{/if}');
-        $this->assertEquals("01show", $this->smarty->fetch($tpl));
+        $this->assertEquals("01show", $this->smarty->fetch('015_foreach.tpl'));
     }
 
-    public function testForeachShowFalse()
+    public function testForeachShowFalse_016()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x name=foo from=[]}{$x}{foreachelse}else{/foreach}{if $smarty.foreach.foo.show}show{else} noshow{/if}');
-        $this->assertEquals("else noshow", $this->smarty->fetch($tpl));
+        $this->assertEquals("else noshow", $this->smarty->fetch('016_foreach.tpl'));
     }
 
-    public function testForeachShowFalseProperty()
+    public function testForeachShowFalseProperty_017()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach item=x name=foo from=[]}{$x}{foreachelse}else{/foreach}{if $x@show}show{else} noshow{/if}');
-        $this->assertEquals("else noshow", $this->smarty->fetch($tpl));
+        $this->assertEquals("else noshow", $this->smarty->fetch('017_foreach.tpl'));
     }
 
-    public function testForeachShorttags()
+    public function testForeachShorttags_018()
     {
-        $tpl = $this->smarty->createTemplate('eval:{foreach [9,8,7,6,5,4,3,2,1,0] x y foo}{$y}{$x}{foreachelse}else{/foreach}total{$smarty.foreach.foo.total}');
-        $this->assertEquals("09182736455463728190total10", $this->smarty->fetch($tpl));
+        $this->assertEquals("09182736455463728190total10", $this->smarty->fetch('018_foreach.tpl'));
     }
 
     /**
      * test {foreach $foo as $x} tag
      */
-    public function testNewForeach()
+    public function testNewForeach_19()
     {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[0,1,2,3,4,5,6,7,8,9]}{foreach $foo as $x}{$x}{/foreach}');
-        $this->assertEquals("0123456789", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        $this->assertEquals("0123456789", $this->smarty->fetch('019_foreach.tpl'));
     }
 
-    public function testNewForeachNotElse()
+    public function testNewForeachNotElse_020()
     {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[0,1,2,3,4,5,6,7,8,9]}{foreach $foo as $x}{$x}{foreachelse}else{/foreach}');
-        $this->assertEquals("0123456789", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
+        $this->assertEquals("0123456789", $this->smarty->fetch('020_foreach.tpl'));
     }
 
-    public function testNewForeachElse()
+    public function testNewForeachElse_021()
     {
         $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
-        $tpl = $this->smarty->createTemplate('eval:{foreach $foo as $x}{$x}{foreachelse}else{/foreach}');
-        $this->assertEquals("else", $this->smarty->fetch($tpl));
+        $this->assertEquals("else", $this->smarty->fetch('021_foreach.tpl'));
     }
 
-    public function testNewForeachKey()
+    public function testNewForeachElse_021_1()
     {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[9,8,7,6,5,4,3,2,1,0]}{foreach $foo as $y=>$x}{$y}{$x}{foreachelse}else{/foreach}');
-        $this->assertEquals("09182736455463728190", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array());
+        $this->assertEquals("else", $this->smarty->fetch('021_foreach.tpl'));
     }
 
-    public function testNewForeachKeyProperty()
+    public function testNewForeachKey_022()
     {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[9,8,7,6,5,4,3,2,1,0]}{foreach $foo as $x}{$x@key}{$x}{foreachelse}else{/foreach}');
-        $this->assertEquals("09182736455463728190", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(9, 8, 7, 6, 5, 4, 3, 2, 1, 0));
+        $this->assertEquals("09182736455463728190", $this->smarty->fetch('022_foreach.tpl'));
+    }
+
+    public function testNewForeachKeyProperty_023()
+    {
+        $this->smarty->assign('foo', array(9, 8, 7, 6, 5, 4, 3, 2, 1, 0));
+        $this->assertEquals("09182736455463728190", $this->smarty->fetch('023_foreach.tpl'));
     }
 
     /*
     *  test foreach and nocache
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+
     */
-    public function testForeachNocacheVar1()
+    public function testForeachNocacheVar1_024()
     {
         $this->smarty->caching = true;
-        $tpl = $this->smarty->createTemplate('string:{foreach $foo as $x}{$x} {/foreach}');
-        $tpl->assign('foo', array(1, 2), true);
-        $this->assertFalse($this->smarty->isCached($tpl));
-        $this->assertEquals("1 2 ", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(1, 2), true);
+        $this->assertFalse($this->smarty->isCached('024_foreach.tpl'));
+        $this->assertEquals("1 2 ", $this->smarty->fetch('024_foreach.tpl'));
     }
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
-    public function testForeachNocacheVar2()
+    public function testForeachNocacheVar2_024()
     {
         $this->smarty->caching = true;
-        $tpl = $this->smarty->createTemplate('string:{foreach $foo as $x}{$x} {/foreach}');
-        $tpl->assign('foo', array(9, 8), true);
-        $this->assertTrue($this->smarty->isCached($tpl));
-        $this->assertEquals("9 8 ", $this->smarty->fetch($tpl));
-    }
-
-    public function testForeachNocacheTag1()
-    {
-        $this->smarty->caching = true;
-        $tpl = $this->smarty->createTemplate('string:{foreach $foo as $x nocache}{$x} {/foreach}');
-        $tpl->assign('foo', array(1, 2));
-        $this->assertFalse($this->smarty->isCached($tpl));
-        $this->assertEquals("1 2 ", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(9, 8), true);
+        $this->assertTrue($this->smarty->isCached('024_foreach.tpl'));
+        $this->assertEquals("9 8 ", $this->smarty->fetch('024_foreach.tpl'));
     }
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
-    public function testForeachNocacheTag2()
+    public function testForeachNocacheTag1_025()
     {
         $this->smarty->caching = true;
-        $tpl = $this->smarty->createTemplate('string:{foreach $foo as $x nocache}{$x} {/foreach}');
-        $tpl->assign('foo', array(9, 8));
-        $this->assertTrue($this->smarty->isCached($tpl));
-        $this->assertEquals("9 8 ", $this->smarty->fetch($tpl));
-    }
-
-    public function testForeachCache1()
-    {
-        $this->smarty->caching = true;
-        $tpl = $this->smarty->createTemplate('string:{foreach $foo as $x name=bar}{$x} {/foreach}');
-        $tpl->assign('foo', array(1, 2));
-        $this->assertFalse($this->smarty->isCached($tpl));
-        $this->assertEquals("1 2 ", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(1, 2));
+        $this->assertFalse($this->smarty->isCached('025_foreach.tpl'));
+        $this->assertEquals("1 2 ", $this->smarty->fetch('025_foreach.tpl'));
     }
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
-    public function testForeachCache2()
+    public function testForeachNocacheTag2_25()
     {
         $this->smarty->caching = true;
-        $tpl = $this->smarty->createTemplate('string:{foreach $foo as $x name=bar}{$x} {/foreach}');
-        $tpl->assign('foo', array(9, 8));
-        $this->assertTrue($this->smarty->isCached($tpl));
-        $this->assertEquals("1 2 ", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(9, 8));
+        $this->assertTrue($this->smarty->isCached('025_foreach.tpl'));
+        $this->assertEquals("9 8 ", $this->smarty->fetch('025_foreach.tpl'));
+    }
+
+    /**
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testForeachCache1_26()
+    {
+        $this->smarty->caching = true;
+        $this->smarty->assign('foo', array(1, 2));
+        $this->assertFalse($this->smarty->isCached('026_foreach.tpl'));
+        $this->assertEquals("1 2 ", $this->smarty->fetch('026_foreach.tpl'));
+    }
+
+    /**
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testForeachCache2_26()
+    {
+        $this->smarty->caching = true;
+        $this->smarty->assign('foo', array(9, 8));
+        $this->assertTrue($this->smarty->isCached('026_foreach.tpl'));
+        $this->assertEquals("1 2 ", $this->smarty->fetch('026_foreach.tpl'));
+    }
+
+    public function testForeachNested_27()
+    {
+        $this->smarty->assign('foo', array(9, 8));
+        $this->smarty->assign('bar', array(4, 10));
+        $this->assertEquals("outer=0#9inner=0#4inner=1#10##outer=1#8inner=0#4inner=1#10#####hallo",
+                            $this->smarty->fetch('027_foreach.tpl'));
+    }
+
+    public function testForeachNestedNamed_28()
+    {
+        $this->smarty->assign('foo', array(9, 8));
+        $this->smarty->assign('bar', array(4, 10));
+        $this->assertEquals("outer=0#0-9inner=1#0-4inner=2#0-10##outer=1#1-8inner=1#1-4inner=2#1-10#####hallo",
+                            $this->smarty->fetch('028_foreach.tpl'));
     }
 }

@@ -1,0 +1,1 @@
+{foreach $foo as $x nocache}{$x} {/foreach}

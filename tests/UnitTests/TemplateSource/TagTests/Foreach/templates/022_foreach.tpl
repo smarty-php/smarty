@@ -1,0 +1,1 @@
+{foreach $foo as $y=>$x}{$y}{$x}{foreachelse}else{/foreach}

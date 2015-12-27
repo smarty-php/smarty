@@ -1,0 +1,1 @@
+{foreach [9,8,7,6,5,4,3,2,1,0] x y foo}{$y}{$x}{foreachelse}else{/foreach}total{$smarty.foreach.foo.total}
