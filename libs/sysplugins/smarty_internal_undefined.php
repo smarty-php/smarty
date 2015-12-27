@@ -17,12 +17,13 @@ class Smarty_Internal_Undefined
      * - Decode saved properties from compiled template and cache files
      * - Check if compiled or cache file is valid
      *
+     * @param  \Smarty_Internal_Template      $tpl
      * @param  array $properties special template properties
      * @param  bool  $cache      flag if called from cache file
      *
-     * @return bool  flag if compiled or cache file is valid
+     * @return bool flag if compiled or cache file is valid
      */
-    public function decodeProperties($tpl, $properties, $cache = false)
+    public function decodeProperties(Smarty_Internal_Template $tpl, $properties, $cache = false)
     {
         if ($cache) {
             $tpl->cached->valid = false;

@@ -119,13 +119,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     /**
      * render template
      *
-     * @param  bool $merge_tpl_vars   if true parent template variables merged in to local scope
      * @param  bool $no_output_filter if true do not run output filter
-     * @param  bool $display          true: display, false: fetch null: subtemplate
+     * @param  null|bool $display          true: display, false: fetch null: sub-template
      *
-     * @throws Exception
-     * @throws SmartyException
-     * @return string rendered template output
+     * @return string
+     * @throws \SmartyException
      */
     public function render($no_output_filter = true, $display = null)
     {
@@ -166,7 +164,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         // display or fetch
         if ($display) {
             if ($this->caching && $this->smarty->cache_modified_check) {
-                $this->smarty->ext->_cachemodify->cacheModifiedCheck($this->cached, $this,
+                $this->smarty->ext->_cacheModify->cacheModifiedCheck($this->cached, $this,
                                                                      isset($content) ? $content : ob_get_clean());
             } else {
                 if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
@@ -264,9 +262,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $tpl->cache_id = $cache_id;
                 $tpl->compile_id = $compile_id;
                 if (isset($uid)) {
-                    if (isset($tpl->compiled)) {
-                        $tpl->compiled->isInit = false;
-                    }
                     // for inline templates we can get all resource information from file dependency
                     if (isset($tpl->compiled->file_dependency[ $uid ])) {
                         list($filepath, $timestamp, $type) = $tpl->compiled->file_dependency[ $uid ];
@@ -403,10 +398,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * - Decode saved properties from compiled template and cache files
      * - Check if compiled or cache file is valid
      *
-     * @param  array $properties special template properties
-     * @param  bool  $cache      flag if called from cache file
+     * @param \Smarty_Internal_Template $tpl
+     * @param  array                    $properties special template properties
+     * @param  bool                     $cache      flag if called from cache file
      *
-     * @return bool  flag if compiled or cache file is valid
+     * @return bool flag if compiled or cache file is valid
+     * @throws \SmartyException
      */
     public function _decodeProperties(Smarty_Internal_Template $tpl, $properties, $cache = false)
     {

@@ -22,8 +22,9 @@ class Smarty_Internal_Method_GetGlobal
      * Returns a single or all global  variables
      *
      * @api  Smarty::getGlobal()
-
-     * @param  string $varName variable name or null
+     *
+     * @param \Smarty_Internal_Data $data
+     * @param  string               $varName variable name or null
      *
      * @return string variable value or or array of variables
      */

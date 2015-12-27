@@ -144,6 +144,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * @param array    $parameter optional parameter array
      * @param string   $key       optional key for callback
      * @param bool     $replace   if true replace existing keyed callback
+     *
      */
     public function registerPostCompileCallback($callback, $parameter = array(), $key = null, $replace = false)
     {

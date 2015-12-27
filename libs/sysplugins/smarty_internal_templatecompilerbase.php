@@ -17,8 +17,8 @@
  *
  * @property Smarty_Internal_SmartyTemplateCompiler $prefixCompiledCode  = ''
  * @property Smarty_Internal_SmartyTemplateCompiler $postfixCompiledCode = ''
- * @method Smarty_Internal_SmartyTemplateCompiler registerPostCompileCallback($callback, $parameter = array(), $key = null, $replace = false)
- * @method Smarty_Internal_SmartyTemplateCompiler unregisterPostCompileCallback($key)
+ * @method registerPostCompileCallback($callback, $parameter = array(), $key = null, $replace = false)
+ * @method unregisterPostCompileCallback($key)
  */
 abstract class Smarty_Internal_TemplateCompilerBase
 {
