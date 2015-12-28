@@ -8,9 +8,6 @@ php:
   - 7.0
   - hhvm
 
-matrix:
-  allow_failures:
-    - php: hhvm
 
 before_script:
     - travis_retry composer --prefer-source --dev install
