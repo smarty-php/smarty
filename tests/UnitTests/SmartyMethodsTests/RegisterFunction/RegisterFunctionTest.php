@@ -1,16 +1,15 @@
 <?php
 /**
- * Smarty PHPunit tests register->templateFunction / unregister->templateFunction methods
- *
+ * Smarty PHPunit tests register/unregister function plugins
  * @package PHPunit
  * @author  Uwe Tews
  */
 
 /**
- * class for register->templateFunction / unregister->templateFunction methods tests
+ * class for register/unregister function plugins methods tests
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  *
  */
@@ -23,18 +22,19 @@ class RegisterFunctionTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
-
     public function testInit()
     {
         $this->cleanDirs();
     }
+
     /**
      * test registerPlugin method for function
      */
     public function testRegisterFunction()
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction', 'myfunction');
-        $this->assertEquals('myfunction', $this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction'][0]);
+        $this->assertEquals('myfunction',
+                            $this->smarty->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ 'testfunction' ][ 0 ]);
         $this->assertEquals('hello world 1', $this->smarty->fetch('string:{testfunction value=1}'));
     }
 
@@ -44,17 +44,20 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     public function testRegisterFunctionWrapper()
     {
         $this->smarty->register_function('testfunction', 'myfunction');
-        $this->assertEquals('myfunction', $this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction'][0]);
+        $this->assertEquals('myfunction',
+                            $this->smarty->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ 'testfunction' ][ 0 ]);
         $this->assertEquals('hello world 12', $this->smarty->fetch('string:{testfunction value=12}'));
     }
+
     /**
      * test SmartyBC for register_function method
      */
-    
+
     public function testRegisterFunctionSmartyBC()
     {
         $this->smartyBC->register_function('testfunction', 'myfunction');
-        $this->assertEquals('myfunction', $this->smartyBC->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction'][0]);
+        $this->assertEquals('myfunction',
+                            $this->smartyBC->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ 'testfunction' ][ 0 ]);
         $this->assertEquals('hello world 13', $this->smartyBC->fetch('string:{testfunction value=13}'));
     }
 
@@ -66,23 +69,24 @@ class RegisterFunctionTest extends PHPUnit_Smarty
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction', array('myfunctionclass', 'execute'));
         $this->assertEquals('hello world 2', $this->smarty->fetch('string:{testfunction value=2}'));
     }
-        /**
-         * test register_function wrapper method for function plugin by class
-         */
-        public function testRegisterFunctionClassWrapper()
+
+    /**
+     * test register_function wrapper method for function plugin by class
+     */
+    public function testRegisterFunctionClassWrapper()
     {
         $this->smarty->register_function('testfunction', array('myfunctionclass', 'execute'));
         $this->assertEquals('hello world 12', $this->smarty->fetch('string:{testfunction value=12}'));
     }
-        /**
-         * test register_function SmartyBC method for function plugin by class
-         */
-        public function testRegisterFunctionClassSmartyBC()
+
+    /**
+     * test register_function SmartyBC method for function plugin by class
+     */
+    public function testRegisterFunctionClassSmartyBC()
     {
         $this->smartyBC->register_function('testfunction', array('myfunctionclass', 'execute'));
         $this->assertEquals('hello world 22', $this->smartyBC->fetch('string:{testfunction value=22}'));
     }
-
 
     /**
      * test registerPlugin method for function plugin by object
@@ -93,6 +97,7 @@ class RegisterFunctionTest extends PHPUnit_Smarty
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction', array($myfunction_object, 'execute'));
         $this->assertEquals('hello world 3', $this->smarty->fetch('string:{testfunction value=3}'));
     }
+
     /**
      * test register_function wrapper method for function plugin by object
      */
@@ -102,6 +107,7 @@ class RegisterFunctionTest extends PHPUnit_Smarty
         $this->smarty->register_function('testfunction', array($myfunction_object, 'execute'));
         $this->assertEquals('hello world 13', $this->smarty->fetch('string:{testfunction value=13}'));
     }
+
     /**
      * test register_function SmartyBC method for function plugin by object
      */
@@ -157,6 +163,7 @@ class RegisterFunctionTest extends PHPUnit_Smarty
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction', 'myfunction', false);
         $this->assertEquals('hello world 2 30', $this->smarty->fetch('test_register_function.tpl'));
     }
+
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
@@ -188,6 +195,7 @@ class RegisterFunctionTest extends PHPUnit_Smarty
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction', 'myfunction', false);
         $this->assertEquals('hello world 3 30', $this->smarty->fetch('test_register_function.tpl'));
     }
+
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
@@ -211,7 +219,7 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction', 'myfunction');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction']));
+        $this->assertFalse(isset($this->smarty->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ 'testfunction' ]));
     }
 
     /**
@@ -221,14 +229,14 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     {
         $this->smarty->register_function('testfunction', 'myfunction');
         $this->smarty->unregister_function('testfunction');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction']));
+        $this->assertFalse(isset($this->smarty->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ 'testfunction' ]));
     }
 
     public function testUnregisterFunctionSmartyBC()
     {
         $this->smartyBC->register_function('testfunction', 'myfunction');
         $this->smartyBC->unregister_function('testfunction');
-        $this->assertFalse(isset($this->smartyBC->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction']));
+        $this->assertFalse(isset($this->smartyBC->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ 'testfunction' ]));
     }
 
     /**
@@ -237,7 +245,7 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     public function testUnregisterFunctionNotRegistered()
     {
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction']));
+        $this->assertFalse(isset($this->smarty->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ 'testfunction' ]));
     }
 
     /**
@@ -247,7 +255,7 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testfunction', 'myfunction');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction');
-        $this->assertTrue(isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK]['testfunction']));
+        $this->assertTrue(isset($this->smarty->registered_plugins[ Smarty::PLUGIN_BLOCK ][ 'testfunction' ]));
     }
 }
 
