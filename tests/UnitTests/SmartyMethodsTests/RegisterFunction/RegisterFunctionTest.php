@@ -37,11 +37,11 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * test wrapper rfor egister_function method for function
+     * test wrapper for register_function method
      */
     public function testRegisterFunctionWrapper()
     {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction', 'myfunction');
+        $this->smarty->register_function('testfunction', 'myfunction');
         $this->assertEquals('myfunction', $this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction'][0]);
         $this->assertEquals('hello world 1', $this->smarty->fetch('eval:{testfunction value=1}'));
     }
@@ -129,6 +129,16 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction', 'myfunction');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction');
+        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction']));
+    }
+
+    /**
+     * test unregister_function method
+     */
+    public function testUnregisterFunctionWrapper()
+    {
+        $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction', 'myfunction');
+        $this->smarty->unregister_function('testfunction');
         $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['testfunction']));
     }
 
