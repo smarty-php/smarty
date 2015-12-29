@@ -174,7 +174,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         $level = ob_get_level();
         try {
             $_smarty_old_error_level =
-                ($this->_objType == 1 && isset($smarty->error_reporting)) ? error_reporting($smarty->error_reporting) :
+                isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) :
                     null;
             if ($function == 2) {
                 if ($template->caching) {
@@ -203,6 +203,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         catch (Exception $e) {
             while (ob_get_level() > $level) {
                 ob_end_clean();
+            }
+            if (isset($_smarty_old_error_level)) {
+                error_reporting($_smarty_old_error_level);
             }
             throw $e;
         }

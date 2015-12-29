@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 29.12.2015
+  - bugfix Smarty::error_reporting was not observed when display() or fetch() was called on template objects https://github.com/smarty-php/smarty/issues/145
+   
  28.12.2015
   - optimization of {foreach} code size and processing
   
@@ -13,7 +16,6 @@
   - optimization replace hhvm extension by inline code
   - new feature If ACP is enabled force an apc_compile_file() when compiled or cached template was updated
 
-  
  24.12.2015
   - new feature Compiler does now observe the template_dir setting and will create separate compiled files if required
   - bugfix post filter did fail on template inheritance https://github.com/smarty-php/smarty/issues/144
