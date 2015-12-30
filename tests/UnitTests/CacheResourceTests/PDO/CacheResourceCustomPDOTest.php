@@ -5,39 +5,43 @@
  * @package PHPunit
  * @author  Uwe Tews
  */
+if (PdoCacheEnable == true) {
 
-include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
+    include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
 
-/**
- * class for cache resource file tests
- *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
- */
-class CacheResourceCustomPDOTest extends CacheResourceTestCommon
-{
-
-    public function setUp($dir = null, $clear = true)
+    /**
+     * class for cache resource file tests
+     *
+     * @runTestsInSeparateProcess
+     * @preserveGlobalState    disabled
+     * @backupStaticAttributes enabled
+     */
+    class CacheResourceCustomPDOTest extends CacheResourceTestCommon
     {
-        if (PdoCacheEnable != true) {
-            $this->markTestSkipped('mysql Pdo tests are disabled');
-        }
-        if (self::$init) {
-            $this->getConnection();
-        }
-        $this->setUpSmarty(__DIR__);
-        parent::setUp();
-        $this->smarty->setCachingType('pdo');
-        $this->smarty->addPluginsDir(SMARTY_DIR . '../demo/plugins/');
-        $this->assertTrue(false !== $this->smarty->loadPlugin('Smarty_CacheResource_Pdotest'), 'loadPlugin() could not load PDO cache resource');
-        $this->smarty->registerCacheResource('pdo', new Smarty_CacheResource_Pdotest($this->getPDO(), 'output_cache'));
-    }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-        $this->initMysqlCache();
+        public function setUp($dir = null, $clear = true)
+        {
+            if (PdoCacheEnable != true) {
+                $this->markTestSkipped('mysql Pdo tests are disabled');
+            }
+            if (self::$init) {
+                $this->getConnection();
+            }
+            $this->setUpSmarty(__DIR__);
+            parent::setUp();
+            $this->smarty->setCachingType('pdo');
+            $this->smarty->addPluginsDir(SMARTY_DIR . '../demo/plugins/');
+            $this->assertTrue(false !== $this->smarty->loadPlugin('Smarty_CacheResource_Pdotest'),
+                              'loadPlugin() could not load PDO cache resource');
+            $this->smarty->registerCacheResource('pdo',
+                                                 new Smarty_CacheResource_Pdotest($this->getPDO(), 'output_cache'));
+        }
+
+        public function testInit()
+        {
+            $this->cleanDirs();
+            $this->initMysqlCache();
+        }
     }
 }
 

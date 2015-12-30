@@ -4,8 +4,6 @@
  *
  */
 
-include_once __DIR__ . '/Config.php';
-
 /**
  * Smarty Test Case Fixture
  */
@@ -106,7 +104,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
             define('individualFolders', true);
         }
         parent::__construct($name, $data, $dataName);
-        $this->backupStaticAttributesBlacklist[get_class($this)] = array('init', 'config', 'pdo');
+        $this->backupStaticAttributesBlacklist[ get_class($this) ] = array('init', 'config', 'pdo');
     }
 
     /**
@@ -129,10 +127,10 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
                 mkdir($dir . '/configs');
             }
             if (individualFolders != 'true') {
-                if (!isset($s_dir[$dir])) {
+                if (!isset($s_dir[ $dir ])) {
                     $this->cleanDir($dir . '/templates_c');
                     $this->cleanDir($dir . '/cache');
-                    $s_dir[$dir] = true;
+                    $s_dir[ $dir ] = true;
                 }
                 $dir = __DIR__;
             }
@@ -351,7 +349,8 @@ KEY `expire` (`expire`)
             case 'file':
             case 'filetest':
                 if ($tpl instanceof Smarty) {
-                    return sha1($this->normalizePath($this->smarty->getTemplateDir(0) . $name) . $this->smarty->_joined_template_dir);
+                    return sha1($this->normalizePath($this->smarty->getTemplateDir(0) . $name) .
+                                $this->smarty->_joined_template_dir);
                 }
                 return sha1($tpl->source->filepath . $this->smarty->_joined_template_dir);
             case 'mysqltest':
@@ -375,7 +374,7 @@ KEY `expire` (`expire`)
      */
     public function normalizePath($path)
     {
-        if ($path[0] == '.') {
+        if ($path[ 0 ] == '.') {
             $path = getcwd() . DS . $path;
         }
         $path = preg_replace('#[\\\/]+([.][\\\/]+)*#', DS, $path);
@@ -532,15 +531,15 @@ KEY `expire` (`expire`)
                 $uid = $this->buildUid($tpl, $sp, $name, $type);
                 $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
-                return sha1($uid .  $_cache_id . $_compile_id);
+                return sha1($uid . $_cache_id . $_compile_id);
             case 'memcachetest':
             case 'acp':
-            $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
-            $uid = $this->buildUid($tpl, $sp, $name, $type);
-            $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
-            $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
-            return sha1($uid) . '#' . preg_replace('#[^\w\|]+#S', '_', $tpl->template_resource) . '#' .
-                $_cache_id . '#' . $_compile_id;
+                $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
+                $uid = $this->buildUid($tpl, $sp, $name, $type);
+                $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
+                $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
+                return sha1($uid) . '#' . preg_replace('#[^\w\|]+#S', '_', $tpl->template_resource) . '#' . $_cache_id .
+                '#' . $_compile_id;
 
             default:
                 throw new Exception("Unhandled cache resource type '{$cacheType}'");

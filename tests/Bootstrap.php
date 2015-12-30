@@ -6,6 +6,7 @@
 /*
  * Smarty PHPUnit Bootstrap
  */
+include_once __DIR__ . '/Config.php';
 // Locate Autoloader or SmartyBC class and load it
 if (is_file(__DIR__ . '/../smarty/libs/Autoloader.php')) {
     require_once __DIR__ . '/../smarty/libs/Autoloader.php';
@@ -22,7 +23,7 @@ if (is_file(__DIR__ . '/../smarty/libs/Autoloader.php')) {
 }
 if (!defined('SMARTY_COMPOSER_INSTALL')) {
     foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php',
-                 __DIR__ . '/vendor/autoload.php') as $file) {
+                   __DIR__ . '/vendor/autoload.php') as $file) {
         if (file_exists($file)) {
             define('SMARTY_COMPOSER_INSTALL', $file);
             break;

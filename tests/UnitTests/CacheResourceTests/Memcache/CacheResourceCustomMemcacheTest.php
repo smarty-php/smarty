@@ -5,44 +5,46 @@
  * @package PHPunit
  * @author  Uwe Tews
  */
+if (MemCacheEnable == true) {
 
-include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
+    include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
 
-/**
- * class for cache resource memcache tests
- *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
- */
-class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
-{
     /**
-     * Sets up the fixture
-     * This method is called before a test is executed.
+     * class for cache resource memcache tests
      *
+     * @runTestsInSeparateProcess
+     * @preserveGlobalState    disabled
+     * @backupStaticAttributes enabled
      */
-    public function setUp()
+    class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
     {
-        if (MemCacheEnable != true) {
-            $this->markTestSkipped('Memcache tests are disabled');
-        } else {
-            if (!class_exists('Memcache')) {
-                $this->markTestSkipped('Memcache not available');
+        /**
+         * Sets up the fixture
+         * This method is called before a test is executed.
+         *
+         */
+        public function setUp()
+        {
+            if (MemCacheEnable != true) {
+                $this->markTestSkipped('Memcache tests are disabled');
+            } else {
+                if (!class_exists('Memcache')) {
+                    $this->markTestSkipped('Memcache not available');
+                }
             }
+            $this->setUpSmarty(__DIR__);
+            parent::setUp();
+            $this->smarty->setCachingType('memcachetest');
         }
-        $this->setUpSmarty(__DIR__);
-        parent::setUp();
-        $this->smarty->setCachingType('memcachetest');
-    }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
+        public function testInit()
+        {
+            $this->cleanDirs();
+        }
 
-    protected function doClearCacheAssertion($a, $b)
-    {
-        $this->assertEquals(- 1, $b);
+        protected function doClearCacheAssertion($a, $b)
+        {
+            $this->assertEquals(- 1, $b);
+        }
     }
 }
