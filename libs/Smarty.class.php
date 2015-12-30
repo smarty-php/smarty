@@ -562,6 +562,12 @@ class Smarty
      */
     var $_cache_including = false;
 
+    /**
+     * plugin filepath cache
+     *
+     * @var array
+     */
+    var $_filepaths_cache = array();
     /**#@-*/
     /**
      * The class constructor.
