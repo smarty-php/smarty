@@ -1,0 +1,1 @@
+template = {$smarty.template}

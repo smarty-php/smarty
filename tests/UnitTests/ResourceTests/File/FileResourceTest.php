@@ -200,7 +200,7 @@ class FileResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -239,7 +239,7 @@ class FileResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -255,7 +255,7 @@ class FileResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -271,7 +271,7 @@ class FileResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -292,7 +292,7 @@ class FileResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -563,5 +563,21 @@ class FileResourceTest extends PHPUnit_Smarty
                                           '..',
                                       ));
         $this->_relativeMap($map, $cwd);
+    }
+
+    /**
+     * test {$smarty.template}
+     *
+     */
+    public function testSmartyTemplate() {
+        $this->assertEquals('template = 001_smarty_template.tpl', $this->smarty->fetch('001_smarty_template.tpl'));
+    }
+    /**
+     * test {$smarty.current_dir}
+     *
+     */
+    public function testSmartyCurrentDir() {
+        $dirname = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates';
+        $this->assertEquals('current_dir = ' . $dirname, $this->smarty->fetch('001_smarty_current_dir.tpl'));
     }
 }

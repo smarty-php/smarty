@@ -67,7 +67,24 @@ class RegisteredResourceTest extends PHPUnit_Smarty
         $this->assertEquals('this is template 2', $this->smarty->fetch('myresource:some'));
         $this->assertEquals('this is template 2', $this->smarty->fetch('myresource:some'));
     }
+    /**
+     * test {$smarty.template}
+     *
+     */
+    public function testSmartyTemplate() {
+        $this->smarty->registerResource('mytpl', array('getTemplate', 'getTimestamp', 'getSecure', 'getTrusted'));
+        $this->assertEquals('template = mytpl:foo', $this->smarty->fetch('mytpl:foo'));
+    }
+    /**
+     * test {$smarty.current_dir}
+     *
+     */
+    public function testSmartyCurrentDir() {
+        $this->smarty->registerResource('mytpl', array('getCurrentDir', 'getTimestamp', 'getSecure', 'getTrusted'));
+        $this->assertEquals('current_dir = .', $this->smarty->fetch('mytpl:bar'));
+    }
 }
+
 
 /**
  * resource functions
@@ -118,6 +135,20 @@ function getSource($name, &$source, $smarty)
 
     // construct a new source
     $source = "this is template $counter";
+
+    return true;
+}
+function getTemplate($name, &$source, $smarty)
+{
+    // construct a new source
+    $source = 'template = {$smarty.template}';
+
+    return true;
+}
+function getCurrentDir($name, &$source, $smarty)
+{
+    // construct a new source
+    $source = 'current_dir = {$smarty.current_dir}';
 
     return true;
 }

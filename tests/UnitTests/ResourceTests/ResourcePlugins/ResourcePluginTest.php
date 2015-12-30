@@ -17,13 +17,7 @@ class ResourcePluginTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
-        if (MysqlResourceEnable != true) {
-            $this->markTestSkipped('mysql tests are disabled');
-        }
-        if (self::$init) {
-            $this->getConnection();
-        }
-        $this->setUpSmarty(__DIR__);
+          $this->setUpSmarty(__DIR__);
     }
 
     public function testInit()

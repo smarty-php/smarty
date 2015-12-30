@@ -5,7 +5,7 @@
  * @package PHPunit
  * @author  Uwe Tews
  */
-if (defined(MysqlResourceEnable) && MysqlResourceEnable == 'true') {
+if (MysqlResourceEnable == true) {
     /**
      * class for resource plugins tests
      *
@@ -17,7 +17,10 @@ if (defined(MysqlResourceEnable) && MysqlResourceEnable == 'true') {
     {
         public function setUp()
         {
-            if (self::$init) {
+            if (MysqlResourceEnable != true) {
+                $this->markTestSkipped('Msqlresource tests are disabled');
+            }
+                if (self::$init) {
                 $this->getConnection();
             }
             $this->setUpSmarty(__DIR__);
@@ -28,6 +31,8 @@ if (defined(MysqlResourceEnable) && MysqlResourceEnable == 'true') {
             $this->cleanDirs();
             $this->initMysqlResource();
             PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates VALUES ('test.tpl', '2010-12-25 22:00:00', '{\$x = \'hello world\'}{\$x}' )");
+            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates VALUES ('template.tpl', '2010-12-25 22:00:00', 'template = {\$smarty.template}' )");
+            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates VALUES ('current_dir.tpl', '2010-12-25 22:00:00', 'current_dir = {\$smarty.current_dir}' )");
         }
 
         /**
@@ -84,6 +89,22 @@ if (defined(MysqlResourceEnable) && MysqlResourceEnable == 'true') {
             $this->smarty->addPluginsDir("./PHPunitplugins/");
             $tpl = $this->smarty->createTemplate('mysqlstest:test.tpl');
             $this->assertEquals(strtotime("2010-12-25 22:00:00"), $tpl->source->getTimeStamp());
+        }
+        /**
+         * test {$smarty.template}
+         *
+         */
+        public function testSmartyTemplate() {
+            $this->smarty->addPluginsDir("./PHPunitplugins/");
+            $this->assertEquals('template = 001_smarty_template.tpl', $this->smarty->fetch('mysqlstest:template.tpl'));
+        }
+        /**
+         * test {$smarty.current_dir}
+         *
+         */
+        public function testSmartyCurrentDir() {
+            $this->smarty->addPluginsDir("./PHPunitplugins/");
+            $this->assertEquals('current_dir = ', $this->smarty->fetch('mysqlstest:current_dir.tpl'));
         }
     }
 }

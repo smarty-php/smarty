@@ -1,0 +1,1 @@
+current_dir = {$smarty.current_dir}
