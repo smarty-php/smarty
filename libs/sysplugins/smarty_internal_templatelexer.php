@@ -287,7 +287,7 @@ class Smarty_Internal_Templatelexer
     {
         if (!isset($this->yy_global_pattern1)) {
             $this->yy_global_pattern1 =
-                "/\G([{][}])|\G(" . $this->ldel . "[*])|\G((" . $this->ldel . "\\s*php(.*?)" . $this->rdel . ")|(" .
+                "/\G([{][}])|\G(" . $this->ldel . "[*])|\G((" . $this->ldel . "\\s*php([ ].*?)?" . $this->rdel . ")|(" .
                 $this->ldel . "\\s*[\/]php" . $this->rdel . "))|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel .
                 ")|\G(" . $this->ldel . "\\s*)|\G(\\s*" . $this->rdel .
                 ")|\G((<[?]((php\\s+|=)|\\s+))|(<[%])|(<[?]xml\\s+)|(<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|([?][>])|([%][>]))|\G([\S\s])/isS";

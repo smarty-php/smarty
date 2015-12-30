@@ -266,7 +266,7 @@ class Smarty_Internal_Templatelexer
      namespace = ~([0-9]*[a-zA-Z_]\w*)?(\\[0-9]*[a-zA-Z_]\w*)+~
      all = ~[\S\s]+~
      emptyjava = ~[{][}]~
-     phptag = ~(SMARTYldel\s*php(.*?)SMARTYrdel)|(SMARTYldel\s*[/]phpSMARTYrdel)~
+     phptag = ~(SMARTYldel\s*php([ ].*?)?SMARTYrdel)|(SMARTYldel\s*[/]phpSMARTYrdel)~
      phpstart = ~(<[?]((php\s+|=)|\s+))|(<[%])|(<[?]xml\s+)|(<script\s+language\s*=\s*["']?\s*php\s*["']?\s*>)|([?][>])|([%][>])~
      slash = ~[/]~
      ldel = ~SMARTYldel\s*~
