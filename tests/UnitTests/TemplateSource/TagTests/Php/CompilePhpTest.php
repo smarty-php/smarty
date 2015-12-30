@@ -93,6 +93,14 @@ class CompilePhpTest extends PHPUnit_Smarty
         $content = $this->smartyBC->fetch("string:aa {php no cache} echo 'hallo'; {/php} ae");
     }
 
+    /**
+     * Test regression that plugin names starting with 'php' do work
+     */
+    public function testPHPfooPlugin()
+    {
+        $this->smarty->addPluginsDir("./PHPunitplugins/");
+        $this->assertEquals('phptest okay', $this->smarty->fetch('string:{phptest}'));
+    }
 
     public function data()
     {
