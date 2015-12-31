@@ -37,7 +37,7 @@ if (!class_exists('PHPUnit_Framework_TestCase')) {
 
 require_once 'PHPUnit_Smarty.php';
 if (!ini_get('date.timezone')) {
-    ini_set('date.timezone', 'UTC');
+    ini_set('date.timezone', 'Europe/Berlin');
 }
 
 
