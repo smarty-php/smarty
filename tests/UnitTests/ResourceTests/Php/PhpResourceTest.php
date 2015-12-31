@@ -17,7 +17,7 @@ class PhpResourceTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
     }
 
 
@@ -133,7 +133,7 @@ class PhpResourceTest extends PHPUnit_Smarty
     /**
      * test getCachedTimestamp caching enabled
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -150,7 +150,7 @@ class PhpResourceTest extends PHPUnit_Smarty
     /**
      * test isCached
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -176,7 +176,7 @@ class PhpResourceTest extends PHPUnit_Smarty
     /**
      * test isCached on touched source
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -190,7 +190,7 @@ class PhpResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -244,7 +244,7 @@ class PhpResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */

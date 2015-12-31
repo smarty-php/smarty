@@ -20,7 +20,7 @@ class ClearAllAssignTest extends PHPUnit_Smarty
 
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
 
         $this->smarty->assign('foo', 'foo');
         $this->_data = new Smarty_Data($this->smarty);

@@ -22,7 +22,7 @@ class ClearAllAssignBCTest extends PHPUnit_Smarty
 
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
 
         $this->smartyBC->assign('foo', 'foo');
         $this->_dataBC = new Smarty_Data($this->smartyBC);

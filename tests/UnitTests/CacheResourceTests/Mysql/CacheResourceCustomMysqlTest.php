@@ -7,7 +7,7 @@
  */
 if (MysqlCacheEnable == true) {
 
-    include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
+    include_once dirname(__FILE__) . '/../_shared/CacheResourceTestCommon.php';
 
     /**
      * class for cache resource file tests
@@ -27,7 +27,7 @@ if (MysqlCacheEnable == true) {
             if (self::$init) {
                 $this->getConnection();
             }
-            $this->setUpSmarty(__DIR__);
+            $this->setUpSmarty(dirname(__FILE__));
             parent::setUp();
             $this->smarty->setCachingType('mysqltest');
         }

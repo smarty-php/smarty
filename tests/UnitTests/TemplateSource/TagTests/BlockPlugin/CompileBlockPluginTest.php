@@ -17,7 +17,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->addPluginsDir("./PHPunitplugins/");
         $this->smarty->setForceCompile(true);
         $this->smarty->disableSecurity();
@@ -51,7 +51,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     /**
      * test block plugin tag in template file
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -64,7 +64,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     /**
      * test block plugin tag in compiled template file
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -78,7 +78,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     /**
      * test block plugin tag in template file
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -94,7 +94,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     /**
      * test block plugin function definition in script
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */

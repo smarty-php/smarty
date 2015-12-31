@@ -18,7 +18,7 @@ class SecurityTest extends PHPUnit_Smarty
     public $loadSmartyBC = true;
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
 
         $this->smarty->setForceCompile(true);
         $this->smarty->enableSecurity();
@@ -280,12 +280,12 @@ class SecurityTest extends PHPUnit_Smarty
      */
     public function testNotTrustedDirectory()
     {
-        $this->smarty->security_policy->secure_dir = array(str_replace('\\', '/', __DIR__ . '/templates_3/'));
+        $this->smarty->security_policy->secure_dir = array(str_replace('\\', '/', dirname(__FILE__) . '/templates_3/'));
         try {
             $this->smarty->fetch('eval:{include file="templates_2/hello.tpl"}');
         }
         catch (Exception $e) {
-            $this->assertContains(str_replace('\\', '/', __DIR__ . "/templates_2/hello.tpl' not allowed by security setting"), str_replace('\\', '/', $e->getMessage()));
+            $this->assertContains(str_replace('\\', '/', dirname(__FILE__) . "/templates_2/hello.tpl' not allowed by security setting"), str_replace('\\', '/', $e->getMessage()));
 
             return;
         }

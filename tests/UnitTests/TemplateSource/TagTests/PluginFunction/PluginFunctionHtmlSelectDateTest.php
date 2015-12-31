@@ -209,7 +209,7 @@ class PluginFunctionHtmlSelectDateTest extends PHPUnit_Smarty
 
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
 
         $year = date('Y');
         $this->now = mktime(15, 0, 0, 2, 20, $year);

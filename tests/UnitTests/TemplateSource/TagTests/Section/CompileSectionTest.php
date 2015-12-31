@@ -17,7 +17,7 @@ class CompileSectionTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
     }
 
 
@@ -28,45 +28,39 @@ class CompileSectionTest extends PHPUnit_Smarty
     /**
      * test {section} tag
      */
-    public function testSection1()
+    public function testSection_001()
     {
-        $tpl = $this->smarty->createTemplate('section1.tpl');
-        $tpl->assign('foo', array(0,1,2,3,4,5,6,7,8,9));
-        $this->assertEquals("0123456789", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0,1,2,3,4,5,6,7,8,9));
+        $this->assertEquals("0123456789", $this->smarty->fetch('001_section.tpl'));
     }
 
-    public function testSection2()
+    public function testSection_002()
     {
-        $tpl = $this->smarty->createTemplate('section2.tpl');
-        $tpl->assign('foo', array(0,1,2,3,4,5,6,7,8,9));
-        $this->assertEquals("0123456789", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0,1,2,3,4,5,6,7,8,9));
+        $this->assertEquals("0123456789", $this->smarty->fetch('002_section.tpl'));
     }
 
-    public function testSection3()
+    public function testSection_003()
     {
-        $tpl = $this->smarty->createTemplate('section3.tpl');
-        $this->assertEquals("else", $this->smarty->fetch($tpl));
+        $this->assertEquals("else", $this->smarty->fetch('003_section.tpl'));
     }
 
-    public function testSection4()
+    public function testSection_004()
     {
-        $tpl = $this->smarty->createTemplate('section4.tpl');
-        $tpl->assign('foo', array(0,1,2,3,4,5,6,7,8,9));
-        $this->assertEquals("0123456789", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0,1,2,3,4,5,6,7,8,9));
+        $this->assertEquals("0123456789", $this->smarty->fetch('004_section.tpl'));
     }
 
-    public function testSection6()
+    public function testSection_006()
     {
-        $tpl = $this->smarty->createTemplate('section6.tpl');
-        $tpl->assign('foo', array(0,1,2,3,4,5,6,7,8,9));
-        $this->assertEquals("0123456789total10", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0,1,2,3,4,5,6,7,8,9));
+        $this->assertEquals("0123456789total10", $this->smarty->fetch('006_section.tpl'));
     }
 
-    public function testSection7()
+    public function testSection_007()
     {
-        $tpl = $this->smarty->createTemplate('section7.tpl');
-        $tpl->assign('foo', array(0,1,2,3,4,5,6,7,8,9));
-        $this->assertEquals("011223344556677889910", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', array(0,1,2,3,4,5,6,7,8,9));
+        $this->assertEquals("011223344556677889910", $this->smarty->fetch('007_section.tpl'));
     }
 
 }

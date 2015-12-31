@@ -17,7 +17,7 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
     }
 
     public function testInit()
@@ -118,7 +118,7 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
     }
     /**
      * test  extendsall special application
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testResourcePluginExtendsallSpecialApplication5()

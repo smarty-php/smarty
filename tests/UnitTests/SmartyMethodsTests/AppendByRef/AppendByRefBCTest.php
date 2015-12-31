@@ -19,7 +19,7 @@ class AppendByRefBCTest extends PHPUnit_Smarty
     public $loadSmarty = false;
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
     }
 
     public function testInit()

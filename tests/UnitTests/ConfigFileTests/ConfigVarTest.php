@@ -22,7 +22,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      */
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
     }
 
     /**
@@ -43,7 +43,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test string config variable
@@ -55,7 +55,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test line string config variable
@@ -67,7 +67,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test config variables in global sections
@@ -79,7 +79,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test config variables loading section2
@@ -91,7 +91,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test config variables loading section special char
@@ -103,7 +103,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test config variables loading section foo/bar
@@ -115,7 +115,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test config variables loaded in different scopes from different sections (Smarty and template)
@@ -133,7 +133,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      * test config variables of hidden sections
      * shall display variables from hidden section
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableHidden()
@@ -147,7 +147,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      * test config variables of disabled hidden sections
      * shall display not variables from hidden section
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableHiddenDisable()
@@ -161,7 +161,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test getConfigVars
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigGetSingleConfigVar()
@@ -173,7 +173,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test getConfigVars return all variables
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigGetAllConfigVars()
@@ -188,7 +188,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test clearConfig for single variable
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigClearSingleConfigVar()
@@ -201,7 +201,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test clearConfig for all variables
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigClearConfigAll()
@@ -216,7 +216,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test config vars on data object
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigTextData()
@@ -229,7 +229,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test getConfigVars on data object
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigGetSingleConfigVarData()
@@ -242,7 +242,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test getConfigVars return all variables on data object
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigGetAllConfigVarsData()
@@ -258,7 +258,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test clearConfig for single variable on data object
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigClearSingleConfigVarData()
@@ -273,7 +273,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test clearConfig for all variables on data object
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigClearConfigAllData()
@@ -289,7 +289,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test config vars on template object
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigTextTemplate()
@@ -302,7 +302,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test getConfigVars on template object
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigGetSingleConfigVarTemplate()
@@ -315,7 +315,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test getConfigVars return all variables on template object
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigGetAllConfigVarsTemplate()
@@ -331,7 +331,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test clearConfig for single variable on template object
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigClearSingleConfigVarTemplate()
@@ -346,7 +346,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test clearConfig for all variables on template object
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigClearConfigAllTemplate()
@@ -362,7 +362,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * test config variables loading from absolute file path
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigAbsolutePath()

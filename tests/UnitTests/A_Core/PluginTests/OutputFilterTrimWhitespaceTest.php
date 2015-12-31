@@ -17,7 +17,7 @@ class OutputFilterTrimWhitespaceTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->loadFilter('output', 'trimwhitespace');
     }
 

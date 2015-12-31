@@ -1,0 +1,1 @@
+{section name=bar loop=$foo}{$foo[bar]}{sectionelse} else {/section}total{$smarty.section.bar.total}

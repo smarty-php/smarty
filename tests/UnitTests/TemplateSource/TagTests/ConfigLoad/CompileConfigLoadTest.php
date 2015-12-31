@@ -22,7 +22,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
      */
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
     }
 
     /**
@@ -42,7 +42,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test {load_config} loading section2 shorttags
@@ -55,7 +55,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     /**
      * test config varibales loading local
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableLocal()
@@ -68,7 +68,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     /**
      * test config varibales loading parent
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableParent()
@@ -81,7 +81,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     /**
      * test config varibales loading global
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableGlobal()
@@ -95,7 +95,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     /**
      * test config varibales loading all sections from template
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableAllSectionsTemplate()
@@ -107,7 +107,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     /**
      * test config varibales overwrite
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableOverwrite()
@@ -116,7 +116,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableOverwrite2()
@@ -127,7 +127,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     /**
      * test config varibales overwrite false
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableOverwriteFalse()
@@ -139,7 +139,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     /**
      * test config varibales booleanize on
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableBooleanizeOn()
@@ -151,7 +151,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     /**
      * test config varibales booleanize off
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableBooleanizeOff()

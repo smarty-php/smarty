@@ -18,7 +18,7 @@ class CompilePhpTest extends PHPUnit_Smarty
     public $loadSmartyBC = true;
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
         $this->smartyBC->disableSecurity();
         $this->smarty->disableSecurity();
         $this->smarty->setCompileId($this->getName());

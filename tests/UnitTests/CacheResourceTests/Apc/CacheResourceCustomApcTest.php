@@ -6,7 +6,7 @@
  * @author  Uwe Tews
  */
 if (ApcCacheEnable == true) {
-    include_once __DIR__ . '/../Memcache/CacheResourceCustomMemcacheTest.php';
+    include_once dirname(__FILE__) . '/../Memcache/CacheResourceCustomMemcacheTest.php';
 
     /**
      * class for cache resource file tests
@@ -26,7 +26,7 @@ if (ApcCacheEnable == true) {
                     $this->markTestSkipped('APC cache not available');
                 }
             }
-            $this->setUpSmarty(__DIR__);
+            $this->setUpSmarty(dirname(__FILE__));
             parent::setUp();
             $this->smarty->setCachingType('apc');
             $this->smarty->addPluginsDir(SMARTY_DIR . '../demo/plugins/');

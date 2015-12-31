@@ -17,7 +17,7 @@ class PluginModifierWordwrapTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
     }
 
     public function testDefault()

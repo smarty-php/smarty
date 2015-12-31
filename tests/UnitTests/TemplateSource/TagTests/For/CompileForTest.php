@@ -17,7 +17,7 @@ class CompileForTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
     }
 
 
@@ -127,7 +127,7 @@ class CompileForTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -151,7 +151,7 @@ class CompileForTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -175,7 +175,7 @@ class CompileForTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */

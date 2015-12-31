@@ -18,7 +18,7 @@ class RegisteredResourceTest extends PHPUnit_Smarty
 
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
 
         $this->smarty->registerResource("rr", array("rr_get_template",
                                                     "rr_get_timestamp",

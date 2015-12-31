@@ -1,0 +1,1 @@
+{section name=bar loop=$foo start=$i}{$foo[bar]}{sectionelse} else {/section}

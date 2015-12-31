@@ -19,7 +19,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
         require_once dirname(__FILE__) . '/PHPunitplugins/resource.ambiguous.php';
 
         // empty the template dir
@@ -57,7 +57,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -77,7 +77,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */
@@ -97,7 +97,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */

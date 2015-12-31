@@ -13,12 +13,12 @@ class IncludePathTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
-        $this->setUpSmarty(__DIR__);
+        $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->use_include_path = true;
         $this->smarty->setPluginsDir(array('./include','./include1'));
         $this->smarty->enableSecurity();
         $ds = DS;
-        set_include_path($this->smarty->_realpath(__DIR__ . "{$ds}..{$ds}..{$ds}..{$ds}Include_Path{$ds}Plugins{$ds}", true) . PATH_SEPARATOR . get_include_path());
+        set_include_path($this->smarty->_realpath(dirname(__FILE__) . "{$ds}..{$ds}..{$ds}..{$ds}Include_Path{$ds}Plugins{$ds}", true) . PATH_SEPARATOR . get_include_path());
     }
 
     /**
