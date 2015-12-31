@@ -1,0 +1,1 @@
+{foreach $foo as $x}{$x@key}{$x}{/foreach}

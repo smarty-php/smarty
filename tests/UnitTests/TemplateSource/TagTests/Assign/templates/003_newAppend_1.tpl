@@ -1,0 +1,1 @@
+{$foo[]=2 scope=root}{foreach $foo as $x}{$x@key}{$x}{/foreach}

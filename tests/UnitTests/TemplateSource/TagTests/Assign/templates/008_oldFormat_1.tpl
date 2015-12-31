@@ -1,0 +1,1 @@
+{assign var=foo value=[9,8,7,6]}{foreach $foo as $x}{$x}{/foreach}

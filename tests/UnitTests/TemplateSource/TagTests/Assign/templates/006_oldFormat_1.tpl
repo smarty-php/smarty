@@ -1,0 +1,1 @@
+{assign var=foo value=strlen('bar')}{$foo}

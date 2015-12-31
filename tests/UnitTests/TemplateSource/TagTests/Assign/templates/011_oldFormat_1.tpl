@@ -1,0 +1,1 @@
+{assign foo 1}{$foo}

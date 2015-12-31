@@ -1,0 +1,1 @@
+{$foo=strlen('bar')}{$foo}

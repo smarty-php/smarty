@@ -10,7 +10,7 @@
  * class for assign tags tests
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  */
 class CompileAssignTest extends PHPUnit_Smarty
@@ -20,155 +20,103 @@ class CompileAssignTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
-
     public function testInit()
     {
         $this->cleanDirs();
     }
+
     /**
      * test old style of assign tag
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
-    public function testAssignOld1()
+    public function testAssignOld_001()
     {
-        $this->assertEquals("1", $this->smarty->fetch('eval:{assign var=foo   value=1}{$foo}'));
-        $this->assertEquals("1", $this->smarty->fetch('eval:{assign var = foo   value= 1}{$foo}'));
-    }
-
-    public function testAssignOld2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=\'foo\' value=1}{$foo}');
-        $this->assertEquals("1", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignOld3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{assign var="foo" value=1}{$foo}');
-        $this->assertEquals("1", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignOld4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=bar}{$foo}');
-        $this->assertEquals("bar", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignOld5()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=1+2}{$foo}');
-        $this->assertEquals("3", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignOld6()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=strlen(\'bar\')}{$foo}');
-        $this->assertEquals("3", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignOld7()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=\'bar\'|strlen}{$foo}');
-        $this->assertEquals("3", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignOld8()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[9,8,7,6]}{foreach $foo as $x}{$x}{/foreach}');
-        $this->assertEquals("9876", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignOld9()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=[\'a\'=>9,\'b\'=>8,\'c\'=>7,\'d\'=>6]}{foreach $foo as $x}{$x@key}{$x}{/foreach}');
-        $this->assertEquals("a9b8c7d6", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test assign tag shorthands
-     */
-    public function testAssignShort1()
-    {
-        $this->assertEquals("1", $this->smarty->fetch('string:{assign foo  value=1}{$foo}'));
-    }
-
-    public function testAssignShort2()
-    {
-        $this->assertEquals("1", $this->smarty->fetch('string:{assign foo 1}{$foo}'));
+        $this->assertEquals("1", $this->smarty->fetch('001_oldFormat_1.tpl'));
+        $this->assertEquals("1", $this->smarty->fetch('001_oldFormat_2.tpl'));
+        $this->assertEquals("1", $this->smarty->fetch('002_oldFormat_1.tpl'));
+        $this->assertEquals("1", $this->smarty->fetch('003_oldFormat_1.tpl'));
+        $this->assertEquals("bar", $this->smarty->fetch('004_oldFormat_1.tpl'));
+        $this->assertEquals("3", $this->smarty->fetch('005_oldFormat_1.tpl'));
+        $this->assertEquals("3", $this->smarty->fetch('006_oldFormat_1.tpl'));
+        $this->assertEquals("3", $this->smarty->fetch('007_oldFormat_1.tpl'));
+        $this->assertEquals("9876", $this->smarty->fetch('008_oldFormat_1.tpl'));
+        $this->assertEquals("a9b8c7d6", $this->smarty->fetch('009_oldFormat_1.tpl'));
+        $this->assertEquals("1", $this->smarty->fetch('010_oldFormat_1.tpl'));
+        $this->assertEquals("1", $this->smarty->fetch('011_oldFormat_1.tpl'));
     }
 
     /**
      * test new style of assign tag
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
-    public function testAssignNew1()
+    public function testAssignNew_001()
     {
-        $this->assertEquals("1", $this->smarty->fetch('eval:{$foo=1}{$foo}'));
-        $this->assertEquals("1", $this->smarty->fetch('eval:{$foo =1}{$foo}'));
-        $this->assertEquals("1", $this->smarty->fetch('eval:{$foo =  1}{$foo}'));
+        $this->assertEquals("1", $this->smarty->fetch('001_newFormat_1.tpl'));
+        $this->assertEquals("2", $this->smarty->fetch('001_newFormat_2.tpl'));
+        $this->assertEquals("3", $this->smarty->fetch('001_newFormat_3.tpl'));
+        $this->assertEquals("bar", $this->smarty->fetch('002_newFormat_1.tpl'));
+        $this->assertEquals("3", $this->smarty->fetch('003_newFormat_1.tpl'));
+        $this->assertEquals("4", $this->smarty->fetch('003_newFormat_2.tpl'));
+        $this->assertEquals("5", $this->smarty->fetch('003_newFormat_3.tpl'));
+        $this->assertEquals("3", $this->smarty->fetch('004_newFormat_1.tpl'));
+        $this->assertEquals("3", $this->smarty->fetch('005_newFormat_1.tpl'));
+        $this->assertEquals("9876", $this->smarty->fetch('006_newFormat_1.tpl'));
+        $this->assertEquals("a9b8c7d6", $this->smarty->fetch('007_newFormat_1.tpl'));
     }
 
-    public function testAssignNew2()
+    /**
+     * test array append
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testAssignArrayAppend_001()
     {
-        $tpl = $this->smarty->createTemplate('eval:{$foo=bar}{$foo}');
-        $this->assertEquals("bar", $this->smarty->fetch($tpl));
+        $this->assertEquals("0112", $this->smarty->fetch('001_newAppend_1.tpl'));
     }
 
-    public function testAssignNew3()
-    {
-        $this->assertEquals("3", $this->smarty->fetch('eval:{$foo=1+2}{$foo}'));
-        $this->assertEquals("3", $this->smarty->fetch('eval:{$foo = 1+2}{$foo}'));
-        $this->assertEquals("3", $this->smarty->fetch('eval:{$foo = 1 + 2}{$foo}'));
-    }
-
-    public function testAssignNew4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{$foo=strlen(\'bar\')}{$foo}');
-        $this->assertEquals("3", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignNew5()
-    {
-        $tpl = $this->smarty->createTemplate("eval:{\$foo='bar'|strlen}{\$foo}");
-        $this->assertEquals("3", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignNew6()
-    {
-        $tpl = $this->smarty->createTemplate("eval:{\$foo=[9,8,7,6]}{foreach \$foo as \$x}{\$x}{/foreach}");
-        $this->assertEquals("9876", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignNew7()
-    {
-        $tpl = $this->smarty->createTemplate("eval:{\$foo=['a'=>9,'b'=>8,'c'=>7,'d'=>6]}{foreach \$foo as \$x}{\$x@key}{\$x}{/foreach}");
-        $this->assertEquals("a9b8c7d6", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignArrayAppend()
-    {
-        $tpl = $this->smarty->createTemplate("eval:{\$foo =1}{\$foo[] = 2}{foreach \$foo as \$x}{\$x@key}{\$x}{/foreach}");
-        $this->assertEquals("0112", $this->smarty->fetch($tpl));
-    }
-
-    public function testAssignArrayAppend2()
+    /**
+     * test array append 2
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testAssignArrayAppend_002()
     {
         $this->smarty->assign('foo', 1);
-        $tpl = $this->smarty->createTemplate("eval:{\$foo[]=2}{foreach \$foo as \$x}{\$x@key}{\$x}{/foreach}", null, null, $this->smarty);
+        $tpl = $this->smarty->createTemplate('002_newAppend_1.tpl', null, null, $this->smarty);
         $this->assertEquals("0112", $this->smarty->fetch($tpl));
-        $tpl2 = $this->smarty->createTemplate("eval:{\$foo}", null, null, $this->smarty);
+        $tpl2 = $this->smarty->createTemplate('002_newAppend_2.tpl', null, null, $this->smarty);
         $this->assertEquals("1", $this->smarty->fetch($tpl2));
     }
 
-    public function testAssignArrayAppend3()
+    /**
+     * test array append 3
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testAssignArrayAppend_003()
     {
         $this->smarty->assign('foo', 1);
-        $tpl = $this->smarty->createTemplate("eval:{\$foo[]=2 scope=root}{foreach \$foo as \$x}{\$x@key}{\$x}{/foreach}", null, null, $this->smarty);
+        $tpl = $this->smarty->createTemplate('003_newAppend_1.tpl', null, null, $this->smarty);
         $this->assertEquals("0112", $this->smarty->fetch($tpl));
-        $tpl2 = $this->smarty->createTemplate("eval:{foreach \$foo as \$x}{\$x@key}{\$x}{/foreach}", null, null, $this->smarty);
+        $tpl2 = $this->smarty->createTemplate('003_newAppend_2.tpl', null, null, $this->smarty);
         $this->assertEquals("0112", $this->smarty->fetch($tpl2));
     }
 
-    public function testAssignNestedArray()
+    /**
+     * test nested array
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testAssignNestedArray_004()
     {
-        $tpl = $this->smarty->createTemplate("eval:{\$foo['a'][4]=1}{\$foo['a'][4]}");
-        $this->assertEquals("1", $this->smarty->fetch($tpl));
+        $this->assertEquals("1", $this->smarty->fetch('004_newNested_1.tpl'));
     }
 }
