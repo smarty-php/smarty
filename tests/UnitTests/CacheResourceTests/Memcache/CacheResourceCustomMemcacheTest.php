@@ -27,10 +27,6 @@ if (MemCacheEnable == true) {
         {
             if (MemCacheEnable != true) {
                 $this->markTestSkipped('Memcache tests are disabled');
-            } else {
-                if (!class_exists('Memcache')) {
-                    $this->markTestSkipped('Memcache not available');
-                }
             }
             $this->setUpSmarty(__DIR__);
             parent::setUp();
