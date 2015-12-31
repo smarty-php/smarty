@@ -132,7 +132,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
                     $this->cleanDir($dir . '/cache');
                     $s_dir[ $dir ] = true;
                 }
-                $dir = __DIR__;
+                $dir = dirname(__FILE__);
             }
             if (!is_dir($dir . '/templates_c')) {
                 mkdir($dir . '/templates_c');
@@ -149,16 +149,16 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
         if ($this->loadSmarty) {
             $this->smarty = new Smarty;
             if (individualFolders != 'true') {
-                $this->smarty->setCompileDir(__DIR__ . '/templates_c');
-                $this->smarty->setCacheDir(__DIR__ . '/cache');
+                $this->smarty->setCompileDir(dirname(__FILE__) . '/templates_c');
+                $this->smarty->setCacheDir(dirname(__FILE__) . '/cache');
             }
         }
         // instance SmartyBC class
         if ($this->loadSmartyBC) {
             $this->smartyBC = new SmartyBC;
             if (individualFolders != 'true') {
-                $this->smartyBC->setCompileDir(__DIR__ . '/templates_c');
-                $this->smartyBC->setCacheDir(__DIR__ . '/cache');
+                $this->smartyBC->setCompileDir(dirname(__FILE__) . '/templates_c');
+                $this->smartyBC->setCacheDir(dirname(__FILE__) . '/cache');
             }
         }
     }
