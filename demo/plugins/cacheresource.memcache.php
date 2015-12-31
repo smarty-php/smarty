@@ -21,7 +21,11 @@ class Smarty_CacheResource_Memcache extends Smarty_CacheResource_KeyValueStore
 
     public function __construct()
     {
-        $this->memcache = new Memcache();
+        if (class_exists('Memcached')) {
+            $this->memcache = new Memcached();
+        } else {
+            $this->memcache = new Memcache();
+        }
         $this->memcache->addServer('127.0.0.1', 11211);
     }
 
