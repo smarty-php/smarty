@@ -60,7 +60,7 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
             if (is_array($parameter['if condition']['var'])) {
                 $_output .= "if (!isset(\$_smarty_tpl->tpl_vars[" . $parameter['if condition']['var']['var'] .
                     "]) || !is_array(\$_smarty_tpl->tpl_vars[" . $parameter['if condition']['var']['var'] .
-                    "]->value)) \$_smarty_tpl->smarty->ext->_var->createLocalArrayVariable(\$_smarty_tpl, " . $parameter['if condition']['var']['var'] .
+                    "]->value)) \$_smarty_tpl->_createLocalArrayVariable(" . $parameter['if condition']['var']['var'] .
                     "$_nocache);\n";
                 $_output .= "while (\$_smarty_tpl->tpl_vars[" . $parameter['if condition']['var']['var'] . "]->value" .
                     $parameter['if condition']['var']['smarty_internal_index'] . " = " .

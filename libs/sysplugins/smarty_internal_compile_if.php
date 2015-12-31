@@ -58,7 +58,7 @@ class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase
             if (is_array($parameter['if condition']['var'])) {
                 $_output = "<?php if (!isset(\$_smarty_tpl->tpl_vars[" . $parameter['if condition']['var']['var'] .
                     "]) || !is_array(\$_smarty_tpl->tpl_vars[" . $parameter['if condition']['var']['var'] .
-                    "]->value)) \$_smarty_tpl->smarty->ext->_var->createLocalArrayVariable(\$_smarty_tpl, " . $parameter['if condition']['var']['var'] .
+                    "]->value)) \$_smarty_tpl->_createLocalArrayVariable(" . $parameter['if condition']['var']['var'] .
                     "$_nocache);\n";
                 $_output .= "if (\$_smarty_tpl->tpl_vars[" . $parameter['if condition']['var']['var'] . "]->value" .
                     $parameter['if condition']['var']['smarty_internal_index'] . " = " .
@@ -162,7 +162,7 @@ class Smarty_Internal_Compile_Elseif extends Smarty_Internal_CompileBase
                     $_output = "<?php } else { if (!isset(\$_smarty_tpl->tpl_vars[" .
                         $parameter['if condition']['var']['var'] . "]) || !is_array(\$_smarty_tpl->tpl_vars[" .
                         $parameter['if condition']['var']['var'] .
-                        "]->value)) \$_smarty_tpl->smarty->ext->_var->createLocalArrayVariable(\$_smarty_tpl, " .
+                        "]->value)) \$_smarty_tpl->_createLocalArrayVariable(" .
                         $parameter['if condition']['var']['var'] . "$_nocache);\n";
                     $_output .= "if (\$_smarty_tpl->tpl_vars[" . $parameter['if condition']['var']['var'] . "]->value" .
                         $parameter['if condition']['var']['smarty_internal_index'] . " = " .
@@ -195,7 +195,7 @@ class Smarty_Internal_Compile_Elseif extends Smarty_Internal_CompileBase
                                                          $parameter['if condition']['var']['var'] .
                                                          "]) || !is_array(\$_smarty_tpl->tpl_vars[" .
                                                          $parameter['if condition']['var']['var'] .
-                                                         "]->value)) \$_smarty_tpl->smarty->ext->_var->createLocalArrayVariable(\$_smarty_tpl, " .
+                                                         "]->value)) \$_smarty_tpl->_createLocalArrayVariable(" .
                                                          $parameter['if condition']['var']['var'] . "$_nocache);\n");
                     $_output .= "if (\$_smarty_tpl->tpl_vars[" . $parameter['if condition']['var']['var'] . "]->value" .
                         $parameter['if condition']['var']['smarty_internal_index'] . " = " .

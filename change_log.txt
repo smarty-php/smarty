@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 31.12.2015
+  - optimization of {assign}, {if} and {while} compiled code
+  
  30.12.2015
   - bugfix plugin names starting with "php" did not compile https://github.com/smarty-php/smarty/issues/147
 

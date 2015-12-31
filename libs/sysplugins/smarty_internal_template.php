@@ -394,6 +394,51 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * Assign variable in scope
+     *
+     * @param string $varName  variable name
+     * @param mixed  $value    value
+     * @param bool   $nocache  nocache flag
+     * @param int    $scope    scope into which variable shall be assigned
+     * @param bool   $smartyBC true if called in Smarty bc class
+     *
+     * @throws \SmartyException
+     */
+    public function _assignInScope($varName, $value, $nocache, $scope, $smartyBC)
+    {
+        if ($smartyBC && isset($this->tpl_vars[ $varName ])) {
+            $this->tpl_vars[ $varName ] = clone $this->tpl_vars[ $varName ];
+            $this->tpl_vars[ $varName ]->value = $value;
+            $this->tpl_vars[ $varName ]->nocache = $nocache;
+        } else {
+            $this->tpl_vars[ $varName ] = new Smarty_Variable($value, $nocache);
+        }
+        if ($scope || $this->scope & Smarty::SCOPE_BUBBLE_UP) {
+            $this->ext->_updateScope->updateScope($this, $varName, $scope);
+        }
+    }
+
+    /**
+     * Template code runtime function to create a local Smarty variable for array assignments
+     *
+     * @param string $varName template variable name
+     * @param bool   $nocache cache mode of variable
+     */
+    public function _createLocalArrayVariable($varName, $nocache = false)
+    {
+        if (!isset($this->tpl_vars[ $varName ])) {
+            $this->tpl_vars[ $varName ] = new Smarty_Variable(array(), $nocache);
+        } else {
+            $this->tpl_vars[ $varName ] = clone $this->tpl_vars[ $varName ];
+            if (!(is_array($this->tpl_vars[ $varName ]->value) ||
+                $this->tpl_vars[ $varName ]->value instanceof ArrayAccess)
+            ) {
+                settype($this->tpl_vars[ $varName ]->value, 'array');
+            }
+        }
+    }
+
+    /**
      * This function is executed automatically when a compiled or cached template file is included
      * - Decode saved properties from compiled template and cache files
      * - Check if compiled or cache file is valid
