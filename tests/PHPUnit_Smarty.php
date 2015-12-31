@@ -265,10 +265,21 @@ KEY `expire` (`expire`)
      */
     public function cleanDir($dir)
     {
-        $di = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
+        $di = new RecursiveDirectoryIterator($dir);
         $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($ri as $file) {
-            $file->isDir() ? rmdir($file) : unlink($file);
+            if (substr(basename($file->getPathname()), 0, 1) == '.') {
+                continue;
+            }
+            // directory ?
+            if ($file->isDir()) {
+                if (!$ri->isDot()) {
+                    // delete folder if empty
+                    @rmdir($file->getPathname());
+                }
+            } else {
+                unlink($file->getPathname());
+            }
         }
     }
 
