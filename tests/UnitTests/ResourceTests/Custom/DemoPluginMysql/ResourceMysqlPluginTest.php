@@ -96,7 +96,7 @@ if (MysqlResourceEnable == true) {
          */
         public function testSmartyTemplate() {
             $this->smarty->addPluginsDir("./PHPunitplugins/");
-            $this->assertEquals('template = 001_smarty_template.tpl', $this->smarty->fetch('mysqlstest:template.tpl'));
+            $this->assertEquals('template = mysqlstest:template.tpl', $this->smarty->fetch('mysqlstest:template.tpl'));
         }
         /**
          * test {$smarty.current_dir}
@@ -104,7 +104,7 @@ if (MysqlResourceEnable == true) {
          */
         public function testSmartyCurrentDir() {
             $this->smarty->addPluginsDir("./PHPunitplugins/");
-            $this->assertEquals('current_dir = ', $this->smarty->fetch('mysqlstest:current_dir.tpl'));
+            $this->assertEquals('current_dir = .', $this->smarty->fetch('mysqlstest:current_dir.tpl'));
         }
     }
 }
