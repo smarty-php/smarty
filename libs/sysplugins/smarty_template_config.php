@@ -91,7 +91,6 @@ class Smarty_Template_Config extends Smarty_Template_Source
         if (!$source->exists && isset($_template->smarty->default_config_handler_func)) {
             Smarty_Internal_Method_RegisterDefaultTemplateHandler::_getDefaultTemplate($source);
         }
-        $source->unique_resource = $resource->buildUniqueResourceName($_template->smarty, $name, true);
         return $source;
     }
 }

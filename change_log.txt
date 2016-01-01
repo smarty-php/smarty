@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 01.01.2016
+  - remove Smarty::$resource_cache_mode property
+  
  31.12.2015
   - optimization of {assign}, {if} and {while} compiled code
   

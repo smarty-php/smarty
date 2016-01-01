@@ -28,30 +28,11 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      */
     static function load($_template)
     {
-        // check runtime cache
-        if (!$_template->source->handler->recompiled &&
-            ($_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
-        ) {
-            $_cache_key = $_template->source->unique_resource . '#';
-            if ($_template->caching) {
-                $_cache_key .= 'caching#';
-            }
-            $_cache_key .= $_template->compile_id;
-            if (isset($_template->source->compileds[$_cache_key])) {
-                return $_template->source->compileds[$_cache_key];
-            }
-        }
         $compiled = new Smarty_Template_Compiled();
         if ($_template->source->handler->hasCompiledHandler) {
             $_template->source->handler->populateCompiledFilepath($compiled, $_template);
         } else {
             $compiled->populateCompiledFilepath($_template);
-        }
-        // runtime cache
-        if (!$_template->source->handler->recompiled &&
-            ($_template->smarty->resource_cache_mode & Smarty::RESOURCE_CACHE_ON)
-        ) {
-            $_template->source->compileds[$_cache_key] = $compiled;
         }
         return $compiled;
     }
