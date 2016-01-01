@@ -558,6 +558,20 @@ KEY `expire` (`expire`)
     }
 
     /**
+     * prefilter to insert test number
+     *
+     * @param  string                   $source
+     * @param \Smarty_Internal_Template $tpl
+     *
+     * @return string
+     */
+    public function prefilterTest($source, Smarty_Internal_Template $tpl)
+    {
+        return str_replace('#test#', "test:{\$test nocache} compiled:{$tpl->getTemplateVars('test')} rendered:{\$test}",
+                           $source);
+    }
+
+    /**
      * Tears down the fixture
      * This method is called after a test is executed.
      *
