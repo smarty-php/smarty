@@ -1,0 +1,1 @@
+{textformat assign=foo}hello world{/textformat}{$foo}

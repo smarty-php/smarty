@@ -7,7 +7,7 @@
  */
 
 /**
- * Smarty {testblock}{/testblock} block plugin
+ * Smarty {nooutput}{/nooutput} block plugin
  *
  * @param array       $params parameter array
  * @param string $content  contents of the block
@@ -16,18 +16,9 @@
  *
  * @return string content re-formatted
  */
-function smarty_block_testblock($params, $content, $template, &$repeat)
+function smarty_block_nooutput($params, $content, $template, &$repeat)
 {
-    static $loop = 0;
     if (isset($content)) {
-        $loop ++;
-        if ($loop < 5) {
-            $repeat = true;
-        } else {
-            $repeat = false;
-        }
-       return $loop;
-    } else {
-        $loop = 0;
+           $repeat = false;
     }
 }

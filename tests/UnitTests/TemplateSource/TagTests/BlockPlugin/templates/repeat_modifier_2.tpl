@@ -1,0 +1,1 @@
+{testblock}{/testblock|strlen|default:''}

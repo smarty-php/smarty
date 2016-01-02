@@ -19,7 +19,6 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->addPluginsDir("./PHPunitplugins/");
-        $this->smarty->setForceCompile(true);
         $this->smarty->disableSecurity();
     }
 
@@ -34,8 +33,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      */
     public function testBlockPluginNoAssign()
     {
-        $tpl = $this->smarty->createTemplate("eval:{textformat}hello world{/textformat}");
-        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
+         $this->assertEquals("hello world", $this->smarty->fetch('no_assign.tpl'));
     }
 
     /**
@@ -44,51 +42,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      */
     public function testBlockPluginAssign()
     {
-        $tpl = $this->smarty->createTemplate("eval:{textformat assign=foo}hello world{/textformat}{\$foo}");
-        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test block plugin tag in template file
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testBlockPluginFromTemplateFile()
-    {
-        $tpl = $this->smarty->createTemplate('blockplugintest.tpl');
-        $this->assertEquals("abc", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test block plugin tag in compiled template file
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testBlockPluginFromCompiledTemplateFile()
-    {
-        $this->smarty->setForceCompile(false);
-        $tpl = $this->smarty->createTemplate('blockplugintest.tpl');
-        $this->assertEquals("abc", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test block plugin tag in template file
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
-    public function testBlockPluginFromTemplateFileCache()
-    {
-        $this->smarty->setForceCompile(false);
-        $this->smarty->caching = 1;
-        $this->smarty->cache_lifetime = 10;
-        $tpl = $this->smarty->createTemplate('blockplugintest.tpl');
-        $this->assertEquals("abc", $this->smarty->fetch($tpl));
+        $this->assertEquals("hello world", $this->smarty->fetch('assign.tpl'));
     }
 
     /**
@@ -101,8 +55,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     public function testBlockPluginRegisteredFunction()
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockplugintest', 'myblockplugintest');
-        $tpl = $this->smarty->createTemplate('eval:{blockplugintest}hello world{/blockplugintest}');
-        $this->assertEquals('block test', $this->smarty->fetch($tpl));
+        $this->assertEquals('block test', $this->smarty->fetch('registered.tpl'));
     }
 
     /**
@@ -111,28 +64,33 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      */
     public function testBlockPluginRepeat()
     {
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
-        $this->assertEquals('12345', $this->smarty->fetch('eval:{testblock}{/testblock}'));
+        $this->assertEquals('12345', $this->smarty->fetch('repeat.tpl'));
     }
 
     /**
-     *
+     * test block plugin repeat function with modifier
      *
      */
     public function testBlockPluginRepeatModidier1()
     {
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
-        $this->assertEquals('11111', $this->smarty->fetch('eval:{testblock}{/testblock|strlen}'));
+        $this->assertEquals('11111', $this->smarty->fetch('repeat_modifier.tpl'));
     }
 
     /**
-     *
+     * test block plugin repeat function with modifier list
      *
      */
     public function testBlockPluginRepeatModidier2()
     {
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
-        $this->assertEquals('11111', $this->smarty->fetch('eval:{testblock}{/testblock|strlen|default:""}'));
+        $this->assertEquals('11111', $this->smarty->fetch('repeat_modifier_2.tpl'));
+    }
+    /**
+     * test block plugin with no output
+     *
+     */
+    public function testBlockPluginNoOutput()
+    {
+        $this->assertEquals('default', $this->smarty->fetch('nooutput.tpl'));
     }
 }
 

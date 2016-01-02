@@ -1,0 +1,1 @@
+{nooutput}{/nooutput|default:'default'}
