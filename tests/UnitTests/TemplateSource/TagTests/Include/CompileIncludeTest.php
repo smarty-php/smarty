@@ -182,7 +182,7 @@ class CompileIncludeTest extends PHPUnit_Smarty
     {
         $this->smarty->setMergeCompiledIncludes($merge);
         $this->smarty->assign('foo', 1);
-        $tpl = $this->smarty->createTemplate('test_include_parent_scope.tpl', null, null, $this->smarty);
+        $tpl = $this->smarty->createTemplate('test_include_parent_scope.tpl', null, null, $this->smarty, false);
         $content = $this->smarty->fetch($tpl);
         $content2 = $this->smarty->fetch('eval: root value {$foo}');
         $this->assertContains('before include 1', $content, 'before include 1 ' . $text);
@@ -224,7 +224,7 @@ class CompileIncludeTest extends PHPUnit_Smarty
         $content2 = $this->smarty->fetch('eval: smarty value {$foo}');
         $this->assertContains('before include 1', $content, 'before include 1 ' . $text);
         $this->assertContains('in include 2', $content . 'in include 2 ' . $text);
-        $this->assertContains('after include 1', $content, 'after include 1 ' . $text);
+        $this->assertContains('after include 2', $content, 'after include 1 ' . $text);
         $this->assertContains('smarty value 2', $content2, 'smarty value 2 ' . $text);
     }
 
