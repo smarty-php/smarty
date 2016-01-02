@@ -2,6 +2,7 @@
  02.01.2016
   - update scope handling
   - optimize block plugin compiler
+  - improvement runtime checks if registered block plugins are callabel
   
  01.01.2016
   - remove Smarty::$resource_cache_mode property

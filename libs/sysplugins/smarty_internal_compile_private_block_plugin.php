@@ -29,7 +29,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
      *
      * @var int
      */
-    private $nesting = 0;
+    public $nesting = 0;
 
     /**
      * Compiles code for the execution of block plugin
@@ -53,16 +53,24 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                 $compiler->tag_nocache = true;
             }
             unset($_attr[ 'nocache' ]);
-            list($callback, $_paramsArray) = $this->setup($compiler, $_attr, $tag, $function);
+            list($callback, $_paramsArray, $callable) = $this->setup($compiler, $_attr, $tag, $function);
             $_params = 'array(' . implode(",", $_paramsArray) . ')';
 
+            // compile code
+            $output = "<?php ";
+            if (is_array($callback)) {
+                $output .= "\$_block_plugin{$this->nesting} = isset({$callback[0]}) ? {$callback[0]} : null;\n";
+                $callback = "\$_block_plugin{$this->nesting}{$callback[1]}";
+            }
+            if (isset($callable)) {
+                $output .= "if (!is_callable({$callable})) {\nthrow new SmartyException('block tag \'{$tag}\' not callable or registered');\n}\n";
+            }
+            $output .=
+                "\$_block_repeat{$this->nesting}=true;\necho {$callback}({$_params}, null, \$_smarty_tpl, \$_block_repeat{$this->nesting});\nwhile (\$_block_repeat{$this->nesting}) {\nob_start();\n?>";
             $this->openTag($compiler, $tag, array($_params, $compiler->nocache, $callback));
             // maybe nocache because of nocache variables or nocache plugin
             $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
-            // compile code
-            $output =
-                "<?php \$_block_repeat{$this->nesting}=true;\necho {$callback}({$_params}, null, \$_smarty_tpl, \$_block_repeat{$this->nesting});\nwhile (\$_block_repeat{$this->nesting}) {\nob_start();\n?>";
-        } else {
+         } else {
             // must endblock be nocache?
             if ($compiler->nocache) {
                 $compiler->tag_nocache = true;
@@ -111,6 +119,6 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                 $_paramsArray[] = "'$_key'=>$_value";
             }
         }
-        return array($function, $_paramsArray);
+        return array($function, $_paramsArray, null);
     }
 }
