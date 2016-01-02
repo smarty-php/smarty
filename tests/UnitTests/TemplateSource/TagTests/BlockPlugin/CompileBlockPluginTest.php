@@ -252,12 +252,64 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $this->smarty->registerDefaultPluginHandler('my_block_plugin_handler');
         $this->assertEquals('defaultblock hello world', $this->smarty->fetch('default2.tpl'));
     }
+
+    /**
+     * Test caching
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        data
+     *
+     */
+    public function testCache($isCached, $caching, $cachable, $testNumber, $compileTestNumber, $renderTestNumber,
+                              $resultNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'prefilterTest'));
+        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'cachetest', 'myblockplugintest2', $cachable);
+        if ($testNumber == 13) {
+            $i = 0;
+        }
+        $this->smarty->compile_id = $cachable ? 0 : 1;
+        $this->smarty->caching = $caching;
+        $this->smarty->cache_lifetime = 1000;
+        $this->smarty->assign('test', $testNumber);
+        $tpl = $this->smarty->createTemplate('caching.tpl', null, null, $this->smarty);
+        if (isset($isCached)) {
+            $this->assertEquals($isCached, $tpl->isCached(), $testName . ' - isCached()');
+        }
+        $result = $this->smarty->fetch($tpl);
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure test number');
+        $this->assertContains("block test{$resultNumber}", $result, $testName . ' - fetch() failure result');
+    }
+
+    public function data()
+    {
+        return array(array(false, false, false, 1, 1, 1, 1, 'no cacheing'),
+                     array(false, false, false, 2, 1, 2, 2, 'no cacheing'),
+                     array(false, false, true, 3, 3, 3, 3, 'cacheable'),
+                     array(false, true, true, 4, 4, 4, 4, 'cachable Caching'),
+                     array(true, true, true, 5, 4, 4, 4, 'cachable isCached'),
+                     array(true, true, true, 6, 4, 4, 4, 'cachable isCached'),
+                     array(false, true, false, 7, 7, 7, 7, 'not cachable'),
+                     array(true, true, false, 8, 7, 7, 8, 'not cachable isCached'),
+                     array(true, true, false, 9, 7, 7, 9, 'not cachable isCached'),);
+    }
 }
 
 function myblockplugintest($params, $content, &$smarty_tpl, &$repeat)
 {
     if (!$repeat) {
         $output = str_replace('hello world', 'block test', $content);
+
+        return $output;
+    }
+}
+
+function myblockplugintest2($params, $content, &$smarty_tpl, &$repeat)
+{
+    if (!$repeat) {
+        $output = str_replace('hello world', "block test{$params['var']}", $content);
 
         return $output;
     }
