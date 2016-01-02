@@ -79,20 +79,6 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     }
 
     /**
-     * test config varibales loading global
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testConfigVariableGlobal()
-    {
-        $this->assertEquals("Welcome to Smarty!", $this->smarty->fetch('eval:{config_load file=\'test.conf\' scope=\'global\'}{#title#}'));
-        // global is parent must not be empty
-        $this->assertEquals("Welcome to Smarty!", $this->smarty->getConfigVars('title'));
-    }
-
-
-    /**
      * test config varibales loading all sections from template
      *
      * @runInSeparateProcess
