@@ -10,7 +10,7 @@
  * class for block plugin tests
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  */
 class CompileBlockPluginTest extends PHPUnit_Smarty
@@ -22,18 +22,18 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $this->smarty->disableSecurity();
     }
 
-
     public function testInit()
     {
         $this->cleanDirs();
     }
+
     /**
      * test block plugin tag
      *
      */
     public function testBlockPluginNoAssign()
     {
-         $this->assertEquals("hello world", $this->smarty->fetch('no_assign.tpl'));
+        $this->assertEquals("hello world", $this->smarty->fetch('no_assign.tpl'));
     }
 
     /**
@@ -46,6 +46,18 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     }
 
     /**
+     * test unknown block plugin tag
+     *
+     * @expectedException        SmartyCompilerException
+     * @expectedExceptionMessage unknown tag "bar"
+     *
+     */
+    public function testBlockPluginUnknown()
+    {
+        $this->assertEquals("hello world", $this->smarty->fetch('unknown.tpl'));
+    }
+
+    /**
      * test block plugin function definition in script
      *
      * @runInSeparateProcess
@@ -55,6 +67,20 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     public function testBlockPluginRegisteredFunction()
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockplugintest', 'myblockplugintest');
+        $this->assertEquals('block test', $this->smarty->fetch('registered.tpl'));
+    }
+
+    /**
+     * test block plugin function definition in script
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState      disabled
+     * @expectedException        SmartyException
+     * @expectedExceptionMessage block tag 'blockplugintest' not callable
+     *
+     */
+    public function testBlockPluginRegisteredFunction2()
+    {
         $this->assertEquals('block test', $this->smarty->fetch('registered.tpl'));
     }
 
@@ -72,6 +98,20 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     }
 
     /**
+     * test block plugin static method failure
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState      disabled
+     * @expectedException        SmartyException
+     * @expectedExceptionMessage block tag 'blockpluginstatic' not callable
+     *
+     */
+    public function testBlockPluginRegisteredStatic2()
+    {
+        $this->assertEquals('static block test', $this->smarty->fetch('registered_static.tpl'));
+    }
+
+    /**
      * test block plugin object method
      *
      * @runInSeparateProcess
@@ -84,6 +124,21 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockpluginmethod', array($object, 'methodfunc'));
         $this->assertEquals('method block test', $this->smarty->fetch('registered_method.tpl'));
     }
+
+    /**
+     * test block plugin object method failure
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState      disabled
+     * @expectedException        SmartyException
+     * @expectedExceptionMessage block tag 'blockpluginmethod' not callable
+     *
+     */
+    public function testBlockPluginRegisteredMethod2()
+    {
+        $this->assertEquals('method block test', $this->smarty->fetch('registered_method.tpl'));
+    }
+
     /**
      * test block plugin registered object
      *
@@ -99,7 +154,22 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     }
 
     /**
+     * test block plugin registered object failure
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState      disabled
+     * @expectedException        SmartyException
+     * @expectedExceptionMessage block tag 'myobject' not callable
+     *
+     */
+    public function testBlockPluginRegisteredObject2()
+    {
+        $this->assertEquals('object block test', $this->smarty->fetch('registered_object.tpl'));
+    }
+
+    /**
      * test block plugin repeat function
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -111,6 +181,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
 
     /**
      * test block plugin repeat function with modifier
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -122,6 +193,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
 
     /**
      * test block plugin repeat function with modifier list
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -130,8 +202,10 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     {
         $this->assertEquals('11111', $this->smarty->fetch('repeat_modifier_2.tpl'));
     }
+
     /**
      * test block plugin with no output
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -140,8 +214,10 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     {
         $this->assertEquals('default', $this->smarty->fetch('nooutput.tpl'));
     }
+
     /**
      * test nested block plugin
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -150,8 +226,10 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     {
         $this->assertEquals('hello world12345', $this->smarty->fetch('nested.tpl'));
     }
+
     /**
      * test default block plugin
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -161,8 +239,10 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $this->smarty->registerDefaultPluginHandler('my_block_plugin_handler');
         $this->assertEquals('scriptblock hello world', $this->smarty->fetch('default1.tpl'));
     }
+
     /**
      * test default block plugin
+     *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -192,6 +272,7 @@ class myblockclass1
             return $output;
         }
     }
+
     public function methodfunc($params, $content, &$smarty_tpl, &$repeat)
     {
         if (!$repeat) {
@@ -199,6 +280,7 @@ class myblockclass1
             return $output;
         }
     }
+
     public function objectfunc($params, $content, &$smarty_tpl, &$repeat)
     {
         if (!$repeat) {
@@ -207,6 +289,7 @@ class myblockclass1
         }
     }
 }
+
 function my_block_plugin_handler($tag, $type, $template, &$callback, &$script, &$cachable)
 {
     switch ($type) {
@@ -222,7 +305,7 @@ function my_block_plugin_handler($tag, $type, $template, &$callback, &$script, &
                     $callback = 'default_block_tag';
                     return true;
             }
-         default:
+        default:
             return false;
     }
 }
