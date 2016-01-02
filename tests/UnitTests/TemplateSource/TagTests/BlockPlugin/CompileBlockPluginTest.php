@@ -67,7 +67,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      */
     public function testBlockPluginRegisteredStatic()
     {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockpluginstatic', array('myblockclass', 'staticfunc'));
+        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockpluginstatic', array('myblockclass1', 'staticfunc'));
         $this->assertEquals('static block test', $this->smarty->fetch('registered_static.tpl'));
     }
 
@@ -80,7 +80,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      */
     public function testBlockPluginRegisteredMethod()
     {
-        $object = new myblockclass();
+        $object = new myblockclass1();
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockpluginmethod', array($object, 'methodfunc'));
         $this->assertEquals('method block test', $this->smarty->fetch('registered_method.tpl'));
     }
@@ -93,7 +93,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      */
     public function testBlockPluginRegisteredObject()
     {
-        $object = new myblockclass();
+        $object = new myblockclass1();
         $this->smarty->registerObject('myobject', $object, array(), true, array('objectfunc'));
         $this->assertEquals('method block test', $this->smarty->fetch('registered_object.tpl'));
     }
@@ -169,7 +169,7 @@ function myblockplugintest($params, $content, &$smarty_tpl, &$repeat)
     }
 }
 
-class myblockclass
+class myblockclass1
 {
     static function staticfunc($params, $content, &$smarty_tpl, &$repeat)
     {
