@@ -100,6 +100,8 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
 
     /**
      * test block plugin repeat function
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      *
      */
     public function testBlockPluginRepeat()
@@ -109,6 +111,8 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
 
     /**
      * test block plugin repeat function with modifier
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      *
      */
     public function testBlockPluginRepeatModidier1()
@@ -118,6 +122,8 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
 
     /**
      * test block plugin repeat function with modifier list
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      *
      */
     public function testBlockPluginRepeatModidier2()
@@ -126,6 +132,8 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     }
     /**
      * test block plugin with no output
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      *
      */
     public function testBlockPluginNoOutput()
@@ -134,6 +142,8 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     }
     /**
      * test nested block plugin
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      *
      */
     public function testBlockPluginNested()
@@ -142,6 +152,8 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     }
     /**
      * test default block plugin
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      *
      */
     public function testBlockPluginDefault1()
@@ -151,6 +163,8 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     }
     /**
      * test default block plugin
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      *
      */
     public function testBlockPluginDefault2()
