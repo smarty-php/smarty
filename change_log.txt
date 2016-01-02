@@ -1,6 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
  02.01.2016
   - update scope handling
+  - optimize block plugin compiler
   
  01.01.2016
   - remove Smarty::$resource_cache_mode property
