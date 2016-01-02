@@ -59,6 +59,46 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     }
 
     /**
+     * test block plugin static method
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testBlockPluginRegisteredStatic()
+    {
+        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockpluginstatic', array('myblockclass', 'staticfunc'));
+        $this->assertEquals('static block test', $this->smarty->fetch('registered_static.tpl'));
+    }
+
+    /**
+     * test block plugin object method
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testBlockPluginRegisteredMethod()
+    {
+        $object = new myblockclass();
+        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockpluginmethod', array($object, 'methodfunc'));
+        $this->assertEquals('method block test', $this->smarty->fetch('registered_method.tpl'));
+    }
+    /**
+     * test block plugin registered object
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testBlockPluginRegisteredObject()
+    {
+        $object = new myblockclass();
+        $this->smarty->registerObject('myobject', $object, array(), true, array('objectfunc'));
+        $this->assertEquals('method block test', $this->smarty->fetch('registered_object.tpl'));
+    }
+
+    /**
      * test block plugin repeat function
      *
      */
@@ -92,6 +132,32 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     {
         $this->assertEquals('default', $this->smarty->fetch('nooutput.tpl'));
     }
+    /**
+     * test nested block plugin
+     *
+     */
+    public function testBlockPluginNested()
+    {
+        $this->assertEquals('hello world12345', $this->smarty->fetch('nested.tpl'));
+    }
+    /**
+     * test default block plugin
+     *
+     */
+    public function testBlockPluginDefault1()
+    {
+        $this->smarty->registerDefaultPluginHandler('my_block_plugin_handler');
+        $this->assertEquals('scriptblock hello world', $this->smarty->fetch('default1.tpl'));
+    }
+    /**
+     * test default block plugin
+     *
+     */
+    public function testBlockPluginDefault2()
+    {
+        $this->smarty->registerDefaultPluginHandler('my_block_plugin_handler');
+        $this->assertEquals('defaultblock hello world', $this->smarty->fetch('default2.tpl'));
+    }
 }
 
 function myblockplugintest($params, $content, &$smarty_tpl, &$repeat)
@@ -102,3 +168,48 @@ function myblockplugintest($params, $content, &$smarty_tpl, &$repeat)
         return $output;
     }
 }
+
+class myblockclass
+{
+    static function staticfunc($params, $content, &$smarty_tpl, &$repeat)
+    {
+        if (!$repeat) {
+            $output = str_replace('hello world', 'static block test', $content);
+            return $output;
+        }
+    }
+    public function methodfunc($params, $content, &$smarty_tpl, &$repeat)
+    {
+        if (!$repeat) {
+            $output = str_replace('hello world', 'method block test', $content);
+            return $output;
+        }
+    }
+    public function objectfunc($params, $content, &$smarty_tpl, &$repeat)
+    {
+        if (!$repeat) {
+            $output = str_replace('hello world', 'object block test', $content);
+            return $output;
+        }
+    }
+}
+function my_block_plugin_handler($tag, $type, $template, &$callback, &$script, &$cachable)
+{
+    switch ($type) {
+        case Smarty::PLUGIN_BLOCK:
+            switch ($tag) {
+                case 'scriptblock':
+                    $script = './scripts/script_block_tag.php';
+                    $callback = 'default_script_block_tag';
+
+                    return true;
+                default:
+                    $script = './scripts/other_block_tag.php';
+                    $callback = 'default_block_tag';
+                    return true;
+            }
+         default:
+            return false;
+    }
+}
+
