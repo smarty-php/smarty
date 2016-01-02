@@ -45,8 +45,8 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
      * 
      * @var array
      */
-    public $valid_scopes = array('local'  => true, 'parent' => true, 'root' => true, 'global' => true,
-                                 'smarty' => true, 'tpl_root' => true);
+    public $valid_scopes = array('local'  => true, 'parent' => true, 'root' => true,
+                                  'tpl_root' => true);
 
     /**
      * Compiles code for the {config_load} tag
@@ -84,10 +84,6 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
                     $_scope = Smarty::SCOPE_PARENT;
                 } elseif ($_attr['scope'] == 'root') {
                     $_scope = Smarty::SCOPE_ROOT;
-                } elseif ($_attr['scope'] == 'global') {
-                    $_scope = Smarty::SCOPE_GLOBAL;
-                } elseif ($_attr['scope'] == 'smarty') {
-                    $_scope = Smarty::SCOPE_SMARTY;
                 } elseif ($_attr['scope'] == 'tpl_root') {
                     $_scope = Smarty::SCOPE_TPL_ROOT;
                 }

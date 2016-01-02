@@ -34,12 +34,25 @@ class Smarty_Internal_Runtime_UpdateScope
         foreach ($scopes as $s) {
             $s = ($bubble_up = $s >= Smarty::SCOPE_BUBBLE_UP) ? $s - Smarty::SCOPE_BUBBLE_UP : $s;
             if ($bubble_up && $s) {
-                if (isset($tpl->parent)) {
+                $oldGlobal = null;
+                if ($s == Smarty::SCOPE_GLOBAL) {
+                    $oldGlobal =
+                        isset(Smarty::$global_tpl_vars[ $varName ]) ? Smarty::$global_tpl_vars[ $varName ] : null;
+                    Smarty::$global_tpl_vars[ $varName ] = $tpl->tpl_vars[ $varName ];
+                }
+                if (isset($tpl->parent) && $tpl->parent->_objType == 2) {
                     $ptr = $tpl->parent;
+                    if ($s == Smarty::SCOPE_GLOBAL && isset($oldGlobal) && isset($ptr->tpl_vars[ $varName ]) &&
+                        $ptr->tpl_vars[ $varName ] !== $oldGlobal
+                    ) {
+                        continue;
+                    }
                     $ptr->tpl_vars[ $varName ] = $tpl->tpl_vars[ $varName ];
                     if (isset($ptr->parent)) {
                         $ptr = $ptr->parent;
                     }
+                } elseif (isset($tpl->parent)) {
+                    $ptr = $tpl->parent;
                 }
                 if ($s == Smarty::SCOPE_PARENT) {
                     continue;
@@ -50,15 +63,10 @@ class Smarty_Internal_Runtime_UpdateScope
                 }
                 if ($s == Smarty::SCOPE_TPL_ROOT) {
                     continue;
-                } elseif ($s == Smarty::SCOPE_SMARTY) {
-                    $tpl->smarty->tpl_vars[ $varName ] = $tpl->tpl_vars[ $varName ];
-                } elseif ($s == Smarty::SCOPE_GLOBAL) {
-                    Smarty::$global_tpl_vars[ $varName ] = $tpl->tpl_vars[ $varName ];
-                } elseif ($s == Smarty::SCOPE_ROOT) {
-                    while (isset($ptr->parent)) {
-                        $ptr = $ptr->parent;
-                    }
+                }
+                while (isset($ptr) && $s != Smarty::SCOPE_GLOBAL) {
                     $ptr->tpl_vars[ $varName ] = $tpl->tpl_vars[ $varName ];
+                    $ptr = isset($ptr->parent) ? $ptr->parent : null;
                 }
             }
         }
