@@ -95,7 +95,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     {
         $object = new myblockclass1();
         $this->smarty->registerObject('myobject', $object, array(), true, array('objectfunc'));
-        $this->assertEquals('method block test', $this->smarty->fetch('registered_object.tpl'));
+        $this->assertEquals('object block test', $this->smarty->fetch('registered_object.tpl'));
     }
 
     /**
