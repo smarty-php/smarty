@@ -262,17 +262,18 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      *
      */
     public function testCache($isCached, $caching, $cachable, $testNumber, $compileTestNumber, $renderTestNumber,
-                              $resultNumber, $testName)
+                              $resultNumber, $nocache, $compileid, $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'prefilterTest'));
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'cachetest', 'myblockplugintest2', $cachable);
         if ($testNumber == 13) {
             $i = 0;
         }
-        $this->smarty->compile_id = $cachable ? 0 : 1;
+        $this->smarty->compile_id = $compileid;
         $this->smarty->caching = $caching;
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->assign('test', $testNumber);
+        $this->smarty->assign('var', $testNumber, $nocache);
         $tpl = $this->smarty->createTemplate('caching.tpl', null, null, $this->smarty);
         if (isset($isCached)) {
             $this->assertEquals($isCached, $tpl->isCached(), $testName . ' - isCached()');
@@ -285,15 +286,18 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
 
     public function data()
     {
-        return array(array(false, false, false, 1, 1, 1, 1, 'no cacheing'),
-                     array(false, false, false, 2, 1, 2, 2, 'no cacheing'),
-                     array(false, false, true, 3, 3, 3, 3, 'cacheable'),
-                     array(false, true, true, 4, 4, 4, 4, 'cachable Caching'),
-                     array(true, true, true, 5, 4, 4, 4, 'cachable isCached'),
-                     array(true, true, true, 6, 4, 4, 4, 'cachable isCached'),
-                     array(false, true, false, 7, 7, 7, 7, 'not cachable'),
-                     array(true, true, false, 8, 7, 7, 8, 'not cachable isCached'),
-                     array(true, true, false, 9, 7, 7, 9, 'not cachable isCached'),);
+        return array(array(false, false, false, 1, 1, 1, 1, false, 0, 'no cacheing'),
+                     array(false, false, false, 2, 1, 2, 2, false, 0, 'no cacheing'),
+                     array(false, false, true, 3, 3, 3, 3, false, 1, 'cacheable'),
+                     array(false, true, true, 4, 4, 4, 4, false, 1, 'cachable Caching'),
+                     array(true, true, true, 5, 4, 4, 4, false, 1, 'cachable isCached'),
+                     array(true, true, true, 6, 4, 4, 4, false, 1, 'cachable isCached'),
+                     array(false, true, false, 7, 7, 7, 7, false, 2, 'not cachable'),
+                     array(true, true, false, 8, 7, 7, 8, false, 2, 'not cachable isCached'),
+                     array(true, true, false, 9, 7, 7, 9, false, 2, 'not cachable isCached'),
+                     array(false, true, true, 10, 10, 10, 10, true, 3, 'not cachable nocache var'),
+                     array(true, true, true, 11, 10, 10, 11, true, 3, 'not cachable isCached'),
+                     array(true, true, true, 12, 10, 10, 12, true, 3, 'not cachable isCached'),);
     }
 }
 

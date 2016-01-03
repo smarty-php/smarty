@@ -1,1 +1,1 @@
-#test#{cachetest var=$test}hello world{/cachetest}
+#test#{cachetest var=$var}hello world{/cachetest}
