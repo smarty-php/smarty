@@ -20,3 +20,11 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# Export-ignore files
+/demo                           export-ignore
+.gitattributes                  export-ignore
+.gitignore                      export-ignore
+README                          export-ignore
+README.md                       export-ignore
+*.txt                           export-ignore
