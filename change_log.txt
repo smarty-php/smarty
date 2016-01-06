@@ -2,7 +2,7 @@
  02.01.2016
   - update scope handling
   - optimize block plugin compiler
-  - improvement runtime checks if registered block plugins are callabel
+  - improvement runtime checks if registered block plugins are callable
   
  01.01.2016
   - remove Smarty::$resource_cache_mode property
@@ -37,7 +37,7 @@
  23.12.2015
   - optimization move internal method decodeProperties back into template object
   - optimization move subtemplate processing back into template object
-  - new feature  Caching does now observe the template_dir setting and will create separate cache files if required
+  - new feature Caching does now observe the template_dir setting and will create separate cache files if required
    
  22.12.2015
   - change $xxx_dir properties from private to protected in case Smarty class gets extended
@@ -56,7 +56,7 @@
  20.12.2015
   - bugfix failure when the default resource type was set to 'extendsall' https://github.com/smarty-php/smarty/issues/123
   - update compilation of Smarty special variables
-  - bugfix add addition check for OS type on normalizaition of file path https://github.com/smarty-php/smarty/issues/134
+  - bugfix add addition check for OS type on normalization of file path https://github.com/smarty-php/smarty/issues/134
   - bugfix the source uid of the extendsall resource must contain $template_dir settings https://github.com/smarty-php/smarty/issues/123
   
  19.12.2015
@@ -66,7 +66,7 @@
   - improvement make sure that compiled and cache templates never can contain a trailing '?>?
     
  18.12.2015
-  - bugfix regression when modifier parameter was follow by math https://github.com/smarty-php/smarty/issues/132
+  - bugfix regression when modifier parameter was followed by math https://github.com/smarty-php/smarty/issues/132
   
  17.12.2015
   - bugfix {$smarty.capture.nameFail} did lowercase capture name https://github.com/smarty-php/smarty/issues/135
