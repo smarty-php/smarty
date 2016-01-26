@@ -29,16 +29,17 @@ class Smarty_Internal_Runtime_CodeFrame
                            Smarty_Internal_TemplateCompilerBase $compiler = null)
     {
         // build property code
-        $properties[ 'has_nocache_code' ] = $_template->compiled->has_nocache_code;
         $properties[ 'version' ] = Smarty::SMARTY_VERSION;
         $properties[ 'unifunc' ] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
         if (!$cache) {
+            $properties[ 'has_nocache_code' ] = $_template->compiled->has_nocache_code;
             $properties[ 'file_dependency' ] = $_template->compiled->file_dependency;
             $properties[ 'includes' ] = $_template->compiled->includes;
             if (!empty($compiler->tpl_function)) {
                 $properties[ 'tpl_function' ] = $compiler->tpl_function;
             }
         } else {
+            $properties[ 'has_nocache_code' ] = $_template->cached->has_nocache_code;
             $properties[ 'file_dependency' ] = $_template->cached->file_dependency;
             $properties[ 'cache_lifetime' ] = $_template->cache_lifetime;
             if (!empty($_template->tpl_function)) {
