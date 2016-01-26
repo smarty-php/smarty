@@ -181,9 +181,15 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $_functionCode = $compiler->parser->current_buffer;
         // setup buffer for template function code
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
+        if ($compiler->template->source->type == 'file') {
+            $sourceInfo = $compiler->template->source->filepath;
+        } else {
+            $basename = $compiler->template->source->handler->getBasename($compiler->template->source);
+            $sourceInfo = $compiler->template->source->type .':' . ($basename ? $basename : $compiler->template->source->name);
+        }
 
         $output = "<?php\n";
-        $output .= "/* {block '{$_name}'} {$compiler->template->source->type}:{$compiler->template->source->name} */\n";
+        $output .= "/* {block '{$_name}'} {$sourceInfo} */\n";
         $output .= "class {$_className} extends Smarty_Internal_Block\n";
         $output .= "{\n";
         foreach ($_block as $property => $value) {
