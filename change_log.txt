@@ -1,6 +1,8 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
  27.01.2016
- - revert bugfix compiling {section} did create warning
+  - revert bugfix compiling {section} did create warning
+  - bugfix {$smarty.section.customer.loop} did throw compiler error https://github.com/smarty-php/smarty/issues/161
+    update of yesterdays fix
 
  26.01.2016
   - improvement observe Smarty::$_CHARSET in debugging console https://github.com/smarty-php/smarty/issues/169
