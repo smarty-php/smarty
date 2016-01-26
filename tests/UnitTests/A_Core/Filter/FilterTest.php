@@ -10,15 +10,16 @@
  * class for filter tests
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  */
 class FilterTest extends PHPUnit_Smarty
 {
     public $loadSmartyBC = true;
+
     public function setUp()
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
     }
 
     public function testInit()
@@ -31,7 +32,7 @@ class FilterTest extends PHPUnit_Smarty
      */
     public function testAutoloadOutputFilter()
     {
-        $this->smarty->autoload_filters['output'] = 'trimwhitespace';
+        $this->smarty->autoload_filters[ 'output' ] = 'trimwhitespace';
         $tpl = $this->smarty->createTemplate('eval:{"    <br>hello world"}');
         $this->assertEquals("<br>hello world", $this->smarty->fetch($tpl));
     }
@@ -41,7 +42,7 @@ class FilterTest extends PHPUnit_Smarty
      */
     public function testAutoloadVariableFilter()
     {
-        $this->smarty->autoload_filters['variable'] = 'htmlspecialchars';
+        $this->smarty->autoload_filters[ 'variable' ] = 'htmlspecialchars';
         $tpl = $this->smarty->createTemplate('eval:{"<test>"}');
         $this->assertEquals("&lt;test&gt;", $this->smarty->fetch($tpl));
     }
@@ -73,6 +74,94 @@ class FilterTest extends PHPUnit_Smarty
         $this->assertEquals("hello world", $this->smarty->fetch($tpl));
     }
 
+    /**
+     * test registered output filter not cached
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testRegisteredOutputFilter_001()
+    {
+        $this->smarty->assign('foo', 1);
+        $this->smarty->assign('bar', 2);
+        $this->smarty->registerFilter(Smarty::FILTER_OUTPUT, 'myoutputfilter2');
+        $this->assertEquals('1 filter 2', $this->smarty->fetch('output_001.tpl'));
+    }
+
+    /**
+     * test registered output filter not cached 2"
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testRegisteredOutputFilter_001_2()
+    {
+        $this->smarty->assign('foo', 3);
+        $this->smarty->assign('bar', 4);
+        $this->smarty->registerFilter(Smarty::FILTER_OUTPUT, 'myoutputfilter2');
+        $this->assertEquals('3 filter 4', $this->smarty->fetch('output_001.tpl'));
+    }
+
+    /**
+     * test registered output filter cached 1"
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testRegisteredOutputFilter_001_3()
+    {
+        $this->smarty->setCaching(true);
+        $this->smarty->assign('foo', 5);
+        $this->smarty->assign('bar', 6);
+        $this->smarty->registerFilter(Smarty::FILTER_OUTPUT, 'myoutputfilter2');
+        $this->assertEquals('5 filter 6', $this->smarty->fetch('output_001.tpl'));
+    }
+
+    /**
+     * test registered output filter cached 1"
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testRegisteredOutputFilter_001_4()
+    {
+        $this->smarty->setCaching(true);
+        $this->smarty->assign('foo', 7);
+        $this->smarty->assign('bar', 8);
+        $this->smarty->registerFilter(Smarty::FILTER_OUTPUT, 'myoutputfilter2');
+        $this->assertEquals('5 filter 6', $this->smarty->fetch('output_001.tpl'));
+    }
+
+    /**
+     * test registered output filter cached nocache"
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testRegisteredOutputFilter_002_1()
+    {
+        $this->smarty->setCaching(true);
+        $this->smarty->assign('foo', 10);
+        $this->smarty->assign('bar', 11);
+        $this->smarty->registerFilter(Smarty::FILTER_OUTPUT, 'myoutputfilter2');
+        $this->assertEquals('10 filter 11', $this->smarty->fetch('output_002.tpl'));
+    }
+
+    /**
+     * test registered output filter cached nocache"
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testRegisteredOutputFilter_002_2()
+    {
+        $this->smarty->setCaching(true);
+        $this->smarty->assign('foo', 12);
+        $this->smarty->assign('bar', 13);
+        $this->smarty->registerFilter(Smarty::FILTER_OUTPUT, 'myoutputfilter2');
+        $this->assertEquals('12 filter 13', $this->smarty->fetch('output_002.tpl'));
+    }
+
     public function testRegisteredOutputFilterWrapper()
     {
         $this->smartyBC->register_outputfilter('myoutputfilter');
@@ -96,6 +185,18 @@ class FilterTest extends PHPUnit_Smarty
         $this->assertEquals("bar hello world", $this->smarty->fetch($tpl));
     }
 
+    /**
+     * test registered pre filter closure
+     */
+    public function testRegisteredPreFilterClosure()
+    {
+        $this->smarty->registerFilter(Smarty::FILTER_PRE, function ($input) {
+            return '{$foo}' . $input;
+        });
+        $tpl = $this->smarty->createTemplate('eval:{" hello world"}');
+        $tpl->assign('foo', 'buh');
+        $this->assertEquals("buh hello world", $this->smarty->fetch($tpl));
+    }
 
     /**
      * test registered pre filter class
@@ -160,6 +261,11 @@ Class VarFilter
 function myoutputfilter($input)
 {
     return str_replace('   ', ' ', $input);
+}
+
+function myoutputfilter2($input, $tpl)
+{
+    return $input . ' filter ' . $tpl->tpl_vars[ 'bar' ];
 }
 
 class myprefilterclass
