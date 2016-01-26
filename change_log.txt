@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 27.01.2016
+ - revert bugfix compiling {section} did create warning
+
  26.01.2016
   - improvement observe Smarty::$_CHARSET in debugging console https://github.com/smarty-php/smarty/issues/169
   - bugfix compiling {section} did create warning
