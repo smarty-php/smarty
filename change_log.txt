@@ -4,8 +4,10 @@
   - bugfix {$smarty.section.customer.loop} did throw compiler error https://github.com/smarty-php/smarty/issues/161
     update of yesterdays fix
   - bugfix string resource could inject code at {block} or inline subtemplates through PHP comments https://github.com/smarty-php/smarty/issues/157		
-  - bugfix output filters did not observe nocache code flag https://github.com/smarty-php/smarty/issues/160
-  
+  - bugfix output filters did not observe nocache code flhttps://github.com/smarty-php/smarty/issues/154g https://github.com/smarty-php/smarty/issues/160
+  - bugfix {extends} with relative file path did not work https://github.com/smarty-php/smarty/issues/154
+    https://github.com/smarty-php/smarty/issues/158
+    
  26.01.2016
   - improvement observe Smarty::$_CHARSET in debugging console https://github.com/smarty-php/smarty/issues/169
   - bugfix compiling {section} did create warning

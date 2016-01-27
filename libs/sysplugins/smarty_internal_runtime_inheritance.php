@@ -45,6 +45,13 @@ class Smarty_Internal_Runtime_Inheritance
     public $tplIndex = - 1;
 
     /**
+     * current block nesting level
+     *
+     * @var int
+     */
+    public $blockNesting = 0;
+
+    /**
      * Array of source template names
      * - key template index
      *

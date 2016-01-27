@@ -200,6 +200,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         if ($compiler->template->compiled->has_nocache_code) {
             $output .= "\$_smarty_tpl->cached->hashes['{$compiler->template->compiled->nocache_hash}'] = true;\n";
         }
+        $output .= "\$_smarty_tpl->ext->_inheritance->blockNesting++;\n";
         if (isset($_assign)) {
             $output .= "ob_start();\n";
         }
@@ -213,6 +214,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
             $output .= "\$_smarty_tpl->tpl_vars[{$_assign}] = new Smarty_Variable(ob_get_clean());\n";
         }
         //$output .= "/*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n";
+        $output .= "\$_smarty_tpl->ext->_inheritance->blockNesting--;\n";
         $output .= "}\n";
         $output .= "}\n";
         $output .= "/* {/block '{$_name}'} */\n\n";
