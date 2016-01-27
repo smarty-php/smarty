@@ -850,6 +850,29 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
+    /**
+     * test  grandchild/child/parent template chain with nested {$this->smarty.block.child} and {include nocache}
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        data
+     */
+    public function testCompileBlockGrandChildNestedRelative_030($caching, $merge, $testNumber, $compileTestNumber,
+                                                         $renderTestNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
+        if ($merge) {
+            $this->smarty->setCompileId(1);
+        }
+        $result = $this->smarty->fetch('sub/030_grandchild_nested_rel.tpl');
+        $this->assertContains('child pre -grandchild content- child post', $result, $testName . ' - content');
+        $this->assertContains('include:' . $testNumber, $result, $testName . ' - content 2');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
+    }
 
     public function data()
     {
