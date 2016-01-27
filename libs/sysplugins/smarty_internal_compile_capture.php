@@ -52,7 +52,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
         $compiler->_capture_stack[0][] = array($buffer, $assign, $append, $compiler->nocache);
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
-        $_output = "<?php \$_smarty_tpl->_cache['capture_stack'][] = array($buffer, $assign, $append); ob_start(); ?>";
+        $_output = "<?php \$_smarty_tpl->smarty->_cache['capture_stack'][] = array($buffer, $assign, $append); ob_start(); ?>";
 
         return $_output;
     }
@@ -74,7 +74,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
         if (!$name) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
         }
-        return "(isset(\$_smarty_tpl->_cache['__smarty_capture']['{$name}']) ? \$_smarty_tpl->_cache['__smarty_capture']['{$name}'] : null)";
+        return "(isset(\$_smarty_tpl->smarty->_cache['__smarty_capture']['{$name}']) ? \$_smarty_tpl->smarty->_cache['__smarty_capture']['{$name}'] : null)";
     }
 }
 
@@ -105,11 +105,11 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
 
         list($buffer, $assign, $append, $compiler->nocache) = array_pop($compiler->_capture_stack[0]);
 
-        $_output = "<?php list(\$_capture_buffer, \$_capture_assign, \$_capture_append) = array_pop(\$_smarty_tpl->_cache['capture_stack']);\n";
+        $_output = "<?php list(\$_capture_buffer, \$_capture_assign, \$_capture_append) = array_pop(\$_smarty_tpl->smarty->_cache['capture_stack']);\n";
         $_output .= "if (!empty(\$_capture_buffer)) {\n";
         $_output .= " if (isset(\$_capture_assign)) \$_smarty_tpl->assign(\$_capture_assign, ob_get_contents());\n";
         $_output .= " if (isset( \$_capture_append)) \$_smarty_tpl->append( \$_capture_append, ob_get_contents());\n";
-        $_output .= "\$_smarty_tpl->_cache['__smarty_capture'][\$_capture_buffer]=ob_get_clean();\n";
+        $_output .= "\$_smarty_tpl->smarty->_cache['__smarty_capture'][\$_capture_buffer]=ob_get_clean();\n";
         $_output .= "} else \$_smarty_tpl->capture_error();?>";
 
         return $_output;

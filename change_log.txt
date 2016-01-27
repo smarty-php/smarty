@@ -7,6 +7,7 @@
   - bugfix output filters did not observe nocache code flhttps://github.com/smarty-php/smarty/issues/154g https://github.com/smarty-php/smarty/issues/160
   - bugfix {extends} with relative file path did not work https://github.com/smarty-php/smarty/issues/154
     https://github.com/smarty-php/smarty/issues/158
+  - bugfix {capture} data could not been seen in other templates with {$smarty.capture.name} https://github.com/smarty-php/smarty/issues/153
     
  26.01.2016
   - improvement observe Smarty::$_CHARSET in debugging console https://github.com/smarty-php/smarty/issues/169
