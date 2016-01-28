@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 28.01.2016
+  - bugfix allow windows network filepath or wrapper (forum topic 25876) https://github.com/smarty-php/smarty/issues/170
+  
  27.01.2016
   - revert bugfix compiling {section} did create warning
   - bugfix {$smarty.section.customer.loop} did throw compiler error https://github.com/smarty-php/smarty/issues/161

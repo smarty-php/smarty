@@ -121,7 +121,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/25';
+    const SMARTY_VERSION = '3.1.30-dev/27';
 
     /**
      * define variable scopes
@@ -1144,10 +1144,12 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (strpos($path, $nds) !== false) {
             $path = str_replace($nds, DS, $path);
         }
-        if (DS != '/' && $path[ 0 ] == DS) {
-            $path = substr(getcwd(), 0, 2) . $path;
+        preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(?:[[:print:]]*))$%', $path, $parts);
+        $path = $parts['path'];
+        if ($parts['root'] == '\\') {
+            $parts['root'] = substr(getcwd(), 0, 2) . $parts['root'];
         } else {
-            if ($realpath !== null && $path[ 0 ] != '/' && $path[ 1 ] != ':') {
+            if ($realpath !== null && !$parts['root']) {
                 $path = getcwd() . DS . $path;
             }
         }
@@ -1157,10 +1159,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 preg_replace('#([\\\\/][^\\\\/]+[\\\\/]([.]?[\\\\/])*[.][.][\\\\/]([.]?[\\\\/])*)+|([\\\\/]([.]?[\\\\/])+)#',
                              DS, $path, - 1, $count);
         }
-        if ($realpath === false && ($path[ 0 ] == '/' || $path[ 1 ] == ':')) {
-            $path = str_ireplace(getcwd(), '.', $path);
-        }
-        return $path;
+        return $parts['root'] . $path;
     }
 
     /**
