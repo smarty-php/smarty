@@ -164,7 +164,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         } else {
             // get template object
             /* @var Smarty_Internal_Template $template */
-            $template = $smarty->createTemplate($template, $cache_id, $compile_id, $parent, false);
+            $template = $smarty->createTemplate($template, $cache_id, $compile_id, $parent ? $parent : $this, false);
             if ($this->_objType == 1) {
                 // set caching in template object
                 $template->caching = $this->caching;
