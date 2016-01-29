@@ -252,6 +252,18 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $this->smarty->registerDefaultPluginHandler('my_block_plugin_handler');
         $this->assertEquals('defaultblock hello world', $this->smarty->fetch('default2.tpl'));
     }
+    /**
+     * test tag stack
+     *
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     */
+    public function testBlockPluginTagStack()
+    {
+        $this->assertEquals('noop-teststack', $this->smarty->fetch('tag_stack.tpl'));
+        $this->assertEmpty($this->smarty->_cache['_tag_stack']);
+    }
 
     /**
      * Test caching
