@@ -121,7 +121,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/27';
+    const SMARTY_VERSION = '3.1.30-dev/28';
 
     /**
      * define variable scopes
@@ -1319,10 +1319,11 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function __get($name)
     {
-
         if (isset($this->accessMap[ $name ])) {
             $method = 'get' . $this->accessMap[ $name ];
             return $this->{$method}();
+        } elseif (isset($this->_cache[ $name ])) {
+            return $this->_cache[ $name ];
         } elseif (in_array($name, $this->obsoleteProperties)) {
             return null;
         } else {

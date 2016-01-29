@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 29.01.2016
+  - bugfix implement replacement code for _tag_stack property https://github.com/smarty-php/smarty/issues/151
+  
  28.01.2016
   - bugfix allow windows network filepath or wrapper (forum topic 25876) https://github.com/smarty-php/smarty/issues/170
   - bugfix if fetch('foo.tpl') is called on a template object the $parent parameter should default to the calling template object https://github.com/smarty-php/smarty/issues/152
