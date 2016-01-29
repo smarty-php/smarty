@@ -269,4 +269,40 @@ class CompileForeachTest extends PHPUnit_Smarty
         $this->assertEquals("outer=0#0-9inner=1#0-4inner=2#0-10##outer=1#1-8inner=1#1-4inner=2#1-10#####hallo",
                             $this->smarty->fetch('028_foreach.tpl'));
     }
+
+    public function testForeachBreak_29()
+    {
+        $this->assertEquals("12",
+                            $this->smarty->fetch('029_foreach.tpl'));
+    }
+
+    public function testForeachBreak_30()
+    {
+        $this->assertEquals("a1a2b1b2",
+                            $this->smarty->fetch('030_foreach.tpl'));
+    }
+
+    public function testForeachBreak_31()
+    {
+        $this->assertEquals("a1a2",
+                            $this->smarty->fetch('031_foreach.tpl'));
+    }
+
+    public function testForeachContinue_32()
+    {
+        $this->assertEquals("1245",
+                            $this->smarty->fetch('032_foreach.tpl'));
+    }
+
+    public function testForeachContinue_33()
+    {
+        $this->assertEquals("a1a2a4a5b1b2b4b5",
+                            $this->smarty->fetch('033_foreach.tpl'));
+    }
+
+    public function testForeachContinue_34()
+    {
+        $this->assertEquals("a1a2b1b2",
+                            $this->smarty->fetch('034_foreach.tpl'));
+    }
 }
