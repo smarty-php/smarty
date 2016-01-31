@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 01.02.2016
+  - bugfix {foreach} compilation failed when $smarty->merge_compiled_includes = true and pre-filters are used.
+
  29.01.2016
   - bugfix implement replacement code for _tag_stack property https://github.com/smarty-php/smarty/issues/151
   

@@ -123,15 +123,12 @@ class Smarty_Internal_Extension_Handler
     public function __get($property_name)
     {
         // object properties of runtime template extensions will start with '_'
-        if ($property_name[0] == '_') {
+        if ($property_name[ 0 ] == '_') {
             $class = 'Smarty_Internal_Runtime_' . ucfirst(substr($property_name, 1));
         } else {
             $class = 'Smarty_Internal_Method_' . ucfirst($property_name);
         }
-        if (class_exists($class)) {
-            return $this->$property_name = new $class();
-        }
-        return $this;
+        return $this->$property_name = new $class();
     }
 
     /**
@@ -145,7 +142,7 @@ class Smarty_Internal_Extension_Handler
      */
     public function __call($name, $args)
     {
-        return call_user_func_array(array(new Smarty_Internal_Undefined(), $name), $args);
+        return call_user_func_array(array(new Smarty_Internal_Undefined(), $name), array($this));
     }
 
 }
