@@ -1064,8 +1064,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function getId($input)
     {
-        if (preg_match('~^[\'"]*([0-9]*[a-zA-Z_]\w*)[\'"]*$~', $input, $match)) {
-            return $match[ 1 ];
+        if (preg_match('~^([\'"]*)([0-9]*[a-zA-Z_]\w*)\1$~', $input, $match)) {
+            return $match[ 2 ];
         }
         return false;
     }
@@ -1083,6 +1083,53 @@ abstract class Smarty_Internal_TemplateCompilerBase
             return $match[ 1 ];
         }
         return false;
+    }
+
+    /**
+     * Set nocache flag in variable or create new variable
+     *
+     * @param string $varName
+     */
+    public function setNocacheInVariable($varName){
+        // create nocache var to make it know for further compiling
+        if ($_var = $this->getId($varName)) {
+            if (isset($this->template->tpl_vars[ $_var ])) {
+                $this->template->tpl_vars[ $_var ] = clone $this->template->tpl_vars[ $_var ];
+                $this->template->tpl_vars[ $_var ]->nocache = true;
+            } else {
+                $this->template->tpl_vars[ $_var ] = new Smarty_Variable(null, true);
+            }
+        }
+    }
+
+    /**
+     * @param array $_attr tag attributes
+     * @param array $validScopes
+     *
+     * @return int|string
+     * @throws \SmartyCompilerException
+     */
+    public function convertScope($_attr, $validScopes){
+        $_scope = Smarty::SCOPE_LOCAL;
+        if (isset($_attr[ 'scope' ])) {
+            $_scopeName = trim($_attr[ 'scope' ], "'\"");
+            if (is_numeric($_scopeName) && in_array($_scopeName, $validScopes)) {
+                $_scope = $_scopeName;
+            } elseif (is_string($_scopeName)) {
+                $_scopeName = trim($_scopeName, "'\"");
+                $_scope = isset($validScopes[ $_scopeName ]) ? $validScopes[ $_scopeName ] : false;
+            } else {
+                $_scope = false;
+            }
+            if ($_scope === false) {
+                $err = var_export($_scopeName, true);
+                $this->trigger_template_error("illegal value '{$err}' for \"scope\" attribute", null, true);
+            }
+            if (isset($_attr[ 'bubble_up' ]) && $_attr[ 'bubble_up' ]) {
+                $_scope += Smarty::SCOPE_BUBBLE_UP;
+            }
+        }
+        return $_scope;
     }
 
     /**
@@ -1166,4 +1213,41 @@ abstract class Smarty_Internal_TemplateCompilerBase
         $e->template = $this->template->source->filepath;
         throw $e;
     }
+
+    /**
+     * Return var_export() value with all white spaces removed
+     *
+     * @param  mixed $value
+     *
+     * @return string
+     */
+    public function getVarExport($value) {
+        return preg_replace('/\s/', '', var_export($value, true));
+    }
+
+    /**
+     * Check if $value contains variable elements
+     *
+     * @param mixed $value
+     *
+     * @return bool|int
+     */
+    public function isVariable($value){
+        if (is_string($value)) {
+            return preg_match('/[$(]/', $value);
+        }
+        if (is_bool($value) || is_numeric($value)) {
+            return false;
+        }
+        if (is_array($value)) {
+            foreach ($value as  $k => $v) {
+                if ($this->isVariable($k) || $this->isVariable($v)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
 }
