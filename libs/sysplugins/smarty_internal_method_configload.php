@@ -34,7 +34,7 @@ class Smarty_Internal_Method_ConfigLoad
      */
     public function configLoad(Smarty_Internal_Data $data, $config_file, $sections = null)
     {
-        $this->_loadConfigFile($data, $config_file, $sections, 0);
+        $this->_loadConfigFile($data, $config_file, $sections, null);
         return $data;
     }
 
@@ -82,39 +82,15 @@ class Smarty_Internal_Method_ConfigLoad
     public function _loadConfigVars(Smarty_Internal_Template $tpl, $_config_vars)
     {
         $this->_assignConfigVars($tpl->parent, $tpl, $_config_vars);
-        $scope = $tpl->source->scope;
-        $scopes = array();
-        if ($scope) {
-            $scopes[] = $scope;
-        }
-        if ($tpl->scope) {
-            $scopes[] = $tpl->scope;
-        }
-        if (empty($scopes)) {
-            return;
-        }
-        foreach ($scopes as $s) {
-            $s = ($bubble_up = $s >= Smarty::SCOPE_BUBBLE_UP) ? $s - Smarty::SCOPE_BUBBLE_UP : $s;
-            if ($bubble_up && $s) {
-                $ptr = $tpl->parent->parent;
-                if (isset($ptr)) {
+        if ($tpl->parent->_objType == 2 && ($tpl->source->scope || $tpl->parent->scope)) {
+            $scope = $tpl->source->scope | $tpl->scope;
+            if ($scope) {
+                // update scopes
+                foreach ($tpl->smarty->ext->_updateScope->_getAffectedScopes($tpl->parent, $scope) as $ptr) {
                     $this->_assignConfigVars($ptr, $tpl, $_config_vars);
-                    $ptr = $ptr->parent;
                 }
-                if ($s == Smarty::SCOPE_PARENT) {
-                    continue;
-                }
-                while (isset($ptr) && $ptr->_objType == 2) {
-                    $this->_assignConfigVars($ptr, $tpl, $_config_vars);
-                    $ptr = $ptr->parent;
-                }
-                if ($s == Smarty::SCOPE_TPL_ROOT) {
-                    continue;
-                } elseif ($s == Smarty::SCOPE_ROOT) {
-                    while (isset($ptr->parent)) {
-                        $ptr = $ptr->parent;
-                        $this->_assignConfigVars($ptr, $tpl, $_config_vars);
-                    }
+                if ($scope & Smarty::SCOPE_LOCAL) {
+                    //$this->_updateVarStack($tpl, $varName);
                 }
             }
         }

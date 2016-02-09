@@ -384,7 +384,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             // add file dependency
             $this->parent_compiler->template->compiled->file_dependency[ $this->template->source->uid ] =
                 array($this->template->source->filepath, $this->template->source->getTimeStamp(),
-                      $this->template->source->type);
+                      $this->template->source->type,);
             $this->smarty->_current_file = $this->template->source->filepath;
             // get template source
             if (!empty($this->template->source->components)) {
@@ -563,7 +563,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     }
                 }
                 // check if tag is registered
-                foreach (array(Smarty::PLUGIN_COMPILER, Smarty::PLUGIN_FUNCTION, Smarty::PLUGIN_BLOCK) as $plugin_type)
+                foreach (array(Smarty::PLUGIN_COMPILER, Smarty::PLUGIN_FUNCTION, Smarty::PLUGIN_BLOCK,) as $plugin_type)
                 {
                     if (isset($this->smarty->registered_plugins[ $plugin_type ][ $tag ])) {
                         // if compiler function plugin call it now
@@ -817,7 +817,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                          '#(:SMARTY@!@|>)\s+(?=@!@SMARTY:|<)#s' => '\1\2',
                                          // remove spaces between attributes (but not in attribute values!)
                                          '#(([a-z0-9]\s*=\s*("[^"]*?")|(\'[^\']*?\'))|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \5',
-                                         '#^\s+<#Ss' => '<', '#>\s+$#Ss' => '>', $this->stripRegEx => '');
+                                         '#^\s+<#Ss' => '<', '#>\s+$#Ss' => '>', $this->stripRegEx => '',);
 
                     $text = preg_replace(array_keys($expressions), array_values($expressions), $text);
                     $_offset = 0;
@@ -960,7 +960,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         $script = null;
         $cacheable = true;
         $result = call_user_func_array($this->smarty->default_plugin_handler_func,
-                                       array($tag, $plugin_type, $this->template, &$callback, &$script, &$cacheable));
+                                       array($tag, $plugin_type, $this->template, &$callback, &$script, &$cacheable,));
         if ($result) {
             $this->tag_nocache = $this->tag_nocache || !$cacheable;
             if ($script !== null) {
@@ -1118,7 +1118,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function convertScope($_attr, $validScopes)
     {
-        $_scope = Smarty::SCOPE_LOCAL;
+        $_scope = 0;
         if (isset($_attr[ 'scope' ])) {
             $_scopeName = trim($_attr[ 'scope' ], "'\"");
             if (is_numeric($_scopeName) && in_array($_scopeName, $validScopes)) {
@@ -1133,7 +1133,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $err = var_export($_scopeName, true);
                 $this->trigger_template_error("illegal value '{$err}' for \"scope\" attribute", null, true);
             }
-            if (isset($_attr[ 'bubble_up' ]) && $_attr[ 'bubble_up' ]) {
+            if (isset($_attr[ 'bubble_up' ]) && $_attr[ 'bubble_up' ] && $_scope > 2) {
                 $_scope += Smarty::SCOPE_BUBBLE_UP;
             }
         }
@@ -1291,4 +1291,22 @@ abstract class Smarty_Internal_TemplateCompilerBase
     {
         $this->prefix_code[] = $code;
     }
+
+    /**
+     * get prefix code string
+     *
+     * @return string
+     */
+    public function getPrefixCode()
+    {
+        $code = '';
+        $prefixArray = array_merge($this->prefix_code, array_pop($this->prefixCodeStack));
+        $this->prefixCodeStack[] = array();
+        foreach ($prefixArray as $c) {
+            $code = $this->appendCode($code, $c);
+        }
+        $this->prefix_code = array();
+        return $code;
+    }
+
 }

@@ -58,7 +58,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      *
      * @var array
      */
-    public $valid_scopes = array('local' => true, 'parent' => true, 'root' => true, 'tpl_root' => true);
+    public $valid_scopes = array('parent' => Smarty::SCOPE_PARENT, 'root' => Smarty::SCOPE_ROOT,
+                                 'global' => Smarty::SCOPE_GLOBAL, 'tpl_root' => Smarty::SCOPE_TPL_ROOT,
+                                 'smarty' => Smarty::SCOPE_SMARTY);
 
     /**
      * Compiles code for the {include} tag
@@ -106,31 +108,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $variable_template = true;
         }
 
-        if (isset($_attr[ 'assign' ])) {
-            // output will be stored in a smarty variable instead of being displayed
-            $_assign = $_attr[ 'assign' ];
-        }
-
         // scope setup
-        $_scope = Smarty::SCOPE_LOCAL;
-        if (isset($_attr[ 'scope' ])) {
-            $_attr[ 'scope' ] = trim($_attr[ 'scope' ], "'\"");
-            if (!isset($this->valid_scopes[ $_attr[ 'scope' ] ])) {
-                $compiler->trigger_template_error("illegal value '{$_attr['scope']}' for \"scope\" attribute", null,
-                                                  true);
-            }
-            if ($_attr[ 'scope' ] != 'local') {
-                if ($_attr[ 'scope' ] == 'parent') {
-                    $_scope = Smarty::SCOPE_PARENT;
-                } elseif ($_attr[ 'scope' ] == 'root') {
-                    $_scope = Smarty::SCOPE_ROOT;
-                } elseif ($_attr[ 'scope' ] == 'tpl_root') {
-                    $_scope = Smarty::SCOPE_TPL_ROOT;
-                }
-                $_scope += (isset($_attr[ 'bubble_up' ]) && $_attr[ 'bubble_up' ] == 'false') ? 0 :
-                    Smarty::SCOPE_BUBBLE_UP;
-            }
-        }
+        $_scope = $compiler->convertScope($_attr, $this->valid_scopes);
 
         // set flag to cache subtemplate object when called within loop or template name is variable.
         if ($cache_tpl || $variable_template || $compiler->loopNesting > 0) {
@@ -156,28 +135,14 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         $merge_compiled_includes = ($compiler->smarty->merge_compiled_includes || $_attr[ 'inline' ] === true) &&
                                    !$compiler->template->source->handler->recompiled;
 
-        if ($merge_compiled_includes && $_attr[ 'inline' ] !== true) {
+        if ($merge_compiled_includes) {
             // variable template name ?
             if ($variable_template) {
                 $merge_compiled_includes = false;
-                if ($compiler->template->caching) {
-                    // must use individual cache file
-                    //$_attr['caching'] = 1;
-                }
             }
             // variable compile_id?
-            if (isset($_attr[ 'compile_id' ])) {
-                if (!((substr_count($_attr[ 'compile_id' ], '"') == 2 ||
-                       substr_count($_attr[ 'compile_id' ], "'") == 2 || is_numeric($_attr[ 'compile_id' ]))) ||
-                    substr_count($_attr[ 'compile_id' ], '(') != 0 ||
-                    substr_count($_attr[ 'compile_id' ], '$_smarty_tpl->') != 0
-                ) {
-                    $merge_compiled_includes = false;
-                    if ($compiler->template->caching) {
-                        // must use individual cache file
-                        //$_attr['caching'] = 1;
-                    }
-                }
+            if (isset($_attr[ 'compile_id' ]) && $compiler->isVariable($_attr[ 'compile_id' ])) {
+                $merge_compiled_includes = false;
             }
         }
 
@@ -217,6 +182,19 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         if ($compiler->template->caching && $call_nocache) {
             $merge_compiled_includes = false;
         }
+        // assign attribute
+        if (isset($_attr[ 'assign' ])) {
+            // output will be stored in a smarty variable instead of being displayed
+            if ($_assign = $compiler->getId($_attr[ 'assign' ])) {
+                $_assign = "'{$_assign}'";
+                if ($compiler->tag_nocache || $compiler->nocache || $call_nocache) {
+                    // create nocache var to make it know for further compiling
+                    $compiler->setNocacheInVariable($_attr[ 'assign' ]);
+                }
+            } else {
+                $_assign = $_attr[ 'assign' ];
+            }
+        }
 
         $has_compiled_template = false;
         if ($merge_compiled_includes) {
@@ -235,20 +213,14 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         unset($_attr[ 'file' ], $_attr[ 'assign' ], $_attr[ 'cache_id' ], $_attr[ 'compile_id' ], $_attr[ 'cache_lifetime' ], $_attr[ 'nocache' ], $_attr[ 'caching' ], $_attr[ 'scope' ], $_attr[ 'inline' ], $_attr[ 'bubble_up' ]);
         // remaining attributes must be assigned as smarty variable
         $_vars_nc = '';
+        $_vars = 'array()';
         if (!empty($_attr)) {
-            if ($_scope == Smarty::SCOPE_LOCAL) {
-                $_pairs = array();
-                // create variables
-                foreach ($_attr as $key => $value) {
-                    $_pairs[] = "'$key'=>$value";
-                    $_vars_nc .= "\$_smarty_tpl->tpl_vars['$key'] =  new Smarty_Variable($value);\n";
-                }
-                $_vars = 'array(' . join(',', $_pairs) . ')';
-            } else {
-                $compiler->trigger_template_error('variable passing not allowed in parent/global scope', null, true);
+            $_pairs = array();
+            // create variables
+            foreach ($_attr as $key => $value) {
+                $_pairs[] = "'$key'=>$value";
             }
-        } else {
-            $_vars = 'array()';
+            $_vars = 'array(' . join(',', $_pairs) . ')';
         }
         $update_compile_id = $compiler->template->caching && !$compiler->tag_nocache && !$compiler->nocache &&
                              $_compile_id != '$_smarty_tpl->compile_id';
@@ -257,10 +229,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             if ($update_compile_id) {
                 $_output .= $compiler->makeNocacheCode("\$_compile_id_save[] = \$_smarty_tpl->compile_id;\n\$_smarty_tpl->compile_id = {$_compile_id};\n");
             }
-            if (!empty($_vars_nc) && $_caching == 9999 && $compiler->template->caching) {
-                //$compiler->suppressNocacheProcessing = false;
+            if (!empty($_attr) && $_caching == 9999 && $compiler->template->caching) {
+                $_vars_nc = "foreach ($_vars as \$ik => \$iv) {\n";
+                $_vars_nc .= "\$_smarty_tpl->tpl_vars[\$ik] =  new Smarty_Variable(\$iv);\n";
+                $_vars_nc .= "}\n";
                 $_output .= substr($compiler->processNocacheCode('<?php ' . $_vars_nc . "?>\n", true), 6, - 3);
-                //$compiler->suppressNocacheProcessing = true;
             }
             if (isset($_assign)) {
                 $_output .= "ob_start();\n";

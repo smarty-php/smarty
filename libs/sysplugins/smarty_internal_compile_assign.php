@@ -17,12 +17,21 @@
 class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
 {
     /**
+     * Attribute definition: Overwrites base class.
+     *
+     * @var array
+     * @see Smarty_Internal_CompileBase
+     */
+    public $option_flags = array('nocache', 'bubble_up');
+
+    /**
      * Valid scope names
      *
      * @var array
      */
-    public $valid_scopes = array('local' => true, 'parent' => true, 'root' => true, 'global' => true,
-                                 'tpl_root' => true);
+    public $valid_scopes = array('local' => Smarty::SCOPE_LOCAL, 'parent' => Smarty::SCOPE_PARENT,
+                                 'root' => Smarty::SCOPE_ROOT, 'global' => Smarty::SCOPE_GLOBAL,
+                                 'tpl_root' => Smarty::SCOPE_TPL_ROOT, 'smarty' => Smarty::SCOPE_SMARTY);
 
     /**
      * Compiles code for the {assign} tag
@@ -39,60 +48,41 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
         // the following must be assigned at runtime because it will be overwritten in Smarty_Internal_Compile_Append
         $this->required_attributes = array('var', 'value');
         $this->shorttag_order = array('var', 'value');
-        $this->optional_attributes = array('scope', 'bubble_up');
-        $_nocache = 'null';
+        $this->optional_attributes = array('scope');
+        $_nocache = false;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         // nocache ?
+        if ($_var = $compiler->getId($_attr[ 'var' ])) {
+            $_var = "'{$_var}'";
+        } else {
+            $_var = $_attr[ 'var' ];
+        }
         if ($compiler->tag_nocache || $compiler->nocache) {
-            $_nocache = 'true';
+            $_nocache = true;
             // create nocache var to make it know for further compiling
-            if (isset($compiler->template->tpl_vars[ trim($_attr[ 'var' ], "'") ])) {
-                $compiler->template->tpl_vars[ trim($_attr[ 'var' ], "'") ]->nocache = true;
-            } else {
-                $compiler->template->tpl_vars[ trim($_attr[ 'var' ], "'") ] = new Smarty_Variable(null, true);
-            }
+            $compiler->setNocacheInVariable($_attr[ 'var' ]);
         }
         // scope setup
-        $_scope = Smarty::SCOPE_LOCAL;
-        if (isset($_attr[ 'scope' ])) {
-            $_attr[ 'scope' ] = trim($_attr[ 'scope' ], "'\"");
-            if (!isset($this->valid_scopes[ $_attr[ 'scope' ] ])) {
-                $compiler->trigger_template_error("illegal value '{$_attr['scope']}' for \"scope\" attribute", null,
-                                                  true);
-            }
-            if ($_attr[ 'scope' ] != 'local') {
-                if ($_attr[ 'scope' ] == 'parent') {
-                    $_scope = Smarty::SCOPE_PARENT;
-                } elseif ($_attr[ 'scope' ] == 'root') {
-                    $_scope = Smarty::SCOPE_ROOT;
-                } elseif ($_attr[ 'scope' ] == 'global') {
-                    $_scope = Smarty::SCOPE_GLOBAL;
-                } elseif ($_attr[ 'scope' ] == 'tpl_root') {
-                    $_scope = Smarty::SCOPE_TPL_ROOT;
-                }
-                $_scope += (isset($_attr[ 'bubble_up' ]) && $_attr[ 'bubble_up' ] == 'false') ? 0 :
-                    Smarty::SCOPE_BUBBLE_UP;
-            }
+        $_scope = $compiler->convertScope($_attr, $this->valid_scopes);
+        // optional parameter
+        $_params = "";
+        if ($_nocache || $_scope) {
+            $_params .= ' ,' . var_export($_nocache, true);
+        }
+        if ($_scope) {
+            $_params .= ' ,' . $_scope;
         }
         if (isset($parameter[ 'smarty_internal_index' ])) {
-            $output = "<?php \$_smarty_tpl->_createLocalArrayVariable({$_attr['var']}, {$_nocache});\n";
-            $output .= "\$_smarty_tpl->tpl_vars[{$_attr['var']}]->value{$parameter['smarty_internal_index']} = {$_attr['value']};\n";
-            if ($_scope != Smarty::SCOPE_LOCAL) {
-                $output .= "\$_smarty_tpl->ext->_updateScope->updateScope(\$_smarty_tpl, {$_attr['var']}, {$_scope});\n";
-            } else {
-                $output .= "if (\$_smarty_tpl->scope & Smarty::SCOPE_BUBBLE_UP) {\n";
-                $output .= "\$_smarty_tpl->ext->_updateScope->updateScope(\$_smarty_tpl, {$_attr['var']});\n}\n";
-            }
-            $output .= '?>';
-        } else {
-            if ($compiler->template->smarty instanceof SmartyBC) {
-                $_smartyBC = 'true';
-            } else {
-                $_smartyBC = 'false';
-            }
             $output =
-                "<?php \$_smarty_tpl->_assignInScope({$_attr['var']}, {$_attr['value']}, {$_nocache}, {$_scope}, {$_smartyBC});\n?>";
+                "<?php \$_tmp_array = isset(\$_smarty_tpl->tpl_vars[{$_var}]) ? \$_smarty_tpl->tpl_vars[{$_var}]->value : array();\n";
+            $output .= "if (!is_array(\$_tmp_array) || \$_tmp_array instanceof ArrayAccess) {\n";
+            $output .= "settype(\$_tmp_array, 'array');\n";
+            $output .= "}\n";
+            $output .= "\$_tmp_array{$parameter['smarty_internal_index']} = {$_attr['value']};\n";
+            $output .= "\$_smarty_tpl->_assignInScope({$_var}, \$_tmp_array{$_params});\n?>";
+        } else {
+            $output = "<?php \$_smarty_tpl->_assignInScope({$_var}, {$_attr['value']}{$_params});\n?>";
         }
         return $output;
     }

@@ -75,7 +75,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $tpl_function = array();
 
     /**
-     * Scope in which template is rendered
+     * Scope in which variables shall be assigned
      *
      * @var int
      */
@@ -295,23 +295,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         // set template scope
         $tpl->scope = $scope;
-        $scopePtr = false;
-        $scope = $scope & ~Smarty::SCOPE_BUBBLE_UP;
-        if ($scope) {
-            if ($scope == Smarty::SCOPE_PARENT) {
-                $scopePtr = $this;
-            } else {
-                $scopePtr = $tpl;
-                while (isset($scopePtr->parent)) {
-                    if (!$scopePtr->_isParentTemplate() && $scope & Smarty::SCOPE_TPL_ROOT) {
-                        break;
-                    }
-                    $scopePtr = $scopePtr->parent;
-                }
-            }
-            $tpl->tpl_vars = $scopePtr->tpl_vars;
-            $tpl->config_vars = $scopePtr->config_vars;
-        }
         if (!isset($tpl->smarty->_cache[ 'tplObjects' ][ $tpl->templateId ]) && !$tpl->source->handler->recompiled) {
             // if template is called multiple times set flag to to cache template objects
             $forceTplCache = $forceTplCache ||
@@ -351,10 +334,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $tpl->render();
             }
         }
-        if ($scopePtr) {
-            $scopePtr->tpl_vars = $tpl->tpl_vars;
-            $scopePtr->config_vars = $tpl->config_vars;
-        }
+        $i = 0;
     }
 
     /**
@@ -385,45 +365,25 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     /**
      * Assign variable in scope
      *
-     * @param string $varName  variable name
-     * @param mixed  $value    value
-     * @param bool   $nocache  nocache flag
-     * @param int    $scope    scope into which variable shall be assigned
-     * @param bool   $smartyBC true if called in Smarty bc class
+     * @param string $varName variable name
+     * @param mixed  $value   value
+     * @param bool   $nocache nocache flag
+     * @param int    $scope   scope into which variable shall be assigned
      *
-     * @throws \SmartyException
      */
-    public function _assignInScope($varName, $value, $nocache, $scope, $smartyBC)
+    public function _assignInScope($varName, $value, $nocache = false, $scope = 0)
     {
-        if ($smartyBC && isset($this->tpl_vars[ $varName ])) {
+        if (isset($this->tpl_vars[ $varName ])) {
             $this->tpl_vars[ $varName ] = clone $this->tpl_vars[ $varName ];
             $this->tpl_vars[ $varName ]->value = $value;
-            $this->tpl_vars[ $varName ]->nocache = $nocache;
+            if ($nocache) {
+                $this->tpl_vars[ $varName ]->nocache = $nocache;
+            }
         } else {
             $this->tpl_vars[ $varName ] = new Smarty_Variable($value, $nocache);
         }
-        if ($scope || $this->scope & Smarty::SCOPE_BUBBLE_UP) {
-            $this->ext->_updateScope->updateScope($this, $varName, $scope);
-        }
-    }
-
-    /**
-     * Template code runtime function to create a local Smarty variable for array assignments
-     *
-     * @param string $varName template variable name
-     * @param bool   $nocache cache mode of variable
-     */
-    public function _createLocalArrayVariable($varName, $nocache = false)
-    {
-        if (!isset($this->tpl_vars[ $varName ])) {
-            $this->tpl_vars[ $varName ] = new Smarty_Variable(array(), $nocache);
-        } else {
-            $this->tpl_vars[ $varName ] = clone $this->tpl_vars[ $varName ];
-            if (!(is_array($this->tpl_vars[ $varName ]->value) ||
-                  $this->tpl_vars[ $varName ]->value instanceof ArrayAccess)
-            ) {
-                settype($this->tpl_vars[ $varName ]->value, 'array');
-            }
+        if (isset($scope) || isset($this->scope)) {
+            $this->smarty->ext->_updateScope->_updateScope($this, $varName, $scope);
         }
     }
 

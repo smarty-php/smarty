@@ -96,17 +96,16 @@ class Smarty_Internal_Data
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $_key => $_val) {
                 if ($_key != '') {
-                    $this->tpl_vars[ $_key ] = new Smarty_Variable($_val, $nocache);
-                    if ($this->_objType == 2 && $this->scope) {
-                        $this->ext->_updateScope->updateScope($this, $_key);
-                    }
+                    $this->assign($_key, $_val, $nocache);
                 }
             }
         } else {
             if ($tpl_var != '') {
-                $this->tpl_vars[ $tpl_var ] = new Smarty_Variable($value, $nocache);
-                if ($this->_objType == 2 && $this->scope) {
-                    $this->ext->_updateScope->updateScope($this, $tpl_var);
+                if ($this->_objType == 2) {
+                    /** @var  Smarty_Internal_Template $this */
+                    $this->_assignInScope($tpl_var, $value, $nocache);
+                } else {
+                    $this->tpl_vars[ $tpl_var ] = new Smarty_Variable($value, $nocache);
                 }
             }
         }

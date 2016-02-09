@@ -2,6 +2,7 @@
  09.02.2016
   - move some code from parser into compiler
   - reformat all code for unique style
+  - update/bugfix scope attribute handling reworked. Read the newfeatures.txt file
   
  05.02.2016
   - improvement internal compiler changes

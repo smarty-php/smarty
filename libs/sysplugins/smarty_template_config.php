@@ -28,9 +28,9 @@ class Smarty_Template_Config extends Smarty_Template_Source
     /**
      * scope into which the config variables shall be loaded
      *
-     * @var string
+     * @var int
      */
-    public $scope = 'local';
+    public $scope = 0;
 
     /**
      * Flag that source is a config file

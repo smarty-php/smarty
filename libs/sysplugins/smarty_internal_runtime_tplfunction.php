@@ -33,12 +33,16 @@ class Smarty_Internal_Runtime_TplFunction
                 }
             }
             if (function_exists($function)) {
+                $this->saveTemplateVariables($tpl, $name);
                 $function ($tpl, $params);
+                $this->restoreTemplateVariables($tpl, $name);
                 return;
             }
             // try to load template function dynamically
             if ($this->addTplFuncToCache($tpl, $name, $function)) {
+                $this->saveTemplateVariables($tpl, $name);
                 $function ($tpl, $params);
+                $this->restoreTemplateVariables($tpl, $name);
                 return;
             }
         }
@@ -86,7 +90,7 @@ class Smarty_Internal_Runtime_TplFunction
                             $tplPtr->smarty->ext->_updateCache->write($cache, $tplPtr,
                                                                       preg_replace('/\s*\?>\s*$/', "\n", $content) .
                                                                       "\n" . preg_replace(array('/^\s*<\?php\s+/',
-                                                                                                '/\s*\?>\s*$/'), "\n",
+                                                                                                '/\s*\?>\s*$/',), "\n",
                                                                                           $match[ 0 ]));
                         }
                     }
@@ -95,5 +99,32 @@ class Smarty_Internal_Runtime_TplFunction
             }
         }
         return false;
+    }
+
+    /**
+     * Save current template variables on stack
+     *
+     * @param \Smarty_Internal_Template $tpl
+     * @param  string                   $name stack name
+     */
+    public function saveTemplateVariables(Smarty_Internal_Template $tpl, $name)
+    {
+        $tpl->_cache[ 'varStack' ][] =
+            array('tpl' => $tpl->tpl_vars, 'config' => $tpl->config_vars, 'name' => "_tplFunction_{$name}");
+    }
+
+    /**
+     * Restore saved variables into template objects
+     *
+     * @param \Smarty_Internal_Template $tpl
+     * @param  string                   $name stack name
+     */
+    public function restoreTemplateVariables(Smarty_Internal_Template $tpl, $name)
+    {
+        if (isset($tpl->_cache[ 'varStack' ])) {
+            $vars = array_pop($tpl->_cache[ 'varStack' ]);
+            $tpl->tpl_vars = $vars[ 'tpl' ];
+            $tpl->config_vars = $vars[ 'config' ];
+        }
     }
 }

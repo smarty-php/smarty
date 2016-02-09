@@ -4,6 +4,58 @@ This file contains a brief description of new features which have been added to 
 
 Smarty 3.1.30
 
+    Scope Attributes
+    ================
+    The scope handling has been updated to cover all cases of variable assignments in templates.
+    A new option flag 'bubble_up' is introduced.
+    
+    The tags {assign}, {append} direct assignments like {$foo = ...}, {$foo[...]= ...} support
+    the following optional scope attributes:
+    scope=parent    - the variable will be assigned in the current template and if the template
+                      was included by {include} the calling template
+    scope=tpl_root  - the variable will be assigned in the current template and if the template
+                      was included by {include} the outermost root template
+    scope=smarty    - the variable will be assigned in the current template and the Smarty object
+    scope=global    - the variable will be assigned in the current template and as Smarty object 
+                      global variable
+    scope=root      - the variable will be assigned in the current template and if a data object was
+                      used for variable definitions in the data object or in the Smarty object otherwise
+    scope=local     - this scope has only a meaning if the tag is called within a template {function}.
+                      The variable will be assigned in the local scope of the template function and the
+                      template which did call the template function.
+    
+    The scope attribute can be combined with the new option flag 'bubble_up' like
+    {$foo = 'bar' scope=global bubble_up}
+    In addition to the assignments according to the scope attributes tpl_root, smarty, global, root the varibale
+    will also be assigned in all templates in the call chain from template root to the current template,
+    including all local template function scopes of nested template function calls.
+    In combination with scope local it does update the nested template function scopes.
+    
+    Example:
+        $smarty->display('main.tpl');
+        
+        main.tpl:
+        {include 'sub.tpl'}
+        
+        sub.tpl:
+        {$foo = 'bar' scope=global bubble_up}
+        
+        Will assign the variable 'foo' with value 'bar' as Smarty global variable, in 'sub.tpl' and in
+        'main.tpl' because the 'bubble_up' option.
+        
+
+    The {config_load} tag supports all of the above except the global scope.
+
+    The scope attribute and bubble_up option flag can be used also with the {include} tag.
+    Supported scope are parent, tpl_root, smarty, global and root.
+    A scope used together with the {include} tag will cause that with some exceptions any variable
+    assignment within that sub-template will update/assign the variable in other scopes according
+    to the above rules. It does include also variables assigned by plugins, tags supporting the assign=foo 
+    attribute and direct assignments in {if} and {while} like {if $foo=$bar}.
+    Excluded are the key and value variables of {foreach}, {for} loop variables , variables passed by attributes
+    in {include} and direct increments/decrements like {$foo++}, {$foo--}
+    
+
     Caching
     =======
     Caching does now observe the template_dir setting and will create separate cache files if required

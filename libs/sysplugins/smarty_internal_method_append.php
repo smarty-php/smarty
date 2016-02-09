@@ -66,7 +66,7 @@ class Smarty_Internal_Method_Append
                 }
             }
             if ($data->_objType == 2 && $data->scope) {
-                $data->ext->_updateScope->updateScope($data, $tpl_var);
+                $data->ext->_updateScope->_updateScope($data, $tpl_var);
             }
         }
         return $data;
