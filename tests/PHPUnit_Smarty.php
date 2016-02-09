@@ -45,6 +45,13 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
     public static $init = true;
 
     /**
+     * Count test number
+     *
+     * @var bool
+     */
+    public static $testNumber = 0;
+
+    /**
      * Configuration data from config.xml
      *
      * @var array
@@ -70,7 +77,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $backupStaticAttributesBlacklist = array('PHPUnit_Smarty' => array('config', 'pdo', 'init'),);
+    protected $backupStaticAttributesBlacklist = array('PHPUnit_Smarty' => array('config', 'pdo', 'init', 'testNumver'),);
 
     /**
      * This method is called before the first test of this test class is run.
@@ -89,6 +96,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
     public static function tearDownAfterClass()
     {
         //self::$pdo = null;
+        self::$testNumber = 0;
     }
 
     /**
@@ -104,7 +112,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
             define('individualFolders', true);
         }
         parent::__construct($name, $data, $dataName);
-        $this->backupStaticAttributesBlacklist[ get_class($this) ] = array('init', 'config', 'pdo');
+        $this->backupStaticAttributesBlacklist[ get_class($this) ] = array('init', 'config', 'pdo', 'testNumber');
     }
 
     /**
@@ -130,7 +138,10 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
                 if (!isset($s_dir[ $dir ])) {
                     $this->cleanDir($dir . '/templates_c');
                     $this->cleanDir($dir . '/cache');
-                    $s_dir[ $dir ] = true;
+                    if (is_dir($dir . '/templates_tmp')) {
+                        $this->cleanDir($dir . '/templates_tmp');
+                    }
+                        $s_dir[ $dir ] = true;
                 }
                 $dir = dirname(__FILE__);
             }
@@ -230,6 +241,23 @@ KEY `expire` (`expire`)
     {
         $this->cleanCompileDir();
         $this->cleanCacheDir();
+        if (is_dir(self::$cwd . '/templates_tmp')) {
+            $this->cleanDir(self::$cwd . '/templates_tmp');
+        }
+    }
+
+    /**
+     * Make temporary template file
+     *
+     */
+    public function makeTemplateFile($name, $code)
+    {
+        if (!is_dir(self::$cwd . '/templates_tmp')) {
+            mkdir(self::$cwd . '/templates_tmp');
+            chmod(self::$cwd . '/templates_tmp', 0775);
+        }
+        $fileName = self::$cwd . '/templates_tmp/' . "{$name}";
+        file_put_contents($fileName, $code);
     }
 
     /**
@@ -304,6 +332,22 @@ KEY `expire` (`expire`)
     {
         if (is_string($in)) {
             return str_replace(array("\r", "\t"), array('', '    '), $in);
+        } else {
+            return $in;
+        }
+    }
+
+    /**
+     * Remove all spaces
+     *
+     * @param string $in
+     *
+     * @return mixed
+     */
+    public function strip($in)
+    {
+        if (is_string($in)) {
+            return preg_replace('/\s/', '', $in);
         } else {
             return $in;
         }
