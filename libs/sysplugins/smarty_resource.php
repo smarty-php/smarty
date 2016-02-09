@@ -35,12 +35,12 @@ abstract class Smarty_Resource
      *
      * @var array
      */
-    public static $sysplugins = array('file'    => 'smarty_internal_resource_file.php',
-                                      'string'  => 'smarty_internal_resource_string.php',
+    public static $sysplugins = array('file' => 'smarty_internal_resource_file.php',
+                                      'string' => 'smarty_internal_resource_string.php',
                                       'extends' => 'smarty_internal_resource_extends.php',
-                                      'stream'  => 'smarty_internal_resource_stream.php',
-                                      'eval'    => 'smarty_internal_resource_eval.php',
-                                      'php'     => 'smarty_internal_resource_php.php');
+                                      'stream' => 'smarty_internal_resource_stream.php',
+                                      'eval' => 'smarty_internal_resource_eval.php',
+                                      'php' => 'smarty_internal_resource_php.php');
 
     /**
      * Flag if resource does implement populateCompiledFilepath() method
@@ -146,28 +146,28 @@ abstract class Smarty_Resource
     public static function load(Smarty $smarty, $type)
     {
         // try smarty's cache
-        if (isset($smarty->_cache['resource_handlers'][$type])) {
-            return $smarty->_cache['resource_handlers'][$type];
+        if (isset($smarty->_cache[ 'resource_handlers' ][ $type ])) {
+            return $smarty->_cache[ 'resource_handlers' ][ $type ];
         }
 
         // try registered resource
-        if (isset($smarty->registered_resources[$type])) {
-            return $smarty->_cache['resource_handlers'][$type] =
-                $smarty->registered_resources[$type] instanceof Smarty_Resource ? $smarty->registered_resources[$type] :
-                    new Smarty_Internal_Resource_Registered();
+        if (isset($smarty->registered_resources[ $type ])) {
+            return $smarty->_cache[ 'resource_handlers' ][ $type ] =
+                $smarty->registered_resources[ $type ] instanceof Smarty_Resource ?
+                    $smarty->registered_resources[ $type ] : new Smarty_Internal_Resource_Registered();
         }
 
         // try sysplugins dir
-        if (isset(self::$sysplugins[$type])) {
+        if (isset(self::$sysplugins[ $type ])) {
             $_resource_class = 'Smarty_Internal_Resource_' . ucfirst($type);
-            return $smarty->_cache['resource_handlers'][$type] = new $_resource_class();
+            return $smarty->_cache[ 'resource_handlers' ][ $type ] = new $_resource_class();
         }
 
         // try plugins dir
         $_resource_class = 'Smarty_Resource_' . ucfirst($type);
         if ($smarty->loadPlugin($_resource_class)) {
             if (class_exists($_resource_class, false)) {
-                return $smarty->_cache['resource_handlers'][$type] = new $_resource_class();
+                return $smarty->_cache[ 'resource_handlers' ][ $type ] = new $_resource_class();
             } else {
                 $smarty->registerResource($type,
                                           array("smarty_resource_{$type}_source", "smarty_resource_{$type}_timestamp",
@@ -184,7 +184,7 @@ abstract class Smarty_Resource
             if (is_object($smarty->security_policy)) {
                 $smarty->security_policy->isTrustedStream($type);
             }
-            return $smarty->_cache['resource_handlers'][$type] = new Smarty_Internal_Resource_Stream();
+            return $smarty->_cache[ 'resource_handlers' ][ $type ] = new Smarty_Internal_Resource_Stream();
         }
 
         // TODO: try default_(template|config)_handler
@@ -205,8 +205,8 @@ abstract class Smarty_Resource
     public static function parseResourceName($resource_name, $default_resource)
     {
         if (preg_match('/^([A-Za-z0-9_\-]{2,})[:]/', $resource_name, $match)) {
-            $type = $match[1];
-            $name = substr($resource_name, strlen($match[0]));
+            $type = $match[ 1 ];
+            $name = substr($resource_name, strlen($match[ 0 ]));
         } else {
             // no resource given, use default
             // or single character before the colon is not a resource type, but part of the filepath
@@ -231,7 +231,7 @@ abstract class Smarty_Resource
         // TODO: optimize for Smarty's internal resource types
         $resource = Smarty_Resource::load($smarty, $type);
         // go relative to a given template?
-        $_file_is_dotted = $name[0] == '.' && ($name[1] == '.' || $name[1] == '/');
+        $_file_is_dotted = $name[ 0 ] == '.' && ($name[ 1 ] == '.' || $name[ 1 ] == '/');
         if ($obj->_objType == 2 && $_file_is_dotted &&
             ($obj->source->type == 'file' || $obj->parent->source->type == 'extends')
         ) {
@@ -246,7 +246,8 @@ abstract class Smarty_Resource
      *
      * @return bool
      */
-    public function checkTimestamps() {
+    public function checkTimestamps()
+    {
         return true;
     }
 

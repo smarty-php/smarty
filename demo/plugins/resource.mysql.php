@@ -21,8 +21,10 @@ class Smarty_Resource_Mysql extends Smarty_Resource_Custom
 {
     // PDO instance
     protected $db;
+
     // prepared fetch() statement
     protected $fetch;
+
     // prepared fetchTimestamp() statement
     protected $mtime;
 
@@ -53,8 +55,8 @@ class Smarty_Resource_Mysql extends Smarty_Resource_Custom
         $row = $this->fetch->fetch();
         $this->fetch->closeCursor();
         if ($row) {
-            $source = $row['source'];
-            $mtime = strtotime($row['modified']);
+            $source = $row[ 'source' ];
+            $mtime = strtotime($row[ 'modified' ]);
         } else {
             $source = null;
             $mtime = null;

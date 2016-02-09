@@ -47,8 +47,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w]+!', '_', $_template->compile_id) : null;
         if ($_template->source->isConfig) {
             $_flag = '_' .
-                ((int) $_template->smarty->config_read_hidden + (int) $_template->smarty->config_booleanize * 2 +
-                    (int) $_template->smarty->config_overwrite * 4);
+                     ((int) $_template->smarty->config_read_hidden + (int) $_template->smarty->config_booleanize * 2 +
+                      (int) $_template->smarty->config_overwrite * 4);
         } else {
             $_flag =
                 '_' . ((int) $_template->smarty->merge_compiled_includes + (int) $_template->smarty->escape_html * 2);
@@ -57,7 +57,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         // if use_sub_dirs, break file into directories
         if ($_template->smarty->use_sub_dirs) {
             $_filepath = substr($_filepath, 0, 2) . DS . substr($_filepath, 2, 2) . DS . substr($_filepath, 4, 2) . DS .
-                $_filepath;
+                         $_filepath;
         }
         $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
         if (isset($_compile_id)) {
@@ -99,7 +99,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $_smarty_tpl = $_template;
         if ($_template->source->handler->recompiled || !$_template->compiled->exists ||
             $_template->smarty->force_compile || ($_template->smarty->compile_check &&
-                $_template->source->getTimeStamp() > $_template->compiled->getTimeStamp())
+                                                  $_template->source->getTimeStamp() >
+                                                  $_template->compiled->getTimeStamp())
         ) {
             $this->compileTemplateSource($_template);
             $compileCheck = $_template->smarty->compile_check;
@@ -180,7 +181,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         }
         $this->getRenderedTemplateCode($_template);
         if ($_template->caching && $this->has_nocache_code) {
-            $_template->cached->hashes[$this->nocache_hash] = true;
+            $_template->cached->hashes[ $this->nocache_hash ] = true;
         }
         if (isset($_template->parent) && $_template->parent->_objType == 2 && !empty($_template->tpl_function)) {
             $_template->parent->tpl_function = array_merge($_template->parent->tpl_function, $_template->tpl_function);

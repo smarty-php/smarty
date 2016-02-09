@@ -26,8 +26,11 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
 {
     // PDO instance
     protected $db;
+
     protected $fetch;
+
     protected $fetchTimestamp;
+
     protected $save;
 
     public function __construct()
@@ -62,8 +65,8 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
         $row = $this->fetch->fetch();
         $this->fetch->closeCursor();
         if ($row) {
-            $content = $row['content'];
-            $mtime = strtotime($row['modified']);
+            $content = $row[ 'content' ];
+            $mtime = strtotime($row[ 'modified' ]);
         } else {
             $content = null;
             $mtime = null;
@@ -105,13 +108,8 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
      */
     protected function save($id, $name, $cache_id, $compile_id, $exp_time, $content)
     {
-        $this->save->execute(array(
-                                 'id'         => $id,
-                                 'name'       => $name,
-                                 'cache_id'   => $cache_id,
-                                 'compile_id' => $compile_id,
-                                 'content'    => $content,
-                             ));
+        $this->save->execute(array('id' => $id, 'name' => $name, 'cache_id' => $cache_id, 'compile_id' => $compile_id,
+                                   'content' => $content,));
 
         return !!$this->save->rowCount();
     }
@@ -151,8 +149,8 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
         }
         // equal test cache_id and match sub-groups
         if ($cache_id !== null) {
-            $where[] = '(cache_id = ' . $this->db->quote($cache_id)
-                . ' OR cache_id LIKE ' . $this->db->quote($cache_id . '|%') . ')';
+            $where[] = '(cache_id = ' . $this->db->quote($cache_id) . ' OR cache_id LIKE ' .
+                       $this->db->quote($cache_id . '|%') . ')';
         }
         // run delete query
         $query = $this->db->query('DELETE FROM output_cache WHERE ' . join(' AND ', $where));

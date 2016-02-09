@@ -30,21 +30,21 @@
 class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
 {
 
-    protected $fetchStatements = Array('default'                 => 'SELECT %2$s
+    protected $fetchStatements = Array('default' => 'SELECT %2$s
                                                                                     FROM %1$s 
                                                                                     WHERE 1 
                                                                                     AND id          = :id 
                                                                                     AND cache_id    IS NULL 
                                                                                     AND compile_id  IS NULL',
 
-                                       'withCacheId'             => 'SELECT %2$s
+                                       'withCacheId' => 'SELECT %2$s
                                                                                 FROM %1$s 
                                                                                 WHERE 1 
                                                                                 AND id          = :id 
                                                                                 AND cache_id    = :cache_id 
                                                                                 AND compile_id  IS NULL',
 
-                                       'withCompileId'           => 'SELECT %2$s
+                                       'withCompileId' => 'SELECT %2$s
                                                                                 FROM %1$s 
                                                                                 WHERE 1 
                                                                                 AND id          = :id 
@@ -57,6 +57,7 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
                                                                                 AND id          = :id 
                                                                                 AND cache_id    = :cache_id 
                                                                                 AND compile_id  = :compile_id');
+
     protected $insertStatement = 'INSERT INTO %s
 
                                                 SET id          =   :id, 
@@ -76,9 +77,11 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
                                                     content     =   :content';
 
     protected $deleteStatement = 'DELETE FROM %1$s WHERE %2$s';
+
     protected $truncateStatement = 'TRUNCATE TABLE %s';
 
     protected $fetchColumns = 'modified, content';
+
     protected $fetchTimestampColumns = 'modified';
 
     protected $pdo, $table, $database;
@@ -137,13 +140,15 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
     {
 
         if (!is_null($cache_id) && !is_null($compile_id)) {
-            $query = $this->fetchStatements['withCacheIdAndCompileId'] AND $args = Array('id' => $id, 'cache_id' => $cache_id, 'compile_id' => $compile_id);
+            $query = $this->fetchStatements[ 'withCacheIdAndCompileId' ] AND
+            $args = Array('id' => $id, 'cache_id' => $cache_id, 'compile_id' => $compile_id);
         } elseif (is_null($cache_id) && !is_null($compile_id)) {
-            $query = $this->fetchStatements['withCompileId'] AND $args = Array('id' => $id, 'compile_id' => $compile_id);
+            $query = $this->fetchStatements[ 'withCompileId' ] AND
+            $args = Array('id' => $id, 'compile_id' => $compile_id);
         } elseif (!is_null($cache_id) && is_null($compile_id)) {
-            $query = $this->fetchStatements['withCacheId'] AND $args = Array('id' => $id, 'cache_id' => $cache_id);
+            $query = $this->fetchStatements[ 'withCacheId' ] AND $args = Array('id' => $id, 'cache_id' => $cache_id);
         } else {
-            $query = $this->fetchStatements['default'] AND $args = Array('id' => $id);
+            $query = $this->fetchStatements[ 'default' ] AND $args = Array('id' => $id);
         }
 
         $query = sprintf($query, $columns);
@@ -174,13 +179,13 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
     {
 
         $stmt = $this->getFetchStatement($this->fetchColumns, $id, $cache_id, $compile_id);
-        $stmt       ->execute();
+        $stmt->execute();
         $row = $stmt->fetch();
-        $stmt       ->closeCursor();
+        $stmt->closeCursor();
 
         if ($row) {
-            $content = $this->outputContent($row['content']);
-            $mtime = strtotime($row['modified']);
+            $content = $this->outputContent($row[ 'content' ]);
+            $mtime = strtotime($row[ 'modified' ]);
         } else {
             $content = null;
             $mtime = null;
@@ -226,13 +231,13 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
 
         $stmt = $this->pdo->prepare($this->insertStatement);
 
-        $stmt       ->bindValue('id', $id);
-        $stmt       ->bindValue('name', $name);
-        $stmt       ->bindValue('cache_id', $cache_id, (is_null($cache_id)) ? PDO::PARAM_NULL : PDO::PARAM_STR);
-        $stmt       ->bindValue('compile_id', $compile_id, (is_null($compile_id)) ? PDO::PARAM_NULL : PDO::PARAM_STR);
-        $stmt       ->bindValue('expire', (int) $exp_time, PDO::PARAM_INT);
-        $stmt       ->bindValue('content', $this->inputContent($content));
-        $stmt       ->execute();
+        $stmt->bindValue('id', $id);
+        $stmt->bindValue('name', $name);
+        $stmt->bindValue('cache_id', $cache_id, (is_null($cache_id)) ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue('compile_id', $compile_id, (is_null($compile_id)) ? PDO::PARAM_NULL : PDO::PARAM_STR);
+        $stmt->bindValue('expire', (int) $exp_time, PDO::PARAM_INT);
+        $stmt->bindValue('content', $this->inputContent($content));
+        $stmt->execute();
 
         return !!$stmt->rowCount();
     }
@@ -289,8 +294,8 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
         }
         // equal test cache_id and match sub-groups 
         if ($cache_id !== null) {
-            $where[] = '(cache_id = ' . $this->pdo->quote($cache_id)
-                . ' OR cache_id LIKE ' . $this->pdo->quote($cache_id . '|%') . ')';
+            $where[] = '(cache_id = ' . $this->pdo->quote($cache_id) . ' OR cache_id LIKE ' .
+                       $this->pdo->quote($cache_id . '|%') . ')';
         }
         // equal test compile_id 
         if ($compile_id !== null) {

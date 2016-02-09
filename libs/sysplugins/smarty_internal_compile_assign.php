@@ -21,7 +21,7 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
      *
      * @var array
      */
-    public $valid_scopes = array('local'    => true, 'parent' => true, 'root' => true, 'global' => true,
+    public $valid_scopes = array('local' => true, 'parent' => true, 'root' => true, 'global' => true,
                                  'tpl_root' => true);
 
     /**

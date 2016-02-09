@@ -25,8 +25,8 @@ class Smarty_Internal_Method_AssignByRef
     public function assignByRef(Smarty_Internal_Data $data, $tpl_var, &$value, $nocache)
     {
         if ($tpl_var != '') {
-            $data->tpl_vars[$tpl_var] = new Smarty_Variable(null, $nocache);
-            $data->tpl_vars[$tpl_var]->value = &$value;
+            $data->tpl_vars[ $tpl_var ] = new Smarty_Variable(null, $nocache);
+            $data->tpl_vars[ $tpl_var ]->value = &$value;
             if ($data->_objType == 2 && $data->scope) {
                 $data->ext->_updateScope->updateScope($data, $tpl_var);
             }

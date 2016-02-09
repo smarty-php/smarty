@@ -48,14 +48,14 @@ class Smarty_Internal_Method_GetTags
         }
         if (isset($tpl)) {
             $tpl->smarty = clone $tpl->smarty;
-            $tpl->smarty->_cache['get_used_tags'] = true;
-            $tpl->_cache['used_tags'] = array();
+            $tpl->smarty->_cache[ 'get_used_tags' ] = true;
+            $tpl->_cache[ 'used_tags' ] = array();
             $tpl->smarty->merge_compiled_includes = false;
             $tpl->smarty->disableSecurity();
             $tpl->caching = false;
             $tpl->loadCompiler();
             $tpl->compiler->compileTemplate($tpl);
-            return $tpl->_cache['used_tags'];
+            return $tpl->_cache[ 'used_tags' ];
         }
         throw new SmartyException("Missing template specification");
     }

@@ -65,10 +65,10 @@ abstract class Smarty_Internal_CompileBase
             if (!is_array($mixed)) {
                 // option flag ?
                 if (in_array(trim($mixed, '\'"'), $this->option_flags)) {
-                    $_indexed_attr[trim($mixed, '\'"')] = true;
+                    $_indexed_attr[ trim($mixed, '\'"') ] = true;
                     // shorthand attribute ?
-                } elseif (isset($this->shorttag_order[$key])) {
-                    $_indexed_attr[$this->shorttag_order[$key]] = $mixed;
+                } elseif (isset($this->shorttag_order[ $key ])) {
+                    $_indexed_attr[ $this->shorttag_order[ $key ] ] = $mixed;
                 } else {
                     // too many shorthands
                     $compiler->trigger_template_error('too many shorthand attributes', null, true);
@@ -77,20 +77,22 @@ abstract class Smarty_Internal_CompileBase
             } else {
                 $kv = each($mixed);
                 // option flag?
-                if (in_array($kv['key'], $this->option_flags)) {
-                    if (is_bool($kv['value'])) {
-                        $_indexed_attr[$kv['key']] = $kv['value'];
-                    } elseif (is_string($kv['value']) && in_array(trim($kv['value'], '\'"'), array('true', 'false'))) {
-                        if (trim($kv['value']) == 'true') {
-                            $_indexed_attr[$kv['key']] = true;
+                if (in_array($kv[ 'key' ], $this->option_flags)) {
+                    if (is_bool($kv[ 'value' ])) {
+                        $_indexed_attr[ $kv[ 'key' ] ] = $kv[ 'value' ];
+                    } elseif (is_string($kv[ 'value' ]) &&
+                              in_array(trim($kv[ 'value' ], '\'"'), array('true', 'false'))
+                    ) {
+                        if (trim($kv[ 'value' ]) == 'true') {
+                            $_indexed_attr[ $kv[ 'key' ] ] = true;
                         } else {
-                            $_indexed_attr[$kv['key']] = false;
+                            $_indexed_attr[ $kv[ 'key' ] ] = false;
                         }
-                    } elseif (is_numeric($kv['value']) && in_array($kv['value'], array(0, 1))) {
-                        if ($kv['value'] == 1) {
-                            $_indexed_attr[$kv['key']] = true;
+                    } elseif (is_numeric($kv[ 'value' ]) && in_array($kv[ 'value' ], array(0, 1))) {
+                        if ($kv[ 'value' ] == 1) {
+                            $_indexed_attr[ $kv[ 'key' ] ] = true;
                         } else {
-                            $_indexed_attr[$kv['key']] = false;
+                            $_indexed_attr[ $kv[ 'key' ] ] = false;
                         }
                     } else {
                         $compiler->trigger_template_error("illegal value of option flag \"{$kv['key']}\"", null, true);
@@ -98,7 +100,7 @@ abstract class Smarty_Internal_CompileBase
                     // must be named attribute
                 } else {
                     reset($mixed);
-                    $_indexed_attr[key($mixed)] = $mixed[key($mixed)];
+                    $_indexed_attr[ key($mixed) ] = $mixed[ key($mixed) ];
                 }
             }
         }
@@ -119,8 +121,8 @@ abstract class Smarty_Internal_CompileBase
         }
         // default 'false' for all option flags not set
         foreach ($this->option_flags as $flag) {
-            if (!isset($_indexed_attr[$flag])) {
-                $_indexed_attr[$flag] = false;
+            if (!isset($_indexed_attr[ $flag ])) {
+                $_indexed_attr[ $flag ] = false;
             }
         }
 

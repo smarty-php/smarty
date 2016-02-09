@@ -164,11 +164,11 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
         $needTotal = isset($itemAttr[ 'show' ]) || isset($itemAttr[ 'total' ]) || isset($namedAttr[ 'total' ]) ||
-            isset($namedAttr[ 'show' ]) || isset($itemAttr[ 'last' ]) || isset($namedAttr[ 'last' ]);
+                     isset($namedAttr[ 'show' ]) || isset($itemAttr[ 'last' ]) || isset($namedAttr[ 'last' ]);
         // generate output code
         $output = "<?php\n";
         $output .= "\$_from = \$_smarty_tpl->smarty->ext->_foreach->init(\$_smarty_tpl, $from, " .
-            var_export($item, true);
+                   var_export($item, true);
         if ($name || $needTotal || $key) {
             $output .= ', ' . var_export($needTotal, true);
         }

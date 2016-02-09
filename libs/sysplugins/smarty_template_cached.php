@@ -99,7 +99,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
         $_template->cached->handler->populate($_template->cached, $_template);
         // caching enabled ?
         if (!($_template->caching == Smarty::CACHING_LIFETIME_CURRENT ||
-                $_template->caching == Smarty::CACHING_LIFETIME_SAVED) || $_template->source->handler->recompiled
+              $_template->caching == Smarty::CACHING_LIFETIME_SAVED) || $_template->source->handler->recompiled
         ) {
             $_template->cached->valid = false;
         }

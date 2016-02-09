@@ -85,10 +85,10 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     /**
      * fetches a rendered Smarty template
      *
-     * @param  string $template         the resource handle of the template file or template object
-     * @param  mixed  $cache_id         cache id to be used with this template
-     * @param  mixed  $compile_id       compile id to be used with this template
-     * @param  object $parent           next higher level of Smarty variables
+     * @param  string $template   the resource handle of the template file or template object
+     * @param  mixed  $cache_id   cache id to be used with this template
+     * @param  mixed  $compile_id compile id to be used with this template
+     * @param  object $parent     next higher level of Smarty variables
      *
      * @throws Exception
      * @throws SmartyException
@@ -139,7 +139,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @param  mixed  $cache_id   cache id to be used with this template
      * @param  mixed  $compile_id compile id to be used with this template
      * @param  object $parent     next higher level of Smarty variables
-     * @param  string $function  function type 0 = fetch,  1 = display, 2 = isCache
+     * @param  string $function   function type 0 = fetch,  1 = display, 2 = isCache
      *
      * @return mixed
      * @throws \Exception
@@ -174,8 +174,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         $level = ob_get_level();
         try {
             $_smarty_old_error_level =
-                isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) :
-                    null;
+                isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) : null;
             if ($function == 2) {
                 if ($template->caching) {
                     // return cache status of template
@@ -183,7 +182,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                         $template->loadCached();
                     }
                     $result = $template->cached->isCached($template);
-                    $template->smarty->_cache['isCached'][$template->_getTemplateId()] = $template;
+                    $template->smarty->_cache[ 'isCached' ][ $template->_getTemplateId() ] = $template;
                 } else {
                     return false;
                 }

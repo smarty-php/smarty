@@ -176,7 +176,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
             }
         }
         $_className = 'Block_' . preg_replace('#[^\w\|]+#S', '_', $_name) . '_' .
-            preg_replace('![^\w]+!', '_', uniqid(rand(), true));
+                      preg_replace('![^\w]+!', '_', uniqid(rand(), true));
         // get compiled block code
         $_functionCode = $compiler->parser->current_buffer;
         // setup buffer for template function code
@@ -185,7 +185,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
             $sourceInfo = $compiler->template->source->filepath;
         } else {
             $basename = $compiler->template->source->handler->getBasename($compiler->template->source);
-            $sourceInfo = $compiler->template->source->type .':' . ($basename ? $basename : $compiler->template->source->name);
+            $sourceInfo =
+                $compiler->template->source->type . ':' . ($basename ? $basename : $compiler->template->source->name);
         }
 
         $output = "<?php\n";

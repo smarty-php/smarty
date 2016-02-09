@@ -53,8 +53,8 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
             $default_handler = $source->smarty->default_template_handler_func;
         }
         $_content = $_timestamp = null;
-        $_return = call_user_func_array($default_handler, array($source->type, $source->name, &$_content, &$_timestamp,
-                                                                $source->smarty));
+        $_return = call_user_func_array($default_handler,
+                                        array($source->type, $source->name, &$_content, &$_timestamp, $source->smarty));
         if (is_string($_return)) {
             $source->exists = is_file($_return);
             if ($source->exists) {

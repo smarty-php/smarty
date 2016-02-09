@@ -67,7 +67,7 @@ class Smarty_Internal_Method_ConfigLoad
         $confObj->compiled = Smarty_Template_Compiled::load($confObj);
         $confObj->compiled->render($confObj);
         if ($data->_objType == 2) {
-            $data->compiled->file_dependency[$confObj->source->uid] =
+            $data->compiled->file_dependency[ $confObj->source->uid ] =
                 array($confObj->source->filepath, $confObj->source->getTimeStamp(), $confObj->source->type);
         }
     }
@@ -130,25 +130,25 @@ class Smarty_Internal_Method_ConfigLoad
     public function _assignConfigVars(Smarty_Internal_Data $scope_ptr, Smarty_Internal_Template $tpl, $_config_vars)
     {
         // copy global config vars
-        foreach ($_config_vars['vars'] as $variable => $value) {
-            if ($tpl->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
-                $scope_ptr->config_vars[$variable] = $value;
+        foreach ($_config_vars[ 'vars' ] as $variable => $value) {
+            if ($tpl->smarty->config_overwrite || !isset($scope_ptr->config_vars[ $variable ])) {
+                $scope_ptr->config_vars[ $variable ] = $value;
             } else {
-                $scope_ptr->config_vars[$variable] =
-                    array_merge((array) $scope_ptr->config_vars[$variable], (array) $value);
+                $scope_ptr->config_vars[ $variable ] =
+                    array_merge((array) $scope_ptr->config_vars[ $variable ], (array) $value);
             }
         }
         // scan sections
         $sections = $tpl->source->config_sections;
         if (!empty($sections)) {
             foreach ((array) $sections as $tpl_section) {
-                if (isset($_config_vars['sections'][$tpl_section])) {
-                    foreach ($_config_vars['sections'][$tpl_section]['vars'] as $variable => $value) {
-                        if ($tpl->smarty->config_overwrite || !isset($scope_ptr->config_vars[$variable])) {
-                            $scope_ptr->config_vars[$variable] = $value;
+                if (isset($_config_vars[ 'sections' ][ $tpl_section ])) {
+                    foreach ($_config_vars[ 'sections' ][ $tpl_section ][ 'vars' ] as $variable => $value) {
+                        if ($tpl->smarty->config_overwrite || !isset($scope_ptr->config_vars[ $variable ])) {
+                            $scope_ptr->config_vars[ $variable ] = $value;
                         } else {
-                            $scope_ptr->config_vars[$variable] =
-                                array_merge((array) $scope_ptr->config_vars[$variable], (array) $value);
+                            $scope_ptr->config_vars[ $variable ] =
+                                array_merge((array) $scope_ptr->config_vars[ $variable ], (array) $value);
                         }
                     }
                 }
@@ -169,9 +169,9 @@ class Smarty_Internal_Method_ConfigLoad
     {
         $_ptr = $tpl;
         while ($_ptr !== null) {
-            if (isset($_ptr->config_vars[$varName])) {
+            if (isset($_ptr->config_vars[ $varName ])) {
                 // found it, return it
-                return $_ptr->config_vars[$varName];
+                return $_ptr->config_vars[ $varName ];
             }
             // not found, try at parent
             $_ptr = $_ptr->parent;

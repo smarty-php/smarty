@@ -169,7 +169,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             } else {
                 if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
                     !$no_output_filter && (isset($this->smarty->autoload_filters[ 'output' ]) ||
-                        isset($this->smarty->registered_filters[ 'output' ]))
+                                           isset($this->smarty->registered_filters[ 'output' ]))
                 ) {
                     echo $this->smarty->ext->_filterHandler->runFilter('output', ob_get_clean(), $this);
                 } else {
@@ -205,7 +205,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             if (!$no_output_filter &&
                 (!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
                 (isset($this->smarty->autoload_filters[ 'output' ]) ||
-                    isset($this->smarty->registered_filters[ 'output' ]))
+                 isset($this->smarty->registered_filters[ 'output' ]))
             ) {
                 return $this->smarty->ext->_filterHandler->runFilter('output', ob_get_clean(), $this);
             }
@@ -315,8 +315,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (!isset($tpl->smarty->_cache[ 'tplObjects' ][ $tpl->templateId ]) && !$tpl->source->handler->recompiled) {
             // if template is called multiple times set flag to to cache template objects
             $forceTplCache = $forceTplCache ||
-                (isset($tpl->smarty->_cache[ 'subTplInfo' ][ $tpl->template_resource ]) &&
-                    $tpl->smarty->_cache[ 'subTplInfo' ][ $tpl->template_resource ] > 1);
+                             (isset($tpl->smarty->_cache[ 'subTplInfo' ][ $tpl->template_resource ]) &&
+                              $tpl->smarty->_cache[ 'subTplInfo' ][ $tpl->template_resource ] > 1);
             // check if template object should be cached
             if ($tpl->_isParentTemplate() && isset($tpl->smarty->_cache[ 'tplObjects' ][ $tpl->parent->templateId ]) ||
                 $forceTplCache
@@ -420,7 +420,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         } else {
             $this->tpl_vars[ $varName ] = clone $this->tpl_vars[ $varName ];
             if (!(is_array($this->tpl_vars[ $varName ]->value) ||
-                $this->tpl_vars[ $varName ]->value instanceof ArrayAccess)
+                  $this->tpl_vars[ $varName ]->value instanceof ArrayAccess)
             ) {
                 settype($this->tpl_vars[ $varName ]->value, 'array');
             }
@@ -446,7 +446,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             // new version must rebuild
             $is_valid = false;
         } elseif ($is_valid && !empty($properties[ 'file_dependency' ]) &&
-            ((!$cache && $tpl->smarty->compile_check) || $tpl->smarty->compile_check == 1)
+                  ((!$cache && $tpl->smarty->compile_check) || $tpl->smarty->compile_check == 1)
         ) {
             // check file dependencies at compiled code
             foreach ($properties[ 'file_dependency' ] as $_file_to_check) {

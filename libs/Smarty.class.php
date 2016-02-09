@@ -684,8 +684,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var string[]
      */
     private $accessMap = array('template_dir' => 'TemplateDir', 'config_dir' => 'ConfigDir',
-                                      'plugins_dir'  => 'PluginsDir', 'compile_dir' => 'CompileDir',
-                                      'cache_dir'    => 'CacheDir',);
+                               'plugins_dir' => 'PluginsDir', 'compile_dir' => 'CompileDir',
+                               'cache_dir' => 'CacheDir',);
 
     /**#@-*/
 
@@ -1144,12 +1144,13 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (strpos($path, $nds) !== false) {
             $path = str_replace($nds, DS, $path);
         }
-        preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(?:[[:print:]]*))$%', $path, $parts);
-        $path = $parts['path'];
-        if ($parts['root'] == '\\') {
-            $parts['root'] = substr(getcwd(), 0, 2) . $parts['root'];
+        preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(?:[[:print:]]*))$%',
+                   $path, $parts);
+        $path = $parts[ 'path' ];
+        if ($parts[ 'root' ] == '\\') {
+            $parts[ 'root' ] = substr(getcwd(), 0, 2) . $parts[ 'root' ];
         } else {
-            if ($realpath !== null && !$parts['root']) {
+            if ($realpath !== null && !$parts[ 'root' ]) {
                 $path = getcwd() . DS . $path;
             }
         }
@@ -1159,15 +1160,16 @@ class Smarty extends Smarty_Internal_TemplateBase
                 preg_replace('#([\\\\/][^\\\\/]+[\\\\/]([.]?[\\\\/])*[.][.][\\\\/]([.]?[\\\\/])*)+|([\\\\/]([.]?[\\\\/])+)#',
                              DS, $path, - 1, $count);
         }
-        return $parts['root'] . $path;
+        return $parts[ 'root' ] . $path;
     }
 
     /**
      * Empty template objects cache
      */
-    public function _clearTemplateCache() {
-        $this->_cache['isCached'] = array();
-        $this->_cache['tplObjects'] = array();
+    public function _clearTemplateCache()
+    {
+        $this->_cache[ 'isCached' ] = array();
+        $this->_cache[ 'tplObjects' ] = array();
     }
 
     /**
@@ -1345,7 +1347,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (isset($this->accessMap[ $name ])) {
             $method = 'set' . $this->accessMap[ $name ];
             $this->{$method}($value);
-            } elseif (in_array($name, $this->obsoleteProperties)) {
+        } elseif (in_array($name, $this->obsoleteProperties)) {
             return;
         } else {
             if (is_object($value) && method_exists($value, $name)) {
@@ -1399,7 +1401,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 break;
             }
         }
-       // pass to next error handler if this error did not occur inside SMARTY_DIR
+        // pass to next error handler if this error did not occur inside SMARTY_DIR
         // or the error was within smarty but masked to be ignored
         if (!$_is_muted_directory || ($errno && $errno & error_reporting())) {
             if (Smarty::$_previous_error_handler) {

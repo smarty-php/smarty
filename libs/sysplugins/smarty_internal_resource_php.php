@@ -17,6 +17,7 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
      * @var bool
      */
     public $uncompiled = true;
+
     /**
      * container for short_open_tag directive's value before executing PHP templates
      *
@@ -31,10 +32,8 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
      */
     public $hasCompiledHandler = true;
 
-
     /**
      * Create a new PHP Resource
-
      */
     public function __construct()
     {

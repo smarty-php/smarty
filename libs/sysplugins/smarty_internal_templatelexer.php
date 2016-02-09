@@ -178,21 +178,20 @@ class Smarty_Internal_Templatelexer
      * @var array
      */
     public $smarty_token_names = array(        // Text for parser error messages
-                                               'NOT'         => '(!,not)', 'OPENP' => '(', 'CLOSEP' => ')',
-                                               'OPENB'       => '[', 'CLOSEB' => ']', 'PTR' => '->', 'APTR' => '=>',
-                                               'EQUAL'       => '=', 'NUMBER' => 'number', 'UNIMATH' => '+" , "-',
-                                               'MATH'        => '*" , "/" , "%', 'INCDEC' => '++" , "--',
-                                               'SPACE'       => ' ', 'DOLLAR' => '$', 'SEMICOLON' => ';',
-                                               'COLON'       => ':', 'DOUBLECOLON' => '::', 'AT' => '@', 'HATCH' => '#',
-                                               'QUOTE'       => '"', 'BACKTICK' => '`', 'VERT' => '"|" modifier',
-                                               'DOT'         => '.', 'COMMA' => '","', 'QMARK' => '"?"',
-                                               'ID'          => 'id, name', 'TEXT' => 'text',
-                                               'LDELSLASH'   => '{/..} closing tag', 'LDEL' => '{...} Smarty tag',
-                                               'COMMENT'     => 'comment', 'AS' => 'as', 'TO' => 'to',
-                                               'PHP'         => '"<?php", "<%", "{php}" tag',
-                                               'LOGOP'       => '"<", "==" ... logical operator',
-                                               'TLOGOP'      => '"lt", "eq" ... logical operator; "is div by" ... if condition',
-                                               'SCOND'       => '"is even" ... if condition',);
+                                               'NOT' => '(!,not)', 'OPENP' => '(', 'CLOSEP' => ')', 'OPENB' => '[',
+                                               'CLOSEB' => ']', 'PTR' => '->', 'APTR' => '=>', 'EQUAL' => '=',
+                                               'NUMBER' => 'number', 'UNIMATH' => '+" , "-', 'MATH' => '*" , "/" , "%',
+                                               'INCDEC' => '++" , "--', 'SPACE' => ' ', 'DOLLAR' => '$',
+                                               'SEMICOLON' => ';', 'COLON' => ':', 'DOUBLECOLON' => '::', 'AT' => '@',
+                                               'HATCH' => '#', 'QUOTE' => '"', 'BACKTICK' => '`',
+                                               'VERT' => '"|" modifier', 'DOT' => '.', 'COMMA' => '","',
+                                               'QMARK' => '"?"', 'ID' => 'id, name', 'TEXT' => 'text',
+                                               'LDELSLASH' => '{/..} closing tag', 'LDEL' => '{...} Smarty tag',
+                                               'COMMENT' => 'comment', 'AS' => 'as', 'TO' => 'to',
+                                               'PHP' => '"<?php", "<%", "{php}" tag',
+                                               'LOGOP' => '"<", "==" ... logical operator',
+                                               'TLOGOP' => '"lt", "eq" ... logical operator; "is div by" ... if condition',
+                                               'SCOND' => '"is even" ... if condition',);
 
     /**
      * constructor
@@ -334,7 +333,8 @@ class Smarty_Internal_Templatelexer
                 throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[ $this->counter ]);
             }
             break;
-        } while (true);
+        }
+        while (true);
     } // end function
 
     const TEXT = 1;
@@ -470,7 +470,8 @@ class Smarty_Internal_Templatelexer
                 throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[ $this->counter ]);
             }
             break;
-        } while (true);
+        }
+        while (true);
     } // end function
 
     const TAG = 2;
@@ -558,7 +559,7 @@ class Smarty_Internal_Templatelexer
     {
         if (!isset($this->yy_global_pattern3)) {
             $this->yy_global_pattern3 = "/\G(\\s*" . $this->rdel . ")|\G(" . $this->ldel .
-                "\\s*)|\G([\"])|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|\G([$]smarty\\.block\\.(child|parent))|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(\\s+is\\s+in\\s+)|\G(\\s+as\\s+)|\G(\\s+to\\s+)|\G(\\s+step\\s+)|\G(\\s+instanceof\\s+)|\G(\\s*(([!=][=]{1,2})|([<][=>]?)|([>][=]?)|[&|]{2})\\s*)|\G(\\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor|(is\\s+(not\\s+)?(odd|even|div)\\s+by))\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even))|\G(([!]\\s*)|(not\\s+))|\G([(](int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)[)]\\s*)|\G(\\s*[(]\\s*)|\G(\\s*[)])|\G(\\[\\s*)|\G(\\s*\\])|\G(\\s*[-][>]\\s*)|\G(\\s*[=][>]\\s*)|\G(\\s*[=]\\s*)|\G(([+]|[-]){2})|\G(\\s*([+]|[-])\\s*)|\G(\\s*([*]{1,2}|[%\/^&]|[<>]{2})\\s*)|\G([@])|\G([#])|\G(\\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\\s*[=]\\s*)|\G(([0-9]*[a-zA-Z_]\\w*)?(\\\\[0-9]*[a-zA-Z_]\\w*)+)|\G([0-9]*[a-zA-Z_]\\w*)|\G(\\d+)|\G([`])|\G([|])|\G([.])|\G(\\s*[,]\\s*)|\G(\\s*[;]\\s*)|\G([:]{2})|\G(\\s*[:]\\s*)|\G(\\s*[?]\\s*)|\G(0[xX][0-9a-fA-F]+)|\G(\\s+)|\G([\S\s])/isS";
+                                        "\\s*)|\G([\"])|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|\G([$]smarty\\.block\\.(child|parent))|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(\\s+is\\s+in\\s+)|\G(\\s+as\\s+)|\G(\\s+to\\s+)|\G(\\s+step\\s+)|\G(\\s+instanceof\\s+)|\G(\\s*(([!=][=]{1,2})|([<][=>]?)|([>][=]?)|[&|]{2})\\s*)|\G(\\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor|(is\\s+(not\\s+)?(odd|even|div)\\s+by))\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even))|\G(([!]\\s*)|(not\\s+))|\G([(](int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)[)]\\s*)|\G(\\s*[(]\\s*)|\G(\\s*[)])|\G(\\[\\s*)|\G(\\s*\\])|\G(\\s*[-][>]\\s*)|\G(\\s*[=][>]\\s*)|\G(\\s*[=]\\s*)|\G(([+]|[-]){2})|\G(\\s*([+]|[-])\\s*)|\G(\\s*([*]{1,2}|[%\/^&]|[<>]{2})\\s*)|\G([@])|\G([#])|\G(\\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\\s*[=]\\s*)|\G(([0-9]*[a-zA-Z_]\\w*)?(\\\\[0-9]*[a-zA-Z_]\\w*)+)|\G([0-9]*[a-zA-Z_]\\w*)|\G(\\d+)|\G([`])|\G([|])|\G([.])|\G(\\s*[,]\\s*)|\G(\\s*[;]\\s*)|\G([:]{2})|\G(\\s*[:]\\s*)|\G(\\s*[?]\\s*)|\G(0[xX][0-9a-fA-F]+)|\G(\\s+)|\G([\S\s])/isS";
         }
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
@@ -602,7 +603,8 @@ class Smarty_Internal_Templatelexer
                 throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[ $this->counter ]);
             }
             break;
-        } while (true);
+        }
+        while (true);
     } // end function
 
     const TAGBODY = 3;
@@ -940,7 +942,8 @@ class Smarty_Internal_Templatelexer
                 throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[ $this->counter ]);
             }
             break;
-        } while (true);
+        }
+        while (true);
     } // end function
 
     const LITERAL = 4;
@@ -1031,7 +1034,8 @@ class Smarty_Internal_Templatelexer
                 throw new Exception('Unexpected input at line' . $this->line . ': ' . $this->data[ $this->counter ]);
             }
             break;
-        } while (true);
+        }
+        while (true);
     } // end function
 
     const DOUBLEQUOTEDSTRING = 5;

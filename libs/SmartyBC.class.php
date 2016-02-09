@@ -128,7 +128,8 @@ class SmartyBC extends Smarty
      * @throws SmartyException
      * @internal param array $block_functs list of methods that are block format
      */
-    public function register_object($object, $object_impl, $allowed = array(), $smarty_args = true, $block_methods = array())
+    public function register_object($object, $object_impl, $allowed = array(), $smarty_args = true,
+                                    $block_methods = array())
     {
         settype($allowed, 'array');
         settype($smarty_args, 'boolean');

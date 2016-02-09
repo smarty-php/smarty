@@ -66,24 +66,24 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
 
         $_output = '<?php ';
         // save possible attributes
-        eval('$_name = @' . $_attr['name'] . ';');
-        if (isset($_attr['assign'])) {
+        eval('$_name = @' . $_attr[ 'name' ] . ';');
+        if (isset($_attr[ 'assign' ])) {
             // output will be stored in a smarty variable instead of being displayed
-            $_assign = $_attr['assign'];
+            $_assign = $_attr[ 'assign' ];
             // create variable to make sure that the compiler knows about its nocache status
-            $var = trim($_attr['assign'], "'");
-            if (isset($compiler->template->tpl_vars[$var])) {
-                $compiler->template->tpl_vars[$var]->nocache = true;
+            $var = trim($_attr[ 'assign' ], "'");
+            if (isset($compiler->template->tpl_vars[ $var ])) {
+                $compiler->template->tpl_vars[ $var ]->nocache = true;
             } else {
-                $compiler->template->tpl_vars[$var] = new Smarty_Variable(null, true);
+                $compiler->template->tpl_vars[ $var ] = new Smarty_Variable(null, true);
             }
         }
-        if (isset($_attr['script'])) {
+        if (isset($_attr[ 'script' ])) {
             // script which must be included
             $_function = "smarty_insert_{$_name}";
             $_smarty_tpl = $compiler->template;
             $_filepath = false;
-            eval('$_script = @' . $_attr['script'] . ';');
+            eval('$_script = @' . $_attr[ 'script' ] . ';');
             if (!isset($compiler->smarty->security_policy) && file_exists($_script)) {
                 $_filepath = $_script;
             } else {
@@ -109,7 +109,8 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
             $_output .= "require_once '{$_filepath}' ;";
             require_once $_filepath;
             if (!is_callable($_function)) {
-                $compiler->trigger_template_error(" {insert} function '{$_function}' is not callable in script file '{$_script}'", null, true);
+                $compiler->trigger_template_error(" {insert} function '{$_function}' is not callable in script file '{$_script}'",
+                                                  null, true);
             }
         } else {
             $_filepath = 'null';
@@ -118,12 +119,13 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
             if (!is_callable($_function)) {
                 // try plugin
                 if (!$_function = $compiler->getPlugin($_name, 'insert')) {
-                    $compiler->trigger_template_error("{insert} no function or plugin found for '{$_name}'", null, true);
+                    $compiler->trigger_template_error("{insert} no function or plugin found for '{$_name}'", null,
+                                                      true);
                 }
             }
         }
         // delete {insert} standard attributes
-        unset($_attr['name'], $_attr['assign'], $_attr['script'], $_attr['nocache']);
+        unset($_attr[ 'name' ], $_attr[ 'assign' ], $_attr[ 'script' ], $_attr[ 'nocache' ]);
         // convert attributes into parameter array string
         $_paramsArray = array();
         foreach ($_attr as $_key => $_value) {

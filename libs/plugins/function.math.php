@@ -24,19 +24,18 @@
  */
 function smarty_function_math($params, $template)
 {
-    static $_allowed_funcs = array(
-        'int'  => true, 'abs' => true, 'ceil' => true, 'cos' => true, 'exp' => true, 'floor' => true,
-        'log'  => true, 'log10' => true, 'max' => true, 'min' => true, 'pi' => true, 'pow' => true,
-        'rand' => true, 'round' => true, 'sin' => true, 'sqrt' => true, 'srand' => true, 'tan' => true
-    );
+    static $_allowed_funcs =
+        array('int' => true, 'abs' => true, 'ceil' => true, 'cos' => true, 'exp' => true, 'floor' => true,
+              'log' => true, 'log10' => true, 'max' => true, 'min' => true, 'pi' => true, 'pow' => true, 'rand' => true,
+              'round' => true, 'sin' => true, 'sqrt' => true, 'srand' => true, 'tan' => true);
     // be sure equation parameter is present
-    if (empty($params['equation'])) {
+    if (empty($params[ 'equation' ])) {
         trigger_error("math: missing equation parameter", E_USER_WARNING);
 
         return;
     }
 
-    $equation = $params['equation'];
+    $equation = $params[ 'equation' ];
 
     // make sure parenthesis are balanced
     if (substr_count($equation, "(") != substr_count($equation, ")")) {
@@ -48,8 +47,8 @@ function smarty_function_math($params, $template)
     // match all vars in equation, make sure all are passed
     preg_match_all("!(?:0x[a-fA-F0-9]+)|([a-zA-Z][a-zA-Z0-9_]*)!", $equation, $match);
 
-    foreach ($match[1] as $curr_var) {
-        if ($curr_var && !isset($params[$curr_var]) && !isset($_allowed_funcs[$curr_var])) {
+    foreach ($match[ 1 ] as $curr_var) {
+        if ($curr_var && !isset($params[ $curr_var ]) && !isset($_allowed_funcs[ $curr_var ])) {
             trigger_error("math: function call $curr_var not allowed", E_USER_WARNING);
 
             return;
@@ -75,17 +74,17 @@ function smarty_function_math($params, $template)
     $smarty_math_result = null;
     eval("\$smarty_math_result = " . $equation . ";");
 
-    if (empty($params['format'])) {
-        if (empty($params['assign'])) {
+    if (empty($params[ 'format' ])) {
+        if (empty($params[ 'assign' ])) {
             return $smarty_math_result;
         } else {
-            $template->assign($params['assign'], $smarty_math_result);
+            $template->assign($params[ 'assign' ], $smarty_math_result);
         }
     } else {
-        if (empty($params['assign'])) {
-            printf($params['format'], $smarty_math_result);
+        if (empty($params[ 'assign' ])) {
+            printf($params[ 'format' ], $smarty_math_result);
         } else {
-            $template->assign($params['assign'], sprintf($params['format'], $smarty_math_result));
+            $template->assign($params[ 'assign' ], sprintf($params[ 'format' ], $smarty_math_result));
         }
     }
 }

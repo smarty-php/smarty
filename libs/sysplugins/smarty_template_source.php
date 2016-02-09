@@ -144,8 +144,8 @@ class Smarty_Template_Source
         }
         // parse resource_name, load resource handler, identify unique resource name
         if (preg_match('/^([A-Za-z0-9_\-]{2,})[:]([\s\S]*)$/', $template_resource, $match)) {
-            $type = $match[1];
-            $name = $match[2];
+            $type = $match[ 1 ];
+            $name = $match[ 2 ];
         } else {
             // no resource given, use default
             // or single character before the colon is not a resource type, but part of the filepath
@@ -153,9 +153,9 @@ class Smarty_Template_Source
             $name = $template_resource;
         }
 
-        $handler = isset($smarty->_cache['resource_handlers'][$type]) ?
-            $smarty->_cache['resource_handlers'][$type] :
-            Smarty_Resource::load($smarty, $type);
+        $handler =
+            isset($smarty->_cache[ 'resource_handlers' ][ $type ]) ? $smarty->_cache[ 'resource_handlers' ][ $type ] :
+                Smarty_Resource::load($smarty, $type);
         // create new source  object
         $source = new Smarty_Template_Source($handler, $smarty, $template_resource, $type, $name);
         $handler->populate($source, $_template);

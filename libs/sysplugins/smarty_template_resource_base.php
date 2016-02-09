@@ -116,13 +116,13 @@ abstract class Smarty_Template_Resource_Base
             //
             // render compiled or saved template code
             //
-            if (!isset($_template->_cache['capture_stack'])) {
-                $_template->_cache['capture_stack'] = array();
+            if (!isset($_template->_cache[ 'capture_stack' ])) {
+                $_template->_cache[ 'capture_stack' ] = array();
             }
-            $_saved_capture_level = count($_template->_cache['capture_stack']);
+            $_saved_capture_level = count($_template->_cache[ 'capture_stack' ]);
             $unifunc($_template);
             // any unclosed {capture} tags ?
-            if ($_saved_capture_level != count($_template->_cache['capture_stack'])) {
+            if ($_saved_capture_level != count($_template->_cache[ 'capture_stack' ])) {
                 $_template->capture_error();
             }
             if (isset($_template->smarty->security_policy)) {
@@ -134,7 +134,7 @@ abstract class Smarty_Template_Resource_Base
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
-             if (isset($_template->smarty->security_policy)) {
+            if (isset($_template->smarty->security_policy)) {
                 $_template->smarty->security_policy->exitTemplate();
             }
             throw $e;

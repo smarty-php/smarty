@@ -32,7 +32,7 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
         $_res = array();
         $res = apc_fetch($keys);
         foreach ($res as $k => $v) {
-            $_res[$k] = $v;
+            $_res[ $k ] = $v;
         }
 
         return $_res;
