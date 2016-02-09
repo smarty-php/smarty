@@ -1,0 +1,1 @@
+{$foo = $buh scope=global nocache}{checkvar var=foo nocache}

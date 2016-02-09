@@ -10,130 +10,128 @@
  * class for {if} tag tests
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
-*/
+ */
 class CompileIfTest extends PHPUnit_Smarty
 {
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
+        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
+        $this->smarty->addTemplateDir("../../../__shared/templates/");
+        $this->smarty->addTemplateDir("./templates_tmp");
     }
-
 
     public function testInit()
     {
         $this->cleanDirs();
     }
+
     /**
-     * test {if} tag
+     * Test if tags
+     *
+     * @not runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestIf
      */
-    public function testIf1()
+    public function testIf($code, $result, $testName, $testNumber)
     {
-        $tpl = $this->smarty->createTemplate('eval:{if 0<1}yes{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
+        $file = "testIf_{$testNumber}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->assignGlobal('file', $file);
+        $this->smarty->assign('bar', 'buh');
+        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)),
+                            "testIf - {$code} - {$testName}");
     }
 
-    public function testElseif1()
+    /*
+      * Data provider für testIf
+      */
+    public function dataTestIf()
     {
-        $tpl = $this->smarty->createTemplate('eval:{if false}false{elseif 0<1}yes{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    */
+        return array(array('{if 0<1}yes{/if}', 'yes', '', $i ++),
+            array('{if false}false{elseif 0<1}yes{/if}', 'yes', '', $i ++),
+            array('{if 2<1}yes{else}no{/if}', 'no', '', $i ++),
+            array('{if 2<1}yes{elseif 4<5}yes1{else}no{/if}', 'yes1', '', $i ++),
+            array('{if 2<1}yes{elseif 6<5}yes1{else}no{/if}', 'no', '', $i ++),
+            array('{if true}yes{else}no{/if}', 'yes', '', $i ++), array('{if false}yes{else}no{/if}', 'no', '', $i ++),
+            array('{if !(1<2)}yes{else}no{/if}', 'no', '', $i ++),
+            array('{if not (true)}yes{else}no{/if}', 'no', '', $i ++),
+            array('{if 1 == 1}yes{else}no{/if}', 'yes', '', $i ++),
+            array('{if 1 EQ 1}yes{else}no{/if}', 'yes', '', $i ++),
+            array('{if 1 eq 1}yes{else}no{/if}', 'yes', '', $i ++),
+            array('{$foo=true}{if $foo===true}yes{else}no{/if}', 'yes', '', $i ++),
+            array('{$foo=true}{if $foo!==true}yes{else}no{/if}', 'no', '', $i ++),
+            array('{if 1 > 0}yes{else}no{/if}', 'yes', '', $i ++),
+            array('{if $x=1}yes{else}no{/if}{$x}', 'yes1', '', $i ++),
+            array('{$x=0}{if $x++}yes{else}no{/if} {$x}', 'no1', '', $i ++),
+            array('{$x=[1,2]}{if $x[] = 7}{$x|var_export:true}{else}no{/if}', 'array(0=>1,1=>2,2=>7,)', '', $i ++),
+            array('{$x=[1,2]}{if $x[][\'a\'] = 7}{$x|var_export:true}{else}no{/if}',
+                'array(0=>1,1=>2,2=>array(\'a\'=>7,),)', '', $i ++
+            ),
+        );
     }
 
-    public function testIf2()
+    /**
+     * Test if nocache tags
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestIfNocache
+     */
+    public function testIfNocache($var, $value, $code, $result, $testName, $testNumber, $file = null)
     {
-        $tpl = $this->smarty->createTemplate('eval:{if 2<1}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
+        if (!isset($file)) {
+            $file = "testIfNoCache_{$testNumber}.tpl";
+        }
+        if ($code) {
+            $this->makeTemplateFile($file, $code);
+        }
+        $this->smarty->setCaching(true);
+        $this->smarty->assign('file', $file, true);
+        $this->smarty->assign($var, $value, true);
+        $this->smarty->assign($var . '2', $value);
+        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('run_code_caching.tpl')),
+                            "testIfNocahe - {$code} - {$testName}");
     }
 
-    public function testIf3()
+    /*
+      * Data provider für testIfNocache
+      */
+    public function dataTestIfNocache()
     {
-        $tpl = $this->smarty->createTemplate('eval:{if 2<1}yes{elseif 4<5}yes1{else}no{/if}');
-        $this->assertEquals("yes1", $this->smarty->fetch($tpl));
-    }
-
-    public function testIf4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 2<1}yes{elseif 6<5}yes1{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfTrue()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if true}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfFalse()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if false}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfNot1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if !(1<2)}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfNot2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if not (true)}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfEQ1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 == 1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfEQ2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1==1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfEQ3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 EQ 1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfEQ4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 eq 1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIdentity1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{$foo=true}{if $foo===true}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIdentity2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{$foo=true}{if $foo === true}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfNotIdentity1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{$foo=true}{if $foo!==true}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfNotIdentity2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{$foo=true}{if $foo !== true}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfGT1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 > 0}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
+        $i = 1;
+        /*
+         * var
+         * value
+                    * Code
+                    * result
+                    * test name
+                    */
+        return array(array('foo', true, '{if $foo}yes{else}no{/if}', 'yes', '', $i ++, 'testIfNoCache_Var1.tpl'),
+            array('foo', true, false, 'yes', '', $i ++, 'testIfNoCache_Var1.tpl'),
+            array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var1.tpl'),
+            array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var1.tpl'),
+            array('foo', true, '{$bar=$foo}{if $bar}yes{else}no{/if}', 'yes', '', $i ++, 'testIfNoCache_Var2.tpl'),
+            array('foo', true, false, 'yes', '', $i ++, 'testIfNoCache_Var2.tpl'),
+            array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var2.tpl'),
+            array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var2.tpl'),
+            array('foo', 1, '{if $bar=$foo}yes{else}no{/if}{$bar}', 'yes1', '', $i ++, 'testIfNoCache_Var3.tpl'),
+            array('foo', 1, false, 'yes1', '', $i ++, 'testIfNoCache_Var3.tpl'),
+            array('foo', 0, false, 'no0', '', $i ++, 'testIfNoCache_Var3.tpl'),
+            array('foo', 0, false, 'no0', '', $i ++, 'testIfNoCache_Var3.tpl'),
+            array('bar', 4, '{if $bar2=$bar+3}yes{else}no{/if}{$bar2}', 'yes7', '', $i ++, 'testIfNoCache_Var4.tpl'),
+            array('bar', 4, false, 'yes7', '', $i ++, 'testIfNoCache_Var4.tpl'),
+            array('bar', 0, false, 'yes3', '', $i ++, 'testIfNoCache_Var4.tpl'),
+            array('bar', 0, false, 'yes3', '', $i ++, 'testIfNoCache_Var4.tpl'),
+        );
     }
 
     public function testIfGT2()

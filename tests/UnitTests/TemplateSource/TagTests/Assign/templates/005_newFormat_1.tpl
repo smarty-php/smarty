@@ -1,1 +1,0 @@
-{$foo='bar'|strlen}{$foo}

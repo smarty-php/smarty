@@ -1,1 +1,0 @@
-{include '001_scope_include.tpl'}

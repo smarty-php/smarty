@@ -10,7 +10,7 @@
  * class for config variable tests
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  */
 class CompileConfigLoadTest extends PHPUnit_Smarty
@@ -23,22 +23,28 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
+        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
+        $this->smarty->addTemplateDir("../../../__shared/templates/");
+        $this->smarty->addTemplateDir("./templates_tmp");
     }
 
     /**
-     * empty templat_c and cache folders
+     * empty template_c and cache folders
      */
     public function testInit()
     {
         $this->cleanDirs();
     }
 
-     /**
-      * test {load_config} loading section2
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     * test {load_config} loading section2
      */
-    public function testConfigVariableSection2Template()
+    public function testConfigVariableSection2Template_001()
     {
-        $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('eval:{config_load file=\'test.conf\' section=\'section2\'}{#title#} {#sec1#} {#sec2#}'));
+        $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('001_section2.tpl'));
     }
 
     /**
@@ -49,33 +55,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
      */
     public function testConfigVariableSection2TemplateShorttags()
     {
-        $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('eval:{config_load \'test.conf\' \'section2\'}{#title#} {#sec1#} {#sec2#}'));
-    }
-
-    /**
-     * test config varibales loading local
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testConfigVariableLocal()
-    {
-        $this->assertEquals("Welcome to Smarty!", $this->smarty->fetch('eval:{config_load file=\'test.conf\' scope=\'local\'}{#title#}'));
-        // global must be empty
-        $this->assertEquals("", $this->smarty->getConfigVars('title'));
-    }
-
-    /**
-     * test config varibales loading parent
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testConfigVariableParent()
-    {
-        $this->assertEquals("Welcome to Smarty!", $this->smarty->fetch('eval:{config_load file=\'test.conf\' scope=\'parent\'}{#title#}'));
-        // global is parent must not be empty
-        $this->assertEquals("Welcome to Smarty!", $this->smarty->getConfigVars('title'));
+        $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('002_section2.tpl'));
     }
 
     /**
@@ -154,5 +134,96 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     public function testConfigSyntaxError()
     {
         $this->smarty->fetch('eval:{config_load file=\'test_error.conf\'}');
+    }
+
+    /**
+     * Test scope
+     *
+     * @not                 runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestScope
+     */
+    public function testScope($code, $useSmarty, $result, $testName, $testNumber)
+    {
+        $file = "testScope_{$testNumber}.tpl";
+        $this->makeTemplateFile($file, $code . '{checkconfigvar var=foo}');
+        $this->smarty->assignGlobal('file', $file);
+        $this->smarty->configLoad('smarty.conf');
+        $data = $this->smarty->createData($useSmarty ? $this->smarty : null);
+        $data->configLoad('data.conf');
+        $this->assertEquals($this->strip('#' . $file . $result), $this->strip($this->smarty->fetch('scope_tag.tpl', $data)), "test - {$code} - {$testName}");
+    }
+
+    /*
+     * Data provider für testscope
+     */
+    public function dataTestScope()
+    {
+        $i = 1;
+        /*
+         * Code
+         * use Smarty object
+         * result
+         * test name
+         */
+        return array(
+            array(
+                '{config_load \'template.conf\'}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=local}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=local bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=parent}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=parent bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=tpl_root}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=tpl_root bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=root}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=root bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=root}', false,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'',
+                'no smarty', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=root bubble_up}', false,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'',
+                'no  smarty', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=smarty}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'newvar\'',
+                '', $i ++,
+            ), array(
+                '{config_load \'template.conf\' scope=smarty bubble_up}', false,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'newvar\'',
+                'no  smarty', $i ++,
+            ),
+        );
     }
 }

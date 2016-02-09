@@ -1,0 +1,1 @@
+{$foo = 'newvar'}{checkvar var=foo}

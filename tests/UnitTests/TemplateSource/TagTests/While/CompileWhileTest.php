@@ -9,7 +9,7 @@
 /**
  * class for {while} tag tests
  *
- * @runTestsInSeparateProcess
+ * @not runTestsInSeparateProcess
  * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
@@ -30,7 +30,7 @@ class CompileWhileTest extends PHPUnit_Smarty
      */
     public function testWhileCondition()
     {
-        $tpl = $this->smarty->createTemplate('eval:{$x=0}{while $x<10}{$x}{$x=$x+1}{/while}');
+        $tpl = $this->smarty->createTemplate('string:{$x=0}{while $x<10}{$x}{$x=$x+1}{/while}');
         $this->assertEquals("0123456789", $this->smarty->fetch($tpl));
     }
 
@@ -39,7 +39,7 @@ class CompileWhileTest extends PHPUnit_Smarty
      */
     public function testWhileStatement()
     {
-        $tpl = $this->smarty->createTemplate('eval:{$y=5}{while $y=$y-1}{$y}{/while}');
+        $tpl = $this->smarty->createTemplate('string:{$y=5}{while $y=$y-1}{$y}{/while}');
         $this->assertEquals("4321", $this->smarty->fetch($tpl));
     }
 }

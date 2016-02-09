@@ -25,18 +25,31 @@ class CompileFunctionTest extends PHPUnit_Smarty
     {
         $this->cleanDirs();
     }
-     /**
-      * @runInSeparateProcess
-      * @preserveGlobalState disabled
-      * @dataProvider functionProvider
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider functionProvider
      * test simple function call tag
-      *
+     *
      */
     public function testSimpleFunction_001($text)
     {
         $this->smarty->assign('param', 1);
         $this->smarty->assign('default', 2);
         $this->assertEquals("default param default 1 2 1", $this->smarty->fetch('test_template_function_001.tpl'), $text);
+    }
+    /**
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider functionProvider
+     * test simple function call tag
+     *
+     */
+    public function testSimpleFunctionAssign_001($text)
+    {
+        $this->smarty->assign('param', 1);
+        $this->smarty->assign('default', 2);
+        $this->assertEquals("default param default 1 2 1", $this->smarty->fetch('test_template_function_assign_001.tpl'), $text);
     }
 
     /**
@@ -69,7 +82,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
 
     /**
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProvider
      * test simple function call tag cached no cache default variable

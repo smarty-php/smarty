@@ -15,11 +15,13 @@
  */
 class CompileAssignTest extends PHPUnit_Smarty
 {
+
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
-        $this->smarty->addPluginsDir("./PHPunitplugins/");
-        $this->smarty->registerFilter('pre', array($this, 'prefilterTest'));
+        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
+        $this->smarty->addTemplateDir("../../../__shared/templates/");
+        $this->smarty->addTemplateDir("./templates_tmp");
     }
 
     public function testInit()
@@ -28,243 +30,225 @@ class CompileAssignTest extends PHPUnit_Smarty
     }
 
     /**
-     * test old style of assign tag
+     * Test assign tags
      *
-     * @runInSeparateProcess
+     * @not                 runInSeparateProcess
      * @preserveGlobalState disabled
+     * @dataProvider        dataTestAssign
      */
-    public function testAssignOld_001()
+    public function testAssign($code, $result, $testName, $testNumber)
     {
-        $this->assertEquals("1", $this->smarty->fetch('001_oldFormat_1.tpl'));
-        $this->assertEquals("bar", $this->smarty->fetch('004_oldFormat_1.tpl'));
-        $this->assertEquals("3", $this->smarty->fetch('005_oldFormat_1.tpl'));
-        $this->assertEquals("3", $this->smarty->fetch('006_oldFormat_1.tpl'));
-        $this->assertEquals("3", $this->smarty->fetch('007_oldFormat_1.tpl'));
-        $this->assertEquals("9876", $this->smarty->fetch('008_oldFormat_1.tpl'));
-        $this->assertEquals("a9b8c7d6", $this->smarty->fetch('009_oldFormat_1.tpl'));
-        $this->assertEquals("1", $this->smarty->fetch('010_oldFormat_1.tpl'));
-        $this->assertEquals("1", $this->smarty->fetch('011_oldFormat_1.tpl'));
+        $file = "testAssign_{$testNumber}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->assignGlobal('file', $file);
+        $this->smarty->assign('bar', 'buh');
+        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)), "testAssign - {$code} - {$testName}");
+    }
+
+    /*
+      * Data provider für testAssign
+      */
+    public function dataTestAssign()
+    {
+        $i = 1;
+        /*
+        * Code
+        * result
+        * test name
+        */
+        return array(// old format
+            array('{assign var=foo value=1}{$foo}', '1', '', $i ++),
+            array('{assign var=\'foo\' value=2}{$foo}', '2', '', $i ++),
+            array('{assign var="foo" value=3}{$foo}', '3', '', $i ++),
+            array('{assign var=foo value=$bar}{$foo}', 'buh', '', $i ++),
+            array('{assign var=$bar value=11}{$buh}', '11', '', $i ++),
+            array('{assign var=foo value=bar}{$foo}', 'bar', '', $i ++),
+            array('{assign var=foo value=1+2}{$foo}', '3', '', $i ++),
+            array('{assign var=foo value=strlen(\'barbuh\')}{$foo}', '6', '', $i ++),
+            array('{assign var=foo value=\'barr\'|strlen}{$foo}', '4', '', $i ++),
+            array('{assign var=foo value=[9,8,7,6]}{$foo|var_export:true}', 'array(0=>9,1=>8,2=>7,3=>6,)', '', $i ++),
+            array(
+                '{assign var=foo value=[\'a\'=>9,\'b\'=>8,\'c\'=>7,\'d\'=>6]}{$foo|var_export:true}',
+                'array(\'a\'=>9,\'b\'=>8,\'c\'=>7,\'d\'=>6,)', '', $i ++,
+            ), array('{assign foo  value=1}{$foo}', '1', '', $i ++), array('{assign foo 1}{$foo}', '1', '', $i ++),
+            // new format
+            array('{$foo=1}{$foo}', '1', '', $i ++), array('{$foo =2}{$foo}', '2', '', $i ++),
+            array('{$foo=bar}{$foo}', 'bar', '', $i ++), array('{$foo=1+2}{$foo}', '3', '', $i ++),
+            array('{$foo = 1+3}{$foo}', '4', '', $i ++), array('{$foo = 1 + 4}{$foo}', '5', '', $i ++),
+            array('{$foo=strlen(\'bar\')}{$foo}', '3', '', $i ++), array('{$foo=\'bar\'|strlen}{$foo}', '3', '', $i ++),
+            array('{$foo[\'a\'][4]=1}{$foo[\'a\'][4]}', '1', '', $i ++),
+            array('{$foo=[9,8,7,6]}{$foo|var_export:true}', 'array(0=>9,1=>8,2=>7,3=>6,)', '', $i ++), array(
+                '{$foo=[\'a\'=>9,\'b\'=>8,\'c\'=>7,\'d\'=>6]}{$foo|var_export:true}',
+                'array(\'a\'=>9,\'b\'=>8,\'c\'=>7,\'d\'=>6,)', '', $i ++,
+            ),
+        );
     }
 
     /**
-     * test new style of assign tag
+     * Test scope
      *
-     * @runInSeparateProcess
+     * @not                 runInSeparateProcess
      * @preserveGlobalState disabled
+     * @dataProvider        dataTestScope
      */
-    public function testAssignNew_001()
+    public function testScope($code, $useSmarty, $result, $testName, $testNumber)
     {
-        $this->assertEquals("1", $this->smarty->fetch('001_newFormat_1.tpl'));
-        $this->assertEquals("2", $this->smarty->fetch('001_newFormat_2.tpl'));
-        $this->assertEquals("3", $this->smarty->fetch('001_newFormat_3.tpl'));
-        $this->assertEquals("bar", $this->smarty->fetch('002_newFormat_1.tpl'));
-        $this->assertEquals("3", $this->smarty->fetch('003_newFormat_1.tpl'));
-        $this->assertEquals("4", $this->smarty->fetch('003_newFormat_2.tpl'));
-        $this->assertEquals("5", $this->smarty->fetch('003_newFormat_3.tpl'));
-        $this->assertEquals("3", $this->smarty->fetch('004_newFormat_1.tpl'));
-        $this->assertEquals("3", $this->smarty->fetch('005_newFormat_1.tpl'));
-        $this->assertEquals("9876", $this->smarty->fetch('006_newFormat_1.tpl'));
-        $this->assertEquals("a9b8c7d6", $this->smarty->fetch('007_newFormat_1.tpl'));
-    }
-
-    /**
-     * test array append
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAssignArrayAppend_001()
-    {
-        $this->assertEquals("0112", $this->smarty->fetch('001_newAppend_1.tpl'));
-    }
-
-    /**
-     * test array append 2
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAssignArrayAppend_002()
-    {
-        $this->smarty->assign('foo', 1);
-        $tpl = $this->smarty->createTemplate('002_newAppend_1.tpl', null, null, $this->smarty, false);
-        $this->assertEquals("0112", $this->smarty->fetch($tpl));
-        $tpl2 = $this->smarty->createTemplate('002_newAppend_2.tpl', null, null, $this->smarty, false);
-        $this->assertEquals("1", $this->smarty->fetch($tpl2));
-    }
-
-    /**
-     * test array append 3
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAssignArrayAppend_003()
-    {
-        $this->smarty->assign('foo', 1);
-        $tpl = $this->smarty->createTemplate('003_newAppend_1.tpl', null, null, $this->smarty, false);
-        $this->assertEquals("0112", $this->smarty->fetch($tpl));
-        $tpl2 = $this->smarty->createTemplate('003_newAppend_2.tpl', null, null, $this->smarty, false);
-        $this->assertEquals("0112", $this->smarty->fetch($tpl2));
-    }
-
-    /**
-     * test nested array
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAssignNestedArray_004()
-    {
-        $this->assertEquals("1", $this->smarty->fetch('004_newNested_1.tpl'));
-    }
-
-    /**
-     * test no scope
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAssignNone_001()
-    {
-        $this->smarty->assign('foo', 'smarty');
-        $this->smarty->assign('include', '001_scope_none_1.tpl');
-        $this->smarty->assignGlobal('foo', 'global');
-        $data = $this->smarty->createData($this->smarty);
-        $data->assign('foo', 'data');
-        $tpl = $this->smarty->createTemplate('001_scope_root.tpl', $data);
-        $this->assertContains("template 001_scope_none_1.tpl:var =none\ntemplate 001_scope_include.tpl:var =data\ntemplate 001_scope_root.tpl:var =data\ndata:var =data\nSmarty:var =smarty\nglobal:var =global\n",
-                              $tpl->fetch());
-        $this->smarty->assign('include', '001_scope_none_2.tpl');
-        $this->assertContains("template 001_scope_none_2.tpl:var =none\ntemplate 001_scope_include.tpl:var =data\ntemplate 001_scope_root.tpl:var =data\ndata:var =data\nSmarty:var =smarty\nglobal:var =global\n",
-                              $tpl->fetch());
-    }
-
-    /**
-     * test scope parent
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAssignParent_001()
-    {
-        $this->smarty->assign('foo', 'smarty');
-        $this->smarty->assign('include', '001_scope_parent_1.tpl');
-        $this->smarty->assignGlobal('foo', 'global');
-        $data = $this->smarty->createData($this->smarty);
-        $data->assign('foo', 'data');
-        $tpl = $this->smarty->createTemplate('001_scope_root.tpl', null, null, $data, false);
-        $this->assertContains("template 001_scope_parent_1.tpl:var =parent\ntemplate 001_scope_include.tpl:var =parent\ntemplate 001_scope_root.tpl:var =data\ndata:var =data\nSmarty:var =smarty\nglobal:var =global\n",
-                              $tpl->fetch());
-        $this->smarty->assign('include', '001_scope_parent_2.tpl');
-        $this->assertContains("template 001_scope_parent_2.tpl:var =parent\ntemplate 001_scope_include.tpl:var =parent\ntemplate 001_scope_root.tpl:var =data\ndata:var =data\nSmarty:var =smarty\nglobal:var =global\n",
-                              $tpl->fetch());
-    }
-
-    /**
-     * test scope tpl_root
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAssignTplRoot_001()
-    {
-        $this->smarty->assign('foo', 'smarty');
-        $this->smarty->assign('include', '001_scope_tpl_root_1.tpl');
-        $this->smarty->assignGlobal('foo', 'global');
-        $data = $this->smarty->createData($this->smarty);
-        $data->assign('foo', 'data');
-        $tpl = $this->smarty->createTemplate('001_scope_root.tpl', null, null, $data, false);
-        $this->assertContains("template 001_scope_tpl_root_1.tpl:var =tpl_root\ntemplate 001_scope_include.tpl:var =tpl_root\ntemplate 001_scope_root.tpl:var =tpl_root\ndata:var =data\nSmarty:var =smarty\nglobal:var =global\n",
-                              $tpl->fetch());
-        $this->smarty->assign('include', '001_scope_tpl_root_2.tpl');
-        $this->assertContains("template 001_scope_tpl_root_2.tpl:var =tpl_root\ntemplate 001_scope_include.tpl:var =tpl_root\ntemplate 001_scope_root.tpl:var =tpl_root\ndata:var =data\nSmarty:var =smarty\nglobal:var =global\n",
-                              $tpl->fetch());
-    }
-
-    /**
-     * test scope root
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAssignRoot_001()
-    {
-        $this->smarty->assign('foo', 'smarty');
-        $this->smarty->assign('include', '001_scope_root_1.tpl');
-        $this->smarty->assignGlobal('foo', 'global');
-        $data = $this->smarty->createData($this->smarty);
-        $data->assign('foo', 'data');
-        $tpl = $this->smarty->createTemplate('001_scope_root.tpl', null, null, $data, false);
-        $this->assertContains("template 001_scope_root_1.tpl:var =root\ntemplate 001_scope_include.tpl:var =root\ntemplate 001_scope_root.tpl:var =root\ndata:var =root\nSmarty:var =root\nglobal:var =global\n",
-                              $tpl->fetch());
-        $this->smarty->assign('include', '001_scope_root_2.tpl');
-        $this->smarty->assign('foo', 'smarty');
-        $data->assign('foo', 'data');
-        $this->assertContains("template 001_scope_root_2.tpl:var =root\ntemplate 001_scope_include.tpl:var =root\ntemplate 001_scope_root.tpl:var =root\ndata:var =root\nSmarty:var =root\nglobal:var =global\n",
-                              $tpl->fetch());
-    }
-
-    /**
-     * test scope root data object
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAssignRoot_002()
-    {
+        $file = "testScope_{$testNumber}.tpl";
+        $this->makeTemplateFile($file, $code . '{checkvar var=foo}');
+        $this->smarty->assignGlobal('file', $file);
         $this->smarty->assign('foo', 'smarty');
         $this->smarty->assignGlobal('foo', 'global');
-        $data = $this->smarty->createData();
+        $data = $this->smarty->createData($useSmarty ? $this->smarty : null);
         $data->assign('foo', 'data');
-        $data->assign('include', '001_scope_root_1.tpl');
-        $tpl = $this->smarty->createTemplate('001_scope_root.tpl', null, null, $data, false);
-        $this->assertContains("template 001_scope_root_1.tpl:var =root\ntemplate 001_scope_include.tpl:var =root\ntemplate 001_scope_root.tpl:var =root\ndata:var =root\nSmarty:var =smarty\nglobal:var =global\n",
-                              $tpl->fetch());
-        $this->smarty->assign('foo', 'smarty');
-        $data->assign('foo', 'data');
-        $data->assign('include', '001_scope_root_2.tpl');
-        $this->assertContains("template 001_scope_root_2.tpl:var =root\ntemplate 001_scope_include.tpl:var =root\ntemplate 001_scope_root.tpl:var =root\ndata:var =root\nSmarty:var =smarty\nglobal:var =global\n",
-                              $tpl->fetch());
+        $this->assertEquals($this->strip('#' . $file . $result), $this->strip($this->smarty->fetch('scope_tag.tpl', $data)), "test - {$code} - {$testName}");
+    }
+
+    /*
+     * Data provider für testscope
+     */
+    public function dataTestScope()
+    {
+        $i = 1;
+        /*
+         * Code
+         * use Smarty object
+         * result
+         * test name
+         */
+        return array(
+            array(
+                '{$foo = \'newvar\'}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{assign var=foo value=\'newvar\'}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=local}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=local bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{assign var=foo value=\'newvar\' bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{assign var=foo value=\'newvar\' scope=local}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{assign var=foo value=\'newvar\' scope=local bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=parent}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=parent bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{assign var=foo value=\'newvar\' scope=parent}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{assign var=foo value=\'newvar\'  scope=parent bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=tpl_root}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=tpl_root bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=global}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'newvar\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=global bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'newvar\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=root}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=root bubble_up}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=root}', false,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                'no smarty', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=root bubble_up}', false,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'',
+                'no  smarty', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=smarty}', true,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'data\'#scope_tag.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'newvar\'#global:$foo=\'global\'',
+                '', $i ++,
+            ), array(
+                '{$foo = \'newvar\' scope=smarty bubble_up}', false,
+                ':$foo=\'newvar\'#scope_include.tpl:$foo=\'newvar\'#scope_tag.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'newvar\'#global:$foo=\'global\'',
+                'no  smarty', $i ++,
+            ),
+        );
     }
 
     /**
-     * test scope global
+     * Test scope nocache
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @dataProvider        dataTestScopeNocache
      */
-    public function testAssignGlobal_001()
+    public function testScopeNocache($var, $file, $result)
     {
-        $this->smarty->assign('include', '001_scope_global_1.tpl');
+        $this->smarty->setCaching(true);
+        $this->smarty->assign('bar', $var, true);
+        $this->smarty->assign('buh', $var);
+        $this->smarty->assign('foo', 'smarty');
         $this->smarty->assignGlobal('foo', 'global');
-        $data = $this->smarty->createData($this->smarty);
-        $tpl = $this->smarty->createTemplate('001_scope_root.tpl', null, null, $data, false);
-        $this->assertContains("template 001_scope_global_1.tpl:var =new global\ntemplate 001_scope_include.tpl:var =new global\ntemplate 001_scope_root.tpl:var =new global\ndata:var =null\nSmarty:var =null\nglobal:var =new global\n",
-                              $tpl->fetch());
-        $this->smarty->assign('include', '001_scope_global_2.tpl');
-        $this->assertContains("template 001_scope_global_2.tpl:var =new global\ntemplate 001_scope_include.tpl:var =new global\ntemplate 001_scope_root.tpl:var =new global\ndata:var =null\nSmarty:var =null\nglobal:var =new global\n",
-                              $tpl->fetch());
+        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)), "test - {$file} {$var}");
     }
 
-    /**
-     * test scope global
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testAssignGlobal_002()
+    /*
+  * Data provider für testscopenocache
+  */
+    public function dataTestScopeNocache()
     {
-        $this->smarty->assign('foo', 'smarty');
-        $this->smarty->assign('include', '001_scope_global_1.tpl');
-        $this->smarty->assignGlobal('foo', 'global');
-        $data = $this->smarty->createData($this->smarty);
-        $tpl = $this->smarty->createTemplate('001_scope_root.tpl', null, null, $data, false);
-        $this->assertContains("template 001_scope_global_1.tpl:var =new global\ntemplate 001_scope_include.tpl:var =smarty\ntemplate 001_scope_root.tpl:var =smarty\ndata:var =null\nSmarty:var =smarty\nglobal:var =new global\n",
-                              $tpl->fetch());
-        $this->smarty->assign('include', '001_scope_global_2.tpl');
-        $this->smarty->assign('foo', 'smarty');
-        $this->assertContains("template 001_scope_global_2.tpl:var =new global\ntemplate 001_scope_include.tpl:var =smarty\ntemplate 001_scope_root.tpl:var =smarty\ndata:var =null\nSmarty:var =smarty\nglobal:var =new global\n",
-                              $tpl->fetch());
+        /*
+         * variable value
+         * result
+         */
+        return array(
+            array(
+                'b1', 'test_scope_assignbar.tpl',
+                '#test_scope_assignbar.tpl:$foo=\'b1\'#Smarty:$foo=\'smarty\'#global:$foo=\'b1\'',
+            ), array(
+                'b2', 'test_scope_assignbar.tpl',
+                '#test_scope_assignbar.tpl:$foo=\'b2\'#Smarty:$foo=\'smarty\'#global:$foo=\'b2\'',
+            ), array(
+                'b1', 'test_scope_assignnocache.tpl',
+                '#test_scope_assignnocache.tpl:$foo=\'b1\'#Smarty:$foo=\'smarty\'#global:$foo=\'b1\'',
+            ), array(
+                'b2', 'test_scope_assignnocache.tpl',
+                '#test_scope_assignnocache.tpl:$foo=\'b2\'#Smarty:$foo=\'smarty\'#global:$foo=\'b2\'',
+            ),
+        );
     }
+
 }

@@ -18,6 +18,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
+        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
+        $this->smarty->addTemplateDir("./templates_tmp");
     }
 
 
@@ -29,7 +31,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * test spacing
      *
-     * @rrunInSeparateProcess
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProviderCaching
      */
     public function testSpacing_001($merge, $caching, $text)
@@ -82,6 +85,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * test standard output
      *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProvider
      */
     public function testIncludeStandard_001($merge, $text)
@@ -95,6 +100,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * test standard output nocache var
      *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProvider
      */
     public function testIncludeStandardNocacheVar($merge, $text)
@@ -110,6 +117,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test that assign attribute does not create standard output
      *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProvider
      */
     public function testIncludeAssign1($merge, $text)
@@ -122,6 +131,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test that assign attribute does load variable
      *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProvider
      */
     public function testIncludeAssign2($merge, $text)
@@ -134,6 +145,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test passing local vars eval
      *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProvider
      */
     public function testIncludePassVars($merge, $text)
@@ -147,6 +160,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test passing local vars include
      *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProvider
      */
     public function testIncludePassVars2($merge, $text)
@@ -156,81 +171,70 @@ class CompileIncludeTest extends PHPUnit_Smarty
         $this->assertEquals("12", $this->smarty->fetch($tpl), $text);
     }
 
-    /**
-     * Test local scope
-     *
-     * @dataProvider includeProvider
-     */
-    public function testIncludeLocalScope($merge, $text)
-    {
-        //$this->smarty->caching = true;
-        $this->smarty->setMergeCompiledIncludes($merge);
-        $this->smarty->assign('foo', 1);
-        $tpl = $this->smarty->createTemplate('test_include_local_scope.tpl', null, null, $this->smarty);
-        $content = $this->smarty->fetch($tpl);
-        $this->assertContains('before include 1', $content, 'before include 1 ' . $text);
-        $this->assertContains('in include 2', $content . 'in include 2 ' . $text);
-        $this->assertContains('after include 1', $content, 'after include 1 ' . $text);
-    }
 
     /**
-     * Test  parent scope
+     * Test scope
      *
-     * @dataProvider includeProvider
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestScope
      */
-    public function testIncludeParentScope($merge, $text)
+    public function testScope($code, $useSmarty, $result, $testName, $testNumber = null)
     {
-        $this->smarty->setMergeCompiledIncludes($merge);
-        $this->smarty->assign('foo', 1);
-        $tpl = $this->smarty->createTemplate('test_include_parent_scope.tpl', null, null, $this->smarty, false);
-        $content = $this->smarty->fetch($tpl);
-        $content2 = $this->smarty->fetch('eval: root value {$foo}');
-        $this->assertContains('before include 1', $content, 'before include 1 ' . $text);
-        $this->assertContains('in include 2', $content . 'in include 2 ' . $text);
-        $this->assertContains('after include 2', $content, 'after include 2 ' . $text);
-        $this->assertContains('root value 1', $content2, 'root value 1 ' . $text);
+        if ($testNumber) {
+            $file = "testScope_{$testNumber}.tpl";
+            $this->makeTemplateFile($file, $code);
+            $this->smarty->assignGlobal('file', $file);
+        }
+        $this->smarty->assign('foo', 'smarty');
+        $this->smarty->assignGlobal('foo', 'global');
+        $data = $this->smarty->createData($useSmarty ? $this->smarty : null);
+        $data->assign('foo', 'data');
+        if (!$useSmarty) {
+            $testName .= 'no smarty';
+        }
+        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('test_scope.tpl', $data)),
+                            "test - {$code} - {$testName}");
     }
 
-    /**
-     * Test  root scope
-     *
-     * @dataProvider includeProvider
+    /*
+     * Data provider for testscope
      */
-    public function testIncludeRootScope($merge, $text)
+    public function dataTestScope()
     {
-        $this->smarty->setMergeCompiledIncludes($merge);
-        $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
-        $this->smarty->assign('foo', 1);
-        $tpl = $this->smarty->createTemplate('test_include_root_scope.tpl');
-        $content = $this->smarty->fetch($tpl);
-        $content2 = $this->smarty->fetch('eval: smarty value {$foo}');
-        $this->assertNotContains('before include 1', $content, 'before include 1 ' . $text);
-        $this->assertContains('in include 2', $content . 'in include 2 ' . $text);
-        $this->assertContains('after include 2', $content, 'after include 2 ' . $text);
-        $this->assertContains('smarty value 1', $content2, 'smarty value 1 ' . $text);
+        $i = 1;
+        return array(/*
+             * Code
+             * use Smarty object
+             * result
+             * test name
+             */
+                     array('{include \'test_scope_assign.tpl\'}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=parent}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=parent bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=tpl_root}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=tpl_root bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=root}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=root bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=root}', false, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=root bubble_up}', false, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=smarty}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'newvar\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=smarty bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'newvar\'#global:$foo=\'global\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=global}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'newvar\'', '', $i++),
+                     array('{include \'test_scope_assign.tpl\' scope=global bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'newvar\'', '', $i++),
+                     array('{include \'test_scope_pluginassign.tpl\' scope=global}', true, '#test_scope_pluginassign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'newvar\'', '', $i++),
+                     array('{include \'test_scope_pluginassign.tpl\' scope=global bubble_up}', true, '#test_scope_pluginassign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'newvar\'', '', $i++),
+        );
     }
 
-    /**
-     * Test  root scope
-     *
-     * @dataProvider includeProvider
-     */
-    public function testIncludeRootScope2($merge, $text)
-    {
-        $this->smarty->setMergeCompiledIncludes($merge);
-        $this->smarty->assign('foo', 1);
-        $tpl = $this->smarty->createTemplate('test_include_root_scope.tpl', null, null, $this->smarty);
-        $content = $this->smarty->fetch($tpl);
-        $content2 = $this->smarty->fetch('eval: smarty value {$foo}');
-        $this->assertContains('before include 1', $content, 'before include 1 ' . $text);
-        $this->assertContains('in include 2', $content . 'in include 2 ' . $text);
-        $this->assertContains('after include 2', $content, 'after include 1 ' . $text);
-        $this->assertContains('smarty value 2', $content2, 'smarty value 2 ' . $text);
-    }
+
 
     /**
      * Test  recursive includes
      *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProvider
      */
     public function testRecursiveIncludes1($merge, $text)
@@ -245,6 +249,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test  recursive includes 2
      *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @dataProvider includeProvider
      */
     public function testRecursiveIncludes2($merge, $text)

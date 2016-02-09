@@ -1,1 +1,0 @@
-{assign var=foo value='bar'|strlen}{$foo}
