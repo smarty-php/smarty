@@ -290,6 +290,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $_cache = array();
 
     /**
+     * counter for prefix variable number
+     *
+     * @var int
+     */
+    public static $prefixVariableNumber = 0;
+
+    /**
      * method to compile a Smarty template
      *
      * @param mixed $_content template source
@@ -1250,4 +1257,34 @@ abstract class Smarty_Internal_TemplateCompilerBase
         return false;
     }
 
+    /**
+     * Get new prefix variable name
+     *
+     * @return string
+     */
+    public function getNewPrefixVariable()
+    {
+        self::$prefixVariableNumber ++;
+        return $this->getPrefixVariable();
+    }
+
+    /**
+     * Get current prefix variable name
+     *
+     * @return string
+     */
+    public function getPrefixVariable()
+    {
+        return '$_prefixVariable' . self::$prefixVariableNumber;
+    }
+
+    /**
+     * append  code to prefix buffer
+     *
+     * @param string $code
+     */
+    public function appendPrefixCode($code)
+    {
+        $this->prefix_code[] = $code;
+    }
 }

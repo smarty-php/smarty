@@ -40,13 +40,6 @@ class Smarty_Internal_Templateparser
     public $retvalue = 0;
 
     /**
-     * counter for prefix code
-     *
-     * @var int
-     */
-    public static $prefix_number = 0;
-
-    /**
      * @var
      */
     public $yymajor;
@@ -811,21 +804,21 @@ value(res)       ::= doublequoted_with_quotes(s). {
 
 
 value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
-    self::$prefix_number++;
+    $prefixVar = $this->compiler->getNewPrefixVariable();
     if (vi['var'] == '\'smarty\'') {
-        $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.' = '. $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).';?>';
+        $this->compiler->appendPrefixCode("<?php $prefixVar" .' = '. $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).';?>');
      } else {
-        $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.' = '. $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].';?>';
+        $this->compiler->appendPrefixCode("<?php $prefixVar" .' = '. $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].';?>');
     }
-    res = '$_tmp'.self::$prefix_number.'::'.r[0].r[1];
+    res = $prefixVar .'::'.r[0].r[1];
 }
 
                   // Smarty tag
 value(res)       ::= smartytag(st). {
-   self::$prefix_number++;
+    $prefixVar = $this->compiler->getNewPrefixVariable();
     $tmp = $this->compiler->appendCode('<?php ob_start();?>', st);
-    $this->compiler->prefix_code[] = $this->compiler->appendCode($tmp, '<?php $_tmp'.self::$prefix_number.'=ob_get_clean();?>');
-    res = '$_tmp'.self::$prefix_number;
+    $this->compiler->appendPrefixCode($this->compiler->appendCode($tmp, "<?php $prefixVar" .'=ob_get_clean();?>'));
+    res = $prefixVar;
 }
 
 value(res)       ::= value(v) modifierlist(l). {
@@ -1099,9 +1092,9 @@ function(res)     ::= ns1(f) OPENP params(p) CLOSEP. {
                 }
                 $par = implode(',',p);
                 if (strncasecmp($par,'$_smarty_tpl->smarty->ext->_config->_getConfigVariable',strlen('$_smarty_tpl->smarty->ext->_config->_getConfigVariable')) === 0) {
-                    self::$prefix_number++;
-                    $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.'='.str_replace(')',', false)',$par).';?>';
-                    $isset_par = '$_tmp'.self::$prefix_number;
+                    $prefixVar = $this->compiler->getNewPrefixVariable();
+                    $this->compiler->appendPrefixCode("<?php $prefixVar" .'='.str_replace(')',', false)',$par).';?>');
+                    $isset_par = $prefixVar;
                 } else {
                     $isset_par=str_replace("')->value","',null,true,false)->value",$par);
                 }
@@ -1139,9 +1132,9 @@ method(res)     ::= DOLLARID(f) OPENP params(p) CLOSEP.  {
     if ($this->security) {
         $this->compiler->trigger_template_error (self::Err2);
     }
-    self::$prefix_number++;
-    $this->compiler->prefix_code[] = '<?php $_tmp'.self::$prefix_number.'='.$this->compiler->compileVariable('\''.substr(f,1).'\'').';?>';
-    res = '$_tmp'.self::$prefix_number.'('. implode(',',p) .')';
+    $prefixVar = $this->compiler->getNewPrefixVariable();
+    $this->compiler->appendPrefixCode("<?php $prefixVar" .'='.$this->compiler->compileVariable('\''.substr(f,1).'\'').';?>');
+    res = $prefixVar .'('. implode(',',p) .')';
 }
 
 // function/method parameter
