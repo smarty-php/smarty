@@ -31,7 +31,7 @@ class CompileIfTest extends PHPUnit_Smarty
     /**
      * Test if tags
      *
-     * @not runInSeparateProcess
+     * @not                 runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        dataTestIf
      */
@@ -57,26 +57,31 @@ class CompileIfTest extends PHPUnit_Smarty
                     * test name
                     */
         return array(array('{if 0<1}yes{/if}', 'yes', '', $i ++),
-            array('{if false}false{elseif 0<1}yes{/if}', 'yes', '', $i ++),
-            array('{if 2<1}yes{else}no{/if}', 'no', '', $i ++),
-            array('{if 2<1}yes{elseif 4<5}yes1{else}no{/if}', 'yes1', '', $i ++),
-            array('{if 2<1}yes{elseif 6<5}yes1{else}no{/if}', 'no', '', $i ++),
-            array('{if true}yes{else}no{/if}', 'yes', '', $i ++), array('{if false}yes{else}no{/if}', 'no', '', $i ++),
-            array('{if !(1<2)}yes{else}no{/if}', 'no', '', $i ++),
-            array('{if not (true)}yes{else}no{/if}', 'no', '', $i ++),
-            array('{if 1 == 1}yes{else}no{/if}', 'yes', '', $i ++),
-            array('{if 1 EQ 1}yes{else}no{/if}', 'yes', '', $i ++),
-            array('{if 1 eq 1}yes{else}no{/if}', 'yes', '', $i ++),
-            array('{$foo=true}{if $foo===true}yes{else}no{/if}', 'yes', '', $i ++),
-            array('{$foo=true}{if $foo!==true}yes{else}no{/if}', 'no', '', $i ++),
-            array('{if 1 > 0}yes{else}no{/if}', 'yes', '', $i ++),
-            array('{if $x=1}yes{else}no{/if}{$x}', 'yes1', '', $i ++),
-            array('{$x=0}{if $x++}yes{else}no{/if} {$x}', 'no1', '', $i ++),
-            array('{$x=[1,2]}{if $x[] = 7}{$x|var_export:true}{else}no{/if}', 'array(0=>1,1=>2,2=>7,)', '', $i ++),
-            array('{$x=[1,2]}{if $x[][\'a\'] = 7}{$x|var_export:true}{else}no{/if}',
-                'array(0=>1,1=>2,2=>array(\'a\'=>7,),)', '', $i ++
-            ),
-        );
+                     array('{if false}false{elseif 0<1}yes{/if}', 'yes', '', $i ++),
+                     array('{if 2<1}yes{else}no{/if}', 'no', '', $i ++),
+                     array('{if 2<1}yes{elseif 4<5}yes1{else}no{/if}', 'yes1', '', $i ++),
+                     array('{if 2<1}yes{elseif 6<5}yes1{else}no{/if}', 'no', '', $i ++),
+                     array('{if true}yes{else}no{/if}', 'yes', '', $i ++),
+                     array('{if false}yes{else}no{/if}', 'no', '', $i ++),
+                     array('{if !(1<2)}yes{else}no{/if}', 'no', '', $i ++),
+                     array('{if not (true)}yes{else}no{/if}', 'no', '', $i ++),
+                     array('{if 1 == 1}yes{else}no{/if}', 'yes', '', $i ++),
+                     array('{if 1 EQ 1}yes{else}no{/if}', 'yes', '', $i ++),
+                     array('{if 1 eq 1}yes{else}no{/if}', 'yes', '', $i ++),
+                     array('{$foo=true}{if $foo===true}yes{else}no{/if}', 'yes', '', $i ++),
+                     array('{$foo=true}{if $foo!==true}yes{else}no{/if}', 'no', '', $i ++),
+                     array('{if 1 > 0}yes{else}no{/if}', 'yes', '', $i ++),
+                     array('{if $x=1}yes{else}no{/if}{$x}', 'yes1', '', $i ++),
+                     array('{$x=0}{if $x++}yes{else}no{/if} {$x}', 'no1', '', $i ++),
+                     array('{$x=[1,2]}{if $x[] = 7}{$x|var_export:true}{else}no{/if}', 'array(0=>1,1=>2,2=>7,)', '',
+                           $i ++), array('{$x=[1,2]}{if $x[][\'a\'] = 7}{$x|var_export:true}{else}no{/if}',
+                                         'array(0=>1,1=>2,2=>array(\'a\'=>7,),)', '', $i ++),
+                     array('{$foo=\'foo\'}{$bar=\'bar\'}{if $bar = "new_{$foo|default:\'\'}"}yes-{else}no{/if}{$bar}',
+                           'yes-new_foo', '', $i ++),
+                     array('{$foo=\'foo\'}{$bar=\'bar\'}{if false}false{elseif $bar = "new_{$foo|default:\'\'}"}yes-{else}no{/if}{$bar}',
+                           'yes-new_foo', '', $i ++),
+                     array('{$foo=\'foo\'}{$bar=\'bar\'}{if false}false{elseif $bar[3] = "new_{$foo|default:\'\'}"}yes-{else}no{/if}{$bar[0]}-{$bar[3]}',
+                           'yes-bar-new_foo', '', $i ++),);
     }
 
     /**
@@ -116,22 +121,24 @@ class CompileIfTest extends PHPUnit_Smarty
                     * test name
                     */
         return array(array('foo', true, '{if $foo}yes{else}no{/if}', 'yes', '', $i ++, 'testIfNoCache_Var1.tpl'),
-            array('foo', true, false, 'yes', '', $i ++, 'testIfNoCache_Var1.tpl'),
-            array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var1.tpl'),
-            array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var1.tpl'),
-            array('foo', true, '{$bar=$foo}{if $bar}yes{else}no{/if}', 'yes', '', $i ++, 'testIfNoCache_Var2.tpl'),
-            array('foo', true, false, 'yes', '', $i ++, 'testIfNoCache_Var2.tpl'),
-            array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var2.tpl'),
-            array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var2.tpl'),
-            array('foo', 1, '{if $bar=$foo}yes{else}no{/if}{$bar}', 'yes1', '', $i ++, 'testIfNoCache_Var3.tpl'),
-            array('foo', 1, false, 'yes1', '', $i ++, 'testIfNoCache_Var3.tpl'),
-            array('foo', 0, false, 'no0', '', $i ++, 'testIfNoCache_Var3.tpl'),
-            array('foo', 0, false, 'no0', '', $i ++, 'testIfNoCache_Var3.tpl'),
-            array('bar', 4, '{if $bar2=$bar+3}yes{else}no{/if}{$bar2}', 'yes7', '', $i ++, 'testIfNoCache_Var4.tpl'),
-            array('bar', 4, false, 'yes7', '', $i ++, 'testIfNoCache_Var4.tpl'),
-            array('bar', 0, false, 'yes3', '', $i ++, 'testIfNoCache_Var4.tpl'),
-            array('bar', 0, false, 'yes3', '', $i ++, 'testIfNoCache_Var4.tpl'),
-        );
+                     array('foo', true, false, 'yes', '', $i ++, 'testIfNoCache_Var1.tpl'),
+                     array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var1.tpl'),
+                     array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var1.tpl'),
+                     array('foo', true, '{$bar=$foo}{if $bar}yes{else}no{/if}', 'yes', '', $i ++,
+                           'testIfNoCache_Var2.tpl'),
+                     array('foo', true, false, 'yes', '', $i ++, 'testIfNoCache_Var2.tpl'),
+                     array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var2.tpl'),
+                     array('foo', false, false, 'no', '', $i ++, 'testIfNoCache_Var2.tpl'),
+                     array('foo', 1, '{if $bar=$foo}yes{else}no{/if}{$bar}', 'yes1', '', $i ++,
+                           'testIfNoCache_Var3.tpl'),
+                     array('foo', 1, false, 'yes1', '', $i ++, 'testIfNoCache_Var3.tpl'),
+                     array('foo', 0, false, 'no0', '', $i ++, 'testIfNoCache_Var3.tpl'),
+                     array('foo', 0, false, 'no0', '', $i ++, 'testIfNoCache_Var3.tpl'),
+                     array('bar', 4, '{if $bar2=$bar+3}yes{else}no{/if}{$bar2}', 'yes7', '', $i ++,
+                           'testIfNoCache_Var4.tpl'),
+                     array('bar', 4, false, 'yes7', '', $i ++, 'testIfNoCache_Var4.tpl'),
+                     array('bar', 0, false, 'yes3', '', $i ++, 'testIfNoCache_Var4.tpl'),
+                     array('bar', 0, false, 'yes3', '', $i ++, 'testIfNoCache_Var4.tpl'),);
     }
 
     public function testIfGT2()
