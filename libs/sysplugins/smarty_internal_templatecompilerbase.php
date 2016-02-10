@@ -832,13 +832,12 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             $_store ++;
                         }
                     }
+                    $space = $this->has_output && !preg_match('/^\s/', $text) ? ' ' : '';
                 } else {
                     $text = preg_replace($this->stripRegEx, '', $text);
                 }
-                $space = $this->has_output && !preg_match('/^\s/', $text) ? ' ' : '';
-                $this->has_output = false;
-
             }
+            $this->has_output = false;
             return new Smarty_Internal_ParseTree_Text($space . $text);
         }
         return null;
