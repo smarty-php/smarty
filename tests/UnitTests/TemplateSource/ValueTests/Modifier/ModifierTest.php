@@ -116,6 +116,8 @@ class ModifierTest extends PHPUnit_Smarty
 
     /**
      * test modifier at plugin result
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testModifierAtPluginResult()
     {

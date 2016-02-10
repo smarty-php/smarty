@@ -60,6 +60,9 @@ class CompileStripTest extends PHPUnit_Smarty
 
     /**
      * test strip tag output tag
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testStripOutputTag()
     {
@@ -68,6 +71,9 @@ class CompileStripTest extends PHPUnit_Smarty
 
     /**
      * test strip tag no output tag
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testStripNoOutputTag()
     {
