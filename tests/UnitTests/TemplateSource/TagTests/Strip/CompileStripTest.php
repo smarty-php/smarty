@@ -18,6 +18,8 @@ class CompileStripTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
+        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
+        $this->smarty->addTemplateDir("./templates_tmp");
     }
 
 
@@ -25,58 +27,45 @@ class CompileStripTest extends PHPUnit_Smarty
     {
         $this->cleanDirs();
     }
-    /**
-     * test strip tag
-     */
-    public function testStripTag()
-    {
-        $this->assertContains('foobar  buh', $this->smarty->fetch('strip.tpl'));
-    }
-    /**
-     * test strip tag multi line html
-     */
-    public function testStripMultiLineHtmlTag()
-    {
-        $this->assertContains('<div style="float: right; cursor: url;">[<a onmouseover="this.style.cursor=\'pointer\'" onmouseup="document.getElementById(\'screenEdit_($screen.id)\').style.display=\'none\'";>X</a>]</div>foobar', $this->smarty->fetch('strip_multi_line_html_tag.tpl'));
-    }
-    /**
-     * test strip tag multi line html
-     */
-    public function testStripHtmlTag()
-    {
-        $this->assertContains('<ul><li><a href="#">BlaBla</a></li><li><a href="#">BlaBla</a></li></ul>', $this->smarty->fetch('strip_html_tag.tpl'));
-    }
-    /**
-     * test strip tag multi line html
-     */
-    public function testStripMultiLineTextareaHtmlTag()
-    {
-        $this->assertContains(preg_replace('/[\r]/', '', '<textarea>
-
-                some text
-
-            </textarea>   foobar'), $this->smarty->fetch('strip_multi_line_textarea_html_tag.tpl'));
-    }
 
     /**
-     * test strip tag output tag
+     * Test {strip} tags
      *
-     * @runInSeparateProcess
+     * @not runInSeparateProcess
      * @preserveGlobalState disabled
+     * @dataProvider        dataTestStrip
      */
-    public function testStripOutputTag()
+    public function testStrip($code, $result, $testName, $testNumber)
     {
-        $this->assertEquals('<h1>1 <em>italic</em></h1>', $this->smarty->fetch('strip_with_output_tag.tpl'));
+        $file = "testStrip_{$testNumber}.tpl";
+        $this->makeTemplateFile($file, "{strip}\n" . $code);
+        $this->smarty->assignGlobal('file', $file);
+        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)), "testStrip - {$code} - {$testName}");
     }
 
-    /**
-     * test strip tag no output tag
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
-    public function testStripNoOutputTag()
+    /*
+      * Data provider für testStrip
+      */
+    public function dataTestStrip()
     {
-        $this->assertEquals('<h1><em>italic</em></h1>', $this->smarty->fetch('strip_with_no_output_tag.tpl'));
+        $i = 0;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    */
+        return array(
+                     array("    foo\n    bar  buh\n\n", 'foobar  buh', '', $i ++),
+                     array("\n   <div style=\"float: right; cursor: url;\">[<a\n    onmouseover=\"this.style.cursor='pointer'\"\n    onmouseup=\"document.getElementById('screenEdit_(\$screen.id)').style.display='none'\";>X</a>]</div>\n\n\n   foo\n    bar\n", '<div style="float: right; cursor: url;">[<a onmouseover="this.style.cursor=\'pointer\'" onmouseup="document.getElementById(\'screenEdit_($screen.id)\').style.display=\'none\'";>X</a>]</div>foobar', '', $i ++),
+                     array("\n    <ul>\n        <li>\n            <a href=\"#\">BlaBla</a>\n        </li>\n        <li>\n            <a href=\"#\">BlaBla</a>\n        </li>\n    </ul>\n", '<ul><li><a href="#">BlaBla</a></li><li><a href="#">BlaBla</a></li></ul>', '', $i ++),
+                     array("\n            <textarea>\n\n                some text\n\n            </textarea>   foo\n    bar\n", "<textarea>\n\n                some text\n\n            </textarea>   foobar", '', $i ++),
+                     // variable in html tag
+                     array("{\$foo=1}\n    <h1>{getvar var=foo} <em>italic</em></h1>\n", '<h1>1 <em>italic</em></h1>', '', $i ++),
+                     array("{\$foo=1}\n    <h1>{getvar var=foo assign=newvar} <em>italic</em></h1>\n", '<h1><em>italic</em></h1>', '', $i ++),
+                     array("{\$text=\"Text\"}\n<span>#</span>{\$text}<span>#</span>\n", '<span>#</span>Text<span>#</span>', '', $i ++),
+                     array("{\$text=\"Text\"}\n<span>#</span> {'Text'}\n", '<span>#</span> Text', '', $i ++),
+
+        );
     }
+
 }
