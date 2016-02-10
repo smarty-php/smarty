@@ -794,8 +794,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if ((string) $text != '') {
             $store = array();
             $_store = 0;
-            $_offset = 0;
+            $space = '';
             if ($this->parser->strip) {
+                $space = $this->has_output && preg_match('/^\040|\011/', $text) ? ' ' : '';
+                $this->has_output = false;
+
                 if (strpos($text, '<') !== false) {
                     // capture html elements not to be messed with
                     $_offset = 0;
@@ -836,7 +839,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     $text = preg_replace($this->stripRegEx, '', $text);
                 }
             }
-            return new Smarty_Internal_ParseTree_Text($text);
+            return new Smarty_Internal_ParseTree_Text($space . $text);
         }
         return null;
     }

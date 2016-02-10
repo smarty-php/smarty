@@ -77,8 +77,8 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             }
             // closing tag of block plugin, restore nocache
             list($_params, $compiler->nocache, $callback) = $this->closeTag($compiler, substr($tag, 0, - 5));
-            // This tag does create output
-            $compiler->has_output = true;
+            //Does tag create output
+            $compiler->has_output = isset($_params[ 'assign' ]) ? false : true;
             // compile code
             if (!isset($parameter[ 'modifier_list' ])) {
                 $mod_pre = $mod_post = $mod_content = '';

@@ -54,6 +54,9 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
+        //Does tag create output
+        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
+
         $nocacheParam = $compiler->template->caching && ($compiler->tag_nocache || $compiler->nocache);
         if (!$nocacheParam) {
             // do not compile as nocache code
@@ -140,7 +143,6 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
                 $_output .= "\$_smarty_tpl->assign({$_assign} , {$_function} ({$_params},\$_smarty_tpl), true);?>";
             }
         } else {
-            $compiler->has_output = true;
             if ($_smarty_tpl->caching && !$nocacheParam) {
                 $_output .= "echo Smarty_Internal_Nocache_Insert::compile ('{$_function}',{$_params}, \$_smarty_tpl, '{$_filepath}');?>";
             } else {

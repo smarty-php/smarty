@@ -45,11 +45,11 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag, $function)
     {
-        // This tag does create output
-        $compiler->has_output = true;
-
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
+        //Does tag create output
+        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
+
         if ($_attr[ 'nocache' ] === true) {
             $compiler->tag_nocache = true;
         }

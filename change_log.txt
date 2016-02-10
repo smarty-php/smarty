@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 10.02.2016
+  - bugfix {strip} must keep space on output creating smarty tags within html tags https://github.com/smarty-php/smarty/issues/177
+   
  09.02.2016
   - move some code from parser into compiler
   - reformat all code for unique style

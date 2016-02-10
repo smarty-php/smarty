@@ -39,6 +39,9 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
+        //Does tag create output
+        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
+
         if ($_attr[ 'nocache' ] === true) {
             $compiler->tag_nocache = true;
         }
@@ -72,8 +75,6 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
         }
 
         if (empty($_assign)) {
-            // This tag does create output
-            $compiler->has_output = true;
             $output = "<?php echo {$return};?>\n";
         } else {
             $output = "<?php \$_smarty_tpl->assign({$_assign},{$return});?>\n";
