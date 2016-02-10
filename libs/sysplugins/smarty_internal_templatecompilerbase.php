@@ -794,7 +794,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if ((string) $text != '') {
             $store = array();
             $_store = 0;
-            $space = '';
             if ($this->parser->strip) {
                 if (strpos($text, '<') !== false) {
                     // capture html elements not to be messed with
@@ -817,7 +816,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                          '#(:SMARTY@!@|>)\s+(?=@!@SMARTY:|<)#s' => '\1\2',
                                          // remove spaces between attributes (but not in attribute values!)
                                          '#(([a-z0-9]\s*=\s*("[^"]*?")|(\'[^\']*?\'))|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \5',
-                                         '#^\s+<#Ss' => '<', '#>\s+$#Ss' => '>', $this->stripRegEx => '',);
+                                         '#^\s+<#Ss' => $this->has_output ? ' <' : '<', '#>[\040\011]+$#Ss' => '> ', '#>[\040\011]*[\n]\s*$#Ss' => '>', $this->stripRegEx => '',);
 
                     $text = preg_replace(array_keys($expressions), array_values($expressions), $text);
                     $_offset = 0;
@@ -832,13 +831,12 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             $_store ++;
                         }
                     }
-                    $space = $this->has_output && !preg_match('/^\s/', $text) ? ' ' : '';
                 } else {
                     $text = preg_replace($this->stripRegEx, '', $text);
                 }
             }
             $this->has_output = false;
-            return new Smarty_Internal_ParseTree_Text($space . $text);
+            return new Smarty_Internal_ParseTree_Text($text);
         }
         return null;
     }
