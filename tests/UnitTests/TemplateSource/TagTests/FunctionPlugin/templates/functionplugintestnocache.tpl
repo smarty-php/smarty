@@ -1,1 +1,1 @@
-{counter nocache}
+{getvar var=foo nocache}

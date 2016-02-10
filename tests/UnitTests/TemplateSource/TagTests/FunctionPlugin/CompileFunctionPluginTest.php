@@ -18,6 +18,7 @@ class CompileFunctionPluginTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
+        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
     }
 
     public function testInit()
@@ -30,10 +31,11 @@ class CompileFunctionPluginTest extends PHPUnit_Smarty
      */
     public function testFunctionPluginFromTemplateFileNocache1()
     {
+        $this->smarty->assign('foo',5);
         $this->smarty->setCaching(true);
         $tpl = $this->smarty->createTemplate('functionplugintestnocache.tpl', $this->smarty);
-        $this->assertEquals("2", $this->smarty->fetch($tpl));
-        $this->assertContains("%%*/<?php \$_smarty = \$_smarty_tpl->smarty; if (!is_callable(\\'smarty_function_counter\\'))", file_get_contents($tpl->compiled->filepath));
+        $this->assertEquals("5", $this->smarty->fetch($tpl));
+        $this->assertContains("%%*/<?php \$_smarty = \$_smarty_tpl->smarty; if (!is_callable(\\'smarty_function_getvar\\'))", file_get_contents($tpl->compiled->filepath));
     }
 
     /**
