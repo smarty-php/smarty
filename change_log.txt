@@ -2,6 +2,7 @@
  10.02.2016
   - bugfix {strip} must keep space on output creating smarty tags within html tags https://github.com/smarty-php/smarty/issues/177
   - bugfix wrong precedence on special if conditions like '$foo is ... by $bar' could cause wrong code https://github.com/smarty-php/smarty/issues/178
+  - improvement because of ambiguities the inline constant support has been removed from the $foo.bar syntax https://github.com/smarty-php/smarty/issues/149
    
  09.02.2016
   - move some code from parser into compiler

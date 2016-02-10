@@ -942,14 +942,7 @@ indexdef(res)    ::= DOT varvar(v) AT ID(p). {
 }
 
 indexdef(res)   ::= DOT ID(i). {
-    if (defined(i)) {
-            if ($this->security) {
-                $this->security->isTrustedConstant(i, $this->compiler);
-            }
-            res = '['. i .']';
-        } else {
-            res = "['". i ."']";
-        }
+    res = "['". i ."']";
 }
 
 indexdef(res)   ::= DOT INTEGER(n). {
