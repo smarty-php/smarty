@@ -32,6 +32,10 @@ Any code outside root {block} tags in child templates is now executed but any ou
    {/block}
 
 
+Starting with 3.1.28 you can mix inheritance by extends resuorce with the {extends} tag.
+A template called by extends resoure can extend a subtemple or chain buy the {extends} tag.
+
+NOTE There is a BC break. If you used the extends resource {extends} tags have been ignored.
 
 THE FOLLOWING RESTRICTIONS ARE NO LONGER EXISTING:
 In Smarty 3.1 template inheritance is a compile time process. All the extending of {block} tags
