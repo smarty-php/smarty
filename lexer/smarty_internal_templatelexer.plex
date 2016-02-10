@@ -306,7 +306,8 @@ class Smarty_Internal_Templatelexer
      literal = ~literal~
      strip = ~strip~
      lop = ~\s*(([!=][=]{1,2})|([<][=>]?)|([>][=]?)|[&|]{2})\s*~
-     tlop = ~\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor|(is\s+(not\s+)?(odd|even|div)\s+by))\s+~
+     slop = ~\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor)\s+~
+     tlop = ~\s+(is\s+(not\s+)?(odd|even|div)\s+by)\s+~
      scond = ~\s+is\s+(not\s+)?(odd|even)~
      isin = ~\s+is\s+in\s+~
      as = ~\s+as\s+~
@@ -478,6 +479,9 @@ class Smarty_Internal_Templatelexer
      }
      lop {
        $this->token = Smarty_Internal_Templateparser::TP_LOGOP;
+     }
+     slop {
+       $this->token = Smarty_Internal_Templateparser::TP_SLOGOP;
      }
      tlop {
        $this->token = Smarty_Internal_Templateparser::TP_TLOGOP;

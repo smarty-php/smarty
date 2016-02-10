@@ -690,10 +690,15 @@ expr(res)        ::= expr(e) modifierlist(l). {
 }
 
 // if expression
+                    // special conditions
+expr(res)        ::= expr(e1) tlop(c) value(e2). {
+    res = c['pre']. e1.c['op'].e2 .')';
+}
                     // simple expression
 expr(res)        ::= expr(e1) lop(c) expr(e2). {
-    res = (isset(c['pre']) ? c['pre'] : '') . e1.c['op'].e2 . (isset(c['pre']) ? ')' : '');
+    res = e1.c.e2;
 }
+
 expr(res)        ::= expr(e1) scond(c). {
     res = c . e1 . ')';
 }
@@ -1222,34 +1227,40 @@ static_class_access(res)       ::= DOLLARID(v) arrayindex(a) objectchain(oc). {
 
 // if conditions and operators
 lop(res)        ::= LOGOP(o). {
-    res['op'] = ' '. trim(o) . ' ';
+    res = ' '. trim(o) . ' ';
 }
 
-lop(res)        ::= TLOGOP(o). {
+lop(res)        ::= SLOGOP(o). {
     static $lops = array(
-        'eq' => array('op' => ' == ', 'pre' => null),
-        'ne' => array('op' => ' != ', 'pre' => null),
-        'neq' => array('op' => ' != ', 'pre' => null),
-        'gt' => array('op' => ' > ', 'pre' => null),
-        'ge' => array('op' => ' >= ', 'pre' => null),
-        'gte' => array('op' => ' >= ', 'pre' => null),
-        'lt' => array('op' => ' < ', 'pre' => null),
-        'le' => array('op' => ' <= ', 'pre' => null),
-        'lte' => array('op' => ' <= ', 'pre' => null),
-        'mod' => array('op' => ' % ', 'pre' => null),
-        'and' => array('op' => ' && ', 'pre' => null),
-        'or' => array('op' => ' || ', 'pre' => null),
-        'xor' => array('op' => ' xor ', 'pre' => null),
-        'isdivby' => array('op' => ' % ', 'pre' => '!('),
-        'isnotdivby' => array('op' => ' % ', 'pre' => '('),
-        'isevenby' => array('op' => ' / ', 'pre' => '!(1 & '),
-        'isnotevenby' => array('op' => ' / ', 'pre' => '(1 & '),
-        'isoddby' => array('op' => ' / ', 'pre' => '(1 & '),
-        'isnotoddby' => array('op' => ' / ', 'pre' => '!(1 & '),
-        );
+        'eq' => ' == ',
+        'ne' => ' != ',
+        'neq' => ' != ',
+        'gt' => ' > ',
+        'ge' => ' >= ',
+        'gte' => ' >= ',
+        'lt' =>  ' < ',
+        'le' =>  ' <= ',
+        'lte' => ' <= ',
+        'mod' =>  ' % ',
+        'and' => ' && ',
+        'or' => ' || ',
+        'xor' => ' xor ',
+         );
     $op = strtolower(preg_replace('/\s*/', '', o));
     res = $lops[$op];
 }
+tlop(res)        ::= TLOGOP(o). {
+     static $tlops = array(
+         'isdivby' => array('op' => ' % ', 'pre' => '!('),
+         'isnotdivby' => array('op' => ' % ', 'pre' => '('),
+         'isevenby' => array('op' => ' / ', 'pre' => '!(1 & '),
+         'isnotevenby' => array('op' => ' / ', 'pre' => '(1 & '),
+         'isoddby' => array('op' => ' / ', 'pre' => '(1 & '),
+         'isnotoddby' => array('op' => ' / ', 'pre' => '!(1 & '),
+         );
+     $op = strtolower(preg_replace('/\s*/', '', o));
+     res = $tlops[$op];
+ }
 
 scond(res)  ::= SINGLECOND(o). {
         static $scond = array (
