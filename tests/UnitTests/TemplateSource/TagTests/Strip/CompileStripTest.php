@@ -57,4 +57,20 @@ class CompileStripTest extends PHPUnit_Smarty
 
             </textarea>   foobar'), $this->smarty->fetch('strip_multi_line_textarea_html_tag.tpl'));
     }
+
+    /**
+     * test strip tag output tag
+     */
+    public function testStripOutputTag()
+    {
+        $this->assertEquals('<h1>1 <em>italic</em></h1>', $this->smarty->fetch('strip_with_output_tag.tpl'));
+    }
+
+    /**
+     * test strip tag no output tag
+     */
+    public function testStripNoOutputTag()
+    {
+        $this->assertEquals('<h1><em>italic</em></h1>', $this->smarty->fetch('strip_with_no_output_tag.tpl'));
+    }
 }
