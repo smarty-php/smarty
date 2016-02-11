@@ -1,4 +1,8 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 11.02.2016
+  - improvement added KnockoutJS comments to trimwhitespace outputfilter https://github.com/smarty-php/smarty/issues/82 
+    https://github.com/smarty-php/smarty/pull/181
+    
  10.02.2016
   - bugfix {strip} must keep space on output creating smarty tags within html tags https://github.com/smarty-php/smarty/issues/177
   - bugfix wrong precedence on special if conditions like '$foo is ... by $bar' could cause wrong code https://github.com/smarty-php/smarty/issues/178
