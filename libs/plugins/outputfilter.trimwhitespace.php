@@ -26,8 +26,8 @@ function smarty_outputfilter_trimwhitespace($source)
     // Unify Line-Breaks to \n
     $source = preg_replace("/\015\012|\015|\012/", "\n", $source);
 
-    // capture Internet Explorer Conditional Comments
-    if (preg_match_all('#<!--\[[^\]]+\]>.*?<!\[[^\]]+\]-->#is', $source, $matches,
+    // capture Internet Explorer and KnockoutJS Conditional Comments
+    if (preg_match_all('#<!--((\[[^\]]+\]>.*?<!\[[^\]]+\])|(\s*/?ko\s+.+))-->#is', $source, $matches,
                        PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
         foreach ($matches as $match) {
             $store[] = $match[ 0 ][ 0 ];
