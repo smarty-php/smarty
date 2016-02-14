@@ -70,7 +70,7 @@ class Smarty_Internal_Runtime_Inheritance
     public function init(Smarty_Internal_Template $tpl, $initChild, $blockNames = array())
     {
         // if called while executing parent template it must be a sub-template with new inheritance root
-        if ($initChild && $this->state == 3) {
+        if ($initChild && $this->state == 3 && (strpos($tpl->template_resource, 'extendsall') === false)) {
             $tpl->ext->_inheritance = new Smarty_Internal_Runtime_Inheritance();
             $tpl->ext->_inheritance->init($tpl, $initChild, $blockNames);
             return;
