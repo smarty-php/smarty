@@ -148,10 +148,10 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             $output .= "ob_start();\n";
             $output .= "\$_smarty_tpl->compiled->has_nocache_code = true;\n";
             $output .= $_paramsCode;
-            $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value);\n}";
+            $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}";
             $output .= "\$params = var_export(\$params, true);\n";
             $output .= "echo \"/*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/<?php ";
-            $output .= "\\\$_smarty_tpl->smarty->ext->_tplFunction->saveTemplateVariables(\\\$_smarty_tpl, '{$_name}');\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->tpl_vars[\\\$key] = new Smarty_Variable(\\\$value);\n}\n?>";
+            $output .= "\\\$_smarty_tpl->smarty->ext->_tplFunction->saveTemplateVariables(\\\$_smarty_tpl, '{$_name}');\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->tpl_vars[\\\$key] = new Smarty_Variable(\\\$value, \\\$_smarty_tpl->isRenderingCache);\n}\n?>";
             $output .= "/*/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n\";?>";
             $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                               new Smarty_Internal_ParseTree_Tag($compiler->parser,
@@ -179,7 +179,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $output .= "if (!function_exists('{$_funcName}')) {\n";
         $output .= "function {$_funcName}(\$_smarty_tpl,\$params) {\n";
         $output .= $_paramsCode;
-        $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value);\n}?>";
+        $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}?>";
         $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                           new Smarty_Internal_ParseTree_Tag($compiler->parser,
                                                                                             $output));

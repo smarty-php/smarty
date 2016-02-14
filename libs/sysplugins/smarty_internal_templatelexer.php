@@ -423,10 +423,10 @@ class Smarty_Internal_Templatelexer
             $this->yy_global_pattern2 =
                 "/\G(" . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" .
                 $this->ldel . "\\s*foreach(?![^\s]))|\G(" . $this->ldel . "\\s*setfilter\\s+)|\G(" . $this->ldel .
-                "\\s*[0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel . ")|\G(" . $this->ldel .
-                "\\s*[\/](?:(?!block)[0-9]*[a-zA-Z_]\\w*)\\s*" . $this->rdel . ")|\G(" . $this->ldel .
-                "\\s*[$][0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*[\/])|\G(" .
-                $this->ldel . "\\s*)/isS";
+                "\\s*make_nocache\\s+)|\G(" . $this->ldel . "\\s*[0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel .
+                ")|\G(" . $this->ldel . "\\s*[\/](?:(?!block)[0-9]*[a-zA-Z_]\\w*)\\s*" . $this->rdel . ")|\G(" .
+                $this->ldel . "\\s*[$][0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel . ")|\G(" . $this->ldel .
+                "\\s*[\/])|\G(" . $this->ldel . "\\s*)/isS";
         }
         if ($this->counter >= strlen($this->data)) {
             return false; // end of input
@@ -511,12 +511,20 @@ class Smarty_Internal_Templatelexer
     function yy_r2_6()
     {
 
+        $this->token = Smarty_Internal_Templateparser::TP_LDELMAKENOCACHE;
+        $this->yybegin(self::TAGBODY);
+        $this->taglineno = $this->line;
+    }
+
+    function yy_r2_7()
+    {
+
         $this->yypopstate();
         $this->token = Smarty_Internal_Templateparser::TP_SIMPLETAG;
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_8()
+    function yy_r2_9()
     {
 
         $this->yypopstate();
@@ -524,7 +532,7 @@ class Smarty_Internal_Templatelexer
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_9()
+    function yy_r2_10()
     {
 
         if ($this->_yy_stack[ count($this->_yy_stack) - 1 ] == self::TEXT) {
@@ -539,7 +547,7 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    function yy_r2_11()
+    function yy_r2_12()
     {
 
         $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
@@ -547,7 +555,7 @@ class Smarty_Internal_Templatelexer
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_12()
+    function yy_r2_13()
     {
 
         $this->token = Smarty_Internal_Templateparser::TP_LDEL;

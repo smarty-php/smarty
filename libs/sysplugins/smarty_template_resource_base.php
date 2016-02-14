@@ -104,6 +104,7 @@ abstract class Smarty_Template_Resource_Base
      */
     public function getRenderedTemplateCode(Smarty_Internal_Template $_template, $unifunc = null)
     {
+        $_template->isRenderingCache = $this instanceof Smarty_Template_Cached;
         $unifunc = isset($unifunc) ? $unifunc : $this->unifunc;
         $level = ob_get_level();
         try {
@@ -128,9 +129,11 @@ abstract class Smarty_Template_Resource_Base
             if (isset($_template->smarty->security_policy)) {
                 $_template->smarty->security_policy->exitTemplate();
             }
+            $_template->isRenderingCache = false;
             return null;
         }
         catch (Exception $e) {
+            $_template->isRenderingCache = false;
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }

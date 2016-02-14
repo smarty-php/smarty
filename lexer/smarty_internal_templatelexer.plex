@@ -316,6 +316,7 @@ class Smarty_Internal_Templatelexer
      block = ~block~
      if = ~(if|elseif|else if|while)\s+~
      for = ~for\s+~
+     makenocache = ~make_nocache\s+~
      foreach = ~foreach(?![^\s])~
      setfilter = ~setfilter\s+~
      instanceof = ~\s+instanceof\s+~
@@ -395,6 +396,11 @@ class Smarty_Internal_Templatelexer
      }
      ldel setfilter {
           $this->token = Smarty_Internal_Templateparser::TP_LDELSETFILTER;
+          $this->yybegin(self::TAGBODY);
+          $this->taglineno = $this->line;
+     }
+     ldel makenocache {
+          $this->token = Smarty_Internal_Templateparser::TP_LDELMAKENOCACHE;
           $this->yybegin(self::TAGBODY);
           $this->taglineno = $this->line;
      }

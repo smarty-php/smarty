@@ -816,7 +816,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                          '#(:SMARTY@!@|>)\s+(?=@!@SMARTY:|<)#s' => '\1\2',
                                          // remove spaces between attributes (but not in attribute values!)
                                          '#(([a-z0-9]\s*=\s*("[^"]*?")|(\'[^\']*?\'))|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \5',
-                                         '#^\s+<#Ss' => $this->has_output ? ' <' : '<', '#>[\040\011]+$#Ss' => '> ', '#>[\040\011]*[\n]\s*$#Ss' => '>', $this->stripRegEx => '',);
+                                         '#^\s+<#Ss' => $this->has_output ? ' <' : '<', '#>[\040\011]+$#Ss' => '> ',
+                                         '#>[\040\011]*[\n]\s*$#Ss' => '>', $this->stripRegEx => '',);
 
                     $text = preg_replace(array_keys($expressions), array_values($expressions), $text);
                     $_offset = 0;

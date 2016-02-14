@@ -4,6 +4,27 @@ This file contains a brief description of new features which have been added to 
 
 Smarty 3.1.30
 
+    New tag {make_nocache}
+    ======================
+    Syntax: {make_nocache $foo}
+    
+    This tag makes a variable which does exists normally only while rendering the compiled template
+    available in the cached template for use in not cached expressions.
+    
+    Expample:
+        {foreach from=$list item=item}
+            <li>{$item.name} {make_nocache $item}{if $current==$item.id} ACTIVE{/if}</li>
+        {/foreach}
+    
+    The {foreach} loop is rendered while processing the compiled template, but $current is a nocache
+    variable. Normally the {if $current==$item.id} would fail as the $item variable is unkown in the 
+    cached template. {make_nocache $item} does make the current $item value known in thee cached template.
+    
+    {make_nocache} is ignored when caching is disabled or the variable does exists as nocache variable.
+    
+    NOTE: if the variable value does contain objects these must have the __set_state method implemented.
+
+
     Scope Attributes
     ================
     The scope handling has been updated to cover all cases of variable assignments in templates.

@@ -82,6 +82,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $scope = 0;
 
     /**
+     * Flag which is set while rending a cache file
+     *
+     * @var bool
+     */
+    public $isRenderingCache = false;
+
+    /**
      * Create template data object
      * Some of the global Smarty settings copied to template scope
      * It load the required template resources and caching plugins
@@ -311,7 +318,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (!empty($data)) {
             // set up variable values
             foreach ($data as $_key => $_val) {
-                $tpl->tpl_vars[ $_key ] = new Smarty_Variable($_val);
+                $tpl->tpl_vars[ $_key ] = new Smarty_Variable($_val, $this->isRenderingCache);
             }
         }
         if ($tpl->caching == 9999 && $tpl->compiled->has_nocache_code) {
@@ -334,7 +341,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $tpl->render();
             }
         }
-        $i = 0;
     }
 
     /**
@@ -376,11 +382,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (isset($this->tpl_vars[ $varName ])) {
             $this->tpl_vars[ $varName ] = clone $this->tpl_vars[ $varName ];
             $this->tpl_vars[ $varName ]->value = $value;
-            if ($nocache) {
-                $this->tpl_vars[ $varName ]->nocache = $nocache;
+            if ($nocache || $this->isRenderingCache) {
+                $this->tpl_vars[ $varName ]->nocache = true;
             }
         } else {
-            $this->tpl_vars[ $varName ] = new Smarty_Variable($value, $nocache);
+            $this->tpl_vars[ $varName ] = new Smarty_Variable($value, $nocache || $this->isRenderingCache);
         }
         if (isset($scope) || isset($this->scope)) {
             $this->smarty->ext->_updateScope->_updateScope($this, $varName, $scope);

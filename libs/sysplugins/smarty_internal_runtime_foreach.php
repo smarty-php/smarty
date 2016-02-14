@@ -45,13 +45,13 @@ class Smarty_Internal_Runtime_Foreach
             if (isset($tpl->tpl_vars[ $key ])) {
                 $saveVars[ $key ] = $tpl->tpl_vars[ $key ];
             }
-            $tpl->tpl_vars[ $key ] = new Smarty_Variable();
+            $tpl->tpl_vars[ $key ] = new Smarty_Variable(null, $tpl->isRenderingCache);
         }
         if (!is_array($from) && !is_object($from)) {
             settype($from, 'array');
         }
         $total = $needTotal ? $this->count($from) : 1;
-        $tpl->tpl_vars[ $item ] = new Smarty_Variable();
+        $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
         if ($needTotal) {
             $tpl->tpl_vars[ $item ]->total = $total;
         }
