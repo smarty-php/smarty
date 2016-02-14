@@ -18,6 +18,7 @@ class AttributeTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
+        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
     }
 
 
@@ -48,7 +49,8 @@ class AttributeTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage illegal value of option flag "nocache"
+     * @expectedExceptionMessage for option flag 'nocache'
+     * @expectedExceptionMessage illegal value
      * test illegal option value
      */
     public function testIllegalOptionValue()
@@ -65,4 +67,13 @@ class AttributeTest extends PHPUnit_Smarty
     {
         $this->smarty->fetch('string:{assign foo 1 2}');
     }
+
+    /**
+      */
+    public function testNumericParams()
+    {
+        $this->assertEquals('array(\'a\'=>\'pa\',0=>\'isnull\',)', $this->strip($this->smarty->fetch('string:{getparams a=\'pa\' 0=isnull}')));
+    }
+
+
 }
