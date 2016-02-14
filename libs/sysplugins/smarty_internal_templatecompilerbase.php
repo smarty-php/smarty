@@ -56,7 +56,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      *
      * @var array
      */
-    public $_tag_objects = array();
+    static $_tag_objects = array();
 
     /**
      * tag stack
@@ -403,7 +403,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $this->smarty->_debug->end_compile($this->template);
             }
             $this->_tag_stack = array();
-            $this->_tag_objects = array();
+            self::$_tag_objects = array();
             // free memory
             $this->parent_compiler = null;
             $this->template = null;
@@ -867,7 +867,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function callTagCompiler($tag, $args, $param1 = null, $param2 = null, $param3 = null)
     {
         // re-use object if already exists
-        if (!isset($this->_tag_objects[ $tag ])) {
+        if (!isset(self::$_tag_objects[ $tag ])) {
             // lazy load internal compiler plugin
             $_tag = explode('_', $tag);
             $_tag = array_map('ucfirst', $_tag);
@@ -875,15 +875,15 @@ abstract class Smarty_Internal_TemplateCompilerBase
             if (class_exists($class_name) &&
                 (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))
             ) {
-                $this->_tag_objects[ $tag ] = new $class_name;
+                self::$_tag_objects[ $tag ] = new $class_name;
             } else {
-                $this->_tag_objects[ $tag ] = false;
+                self::$_tag_objects[ $tag ] = false;
                 return false;
             }
         }
         // compile this tag
-        return $this->_tag_objects[ $tag ] === false ? false :
-            $this->_tag_objects[ $tag ]->compile($args, $this, $param1, $param2, $param3);
+        return self::$_tag_objects[ $tag ] === false ? false :
+            self::$_tag_objects[ $tag ]->compile($args, $this, $param1, $param2, $param3);
     }
 
     /**

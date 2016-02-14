@@ -4,6 +4,7 @@
   - optimization of sub-template processing
   - bugfix using extendsall as default resource and {include} inside {block} tags could produce unexpected results https://github.com/smarty-php/smarty/issues/183
   - optimization of tag attribute compiling
+  - optimization make compiler tag object cache static for higher compilation speed
 
  11.02.2016
   - improvement added KnockoutJS comments to trimwhitespace outputfilter https://github.com/smarty-php/smarty/issues/82 
