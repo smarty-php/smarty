@@ -239,77 +239,71 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function _subTemplateRender($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $scope,
                                        $forceTplCache, $uid = null, $content_func = null)
     {
+        $tpl = clone $this;
+        $tpl->parent = $this;
         $_templateId = $this->smarty->_getTemplateId($template, $cache_id, $compile_id, $caching);
-        // already in template cache?
-        /* @var Smarty_Internal_Template $tpl */
-        if (isset($this->smarty->_cache[ 'tplObjects' ][ $_templateId ])) {
-            // clone cached template object because of possible recursive call
-            $tpl = clone $this->smarty->_cache[ 'tplObjects' ][ $_templateId ];
-            // get variables from calling scope
-            $tpl->tpl_vars = $this->tpl_vars;
-            $tpl->config_vars = $this->config_vars;
-            $tpl->parent = $this;
-            // get template functions
-            $tpl->tpl_function = $this->tpl_function;
-            // copy inheritance object?
-            if (isset($this->ext->_inheritance)) {
-                $tpl->ext->_inheritance = $this->ext->_inheritance;
+        // recursive call ?
+        if ($tpl->_getTemplateId() != $_templateId) {
+            // already in template cache?
+            if (isset($this->smarty->_cache[ 'tplObjects' ][ $_templateId ])) {
+                // copy data from cached object
+                $cachedTpl = &$this->smarty->_cache[ 'tplObjects' ][ $_templateId ];
+                $tpl->templateId = $cachedTpl->templateId;
+                $tpl->template_resource = $cachedTpl->template_resource;
+                $tpl->cache_id = $cachedTpl->cache_id;
+                $tpl->compile_id = $cachedTpl->compile_id;
+                $tpl->source = $cachedTpl->source;
+                // if $caching mode changed the compiled resource is invalid
+                if ((bool) $tpl->caching !== (bool) $caching) {
+                    unset($tpl->compiled);
+                } elseif (isset($cachedTpl->compiled)) {
+                    $tpl->compiled = $cachedTpl->compiled;
+                } else {
+                    unset($tpl->compiled);
+                }
+                if ($caching != 9999 && isset($cachedTpl->cached)) {
+                    $tpl->cached = $cachedTpl->cached;
+                } else {
+                    unset($tpl->cached);
+                }
             } else {
-                unset($tpl->ext->_inheritance);
-            }
-            // if $caching mode changed the compiled resource is invalid
-            if ((bool) $tpl->caching !== (bool) $caching) {
-                unset($tpl->compiled);
-            }
-        } else {
-            $tpl = clone $this;
-            $tpl->parent = $this;
-            if (!isset($tpl->templateId) || $tpl->templateId !== $_templateId) {
                 $tpl->templateId = $_templateId;
                 $tpl->template_resource = $template;
                 $tpl->cache_id = $cache_id;
                 $tpl->compile_id = $compile_id;
                 if (isset($uid)) {
                     // for inline templates we can get all resource information from file dependency
-                    if (isset($tpl->compiled->file_dependency[ $uid ])) {
-                        list($filepath, $timestamp, $type) = $tpl->compiled->file_dependency[ $uid ];
-                        $tpl->source =
-                            new Smarty_Template_Source(isset($tpl->smarty->_cache[ 'resource_handlers' ][ $type ]) ?
-                                                           $tpl->smarty->_cache[ 'resource_handlers' ][ $type ] :
-                                                           Smarty_Resource::load($tpl->smarty, $type), $tpl->smarty,
-                                                       $filepath, $type, $filepath);
-                        $tpl->source->filepath = $filepath;
-                        $tpl->source->timestamp = $timestamp;
-                        $tpl->source->exists = true;
-                        $tpl->source->uid = $uid;
-                    } else {
-                        $tpl->source = null;
-                    }
+                    list($filepath, $timestamp, $type) = $tpl->compiled->file_dependency[ $uid ];
+                    $tpl->source =
+                        new Smarty_Template_Source(isset($tpl->smarty->_cache[ 'resource_handlers' ][ $type ]) ?
+                                                       $tpl->smarty->_cache[ 'resource_handlers' ][ $type ] :
+                                                       Smarty_Resource::load($tpl->smarty, $type), $tpl->smarty,
+                                                   $filepath, $type, $filepath);
+                    $tpl->source->filepath = $filepath;
+                    $tpl->source->timestamp = $timestamp;
+                    $tpl->source->exists = true;
+                    $tpl->source->uid = $uid;
                 } else {
-                    $tpl->source = null;
-                }
-                if (!isset($tpl->source)) {
                     $tpl->source = Smarty_Template_Source::load($tpl);
                     unset($tpl->compiled);
                 }
-                unset($tpl->cached);
+                if ($caching != 9999) {
+                    unset($tpl->cached);
+                }
             }
+        } else {
+            // on recursive calls force caching
+            $forceTplCache = true;
         }
         $tpl->caching = $caching;
         $tpl->cache_lifetime = $cache_lifetime;
-        if ($caching == 9999) {
-            $tpl->cached = $this->cached;
-        }
         // set template scope
         $tpl->scope = $scope;
         if (!isset($tpl->smarty->_cache[ 'tplObjects' ][ $tpl->templateId ]) && !$tpl->source->handler->recompiled) {
-            // if template is called multiple times set flag to to cache template objects
-            $forceTplCache = $forceTplCache ||
-                             (isset($tpl->smarty->_cache[ 'subTplInfo' ][ $tpl->template_resource ]) &&
-                              $tpl->smarty->_cache[ 'subTplInfo' ][ $tpl->template_resource ] > 1);
             // check if template object should be cached
-            if ($tpl->_isParentTemplate() && isset($tpl->smarty->_cache[ 'tplObjects' ][ $tpl->parent->templateId ]) ||
-                $forceTplCache
+            if ($forceTplCache || (isset($tpl->smarty->_cache[ 'subTplInfo' ][ $tpl->template_resource ]) &&
+                                   $tpl->smarty->_cache[ 'subTplInfo' ][ $tpl->template_resource ] > 1) ||
+                ($tpl->_isParentTemplate() && isset($tpl->smarty->_cache[ 'tplObjects' ][ $tpl->parent->templateId ]))
             ) {
                 $tpl->smarty->_cache[ 'tplObjects' ][ $tpl->templateId ] = $tpl;
             }

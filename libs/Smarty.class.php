@@ -121,7 +121,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/39';
+    const SMARTY_VERSION = '3.1.30-dev/40';
 
     /**
      * define variable scopes
@@ -1108,6 +1108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _getTemplateId($template_name, $cache_id = null, $compile_id = null, $caching = null)
     {
+        $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" : $template_name;
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
         $caching = (int) ($caching === null ? $this->caching : $caching);

@@ -96,7 +96,15 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                         $compiled->includes[ $fullResourceName ] ++;
                         $cache_tpl = true;
                     } else {
-                        $compiled->includes[ $fullResourceName ] = 1;
+                        if ("{$compiler->template->source->type}:{$compiler->template->source->name}" ==
+                            $fullResourceName
+                        ) {
+                            // recursive call of current template
+                            $compiled->includes[ $fullResourceName ] = 2;
+                            $cache_tpl = true;
+                        } else {
+                            $compiled->includes[ $fullResourceName ] = 1;
+                        }
                     }
                     $fullResourceName = '"' . $fullResourceName . '"';
                 }
