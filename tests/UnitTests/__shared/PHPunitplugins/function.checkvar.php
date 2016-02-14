@@ -26,11 +26,11 @@ function smarty_function_checkvar($params, $template)
     while ($ptr) {
         if (in_array('template', $types) && $ptr instanceof Smarty_Internal_Template) {
             $output .= "#{$ptr->source->name}:\${$var} =";
-            $output .= isset($ptr->tpl_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->tpl_vars[$var]->value, true)) : 'null';
+            $output .= isset($ptr->tpl_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->tpl_vars[$var]->value, true)) : '>unassigned<';
             $ptr = $ptr->parent;
         } elseif (in_array('data', $types) && $ptr instanceof Smarty_Data) {
             $output .= "#data:\${$var} =";
-            $output .= isset($ptr->tpl_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->tpl_vars[$var]->value, true)) : 'null';
+            $output .= isset($ptr->tpl_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->tpl_vars[$var]->value, true)) : '>unassigned<';
             $ptr = $ptr->parent;
         } else {
             $ptr = null;
@@ -39,12 +39,12 @@ function smarty_function_checkvar($params, $template)
     if (in_array('smarty', $types)) {
         $output .= "#Smarty:\${$var} =";
         $output .= isset($template->smarty->tpl_vars[ $var ]) ?
-            preg_replace('/\s/', '', var_export($template->smarty->tpl_vars[ $var ]->value, true)) : 'null';
+            preg_replace('/\s/', '', var_export($template->smarty->tpl_vars[ $var ]->value, true)) : '>unassigned<';
     }
     if (in_array('global', $types)) {
         $output .= "#global:\${$var} =";
         $output .= isset(Smarty::$global_tpl_vars[ $var ]) ?
-            preg_replace('/\s/', '', var_export(Smarty::$global_tpl_vars[ $var ]->value, true)) : 'null';
+            preg_replace('/\s/', '', var_export(Smarty::$global_tpl_vars[ $var ]->value, true)) : '>unassigned<';
     }
     return $output;
 }
