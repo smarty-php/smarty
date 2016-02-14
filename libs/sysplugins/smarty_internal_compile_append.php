@@ -31,6 +31,7 @@ class Smarty_Internal_Compile_Append extends Smarty_Internal_Compile_Assign
         $this->required_attributes = array('var', 'value');
         $this->shorttag_order = array('var', 'value');
         $this->optional_attributes = array('scope', 'index');
+        $this->mapCache = array();
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         // map to compile assign attributes

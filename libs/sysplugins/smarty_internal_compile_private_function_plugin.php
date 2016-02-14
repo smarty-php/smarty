@@ -50,9 +50,6 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
         //Does tag create output
         $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
 
-        if ($_attr[ 'nocache' ] === true) {
-            $compiler->tag_nocache = true;
-        }
         unset($_attr[ 'nocache' ]);
         // convert attributes into parameter array string
         $_paramsArray = array();

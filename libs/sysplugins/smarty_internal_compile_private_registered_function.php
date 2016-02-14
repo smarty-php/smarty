@@ -41,9 +41,6 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
         //Does tag create output
         $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
 
-        if ($_attr[ 'nocache' ]) {
-            $compiler->tag_nocache = true;
-        }
         unset($_attr[ 'nocache' ]);
         if (isset($compiler->smarty->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ $tag ])) {
             $tag_info = $compiler->smarty->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ $tag ];

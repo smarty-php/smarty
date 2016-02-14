@@ -42,6 +42,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
             $this->required_attributes = array('start', 'ifexp', 'var', 'step');
             $this->optional_attributes = array();
         }
+        $this->mapCache = array();
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 

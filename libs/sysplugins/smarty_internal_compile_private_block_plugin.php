@@ -49,9 +49,6 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             // check and get attributes
             $_attr = $this->getAttributes($compiler, $args);
             $this->nesting ++;
-            if ($_attr[ 'nocache' ] === true) {
-                $compiler->tag_nocache = true;
-            }
             unset($_attr[ 'nocache' ]);
             list($callback, $_paramsArray, $callable) = $this->setup($compiler, $_attr, $tag, $function);
             $_params = 'array(' . implode(",", $_paramsArray) . ')';

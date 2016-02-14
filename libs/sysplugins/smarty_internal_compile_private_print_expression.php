@@ -46,10 +46,6 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        // nocache option
-        if ($_attr[ 'nocache' ] === true) {
-            $compiler->tag_nocache = true;
-        }
         if (isset($_attr[ 'assign' ])) {
             // assign output to variable
             $output = "<?php \$_smarty_tpl->assign({$_attr['assign']},{$parameter['value']});?>";

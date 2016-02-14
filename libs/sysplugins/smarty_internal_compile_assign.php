@@ -49,6 +49,7 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
         $this->required_attributes = array('var', 'value');
         $this->shorttag_order = array('var', 'value');
         $this->optional_attributes = array('scope');
+        $this->mapCache = array();
         $_nocache = false;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);

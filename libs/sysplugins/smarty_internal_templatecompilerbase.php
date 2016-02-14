@@ -507,10 +507,18 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->template->_cache[ 'used_tags' ][] = array($tag, $args);
         }
         // check nocache option flag
-        if (in_array("'nocache'", $args) || in_array(array('nocache' => 'true'), $args) ||
-            in_array(array('nocache' => '"true"'), $args) || in_array(array('nocache' => "'true'"), $args)
-        ) {
-            $this->tag_nocache = true;
+        foreach ($args as $arg) {
+            if (!is_array($arg)) {
+                if ($arg == "'nocache'") {
+                    $this->tag_nocache = true;
+                }
+            } else {
+                foreach ($arg as $k => $v) {
+                    if ($k == "'nocache'" && (trim($v, "'\" ") == 'true')) {
+                        $this->tag_nocache = true;
+                    }
+                }
+            }
         }
         // compile the smarty tag (required compile classes to compile the tag are auto loaded)
         if (($_output = $this->callTagCompiler($tag, $args, $parameter)) === false) {

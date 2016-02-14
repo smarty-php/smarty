@@ -128,10 +128,6 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         // assume caching is off
         $_caching = Smarty::CACHING_OFF;
 
-        if ($_attr[ 'nocache' ] === true) {
-            $compiler->tag_nocache = true;
-        }
-
         $call_nocache = $compiler->tag_nocache || $compiler->nocache;
 
         // caching was on and {include} is not in nocache mode
