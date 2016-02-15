@@ -77,7 +77,8 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      *
      * @var array
      */
-    protected $backupStaticAttributesBlacklist = array('PHPUnit_Smarty' => array('config', 'pdo', 'init', 'testNumver'),);
+    protected $backupStaticAttributesBlacklist = array('PHPUnit_Smarty' => array('config', 'pdo', 'init',
+                                                                                 'testNumver'),);
 
     /**
      * This method is called before the first test of this test class is run.
@@ -141,7 +142,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
                     if (is_dir($dir . '/templates_tmp')) {
                         $this->cleanDir($dir . '/templates_tmp');
                     }
-                        $s_dir[ $dir ] = true;
+                    $s_dir[ $dir ] = true;
                 }
                 $dir = dirname(__FILE__);
             }
@@ -495,7 +496,7 @@ KEY `expire` (`expire`)
         $_flag = '';
         if (isset($tpl->source) && $tpl->source->isConfig) {
             $_flag = '_' . ((int) $tpl->smarty->config_read_hidden + (int) $tpl->smarty->config_booleanize * 2 +
-                    (int) $tpl->smarty->config_overwrite * 4);
+                            (int) $tpl->smarty->config_overwrite * 4);
         } else {
             $_flag = '_' . ((int) $tpl->smarty->merge_compiled_includes + (int) $tpl->smarty->escape_html * 2);
         }
@@ -594,7 +595,7 @@ KEY `expire` (`expire`)
                 $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
                 return sha1($uid) . '#' . preg_replace('#[^\w\|]+#S', '_', $tpl->template_resource) . '#' . $_cache_id .
-                '#' . $_compile_id;
+                       '#' . $_compile_id;
 
             default:
                 throw new Exception("Unhandled cache resource type '{$cacheType}'");
@@ -622,6 +623,11 @@ KEY `expire` (`expire`)
      */
     protected function tearDown()
     {
+        if (class_exists('Smarty_Internal_TemplateCompilerBase') &&
+            isset(Smarty_Internal_TemplateCompilerBase::$_tag_objects)
+        ) {
+            Smarty_Internal_TemplateCompilerBase::$_tag_objects = array();
+        }
         if (isset($this->smarty->smarty)) {
             $this->smarty->smarty = null;
         }
