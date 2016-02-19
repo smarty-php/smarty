@@ -95,9 +95,7 @@ class Smarty_Internal_Data
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $_key => $_val) {
-                if ($_key != '') {
-                    $this->assign($_key, $_val, $nocache);
-                }
+                $this->assign($_key, $_val, $nocache);
             }
         } else {
             if ($tpl_var != '') {
