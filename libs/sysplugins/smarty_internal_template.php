@@ -180,8 +180,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 ) {
                     echo $this->smarty->ext->_filterHandler->runFilter('output', ob_get_clean(), $this);
                 } else {
-                    ob_end_flush();
-                    flush();
+                    echo ob_get_clean();
                 }
             }
             if ($this->smarty->debugging) {

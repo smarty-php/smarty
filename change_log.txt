@@ -1,4 +1,8 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 19.02.2016
+  - revert output buffer flushing on display, echo content again because possible problems when PHP files had 
+    characters (newline} after ?> at file end https://github.com/smarty-php/smarty/issues/187
+
  14.02.2016
   - new tag {make_nocache} read NEW_FEATURES.txt https://github.com/smarty-php/smarty/issues/110
   - optimization of sub-template processing
