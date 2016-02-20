@@ -54,21 +54,21 @@ Smarty 3.1.30
     
     The tags {assign}, {append} direct assignments like {$foo = ...}, {$foo[...]= ...} support
     the following optional scope attributes:
-    scope=parent    - the variable will be assigned in the current template and if the template
-                      was included by {include} the calling template
-    scope=tpl_root  - the variable will be assigned in the current template and if the template
-                      was included by {include} the outermost root template
-    scope=smarty    - the variable will be assigned in the current template and the Smarty object
-    scope=global    - the variable will be assigned in the current template and as Smarty object 
-                      global variable
-    scope=root      - the variable will be assigned in the current template and if a data object was
-                      used for variable definitions in the data object or in the Smarty object otherwise
-    scope=local     - this scope has only a meaning if the tag is called within a template {function}.
-                      The variable will be assigned in the local scope of the template function and the
-                      template which did call the template function.
+    scope='parent'    - the variable will be assigned in the current template and if the template
+                        was included by {include} the calling template
+    scope='tpl_root'  - the variable will be assigned in the current template and if the template
+                        was included by {include} the outermost root template
+    scope='smarty'    - the variable will be assigned in the current template and the Smarty object
+    scope='global'    - the variable will be assigned in the current template and as Smarty object
+                        global variable
+    scope='root'      - the variable will be assigned in the current template and if a data object was
+                        used for variable definitions in the data object or in the Smarty object otherwise
+    scope='local'     - this scope has only a meaning if the tag is called within a template {function}.
+                        The variable will be assigned in the local scope of the template function and the
+                        template which did call the template function.
     
     The scope attribute can be combined with the new option flag 'bubble_up' like
-    {$foo = 'bar' scope=global bubble_up}
+    {$foo = 'bar' scope='global' bubble_up}
     In addition to the assignments according to the scope attributes tpl_root, smarty, global, root the varibale
     will also be assigned in all templates in the call chain from template root to the current template,
     including all local template function scopes of nested template function calls.
@@ -81,7 +81,7 @@ Smarty 3.1.30
         {include 'sub.tpl'}
         
         sub.tpl:
-        {$foo = 'bar' scope=global bubble_up}
+        {$foo = 'bar' scope='global' bubble_up}
         
         Will assign the variable 'foo' with value 'bar' as Smarty global variable, in 'sub.tpl' and in
         'main.tpl' because the 'bubble_up' option.
