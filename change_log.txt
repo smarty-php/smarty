@@ -1,9 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
  20.02.2016
   - bugfix {strip} must keep space between hmtl tags. Broken by changes of 10.2.2016 https://github.com/smarty-php/smarty/issues/184
-  - new feature/bugfix {foreach}{section} new attribute 'property' to force compilation of loop property 
-    read NEW_FEATURES.txt https://github.com/smarty-php/smarty/issues/189
-    
+  
  19.02.2016
   - revert output buffer flushing on display, echo content again because possible problems when PHP files had 
     characters (newline} after ?> at file end https://github.com/smarty-php/smarty/issues/187

@@ -38,7 +38,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $optional_attributes = array('start', 'step', 'max', 'show', 'properties');
+    public $optional_attributes = array('start', 'step', 'max', 'show');
 
     /**
      * counter
@@ -118,15 +118,6 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
         $this->scanForProperties($attributes, $compiler);
         if (!empty($this->matchResults[ 'named' ])) {
             $namedAttr = $this->matchResults[ 'named' ];
-        }
-        if (isset($_attr[ 'properties' ]) && preg_match_all("/['](.*?)[']/", $_attr[ 'properties' ], $match)) {
-            foreach ($match[ 1 ] as $prop) {
-                if (in_array($prop, $this->nameProperties)) {
-                    $namedAttr[ $prop ] = true;
-                } else {
-                    $compiler->trigger_template_error("Invalid property '{$prop}'", null, true);
-                }
-            }
         }
         $namedAttr[ 'index' ] = true;
         $output = "<?php\n";
