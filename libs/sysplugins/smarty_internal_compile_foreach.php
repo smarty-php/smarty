@@ -30,7 +30,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $optional_attributes = array('name', 'key');
+    public $optional_attributes = array('name', 'key', 'properties');
 
     /**
      * Attribute definition: Overwrites base class.
@@ -136,6 +136,24 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         }
         if (!empty($this->matchResults[ 'named' ])) {
             $namedAttr = $this->matchResults[ 'named' ];
+        }
+        if (isset($_attr[ 'properties' ]) && preg_match_all("/['](.*?)[']/", $_attr[ 'properties' ], $match)) {
+            foreach ($match[ 1 ] as $prop) {
+                if (in_array($prop, $this->itemProperties)) {
+                    $itemAttr[ $prop ] = true;
+                } else {
+                    $compiler->trigger_template_error("Invalid property '{$prop}'", null, true);
+                }
+            }
+            if ($this->isNamed) {
+                foreach ($match[ 1 ] as $prop) {
+                    if (in_array($prop, $this->nameProperties)) {
+                        $nameAttr[ $prop ] = true;
+                    } else {
+                        $compiler->trigger_template_error("Invalid property '{$prop}'", null, true);
+                    }
+                }
+            }
         }
         if (isset($itemAttr[ 'first' ])) {
             $itemAttr[ 'index' ] = true;
