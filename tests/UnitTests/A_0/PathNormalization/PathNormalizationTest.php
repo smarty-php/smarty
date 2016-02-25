@@ -70,8 +70,8 @@ class PathNormalizationTest extends PHPUnit_Smarty
         $this->assertEquals($prefix . DIRECTORY_SEPARATOR . 'a.foo', $d);
     }
     public function testNormalizeToAbsoluteKomplex() {
-        $d = $this->smarty->_realpath('./foo/\\./bar/jo/wie/so/../../go/../..//.././../a.foo', true);
-        $this->assertEquals(getcwd() . DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'a.foo', $d);
+        $d = $this->smarty->_realpath('./foo/\\./bar/jo/wie/so/../..///.././././../aa/bb/cc/../../go/a.foo', true);
+        $this->assertEquals(getcwd() . DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'aa'. DIRECTORY_SEPARATOR . 'go' . DIRECTORY_SEPARATOR .'a.foo', $d);
     }
 
 }
