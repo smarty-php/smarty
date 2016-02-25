@@ -121,7 +121,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/47';
+    const SMARTY_VERSION = '3.1.30-dev/48';
 
     /**
      * define variable scopes
@@ -1108,7 +1108,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _getTemplateId($template_name, $cache_id = null, $compile_id = null, $caching = null)
     {
-        $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" : $template_name;
+        $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
+            $template_name;
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
         $caching = (int) ($caching === null ? $this->caching : $caching);
@@ -1158,11 +1159,18 @@ class Smarty extends Smarty_Internal_TemplateBase
             }
         }
         $count = 1;
-        while ($count && ((strpos($path, '.' . DS) != false) || (strpos($path, DS . DS) != false))) {
-            $path =
-                preg_replace('#([\\\\/][^\\\\/]+[\\\\/]([.]?[\\\\/])*[.][.][\\\\/]([.]?[\\\\/])*)+|([\\\\/]([.]?[\\\\/])+)#',
-                             DS, $path, - 1, $count);
+        if (strpos($path, '..' . DS) != false) {
+            preg_match('#(([.]?[\\\\/])*([.][.])[\\\\/]([.]?[\\\\/])*)+#', $path, $match);
+            if (!$count = substr_count($match[ 0 ], '..')) {
+                $count = 1;
+            }
         }
+        while ($count && ((strpos($path, '.' . DS) != false) || (strpos($path, DS . DS) != false))) {
+            $path = preg_replace('#([\\\\/]([.]?[\\\\/])*[^\\\\/.]+){' . $count .
+                                 '}[\\\\/]([.]?[\\\\/])*([.][.][\\\\/]([.]?[\\\\/])*){' . $count .
+                                 '}|([\\\\/]([.]?[\\\\/])+)#', DS, $path, - 1, $count);
+        }
+
         return $parts[ 'root' ] . $path;
     }
 
