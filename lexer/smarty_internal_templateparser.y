@@ -716,14 +716,6 @@ expr(res)        ::= expr(e1) ISIN value(v).  {
     res = 'in_array('.e1.',(array)'.v.')';
 }
 
-expr(res)        ::= variable(v1) INSTANCEOF(i) ns1(v2). {
-      res = v1.i.v2;
-}
-
-expr(res)        ::= variable(v1) INSTANCEOF(i) variable(v2). {
-      res = v1.i.v2;
-}
-
 
 //
 // ternary
@@ -800,6 +792,13 @@ value(res)       ::= function(f). {
                   // expression
 value(res)       ::= OPENP expr(e) CLOSEP. {
     res = "(". e .")";
+}
+
+value(res)        ::= variable(v1) INSTANCEOF(i) ns1(v2). {
+      res = v1.i.v2;
+}
+value(res)        ::= variable(v1) INSTANCEOF(i) variable(v2). {
+      res = v1.i.v2;
 }
 
                   // singele quoted string

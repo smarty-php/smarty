@@ -2,6 +2,7 @@
  25.02.2016
   - bugfix wrong _realpath with 4 or more parent-directories https://github.com/smarty-php/smarty/issues/190
   - optimization of _realpath
+  - bugfix instanceof expression in template code must be treated as value https://github.com/smarty-php/smarty/issues/191
 
  20.02.2016
   - bugfix {strip} must keep space between hmtl tags. Broken by changes of 10.2.2016 https://github.com/smarty-php/smarty/issues/184
