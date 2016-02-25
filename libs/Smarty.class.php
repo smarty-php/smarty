@@ -121,7 +121,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/48';
+    const SMARTY_VERSION = '3.1.30-dev/49';
 
     /**
      * define variable scopes
@@ -1140,14 +1140,9 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _realpath($path, $realpath = null)
     {
-        static $nds;
-        if ($nds == null) {
-            $nds = DS == '/' ? '\\' : '/';
-        }
+        $nds = DS == '/' ? '\\' : '/';
         // normalize DS
-        if (strpos($path, $nds) !== false) {
-            $path = str_replace($nds, DS, $path);
-        }
+        $path = str_replace($nds, DS, $path);
         preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(?:[[:print:]]*))$%',
                    $path, $parts);
         $path = $parts[ 'path' ];
@@ -1158,17 +1153,22 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $path = getcwd() . DS . $path;
             }
         }
-        $count = 1;
-        if (strpos($path, '..' . DS) != false) {
-            preg_match('#(([.]?[\\\\/])*([.][.])[\\\\/]([.]?[\\\\/])*)+#', $path, $match);
-            if (!$count = substr_count($match[ 0 ], '..')) {
-                $count = 1;
+        // remove noop 'DS DS' and 'DS.DS' patterns
+        $path = preg_replace('#([\\\\/]([.]?[\\\\/])+)#', DS, $path);
+        // resolve '..DS' pattern, smallest first
+        if (strpos($path, '..' . DS) != false &&
+            preg_match_all('#(([.]?[\\\\/])*([.][.])[\\\\/]([.]?[\\\\/])*)+#', $path, $match)
+        ) {
+            $counts = array();
+            foreach ($match[ 0 ] as $m) {
+                $counts[] = (int) ((strlen($m) - 1) / 3);
             }
-        }
-        while ($count && ((strpos($path, '.' . DS) != false) || (strpos($path, DS . DS) != false))) {
-            $path = preg_replace('#([\\\\/]([.]?[\\\\/])*[^\\\\/.]+){' . $count .
-                                 '}[\\\\/]([.]?[\\\\/])*([.][.][\\\\/]([.]?[\\\\/])*){' . $count .
-                                 '}|([\\\\/]([.]?[\\\\/])+)#', DS, $path, - 1, $count);
+            sort($counts);
+            foreach ($counts as $count) {
+                $path = preg_replace('#(([\\\\/]([.]?[\\\\/])*[^\\\\/.]+){' . $count .
+                                     '}[\\\\/]([.]?[\\\\/])*([.][.][\\\\/]([.]?[\\\\/])*){' . $count . '})(?=[^.])#',
+                                     DS, $path);
+            }
         }
 
         return $parts[ 'root' ] . $path;
