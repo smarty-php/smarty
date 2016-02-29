@@ -1,4 +1,8 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 01.03.2016
+  - bugfix template objects must be cached on $smarty->fetch('foo.tpl) calls incase the template is fetched
+    multiple times (forum topic 25909)
+    
  25.02.2016
   - bugfix wrong _realpath with 4 or more parent-directories https://github.com/smarty-php/smarty/issues/190
   - optimization of _realpath
