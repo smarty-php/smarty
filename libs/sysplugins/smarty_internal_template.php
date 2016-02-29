@@ -155,14 +155,16 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $isCacheTpl =
             $this->caching == Smarty::CACHING_LIFETIME_CURRENT || $this->caching == Smarty::CACHING_LIFETIME_SAVED;
         if ($isCacheTpl) {
-            if (!isset($this->cached)) {
+            if (!isset($this->cached) || $this->cached->cache_id !== $this->cache_id ||
+                $this->cached->compile_id !== $this->compile_id
+            ) {
                 $this->loadCached();
             }
             $this->cached->render($this, $no_output_filter);
         } elseif ($this->source->handler->uncompiled) {
             $this->source->render($this);
         } else {
-            if (!isset($this->compiled)) {
+            if (!isset($this->compiled) || $this->compiled->compile_id !== $this->compile_id) {
                 $this->loadCompiled();
             }
             $this->compiled->render($this);

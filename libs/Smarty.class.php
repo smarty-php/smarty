@@ -121,7 +121,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/50';
+    const SMARTY_VERSION = '3.1.30-dev/51';
 
     /**
      * define variable scopes
@@ -1046,23 +1046,23 @@ class Smarty extends Smarty_Internal_TemplateBase
         } else {
             $data = null;
         }
-        if ($this->caching && isset($this->_cache[ 'isCached' ][ $_templateId =
-                    $this->_getTemplateId($template, $cache_id, $compile_id) ])
-        ) {
+        $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
+        $tpl = null;
+        if ($this->caching && isset($this->_cache[ 'isCached' ][ $_templateId ])) {
             $tpl = $do_clone ? clone $this->_cache[ 'isCached' ][ $_templateId ] :
                 $this->_cache[ 'isCached' ][ $_templateId ];
-            $tpl->parent = $parent;
-            $tpl->tpl_vars = array();
-            $tpl->config_vars = array();
+            $template->tpl_vars = $template->config_vars = array();
+        } else if (!$do_clone && isset($this->_cache[ 'tplObjects' ][ $_templateId ])) {
+            $tpl = clone $this->_cache[ 'tplObjects' ][ $_templateId ];
         } else {
             /* @var Smarty_Internal_Template $tpl */
-            $tpl = new $this->template_class($template, $this, $parent, $cache_id, $compile_id, null, null);
+            $tpl = new $this->template_class($template, $this, null, $cache_id, $compile_id, null, null);
+            $tpl->templateId = $_templateId;
         }
         if ($do_clone) {
             $tpl->smarty = clone $tpl->smarty;
-        } elseif ($parent === null) {
-            $tpl->parent = $this;
         }
+        $tpl->parent = $parent ? $parent : $this;
         // fill data if present
         if (!empty($data) && is_array($data)) {
             // set up variable values
