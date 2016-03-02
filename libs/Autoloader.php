@@ -90,34 +90,17 @@ class Smarty_Autoloader
     public static function autoload($class)
     {
         $_class = strtolower($class);
+        if (strpos($_class, 'smarty') !== 0) {
+            return;
+        }
         $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
-        if (strpos($_class, 'smarty_internal_') === 0) {
-            if (strpos($_class, 'smarty_internal_compile_') === 0) {
-                if (is_file($file)) {
-                    require $file;
-                }
-                return;
-            }
-            @include $file;
-            return;
-        }
-        if (preg_match('/^(smarty_(((template_(source|config|cache|compiled|resource_base))|((cached|compiled)?resource)|(variable|security)))|(smarty(bc)?)$)/',
-                       $_class, $match)) {
-            if (!empty($match[ 3 ])) {
-                @include $file;
-                return;
-            } elseif (!empty($match[ 9 ]) && isset(self::$rootClasses[ $_class ])) {
-                $file = self::$rootClasses[ $_class ];
-                require $file;
-                return;
-            }
-        }
-        if (0 !== strpos($_class, 'smarty')) {
-            return;
-        }
         if (is_file($file)) {
-            require $file;
-            return;
+            include $file;
+        } else if (isset(self::$rootClasses[ $_class ])) {
+            $file = self::$SMARTY_SYSPLUGINS_DIR . self::$rootClasses[ $_class ] . '.php';
+            if (is_file($file)) {
+                include $file;
+            }
         }
         return;
     }
