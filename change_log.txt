@@ -1,4 +1,8 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 04.03.2016
+  - bugfix change from 01.03.2016 will cause $smarty->isCached(..) failure if called multiple time for same template
+    (forum topic 25935)
+  
  02.03.2016
   - revert autoloader optimizations because of unexplainable warning when using plugins https://github.com/smarty-php/smarty/issues/199
   
