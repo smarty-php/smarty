@@ -27,6 +27,12 @@ function smarty_function_checkvar($params, $template)
         if (in_array('template', $types) && $ptr instanceof Smarty_Internal_Template) {
             $output .= "#{$ptr->source->name}:\${$var} =";
             $output .= isset($ptr->tpl_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->tpl_vars[$var]->value, true)) : '>unassigned<';
+            $i = 0;
+            while (isset($ptr->_cache[ 'varStack' ][ $i ])) {
+                $output .= "#{$ptr->_cache[ 'varStack' ][ $i ]['name']} = ";
+                $output .= isset($ptr->_cache[ 'varStack' ][ $i ][ 'tpl' ][$var]) ? preg_replace('/\s/', '', var_export($ptr->_cache[ 'varStack' ][ $i ][ 'tpl' ][$var]->value, true)) : '>unassigned<';
+                $i ++;
+            }
             $ptr = $ptr->parent;
         } elseif (in_array('data', $types) && $ptr instanceof Smarty_Data) {
             $output .= "#data:\${$var} =";

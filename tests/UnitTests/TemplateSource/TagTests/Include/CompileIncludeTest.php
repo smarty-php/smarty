@@ -172,62 +172,6 @@ class CompileIncludeTest extends PHPUnit_Smarty
     }
 
 
-    /**
-     * Test scope
-     *
-     * @run InSeparateProcess
-     * @preserveGlobalState disabled
-     * @dataProvider        dataTestScope
-     */
-    public function testScope($code, $useSmarty, $result, $testName, $testNumber = null)
-    {
-        if ($testNumber) {
-            $file = "testScope_{$testNumber}.tpl";
-            $this->makeTemplateFile($file, $code);
-            $this->smarty->assignGlobal('file', $file);
-        }
-        $this->smarty->assign('foo', 'smarty');
-        $this->smarty->assignGlobal('foo', 'global');
-        $data = $this->smarty->createData($useSmarty ? $this->smarty : null);
-        $data->assign('foo', 'data');
-        if (!$useSmarty) {
-            $testName .= 'no smarty';
-        }
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('test_scope.tpl', $data)),
-                            "test - {$code} - {$testName}");
-    }
-
-    /*
-     * Data provider for testscope
-     */
-    public function dataTestScope()
-    {
-        $i = 1;
-        return array(/*
-             * Code
-             * use Smarty object
-             * result
-             * test name
-             */
-                     array('{include \'test_scope_assign.tpl\'}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=parent}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=parent bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=tpl_root}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=tpl_root bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=root}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=root bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=root}', false, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=root bubble_up}', false, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'newvar\'#Smarty:$foo=\'smarty\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=smarty}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'newvar\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=smarty bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'newvar\'#global:$foo=\'global\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=global}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'newvar\'', '', $i++),
-                     array('{include \'test_scope_assign.tpl\' scope=global bubble_up}', true, '#test_scope_assign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'newvar\'', '', $i++),
-                     array('{include \'test_scope_pluginassign.tpl\' scope=global}', true, '#test_scope_pluginassign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'data\'#test_scope.tpl:$foo=\'data\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'newvar\'', '', $i++),
-                     array('{include \'test_scope_pluginassign.tpl\' scope=global bubble_up}', true, '#test_scope_pluginassign.tpl:$foo=\'newvar\'#testScope_'.$i.'.tpl:$foo=\'newvar\'#test_scope.tpl:$foo=\'newvar\'#data:$foo=\'data\'#Smarty:$foo=\'smarty\'#global:$foo=\'newvar\'', '', $i++),
-        );
-    }
-
 
 
     /**
