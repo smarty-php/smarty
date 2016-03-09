@@ -74,7 +74,7 @@ class Smarty_Internal_Runtime_CodeFrame
                 foreach ($_template->compiled->required_plugins[ 'nocache' ] as $tmp) {
                     foreach ($tmp as $data) {
                         $file = addslashes($data[ 'file' ]);
-                        if (is_Array($data[ 'function' ])) {
+                        if (is_array($data[ 'function' ])) {
                             $output .= addslashes("if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) require_once '{$file}';\n");
                         } else {
                             $output .= addslashes("if (!is_callable('{$data['function']}')) require_once '{$file}';\n");
