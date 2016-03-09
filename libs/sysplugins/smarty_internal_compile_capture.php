@@ -49,7 +49,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
         $assign = isset($_attr[ 'assign' ]) ? $_attr[ 'assign' ] : 'null';
         $append = isset($_attr[ 'append' ]) ? $_attr[ 'append' ] : 'null';
 
-        $compiler->_capture_stack[ 0 ][] = array($buffer, $assign, $append, $compiler->nocache);
+        $this->openTag($compiler, 'capture', array($buffer, $assign, $append, $compiler->nocache));
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
         $_output =
@@ -103,8 +103,7 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;
         }
-
-        list($buffer, $assign, $append, $compiler->nocache) = array_pop($compiler->_capture_stack[ 0 ]);
+        list($buffer, $assign, $append, $compiler->nocache) = $this->closeTag($compiler, array('capture'));
 
         $_output =
             "<?php list(\$_capture_buffer, \$_capture_assign, \$_capture_append) = array_pop(\$_smarty_tpl->smarty->_cache['capture_stack']);\n";
