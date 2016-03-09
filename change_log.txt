@@ -2,6 +2,7 @@
  09.03.2014
   - improvement rework of 'scope' attribute handling see see NEW_FEATURES.txt https://github.com/smarty-php/smarty/issues/194
     https://github.com/smarty-php/smarty/issues/186 https://github.com/smarty-php/smarty/issues/179
+  - bugfix correct Autoloader update of 2.3.2014 https://github.com/smarty-php/smarty/issues/199
   
  04.03.2016
   - bugfix change from 01.03.2016 will cause $smarty->isCached(..) failure if called multiple time for same template
