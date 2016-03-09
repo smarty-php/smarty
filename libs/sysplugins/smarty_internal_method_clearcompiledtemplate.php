@@ -49,8 +49,6 @@ class Smarty_Internal_Method_ClearCompiledTemplate
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
             if ($tpl->source->exists) {
-                // remove from compileds cache
-                $tpl->source->compileds = array();
                 $_resource_part_1 = basename(str_replace('^', DS, $tpl->compiled->filepath));
                 $_resource_part_1_length = strlen($_resource_part_1);
             } else {
