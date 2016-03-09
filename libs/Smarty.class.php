@@ -121,7 +121,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/52';
+    const SMARTY_VERSION = '3.1.30-dev/53';
 
     /**
      * define variable scopes
@@ -137,8 +137,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     const SCOPE_SMARTY = 16;
 
     const SCOPE_GLOBAL = 32;
-
-    const SCOPE_BUBBLE_UP = 64;
 
     /**
      * define caching modes

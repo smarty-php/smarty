@@ -403,7 +403,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $this->smarty->_debug->end_compile($this->template);
             }
             $this->_tag_stack = array();
-            self::$_tag_objects = array();
             // free memory
             $this->parent_compiler = null;
             $this->template = null;
@@ -1139,9 +1138,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
             if ($_scope === false) {
                 $err = var_export($_scopeName, true);
                 $this->trigger_template_error("illegal value '{$err}' for \"scope\" attribute", null, true);
-            }
-            if (isset($_attr[ 'bubble_up' ]) && $_attr[ 'bubble_up' ] && $_scope > 2) {
-                $_scope += Smarty::SCOPE_BUBBLE_UP;
             }
         }
         return $_scope;

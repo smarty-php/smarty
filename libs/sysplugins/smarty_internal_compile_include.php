@@ -43,7 +43,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * @var array
      * @see Smarty_Internal_CompileBase
      */
-    public $option_flags = array('nocache', 'inline', 'caching', 'bubble_up');
+    public $option_flags = array('nocache', 'inline', 'caching');
 
     /**
      * Attribute definition: Overwrites base class.
@@ -214,7 +214,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             }
         }
         // delete {include} standard attributes
-        unset($_attr[ 'file' ], $_attr[ 'assign' ], $_attr[ 'cache_id' ], $_attr[ 'compile_id' ], $_attr[ 'cache_lifetime' ], $_attr[ 'nocache' ], $_attr[ 'caching' ], $_attr[ 'scope' ], $_attr[ 'inline' ], $_attr[ 'bubble_up' ]);
+        unset($_attr[ 'file' ], $_attr[ 'assign' ], $_attr[ 'cache_id' ], $_attr[ 'compile_id' ], $_attr[ 'cache_lifetime' ], $_attr[ 'nocache' ], $_attr[ 'caching' ], $_attr[ 'scope' ], $_attr[ 'inline' ]);
         // remaining attributes must be assigned as smarty variable
         $_vars_nc = '';
         $_vars = 'array()';
