@@ -76,25 +76,7 @@ class PhpResourceTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
         $this->assertFalse($tpl->source->handler->recompiled);
     }
-
-    /**
-     * test getCompiledFilepath
-     */
-    public function testGetCompiledFilepath()
-    {
-        $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
-        $this->assertFalse($tpl->compiled->filepath);
-    }
-
-    /**
-     * test getCompiledTimestamp
-     */
-    public function testGetCompiledTimestamp()
-    {
-        $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
-        $this->assertFalse($tpl->compiled->getTimeStamp());
-    }
-
+    
     /**
      * test mustCompile
      */
@@ -284,4 +266,23 @@ class PhpResourceTest extends PHPUnit_Smarty
         $expected = $this->buildCachedPath($tpl, false, null, null, 'helloworld.php', 'php', $this->smarty->getTemplateDir('foo'), 'file');
         $this->assertEquals($expected, $path);
     }
+
+    /**
+     * test getRenderedTemplate
+     */
+    public function testIncludePhpTemplate()
+    {
+        $this->smarty->setAllowPhpTemplates(true);
+        $this->assertContains('php hello world', $this->smarty->fetch('includephp.tpl'));
+    }
+    /**
+     * test getRenderedTemplate
+     */
+    public function testIncludePhpTemplateCaching()
+    {
+        $this->smarty->caching = true;
+        $this->smarty->setAllowPhpTemplates(true);
+        $this->assertContains('php hello world', $this->smarty->fetch('includephp.tpl'));
+    }
+
 }
