@@ -103,6 +103,27 @@ class Smarty_Template_Source
     public $content = null;
 
     /**
+     * Name of the Class to compile this resource's contents with
+     *
+     * @var string
+     */
+    public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
+
+    /**
+     * Name of the Class to tokenize this resource's contents with
+     *
+     * @var string
+     */
+    public $template_lexer_class = 'Smarty_Internal_Templatelexer';
+
+    /**
+     * Name of the Class to parse this resource's contents with
+     *
+     * @var string
+     */
+    public $template_parser_class = 'Smarty_Internal_Templateparser';
+
+    /**
      * create Source Object container
      *
      * @param Smarty_Resource $handler  Resource Handler this source object communicates with
@@ -112,9 +133,10 @@ class Smarty_Template_Source
      * @param string          $name     resource name
      *
      */
-    public function __construct(Smarty_Resource $handler, Smarty $smarty, $resource, $type, $name)
+    public function __construct(Smarty $smarty, $resource, $type, $name)
     {
-        $this->handler = $handler; // Note: prone to circular references
+        $this->handler = isset($smarty->_cache[ 'resource_handlers' ][ $type ]) ? $smarty->_cache[ 'resource_handlers' ][ $type ] :
+            Smarty_Resource::load($smarty, $type);
         $this->smarty = $smarty;
         $this->resource = $resource;
         $this->type = $type;
@@ -152,54 +174,15 @@ class Smarty_Template_Source
             $type = $smarty->default_resource_type;
             $name = $template_resource;
         }
-
-        $handler =
-            isset($smarty->_cache[ 'resource_handlers' ][ $type ]) ? $smarty->_cache[ 'resource_handlers' ][ $type ] :
-                Smarty_Resource::load($smarty, $type);
         // create new source  object
-        $source = new Smarty_Template_Source($handler, $smarty, $template_resource, $type, $name);
-        $handler->populate($source, $_template);
+        $source = new Smarty_Template_Source($smarty, $template_resource, $type, $name);
+        $source->handler->populate($source, $_template);
         if (!$source->exists && isset($_template->smarty->default_template_handler_func)) {
             Smarty_Internal_Method_RegisterDefaultTemplateHandler::_getDefaultTemplate($source);
         }
         return $source;
     }
-
-    /**
-     * render the uncompiled source
-     *
-     * @param Smarty_Internal_Template $_template template object
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function renderUncompiled(Smarty_Internal_Template $_template)
-    {
-        $this->handler->renderUncompiled($_template->source, $_template);
-    }
-
-    /**
-     * Render uncompiled source
-     *
-     * @param \Smarty_Internal_Template $_template
-     */
-    public function render(Smarty_Internal_Template $_template)
-    {
-        if ($_template->source->handler->uncompiled) {
-            if ($_template->smarty->debugging) {
-                $_template->smarty->_debug->start_render($_template);
-            }
-            $this->handler->renderUncompiled($_template->source, $_template);
-            if (isset($_template->parent) && $_template->parent->_objType == 2 && !empty($_template->tpl_function)) {
-                $_template->parent->tpl_function =
-                    array_merge($_template->parent->tpl_function, $_template->tpl_function);
-            }
-            if ($_template->smarty->debugging) {
-                $_template->smarty->_debug->end_render($_template);
-            }
-        }
-    }
-
+    
     /**
      * Get source time stamp
      *

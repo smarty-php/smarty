@@ -71,12 +71,9 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
             throw new SmartyException("PHP templates are disabled");
         }
         if (!$source->exists) {
-            if (isset($_template->parent) && $_template->parent->_objType == 2) {
-                $parent_resource = " in '{$_template->parent->template_resource}'";
-            } else {
-                $parent_resource = '';
-            }
-            throw new SmartyException("Unable to load template {$source->type} '{$source->name}'{$parent_resource}");
+            $parentIsTpl = isset($this->parent) && $this->parent->_objType == 2;
+            throw new SmartyException("Unable to load template {$source->type} '{$source->name}'" .
+                                      ($parentIsTpl ? " in '{$this->parent->template_resource}'" : ''));
         }
 
         // prepare variables
@@ -100,8 +97,11 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
      */
     public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)
     {
-        $compiled->filepath = false;
-        $compiled->timestamp = false;
-        $compiled->exists = false;
+        $compiled->filepath = $_template->source->filepath;
+        $compiled->timestamp = $_template->source->timestamp;
+        $compiled->exists = $_template->source->exists;
+        $compiled->file_dependency[ $_template->source->uid ] =
+            array($compiled->filepath, $this->template->source->getTimeStamp(),
+                  $this->template->source->type,);
     }
 }

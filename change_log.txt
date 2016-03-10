@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 10.03.2014
+  - optimization of resource processing
+  
  09.03.2014
   - improvement rework of 'scope' attribute handling see see NEW_FEATURES.txt https://github.com/smarty-php/smarty/issues/194
     https://github.com/smarty-php/smarty/issues/186 https://github.com/smarty-php/smarty/issues/179

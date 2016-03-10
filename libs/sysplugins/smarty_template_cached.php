@@ -73,6 +73,13 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
     public $hashes = array();
 
     /**
+     * Flag if this is a cache resource
+     *
+     * @var bool
+     */
+    public $isCache = true;
+
+    /**
      * create Cached Object container
      *
      * @param Smarty_Internal_Template $_template template object

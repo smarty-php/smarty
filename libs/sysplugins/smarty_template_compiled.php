@@ -96,46 +96,46 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      */
     public function process(Smarty_Internal_Template $_template)
     {
-        $_smarty_tpl = $_template;
-        if ($_template->source->handler->recompiled || !$_template->compiled->exists ||
-            $_template->smarty->force_compile || ($_template->smarty->compile_check &&
-                                                  $_template->source->getTimeStamp() >
-                                                  $_template->compiled->getTimeStamp())
-        ) {
-            $this->compileTemplateSource($_template);
-            $compileCheck = $_template->smarty->compile_check;
-            $_template->smarty->compile_check = false;
-            if ($_template->source->handler->recompiled) {
-                $level = ob_get_level();
-                ob_start();
-                try {
-                    eval("?>" . $this->content);
-                }
-                catch (Exception $e) {
-                    while (ob_get_level() > $level) {
-                        ob_end_clean();
-                    }
-                    throw $e;
-                }
-                ob_get_clean();
-                $this->content = null;
-            } else {
-                $this->loadCompiledTemplate($_template);
-            }
-            $_template->smarty->compile_check = $compileCheck;
-        } else {
-            $_template->mustCompile = true;
-            @include($_template->compiled->filepath);
-            if ($_template->mustCompile) {
+        if (!$_template->source->handler->uncompiled) {
+            $_smarty_tpl = $_template;
+            if ($_template->source->handler->recompiled || !$this->exists || $_template->smarty->force_compile ||
+                ($_template->smarty->compile_check && $_template->source->getTimeStamp() > $this->getTimeStamp())
+            ) {
                 $this->compileTemplateSource($_template);
                 $compileCheck = $_template->smarty->compile_check;
                 $_template->smarty->compile_check = false;
-                $this->loadCompiledTemplate($_template);
+                if ($_template->source->handler->recompiled) {
+                    $level = ob_get_level();
+                    ob_start();
+                    try {
+                        eval("?>" . $this->content);
+                    }
+                    catch (Exception $e) {
+                        while (ob_get_level() > $level) {
+                            ob_end_clean();
+                        }
+                        throw $e;
+                    }
+                    ob_get_clean();
+                    $this->content = null;
+                } else {
+                    $this->loadCompiledTemplate($_template);
+                }
                 $_template->smarty->compile_check = $compileCheck;
+            } else {
+                $_template->mustCompile = true;
+                @include($this->filepath);
+                if ($_template->mustCompile) {
+                    $this->compileTemplateSource($_template);
+                    $compileCheck = $_template->smarty->compile_check;
+                    $_template->smarty->compile_check = false;
+                    $this->loadCompiledTemplate($_template);
+                    $_template->smarty->compile_check = $compileCheck;
+                }
             }
+            $_template->_subTemplateRegister();
+            $this->processed = true;
         }
-        $_template->_subTemplateRegister();
-        $this->processed = true;
     }
 
     /**
@@ -147,15 +147,15 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     private function loadCompiledTemplate(Smarty_Internal_Template $_template)
     {
         if (function_exists('opcache_invalidate')) {
-            opcache_invalidate($_template->compiled->filepath, true);
+            opcache_invalidate($this->filepath, true);
         } elseif (function_exists('apc_compile_file')) {
-            apc_compile_file($_template->compiled->filepath);
+            apc_compile_file($this->filepath);
         }
         $_smarty_tpl = $_template;
         if (defined('HHVM_VERSION')) {
-            eval("?>" . file_get_contents($_template->compiled->filepath));
+            eval("?>" . file_get_contents($this->filepath));
         } else {
-            include($_template->compiled->filepath);
+            include($this->filepath);
         }
     }
 
@@ -179,7 +179,11 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             $_template->cached->file_dependency =
                 array_merge($_template->cached->file_dependency, $this->file_dependency);
         }
-        $this->getRenderedTemplateCode($_template);
+        if ($_template->source->handler->uncompiled) {
+            $_template->source->handler->renderUncompiled($_template->source, $_template);
+        } else {
+            $this->getRenderedTemplateCode($_template);
+        }
         if ($_template->caching && $this->has_nocache_code) {
             $_template->cached->hashes[ $this->nocache_hash ] = true;
         }
@@ -207,8 +211,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $this->unifunc = null;
         // compile locking
         if (!$_template->source->handler->recompiled) {
-            if ($saved_timestamp = $_template->compiled->getTimeStamp()) {
-                touch($_template->compiled->filepath);
+            if ($saved_timestamp = $this->getTimeStamp()) {
+                touch($this->filepath);
             }
         }
         // call compiler
@@ -219,7 +223,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         catch (Exception $e) {
             // restore old timestamp in case of error
             if (!$_template->source->handler->recompiled && $saved_timestamp) {
-                touch($_template->compiled->filepath, $saved_timestamp);
+                touch($this->filepath, $saved_timestamp);
             }
             throw $e;
         }

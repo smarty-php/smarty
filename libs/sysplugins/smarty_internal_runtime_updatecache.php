@@ -82,16 +82,11 @@ class Smarty_Internal_Runtime_UpdateCache
      */
     public function updateCache(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template, $no_output_filter)
     {
-        if ($_template->source->handler->uncompiled) {
-            ob_start();
-            $_template->source->render($_template);
-        } else {
-            ob_start();
-            if (!isset($_template->compiled)) {
-                $_template->loadCompiled();
-            }
-            $_template->compiled->render($_template);
+        ob_start();
+        if (!isset($_template->compiled)) {
+            $_template->loadCompiled();
         }
+        $_template->compiled->render($_template);
         if ($_template->smarty->debugging) {
             $_template->smarty->_debug->start_cache($_template);
         }

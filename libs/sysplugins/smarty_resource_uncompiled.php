@@ -44,36 +44,14 @@ abstract class Smarty_Resource_Uncompiled extends Smarty_Resource
      * populate compiled object with compiled filepath
      *
      * @param Smarty_Template_Compiled $compiled  compiled object
-     * @param Smarty_Internal_Template $_template template object (is ignored)
+     * @param Smarty_Internal_Template $_template template object
      */
     public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)
     {
-        $compiled->filepath = false;
-        $compiled->timestamp = false;
-        $compiled->exists = false;
-    }
-
-    /**
-     * render compiled template code
-     *
-     * @param Smarty_Internal_Template $_template
-     *
-     * @return string
-     * @throws Exception
-     */
-    public function render($_template)
-    {
-        $level = ob_get_level();
-        ob_start();
-        try {
-            $this->renderUncompiled($_template->source, $_template);
-            return ob_get_clean();
-        }
-        catch (Exception $e) {
-            while (ob_get_level() > $level) {
-                ob_end_clean();
-            }
-            throw $e;
-        }
+        $compiled->filepath = $_template->source->filepath;
+        $compiled->timestamp = $_template->source->timestamp;
+        $compiled->exists = $_template->source->exists;
+        $compiled->file_dependency[ $_template->source->uid ] =
+            array($compiled->filepath, $compiled->timestamp, $_template->source->type,);
     }
 }

@@ -48,28 +48,7 @@ abstract class Smarty_Resource
      * @var bool
      */
     public $hasCompiledHandler = false;
-
-    /**
-     * Name of the Class to compile this resource's contents with
-     *
-     * @var string
-     */
-    public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
-
-    /**
-     * Name of the Class to tokenize this resource's contents with
-     *
-     * @var string
-     */
-    public $template_lexer_class = 'Smarty_Internal_Templatelexer';
-
-    /**
-     * Name of the Class to parse this resource's contents with
-     *
-     * @var string
-     */
-    public $template_parser_class = 'Smarty_Internal_Templateparser';
-
+    
     /**
      * Load template's source into current template object
      *

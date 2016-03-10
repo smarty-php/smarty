@@ -87,6 +87,13 @@ abstract class Smarty_Template_Resource_Base
     public $includes = array();
 
     /**
+     * Flag if this is a cache resource
+     *
+     * @var bool
+     */
+    public $isCache = false;
+
+    /**
      * Process resource
      *
      * @param Smarty_Internal_Template $_template template object
@@ -104,15 +111,18 @@ abstract class Smarty_Template_Resource_Base
      */
     public function getRenderedTemplateCode(Smarty_Internal_Template $_template, $unifunc = null)
     {
-        $_template->isRenderingCache = $this instanceof Smarty_Template_Cached;
-        $unifunc = isset($unifunc) ? $unifunc : $this->unifunc;
+        $smarty = &$_template->smarty;
+        $_template->isRenderingCache = $this->isCache;
         $level = ob_get_level();
         try {
-            if (empty($unifunc) || !is_callable($unifunc)) {
+            if (!isset($unifunc)) {
+                $unifunc = $this->unifunc;
+            }
+            if (empty($unifunc) || !function_exists($unifunc)) {
                 throw new SmartyException("Invalid compiled template for '{$_template->template_resource}'");
             }
-            if (isset($_template->smarty->security_policy)) {
-                $_template->smarty->security_policy->startTemplate($_template);
+            if (isset($smarty->security_policy)) {
+                $smarty->security_policy->startTemplate($_template);
             }
             //
             // render compiled or saved template code
@@ -126,8 +136,8 @@ abstract class Smarty_Template_Resource_Base
             if ($_saved_capture_level != count($_template->_cache[ 'capture_stack' ])) {
                 $_template->capture_error();
             }
-            if (isset($_template->smarty->security_policy)) {
-                $_template->smarty->security_policy->exitTemplate();
+            if (isset($smarty->security_policy)) {
+                $smarty->security_policy->exitTemplate();
             }
             $_template->isRenderingCache = false;
             return null;
@@ -137,8 +147,8 @@ abstract class Smarty_Template_Resource_Base
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
-            if (isset($_template->smarty->security_policy)) {
-                $_template->smarty->security_policy->exitTemplate();
+            if (isset($smarty->security_policy)) {
+                $smarty->security_policy->exitTemplate();
             }
             throw $e;
         }
