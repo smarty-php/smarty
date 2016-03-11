@@ -121,23 +121,14 @@ abstract class Smarty_Template_Resource_Base
             if (empty($unifunc) || !function_exists($unifunc)) {
                 throw new SmartyException("Invalid compiled template for '{$_template->template_resource}'");
             }
-            if (isset($smarty->security_policy)) {
-                $smarty->security_policy->startTemplate($_template);
+            if ($_template->startRenderCallbacks) {
+                foreach ($_template->startRenderCallbacks as $callback) {
+                    call_user_func($callback, $_template);
+                }
             }
-            //
-            // render compiled or saved template code
-            //
-            if (!isset($_template->_cache[ 'capture_stack' ])) {
-                $_template->_cache[ 'capture_stack' ] = array();
-            }
-            $_saved_capture_level = count($_template->_cache[ 'capture_stack' ]);
             $unifunc($_template);
-            // any unclosed {capture} tags ?
-            if ($_saved_capture_level != count($_template->_cache[ 'capture_stack' ])) {
-                $_template->capture_error();
-            }
-            if (isset($smarty->security_policy)) {
-                $smarty->security_policy->exitTemplate();
+            foreach ($_template->endRenderCallbacks as $callback) {
+                call_user_func($callback, $_template);
             }
             $_template->isRenderingCache = false;
             return null;
@@ -148,7 +139,7 @@ abstract class Smarty_Template_Resource_Base
                 ob_end_clean();
             }
             if (isset($smarty->security_policy)) {
-                $smarty->security_policy->exitTemplate();
+                $smarty->security_policy->endTemplate();
             }
             throw $e;
         }

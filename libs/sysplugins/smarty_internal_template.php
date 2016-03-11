@@ -88,6 +88,21 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $isRenderingCache = false;
 
     /**
+     * Callbacks called before rendering template
+     *
+     * @var callback[]
+     */
+    public $startRenderCallbacks = array();
+
+    /**
+     * Callbacks called after rendering template
+     *
+     * @var callback[]
+     */
+    public $endRenderCallbacks = array();
+
+
+    /**
      * Create template data object
      * Some of the global Smarty settings copied to template scope
      * It load the required template resources and caching plugins
@@ -120,6 +135,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $this->template_resource = $template_resource;
         $this->source = Smarty_Template_Source::load($this);
         parent::__construct();
+        if ($smarty->security_policy && method_exists($smarty->security_policy, 'registerCallBacks')) {
+            $smarty->security_policy->registerCallBacks($this);
+        }
     }
 
     /**

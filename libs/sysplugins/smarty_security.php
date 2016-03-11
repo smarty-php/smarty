@@ -625,33 +625,7 @@ class Smarty_Security
             $this->_checkDir($this->smarty->_realpath($filepath, true), $this->_php_resource_dir);
         return true;
     }
-
-    /**
-     * Start template processing
-     *
-     * @param $template
-     *
-     * @throws SmartyException
-     */
-    public function startTemplate($template)
-    {
-        if ($this->max_template_nesting > 0 && $this->_current_template_nesting ++ >= $this->max_template_nesting) {
-            throw new SmartyException("maximum template nesting level of '{$this->max_template_nesting}' exceeded when calling '{$template->template_resource}'");
-        }
-    }
-
-    /**
-     * Exit template processing
-     *
-     * @internal param $template
-     */
-    public function exitTemplate()
-    {
-        if ($this->max_template_nesting > 0) {
-            $this->_current_template_nesting --;
-        }
-    }
-
+    
     /**
      * Check if file is inside a valid directory
      *
@@ -715,5 +689,40 @@ class Smarty_Security
             $smarty->security_policy = new $security_class($smarty);
         }
         return;
+    }
+    /**
+     * Start template processing
+     *
+     * @param $template
+     *
+     * @throws SmartyException
+     */
+    public function startTemplate($template)
+    {
+        if ($this->max_template_nesting > 0 && $this->_current_template_nesting ++ >= $this->max_template_nesting) {
+            throw new SmartyException("maximum template nesting level of '{$this->max_template_nesting}' exceeded when calling '{$template->template_resource}'");
+        }
+    }
+
+    /**
+     * Exit template processing
+     *
+     */
+    public function endTemplate()
+    {
+        if ($this->max_template_nesting > 0) {
+            $this->_current_template_nesting --;
+        }
+    }
+
+    /**
+     * Register callback functions call at start/end of template rendering
+     *
+     * @param \Smarty_Internal_Template $template
+     */
+    public function registerCallBacks(Smarty_Internal_Template $template)
+    {
+        $template->startRenderCallbacks[] = array($this, 'startTemplate');
+        $template->endRenderCallbacks[] = array($this, 'endTemplate');
     }
 }
