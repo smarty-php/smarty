@@ -1,6 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
  11.03.2014
   - optimization of capture and security handling
+  - improvement $smarty->clearCompiledTemplate() should return on recompiled or uncompiled resources
   
  10.03.2014
   - optimization of resource processing

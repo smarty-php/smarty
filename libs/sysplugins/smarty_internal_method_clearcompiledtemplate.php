@@ -48,7 +48,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
             /* @var Smarty_Internal_Template $tpl */
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
-            if ($tpl->source->exists) {
+            if (!$tpl->source->handler->uncompiled && !$tpl->source->handler->recompiled && $tpl->source->exists) {
                 $_resource_part_1 = basename(str_replace('^', DS, $tpl->compiled->filepath));
                 $_resource_part_1_length = strlen($_resource_part_1);
             } else {
