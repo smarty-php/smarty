@@ -176,4 +176,13 @@ class EvalResourceTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('eval:base64:eyJmb29iYXIifGVzY2FwZX0=');
         $this->assertEquals('foobar', $tpl->fetch());
     }
+
+    /**
+     * test clearCompiledTemplate()
+     */
+    public function testClearCompiled()
+    {
+         $this->assertEquals(0, $this->smarty->clearCompiledTemplate('eval:hello world'));
+    }
+
 }

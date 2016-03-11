@@ -10,7 +10,7 @@
  * class for PHP resource tests
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  */
 class PhpResourceTest extends PHPUnit_Smarty
@@ -20,11 +20,11 @@ class PhpResourceTest extends PHPUnit_Smarty
         $this->setUpSmarty(dirname(__FILE__));
     }
 
-
     public function testInit()
     {
         $this->cleanDirs();
     }
+
     protected function relative($path)
     {
         $path = str_replace(str_replace("\\", "/", dirname(__FILE__)), '.', str_replace("\\", "/", $path));
@@ -76,7 +76,7 @@ class PhpResourceTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
         $this->assertFalse($tpl->source->handler->recompiled);
     }
-    
+
     /**
      * test mustCompile
      */
@@ -95,7 +95,8 @@ class PhpResourceTest extends PHPUnit_Smarty
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('php:phphelloworld.php');
-        $expected = $this->buildCachedPath($tpl, false, null, null, 'phphelloworld.php', 'php', $this->smarty->getTemplateDir(0), 'file');
+        $expected = $this->buildCachedPath($tpl, false, null, null, 'phphelloworld.php', 'php',
+                                           $this->smarty->getTemplateDir(0), 'file');
         $this->assertEquals($expected, $tpl->cached->filepath);
     }
 
@@ -263,26 +264,37 @@ class PhpResourceTest extends PHPUnit_Smarty
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('php:[foo]helloworld.php');
         $path = $tpl->cached->filepath;
-        $expected = $this->buildCachedPath($tpl, false, null, null, 'helloworld.php', 'php', $this->smarty->getTemplateDir('foo'), 'file');
+        $expected = $this->buildCachedPath($tpl, false, null, null, 'helloworld.php', 'php',
+                                           $this->smarty->getTemplateDir('foo'), 'file');
         $this->assertEquals($expected, $path);
     }
 
     /**
-     * test getRenderedTemplate
+     * test {include} php resource
      */
     public function testIncludePhpTemplate()
     {
         $this->smarty->setAllowPhpTemplates(true);
         $this->assertContains('php hello world', $this->smarty->fetch('includephp.tpl'));
     }
+
     /**
-     * test getRenderedTemplate
+     * test {include} php resource caching
      */
     public function testIncludePhpTemplateCaching()
     {
         $this->smarty->caching = true;
         $this->smarty->setAllowPhpTemplates(true);
         $this->assertContains('php hello world', $this->smarty->fetch('includephp.tpl'));
+    }
+
+    /**
+     * test clearCompiledTemplate()
+     */
+    public function testClearCompiled()
+    {
+        $this->smarty->setAllowPhpTemplates(true);
+        $this->assertEquals(0, $this->smarty->clearCompiledTemplate('php:phphelloworld.php'));
     }
 
 }
