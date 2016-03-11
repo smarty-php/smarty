@@ -162,7 +162,7 @@ abstract class Smarty_Template_Resource_Base
     public function getTimeStamp()
     {
         if ($this->exists && !isset($this->timestamp)) {
-            $this->timestamp = @filemtime($this->filepath);
+            $this->timestamp = filemtime($this->filepath);
         }
         return $this->timestamp;
     }

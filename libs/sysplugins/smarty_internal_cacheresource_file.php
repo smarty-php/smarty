@@ -27,7 +27,6 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      */
     public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template)
     {
-        $_source_file_path = str_replace(':', '.', $_template->source->filepath);
         $_cache_id = isset($_template->cache_id) ? preg_replace('![^\w\|]+!', '_', $_template->cache_id) : null;
         $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w]+!', '_', $_template->compile_id) : null;
         $_filepath = sha1($_template->source->uid . $_template->smarty->_joined_template_dir);
@@ -58,8 +57,13 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
             }
             $cached->lock_id = $_lock_dir . sha1($_cache_id . $_compile_id . $_template->source->uid) . '.lock';
         }
+        // set basename
+        $_basename = $_template->source->handler->getBasename($_template->source);
+        if ($_basename === null) {
+            $_basename = basename(preg_replace('![^\w]+!', '_', $_template->source->name));
+        }
         $cached->filepath =
-            $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($_source_file_path) . '.php';
+            $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . $_basename . '.php';
         $cached->timestamp = $cached->exists = is_file($cached->filepath);
         if ($cached->exists) {
             $cached->timestamp = filemtime($cached->filepath);
@@ -84,24 +88,20 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
     /**
      * Read the cached template and process its header
      *
-     * @param Smarty_Internal_Template $_template template object
+     * @param \Smarty_Internal_Template $_smarty_tpl  do not change variable name, is used by compiled template
      * @param Smarty_Template_Cached   $cached    cached object
      * @param bool                     $update    flag if called because cache update
      *
      * @return boolean true or false if the cached content does not exist
      */
-    public function process(Smarty_Internal_Template $_template, Smarty_Template_Cached $cached = null, $update = false)
+    public function process(Smarty_Internal_Template $_smarty_tpl, Smarty_Template_Cached $cached = null, $update = false)
     {
-        /** @var Smarty_Internal_Template $_smarty_tpl
-         * used in included file
-         */
-        $_smarty_tpl = $_template;
-        $_template->cached->valid = false;
+        $_smarty_tpl->cached->valid = false;
         if ($update && defined('HHVM_VERSION')) {
-            eval("?>" . file_get_contents($_template->cached->filepath));
+            eval("?>" . file_get_contents($_smarty_tpl->cached->filepath));
             return true;
         } else {
-            return @include $_template->cached->filepath;
+            return @include $_smarty_tpl->cached->filepath;
         }
     }
 
@@ -193,7 +193,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
             clearstatcache();
         }
         if (is_file($cached->lock_id)) {
-            $t = @filemtime($cached->lock_id);
+            $t = filemtime($cached->lock_id);
             return $t && (time() - $t < $smarty->locking_timeout);
         } else {
             return false;
