@@ -120,8 +120,9 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
             $namedAttr = $this->matchResults[ 'named' ];
         }
         if (isset($_attr[ 'properties' ]) && preg_match_all("/['](.*?)[']/", $_attr[ 'properties' ], $match)) {
+			$nameProperties = array_fill_keys($this->nameProperties, null);
             foreach ($match[ 1 ] as $prop) {
-                if (in_array($prop, $this->nameProperties)) {
+                if (isset($nameProperties[$prop])) {
                     $namedAttr[ $prop ] = true;
                 } else {
                     $compiler->trigger_template_error("Invalid property '{$prop}'", null, true);

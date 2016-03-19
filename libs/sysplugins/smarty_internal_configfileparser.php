@@ -369,11 +369,11 @@ class Smarty_Internal_Configfileparser
 
     static public $yy_reduce_ofst = array(- 10, - 1, - 1, - 1, - 20, 10, 12, 8, 14, 7, - 11,);
 
-    static public $yyExpectedTokens = array(array(), array(5, 17, 18,), array(5, 17, 18,), array(5, 17, 18,),
-                                            array(7, 8, 9, 10, 11, 12, 15, 16,), array(17, 18,), array(17, 18,),
-                                            array(1,), array(), array(), array(), array(2, 4,), array(15, 17,),
-                                            array(13, 14,), array(14,), array(17,), array(3,), array(3,), array(2,),
-                                            array(6,), array(), array(), array(), array(), array(), array(), array(),
+    static private $yyExpectedTokens = array(array(), array(5=>1, 17=>1, 18=>1,), array(5=>1, 17=>1, 18=>1,), array(5=>1, 17=>1, 18=>1,),
+                                            array(7=>1, 8=>1, 9=>1, 10=>1, 11=>1, 12=>1, 15=>1, 16=>1,), array(17=>1, 18=>1,), array(17=>1, 18=>1,),
+                                            array(1=>1,), array(), array(), array(), array(2=>1, 4=>1,), array(15=>1, 17=>1,),
+                                            array(13=>1, 14=>1,), array(14=>1,), array(17=>1,), array(3=>1,), array(3=>1,), array(2=>1,),
+                                            array(6=>1,), array(), array(), array(), array(), array(), array(), array(),
                                             array(), array(), array(), array(), array(), array(), array(), array(),
                                             array(),);
 
@@ -492,11 +492,11 @@ class Smarty_Internal_Configfileparser
         $expected = self::$yyExpectedTokens[ $state ];
         if (isset($res3[ $state ][ $token ])) {
             if ($res3[ $state ][ $token ]) {
-                return $expected;
+                return array_keys($expected);
             }
         } else {
-            if ($res3[ $state ][ $token ] = in_array($token, self::$yyExpectedTokens[ $state ], true)) {
-                return $expected;
+            if ($res3[ $state ][ $token ] = isset(self::$yyExpectedTokens[ $state ][ $token ]) && is_int($token)) {
+                return array_keys($expected);
             }
         }
         $stack = $this->yystack;
@@ -512,27 +512,27 @@ class Smarty_Internal_Configfileparser
                         $this->yystack = $stack;
                         // too much recursion prevents proper detection
                         // so give up
-                        return array_unique($expected);
+                        return array_keys($expected);
                     }
                     $yyruleno = $yyact - self::YYNSTATE;
                     $this->yyidx -= self::$yyRuleInfo[ $yyruleno ][ 1 ];
                     $nextstate = $this->yy_find_reduce_action($this->yystack[ $this->yyidx ]->stateno,
                                                               self::$yyRuleInfo[ $yyruleno ][ 0 ]);
                     if (isset(self::$yyExpectedTokens[ $nextstate ])) {
-                        $expected = array_merge($expected, self::$yyExpectedTokens[ $nextstate ]);
+                        $expected += self::$yyExpectedTokens[ $nextstate ];
                         if (isset($res4[ $nextstate ][ $token ])) {
                             if ($res4[ $nextstate ][ $token ]) {
                                 $this->yyidx = $yyidx;
                                 $this->yystack = $stack;
-                                return array_unique($expected);
+                                return array_keys($expected);
                             }
                         } else {
-                            if ($res4[ $nextstate ][ $token ] =
-                                in_array($token, self::$yyExpectedTokens[ $nextstate ], true)
-                            ) {
+				            if ($res4[ $nextstate ][ $token ] =
+								isset(self::$yyExpectedTokens[ $nextstate ][ $token ]) && is_int($token)
+							) {
                                 $this->yyidx = $yyidx;
                                 $this->yystack = $stack;
-                                return array_unique($expected);
+                                return array_keys($expected);
                             }
                         }
                     }
@@ -550,12 +550,12 @@ class Smarty_Internal_Configfileparser
                         // the last token was just ignored, we can't accept
                         // by ignoring input, this is in essence ignoring a
                         // syntax error!
-                        return array_unique($expected);
+                        return array_keys($expected);
                     } elseif ($nextstate === self::YY_NO_ACTION) {
                         $this->yyidx = $yyidx;
                         $this->yystack = $stack;
                         // input accepted, but not shifted (I guess)
-                        return $expected;
+                        return array_keys($expected);
                     } else {
                         $yyact = $nextstate;
                     }
@@ -568,7 +568,7 @@ class Smarty_Internal_Configfileparser
         $this->yyidx = $yyidx;
         $this->yystack = $stack;
 
-        return array_unique($expected);
+        return array_keys($expected);
     }
 
     public function yy_is_expected_token($token)
@@ -584,7 +584,7 @@ class Smarty_Internal_Configfileparser
                 return true;
             }
         } else {
-            if ($res[ $state ][ $token ] = in_array($token, self::$yyExpectedTokens[ $state ], true)) {
+            if ($res[ $state ][ $token ] = isset(self::$yyExpectedTokens[ $state ][ $token ]) && is_int($token)) {
                 return true;
             }
         }
@@ -614,9 +614,9 @@ class Smarty_Internal_Configfileparser
                             return true;
                         }
                     } else {
-                        if ($res2[ $nextstate ][ $token ] = (isset(self::$yyExpectedTokens[ $nextstate ]) &&
-                                                             in_array($token, self::$yyExpectedTokens[ $nextstate ],
-                                                                      true))
+			            if ($res2[ $nextstate ][ $token ] = (isset(self::$yyExpectedTokens[ $nextstate ]) &&
+															 isset(self::$yyExpectedTokens[ $nextstate ][ $token ]) &&
+																	  is_int($token))
                         ) {
                             $this->yyidx = $yyidx;
                             $this->yystack = $stack;

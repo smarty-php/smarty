@@ -1182,7 +1182,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $line = (int) $line;
         }
 
-        if (in_array($this->template->source->type, array('eval', 'string'))) {
+        if ($this->template->source->type === 'eval' || $this->template->source->type === 'string') {
             $templateName = $this->template->source->type . ':' . trim(preg_replace('![\t\r\n]+!', ' ',
                                                                                     strlen($lex->data) > 40 ?
                                                                                         substr($lex->data, 0, 40) .
