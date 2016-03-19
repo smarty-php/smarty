@@ -466,7 +466,7 @@ class Smarty_Security
      */
     public function isTrustedConstant($const, $compiler)
     {
-        if (in_array($const, array('true', 'false', 'null'))) {
+        if ($const === 'true' || $const === 'false' || $const === 'null') {
             return true;
         }
         if (!empty($this->trusted_constants)) {

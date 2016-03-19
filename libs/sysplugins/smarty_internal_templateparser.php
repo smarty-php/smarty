@@ -2471,7 +2471,7 @@ class Smarty_Internal_Templateparser
                 is_callable($this->yystack[ $this->yyidx + - 3 ]->minor)
             ) {
                 $func_name = strtolower($this->yystack[ $this->yyidx + - 3 ]->minor);
-                if ($func_name == 'isset') {
+                if ($func_name === 'isset') {
                     if (count($this->yystack[ $this->yyidx + - 1 ]->minor) == 0) {
                         $this->compiler->trigger_template_error('Illegal number of paramer in "isset()"');
                     }
@@ -2487,7 +2487,7 @@ class Smarty_Internal_Templateparser
                         $isset_par = str_replace("')->value", "',null,true,false)->value", $par);
                     }
                     $this->_retvalue = $this->yystack[ $this->yyidx + - 3 ]->minor . "(" . $isset_par . ")";
-                } elseif (in_array($func_name, array('empty', 'reset', 'current', 'end', 'prev', 'next'))) {
+                } elseif ($func_name === 'empty' || $func_name === 'reset' || $func_name === 'current' || $func_name === 'end' || $func_name === 'prev' || $func_name === 'next') {
                     if (count($this->yystack[ $this->yyidx + - 1 ]->minor) != 1) {
                         $this->compiler->trigger_template_error('Illegal number of paramer in "empty()"');
                     }

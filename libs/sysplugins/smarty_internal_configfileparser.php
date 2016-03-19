@@ -201,12 +201,7 @@ class Smarty_Internal_Configfileparser
     private function parse_bool($str)
     {
         $str = strtolower($str);
-        if (in_array($str, array('on', 'yes', 'true'))) {
-            $res = true;
-        } else {
-            $res = false;
-        }
-        return $res;
+		return ($str === 'on' || $str === 'yes' || $str === 'true');
     }
 
     /**

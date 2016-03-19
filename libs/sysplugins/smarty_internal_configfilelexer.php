@@ -420,8 +420,9 @@ class Smarty_Internal_Configfilelexer
     function yy_r2_7()
     {
 
+		$value = strtolower($this->value);
         if (!$this->configBooleanize ||
-            !in_array(strtolower($this->value), Array("true", "false", "on", "off", "yes", "no"))
+            !($value === 'true' || $value === 'false' || $value === 'on' || $value === 'off' || $value === 'yes' || $value === 'no')
         ) {
             $this->yypopstate();
             $this->yypushstate(self::NAKED_STRING_VALUE);
