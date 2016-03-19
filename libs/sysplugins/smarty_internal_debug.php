@@ -53,8 +53,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     public function start_template(Smarty_Internal_Template $template, $mode = null)
     {
         if (isset($mode)) {
-            $this->index ++;
-            $this->offset ++;
+            ++ $this->index;
+            ++ $this->offset;
             $this->template_data[ $this->index ] = null;
         }
         $key = $this->get_key($template);
@@ -197,7 +197,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     public function display_debug($obj, $full = false)
     {
         if (!$full) {
-            $this->offset ++;
+            ++ $this->offset;
             $savedIndex = $this->index;
             $this->index = 9999;
         }
@@ -255,7 +255,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $_template->assign('offset', $this->offset * 50);
         echo $_template->fetch();
         if (isset($full)) {
-            $this->index --;
+            -- $this->index;
         }
         if (!$full) {
             $this->index = $savedIndex;
@@ -285,10 +285,10 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $tpl_vars = array();
         foreach ($obj->tpl_vars as $key => $var) {
             foreach ($var as $varkey => $varvalue) {
-                if ($varkey == 'value') {
+                if ($varkey === 'value') {
                     $tpl_vars[ $key ][ $varkey ] = $varvalue;
                 } else {
-                    if ($varkey == 'nocache') {
+                    if ($varkey === 'nocache') {
                         if ($varvalue == true) {
                             $tpl_vars[ $key ][ $varkey ] = $varvalue;
                         }
@@ -327,10 +327,10 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             foreach (Smarty::$global_tpl_vars as $key => $var) {
                 if (!array_key_exists($key, $tpl_vars)) {
                     foreach ($var as $varkey => $varvalue) {
-                        if ($varkey == 'value') {
+                        if ($varkey === 'value') {
                             $tpl_vars[ $key ][ $varkey ] = $varvalue;
                         } else {
-                            if ($varkey == 'nocache') {
+                            if ($varkey === 'nocache') {
                                 if ($varvalue == true) {
                                     $tpl_vars[ $key ][ $varkey ] = $varvalue;
                                 }

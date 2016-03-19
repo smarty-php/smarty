@@ -320,7 +320,7 @@ class Smarty_Security
             // fall back
             return $this->isTrustedStaticClass($class_name, $compiler);
         }
-        if ($params[ 2 ] == 'method') {
+        if ($params[ 2 ] === 'method') {
             $allowed = $this->trusted_static_methods;
             $name = substr($params[ 0 ], 0, strpos($params[ 0 ], '('));
         } else {
@@ -711,7 +711,7 @@ class Smarty_Security
     public function endTemplate()
     {
         if ($this->max_template_nesting > 0) {
-            $this->_current_template_nesting --;
+            -- $this->_current_template_nesting;
         }
     }
 

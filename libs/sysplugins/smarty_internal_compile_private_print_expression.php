@@ -66,7 +66,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                         foreach ($compiler->smarty->default_modifiers as $key => $single_default_modifier) {
                             preg_match_all('/(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|:|[^:]+)/',
                                            $single_default_modifier, $mod_array);
-                            for ($i = 0, $count = count($mod_array[ 0 ]); $i < $count; $i ++) {
+                            for ($i = 0, $count = count($mod_array[ 0 ]); $i < $count; ++ $i) {
                                 if ($mod_array[ 0 ][ $i ] != ':') {
                                     $modifierlist[ $key ][] = $mod_array[ 0 ][ $i ];
                                 }

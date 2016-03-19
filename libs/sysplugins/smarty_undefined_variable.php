@@ -18,7 +18,7 @@ class Smarty_Undefined_Variable
      */
     public function __get($name)
     {
-        if ($name == 'nocache') {
+        if ($name === 'nocache') {
             return false;
         } else {
             return null;

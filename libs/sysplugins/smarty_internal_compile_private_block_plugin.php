@@ -48,7 +48,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             // opening tag of block plugin
             // check and get attributes
             $_attr = $this->getAttributes($compiler, $args);
-            $this->nesting ++;
+            ++ $this->nesting;
             unset($_attr[ 'nocache' ]);
             list($callback, $_paramsArray, $callable) = $this->setup($compiler, $_attr, $tag, $function);
             $_params = 'array(' . implode(",", $_paramsArray) . ')';
@@ -93,7 +93,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                       ", \$_smarty_tpl, \$_block_repeat{$this->nesting});\n" . $mod_post . "}\n";
             $output .= "array_pop(\$_smarty_tpl->smarty->_cache['_tag_stack']);";
             $output .= "?>";
-            $this->nesting --;
+            -- $this->nesting;
         }
         return $output . "\n";
     }

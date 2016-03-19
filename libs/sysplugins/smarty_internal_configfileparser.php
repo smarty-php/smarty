@@ -469,7 +469,7 @@ class Smarty_Internal_Configfileparser
         }
         $yymajor = $yytos->major;
         self::yy_destructor($yymajor, $yytos->minor);
-        $this->yyidx --;
+        -- $this->yyidx;
 
         return $yymajor;
     }
@@ -538,7 +538,7 @@ class Smarty_Internal_Configfileparser
                     }
                     if ($nextstate < self::YYNSTATE) {
                         // we need to shift a non-terminal
-                        $this->yyidx ++;
+                        ++ $this->yyidx;
                         $x = new TPC_yyStackEntry;
                         $x->stateno = $nextstate;
                         $x->major = self::$yyRuleInfo[ $yyruleno ][ 0 ];
@@ -625,7 +625,7 @@ class Smarty_Internal_Configfileparser
                     }
                     if ($nextstate < self::YYNSTATE) {
                         // we need to shift a non-terminal
-                        $this->yyidx ++;
+                        ++ $this->yyidx;
                         $x = new TPC_yyStackEntry;
                         $x->stateno = $nextstate;
                         $x->major = self::$yyRuleInfo[ $yyruleno ][ 0 ];
@@ -722,9 +722,9 @@ class Smarty_Internal_Configfileparser
 
     public function yy_shift($yyNewState, $yyMajor, $yypMinor)
     {
-        $this->yyidx ++;
+        ++ $this->yyidx;
         if ($this->yyidx >= self::YYSTACKDEPTH) {
-            $this->yyidx --;
+            -- $this->yyidx;
             if ($this->yyTraceFILE) {
                 fprintf($this->yyTraceFILE, "%sStack Overflow!\n", $this->yyTracePrompt);
             }
@@ -746,7 +746,7 @@ class Smarty_Internal_Configfileparser
         if ($this->yyTraceFILE && $this->yyidx > 0) {
             fprintf($this->yyTraceFILE, "%sShift %d\n", $this->yyTracePrompt, $yyNewState);
             fprintf($this->yyTraceFILE, "%sStack:", $this->yyTracePrompt);
-            for ($i = 1; $i <= $this->yyidx; $i ++) {
+            for ($i = 1; $i <= $this->yyidx; ++ $i) {
                 fprintf($this->yyTraceFILE, " %s", $this->yyTokenName[ $this->yystack[ $i ]->major ]);
             }
             fwrite($this->yyTraceFILE, "\n");
@@ -889,14 +889,14 @@ class Smarty_Internal_Configfileparser
         $yygoto = self::$yyRuleInfo[ $yyruleno ][ 0 ];
         $yysize = self::$yyRuleInfo[ $yyruleno ][ 1 ];
         $this->yyidx -= $yysize;
-        for ($i = $yysize; $i; $i --) {
+        for ($i = $yysize; $i; -- $i) {
             // pop all of the right-hand side parameters
             array_pop($this->yystack);
         }
         $yyact = $this->yy_find_reduce_action($this->yystack[ $this->yyidx ]->stateno, $yygoto);
         if ($yyact < self::YYNSTATE) {
             if (!$this->yyTraceFILE && $yysize) {
-                $this->yyidx ++;
+                ++ $this->yyidx;
                 $x = new TPC_yyStackEntry;
                 $x->stateno = $yyact;
                 $x->major = $yygoto;
@@ -971,7 +971,7 @@ class Smarty_Internal_Configfileparser
             }
             if ($yyact < self::YYNSTATE) {
                 $this->yy_shift($yyact, $yymajor, $yytokenvalue);
-                $this->yyerrcnt --;
+                -- $this->yyerrcnt;
                 if ($yyendofinput && $this->yyidx >= 0) {
                     $yymajor = 0;
                 } else {

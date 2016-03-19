@@ -76,7 +76,7 @@ class Smarty_Internal_Extension_Handler
                 }
                 if ($this->_property_info[ $prop ]) {
                     $pn = $this->resolvedProperties[ $prop ];
-                    if ($match[ 1 ] == 'get') {
+                    if ($match[ 1 ] === 'get') {
                         return $this->_property_info[ $prop ] == 1 ? $data->$pn : $data->smarty->$pn;
                     } else {
                         return $this->_property_info[ $prop ] == 1 ? $data->$pn = $args[ 0 ] :
@@ -123,7 +123,7 @@ class Smarty_Internal_Extension_Handler
     public function __get($property_name)
     {
         // object properties of runtime template extensions will start with '_'
-        if ($property_name[ 0 ] == '_') {
+        if ($property_name[ 0 ] === '_') {
             $class = 'Smarty_Internal_Runtime_' . ucfirst(substr($property_name, 1));
         } else {
             $class = 'Smarty_Internal_Method_' . ucfirst($property_name);

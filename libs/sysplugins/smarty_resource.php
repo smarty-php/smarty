@@ -210,9 +210,9 @@ abstract class Smarty_Resource
         // TODO: optimize for Smarty's internal resource types
         $resource = Smarty_Resource::load($smarty, $type);
         // go relative to a given template?
-        $_file_is_dotted = $name[ 0 ] == '.' && ($name[ 1 ] == '.' || $name[ 1 ] == '/');
+        $_file_is_dotted = $name[ 0 ] === '.' && ($name[ 1 ] === '.' || $name[ 1 ] === '/');
         if ($obj->_objType == 2 && $_file_is_dotted &&
-            ($obj->source->type == 'file' || $obj->parent->source->type == 'extends')
+            ($obj->source->type === 'file' || $obj->parent->source->type === 'extends')
         ) {
             $name = dirname($obj->source->filepath) . DS . $name;
         }

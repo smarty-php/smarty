@@ -65,7 +65,7 @@ class Smarty_Internal_Method_CompileAllTemplates
             $_dir_2 = new RecursiveIteratorIterator($_dir_1);
             foreach ($_dir_2 as $_fileinfo) {
                 $_file = $_fileinfo->getFilename();
-                if (substr(basename($_fileinfo->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
+                if (substr(basename($_fileinfo->getPathname()), 0, 1) === '.' || strpos($_file, '.svn') !== false) {
                     continue;
                 }
                 if (!substr_compare($_file, $extension, - strlen($extension)) == 0) {
@@ -87,7 +87,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                         $isConfig ? Smarty_Template_Config::load($_tpl) : Smarty_Template_Source::load($_tpl);
                     if ($_tpl->mustCompile()) {
                         $_tpl->compileTemplateSource();
-                        $_count ++;
+                        ++ $_count;
                         echo ' compiled in  ', microtime(true) - $_start_time, ' seconds';
                         flush();
                     } else {
@@ -97,7 +97,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                 }
                 catch (Exception $e) {
                     echo "\n<br>        ------>Error: ", $e->getMessage(), "<br><br>\n";
-                    $_error_count ++;
+                    ++ $_error_count;
                 }
                 // free memory
                 unset($_tpl);

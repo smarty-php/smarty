@@ -143,9 +143,9 @@ class Smarty_Internal_Runtime_GetIncludePath
                     $dir = $this->_user_dirs[ $dir_n ];
                 }
             } else {
-                if ($dir[ 0 ] == '/' || $dir[ 1 ] == ':') {
+                if ($dir[ 0 ] === '/' || $dir[ 1 ] === ':') {
                     $dir = str_ireplace(getcwd(), '.', $dir);
-                    if ($dir[ 0 ] == '/' || $dir[ 1 ] == ':') {
+                    if ($dir[ 0 ] === '/' || $dir[ 1 ] === ':') {
                         $this->_user_dirs[ $dir_n ] = false;
                         continue;
                     }

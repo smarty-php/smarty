@@ -168,7 +168,7 @@ class Smarty_Internal_Config_File_Compiler
         // get config source line which has error
         $line = $this->lex->line;
         if (isset($args)) {
-            // $line--;
+            // --$line;
         }
         $match = preg_split("/\n/", $this->lex->data);
         $error_text =

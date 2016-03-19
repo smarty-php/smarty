@@ -53,7 +53,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        $compiler->loopNesting ++;
+        ++ $compiler->loopNesting;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
@@ -101,7 +101,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        $compiler->loopNesting --;
+        -- $compiler->loopNesting;
         $this->compiler = $compiler;
         $saved_data = $this->closeTag($compiler, array('function'));
         $_attr = $saved_data[ 0 ];

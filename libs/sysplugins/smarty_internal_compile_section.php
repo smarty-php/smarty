@@ -87,7 +87,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
-        $compiler->loopNesting ++;
+        ++ $compiler->loopNesting;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         $attributes = array('name' => $compiler->getId($_attr[ 'name' ]));
@@ -196,12 +196,12 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
         if (isset($namedAttr[ 'iteration' ])) {
             $propValue[ 'iteration' ] = "{$sectionVar}->value['iteration']";
         }
-        $incFor[ 'iteration' ] = "{$propValue['iteration']}++";
+        $incFor[ 'iteration' ] = "++{$propValue['iteration']}";
         $initFor[ 'iteration' ] = "{$propValue['iteration']} = 1";
 
         if ($propType[ 'step' ] == 0) {
             if ($propValue[ 'step' ] == 1) {
-                $incFor[ 'index' ] = "{$sectionVar}->value['index']++";
+                $incFor[ 'index' ] = "++{$sectionVar}->value['index']";
             } elseif ($propValue[ 'step' ] > 1) {
                 $incFor[ 'index' ] = "{$sectionVar}->value['index'] += {$propValue['step']}";
             } else {
@@ -266,7 +266,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
                 $propType[ 'start' ] = $propType[ 'step' ] + $propType[ 'loop' ];
                 $start_code[ 1 ] = '';
                 if ($propValue[ 'start' ] < 0) {
-                    for ($i = 11; $i <= 19; $i ++) {
+                    for ($i = 11; $i <= 19; ++ $i) {
                         $start_code[ $i ] = '';
                     }
                     if ($propType[ 'start' ] == 0) {
@@ -274,7 +274,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
                                                 $propValue[ 'start' ] + $propValue[ 'loop' ]));
                     }
                 } else {
-                    for ($i = 1; $i <= 11; $i ++) {
+                    for ($i = 1; $i <= 11; ++ $i) {
                         $start_code[ $i ] = '';
                     }
                     if ($propType[ 'start' ] == 0) {
@@ -369,7 +369,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
         if ($propType[ 'show' ] > 0) {
             $output .= "{$local}show = {$propValue['show']} ? {$cond_code} : false;\n";
             $output .= "if ({$local}show) {\n";
-        } elseif ($propValue[ 'show' ] == 'true') {
+        } elseif ($propValue[ 'show' ] === 'true') {
             $output .= "if ({$cond_code}) {\n";
         } else {
             $output .= "if (false) {\n";
@@ -445,7 +445,7 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
-        $compiler->loopNesting --;
+        -- $compiler->loopNesting;
         // must endblock be nocache?
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;
@@ -455,7 +455,7 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
             $this->closeTag($compiler, array('section', 'sectionelse'));
 
         $output = "<?php\n";
-        if ($openTag == 'sectionelse') {
+        if ($openTag === 'sectionelse') {
             $output .= "}\n";
         } else {
             $output .= "}\n}\n";

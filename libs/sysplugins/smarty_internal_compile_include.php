@@ -93,7 +93,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                     $fullResourceName = "{$type}:{$name}";
                     $compiled = $compiler->parent_compiler->template->compiled;
                     if (isset($compiled->includes[ $fullResourceName ])) {
-                        $compiled->includes[ $fullResourceName ] ++;
+                        ++ $compiled->includes[ $fullResourceName ];
                         $cache_tpl = true;
                     } else {
                         if ("{$compiler->template->source->type}:{$compiler->template->source->name}" ==
@@ -312,7 +312,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $tpl->mustCompile = true;
             $compiler->parent_compiler->mergedSubTemplatesData[ $hashResourceName ][ $t_hash ][ 'nocache_hash' ] =
                 $tpl->compiled->nocache_hash;
-            if ($compiler->template->source->type == 'file') {
+            if ($compiler->template->source->type === 'file') {
                 $sourceInfo = $compiler->template->source->filepath;
             } else {
                 $basename = $compiler->template->source->handler->getBasename($compiler->template->source);

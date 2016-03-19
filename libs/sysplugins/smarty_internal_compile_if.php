@@ -199,7 +199,7 @@ class Smarty_Internal_Compile_Ifclose extends Smarty_Internal_CompileBase
         }
         list($nesting, $compiler->nocache) = $this->closeTag($compiler, array('if', 'else', 'elseif'));
         $tmp = '';
-        for ($i = 0; $i < $nesting; $i ++) {
+        for ($i = 0; $i < $nesting; ++ $i) {
             $tmp .= '}';
         }
 

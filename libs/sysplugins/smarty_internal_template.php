@@ -424,8 +424,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         ) {
             // check file dependencies at compiled code
             foreach ($properties[ 'file_dependency' ] as $_file_to_check) {
-                if ($_file_to_check[ 2 ] == 'file' || $_file_to_check[ 2 ] == 'extends' ||
-                    $_file_to_check[ 2 ] == 'php'
+                if ($_file_to_check[ 2 ] === 'file' || $_file_to_check[ 2 ] === 'extends' ||
+                    $_file_to_check[ 2 ] === 'php'
                 ) {
                     if ($tpl->source->filepath == $_file_to_check[ 0 ]) {
                         // do not recheck current template
@@ -435,7 +435,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                         // file and php types can be checked without loading the respective resource handlers
                         $mtime = is_file($_file_to_check[ 0 ]) ? filemtime($_file_to_check[ 0 ]) : false;
                     }
-                } elseif ($_file_to_check[ 2 ] == 'string') {
+                } elseif ($_file_to_check[ 2 ] === 'string') {
                     continue;
                 } else {
                     $handler = Smarty_Resource::load($tpl->smarty, $_file_to_check[ 2 ]);

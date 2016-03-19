@@ -508,12 +508,12 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // check nocache option flag
         foreach ($args as $arg) {
             if (!is_array($arg)) {
-                if ($arg == "'nocache'") {
+                if ($arg === "'nocache'") {
                     $this->tag_nocache = true;
                 }
             } else {
                 foreach ($arg as $k => $v) {
-                    if ($k == "'nocache'" && (trim($v, "'\" ") == 'true')) {
+                    if ($k === "'nocache'" && (trim($v, "'\" ") === 'true')) {
                         $this->tag_nocache = true;
                     }
                 }
@@ -814,7 +814,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             $text = substr_replace($text, $replace, $match[ 0 ][ 1 ] - $_offset, $_length);
 
                             $_offset += $_length - strlen($replace);
-                            $_store ++;
+                            ++ $_store;
                         }
                     }
                     $expressions = array(// replace multiple spaces between tags by a single space
@@ -835,7 +835,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             $text = substr_replace($text, $replace, $match[ 0 ][ 1 ] + $_offset, $_length);
 
                             $_offset += strlen($replace) - $_length;
-                            $_store ++;
+                            ++ $_store;
                         }
                     }
                 } else {
@@ -916,7 +916,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             }
         }
         if (isset($function)) {
-            if ($plugin_type == 'modifier') {
+            if ($plugin_type === 'modifier') {
                 $this->modifier_plugins[ $plugin_name ] = true;
             }
 
@@ -938,7 +938,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $this->parent_compiler->template->compiled->required_plugins[ 'compiled' ][ $plugin_name ][ $plugin_type ][ 'function' ] =
                     $function;
             }
-            if ($plugin_type == 'modifier') {
+            if ($plugin_type === 'modifier') {
                 $this->modifier_plugins[ $plugin_name ] = true;
             }
 
@@ -1271,7 +1271,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function getNewPrefixVariable()
     {
-        self::$prefixVariableNumber ++;
+        ++ self::$prefixVariableNumber;
         return $this->getPrefixVariable();
     }
 

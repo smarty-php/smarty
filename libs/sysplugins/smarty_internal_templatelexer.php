@@ -291,14 +291,14 @@ class Smarty_Internal_Templatelexer
                 ")|\G(" . $this->ldel . "\\s*)|\G(\\s*" . $this->rdel .
                 ")|\G((<[?]((php\\s+|=)|\\s+))|(<[%])|(<[?]xml\\s+)|(<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|([?][>])|([%][>]))|\G([\S\s])/isS";
         }
-        if ($this->counter >= strlen($this->data)) {
+        if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
         }
 
         do {
             if (preg_match($this->yy_global_pattern1, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                if (strlen($yysubmatches[ 0 ]) < 200) {
+                if (!isset($yysubmatches[ 0 ][ 199 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
@@ -323,7 +323,7 @@ class Smarty_Internal_Templatelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= strlen($this->data)) {
+                    if (!isset($this->data[ $this->counter ])) {
                         return false; // end of input
                     }
                     // skip this token
@@ -428,14 +428,14 @@ class Smarty_Internal_Templatelexer
                 $this->ldel . "\\s*[$][0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel . ")|\G(" . $this->ldel .
                 "\\s*[\/])|\G(" . $this->ldel . "\\s*)/isS";
         }
-        if ($this->counter >= strlen($this->data)) {
+        if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
         }
 
         do {
             if (preg_match($this->yy_global_pattern2, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                if (strlen($yysubmatches[ 0 ]) < 200) {
+                if (!isset($yysubmatches[ 0 ][ 199 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
@@ -460,7 +460,7 @@ class Smarty_Internal_Templatelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= strlen($this->data)) {
+                    if (!isset($this->data[ $this->counter ])) {
                         return false; // end of input
                     }
                     // skip this token
@@ -569,14 +569,14 @@ class Smarty_Internal_Templatelexer
             $this->yy_global_pattern3 = "/\G(\\s*" . $this->rdel . ")|\G(" . $this->ldel .
                                         "\\s*)|\G([\"])|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|\G([$]smarty\\.block\\.(child|parent))|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(\\s+is\\s+in\\s+)|\G(\\s+as\\s+)|\G(\\s+to\\s+)|\G(\\s+step\\s+)|\G(\\s+instanceof\\s+)|\G(\\s*(([!=][=]{1,2})|([<][=>]?)|([>][=]?)|[&|]{2})\\s*)|\G(\\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor)\\s+)|\G(\\s+(is\\s+(not\\s+)?(odd|even|div)\\s+by)\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even))|\G(([!]\\s*)|(not\\s+))|\G([(](int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)[)]\\s*)|\G(\\s*[(]\\s*)|\G(\\s*[)])|\G(\\[\\s*)|\G(\\s*\\])|\G(\\s*[-][>]\\s*)|\G(\\s*[=][>]\\s*)|\G(\\s*[=]\\s*)|\G(([+]|[-]){2})|\G(\\s*([+]|[-])\\s*)|\G(\\s*([*]{1,2}|[%\/^&]|[<>]{2})\\s*)|\G([@])|\G([#])|\G(\\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\\s*[=]\\s*)|\G(([0-9]*[a-zA-Z_]\\w*)?(\\\\[0-9]*[a-zA-Z_]\\w*)+)|\G([0-9]*[a-zA-Z_]\\w*)|\G(\\d+)|\G([`])|\G([|])|\G([.])|\G(\\s*[,]\\s*)|\G(\\s*[;]\\s*)|\G([:]{2})|\G(\\s*[:]\\s*)|\G(\\s*[?]\\s*)|\G(0[xX][0-9a-fA-F]+)|\G(\\s+)|\G([\S\s])/isS";
         }
-        if ($this->counter >= strlen($this->data)) {
+        if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
         }
 
         do {
             if (preg_match($this->yy_global_pattern3, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                if (strlen($yysubmatches[ 0 ]) < 200) {
+                if (!isset($yysubmatches[ 0 ][ 199 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
@@ -601,7 +601,7 @@ class Smarty_Internal_Templatelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= strlen($this->data)) {
+                    if (!isset($this->data[ $this->counter ])) {
                         return false; // end of input
                     }
                     // skip this token
@@ -914,14 +914,14 @@ class Smarty_Internal_Templatelexer
                 "/\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*[\/]literal\\s*" .
                 $this->rdel . ")|\G([\S\s])/isS";
         }
-        if ($this->counter >= strlen($this->data)) {
+        if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
         }
 
         do {
             if (preg_match($this->yy_global_pattern4, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                if (strlen($yysubmatches[ 0 ]) < 200) {
+                if (!isset($yysubmatches[ 0 ][ 199 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
@@ -946,7 +946,7 @@ class Smarty_Internal_Templatelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= strlen($this->data)) {
+                    if (!isset($this->data[ $this->counter ])) {
                         return false; // end of input
                     }
                     // skip this token
@@ -965,7 +965,7 @@ class Smarty_Internal_Templatelexer
     function yy_r4_1()
     {
 
-        $this->literal_cnt ++;
+        ++ $this->literal_cnt;
         $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
     }
 
@@ -973,7 +973,7 @@ class Smarty_Internal_Templatelexer
     {
 
         if ($this->literal_cnt) {
-            $this->literal_cnt --;
+            -- $this->literal_cnt;
             $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
         } else {
             $this->token = Smarty_Internal_Templateparser::TP_LITERALEND;
@@ -1006,14 +1006,14 @@ class Smarty_Internal_Templatelexer
                 "\\s*)|\G([\"])|\G([`][$])|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(([^\"\\\\]*?)((?:\\\\.[^\"\\\\]*?)*?)(?=(" .
                 $this->ldel . "|\\$|`\\$|\")))|\G([\S\s])/isS";
         }
-        if ($this->counter >= strlen($this->data)) {
+        if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
         }
 
         do {
             if (preg_match($this->yy_global_pattern5, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
-                if (strlen($yysubmatches[ 0 ]) < 200) {
+                if (!isset($yysubmatches[ 0 ][ 199 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
@@ -1038,7 +1038,7 @@ class Smarty_Internal_Templatelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= strlen($this->data)) {
+                    if (!isset($this->data[ $this->counter ])) {
                         return false; // end of input
                     }
                     // skip this token

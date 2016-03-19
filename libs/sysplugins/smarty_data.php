@@ -50,7 +50,7 @@ class Smarty_Data extends Smarty_Internal_Data
     public function __construct($_parent = null, $smarty = null, $name = null)
     {
         parent::__construct();
-        self::$count ++;
+        ++ self::$count;
         $this->dataObjectName = 'Data_object ' . (isset($name) ? "'{$name}'" : self::$count);
         $this->smarty = $smarty;
         if (is_object($_parent)) {
