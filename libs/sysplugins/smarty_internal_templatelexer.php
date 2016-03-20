@@ -229,7 +229,7 @@ class Smarty_Internal_Templatelexer
     public function isAutoLiteral()
     {
         return $this->smarty->auto_literal && isset($this->value[ $this->ldel_length ]) ?
-            strpos(" \n\t\r", $this->value[ $this->ldel_length ]) !== false : false;
+            ctype_space($this->value[ $this->ldel_length ]) : false;
     }
 
     private $_yy_state = 1;
@@ -369,7 +369,7 @@ class Smarty_Internal_Templatelexer
     {
 
         if ($this->smarty->auto_literal && isset($this->value[ $this->ldel_length ]) ?
-            strpos(" \n\t\r", $this->value[ $this->ldel_length ]) !== false : false
+			ctype_space($this->value[ $this->ldel_length ]) : false
         ) {
             $this->token = Smarty_Internal_Templateparser::TP_TEXT;
         } else {
@@ -382,7 +382,7 @@ class Smarty_Internal_Templatelexer
     {
 
         if ($this->smarty->auto_literal && isset($this->value[ $this->ldel_length ]) ?
-            strpos(" \n\t\r", $this->value[ $this->ldel_length ]) !== false : false
+            ctype_space($this->value[ $this->ldel_length ]) : false
         ) {
             $this->token = Smarty_Internal_Templateparser::TP_TEXT;
         } else {
@@ -408,7 +408,7 @@ class Smarty_Internal_Templatelexer
     {
 
         $to = strlen($this->data);
-        preg_match("~($this->ldel)|(<[?]((php\s+|=)|\s+))|(<[%])|(<[?]xml\s+)|(<script\s+language\s*=\s*[\"']?\s*php\s*[\"']?\s*>)|([?][>])|([%][>])~i",
+        preg_match('~(' . $this->ldel . ')|(<[?]((php\\s+|=)|\\s+))|(<[%])|(<[?]xml\\s+)|(<script\\s+language\\s*=\\s*["\']?\\s*php\\s*["\']?\\s*>)|([?][>])|([%][>])~i',
                    $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
         if (isset($match[ 0 ][ 1 ])) {
             $to = $match[ 0 ][ 1 ];
@@ -628,7 +628,7 @@ class Smarty_Internal_Templatelexer
     {
 
         if ($this->smarty->auto_literal && isset($this->value[ $this->ldel_length ]) ?
-            strpos(" \n\t\r", $this->value[ $this->ldel_length ]) !== false : false
+            ctype_space($this->value[ $this->ldel_length ]) : false
         ) {
             $this->token = Smarty_Internal_Templateparser::TP_TEXT;
         } else {
@@ -1070,7 +1070,7 @@ class Smarty_Internal_Templatelexer
     {
 
         if ($this->smarty->auto_literal && isset($this->value[ $this->ldel_length ]) ?
-            strpos(" \n\t\r", $this->value[ $this->ldel_length ]) !== false : false
+            ctype_space($this->value[ $this->ldel_length ]) : false
         ) {
             $this->token = Smarty_Internal_Templateparser::TP_TEXT;
         } else {
@@ -1083,7 +1083,7 @@ class Smarty_Internal_Templatelexer
     {
 
         if ($this->smarty->auto_literal && isset($this->value[ $this->ldel_length ]) ?
-            strpos(" \n\t\r", $this->value[ $this->ldel_length ]) !== false : false
+            ctype_space($this->value[ $this->ldel_length ]) : false
         ) {
             $this->token = Smarty_Internal_Templateparser::TP_TEXT;
         } else {
@@ -1096,7 +1096,7 @@ class Smarty_Internal_Templatelexer
     {
 
         if ($this->smarty->auto_literal && isset($this->value[ $this->ldel_length ]) ?
-            strpos(" \n\t\r", $this->value[ $this->ldel_length ]) !== false : false
+            ctype_space($this->value[ $this->ldel_length ]) : false
         ) {
             $this->token = Smarty_Internal_Templateparser::TP_TEXT;
         } else {
