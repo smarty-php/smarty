@@ -43,12 +43,12 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         if ($_attr[ 'type' ] === 'xml') {
             $compiler->tag_nocache = true;
             $save = $compiler->template->compiled->has_nocache_code;
-            $output = addcslashes($_attr[ 'code' ], "'\\");
+            $output = addcslashes($_attr[ 'code' ], '\'\\');
             $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                               new Smarty_Internal_ParseTree_Tag($compiler->parser,
-                                                                                                $compiler->processNocacheCode("<?php echo '" .
+                                                                                                $compiler->processNocacheCode('<?php echo \'' .
                                                                                                                               $output .
-                                                                                                                              "';?>",
+                                                                                                                              '\';?>',
                                                                                                                               true)));
             $compiler->template->compiled->has_nocache_code = $save;
             return '';
@@ -66,12 +66,12 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
             } elseif ($compiler->php_handling == Smarty::PHP_PASSTHRU || $_attr[ 'type' ] === 'unmatched') {
                 $compiler->tag_nocache = true;
                 $save = $compiler->template->compiled->has_nocache_code;
-                $output = addcslashes($_attr[ 'code' ], "'\\");
+                $output = addcslashes($_attr[ 'code' ], '\'\\');
                 $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                                   new Smarty_Internal_ParseTree_Tag($compiler->parser,
-                                                                                                    $compiler->processNocacheCode("<?php echo '" .
+                                                                                                    $compiler->processNocacheCode('<?php echo \'' .
                                                                                                                                   $output .
-                                                                                                                                  "';?>",
+                                                                                                                                  '\';?>',
                                                                                                                                   true)));
                 $compiler->template->compiled->has_nocache_code = $save;
                 return '';

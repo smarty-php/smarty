@@ -167,7 +167,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         // init block parameter
         $_block = $compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ];
         unset($compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ]);
-        $_name = trim($_attr[ 'name' ], "'\"");
+        $_name = trim($_attr[ 'name' ], '\'"');
         $_assign = isset($_attr[ 'assign' ]) ? $_attr[ 'assign' ] : null;
         unset($_attr[ 'assign' ], $_attr[ 'name' ]);
         foreach ($_attr as $name => $stat) {

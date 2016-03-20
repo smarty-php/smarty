@@ -240,7 +240,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
             }
         }
         $output .= "{$local}saved = {$itemVar};\n";
-        $output .= "?>";
+        $output .= '?>';
 
         return $output;
     }
@@ -312,7 +312,7 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
         }
         $output .= "}\n";
         $output .= "\$_smarty_tpl->smarty->ext->_foreach->restore(\$_smarty_tpl);\n";
-        $output .= "?>";
+        $output .= '?>';
         return $output;
     }
 }

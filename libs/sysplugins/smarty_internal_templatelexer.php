@@ -286,9 +286,9 @@ class Smarty_Internal_Templatelexer
     {
         if (!isset($this->yy_global_pattern1)) {
             $this->yy_global_pattern1 =
-                "/\G([{][}])|\G(" . $this->ldel . "[*])|\G((" . $this->ldel . "\\s*php([ ].*?)?" . $this->rdel . ")|(" .
-                $this->ldel . "\\s*[\/]php" . $this->rdel . "))|\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel .
-                ")|\G(" . $this->ldel . "\\s*)|\G(\\s*" . $this->rdel .
+                '/\G([{][}])|\G(' . $this->ldel . '[*])|\G((' . $this->ldel . "\\s*php([ ].*?)?" . $this->rdel . ')|(' .
+                $this->ldel . "\\s*[\/]php" . $this->rdel . '))|\G(' . $this->ldel . "\\s*literal\\s*" . $this->rdel .
+                ')|\G(' . $this->ldel . "\\s*)|\G(\\s*" . $this->rdel .
                 ")|\G((<[?]((php\\s+|=)|\\s+))|(<[%])|(<[?]xml\\s+)|(<script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*>)|([?][>])|([%][>]))|\G([\S\s])/isS";
         }
         if (!isset($this->data[ $this->counter ])) {
@@ -299,7 +299,7 @@ class Smarty_Internal_Templatelexer
             if (preg_match($this->yy_global_pattern1, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
@@ -421,11 +421,11 @@ class Smarty_Internal_Templatelexer
     {
         if (!isset($this->yy_global_pattern2)) {
             $this->yy_global_pattern2 =
-                "/\G(" . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" .
+                '/\G(' . $this->ldel . "\\s*(if|elseif|else if|while)\\s+)|\G(" . $this->ldel . "\\s*for\\s+)|\G(" .
                 $this->ldel . "\\s*foreach(?![^\s]))|\G(" . $this->ldel . "\\s*setfilter\\s+)|\G(" . $this->ldel .
                 "\\s*make_nocache\\s+)|\G(" . $this->ldel . "\\s*[0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel .
-                ")|\G(" . $this->ldel . "\\s*[\/](?:(?!block)[0-9]*[a-zA-Z_]\\w*)\\s*" . $this->rdel . ")|\G(" .
-                $this->ldel . "\\s*[$][0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel . ")|\G(" . $this->ldel .
+                ')|\G(' . $this->ldel . "\\s*[\/](?:(?!block)[0-9]*[a-zA-Z_]\\w*)\\s*" . $this->rdel . ')|\G(' .
+                $this->ldel . "\\s*[$][0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*" . $this->rdel . ')|\G(' . $this->ldel .
                 "\\s*[\/])|\G(" . $this->ldel . "\\s*)/isS";
         }
         if (!isset($this->data[ $this->counter ])) {
@@ -436,7 +436,7 @@ class Smarty_Internal_Templatelexer
             if (preg_match($this->yy_global_pattern2, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
@@ -566,7 +566,7 @@ class Smarty_Internal_Templatelexer
     public function yylex3()
     {
         if (!isset($this->yy_global_pattern3)) {
-            $this->yy_global_pattern3 = "/\G(\\s*" . $this->rdel . ")|\G(" . $this->ldel .
+            $this->yy_global_pattern3 = "/\G(\\s*" . $this->rdel . ')|\G(' . $this->ldel .
                                         "\\s*)|\G([\"])|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|\G([$]smarty\\.block\\.(child|parent))|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(\\s+is\\s+in\\s+)|\G(\\s+as\\s+)|\G(\\s+to\\s+)|\G(\\s+step\\s+)|\G(\\s+instanceof\\s+)|\G(\\s*(([!=][=]{1,2})|([<][=>]?)|([>][=]?)|[&|]{2})\\s*)|\G(\\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor)\\s+)|\G(\\s+(is\\s+(not\\s+)?(odd|even|div)\\s+by)\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even))|\G(([!]\\s*)|(not\\s+))|\G([(](int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)[)]\\s*)|\G(\\s*[(]\\s*)|\G(\\s*[)])|\G(\\[\\s*)|\G(\\s*\\])|\G(\\s*[-][>]\\s*)|\G(\\s*[=][>]\\s*)|\G(\\s*[=]\\s*)|\G(([+]|[-]){2})|\G(\\s*([+]|[-])\\s*)|\G(\\s*([*]{1,2}|[%\/^&]|[<>]{2})\\s*)|\G([@])|\G([#])|\G(\\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\\s*[=]\\s*)|\G(([0-9]*[a-zA-Z_]\\w*)?(\\\\[0-9]*[a-zA-Z_]\\w*)+)|\G([0-9]*[a-zA-Z_]\\w*)|\G(\\d+)|\G([`])|\G([|])|\G([.])|\G(\\s*[,]\\s*)|\G(\\s*[;]\\s*)|\G([:]{2})|\G(\\s*[:]\\s*)|\G(\\s*[?]\\s*)|\G(0[xX][0-9a-fA-F]+)|\G(\\s+)|\G([\S\s])/isS";
         }
         if (!isset($this->data[ $this->counter ])) {
@@ -577,7 +577,7 @@ class Smarty_Internal_Templatelexer
             if (preg_match($this->yy_global_pattern3, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
@@ -814,7 +814,7 @@ class Smarty_Internal_Templatelexer
         if (substr($this->data, $this->counter + strlen($this->value) - 1, $this->rdel_length) ==
             $this->smarty->right_delimiter
         ) {
-            preg_match("~\s+~", $this->value, $match);
+            preg_match('~\s+~', $this->value, $match);
             $this->value = $match[ 0 ];
             $this->token = Smarty_Internal_Templateparser::TP_SPACE;
         } else {
@@ -911,7 +911,7 @@ class Smarty_Internal_Templatelexer
     {
         if (!isset($this->yy_global_pattern4)) {
             $this->yy_global_pattern4 =
-                "/\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*[\/]literal\\s*" .
+                '/\G(' . $this->ldel . "\\s*literal\\s*" . $this->rdel . ')|\G(' . $this->ldel . "\\s*[\/]literal\\s*" .
                 $this->rdel . ")|\G([\S\s])/isS";
         }
         if (!isset($this->data[ $this->counter ])) {
@@ -922,7 +922,7 @@ class Smarty_Internal_Templatelexer
             if (preg_match($this->yy_global_pattern4, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
@@ -990,7 +990,7 @@ class Smarty_Internal_Templatelexer
         if (isset($match[ 0 ][ 1 ])) {
             $to = $match[ 0 ][ 1 ];
         } else {
-            $this->compiler->trigger_template_error("missing or misspelled literal closing tag");
+            $this->compiler->trigger_template_error('missing or misspelled literal closing tag');
         }
         $this->value = substr($this->data, $this->counter, $to - $this->counter);
         $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
@@ -1000,8 +1000,8 @@ class Smarty_Internal_Templatelexer
     {
         if (!isset($this->yy_global_pattern5)) {
             $this->yy_global_pattern5 =
-                "/\G(" . $this->ldel . "\\s*literal\\s*" . $this->rdel . ")|\G(" . $this->ldel . "\\s*[\/]literal\\s*" .
-                $this->rdel . ")|\G(" . $this->ldel . "\\s*[\/])|\G(" . $this->ldel . "\\s*[0-9]*[a-zA-Z_]\\w*)|\G(" .
+                '/\G(' . $this->ldel . "\\s*literal\\s*" . $this->rdel . ')|\G(' . $this->ldel . "\\s*[\/]literal\\s*" .
+                $this->rdel . ')|\G(' . $this->ldel . "\\s*[\/])|\G(" . $this->ldel . "\\s*[0-9]*[a-zA-Z_]\\w*)|\G(" .
                 $this->ldel .
                 "\\s*)|\G([\"])|\G([`][$])|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(([^\"\\\\]*?)((?:\\\\.[^\"\\\\]*?)*?)(?=(" .
                 $this->ldel . "|\\$|`\\$|\")))|\G([\S\s])/isS";
@@ -1014,7 +1014,7 @@ class Smarty_Internal_Templatelexer
             if (preg_match($this->yy_global_pattern5, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }

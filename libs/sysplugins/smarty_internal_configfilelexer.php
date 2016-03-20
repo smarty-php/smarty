@@ -231,7 +231,7 @@ class Smarty_Internal_Configfilelexer
             if (preg_match($this->yy_global_pattern1, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
@@ -336,7 +336,7 @@ class Smarty_Internal_Configfilelexer
             if (preg_match($this->yy_global_pattern2, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
@@ -444,7 +444,7 @@ class Smarty_Internal_Configfilelexer
     {
 
         $this->token = Smarty_Internal_Configfileparser::TPC_NAKED_STRING;
-        $this->value = "";
+        $this->value = '';
         $this->yypopstate();
     }
 
@@ -461,7 +461,7 @@ class Smarty_Internal_Configfilelexer
             if (preg_match($this->yy_global_pattern3, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
@@ -521,7 +521,7 @@ class Smarty_Internal_Configfilelexer
             if (preg_match($this->yy_global_pattern4, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
@@ -593,7 +593,7 @@ class Smarty_Internal_Configfilelexer
             if (preg_match($this->yy_global_pattern5, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
@@ -659,7 +659,7 @@ class Smarty_Internal_Configfilelexer
             if (preg_match($this->yy_global_pattern6, $this->data, $yymatches, null, $this->counter)) {
                 $yysubmatches = $yymatches;
                 if (!isset($yysubmatches[ 0 ][ 199 ])) {
-                    $yymatches = preg_grep("/(.|\s)+/", $yysubmatches);
+                    $yymatches = preg_grep('/(.|\s)+/', $yysubmatches);
                 } else {
                     $yymatches = array_filter($yymatches, 'strlen');
                 }
@@ -715,7 +715,7 @@ class Smarty_Internal_Configfilelexer
         if (isset($match[ 0 ][ 1 ])) {
             $to = $match[ 0 ][ 1 ];
         } else {
-            $this->compiler->trigger_template_error("missing or misspelled literal closing tag");
+            $this->compiler->trigger_template_error('missing or misspelled literal closing tag');
         }
         $this->value = substr($this->data, $this->counter, $to - $this->counter);
         $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_TEXT;

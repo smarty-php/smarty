@@ -109,7 +109,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         while ($this->parser->lex->yylex()) {
             if ($this->smarty->_parserdebug) {
                 echo "<pre>Line {$this->parser->lex->line} Parsing  {$this->parser->yyTokenName[$this->parser->lex->token]} Token " .
-                     htmlentities($this->parser->lex->value) . "</pre>";
+                     htmlentities($this->parser->lex->value) . '</pre>';
             }
             $this->parser->doParse($this->parser->lex->token, $this->parser->lex->value);
         }

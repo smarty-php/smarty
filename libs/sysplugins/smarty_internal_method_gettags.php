@@ -57,6 +57,6 @@ class Smarty_Internal_Method_GetTags
             $tpl->compiler->compileTemplate($tpl);
             return $tpl->_cache[ 'used_tags' ];
         }
-        throw new SmartyException("Missing template specification");
+        throw new SmartyException('Missing template specification');
     }
 }

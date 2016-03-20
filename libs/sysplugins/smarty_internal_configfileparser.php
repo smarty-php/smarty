@@ -219,7 +219,7 @@ class Smarty_Internal_Configfileparser
 
         $ss = preg_split('/(\\\\.)/', $escaped_string, - 1, PREG_SPLIT_DELIM_CAPTURE);
 
-        $str = "";
+        $str = '';
         foreach ($ss as $s) {
             if (strlen($s) === 2 && $s[ 0 ] === '\\') {
                 if (isset(self::$escapes_single[ $s[ 1 ] ])) {
@@ -264,8 +264,8 @@ class Smarty_Internal_Configfileparser
      */
     private function set_var(Array $var, Array &$target_array)
     {
-        $key = $var[ "key" ];
-        $value = $var[ "value" ];
+        $key = $var[ 'key' ];
+        $value = $var[ 'value' ];
 
         if ($this->configOverwrite || !isset($target_array[ 'vars' ][ $key ])) {
             $target_array[ 'vars' ][ $key ] = $value;
@@ -446,7 +446,7 @@ class Smarty_Internal_Configfileparser
         if ($tokenType > 0 && $tokenType < count($this->yyTokenName)) {
             return $this->yyTokenName[ $tokenType ];
         } else {
-            return "Unknown";
+            return 'Unknown';
         }
     }
 
@@ -685,7 +685,7 @@ class Smarty_Internal_Configfileparser
             ) {
                 if ($this->yyTraceFILE) {
                     fwrite($this->yyTraceFILE,
-                           $this->yyTracePrompt . "FALLBACK " . $this->yyTokenName[ $iLookAhead ] . " => " .
+                           $this->yyTracePrompt . 'FALLBACK ' . $this->yyTokenName[ $iLookAhead ] . ' => ' .
                            $this->yyTokenName[ $iFallback ] . "\n");
                 }
 
@@ -734,7 +734,7 @@ class Smarty_Internal_Configfileparser
             #line 255 "../smarty/lexer/smarty_internal_configfileparser.y"
 
             $this->internalError = true;
-            $this->compiler->trigger_config_file_error("Stack overflow in configfile parser");
+            $this->compiler->trigger_config_file_error('Stack overflow in configfile parser');
 
             return;
         }
@@ -745,9 +745,9 @@ class Smarty_Internal_Configfileparser
         $this->yystack[] = $yytos;
         if ($this->yyTraceFILE && $this->yyidx > 0) {
             fprintf($this->yyTraceFILE, "%sShift %d\n", $this->yyTracePrompt, $yyNewState);
-            fprintf($this->yyTraceFILE, "%sStack:", $this->yyTracePrompt);
+            fprintf($this->yyTraceFILE, '%sStack:', $this->yyTracePrompt);
             for ($i = 1; $i <= $this->yyidx; ++ $i) {
-                fprintf($this->yyTraceFILE, " %s", $this->yyTokenName[ $this->yystack[ $i ]->major ]);
+                fprintf($this->yyTraceFILE, ' %s', $this->yyTokenName[ $this->yystack[ $i ]->major ]);
             }
             fwrite($this->yyTraceFILE, "\n");
         }
@@ -818,8 +818,8 @@ class Smarty_Internal_Configfileparser
     #line 307 "../smarty/lexer/smarty_internal_configfileparser.y"
     function yy_r9()
     {
-        $this->_retvalue = Array("key" => $this->yystack[ $this->yyidx + - 2 ]->minor,
-                                 "value" => $this->yystack[ $this->yyidx + 0 ]->minor);
+        $this->_retvalue = Array('key' => $this->yystack[ $this->yyidx + - 2 ]->minor,
+                                 'value' => $this->yystack[ $this->yyidx + 0 ]->minor);
     }
 
     #line 312 "../smarty/lexer/smarty_internal_configfileparser.y"

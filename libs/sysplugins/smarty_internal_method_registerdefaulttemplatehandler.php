@@ -35,7 +35,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
         if (is_callable($callback)) {
             $smarty->default_template_handler_func = $callback;
         } else {
-            throw new SmartyException("Default template handler not callable");
+            throw new SmartyException('Default template handler not callable');
         }
         return $obj;
     }

@@ -90,11 +90,11 @@ class Smarty_Internal_Templateparser
 {
     #line 23 "../smarty/lexer/smarty_internal_templateparser.y"
 
-    const Err1 = "Security error: Call to private object member not allowed";
+    const Err1 = 'Security error: Call to private object member not allowed';
 
-    const Err2 = "Security error: Call to dynamic object member not allowed";
+    const Err2 = 'Security error: Call to dynamic object member not allowed';
 
-    const Err3 = "PHP in template not allowed. Use SmartyBC to enable it";
+    const Err3 = 'PHP in template not allowed. Use SmartyBC to enable it';
 
     /**
      * result status
@@ -1029,7 +1029,7 @@ class Smarty_Internal_Templateparser
         if ($tokenType > 0 && $tokenType < count($this->yyTokenName)) {
             return $this->yyTokenName[ $tokenType ];
         } else {
-            return "Unknown";
+            return 'Unknown';
         }
     }
 
@@ -1268,7 +1268,7 @@ class Smarty_Internal_Templateparser
             ) {
                 if ($this->yyTraceFILE) {
                     fwrite($this->yyTraceFILE,
-                           $this->yyTracePrompt . "FALLBACK " . $this->yyTokenName[ $iLookAhead ] . " => " .
+                           $this->yyTracePrompt . 'FALLBACK ' . $this->yyTokenName[ $iLookAhead ] . ' => ' .
                            $this->yyTokenName[ $iFallback ] . "\n");
                 }
 
@@ -1317,7 +1317,7 @@ class Smarty_Internal_Templateparser
             #line 207 "../smarty/lexer/smarty_internal_templateparser.y"
 
             $this->internalError = true;
-            $this->compiler->trigger_template_error("Stack overflow in template parser");
+            $this->compiler->trigger_template_error('Stack overflow in template parser');
 
             return;
         }
@@ -1328,9 +1328,9 @@ class Smarty_Internal_Templateparser
         $this->yystack[] = $yytos;
         if ($this->yyTraceFILE && $this->yyidx > 0) {
             fprintf($this->yyTraceFILE, "%sShift %d\n", $this->yyTracePrompt, $yyNewState);
-            fprintf($this->yyTraceFILE, "%sStack:", $this->yyTracePrompt);
+            fprintf($this->yyTraceFILE, '%sStack:', $this->yyTracePrompt);
             for ($i = 1; $i <= $this->yyidx; ++ $i) {
-                fprintf($this->yyTraceFILE, " %s", $this->yyTokenName[ $this->yystack[ $i ]->major ]);
+                fprintf($this->yyTraceFILE, ' %s', $this->yyTokenName[ $this->yystack[ $i ]->major ]);
             }
             fwrite($this->yyTraceFILE, "\n");
         }
@@ -2179,8 +2179,8 @@ class Smarty_Internal_Templateparser
                                    $this->yystack[ $this->yyidx + 0 ]->minor[ 1 ];
             }
         } else {
-            $this->compiler->trigger_template_error("static class '" . $this->yystack[ $this->yyidx + - 2 ]->minor .
-                                                    "' is undefined or not allowed by security setting");
+            $this->compiler->trigger_template_error('static class \'' . $this->yystack[ $this->yyidx + - 2 ]->minor .
+                                                    '\' is undefined or not allowed by security setting');
         }
     }
 
@@ -2225,15 +2225,15 @@ class Smarty_Internal_Templateparser
     function yy_r118()
     {
         $this->_retvalue =
-            $this->compiler->compileConfigVariable("'" . $this->yystack[ $this->yyidx + - 1 ]->minor . "'");
+            $this->compiler->compileConfigVariable('\'' . $this->yystack[ $this->yyidx + - 1 ]->minor . '\'');
     }
 
     #line 903 "../smarty/lexer/smarty_internal_templateparser.y"
     function yy_r119()
     {
         $this->_retvalue = '(is_array($tmp = ' .
-                           $this->compiler->compileConfigVariable("'" . $this->yystack[ $this->yyidx + - 2 ]->minor .
-                                                                  "'") . ') ? $tmp' .
+                           $this->compiler->compileConfigVariable('\'' . $this->yystack[ $this->yyidx + - 2 ]->minor .
+                                                                  '\'') . ') ? $tmp' .
                            $this->yystack[ $this->yyidx + 0 ]->minor . ' :null)';
     }
 
@@ -2295,7 +2295,7 @@ class Smarty_Internal_Templateparser
     #line 948 "../smarty/lexer/smarty_internal_templateparser.y"
     function yy_r129()
     {
-        $this->_retvalue = "['" . $this->yystack[ $this->yyidx + 0 ]->minor . "']";
+        $this->_retvalue = '[\'' . $this->yystack[ $this->yyidx + 0 ]->minor . '\']';
     }
 
     #line 952 "../smarty/lexer/smarty_internal_templateparser.y"
@@ -2485,27 +2485,27 @@ class Smarty_Internal_Templateparser
                                                           str_replace(')', ', false)', $par) . ';?>');
                         $isset_par = $prefixVar;
                     } else {
-                        $isset_par = str_replace("')->value", "',null,true,false)->value", $par);
+                        $isset_par = str_replace('\')->value', '\',null,true,false)->value', $par);
                     }
-                    $this->_retvalue = $this->yystack[ $this->yyidx + - 3 ]->minor . "(" . $isset_par . ")";
+                    $this->_retvalue = $this->yystack[ $this->yyidx + - 3 ]->minor . '(' . $isset_par . ')';
                 } elseif ($func_name === 'empty' || $func_name === 'reset' || $func_name === 'current' || $func_name === 'end' || $func_name === 'prev' || $func_name === 'next') {
                     if (count($this->yystack[ $this->yyidx + - 1 ]->minor) != 1) {
                         $this->compiler->trigger_template_error('Illegal number of paramer in "empty()"');
                     }
                     if ($func_name === 'empty') {
-                        $this->_retvalue = $func_name . '(' . str_replace("')->value", "',null,true,false)->value",
+                        $this->_retvalue = $func_name . '(' . str_replace('\')->value', '\',null,true,false)->value',
                                                                           $this->yystack[ $this->yyidx +
                                                                                           - 1 ]->minor[ 0 ]) . ')';
                     } else {
                         $this->_retvalue = $func_name . '(' . $this->yystack[ $this->yyidx + - 1 ]->minor[ 0 ] . ')';
                     }
                 } else {
-                    $this->_retvalue = $this->yystack[ $this->yyidx + - 3 ]->minor . "(" .
-                                       implode(',', $this->yystack[ $this->yyidx + - 1 ]->minor) . ")";
+                    $this->_retvalue = $this->yystack[ $this->yyidx + - 3 ]->minor . '(' .
+                                       implode(',', $this->yystack[ $this->yyidx + - 1 ]->minor) . ')';
                 }
             } else {
-                $this->compiler->trigger_template_error("unknown function \"" .
-                                                        $this->yystack[ $this->yyidx + - 3 ]->minor . "\"");
+                $this->compiler->trigger_template_error('unknown function "' .
+                                                        $this->yystack[ $this->yyidx + - 3 ]->minor . '"');
             }
         }
     }
@@ -2516,8 +2516,8 @@ class Smarty_Internal_Templateparser
         if ($this->security && substr($this->yystack[ $this->yyidx + - 3 ]->minor, 0, 1) === '_') {
             $this->compiler->trigger_template_error(self::Err1);
         }
-        $this->_retvalue = $this->yystack[ $this->yyidx + - 3 ]->minor . "(" .
-                           implode(',', $this->yystack[ $this->yyidx + - 1 ]->minor) . ")";
+        $this->_retvalue = $this->yystack[ $this->yyidx + - 3 ]->minor . '(' .
+                           implode(',', $this->yystack[ $this->yyidx + - 1 ]->minor) . ')';
     }
 
     #line 1133 "../smarty/lexer/smarty_internal_templateparser.y"

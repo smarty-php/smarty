@@ -74,7 +74,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
             // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr[ 'assign' ];
             // create variable to make sure that the compiler knows about its nocache status
-            $var = trim($_attr[ 'assign' ], "'");
+            $var = trim($_attr[ 'assign' ], '\'');
             if (isset($compiler->template->tpl_vars[ $var ])) {
                 $compiler->template->tpl_vars[ $var ]->nocache = true;
             } else {
@@ -134,7 +134,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
         foreach ($_attr as $_key => $_value) {
             $_paramsArray[] = "'$_key' => $_value";
         }
-        $_params = 'array(' . implode(", ", $_paramsArray) . ')';
+        $_params = 'array(' . implode(', ', $_paramsArray) . ')';
         // call insert
         if (isset($_assign)) {
             if ($_smarty_tpl->caching && !$nocacheParam) {

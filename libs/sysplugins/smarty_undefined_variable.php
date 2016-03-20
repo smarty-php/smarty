@@ -32,6 +32,6 @@ class Smarty_Undefined_Variable
      */
     public function __toString()
     {
-        return "";
+        return '';
     }
 }

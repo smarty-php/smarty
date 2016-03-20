@@ -74,8 +74,8 @@ class Smarty_Internal_ParseTree_Dq extends Smarty_Internal_ParseTree
     {
         $code = '';
         foreach ($this->subtrees as $subtree) {
-            if ($code !== "") {
-                $code .= ".";
+            if ($code !== '') {
+                $code .= '.';
             }
             if ($subtree instanceof Smarty_Internal_ParseTree_Tag) {
                 $more_php = $subtree->assign_to_var($parser);

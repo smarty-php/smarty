@@ -46,7 +46,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
     {
         // make all lower case
         $parameter = array_map('strtolower', $parameter);
-        $tag = trim($parameter[ 0 ], '"\'');
+        $tag = trim($parameter[ 0 ], '\'"');
         $name = isset($parameter[ 1 ]) ? $compiler->getId($parameter[ 1 ]) : false;
         if (!$name) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
@@ -68,7 +68,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args, $parameter, 'capture');
 
-        $buffer = isset($_attr[ 'name' ]) ? $_attr[ 'name' ] : "'default'";
+        $buffer = isset($_attr[ 'name' ]) ? $_attr[ 'name' ] : '\'default\'';
         $assign = isset($_attr[ 'assign' ]) ? $_attr[ 'assign' ] : 'null';
         $append = isset($_attr[ 'append' ]) ? $_attr[ 'append' ] : 'null';
 

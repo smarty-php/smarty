@@ -62,7 +62,7 @@ class Smarty_Data extends Smarty_Internal_Data
                 $this->tpl_vars[ $_key ] = new Smarty_Variable($_val);
             }
         } elseif ($_parent != null) {
-            throw new SmartyException("Wrong type for template variables");
+            throw new SmartyException('Wrong type for template variables');
         }
     }
 }

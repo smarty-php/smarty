@@ -105,7 +105,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                     $level = ob_get_level();
                     ob_start();
                     try {
-                        eval("?>" . $this->content);
+                        eval('?>' . $this->content);
                     }
                     catch (Exception $e) {
                         while (ob_get_level() > $level) {
@@ -149,7 +149,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             apc_compile_file($this->filepath);
         }
         if (defined('HHVM_VERSION')) {
-            eval("?>" . file_get_contents($this->filepath));
+            eval('?>' . file_get_contents($this->filepath));
         } else {
             include($this->filepath);
         }

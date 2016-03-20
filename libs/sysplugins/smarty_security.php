@@ -479,7 +479,7 @@ class Smarty_Security
         if ($this->allow_constants) {
             return true;
         }
-        $compiler->trigger_template_error("Security: access to constants not permitted");
+        $compiler->trigger_template_error('Security: access to constants not permitted');
         return false;
     }
 

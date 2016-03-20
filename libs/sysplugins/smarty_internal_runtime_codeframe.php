@@ -47,11 +47,11 @@ class Smarty_Internal_Runtime_CodeFrame
             }
         }
         $output = "<?php\n";
-        $output .= "/* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") .
+        $output .= '/* Smarty version ' . Smarty::SMARTY_VERSION . ', created on ' . strftime('%Y-%m-%d %H:%M:%S') .
                    "\n  from \"" . $_template->source->filepath . "\" */\n\n";
         $output .= "/* @var Smarty_Internal_Template \$_smarty_tpl */\n";
         $dec = "\$_smarty_tpl->_decodeProperties(\$_smarty_tpl, " . var_export($properties, true) . ',' .
-               ($cache ? 'true' : 'false') . ")";
+               ($cache ? 'true' : 'false') . ')';
         $output .= "if ({$dec}) {\n";
         $output .= "function {$properties['unifunc']} (Smarty_Internal_Template \$_smarty_tpl) {\n";
         // include code for plugins

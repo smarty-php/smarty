@@ -393,7 +393,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
         if (isset($namedAttr[ 'last' ])) {
             $output .= "{$sectionVar}->value['last'] = ({$propValue['iteration']} == {$propValue['total']});\n";
         }
-        $output .= "?>";
+        $output .= '?>';
 
         return $output;
     }
@@ -463,7 +463,7 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
         $output .= "if ({$local}saved) {\n";
         $output .= "{$sectionVar} = {$local}saved;\n";
         $output .= "}\n";
-        $output .= "?>";
+        $output .= '?>';
 
         return $output;
     }
