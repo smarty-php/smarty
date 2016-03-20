@@ -1090,7 +1090,7 @@ class Smarty_Internal_Templateparser
                 // reduce action
                 $done = 0;
                 do {
-                    if ($done ++ == 100) {
+                    if ($done ++ === 100) {
                         $this->yyidx = $yyidx;
                         $this->yystack = $stack;
                         // too much recursion prevents proper detection
@@ -1127,7 +1127,7 @@ class Smarty_Internal_Templateparser
                         $x->major = self::$yyRuleInfo[ $yyruleno ][ 0 ];
                         $this->yystack[ $this->yyidx ] = $x;
                         continue 2;
-                    } elseif ($nextstate == self::YYNSTATE + self::YYNRULE + 1) {
+                    } elseif ($nextstate === self::YYNSTATE + self::YYNRULE + 1) {
                         $this->yyidx = $yyidx;
                         $this->yystack = $stack;
                         // the last token was just ignored, we can't accept
@@ -1158,7 +1158,7 @@ class Smarty_Internal_Templateparser
     {
         static $res = array();
         static $res2 = array();
-        if ($token === 0) {
+        if (!$token) {
             return true; // 0 is not part of this
         }
         $state = $this->yystack[ $this->yyidx ]->stateno;
@@ -1179,7 +1179,7 @@ class Smarty_Internal_Templateparser
                 // reduce action
                 $done = 0;
                 do {
-                    if ($done ++ == 100) {
+                    if ($done ++ === 100) {
                         $this->yyidx = $yyidx;
                         $this->yystack = $stack;
                         // too much recursion prevents proper detection
@@ -1214,7 +1214,7 @@ class Smarty_Internal_Templateparser
                         $x->major = self::$yyRuleInfo[ $yyruleno ][ 0 ];
                         $this->yystack[ $this->yyidx ] = $x;
                         continue 2;
-                    } elseif ($nextstate == self::YYNSTATE + self::YYNRULE + 1) {
+                    } elseif ($nextstate === self::YYNSTATE + self::YYNRULE + 1) {
                         $this->yyidx = $yyidx;
                         $this->yystack = $stack;
                         if (!$token) {
@@ -1258,13 +1258,13 @@ class Smarty_Internal_Templateparser
         if ($i === self::YY_SHIFT_USE_DFLT) {
             return self::$yy_default[ $stateno ];
         }
-        if ($iLookAhead == self::YYNOCODE) {
+        if ($iLookAhead === self::YYNOCODE) {
             return self::YY_NO_ACTION;
         }
         $i += $iLookAhead;
-        if ($i < 0 || $i >= self::YY_SZ_ACTTAB || self::$yy_lookahead[ $i ] != $iLookAhead) {
+        if ($i < 0 || $i >= self::YY_SZ_ACTTAB || self::$yy_lookahead[ $i ] !== $iLookAhead) {
             if (count(self::$yyFallback) && $iLookAhead < count(self::$yyFallback) &&
-                ($iFallback = self::$yyFallback[ $iLookAhead ]) != 0
+                ($iFallback = self::$yyFallback[ $iLookAhead ]) !== 0
             ) {
                 if ($this->yyTraceFILE) {
                     fwrite($this->yyTraceFILE,
@@ -1289,14 +1289,14 @@ class Smarty_Internal_Templateparser
             return self::$yy_default[ $stateno ];
         }
         $i = self::$yy_reduce_ofst[ $stateno ];
-        if ($i == self::YY_REDUCE_USE_DFLT) {
+        if ($i === self::YY_REDUCE_USE_DFLT) {
             return self::$yy_default[ $stateno ];
         }
-        if ($iLookAhead == self::YYNOCODE) {
+        if ($iLookAhead === self::YYNOCODE) {
             return self::YY_NO_ACTION;
         }
         $i += $iLookAhead;
-        if ($i < 0 || $i >= self::YY_SZ_ACTTAB || self::$yy_lookahead[ $i ] != $iLookAhead) {
+        if ($i < 0 || $i >= self::YY_SZ_ACTTAB || self::$yy_lookahead[ $i ] !== $iLookAhead) {
             return self::$yy_default[ $stateno ];
         } else {
             return self::$yy_action[ $i ];
