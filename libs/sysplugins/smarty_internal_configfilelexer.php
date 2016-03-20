@@ -221,7 +221,7 @@ class Smarty_Internal_Configfilelexer
     {
         if (!isset($this->yy_global_pattern1)) {
             $this->yy_global_pattern1 =
-                "/\G(#|;)|\G(\\[)|\G(\\])|\G(=)|\G([ \t\r]+)|\G(\n)|\G([0-9]*[a-zA-Z_]\\w*)|\G([\S\s])/isS";
+                '/\\G(#|;)|\\G(\\[)|\\G(\\])|\\G(=)|\\G([ \\t\\r]+)|\\G(\\n)|\\G([0-9]*[a-zA-Z_]\\w*)|\\G([\\S\\s])/isS';
         }
         if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
@@ -326,7 +326,7 @@ class Smarty_Internal_Configfilelexer
     {
         if (!isset($this->yy_global_pattern2)) {
             $this->yy_global_pattern2 =
-                "/\G([ \t\r]+)|\G(\\d+\\.\\d+(?=[ \t\r]*[\n#;]))|\G(\\d+(?=[ \t\r]*[\n#;]))|\G(\"\"\")|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*'(?=[ \t\r]*[\n#;]))|\G(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"(?=[ \t\r]*[\n#;]))|\G([a-zA-Z]+(?=[ \t\r]*[\n#;]))|\G([^\n]+?(?=[ \t\r]*\n))|\G(\n)/isS";
+                '/\\G([ \\t\\r]+)|\\G(\\d+\\.\\d+(?=[ \\t\\r]*[\\n#;]))|\\G(\\d+(?=[ \\t\\r]*[\\n#;]))|\\G(""")|\\G(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'(?=[ \\t\\r]*[\\n#;]))|\\G("[^"\\\\]*(?:\\\\.[^"\\\\]*)*"(?=[ \\t\\r]*[\\n#;]))|\\G([a-zA-Z]+(?=[ \\t\\r]*[\\n#;]))|\\G([^\\n]+?(?=[ \\t\\r]*\\n))|\\G(\\n)/isS';
         }
         if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
@@ -451,7 +451,7 @@ class Smarty_Internal_Configfilelexer
     public function yylex3()
     {
         if (!isset($this->yy_global_pattern3)) {
-            $this->yy_global_pattern3 = "/\G([^\n]+?(?=[ \t\r]*\n))/isS";
+            $this->yy_global_pattern3 = '/\\G([^\\n]+?(?=[ \\t\\r]*\\n))/isS';
         }
         if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
@@ -511,7 +511,7 @@ class Smarty_Internal_Configfilelexer
     public function yylex4()
     {
         if (!isset($this->yy_global_pattern4)) {
-            $this->yy_global_pattern4 = "/\G([ \t\r]+)|\G([^\n]+?(?=[ \t\r]*\n))|\G(\n)/isS";
+            $this->yy_global_pattern4 = '/\\G([ \\t\\r]+)|\\G([^\\n]+?(?=[ \\t\\r]*\\n))|\\G(\\n)/isS';
         }
         if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
@@ -583,7 +583,7 @@ class Smarty_Internal_Configfilelexer
     public function yylex5()
     {
         if (!isset($this->yy_global_pattern5)) {
-            $this->yy_global_pattern5 = "/\G(\\.)|\G(.*?(?=[\.=[\]\r\n]))/isS";
+            $this->yy_global_pattern5 = '/\\G(\\.)|\\G(.*?(?=[\\.=[\\]\\r\\n]))/isS';
         }
         if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
@@ -649,7 +649,7 @@ class Smarty_Internal_Configfilelexer
     public function yylex6()
     {
         if (!isset($this->yy_global_pattern6)) {
-            $this->yy_global_pattern6 = "/\G(\"\"\"(?=[ \t\r]*[\n#;]))|\G([\S\s])/isS";
+            $this->yy_global_pattern6 = '/\\G("""(?=[ \\t\\r]*[\\n#;]))|\\G([\\S\\s])/isS';
         }
         if (!isset($this->data[ $this->counter ])) {
             return false; // end of input
