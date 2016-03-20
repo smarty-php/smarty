@@ -138,18 +138,16 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
             $namedAttr = $this->matchResults[ 'named' ];
         }
         if (isset($_attr[ 'properties' ]) && preg_match_all("/['](.*?)[']/", $_attr[ 'properties' ], $match)) {
-			$itemProperties = array_fill_keys($this->itemProperties, null);
             foreach ($match[ 1 ] as $prop) {
-                if (isset($itemProperties[$prop])) {
+                if (in_array($prop, $this->itemProperties)) {
                     $itemAttr[ $prop ] = true;
                 } else {
                     $compiler->trigger_template_error("Invalid property '{$prop}'", null, true);
                 }
             }
             if ($this->isNamed) {
-				$nameProperties = array_fill_keys($this->nameProperties, null);
                 foreach ($match[ 1 ] as $prop) {
-                    if (isset($nameProperties[$prop])) {
+                    if (in_array($prop, $this->nameProperties)) {
                         $nameAttr[ $prop ] = true;
                     } else {
                         $compiler->trigger_template_error("Invalid property '{$prop}'", null, true);
