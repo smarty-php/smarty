@@ -1,15 +1,15 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
- 27.03.2014
-  - bugfix change of 11.03.2014 cause again {capture} data could not been seen in other templates with {$smarty.capture.name} https://github.com/smarty-php/smarty/issues/153
+ 27.03.2016
+  - bugfix change of 11.03.2016 cause again {capture} data could not been seen in other templates with {$smarty.capture.name} https://github.com/smarty-php/smarty/issues/153
   
- 11.03.2014
+ 11.03.2016
   - optimization of capture and security handling
   - improvement $smarty->clearCompiledTemplate() should return on recompiled or uncompiled resources
   
- 10.03.2014
+ 10.03.2016
   - optimization of resource processing
   
- 09.03.2014
+ 09.03.2016
   - improvement rework of 'scope' attribute handling see see NEW_FEATURES.txt https://github.com/smarty-php/smarty/issues/194
     https://github.com/smarty-php/smarty/issues/186 https://github.com/smarty-php/smarty/issues/179
   - bugfix correct Autoloader update of 2.3.2014 https://github.com/smarty-php/smarty/issues/199
