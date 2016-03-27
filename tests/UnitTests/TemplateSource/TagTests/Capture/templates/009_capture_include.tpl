@@ -1,0 +1,1 @@
+-->{$smarty.capture.test}<--

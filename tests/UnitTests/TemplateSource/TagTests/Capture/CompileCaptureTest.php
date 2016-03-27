@@ -78,6 +78,13 @@ class CompileCaptureTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('eval:{capture assign=foo}hello {capture assign=bar}this is my {/capture}world{/capture}{$foo} {$bar}');
         $this->assertEquals("hello world this is my ", $this->smarty->fetch($tpl), 'This failure pops up only during PHPunit test ?????');
     }
+    /*
+     *  Test that capture results are global
+     */
+    public function testCapture9()
+    {
+        $this->assertContains('-->hello world<--', $this->smarty->fetch('009_capture.tpl'));
+    }
 
     public function testCompileCaptureNocache1()
     {
