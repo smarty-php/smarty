@@ -38,6 +38,13 @@ class Smarty_Internal_Runtime_Capture
     private $countStack = array();
 
     /**
+     * Named buffer
+     *
+     * @var string[]
+     */
+    private $namedBuffer = array();
+
+    /**
      * Flag if callbacks are registered
      *
      * @var bool
@@ -84,7 +91,6 @@ class Smarty_Internal_Runtime_Capture
     {
         $this->countStack[] = $this->captureCount;
         $this->captureCount = 0;
-        $_template->_cache[ 'capture' ] = array();
     }
 
     /**
@@ -105,7 +111,7 @@ class Smarty_Internal_Runtime_Capture
             if (isset($append)) {
                 $_template->append($append, ob_get_contents());
             }
-            $_template->_cache[ 'capture' ][ $buffer ] = ob_get_clean();
+            $this->namedBuffer[ $buffer ] = ob_get_clean();
         } else {
             $this->error($_template);
         }
@@ -133,7 +139,7 @@ class Smarty_Internal_Runtime_Capture
      */
     public function getBuffer(Smarty_Internal_Template $_template, $name)
     {
-        return isset($_template->_cache[ 'capture' ][ $name ]) ? $_template->_cache[ 'capture' ][ $name ] : null;
+        return isset($this->namedBuffer[ $name ]) ? $this->namedBuffer[ $name ] : null;
     }
 
     /**
