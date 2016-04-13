@@ -909,4 +909,16 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->smarty->assign('bar', 'bar');
         $this->assertContains('bar', $this->smarty->fetch('031_post_filter.tpl'));
     }
+    /*
+      * Test new inheritance root in outermost include
+      */
+    public function testInclude_032()
+    {
+        $result = $this->smarty->fetch('032_child.tpl');
+        $this->assertContains('foo in 032_child.tpl', $result);
+        $this->assertContains('bar in 032_included_child.tpl', $result);
+        $this->assertContains('foo in 032_included_parent.tpl', $result);
+        $this->assertNotContains('bar in 032_included_parent.tpl', $result);
+        $this->assertNotContains('foo in 032_parent.tpl', $result);
+    }
 }
