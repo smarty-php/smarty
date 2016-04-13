@@ -674,9 +674,9 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string[]
      */
-    private $obsoleteProperties = array('resource_caching', 'template_resource_caching', 'direct_access_security',
-                                        '_dir_perms', '_file_perms', 'plugin_search_order',
-                                        'inheritance_merge_compiled_includes', 'resource_cache_mode',);
+    private $obsoleteProperties = array('resource_caching'=>1, 'template_resource_caching'=>1, 'direct_access_security'=>1,
+                                        '_dir_perms'=>1, '_file_perms'=>1, 'plugin_search_order'=>1,
+                                        'inheritance_merge_compiled_includes'=>1, 'resource_cache_mode'=>1,);
 
     /**
      * List of private properties which will call getter/setter on a direct access
@@ -1334,7 +1334,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             return $this->{$method}();
         } elseif (isset($this->_cache[ $name ])) {
             return $this->_cache[ $name ];
-        } elseif (in_array($name, $this->obsoleteProperties)) {
+        } elseif (isset($this->obsoleteProperties[$name])) {
             return null;
         } else {
             trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
@@ -1355,7 +1355,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (isset($this->accessMap[ $name ])) {
             $method = 'set' . $this->accessMap[ $name ];
             $this->{$method}($value);
-        } elseif (in_array($name, $this->obsoleteProperties)) {
+        } elseif (isset($this->obsoleteProperties[$name])) {
             return;
         } else {
             if (is_object($value) && method_exists($value, $name)) {

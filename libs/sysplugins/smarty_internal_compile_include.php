@@ -93,7 +93,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                     $fullResourceName = "{$type}:{$name}";
                     $compiled = $compiler->parent_compiler->template->compiled;
                     if (isset($compiled->includes[ $fullResourceName ])) {
-                        $compiled->includes[ $fullResourceName ] ++;
+                        ++ $compiled->includes[ $fullResourceName ];
                         $cache_tpl = true;
                     } else {
                         if ("{$compiler->template->source->type}:{$compiler->template->source->name}" ==
@@ -257,7 +257,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         if ($call_nocache) {
             $compiler->tag_nocache = true;
         }
-        $_output = "<?php ";
+        $_output = '<?php ';
         if ($update_compile_id) {
             $_output .= "\$_compile_id_save[] = \$_smarty_tpl->compile_id;\n\$_smarty_tpl->compile_id = {$_compile_id};\n";
         }
@@ -312,7 +312,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $tpl->mustCompile = true;
             $compiler->parent_compiler->mergedSubTemplatesData[ $hashResourceName ][ $t_hash ][ 'nocache_hash' ] =
                 $tpl->compiled->nocache_hash;
-            if ($compiler->template->source->type == 'file') {
+            if ($compiler->template->source->type === 'file') {
                 $sourceInfo = $compiler->template->source->filepath;
             } else {
                 $basename = $compiler->template->source->handler->getBasename($compiler->template->source);
@@ -329,12 +329,12 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $compiled_code .= $tpl->compiler->postFilter($tpl->compiler->blockOrFunctionCode);
             $compiled_code .= "<?php\n\n";
             $compiled_code .= "/* End inline template \"{$sourceInfo}\" =============================*/\n";
-            $compiled_code .= "?>";
+            $compiled_code .= '?>';
             unset($tpl->compiler);
             if ($tpl->compiled->has_nocache_code) {
                 // replace nocache_hash
                 $compiled_code =
-                    str_replace("{$tpl->compiled->nocache_hash}", $compiler->template->compiled->nocache_hash,
+                    str_replace($tpl->compiled->nocache_hash, $compiler->template->compiled->nocache_hash,
                                 $compiled_code);
                 $compiler->template->compiled->has_nocache_code = true;
             }

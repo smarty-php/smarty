@@ -84,7 +84,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         }
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        $compiler->_cache[ 'blockNesting' ] ++;
+        ++ $compiler->_cache[ 'blockNesting' ];
         $compiler->_cache[ 'blockName' ][ $compiler->_cache[ 'blockNesting' ] ] = $_attr[ 'name' ];
         $compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ][ 'name' ] = "{$_attr['name']}";
         $this->openTag($compiler, 'block', array($_attr, $compiler->nocache, $compiler->parser->current_buffer,
@@ -167,7 +167,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         // init block parameter
         $_block = $compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ];
         unset($compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ]);
-        $_name = trim($_attr[ 'name' ], "'\"");
+        $_name = trim($_attr[ 'name' ], '\'"');
         $_assign = isset($_attr[ 'assign' ]) ? $_attr[ 'assign' ] : null;
         unset($_attr[ 'assign' ], $_attr[ 'name' ]);
         foreach ($_attr as $name => $stat) {
@@ -181,7 +181,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $_functionCode = $compiler->parser->current_buffer;
         // setup buffer for template function code
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
-        if ($compiler->template->source->type == 'file') {
+        if ($compiler->template->source->type === 'file') {
             $sourceInfo = $compiler->template->source->filepath;
         } else {
             $basename = $compiler->template->source->handler->getBasename($compiler->template->source);
@@ -201,7 +201,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         if ($compiler->template->compiled->has_nocache_code) {
             $output .= "\$_smarty_tpl->cached->hashes['{$compiler->template->compiled->nocache_hash}'] = true;\n";
         }
-        $output .= "\$_smarty_tpl->ext->_inheritance->blockNesting++;\n";
+        $output .= "++\$_smarty_tpl->ext->_inheritance->blockNesting;\n";
         if (isset($_assign)) {
             $output .= "ob_start();\n";
         }
@@ -215,7 +215,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
             $output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean());\n";
         }
         //$output .= "/*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n";
-        $output .= "\$_smarty_tpl->ext->_inheritance->blockNesting--;\n";
+        $output .= "--\$_smarty_tpl->ext->_inheritance->blockNesting;\n";
         $output .= "}\n";
         $output .= "}\n";
         $output .= "/* {/block '{$_name}'} */\n\n";
@@ -247,7 +247,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
             $output .= "new {$_className}(\$_smarty_tpl, \$this->tplIndex);\n";
         }
         $output .= "?>\n";
-        $compiler->_cache[ 'blockNesting' ] --;
+        -- $compiler->_cache[ 'blockNesting' ];
         if ($compiler->_cache[ 'blockNesting' ] == 0) {
             unset($compiler->_cache[ 'blockNesting' ]);
         }

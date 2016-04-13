@@ -508,12 +508,12 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // check nocache option flag
         foreach ($args as $arg) {
             if (!is_array($arg)) {
-                if ($arg == "'nocache'") {
+                if ($arg === '\'nocache\'') {
                     $this->tag_nocache = true;
                 }
             } else {
                 foreach ($arg as $k => $v) {
-                    if ($k == "'nocache'" && (trim($v, "'\" ") == 'true')) {
+                    if ($k === '\'nocache\'' && (trim($v, '\'" ') === 'true')) {
                         $this->tag_nocache = true;
                     }
                 }
@@ -523,7 +523,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if (($_output = $this->callTagCompiler($tag, $args, $parameter)) === false) {
             if (isset($this->parent_compiler->template->tpl_function[ $tag ])) {
                 // template defined by {template} tag
-                $args[ '_attr' ][ 'name' ] = "'" . $tag . "'";
+                $args[ '_attr' ][ 'name' ] = '\'' . $tag . '\'';
                 $_output = $this->callTagCompiler('call', $args, $parameter);
             }
         }
@@ -750,7 +750,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     throw new SmartyException("Plugin \"{$tag}\" not callable");
                 }
             }
-            $this->trigger_template_error("unknown tag \"" . $tag . "\"", null, true);
+            $this->trigger_template_error('unknown tag "' . $tag . '"', null, true);
         }
     }
 
@@ -814,7 +814,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             $text = substr_replace($text, $replace, $match[ 0 ][ 1 ] - $_offset, $_length);
 
                             $_offset += $_length - strlen($replace);
-                            $_store ++;
+                            ++ $_store;
                         }
                     }
                     $expressions = array(// replace multiple spaces between tags by a single space
@@ -835,7 +835,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             $text = substr_replace($text, $replace, $match[ 0 ][ 1 ] + $_offset, $_length);
 
                             $_offset += strlen($replace) - $_length;
-                            $_store ++;
+                            ++ $_store;
                         }
                     }
                 } else {
@@ -916,7 +916,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             }
         }
         if (isset($function)) {
-            if ($plugin_type == 'modifier') {
+            if ($plugin_type === 'modifier') {
                 $this->modifier_plugins[ $plugin_name ] = true;
             }
 
@@ -938,7 +938,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $this->parent_compiler->template->compiled->required_plugins[ 'compiled' ][ $plugin_name ][ $plugin_type ][ 'function' ] =
                     $function;
             }
-            if ($plugin_type == 'modifier') {
+            if ($plugin_type === 'modifier') {
                 $this->modifier_plugins[ $plugin_name ] = true;
             }
 
@@ -1044,7 +1044,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             ) {
                 $this->template->compiled->has_nocache_code = true;
                 $_output = addcslashes($content, '\'\\');
-                $_output = str_replace("^#^", "'", $_output);
+                $_output = str_replace('^#^', '\'', $_output);
                 $_output = "<?php echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/" . $_output .
                            "/*/%%SmartyNocache:{$this->nocache_hash}%%*/';?>\n";
                 // make sure we include modifier plugins for nocache code
@@ -1126,11 +1126,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
     {
         $_scope = 0;
         if (isset($_attr[ 'scope' ])) {
-            $_scopeName = trim($_attr[ 'scope' ], "'\"");
+            $_scopeName = trim($_attr[ 'scope' ], '\'"');
             if (is_numeric($_scopeName) && in_array($_scopeName, $validScopes)) {
                 $_scope = $_scopeName;
             } elseif (is_string($_scopeName)) {
-                $_scopeName = trim($_scopeName, "'\"");
+                $_scopeName = trim($_scopeName, '\'"');
                 $_scope = isset($validScopes[ $_scopeName ]) ? $validScopes[ $_scopeName ] : false;
             } else {
                 $_scope = false;
@@ -1153,7 +1153,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function makeNocacheCode($code)
     {
         return "echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/<?php " .
-               str_replace("^#^", "'", addcslashes($code, '\'\\')) .
+               str_replace('^#^', '\'', addcslashes($code, '\'\\')) .
                "?>/*/%%SmartyNocache:{$this->nocache_hash}%%*/';\n";
     }
 
@@ -1182,7 +1182,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $line = (int) $line;
         }
 
-        if (in_array($this->template->source->type, array('eval', 'string'))) {
+        if ($this->template->source->type === 'eval' || $this->template->source->type === 'string') {
             $templateName = $this->template->source->type . ':' . trim(preg_replace('![\t\r\n]+!', ' ',
                                                                                     strlen($lex->data) > 40 ?
                                                                                         substr($lex->data, 0, 40) .
@@ -1271,7 +1271,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function getNewPrefixVariable()
     {
-        self::$prefixVariableNumber ++;
+        ++ self::$prefixVariableNumber;
         return $this->getPrefixVariable();
     }
 

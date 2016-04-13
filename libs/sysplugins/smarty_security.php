@@ -320,7 +320,7 @@ class Smarty_Security
             // fall back
             return $this->isTrustedStaticClass($class_name, $compiler);
         }
-        if ($params[ 2 ] == 'method') {
+        if ($params[ 2 ] === 'method') {
             $allowed = $this->trusted_static_methods;
             $name = substr($params[ 0 ], 0, strpos($params[ 0 ], '('));
         } else {
@@ -377,11 +377,11 @@ class Smarty_Security
     public function isTrustedTag($tag_name, $compiler)
     {
         // check for internal always required tags
-        if (in_array($tag_name,
-                     array('assign', 'call', 'private_filter', 'private_block_plugin', 'private_function_plugin',
-                           'private_object_block_function', 'private_object_function', 'private_registered_function',
-                           'private_registered_block', 'private_special_variable', 'private_print_expression',
-                           'private_modifier'))) {
+		static $tags = array('assign'=>1, 'call'=>1, 'private_filter'=>1, 'private_block_plugin'=>1, 'private_function_plugin'=>1,
+                           'private_object_block_function'=>1, 'private_object_function'=>1, 'private_registered_function'=>1,
+                           'private_registered_block'=>1, 'private_special_variable'=>1, 'private_print_expression'=>1,
+                           'private_modifier'=>1);
+        if (isset($tags[$tag_name])) {
             return true;
         }
         // check security settings
@@ -433,7 +433,7 @@ class Smarty_Security
     public function isTrustedModifier($modifier_name, $compiler)
     {
         // check for internal always allowed modifier
-        if (in_array($modifier_name, array('default'))) {
+        if ($modifier_name === 'default') {
             return true;
         }
         // check security settings
@@ -466,7 +466,7 @@ class Smarty_Security
      */
     public function isTrustedConstant($const, $compiler)
     {
-        if (in_array($const, array('true', 'false', 'null'))) {
+        if ($const === 'true' || $const === 'false' || $const === 'null') {
             return true;
         }
         if (!empty($this->trusted_constants)) {
@@ -479,7 +479,7 @@ class Smarty_Security
         if ($this->allow_constants) {
             return true;
         }
-        $compiler->trigger_template_error("Security: access to constants not permitted");
+        $compiler->trigger_template_error('Security: access to constants not permitted');
         return false;
     }
 
@@ -711,7 +711,7 @@ class Smarty_Security
     public function endTemplate()
     {
         if ($this->max_template_nesting > 0) {
-            $this->_current_template_nesting --;
+            -- $this->_current_template_nesting;
         }
     }
 

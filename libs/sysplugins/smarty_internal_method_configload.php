@@ -151,7 +151,7 @@ class Smarty_Internal_Method_ConfigLoad
         $i = 0;
         while (isset($tpl->_cache[ 'varStack' ][ $i ])) {
             $this->_assignConfigVars($tpl->_cache[ 'varStack' ][ $i ][ 'config' ], $tpl, $config_vars);
-            $i ++;
+            ++ $i;
         }
     }
 

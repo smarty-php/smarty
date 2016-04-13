@@ -230,7 +230,7 @@ class Smarty_Internal_TestInstall
         }
         if (!$_core_plugins_available) {
             $status = false;
-            $message = "WARNING: Smarty's own libs/plugins is not available";
+            $message = 'WARNING: Smarty\'s own libs/plugins is not available';
             if ($errors === null) {
                 echo $message . ".\n";
             } elseif (!isset($errors[ 'plugins_dir' ])) {

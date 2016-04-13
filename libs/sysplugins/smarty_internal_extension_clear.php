@@ -63,7 +63,7 @@ class Smarty_Internal_Extension_Clear
             $_cacheDirs = new RecursiveDirectoryIterator($_dir);
             $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
             foreach ($_cache as $_file) {
-                if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
+                if (substr(basename($_file->getPathname()), 0, 1) === '.' || strpos($_file, '.svn') !== false) {
                     continue;
                 }
                 // directory ?
@@ -95,7 +95,7 @@ class Smarty_Internal_Extension_Clear
                         if ($_parts_count < $_cache_id_parts_count) {
                             continue;
                         }
-                        for ($i = 0; $i < $_cache_id_parts_count; $i ++) {
+                        for ($i = 0; $i < $_cache_id_parts_count; ++ $i) {
                             if ($_parts[ $i ] != $_cache_id_parts[ $i ]) {
                                 continue 2;
                             }

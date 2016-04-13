@@ -103,7 +103,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
             }
         }
         if (isset($content)) {
-            eval("?>" . $content);
+            eval('?>' . $content);
 
             return true;
         }
@@ -271,8 +271,8 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      */
     protected function addMetaTimestamp(&$content)
     {
-        $mt = explode(" ", microtime());
-        $ts = pack("NN", $mt[ 1 ], (int) ($mt[ 0 ] * 100000000));
+        $mt = explode(' ', microtime());
+        $ts = pack('NN', $mt[ 1 ], (int) ($mt[ 0 ] * 100000000));
         $content = $ts . $content;
     }
 
@@ -286,7 +286,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
     protected function getMetaTimestamp(&$content)
     {
         extract(unpack('N1s/N1m/a*content', $content));
-        return $s + ($m / 100000000);
+        return $s + ($m * 0.00000001);
     }
 
     /**
@@ -410,7 +410,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
             $t[] = 'IVK#CACHE#' . $part;
             $t[] = 'IVK#CID' . $_name . $part . $_compile;
             // skip past delimiter position
-            $i ++;
+            ++ $i;
         }
 
         return $t;

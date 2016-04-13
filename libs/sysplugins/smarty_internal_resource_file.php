@@ -30,12 +30,12 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     {
         $file = $source->name;
         // absolute file ?
-        if ($file[ 0 ] == '/' || $file[ 1 ] == ':') {
+        if ($file[ 0 ] === '/' || $file[ 1 ] === ':') {
             $file = $source->smarty->_realpath($file, true);
             return is_file($file) ? $file : false;
         }
         // go relative to a given template?
-        if ($file[ 0 ] == '.' && $_template && isset($_template->parent) && $_template->parent->_objType == 2 &&
+        if ($file[ 0 ] === '.' && $_template && isset($_template->parent) && $_template->parent->_objType == 2 &&
             preg_match('#^[.]{1,2}[\\\/]#', $file)
         ) {
             if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' &&
@@ -57,13 +57,13 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             return is_file($path) ? $path : false;
         }
         // normalize DS
-        if (strpos($file, DS == '/' ? '\\' : '/') !== false) {
-            $file = str_replace(DS == '/' ? '\\' : '/', DS, $file);
+        if (strpos($file, DS === '/' ? '\\' : '/') !== false) {
+            $file = str_replace(DS === '/' ? '\\' : '/', DS, $file);
         }
 
         $_directories = $source->smarty->getTemplateDir(null, $source->isConfig);
         // template_dir index?
-        if ($file[ 0 ] == '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
+        if ($file[ 0 ] === '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
             $file = $fileMatch[ 2 ];
             $_indices = explode(',', $fileMatch[ 1 ]);
             $_index_dirs = array();

@@ -87,7 +87,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        $compiler->loopNesting ++;
+        ++ $compiler->loopNesting;
         // init
         $this->isNamed = false;
         // check and get attributes
@@ -212,10 +212,10 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
             $output .= "\$_smarty_tpl->tpl_vars['{$key}']->value = {$itemVar}->key;\n";
         }
         if (isset($itemAttr[ 'iteration' ])) {
-            $output .= "{$itemVar}->iteration++;\n";
+            $output .= "++{$itemVar}->iteration;\n";
         }
         if (isset($itemAttr[ 'index' ])) {
-            $output .= "{$itemVar}->index++;\n";
+            $output .= "++{$itemVar}->index;\n";
         }
         if (isset($itemAttr[ 'first' ])) {
             $output .= "{$itemVar}->first = !{$itemVar}->index;\n";
@@ -225,10 +225,10 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         }
         if ($this->isNamed) {
             if (isset($namedAttr[ 'iteration' ])) {
-                $output .= "{$foreachVar}->value['iteration']++;\n";
+                $output .= "++{$foreachVar}->value['iteration'];\n";
             }
             if (isset($namedAttr[ 'index' ])) {
-                $output .= "{$foreachVar}->value['index']++;\n";
+                $output .= "++{$foreachVar}->value['index'];\n";
             }
             if (isset($namedAttr[ 'first' ])) {
                 $output .= "{$foreachVar}->value['first'] = !{$foreachVar}->value['index'];\n";
@@ -238,7 +238,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
             }
         }
         $output .= "{$local}saved = {$itemVar};\n";
-        $output .= "?>";
+        $output .= '?>';
 
         return $output;
     }
@@ -295,7 +295,7 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        $compiler->loopNesting --;
+        -- $compiler->loopNesting;
         // must endblock be nocache?
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;
@@ -310,7 +310,7 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
         }
         $output .= "}\n";
         $output .= "\$_smarty_tpl->smarty->ext->_foreach->restore(\$_smarty_tpl);\n";
-        $output .= "?>";
+        $output .= '?>';
         return $output;
     }
 }

@@ -82,11 +82,11 @@ class Smarty_Internal_Runtime_Inheritance
                 //grab any output of child templates
                 ob_start();
             }
-            $this->inheritanceLevel ++;
+            ++ $this->inheritanceLevel;
         }
         // in parent state {include} will not increment template index
         if ($this->state != 3) {
-            $this->tplIndex ++;
+            ++ $this->tplIndex;
             $this->templateResource[ $this->tplIndex ] = $tpl->template_resource;
         }
         // if state was waiting for parent change state to parent
@@ -103,7 +103,7 @@ class Smarty_Internal_Runtime_Inheritance
      */
     public function endChild(Smarty_Internal_Template $tpl)
     {
-        $this->inheritanceLevel --;
+        -- $this->inheritanceLevel;
         if (!$this->inheritanceLevel) {
             ob_end_clean();
             $this->state = 2;

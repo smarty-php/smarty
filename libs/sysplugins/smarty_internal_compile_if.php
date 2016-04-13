@@ -34,8 +34,8 @@ class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase
         // must whole block be nocache ?
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
 
-        if (!array_key_exists("if condition", $parameter)) {
-            $compiler->trigger_template_error("missing if condition", null, true);
+        if (!array_key_exists('if condition', $parameter)) {
+            $compiler->trigger_template_error('missing if condition', null, true);
         }
 
         if (is_array($parameter[ 'if condition' ])) {
@@ -89,7 +89,7 @@ class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase
         list($nesting, $compiler->tag_nocache) = $this->closeTag($compiler, array('if', 'elseif'));
         $this->openTag($compiler, 'else', array($nesting, $compiler->tag_nocache));
 
-        return "<?php } else { ?>";
+        return '<?php } else { ?>';
     }
 }
 
@@ -118,8 +118,8 @@ class Smarty_Internal_Compile_Elseif extends Smarty_Internal_CompileBase
 
         list($nesting, $compiler->tag_nocache) = $this->closeTag($compiler, array('if', 'elseif'));
 
-        if (!array_key_exists("if condition", $parameter)) {
-            $compiler->trigger_template_error("missing elseif condition", null, true);
+        if (!array_key_exists('if condition', $parameter)) {
+            $compiler->trigger_template_error('missing elseif condition', null, true);
         }
 
         $assignCode = '';
@@ -199,7 +199,7 @@ class Smarty_Internal_Compile_Ifclose extends Smarty_Internal_CompileBase
         }
         list($nesting, $compiler->nocache) = $this->closeTag($compiler, array('if', 'else', 'elseif'));
         $tmp = '';
-        for ($i = 0; $i < $nesting; $i ++) {
+        for ($i = 0; $i < $nesting; ++ $i) {
             $tmp .= '}';
         }
 

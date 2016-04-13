@@ -142,9 +142,9 @@ class Smarty_Internal_Config_File_Compiler
         }
         // template header code
         $template_header =
-            "<?php /* Smarty version " . Smarty::SMARTY_VERSION . ", created on " . strftime("%Y-%m-%d %H:%M:%S") .
+            '<?php /* Smarty version ' . Smarty::SMARTY_VERSION . ', created on ' . strftime('%Y-%m-%d %H:%M:%S') .
             "\n";
-        $template_header .= "         compiled from \"" . $this->template->source->filepath . "\" */ ?>\n";
+        $template_header .= '         compiled from "' . $this->template->source->filepath . "\" */ ?>\n";
 
         $code = '<?php $_smarty_tpl->smarty->ext->configLoad->_loadConfigVars($_smarty_tpl, ' .
                 var_export($this->config_data, true) . '); ?>';
@@ -168,7 +168,7 @@ class Smarty_Internal_Config_File_Compiler
         // get config source line which has error
         $line = $this->lex->line;
         if (isset($args)) {
-            // $line--;
+            // --$line;
         }
         $match = preg_split("/\n/", $this->lex->data);
         $error_text =

@@ -37,7 +37,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         $smarty->_clearTemplateCache();
 
         $_compile_dir = $smarty->getCompileDir();
-        if ($_compile_dir == '/') { //We should never want to delete this!
+        if ($_compile_dir === '/') { //We should never want to delete this!
             return 0;
         }
         $_compile_id = isset($compile_id) ? preg_replace('![^\w]+!', '_', $compile_id) : null;
@@ -75,7 +75,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
-            if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
+            if (substr(basename($_file->getPathname()), 0, 1) === '.' || strpos($_file, '.svn') !== false) {
                 continue;
             }
 
@@ -108,7 +108,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                 }
 
                 if ($unlink && @unlink($_filepath)) {
-                    $_count ++;
+                    ++ $_count;
                     if (function_exists('opcache_invalidate')) {
                         opcache_invalidate($_filepath, true);
                     }

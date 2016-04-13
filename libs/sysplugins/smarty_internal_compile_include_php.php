@@ -97,7 +97,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
         }
         $_once = '_once';
         if (isset($_attr[ 'once' ])) {
-            if ($_attr[ 'once' ] == 'false') {
+            if ($_attr[ 'once' ] === 'false') {
                 $_once = '';
             }
         }

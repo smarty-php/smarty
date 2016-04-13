@@ -64,17 +64,17 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
         // add code to initialize inheritance
         $this->registerInit($compiler, true);
         $file = trim($_attr[ 'file' ], '\'"');
-        if (strlen($file) > 8 && substr($file, 0, 8) == 'extends:') {
+        if (strlen($file) > 8 && substr($file, 0, 8) === 'extends:') {
             // generate code for each template
             $files = array_reverse(explode('|', substr($file, 8)));
             $i = 0;
             foreach ($files as $file) {
-                if ($file[ 0 ] == '"') {
+                if ($file[ 0 ] === '"') {
                     $file = trim($file, '".');
                 } else {
                     $file = "'{$file}'";
                 }
-                $i ++;
+                ++ $i;
                 if ($i == count($files) && isset($_attr[ 'extends_resource' ])) {
                     $this->compileEndChild($compiler);
                 }

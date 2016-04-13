@@ -109,7 +109,7 @@ class Smarty_Internal_Runtime_UpdateScope
         $i = 0;
         while (isset($tpl->_cache[ 'varStack' ][ $i ])) {
             $this->_updateVariableInOtherScope($tpl->_cache[ 'varStack' ][ $i ][ 'tpl' ], $tpl, $varName);
-            $i ++;
+            ++ $i;
         }
     }
 }

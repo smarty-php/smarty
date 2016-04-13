@@ -28,7 +28,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        $_index = preg_split("/\]\[/", substr($parameter, 1, strlen($parameter) - 2));
+        $_index = preg_split('/\]\[/', substr($parameter, 1, strlen($parameter) - 2));
         $variable = strtolower($compiler->getId($_index[ 0 ]));
         if ($variable === false) {
             $compiler->trigger_template_error("special \$Smarty variable name index can not be variable", null, true);
@@ -85,13 +85,13 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                     return 'dirname($_smarty_tpl->source->filepath)';
 
                 case 'version':
-                    return "Smarty::SMARTY_VERSION";
+                    return 'Smarty::SMARTY_VERSION';
 
                 case 'const':
                     if (isset($compiler->smarty->security_policy) &&
                         !$compiler->smarty->security_policy->allow_constants
                     ) {
-                        $compiler->trigger_template_error("(secure mode) constants not permitted");
+                        $compiler->trigger_template_error('(secure mode) constants not permitted');
                         break;
                     }
                     if (strpos($_index[ 1 ], '$') === false && strpos($_index[ 1 ], '\'') === false) {
@@ -107,9 +107,9 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                         return "\$_smarty_tpl->smarty->ext->configload->_getConfigVariable(\$_smarty_tpl, $_index[1])";
                     }
                 case 'ldelim':
-                    return "\$_smarty_tpl->smarty->left_delimiter";
+                    return '$_smarty_tpl->smarty->left_delimiter';
                 case 'rdelim':
-                    return "\$_smarty_tpl->smarty->right_delimiter";
+                    return '$_smarty_tpl->smarty->right_delimiter';
                 default:
                     $compiler->trigger_template_error('$smarty.' . trim($_index[ 0 ], "'") . ' is not defined');
                     break;

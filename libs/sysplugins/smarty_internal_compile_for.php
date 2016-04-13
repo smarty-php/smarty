@@ -34,7 +34,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
      */
     public function compile($args, $compiler, $parameter)
     {
-        $compiler->loopNesting ++;
+        ++ $compiler->loopNesting;
         if ($parameter == 0) {
             $this->required_attributes = array('start', 'to');
             $this->optional_attributes = array('max', 'step');
@@ -88,11 +88,11 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
                 $output .= "\$_smarty_tpl->tpl_vars[$var]->total = (int) ceil((\$_smarty_tpl->tpl_vars[$var]->step > 0 ? $_attr[to]+1 - ($_statement[value]) : $_statement[value]-($_attr[to])+1)/abs(\$_smarty_tpl->tpl_vars[$var]->step));\n";
             }
             $output .= "if (\$_smarty_tpl->tpl_vars[$var]->total > 0) {\n";
-            $output .= "for (\$_smarty_tpl->tpl_vars[$var]->value{$index} = $_statement[value], \$_smarty_tpl->tpl_vars[$var]->iteration = 1;\$_smarty_tpl->tpl_vars[$var]->iteration <= \$_smarty_tpl->tpl_vars[$var]->total;\$_smarty_tpl->tpl_vars[$var]->value{$index} += \$_smarty_tpl->tpl_vars[$var]->step, \$_smarty_tpl->tpl_vars[$var]->iteration++) {\n";
+            $output .= "for (\$_smarty_tpl->tpl_vars[$var]->value{$index} = $_statement[value], \$_smarty_tpl->tpl_vars[$var]->iteration = 1;\$_smarty_tpl->tpl_vars[$var]->iteration <= \$_smarty_tpl->tpl_vars[$var]->total;\$_smarty_tpl->tpl_vars[$var]->value{$index} += \$_smarty_tpl->tpl_vars[$var]->step, ++\$_smarty_tpl->tpl_vars[$var]->iteration) {\n";
             $output .= "\$_smarty_tpl->tpl_vars[$var]->first = \$_smarty_tpl->tpl_vars[$var]->iteration == 1;";
             $output .= "\$_smarty_tpl->tpl_vars[$var]->last = \$_smarty_tpl->tpl_vars[$var]->iteration == \$_smarty_tpl->tpl_vars[$var]->total;";
         }
-        $output .= "?>";
+        $output .= '?>';
 
         $this->openTag($compiler, 'for', array('for', $compiler->nocache));
         // maybe nocache because of nocache variables
@@ -127,7 +127,7 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
         list($openTag, $nocache) = $this->closeTag($compiler, array('for'));
         $this->openTag($compiler, 'forelse', array('forelse', $nocache));
 
-        return "<?php }} else { ?>";
+        return '<?php }} else { ?>';
     }
 }
 
@@ -150,7 +150,7 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
      */
     public function compile($args, $compiler, $parameter)
     {
-        $compiler->loopNesting --;
+        -- $compiler->loopNesting;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         // must endblock be nocache?
