@@ -330,6 +330,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
         }
         $tpl->_cache = array();
+        $saved_inheritance = isset($tpl->ext->_inheritance) ? $tpl->ext->_inheritance : null;
         if (isset($uid)) {
             if ($smarty->debugging) {
                 $smarty->_debug->start_template($tpl);
@@ -346,6 +347,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             } else {
                 $tpl->render();
             }
+        }
+        if (isset($saved_inheritance)) {
+            $tpl->ext->_inheritance = $saved_inheritance;
+        } else {
+            unset($tpl->ext->_inheritance);
         }
     }
 
