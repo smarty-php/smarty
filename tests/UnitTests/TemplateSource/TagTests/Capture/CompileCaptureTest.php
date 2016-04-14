@@ -106,4 +106,13 @@ class CompileCaptureTest extends PHPUnit_Smarty
         $this->assertTrue($this->smarty->isCached('test_capture_nocache.tpl'));
         $this->assertContains('foo 2', $this->smarty->fetch('test_capture_nocache.tpl'));
     }
+    /*
+     *  Test capture buffer names with uppercase
+     */
+    public function testCapture10()
+    {
+        $result = $this->smarty->fetch('010_capture.tpl');
+        $this->assertContains('lowercase', $result);
+        $this->assertContains('uppercase', $result);
+    }
 }
