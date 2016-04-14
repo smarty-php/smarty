@@ -44,8 +44,6 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
      */
     public static function compileSpecialVariable($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = null)
     {
-        // make all lower case
-        $parameter = array_map('strtolower', $parameter);
         $tag = trim($parameter[ 0 ], '"\'');
         $name = isset($parameter[ 1 ]) ? $compiler->getId($parameter[ 1 ]) : false;
         if (!$name) {
