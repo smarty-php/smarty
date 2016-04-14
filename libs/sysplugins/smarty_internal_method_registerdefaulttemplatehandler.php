@@ -61,6 +61,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
                 $source->timestamp = filemtime($_return);
             }
             $source->filepath = $_return;
+            $source->uid = sha1($source->filepath);
         } elseif ($_return === true) {
             $source->content = $_content;
             $source->timestamp = $_timestamp;
