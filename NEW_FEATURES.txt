@@ -29,21 +29,21 @@ Smarty 3.1.30
     New tag {make_nocache}
     ======================
     Syntax: {make_nocache $foo}
-    
+
     This tag makes a variable which does exists normally only while rendering the compiled template
     available in the cached template for use in not cached expressions.
-    
+
     Expample:
         {foreach from=$list item=item}
             <li>{$item.name} {make_nocache $item}{if $current==$item.id} ACTIVE{/if}</li>
         {/foreach}
-    
+
     The {foreach} loop is rendered while processing the compiled template, but $current is a nocache
     variable. Normally the {if $current==$item.id} would fail as the $item variable is unkown in the 
     cached template. {make_nocache $item} does make the current $item value known in thee cached template.
-    
+
     {make_nocache} is ignored when caching is disabled or the variable does exists as nocache variable.
-    
+
     NOTE: if the variable value does contain objects these must have the __set_state method implemented.
 
 
@@ -67,7 +67,7 @@ Smarty 3.1.30
     scope='local'     - this scope has only a meaning if the tag is called within a template {function}.
                         The variable will be assigned in the local scope of the template function and the
                         template which did call the template function.
-    
+
 
     The {config_load} tag supports all of the above except the global scope.
 
@@ -134,7 +134,7 @@ Smarty 3.1.28
     The template_dir array is searched in the order of the indices. (Could be used to change the default search order)
     Example:
         $smarty->display('[1],[0]foo.bar');
-        
+
     Filter support
     ==============
     Optional filter names
@@ -149,7 +149,7 @@ Smarty 3.1.28
       If you register multiple closures register each with a unique filter name.
       - $smarty->registerFilter('pre', function($source) {return $source;}, 'closure_1');
       - $smarty->registerFilter('pre', function($source) {return $source;}, 'closure_2');
-      
+
 
 Smarty 3.1.22
 
@@ -222,7 +222,7 @@ Smarty 3.1.22
     Debugging
     =========
     The layout of the debug window has been changed for better readability
-    
+
     New class constants
         Smarty::DEBUG_OFF
         Smarty::DEBUG_ON
@@ -231,5 +231,3 @@ Smarty 3.1.22
 
     Smarty::DEBUG_INDIVIDUAL will create for each display() and fetch() call an individual debug window.
 
-    .
-    
