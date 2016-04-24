@@ -66,6 +66,13 @@ class Smarty_Internal_Block
     public $tplIndex = 0;
 
     /**
+     * Nesting level of called sub-templates
+     *
+     * @var int
+     */
+    public $subTemplateNesting = 0;
+
+    /**
      * Smarty_Internal_Block constructor.
      * - if outer level {block} of child template ($state == 1) save it as child root block
      * - otherwise process inheritance and render
@@ -75,12 +82,13 @@ class Smarty_Internal_Block
      */
     public function __construct(Smarty_Internal_Template $tpl, $tplIndex = null)
     {
-        $this->tplIndex = $tplIndex ? $tplIndex : $tpl->ext->_inheritance->tplIndex;
-        if (isset($tpl->ext->_inheritance->childRoot[ $this->name ])) {
-            $this->child = $tpl->ext->_inheritance->childRoot[ $this->name ];
+        $inheritance = &$tpl->ext->_inheritance;
+        $this->tplIndex = $tplIndex ? $tplIndex : $inheritance->tplIndex;
+        if (isset($inheritance->childRoot[ $this->name ])) {
+            $this->child = $inheritance->childRoot[ $this->name ];
         }
-        if ($tpl->ext->_inheritance->state == 1) {
-            $tpl->ext->_inheritance->childRoot[ $this->name ] = $this;
+        if ($inheritance->state == 1) {
+            $inheritance->childRoot[ $this->name ] = $this;
             return;
         }
         // make sure we got child block of child template of current block
@@ -98,6 +106,7 @@ class Smarty_Internal_Block
      */
     public function process(Smarty_Internal_Template $tpl, Smarty_Internal_Block $parent = null)
     {
+        $inheritance = &$tpl->ext->_inheritance;
         if ($this->hide && !isset($this->child)) {
             return;
         }
@@ -109,7 +118,10 @@ class Smarty_Internal_Block
             $this->callParent($tpl);
         }
         if ($this->callsChild || !isset($this->child) || ($this->child->hide && !isset($this->child->child))) {
+            $this->subTemplateNesting = 0;
+            array_unshift($inheritance->blockCallStack, $this);
             $this->callBlock($tpl);
+            array_shift($inheritance->blockCallStack);
         } else {
             $this->child->process($tpl, $this);
         }
@@ -117,7 +129,10 @@ class Smarty_Internal_Block
             $this->callParent($tpl);
             if ($this->append) {
                 if ($this->callsChild || !isset($this->child) || ($this->child->hide && !isset($this->child->child))) {
+                    $this->subTemplateNesting = 0;
+                    array_unshift($inheritance->blockCallStack, $this);
                     $this->callBlock($tpl);
+                    array_shift($inheritance->blockCallStack);
                 } else {
                     $this->child->process($tpl, $this);
                 }
@@ -157,9 +172,12 @@ class Smarty_Internal_Block
     public function callParent(Smarty_Internal_Template $tpl)
     {
         if (isset($this->parent)) {
+            $this->parent->subTemplateNesting = 0;
+            array_unshift($tpl->ext->_inheritance->blockCallStack, $this->parent);
             $this->parent->callBlock($tpl);
+            array_shift($tpl->ext->_inheritance->blockCallStack);
         } else {
-            throw new SmartyException("inheritance: illegal {\$smarty.block.parent} or {block append/prepend} used in parent template '{$tpl->ext->_inheritance->templateResource[$this->tplIndex]}' block '{$this->name}'");
+            throw new SmartyException("inheritance: illegal {\$smarty.block.parent} or {block append/prepend} used in parent template '{$tpl->ext->_inheritance->sources[$this->tplIndex]->filepath}' block '{$this->name}'");
         }
     }
 }

@@ -45,19 +45,19 @@ class Smarty_Internal_Runtime_Inheritance
     public $tplIndex = - 1;
 
     /**
-     * current block nesting level
-     *
-     * @var int
-     */
-    public $blockNesting = 0;
-
-    /**
-     * Array of source template names
+     * Array of template source objects
      * - key template index
      *
-     * @var string[]
+     * @var Smarty_Template_Source[]
      */
-    public $templateResource = array();
+    public $sources = array();
+
+    /**
+     * Call stack of block objects
+     *
+     * @var Smarty_Internal_Block[]
+     */
+    public $blockCallStack = array();
 
     /**
      * Initialize inheritance
@@ -87,7 +87,7 @@ class Smarty_Internal_Runtime_Inheritance
         // in parent state {include} will not increment template index
         if ($this->state != 3) {
             $this->tplIndex ++;
-            $this->templateResource[ $this->tplIndex ] = $tpl->template_resource;
+            $this->sources[ $this->tplIndex ] = $tpl->source;
         }
         // if state was waiting for parent change state to parent
         if ($this->state == 2) {
@@ -107,6 +107,39 @@ class Smarty_Internal_Runtime_Inheritance
         if (!$this->inheritanceLevel) {
             ob_end_clean();
             $this->state = 2;
+        }
+    }
+
+    /**
+     * Return source filepath of current {block} if not in sub-template
+     *
+     * @return bool|string  filepath or false
+     */
+    public function getBlockFilepath()
+    {
+        if (!empty($this->blockCallStack) && $this->blockCallStack[ 0 ]->subTemplateNesting === 0) {
+            return $this->sources[ $this->blockCallStack[ 0 ]->tplIndex ]->filepath;
+        }
+        return false;
+    }
+
+    /**
+     *  Increment sub-template nesting count in current block object
+     */
+    public function subTemplateStart()
+    {
+        if (!empty($this->blockCallStack)) {
+            $this->blockCallStack[ 0 ]->subTemplateNesting ++;
+        }
+    }
+
+    /**
+     *  Decrement sub-template nesting count in current block object
+     */
+    public function subTemplateEnd()
+    {
+        if (!empty($this->blockCallStack)) {
+            $this->blockCallStack[ 0 ]->subTemplateNesting --;
         }
     }
 }

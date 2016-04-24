@@ -101,7 +101,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public $endRenderCallbacks = array();
 
-
     /**
      * Create template data object
      * Some of the global Smarty settings copied to template scope
@@ -330,7 +329,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
         }
         $tpl->_cache = array();
-        $saved_inheritance = isset($tpl->ext->_inheritance) ? $tpl->ext->_inheritance : null;
+        if (isset($tpl->ext->_inheritance)) {
+            $saved_inheritance = $tpl->ext->_inheritance;
+            $saved_inheritance->subTemplateStart();
+        }
         if (isset($uid)) {
             if ($smarty->debugging) {
                 $smarty->_debug->start_template($tpl);
@@ -349,6 +351,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
         }
         if (isset($saved_inheritance)) {
+            $saved_inheritance->subTemplateEnd();
             $tpl->ext->_inheritance = $saved_inheritance;
         } else {
             unset($tpl->ext->_inheritance);
