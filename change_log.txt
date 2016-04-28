@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 29.04.2016
+  - bugfix {strip} remove space on linebreak between html tags https://github.com/smarty-php/smarty/issues/213
+
  24.04.2016
   - bugfix nested {include} with relative file path could fail when called in {block} ... {/block} https://github.com/smarty-php/smarty/issues/218
 

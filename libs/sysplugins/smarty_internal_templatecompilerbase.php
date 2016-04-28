@@ -818,9 +818,10 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         }
                     }
                     $expressions = array(// replace multiple spaces between tags by a single space
-                                         // can't remove them entirely, becaue that might break poorly implemented CSS display:inline-block elements
-                                         '#(:SMARTY@!@|>)\s+(?=@!@SMARTY:|<)#s' => '\1 \2',
-                                         // remove spaces between attributes (but not in attribute values!)
+                                         '#(:SMARTY@!@|>)[\040\011]+(?=@!@SMARTY:|<)#s' => '\1 \2',
+                                         // remove newline between tags
+                                         '#(:SMARTY@!@|>)[\040\011]*[\n]\s*(?=@!@SMARTY:|<)#s' => '\1\2',
+                                         // remove multiple spaces between attributes (but not in attribute values!)
                                          '#(([a-z0-9]\s*=\s*("[^"]*?")|(\'[^\']*?\'))|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \5',
                                          '#>[\040\011]+$#Ss' => '> ', '#>[\040\011]*[\n]\s*$#Ss' => '>',
                                          $this->stripRegEx => '',);
