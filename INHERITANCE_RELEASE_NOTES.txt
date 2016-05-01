@@ -5,7 +5,7 @@ This does resolve all known existing restrictions (see below).
 The $smarty::$inheritance_merge_compiled_includes property has been removed.
 Any access to it is ignored.
 
-This does enable some new features:
+New features:
 
 Any code outside root {block} tags in child templates is now executed but any output will be ignored.
 
@@ -31,6 +31,11 @@ Any code outside root {block} tags in child templates is now executed but any ou
       {/if}
    {/block}
 
+{block} tags can have variable names.
+
+   {block $foo}
+        ....
+   {/block}
 
 Starting with 3.1.28 you can mix inheritance by extends resuorce with the {extends} tag.
 A template called by extends resoure can extend a subtemple or chain buy the {extends} tag.

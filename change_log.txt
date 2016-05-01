@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 02.05.2026
+  - enhancement {block} tag names can now be variable https://github.com/smarty-php/smarty/issues/221
+
  01.05.2016
   - bugfix same relative filepath at {include} called from template in different folders could display wrong sub-template
 

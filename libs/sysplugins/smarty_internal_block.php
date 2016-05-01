@@ -80,8 +80,9 @@ class Smarty_Internal_Block
      * @param \Smarty_Internal_Template $tpl
      * @param int|null                  $tplIndex index of outer level {block} if nested
      */
-    public function __construct(Smarty_Internal_Template $tpl, $tplIndex = null)
+    public function __construct(Smarty_Internal_Template $tpl, $name, $tplIndex = null)
     {
+        $this->name = $name;
         $inheritance = &$tpl->ext->_inheritance;
         $this->tplIndex = $tplIndex ? $tplIndex : $inheritance->tplIndex;
         if (isset($inheritance->childRoot[ $this->name ])) {
