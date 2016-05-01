@@ -1096,14 +1096,15 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Get unique template id
      *
-     * @param string     $template_name
-     * @param null|mixed $cache_id
-     * @param null|mixed $compile_id
-     * @param null       $caching
+     * @param string                    $template_name
+     * @param null|mixed                $cache_id
+     * @param null|mixed                $compile_id
+     * @param null                      $caching
+     * @param \Smarty_Internal_Template $template
      *
      * @return string
      */
-    public function _getTemplateId($template_name, $cache_id = null, $compile_id = null, $caching = null)
+    public function _getTemplateId($template_name, $cache_id = null, $compile_id = null, $caching = null, Smarty_Internal_Template $template = null)
     {
         $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
             $template_name;
@@ -1111,9 +1112,9 @@ class Smarty extends Smarty_Internal_TemplateBase
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
         $caching = (int) ($caching === null ? $this->caching : $caching);
 
-        if ($this->allow_ambiguous_resources) {
+        if ((isset($template) && strpos($template_name, ':.') !== false) || $this->allow_ambiguous_resources) {
             $_templateId =
-                Smarty_Resource::getUniqueTemplateName($this, $template_name) . "#{$cache_id}#{$compile_id}#{$caching}";
+                Smarty_Resource::getUniqueTemplateName((isset($template) ? $template : $this), $template_name) . "#{$cache_id}#{$compile_id}#{$caching}";
         } else {
             $_templateId = $this->_joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}#{$caching}";
         }

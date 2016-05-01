@@ -14,8 +14,9 @@
  * @package    Smarty
  * @subpackage Template
  *
- * @property Smarty_Template_Compiled $compiled
- * @property Smarty_Template_Cached   $cached
+ * @property Smarty_Template_Compiled             $compiled
+ * @property Smarty_Template_Cached               $cached
+ * @property Smarty_Internal_TemplateCompilerBase $compiler
  *
  * The following methods will be dynamically loaded by the extension handler when they are called.
  * They are located in a corresponding Smarty_Internal_Method_xxxx class
@@ -253,7 +254,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $tpl = clone $this;
         $tpl->parent = $this;
         $smarty = &$this->smarty;
-        $_templateId = $smarty->_getTemplateId($template, $cache_id, $compile_id, $caching);
+        $_templateId = $smarty->_getTemplateId($template, $cache_id, $compile_id, $caching, $tpl);
         // recursive call ?
         if ($tpl->_getTemplateId() != $_templateId) {
             // already in template cache?

@@ -214,7 +214,12 @@ abstract class Smarty_Resource
         if ($obj->_objType == 2 && $_file_is_dotted &&
             ($obj->source->type == 'file' || $obj->parent->source->type == 'extends')
         ) {
-            $name = dirname($obj->source->filepath) . DS . $name;
+            $parentPath = $obj->parent->source->filepath;
+            // if we are inside an {block} tag the path must be relative to template of {block}
+            if (isset($obj->ext->_inheritance) && $path = $obj->ext->_inheritance->getBlockFilepath()) {
+                $parentPath = $path;
+            }
+            $name = $smarty->_realpath(dirname($parentPath) . DS . $name);
         }
         return $resource->buildUniqueResourceName($smarty, $name);
     }

@@ -74,10 +74,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_SmartyTemplateCompiler $compiler, $parameter)
     {
+        $uid = $t_hash = null;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
-        $hashResourceName = $fullResourceName = $source_resource = $_attr[ 'file' ];
+        $fullResourceName = $source_resource = $_attr[ 'file' ];
         $variable_template = false;
         $cache_tpl = false;
         // parse resource_name
@@ -205,18 +206,22 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $c_id = isset($_attr[ 'compile_id' ]) ? $_attr[ 'compile_id' ] : $compiler->template->compile_id;
             // we must observe different compile_id and caching
             $t_hash = sha1($c_id . ($_caching ? '--caching' : '--nocaching'));
-            if (!isset($compiler->parent_compiler->mergedSubTemplatesData[ $hashResourceName ][ $t_hash ])) {
-                $has_compiled_template =
-                    $this->compileInlineTemplate($compiler, $fullResourceName, $_caching, $hashResourceName, $t_hash,
-                                                 $c_id);
+            $compiler->smarty->allow_ambiguous_resources = true;
+            /* @var Smarty_Internal_Template $tpl */
+            $tpl = new $compiler->smarty->template_class (trim($fullResourceName, '"\''), $compiler->smarty,
+                                                          $compiler->template, $compiler->template->cache_id, $c_id,
+                                                          $_caching);
+            $uid = $tpl->source->uid;
+            if (!isset($compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ])) {
+                $has_compiled_template = $this->compileInlineTemplate($compiler, $tpl, $t_hash);
             } else {
                 $has_compiled_template = true;
             }
+            unset($tpl);
         }
         // delete {include} standard attributes
         unset($_attr[ 'file' ], $_attr[ 'assign' ], $_attr[ 'cache_id' ], $_attr[ 'compile_id' ], $_attr[ 'cache_lifetime' ], $_attr[ 'nocache' ], $_attr[ 'caching' ], $_attr[ 'scope' ], $_attr[ 'inline' ]);
         // remaining attributes must be assigned as smarty variable
-        $_vars_nc = '';
         $_vars = 'array()';
         if (!empty($_attr)) {
             $_pairs = array();
@@ -242,7 +247,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             if (isset($_assign)) {
                 $_output .= "ob_start();\n";
             }
-            $_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_scope}, {$_cache_tpl}, '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$hashResourceName][$t_hash]['func']}');\n";
+            $_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_scope}, {$_cache_tpl}, '{$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['func']}');\n";
             if (isset($_assign)) {
                 $_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean());\n";
             }
@@ -280,24 +285,16 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * Compile inline sub template
      *
      * @param \Smarty_Internal_SmartyTemplateCompiler $compiler
-     * @param                                         $fullResourceName
-     * @param                                         $_caching
-     * @param                                         $hashResourceName
-     * @param                                         $t_hash
-     * @param                                         $c_id
+     * @param \Smarty_Internal_Template               $tpl
+     * @param  string                                 $t_hash
      *
      * @return bool
      */
-    public function compileInlineTemplate(Smarty_Internal_SmartyTemplateCompiler $compiler, $fullResourceName,
-                                          $_caching, $hashResourceName, $t_hash, $c_id)
+    public function compileInlineTemplate(Smarty_Internal_SmartyTemplateCompiler $compiler,
+                                          Smarty_Internal_Template $tpl, $t_hash)
     {
-        $compiler->smarty->allow_ambiguous_resources = true;
-        /* @var Smarty_Internal_Template $tpl */
-        $tpl = new $compiler->smarty->template_class (trim($fullResourceName, '"\''), $compiler->smarty,
-                                                      $compiler->template, $compiler->template->cache_id, $c_id,
-                                                      $_caching);
         if (!($tpl->source->handler->uncompiled) && $tpl->source->exists) {
-            $compiler->parent_compiler->mergedSubTemplatesData[ $hashResourceName ][ $t_hash ][ 'uid' ] =
+            $compiler->parent_compiler->mergedSubTemplatesData[ $tpl->source->uid ][ $t_hash ][ 'uid' ] =
                 $tpl->source->uid;
             if (isset($compiler->template->ext->_inheritance)) {
                 $tpl->ext->_inheritance = clone $compiler->template->ext->_inheritance;
@@ -306,11 +303,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $tpl->compiled->nocache_hash = $compiler->parent_compiler->template->compiled->nocache_hash;
             $tpl->loadCompiler();
             // save unique function name
-            $compiler->parent_compiler->mergedSubTemplatesData[ $hashResourceName ][ $t_hash ][ 'func' ] =
+            $compiler->parent_compiler->mergedSubTemplatesData[ $tpl->source->uid ][ $t_hash ][ 'func' ] =
             $tpl->compiled->unifunc = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
             // make sure whole chain gets compiled
             $tpl->mustCompile = true;
-            $compiler->parent_compiler->mergedSubTemplatesData[ $hashResourceName ][ $t_hash ][ 'nocache_hash' ] =
+            $compiler->parent_compiler->mergedSubTemplatesData[ $tpl->source->uid ][ $t_hash ][ 'nocache_hash' ] =
                 $tpl->compiled->nocache_hash;
             if ($compiler->template->source->type == 'file') {
                 $sourceInfo = $compiler->template->source->filepath;
