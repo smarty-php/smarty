@@ -921,4 +921,29 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->assertNotContains('bar in 032_included_parent.tpl', $result);
         $this->assertNotContains('foo in 032_parent.tpl', $result);
     }
+    /**
+     * test  relative includes in {block}
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        data
+     */
+    public function testCompileBlockRelativeIncludes_033($caching, $merge, $testNumber, $compileTestNumber,
+                                                                 $renderTestNumber, $testName)
+    {
+        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+        $this->smarty->assign('test', $testNumber);
+        $this->smarty->setCaching($caching);
+        $this->smarty->setMergeCompiledIncludes($merge);
+        if ($merge) {
+            $this->smarty->setCompileId(1);
+        }
+        $result = $this->smarty->fetch('033_grandchild.tpl');
+        $this->assertContains('include grand:content include grand', $result, $testName . ' - grand');
+        $this->assertContains('include child:content include child', $result, $testName . ' - grand');
+        $this->assertContains('include parent:content include parent', $result, $testName . ' - grand');
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+                              $testName . ' - fetch() failure');
+    }
+
 }
