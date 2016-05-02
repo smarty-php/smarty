@@ -211,7 +211,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $tpl = new $compiler->smarty->template_class (trim($fullResourceName, '"\''), $compiler->smarty,
                                                           $compiler->template, $compiler->template->cache_id, $c_id,
                                                           $_caching);
-            $uid = $tpl->source->uid;
+            $uid = $tpl->source->type . $tpl->source->uid;
             if (!isset($compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ])) {
                 $has_compiled_template = $this->compileInlineTemplate($compiler, $tpl, $t_hash);
             } else {
@@ -293,8 +293,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
     public function compileInlineTemplate(Smarty_Internal_SmartyTemplateCompiler $compiler,
                                           Smarty_Internal_Template $tpl, $t_hash)
     {
+        $uid = $tpl->source->type . $tpl->source->uid;
         if (!($tpl->source->handler->uncompiled) && $tpl->source->exists) {
-            $compiler->parent_compiler->mergedSubTemplatesData[ $tpl->source->uid ][ $t_hash ][ 'uid' ] =
+            $compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ][ 'uid' ] =
                 $tpl->source->uid;
             if (isset($compiler->template->ext->_inheritance)) {
                 $tpl->ext->_inheritance = clone $compiler->template->ext->_inheritance;
@@ -303,11 +304,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $tpl->compiled->nocache_hash = $compiler->parent_compiler->template->compiled->nocache_hash;
             $tpl->loadCompiler();
             // save unique function name
-            $compiler->parent_compiler->mergedSubTemplatesData[ $tpl->source->uid ][ $t_hash ][ 'func' ] =
+            $compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ][ 'func' ] =
             $tpl->compiled->unifunc = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
             // make sure whole chain gets compiled
             $tpl->mustCompile = true;
-            $compiler->parent_compiler->mergedSubTemplatesData[ $tpl->source->uid ][ $t_hash ][ 'nocache_hash' ] =
+            $compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ][ 'nocache_hash' ] =
                 $tpl->compiled->nocache_hash;
             if ($compiler->template->source->type == 'file') {
                 $sourceInfo = $compiler->template->source->filepath;
