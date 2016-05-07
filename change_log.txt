@@ -1,5 +1,8 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
- 02.05.2026
+ 07.05.2016
+  -bugfix Only variables should be assigned by reference https://github.com/smarty-php/smarty/issues/227
+
+ 02.05.2016
   - enhancement {block} tag names can now be variable https://github.com/smarty-php/smarty/issues/221
 
  01.05.2016
