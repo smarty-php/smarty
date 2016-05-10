@@ -10,7 +10,6 @@
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  *
- * @property Smarty_Internal_Runtime_Inheritance    $_inheritance
  * @property Smarty_Internal_Runtime_TplFunction    $_tplFunction
  * @property Smarty_Internal_Runtime_Foreach        $_foreach
  * @property Smarty_Internal_Runtime_WriteFile      $_writeFile

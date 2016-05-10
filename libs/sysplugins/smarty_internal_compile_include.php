@@ -297,8 +297,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         if (!($tpl->source->handler->uncompiled) && $tpl->source->exists) {
             $compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ][ 'uid' ] =
                 $tpl->source->uid;
-            if (isset($compiler->template->ext->_inheritance)) {
-                $tpl->ext->_inheritance = clone $compiler->template->ext->_inheritance;
+            if (isset($compiler->template->inheritance)) {
+                $tpl->inheritance = clone $compiler->template->inheritance;
             }
             $tpl->compiled = new Smarty_Template_Compiled();
             $tpl->compiled->nocache_hash = $compiler->parent_compiler->template->compiled->nocache_hash;

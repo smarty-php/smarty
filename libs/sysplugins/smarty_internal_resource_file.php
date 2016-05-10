@@ -45,7 +45,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             }
             $parentPath = $_template->parent->source->filepath;
             // if we are inside an {block} tag the path must be relative to template of {block}
-            if (isset($_template->ext->_inheritance) && $path = $_template->ext->_inheritance->getBlockFilepath()) {
+            if (isset($_template->inheritance) && $path = $_template->inheritance->getBlockFilepath()) {
                 $parentPath = $path;
             }
             // normalize path

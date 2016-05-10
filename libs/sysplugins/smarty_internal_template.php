@@ -47,6 +47,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $source = null;
 
     /**
+     * Inheritance runtime extension
+     *
+     * @var Smarty_Internal_Runtime_Inheritance
+     */
+    public $inheritance = null;
+
+    /**
      * Template resource
      *
      * @var string
@@ -256,7 +263,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $smarty = &$this->smarty;
         $_templateId = $smarty->_getTemplateId($template, $cache_id, $compile_id, $caching, $tpl);
         // recursive call ?
-        if ($tpl->_getTemplateId() != $_templateId) {
+        if (isset($tpl->templateId) ? $tpl->templateId : $tpl->_getTemplateId() != $_templateId) {
             // already in template cache?
             if (isset($smarty->_cache[ 'tplObjects' ][ $_templateId ])) {
                 // copy data from cached object
@@ -330,10 +337,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             }
         }
         $tpl->_cache = array();
-        if (isset($tpl->ext->_inheritance)) {
-            $saved_inheritance = $tpl->ext->_inheritance;
-            $saved_inheritance->subTemplateStart();
-        }
         if (isset($uid)) {
             if ($smarty->debugging) {
                 $smarty->_debug->start_template($tpl);
@@ -350,12 +353,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             } else {
                 $tpl->render();
             }
-        }
-        if (isset($saved_inheritance)) {
-            $saved_inheritance->subTemplateEnd();
-            $tpl->ext->_inheritance = $saved_inheritance;
-        } else {
-            unset($tpl->ext->_inheritance);
         }
     }
 
@@ -551,6 +548,29 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if ($force || !isset($this->cached)) {
             $this->cached = Smarty_Template_Cached::load($this);
         }
+    }
+
+    /**
+     * Load inheritance object
+     *
+     */
+    public function _loadInheritance()
+    {
+        if (!isset($this->inheritance)) {
+            $this->inheritance = new Smarty_Internal_Runtime_Inheritance();
+        }
+    }
+
+    /**
+     * Unload inheritance object
+     *
+     */
+    public function _cleanUp()
+    {
+        $this->tpl_function = array();
+        $this->startRenderCallbacks = array();
+        $this->endRenderCallbacks = array();
+        $this->inheritance = null;
     }
 
     /**

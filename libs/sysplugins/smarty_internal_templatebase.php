@@ -198,9 +198,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                     $template->tpl_vars = array_merge(Smarty::$global_tpl_vars, $template->tpl_vars);
                 }
                 $result = $template->render(false, $function);
-                unset($template->ext->_inheritance);
-                $template->tpl_function = array();
-                 if ($saveVars) {
+                $template->_cleanUp();
+                if ($saveVars) {
                     $template->tpl_vars = $savedTplVars;
                     $template->config_vars = $savedConfigVars;
                 } else {

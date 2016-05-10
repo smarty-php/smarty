@@ -216,7 +216,7 @@ abstract class Smarty_Resource
         ) {
             $parentPath = $obj->parent->source->filepath;
             // if we are inside an {block} tag the path must be relative to template of {block}
-            if (isset($obj->ext->_inheritance) && $path = $obj->ext->_inheritance->getBlockFilepath()) {
+            if (isset($obj->inheritance) && $path = $obj->inheritance->getBlockFilepath()) {
                 $parentPath = $path;
             }
             $name = $smarty->_realpath(dirname($parentPath) . DS . $name);

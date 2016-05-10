@@ -121,7 +121,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         $compiler->has_code = true;
         $compiler->suppressNocacheProcessing = true;
         $compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ][ 'callsChild' ] = 'true';
-        $output = "<?php \n\$this->callChild(\$_smarty_tpl);\n?>\n";
+        $output = "<?php \n\$_smarty_tpl->inheritance->callChild(\$_smarty_tpl, \$this);\n?>\n";
         return $output;
     }
 
@@ -141,7 +141,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         }
         $compiler->suppressNocacheProcessing = true;
         $compiler->has_code = true;
-        $output = "<?php \n\$this->callParent(\$_smarty_tpl);\n?>\n";
+        $output = "<?php \n\$_smarty_tpl->inheritance->callParent(\$_smarty_tpl, \$this);\n?>\n";
         return $output;
     }
 }
@@ -180,16 +180,9 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $_functionCode = $compiler->parser->current_buffer;
         // setup buffer for template function code
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
-        if ($compiler->template->source->type == 'file') {
-            $sourceInfo = $compiler->template->source->filepath;
-        } else {
-            $basename = $compiler->template->source->handler->getBasename($compiler->template->source);
-            $sourceInfo =
-                $compiler->template->source->type . ':' . ($basename ? $basename : $compiler->template->source->name);
-        }
 
         $output = "<?php\n";
-        $output .= "/* {block {$_name}} {$sourceInfo} */\n";
+        $output .= "/* {block {$_name}} */\n";
         $output .= "class {$_className} extends Smarty_Internal_Block\n";
         $output .= "{\n";
         foreach ($_block as $property => $value) {
@@ -238,9 +231,9 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $compiler->parser->current_buffer = $_buffer;
         $output = "<?php \n";
         if ($compiler->_cache[ 'blockNesting' ] == 1) {
-            $output .= "new {$_className}(\$_smarty_tpl, $_name);\n";
+            $output .= "\$_smarty_tpl->inheritance->instanceBlock(\$_smarty_tpl, '$_className', $_name);\n";
         } else {
-            $output .= "new {$_className}(\$_smarty_tpl, $_name, \$this->tplIndex);\n";
+            $output .= "\$_smarty_tpl->inheritance->instanceBlock(\$_smarty_tpl, '$_className', $_name, \$this->tplIndex);\n";
         }
         $output .= "?>\n";
         $compiler->_cache[ 'blockNesting' ] --;
