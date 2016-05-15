@@ -30,10 +30,8 @@ class Smarty_Internal_Resource_Registered extends Smarty_Resource
     {
         $source->filepath = $source->type . ':' . $source->name;
         $source->uid = sha1($source->filepath . $source->smarty->_joined_template_dir);
-        if ($source->smarty->compile_check) {
-            $source->timestamp = $this->getTemplateTimestamp($source);
-            $source->exists = !!$source->timestamp;
-        }
+        $source->timestamp = $this->getTemplateTimestamp($source);
+        $source->exists = !!$source->timestamp;
     }
 
     /**

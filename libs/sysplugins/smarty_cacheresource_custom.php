@@ -43,7 +43,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      */
     protected function fetchTimestamp($id, $name, $cache_id, $compile_id)
     {
-        return null;
+        return false;
     }
 
     /**
@@ -63,9 +63,9 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     /**
      * Delete content from cache
      *
-     * @param  string       $name       template name
-     * @param  string       $cache_id   cache id
-     * @param  string       $compile_id compile id
+     * @param  string|null  $name       template name
+     * @param  string|null  $cache_id   cache id
+     * @param  string|null  $compile_id compile id
      * @param  integer|null $exp_time   seconds till expiration time in seconds or null
      *
      * @return integer      number of deleted caches
@@ -119,13 +119,14 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     /**
      * Read the cached template and process the header
      *
-     * @param \Smarty_Internal_Template $_smarty_tpl  do not change variable name, is used by compiled template
-     * @param  Smarty_Template_Cached   $cached    cached object
-     * @param bool                      $update    flag if called because cache update
+     * @param \Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
+     * @param  Smarty_Template_Cached   $cached      cached object
+     * @param boolean                   $update      flag if called because cache update
      *
      * @return boolean                 true or false if the cached content does not exist
      */
-    public function process(Smarty_Internal_Template $_smarty_tpl, Smarty_Template_Cached $cached = null, $update = false)
+    public function process(Smarty_Internal_Template $_smarty_tpl, Smarty_Template_Cached $cached = null,
+                            $update = false)
     {
         if (!$cached) {
             $cached = $_smarty_tpl->cached;
@@ -164,7 +165,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      *
      * @param  Smarty_Internal_Template $_template template object
      *
-     * @return string  content
+     * @return string|boolean  content
      */
     public function readCachedContent(Smarty_Internal_Template $_template)
     {

@@ -60,8 +60,6 @@ class Smarty_Template_Config extends Smarty_Template_Source
      */
     public $template_parser_class = 'Smarty_Internal_Configfileparser';
 
-
-
     /**
      * initialize Source Object for given resource
      * Either [$_template] or [$smarty, $template_resource] must be specified

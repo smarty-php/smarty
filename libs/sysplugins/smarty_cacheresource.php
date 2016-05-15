@@ -46,9 +46,9 @@ abstract class Smarty_CacheResource
      *
      * @param Smarty_Internal_Template $_template template object
      * @param Smarty_Template_Cached   $cached    cached object
-     * @param bool                     $update    flag if called because cache update
+     * @param boolean                  $update    flag if called because cache update
      *
-     * @return bool true or false if the cached content does not exist
+     * @return boolean true or false if the cached content does not exist
      */
     abstract public function process(Smarty_Internal_Template $_template, Smarty_Template_Cached $cached = null,
                                      $update = false);
@@ -62,6 +62,15 @@ abstract class Smarty_CacheResource
      * @return boolean success
      */
     abstract public function writeCachedContent(Smarty_Internal_Template $_template, $content);
+
+    /**
+     * Read cached template from cache
+     *
+     * @param  Smarty_Internal_Template $_template template object
+     *
+     * @return string  content
+     */
+    abstract function readCachedContent(Smarty_Internal_Template $_template);
 
     /**
      * Return cached content

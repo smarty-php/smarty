@@ -64,10 +64,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
             $source->uid = sha1($source->filepath);
         } elseif ($_return === true) {
             $source->content = $_content;
-            $source->timestamp = $_timestamp;
-            $source->exists = true;
-            $source->handler->recompiled = true;
-            $source->filepath = false;
+            $source->handler = Smarty_Resource::load($source->smarty, 'eval');
         }
     }
 }

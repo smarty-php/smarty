@@ -19,9 +19,9 @@ abstract class Smarty_Template_Resource_Base
     /**
      * Compiled Timestamp
      *
-     * @var integer
+     * @var integer|bool
      */
-    public $timestamp = null;
+    public $timestamp = false;
 
     /**
      * Compiled Existence
@@ -106,7 +106,6 @@ abstract class Smarty_Template_Resource_Base
      * @param \Smarty_Internal_Template $_template
      * @param string                    $unifunc function with template code
      *
-     * @return string
      * @throws \Exception
      */
     public function getRenderedTemplateCode(Smarty_Internal_Template $_template, $unifunc = null)
@@ -131,7 +130,6 @@ abstract class Smarty_Template_Resource_Base
                 call_user_func($callback, $_template);
             }
             $_template->isRenderingCache = false;
-            return null;
         }
         catch (Exception $e) {
             $_template->isRenderingCache = false;
@@ -152,7 +150,7 @@ abstract class Smarty_Template_Resource_Base
      */
     public function getTimeStamp()
     {
-        if ($this->exists && !isset($this->timestamp)) {
+        if ($this->exists && !$this->timestamp) {
             $this->timestamp = filemtime($this->filepath);
         }
         return $this->timestamp;

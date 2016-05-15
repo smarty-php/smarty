@@ -101,7 +101,7 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
         $compiled->timestamp = $_template->source->timestamp;
         $compiled->exists = $_template->source->exists;
         $compiled->file_dependency[ $_template->source->uid ] =
-            array($compiled->filepath, $_template->source->getTimeStamp(),
+            array($compiled->filepath, $compiled->timestamp,
                   $_template->source->type,);
     }
 }

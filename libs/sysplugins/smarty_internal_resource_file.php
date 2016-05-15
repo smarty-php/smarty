@@ -129,12 +129,9 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             $source->exists = true;
             $source->uid = sha1($source->filepath . ($source->isConfig ? $source->smarty->_joined_config_dir :
                                     $source->smarty->_joined_template_dir));
-            if ($source->smarty->compile_check == 1) {
-                $source->timestamp = filemtime($source->filepath);
-            }
+            $source->timestamp = filemtime($source->filepath);
         } else {
-            $source->timestamp = false;
-            $source->exists = false;
+            $source->timestamp = $source->exists = false;
         }
     }
 

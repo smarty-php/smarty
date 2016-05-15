@@ -1,7 +1,10 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 15.05.2016
+  - optimization and cleanup of resource code
+  
  10.05.2016
   - optimization of inheritance processing
-  
+
  07.05.2016
   -bugfix Only variables should be assigned by reference https://github.com/smarty-php/smarty/issues/227
 

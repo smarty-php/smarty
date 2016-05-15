@@ -241,7 +241,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
      *
      * @param Smarty_Internal_Template $_template template object
      *
-     * @return string content
+     * @return string|false content
      */
     public function read(Smarty_Internal_Template $_template)
     {

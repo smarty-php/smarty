@@ -29,17 +29,7 @@ abstract class Smarty_Resource_Uncompiled extends Smarty_Resource
      * @var bool
      */
     public $hasCompiledHandler = true;
-
-    /**
-     * Render and output the template (without using the compiler)
-     *
-     * @param  Smarty_Template_Source   $source    source object
-     * @param  Smarty_Internal_Template $_template template object
-     *
-     * @throws SmartyException          on failure
-     */
-    abstract public function renderUncompiled(Smarty_Template_Source $source, Smarty_Internal_Template $_template);
-
+    
     /**
      * populate compiled object with compiled filepath
      *
@@ -51,7 +41,9 @@ abstract class Smarty_Resource_Uncompiled extends Smarty_Resource
         $compiled->filepath = $_template->source->filepath;
         $compiled->timestamp = $_template->source->timestamp;
         $compiled->exists = $_template->source->exists;
-        $compiled->file_dependency[ $_template->source->uid ] =
-            array($compiled->filepath, $compiled->timestamp, $_template->source->type,);
+        if ($_template->smarty->merge_compiled_includes || $_template->source->handler->checkTimestamps()) {
+            $compiled->file_dependency[ $_template->source->uid ] =
+                array($compiled->filepath, $compiled->timestamp, $_template->source->type,);
+        }
     }
 }

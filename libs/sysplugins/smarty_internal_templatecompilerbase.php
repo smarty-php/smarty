@@ -382,9 +382,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->has_variable_string = false;
             $this->prefix_code = array();
             // add file dependency
-            $this->parent_compiler->template->compiled->file_dependency[ $this->template->source->uid ] =
-                array($this->template->source->filepath, $this->template->source->getTimeStamp(),
-                      $this->template->source->type,);
+            if ($this->smarty->merge_compiled_includes || $this->template->source->handler->checkTimestamps()) {
+                $this->parent_compiler->template->compiled->file_dependency[ $this->template->source->uid ] =
+                    array($this->template->source->filepath, $this->template->source->getTimeStamp(),
+                          $this->template->source->type,);
+            }
             $this->smarty->_current_file = $this->template->source->filepath;
             // get template source
             if (!empty($this->template->source->components)) {

@@ -135,8 +135,9 @@ class Smarty_Template_Source
      */
     public function __construct(Smarty $smarty, $resource, $type, $name)
     {
-        $this->handler = isset($smarty->_cache[ 'resource_handlers' ][ $type ]) ? $smarty->_cache[ 'resource_handlers' ][ $type ] :
-            Smarty_Resource::load($smarty, $type);
+        $this->handler =
+            isset($smarty->_cache[ 'resource_handlers' ][ $type ]) ? $smarty->_cache[ 'resource_handlers' ][ $type ] :
+                Smarty_Resource::load($smarty, $type);
         $this->smarty = $smarty;
         $this->resource = $resource;
         $this->type = $type;
@@ -182,7 +183,7 @@ class Smarty_Template_Source
         }
         return $source;
     }
-    
+
     /**
      * Get source time stamp
      *

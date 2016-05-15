@@ -27,43 +27,31 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      */
     public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template)
     {
-        $_cache_id = isset($_template->cache_id) ? preg_replace('![^\w\|]+!', '_', $_template->cache_id) : null;
-        $_compile_id = isset($_template->compile_id) ? preg_replace('![^\w]+!', '_', $_template->compile_id) : null;
-        $_filepath = sha1($_template->source->uid . $_template->smarty->_joined_template_dir);
+        $source = &$_template->source;
+        $smarty = &$_template->smarty;
+        $_compile_dir_sep = $smarty->use_sub_dirs ? DS : '^';
+        $_filepath = sha1($source->uid . $smarty->_joined_template_dir);
+        $cached->filepath = $smarty->getCacheDir();
+        if (isset($_template->cache_id)) {
+            $cached->filepath .= preg_replace(array('![^\w|]+!', '![|]+!'), array('_', $_compile_dir_sep),
+                                              $_template->cache_id) . $_compile_dir_sep;
+        }
+        if (isset($_template->compile_id)) {
+            $cached->filepath .= preg_replace('![^\w]+!', '_', $_template->compile_id) . $_compile_dir_sep;
+        }
         // if use_sub_dirs, break file into directories
-        if ($_template->smarty->use_sub_dirs) {
-            $_filepath = substr($_filepath, 0, 2) . DS . substr($_filepath, 2, 2) . DS . substr($_filepath, 4, 2) . DS .
-                         $_filepath;
+        if ($smarty->use_sub_dirs) {
+            $cached->filepath .= $_filepath[ 0 ] . $_filepath[ 1 ] . DS . $_filepath[ 2 ] . $_filepath[ 3 ] . DS .
+                                 $_filepath[ 4 ] . $_filepath[ 5 ] . DS;
         }
-        $_compile_dir_sep = $_template->smarty->use_sub_dirs ? DS : '^';
-        if (isset($_cache_id)) {
-            $_cache_id = str_replace('|', $_compile_dir_sep, $_cache_id) . $_compile_dir_sep;
-        } else {
-            $_cache_id = '';
+        $cached->filepath .= $_filepath;
+        if (!empty($basename = $source->handler->getBasename($source))) {
+            $cached->filepath .= '.' . $basename;
         }
-        if (isset($_compile_id)) {
-            $_compile_id = $_compile_id . $_compile_dir_sep;
-        } else {
-            $_compile_id = '';
+        if ($smarty->cache_locking) {
+            $cached->lock_id = $cached->filepath . '.lock';
         }
-        $_cache_dir = $_template->smarty->getCacheDir();
-        if ($_template->smarty->cache_locking) {
-            // create locking file name
-            // relative file name?
-            if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_cache_dir)) {
-                $_lock_dir = rtrim(getcwd(), '/\\') . DS . $_cache_dir;
-            } else {
-                $_lock_dir = $_cache_dir;
-            }
-            $cached->lock_id = $_lock_dir . sha1($_cache_id . $_compile_id . $_template->source->uid) . '.lock';
-        }
-        // set basename
-        $_basename = $_template->source->handler->getBasename($_template->source);
-        if ($_basename === null) {
-            $_basename = basename(preg_replace('![^\w]+!', '_', $_template->source->name));
-        }
-        $cached->filepath =
-            $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . $_basename . '.php';
+        $cached->filepath .= '.php';
         $cached->timestamp = $cached->exists = is_file($cached->filepath);
         if ($cached->exists) {
             $cached->timestamp = filemtime($cached->filepath);
@@ -88,13 +76,14 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
     /**
      * Read the cached template and process its header
      *
-     * @param \Smarty_Internal_Template $_smarty_tpl  do not change variable name, is used by compiled template
-     * @param Smarty_Template_Cached   $cached    cached object
-     * @param bool                     $update    flag if called because cache update
+     * @param \Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
+     * @param Smarty_Template_Cached    $cached      cached object
+     * @param bool                      $update      flag if called because cache update
      *
      * @return boolean true or false if the cached content does not exist
      */
-    public function process(Smarty_Internal_Template $_smarty_tpl, Smarty_Template_Cached $cached = null, $update = false)
+    public function process(Smarty_Internal_Template $_smarty_tpl, Smarty_Template_Cached $cached = null,
+                            $update = false)
     {
         $_smarty_tpl->cached->valid = false;
         if ($update && defined('HHVM_VERSION')) {
