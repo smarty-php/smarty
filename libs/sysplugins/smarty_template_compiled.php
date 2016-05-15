@@ -64,7 +64,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             $this->filepath .= (int) $smarty->merge_compiled_includes + (int) $smarty->escape_html * 2;
         }
         $this->filepath .= '.' . $source->type;
-        if (!empty($basename = $source->handler->getBasename($source))) {
+        $basename = $source->handler->getBasename($source);
+        if (!empty($basename)) {
             $this->filepath .= '.' . $basename;
         }
         if ($_template->caching) {
