@@ -54,7 +54,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertFalse($tpl->source->getTimeStamp());
+        $this->assertTrue($tpl->source->getTimeStamp());
     }
 
     /**

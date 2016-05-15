@@ -65,7 +65,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertEquals(0, $tpl->source->getTimeStamp());
+        $this->assertTrue($tpl->source->getTimeStamp());
     }
 
     /**
