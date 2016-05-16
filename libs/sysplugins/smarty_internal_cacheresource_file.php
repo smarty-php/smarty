@@ -45,7 +45,8 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
                                  $_filepath[ 4 ] . $_filepath[ 5 ] . DS;
         }
         $cached->filepath .= $_filepath;
-        if (!empty($basename = $source->handler->getBasename($source))) {
+        $basename = $source->handler->getBasename($source);
+        if (!empty($basename)) {
             $cached->filepath .= '.' . $basename;
         }
         if ($smarty->cache_locking) {
