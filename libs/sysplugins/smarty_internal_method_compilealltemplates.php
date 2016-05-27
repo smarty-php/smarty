@@ -23,7 +23,8 @@ class Smarty_Internal_Method_CompileAllTemplates
      *
      * @api  Smarty::compileAllTemplates()
      *
-     * @param \Smarty $smarty
+     * @param \Smarty $dummy         smarty object of calling instance
+     * @param \Smarty $smarty        passed smarty object
      * @param  string $extension     file extension
      * @param  bool   $force_compile force all to recompile
      * @param  int    $time_limit
@@ -31,7 +32,7 @@ class Smarty_Internal_Method_CompileAllTemplates
      *
      * @return integer number of template files recompiled
      */
-    public function compileAllTemplates(Smarty $smarty, $extension = '.tpl', $force_compile = false, $time_limit = 0,
+    public function compileAllTemplates(Smarty $dummy, Smarty $smarty, $extension = '.tpl', $force_compile = false, $time_limit = 0,
                                         $max_errors = null)
     {
         return $this->compileAll($smarty, $extension, $force_compile, $time_limit, $max_errors);
@@ -61,7 +62,7 @@ class Smarty_Internal_Method_CompileAllTemplates
         $sourceDir = $isConfig ? $smarty->getConfigDir() : $smarty->getTemplateDir();
         // loop over array of source directories
         foreach ($sourceDir as $_dir) {
-            $_dir_1 = new RecursiveDirectoryIterator($_dir);
+            $_dir_1 = new RecursiveDirectoryIterator($_dir, defined('FilesystemIterator::FOLLOW_SYMLINKS') ? FilesystemIterator::FOLLOW_SYMLINKS : 0);
             $_dir_2 = new RecursiveIteratorIterator($_dir_1);
             foreach ($_dir_2 as $_fileinfo) {
                 $_file = $_fileinfo->getFilename();
@@ -78,6 +79,10 @@ class Smarty_Internal_Method_CompileAllTemplates
                 flush();
                 $_start_time = microtime(true);
                 $_smarty = clone $smarty;
+                // 
+                $_smarty->_cache = array();
+                $_smarty->ext = new Smarty_Internal_Extension_Handler();
+                $_smarty->ext->objType = $_smarty->_objType;
                 $_smarty->force_compile = $force_compile;
                 try {
                     /* @var Smarty_Internal_Template $_tpl */
