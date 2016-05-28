@@ -1,4 +1,8 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 27.05.2016
+ - bugfix/improvement of compileAlltemplates() follow symlinks in template folder (PHP >= 5.3.1) https://github.com/smarty-php/smarty/issues/224
+      clear internal cache and expension handler for each template to avoid possible conflicts https://github.com/smarty-php/smarty/issues/231
+
  16.05.2016
   - optimization {foreach} compiler and processing
   - broken PHP 5.3 and 5.4 compatibility
