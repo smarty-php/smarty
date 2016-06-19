@@ -170,6 +170,20 @@ class Smarty_Internal_Data
     {
         return $this->ext->assignByRef->assignByRef($this, $tpl_var, $value, $nocache);
     }
+    
+     /**
+     * assigns values to template variables by reference
+     * recreates origional name of function in smarty2
+     *
+     * @param string $tpl_var the template variable name
+     * @param mixed $ &$value the referenced value to assign
+     * @param boolean $nocache if true any output of this variable will be not cached
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for chaining
+     */
+    public function assign_by_ref($tpl_var, &$value, $nocache = false)
+    {
+        return  $this->assignByRef($tpl_var, $value, $nocache);
+    } 
 
     /**
      * Returns a single or all template variables
