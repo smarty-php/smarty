@@ -38,7 +38,12 @@ class Smarty_Autoloader
      *
      * @var array
      */
-    private static $rootClasses = array('smarty' => 'Smarty.class.php', 'smartybc' => 'SmartyBC.class.php',);
+    private static $rootClasses = array(
+            'smarty' => 'Smarty.class.php',
+            'smartybc' => 'SmartyBC.class.php',
+            'smartyexception' => 'SmartyException.php',
+            'smartycompilerexception' => 'SmartyCompilerException.php',
+        );
 
     /**
      * Registers Smarty_Autoloader backward compatible to older installations.
@@ -90,18 +95,16 @@ class Smarty_Autoloader
     public static function autoload($class)
     {
         $_class = strtolower($class);
-        if (strpos($_class, 'smarty') !== 0) {
-            return;
+
+        if (isset(self::$rootClasses[$_class])) {
+            $file = self::$SMARTY_DIR . self::$rootClasses[$_class];
         }
-        $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
-        if (is_file($file)) {
-            include $file;
-        } else if (isset(self::$rootClasses[ $_class ])) {
-            $file = self::$SMARTY_DIR . self::$rootClasses[ $_class ];
-            if (is_file($file)) {
-                include $file;
-            }
+        elseif (strpos($_class, 'smarty_') === 0) {
+            $file = self::$SMARTY_SYSPLUGINS_DIR . "{$_class}.php";
         }
-        return;
+
+        if (isset($file) && is_file($file)) {
+            return include_once $file;
+        }
     }
 }
