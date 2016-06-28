@@ -24,21 +24,21 @@ class Smarty_Autoloader
      *
      * @var string
      */
-    public static $SMARTY_DIR = '';
+    private static $SMARTY_DIR = '';
 
     /**
      * Filepath to Smarty internal plugins
      *
      * @var string
      */
-    public static $SMARTY_SYSPLUGINS_DIR = '';
+    private static $SMARTY_SYSPLUGINS_DIR = '';
 
     /**
      * Array with Smarty core classes and their filename
      *
      * @var array
      */
-    public static $rootClasses = array('smarty' => 'Smarty.class.php', 'smartybc' => 'SmartyBC.class.php',);
+    private static $rootClasses = array('smarty' => 'Smarty.class.php', 'smartybc' => 'SmartyBC.class.php',);
 
     /**
      * Registers Smarty_Autoloader backward compatible to older installations.
