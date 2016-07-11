@@ -18,6 +18,7 @@ class CompileCaptureTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
+        $this->smarty->addTemplateDir("./templates_tmp");
     }
 
 
@@ -25,65 +26,52 @@ class CompileCaptureTest extends PHPUnit_Smarty
     {
         $this->cleanDirs();
     }
+
     /**
-     * test capture tag
+     * Test capture tags
+     *
+     * @not                 runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestCapture
      */
-    public function testCapture1()
+    public function testCapture($code, $result, $testName, $testNumber)
     {
-        $tpl = $this->smarty->createTemplate('eval:{capture assign=foo}hello world{/capture}');
-        $this->assertEquals("", $this->smarty->fetch($tpl));
-    }
-
-    public function testCapture2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=bar}{capture assign=foo}hello world{/capture}{$foo}');
-        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
-    }
-
-    public function testCapture3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{capture name=foo}hello world{/capture}{$smarty.capture.foo}');
-        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
-    }
-
-    public function testCapture4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{capture name=foo assign=bar}hello world{/capture}{$smarty.capture.foo} {$bar}');
-        $this->assertEquals("hello world hello world", $this->smarty->fetch($tpl));
-    }
-
-    public function testCapture5()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{capture}hello world{/capture}{$smarty.capture.default}');
-        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
-    }
-
-    public function testCapture6()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{capture short}hello shorttag{/capture}{$smarty.capture.short}');
-        $this->assertEquals("hello shorttag", $this->smarty->fetch($tpl));
-    }
-
-    public function testCapture7()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{capture append=foo}hello{/capture}bar{capture append=foo}world{/capture}{foreach $foo item} {$item@key} {$item}{/foreach}');
-        $this->assertEquals("bar 0 hello 1 world", $this->smarty->fetch($tpl));
+        $file = "testCapture{$testNumber}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->assignGlobal('file', $file);
+         $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)), "testCapture - {$code} - {$testName}");
     }
 
     /*
-    *  The following test has been disabled. It fails only in PHPunit
-    */
-    public function testCapture8()
+      * Data provider für testCapture
+      */
+    public function dataTestCapture()
     {
-        $tpl = $this->smarty->createTemplate('eval:{capture assign=foo}hello {capture assign=bar}this is my {/capture}world{/capture}{$foo} {$bar}');
-        $this->assertEquals("hello world this is my ", $this->smarty->fetch($tpl), 'This failure pops up only during PHPunit test ?????');
+        $i = 1;
+        /*
+        * Code
+        * result
+        * test name
+        */
+        return array(// old format
+                     array('{assign var=foo value=bar}{capture assign=foo}hello world{/capture}{$foo}', 'hello world', '', $i ++),
+                     array('{capture name=foo}hello world{/capture}{$smarty.capture.foo}', 'hello world', '', $i ++),
+                     array('{capture name=foo assign=bar}hello world{/capture}{$smarty.capture.foo} {$bar}', 'hello world hello world', '', $i ++),
+                     array('{capture}hello world{/capture}{$smarty.capture.default}', 'hello world', '', $i ++),
+                     array('{capture short}hello shorttag{/capture}{$smarty.capture.short}', 'hello shorttag', '', $i ++),
+                     array('{capture append=foo}hello{/capture}bar{capture append=foo}world{/capture}{foreach $foo item} {$item@key} {$item}{/foreach}', 'bar 0 hello 1 world', '', $i ++),
+                     array('{capture assign=foo}hello {capture assign=bar}this is my {/capture}world{/capture}{$foo} {$bar}', 'hello world this is my ', '', $i ++),
+                     array('{capture name=foo}hello world{/capture}{capture name=Foo}Smarty 3{/capture}{$smarty.capture.foo} {$smarty.capture.Foo}', 'hello world Smarty 3', '', $i ++),
+                     );
     }
     /*
      *  Test that capture results are global
      */
     public function testCapture9()
     {
-        $this->assertContains('-->hello world<--', $this->smarty->fetch('009_capture.tpl'));
+        $result = $this->smarty->fetch('009_capture.tpl');
+        $this->assertContains('-->hello world<--', $result);
+        $this->assertContains('-->hello world2<--', $result);
     }
 
     public function testCompileCaptureNocache1()
