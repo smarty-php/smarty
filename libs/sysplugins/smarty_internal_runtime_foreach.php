@@ -42,27 +42,23 @@ class Smarty_Internal_Runtime_Foreach
             settype($from, 'array');
         }
         $total = ($needTotal || isset($properties[ 'total' ])) ? $this->count($from) : 1;
+        if (isset($tpl->tpl_vars[ $item ])) {
+            $saveVars[ $item ] = $tpl->tpl_vars[ $item ];
+        }
+        $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
         if (empty($from)) {
             $from = null;
             $total = 0;
             if ($needTotal) {
-                if (isset($tpl->tpl_vars[ $item ])) {
-                    $saveVars[ $item ] = $tpl->tpl_vars[ $item ];
-                }
-                $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
                 $tpl->tpl_vars[ $item ]->total = 0;
             }
         } else {
-            if (isset($tpl->tpl_vars[ $item ])) {
-                $saveVars[ $item ] = $tpl->tpl_vars[ $item ];
-            }
             if ($key) {
                 if (isset($tpl->tpl_vars[ $key ])) {
                     $saveVars[ $key ] = $tpl->tpl_vars[ $key ];
                 }
                 $tpl->tpl_vars[ $key ] = new Smarty_Variable(null, $tpl->isRenderingCache);
             }
-            $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
             if ($needTotal) {
                 $tpl->tpl_vars[ $item ]->total = $total;
             }
