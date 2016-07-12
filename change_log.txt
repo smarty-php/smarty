@@ -4,6 +4,7 @@
   - update testInstall() https://github.com/smarty-php/smarty/issues/248https://github.com/smarty-php/smarty/issues/248
   - bugfix enable debugging could fail when template objects did already exists https://github.com/smarty-php/smarty/issues/237
   - bugfix template function data should be merged when loading subtemplate https://github.com/smarty-php/smarty/issues/240
+  - bugfix wrong parameter on compileAllTemplates() https://github.com/smarty-php/smarty/issues/231
     
  12.07.2016
   - bugfix {foreach} item variable must be created also on empty from array https://github.com/smarty-php/smarty/issues/238 and https://github.com/smarty-php/smarty/issues/239

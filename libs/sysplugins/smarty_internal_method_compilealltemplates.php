@@ -32,7 +32,7 @@ class Smarty_Internal_Method_CompileAllTemplates
      *
      * @return integer number of template files recompiled
      */
-    public function compileAllTemplates(Smarty $dummy, Smarty $smarty, $extension = '.tpl', $force_compile = false, $time_limit = 0,
+    public function compileAllTemplates(Smarty $smarty, $extension = '.tpl', $force_compile = false, $time_limit = 0,
                                         $max_errors = null)
     {
         return $this->compileAll($smarty, $extension, $force_compile, $time_limit, $max_errors);
