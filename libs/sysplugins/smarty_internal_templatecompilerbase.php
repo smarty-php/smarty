@@ -588,15 +588,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             if (!$this->smarty->registered_plugins[ $plugin_type ][ $tag ][ 1 ]) {
                                 $this->tag_nocache = true;
                             }
-                            $function = $this->smarty->registered_plugins[ $plugin_type ][ $tag ][ 0 ];
-                            if (!is_array($function)) {
-                                return $function($new_args, $this);
-                            } elseif (is_object($function[ 0 ])) {
-                                return $this->smarty->registered_plugins[ $plugin_type ][ $tag ][ 0 ][ 0 ]->{$function[ 1 ]}($new_args,
-                                                                                                                             $this);
-                            } else {
-                                return call_user_func_array($function, array($new_args, $this));
-                            }
+                            return call_user_func_array($this->smarty->registered_plugins[ $plugin_type ][ $tag ][ 0 ], array($new_args, $this));
                         }
                         // compile registered function or block function
                         if ($plugin_type == Smarty::PLUGIN_FUNCTION || $plugin_type == Smarty::PLUGIN_BLOCK) {
@@ -669,15 +661,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             foreach ($args as $mixed) {
                                 $new_args = array_merge($new_args, $mixed);
                             }
-                            $function = $this->default_handler_plugins[ $plugin_type ][ $tag ][ 0 ];
-                            if (!is_array($function)) {
-                                return $function($new_args, $this);
-                            } elseif (is_object($function[ 0 ])) {
-                                return $this->default_handler_plugins[ $plugin_type ][ $tag ][ 0 ][ 0 ]->$function[ 1 ]($new_args,
-                                                                                                                        $this);
-                            } else {
-                                return call_user_func_array($function, array($new_args, $this));
-                            }
+                            return call_user_func_array($this->default_handler_plugins[ $plugin_type ][ $tag ][ 0 ], array($new_args, $this));
                         } else {
                             return $this->callTagCompiler('private_registered_' . $plugin_type, $args, $parameter,
                                                           $tag);
@@ -728,15 +712,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     if (!$this->smarty->registered_plugins[ Smarty::PLUGIN_COMPILER ][ $tag ][ 1 ]) {
                         $this->tag_nocache = true;
                     }
-                    $function = $this->smarty->registered_plugins[ Smarty::PLUGIN_COMPILER ][ $tag ][ 0 ];
-                    if (!is_array($function)) {
-                        return $function($args, $this);
-                    } elseif (is_object($function[ 0 ])) {
-                        return $this->smarty->registered_plugins[ Smarty::PLUGIN_COMPILER ][ $tag ][ 0 ][ 0 ]->$function[ 1 ]($args,
-                                                                                                                              $this);
-                    } else {
-                        return call_user_func_array($function, array($args, $this));
-                    }
+                    return call_user_func_array($this->smarty->registered_plugins[ Smarty::PLUGIN_COMPILER ][ $tag ][ 0 ], array($args, $this));
                 }
                 if ($this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
                     $plugin = 'smarty_compiler_' . $tag;
@@ -989,11 +965,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 } else {
                     $this->trigger_template_error("Default plugin handler: Returned script file \"{$script}\" for \"{$tag}\" not found");
                 }
-            }
-            if (!is_string($callback) &&
-                !(is_array($callback) && is_string($callback[ 0 ]) && is_string($callback[ 1 ]))
-            ) {
-                $this->trigger_template_error("Default plugin handler: Returned callback for \"{$tag}\" must be a static function name or array of class and function name");
             }
             if (is_callable($callback)) {
                 $this->default_handler_plugins[ $plugin_type ][ $tag ] = array($callback, true, array());
