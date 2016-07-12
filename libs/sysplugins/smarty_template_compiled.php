@@ -147,6 +147,9 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     public function render(Smarty_Internal_Template $_template)
     {
         if ($_template->smarty->debugging) {
+            if (!isset($_template->smarty->_debug)) {
+                $_template->smarty->_debug = new Smarty_Internal_Debug();
+            }
             $_template->smarty->_debug->start_render($_template);
         }
         if (!$this->processed) {

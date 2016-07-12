@@ -105,6 +105,9 @@ class Smarty_Internal_Config_File_Compiler
             array($this->template->source->filepath, $this->template->source->getTimeStamp(),
                   $this->template->source->type);
         if ($this->smarty->debugging) {
+            if (!isset( $this->smarty->_debug)) {
+                $this->smarty->_debug  = new Smarty_Internal_Debug();
+            }
             $this->smarty->_debug->start_compile($this->template);
         }
         // init the lexer/parser to compile the config file

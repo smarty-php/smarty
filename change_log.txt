@@ -2,7 +2,8 @@
  13.07.2016
   - bugfix PHP 7 compatibility on registered compiler plugins https://github.com/smarty-php/smarty/issues/241
   - update testInstall() https://github.com/smarty-php/smarty/issues/248https://github.com/smarty-php/smarty/issues/248
-    
+  - bugfix enable debugging could fail when template objects did already exists https://github.com/smarty-php/smarty/issues/237
+  
  12.07.2016
   - bugfix {foreach} item variable must be created also on empty from array https://github.com/smarty-php/smarty/issues/238 and https://github.com/smarty-php/smarty/issues/239
   - bugfix enableSecurity() must init cache flags https://github.com/smarty-php/smarty/issues/247
