@@ -31,6 +31,18 @@ class SecurityTest extends PHPUnit_Smarty
     /**
      * test that security is loaded
      */
+    public function testSecurityReenable()
+    {
+        $this->smarty->disableSecurity();
+        $this->smarty->enableSecurity('Security');
+        $this->smarty->fetch('helloworld.tpl');
+        $this->smarty->disableSecurity();
+        $this->smarty->enableSecurity('Security');
+        $this->smarty->fetch('helloworld.tpl');
+    }
+    /**
+     * test that security is loaded
+     */
     public function testSecurityLoaded()
     {
         $this->assertTrue(is_object($this->smarty->security_policy));
@@ -382,4 +394,8 @@ class mysecuritystaticclass
     {
         return $i * $i;
     }
+}
+class Security extends Smarty_Security
+{
+
 }
