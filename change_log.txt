@@ -1,9 +1,10 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
  12.07.2016
- - bugfix {foreach} item variable must be created also on empty from array https://github.com/smarty-php/smarty/issues/238 and https://github.com/smarty-php/smarty/issues/239
+  - bugfix {foreach} item variable must be created also on empty from array https://github.com/smarty-php/smarty/issues/238 and https://github.com/smarty-php/smarty/issues/239
+  - bugfix enableSecurity() must init cache flags https://github.com/smarty-php/smarty/issues/247
  
  27.05.2016
- - bugfix/improvement of compileAlltemplates() follow symlinks in template folder (PHP >= 5.3.1) https://github.com/smarty-php/smarty/issues/224
+  - bugfix/improvement of compileAlltemplates() follow symlinks in template folder (PHP >= 5.3.1) https://github.com/smarty-php/smarty/issues/224
       clear internal cache and expension handler for each template to avoid possible conflicts https://github.com/smarty-php/smarty/issues/231
 
  16.05.2016

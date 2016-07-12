@@ -258,6 +258,8 @@ class Smarty_Security
     public function __construct($smarty)
     {
         $this->smarty = $smarty;
+        $this->smarty->_cache[ 'template_dir_new' ] = true;
+        $this->smarty->_cache[ 'config_dir_new' ] = true;
     }
 
     /**
