@@ -108,8 +108,8 @@ require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
  *
  * @method int clearAllCache(int $exp_time = null, string $type = null)
  * @method int clearCache(string $template_name, string $cache_id = null, string $compile_id = null, int $exp_time = null, string $type = null)
- * @method int compileAllTemplates(Smarty $smarty, string $extension = '.tpl', bool $force_compile = false, int $time_limit = 0, int $max_errors = null)
- * @method int compileAllConfig(Smarty $smarty, string $extension = '.conf', bool $force_compile = false, int $time_limit = 0, int $max_errors = null)
+ * @method int compileAllTemplates(string $extension = '.tpl', bool $force_compile = false, int $time_limit = 0, int $max_errors = null)
+ * @method int compileAllConfig(string $extension = '.conf', bool $force_compile = false, int $time_limit = 0, int $max_errors = null)
  * @method int clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
  */
 class Smarty extends Smarty_Internal_TemplateBase
@@ -121,7 +121,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/79';
+    const SMARTY_VERSION = '3.1.30-dev/80';
 
     /**
      * define variable scopes
