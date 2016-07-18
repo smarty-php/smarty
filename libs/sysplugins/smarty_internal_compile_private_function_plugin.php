@@ -47,8 +47,6 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        //Does tag create output
-        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
 
         unset($_attr[ 'nocache' ]);
         // convert attributes into parameter array string
@@ -62,8 +60,15 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
         }
         $_params = 'array(' . implode(",", $_paramsArray) . ')';
         // compile code
-        $output = "<?php echo {$function}({$_params},\$_smarty_tpl);?>\n";
-
+        $output = "{$function}({$_params},\$_smarty_tpl)";
+        if (!empty($parameter[ 'modifierlist' ])) {
+            $output = $compiler->compileTag('private_modifier', array(),
+                                            array('modifierlist' => $parameter[ 'modifierlist' ],
+                                                  'value' => $output));
+        }
+        //Does tag create output
+        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
+        $output = "<?php " . ($compiler->has_output ? "echo " : '') . "{$output};?>\n";
         return $output;
     }
 }

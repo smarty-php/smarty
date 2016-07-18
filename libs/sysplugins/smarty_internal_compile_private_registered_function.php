@@ -38,9 +38,6 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        //Does tag create output
-        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
-
         unset($_attr[ 'nocache' ]);
         if (isset($compiler->smarty->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ $tag ])) {
             $tag_info = $compiler->smarty->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ $tag ];
@@ -65,14 +62,21 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
         $function = $tag_info[ 0 ];
         // compile code
         if (!is_array($function)) {
-            $output = "<?php echo {$function}({$_params},\$_smarty_tpl);?>\n";
+            $output = "{$function}({$_params},\$_smarty_tpl)";
         } elseif (is_object($function[ 0 ])) {
             $output =
-                "<?php echo \$_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['{$tag}'][0][0]->{$function[1]}({$_params},\$_smarty_tpl);?>\n";
+                "\$_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['{$tag}'][0][0]->{$function[1]}({$_params},\$_smarty_tpl)";
         } else {
-            $output = "<?php echo {$function[0]}::{$function[1]}({$_params},\$_smarty_tpl);?>\n";
+            $output = "{$function[0]}::{$function[1]}({$_params},\$_smarty_tpl)";
         }
-
+        if (!empty($parameter[ 'modifierlist' ])) {
+            $output = $compiler->compileTag('private_modifier', array(),
+                                            array('modifierlist' => $parameter[ 'modifierlist' ],
+                                                  'value' => $output));
+        }
+        //Does tag create output
+        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
+        $output = "<?php " . ($compiler->has_output ? "echo " : '') . "{$output};?>\n";
         return $output;
     }
 }

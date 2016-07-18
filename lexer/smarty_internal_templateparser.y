@@ -437,8 +437,7 @@ tag(res)   ::= LDEL ID(i) modifierlist(l)attributes(a). {
             }
             res = $this->compiler->compileTag('private_print_expression',a,array('value'=>i, 'modifierlist'=>l));
         } else {
-            res = '<?php ob_start();?>'.$this->compiler->compileTag(i,a).'<?php echo ';
-            res .= $this->compiler->compileTag('private_modifier',array(),array('modifierlist'=>l,'value'=>'ob_get_clean()')).';?>';
+            res = $this->compiler->compileTag(i,a, array('modifierlist'=>l));
         }
 }
 
@@ -449,8 +448,7 @@ tag(res)   ::= LDEL ID(i) PTR ID(m) attributes(a). {
 
                   // registered object tag with modifiers
 tag(res)   ::= LDEL ID(i) PTR ID(me) modifierlist(l) attributes(a). {
-    res = '<?php ob_start();?>'.$this->compiler->compileTag(i,a,array('object_method'=>me)).'<?php echo ';
-    res .= $this->compiler->compileTag('private_modifier',array(),array('modifierlist'=>l,'value'=>'ob_get_clean()')).';?>';
+    res = $this->compiler->compileTag(i,a,array('modifierlist'=>l, 'object_method'=>me));
 }
 
                   // nocache tag
