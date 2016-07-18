@@ -115,7 +115,7 @@ class Smarty_Internal_Extension_Clear
                         }
                     }
                     $_count += @unlink((string) $_file) ? 1 : 0;
-                    if (function_exists('opcache_invalidate')) {
+                    if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
                         opcache_invalidate((string) $_file, true);
                     }
                 }

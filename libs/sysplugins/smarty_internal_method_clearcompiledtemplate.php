@@ -109,7 +109,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
 
                 if ($unlink && @unlink($_filepath)) {
                     $_count ++;
-                    if (function_exists('opcache_invalidate')) {
+                    if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
                         opcache_invalidate($_filepath, true);
                     }
                 }
