@@ -262,9 +262,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                                        $forceTplCache, $uid = null, $content_func = null)
     {
         $tpl = clone $this;
-        if (isset($this->inheritance)) {
-            unset($tpl->startRenderCallbacks[ 'inheritance' ], $tpl->endRenderCallbacks[ 'inheritance' ]);
-        }
         $tpl->parent = $this;
         $smarty = &$this->smarty;
         $_templateId = $smarty->_getTemplateId($template, $cache_id, $compile_id, $caching, $tpl);
