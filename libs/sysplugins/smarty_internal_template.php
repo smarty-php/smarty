@@ -42,7 +42,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     /**
      * Source instance
      *
-     * @var Smarty_Template_Source|Smarty_Template_Config
+     * @var \Smarty_Template_Source|\Smarty_Template_Config
      */
     public $source = null;
 
@@ -223,6 +223,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 if (!empty($this->tpl_function)) {
                     $this->parent->tpl_function = array_merge($this->parent->tpl_function, $this->tpl_function);
                 }
+                /**
                 foreach ($this->compiled->required_plugins as $code => $tmp1) {
                     foreach ($tmp1 as $name => $tmp) {
                         foreach ($tmp as $type => $data) {
@@ -230,6 +231,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                         }
                     }
                 }
+                 * **/
             }
             if (!$no_output_filter &&
                 (!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
@@ -378,6 +380,41 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $this->smarty->_cache[ 'subTplInfo' ][ $name ] = $count;
             }
         }
+    }
+
+    /**
+     * Call plugin
+     *
+     * @param array  $params     parameter array
+     * @param string $type       plugin type
+     * @param string $pluginName plugin name
+     *
+     * @return mixed
+     * @throws \SmartyException
+     */
+    public function _executePlugin($params, $type, $pluginName, $content = null, &$repeat = null)
+    {
+        if (isset($this->smarty->_pluginCache[ $pluginName ][ $type ])) {
+            $callback = $this->smarty->_pluginCache[ $pluginName ][ $type ][0];
+        } else {
+            $pluginInfo = $this->smarty->_getPluginInfo($type, $pluginName);
+            if ($pluginInfo === false) {
+                throw new SmartyException("plugin '{$pluginName}' not callable");
+            }
+            $callback = $pluginInfo[0];
+        }
+        if ($type == Smarty::PLUGIN_MODIFIER) {
+            return call_user_func_array($callback, $params);
+        } else if ($type == Smarty::PLUGIN_BLOCK) {
+            if (!is_array($callback)) {
+                return $callback($params, $content, $this, $repeat);
+            } else if (is_object($callback[0])){
+                return $callback[0]->{$callback[1]}($params, $content, $this, $repeat);
+            } else {
+                return $callback[0]::{$callback[1]}($params, $content, $this, $repeat);
+            }
+        }
+        return call_user_func_array($callback, array($params, $this));
     }
 
     /**
