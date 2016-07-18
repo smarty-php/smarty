@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 18.07.2016
+  - bugfix {foreach} if key variable and item@key attribute have been used both the key variable was not updated https://github.com/smarty-php/smarty/issues/254
+  
  14.07.2016
   - bugfix wrong parameter on compileAllTemplates() and compileAllConfig() https://github.com/smarty-php/smarty/issues/231
  

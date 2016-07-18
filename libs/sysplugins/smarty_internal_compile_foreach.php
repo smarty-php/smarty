@@ -176,11 +176,11 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
             $itemAttr[ 'total' ] = true;
         }
         $keyTerm = '';
+        if (isset($attributes[ 'key' ])) {
+            $keyTerm = "\$_smarty_tpl->tpl_vars['{$key}']->value => ";
+        }
         if (isset($itemAttr[ 'key' ])) {
             $keyTerm = "{$itemVar}->key => ";
-            unset($itemAttr[ 'key' ]);
-        } elseif (isset($attributes[ 'key' ])) {
-            $keyTerm = "\$_smarty_tpl->tpl_vars['{$key}']->value => ";
         }
         if ($this->isNamed) {
             $foreachVar = "\$_smarty_tpl->tpl_vars['__smarty_foreach_{$attributes['name']}']";
