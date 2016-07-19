@@ -44,8 +44,22 @@ function smarty_function_math($params, $template)
         return;
     }
 
+    // disallow backticks
+    if (strpos($equation, '`') !== false) {
+        trigger_error("math: backtick character not allowed in equation", E_USER_WARNING);
+
+        return;
+    }
+
+    // also disallow dollar signs
+    if (strpos($equation, '$') !== false) {
+        trigger_error("math: dollar signs not allowed in equation", E_USER_WARNING);
+
+        return;
+    }
+
     // match all vars in equation, make sure all are passed
-    preg_match_all("!(?:0x[a-fA-F0-9]+)|([a-zA-Z][a-zA-Z0-9_]*)!", $equation, $match);
+    preg_match_all('!(?:0x[a-fA-F0-9]+)|([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)!', $equation, $match);
 
     foreach ($match[ 1 ] as $curr_var) {
         if ($curr_var && !isset($params[ $curr_var ]) && !isset($_allowed_funcs[ $curr_var ])) {

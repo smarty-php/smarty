@@ -1,6 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
  19.07.2016
   - bugfix multiple {include} with relative filepath within {block}{/block} could fail https://github.com/smarty-php/smarty/issues/246
+  - bugfix {match} shell injection vulnerability patch provided by Tim Weber
  
  18.07.2016
   - bugfix {foreach} if key variable and item@key attribute have been used both the key variable was not updated https://github.com/smarty-php/smarty/issues/254
