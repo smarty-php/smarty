@@ -1,3 +1,6 @@
+2016-07-19  Uwe Tews
+    * {math} shell injection vulnerability patch provided by Tim Weber
+    
 2015-12-30  Uwe Tews
 
     * fixed plugin filepath cache must not be static, because of possible problem
