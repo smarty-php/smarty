@@ -43,13 +43,8 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             ) {
                 throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
             }
-            $parentPath = $_template->parent->source->filepath;
-            // if we are inside an {block} tag the path must be relative to template of {block}
-            if (isset($_template->inheritance) && $path = $_template->inheritance->getBlockFilepath()) {
-                $parentPath = $path;
-            }
             // normalize path
-            $path = $source->smarty->_realpath(dirname($parentPath) . DS . $file);
+            $path = $source->smarty->_realpath(dirname($_template->parent->source->filepath) . DS . $file);
             // files relative to a template only get one shot
             return is_file($path) ? $path : false;
         }

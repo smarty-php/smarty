@@ -99,7 +99,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
     private function compileEndChild(Smarty_Internal_TemplateCompilerBase $compiler)
     {
         $compiler->parser->template_postfix[] = new Smarty_Internal_ParseTree_Tag($compiler->parser,
-                                                                                  "<?php \$_smarty_tpl->inheritance->endChild(\$_smarty_tpl);\n?>\n");
+                                                                                  "<?php \$_smarty_tpl->inheritance->endChild();\n?>\n");
     }
 
     /**

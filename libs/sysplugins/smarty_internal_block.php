@@ -66,13 +66,6 @@ class Smarty_Internal_Block
     public $tplIndex = 0;
 
     /**
-     * Nesting level of called sub-templates
-     *
-     * @var int
-     */
-    public $subTemplateNesting = 0;
-
-    /**
      * Smarty_Internal_Block constructor.
      * - if outer level {block} of child template ($state == 1) save it as child root block
      * - otherwise process inheritance and render
