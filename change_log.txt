@@ -2,6 +2,7 @@
  23.07.2016
   - bugfix setTemplateDir('/') and setTemplateDir('') did create wrong absolute filepath https://github.com/smarty-php/smarty/issues/245
   - optimization of filepath normalization
+  - improvement remove double funtion declaration in plugin shared.escape_special_cars.php https://github.com/smarty-php/smarty/issues/229
  
  19.07.2016
   - bugfix multiple {include} with relative filepath within {block}{/block} could fail https://github.com/smarty-php/smarty/issues/246
