@@ -1,4 +1,8 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 23.07.2016
+  - bugfix setTemplateDir('/') and setTemplateDir('') did create wrong absolute filepath https://github.com/smarty-php/smarty/issues/245
+  - optimization of filepath normalization
+ 
  19.07.2016
   - bugfix multiple {include} with relative filepath within {block}{/block} could fail https://github.com/smarty-php/smarty/issues/246
   - bugfix {math} shell injection vulnerability patch provided by Tim Weber
