@@ -121,7 +121,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/(87)';
+    const SMARTY_VERSION = '3.1.30-dev/(88)';
 
     /**
      * define variable scopes
@@ -974,9 +974,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $this->plugins_dir = (array) $this->plugins_dir;
             }
             foreach ($this->plugins_dir as $k => $v) {
-                if (strpos($v, './') !== false || strpos($v, '.\\') !== false) {
-                    $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, "/\\") . DS, true);
-                }
+                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, "/\\") . DS, true);
             }
             $this->_cache[ 'plugin_files' ] = array();
             $this->_pluginsDirNormalized = true;
