@@ -137,18 +137,18 @@ class StreamResourceTest extends PHPUnit_Smarty
     {
         $this->assertFalse($this->smarty->templateExists('global:notthere'));
     }
+    /**
+     * @expectedException        SmartyException
+     * @expectedExceptionMessage 'global:notthere'
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     * test not existing template
+     */
 
     public function testTemplateStramNotExists3()
     {
-        try {
             $result = $this->smarty->fetch('global:notthere');
-        }
-        catch (Exception $e) {
-            $this->assertContains('Unable to load template global \'notthere\'', $e->getMessage());
-
-            return;
-        }
-        $this->fail('Exception for not existing template is missing');
     }
 
     /**

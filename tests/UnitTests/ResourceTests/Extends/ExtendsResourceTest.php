@@ -246,7 +246,6 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
-
     public function data(){
         return array(
             /*

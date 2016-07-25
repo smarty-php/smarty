@@ -190,4 +190,9 @@ class StringResourceTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('string:base64:eyJmb29iYXIifGVzY2FwZX0=');
         $this->assertEquals('foobar', $tpl->fetch());
     }
+    public function testClearCompiled()
+    {
+        $this->smarty->fetch('string:string:hello uwe');
+        $this->assertEquals(1, $this->smarty->clearCompiledTemplate('string:'));
+    }
 }
