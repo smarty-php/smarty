@@ -10,7 +10,7 @@
  * class for compiler tests
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  */
 class CompileErrorTest extends PHPUnit_Smarty
@@ -27,7 +27,7 @@ class CompileErrorTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyException
-     * @expectedExceptionMessage Unable to load template file 'no.tpl' in 'eval:{include file='no.tpl'}'
+     * @expectedExceptionMessage no.tpl
      * test none existing template file error
      */
     public function testNoneExistingTemplateError()
