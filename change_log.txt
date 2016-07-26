@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 26.07.2016
+  - optimization unneeded loading of compiled resource
+  
  24.07.2016
   - regression this->addPluginsDir('/abs/path/to/dir') adding absolute path without trailing '/' did fail https://github.com/smarty-php/smarty/issues/260
  

@@ -223,10 +223,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 if (!empty($this->tpl_function)) {
                     $this->parent->tpl_function = array_merge($this->parent->tpl_function, $this->tpl_function);
                 }
-                foreach ($this->compiled->required_plugins as $code => $tmp1) {
-                    foreach ($tmp1 as $name => $tmp) {
-                        foreach ($tmp as $type => $data) {
-                            $this->parent->compiled->required_plugins[ $code ][ $name ][ $type ] = $data;
+                if (isset($this->compiled)) {
+                    foreach ($this->compiled->required_plugins as $code => $tmp1) {
+                        foreach ($tmp1 as $name => $tmp) {
+                            foreach ($tmp as $type => $data) {
+                                $this->parent->compiled->required_plugins[ $code ][ $name ][ $type ] = $data;
+                            }
                         }
                     }
                 }
