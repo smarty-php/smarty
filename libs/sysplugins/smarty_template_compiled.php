@@ -167,9 +167,6 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if ($_template->caching && $this->has_nocache_code) {
             $_template->cached->hashes[ $this->nocache_hash ] = true;
         }
-        if (isset($_template->parent) && $_template->parent->_objType == 2 && !empty($_template->tpl_function)) {
-            $_template->parent->tpl_function = array_merge($_template->parent->tpl_function, $_template->tpl_function);
-        }
         if ($_template->smarty->debugging) {
             $_template->smarty->_debug->end_render($_template);
         }

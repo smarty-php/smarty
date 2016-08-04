@@ -75,13 +75,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $templateId = null;
 
     /**
-     * Known template functions
-     *
-     * @var array
-     */
-    public $tpl_function = array();
-
-    /**
      * Scope in which variables shall be assigned
      *
      * @var int
@@ -220,15 +213,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 }
             }
             if ($parentIsTpl) {
-                if (!empty($this->tpl_function)) {
-                    $this->parent->tpl_function = array_merge($this->parent->tpl_function, $this->tpl_function);
-                }
-                if (isset($this->compiled)) {
-                    foreach ($this->compiled->required_plugins as $code => $tmp1) {
-                        foreach ($tmp1 as $name => $tmp) {
-                            foreach ($tmp as $type => $data) {
-                                $this->parent->compiled->required_plugins[ $code ][ $name ][ $type ] = $data;
-                            }
+                foreach ($this->compiled->required_plugins as $code => $tmp1) {
+                    foreach ($tmp1 as $name => $tmp) {
+                        foreach ($tmp as $type => $data) {
+                            $this->parent->compiled->required_plugins[ $code ][ $name ][ $type ] = $data;
                         }
                     }
                 }
@@ -483,9 +471,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $resource->has_nocache_code = $properties[ 'has_nocache_code' ];
             //            $tpl->compiled->nocache_hash = $properties['nocache_hash'];
             $resource->file_dependency = $properties[ 'file_dependency' ];
-            if (isset($properties[ 'tpl_function' ])) {
-                $tpl->tpl_function = array_merge($tpl->tpl_function, $properties[ 'tpl_function' ]);
-            }
         }
         return $is_valid && !function_exists($properties[ 'unifunc' ]);
     }
@@ -571,7 +556,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function _cleanUp()
     {
-        $this->tpl_function = array();
         $this->startRenderCallbacks = array();
         $this->endRenderCallbacks = array();
         $this->inheritance = null;
