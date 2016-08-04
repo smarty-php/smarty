@@ -203,15 +203,15 @@ class Smarty_Internal_Templatelexer
     {
         $this->data = $data;
         $this->counter = 0;
-        if (preg_match('~^\xEF\xBB\xBF~i', $this->data, $match)) {
+        if (preg_match('/^\xEF\xBB\xBF/i', $this->data, $match)) {
             $this->counter += strlen($match[ 0 ]);
         }
         $this->line = 1;
         $this->smarty = $compiler->smarty;
         $this->compiler = $compiler;
-        $this->ldel = preg_quote($this->smarty->left_delimiter, '~');
+        $this->ldel = preg_quote($this->smarty->left_delimiter, '/');
         $this->ldel_length = strlen($this->smarty->left_delimiter);
-        $this->rdel = preg_quote($this->smarty->right_delimiter, '~');
+        $this->rdel = preg_quote($this->smarty->right_delimiter, '/');
         $this->rdel_length = strlen($this->smarty->right_delimiter);
         $this->smarty_token_names[ 'LDEL' ] = $this->smarty->left_delimiter;
         $this->smarty_token_names[ 'RDEL' ] = $this->smarty->right_delimiter;
@@ -348,7 +348,7 @@ class Smarty_Internal_Templatelexer
     function yy_r1_2()
     {
 
-        preg_match("~[*]{$this->rdel}~", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
+        preg_match("/[*]{$this->rdel}/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
         if (isset($match[ 0 ][ 1 ])) {
             $to = $match[ 0 ][ 1 ] + strlen($match[ 0 ][ 0 ]);
         } else {
@@ -408,7 +408,7 @@ class Smarty_Internal_Templatelexer
     {
 
         $to = strlen($this->data);
-        preg_match("~($this->ldel)|(<[?]((php\s+|=)|\s+))|(<[%])|(<[?]xml\s+)|(<script\s+language\s*=\s*[\"']?\s*php\s*[\"']?\s*>)|([?][>])|([%][>])~i",
+        preg_match("/($this->ldel)|(<[?]((php\s+|=)|\s+))|(<[%])|(<[?]xml\s+)|(<script\s+language\s*=\s*[\"']?\s*php\s*[\"']?\s*>)|([?][>])|([%][>])/i",
                    $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
         if (isset($match[ 0 ][ 1 ])) {
             $to = $match[ 0 ][ 1 ];
@@ -814,7 +814,7 @@ class Smarty_Internal_Templatelexer
         if (substr($this->data, $this->counter + strlen($this->value) - 1, $this->rdel_length) ==
             $this->smarty->right_delimiter
         ) {
-            preg_match("~\s+~", $this->value, $match);
+            preg_match("/\s+/", $this->value, $match);
             $this->value = $match[ 0 ];
             $this->token = Smarty_Internal_Templateparser::TP_SPACE;
         } else {
@@ -985,7 +985,7 @@ class Smarty_Internal_Templatelexer
     {
 
         $to = strlen($this->data);
-        preg_match("~{$this->ldel}[/]?literal{$this->rdel}~i", $this->data, $match, PREG_OFFSET_CAPTURE,
+        preg_match("/{$this->ldel}[\/]?literal{$this->rdel}/i", $this->data, $match, PREG_OFFSET_CAPTURE,
                    $this->counter);
         if (isset($match[ 0 ][ 1 ])) {
             $to = $match[ 0 ][ 1 ];

@@ -1,4 +1,7 @@
 ﻿ ===== 3.1.30-dev ===== (xx.xx.xx)
+ 05.08.2015
+  - bugfix compiling of templates failed when the Smarty delimiter did contain '/' https://github.com/smarty-php/smarty/issues/264 
+  
  04.08.2015
   - improvement move template function source parameter into extension
   
