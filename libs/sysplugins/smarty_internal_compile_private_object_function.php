@@ -49,7 +49,7 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
             unset($_attr[ 'assign' ]);
         }
         // method or property ?
-        if (method_exists($compiler->smarty->registered_objects[ $tag ][ 0 ], $method)) {
+        if (is_callable(array($compiler->smarty->registered_objects[ $tag ][ 0 ], $method))) {
             // convert attributes into parameter array string
             if ($compiler->smarty->registered_objects[ $tag ][ 2 ]) {
                 $_paramsArray = array();
