@@ -44,6 +44,8 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
      * get default content from template or config resource handler
      *
      * @param Smarty_Template_Source $source
+     *
+     * @throws \SmartyException
      */
     public static function _getDefaultTemplate(Smarty_Template_Source $source)
     {
@@ -59,12 +61,22 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
             $source->exists = is_file($_return);
             if ($source->exists) {
                 $source->timestamp = filemtime($_return);
+            } else {
+                throw new SmartyException("Default handler: Unable to load " .
+                                          ($source->isConfig ? 'config' : 'template') .
+                                          " default file '{$_return}' for '{$source->type}:{$source->name}'");
             }
-            $source->filepath = $_return;
+            $source->name = $source->filepath = $_return;
             $source->uid = sha1($source->filepath);
         } elseif ($_return === true) {
             $source->content = $_content;
+            $source->exists = true;
+            $source->uid = $source->name = sha1($_content);
             $source->handler = Smarty_Resource::load($source->smarty, 'eval');
+        } else {
+            $source->exists = false;
+            throw new SmartyException('Default handler: No ' . ($source->isConfig ? 'config' : 'template') .
+                                      " default content for '{$source->type}:{$source->name}'");
         }
     }
 }
