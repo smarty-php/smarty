@@ -85,7 +85,7 @@ class DefaultTemplateHandlerTest extends PHPUnit_Smarty
             $this->smarty->fetch('foo.tpl');
         }
         catch (Exception $e) {
-            $this->assertContains('Unable to load template', $e->getMessage());
+            $this->assertContains('Default handler: No template default content for \'file:foo.tpl\'', $e->getMessage());
 
             return;
         }
