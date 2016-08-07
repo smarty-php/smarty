@@ -18,7 +18,7 @@ before_script:
     - mysql -e "create database IF NOT EXISTS test;" -uroot
 
 install:
-   - git clone --depth=50 --branch v3.1.30 git://github.com/smarty-php/smarty-phpunit.git
+   - git clone --depth=50 --branch=master git://github.com/smarty-php/smarty-phpunit.git
 
 script:
    - cd smarty-phpunit
