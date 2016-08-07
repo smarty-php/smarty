@@ -61,7 +61,7 @@ class DefaultConfigHandlerTest extends PHPUnit_Smarty
     {
         $this->smarty->registerDefaultConfigHandler('configHandlerData');
         $this->smarty->configLoad('foo.conf');
-        $this->assertEquals("bar", $this->smarty->fetch('eval:{#foo#}'));
+        $this->assertEquals("bar", $this->smarty->fetch('foo.tpl'));
     }
 
     /**
@@ -74,7 +74,7 @@ class DefaultConfigHandlerTest extends PHPUnit_Smarty
     {
         $this->smarty->registerDefaultConfigHandler('configHandlerFile');
         $this->smarty->configLoad('foo.conf');
-        $this->assertEquals("123.4", $this->smarty->fetch('eval:{#Number#}'));
+        $this->assertEquals("123.4", $this->smarty->fetch('number.tpl'));
     }
 
     /**
@@ -87,7 +87,7 @@ class DefaultConfigHandlerTest extends PHPUnit_Smarty
     {
         $this->smarty->registerDefaultConfigHandler('configHandlerFile');
         $this->smarty->configLoad('fo.conf');
-        $this->assertEquals("123.4", $this->smarty->fetch('eval:{#Number#}'));
+        $this->assertEquals("123.4", $this->smarty->fetch('number.tpl'));
     }
 
     /**

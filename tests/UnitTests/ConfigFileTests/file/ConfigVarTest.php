@@ -39,7 +39,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     public function testConfigNumber()
     {
         $this->smarty->configLoad('test.conf');
-        $this->assertEquals("123.4", $this->smarty->fetch('eval:{#Number#}'));
+        $this->assertEquals("123.4", $this->smarty->fetch('number.tpl'));
     }
 
     /**
@@ -51,7 +51,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     public function testConfigText()
     {
         $this->smarty->configLoad('test.conf');
-        $this->assertEquals("123bvc", $this->smarty->fetch('eval:{#text#}'));
+        $this->assertEquals("123bvc", $this->smarty->fetch('text.tpl'));
     }
 
     /**
@@ -75,7 +75,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     public function testConfigVariableGlobalSections()
     {
         $this->smarty->configLoad('test.conf');
-        $this->assertEquals("Welcome to Smarty! Global Section1 Global Section2", $this->smarty->fetch('eval:{#title#} {#sec1#} {#sec2#}'));
+        $this->assertEquals("Welcome to Smarty! Global Section1 Global Section2", $this->smarty->fetch('sec1sec2.tpl'));
     }
 
     /**
@@ -87,7 +87,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     public function testConfigVariableSection2()
     {
         $this->smarty->configLoad('test.conf', 'section2');
-        $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('eval:{#title#} {#sec1#} {#sec2#}'));
+        $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('sec1sec2.tpl'));
     }
 
     /**
@@ -99,7 +99,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     public function testConfigVariableSectionSpecialChar()
     {
         $this->smarty->configLoad('test.conf', '/');
-        $this->assertEquals("Welcome to Smarty! special char", $this->smarty->fetch('eval:{#title#} {#sec#}'));
+        $this->assertEquals("Welcome to Smarty! special char", $this->smarty->fetch('sec.tpl'));
     }
 
     /**
@@ -111,7 +111,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     public function testConfigVariableSectionFooBar()
     {
         $this->smarty->configLoad('test.conf', 'foo/bar');
-        $this->assertEquals("Welcome to Smarty! section foo/bar", $this->smarty->fetch('eval:{#title#} {#sec#}'));
+        $this->assertEquals("Welcome to Smarty! section foo/bar", $this->smarty->fetch('sec.tpl'));
     }
 
     /**
@@ -123,9 +123,9 @@ class ConfigVarTest extends PHPUnit_Smarty
     public function testConfigDifferentScope()
     {
         $this->smarty->configLoad('test.conf', 'section2');
-        $tpl = $this->smarty->createTemplate('eval:{#title#} {#sec1#} {#sec2#}');
+        $tpl = $this->smarty->createTemplate('sec1sec2.tpl');
         $tpl->configLoad('test.conf', 'section1');
-        $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('eval:{#title#} {#sec1#} {#sec2#}'));
+        $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('sec1sec2.tpl'));
         $this->assertEquals("Welcome to Smarty! Hello Section1 Global Section2", $this->smarty->fetch($tpl));
     }
 
@@ -140,7 +140,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     {
         $this->smarty->config_read_hidden = true;
         $this->smarty->configLoad('test.conf', 'hidden');
-        $this->assertEquals("Welcome to Smarty!Hidden Section", $this->smarty->fetch('eval:{#title#}{#hiddentext#}'));
+        $this->assertEquals("Welcome to Smarty!Hidden Section", $this->smarty->fetch('hidden.tpl'));
     }
 
     /**
@@ -155,7 +155,7 @@ class ConfigVarTest extends PHPUnit_Smarty
         $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
         $this->smarty->config_read_hidden = false;
         $this->smarty->configLoad('test.conf', 'hidden');
-        $this->assertEquals("Welcome to Smarty!", $this->smarty->fetch('eval:{#title#}{#hiddentext#}'));
+        $this->assertEquals("Welcome to Smarty!", $this->smarty->fetch('hidden.tpl'));
     }
 
     /**
@@ -223,7 +223,7 @@ class ConfigVarTest extends PHPUnit_Smarty
     {
         $data = $this->smarty->createData();
         $data->configLoad('test.conf');
-        $this->assertEquals("123bvc", $this->smarty->fetch('eval:{#text#}', $data));
+        $this->assertEquals("123bvc", $this->smarty->fetch('text.tpl', $data));
     }
 
     /**
@@ -294,7 +294,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      */
     public function testConfigTextTemplate()
     {
-        $tpl = $this->smarty->createTemplate('eval:{#text#}');
+        $tpl = $this->smarty->createTemplate('text.tpl');
         $tpl->configLoad('test.conf');
         $this->assertEquals("123bvc", $this->smarty->fetch($tpl));
     }
@@ -307,7 +307,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      */
     public function testConfigGetSingleConfigVarTemplate()
     {
-        $tpl = $this->smarty->createTemplate('eval:{#text#}');
+        $tpl = $this->smarty->createTemplate('text.tpl');
         $tpl->configLoad('test.conf');
         $this->assertEquals("Welcome to Smarty!", $tpl->getConfigVars('title'));
     }
@@ -320,7 +320,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      */
     public function testConfigGetAllConfigVarsTemplate()
     {
-        $tpl = $this->smarty->createTemplate('eval:{#text#}');
+        $tpl = $this->smarty->createTemplate('text.tpl');
         $tpl->configLoad('test.conf');
         $vars = $tpl->getConfigVars();
         $this->assertTrue(is_array($vars));
@@ -336,7 +336,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      */
     public function testConfigClearSingleConfigVarTemplate()
     {
-        $tpl = $this->smarty->createTemplate('eval:{#text#}');
+        $tpl = $this->smarty->createTemplate('text.tpl');
         $tpl->configLoad('test.conf');
         $tpl->clearConfig('title');
         $this->assertEquals("", $tpl->getConfigVars('title'));
@@ -351,7 +351,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      */
     public function testConfigClearConfigAllTemplate()
     {
-        $tpl = $this->smarty->createTemplate('eval:{#text#}');
+        $tpl = $this->smarty->createTemplate('text.tpl');
         $tpl->configLoad('test.conf');
         $tpl->clearConfig();
         $vars = $tpl->getConfigVars();
@@ -369,25 +369,25 @@ class ConfigVarTest extends PHPUnit_Smarty
     {
         $file = realpath($this->smarty->getConfigDir(0) . 'test.conf');
         $this->smarty->configLoad($file);
-        $this->assertEquals("123.4", $this->smarty->fetch('eval:{#Number#}'));
+        $this->assertEquals("123.4", $this->smarty->fetch('number.tpl'));
     }
 
     public function testConfigResourceDb4()
     {
         $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
         $this->smarty->configLoad('db4:foo.conf');
-        $this->assertEquals("bar", $this->smarty->fetch('eval:{#foo#}'));
+        $this->assertEquals("bar", $this->smarty->fetch('foo.tpl'));
     }
     public function testConfigUndefinedSilent()
     {
-        $this->assertEquals("", $this->smarty->fetch('eval:{#foo#}'));
+        $this->assertEquals("", $this->smarty->fetch('foo.tpl'));
     }
 
     public function testConfigUndefinedNotice()
     {
         $this->smarty->error_unassigned = true;
         try {
-            $this->assertEquals("", $this->smarty->fetch('eval:{#foo#}'));
+            $this->assertEquals("", $this->smarty->fetch('foo.tpl'));
         }
         catch (Exception $e) {
             $this->assertEquals('Undefined variable: foo', $e->getMessage());

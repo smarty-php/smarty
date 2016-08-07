@@ -37,7 +37,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      *
      * test {load_config} loading section2
@@ -45,6 +45,28 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     public function testConfigVariableSection2Template_001()
     {
         $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('001_section2.tpl'));
+    }
+    /**
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     * test {load_config} loading section2
+     */
+    public function testConfigVariableSection2Template_0012()
+    {
+        $this->smarty->caching = true;
+        $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('001_section2.tpl'));
+    }
+
+    /**
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     *
+     * test {load_config} loading section2
+     */
+    public function testConfigVariableInclude_003()
+    {
+        $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('003_section2.tpl'));
     }
 
     /**
@@ -64,10 +86,10 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    public function testConfigVariableAllSectionsTemplate()
+    public function testConfigVariableAllSectionsTemplate_004()
     {
         $this->smarty->setConfigOverwrite(true);
-        $this->assertEquals("Welcome to Smarty! Global Section1 Global Section2", $this->smarty->fetch('eval:{config_load file=\'test.conf\'}{#title#} {#sec1#} {#sec2#}'));
+        $this->assertEquals("Welcome to Smarty! Global Section1 Global Section2", $this->smarty->fetch('004_allsection.tpl'));
     }
 
     /**
@@ -76,18 +98,18 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    public function testConfigVariableOverwrite()
+    public function testConfigVariableOverwrite_005()
     {
-        $this->assertEquals("Overwrite2", $this->smarty->fetch('eval:{config_load file=\'test.conf\'}{#overwrite#}'));
+        $this->assertEquals("Overwrite2", $this->smarty->fetch('005_overwrite.tpl'));
     }
 
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    public function testConfigVariableOverwrite2()
+    public function testConfigVariableOverwrite_006()
     {
-        $this->assertEquals("Overwrite3", $this->smarty->fetch('eval:{config_load file=\'test.conf\'}{config_load file=\'test2.conf\'}{#overwrite#}'));
+        $this->assertEquals("Overwrite3", $this->smarty->fetch('006_overwrite.tpl'));
     }
 
     /**
@@ -96,10 +118,10 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    public function testConfigVariableOverwriteFalse()
+    public function testConfigVariableOverwrite_007()
     {
         $this->smarty->setConfigOverwrite(false);
-        $this->assertEquals("Overwrite1Overwrite2Overwrite3Welcome to Smarty! Global Section1 Global Section2", $this->smarty->fetch('eval:{config_load file=\'test.conf\'}{config_load file=\'test2.conf\'}{foreach #overwrite# as $over}{$over}{/foreach}{#title#} {#sec1#} {#sec2#}'));
+        $this->assertEquals("Overwrite1 Overwrite2 Overwrite3 ", $this->smarty->fetch('007_overwrite.tpl'));
     }
 
     /**
@@ -108,10 +130,11 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    public function testConfigVariableBooleanizeOn()
+    public function testConfigVariableBooleanizeOn_008()
     {
         $this->smarty->setConfigBooleanize(true);
-        $this->assertEquals("passed", $this->smarty->fetch('eval:{config_load file=\'test.conf\'}{if #booleanon# === true}passed{/if}'));
+        $this->smarty->assign('expected', true);
+        $this->assertEquals("passed", $this->smarty->fetch('008_booleanize.tpl'));
     }
 
     /**
@@ -120,10 +143,11 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    public function testConfigVariableBooleanizeOff()
+    public function testConfigVariableBooleanizeOff_008()
     {
         $this->smarty->setConfigBooleanize(false);
-        $this->assertEquals("passed", $this->smarty->fetch('eval:{config_load file=\'test.conf\'}{if #booleanon# == \'on\'}passed{/if}'));
+        $this->smarty->assign('expected', 'on');
+        $this->assertEquals("passed", $this->smarty->fetch('008_booleanize.tpl'));
     }
 
     /**
@@ -131,8 +155,8 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
      * @expectedExceptionMessage Syntax error in config file
      * test config file syntax error
      */
-    public function testConfigSyntaxError()
+    public function testConfigSyntaxError_009()
     {
-        $this->smarty->fetch('eval:{config_load file=\'test_error.conf\'}');
+        $this->smarty->fetch('009_error.tpl');
     }
 }
