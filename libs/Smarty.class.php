@@ -21,13 +21,13 @@
  * smarty-discussion-subscribe@googlegroups.com
  *
  * @link      http://www.smarty.net/
- * @copyright 2015 New Digital Group, Inc.
- * @copyright 2015 Uwe Tews
+ * @copyright 2016 New Digital Group, Inc.
+ * @copyright 2016 Uwe Tews
  * @author    Monte Ohrt <monte at ohrt dot com>
  * @author    Uwe Tews
  * @author    Rodney Rehm
  * @package   Smarty
- * @version   3.1.30-dev
+ * @version   3.1.30
  */
 
 /**
@@ -121,7 +121,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.30-dev/92';
+    const SMARTY_VERSION = '3.1.30';
 
     /**
      * define variable scopes
