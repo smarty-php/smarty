@@ -160,7 +160,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         // checks if template exists
         if (!$this->source->exists) {
-            throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'" .
+            throw new SmartyException("Unable to load template '{$this->source->type}:{$this->source->name}'" .
                                       ($parentIsTpl ? " in '{$this->parent->template_resource}'" : ''));
         }
         // disable caching for evaluated code
