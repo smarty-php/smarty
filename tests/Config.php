@@ -12,7 +12,7 @@ define('ApcCacheEnable', false);
 define('MysqlCacheEnable', false);
 define('PdoCacheEnable', false);
 define('PdoGzipCacheEnable', false);
-define('MysqlResourceEnable', false);
+define('MysqlResourceEnable', true);
 define('DB_DSN', "mysql:dbname=test;host=localhost");
 define('DB_USER', "travis");
 define('DB_PASSWD', "");
