@@ -1,5 +1,6 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
-
+ 14.08.2016
+  - bugfix $smarty_>debugging = true; did E_NOTICE messages when {eval} tag was used https://github.com/smarty-php/smarty/issues/266
 
 ===== 3.1.30 ===== (07.08.2016)
 

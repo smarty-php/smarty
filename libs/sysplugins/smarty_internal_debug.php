@@ -52,7 +52,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
      */
     public function start_template(Smarty_Internal_Template $template, $mode = null)
     {
-        if (isset($mode)) {
+        if (isset($mode) && (!isset($template->parent) || $template->parent->_objType !== 2)) {
             $this->index ++;
             $this->offset ++;
             $this->template_data[ $this->index ] = null;
