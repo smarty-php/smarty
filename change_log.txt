@@ -3,6 +3,7 @@
   - bugfix $smarty_>debugging = true; did E_NOTICE messages when {eval} tag was used https://github.com/smarty-php/smarty/issues/266
   - bugfix Class 'Smarty_Internal_Runtime_ValidateCompiled' not found when upgrading from some older Smarty versions with existing
            compiled or cached template files https://github.com/smarty-php/smarty/issues/269
+  - optimization remove unneeded call to update acopes when {assign} scope and template scope was local (default)
 
 ===== 3.1.30 ===== (07.08.2016)
 

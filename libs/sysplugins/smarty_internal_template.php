@@ -398,7 +398,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->tpl_vars[ $varName ] = new Smarty_Variable($value, $nocache || $this->isRenderingCache);
         }
         if ($scope >= 0) {
-            if (isset($scope) || isset($this->scope)) {
+            if ($scope > 0 || $this->scope > 0) {
                 $this->smarty->ext->_updateScope->_updateScope($this, $varName, $scope);
             }
         }
