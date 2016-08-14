@@ -1,0 +1,1 @@
+{$foo = 'newvar' noscope}{checkvar var=foo}
