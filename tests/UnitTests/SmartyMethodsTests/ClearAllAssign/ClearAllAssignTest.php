@@ -23,12 +23,16 @@ class ClearAllAssignTest extends PHPUnit_Smarty
         $this->setUpSmarty(dirname(__FILE__));
 
         $this->smarty->assign('foo', 'foo');
-        $this->_data = new Smarty_Data($this->smarty);
+        $this->_data = $this->smarty->createData($this->smarty);
         $this->_data->assign('bar', 'bar');
         $this->_tpl = $this->smarty->createTemplate('eval:{$foo}{$bar}{$blar}', null, null, $this->_data);
         $this->_tpl->assign('blar', 'blar');
     }
 
+    public function testInit()
+    {
+        $this->cleanDirs();
+    }
     /**
      * test all variables accessable
      */

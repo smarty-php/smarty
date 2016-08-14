@@ -25,7 +25,7 @@ class ClearAllAssignBCTest extends PHPUnit_Smarty
         $this->setUpSmarty(dirname(__FILE__));
 
         $this->smartyBC->assign('foo', 'foo');
-        $this->_dataBC = new Smarty_Data($this->smartyBC);
+        $this->_dataBC = $this->smartyBC->createData($this->smartyBC);
         $this->_dataBC->assign('bar', 'bar');
         $this->_tplBC = $this->smartyBC->createTemplate('eval:{$foo}{$bar}{$blar}', null, null, $this->_dataBC);
         $this->_tplBC->assign('blar', 'blar');

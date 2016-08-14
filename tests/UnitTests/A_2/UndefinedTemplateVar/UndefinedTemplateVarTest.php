@@ -19,6 +19,10 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         error_reporting(E_ALL | E_STRICT);
     }
 
+    public function testInit()
+    {
+        $this->cleanDirs();
+    }
     /**
      * Test E_NOTICE suppression template fetched by Smarty object
      */
