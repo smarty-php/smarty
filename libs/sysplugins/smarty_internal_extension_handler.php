@@ -10,15 +10,20 @@
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  *
- * @property Smarty_Internal_Runtime_TplFunction    $_tplFunction
- * @property Smarty_Internal_Runtime_Foreach        $_foreach
- * @property Smarty_Internal_Runtime_WriteFile      $_writeFile
+ * Runtime extensions
+ * @property Smarty_Internal_Runtime_CacheModify    $_cacheModify
+ * @property Smarty_Internal_Runtime_Capture        $_capture
  * @property Smarty_Internal_Runtime_CodeFrame      $_codeFrame
  * @property Smarty_Internal_Runtime_FilterHandler  $_filterHandler
+ * @property Smarty_Internal_Runtime_Foreach        $_foreach
  * @property Smarty_Internal_Runtime_GetIncludePath $_getIncludePath
- * @property Smarty_Internal_Runtime_UpdateScope    $_updateScope
- * @property Smarty_Internal_Runtime_CacheModify    $_cacheModify
+ * @property Smarty_Internal_Runtime_Make_Nocache   $_make_nocache
  * @property Smarty_Internal_Runtime_UpdateCache    $_updateCache
+ * @property Smarty_Internal_Runtime_UpdateScope    $_updateScope
+ * @property Smarty_Internal_Runtime_TplFunction    $_tplFunction
+ * @property Smarty_Internal_Runtime_WriteFile      $_writeFile
+ *
+ * Method extensions
  * @property Smarty_Internal_Method_GetTemplateVars $getTemplateVars
  * @property Smarty_Internal_Method_Append          $append
  * @property Smarty_Internal_Method_AppendByRef     $appendByRef
@@ -64,6 +69,7 @@ class Smarty_Internal_Extension_Handler
         if (!isset($smarty->ext->$name)) {
             $class = 'Smarty_Internal_Method_' . ucfirst($name);
             if (preg_match('/^(set|get)([A-Z].*)$/', $name, $match)) {
+                $pn = '';
                 if (!isset($this->_property_info[ $prop = $match[ 2 ] ])) {
                     // convert camel case to underscored name
                     $this->resolvedProperties[ $prop ] = $pn = strtolower(join('_',
@@ -126,6 +132,9 @@ class Smarty_Internal_Extension_Handler
             $class = 'Smarty_Internal_Runtime_' . ucfirst(substr($property_name, 1));
         } else {
             $class = 'Smarty_Internal_Method_' . ucfirst($property_name);
+        }
+        if (!class_exists($class)) {
+            return $this->$property_name = new Smarty_Internal_Undefined($class);
         }
         return $this->$property_name = new $class();
     }
