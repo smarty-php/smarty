@@ -55,7 +55,7 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
      */
     public $valid_scopes = array('local' => Smarty::SCOPE_LOCAL, 'parent' => Smarty::SCOPE_PARENT,
                                  'root' => Smarty::SCOPE_ROOT, 'tpl_root' => Smarty::SCOPE_TPL_ROOT,
-                                 'smarty' => Smarty::SCOPE_SMARTY);
+                                 'smarty' => Smarty::SCOPE_SMARTY, 'global' => Smarty::SCOPE_SMARTY);
 
     /**
      * Compiles code for the {config_load} tag

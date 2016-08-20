@@ -1,4 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 20.08-2016
+  - bugfix {config_load ... scope="global"} shall not throw an arror but fallback to scope="smarty" https://github.com/smarty-php/smarty/issues/274
+
  14.08.2016
   - bugfix $smarty_>debugging = true; did E_NOTICE messages when {eval} tag was used https://github.com/smarty-php/smarty/issues/266
   - bugfix Class 'Smarty_Internal_Runtime_ValidateCompiled' not found when upgrading from some older Smarty versions with existing
