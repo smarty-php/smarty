@@ -67,7 +67,7 @@ class Smarty_Internal_Extension_Handler
         /* @var Smarty $data ->smarty */
         $smarty = isset($data->smarty) ? $data->smarty : $data;
         if (!isset($smarty->ext->$name)) {
-            $class = 'Smarty_Internal_Method_' . ucfirst($name);
+            $class = 'Smarty_Internal_Method_' . $this->upperCase($name);
             if (preg_match('/^(set|get)([A-Z].*)$/', $name, $match)) {
                 $pn = '';
                 if (!isset($this->_property_info[ $prop = $match[ 2 ] ])) {
@@ -105,6 +105,19 @@ class Smarty_Internal_Extension_Handler
     }
 
     /**
+     * Make first character of name parts upper case
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    public function upperCase($name) {
+        $_name = explode('_', $name);
+        $_name = array_map('ucfirst', $_name);
+        return implode('_', $_name);
+    }
+
+    /**
      * set extension property
      *
      * @param string $property_name property name
@@ -129,9 +142,9 @@ class Smarty_Internal_Extension_Handler
     {
         // object properties of runtime template extensions will start with '_'
         if ($property_name[ 0 ] == '_') {
-            $class = 'Smarty_Internal_Runtime_' . ucfirst(substr($property_name, 1));
+            $class = 'Smarty_Internal_Runtime' . $this->upperCase($property_name);
         } else {
-            $class = 'Smarty_Internal_Method_' . ucfirst($property_name);
+            $class = 'Smarty_Internal_Method_' . $this->upperCase($property_name);
         }
         if (!class_exists($class)) {
             return $this->$property_name = new Smarty_Internal_Undefined($class);
