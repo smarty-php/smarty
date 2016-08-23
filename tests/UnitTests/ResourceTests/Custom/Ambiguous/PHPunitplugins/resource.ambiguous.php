@@ -13,7 +13,7 @@ class Smarty_Resource_Ambiguous extends Smarty_Internal_Resource_File
 
     public function __construct($directory)
     {
-        $this->directory = rtrim($directory, "/\\") . DS;
+        $this->directory = rtrim($directory, "/\\") . DIRECTORY_SEPARATOR;
         //        parent::__construct();
     }
 
@@ -45,7 +45,7 @@ class Smarty_Resource_Ambiguous extends Smarty_Internal_Resource_File
     {
         $segment = '';
         if ($this->segment) {
-            $segment = rtrim($this->segment, "/\\") . DS;
+            $segment = rtrim($this->segment, "/\\") . DIRECTORY_SEPARATOR;
         }
 
         $source->filepath = $this->directory . $segment . $source->name;

@@ -37,7 +37,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
     protected function relative($path)
     {
         $path = str_replace(dirname(__FILE__), '.', $path);
-        if (DS == "\\") {
+        if (DIRECTORY_SEPARATOR == "\\") {
             $path = str_replace("\\", "/", $path);
         }
 

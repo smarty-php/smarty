@@ -17,7 +17,7 @@ class FileIncludePathTest extends PHPUnit_Smarty
         $this->smarty->use_include_path = true;
         $this->smarty->setTemplateDir(array('./templates', './templates_2', './include'));
         $this->smarty->enableSecurity();
-        $ds = DS;
+        $ds = DIRECTORY_SEPARATOR;
         set_include_path($this->smarty->_realpath(dirname(__FILE__) . "{$ds}..{$ds}..{$ds}..{$ds}Include_Path{$ds}Tpl{$ds}", true) . PATH_SEPARATOR . get_include_path());
     }
 

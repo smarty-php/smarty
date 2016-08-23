@@ -431,12 +431,12 @@ KEY `expire` (`expire`)
     public function normalizePath($path)
     {
         if ($path[ 0 ] == '.') {
-            $path = getcwd() . DS . $path;
+            $path = getcwd() . DIRECTORY_SEPARATOR . $path;
         }
-        $path = preg_replace('#[\\\/]+([.][\\\/]+)*#', DS, $path);
-        while (strrpos($path, '.' . DS) !== false) {
+        $path = preg_replace('#[\\\/]+([.][\\\/]+)*#', DIRECTORY_SEPARATOR, $path);
+        while (strrpos($path, '.' . DIRECTORY_SEPARATOR) !== false) {
             $path =
-                preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DS,
+                preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DIRECTORY_SEPARATOR,
                              $path);
         }
         return $path;
@@ -489,7 +489,7 @@ KEY `expire` (`expire`)
     public function buildCompiledPath(Smarty_Internal_Template $tpl, $sub = true, $caching = false, $compile_id = null,
                                       $name = null, $type = null, $dir = null)
     {
-        $sep = DS;
+        $sep = DIRECTORY_SEPARATOR;
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
         $uid = $this->buildUid($tpl, $sp, $name, $type);
@@ -553,7 +553,7 @@ KEY `expire` (`expire`)
         switch ($cacheType) {
             case 'file':
             case 'filetest':
-                $sep = DS;
+                $sep = DIRECTORY_SEPARATOR;
                 $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
                 $sp = $this->buildSourcePath($tpl, $name, $type, $dir);

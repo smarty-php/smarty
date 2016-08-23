@@ -343,13 +343,13 @@ class SecurityTest extends PHPUnit_Smarty
     public function testChangedTrustedDirectory()
     {
         $this->smarty->security_policy->secure_dir = array(
-            '.' . DS . 'templates_2' . DS,
+            '.' . DIRECTORY_SEPARATOR . 'templates_2' . DIRECTORY_SEPARATOR,
         );
         $this->assertEquals("hello world", $this->smarty->fetch('eval:{include file="templates_2/hello.tpl"}'));
 
         $this->smarty->security_policy->secure_dir = array(
-            '.' . DS . 'templates_2' . DS,
-            '.' . DS . 'templates_3' . DS,
+            '.' . DIRECTORY_SEPARATOR . 'templates_2' . DIRECTORY_SEPARATOR,
+            '.' . DIRECTORY_SEPARATOR . 'templates_3' . DIRECTORY_SEPARATOR,
         );
         $this->assertEquals("templates_3", $this->smarty->fetch('eval:{include file="templates_3/dirname.tpl"}'));
     }
