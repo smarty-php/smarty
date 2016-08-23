@@ -1,4 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 23.08.2016
+  - bugfix remove constant DS as shortcut for DIRECTORY_SEPARATOR as the user may have defined it to something else https://github.com/smarty-php/smarty/issues/277
+
  20.08-2016
   - bugfix {config_load ... scope="global"} shall not throw an arror but fallback to scope="smarty" https://github.com/smarty-php/smarty/issues/274
   - bugfix {make_nocache} failed when using composer autoloader https://github.com/smarty-php/smarty/issues/275

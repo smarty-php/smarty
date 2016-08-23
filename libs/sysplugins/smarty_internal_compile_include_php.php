@@ -75,7 +75,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
             }
             if (!empty($_dir)) {
                 foreach ((array) $_dir as $_script_dir) {
-                    $_path = $compiler->smarty->_realpath($_script_dir . DS . $_file, true);
+                    $_path = $compiler->smarty->_realpath($_script_dir . $compiler->smarty->ds . $_file, true);
                     if (file_exists($_path)) {
                         $_filepath = $_path;
                         break;

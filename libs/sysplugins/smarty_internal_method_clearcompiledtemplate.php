@@ -41,7 +41,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
             return 0;
         }
         $_compile_id = isset($compile_id) ? preg_replace('![^\w]+!', '_', $compile_id) : null;
-        $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
+        $_dir_sep = $smarty->use_sub_dirs ? $smarty->ds : '^';
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;
             $smarty->caching = false;
@@ -49,7 +49,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
             if (!$tpl->source->handler->uncompiled && !$tpl->source->handler->recompiled && $tpl->source->exists) {
-                $_resource_part_1 = basename(str_replace('^', DS, $tpl->compiled->filepath));
+                $_resource_part_1 = basename(str_replace('^', $smarty->ds, $tpl->compiled->filepath));
                 $_resource_part_1_length = strlen($_resource_part_1);
             } else {
                 return 0;

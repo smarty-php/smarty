@@ -49,12 +49,12 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $this->filepath = $smarty->getCompileDir();
         if (isset($_template->compile_id)) {
             $this->filepath .= preg_replace('![^\w]+!', '_', $_template->compile_id) .
-                               ($smarty->use_sub_dirs ? DS : '^');
+                               ($smarty->use_sub_dirs ? $smarty->ds : '^');
         }
         // if use_sub_dirs, break file into directories
         if ($smarty->use_sub_dirs) {
-            $this->filepath .= $source->uid[ 0 ] . $source->uid[ 1 ] . DS . $source->uid[ 2 ] . $source->uid[ 3 ] . DS .
-                               $source->uid[ 4 ] . $source->uid[ 5 ] . DS;
+            $this->filepath .= $source->uid[ 0 ] . $source->uid[ 1 ] . $smarty->ds . $source->uid[ 2 ] . $source->uid[ 3 ] . $smarty->ds .
+                               $source->uid[ 4 ] . $source->uid[ 5 ] . $smarty->ds;
         }
         $this->filepath .= $source->uid . '_';
         if ($source->isConfig) {

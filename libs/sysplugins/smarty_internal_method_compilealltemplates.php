@@ -73,7 +73,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                     continue;
                 }
                 if ($_fileinfo->getPath() !== substr($_dir, 0, - 1)) {
-                    $_file = substr($_fileinfo->getPath(), strlen($_dir)) . DS . $_file;
+                    $_file = substr($_fileinfo->getPath(), strlen($_dir)) . $smarty->ds . $_file;
                 }
                 echo "\n<br>", $_dir, '---', $_file;
                 flush();

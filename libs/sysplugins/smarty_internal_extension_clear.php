@@ -38,7 +38,7 @@ class Smarty_Internal_Extension_Clear
             $_cache_id_parts_count = count($_cache_id_parts);
             if ($smarty->use_sub_dirs) {
                 foreach ($_cache_id_parts as $id_part) {
-                    $_dir .= $id_part . DS;
+                    $_dir .= $id_part . $smarty->ds;
                 }
             }
         }

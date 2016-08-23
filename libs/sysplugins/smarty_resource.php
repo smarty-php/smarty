@@ -218,7 +218,7 @@ abstract class Smarty_Resource
         if ($obj->_objType == 2 && $_file_is_dotted &&
             ($obj->source->type == 'file' || $obj->parent->source->type == 'extends')
         ) {
-             $name = $smarty->_realpath(dirname($obj->parent->source->filepath) . DS . $name);
+             $name = $smarty->_realpath(dirname($obj->parent->source->filepath) . $smarty->ds . $name);
         }
         return $resource->buildUniqueResourceName($smarty, $name);
     }

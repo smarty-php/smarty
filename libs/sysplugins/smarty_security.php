@@ -562,7 +562,7 @@ class Smarty_Security
                 unset($this->_resource_dir[ $directory ]);
             }
             foreach ((array) $this->secure_dir as $directory) {
-                $directory = $this->smarty->_realpath($directory . DS, true);
+                $directory = $this->smarty->_realpath($directory . DIRECTORY_SEPARATOR, true);
                 $this->_resource_dir[ $directory ] = true;
             }
             $this->_secure_dir = (array) $this->secure_dir;
@@ -618,7 +618,7 @@ class Smarty_Security
 
             $this->_trusted_dir = $this->trusted_dir;
             foreach ((array) $this->trusted_dir as $directory) {
-                $directory = $this->smarty->_realpath($directory . DS, true);
+                $directory = $this->smarty->_realpath($directory . DIRECTORY_SEPARATOR, true);
                 $this->_php_resource_dir[ $directory ] = true;
             }
         }
@@ -639,7 +639,7 @@ class Smarty_Security
      */
     private function _checkDir($filepath, $dirs)
     {
-        $directory = dirname($filepath) . DS;
+        $directory = dirname($filepath) . DIRECTORY_SEPARATOR;
         $_directory = array();
         while (true) {
             // remember the directory to add it to _resource_dir in case we're successful
@@ -656,7 +656,7 @@ class Smarty_Security
                 break;
             }
             // bubble up one level
-            $directory = preg_replace('#[\\\/][^\\\/]+[\\\/]$#', DS, $directory);
+            $directory = preg_replace('#[\\\/][^\\\/]+[\\\/]$#', DIRECTORY_SEPARATOR, $directory);
         }
 
         // give up
