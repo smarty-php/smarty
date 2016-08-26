@@ -1,4 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 26.08.2016
+  - bugfix change of 23.08.2016 failed on linux when use_include_path = true
+
  23.08.2016
   - bugfix remove constant DS as shortcut for DIRECTORY_SEPARATOR as the user may have defined it to something else https://github.com/smarty-php/smarty/issues/277
 
