@@ -45,7 +45,9 @@
  */
 function smarty_function_html_checkboxes($params, $template)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    if (!is_callable('smarty_function_escape_special_chars')) {
+        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    }
 
     $name = 'checkbox';
     $values = null;

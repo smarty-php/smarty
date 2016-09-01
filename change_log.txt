@@ -1,4 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 01.09.2016
+  - performance require_once should be called only once for shared plugins https://github.com/smarty-php/smarty/issues/280
+  
  26.08.2016
   - bugfix change of 23.08.2016 failed on linux when use_include_path = true
 

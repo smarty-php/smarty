@@ -7,11 +7,6 @@
  */
 
 /**
- * @ignore
- */
-require_once(SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php');
-
-/**
  * Smarty escape modifier plugin
  * Type:     modifier<br>
  * Name:     escape<br>
@@ -28,6 +23,9 @@ require_once(SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php');
 function smarty_modifiercompiler_escape($params, $compiler)
 {
     static $_double_encode = null;
+    if (!is_callable('smarty_literal_compiler_param')) {
+        require_once(SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php');
+    }
     if ($_double_encode === null) {
         $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
     }
