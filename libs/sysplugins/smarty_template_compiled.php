@@ -103,7 +103,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             } else {
                 $_smarty_tpl->mustCompile = true;
                 if(!file_exists($this->filepath)){
-                    throw new SmartyException("Unable to load {$this->filepath}'");
+                    throw new SmartyException("Unable to load '{$this->filepath}'");
                 }
                 include($this->filepath);
                 if ($_smarty_tpl->mustCompile) {
