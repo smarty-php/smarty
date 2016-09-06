@@ -2,7 +2,8 @@
  07.09.2016
   - bugfix using nocache like attribute with value true like {plugin nocache=true} did not work https://github.com/smarty-php/smarty/issues/285
   - bugfix uppercase TRUE, FALSE and NULL did not work when security was enabled https://github.com/smarty-php/smarty/issues/282
-
+  - bugfix when {foreach} was looping over an object the total property like {$item@total} did always return 1 https://github.com/smarty-php/smarty/issues/281
+  
  01.09.2016
   - performance require_once should be called only once for shared plugins https://github.com/smarty-php/smarty/issues/280
   

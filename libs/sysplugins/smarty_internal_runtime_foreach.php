@@ -130,7 +130,7 @@ class Smarty_Internal_Runtime_Foreach
                 return 1;
             }
         } elseif (is_object($value)) {
-            return count($value);
+            return count((array)$value);
         }
         return 0;
     }
