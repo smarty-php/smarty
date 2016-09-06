@@ -32,6 +32,12 @@ function smarty_modifier_date_format($string, $format = null, $default_date = ''
     if ($format === null) {
         $format = Smarty::$_DATE_FORMAT;
     }
+    /**
+     * require_once the {@link shared.make_timestamp.php} plugin
+     */
+    if (!is_callable('smarty_make_timestamp')) {
+        require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
+    }
     if ($string != '' && $string != '0000-00-00' && $string != '0000-00-00 00:00:00') {
         $timestamp = smarty_make_timestamp($string);
     } elseif ($default_date != '') {
