@@ -472,7 +472,7 @@ class Smarty_Security
             return true;
         }
         if (!empty($this->trusted_constants)) {
-            if (!in_array($const, $this->trusted_constants)) {
+            if (!in_array(strtolower($const), $this->trusted_constants)) {
                 $compiler->trigger_template_error("Security: access to constant '{$const}' not permitted");
                 return false;
             }
