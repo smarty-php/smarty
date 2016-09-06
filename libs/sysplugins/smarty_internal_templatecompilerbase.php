@@ -513,12 +513,12 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // check nocache option flag
         foreach ($args as $arg) {
             if (!is_array($arg)) {
-                if ($arg == "'nocache'") {
+                if ($arg === "'nocache'" || $arg === 'nocache') {
                     $this->tag_nocache = true;
                 }
             } else {
                 foreach ($arg as $k => $v) {
-                    if ($k == "'nocache'" && (trim($v, "'\" ") == 'true')) {
+                    if (($k === "'nocache'" || $k === 'nocache') && (trim($v, "'\" ") == 'true')) {
                         $this->tag_nocache = true;
                     }
                 }
