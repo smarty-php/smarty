@@ -425,6 +425,7 @@ class Smarty_Internal_TestInstall
                                         'smarty_internal_method_configload.php' => true,
                                         'smarty_internal_method_createdata.php' => true,
                                         'smarty_internal_method_getautoloadfilters.php' => true,
+                                        'smarty_internal_method_getconfigvariable.php' => true,
                                         'smarty_internal_method_getconfigvars.php' => true,
                                         'smarty_internal_method_getdebugtemplate.php' => true,
                                         'smarty_internal_method_getdefaultmodifiers.php' => true,

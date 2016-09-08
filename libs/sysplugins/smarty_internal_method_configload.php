@@ -109,7 +109,7 @@ class Smarty_Internal_Method_ConfigLoad
     /**
      * Assign all config variables in given scope
      *
-     * @param array    $config_vars config variables in scope
+     * @param array                     $config_vars     config variables in scope
      * @param \Smarty_Internal_Template $tpl
      * @param  array                    $new_config_vars loaded config variables
      */
@@ -158,15 +158,15 @@ class Smarty_Internal_Method_ConfigLoad
     /**
      * gets  a config variable value
      *
-     * @param \Smarty_Internal_Template $tpl     template object
-     * @param string                    $varName the name of the config variable
-     * @param bool                      $errorEnable
+     * @param \Smarty|\Smarty_Internal_Data|\Smarty_Internal_Template $data
+     * @param string                                                  $varName the name of the config variable
+     * @param bool                                                    $errorEnable
      *
-     * @return mixed  the value of the config variable
+     * @return null|string  the value of the config variable
      */
-    public function _getConfigVariable(Smarty_Internal_Template $tpl, $varName, $errorEnable = true)
+    public function _getConfigVariable(Smarty_Internal_Data $data, $varName, $errorEnable = true)
     {
-        $_ptr = $tpl;
+        $_ptr = $data;
         while ($_ptr !== null) {
             if (isset($_ptr->config_vars[ $varName ])) {
                 // found it, return it
@@ -175,7 +175,7 @@ class Smarty_Internal_Method_ConfigLoad
             // not found, try at parent
             $_ptr = $_ptr->parent;
         }
-        if ($tpl->smarty->error_unassigned && $errorEnable) {
+        if ($data->smarty->error_unassigned && $errorEnable) {
             // force a notice
             $x = $$varName;
         }
