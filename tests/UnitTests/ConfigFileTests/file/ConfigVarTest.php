@@ -313,6 +313,19 @@ class ConfigVarTest extends PHPUnit_Smarty
     }
 
     /**
+     * test getConfigVariable on template object
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testConfigGetSingleConfigVarTemplate2()
+    {
+        $tpl = $this->smarty->createTemplate('text.tpl');
+        $tpl->configLoad('test.conf');
+        $this->assertEquals("Welcome to Smarty!", $tpl->getConfigVariable('title'));
+    }
+
+    /**
      * test getConfigVars return all variables on template object
      *
      * @runInSeparateProcess
