@@ -2,6 +2,7 @@
  09.09.2016
   - bugfix/optimization {foreach} did not execute the {foreachelse} when iterating empty objects https://github.com/smarty-php/smarty/pull/287
   - bugfix {foreach} must keep the @properties when restoring a saved $item variable as the properties might be used outside {foreach} https://github.com/smarty-php/smarty/issues/267
+  - improvement {foreach} observe {break n} and {continue n} nesting levels when restoring saved $item and $key variables
 
  08.09.2016
   - bugfix implement wrapper for removed method getConfigVariable() https://github.com/smarty-php/smarty/issues/286
@@ -52,7 +53,7 @@
  23.07.2016
   - bugfix setTemplateDir('/') and setTemplateDir('') did create wrong absolute filepath https://github.com/smarty-php/smarty/issues/245
   - optimization of filepath normalization
-  - improvement remove double funtion declaration in plugin shared.escape_special_cars.php https://github.com/smarty-php/smarty/issues/229
+  - improvement remove double function declaration in plugin shared.escape_special_cars.php https://github.com/smarty-php/smarty/issues/229
  
  19.07.2016
   - bugfix multiple {include} with relative filepath within {block}{/block} could fail https://github.com/smarty-php/smarty/issues/246

@@ -93,20 +93,28 @@ class Smarty_Internal_Runtime_Foreach
     /**
      * Restore saved variables
      *
+     * will be called by {break n} or {continue n} for the required number of levels
+     *
      * @param \Smarty_Internal_Template $tpl
+     * @param int                       $levels number of levels
      */
-    public function restore(Smarty_Internal_Template $tpl)
+    public function restore(Smarty_Internal_Template $tpl, $levels = 1)
     {
-        $saveVars = array_pop($this->stack);
-        if (isset($saveVars['item'])) {
-            $item = &$saveVars['item'];
-            $tpl->tpl_vars[ $item[0] ]->value = $item[1]->value;
-        }
-        if (isset($saveVars['key'])) {
-            $tpl->tpl_vars[ $saveVars['key'][0] ] = $saveVars['key'][1];
-        }
-        if (isset($saveVars['named'])) {
-            $tpl->tpl_vars[ $saveVars['named'][0] ] = $saveVars['named'][1];
+        while ($levels) {
+            $saveVars = array_pop($this->stack);
+            if (!empty($saveVars)) {
+                if (isset($saveVars[ 'item' ])) {
+                    $item = &$saveVars[ 'item' ];
+                    $tpl->tpl_vars[ $item[ 0 ] ]->value = $item[ 1 ]->value;
+                }
+                if (isset($saveVars[ 'key' ])) {
+                    $tpl->tpl_vars[ $saveVars[ 'key' ][ 0 ] ] = $saveVars[ 'key' ][ 1 ];
+                }
+                if (isset($saveVars[ 'named' ])) {
+                    $tpl->tpl_vars[ $saveVars[ 'named' ][ 0 ] ] = $saveVars[ 'named' ][ 1 ];
+                }
+            }
+            $levels--;
         }
     }
 

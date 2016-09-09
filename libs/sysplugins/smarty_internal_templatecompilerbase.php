@@ -844,9 +844,26 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @param  mixed  $param2 optional parameter
      * @param  mixed  $param3 optional parameter
      *
-     * @return string compiled code
+     * @return string|bool compiled code or false
      */
     public function callTagCompiler($tag, $args, $param1 = null, $param2 = null, $param3 = null)
+    {
+        $tagCompiler = $this->getTagCompiler($tag);
+        // compile this tag
+        return $tagCompiler === false ? false : $tagCompiler->compile($args, $this, $param1, $param2, $param3);
+    }
+
+    /**
+     * lazy loads internal compile plugin for tag compile objects cached for reuse.
+     *
+     * class name format:  Smarty_Internal_Compile_TagName
+     * plugin filename format: Smarty_Internal_TagName.php
+     *
+     * @param  string $tag tag name
+     *
+     * @return Smarty_Internal_CompileBase|bool tag compiler object or false if not found
+     */
+    public function getTagCompiler($tag)
     {
         // re-use object if already exists
         if (!isset(self::$_tag_objects[ $tag ])) {
@@ -860,12 +877,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 self::$_tag_objects[ $tag ] = new $class_name;
             } else {
                 self::$_tag_objects[ $tag ] = false;
-                return false;
             }
         }
-        // compile this tag
-        return self::$_tag_objects[ $tag ] === false ? false :
-            self::$_tag_objects[ $tag ]->compile($args, $this, $param1, $param2, $param3);
+        return self::$_tag_objects[ $tag ];
     }
 
     /**
