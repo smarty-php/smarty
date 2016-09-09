@@ -1,5 +1,5 @@
 {strip}
-{$x = 'hallo'}
+{$x = "hallo"}
 {foreach $foo as $x}
     outer={$x@index}#{$x}
 {foreach $bar as $x}

@@ -1,1 +1,0 @@
-{foreach $foo as $x}{$x@key}{$x}{foreachelse}else{/foreach}

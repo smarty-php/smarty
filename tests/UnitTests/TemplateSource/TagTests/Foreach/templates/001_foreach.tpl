@@ -1,1 +1,0 @@
-{foreach item=x from=$foo}{$x}{/foreach}

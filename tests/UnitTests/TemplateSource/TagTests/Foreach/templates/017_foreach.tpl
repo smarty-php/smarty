@@ -1,1 +1,0 @@
-{foreach item=x name=foo from=[]}{$x}{foreachelse}else{/foreach}{if $x@show}show{else} noshow{/if}

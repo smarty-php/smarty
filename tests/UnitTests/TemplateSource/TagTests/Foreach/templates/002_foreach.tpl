@@ -1,1 +1,0 @@
-{foreach item=x from=$foo}{if $x == 2}{break}{/if}{$x}{/foreach}
