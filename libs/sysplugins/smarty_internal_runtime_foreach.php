@@ -50,7 +50,7 @@ class Smarty_Internal_Runtime_Foreach
             $total = empty($from) ? 0 : (($needTotal || isset($properties[ 'total' ])) ? count($from) : 1);
         }
         if (isset($tpl->tpl_vars[ $item ])) {
-            $saveVars[ $item ] = $tpl->tpl_vars[ $item ];
+            $saveVars[ 'item' ] = array($item, $tpl->tpl_vars[ $item ]);
         }
         $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
         if ($total === 0) {
@@ -58,7 +58,7 @@ class Smarty_Internal_Runtime_Foreach
         } else {
             if ($key) {
                 if (isset($tpl->tpl_vars[ $key ])) {
-                    $saveVars[ $key ] = $tpl->tpl_vars[ $key ];
+                    $saveVars[ 'key' ] = array($key, $tpl->tpl_vars[ $key ]);
                 }
                 $tpl->tpl_vars[ $key ] = new Smarty_Variable(null, $tpl->isRenderingCache);
             }
@@ -69,7 +69,7 @@ class Smarty_Internal_Runtime_Foreach
         if ($name) {
             $namedVar = "__smarty_foreach_{$name}";
             if (isset($tpl->tpl_vars[ $namedVar ])) {
-                $saveVars[ $namedVar ] = $tpl->tpl_vars[ $namedVar ];
+                $saveVars[ 'named' ] = array($namedVar, $tpl->tpl_vars[ $namedVar ]);
             }
             $namedProp = array();
             if (isset($properties[ 'total' ])) {
@@ -97,8 +97,16 @@ class Smarty_Internal_Runtime_Foreach
      */
     public function restore(Smarty_Internal_Template $tpl)
     {
-        foreach (array_pop($this->stack) as $k => $v) {
-            $tpl->tpl_vars[ $k ] = $v;
+        $saveVars = array_pop($this->stack);
+        if (isset($saveVars['item'])) {
+            $item = &$saveVars['item'];
+            $tpl->tpl_vars[ $item[0] ]->value = $item[1]->value;
+        }
+        if (isset($saveVars['key'])) {
+            $tpl->tpl_vars[ $saveVars['key'][0] ] = $saveVars['key'][1];
+        }
+        if (isset($saveVars['named'])) {
+            $tpl->tpl_vars[ $saveVars['named'][0] ] = $saveVars['named'][1];
         }
     }
 
