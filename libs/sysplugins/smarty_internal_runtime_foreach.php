@@ -41,14 +41,13 @@ class Smarty_Internal_Runtime_Foreach
         if (!is_array($from) && !is_object($from)) {
             settype($from, 'array');
         }
-        $total = ($needTotal || isset($properties[ 'total' ])) ? $this->count($from) : 1;
+        $total = $this->count($from);
         if (isset($tpl->tpl_vars[ $item ])) {
             $saveVars[ $item ] = $tpl->tpl_vars[ $item ];
         }
         $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
-        if (empty($from)) {
+        if ($total == 0) {
             $from = null;
-            $total = 0;
             if ($needTotal) {
                 $tpl->tpl_vars[ $item ]->total = 0;
             }
