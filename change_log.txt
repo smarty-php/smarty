@@ -1,4 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 09.09.2016
+  - bugfix/optimization {foreach} did not execute the {foreachelse} when iterating empty objects https://github.com/smarty-php/smarty/pull/287
+
  08.09.2016
   - bugfix implement wrapper for removed method getConfigVariable() https://github.com/smarty-php/smarty/issues/286
 

@@ -38,20 +38,23 @@ class Smarty_Internal_Runtime_Foreach
                          $properties = array())
     {
         $saveVars = array();
-        if (!is_array($from) && !is_object($from)) {
-            settype($from, 'array');
+        $total = null;
+        if (!is_array($from)) {
+            if (is_object($from)) {
+                $total = $this->count($from);
+            } else {
+                settype($from, 'array');
+            }
         }
-        $total = ($needTotal || isset($properties[ 'total' ])) ? $this->count($from) : 1;
+        if (!isset($total)) {
+            $total = empty($from) ? 0 : (($needTotal || isset($properties[ 'total' ])) ? count($from) : 1);
+        }
         if (isset($tpl->tpl_vars[ $item ])) {
             $saveVars[ $item ] = $tpl->tpl_vars[ $item ];
         }
         $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
-        if (empty($from)) {
+        if ($total === 0) {
             $from = null;
-            $total = 0;
-            if ($needTotal) {
-                $tpl->tpl_vars[ $item ]->total = 0;
-            }
         } else {
             if ($key) {
                 if (isset($tpl->tpl_vars[ $key ])) {
@@ -59,9 +62,9 @@ class Smarty_Internal_Runtime_Foreach
                 }
                 $tpl->tpl_vars[ $key ] = new Smarty_Variable(null, $tpl->isRenderingCache);
             }
-            if ($needTotal) {
-                $tpl->tpl_vars[ $item ]->total = $total;
-            }
+        }
+        if ($needTotal) {
+            $tpl->tpl_vars[ $item ]->total = $total;
         }
         if ($name) {
             $namedVar = "__smarty_foreach_{$name}";
@@ -110,28 +113,21 @@ class Smarty_Internal_Runtime_Foreach
      */
     public function count($value)
     {
-        if (is_array($value) === true || $value instanceof Countable) {
+        if ($value instanceof Countable) {
             return count($value);
         } elseif ($value instanceof IteratorAggregate) {
             // Note: getIterator() returns a Traversable, not an Iterator
             // thus rewind() and valid() methods may not be present
             return iterator_count($value->getIterator());
         } elseif ($value instanceof Iterator) {
-            if ($value instanceof Generator) {
-                return 1;
-            }
-            return iterator_count($value);
+            return $value instanceof Generator ? 1 : iterator_count($value);
         } elseif ($value instanceof PDOStatement) {
             return $value->rowCount();
         } elseif ($value instanceof Traversable) {
             return iterator_count($value);
         } elseif ($value instanceof ArrayAccess) {
-            if ($value->offsetExists(0)) {
-                return 1;
-            }
-        } elseif (is_object($value)) {
-            return count((array)$value);
+            return $value->offsetExists(0) ? 1 : 0;
         }
-        return 0;
+        return count((array) $value);
     }
 }
