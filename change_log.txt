@@ -1,7 +1,4 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
- 11.09.2016
-  - improvement {math} misleading E_NOTICE messages when parameter value = null https://github.com/smarty-php/smarty/issues/288
-
  09.09.2016
   - bugfix/optimization {foreach} did not execute the {foreachelse} when iterating empty objects https://github.com/smarty-php/smarty/pull/287
   - bugfix {foreach} must keep the @properties when restoring a saved $item variable as the properties might be used outside {foreach} https://github.com/smarty-php/smarty/issues/267
