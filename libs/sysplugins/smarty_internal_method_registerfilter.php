@@ -42,7 +42,7 @@ class Smarty_Internal_Method_RegisterFilter
      */
     public function registerFilter(Smarty_Internal_TemplateBase $obj, $type, $callback, $name = null)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         $this->_checkFilterType($type);
         $name = isset($name) ? $name : $this->_getFilterName($callback);
         if (!is_callable($callback)) {

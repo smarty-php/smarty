@@ -67,7 +67,7 @@ class Smarty_Internal_Runtime_TplFunction
         $this->tplFunctions = array_merge($this->tplFunctions, $tplFunctions);
         $ptr = $tpl;
         // make sure that the template functions are known in parent templates
-        while (isset($ptr->parent) && $ptr->parent->_objType === 2 && !isset($ptr->ext->_tplFunction)) {
+        while ($ptr->_isTplObj() && !isset($ptr->ext->_tplFunction)) {
             $ptr->ext->_tplFunction = $this;
             $ptr = $ptr->parent;
         }

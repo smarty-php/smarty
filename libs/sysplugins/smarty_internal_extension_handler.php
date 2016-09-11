@@ -77,7 +77,7 @@ class Smarty_Internal_Extension_Handler
                                                                                           - 1, PREG_SPLIT_NO_EMPTY |
                                                                                                PREG_SPLIT_DELIM_CAPTURE)));
                     $this->_property_info[ $prop ] = property_exists($data, $pn) ? 1 :
-                        ($data->_objType == 2 && property_exists($smarty, $pn) ? 2 : 0);
+                        ($data->_isTplObj() && property_exists($smarty, $pn) ? 2 : 0);
                 }
                 if ($this->_property_info[ $prop ]) {
                     $pn = $this->resolvedProperties[ $prop ];

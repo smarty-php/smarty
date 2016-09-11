@@ -41,7 +41,7 @@ class Smarty_Internal_Method_SetAutoloadFilters
      */
     public function setAutoloadFilters(Smarty_Internal_TemplateBase $obj, $filters, $type = null)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         if ($type !== null) {
             $this->_checkFilterType($type);
             $smarty->autoload_filters[ $type ] = (array) $filters;

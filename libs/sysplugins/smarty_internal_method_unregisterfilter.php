@@ -26,7 +26,7 @@ class Smarty_Internal_Method_UnregisterFilter extends Smarty_Internal_Method_Reg
      */
     public function unregisterFilter(Smarty_Internal_TemplateBase $obj, $type, $callback)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         $this->_checkFilterType($type);
         if (isset($smarty->registered_filters[ $type ])) {
             $name = is_string($callback) ? $callback : $this->_getFilterName($callback);

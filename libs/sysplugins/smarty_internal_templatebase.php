@@ -14,7 +14,7 @@
  * @package      Smarty
  * @subpackage   Template
  *
- * @property Smarty $smarty
+ * @property int    $_objType
  *
  * The following methods will be dynamically loaded by the extension handler when they are called.
  * They are located in a corresponding Smarty_Internal_Method_xxxx class
@@ -42,6 +42,7 @@
  * @method Smarty_Internal_TemplateBase unregisterPlugin(string $type, string $name)
  * @method Smarty_Internal_TemplateBase unregisterFilter(string $type, mixed $callback)
  * @method Smarty_Internal_TemplateBase unregisterResource(string $name)
+ * @method Smarty _getSmartyObj()
  */
 abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
 {
@@ -147,16 +148,16 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      */
     private function _execute($template, $cache_id, $compile_id, $parent, $function)
     {
-        $smarty = $this->_objType == 1 ? $this : $this->smarty;
+        $smarty = $this->_getSmartyObj();
         $saveVars = true;
         if ($template === null) {
-            if ($this->_objType != 2) {
+            if (!$this->_isTplObj()) {
                 throw new SmartyException($function . '():Missing \'$template\' parameter');
             } else {
                 $template = $this;
             }
         } elseif (is_object($template)) {
-            if (!isset($template->_objType) || $template->_objType != 2) {
+            if (!isset($template->_objType) || !$template->_isTplObj()) {
                 throw new SmartyException($function . '():Template object expected');
             }
         } else {

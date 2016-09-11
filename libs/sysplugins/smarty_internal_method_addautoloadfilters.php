@@ -28,7 +28,7 @@ class Smarty_Internal_Method_AddAutoloadFilters extends Smarty_Internal_Method_S
      */
     public function addAutoloadFilters(Smarty_Internal_TemplateBase $obj, $filters, $type = null)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         if ($type !== null) {
             $this->_checkFilterType($type);
             if (!empty($smarty->autoload_filters[ $type ])) {

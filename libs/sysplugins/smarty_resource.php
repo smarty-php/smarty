@@ -209,13 +209,13 @@ abstract class Smarty_Resource
      */
     public static function getUniqueTemplateName($obj, $template_resource)
     {
-        $smarty = $obj->_objType == 2 ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         list($name, $type) = self::parseResourceName($template_resource, $smarty->default_resource_type);
         // TODO: optimize for Smarty's internal resource types
         $resource = Smarty_Resource::load($smarty, $type);
         // go relative to a given template?
         $_file_is_dotted = $name[ 0 ] == '.' && ($name[ 1 ] == '.' || $name[ 1 ] == '/');
-        if ($obj->_objType == 2 && $_file_is_dotted &&
+        if ($obj->_isTplObj() && $_file_is_dotted &&
             ($obj->source->type == 'file' || $obj->parent->source->type == 'extends')
         ) {
              $name = $smarty->_realpath(dirname($obj->parent->source->filepath) . $smarty->ds . $name);

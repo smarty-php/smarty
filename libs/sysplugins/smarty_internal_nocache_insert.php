@@ -43,7 +43,7 @@ class Smarty_Internal_Nocache_Insert
             $_output .= "echo {$_function}(" . var_export($_attr, true) . ",\$_smarty_tpl);?>";
         }
         $_tpl = $_template;
-        while (isset($_tpl->parent) && $_tpl->parent->_objType == 2) {
+        while ($_tpl->_isSubTpl()) {
             $_tpl = $_tpl->parent;
         }
 

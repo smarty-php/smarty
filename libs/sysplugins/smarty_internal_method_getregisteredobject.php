@@ -32,7 +32,7 @@ class Smarty_Internal_Method_GetRegisteredObject
      */
     public function getRegisteredObject(Smarty_Internal_TemplateBase $obj, $object_name)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         if (!isset($smarty->registered_objects[ $object_name ])) {
             throw new SmartyException("'$object_name' is not a registered object");
         }

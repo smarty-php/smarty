@@ -66,7 +66,7 @@ class Smarty_Internal_Method_ConfigLoad
         $confObj->source->scope = $scope;
         $confObj->compiled = Smarty_Template_Compiled::load($confObj);
         $confObj->compiled->render($confObj);
-        if ($data->_objType == 2) {
+        if ($data->_isTplObj()) {
             $data->compiled->file_dependency[ $confObj->source->uid ] =
                 array($confObj->source->filepath, $confObj->source->getTimeStamp(), $confObj->source->type);
         }
@@ -91,13 +91,13 @@ class Smarty_Internal_Method_ConfigLoad
                     return;
                 }
             }
-            if ($tpl->parent->_objType == 2 && ($tagScope || $tpl->parent->scope)) {
+            if ($tpl->parent->_isTplObj() && ($tagScope || $tpl->parent->scope)) {
                 $mergedScope = $tagScope | $tpl->scope;
                 if ($mergedScope) {
                     // update scopes
                     foreach ($tpl->smarty->ext->_updateScope->_getAffectedScopes($tpl->parent, $mergedScope) as $ptr) {
                         $this->_assignConfigVars($ptr->config_vars, $tpl, $new_config_vars);
-                        if ($tagScope && $ptr->_objType == 2 && isset($tpl->_cache[ 'varStack' ])) {
+                        if ($tagScope && $ptr->_isTplObj() && isset($tpl->_cache[ 'varStack' ])) {
                             $this->_updateVarStack($tpl, $new_config_vars);
                         }
                     }
