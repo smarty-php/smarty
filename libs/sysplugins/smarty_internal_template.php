@@ -107,19 +107,21 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * Some of the global Smarty settings copied to template scope
      * It load the required template resources and caching plugins
      *
-     * @param string                                                  $template_resource template resource string
-     * @param Smarty                                                  $smarty            Smarty instance
-     * @param \Smarty_Internal_Template|\Smarty|\Smarty_Internal_Data $_parent           back pointer to parent object
-     *                                                                                   with variables or null
-     * @param mixed                                                   $_cache_id         cache   id or null
-     * @param mixed                                                   $_compile_id       compile id or null
-     * @param bool                                                    $_caching          use caching?
-     * @param int                                                     $_cache_lifetime   cache life-time in seconds
+     * @param string                                                       $template_resource template resource string
+     * @param Smarty                                                       $smarty            Smarty instance
+     * @param null|\Smarty_Internal_Template|\Smarty|\Smarty_Internal_Data $_parent           back pointer to parent object
+     *                                                                                        with variables or null
+     * @param mixed                                                        $_cache_id         cache   id or null
+     * @param mixed                                                        $_compile_id       compile id or null
+     * @param bool|int|null                                                $_caching          use caching?
+     * @param int|null                                                     $_cache_lifetime   cache life-time in seconds
+     * @param bool                                                         $_isConfig
      *
      * @throws \SmartyException
      */
     public function __construct($template_resource, Smarty $smarty, Smarty_Internal_Data $_parent = null,
-                                $_cache_id = null, $_compile_id = null, $_caching = null, $_cache_lifetime = null)
+                                $_cache_id = null, $_compile_id = null, $_caching = null, $_cache_lifetime = null,
+                                $_isConfig = false)
     {
         $this->smarty = $smarty;
         // Smarty parameter
@@ -133,7 +135,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $this->parent = $_parent;
         // Template resource
         $this->template_resource = $template_resource;
-        $this->source = Smarty_Template_Source::load($this);
+        $this->source = $_isConfig ? Smarty_Template_Config::load($this) : Smarty_Template_Source::load($this);
         parent::__construct();
         if ($smarty->security_policy && method_exists($smarty->security_policy, 'registerCallBacks')) {
             $smarty->security_policy->registerCallBacks($this);

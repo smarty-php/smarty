@@ -57,11 +57,10 @@ class Smarty_Internal_Method_ConfigLoad
     public function _loadConfigFile(Smarty_Internal_Data $data, $config_file, $sections = null, $scope = 0)
     {
         /* @var \Smarty $smarty */
-        $smarty = isset($data->smarty) ? $data->smarty : $data;
+        $smarty = $data->_getSmartyObj();
         /* @var \Smarty_Internal_Template $confObj */
-        $confObj = new Smarty_Internal_Template($config_file, $smarty, $data);
+        $confObj = new Smarty_Internal_Template($config_file, $smarty, $data, null, null, null, null, true);
         $confObj->caching = Smarty::CACHING_OFF;
-        $confObj->source = Smarty_Template_Config::load($confObj);
         $confObj->source->config_sections = $sections;
         $confObj->source->scope = $scope;
         $confObj->compiled = Smarty_Template_Compiled::load($confObj);
