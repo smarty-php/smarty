@@ -67,8 +67,8 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
                                                   'value' => $output));
         }
         //Does tag create output
-        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
-        $output = "<?php " . ($compiler->has_output ? "echo " : '') . "{$output};?>\n";
+        $compiler->has_output = true;
+        $output = "<?php echo {$output};?>\n";
         return $output;
     }
 }

@@ -1,6 +1,8 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
  15.09.2016
   - bugfix assigning a variable in if condition by function like {if $value = array_shift($array)} the function got called twice https://github.com/smarty-php/smarty/issues/291
+  - bugfix function plugins called with assign attribute like {foo assign='bar'} did not output returned content because
+           because assumption was made that it was assigned to a variable https://github.com/smarty-php/smarty/issues/292
 
  11.09.2016
   - improvement {math} misleading E_USER_WARNING messages when parameter value = null https://github.com/smarty-php/smarty/issues/288
