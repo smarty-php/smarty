@@ -56,7 +56,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testGetTemplateFilepath()
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertEquals('f2611951e67556edb47cb258ac23fede8ba704bd', $tpl->source->filepath);
+        $this->assertEquals($this->buildSourcePath($tpl), $tpl->source->filepath);
     }
 
     /**
