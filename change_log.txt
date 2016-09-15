@@ -4,6 +4,7 @@
   - bugfix function plugins called with assign attribute like {foo assign='bar'} did not output returned content because
            because assumption was made that it was assigned to a variable https://github.com/smarty-php/smarty/issues/292
   - bugfix calling $smarty->isCached() on a not existing cache file with $smarty->cache_locking = true; could cause a 10 second delay http://www.smarty.net/forums/viewtopic.php?t=26282
+  - improvement make Smarty::clearCompiledTemplate() on custom resource independent from changes of templateId computation
 
  11.09.2016
   - improvement {math} misleading E_USER_WARNING messages when parameter value = null https://github.com/smarty-php/smarty/issues/288

@@ -46,7 +46,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
             $_save_stat = $smarty->caching;
             $smarty->caching = false;
             /* @var Smarty_Internal_Template $tpl */
-            $tpl = new $smarty->template_class($resource_name, $smarty);
+            $tpl = $smarty->createTemplate($resource_name);
             $smarty->caching = $_save_stat;
             if (!$tpl->source->handler->uncompiled && !$tpl->source->handler->recompiled && $tpl->source->exists) {
                 $_resource_part_1 = basename(str_replace('^', $smarty->ds, $tpl->compiled->filepath));
