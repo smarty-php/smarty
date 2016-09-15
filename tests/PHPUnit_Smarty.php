@@ -379,7 +379,8 @@ KEY `expire` (`expire`)
             case 'mysql':
                 return sha1($type . ':' . $name);
             case 'string':
-                return sha1($name);
+                $this->smarty->getTemplateDir();
+                return sha1($name . $this->smarty->_joined_template_dir);
             default:
                 throw new Exception("Unhandled source resource type '{$type}'");
         }
@@ -413,7 +414,8 @@ KEY `expire` (`expire`)
             case 'mysql':
                 return sha1($type . ':' . $name);
             case 'string':
-                return sha1($name);
+                $this->smarty->getTemplateDir();
+                return sha1($name . $this->smarty->_joined_template_dir);
             default:
                 throw new Exception("Unhandled source resource type '{$type}'");
         }
