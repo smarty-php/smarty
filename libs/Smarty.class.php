@@ -114,7 +114,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.31-dev/20';
+    const SMARTY_VERSION = '3.1.31-dev/21';
 
     /**
      * define variable scopes
@@ -1102,6 +1102,9 @@ class Smarty extends Smarty_Internal_TemplateBase
             $parent = null;
         } else {
             $data = null;
+        }
+        if (!$this->_templateDirNormalized) {
+            $this->_nomalizeTemplateConfig(false);
         }
         $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
         $tpl = null;
