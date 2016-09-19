@@ -280,10 +280,13 @@ KEY `expire` (`expire`)
      */
     public function cleanCacheDir()
     {
-        if (isset($this->smarty)) {
-            $this->cleanDir($this->smarty->getCacheDir());
-        } elseif (isset($this->smartyBC)) {
-            $this->cleanDir($this->smartyBC->getCacheDir());
+        $smarty = $this->getSmartyObj();
+        if (isset($smarty)) {
+            $dir = $smarty->getCacheDir();
+            $this->cleanDir($dir);
+            if (method_exists($smarty, '_isNewRelease')) {
+                $smarty->_isNewRelease($dir);
+            }
         }
     }
 
@@ -297,7 +300,7 @@ KEY `expire` (`expire`)
         $di = new RecursiveDirectoryIterator($dir);
         $ri = new RecursiveIteratorIterator($di, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($ri as $file) {
-            if (substr(basename($file->getPathname()), 0, 1) == '.') {
+            if (substr(basename($file->getPathname()), 0, 1) === '.' || substr((string)$file,-4) === '.txt') {
                 continue;
             }
             // directory ?
@@ -616,6 +619,14 @@ KEY `expire` (`expire`)
     {
         return str_replace('#test#', "test:{\$test nocache} compiled:{$tpl->getTemplateVars('test')} rendered:{\$test}",
                            $source);
+    }
+
+    /**
+     *  Gat Smarty object
+     * @return null|\Smarty|\SmartyBC
+     */
+    public function getSmartyObj(){
+        return isset($this->smarty) ? $this->smarty : isset($this->smartyBC) ? $this->smartyBC : null;
     }
 
     /**
