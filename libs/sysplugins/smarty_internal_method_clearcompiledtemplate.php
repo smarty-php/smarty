@@ -75,18 +75,20 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
-            if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
+             if (substr(basename($_file->getPathname()), 0, 1) == '.') {
                 continue;
             }
-
             $_filepath = (string) $_file;
-
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
                     // delete folder if empty
                     @rmdir($_file->getPathname());
                 }
             } else {
+                // delete only php files
+                if (substr($_filepath, -4) !== '.php') {
+                    continue;
+                }
                 $unlink = false;
                 if ((!isset($_compile_id) || (isset($_filepath[ $_compile_id_part_length ]) && $a =
                                 !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length))) &&

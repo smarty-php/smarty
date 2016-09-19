@@ -63,9 +63,10 @@ class Smarty_Internal_Extension_Clear
             $_cacheDirs = new RecursiveDirectoryIterator($_dir);
             $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
             foreach ($_cache as $_file) {
-                if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
+                if (substr(basename($_file->getPathname()), 0, 1) == '.') {
                     continue;
                 }
+                $_filepath = (string) $_file;
                 // directory ?
                 if ($_file->isDir()) {
                     if (!$_cache->isDot()) {
@@ -73,7 +74,11 @@ class Smarty_Internal_Extension_Clear
                         @rmdir($_file->getPathname());
                     }
                 } else {
-                    $_parts = explode($_dir_sep, str_replace('\\', '/', substr((string) $_file, $_dir_length)));
+                    // delete only php files
+                    if (substr($_filepath, -4) !== '.php') {
+                        continue;
+                    }
+                    $_parts = explode($_dir_sep, str_replace('\\', '/', substr($_filepath, $_dir_length)));
                     $_parts_count = count($_parts);
                     // check name
                     if (isset($resource_name)) {
@@ -114,9 +119,9 @@ class Smarty_Internal_Extension_Clear
                             }
                         }
                     }
-                    $_count += @unlink((string) $_file) ? 1 : 0;
+                    $_count += @unlink($_filepath) ? 1 : 0;
                     if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
-                        opcache_invalidate((string) $_file, true);
+                        opcache_invalidate($_filepath, true);
                     }
                 }
             }
