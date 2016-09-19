@@ -148,8 +148,8 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
             }
             if (!is_dir($dir . '/templates_c')) {
                 mkdir($dir . '/templates_c');
-                chmod($dir . '/templates_c', 0775);
             }
+            chmod($dir . '/templates_c', 0775);
             if (!is_dir($dir . '/cache')) {
                 mkdir($dir . '/cache');
                 chmod($dir . '/cache', 0775);
@@ -173,6 +173,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
                 $this->smartyBC->setCacheDir(dirname(__FILE__) . '/cache');
             }
         }
+        $smarty = $this->getSmartyObj();
     }
 
     /**
@@ -267,10 +268,13 @@ KEY `expire` (`expire`)
      */
     public function cleanCompileDir()
     {
-        if (isset($this->smarty)) {
-            $this->cleanDir($this->smarty->getCompileDir());
-        } elseif (isset($this->smartyBC)) {
-            $this->cleanDir($this->smartyBC->getCompileDir());
+        $smarty = $this->getSmartyObj();
+        if (isset($smarty)) {
+            $dir = $smarty->getCompileDir();
+            $this->cleanDir($dir);
+            if (method_exists($smarty, '_isNewRelease')) {
+                $smarty->_isNewRelease($dir);
+            }
         }
     }
 
