@@ -626,7 +626,7 @@ KEY `expire` (`expire`)
      * @return null|\Smarty|\SmartyBC
      */
     public function getSmartyObj(){
-        return isset($this->smarty) ? $this->smarty : isset($this->smartyBC) ? $this->smartyBC : null;
+        return isset($this->smarty) ? $this->smarty : (isset($this->smartyBC) ? $this->smartyBC : null);
     }
 
     /**
