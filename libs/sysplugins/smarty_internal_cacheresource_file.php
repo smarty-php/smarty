@@ -148,7 +148,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      */
     public function clearAll(Smarty $smarty, $exp_time = null)
     {
-        return Smarty_Internal_Extension_Clear::clear($smarty, null, null, null, $exp_time);
+        return $smarty->ext->_cacheResourceFile->clear($smarty, null, null, null, $exp_time);
     }
 
     /**
@@ -164,7 +164,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      */
     public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
     {
-        return Smarty_Internal_Extension_Clear::clear($smarty, $resource_name, $cache_id, $compile_id, $exp_time);
+        return $smarty->ext->_cacheResourceFile->clear($smarty, $resource_name, $cache_id, $compile_id, $exp_time);
     }
 
     /**

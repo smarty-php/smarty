@@ -1,15 +1,20 @@
 <?php
 
 /**
- * Smarty Extension Clear
- *
- * $smarty->clear() method file cache file resource
+ * Smarty cache resource file clear method
  *
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  */
-class Smarty_Internal_Extension_Clear
+
+/**
+ * Smarty Internal Runtime Cache Resource File Class
+ *
+ * @package    Smarty
+ * @subpackage PluginsInternal
+ */
+class Smarty_Internal_Runtime_CacheResourceFile
 {
     /**
      * Empty cache for a specific template
@@ -22,7 +27,7 @@ class Smarty_Internal_Extension_Clear
      *
      * @return integer number of cache files deleted
      */
-    public static function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
+    public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
     {
         $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
         $_compile_id = isset($compile_id) ? preg_replace('![^\w]+!', '_', $compile_id) : null;

@@ -1,6 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
  19.09.2016
   - optimization clear compiled and cached folder completely on detected version change
+  - cleanup convert cache resource file method clear into runtime extension
 
  15.09.2016
   - bugfix assigning a variable in if condition by function like {if $value = array_shift($array)} the function got called twice https://github.com/smarty-php/smarty/issues/291
