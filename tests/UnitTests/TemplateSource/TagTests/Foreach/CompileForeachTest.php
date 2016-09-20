@@ -287,4 +287,14 @@ class CompileForeachTest extends PHPUnit_Smarty
         $this->assertEquals("a1a2a1a2",
                             $this->smarty->fetch('035_foreach.tpl'));
     }
+    public function testForeachIsset_36()
+    {
+        $this->assertEquals("false",
+                            $this->smarty->fetch('036_foreach.tpl'));
+    }
+    public function testForeachIsset_37()
+    {
+        $this->assertEquals("false",
+                            $this->smarty->fetch('037_foreach.tpl'));
+    }
 }
