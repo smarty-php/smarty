@@ -6,7 +6,7 @@
  * @author  Uwe Tews
  * @author  Rodney Rehm
  */
-include_once dirname(__FILE__) . './ClearCompiledTest.php';
+include_once dirname(__FILE__) . '/ClearCompiledTest.php';
 
 /**
  * class for delete compiled template tests
