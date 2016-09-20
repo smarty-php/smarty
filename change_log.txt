@@ -1,4 +1,9 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 20.09.2016
+  - bugfix some $smarty special template variables are no longer accessed as real variable.
+    using them on calls like {if isset($smarty.foo)} or {if empty($smarty.foo)} will fail
+    http://www.smarty.net/forums/viewtopic.php?t=26222
+
  19.09.2016
   - optimization clear compiled and cached folder completely on detected version change
   - cleanup convert cache resource file method clear into runtime extension

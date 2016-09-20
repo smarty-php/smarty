@@ -772,6 +772,61 @@ abstract class Smarty_Internal_TemplateCompilerBase
     }
 
     /**
+     * compile PHP function call
+     *
+     * @param string       $name
+     * @param        array $parameter
+     *
+     * @return string
+     */
+    public function compilePHPFunctionCall($name, $parameter)
+    {
+        if (!$this->smarty->security_policy || $this->smarty->security_policy->isTrustedPhpFunction($name, $this)) {
+            if (strcasecmp($name, 'isset') === 0 || strcasecmp($name, 'empty') === 0 ||
+                strcasecmp($name, 'array') === 0 || is_callable($name)
+            ) {
+                $func_name = strtolower($name);
+                $par = implode(',', $parameter);
+                $parHasFuction = strpos($par, '(') !== false;
+                if ($func_name == 'isset') {
+                    if (count($parameter) == 0) {
+                        $this->trigger_template_error('Illegal number of paramer in "isset()"');
+                    }
+                    if ($parHasFuction) {
+                        $prefixVar = $this->getNewPrefixVariable();
+                        $this->appendPrefixCode("<?php $prefixVar" . '=' . $par . ';?>');
+                        $isset_par = $prefixVar;
+                    } else {
+                        $isset_par = str_replace("')->value", "',null,true,false)->value", $par);
+                    }
+                    return $name . "(" . $isset_par . ")";
+                } elseif (in_array($func_name, array('empty', 'reset', 'current', 'end', 'prev', 'next'))) {
+                    if (count($parameter) != 1) {
+                        $this->trigger_template_error('Illegal number of paramer in "empty()"');
+                    }
+                    if ($func_name == 'empty') {
+                        if ($parHasFuction) {
+                            $prefixVar = $this->getNewPrefixVariable();
+                            $this->appendPrefixCode("<?php $prefixVar" . '=' . $par . ';?>');
+
+                            return $func_name . '(' . $prefixVar . ')';
+                        } else {
+                            return $func_name . '(' .
+                                   str_replace("')->value", "',null,true,false)->value", $parameter[ 0 ]) . ')';
+                        }
+                    } else {
+                        return $func_name . '(' . $parameter[ 0 ] . ')';
+                    }
+                } else {
+                    return $name . "(" . implode(',', $parameter) . ")";
+                }
+            } else {
+                $this->trigger_template_error("unknown function \"" . $name . "\"");
+            }
+        }
+    }
+
+    /**
      * This method is called from parser to process a text content section
      * - remove text from inheritance child templates as they may generate output
      * - strip text if strip is enabled

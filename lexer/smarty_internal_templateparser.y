@@ -1083,38 +1083,7 @@ objectelement(res)::= PTR method(f).  {
 // function
 //
 function(res)     ::= ns1(f) OPENP params(p) CLOSEP. {
-    if (!$this->security || $this->security->isTrustedPhpFunction(f, $this->compiler)) {
-        if (strcasecmp(f,'isset') === 0 || strcasecmp(f,'empty') === 0 || strcasecmp(f,'array') === 0 || is_callable(f)) {
-            $func_name = strtolower(f);
-            if ($func_name == 'isset') {
-                if (count(p) == 0) {
-                    $this->compiler->trigger_template_error ('Illegal number of paramer in "isset()"');
-                }
-                $par = implode(',',p);
-                if (strncasecmp($par,'$_smarty_tpl->smarty->ext->_config->_getConfigVariable',strlen('$_smarty_tpl->smarty->ext->_config->_getConfigVariable')) === 0) {
-                    $prefixVar = $this->compiler->getNewPrefixVariable();
-                    $this->compiler->appendPrefixCode("<?php $prefixVar" .'='.str_replace(')',', false)',$par).';?>');
-                    $isset_par = $prefixVar;
-                } else {
-                    $isset_par=str_replace("')->value","',null,true,false)->value",$par);
-                }
-                res = f . "(". $isset_par .")";
-            } elseif (in_array($func_name,array('empty','reset','current','end','prev','next'))){
-                if (count(p) != 1) {
-                    $this->compiler->trigger_template_error ('Illegal number of paramer in "empty()"');
-                }
-                if ($func_name == 'empty') {
-                    res = $func_name.'('.str_replace("')->value","',null,true,false)->value",p[0]).')';
-                } else {
-                    res = $func_name.'('.p[0].')';
-                }
-            } else {
-                res = f . "(". implode(',',p) .")";
-            }
-        } else {
-            $this->compiler->trigger_template_error ("unknown function \"" . f . "\"");
-        }
-    }
+    res = $this->compiler->compilePHPFunctionCall(f, p);
 }
 
 
