@@ -1862,10 +1862,10 @@ class Smarty_Internal_Templateparser
         $j = strrpos($this->yystack[ $this->yyidx + 0 ]->minor, '.');
         if ($this->yystack[ $this->yyidx + 0 ]->minor[ $j + 1 ] == 'c') {
             // {$smarty.block.child}
-            $this->_retvalue = SMARTY_INTERNAL_COMPILE_BLOCK::compileChildBlock($this->compiler);
+            $this->_retvalue = $this->compiler->compileTag('block_child', array());;
         } else {
             // {$smarty.block.parent}
-            $this->_retvalue = SMARTY_INTERNAL_COMPILE_BLOCK::compileParentBlock($this->compiler);
+            $this->_retvalue = $this->compiler->compileTag('block_parent', array());;
         }
     }
 

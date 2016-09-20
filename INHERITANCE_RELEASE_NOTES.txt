@@ -1,3 +1,9 @@
+3.1.31
+New tags for inheritance parent and child
+{block_parent}  == {$smarty.block.parent}
+{block_child}  == {$smarty.block.child}
+
+3.1.28
 Starting with version 3.1.28 template inheritance is no longer a compile time process.
 All {block} tag parent/child relations are resolved at run time.
 This does resolve all known existing restrictions (see below).

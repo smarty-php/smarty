@@ -534,11 +534,11 @@ tag(res)   ::= LDEL SMARTYBLOCKCHILDPARENT(i). {
     $j = strrpos(i,'.');
     if (i[$j+1] == 'c') {
         // {$smarty.block.child}
-        res = SMARTY_INTERNAL_COMPILE_BLOCK::compileChildBlock($this->compiler);
+        res = $this->compiler->compileTag('block_child',array());;
     } else {
         // {$smarty.block.parent}
-        res = SMARTY_INTERNAL_COMPILE_BLOCK::compileParentBlock($this->compiler);
-    }
+       res = $this->compiler->compileTag('block_parent',array());;
+     }
 }
 
                   

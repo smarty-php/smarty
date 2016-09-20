@@ -2,6 +2,12 @@
 
 This file contains a brief description of new features which have been added to Smarty 3.1
 
+Smarty 3.1.31
+    New tags for inheritance parent and child
+    =========================================
+    {block_parent}  == {$smarty.block.parent}
+    {block_child}  == {$smarty.block.child}
+
 Smarty 3.1.30
 
     Loop optimization {foreach} and {section}
