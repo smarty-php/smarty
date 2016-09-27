@@ -114,7 +114,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.31-dev/29';
+    const SMARTY_VERSION = '3.1.31-dev/30';
 
     /**
      * define variable scopes
@@ -1120,6 +1120,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             $tpl->tpl_vars = $tpl->config_vars = array();
         } else if (!$do_clone && isset($this->_cache[ 'tplObjects' ][ $_templateId ])) {
             $tpl = clone $this->_cache[ 'tplObjects' ][ $_templateId ];
+            $tpl->tpl_vars = $tpl->config_vars = array();
         } else {
             /* @var Smarty_Internal_Template $tpl */
             $tpl = new $this->template_class($template, $this, null, $cache_id, $compile_id, null, null);
