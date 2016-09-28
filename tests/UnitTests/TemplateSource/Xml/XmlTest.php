@@ -69,6 +69,17 @@ class XmlTest extends PHPUnit_Smarty
         $content = $this->smarty->fetch('xml.tpl');
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>', $content);
     }
+    /**
+     * test subtemplate xml caching
+     */
+    public function testXmlCaching2()
+    {
+        $this->smarty->security_policy->php_handling = Smarty::PHP_PASSTHRU;
+        $this->smarty->caching = true;
+        $this->smarty->cache_lifetime = 1000;
+        $content = $this->smarty->fetch('xml_main.tpl');
+        $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>', $content);
+    }
 
     /**
      * test xml caching PhpQuote
