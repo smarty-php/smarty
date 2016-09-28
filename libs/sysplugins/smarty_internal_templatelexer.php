@@ -361,8 +361,7 @@ class Smarty_Internal_Templatelexer
     function yy_r1_3()
     {
 
-        $obj = new Smarty_Internal_Compile_Private_Php();
-        $obj->parsePhp($this);
+        $this->compiler->getTagCompiler('private_php')->parsePhp($this);
     }
 
     function yy_r1_7()
@@ -400,8 +399,7 @@ class Smarty_Internal_Templatelexer
     function yy_r1_10()
     {
 
-        $obj = new Smarty_Internal_Compile_Private_Php();
-        $obj->parsePhp($this);
+        $this->compiler->getTagCompiler('private_php')->parsePhp($this);
     }
 
     function yy_r1_19()

@@ -341,8 +341,7 @@ class Smarty_Internal_Templatelexer
         return false;
      }
      phptag {
-       $obj = new Smarty_Internal_Compile_Private_Php();
-       $obj->parsePhp($this);
+       $this->compiler->getTagCompiler('private_php')->parsePhp($this);
      }
      ldel literal rdel {
        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
@@ -364,8 +363,7 @@ class Smarty_Internal_Templatelexer
        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
      phpstart {
-       $obj = new Smarty_Internal_Compile_Private_Php();
-       $obj->parsePhp($this);
+       $this->compiler->getTagCompiler('private_php')->parsePhp($this);
      }
      text {
        $to = strlen($this->data);
