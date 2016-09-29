@@ -1,4 +1,8 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 29.09.2016
+  - improvement new Smarty::$extends_recursion property to disable execution of {extends} in templates called by extends resource
+     https://github.com/smarty-php/smarty/issues/296
+
  28.09.2016
   - bugfix the generated code for calling a subtemplate must pass the template resource name in single quotes https://github.com/smarty-php/smarty/issues/299
   - bugfix nocache hash was not removed for <?xml ?> tags in subtemplates https://github.com/smarty-php/smarty/issues/300
