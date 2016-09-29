@@ -225,7 +225,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
     /**
      * test  relative includes in {block}
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        data
      */
@@ -264,6 +264,60 @@ class ExtendsResourceTest extends PHPUnit_Smarty
             array(false, true, 6, 5, 6, 'no caching, merge - exits'),
             array(true, true, 7, 7, 7, 'caching, merge - new'),
             array(true, true, 8, 7, 7, 'caching, merge - exits'),
+        );
+    }
+    /**
+     * test  relative includes in {block}
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     * @dataProvider        data2
+     */
+    public function testCompileBlockExtendsRecursion_034($extends_recursion, $merge, $testNumber, $compileTestNumber,
+                                                         $renderTestNumber, $testName)
+    {
+        if (!property_exists($this->smarty, 'extends_recursion')) {
+            $this->markTestSkipped('no extends_recursion');
+        } else {
+            $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+            $this->smarty->assign('test', $testNumber);
+            $this->smarty->setExtendsRecursion($extends_recursion);
+            $this->smarty->setMergeCompiledIncludes($merge);
+            $cid = 0;
+            if ($merge) {
+                $cid = 1;
+            }
+            if ($extends_recursion) {
+                $cid += 2;
+            }
+            $this->smarty->setCompileId($cid);
+            $result = $this->smarty->fetch('extends:034_parent.tpl|034_grandchild.tpl');
+            $this->assertContains('grandchild - grandchild', $result, $testName . ' - grand');
+            $this->assertContains('parent - parent', $result, $testName . ' - grand');
+            $this->assertContains($extends_recursion ? 'child - child' : 'child - parent', $result,
+                                  $testName . ' - grand');
+            $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}",
+                                  $result, $testName . ' - fetch() failure');
+        }
+    }
+    public function data2(){
+        return array(
+            /*
+             * extends_recursion
+             * merging
+             * test nr
+             * result compile nr
+             * result render nr
+             * text
+             */
+            array(false, false, 1, 1, 1, 'no EXTENDS; no merge - new'),
+            array(false, false, 2, 1, 2, 'no EXTENDS; no merge - exits'),
+            array(true, false, 3, 3, 3, 'EXTENDS; no merge - new'),
+            array(true, false, 4, 3, 4, 'EXTENDS; no merge - exits'),
+            array(false, true, 5, 5, 5, 'no EXTENDS; merge - new'),
+            array(false, true, 6, 5, 6, 'no EXTENDS; merge - exits'),
+            array(true, true, 7, 7, 7, 'EXTENDS; merge - new'),
+            array(true, true, 8, 7, 8, 'EXTENDS; merge - exits'),
         );
     }
 
