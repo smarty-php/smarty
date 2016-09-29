@@ -61,7 +61,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             $this->filepath .= (int) $smarty->config_read_hidden + (int) $smarty->config_booleanize * 2 +
                                (int) $smarty->config_overwrite * 4;
         } else {
-            $this->filepath .= (int) $smarty->merge_compiled_includes + (int) $smarty->escape_html * 2;
+            $this->filepath .= (int) $smarty->merge_compiled_includes + (int) $smarty->escape_html * 2 +
+                               (($smarty->merge_compiled_includes && $source->type === 'extends') ? (int) $smarty->extends_recursion * 4 : 0);
         }
         $this->filepath .= '.' . $source->type;
         $basename = $source->handler->getBasename($source);

@@ -432,6 +432,14 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $merge_compiled_includes = false;
 
+    /*
+    * flag for behaviour when extends: resource  and {extends} tag are used simultaneous
+    *   if false disable execution of {extends} in templates called by extends resource.
+    *   (behaviour as versions < 3.1.28)
+    *
+    * @var boolean
+    */
+    public $extends_recursion = true;
     /**
      * force cache file creation
      *
