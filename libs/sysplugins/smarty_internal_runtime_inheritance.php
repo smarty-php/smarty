@@ -111,7 +111,7 @@ class Smarty_Internal_Runtime_Inheritance
             ob_end_clean();
             $this->state = 2;
         }
-        if (isset($template) && ($tpl->parent->source->type !== 'extends' || $tpl->smarty->extends_recursion)) {
+        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends') || $tpl->smarty->extends_recursion)) {
             $tpl->_subTemplateRender($template, $tpl->cache_id, $tpl->compile_id, $tpl->caching ? 9999 : 0,
                                      $tpl->cache_lifetime, array(), 2, false, $uid, $func);
         }
