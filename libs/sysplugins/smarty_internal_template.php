@@ -82,6 +82,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $scope = 0;
 
     /**
+     * Array of source information for known template functions
+     *
+     * @var array
+     */
+    public $tplFunctions = array();
+
+    /**
      * Flag which is set while rending a cache file
      *
      * @var bool

@@ -141,14 +141,14 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}";
             $output .= "\$params = var_export(\$params, true);\n";
             $output .= "echo \"/*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/<?php ";
-            $output .= "\\\$_smarty_tpl->ext->_tplFunction->saveTemplateVariables(\\\$_smarty_tpl, '{$_name}');\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->tpl_vars[\\\$key] = new Smarty_Variable(\\\$value, \\\$_smarty_tpl->isRenderingCache);\n}\n?>";
+            $output .= "\\\$_smarty_tpl->smarty->ext->_tplFunction->saveTemplateVariables(\\\$_smarty_tpl, '{$_name}');\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->tpl_vars[\\\$key] = new Smarty_Variable(\\\$value, \\\$_smarty_tpl->isRenderingCache);\n}\n?>";
             $output .= "/*/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n\";?>";
             $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                               new Smarty_Internal_ParseTree_Tag($compiler->parser,
                                                                                                 $output));
             $compiler->parser->current_buffer->append_subtree($compiler->parser, $_functionCode);
             $output = "<?php echo \"/*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/<?php ";
-            $output .= "\\\$_smarty_tpl->ext->_tplFunction->restoreTemplateVariables(\\\$_smarty_tpl, '{$_name}');?>\n";
+            $output .= "\\\$_smarty_tpl->smarty->ext->_tplFunction->restoreTemplateVariables(\\\$_smarty_tpl, '{$_name}');?>\n";
             $output .= "/*/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\";\n?>";
             $output .= "<?php echo str_replace('{$compiler->template->compiled->nocache_hash}', \$_smarty_tpl->compiled->nocache_hash, ob_get_clean());\n";
             $output .= "}\n}\n";

@@ -49,12 +49,12 @@ class Smarty_Internal_Runtime_CodeFrame
         $output .= "if ({$dec}) {\n";
         $output .= "function {$properties['unifunc']} (Smarty_Internal_Template \$_smarty_tpl) {\n";
         if (!$cache && !empty($compiler->tpl_function)) {
-            $output .= "\$_smarty_tpl->ext->_tplFunction->registerTplFunctions(\$_smarty_tpl, " .
+            $output .= "\$_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions(\$_smarty_tpl, " .
                        var_export($compiler->tpl_function, true) . ");\n";
         }
-        if ($cache && isset($_template->ext->_tplFunction)) {
-            $output .= "\$_smarty_tpl->ext->_tplFunction->registerTplFunctions(\$_smarty_tpl, " .
-                       var_export($_template->ext->_tplFunction->getTplFunction(), true) . ");\n";
+        if ($cache && isset($_template->smarty->ext->_tplFunction)) {
+            $output .= "\$_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions(\$_smarty_tpl, " .
+                       var_export($_template->smarty->ext->_tplFunction->getTplFunction($_template), true) . ");\n";
 
         }
         // include code for plugins

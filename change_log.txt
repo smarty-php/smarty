@@ -1,4 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 08.10.2016
+  - optimization move runtime extension for template functions into Smarty objects
+
  29.09.2016
   - improvement new Smarty::$extends_recursion property to disable execution of {extends} in templates called by extends resource
      https://github.com/smarty-php/smarty/issues/296
