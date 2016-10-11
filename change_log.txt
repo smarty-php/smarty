@@ -1,4 +1,8 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 12.10.2016
+  - bugfix {include} with template names including variable or constants could fail after bugfix from
+     28.09.2016 https://github.com/smarty-php/smarty/issues/302
+
  08.10.2016
   - optimization move runtime extension for template functions into Smarty objects
 
