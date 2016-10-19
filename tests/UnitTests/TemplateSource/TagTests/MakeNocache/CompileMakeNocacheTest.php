@@ -282,5 +282,17 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
        */
         return array(array(2, array(1, 2, 3, 4), '12match34'), array(7, array(7, 8, 9), '7match89'),);
     }
+    /**
+     * Test {make_nocache} with values containing '\'
+     *
+     * @preserveGlobalState disabled
+     */
+    public function testMakeNocache_002()
+    {
+        $this->smarty->setCaching(true);
+         $this->smarty->assign('foo', 'uwe\'s');
+        $this->assertEquals($this->strip('uwe\'s'), $this->strip($this->smarty->fetch('002_test_backslash.tpl')));
+    }
+
 
 }
