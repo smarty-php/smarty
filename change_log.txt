@@ -1,6 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
  19.10.2016
   - bugfix {make_nocache $var} did fail when variable value did contain '\' https://github.com/smarty-php/smarty/issues/305
+  - bugfix {make_nocache $var} remove spaces from variable value https://github.com/smarty-php/smarty/issues/304
   
  12.10.2016
   - bugfix {include} with template names including variable or constants could fail after bugfix from
