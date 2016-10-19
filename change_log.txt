@@ -1,4 +1,8 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 20.10.2016
+  - bugfix nocache code was not removed in cache file when subtemplate did contain PHP short tags in text but no other
+    nocache code https://github.com/smarty-php/smarty/issues/300
+
  19.10.2016
   - bugfix {make_nocache $var} did fail when variable value did contain '\' https://github.com/smarty-php/smarty/issues/305
   - bugfix {make_nocache $var} remove spaces from variable value https://github.com/smarty-php/smarty/issues/304
