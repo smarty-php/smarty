@@ -294,5 +294,16 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         $this->assertEquals($this->strip('uwe\'s'), $this->strip($this->smarty->fetch('002_test_backslash.tpl')));
     }
 
+    /**
+     * Test {make_nocache} with values containing spaces
+     *
+     * @preserveGlobalState disabled
+     */
+    public function testMakeNocache_003()
+    {
+        $this->smarty->setCaching(true);
+        $this->smarty->assign('foo', 'the Smarty template engine');
+        $this->assertEquals($this->strip('the Smarty template engine'), $this->strip($this->smarty->fetch('003_test_spaces.tpl')));
+    }
 
 }
