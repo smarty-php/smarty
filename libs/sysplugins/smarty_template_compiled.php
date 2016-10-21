@@ -53,8 +53,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         }
         // if use_sub_dirs, break file into directories
         if ($smarty->use_sub_dirs) {
-            $this->filepath .= $source->uid[ 0 ] . $source->uid[ 1 ] . $smarty->ds . $source->uid[ 2 ] . $source->uid[ 3 ] . $smarty->ds .
-                               $source->uid[ 4 ] . $source->uid[ 5 ] . $smarty->ds;
+            $this->filepath .= $source->uid[ 0 ] . $source->uid[ 1 ] . $smarty->ds . $source->uid[ 2 ] .
+                               $source->uid[ 3 ] . $smarty->ds . $source->uid[ 4 ] . $source->uid[ 5 ] . $smarty->ds;
         }
         $this->filepath .= $source->uid . '_';
         if ($source->isConfig) {
@@ -62,7 +62,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                                (int) $smarty->config_overwrite * 4;
         } else {
             $this->filepath .= (int) $smarty->merge_compiled_includes + (int) $smarty->escape_html * 2 +
-                               (($smarty->merge_compiled_includes && $source->type === 'extends') ? (int) $smarty->extends_recursion * 4 : 0);
+                               (($smarty->merge_compiled_includes && $source->type === 'extends') ?
+                                   (int) $smarty->extends_recursion * 4 : 0);
         }
         $this->filepath .= '.' . $source->type;
         $basename = $source->handler->getBasename($source);
@@ -192,12 +193,24 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $this->nocache_hash = null;
         $this->unifunc = null;
         // compile locking
-        if ($saved_timestamp = $this->getTimeStamp()) {
+        $saved_timestamp = $_template->source->handler->recompiled ? false : $this->getTimeStamp();
+        if ($saved_timestamp) {
             touch($this->filepath);
         }
-        // call compiler
-        $_template->loadCompiler();
-        $this->write($_template, $_template->compiler->compileTemplate($_template));
+        // compile locking
+        try {
+            // call compiler
+            $_template->loadCompiler();
+            $this->write($_template, $_template->compiler->compileTemplate($_template));
+        }
+        catch (Exception $e) {
+            // restore old timestamp in case of error
+            if ($saved_timestamp) {
+                touch($this->filepath, $saved_timestamp);
+            }
+            unset($_template->compiler);
+            throw $e;
+        }
         // release compiler object to free memory
         unset($_template->compiler);
     }

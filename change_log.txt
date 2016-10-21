@@ -1,4 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 21.10.2016
+  - bugfix for compile locking touched timestamp of old compiled file was not restored on compilation error https://github.com/smarty-php/smarty/issues/308
+
  20.10.2016
   - bugfix nocache code was not removed in cache file when subtemplate did contain PHP short tags in text but no other
     nocache code https://github.com/smarty-php/smarty/issues/300
