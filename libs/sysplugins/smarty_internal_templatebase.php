@@ -169,7 +169,14 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             if ($this->_objType == 1) {
                 // set caching in template object
                 $template->caching = $this->caching;
-            } else {
+            }
+        }
+        // fetch template content
+        $level = ob_get_level();
+        try {
+            $_smarty_old_error_level =
+                isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) : null;
+            if ($this->_objType == 2) {
                 /* @var Smarty_Internal_Template $this */
                 $template->tplFunctions = $this->tplFunctions;
                 $template->inheritance = $this->inheritance;
@@ -178,12 +185,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             if (isset($parent->_objType) && ($parent->_objType == 2) && !empty($parent->tplFunctions)) {
                 $template->tplFunctions = array_merge($parent->tplFunctions, $template->tplFunctions);
             }
-        }
-        // fetch template content
-        $level = ob_get_level();
-        try {
-            $_smarty_old_error_level =
-                isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) : null;
             if ($function == 2) {
                 if ($template->caching) {
                     // return cache status of template
