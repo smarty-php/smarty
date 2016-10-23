@@ -14,7 +14,7 @@
  * @package      Smarty
  * @subpackage   Template
  *
- * @property int    $_objType
+ * @property int $_objType
  *
  * The following methods will be dynamically loaded by the extension handler when they are called.
  * They are located in a corresponding Smarty_Internal_Method_xxxx class
@@ -157,18 +157,26 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 $template = $this;
             }
         } elseif (is_object($template)) {
+            /* @var Smarty_Internal_Template $template */
             if (!isset($template->_objType) || !$template->_isTplObj()) {
                 throw new SmartyException($function . '():Template object expected');
             }
         } else {
             // get template object
-            /* @var Smarty_Internal_Template $template */
             $saveVars = false;
 
             $template = $smarty->createTemplate($template, $cache_id, $compile_id, $parent ? $parent : $this, false);
             if ($this->_objType == 1) {
                 // set caching in template object
                 $template->caching = $this->caching;
+            } else {
+                /* @var Smarty_Internal_Template $this */
+                $template->tplFunctions = $this->tplFunctions;
+                $template->inheritance = $this->inheritance;
+            }
+            /* @var Smarty_Internal_Template $parent */
+            if (isset($parent->_objType) && ($parent->_objType == 2) && !empty($parent->tplFunctions)) {
+                $template->tplFunctions = array_merge($parent->tplFunctions, $template->tplFunctions);
             }
         }
         // fetch template content

@@ -1,4 +1,8 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 23.10.2016
+  - improvement/bugfix when Smarty::fetch() is called on a template object the inheritance and tplFunctions property
+    should be copied to the called template object
+    
  21.10.2016
   - bugfix for compile locking touched timestamp of old compiled file was not restored on compilation error https://github.com/smarty-php/smarty/issues/308
 
