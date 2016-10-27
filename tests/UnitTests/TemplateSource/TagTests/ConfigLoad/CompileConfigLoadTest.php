@@ -104,12 +104,22 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableOverwrite_006()
     {
-        $this->assertEquals("Overwrite3", $this->smarty->fetch('006_overwrite.tpl'));
+        $this->assertEquals("Welcome to Smarty! Overwrite3", $this->smarty->fetch('006_overwrite.tpl'));
+    }
+    /**
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testConfigVariableOverwrite_0061()
+    {
+        $this->smarty->configLoad('test.conf', 'default');
+        $this->smarty->configLoad('test2.conf', 'default');
+        $this->assertEquals('Welcome to overwrite test! this overwitten', $this->smarty->fetch('0061_overwrite.tpl'));
     }
 
     /**
