@@ -181,7 +181,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProviderInline
      * test function definition in include
@@ -211,6 +211,20 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('test_template_function.tpl', $cacheId);
         $tpl->assign('foo', 'foo');
         $this->assertContains('foo foo', $this->smarty->fetch($tpl), $text);
+    }
+
+    /**
+     * @run InSeparateProcess
+     * @preserveGlobalState disabled
+     * test external function definition and called by fetch
+     *
+     */
+    public function testExternalDefinedFunctionCalledByFetch()
+    {
+        $this->smarty->assign('foo', 'foo');
+        $this->assertContains('foo foo', $this->smarty->fetch('test_template_function.tpl'));
+        $this->smarty->assign('foo', 'bar');
+        $this->assertContains('bar bar', $this->smarty->fetch('test_template_function_call.tpl'));
     }
 
     /**
