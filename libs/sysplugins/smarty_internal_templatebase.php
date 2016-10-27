@@ -77,6 +77,13 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     public $cache_lifetime = 3600;
 
     /**
+     * Array of source information for known template functions
+     *
+     * @var array
+     */
+    public $tplFunctions = array();
+
+    /**
      * universal cache
      *
      * @var array()
