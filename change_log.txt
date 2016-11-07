@@ -1,4 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 07.11.2016
+  - optimization of lexer speed https://github.com/smarty-php/smarty/issues/311
+
  27.10.2016
   - bugfix template function definitions array has not been cached between Smarty::fetch() and Smarty::display() calls
     https://github.com/smarty-php/smarty/issues/301
