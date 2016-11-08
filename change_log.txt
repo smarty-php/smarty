@@ -1,4 +1,7 @@
 ﻿===== 3.1.31-dev ===== (xx.xx.xx)
+ 08.11.2016
+  - add bootstrap file to load and register Smarty_Autoloader. Change composer.json to make it known to composer
+
  07.11.2016
   - optimization of lexer speed https://github.com/smarty-php/smarty/issues/311
 

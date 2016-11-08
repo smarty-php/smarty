@@ -28,11 +28,7 @@
         "php": ">=5.2"
     },
     "autoload": {
-        "classmap": [
-            "libs/Smarty.class.php",
-            "libs/SmartyBC.class.php",
-            "libs/sysplugins/"
-        ]
+            "files": ["libs/bootstrap.php"]
     },
     "extra": {
         "branch-alias": {

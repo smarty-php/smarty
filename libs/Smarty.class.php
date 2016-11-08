@@ -66,23 +66,16 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
 }
 
 /**
- * Try loading the Smarty_Internal_Data class
- * If we fail we must load Smarty's autoloader.
- * Otherwise we may have a global autoloader like Composer
+ * Load Smarty_Autoloader
  */
-if (!class_exists('Smarty_Autoloader', false)) {
-    if (!class_exists('Smarty_Internal_Data', true)) {
-        require_once dirname(__FILE__) . '/Autoloader.php';
-        Smarty_Autoloader::registerBC();
-    }
+if (!class_exists('Smarty_Autoloader')) {
+    include __DIR__ . '/bootstrap.php';
 }
 
 /**
  * Load always needed external class files
  */
-if (!class_exists('Smarty_Internal_Data', false)) {
-    require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
-}
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_data.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_extension_handler.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
@@ -90,6 +83,7 @@ require_once SMARTY_SYSPLUGINS_DIR . 'smarty_resource.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_variable.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
 require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
+require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
 
 /**
  * This is the main Smarty class
@@ -114,7 +108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.31-dev/41';
+    const SMARTY_VERSION = '3.1.31-dev/42';
 
     /**
      * define variable scopes
