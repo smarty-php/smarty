@@ -28,3 +28,4 @@
 /.gitignore export-ignore
 /.gitattributes export-ignore
 /lexer/ export-ignore
+/utilities/ export-ignore
