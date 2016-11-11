@@ -34,6 +34,10 @@ class BaseClone extends Base
     
 }
 
+
+/*
+ * @requires PHP 5.5
+ */
 class InheritanceTest extends PHPUnit_Framework_TestCase
 {
     protected $smarty;
