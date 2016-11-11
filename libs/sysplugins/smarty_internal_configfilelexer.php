@@ -33,7 +33,7 @@ class Smarty_Internal_Configfilelexer
      *
      * @var int
      */
-    public $dataLenght = null;
+    public $dataLength = null;
 
     /**
      * byte counter
@@ -147,7 +147,7 @@ class Smarty_Internal_Configfilelexer
     function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)
     {
         $this->data = $data . "\n"; //now all lines are \n-terminated
-        $this->dataLenght = strlen($data);
+        $this->dataLength = strlen($data);
         $this->counter = 0;
         if (preg_match('/^\xEF\xBB\xBF/', $this->data, $match)) {
             $this->counter += strlen($match[ 0 ]);
@@ -220,10 +220,10 @@ class Smarty_Internal_Configfilelexer
             $this->yy_global_pattern1 =
                 "/\G(#|;)|\G(\\[)|\G(\\])|\G(=)|\G([ \t\r]+)|\G(\n)|\G([0-9]*[a-zA-Z_]\\w*)|\G([\S\s])/isS";
         }
-        if (!isset($this->dataLenght)) {
-            $this->dataLenght = strlen($this->data);
+        if (!isset($this->dataLength)) {
+            $this->dataLength = strlen($this->data);
         }
-        if ($this->counter >= $this->dataLenght) {
+        if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
 
@@ -254,7 +254,7 @@ class Smarty_Internal_Configfilelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= $this->dataLenght) {
+                    if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
                     // skip this token
@@ -327,10 +327,10 @@ class Smarty_Internal_Configfilelexer
             $this->yy_global_pattern2 =
                 "/\G([ \t\r]+)|\G(\\d+\\.\\d+(?=[ \t\r]*[\n#;]))|\G(\\d+(?=[ \t\r]*[\n#;]))|\G(\"\"\")|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*'(?=[ \t\r]*[\n#;]))|\G(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\"(?=[ \t\r]*[\n#;]))|\G([a-zA-Z]+(?=[ \t\r]*[\n#;]))|\G([^\n]+?(?=[ \t\r]*\n))|\G(\n)/isS";
         }
-        if (!isset($this->dataLenght)) {
-            $this->dataLenght = strlen($this->data);
+        if (!isset($this->dataLength)) {
+            $this->dataLength = strlen($this->data);
         }
-        if ($this->counter >= $this->dataLenght) {
+        if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
 
@@ -361,7 +361,7 @@ class Smarty_Internal_Configfilelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= $this->dataLenght) {
+                    if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
                     // skip this token
@@ -453,10 +453,10 @@ class Smarty_Internal_Configfilelexer
         if (!isset($this->yy_global_pattern3)) {
             $this->yy_global_pattern3 = "/\G([^\n]+?(?=[ \t\r]*\n))/isS";
         }
-        if (!isset($this->dataLenght)) {
-            $this->dataLenght = strlen($this->data);
+        if (!isset($this->dataLength)) {
+            $this->dataLength = strlen($this->data);
         }
-        if ($this->counter >= $this->dataLenght) {
+        if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
 
@@ -487,7 +487,7 @@ class Smarty_Internal_Configfilelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= $this->dataLenght) {
+                    if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
                     // skip this token
@@ -515,10 +515,10 @@ class Smarty_Internal_Configfilelexer
         if (!isset($this->yy_global_pattern4)) {
             $this->yy_global_pattern4 = "/\G([ \t\r]+)|\G([^\n]+?(?=[ \t\r]*\n))|\G(\n)/isS";
         }
-        if (!isset($this->dataLenght)) {
-            $this->dataLenght = strlen($this->data);
+        if (!isset($this->dataLength)) {
+            $this->dataLength = strlen($this->data);
         }
-        if ($this->counter >= $this->dataLenght) {
+        if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
 
@@ -549,7 +549,7 @@ class Smarty_Internal_Configfilelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= $this->dataLenght) {
+                    if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
                     // skip this token
@@ -589,10 +589,10 @@ class Smarty_Internal_Configfilelexer
         if (!isset($this->yy_global_pattern5)) {
             $this->yy_global_pattern5 = "/\G(\\.)|\G(.*?(?=[\.=[\]\r\n]))/isS";
         }
-        if (!isset($this->dataLenght)) {
-            $this->dataLenght = strlen($this->data);
+        if (!isset($this->dataLength)) {
+            $this->dataLength = strlen($this->data);
         }
-        if ($this->counter >= $this->dataLenght) {
+        if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
 
@@ -623,7 +623,7 @@ class Smarty_Internal_Configfilelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= $this->dataLenght) {
+                    if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
                     // skip this token
@@ -657,10 +657,10 @@ class Smarty_Internal_Configfilelexer
         if (!isset($this->yy_global_pattern6)) {
             $this->yy_global_pattern6 = "/\G(\"\"\"(?=[ \t\r]*[\n#;]))|\G([\S\s])/isS";
         }
-        if (!isset($this->dataLenght)) {
-            $this->dataLenght = strlen($this->data);
+        if (!isset($this->dataLength)) {
+            $this->dataLength = strlen($this->data);
         }
-        if ($this->counter >= $this->dataLenght) {
+        if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
 
@@ -691,7 +691,7 @@ class Smarty_Internal_Configfilelexer
                 } elseif ($r === false) {
                     $this->counter += strlen($this->value);
                     $this->line += substr_count($this->value, "\n");
-                    if ($this->counter >= $this->dataLenght) {
+                    if ($this->counter >= $this->dataLength) {
                         return false; // end of input
                     }
                     // skip this token

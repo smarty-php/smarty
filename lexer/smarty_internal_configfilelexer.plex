@@ -30,7 +30,7 @@ class Smarty_Internal_Configfilelexer
       *
       * @var int
       */
-     public $dataLenght = null;
+     public $dataLength = null;
    /**
      * byte counter
      *
@@ -127,7 +127,7 @@ class Smarty_Internal_Configfilelexer
     function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)
     {
         $this->data = $data . "\n"; //now all lines are \n-terminated
-        $this->dataLenght = strlen($data);
+        $this->dataLength = strlen($data);
         $this->counter = 0;
         if (preg_match('/^\xEF\xBB\xBF/', $this->data, $match)) {
             $this->counter += strlen($match[0]);

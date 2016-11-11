@@ -30,7 +30,7 @@ class Smarty_Internal_Templatelexer
      *
      * @var int
      */
-    public $dataLenght = null;
+    public $dataLength = null;
 
     /**
      * byte counter
@@ -232,7 +232,7 @@ class Smarty_Internal_Templatelexer
     function __construct($data, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         $this->data = $data;
-        $this->dataLenght = strlen($data);
+        $this->dataLength = strlen($data);
         $this->counter = 0;
         if (preg_match('/^\xEF\xBB\xBF/i', $this->data, $match)) {
             $this->counter += strlen($match[0]);
@@ -374,7 +374,7 @@ class Smarty_Internal_Templatelexer
        $this->compiler->getTagCompiler('private_php')->parsePhp($this);
      }
      text {
-       $to = $this->dataLenght;
+       $to = $this->dataLength;
        preg_match("/($this->ldel)|(<[?]((php\s+|=)|\s+))|(<[%])|(<[?]xml\s+)|(<script\s+language\s*=\s*[\"']?\s*php\s*[\"']?\s*>)|([?][>])|([%][>])/i",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
        if (isset($match[0][1])) {
          $to = $match[0][1];
@@ -614,7 +614,7 @@ class Smarty_Internal_Templatelexer
        }
      }
      text {
-       $to = $this->dataLenght;
+       $to = $this->dataLength;
        preg_match("/{$this->ldel}[\/]?literal{$this->rdel}/i",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
        if (isset($match[0][1])) {
          $to = $match[0][1];
@@ -678,7 +678,7 @@ class Smarty_Internal_Templatelexer
        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
      text {
-       $to = $this->dataLenght;
+       $to = $this->dataLength;
        $this->value = substr($this->data,$this->counter,$to-$this->counter);
        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
