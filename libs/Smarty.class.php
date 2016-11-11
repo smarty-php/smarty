@@ -108,7 +108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.31-dev/42';
+    const SMARTY_VERSION = '3.1.31-dev/43';
 
     /**
      * define variable scopes
@@ -434,6 +434,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     * @var boolean
     */
     public $extends_recursion = true;
+
     /**
      * force cache file creation
      *
@@ -1119,9 +1120,11 @@ class Smarty extends Smarty_Internal_TemplateBase
         if ($this->caching && isset($this->_cache[ 'isCached' ][ $_templateId ])) {
             $tpl = $do_clone ? clone $this->_cache[ 'isCached' ][ $_templateId ] :
                 $this->_cache[ 'isCached' ][ $_templateId ];
+            $tpl->inheritance = null;
             $tpl->tpl_vars = $tpl->config_vars = array();
         } else if (!$do_clone && isset($this->_cache[ 'tplObjects' ][ $_templateId ])) {
             $tpl = clone $this->_cache[ 'tplObjects' ][ $_templateId ];
+            $tpl->inheritance = null;
             $tpl->tpl_vars = $tpl->config_vars = array();
         } else {
             /* @var Smarty_Internal_Template $tpl */
