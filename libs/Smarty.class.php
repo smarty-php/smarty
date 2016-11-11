@@ -108,7 +108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.31-dev/43';
+    const SMARTY_VERSION = '3.1.31-dev/44';
 
     /**
      * define variable scopes
@@ -1265,8 +1265,9 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @return bool
      */
-    public function _isNewRelease ($dir) {
-        if (!is_file($file =  $dir. 'version.txt') || file_get_contents($file) !== Smarty::SMARTY_VERSION) {
+    public function _isNewRelease($dir)
+    {
+        if (!is_file($file = $dir . preg_replace('#[^a-zA-Z0-9.-]#', '.', Smarty::SMARTY_VERSION) . 'version.txt')) {
             file_put_contents($file, Smarty::SMARTY_VERSION);
             return true;
         } else {

@@ -2,6 +2,7 @@
  11.11.2016
   - bugfix when Smarty is using a cached template object on Smarty::fetch() or Smarty::isCached() the inheritance data
     must be removed https://github.com/smarty-php/smarty/issues/312
+  - smaller speed optimization
 
  08.11.2016
   - add bootstrap file to load and register Smarty_Autoloader. Change composer.json to make it known to composer
