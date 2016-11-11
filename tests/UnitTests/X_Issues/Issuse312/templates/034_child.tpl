@@ -1,0 +1,1 @@
+{extends '034_parent.tpl'}{block name=elementContent}{$e->getText() nocache}{/block}

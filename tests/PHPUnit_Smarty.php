@@ -72,13 +72,15 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      */
     public static $pdo = null;
 
+    public static $pluginsdir = null;
+
     /**
      * Default blacklist
      *
      * @var array
      */
     protected $backupStaticAttributesBlacklist = array('PHPUnit_Smarty' => array('config', 'pdo', 'init',
-                                                                                 'testNumver'),);
+                                                                                 'testNumver', 'pluginsdir'),);
 
     /**
      * This method is called before the first test of this test class is run.
@@ -88,6 +90,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
     {
         error_reporting(E_ALL | E_STRICT);
         self::$init = true;
+        self::$pluginsdir =self::getSmartyPluginsDir();
     }
 
     /**
@@ -113,7 +116,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
             define('individualFolders', true);
         }
         parent::__construct($name, $data, $dataName);
-        $this->backupStaticAttributesBlacklist[ get_class($this) ] = array('init', 'config', 'pdo', 'testNumber');
+      $this->backupStaticAttributesBlacklist[ get_class($this) ] = array('init', 'config', 'pdo', 'testNumber');
     }
 
     /**
@@ -437,16 +440,31 @@ KEY `expire` (`expire`)
      *
      * @return string
      */
-    public function normalizePath($path)
+    public function normalizePath($path, $ds =null ,$absolute = true)
     {
-        if ($path[ 0 ] == '.') {
-            $path = getcwd() . DIRECTORY_SEPARATOR . $path;
+        $ds = isset($ds) ? $ds : DIRECTORY_SEPARATOR;
+        $nds = $ds == '/' ? '\\' : '/';
+        $getcwd = getcwd();
+        // normalize $ds
+        $path = str_replace($nds, $ds, $path);
+        preg_match('#^([a-zA-Z][:])?([.]{1,2}[\/\\\]+)?([\\\])?([.]{0,2}[\/\\\]+)?([[:print:]]*)#', $path, $match);
+        if ($match[1] === '') {
+            if ($match[ 2 ] !== '' || $match[ 2 ] . $match[ 3 ] . $match[ 4 ] === '') {
+                $path = $getcwd . $ds . $path;
+            } else if (Smarty::$_IS_WINDOWS && $match[ 3 ] !== '') {
+                $path = substr($getcwd, 0, 2) . $path;
+            }
         }
-        $path = preg_replace('#[\\\/]+([.][\\\/]+)*#', DIRECTORY_SEPARATOR, $path);
-        while (strrpos($path, '.' . DIRECTORY_SEPARATOR) !== false) {
+        $path = preg_replace('#[\\\/]+([.][\\\/]+)*#', $ds, $path);
+        while (strrpos($path, '.' . $ds) !== false) {
             $path =
-                preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', DIRECTORY_SEPARATOR,
+                preg_replace('#([\\\/]([^\\\/]+[\\\/]){2}([.][.][\\\/]){2})|([\\\/][^\\\/]+[\\\/][.][.][\\\/])#', $ds,
                              $path);
+        }
+        $cwd  = preg_replace('#[\\\/]#', $ds, $getcwd);
+        $path = str_ireplace($cwd,$getcwd, $path);
+        if (!$absolute) {
+            $path = preg_replace('#'.$getcwd.'#', '', $path);
         }
         return $path;
     }
@@ -633,6 +651,13 @@ KEY `expire` (`expire`)
         return isset($this->smarty) ? $this->smarty : (isset($this->smartyBC) ? $this->smartyBC : null);
     }
 
+    public static function getSmartyPluginsDir(){
+        if (is_dir(dirname(__FILE__) . '/../smarty/libs/plugins')) {
+            return dirname(__FILE__) . '/../smarty/libs/plugins';
+        } else if(is_dir(dirname(__FILE__) . '/../libs/plugins')) {
+            return dirname(__FILE__) . '/../libs/plugins';
+        }
+    }
     /**
      * Tears down the fixture
      * This method is called after a test is executed.
