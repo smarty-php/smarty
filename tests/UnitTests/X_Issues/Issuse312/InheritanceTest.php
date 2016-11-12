@@ -1,41 +1,9 @@
 <?php
 
-//require_once '../../../../../vendor/autoload.php';
 
 if (version_compare(phpversion(), '5.5.0', '>')) {
-
-    class Base
-    {
-        const TEMPLATE = '034_parent.tpl';
-
-        public $id = null;
-
-        public function __construct($id)
-        {
-            $this->id = $id;
+    include 'include.phpxxx';
         }
-
-        public function getHTML()
-        {
-            return static::class;
-        }
-    }
-
-    class Child extends Base
-    {
-        const TEMPLATE = '034_child.tpl';
-
-        public function getText()
-        {
-            return $this->getHTML();
-        }
-    }
-
-    class BaseClone extends Base
-    {
-
-    }
-
     /*
      * @requires PHP 5.5
      */
@@ -122,4 +90,3 @@ if (version_compare(phpversion(), '5.5.0', '>')) {
                                                                                      ],],];
         }
     }
-}
