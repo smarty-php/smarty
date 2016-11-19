@@ -1,1 +1,0 @@
-{$e->id nocache} {block name=elementContent}{$e->getHTML() nocache}{/block}
