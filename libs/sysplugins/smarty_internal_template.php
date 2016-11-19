@@ -420,13 +420,17 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function _decodeProperties(Smarty_Internal_Template $tpl, $properties, $cache = false)
     {
         // on cache resources other than file check version stored in cache code
-        if ($cache && $tpl->smarty->caching_type !== 'file' && Smarty::SMARTY_VERSION !== $properties[ 'version' ]) {
-            $tpl->smarty->clearAllCache();
+        if (!isset($properties[ 'version' ]) || Smarty::SMARTY_VERSION !== $properties[ 'version' ]) {
+            if ($cache) {
+                $tpl->smarty->clearAllCache();
+            } else {
+                $tpl->smarty->clearCompiledTemplate();
+            }
             return false;
         }
         $is_valid = true;
         if (!empty($properties[ 'file_dependency' ]) &&
-                  ((!$cache && $tpl->smarty->compile_check) || $tpl->smarty->compile_check == 1)
+            ((!$cache && $tpl->smarty->compile_check) || $tpl->smarty->compile_check == 1)
         ) {
             // check file dependencies at compiled code
             foreach ($properties[ 'file_dependency' ] as $_file_to_check) {

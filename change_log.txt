@@ -2,6 +2,7 @@
  19.11.2016
   - bugfix inheritance root child templates containing nested {block}{/block} could call sub-bock content from parent
     template https://github.com/smarty-php/smarty/issues/317
+  - change version checking
 
  11.11.2016
   - bugfix when Smarty is using a cached template object on Smarty::fetch() or Smarty::isCached() the inheritance data

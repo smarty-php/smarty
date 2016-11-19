@@ -108,7 +108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.31-dev/45';
+    const SMARTY_VERSION = '3.1.31-dev/46';
 
     /**
      * define variable scopes
@@ -1008,9 +1008,6 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (!$this->_compileDirNormalized) {
             $this->_normalizeDir('compile_dir', $this->compile_dir);
             $this->_compileDirNormalized = true;
-            if ($this->_isNewRelease($this->compile_dir)) {
-                $this->clearCompiledTemplate();
-            }
         }
         return $this->compile_dir;
     }
@@ -1039,9 +1036,6 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (!$this->_cacheDirNormalized) {
             $this->_normalizeDir('cache_dir', $this->cache_dir);
             $this->_cacheDirNormalized = true;
-            if ($this->_isNewRelease($this->cache_dir)) {
-                $this->clearAllCache();
-            }
         }
         return $this->cache_dir;
     }
@@ -1256,23 +1250,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $this->_cache[ 'isCached' ] = array();
         $this->_cache[ 'tplObjects' ] = array();
-    }
-
-    /**
-     * check if new release was installed
-     *
-     * @param string $dir compiled oder cache dir path
-     *
-     * @return bool
-     */
-    public function _isNewRelease($dir)
-    {
-        if (!is_file($file = $dir . preg_replace('#[^a-zA-Z0-9.-]#', '.', Smarty::SMARTY_VERSION) . 'version.txt')) {
-            file_put_contents($file, Smarty::SMARTY_VERSION);
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**
