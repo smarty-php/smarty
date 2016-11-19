@@ -275,9 +275,6 @@ KEY `expire` (`expire`)
         if (isset($smarty)) {
             $dir = $smarty->getCompileDir();
             $this->cleanDir($dir);
-            if (method_exists($smarty, '_isNewRelease')) {
-                $smarty->_isNewRelease($dir);
-            }
         }
     }
 
@@ -291,10 +288,7 @@ KEY `expire` (`expire`)
         if (isset($smarty)) {
             $dir = $smarty->getCacheDir();
             $this->cleanDir($dir);
-            if (method_exists($smarty, '_isNewRelease')) {
-                $smarty->_isNewRelease($dir);
-            }
-        }
+         }
     }
 
     /**
