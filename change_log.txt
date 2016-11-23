@@ -1,5 +1,8 @@
-﻿===== 3.1.31-dev ===== (xx.xx.xx)
- 19.11.2016
+﻿===== 3.1.31 ===== (23.11.2016)
+  23.11.2016
+   - move template object cache into static variables
+
+  19.11.2016
   - bugfix inheritance root child templates containing nested {block}{/block} could call sub-bock content from parent
     template https://github.com/smarty-php/smarty/issues/317
   - change version checking

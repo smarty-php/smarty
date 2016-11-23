@@ -199,7 +199,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                         $template->loadCached();
                     }
                     $result = $template->cached->isCached($template);
-                    $template->smarty->_cache[ 'isCached' ][ $template->_getTemplateId() ] = $template;
+                    Smarty_Internal_Template::$isCacheTplObj[ $template->_getTemplateId() ] = $template;
                 } else {
                     return false;
                 }
@@ -219,10 +219,10 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                     $template->tpl_vars = $savedTplVars;
                     $template->config_vars = $savedConfigVars;
                 } else {
-                    if (!$function && !isset($smarty->_cache[ 'tplObjects' ][ $template->templateId ])) {
+                    if (!$function && !isset(Smarty_Internal_Template::$tplObjCache[ $template->templateId ])) {
                         $template->parent = null;
                         $template->tpl_vars = $template->config_vars = array();
-                        $smarty->_cache[ 'tplObjects' ][ $template->templateId ] = $template;
+                        Smarty_Internal_Template::$tplObjCache[ $template->templateId ] = $template;
                     }
                 }
             }

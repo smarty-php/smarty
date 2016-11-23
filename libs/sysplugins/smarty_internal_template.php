@@ -103,6 +103,27 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public $endRenderCallbacks = array();
 
     /**
+     * Template object cache
+     *
+     * @var Smarty_Internal_Template[]
+     */
+    public static $tplObjCache = array();
+
+    /**
+     * Template object cache for Smarty::isCached() == true
+     *
+     * @var Smarty_Internal_Template[]
+     */
+    public static $isCacheTplObj = array();
+
+    /**
+     * Subtemplate Info Cache
+     *
+     * @var string[]int[]
+     */
+    public static $subTplInfo = array();
+
+    /**
      * Create template data object
      * Some of the global Smarty settings copied to template scope
      * It load the required template resources and caching plugins
@@ -259,9 +280,9 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         // recursive call ?
         if (isset($tpl->templateId) ? $tpl->templateId : $tpl->_getTemplateId() != $_templateId) {
             // already in template cache?
-            if (isset($smarty->_cache[ 'tplObjects' ][ $_templateId ])) {
+            if (isset(self::$tplObjCache[ $_templateId ])) {
                 // copy data from cached object
-                $cachedTpl = &$smarty->_cache[ 'tplObjects' ][ $_templateId ];
+                $cachedTpl = &self::$tplObjCache[ $_templateId ];
                 $tpl->templateId = $cachedTpl->templateId;
                 $tpl->template_resource = $cachedTpl->template_resource;
                 $tpl->cache_id = $cachedTpl->cache_id;
@@ -306,13 +327,13 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $tpl->cache_lifetime = $cache_lifetime;
         // set template scope
         $tpl->scope = $scope;
-        if (!isset($smarty->_cache[ 'tplObjects' ][ $tpl->templateId ]) && !$tpl->source->handler->recompiled) {
+        if (!isset(self::$tplObjCache[ $tpl->templateId ]) && !$tpl->source->handler->recompiled) {
             // check if template object should be cached
-            if ($forceTplCache || (isset($smarty->_cache[ 'subTplInfo' ][ $tpl->template_resource ]) &&
-                                   $smarty->_cache[ 'subTplInfo' ][ $tpl->template_resource ] > 1) ||
-                ($tpl->_isSubTpl() && isset($smarty->_cache[ 'tplObjects' ][ $tpl->parent->templateId ]))
+            if ($forceTplCache || (isset(self::$subTplInfo[ $tpl->template_resource ]) &&
+                                   self::$subTplInfo[ $tpl->template_resource ] > 1) ||
+                ($tpl->_isSubTpl() &&  isset(self::$tplObjCache[ $tpl->parent->templateId ]))
             ) {
-                $smarty->_cache[ 'tplObjects' ][ $tpl->templateId ] = $tpl;
+                self::$tplObjCache[ $tpl->templateId ] = $tpl;
             }
         }
 
@@ -360,10 +381,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function _subTemplateRegister()
     {
         foreach ($this->compiled->includes as $name => $count) {
-            if (isset($this->smarty->_cache[ 'subTplInfo' ][ $name ])) {
-                $this->smarty->_cache[ 'subTplInfo' ][ $name ] += $count;
+            if (isset(self::$subTplInfo[ $name ])) {
+                self::$subTplInfo[ $name ] += $count;
             } else {
-                $this->smarty->_cache[ 'subTplInfo' ][ $name ] = $count;
+                self::$subTplInfo[ $name ] = $count;
             }
         }
     }
@@ -430,7 +451,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         $is_valid = true;
         if (!empty($properties[ 'file_dependency' ]) &&
-            ((!$cache && $tpl->smarty->compile_check) || $tpl->smarty->compile_check == 1)
+                  ((!$cache && $tpl->smarty->compile_check) || $tpl->smarty->compile_check == 1)
         ) {
             // check file dependencies at compiled code
             foreach ($properties[ 'file_dependency' ] as $_file_to_check) {

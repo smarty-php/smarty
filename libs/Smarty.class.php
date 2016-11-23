@@ -108,7 +108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.31-dev/46';
+    const SMARTY_VERSION = '3.1.31-dev/47';
 
     /**
      * define variable scopes
@@ -746,6 +746,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function __construct()
     {
+        $this->_clearTemplateCache();
         parent::__construct();
         if (is_callable('mb_internal_encoding')) {
             mb_internal_encoding(Smarty::$_CHARSET);
@@ -1111,13 +1112,13 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
         $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
         $tpl = null;
-        if ($this->caching && isset($this->_cache[ 'isCached' ][ $_templateId ])) {
-            $tpl = $do_clone ? clone $this->_cache[ 'isCached' ][ $_templateId ] :
-                $this->_cache[ 'isCached' ][ $_templateId ];
+        if ($this->caching && isset(Smarty_Internal_Template::$isCacheTplObj[ $_templateId ])) {
+            $tpl = $do_clone ? clone Smarty_Internal_Template::$isCacheTplObj[ $_templateId ] :
+                Smarty_Internal_Template::$isCacheTplObj[ $_templateId ];
             $tpl->inheritance = null;
             $tpl->tpl_vars = $tpl->config_vars = array();
-        } else if (!$do_clone && isset($this->_cache[ 'tplObjects' ][ $_templateId ])) {
-            $tpl = clone $this->_cache[ 'tplObjects' ][ $_templateId ];
+        } else if (!$do_clone && isset(Smarty_Internal_Template::$tplObjCache[ $_templateId ])) {
+            $tpl = clone Smarty_Internal_Template::$tplObjCache[ $_templateId ];
             $tpl->inheritance = null;
             $tpl->tpl_vars = $tpl->config_vars = array();
         } else {
@@ -1248,8 +1249,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _clearTemplateCache()
     {
-        $this->_cache[ 'isCached' ] = array();
-        $this->_cache[ 'tplObjects' ] = array();
+        Smarty_Internal_Template::$isCacheTplObj = array();
+        Smarty_Internal_Template::$tplObjCache = array();
     }
 
     /**
