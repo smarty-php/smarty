@@ -14,7 +14,7 @@
  *                  require_once '...path/Autoloader.php';
  *                  Smarty_Autoloader::register();
  *             or
- *                  include '...path/bootstarp.php';
+ *                  include '...path/bootstrap.php';
  *
  *                  $smarty = new Smarty();
  */
