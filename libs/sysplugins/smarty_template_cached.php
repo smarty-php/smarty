@@ -125,6 +125,9 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
     {
         if ($this->isCached($_template)) {
             if ($_template->smarty->debugging) {
+                if (!isset($_template->smarty->_debug)) {
+                    $_template->smarty->_debug = new Smarty_Internal_Debug();
+                }
                 $_template->smarty->_debug->start_cache($_template);
             }
             if (!$this->processed) {

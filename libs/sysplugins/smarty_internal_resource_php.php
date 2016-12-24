@@ -71,9 +71,8 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
             throw new SmartyException("PHP templates are disabled");
         }
         if (!$source->exists) {
-            $parentIsTpl = isset($this->parent) && $this->parent->_objType == 2;
             throw new SmartyException("Unable to load template {$source->type} '{$source->name}'" .
-                                      ($parentIsTpl ? " in '{$this->parent->template_resource}'" : ''));
+                                      ($_template->_isSubTpl() ? " in '{$_template->parent->template_resource}'" : ''));
         }
 
         // prepare variables

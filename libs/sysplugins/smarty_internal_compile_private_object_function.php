@@ -49,7 +49,7 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
             unset($_attr[ 'assign' ]);
         }
         // method or property ?
-        if (method_exists($compiler->smarty->registered_objects[ $tag ][ 0 ], $method)) {
+        if (is_callable(array($compiler->smarty->registered_objects[ $tag ][ 0 ], $method))) {
             // convert attributes into parameter array string
             if ($compiler->smarty->registered_objects[ $tag ][ 2 ]) {
                 $_paramsArray = array();
@@ -61,22 +61,26 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
                     }
                 }
                 $_params = 'array(' . implode(",", $_paramsArray) . ')';
-                $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params},\$_smarty_tpl)";
+                $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params},\$_smarty_tpl)";
             } else {
                 $_params = implode(",", $_attr);
-                $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params})";
+                $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params})";
             }
         } else {
             // object property
-            $return = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}";
+            $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}";
         }
+        if (!empty($parameter[ 'modifierlist' ])) {
+            $output = $compiler->compileTag('private_modifier', array(),
+                                            array('modifierlist' => $parameter[ 'modifierlist' ], 'value' => $output));
+        }
+        //Does tag create output
+        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
 
         if (empty($_assign)) {
-            $output = "<?php echo {$return};?>\n";
+            return "<?php echo {$output};?>\n";
         } else {
-            $output = "<?php \$_smarty_tpl->assign({$_assign},{$return});?>\n";
+            return "<?php \$_smarty_tpl->assign({$_assign},{$output});?>\n";
         }
-
-        return $output;
     }
 }

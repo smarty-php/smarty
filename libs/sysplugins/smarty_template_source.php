@@ -163,7 +163,7 @@ class Smarty_Template_Source
             $template_resource = $_template->template_resource;
         }
         if (empty($template_resource)) {
-            throw new SmartyException('Missing template name');
+            throw new SmartyException('Source: Missing  name');
         }
         // parse resource_name, load resource handler, identify unique resource name
         if (preg_match('/^([A-Za-z0-9_\-]{2,})[:]([\s\S]*)$/', $template_resource, $match)) {
@@ -180,6 +180,7 @@ class Smarty_Template_Source
         $source->handler->populate($source, $_template);
         if (!$source->exists && isset($_template->smarty->default_template_handler_func)) {
             Smarty_Internal_Method_RegisterDefaultTemplateHandler::_getDefaultTemplate($source);
+            $source->handler->populate($source, $_template);
         }
         return $source;
     }

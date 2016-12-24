@@ -11,11 +11,12 @@
  * @package    Smarty
  * @author     Uwe Tews
  *             Usage:
- *             require_once '...path/Autoloader.php';
- *             Smarty_Autoloader::register();
- *             $smarty = new Smarty();
- *             Note:       This autoloader is not needed if you use Composer.
- *             Composer will automatically add the classes of the Smarty package to it common autoloader.
+ *                  require_once '...path/Autoloader.php';
+ *                  Smarty_Autoloader::register();
+ *             or
+ *                  include '...path/bootstarp.php';
+ *
+ *                  $smarty = new Smarty();
  */
 class Smarty_Autoloader
 {

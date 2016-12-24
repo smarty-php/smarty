@@ -271,13 +271,6 @@ template_element(res)::= PHP(o). {
     }
 }
 
-                      // nocache code
-template_element(res)::= NOCACHE(c). {
-        $this->compiler->tag_nocache = true;
-        $save = $this->template->compiled->has_nocache_code;
-        res = new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode("<?php echo '{c}';?>\n", true));
-        $this->template->compiled->has_nocache_code = $save;
-}
                       // template text
 template_element(res)::= text_content(t). {
         res = $this->compiler->processText(t);
@@ -437,8 +430,7 @@ tag(res)   ::= LDEL ID(i) modifierlist(l)attributes(a). {
             }
             res = $this->compiler->compileTag('private_print_expression',a,array('value'=>i, 'modifierlist'=>l));
         } else {
-            res = '<?php ob_start();?>'.$this->compiler->compileTag(i,a).'<?php echo ';
-            res .= $this->compiler->compileTag('private_modifier',array(),array('modifierlist'=>l,'value'=>'ob_get_clean()')).';?>';
+            res = $this->compiler->compileTag(i,a, array('modifierlist'=>l));
         }
 }
 
@@ -449,8 +441,7 @@ tag(res)   ::= LDEL ID(i) PTR ID(m) attributes(a). {
 
                   // registered object tag with modifiers
 tag(res)   ::= LDEL ID(i) PTR ID(me) modifierlist(l) attributes(a). {
-    res = '<?php ob_start();?>'.$this->compiler->compileTag(i,a,array('object_method'=>me)).'<?php echo ';
-    res .= $this->compiler->compileTag('private_modifier',array(),array('modifierlist'=>l,'value'=>'ob_get_clean()')).';?>';
+    res = $this->compiler->compileTag(i,a,array('modifierlist'=>l, 'object_method'=>me));
 }
 
                   // nocache tag
@@ -536,11 +527,11 @@ tag(res)   ::= LDEL SMARTYBLOCKCHILDPARENT(i). {
     $j = strrpos(i,'.');
     if (i[$j+1] == 'c') {
         // {$smarty.block.child}
-        res = SMARTY_INTERNAL_COMPILE_BLOCK::compileChildBlock($this->compiler);
+        res = $this->compiler->compileTag('block_child',array());;
     } else {
         // {$smarty.block.parent}
-        res = SMARTY_INTERNAL_COMPILE_BLOCK::compileParentBlock($this->compiler);
-    }
+       res = $this->compiler->compileTag('block_parent',array());;
+     }
 }
 
                   
@@ -1085,38 +1076,7 @@ objectelement(res)::= PTR method(f).  {
 // function
 //
 function(res)     ::= ns1(f) OPENP params(p) CLOSEP. {
-    if (!$this->security || $this->security->isTrustedPhpFunction(f, $this->compiler)) {
-        if (strcasecmp(f,'isset') === 0 || strcasecmp(f,'empty') === 0 || strcasecmp(f,'array') === 0 || is_callable(f)) {
-            $func_name = strtolower(f);
-            if ($func_name == 'isset') {
-                if (count(p) == 0) {
-                    $this->compiler->trigger_template_error ('Illegal number of paramer in "isset()"');
-                }
-                $par = implode(',',p);
-                if (strncasecmp($par,'$_smarty_tpl->smarty->ext->_config->_getConfigVariable',strlen('$_smarty_tpl->smarty->ext->_config->_getConfigVariable')) === 0) {
-                    $prefixVar = $this->compiler->getNewPrefixVariable();
-                    $this->compiler->appendPrefixCode("<?php $prefixVar" .'='.str_replace(')',', false)',$par).';?>');
-                    $isset_par = $prefixVar;
-                } else {
-                    $isset_par=str_replace("')->value","',null,true,false)->value",$par);
-                }
-                res = f . "(". $isset_par .")";
-            } elseif (in_array($func_name,array('empty','reset','current','end','prev','next'))){
-                if (count(p) != 1) {
-                    $this->compiler->trigger_template_error ('Illegal number of paramer in "empty()"');
-                }
-                if ($func_name == 'empty') {
-                    res = $func_name.'('.str_replace("')->value","',null,true,false)->value",p[0]).')';
-                } else {
-                    res = $func_name.'('.p[0].')';
-                }
-            } else {
-                res = f . "(". implode(',',p) .")";
-            }
-        } else {
-            $this->compiler->trigger_template_error ("unknown function \"" . f . "\"");
-        }
-    }
+    res = $this->compiler->compilePHPFunctionCall(f, p);
 }
 
 

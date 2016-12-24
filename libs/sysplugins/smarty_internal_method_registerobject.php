@@ -47,7 +47,7 @@ class Smarty_Internal_Method_RegisterObject
     public function registerObject(Smarty_Internal_TemplateBase $obj, $object_name, $object,
                                    $allowed_methods_properties = array(), $format = true, $block_methods = array())
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         // test if allowed methods callable
         if (!empty($allowed_methods_properties)) {
             foreach ((array) $allowed_methods_properties as $method) {

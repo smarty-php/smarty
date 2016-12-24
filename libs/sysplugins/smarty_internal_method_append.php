@@ -65,7 +65,7 @@ class Smarty_Internal_Method_Append
                     $data->tpl_vars[ $tpl_var ]->value[] = $value;
                 }
             }
-            if ($data->_objType == 2 && $data->scope) {
+            if ($data->_isTplObj() && $data->scope) {
                 $data->ext->_updateScope->_updateScope($data, $tpl_var);
             }
         }

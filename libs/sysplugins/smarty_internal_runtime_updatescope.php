@@ -34,7 +34,7 @@ class Smarty_Internal_Runtime_UpdateScope
             // update scopes
             foreach ($this->_getAffectedScopes($tpl, $mergedScope) as $ptr) {
                 $this->_updateVariableInOtherScope($ptr->tpl_vars, $tpl, $varName);
-                if($tagScope && $ptr->_objType == 2 && isset($tpl->_cache[ 'varStack' ])) {
+                if($tagScope && $ptr->_isTplObj() && isset($tpl->_cache[ 'varStack' ])) {
                     $this->_updateVarStack($ptr, $varName);              }
             }
         }
@@ -52,7 +52,7 @@ class Smarty_Internal_Runtime_UpdateScope
     {
         $_stack = array();
         $ptr = $tpl->parent;
-        if ($mergedScope && isset($ptr) && $ptr->_objType == 2) {
+        if ($mergedScope && isset($ptr) && $ptr->_isTplObj()) {
             $_stack[] = $ptr;
             $mergedScope = $mergedScope & ~Smarty::SCOPE_PARENT;
             if (!$mergedScope) {
@@ -61,7 +61,7 @@ class Smarty_Internal_Runtime_UpdateScope
             }
             $ptr = $ptr->parent;
         }
-        while (isset($ptr) && $ptr->_objType == 2) {
+        while (isset($ptr) && $ptr->_isTplObj()) {
                 $_stack[] = $ptr;
              $ptr = $ptr->parent;
         }
@@ -71,7 +71,7 @@ class Smarty_Internal_Runtime_UpdateScope
             }
         } elseif ($mergedScope & Smarty::SCOPE_ROOT) {
             while (isset($ptr)) {
-                if ($ptr->_objType != 2) {
+                if (!$ptr->_isTplObj()) {
                     $_stack[] = $ptr;
                     break;
                 }

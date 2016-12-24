@@ -41,15 +41,15 @@ class Smarty_Internal_Method_ClearCompiledTemplate
             return 0;
         }
         $_compile_id = isset($compile_id) ? preg_replace('![^\w]+!', '_', $compile_id) : null;
-        $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
+        $_dir_sep = $smarty->use_sub_dirs ? $smarty->ds : '^';
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;
             $smarty->caching = false;
             /* @var Smarty_Internal_Template $tpl */
-            $tpl = new $smarty->template_class($resource_name, $smarty);
+            $tpl = $smarty->createTemplate($resource_name);
             $smarty->caching = $_save_stat;
             if (!$tpl->source->handler->uncompiled && !$tpl->source->handler->recompiled && $tpl->source->exists) {
-                $_resource_part_1 = basename(str_replace('^', DS, $tpl->compiled->filepath));
+                $_resource_part_1 = basename(str_replace('^', $smarty->ds, $tpl->compiled->filepath));
                 $_resource_part_1_length = strlen($_resource_part_1);
             } else {
                 return 0;
@@ -75,18 +75,20 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
-            if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
+             if (substr(basename($_file->getPathname()), 0, 1) == '.') {
                 continue;
             }
-
             $_filepath = (string) $_file;
-
             if ($_file->isDir()) {
                 if (!$_compile->isDot()) {
                     // delete folder if empty
                     @rmdir($_file->getPathname());
                 }
             } else {
+                // delete only php files
+                if (substr($_filepath, -4) !== '.php') {
+                    continue;
+                }
                 $unlink = false;
                 if ((!isset($_compile_id) || (isset($_filepath[ $_compile_id_part_length ]) && $a =
                                 !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length))) &&
@@ -109,7 +111,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
 
                 if ($unlink && @unlink($_filepath)) {
                     $_count ++;
-                    if (function_exists('opcache_invalidate')) {
+                    if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
                         opcache_invalidate($_filepath, true);
                     }
                 }

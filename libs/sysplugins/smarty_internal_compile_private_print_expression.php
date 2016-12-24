@@ -46,18 +46,18 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
+        $output = $parameter[ 'value' ];
+        // tag modifier
+        if (!empty($parameter[ 'modifierlist' ])) {
+            $output = $compiler->compileTag('private_modifier', array(),
+                                            array('modifierlist' => $parameter[ 'modifierlist' ],
+                                                  'value' => $output));
+        }
         if (isset($_attr[ 'assign' ])) {
             // assign output to variable
-            $output = "<?php \$_smarty_tpl->assign({$_attr['assign']},{$parameter['value']});?>";
+            return "<?php \$_smarty_tpl->assign({$_attr['assign']},{$output});?>";
         } else {
             // display value
-            $output = $parameter[ 'value' ];
-            // tag modifier
-            if (!empty($parameter[ 'modifierlist' ])) {
-                $output = $compiler->compileTag('private_modifier', array(),
-                                                array('modifierlist' => $parameter[ 'modifierlist' ],
-                                                      'value' => $output));
-            }
             if (!$_attr[ 'nofilter' ]) {
                 // default modifier
                 if (!empty($compiler->smarty->default_modifiers)) {
@@ -138,8 +138,9 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
     private function compile_output_filter(Smarty_Internal_TemplateCompilerBase $compiler, $name, $output)
     {
         $plugin_name = "smarty_variablefilter_{$name}";
-        $path = $compiler->smarty->loadPlugin($plugin_name, false);
+        $path = $compiler->smarty->loadPlugin($plugin_name);
         if ($path) {
+            /**
             if ($compiler->template->caching) {
                 $compiler->parent_compiler->template->compiled->required_plugins[ 'nocache' ][ $name ][ Smarty::FILTER_VARIABLE ][ 'file' ] =
                     $path;
@@ -151,11 +152,11 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                 $compiler->parent_compiler->template->compiled->required_plugins[ 'compiled' ][ $name ][ Smarty::FILTER_VARIABLE ][ 'function' ] =
                     $plugin_name;
             }
+             * */
+            return "{$plugin_name}({$output},\$_smarty_tpl)";
         } else {
             // not found
             return false;
         }
-
-        return "{$plugin_name}({$output},\$_smarty_tpl)";
     }
 }

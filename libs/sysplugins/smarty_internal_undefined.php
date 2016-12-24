@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Smarty Method AppendByRef
+ * Smarty Internal Undefined
  *
- * Smarty::appendByRef() method
+ * Class to handle undefined method calls or calls to obsolete runtime extensions
  *
  * @package    Smarty
  * @subpackage PluginsInternal
@@ -13,15 +13,30 @@ class Smarty_Internal_Undefined
 {
 
     /**
-     * This function is executed automatically when a compiled or cached template file is included
-     * - Decode saved properties from compiled template and cache files
-     * - Check if compiled or cache file is valid
+     * Name of undefined extension class
+     *
+     * @var string|null
+     */
+    public $class = null;
+
+    /**
+     * Smarty_Internal_Undefined constructor.
+     *
+     * @param null|string $class name of undefined extension class
+     */
+    public function __construct($class = null)
+    {
+        $this->class = $class;
+    }
+
+    /**
+     * Wrapper for obsolete class Smarty_Internal_Runtime_ValidateCompiled
      *
      * @param  \Smarty_Internal_Template $tpl
      * @param  array                     $properties special template properties
      * @param  bool                      $cache      flag if called from cache file
      *
-     * @return bool flag if compiled or cache file is valid
+     * @return bool false
      */
     public function decodeProperties(Smarty_Internal_Template $tpl, $properties, $cache = false)
     {
@@ -44,6 +59,10 @@ class Smarty_Internal_Undefined
      */
     public function __call($name, $args)
     {
-        throw new SmartyException(get_class($args[ 0 ]) . "->{$name}() undefined method");
+        if (isset($this->class)) {
+            throw new SmartyException("undefined extension class '{$this->class}'");
+        } else {
+            throw new SmartyException(get_class($args[ 0 ]) . "->{$name}() undefined method");
+        }
     }
 }

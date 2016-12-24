@@ -7,15 +7,6 @@
  */
 
 /**
- * @ignore
- */
-require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-/**
- * @ignore
- */
-require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
-
-/**
  * Smarty {html_select_time} function plugin
  * Type:     function<br>
  * Name:     html_select_time<br>
@@ -33,6 +24,12 @@ require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
  */
 function smarty_function_html_select_time($params)
 {
+    if (!is_callable('smarty_function_escape_special_chars')) {
+        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    }
+    if (!is_callable('smarty_make_timestamp')) {
+        require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
+    }
     $prefix = "Time_";
     $field_array = null;
     $field_separator = "\n";

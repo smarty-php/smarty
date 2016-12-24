@@ -1,15 +1,20 @@
 <?php
 
 /**
- * Smarty Extension Clear
- *
- * $smarty->clear() method file cache file resource
+ * Smarty cache resource file clear method
  *
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  */
-class Smarty_Internal_Extension_Clear
+
+/**
+ * Smarty Internal Runtime Cache Resource File Class
+ *
+ * @package    Smarty
+ * @subpackage PluginsInternal
+ */
+class Smarty_Internal_Runtime_CacheResourceFile
 {
     /**
      * Empty cache for a specific template
@@ -22,7 +27,7 @@ class Smarty_Internal_Extension_Clear
      *
      * @return integer number of cache files deleted
      */
-    public static function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
+    public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
     {
         $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
         $_compile_id = isset($compile_id) ? preg_replace('![^\w]+!', '_', $compile_id) : null;
@@ -38,7 +43,7 @@ class Smarty_Internal_Extension_Clear
             $_cache_id_parts_count = count($_cache_id_parts);
             if ($smarty->use_sub_dirs) {
                 foreach ($_cache_id_parts as $id_part) {
-                    $_dir .= $id_part . DS;
+                    $_dir .= $id_part . $smarty->ds;
                 }
             }
         }
@@ -63,9 +68,10 @@ class Smarty_Internal_Extension_Clear
             $_cacheDirs = new RecursiveDirectoryIterator($_dir);
             $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
             foreach ($_cache as $_file) {
-                if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
+                if (substr(basename($_file->getPathname()), 0, 1) == '.') {
                     continue;
                 }
+                $_filepath = (string) $_file;
                 // directory ?
                 if ($_file->isDir()) {
                     if (!$_cache->isDot()) {
@@ -73,7 +79,11 @@ class Smarty_Internal_Extension_Clear
                         @rmdir($_file->getPathname());
                     }
                 } else {
-                    $_parts = explode($_dir_sep, str_replace('\\', '/', substr((string) $_file, $_dir_length)));
+                    // delete only php files
+                    if (substr($_filepath, -4) !== '.php') {
+                        continue;
+                    }
+                    $_parts = explode($_dir_sep, str_replace('\\', '/', substr($_filepath, $_dir_length)));
                     $_parts_count = count($_parts);
                     // check name
                     if (isset($resource_name)) {
@@ -114,9 +124,9 @@ class Smarty_Internal_Extension_Clear
                             }
                         }
                     }
-                    $_count += @unlink((string) $_file) ? 1 : 0;
-                    if (function_exists('opcache_invalidate')) {
-                        opcache_invalidate((string) $_file, true);
+                    $_count += @unlink($_filepath) ? 1 : 0;
+                    if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
+                        opcache_invalidate($_filepath, true);
                     }
                 }
             }

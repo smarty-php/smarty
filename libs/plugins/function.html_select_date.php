@@ -7,15 +7,6 @@
  */
 
 /**
- * @ignore
- */
-require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-/**
- * @ignore
- */
-require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
-
-/**
  * Smarty {html_select_date} plugin
  * Type:     function<br>
  * Name:     html_select_date<br>
@@ -52,6 +43,12 @@ require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
  */
 function smarty_function_html_select_date($params)
 {
+    if (!is_callable('smarty_function_escape_special_chars')) {
+        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    }
+    if (!is_callable('smarty_make_timestamp')) {
+        require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
+    }
     // generate timestamps used for month names only
     static $_month_timestamps = null;
     static $_current_year = null;

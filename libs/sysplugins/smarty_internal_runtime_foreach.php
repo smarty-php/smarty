@@ -38,39 +38,38 @@ class Smarty_Internal_Runtime_Foreach
                          $properties = array())
     {
         $saveVars = array();
-        if (!is_array($from) && !is_object($from)) {
-            settype($from, 'array');
+        $total = null;
+        if (!is_array($from)) {
+            if (is_object($from)) {
+                $total = $this->count($from);
+            } else {
+                settype($from, 'array');
+            }
         }
-        $total = ($needTotal || isset($properties[ 'total' ])) ? $this->count($from) : 1;
-        if (empty($from)) {
+        if (!isset($total)) {
+            $total = empty($from) ? 0 : (($needTotal || isset($properties[ 'total' ])) ? count($from) : 1);
+        }
+        if (isset($tpl->tpl_vars[ $item ])) {
+            $saveVars[ 'item' ] = array($item, $tpl->tpl_vars[ $item ]);
+        }
+        $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
+        if ($total === 0) {
             $from = null;
-            $total = 0;
-            if ($needTotal) {
-                if (isset($tpl->tpl_vars[ $item ])) {
-                    $saveVars[ $item ] = $tpl->tpl_vars[ $item ];
-                }
-                $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
-                $tpl->tpl_vars[ $item ]->total = 0;
-            }
         } else {
-            if (isset($tpl->tpl_vars[ $item ])) {
-                $saveVars[ $item ] = $tpl->tpl_vars[ $item ];
-            }
             if ($key) {
                 if (isset($tpl->tpl_vars[ $key ])) {
-                    $saveVars[ $key ] = $tpl->tpl_vars[ $key ];
+                    $saveVars[ 'key' ] = array($key, $tpl->tpl_vars[ $key ]);
                 }
                 $tpl->tpl_vars[ $key ] = new Smarty_Variable(null, $tpl->isRenderingCache);
             }
-            $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
-            if ($needTotal) {
-                $tpl->tpl_vars[ $item ]->total = $total;
-            }
+        }
+        if ($needTotal) {
+            $tpl->tpl_vars[ $item ]->total = $total;
         }
         if ($name) {
             $namedVar = "__smarty_foreach_{$name}";
             if (isset($tpl->tpl_vars[ $namedVar ])) {
-                $saveVars[ $namedVar ] = $tpl->tpl_vars[ $namedVar ];
+                $saveVars[ 'named' ] = array($namedVar, $tpl->tpl_vars[ $namedVar ]);
             }
             $namedProp = array();
             if (isset($properties[ 'total' ])) {
@@ -94,12 +93,28 @@ class Smarty_Internal_Runtime_Foreach
     /**
      * Restore saved variables
      *
+     * will be called by {break n} or {continue n} for the required number of levels
+     *
      * @param \Smarty_Internal_Template $tpl
+     * @param int                       $levels number of levels
      */
-    public function restore(Smarty_Internal_Template $tpl)
+    public function restore(Smarty_Internal_Template $tpl, $levels = 1)
     {
-        foreach (array_pop($this->stack) as $k => $v) {
-            $tpl->tpl_vars[ $k ] = $v;
+        while ($levels) {
+            $saveVars = array_pop($this->stack);
+            if (!empty($saveVars)) {
+                if (isset($saveVars[ 'item' ])) {
+                    $item = &$saveVars[ 'item' ];
+                    $tpl->tpl_vars[ $item[ 0 ] ]->value = $item[ 1 ]->value;
+                }
+                if (isset($saveVars[ 'key' ])) {
+                    $tpl->tpl_vars[ $saveVars[ 'key' ][ 0 ] ] = $saveVars[ 'key' ][ 1 ];
+                }
+                if (isset($saveVars[ 'named' ])) {
+                    $tpl->tpl_vars[ $saveVars[ 'named' ][ 0 ] ] = $saveVars[ 'named' ][ 1 ];
+                }
+            }
+            $levels--;
         }
     }
 
@@ -114,28 +129,21 @@ class Smarty_Internal_Runtime_Foreach
      */
     public function count($value)
     {
-        if (is_array($value) === true || $value instanceof Countable) {
+        if ($value instanceof Countable) {
             return count($value);
         } elseif ($value instanceof IteratorAggregate) {
             // Note: getIterator() returns a Traversable, not an Iterator
             // thus rewind() and valid() methods may not be present
             return iterator_count($value->getIterator());
         } elseif ($value instanceof Iterator) {
-            if ($value instanceof Generator) {
-                return 1;
-            }
-            return iterator_count($value);
+            return $value instanceof Generator ? 1 : iterator_count($value);
         } elseif ($value instanceof PDOStatement) {
             return $value->rowCount();
         } elseif ($value instanceof Traversable) {
             return iterator_count($value);
         } elseif ($value instanceof ArrayAccess) {
-            if ($value->offsetExists(0)) {
-                return 1;
-            }
-        } elseif (is_object($value)) {
-            return count($value);
+            return $value->offsetExists(0) ? 1 : 0;
         }
-        return 0;
+        return count((array) $value);
     }
 }

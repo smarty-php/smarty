@@ -33,10 +33,10 @@ class Smarty_Internal_Method_GetTags
     public function getTags(Smarty_Internal_TemplateBase $obj, $template = null)
     {
         /* @var Smarty $smarty */
-        $smarty = isset($this->smarty) ? $this->smarty : $obj;
-        if ($obj->_objType == 2 && !isset($template)) {
+        $smarty = $obj->_getSmartyObj();
+        if ($obj->_isTplObj() && !isset($template)) {
             $tpl = clone $obj;
-        } elseif (isset($template) && $template->_objType == 2) {
+        } elseif (isset($template) && $template->_isTplObj()) {
             $tpl = clone $template;
         } elseif (isset($template) && is_string($template)) {
             /* @var Smarty_Internal_Template $tpl */

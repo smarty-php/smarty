@@ -53,7 +53,6 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        $compiler->loopNesting ++;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
 
@@ -62,8 +61,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
         }
         unset($_attr[ 'nocache' ]);
         $_name = trim($_attr[ 'name' ], "'\"");
-        $compiler->parent_compiler->tpl_function[ $_name ] =
-        $compiler->parent_compiler->template->tpl_function[ $_name ] = array();
+        $compiler->parent_compiler->tpl_function[ $_name ] = array();
         $save = array($_attr, $compiler->parser->current_buffer, $compiler->template->compiled->has_nocache_code,
                       $compiler->template->caching);
         $this->openTag($compiler, 'function', $save);
@@ -101,20 +99,13 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        $compiler->loopNesting --;
         $this->compiler = $compiler;
         $saved_data = $this->closeTag($compiler, array('function'));
         $_attr = $saved_data[ 0 ];
         $_name = trim($_attr[ 'name' ], "'\"");
-        $compiler->parent_compiler->tpl_function[ $_name ][ 'called_functions' ] =
-        $compiler->parent_compiler->template->tpl_function[ $_name ][ 'called_functions' ] =
-            $compiler->called_functions;
         $compiler->parent_compiler->tpl_function[ $_name ][ 'compiled_filepath' ] =
-        $compiler->parent_compiler->template->tpl_function[ $_name ][ 'compiled_filepath' ] =
             $compiler->parent_compiler->template->compiled->filepath;
-        $compiler->parent_compiler->tpl_function[ $_name ][ 'uid' ] =
-        $compiler->parent_compiler->template->tpl_function[ $_name ][ 'uid' ] = $compiler->template->source->uid;
-        $compiler->called_functions = array();
+        $compiler->parent_compiler->tpl_function[ $_name ][ 'uid' ] = $compiler->template->source->uid;
         $_parameter = $_attr;
         unset($_parameter[ 'name' ]);
         // default parameter
@@ -139,8 +130,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $_funcName = "smarty_template_function_{$_name}_{$compiler->template->compiled->nocache_hash}";
         $_funcNameCaching = $_funcName . '_nocache';
         if ($compiler->template->compiled->has_nocache_code) {
-            $compiler->parent_compiler->tpl_function[ $_name ][ 'call_name_caching' ] =
-            $compiler->parent_compiler->template->tpl_function[ $_name ][ 'call_name_caching' ] = $_funcNameCaching;
+            $compiler->parent_compiler->tpl_function[ $_name ][ 'call_name_caching' ] = $_funcNameCaching;
             $output = "<?php\n";
             $output .= "/* {$_funcNameCaching} */\n";
             $output .= "if (!function_exists('{$_funcNameCaching}')) {\n";
@@ -172,8 +162,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
                                                                                      array($this, 'removeNocache'),
                                                                                      $_functionCode->to_smarty_php($compiler->parser)));
         }
-        $compiler->parent_compiler->tpl_function[ $_name ][ 'call_name' ] =
-        $compiler->parent_compiler->template->tpl_function[ $_name ][ 'call_name' ] = $_funcName;
+        $compiler->parent_compiler->tpl_function[ $_name ][ 'call_name' ] = $_funcName;
         $output = "<?php\n";
         $output .= "/* {$_funcName} */\n";
         $output .= "if (!function_exists('{$_funcName}')) {\n";
@@ -210,9 +199,11 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
     }
 
     /**
+     * Remove nocache code
+     * 
      * @param $match
      *
-     * @return mixed
+     * @return string
      */
     function removeNocache($match)
     {

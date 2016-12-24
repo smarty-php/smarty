@@ -29,7 +29,7 @@ class Smarty_Internal_Method_GetDebugTemplate
      */
     public function getDebugTemplate(Smarty_Internal_TemplateBase $obj)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         return $smarty->debug_tpl;
     }
 }

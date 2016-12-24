@@ -63,7 +63,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                 $output .= "if (!is_callable({$callable})) {\nthrow new SmartyException('block tag \'{$tag}\' not callable or registered');\n}\n";
             }
             $output .= "\$_smarty_tpl->smarty->_cache['_tag_stack'][] = array('{$tag}', {$_params});\n";
-            $output .= "\$_block_repeat{$this->nesting}=true;\necho {$callback}({$_params}, null, \$_smarty_tpl, \$_block_repeat{$this->nesting});\nwhile (\$_block_repeat{$this->nesting}) {\nob_start();\n?>";
+            $output .= "\$_block_repeat=true;\necho {$callback}({$_params}, null, \$_smarty_tpl, \$_block_repeat);\nwhile (\$_block_repeat) {\nob_start();\n?>";
             $this->openTag($compiler, $tag, array($_params, $compiler->nocache, $callback));
             // maybe nocache because of nocache variables or nocache plugin
             $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
@@ -88,12 +88,11 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                                                             array('modifierlist' => $parameter[ 'modifier_list' ],
                                                                   'value' => 'ob_get_clean()')) . ";\n";
             }
-            $output = "<?php " . $mod_content . "\$_block_repeat{$this->nesting}=false;\n" . $mod_pre .
+            $output = "<?php " . $mod_content . "\$_block_repeat=false;\n" . $mod_pre .
                       "echo {$callback}({$_params}, " . $mod_content2 .
-                      ", \$_smarty_tpl, \$_block_repeat{$this->nesting});\n" . $mod_post . "}\n";
+                      ", \$_smarty_tpl, \$_block_repeat);\n" . $mod_post . "}\n";
             $output .= "array_pop(\$_smarty_tpl->smarty->_cache['_tag_stack']);";
             $output .= "?>";
-            $this->nesting --;
         }
         return $output . "\n";
     }

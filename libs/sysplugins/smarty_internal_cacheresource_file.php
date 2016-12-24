@@ -29,7 +29,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
     {
         $source = &$_template->source;
         $smarty = &$_template->smarty;
-        $_compile_dir_sep = $smarty->use_sub_dirs ? DS : '^';
+        $_compile_dir_sep = $smarty->use_sub_dirs ? $smarty->ds : '^';
         $_filepath = sha1($source->uid . $smarty->_joined_template_dir);
         $cached->filepath = $smarty->getCacheDir();
         if (isset($_template->cache_id)) {
@@ -41,8 +41,8 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         }
         // if use_sub_dirs, break file into directories
         if ($smarty->use_sub_dirs) {
-            $cached->filepath .= $_filepath[ 0 ] . $_filepath[ 1 ] . DS . $_filepath[ 2 ] . $_filepath[ 3 ] . DS .
-                                 $_filepath[ 4 ] . $_filepath[ 5 ] . DS;
+            $cached->filepath .= $_filepath[ 0 ] . $_filepath[ 1 ] . $smarty->ds . $_filepath[ 2 ] . $_filepath[ 3 ] . $smarty->ds .
+                                 $_filepath[ 4 ] . $_filepath[ 5 ] . $smarty->ds;
         }
         $cached->filepath .= $_filepath;
         $basename = $source->handler->getBasename($source);
@@ -108,7 +108,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         if ($_template->smarty->ext->_writeFile->writeFile($_template->cached->filepath, $content,
                                                            $_template->smarty) === true
         ) {
-            if (function_exists('opcache_invalidate')) {
+            if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
                 opcache_invalidate($_template->cached->filepath, true);
             } elseif (function_exists('apc_compile_file')) {
                 apc_compile_file($_template->cached->filepath);
@@ -148,7 +148,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      */
     public function clearAll(Smarty $smarty, $exp_time = null)
     {
-        return Smarty_Internal_Extension_Clear::clear($smarty, null, null, null, $exp_time);
+        return $smarty->ext->_cacheResourceFile->clear($smarty, null, null, null, $exp_time);
     }
 
     /**
@@ -164,7 +164,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      */
     public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
     {
-        return Smarty_Internal_Extension_Clear::clear($smarty, $resource_name, $cache_id, $compile_id, $exp_time);
+        return $smarty->ext->_cacheResourceFile->clear($smarty, $resource_name, $cache_id, $compile_id, $exp_time);
     }
 
     /**

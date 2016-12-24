@@ -25,7 +25,13 @@ class Smarty_Internal_Configfilelexer
      * @var string
      */
     public $data;
-    /**
+      /**
+      * Source length
+      *
+      * @var int
+      */
+     public $dataLength = null;
+   /**
      * byte counter
      *
      * @var int
@@ -120,9 +126,8 @@ class Smarty_Internal_Configfilelexer
      */
     function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)
     {
-        // set instance object
-        self::instance($this);
         $this->data = $data . "\n"; //now all lines are \n-terminated
+        $this->dataLength = strlen($data);
         $this->counter = 0;
         if (preg_match('/^\xEF\xBB\xBF/', $this->data, $match)) {
             $this->counter += strlen($match[0]);
@@ -131,15 +136,6 @@ class Smarty_Internal_Configfilelexer
         $this->compiler = $compiler;
         $this->smarty = $compiler->smarty;
         $this->configBooleanize = $this->smarty->config_booleanize;
-    }
-
-    public static function &instance($new_instance = null)
-    {
-        static $instance = null;
-        if (isset($new_instance) && is_object($new_instance)) {
-            $instance = $new_instance;
-        }
-        return $instance;
     }
 
     public function PrintTrace()

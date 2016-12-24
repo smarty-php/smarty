@@ -23,14 +23,14 @@ class Smarty_Internal_Runtime_Make_Nocache
     public function save(Smarty_Internal_Template $tpl, $var)
     {
         if (isset($tpl->tpl_vars[ $var ])) {
-            $export = preg_replace('/^Smarty_Variable::__set_state[(]|\s|[)]$/', '',
-                                   var_export($tpl->tpl_vars[ $var ], true));
+            $export =
+                preg_replace('/^Smarty_Variable::__set_state[(]|[)]$/', '', var_export($tpl->tpl_vars[ $var ], true));
             if (preg_match('/(\w+)::__set_state/', $export, $match)) {
                 throw new SmartyException("{make_nocache \${$var}} in template '{$tpl->source->name}': variable does contain object '{$match[1]}' not implementing method '__set_state'");
             }
             echo "/*%%SmartyNocache:{$tpl->compiled->nocache_hash}%%*/<?php " .
-                 addcslashes("\$_smarty_tpl->smarty->ext->_make_nocache->store(\$_smarty_tpl, '{$var}', " . $export,
-                             '\\') . ");?>\n/*/%%SmartyNocache:{$tpl->compiled->nocache_hash}%%*/";
+                 addcslashes("\$_smarty_tpl->smarty->ext->_make_nocache->store(\$_smarty_tpl, '{$var}', ", '\\') .
+                 $export . ");?>\n/*/%%SmartyNocache:{$tpl->compiled->nocache_hash}%%*/";
         }
     }
 

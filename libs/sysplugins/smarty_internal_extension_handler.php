@@ -10,25 +10,31 @@
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  *
- * @property Smarty_Internal_Runtime_TplFunction    $_tplFunction
- * @property Smarty_Internal_Runtime_Foreach        $_foreach
- * @property Smarty_Internal_Runtime_WriteFile      $_writeFile
- * @property Smarty_Internal_Runtime_CodeFrame      $_codeFrame
- * @property Smarty_Internal_Runtime_FilterHandler  $_filterHandler
- * @property Smarty_Internal_Runtime_GetIncludePath $_getIncludePath
- * @property Smarty_Internal_Runtime_UpdateScope    $_updateScope
- * @property Smarty_Internal_Runtime_CacheModify    $_cacheModify
- * @property Smarty_Internal_Runtime_UpdateCache    $_updateCache
- * @property Smarty_Internal_Method_GetTemplateVars $getTemplateVars
- * @property Smarty_Internal_Method_Append          $append
- * @property Smarty_Internal_Method_AppendByRef     $appendByRef
- * @property Smarty_Internal_Method_AssignGlobal    $assignGlobal
- * @property Smarty_Internal_Method_AssignByRef     $assignByRef
- * @property Smarty_Internal_Method_LoadFilter      $loadFilter
- * @property Smarty_Internal_Method_LoadPlugin      $loadPlugin
- * @property Smarty_Internal_Method_RegisterFilter  $registerFilter
- * @property Smarty_Internal_Method_RegisterObject  $registerObject
- * @property Smarty_Internal_Method_RegisterPlugin  $registerPlugin
+ * Runtime extensions
+ * @property Smarty_Internal_Runtime_CacheModify       $_cacheModify
+ * @property Smarty_Internal_Runtime_CacheResourceFile $_cacheResourceFile
+ * @property Smarty_Internal_Runtime_Capture           $_capture
+ * @property Smarty_Internal_Runtime_CodeFrame         $_codeFrame
+ * @property Smarty_Internal_Runtime_FilterHandler     $_filterHandler
+ * @property Smarty_Internal_Runtime_Foreach           $_foreach
+ * @property Smarty_Internal_Runtime_GetIncludePath    $_getIncludePath
+ * @property Smarty_Internal_Runtime_Make_Nocache      $_make_nocache
+ * @property Smarty_Internal_Runtime_UpdateCache       $_updateCache
+ * @property Smarty_Internal_Runtime_UpdateScope       $_updateScope
+ * @property Smarty_Internal_Runtime_TplFunction       $_tplFunction
+ * @property Smarty_Internal_Runtime_WriteFile         $_writeFile
+ *
+ * Method extensions
+ * @property Smarty_Internal_Method_GetTemplateVars    $getTemplateVars
+ * @property Smarty_Internal_Method_Append             $append
+ * @property Smarty_Internal_Method_AppendByRef        $appendByRef
+ * @property Smarty_Internal_Method_AssignGlobal       $assignGlobal
+ * @property Smarty_Internal_Method_AssignByRef        $assignByRef
+ * @property Smarty_Internal_Method_LoadFilter         $loadFilter
+ * @property Smarty_Internal_Method_LoadPlugin         $loadPlugin
+ * @property Smarty_Internal_Method_RegisterFilter     $registerFilter
+ * @property Smarty_Internal_Method_RegisterObject     $registerObject
+ * @property Smarty_Internal_Method_RegisterPlugin     $registerPlugin
  */
 class Smarty_Internal_Extension_Handler
 {
@@ -62,16 +68,17 @@ class Smarty_Internal_Extension_Handler
         /* @var Smarty $data ->smarty */
         $smarty = isset($data->smarty) ? $data->smarty : $data;
         if (!isset($smarty->ext->$name)) {
-            $class = 'Smarty_Internal_Method_' . ucfirst($name);
+            $class = 'Smarty_Internal_Method_' . $this->upperCase($name);
             if (preg_match('/^(set|get)([A-Z].*)$/', $name, $match)) {
+                $pn = '';
                 if (!isset($this->_property_info[ $prop = $match[ 2 ] ])) {
                     // convert camel case to underscored name
                     $this->resolvedProperties[ $prop ] = $pn = strtolower(join('_',
                                                                                preg_split('/([A-Z][^A-Z]*)/', $prop,
                                                                                           - 1, PREG_SPLIT_NO_EMPTY |
                                                                                                PREG_SPLIT_DELIM_CAPTURE)));
-                    $this->_property_info[ $prop ] = property_exists($data, $pn) ? 1 :
-                        ($data->_objType == 2 && property_exists($smarty, $pn) ? 2 : 0);
+                    $this->_property_info[ $prop ] =
+                        property_exists($data, $pn) ? 1 : ($data->_isTplObj() && property_exists($smarty, $pn) ? 2 : 0);
                 }
                 if ($this->_property_info[ $prop ]) {
                     $pn = $this->resolvedProperties[ $prop ];
@@ -99,6 +106,20 @@ class Smarty_Internal_Extension_Handler
     }
 
     /**
+     * Make first character of name parts upper case
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    public function upperCase($name)
+    {
+        $_name = explode('_', $name);
+        $_name = array_map('ucfirst', $_name);
+        return implode('_', $_name);
+    }
+
+    /**
      * set extension property
      *
      * @param string $property_name property name
@@ -123,9 +144,12 @@ class Smarty_Internal_Extension_Handler
     {
         // object properties of runtime template extensions will start with '_'
         if ($property_name[ 0 ] == '_') {
-            $class = 'Smarty_Internal_Runtime_' . ucfirst(substr($property_name, 1));
+            $class = 'Smarty_Internal_Runtime' . $this->upperCase($property_name);
         } else {
-            $class = 'Smarty_Internal_Method_' . ucfirst($property_name);
+            $class = 'Smarty_Internal_Method_' . $this->upperCase($property_name);
+        }
+        if (!class_exists($class)) {
+            return $this->$property_name = new Smarty_Internal_Undefined($class);
         }
         return $this->$property_name = new $class();
     }

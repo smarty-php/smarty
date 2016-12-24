@@ -107,7 +107,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                             $compiled->includes[ $fullResourceName ] = 1;
                         }
                     }
-                    $fullResourceName = '"' . $fullResourceName . '"';
+                    $fullResourceName = $match[ 1 ] . $fullResourceName . $match[ 1 ];
                 }
             }
             if (empty($match[ 5 ])) {
@@ -295,8 +295,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
     {
         $uid = $tpl->source->type . $tpl->source->uid;
         if (!($tpl->source->handler->uncompiled) && $tpl->source->exists) {
-            $compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ][ 'uid' ] =
-                $tpl->source->uid;
+            $compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ][ 'uid' ] = $tpl->source->uid;
             if (isset($compiler->template->inheritance)) {
                 $tpl->inheritance = clone $compiler->template->inheritance;
             }

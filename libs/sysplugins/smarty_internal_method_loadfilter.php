@@ -41,7 +41,7 @@ class Smarty_Internal_Method_LoadFilter
      */
     public function loadFilter(Smarty_Internal_TemplateBase $obj, $type, $name)
     {
-        $smarty = isset($obj->smarty) ? $obj->smarty : $obj;
+        $smarty = $obj->_getSmartyObj();
         $this->_checkFilterType($type);
         $_plugin = "smarty_{$type}filter_{$name}";
         $_filter_name = $_plugin;

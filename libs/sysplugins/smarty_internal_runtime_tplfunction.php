@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Tplfunc Runtime Methods callTemplateFunction
+ * TplFunction Runtime Methods callTemplateFunction
  *
  * @package    Smarty
  * @subpackage PluginsInternal
@@ -22,14 +22,16 @@ class Smarty_Internal_Runtime_TplFunction
      */
     public function callTemplateFunction(Smarty_Internal_Template $tpl, $name, $params, $nocache)
     {
-        if (isset($tpl->tpl_function[ $name ])) {
+        $funcParam = isset($tpl->tplFunctions[ $name ]) ? $tpl->tplFunctions[ $name ] :
+            (isset($tpl->smarty->tplFunctions[ $name ]) ? $tpl->smarty->tplFunctions[ $name ] : null);
+        if (isset($funcParam)) {
             if (!$tpl->caching || ($tpl->caching && $nocache)) {
-                $function = $tpl->tpl_function[ $name ][ 'call_name' ];
+                $function = $funcParam[ 'call_name' ];
             } else {
-                if (isset($tpl->tpl_function[ $name ][ 'call_name_caching' ])) {
-                    $function = $tpl->tpl_function[ $name ][ 'call_name_caching' ];
+                if (isset($funcParam[ 'call_name_caching' ])) {
+                    $function = $funcParam[ 'call_name_caching' ];
                 } else {
-                    $function = $tpl->tpl_function[ $name ][ 'call_name' ];
+                    $function = $funcParam[ 'call_name' ];
                 }
             }
             if (function_exists($function)) {
@@ -50,6 +52,44 @@ class Smarty_Internal_Runtime_TplFunction
     }
 
     /**
+     * Register template functions defined by template
+     *
+     * @param \Smarty|\Smarty_Internal_Template|\Smarty_Internal_TemplateBase $obj
+     * @param  array                                                          $tplFunctions source information array of template functions defined in template
+     * @param bool                                                            $override     if true replace existing functions with same name
+     */
+    public function registerTplFunctions(Smarty_Internal_TemplateBase $obj, $tplFunctions, $override = true)
+    {
+        $obj->tplFunctions =
+            $override ? array_merge($obj->tplFunctions, $tplFunctions) : array_merge($tplFunctions, $obj->tplFunctions);
+        // make sure that the template functions are known in parent templates
+        if ($obj->_isSubTpl()) {
+            $obj->smarty->ext->_tplFunction->registerTplFunctions($obj->parent, $tplFunctions, false);
+        } else {
+            $obj->smarty->tplFunctions = $override ? array_merge($obj->smarty->tplFunctions, $tplFunctions) :
+                array_merge($tplFunctions, $obj->smarty->tplFunctions);
+        }
+    }
+
+    /**
+     * Return source parameter array for single or all template functions
+     *
+     * @param \Smarty_Internal_Template $tpl  template object
+     * @param null|string               $name template function name
+     *
+     * @return array|bool|mixed
+     */
+    public function getTplFunction(Smarty_Internal_Template $tpl, $name = null)
+    {
+        if (isset($name)) {
+            return isset($tpl->tplFunctions[ $name ]) ? $tpl->tplFunctions[ $name ] :
+                (isset($tpl->smarty->tplFunctions[ $name ]) ? $tpl->smarty->tplFunctions[ $name ] : false);
+        } else {
+            return empty($tpl->tplFunctions) ? $tpl->smarty->tplFunctions : $tpl->tplFunctions;
+        }
+    }
+
+    /**
      *
      * Add template function to cache file for nocache calls
      *
@@ -61,7 +101,7 @@ class Smarty_Internal_Runtime_TplFunction
      */
     public function addTplFuncToCache(Smarty_Internal_Template $tpl, $_name, $_function)
     {
-        $funcParam = $tpl->tpl_function[ $_name ];
+        $funcParam = $tpl->tplFunctions[ $_name ];
         if (is_file($funcParam[ 'compiled_filepath' ])) {
             // read compiled file
             $code = file_get_contents($funcParam[ 'compiled_filepath' ]);
@@ -80,6 +120,7 @@ class Smarty_Internal_Runtime_TplFunction
                     }
                     // add template function code to cache file
                     if (isset($tplPtr->cached)) {
+                        /* @var Smarty_Template_Cached $cache */
                         $cache = $tplPtr->cached;
                         $content = $cache->read($tplPtr);
                         if ($content) {

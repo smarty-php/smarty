@@ -49,19 +49,21 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $this->filepath = $smarty->getCompileDir();
         if (isset($_template->compile_id)) {
             $this->filepath .= preg_replace('![^\w]+!', '_', $_template->compile_id) .
-                               ($smarty->use_sub_dirs ? DS : '^');
+                               ($smarty->use_sub_dirs ? $smarty->ds : '^');
         }
         // if use_sub_dirs, break file into directories
         if ($smarty->use_sub_dirs) {
-            $this->filepath .= $source->uid[ 0 ] . $source->uid[ 1 ] . DS . $source->uid[ 2 ] . $source->uid[ 3 ] . DS .
-                               $source->uid[ 4 ] . $source->uid[ 5 ] . DS;
+            $this->filepath .= $source->uid[ 0 ] . $source->uid[ 1 ] . $smarty->ds . $source->uid[ 2 ] .
+                               $source->uid[ 3 ] . $smarty->ds . $source->uid[ 4 ] . $source->uid[ 5 ] . $smarty->ds;
         }
         $this->filepath .= $source->uid . '_';
         if ($source->isConfig) {
             $this->filepath .= (int) $smarty->config_read_hidden + (int) $smarty->config_booleanize * 2 +
                                (int) $smarty->config_overwrite * 4;
         } else {
-            $this->filepath .= (int) $smarty->merge_compiled_includes + (int) $smarty->escape_html * 2;
+            $this->filepath .= (int) $smarty->merge_compiled_includes + (int) $smarty->escape_html * 2 +
+                               (($smarty->merge_compiled_includes && $source->type === 'extends') ?
+                                   (int) $smarty->extends_recursion * 4 : 0);
         }
         $this->filepath .= '.' . $source->type;
         $basename = $source->handler->getBasename($source);
@@ -124,7 +126,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      */
     private function loadCompiledTemplate(Smarty_Internal_Template $_smarty_tpl)
     {
-        if (function_exists('opcache_invalidate')) {
+        if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
             opcache_invalidate($this->filepath, true);
         } elseif (function_exists('apc_compile_file')) {
             apc_compile_file($this->filepath);
@@ -146,7 +148,15 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      */
     public function render(Smarty_Internal_Template $_template)
     {
+        // checks if template exists
+        if (!$_template->source->exists) {
+            $type = $_template->source->isConfig ? 'config' : 'template';
+            throw new SmartyException("Unable to load {$type} '{$_template->source->type}:{$_template->source->name}'");
+        }
         if ($_template->smarty->debugging) {
+            if (!isset($_template->smarty->_debug)) {
+                $_template->smarty->_debug = new Smarty_Internal_Debug();
+            }
             $_template->smarty->_debug->start_render($_template);
         }
         if (!$this->processed) {
@@ -163,9 +173,6 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         }
         if ($_template->caching && $this->has_nocache_code) {
             $_template->cached->hashes[ $this->nocache_hash ] = true;
-        }
-        if (isset($_template->parent) && $_template->parent->_objType == 2 && !empty($_template->tpl_function)) {
-            $_template->parent->tpl_function = array_merge($_template->parent->tpl_function, $_template->tpl_function);
         }
         if ($_template->smarty->debugging) {
             $_template->smarty->_debug->end_render($_template);
@@ -186,12 +193,24 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $this->nocache_hash = null;
         $this->unifunc = null;
         // compile locking
-        if ($saved_timestamp = $this->getTimeStamp()) {
+        $saved_timestamp = $_template->source->handler->recompiled ? false : $this->getTimeStamp();
+        if ($saved_timestamp) {
             touch($this->filepath);
         }
-        // call compiler
-        $_template->loadCompiler();
-        $this->write($_template, $_template->compiler->compileTemplate($_template));
+        // compile locking
+        try {
+            // call compiler
+            $_template->loadCompiler();
+            $this->write($_template, $_template->compiler->compileTemplate($_template));
+        }
+        catch (Exception $e) {
+            // restore old timestamp in case of error
+            if ($saved_timestamp) {
+                touch($this->filepath, $saved_timestamp);
+            }
+            unset($_template->compiler);
+            throw $e;
+        }
         // release compiler object to free memory
         unset($_template->compiler);
     }

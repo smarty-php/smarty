@@ -8,7 +8,7 @@
  */
 
 /**
- * Smarty Connfig Resource Data Object
+ * Smarty Config Resource Data Object
  * Meta Data Container for Template Files
  *
  * @package    Smarty
@@ -75,21 +75,24 @@ class Smarty_Template_Config extends Smarty_Template_Source
                                 $template_resource = null)
     {
         static $_incompatible_resources = array('extends' => true, 'php' => true);
-        $template_resource = $_template->template_resource;
-        if (empty($template_resource)) {
-            throw new SmartyException('Missing config name');
+        if ($_template) {
+            $smarty = $_template->smarty;
+            $template_resource = $_template->template_resource;
         }
-        // parse resource_name, load resource handler
-        list($name, $type) =
-            Smarty_Resource::parseResourceName($template_resource, $_template->smarty->default_config_type);
+        if (empty($template_resource)) {
+            throw new SmartyException('Source: Missing  name');
+        }
+         // parse resource_name, load resource handler
+        list($name, $type) = Smarty_Resource::parseResourceName($template_resource, $smarty->default_config_type);
         // make sure configs are not loaded via anything smarty can't handle
         if (isset($_incompatible_resources[ $type ])) {
             throw new SmartyException ("Unable to use resource '{$type}' for config");
         }
-        $source = new Smarty_Template_Config($_template->smarty, $template_resource, $type, $name);
+        $source = new Smarty_Template_Config($smarty, $template_resource, $type, $name);
         $source->handler->populate($source, $_template);
-        if (!$source->exists && isset($_template->smarty->default_config_handler_func)) {
+        if (!$source->exists && isset($smarty->default_config_handler_func)) {
             Smarty_Internal_Method_RegisterDefaultTemplateHandler::_getDefaultTemplate($source);
+            $source->handler->populate($source, $_template);
         }
         return $source;
     }

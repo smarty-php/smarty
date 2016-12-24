@@ -73,7 +73,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
         $compiler->_cache[ 'capture_stack' ][] = array($compiler->nocache);
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
-        $_output = "<?php \$_smarty_tpl->smarty->ext->_capture->open(\$_smarty_tpl, $buffer, $assign, $append);\n?>\n";
+        $_output = "<?php \$_smarty_tpl->smarty->ext->_capture->open(\$_smarty_tpl, $buffer, $assign, $append);?>";
 
         return $_output;
     }
@@ -107,6 +107,6 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
 
         list($compiler->nocache) = array_pop($compiler->_cache[ 'capture_stack' ]);
 
-        return "<?php \$_smarty_tpl->smarty->ext->_capture->close(\$_smarty_tpl);\n?>\n";
+        return "<?php \$_smarty_tpl->smarty->ext->_capture->close(\$_smarty_tpl);?>";
     }
 }
