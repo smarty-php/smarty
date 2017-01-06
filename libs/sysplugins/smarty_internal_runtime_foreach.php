@@ -129,14 +129,14 @@ class Smarty_Internal_Runtime_Foreach
      */
     public function count($value)
     {
-        if ($value instanceof Countable) {
-            return count($value);
-        } elseif ($value instanceof IteratorAggregate) {
+        if ($value instanceof IteratorAggregate) {
             // Note: getIterator() returns a Traversable, not an Iterator
             // thus rewind() and valid() methods may not be present
             return iterator_count($value->getIterator());
         } elseif ($value instanceof Iterator) {
             return $value instanceof Generator ? 1 : iterator_count($value);
+        } elseif ($value instanceof Countable) {
+            return count($value);
         } elseif ($value instanceof PDOStatement) {
             return $value->rowCount();
         } elseif ($value instanceof Traversable) {
