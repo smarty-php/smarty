@@ -663,7 +663,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         // if compiler function plugin call it now
                         if ($plugin_type == Smarty::PLUGIN_COMPILER) {
                             $new_args = array();
-                            foreach ($args as $mixed) {
+                            foreach ($args as $key => $mixed) {
                                 if (is_array($mixed)) {
                                     $new_args = array_merge($new_args, $mixed);
                                 } else {
