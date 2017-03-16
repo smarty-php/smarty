@@ -927,7 +927,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $_tag = explode('_', $tag);
             $_tag = array_map('ucfirst', $_tag);
             $class_name = 'Smarty_Internal_Compile_' . implode('_', $_tag);
-            if (class_exists($class_name) &&
+            if ($this->smarty->loadPlugin($class_name) &&
                 (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))
             ) {
                 self::$_tag_objects[ $tag ] = new $class_name;
