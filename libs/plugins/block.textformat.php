@@ -93,6 +93,17 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
         if ($indent_first > 0) {
             $_paragraph = str_repeat($indent_char, $indent_first) . $_paragraph;
         }
+        // negative indent first line
+        $_removed_chars_first_line = '';
+        if ($indent_first < 0) {
+            if (Smarty::$_MBSTRING) {
+                $_removed_chars_first_line = mb_substr($_paragraph, 0, -$indent_first, Smarty::$_CHARSET);
+                $_paragraph = mb_substr($_paragraph, -$indent_first, null, Smarty::$_CHARSET);
+            } else {
+                $_removed_chars_first_line = substr($_paragraph, 0, -$indent_first);
+                $_paragraph = substr($_paragraph, -$indent_first);
+            }
+        }
         // wordwrap sentences
         if (Smarty::$_MBSTRING) {
             $_paragraph = smarty_mb_wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);
@@ -102,6 +113,14 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
         // indent lines
         if ($indent > 0) {
             $_paragraph = preg_replace('!^!m', str_repeat($indent_char, $indent), $_paragraph);
+        }
+        // insert removed text to first line with negative indent
+        if ($indent_first < 0) {
+            if (Smarty::$_MBSTRING) {
+                $_paragraph = mb_ereg_replace(sprintf('^(.{%d}).{%d}', max(0, $indent_first + $indent), -$indent_first), '\\1'.$_removed_chars_first_line, $_paragraph);
+            } else {
+                $_paragraph = substr_replace($_paragraph, $_removed_chars_first_line, max(0, $indent_first + $indent), -$indent_first);
+            }
         }
     }
     $_output = implode($wrap_char . $wrap_char, $_paragraphs);
