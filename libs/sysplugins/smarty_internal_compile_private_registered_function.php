@@ -44,7 +44,7 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
         } else {
             $tag_info = $compiler->default_handler_plugins[ Smarty::PLUGIN_FUNCTION ][ $tag ];
         }
-        // not cachable?
+        // not cacheable?
         $compiler->tag_nocache = $compiler->tag_nocache || !$tag_info[ 1 ];
         // convert attributes into parameter array string
         $_paramsArray = array();

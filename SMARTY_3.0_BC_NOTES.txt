@@ -1,5 +1,5 @@
 == Smarty2 backward compatibility ==
-All Smarty2 specific API functions and deprecated functionallity has been moved
+All Smarty2 specific API functions and deprecated functionality has been moved
 to the SmartyBC class.
 
 == {php} Tag ==

@@ -260,12 +260,12 @@ Example: {$object->method1($x)->method2($y)}
 {for} tag added for looping (replacement for {section} tag):
 {for $x=0, $y=count($foo); $x<$y; $x++}  ....  {/for}
 Any number of statements can be used separated by comma as the first
-inital expression at {for}.
+initial expression at {for}.
 
 {for $x = $start to $end step $step} ... {/for}is in the SVN now .
 You can use also
 {for $x = $start to $end} ... {/for}
-In this case the step value will be automaticall 1 or -1 depending on the start and end values.
+In this case the step value will be automatically 1 or -1 depending on the start and end values.
 Instead of $start and $end you can use any valid expression.
 Inside the loop the following special vars can be accessed:
 $x@iteration = number of iteration
@@ -473,7 +473,7 @@ TEMPLATE INHERITANCE:
 =====================
 
 With template inheritance you can define blocks, which are areas that can be
-overriden by child templates, so your templates could look like this: 
+overridden by child templates, so your templates could look like this: 
 
 parent.tpl:
 <html>
@@ -508,8 +508,8 @@ grandchild.tpl:
 
 We redefined all the blocks here, however in the title block we used {$smarty.block.parent},
 which tells Smarty to insert the default content from the parent template in its place.
-The content block was overriden to display the image files, and page-title has also be 
-overriden to display a completely different title. 
+The content block was overridden to display the image files, and page-title has also be 
+overridden to display a completely different title. 
 
 If we render grandchild.tpl we will get this: 
 <html>

@@ -63,7 +63,7 @@ the compiled code of {include} subtemplates gets also merged in compiled inherit
 Merging the code into a single compile template has some drawbacks.
 1. You could not use variable file names in {include} Smarty would use the {include} of compilation time.
 2. You could not use individual compile_id in {include}
-3. Seperate caching of subtemplate was not possible
+3. Separate caching of subtemplate was not possible
 4. Any change of the template directory structure between calls was not necessarily seen.
 
 Starting with 3.1.15 some of the above conditions got checked and resulted in an exception. It turned out
