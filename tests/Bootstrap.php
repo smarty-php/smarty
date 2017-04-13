@@ -26,10 +26,12 @@ if (!defined('SMARTY_COMPOSER_INSTALL')) {
     }
     unset($file);
 }
-if (!class_exists('PHPUnit_Framework_TestCase')) {
+if (!class_exists('PHPUnit_Framework_TestCase') && !class_exists('\PHPUnit\Framework\TestCase')) {
     require_once SMARTY_COMPOSER_INSTALL;
 }
-
+if (!class_exists('\PHPUnit_Framework_TestCase') && class_exists('\PHPUnit\Framework\TestCase')) {
+    class_alias('\PHPUnit\Framework\TestCase', '\PHPUnit_Framework_TestCase');
+}
 require_once 'PHPUnit_Smarty.php';
 if (!ini_get('date.timezone')) {
     ini_set('date.timezone', 'Europe/Berlin');
