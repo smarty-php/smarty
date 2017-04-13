@@ -663,8 +663,12 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         // if compiler function plugin call it now
                         if ($plugin_type == Smarty::PLUGIN_COMPILER) {
                             $new_args = array();
-                            foreach ($args as $mixed) {
-                                $new_args = array_merge($new_args, $mixed);
+                            foreach ($args as $key => $mixed) {
+                                if (is_array($mixed)) {
+                                    $new_args = array_merge($new_args, $mixed);
+                                } else {
+                                    $new_args[ $key ] = $mixed;
+                                }
                             }
                             return call_user_func_array($this->default_handler_plugins[ $plugin_type ][ $tag ][ 0 ],
                                                         array($new_args, $this));
