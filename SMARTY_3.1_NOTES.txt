@@ -50,7 +50,7 @@ The escape modifier now knows the $double_encode option, which will
 prevent entities from being encoded again.
 
 The capitalize modifier now know the $lc_rest option, which makes sure
-all letters following a captial letter are lower-cased.
+all letters following a capital letter are lower-cased.
 
 The count_sentences modifier now accepts (.?!) as
 legitimate endings of a sentence - previously only (.) was
@@ -126,7 +126,7 @@ run on variable output.
 SYNTAX:
 {setfilter filter1|filter2|filter3....}
 Smarty3 will lookup up matching filters in the following search order:
-1. varibale filter plugin in plugins_dir.
+1. variable filter plugin in plugins_dir.
 2. a valid modifier. A modifier specification will also accept
 additional parameter like filter2:'foo'
 3. a PHP function

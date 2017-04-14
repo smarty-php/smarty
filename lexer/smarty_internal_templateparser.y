@@ -1263,7 +1263,7 @@ arrayelement(res)    ::=  expr(e). {
 
 
 //
-// double qouted strings
+// double quoted strings
 //
 doublequoted_with_quotes(res) ::= QUOTE QUOTE. {
     res = "''";

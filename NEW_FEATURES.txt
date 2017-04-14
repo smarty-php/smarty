@@ -45,7 +45,7 @@ Smarty 3.1.30
         {/foreach}
 
     The {foreach} loop is rendered while processing the compiled template, but $current is a nocache
-    variable. Normally the {if $current==$item.id} would fail as the $item variable is unkown in the 
+    variable. Normally the {if $current==$item.id} would fail as the $item variable is unknown in the 
     cached template. {make_nocache $item} does make the current $item value known in thee cached template.
 
     {make_nocache} is ignored when caching is disabled or the variable does exists as nocache variable.

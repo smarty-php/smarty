@@ -91,7 +91,7 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
      * 
      * @param PDO $pdo PDO : active connection 
      * @param string $table : table (or view) name 
-     * @param string $database : optionnal - if table is located in another db 
+     * @param string $database : optional - if table is located in another db 
      */
     public function __construct(PDO $pdo, $table, $database = null)
     {
