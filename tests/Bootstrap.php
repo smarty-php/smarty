@@ -32,6 +32,9 @@ if (!class_exists('PHPUnit_Framework_TestCase') && !class_exists('\PHPUnit\Frame
 if (!class_exists('\PHPUnit_Framework_TestCase') && class_exists('\PHPUnit\Framework\TestCase')) {
     class_alias('\PHPUnit\Framework\TestCase', '\PHPUnit_Framework_TestCase');
 }
+if (!class_exists('\PHPUnit_Framework_Error') && class_exists('\PHPUnit\Framework\Error')) {
+    class_alias('\PHPUnit\Framework\Error', '\PHPUnit_Framework_Error');
+}
 require_once 'PHPUnit_Smarty.php';
 if (!ini_get('date.timezone')) {
     ini_set('date.timezone', 'Europe/Berlin');
