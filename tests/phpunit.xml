@@ -37,8 +37,6 @@
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="./coverage/report" lowUpperBound="35"
-             highLowerBound="70"/>
         <log type="tap" target="TestResults.tap"/>
     </logging>
 
