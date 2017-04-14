@@ -35,7 +35,7 @@
  * @method Smarty_Internal_TemplateBase registerResource(string $name, mixed $resource_handler)
  * @method Smarty_Internal_TemplateBase setAutoloadFilters(mixed $filters, string $type = null)
  * @method Smarty_Internal_TemplateBase setDebugTemplate(string $tpl_name)
- * @method Smarty_Internal_TemplateBase setDefaultModifier(mixed $modifiers)
+ * @method Smarty_Internal_TemplateBase setDefaultModifiers(mixed $modifiers)
  * @method Smarty_Internal_TemplateBase unloadFilter(string $type, string $name)
  * @method Smarty_Internal_TemplateBase unregisterCacheResource(string $name)
  * @method Smarty_Internal_TemplateBase unregisterObject(string $object_name)
