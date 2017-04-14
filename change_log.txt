@@ -1,4 +1,8 @@
 ﻿===== 3.1.32 - dev ===
+14.4.2017
+  - merge pull requests https://github.com/smarty-php/smarty/pull/349, https://github.com/smarty-php/smarty/pull/322 and 
+    https://github.com/smarty-php/smarty/pull/337 to fix spelling and annotation
+
 13.4.2017
   - bugfix array_merge() parameter should be checked https://github.com/smarty-php/smarty/issues/350
   
