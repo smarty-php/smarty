@@ -61,14 +61,14 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     /**
      * Throw E_NOTICE message
      *
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException PHPUnit_Framework_Error_Notice
      * @expectedExceptionMessage Undefined index: foo
      */
     public function testE_Notice()
     {
-        $e1 = error_reporting();
-        $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
-        $e2 = error_reporting();
-        $this->assertEquals($e1, $e2);
+            $e1 = error_reporting();
+            $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
+            $e2 = error_reporting();
+            $this->assertEquals($e1, $e2);
     }
 }

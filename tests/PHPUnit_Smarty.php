@@ -249,7 +249,8 @@ KEY `expire` (`expire`)
         if (is_dir(self::$cwd . '/templates_tmp')) {
             $this->cleanDir(self::$cwd . '/templates_tmp');
         }
-    }
+        $this->assertTrue(true);
+   }
 
     /**
      * Make temporary template file

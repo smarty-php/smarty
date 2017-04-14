@@ -16,6 +16,7 @@ if (!class_exists('Smarty_Autoloader')) {
         throw new Exception('can not locate Smarty distribution');
     }
 }
+
 if (!defined('SMARTY_COMPOSER_INSTALL')) {
     foreach (array(dirname(__FILE__) . '/../../autoload.php', dirname(__FILE__) . '/../vendor/autoload.php',
                    dirname(__FILE__) . '/vendor/autoload.php') as $file) {
@@ -26,15 +27,19 @@ if (!defined('SMARTY_COMPOSER_INSTALL')) {
     }
     unset($file);
 }
-if (!class_exists('PHPUnit_Framework_TestCase') && !class_exists('\PHPUnit\Framework\TestCase')) {
+if (!class_exists('PHPUnit_Framework_TestCase') && !class_exists('\PHPUnit\Framework\TestCase')){
     require_once SMARTY_COMPOSER_INSTALL;
 }
+
 if (!class_exists('\PHPUnit_Framework_TestCase') && class_exists('\PHPUnit\Framework\TestCase')) {
     class_alias('\PHPUnit\Framework\TestCase', '\PHPUnit_Framework_TestCase');
+    class_alias('\PHPUnit\Framework\Error\Notice', '\PHPUnit_Framework_Error_Notice');
+    class_alias('\PHPUnit\Framework\Error\Error', '\PHPUnit_Framework_Error_Error');
+    class_alias('\PHPUnit\Framework\Error\Warning', '\PHPUnit_Framework_Error_Warning');
+    class_alias('\PHPUnit\Framework\Error\Warning', '\PHPUnit_Framework_Error_Deprecated');
+    class_alias('\PHPUnit\Util\Configuration', '\PHPUnit_Util_Configuration');
 }
-if (!class_exists('\PHPUnit_Framework_Error') && class_exists('\PHPUnit\Framework\Error')) {
-    class_alias('\PHPUnit\Framework\Error', '\PHPUnit_Framework_Error');
-}
+
 require_once 'PHPUnit_Smarty.php';
 if (!ini_get('date.timezone')) {
     ini_set('date.timezone', 'Europe/Berlin');
