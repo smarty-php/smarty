@@ -948,7 +948,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Adds directory of plugin files
      *
-     * @param null|array $plugins_dir
+     * @param null|array|string $plugins_dir
      *
      * @return Smarty current Smarty instance for chaining
      */
