@@ -1,4 +1,7 @@
 ﻿===== 3.1.32 - dev ===
+24.4.2017
+  - fix spelling https://github.com/smarty-php/smarty/commit/e3eda8a5f5653d8abb960eb1bc47e3eca679b1b4#commitcomment-21803095
+  
 17.4.2017
   - correct generated code on empty() and isset() call, observe change PHP behaviour since PHP 5.5
     https://github.com/smarty-php/smarty/issues/347

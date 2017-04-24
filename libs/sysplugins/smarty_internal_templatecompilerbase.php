@@ -807,7 +807,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $parHasFuction = strpos($par, '(') !== false;
                 if ($func_name === 'isset') {
                     if (count($parameter) === 0) {
-                        $this->trigger_template_error('Illegal number of paramer in "isset()"');
+                        $this->trigger_template_error('Illegal number of parameter in "isset()"');
                     }
                     if ($parHasFuction) {
                         $pa = array();
@@ -826,7 +826,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                                      'prev',
                                                      'next'))) {
                     if (count($parameter) !== 1) {
-                        $this->trigger_template_error("Illegal number of paramer in '{$func_name()}'");
+                        $this->trigger_template_error("Illegal number of parameter in '{$func_name()}'");
                     }
                     if ($func_name === 'empty') {
                         if ($parHasFuction && version_compare(PHP_VERSION, '5.5.0', '<')) {
