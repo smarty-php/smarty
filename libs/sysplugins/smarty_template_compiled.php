@@ -126,7 +126,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      */
     private function loadCompiledTemplate(Smarty_Internal_Template $_smarty_tpl)
     {
-        if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
+        if (function_exists('opcache_invalidate')
+            && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)) {
             opcache_invalidate($this->filepath, true);
         } elseif (function_exists('apc_compile_file')) {
             apc_compile_file($this->filepath);

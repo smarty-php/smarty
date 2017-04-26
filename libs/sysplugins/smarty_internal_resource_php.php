@@ -37,7 +37,7 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
      */
     public function __construct()
     {
-        $this->short_open_tag = ini_get('short_open_tag');
+        $this->short_open_tag = function_exists('ini_get') ? ini_get('short_open_tag') : 1;
     }
 
     /**
@@ -79,13 +79,17 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
         extract($_template->getTemplateVars());
 
         // include PHP template with short open tags enabled
-        ini_set('short_open_tag', '1');
+        if (function_exists('ini_set')) {
+            ini_set('short_open_tag', '1');
+        }
         /** @var Smarty_Internal_Template $_smarty_template
          * used in included file
          */
         $_smarty_template = $_template;
         include($source->filepath);
-        ini_set('short_open_tag', $this->short_open_tag);
+        if (function_exists('ini_set')) {
+            ini_set('short_open_tag', $this->short_open_tag);
+        }
     }
 
     /**

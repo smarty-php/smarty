@@ -108,7 +108,8 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         if ($_template->smarty->ext->_writeFile->writeFile($_template->cached->filepath, $content,
                                                            $_template->smarty) === true
         ) {
-            if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
+            if (function_exists('opcache_invalidate')
+                && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)) {
                 opcache_invalidate($_template->cached->filepath, true);
             } elseif (function_exists('apc_compile_file')) {
                 apc_compile_file($_template->cached->filepath);
