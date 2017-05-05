@@ -101,7 +101,7 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
                 if ($subtree == '') {
                     continue;
                 }
-                $code .= preg_replace('/((<%)|(%>)|(<\?php)|(<\?)|(\?>)|(<\/?script))/', "<?php echo '\$1'; ?>\n",
+                $code .= preg_replace('/((<%)|(%>)|(<\?php)|(<\?)|(\?>))/', "<?php echo '\$1'; ?>\n",
                                       $subtree);
                 continue;
             }
