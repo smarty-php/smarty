@@ -33,7 +33,9 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         $_filepath = sha1($source->uid . $smarty->_joined_template_dir);
         $cached->filepath = $smarty->getCacheDir();
         if (isset($_template->cache_id)) {
-            $cached->filepath .= preg_replace(array('![^\w|]+!', '![|]+!'), array('_', $_compile_dir_sep),
+            $cached->filepath .= preg_replace(array('![^\w|]+!',
+                                                    '![|]+!'), array('_',
+                                                                     $_compile_dir_sep),
                                               $_template->cache_id) . $_compile_dir_sep;
         }
         if (isset($_template->compile_id)) {
@@ -41,7 +43,8 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         }
         // if use_sub_dirs, break file into directories
         if ($smarty->use_sub_dirs) {
-            $cached->filepath .= $_filepath[ 0 ] . $_filepath[ 1 ] . $smarty->ds . $_filepath[ 2 ] . $_filepath[ 3 ] . $smarty->ds .
+            $cached->filepath .= $_filepath[ 0 ] . $_filepath[ 1 ] . $smarty->ds . $_filepath[ 2 ] . $_filepath[ 3 ] .
+                                 $smarty->ds .
                                  $_filepath[ 4 ] . $_filepath[ 5 ] . $smarty->ds;
         }
         $cached->filepath .= $_filepath;
@@ -108,7 +111,9 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         if ($_template->smarty->ext->_writeFile->writeFile($_template->cached->filepath, $content,
                                                            $_template->smarty) === true
         ) {
-            if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
+            if (function_exists('opcache_invalidate') &&
+                (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api"))) < 1
+            ) {
                 opcache_invalidate($_template->cached->filepath, true);
             } elseif (function_exists('apc_compile_file')) {
                 apc_compile_file($_template->cached->filepath);

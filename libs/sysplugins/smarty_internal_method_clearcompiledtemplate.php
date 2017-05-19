@@ -75,7 +75,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($_compile as $_file) {
-             if (substr(basename($_file->getPathname()), 0, 1) == '.') {
+            if (substr(basename($_file->getPathname()), 0, 1) == '.') {
                 continue;
             }
             $_filepath = (string) $_file;
@@ -86,7 +86,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                 }
             } else {
                 // delete only php files
-                if (substr($_filepath, -4) !== '.php') {
+                if (substr($_filepath, - 4) !== '.php') {
                     continue;
                 }
                 $unlink = false;
@@ -111,7 +111,9 @@ class Smarty_Internal_Method_ClearCompiledTemplate
 
                 if ($unlink && @unlink($_filepath)) {
                     $_count ++;
-                    if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
+                    if (function_exists('opcache_invalidate')
+                        && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
+                    ) {
                         opcache_invalidate($_filepath, true);
                     }
                 }

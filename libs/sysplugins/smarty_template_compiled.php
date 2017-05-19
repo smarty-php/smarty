@@ -81,64 +81,6 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     }
 
     /**
-     * load compiled template or compile from source
-     *
-     * @param Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
-     *
-     * @throws Exception
-     */
-    public function process(Smarty_Internal_Template $_smarty_tpl)
-    {
-        $source = &$_smarty_tpl->source;
-        $smarty = &$_smarty_tpl->smarty;
-        if ($source->handler->recompiled) {
-            $source->handler->process($_smarty_tpl);
-        } elseif (!$source->handler->uncompiled) {
-            if (!$this->exists || $smarty->force_compile ||
-                ($smarty->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
-            ) {
-                $this->compileTemplateSource($_smarty_tpl);
-                $compileCheck = $smarty->compile_check;
-                $smarty->compile_check = false;
-                $this->loadCompiledTemplate($_smarty_tpl);
-                $smarty->compile_check = $compileCheck;
-            } else {
-                $_smarty_tpl->mustCompile = true;
-                @include($this->filepath);
-                if ($_smarty_tpl->mustCompile) {
-                    $this->compileTemplateSource($_smarty_tpl);
-                    $compileCheck = $smarty->compile_check;
-                    $smarty->compile_check = false;
-                    $this->loadCompiledTemplate($_smarty_tpl);
-                    $smarty->compile_check = $compileCheck;
-                }
-            }
-            $_smarty_tpl->_subTemplateRegister();
-            $this->processed = true;
-        }
-    }
-
-    /**
-     * Load fresh compiled template by including the PHP file
-     * HHVM requires a work around because of a PHP incompatibility
-     *
-     * @param \Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
-     */
-    private function loadCompiledTemplate(Smarty_Internal_Template $_smarty_tpl)
-    {
-        if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
-            opcache_invalidate($this->filepath, true);
-        } elseif (function_exists('apc_compile_file')) {
-            apc_compile_file($this->filepath);
-        }
-        if (defined('HHVM_VERSION')) {
-            eval("?>" . file_get_contents($this->filepath));
-        } else {
-            include($this->filepath);
-        }
-    }
-
-    /**
      * render compiled template code
      *
      * @param Smarty_Internal_Template $_template
@@ -176,6 +118,44 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         }
         if ($_template->smarty->debugging) {
             $_template->smarty->_debug->end_render($_template);
+        }
+    }
+
+    /**
+     * load compiled template or compile from source
+     *
+     * @param Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
+     *
+     * @throws Exception
+     */
+    public function process(Smarty_Internal_Template $_smarty_tpl)
+    {
+        $source = &$_smarty_tpl->source;
+        $smarty = &$_smarty_tpl->smarty;
+        if ($source->handler->recompiled) {
+            $source->handler->process($_smarty_tpl);
+        } elseif (!$source->handler->uncompiled) {
+            if (!$this->exists || $smarty->force_compile ||
+                ($smarty->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
+            ) {
+                $this->compileTemplateSource($_smarty_tpl);
+                $compileCheck = $smarty->compile_check;
+                $smarty->compile_check = false;
+                $this->loadCompiledTemplate($_smarty_tpl);
+                $smarty->compile_check = $compileCheck;
+            } else {
+                $_smarty_tpl->mustCompile = true;
+                @include($this->filepath);
+                if ($_smarty_tpl->mustCompile) {
+                    $this->compileTemplateSource($_smarty_tpl);
+                    $compileCheck = $smarty->compile_check;
+                    $smarty->compile_check = false;
+                    $this->loadCompiledTemplate($_smarty_tpl);
+                    $smarty->compile_check = $compileCheck;
+                }
+            }
+            $_smarty_tpl->_subTemplateRegister();
+            $this->processed = true;
         }
     }
 
@@ -236,6 +216,27 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             return false;
         }
         return true;
+    }
+
+    /**
+     * Load fresh compiled template by including the PHP file
+     * HHVM requires a work around because of a PHP incompatibility
+     *
+     * @param \Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
+     */
+    private function loadCompiledTemplate(Smarty_Internal_Template $_smarty_tpl)
+    {
+        if (function_exists('opcache_invalidate')
+            && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
+        ) {
+        } elseif (function_exists('apc_compile_file')) {
+            apc_compile_file($this->filepath);
+        }
+        if (defined('HHVM_VERSION')) {
+            eval("?>" . file_get_contents($this->filepath));
+        } else {
+            include($this->filepath);
+        }
     }
 
     /**

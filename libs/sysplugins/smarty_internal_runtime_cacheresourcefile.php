@@ -80,7 +80,7 @@ class Smarty_Internal_Runtime_CacheResourceFile
                     }
                 } else {
                     // delete only php files
-                    if (substr($_filepath, -4) !== '.php') {
+                    if (substr($_filepath, - 4) !== '.php') {
                         continue;
                     }
                     $_parts = explode($_dir_sep, str_replace('\\', '/', substr($_filepath, $_dir_length)));
@@ -125,7 +125,9 @@ class Smarty_Internal_Runtime_CacheResourceFile
                         }
                     }
                     $_count += @unlink($_filepath) ? 1 : 0;
-                    if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
+                    if (function_exists('opcache_invalidate')
+                        && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
+                    ) {
                         opcache_invalidate($_filepath, true);
                     }
                 }

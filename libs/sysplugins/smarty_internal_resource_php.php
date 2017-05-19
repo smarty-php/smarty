@@ -19,13 +19,6 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
     public $uncompiled = true;
 
     /**
-     * container for short_open_tag directive's value before executing PHP templates
-     *
-     * @var string
-     */
-    protected $short_open_tag;
-
-    /**
      * Resource does implement populateCompiledFilepath() method
      *
      * @var bool
@@ -33,11 +26,18 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
     public $hasCompiledHandler = true;
 
     /**
+     * container for short_open_tag directive's value before executing PHP templates
+     *
+     * @var string
+     */
+    protected $short_open_tag;
+
+    /**
      * Create a new PHP Resource
      */
     public function __construct()
     {
-        $this->short_open_tag = ini_get('short_open_tag');
+        $this->short_open_tag = function_exists('ini_get') ? ini_get('short_open_tag') : 1;
     }
 
     /**
@@ -54,6 +54,23 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
             return '';
         }
         throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");
+    }
+
+    /**
+     * populate compiled object with compiled filepath
+     *
+     * @param Smarty_Template_Compiled $compiled  compiled object
+     * @param Smarty_Internal_Template $_template template object (is ignored)
+     */
+    public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)
+    {
+        $compiled->filepath = $_template->source->filepath;
+        $compiled->timestamp = $_template->source->timestamp;
+        $compiled->exists = $_template->source->exists;
+        $compiled->file_dependency[ $_template->source->uid ] =
+            array($compiled->filepath,
+                  $compiled->timestamp,
+                  $_template->source->type,);
     }
 
     /**
@@ -79,28 +96,16 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
         extract($_template->getTemplateVars());
 
         // include PHP template with short open tags enabled
-        ini_set('short_open_tag', '1');
+        if (function_exists('ini_set')) {
+            ini_set('short_open_tag', '1');
+        }
         /** @var Smarty_Internal_Template $_smarty_template
          * used in included file
          */
         $_smarty_template = $_template;
         include($source->filepath);
-        ini_set('short_open_tag', $this->short_open_tag);
-    }
-
-    /**
-     * populate compiled object with compiled filepath
-     *
-     * @param Smarty_Template_Compiled $compiled  compiled object
-     * @param Smarty_Internal_Template $_template template object (is ignored)
-     */
-    public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)
-    {
-        $compiled->filepath = $_template->source->filepath;
-        $compiled->timestamp = $_template->source->timestamp;
-        $compiled->exists = $_template->source->exists;
-        $compiled->file_dependency[ $_template->source->uid ] =
-            array($compiled->filepath, $compiled->timestamp,
-                  $_template->source->type,);
+        if (function_exists('ini_set')) {
+            ini_set('short_open_tag', $this->short_open_tag);
+        }
     }
 }
