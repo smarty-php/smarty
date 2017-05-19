@@ -108,7 +108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-1';
+    const SMARTY_VERSION = '3.1.32-dev-3';
 
     /**
      * define variable scopes
@@ -726,7 +726,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string[]
      */
-    private $obsoleteProperties = array('resource_caching', 'template_resource_caching', 'direct_access_security',
+    protected $obsoleteProperties = array('resource_caching', 'template_resource_caching', 'direct_access_security',
                                         '_dir_perms', '_file_perms', 'plugin_search_order',
                                         'inheritance_merge_compiled_includes', 'resource_cache_mode',);
 
@@ -735,7 +735,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string[]
      */
-    private $accessMap = array('template_dir' => 'TemplateDir', 'config_dir' => 'ConfigDir',
+    protected $accessMap = array('template_dir' => 'TemplateDir', 'config_dir' => 'ConfigDir',
                                'plugins_dir' => 'PluginsDir', 'compile_dir' => 'CompileDir',
                                'cache_dir' => 'CacheDir',);
 
