@@ -63,4 +63,4 @@ Or you could use
 
 Which is a wrapper to install all 3 packages
 
-Composer can also be used for Smarty2 versions 2.6.24 to 2.6.28
+Composer can also be used for Smarty2 versions 2.6.24 to 2.6.30
