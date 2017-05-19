@@ -2,7 +2,20 @@
 
 This file contains a brief description of new features which have been added to Smarty 3.1
 
-Smarty 3.1.31
+Smarty 3.1.32
+    The capture buffers can now be accessed as array
+    ================================================
+    {capture name='foo'}
+        bah
+     {\capture}
+     {capture name='buh'}
+       blar
+     {\capture}
+     {foreach $smarty.capture as $name => $buffer}
+        ....
+      {/foreach}
+
+    Smarty 3.1.31
     New tags for inheritance parent and child
     =========================================
     {block_parent}  == {$smarty.block.parent}

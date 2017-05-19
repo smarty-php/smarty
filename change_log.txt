@@ -2,6 +2,8 @@
 19.5.2017
   - change properties $accessMap and $obsoleteProperties from private to protected
     https://github.com/smarty-php/smarty/issues/351
+  - improvement The named capture buffers can now be accessed also as array
+    See NEWS_FEATURES.txt https://github.com/smarty-php/smarty/issues/366
 
 24.4.2017
   - fix spelling https://github.com/smarty-php/smarty/commit/e3eda8a5f5653d8abb960eb1bc47e3eca679b1b4#commitcomment-21803095
