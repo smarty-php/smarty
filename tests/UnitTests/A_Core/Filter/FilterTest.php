@@ -187,6 +187,7 @@ class FilterTest extends PHPUnit_Smarty
 
     /**
      * test registered pre filter closure
+     * @requires PHP 5.3.3
      */
     public function testRegisteredPreFilterClosure()
     {
