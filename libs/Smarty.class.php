@@ -69,7 +69,7 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
  * Load Smarty_Autoloader
  */
 if (!class_exists('Smarty_Autoloader')) {
-    include __DIR__ . '/bootstrap.php';
+    include dirname(__FILE__) . '/bootstrap.php';
 }
 
 /**
@@ -108,7 +108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-6';
+    const SMARTY_VERSION = '3.1.32-dev-7';
 
     /**
      * define variable scopes

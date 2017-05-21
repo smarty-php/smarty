@@ -6,6 +6,8 @@
     ACP cache if present, add some is_file() checks to avoid possible warnings on filemtime()
     caused by above functions.
     https://github.com/smarty-php/smarty/issues/341
+  - bugfix version 3.1.31 did fail under PHP 5.2
+    https://github.com/smarty-php/smarty/issues/365
 
 19.5.2017
   - change properties $accessMap and $obsoleteProperties from private to protected
