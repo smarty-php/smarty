@@ -111,24 +111,28 @@ class Smarty_Internal_Runtime_CacheResourceFile
                             }
                         }
                     }
-                    // expired ?
-                    if (isset($exp_time)) {
-                        if ($exp_time < 0) {
-                            preg_match('#\'cache_lifetime\' =>\s*(\d*)#', file_get_contents($_file), $match);
-                            if ($_time < (@filemtime($_file) + $match[ 1 ])) {
-                                continue;
-                            }
-                        } else {
-                            if ($_time - @filemtime($_file) < $exp_time) {
-                                continue;
+                    if (is_file($_filepath)) {
+                        // expired ?
+                        if (isset($exp_time)) {
+                            if ($exp_time < 0) {
+                                preg_match('#\'cache_lifetime\' =>\s*(\d*)#', file_get_contents($_filepath), $match);
+                                if ($_time < (@filemtime($_filepath) + $match[ 1 ])) {
+                                    continue;
+                                }
+                            } else {
+                                if ($_time - @filemtime($_filepath) < $exp_time) {
+                                    continue;
+                                }
                             }
                         }
-                    }
-                    $_count += @unlink($_filepath) ? 1 : 0;
-                    if (function_exists('opcache_invalidate')
-                        && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
-                    ) {
-                        opcache_invalidate($_filepath, true);
+                        $_count += @unlink($_filepath) ? 1 : 0;
+                        if (function_exists('opcache_invalidate')
+                            && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
+                        ) {
+                            opcache_invalidate($_filepath, true);
+                        } elseif (function_exists('apc_delete_file')) {
+                            apc_delete_file($_filepath);
+                        }
                     }
                 }
             }

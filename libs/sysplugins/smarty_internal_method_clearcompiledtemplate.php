@@ -101,7 +101,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                                                                       $_resource_part_2_length) == 0))
                 ) {
                     if (isset($exp_time)) {
-                        if (time() - @filemtime($_filepath) >= $exp_time) {
+                        if (is_file($_filepath) && time() - @filemtime($_filepath) >= $exp_time) {
                             $unlink = true;
                         }
                     } else {
@@ -109,12 +109,14 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                     }
                 }
 
-                if ($unlink && @unlink($_filepath)) {
+                if ($unlink && is_file($_filepath) && @unlink($_filepath)) {
                     $_count ++;
                     if (function_exists('opcache_invalidate')
                         && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
                     ) {
                         opcache_invalidate($_filepath, true);
+                    } elseif (function_exists('apc_delete_file')) {
+                        apc_delete_file($_filepath);
                     }
                 }
             }

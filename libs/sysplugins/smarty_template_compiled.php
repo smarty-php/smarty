@@ -173,8 +173,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $this->nocache_hash = null;
         $this->unifunc = null;
         // compile locking
-        $saved_timestamp = $_template->source->handler->recompiled ? false : $this->getTimeStamp();
-        if ($saved_timestamp) {
+        if ($saved_timestamp = (!$_template->source->handler->recompiled && is_file($this->filepath))) {
+            $saved_timestamp = $this->getTimeStamp();
             touch($this->filepath);
         }
         // compile locking
@@ -185,7 +185,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         }
         catch (Exception $e) {
             // restore old timestamp in case of error
-            if ($saved_timestamp) {
+            if ($saved_timestamp && is_file($this->filepath)) {
                 touch($this->filepath, $saved_timestamp);
             }
             unset($_template->compiler);
@@ -229,6 +229,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if (function_exists('opcache_invalidate')
             && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
         ) {
+            opcache_invalidate($this->filepath, true);
         } elseif (function_exists('apc_compile_file')) {
             apc_compile_file($this->filepath);
         }

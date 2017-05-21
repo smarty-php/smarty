@@ -2,6 +2,10 @@
 21.5.2017
   - bugfix remove special treatment of classes implementing ArrayAccess in {foreach}
     https://github.com/smarty-php/smarty/issues/332
+  - bugfix remove deleted files by clear_cache() and clear_compiled_template() from
+    ACP cache if present, add some is_file() checks to avoid possible warnings on filemtime()
+    caused by above functions.
+    https://github.com/smarty-php/smarty/issues/341
 
 19.5.2017
   - change properties $accessMap and $obsoleteProperties from private to protected
