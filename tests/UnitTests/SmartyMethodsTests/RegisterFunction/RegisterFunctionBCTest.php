@@ -159,14 +159,14 @@ class RegisterFunctionBCTest extends PHPUnit_Smarty
     }
 }
 
-function myfunctionBC($params, &$smarty)
+function myfunctionBC($params, $smarty)
 {
     return "hello world $params[value]";
 }
 
 class myfunctionBCclass
 {
-    static function execute($params, &$smarty)
+    static function execute($params, $smarty)
     {
         return "hello world $params[value]";
     }
