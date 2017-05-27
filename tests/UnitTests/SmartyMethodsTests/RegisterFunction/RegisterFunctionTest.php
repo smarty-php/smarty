@@ -155,14 +155,14 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     }
 }
 
-function myfunction($params, &$smarty)
+function myfunction($params, $smarty)
 {
     return "hello world $params[value]";
 }
 
 class myfunctionclass
 {
-    static function execute($params, &$smarty)
+    static function execute($params, $smarty)
     {
         return "hello world $params[value]";
     }

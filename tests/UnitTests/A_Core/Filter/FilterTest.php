@@ -189,21 +189,17 @@ class FilterTest extends PHPUnit_Smarty
      * test registered pre filter closure
      * @requires PHP 5.3
      */
-    /**
+
     public function testRegisteredPreFilterClosure()
     {
        if (version_compare(PHP_VERSION,'5.3','<'))
        {
            $this->markTestSkipped('does not run for PHP 5.2');
+       } else {
+           include 'FilterClosure.php';
        }
-       $this->smarty->registerFilter(Smarty::FILTER_PRE, function ($input) {
-            return '{$foo}' . $input;
-        });
-        $tpl = $this->smarty->createTemplate('eval:{" hello world"}');
-        $tpl->assign('foo', 'buh');
-        $this->assertEquals("buh hello world", $this->smarty->fetch($tpl));
     }
-*/
+
     /**
      * test registered pre filter class
      */
