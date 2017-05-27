@@ -14,13 +14,13 @@
  *                  require_once '...path/Autoloader.php';
  *                  Smarty_Autoloader::register();
  *             or
- *                  include '...path/bootstarp.php';
+ *                  include '...path/bootstrap.php';
  *
  *                  $smarty = new Smarty();
  */
 class Smarty_Autoloader
 {
-    /**
+   /**
      * Filepath to Smarty root
      *
      * @var string
@@ -76,7 +76,7 @@ class Smarty_Autoloader
         self::$SMARTY_DIR = defined('SMARTY_DIR') ? SMARTY_DIR : dirname(__FILE__) . DIRECTORY_SEPARATOR;
         self::$SMARTY_SYSPLUGINS_DIR = defined('SMARTY_SYSPLUGINS_DIR') ? SMARTY_SYSPLUGINS_DIR :
             self::$SMARTY_DIR . 'sysplugins' . DIRECTORY_SEPARATOR;
-        if (version_compare(phpversion(), '5.3.0', '>=')) {
+        if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
             spl_autoload_register(array(__CLASS__, 'autoload'), true, $prepend);
         } else {
             spl_autoload_register(array(__CLASS__, 'autoload'));
