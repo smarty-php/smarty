@@ -2,6 +2,7 @@
 27.5.2017
   - bugfix change compiled code for registered function and modifiers to called as callable to allow closures
     https://github.com/smarty-php/smarty/pull/368
+  - bugfix https://github.com/smarty-php/smarty/pull/368 did break the default plugin handler
 
 21.5.2017
   - performance store flag for already required shared plugin functions in static variable or
