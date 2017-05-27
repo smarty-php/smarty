@@ -45,8 +45,9 @@
  */
 function smarty_function_html_checkboxes($params, $template)
 {
-    if (!is_callable('smarty_function_escape_special_chars')) {
+    if (!isset($template->smarty->_cache[ '_required_sesc' ])) {
         require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        $template->smarty->_cache[ '_required_sesc' ] = true;
     }
 
     $name = 'checkbox';

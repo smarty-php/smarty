@@ -1,5 +1,8 @@
 ﻿===== 3.1.32 - dev ===
 21.5.2017
+  - performance store flag for already required shared plugin functions in static variable or
+    Smarty's $_cache to improve performance when plugins are often called
+    https://github.com/smarty-php/smarty/commit/51e0d5cd405d764a4ea257d1bac1fb1205f74528#commitcomment-22280086
   - bugfix remove special treatment of classes implementing ArrayAccess in {foreach}
     https://github.com/smarty-php/smarty/issues/332
   - bugfix remove deleted files by clear_cache() and clear_compiled_template() from

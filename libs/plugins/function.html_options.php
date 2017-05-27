@@ -28,15 +28,18 @@
  * @author   Monte Ohrt <monte at ohrt dot com>
  * @author   Ralf Strehle (minor optimization) <ralf dot strehle at yahoo dot de>
  *
- * @param array $params parameters
+ * @param array                     $params parameters
+ *
+ * @param \Smarty_Internal_Template $template
  *
  * @return string
  * @uses     smarty_function_escape_special_chars()
  */
-function smarty_function_html_options($params)
+function smarty_function_html_options($params, Smarty_Internal_Template $template)
 {
-    if (!is_callable('smarty_function_escape_special_chars')) {
+    if (!isset($template->smarty->_cache[ '_required_sesc' ])) {
         require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        $template->smarty->_cache[ '_required_sesc' ] = true;
     }
 
     $name = null;

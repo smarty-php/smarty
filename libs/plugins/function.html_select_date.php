@@ -37,17 +37,21 @@
  * @author   Monte Ohrt <monte at ohrt dot com>
  * @author   Rodney Rehm
  *
- * @param array $params parameters
+ * @param array                     $params parameters
+ *
+ * @param \Smarty_Internal_Template $template
  *
  * @return string
  */
-function smarty_function_html_select_date($params)
+function smarty_function_html_select_date($params, Smarty_Internal_Template $template)
 {
-    if (!is_callable('smarty_function_escape_special_chars')) {
+    if (!isset($template->smarty->_cache[ '_required_sesc' ])) {
         require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        $template->smarty->_cache[ '_required_sesc' ] = true;
     }
-    if (!is_callable('smarty_make_timestamp')) {
+    if (!isset($template->smarty->_cache[ '_required_smt' ])) {
         require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
+        $template->smarty->_cache[ '_required_smt' ] = true;
     }
     // generate timestamps used for month names only
     static $_month_timestamps = null;
@@ -177,7 +181,9 @@ function smarty_function_html_select_date($params)
     if (isset($params[ 'time' ]) && is_array($params[ 'time' ])) {
         if (isset($params[ 'time' ][ $prefix . 'Year' ])) {
             // $_REQUEST[$field_array] given
-            foreach (array('Y' => 'Year', 'm' => 'Month', 'd' => 'Day') as $_elementKey => $_elementName) {
+            foreach (array('Y' => 'Year',
+                           'm' => 'Month',
+                           'd' => 'Day') as $_elementKey => $_elementName) {
                 $_variableName = '_' . strtolower($_elementName);
                 $$_variableName =
                     isset($params[ 'time' ][ $prefix . $_elementName ]) ? $params[ 'time' ][ $prefix . $_elementName ] :
@@ -185,7 +191,9 @@ function smarty_function_html_select_date($params)
             }
         } elseif (isset($params[ 'time' ][ $field_array ][ $prefix . 'Year' ])) {
             // $_REQUEST given
-            foreach (array('Y' => 'Year', 'm' => 'Month', 'd' => 'Day') as $_elementKey => $_elementName) {
+            foreach (array('Y' => 'Year',
+                           'm' => 'Month',
+                           'd' => 'Day') as $_elementKey => $_elementName) {
                 $_variableName = '_' . strtolower($_elementName);
                 $$_variableName = isset($params[ 'time' ][ $field_array ][ $prefix . $_elementName ]) ?
                     $params[ 'time' ][ $field_array ][ $prefix . $_elementName ] : date($_elementKey);
@@ -206,7 +214,8 @@ function smarty_function_html_select_date($params)
 
     // make syntax "+N" or "-N" work with $start_year and $end_year
     // Note preg_match('!^(\+|\-)\s*(\d+)$!', $end_year, $match) is slower than trim+substr
-    foreach (array('start', 'end') as $key) {
+    foreach (array('start',
+                   'end') as $key) {
         $key .= '_year';
         $t = $$key;
         if ($t === null) {
