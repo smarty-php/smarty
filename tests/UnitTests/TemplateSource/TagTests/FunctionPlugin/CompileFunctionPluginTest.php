@@ -76,7 +76,7 @@ class CompileFunctionPluginTest extends PHPUnit_Smarty
     }
 }
 
-function myplugintest($params, &$smarty)
+function myplugintest($params, $smarty)
 {
     return "plugin test called $params[foo]";
 }
