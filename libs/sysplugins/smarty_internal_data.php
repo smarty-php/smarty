@@ -113,6 +113,26 @@ class Smarty_Internal_Data
     }
 
     /**
+     * assigns a Smarty variables from an associative array
+     *
+     * @param array $array array of key-value to assign (['varName0' => $value0, 'varName1' => $value1])
+     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     *                              chaining
+     */
+    public function assignArray(array $array)
+    {
+        $view = $this;
+        array_map(
+            function ($key, $value) use ($view) {
+                $view->assign($key, $value);
+            },
+            array_keys($array),
+            $array
+        );
+        return $this;
+    }
+
+    /**
      * appends values to template variables
      *
      * @api  Smarty::append()
