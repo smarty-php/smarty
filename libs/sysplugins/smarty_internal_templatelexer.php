@@ -307,7 +307,7 @@ class Smarty_Internal_Templatelexer
         }
 
         do {
-            if (preg_match($this->yy_global_pattern1, $this->data, $yymatches, null, $this->counter)) {
+            if (preg_match($this->yy_global_pattern1, $this->data, $yymatches, 0, $this->counter)) {
                 if (!isset($yymatches[ 0 ][ 1 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yymatches);
                 } else {
@@ -444,7 +444,7 @@ class Smarty_Internal_Templatelexer
         }
 
         do {
-            if (preg_match($this->yy_global_pattern2, $this->data, $yymatches, null, $this->counter)) {
+            if (preg_match($this->yy_global_pattern2, $this->data, $yymatches, 0, $this->counter)) {
                 if (!isset($yymatches[ 0 ][ 1 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yymatches);
                 } else {
@@ -587,7 +587,7 @@ class Smarty_Internal_Templatelexer
         }
 
         do {
-            if (preg_match($this->yy_global_pattern3, $this->data, $yymatches, null, $this->counter)) {
+            if (preg_match($this->yy_global_pattern3, $this->data, $yymatches, 0, $this->counter)) {
                 if (!isset($yymatches[ 0 ][ 1 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yymatches);
                 } else {
@@ -934,7 +934,7 @@ class Smarty_Internal_Templatelexer
         }
 
         do {
-            if (preg_match($this->yy_global_pattern4, $this->data, $yymatches, null, $this->counter)) {
+            if (preg_match($this->yy_global_pattern4, $this->data, $yymatches, 0, $this->counter)) {
                 if (!isset($yymatches[ 0 ][ 1 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yymatches);
                 } else {
@@ -1028,7 +1028,7 @@ class Smarty_Internal_Templatelexer
         }
 
         do {
-            if (preg_match($this->yy_global_pattern5, $this->data, $yymatches, null, $this->counter)) {
+            if (preg_match($this->yy_global_pattern5, $this->data, $yymatches, 0, $this->counter)) {
                 if (!isset($yymatches[ 0 ][ 1 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yymatches);
                 } else {
