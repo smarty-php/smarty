@@ -37,9 +37,11 @@ class Smarty_Internal_Runtime_WriteFile
         }
 
         $_dirpath = dirname($_filepath);
-        // if subdirs, create dir structure
-        if ($_dirpath !== '.' && !file_exists($_dirpath)) {
-            mkdir($_dirpath, $_dir_perms, true);
+
+       // if subdirs, create dir structure
+        if ($_dirpath !== '.' && !@mkdir($_dirpath, $_dir_perms, true) && !is_dir($_dirpath)) {
+            error_reporting($_error_reporting);
+            throw new SmartyException("unable to create directory {$_dirpath}");
         }
 
         // write to tmp file, then move to overt file lock race condition
