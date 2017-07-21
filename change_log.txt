@@ -2,6 +2,8 @@
 21.7.2017
   - security possible PHP code injection on custom resources at display() or fetch()
     calls if the resource does not sanitize the template name
+  - bugfix fix 'mkdir(): File exists' error on create directory from parallel
+    processes https://github.com/smarty-php/smarty/pull/377 
 
 27.5.2017
   - bugfix change compiled code for registered function and modifiers to called as callable to allow closures
