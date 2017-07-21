@@ -1,3 +1,6 @@
+sudo: true
+dist: trusty
+
 language: php
 
 php:
