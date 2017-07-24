@@ -38,8 +38,8 @@ class Smarty_Internal_Runtime_WriteFile
 
         $_dirpath = dirname($_filepath);
 
-       // if subdirs, create dir structure
-        if ($_dirpath !== '.' && !@mkdir($_dirpath, $_dir_perms, true) && !is_dir($_dirpath)) {
+        // if subdirs, create dir structure
+        if ($_dirpath !== '.' && !@self::ensureDirectoryExists($_dirpath, $_dir_perms)) {
             error_reporting($_error_reporting);
             throw new SmartyException("unable to create directory {$_dirpath}");
         }
@@ -89,5 +89,27 @@ class Smarty_Internal_Runtime_WriteFile
         error_reporting($_error_reporting);
 
         return true;
+    }
+
+    /**
+     * Recursively creates the missing parts of a directory path in a manner that is concurrency-safe.
+     *
+     * @see https://bugs.php.net/bug.php?id=35326
+     *
+     * @param string $pathname a (nested) directory path to create
+     * @param integer $mode the permission to use
+     * @return bool true iff the directory path was successfully created
+     */
+    private static function ensureDirectoryExists($pathname, $mode)
+    {
+        $path_segments = explode(DIRECTORY_SEPARATOR, $pathname);
+
+        $current_pathname = '';
+        foreach ($path_segments as $path_segment) {
+            $current_pathname = $current_pathname . $path_segment . DIRECTORY_SEPARATOR;
+            @mkdir($current_pathname, $mode);
+        }
+
+        return is_dir($pathname);
     }
 }
