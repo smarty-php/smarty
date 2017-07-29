@@ -1,5 +1,10 @@
 # Smarty 3 template engine
+www.smarty.net
 
+## Documentation
+
+For documentation see 
+www.smarty.net/docs/en/ 
 ## Distribution repository
 
 > Smarty 3.1.28 introduces run time template inheritance
