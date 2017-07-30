@@ -1,4 +1,8 @@
 ﻿===== 3.1.32 - dev ===
+30.7.2017
+  - rewrite mkdir() bugfix to retry automatically see https://github.com/smarty-php/smarty/pull/377
+    https://github.com/smarty-php/smarty/pull/379
+
 21.7.2017
   - security possible PHP code injection on custom resources at display() or fetch()
     calls if the resource does not sanitize the template name

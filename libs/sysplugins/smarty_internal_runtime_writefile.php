@@ -39,9 +39,20 @@ class Smarty_Internal_Runtime_WriteFile
         $_dirpath = dirname($_filepath);
 
        // if subdirs, create dir structure
-        if ($_dirpath !== '.' && !@mkdir($_dirpath, $_dir_perms, true) && !is_dir($_dirpath)) {
-            error_reporting($_error_reporting);
-            throw new SmartyException("unable to create directory {$_dirpath}");
+        if ($_dirpath !== '.') {
+            $i=0;
+            // loop if concurrency problem occurs
+            // see https://bugs.php.net/bug.php?id=35326
+            while (!is_dir($_dirpath)) {
+               if (@mkdir($_dirpath, $_dir_perms, true)) {
+                   break;
+               }
+               if (++$i === 3) {
+                   error_reporting($_error_reporting);
+                   throw new SmartyException("unable to create directory {$_dirpath}");
+               }
+               sleep(1);
+            }
         }
 
         // write to tmp file, then move to overt file lock race condition
