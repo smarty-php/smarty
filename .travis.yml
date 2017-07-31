@@ -1,7 +1,7 @@
 
 language: php
 
-sudo: false
+sudo: true
 
 dist: trusty
 
