@@ -47,6 +47,7 @@ class Smarty_Internal_Runtime_WriteFile
                if (@mkdir($_dirpath, $_dir_perms, true)) {
                    break;
                }
+               clearstatcache();
                if (++$i === 3) {
                    error_reporting($_error_reporting);
                    throw new SmartyException("unable to create directory {$_dirpath}");

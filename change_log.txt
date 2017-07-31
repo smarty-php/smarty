@@ -1,4 +1,7 @@
 ﻿===== 3.1.32 - dev ===
+31.7.2017
+  - Call clearstatcache() after mkdir() failure https://github.com/smarty-php/smarty/pull/379
+  
 30.7.2017
   - rewrite mkdir() bugfix to retry automatically see https://github.com/smarty-php/smarty/pull/377
     https://github.com/smarty-php/smarty/pull/379
