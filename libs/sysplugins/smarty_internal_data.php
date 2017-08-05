@@ -266,7 +266,7 @@ class Smarty_Internal_Data
      */
     public function _getSmartyObj()
     {
-        return $this->smarty;
+        return $this->_objType === 1 ? $this : $this->smarty;
     }
 
     /**
