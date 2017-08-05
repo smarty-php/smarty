@@ -35,12 +35,15 @@
  */
 function smarty_block_textformat($params, $content, $template, &$repeat)
 {
+    static $mb_wordwrap_loaded = false;
     if (is_null($content)) {
         return;
     }
-    if (!isset($template->smarty->_cache[ '_required_smw' ])) {
-        require_once(SMARTY_PLUGINS_DIR . 'shared.mb_wordwrap.php');
-        $template->smarty->_cache[ '_required_smw' ] = true;
+    if (Smarty::$_MBSTRING && !$mb_wordwrap_loaded) {
+        if (!is_callable('smarty_modifier_mb_wordwrap')) {
+            require_once(SMARTY_PLUGINS_DIR . 'modifier.mb_wordwrap.php');
+        }
+        $mb_wordwrap_loaded = true;
     }
 
     $style = null;
@@ -98,7 +101,7 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
         }
         // wordwrap sentences
         if (Smarty::$_MBSTRING) {
-            $_paragraph = smarty_mb_wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);
+            $_paragraph = smarty_modifier_mb_wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);
         } else {
             $_paragraph = wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);
         }

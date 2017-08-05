@@ -64,7 +64,7 @@ class Smarty_Internal_TestInstall
                         if ($errors === null) {
                             echo $message . ".\n";
                         } else {
-                            $errors[ 'template_dir' ] = $message;
+                            $errors['template_dir'] = $message;
                         }
 
                         continue;
@@ -75,7 +75,7 @@ class Smarty_Internal_TestInstall
                     if ($errors === null) {
                         echo $message . ".\n";
                     } else {
-                        $errors[ 'template_dir' ] = $message;
+                        $errors['template_dir'] = $message;
                     }
 
                     continue;
@@ -88,15 +88,15 @@ class Smarty_Internal_TestInstall
                 if ($errors === null) {
                     echo $message . ".\n";
                 } else {
-                    $errors[ 'template_dir' ] = $message;
+                    $errors['template_dir'] = $message;
                 }
-            } elseif (!is_readable($template_dir)) {
+            } else if (!is_readable($template_dir)) {
                 $status = false;
                 $message = "FAILED: $template_dir is not readable";
                 if ($errors === null) {
                     echo $message . ".\n";
                 } else {
-                    $errors[ 'template_dir' ] = $message;
+                    $errors['template_dir'] = $message;
                 }
             } else {
                 if ($errors === null) {
@@ -118,31 +118,31 @@ class Smarty_Internal_TestInstall
             if ($errors === null) {
                 echo $message . ".\n";
             } else {
-                $errors[ 'compile_dir' ] = $message;
+                $errors['compile_dir'] = $message;
             }
-        } elseif (!is_dir($_compile_dir)) {
+        } else if (!is_dir($_compile_dir)) {
             $status = false;
             $message = "FAILED: {$_compile_dir} is not a directory";
             if ($errors === null) {
                 echo $message . ".\n";
             } else {
-                $errors[ 'compile_dir' ] = $message;
+                $errors['compile_dir'] = $message;
             }
-        } elseif (!is_readable($_compile_dir)) {
+        } else if (!is_readable($_compile_dir)) {
             $status = false;
             $message = "FAILED: {$_compile_dir} is not readable";
             if ($errors === null) {
                 echo $message . ".\n";
             } else {
-                $errors[ 'compile_dir' ] = $message;
+                $errors['compile_dir'] = $message;
             }
-        } elseif (!is_writable($_compile_dir)) {
+        } else if (!is_writable($_compile_dir)) {
             $status = false;
             $message = "FAILED: {$_compile_dir} is not writable";
             if ($errors === null) {
                 echo $message . ".\n";
             } else {
-                $errors[ 'compile_dir' ] = $message;
+                $errors['compile_dir'] = $message;
             }
         } else {
             if ($errors === null) {
@@ -183,7 +183,7 @@ class Smarty_Internal_TestInstall
                         if ($errors === null) {
                             echo $message . ".\n";
                         } else {
-                            $errors[ 'plugins_dir' ] = $message;
+                            $errors['plugins_dir'] = $message;
                         }
 
                         continue;
@@ -194,7 +194,7 @@ class Smarty_Internal_TestInstall
                     if ($errors === null) {
                         echo $message . ".\n";
                     } else {
-                        $errors[ 'plugins_dir' ] = $message;
+                        $errors['plugins_dir'] = $message;
                     }
 
                     continue;
@@ -207,17 +207,17 @@ class Smarty_Internal_TestInstall
                 if ($errors === null) {
                     echo $message . ".\n";
                 } else {
-                    $errors[ 'plugins_dir' ] = $message;
+                    $errors['plugins_dir'] = $message;
                 }
-            } elseif (!is_readable($plugin_dir)) {
+            } else if (!is_readable($plugin_dir)) {
                 $status = false;
                 $message = "FAILED: $plugin_dir is not readable";
                 if ($errors === null) {
                     echo $message . ".\n";
                 } else {
-                    $errors[ 'plugins_dir' ] = $message;
+                    $errors['plugins_dir'] = $message;
                 }
-            } elseif ($_core_plugins_dir && $_core_plugins_dir == realpath($plugin_dir)) {
+            } else if ($_core_plugins_dir && $_core_plugins_dir == realpath($plugin_dir)) {
                 $_core_plugins_available = true;
                 if ($errors === null) {
                     echo "$plugin_dir is OK.\n";
@@ -233,8 +233,8 @@ class Smarty_Internal_TestInstall
             $message = "WARNING: Smarty's own libs/plugins is not available";
             if ($errors === null) {
                 echo $message . ".\n";
-            } elseif (!isset($errors[ 'plugins_dir' ])) {
-                $errors[ 'plugins_dir' ] = $message;
+            } else if (!isset($errors['plugins_dir'])) {
+                $errors['plugins_dir'] = $message;
             }
         }
 
@@ -251,31 +251,31 @@ class Smarty_Internal_TestInstall
             if ($errors === null) {
                 echo $message . ".\n";
             } else {
-                $errors[ 'cache_dir' ] = $message;
+                $errors['cache_dir'] = $message;
             }
-        } elseif (!is_dir($_cache_dir)) {
+        } else if (!is_dir($_cache_dir)) {
             $status = false;
             $message = "FAILED: {$_cache_dir} is not a directory";
             if ($errors === null) {
                 echo $message . ".\n";
             } else {
-                $errors[ 'cache_dir' ] = $message;
+                $errors['cache_dir'] = $message;
             }
-        } elseif (!is_readable($_cache_dir)) {
+        } else if (!is_readable($_cache_dir)) {
             $status = false;
             $message = "FAILED: {$_cache_dir} is not readable";
             if ($errors === null) {
                 echo $message . ".\n";
             } else {
-                $errors[ 'cache_dir' ] = $message;
+                $errors['cache_dir'] = $message;
             }
-        } elseif (!is_writable($_cache_dir)) {
+        } else if (!is_writable($_cache_dir)) {
             $status = false;
             $message = "FAILED: {$_cache_dir} is not writable";
             if ($errors === null) {
                 echo $message . ".\n";
             } else {
-                $errors[ 'cache_dir' ] = $message;
+                $errors['cache_dir'] = $message;
             }
         } else {
             if ($errors === null) {
@@ -312,7 +312,7 @@ class Smarty_Internal_TestInstall
                         if ($errors === null) {
                             echo $message . ".\n";
                         } else {
-                            $errors[ 'config_dir' ] = $message;
+                            $errors['config_dir'] = $message;
                         }
 
                         continue;
@@ -323,7 +323,7 @@ class Smarty_Internal_TestInstall
                     if ($errors === null) {
                         echo $message . ".\n";
                     } else {
-                        $errors[ 'config_dir' ] = $message;
+                        $errors['config_dir'] = $message;
                     }
 
                     continue;
@@ -336,15 +336,15 @@ class Smarty_Internal_TestInstall
                 if ($errors === null) {
                     echo $message . ".\n";
                 } else {
-                    $errors[ 'config_dir' ] = $message;
+                    $errors['config_dir'] = $message;
                 }
-            } elseif (!is_readable($config_dir)) {
+            } else if (!is_readable($config_dir)) {
                 $status = false;
                 $message = "FAILED: $config_dir is not readable";
                 if ($errors === null) {
                     echo $message . ".\n";
                 } else {
-                    $errors[ 'config_dir' ] = $message;
+                    $errors['config_dir'] = $message;
                 }
             } else {
                 if ($errors === null) {
@@ -514,9 +514,9 @@ class Smarty_Internal_TestInstall
                 if ($errors === null) {
                     echo $message . ".\n";
                 } else {
-                    $errors[ 'sysplugins' ] = $message;
+                    $errors['sysplugins'] = $message;
                 }
-            } elseif ($errors === null) {
+            } else if ($errors === null) {
                 echo "... OK\n";
             }
         } else {
@@ -525,7 +525,7 @@ class Smarty_Internal_TestInstall
             if ($errors === null) {
                 echo $message . ".\n";
             } else {
-                $errors[ 'sysplugins_dir_constant' ] = $message;
+                $errors['sysplugins_dir_constant'] = $message;
             }
         }
 
@@ -543,8 +543,9 @@ class Smarty_Internal_TestInstall
                       'function.html_select_time.php' => true, 'function.html_table.php' => true,
                       'function.mailto.php' => true, 'function.math.php' => true, 'modifier.capitalize.php' => true,
                       'modifier.date_format.php' => true, 'modifier.debug_print_var.php' => true,
-                      'modifier.escape.php' => true, 'modifier.regex_replace.php' => true,
-                      'modifier.replace.php' => true, 'modifier.spacify.php' => true, 'modifier.truncate.php' => true,
+                      'modifier.escape.php' => true, 'modifier.mb_wordwrap.php' => true,
+                      'modifier.regex_replace.php' => true, 'modifier.replace.php' => true,
+                      'modifier.spacify.php' => true, 'modifier.truncate.php' => true,
                       'modifiercompiler.cat.php' => true, 'modifiercompiler.count_characters.php' => true,
                       'modifiercompiler.count_paragraphs.php' => true, 'modifiercompiler.count_sentences.php' => true,
                       'modifiercompiler.count_words.php' => true, 'modifiercompiler.default.php' => true,
@@ -557,7 +558,7 @@ class Smarty_Internal_TestInstall
                       'outputfilter.trimwhitespace.php' => true, 'shared.escape_special_chars.php' => true,
                       'shared.literal_compiler_param.php' => true, 'shared.make_timestamp.php' => true,
                       'shared.mb_str_replace.php' => true, 'shared.mb_unicode.php' => true,
-                      'shared.mb_wordwrap.php' => true, 'variablefilter.htmlspecialchars.php' => true,);
+                      'variablefilter.htmlspecialchars.php' => true,);
             $iterator = new DirectoryIterator($source);
             foreach ($iterator as $file) {
                 if (!$file->isDot()) {
@@ -573,9 +574,9 @@ class Smarty_Internal_TestInstall
                 if ($errors === null) {
                     echo $message . ".\n";
                 } else {
-                    $errors[ 'plugins' ] = $message;
+                    $errors['plugins'] = $message;
                 }
-            } elseif ($errors === null) {
+            } else if ($errors === null) {
                 echo "... OK\n";
             }
         } else {
@@ -584,7 +585,7 @@ class Smarty_Internal_TestInstall
             if ($errors === null) {
                 echo $message . ".\n";
             } else {
-                $errors[ 'plugins_dir_constant' ] = $message;
+                $errors['plugins_dir_constant'] = $message;
             }
         }
 

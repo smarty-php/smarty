@@ -1,7 +1,11 @@
 ﻿===== 3.1.32 - dev ===
+05.8.2017
+  - bugfix wordwrap modifier could fail if used in nocache code.
+    converted plugin file shared.mb_wordwrap.php into modifier.mb_wordwrap.php
+
 31.7.2017
   - Call clearstatcache() after mkdir() failure https://github.com/smarty-php/smarty/pull/379
-  
+
 30.7.2017
   - rewrite mkdir() bugfix to retry automatically see https://github.com/smarty-php/smarty/pull/377
     https://github.com/smarty-php/smarty/pull/379
