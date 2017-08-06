@@ -45,7 +45,7 @@ abstract class Smarty_Internal_CompileBase
     public $option_flags = array('nocache');
 
     /**
-     * Mapping array for boolqn option value
+     * Mapping array for boolean option value
      * 
      * @var array
      */
