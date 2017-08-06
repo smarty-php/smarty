@@ -9,7 +9,7 @@
 /**
  * Smarty count_characters modifier plugin
  * Type:     modifier<br>
- * Name:     count_characteres<br>
+ * Name:     count_characters<br>
  * Purpose:  count the number of characters in a text
  *
  * @link   http://www.smarty.net/manual/en/language.modifier.count.characters.php count_characters (Smarty online manual)
