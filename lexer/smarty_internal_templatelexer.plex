@@ -243,8 +243,7 @@ class Smarty_Internal_Templatelexer
         $this->pldel = preg_quote($this->smarty->left_delimiter, '/');
         $this->ldel = $this->pldel . ($this->smarty->auto_literal ? '(?!\\s+)' : '\\s*');
         $this->ldel_length = strlen($this->smarty->left_delimiter);
-        $rdel = preg_quote($this->smarty->right_delimiter, '/');
-        $this->rdel = "(?<!{$rdel}){$rdel}(?!{$rdel})";
+        $this->rdel = preg_quote($this->smarty->right_delimiter, '/');
         $this->rdel_length = strlen($this->smarty->right_delimiter);
         $this->smarty_token_names['LDEL'] = $this->smarty->left_delimiter;
         $this->smarty_token_names['RDEL'] = $this->smarty->right_delimiter;
