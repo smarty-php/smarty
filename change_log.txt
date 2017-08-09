@@ -1,4 +1,8 @@
 ﻿===== 3.1.32 - dev ===
+09.8.2017
+  - improvement repeated delimiter like {{ and }} will be treated as literal
+    https://groups.google.com/forum/#!topic/smarty-developers/h9r82Bx4KZw
+
 05.8.2017
   - bugfix wordwrap modifier could fail if used in nocache code.
     converted plugin file shared.mb_wordwrap.php into modifier.mb_wordwrap.php

@@ -240,9 +240,11 @@ class Smarty_Internal_Templatelexer
         $this->line = 1;
         $this->smarty = $compiler->smarty;
         $this->compiler = $compiler;
-        $this->ldel = preg_quote($this->smarty->left_delimiter, '/');
+        $this->pldel = preg_quote($this->smarty->left_delimiter, '/');
+        $this->ldel = $this->pldel . ($this->smarty->auto_literal ? '(?!\\s+)' : '\\s*');
         $this->ldel_length = strlen($this->smarty->left_delimiter);
-        $this->rdel = preg_quote($this->smarty->right_delimiter, '/');
+        $rdel = preg_quote($this->smarty->right_delimiter, '/');
+        $this->rdel = "(?<!{$rdel}){$rdel}(?!{$rdel})";
         $this->rdel_length = strlen($this->smarty->right_delimiter);
         $this->smarty_token_names['LDEL'] = $this->smarty->left_delimiter;
         $this->smarty_token_names['RDEL'] = $this->smarty->right_delimiter;
@@ -253,13 +255,8 @@ class Smarty_Internal_Templatelexer
         $this->yyTraceFILE = fopen('php://output', 'w');
         $this->yyTracePrompt = '<br>';
    }
-
-   /*
-    * Check if this tag is autoliteral
-    */
-   public function isAutoLiteral ()
-   {
-       return $this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false;
+   public function replace ($input) {
+        return str_replace(array('SMARTYldel','SMARTYrawldel','SMARTYrdel'),array($this->ldel,$this->pldel,$this->rdel),$input);
    }
 
      /*!lex2php
@@ -269,15 +266,16 @@ class Smarty_Internal_Templatelexer
      %value $this->value
      %line $this->line
      linebreak = ~[\t ]*[\r\n]+[\t ]*~
+     ldelrepeat = ~SMARTYrawldel{2,}~
      text = ~[\S\s]~
      textdoublequoted = ~([^"\\]*?)((?:\\.[^"\\]*?)*?)(?=(SMARTYldel|\$|`\$|"))~
      namespace = ~([0-9]*[a-zA-Z_]\w*)?(\\[0-9]*[a-zA-Z_]\w*)+~
      all = ~[\S\s]+~
      emptyjava = ~[{][}]~
-     phptag = ~(SMARTYldel\s*php([ ].*?)?SMARTYrdel)|(SMARTYldel\s*[/]phpSMARTYrdel)~
+     phptag = ~(SMARTYldelphp([ ].*?)?SMARTYrdel)|(SMARTYldel[/]phpSMARTYrdel)~
      phpstart = ~(<[?]((php\s+|=)|\s+))|(<[%])|(<[?]xml\s+)|(<script\s+language\s*=\s*["']?\s*php\s*["']?\s*>)|([?][>])|([%][>])~
      slash = ~[/]~
-     ldel = ~SMARTYldel\s*~
+     ldel = ~SMARTYldel~
      rdel = ~\s*SMARTYrdel~
      nocacherdel = ~(\s+nocache)?\s*SMARTYrdel~
      notblockid = ~(?:(?!block)[0-9]*[a-zA-Z_]\w*)~
@@ -351,31 +349,27 @@ class Smarty_Internal_Templatelexer
      phptag {
        $this->compiler->getTagCompiler('private_php')->parsePhp($this);
      }
+     ldelrepeat {
+        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+     }
      ldel literal rdel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
          $this->token = Smarty_Internal_Templateparser::TP_LITERALSTART;
          $this->yypushstate(self::LITERAL);
-        }
+     }
+     ldel slash literal rdel {
+         $this->token = Smarty_Internal_Templateparser::TP_LITERALEND;
+         $this->yypushstate(self::LITERAL);
      }
      ldel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
           $this->yypushstate(self::TAG);
           return true;
-       }
-     }
-     rdel {
-       $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
      phpstart {
        $this->compiler->getTagCompiler('private_php')->parsePhp($this);
      }
      text {
        $to = $this->dataLength;
-       preg_match("/($this->ldel)|(<[?]((php\s+|=)|\s+))|(<[%])|(<[?]xml\s+)|(<script\s+language\s*=\s*[\"']?\s*php\s*[\"']?\s*>)|([?][>])|([%][>])/i",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
+       preg_match("/((?<!$this->pldel){$this->ldel})|(<[?]((php\s+|=)|\s+))|(<[%])|(<[?]xml\s+)|(<script\s+language\s*=\s*[\"']?\s*php\s*[\"']?\s*>)|([?][>])|([%][>])/i",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
        if (isset($match[0][1])) {
          $to = $match[0][1];
        }
@@ -450,12 +444,8 @@ class Smarty_Internal_Templatelexer
        $this->yypopstate();
      }
      ldel {
-        if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-        } else {
            $this->yypushstate(self::TAG);
            return true;
-        }
      }
     double_quote {
        $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
@@ -627,6 +617,9 @@ class Smarty_Internal_Templatelexer
      */
      /*!lex2php
      %statename DOUBLEQUOTEDSTRING
+     ldelrepeat {
+        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+     }
      ldel literal rdel {
          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
@@ -634,29 +627,17 @@ class Smarty_Internal_Templatelexer
          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
      ldel slash {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
           $this->yypushstate(self::TAG);
           return true;
-       }
      }
      ldel id {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
           $this->yypushstate(self::TAG);
           return true;
-       }
      }
      ldel {
-       if ($this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false) {
-          $this->token = Smarty_Internal_Templateparser::TP_TEXT;
-       } else {
           $this->token = Smarty_Internal_Templateparser::TP_LDEL;
           $this->taglineno = $this->line;
           $this->yypushstate(self::TAGBODY);
-       }
      }
      double_quote {
        $this->token = Smarty_Internal_Templateparser::TP_QUOTE;

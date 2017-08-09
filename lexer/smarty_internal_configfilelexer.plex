@@ -138,6 +138,10 @@ class Smarty_Internal_Configfilelexer
         $this->configBooleanize = $this->smarty->config_booleanize;
     }
 
+   public function replace ($input) {
+        return $input;
+   }
+
     public function PrintTrace()
     {
         $this->yyTraceFILE = fopen('php://output', 'w');
