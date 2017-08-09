@@ -255,6 +255,14 @@ class Smarty_Internal_Templatelexer
         $this->yyTraceFILE = fopen('php://output', 'w');
         $this->yyTracePrompt = '<br>';
    }
+  /*
+    * Check if this tag is autoliteral
+    */
+   public function isAutoLiteral ()
+   {
+       return $this->smarty->auto_literal && isset($this->value[$this->ldel_length]) ? strpos(" \n\t\r", $this->value[$this->ldel_length]) !== false : false;
+   }
+
    public function replace ($input) {
         return str_replace(array('SMARTYldel','SMARTYrawldel','SMARTYrdel'),array($this->ldel,$this->pldel,$this->rdel),$input);
    }

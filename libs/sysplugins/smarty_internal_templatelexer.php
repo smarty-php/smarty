@@ -176,6 +176,10 @@ class Smarty_Internal_Templatelexer
      */
     private $yy_global_pattern1 = null;
     private $yy_global_pattern2 = null;
+
+    /*
+      * Check if this tag is autoliteral
+      */
     private $yy_global_pattern3 = null;
     private $yy_global_pattern4 = null;
     private $yy_global_pattern5 = null;
@@ -202,8 +206,7 @@ class Smarty_Internal_Templatelexer
         $this->pldel = preg_quote($this->smarty->left_delimiter, '/');
         $this->ldel = $this->pldel . ($this->smarty->auto_literal ? '(?!\\s+)' : '\\s*');
         $this->ldel_length = strlen($this->smarty->left_delimiter);
-        $rdel = preg_quote($this->smarty->right_delimiter, '/');
-        $this->rdel = "(?<!{$rdel}){$rdel}(?!{$rdel})";
+        $this->rdel = preg_quote($this->smarty->right_delimiter, '/');
         $this->rdel_length = strlen($this->smarty->right_delimiter);
         $this->smarty_token_names['LDEL'] = $this->smarty->left_delimiter;
         $this->smarty_token_names['RDEL'] = $this->smarty->right_delimiter;
@@ -213,6 +216,12 @@ class Smarty_Internal_Templatelexer
     {
         $this->yyTraceFILE = fopen('php://output', 'w');
         $this->yyTracePrompt = '<br>';
+    }
+
+    public function isAutoLiteral()
+    {
+        return $this->smarty->auto_literal && isset($this->value[ $this->ldel_length ]) ?
+            strpos(" \n\t\r", $this->value[ $this->ldel_length ]) !== false : false;
     }
 
 public function yylex1()
