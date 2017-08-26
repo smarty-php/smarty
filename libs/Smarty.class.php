@@ -108,7 +108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-20';
+    const SMARTY_VERSION = '3.1.32-dev-21';
 
     /**
      * define variable scopes
@@ -1213,7 +1213,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         $nds = $this->ds == '/' ? '\\' : '/';
         // normalize $this->ds
         $path = str_replace($nds, $this->ds, $path);
-        preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(?:[[:print:]]*))$%',
+        preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
                    $path, $parts);
         $path = $parts[ 'path' ];
         if ($parts[ 'root' ] == '\\') {
@@ -1224,10 +1224,10 @@ class Smarty extends Smarty_Internal_TemplateBase
             }
         }
         // remove noop 'DIRECTORY_SEPARATOR DIRECTORY_SEPARATOR' and 'DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR' patterns
-        $path = preg_replace('#([\\\\/]([.]?[\\\\/])+)#', $this->ds, $path);
+        $path = preg_replace('#([\\\\/]([.]?[\\\\/])+)#u', $this->ds, $path);
         // resolve '..DIRECTORY_SEPARATOR' pattern, smallest first
         if (strpos($path, '..' . $this->ds) != false &&
-            preg_match_all('#(([.]?[\\\\/])*([.][.])[\\\\/]([.]?[\\\\/])*)+#', $path, $match)
+            preg_match_all('#(([.]?[\\\\/])*([.][.])[\\\\/]([.]?[\\\\/])*)+#u', $path, $match)
         ) {
             $counts = array();
             foreach ($match[ 0 ] as $m) {
@@ -1236,7 +1236,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             sort($counts);
             foreach ($counts as $count) {
                 $path = preg_replace('#(([\\\\/]([.]?[\\\\/])*[^\\\\/.]+){' . $count .
-                                     '}[\\\\/]([.]?[\\\\/])*([.][.][\\\\/]([.]?[\\\\/])*){' . $count . '})(?=[^.])#',
+                                     '}[\\\\/]([.]?[\\\\/])*([.][.][\\\\/]([.]?[\\\\/])*){' . $count . '})(?=[^.])#u',
                                      $this->ds, $path);
             }
         }

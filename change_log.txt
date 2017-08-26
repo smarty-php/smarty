@@ -2,6 +2,8 @@
 26.8.2017
   - bugfix chained modifier failed when last modifier parameter is a signed value
     https://github.com/smarty-php/smarty/issues/327
+  - bugfix templates filepath with multibyte characters did not work
+    https://github.com/smarty-php/smarty/issues/385
 
 09.8.2017
   - improvement repeated delimiter like {{ and }} will be treated as literal
