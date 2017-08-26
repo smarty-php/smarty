@@ -211,6 +211,7 @@ class Smarty_Internal_Templateparser
 
 %left VERT.
 %left COLON.
+%left UNIMATH.
 
     //
     // complete template
