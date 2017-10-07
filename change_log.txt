@@ -1,4 +1,8 @@
 ﻿===== 3.1.32 - dev ===
+07.10.2017
+  - bugfix modification of 9.8.2017 did fail on some recursive
+    tag nesting. https://github.com/smarty-php/smarty/issues/389
+
 26.8.2017
   - bugfix chained modifier failed when last modifier parameter is a signed value
     https://github.com/smarty-php/smarty/issues/327

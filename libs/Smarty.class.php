@@ -108,7 +108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-22';
+    const SMARTY_VERSION = '3.1.32-dev-23';
 
     /**
      * define variable scopes
@@ -455,6 +455,13 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var string
      */
     public $right_delimiter = "}";
+
+    /**
+     * array of strings which shall be treated as literal by compiler
+     *
+     * @var array string
+     */
+    public $literals = array();
 
     /**#@+
      * security

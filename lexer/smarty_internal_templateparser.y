@@ -21,9 +21,9 @@ class Smarty_Internal_Templateparser
 }
 %include_class
 {
-    const Err1 = "Security error: Call to private object member not allowed";
-    const Err2 = "Security error: Call to dynamic object member not allowed";
-    const Err3 = "PHP in template not allowed. Use SmartyBC to enable it";
+    const Err1 = 'Security error: Call to private object member not allowed';
+    const Err2 = 'Security error: Call to dynamic object member not allowed';
+    const Err3 = 'PHP in template not allowed. Use SmartyBC to enable it';
 
     /**
      * result status
@@ -209,7 +209,8 @@ class Smarty_Internal_Templateparser
     $this->compiler->trigger_template_error("Stack overflow in template parser");
 }
 
-%left VERT.
+
+%right VERT.
 %left COLON.
 %left UNIMATH.
 
@@ -493,25 +494,15 @@ tag(res)   ::= LDELFOR statement(st) TO expr(v) STEP expr(v2) attributes(a). {
 }
 
                   // {foreach} tag
-tag(res)   ::= LDELFOREACH attributes(a). {
-    res = $this->compiler->compileTag('foreach',a);
-}
-
-                  // {foreach $array as $var} tag
-tag(res)   ::= LDELFOREACH SPACE value(v1) AS varvar(v0) attributes(a). {
-    res = $this->compiler->compileTag('foreach',array_merge(a,array(array('from'=>v1),array('item'=>v0))));
-}
-
-tag(res)   ::= LDELFOREACH SPACE value(v1) AS varvar(v2) APTR varvar(v0) attributes(a). {
-    res = $this->compiler->compileTag('foreach',array_merge(a,array(array('from'=>v1),array('item'=>v0),array('key'=>v2))));
-}
-
 tag(res)   ::= LDELFOREACH SPACE expr(e) AS varvar(v0) attributes(a). {
     res = $this->compiler->compileTag('foreach',array_merge(a,array(array('from'=>e),array('item'=>v0))));
 }
 
 tag(res)   ::= LDELFOREACH SPACE expr(e) AS varvar(v1) APTR varvar(v0) attributes(a). {
     res = $this->compiler->compileTag('foreach',array_merge(a,array(array('from'=>e),array('item'=>v0),array('key'=>v1))));
+}
+tag(res)   ::= LDELFOREACH attributes(a). {
+    res = $this->compiler->compileTag('foreach',a);
 }
 
                   // {setfilter}
