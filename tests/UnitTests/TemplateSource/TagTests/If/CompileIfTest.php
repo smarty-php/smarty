@@ -37,12 +37,13 @@ class CompileIfTest extends PHPUnit_Smarty
      */
     public function testIf($code, $result, $testName, $testNumber)
     {
-        $file = "testIf_{$testNumber}.tpl";
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "testIf_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
         $this->smarty->assignGlobal('file', $file);
         $this->smarty->assign('bar', 'buh');
         $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)),
-                            "testIf - {$code} - {$testName}");
+                            "testIf - {$code} - {$name}");
     }
 
     /*
@@ -81,7 +82,31 @@ class CompileIfTest extends PHPUnit_Smarty
                      array('{$foo=\'foo\'}{$bar=\'bar\'}{if false}false{elseif $bar = "new_{$foo|default:\'\'}"}yes-{else}no{/if}{$bar}',
                            'yes-new_foo', '', $i ++),
                      array('{$foo=\'foo\'}{$bar=\'bar\'}{if false}false{elseif $bar[3] = "new_{$foo|default:\'\'}"}yes-{else}no{/if}{$bar[0]}-{$bar[3]}',
-                           'yes-bar-new_foo', '', $i ++),);
+                           'yes-bar-new_foo', '', $i ++),
+
+                     array('{$x=0}{if $x}yes{else}no{/if}', 'no', 'AssignVar', $i ++),
+                     array('{$x=0}{if $x++}yes{else}no{/if} {$x}', 'no 1', 'IncVar', $i ++),
+                     array('{$x=1}{if $x}yes{else}no{/if}', 'yes', 'SimpleVar', $i ++),
+                     array('{if $x=true}yes{else}no{/if}', 'yes', 'AssignTrue', $i ++),
+                     array('{if $x=false}yes{else}no{/if}', 'no', 'AssignFalse', $i ++),
+                     array('{if 3 ge strlen("foo")}yes{else}no{/if}', 'yes', 'CmpWithFunc', $i ++),
+                     array('{if isset($foo)}yes{else}no{/if}', 'no', 'NotIsset', $i ++),
+                     array('{$foo=1}{if isset($foo)}yes{else}no{/if}', 'yes', 'Isset', $i ++),
+                     array('{$foo=1}{if !isset($foo)}yes{else}no{/if}', 'no', 'IssetNegate', $i ++),
+                     array('{$foo=\'\'}{if empty($foo)}yes{else}no{/if}', 'yes', 'Empty', $i ++),
+                     array('{$foo=\'foo\'}{if empty($foo)}yes{else}no{/if}', 'no', 'NotEmpty', $i ++),
+                     array('{if 6 is div by 3}yes{else}no{/if}', 'yes', 'IsDivBy', $i ++),
+                     array('{if 6 is not div by 3}yes{else}no{/if}', 'no', 'IsNotDivBye', $i ++),
+                     array('{if 6 is even}yes{else}no{/if}', 'yes', 'IsEven', $i ++),
+                     array('{if 6 is not even}yes{else}no{/if}', 'no', 'IsNotEven', $i ++),
+                     array('{if 3 is odd}yes{else}no{/if}', 'yes', 'IsOdd', $i ++),
+                     array('{if 3 is not odd}yes{else}no{/if}', 'no', 'IsNotOdd', $i ++),
+                     array('{$foo=3}{if 3 is odd by $foo}yes{else}no{/if}', 'yes', 'IsOddByVar', $i ++),
+                     array('{$foo=3}{$bar=6}{if $bar is not odd by $foo}yes{else}no{/if}', 'yes', 'IsNotOddByVar', $i ++),
+                     array('{$foo=3}{$bar=3}{if 3+$bar is not odd by $foo}yes{else}no{/if}', 'yes', 'ExprIsNotOddByVar', $i ++),
+                     array('{$foo=2}{$bar=6}{if (3+$bar) is not odd by ($foo+1)}yes{else}no{/if}', 'no', 'ExprIsNotOddByExpr', $i ++),
+                     array('{if strlen("hello world") ===  11}yes{else}no{/if}', 'yes', 'FuncCmp', $i ++),
+         );
     }
 
     /**
@@ -321,117 +346,5 @@ class CompileIfTest extends PHPUnit_Smarty
         $this->assertEquals("yes", $this->smarty->fetch($tpl));
     }
 
-    public function testIfIsDivBy()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 6 is div by 3}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
 
-    public function testIfIsNotDivBy()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 6 is not div by 3}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIsEven()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 6 is even}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIsNotEven()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 6 is not even}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIsOdd()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 3 is odd}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIsNotOdd()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 3 is not odd}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIsOddBy()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 3 is odd by 3}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIsNotOddBy()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 6 is odd by 3}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIsEvenBy()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 6 is even by 3}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIsNotEvenBy()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 6 is not even by 3}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfFunc1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if strlen("hello world") ==  11}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfFunc2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 3 ge strlen("foo")}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfFunc3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if isset($foo)}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfFunc4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value=1}{if isset($foo)}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfStatement1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if $x=true}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfStatement2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if $x=false}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfVariable1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{$x=1}{if $x}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfVariable2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{$x=0}{if $x}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfVariableInc1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{$x=0}{if $x++}yes{else}no{/if} {$x}');
-        $this->assertEquals("no 1", $this->smarty->fetch($tpl));
-    }
-}
+ }

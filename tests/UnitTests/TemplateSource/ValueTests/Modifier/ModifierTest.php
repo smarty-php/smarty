@@ -18,7 +18,7 @@ class ModifierTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
-        $this->smarty->enableSecurity();
+        $this->smarty->addTemplateDir("./templates_tmp");
     }
 
     public function testInit()
@@ -27,123 +27,51 @@ class ModifierTest extends PHPUnit_Smarty
     }
 
     /**
-     * test PHP function as modifier
-     */
-    public function testPHPFunctionModifier()
-    {
-        $this->smarty->security_policy->php_modifiers = array('strlen');
-        $tpl = $this->smarty->createTemplate('eval:{"hello world"|strlen}');
-        $this->assertEquals("11", $this->smarty->fetch($tpl));
-    }
-
-    public function testPHPFunctionModifier2()
-    {
-        $this->smarty->security_policy->php_modifiers = array('strlen');
-        $tpl = $this->smarty->createTemplate('eval:{assign var=foo value="hello world"}{$foo|strlen}');
-        $this->assertEquals("11", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test plugin as modifier
-     */
-    public function testPluginModifier()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{"hello world"|truncate:6}');
-        $this->assertEquals("hel...", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test plugin as modifier with variable
-     */
-    public function testPluginModifierVar()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{"hello world"|truncate:$foo}');
-        $tpl->assign('foo', 6);
-        $this->assertEquals("hel...", $this->smarty->fetch($tpl));
-    }
-
-    public function testPluginModifierVar2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{"hello world"|truncate:$foo:"   "}');
-        $tpl->assign('foo', 6);
-        $this->assertEquals("hel   ", $this->smarty->fetch($tpl));
-    }
-
-    public function testPluginModifierVar3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{"hello world"|truncate:$foo:$bar}');
-        $tpl->assign('foo', 6);
-        $tpl->assign('bar', '   ');
-        $this->assertEquals("hel   ", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test modifier chaining
-     */
-    public function testModifierChaining()
-    {
-        $this->smarty->security_policy->php_modifiers = array('strlen');
-        $tpl = $this->smarty->createTemplate('eval:{"hello world"|truncate:6|strlen}');
-        $this->assertEquals("6", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test modifier in {if}
-     */
-    public function testModifierInsideIf()
-    {
-        $this->smarty->security_policy->php_modifiers = array('strlen');
-        $tpl = $this->smarty->createTemplate('eval:{if "hello world"|truncate:6|strlen == 6}okay{/if}');
-        $this->assertEquals("okay", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test modifier in expressions
-     */
-    public function testModifierInsideExpression()
-    {
-        $this->smarty->security_policy->php_modifiers = array('strlen');
-        $tpl = $this->smarty->createTemplate('eval:{"hello world"|truncate:6|strlen + ("hello world"|truncate:8|strlen)}');
-        $this->assertEquals("14", $this->smarty->fetch($tpl));
-    }
-
-    public function testModifierInsideExpression2()
-    {
-        $this->smarty->security_policy->php_modifiers = array('round');
-        $tpl = $this->smarty->createTemplate('eval:{1.1*7.1|round}');
-        $this->assertEquals("7.7", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test modifier at plugin result
-     * @runInSeparateProcess
+     * Test modifier
+     *
+     * @not                 runInSeparateProcess
      * @preserveGlobalState disabled
+     * @dataProvider        dataTestModifier
      */
-    public function testModifierAtPluginResult()
+    public function testModifier($code, $result, $testName, $testNumber)
     {
-        $tpl = $this->smarty->createTemplate('eval:{counter|truncate:5 start=100000}');
-        $this->assertEquals("10...", $this->smarty->fetch($tpl));
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "testModifier_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->assignGlobal('file', $file);
+        $this->smarty->assign('bar', 'buh');
+        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)),
+                            "testModifier - {$code} - {$name}");
     }
 
-    /**
-     * test unqouted string as modifier parameter
-     */
-    public function testModifierUnqoutedString()
+    /*
+      * Data provider für testModifier
+      */
+    public function dataTestModifier()
     {
-        $tpl = $this->smarty->createTemplate('eval:{"hello world"|replace:hello:xxxxx}');
-        $this->assertEquals("xxxxx world", $this->smarty->fetch($tpl));
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    */
+        return array(array('{"hello world"|strlen}', '11', 'OnString', $i ++),
+                     array('{$foo ="hello world"}{$foo|strlen}', '11', 'OnVar', $i ++),
+                     array('{"hello world"|truncate:6}', 'hel...', 'TruncatePlugin', $i ++),
+                     array('{$foo=7}{"hello world"|truncate:$foo}', 'hell...', 'TruncatePluginLengthVar', $i ++),
+                     array('{$foo=10}{$bar=\'<>\'}{"hello world"|truncate:$foo:$bar}', 'hello<>', 'TruncatePluginAllVar', $i ++),
+                     array('{"hello world"|truncate:6|strlen}', '6', 'Chain', $i ++),
+                     array('{"hello world"|truncate:6:"xx"|cat:"Smarty"}', 'hellxxSmarty', 'ChainVar', $i ++),
+                     array('{"hello world"|truncate:6|strlen}', '6', 'Chain', $i ++),
+                     array('{if "hello world"|truncate:6|strlen == 6}okay{/if}', 'okay', 'InIF', $i ++),
+                     array('{"hello world"|truncate:6|strlen + ("hello world"|truncate:8|strlen)}', '14', 'Expression', $i ++),
+                     array('{1.1*7.1|round}', '7.7', 'InExpression', $i ++),
+                     array('{counter|truncate:5 start=100000}', '10...', 'PluginOutput', $i ++),
+       );
     }
 
-    /**
-     * test registered modifier function
-     */
-    public function testModifierRegisteredFunction()
-    {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier', 'testmodifier');
-        $tpl = $this->smarty->createTemplate('eval:{$foo|testmodifier}');
-        $tpl->assign('foo', 2);
-        $this->assertEquals("mymodifier function 2", $this->smarty->fetch($tpl));
-    }
+
+
 
     /**
      * test registered modifier static class
@@ -151,9 +79,8 @@ class ModifierTest extends PHPUnit_Smarty
     public function testModifierRegisteredStaticClass()
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier', array('testmodifierclass', 'staticcall'));
-        $tpl = $this->smarty->createTemplate('eval:{$foo|testmodifier}');
-        $tpl->assign('foo', 1);
-        $this->assertEquals("mymodifier static 1", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', 1);
+        $this->assertEquals("mymodifier static 1", $this->smarty->fetch('testModifier_RegisteredStatic.tpl'));
     }
 
     /**
@@ -163,9 +90,8 @@ class ModifierTest extends PHPUnit_Smarty
     {
         $obj = new testmodifierclass();
         $this->smarty->registerPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier', array($obj, 'method'));
-        $tpl = $this->smarty->createTemplate('eval:{$foo|testmodifier}');
-        $tpl->assign('foo', 3);
-        $this->assertEquals("mymodifier method 3", $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', 3);
+        $this->assertEquals("mymodifier method 3", $this->smarty->fetch('testModifier_RegisteredMethod.tpl'));
     }
 
     /**
@@ -184,9 +110,8 @@ class ModifierTest extends PHPUnit_Smarty
     public function testDefaultModifier()
     {
         $this->smarty->default_modifiers = array('escape');
-        $tpl = $this->smarty->createTemplate('eval:{$foo}{$foo nofilter}');
-        $tpl->assign('foo', '<bar>');
-        $this->assertEquals('&lt;bar&gt;<bar>', $this->smarty->fetch($tpl));
+        $this->smarty->assign('foo', '<bar>');
+        $this->assertEquals('&lt;bar&gt;<bar>', $this->smarty->fetch('testModifier_Default.tpl'));
     }
 }
 

@@ -35,6 +35,16 @@ class DelimiterTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('eval:<{* comment *}><{if true}><{"hello world"}><{/if}>');
         $this->assertEquals("hello world", $this->smarty->fetch($tpl));
     }
+    /**
+     * test <{ }> delimiter
+     */
+    public function testDelimiter10()
+    {
+        $this->smarty->left_delimiter = '<';
+        $this->smarty->right_delimiter = '>';
+        $tpl = $this->smarty->createTemplate('eval:<* comment *><if 1 < 2><"hello world"></if>');
+        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
+    }
 
     /**
      * test <-{ }-> delimiter

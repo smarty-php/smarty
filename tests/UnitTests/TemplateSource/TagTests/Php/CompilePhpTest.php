@@ -19,6 +19,8 @@ class CompilePhpTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
+        $this->smarty->setUseSubDirs(true);
+        $this->smartyBC->setUseSubDirs(true);
         $this->smartyBC->disableSecurity();
         $this->smarty->disableSecurity();
         $this->smarty->setCompileId($this->getName());
@@ -42,7 +44,30 @@ class CompilePhpTest extends PHPUnit_Smarty
     {
         $result = str_replace("\r", '', $result);
         $this->smartyBC->php_handling = $phpHandling;
-        $this->smartyBC->compile_id = $testName;
+        $this->smartyBC->compile_id = $testName.$this->smartyBC->php_handling ;
+        $tpl = $this->smartyBC->createTemplate($templateFile);
+        if ($phpHandling == Smarty::PHP_PASSTHRU || $phpHandling == Smarty::PHP_QUOTE) {
+            $result = str_replace("\r", '', $tpl->source->getContent());
+        }
+        if ($phpHandling == Smarty::PHP_QUOTE) {
+            $result = preg_replace_callback('#(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)|(\?>)|(%>)|(<\/script>)#i', array($this, 'quote'), $result);
+        }
+        $content = $tpl->fetch();
+        $this->assertEquals($result, $content, $testName);
+    }   /**
+ * Test
+ * @runInSeparateProcess
+ * @preserveGlobalState disabled
+ * @dataProvider data
+ *
+ */
+    public function testPHPcaching($phpHandling, $templateFile, $result, $testName)
+    {
+        $result = str_replace("\r", '', $result);
+        $this->smartyBC->php_handling = $phpHandling;
+        $this->smartyBC->compile_id = $testName.$this->smartyBC->php_handling ;
+        $this->smartyBC->caching = true;
+        $this->smartyBC->force_cache = true;
         $tpl = $this->smartyBC->createTemplate($templateFile);
         if ($phpHandling == Smarty::PHP_PASSTHRU || $phpHandling == Smarty::PHP_QUOTE) {
             $result = str_replace("\r", '', $tpl->source->getContent());
@@ -71,16 +96,18 @@ class CompilePhpTest extends PHPUnit_Smarty
     {
         $this->smartyBC->caching = 1;
         $this->smartyBC->assign('foo', 'foo');
+        $this->smartyBC->compile_id = 'Tag nocache' ;
         $content = $this->smartyBC->fetch('phptag_nocache.tpl');
-        $this->assertEquals('-->foo<--', $content);
+        $this->assertEquals('-->foo<--', $content,'Tag nocache 1');
     }
 
     public function testPHP_Tag_Nocache2()
     {
         $this->smartyBC->caching = 1;
         $this->smartyBC->assign('foo', 'bar');
+        $this->smartyBC->compile_id = 'Tag nocache' ;
         $content = $this->smartyBC->fetch('phptag_nocache.tpl');
-        $this->assertEquals('-->bar<--', $content);
+        $this->assertEquals('-->bar<--', $content,'Tag nocache 2');
     }
     /**
      * test {php no cache}illegal option
@@ -99,7 +126,8 @@ class CompilePhpTest extends PHPUnit_Smarty
     public function testPHPfooPlugin()
     {
         $this->smarty->addPluginsDir("./PHPunitplugins/");
-        $this->assertEquals('phptest okay', $this->smarty->fetch('string:{phptest}'));
+        $this->smartyBC->compile_id = 'Tag nocache' ;
+        $this->assertEquals('phptest okay', $this->smarty->fetch('string:{phptest}'),'testPHPfooPlugin');
     }
 
     public function data()
@@ -140,7 +168,7 @@ echo \'?> \';
 echo \'<% \';
 echo \'%> \';
 %><--', 'PHP_ALLOW, \'asp.tpl\''),
-            array(Smarty::PHP_REMOVE, 'script.tpl', '--><--', 'PHP_REMOVE, \'script.tpl\''),
+            array(Smarty::PHP_REMOVE, 'script.tpl', '<br><br>', 'PHP_REMOVE, \'script.tpl\''),
             array(Smarty::PHP_PASSTHRU, 'script.tpl', '', 'PHP_PASSTHRU, \'script.tpl\''),
             array(Smarty::PHP_QUOTE, 'script.tpl', '', 'PHP_QUOTE, \'script.tpl\''),
             array(Smarty::PHP_ALLOW, 'phptag.tpl', '--> hello world {php} {/php} <--', 'PHP_ALLOW, \'phptag.tpl\''),
@@ -153,7 +181,7 @@ $foo = 3;
 { /php}<--', 'PHP_ALLOW, \'phptag_literal.tpl\''),
         );
         if (version_compare(phpversion(), '5.7.0', '<')) {
-            $data[] = array(Smarty::PHP_ALLOW, 'script.tpl', '--> hello world <script language=\'php\'> </script> <--', 'PHP_ALLOW, \'script.tpl\'');
+            $data[] = array(Smarty::PHP_ALLOW, 'script.tpl', '<br> This is a script <br> 5<br>', 'PHP_ALLOW, \'script.tpl\'');
         }
         return $data;
     }
