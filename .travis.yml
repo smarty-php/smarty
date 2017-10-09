@@ -28,5 +28,9 @@ install:
 
 script:
    - cd smarty-phpunit
-   - phpunit ./
+   - if [[ $TRAVIS_PHP_VERSION = 7.* || $TRAVIS_PHP_VERSION = nightly ]]; then
+        ./vendor/bin/phpunit
+    else
+        phpunit ./
+    fi
 
