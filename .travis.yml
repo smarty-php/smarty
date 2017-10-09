@@ -25,7 +25,7 @@ before_script:
 
 install:
      - git clone --depth=50 --branch=master git://github.com/smarty-php/smarty-phpunit.git
-     - if [ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]; then  composer global install phpunit/phpunit 6.4.1; fi
+     - if [ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]; then  composer global require phpunit/phpunit 6.4.1; fi
 
 script:
    - cd smarty-phpunit
