@@ -28,9 +28,16 @@ install:
 
 script:
    - cd smarty-phpunit
+<<<<<<< HEAD
+   - if [[ $TRAVIS_PHP_VERSION = 7.* || $TRAVIS_PHP_VERSION = nightly ]]; then
+        ./vendor/bin/phpunit
+    else
+        phpunit ./
+=======
    - if [[ $TRAVIS_PHP_VERSION = 7.1 || $TRAVIS_PHP_VERSION = nightly ]]; then
         $COMPOSER_BIN_DIR/phpunit ./;
     else
         phpunit ./;
+>>>>>>> parent of e9e97cc... Use phpunit 6.4.1 for PHP 7.1
     fi
 
