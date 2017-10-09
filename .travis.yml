@@ -20,7 +20,8 @@ services:
 before_script:
     - if [ ${TRAVIS_PHP_VERSION:0:3} != "5.2" ]; then travis_retry composer --prefer-source --dev install; fi
     - if [ ${TRAVIS_PHP_VERSION:0:3} <= "5.6" ]; then  phpenv config-add travis.ini; fi
-    - if [ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]; then  composer global require phpunit/phpunit 6.4.1; fi
+    - if [ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]; then  composer require phpunit/phpunit 6.4.1; fi
+    - composer install
     - mysql -e "create database IF NOT EXISTS test;" -uroot
 
 install:
@@ -28,16 +29,9 @@ install:
 
 script:
    - cd smarty-phpunit
-<<<<<<< HEAD
-   - if [[ $TRAVIS_PHP_VERSION = 7.* || $TRAVIS_PHP_VERSION = nightly ]]; then
-        ./vendor/bin/phpunit
-    else
-        phpunit ./
-=======
    - if [[ $TRAVIS_PHP_VERSION = 7.1 || $TRAVIS_PHP_VERSION = nightly ]]; then
-        $COMPOSER_BIN_DIR/phpunit ./;
+        ../vendor/bin/phpunit ./;
     else
         phpunit ./;
->>>>>>> parent of e9e97cc... Use phpunit 6.4.1 for PHP 7.1
     fi
 
