@@ -51,6 +51,9 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                     return '';
                 case 'now':
                     return 'time()';
+                case 'block':
+                    $tag = $compiler->getTagCompiler('block');
+                    return $tag->compileSpecialVariable(array(), $compiler, $_index);
                 case 'cookies':
                     if (isset($compiler->smarty->security_policy) &&
                         !$compiler->smarty->security_policy->allow_super_globals

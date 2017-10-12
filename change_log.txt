@@ -1,4 +1,8 @@
 ﻿===== 3.1.32 - dev ===
+12.10.2017
+  - bugfix $smarty.block.child and $smarty.block.parent could not be used like any
+    $smarty special variable https://github.com/smarty-php/smarty/issues/393
+
 07.10.2017
   - bugfix modification of 9.8.2017 did fail on some recursive
     tag nesting. https://github.com/smarty-php/smarty/issues/389

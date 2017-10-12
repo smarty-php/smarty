@@ -42,7 +42,7 @@ class Smarty_Internal_Runtime_Inheritance
      *
      * @var int
      */
-    public $tplIndex = - 1;
+    public $tplIndex = -1;
 
     /**
      * Array of template source objects
@@ -75,7 +75,7 @@ class Smarty_Internal_Runtime_Inheritance
             $tpl->inheritance->init($tpl, $initChild, $blockNames);
             return;
         }
-        $this->tplIndex ++;
+        $this->tplIndex++;
         $this->sources[ $this->tplIndex ] = $tpl->source;
 
         // start of child sub template(s)
@@ -85,7 +85,7 @@ class Smarty_Internal_Runtime_Inheritance
                 //grab any output of child templates
                 ob_start();
             }
-            $this->inheritanceLevel ++;
+            $this->inheritanceLevel++;
             //           $tpl->startRenderCallbacks[ 'inheritance' ] = array($this, 'subTemplateStart');
             //           $tpl->endRenderCallbacks[ 'inheritance' ] = array($this, 'subTemplateEnd');
         }
@@ -106,14 +106,23 @@ class Smarty_Internal_Runtime_Inheritance
      */
     public function endChild(Smarty_Internal_Template $tpl, $template = null, $uid = null, $func = null)
     {
-        $this->inheritanceLevel --;
+        $this->inheritanceLevel--;
         if (!$this->inheritanceLevel) {
             ob_end_clean();
             $this->state = 2;
         }
-        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends') || $tpl->smarty->extends_recursion)) {
-            $tpl->_subTemplateRender($template, $tpl->cache_id, $tpl->compile_id, $tpl->caching ? 9999 : 0,
-                                     $tpl->cache_lifetime, array(), 2, false, $uid, $func);
+        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends') ||
+                                 $tpl->smarty->extends_recursion)) {
+            $tpl->_subTemplateRender($template,
+                                     $tpl->cache_id,
+                                     $tpl->compile_id,
+                                     $tpl->caching ? 9999 : 0,
+                                     $tpl->cache_lifetime,
+                                     array(),
+                                     2,
+                                     false,
+                                     $uid,
+                                     $func);
         }
     }
 
@@ -153,7 +162,8 @@ class Smarty_Internal_Runtime_Inheritance
      *
      * @throws \SmartyException
      */
-    public function process(Smarty_Internal_Template $tpl, Smarty_Internal_Block $block,
+    public function process(Smarty_Internal_Template $tpl,
+                            Smarty_Internal_Block $block,
                             Smarty_Internal_Block $parent = null)
     {
         if ($block->hide && !isset($block->child)) {
@@ -187,30 +197,47 @@ class Smarty_Internal_Runtime_Inheritance
     }
 
     /**
-     * Render child on {$smarty.block.child}
+     * Render child on $smarty.block.child
      *
      * @param \Smarty_Internal_Template $tpl
      * @param \Smarty_Internal_Block    $block
+     * @param boolean                   $returnContent flag if content shall be returned
+     *
+     * @return null|string  null or block content dependent on $returnContent
      */
-    public function callChild(Smarty_Internal_Template $tpl, Smarty_Internal_Block $block)
+    public function callChild(Smarty_Internal_Template $tpl, Smarty_Internal_Block $block, $returnContent = false)
     {
+        if ($returnContent) {
+            ob_start();
+        }
         if (isset($block->child)) {
             $this->process($tpl, $block->child, $block);
         }
+        if ($returnContent) {
+            return ob_get_clean();
+        }
+        return;
     }
 
     /**
-     * Render parent on {$smarty.block.parent} or {block append/prepend}     *
+     * Render parent block on $smarty.block.parent or {block append/prepend}     *
      *
      * @param \Smarty_Internal_Template $tpl
      * @param \Smarty_Internal_Block    $block
+     * @param null|string               $name
+     * @param boolean                   $returnContent flag if content shall be returned
      *
-     * @param null                      $name
-     *
+     * @return null|string  null or block content dependent on $returnContent
      * @throws \SmartyException
      */
-    public function callParent(Smarty_Internal_Template $tpl, Smarty_Internal_Block $block, $name = null)
+    public function callParent(Smarty_Internal_Template $tpl,
+                               Smarty_Internal_Block $block,
+                               $name = null,
+                               $returnContent = false)
     {
+        if ($returnContent) {
+            ob_start();
+        }
         if (isset($name)) {
             $block = $block->parent;
             while (isset($block)) {
@@ -223,11 +250,17 @@ class Smarty_Internal_Runtime_Inheritance
         } else if (isset($block->parent)) {
             $this->callBlock($block->parent, $tpl);
         } else {
-            throw new SmartyException("inheritance: illegal {\$smarty.block.parent} or {block append/prepend} used in parent template '{$tpl->inheritance->sources[$block->tplIndex]->filepath}' block '{$block->name}'");
+            throw new SmartyException("inheritance: illegal '\$smarty.block.parent' or {block append/prepend} used in parent template '{$tpl->inheritance->sources[$block->tplIndex]->filepath}' block '{$block->name}'");
         }
+        if ($returnContent) {
+            return ob_get_clean();
+        }
+        return;
     }
 
     /**
+     * redender block
+     *
      * @param \Smarty_Internal_Block    $block
      * @param \Smarty_Internal_Template $tpl
      */

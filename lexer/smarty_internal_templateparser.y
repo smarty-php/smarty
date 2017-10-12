@@ -514,18 +514,6 @@ tag(res)   ::= LDELSETFILTER ID(m) modparameters(p) modifierlist(l). {
     res = $this->compiler->compileTag('setfilter',array(),array('modifier_list'=>array_merge(array(array_merge(array(m),p)),l)));
 }
 
-                  // {$smarty.block.child} or {$smarty.block.parent}
-tag(res)   ::= LDEL SMARTYBLOCKCHILDPARENT(i). {
-    $j = strrpos(i,'.');
-    if (i[$j+1] == 'c') {
-        // {$smarty.block.child}
-        res = $this->compiler->compileTag('block_child',array());;
-    } else {
-        // {$smarty.block.parent}
-       res = $this->compiler->compileTag('block_parent',array());;
-     }
-}
-
                   
                   // end of block tag  {/....}                  
 smartytag(res)::= CLOSETAG(t). {

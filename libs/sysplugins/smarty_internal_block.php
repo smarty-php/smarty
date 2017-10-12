@@ -38,7 +38,7 @@ class Smarty_Internal_Block
     public $prepend = false;
 
     /**
-     * Block calls {$smarty.block.child}
+     * Block calls $smarty.block.child
      *
      * @var bool
      */

@@ -108,7 +108,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-23';
+    const SMARTY_VERSION = '3.1.32-dev-24';
 
     /**
      * define variable scopes
@@ -893,7 +893,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             $dir = &$this->template_dir;
         }
         if ($isConfig ? !$this->_configDirNormalized : !$this->_templateDirNormalized) {
-            $this->_nomalizeTemplateConfig($isConfig);
+            $this->_normalizeTemplateConfig($isConfig);
         }
         if ($index !== null) {
             return isset($dir[ $index ]) ? $dir[ $index ] : null;
@@ -1068,7 +1068,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param bool $isConfig true for config_dir
      *
      */
-    private function _nomalizeTemplateConfig($isConfig)
+    private function _normalizeTemplateConfig($isConfig)
     {
         if ($isConfig) {
             $processed = &$this->_processedConfigDir;
@@ -1115,7 +1115,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             $data = null;
         }
         if (!$this->_templateDirNormalized) {
-            $this->_nomalizeTemplateConfig(false);
+            $this->_normalizeTemplateConfig(false);
         }
         $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
         $tpl = null;

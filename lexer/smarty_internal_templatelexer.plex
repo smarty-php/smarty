@@ -344,7 +344,6 @@ class Smarty_Internal_Templatelexer
      rdel = ~\s*SMARTYrdel~
      nocacherdel = ~(\s+nocache)?\s*SMARTYrdel~
      notblockid = ~(?:(?!block)[0-9]*[a-zA-Z_]\w*)~
-     smartyblockchildparent = ~[\$]smarty\.block\.(child|parent)~
      integer = ~\d+~
      hex =  ~0[xX][0-9a-fA-F]+~
      math = ~\s*([*]{1,2}|[%/^&]|[<>]{2})\s*~
@@ -514,10 +513,6 @@ class Smarty_Internal_Templatelexer
      }
      singlequotestring {
         $this->token = Smarty_Internal_Templateparser::TP_SINGLEQUOTESTRING;
-     }
-     smartyblockchildparent {
-        $this->token = Smarty_Internal_Templateparser::TP_SMARTYBLOCKCHILDPARENT;
-        $this->taglineno = $this->line;
      }
      dollar id {
         $this->token = Smarty_Internal_Templateparser::TP_DOLLARID;

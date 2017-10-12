@@ -372,8 +372,6 @@ class Smarty_Internal_TestInstall
                 'smarty_internal_compile_append.php'                        => true,
                 'smarty_internal_compile_assign.php'                        => true,
                 'smarty_internal_compile_block.php'                         => true,
-                'smarty_internal_compile_block_child.php'                   => true,
-                'smarty_internal_compile_block_parent.php'                  => true,
                 'smarty_internal_compile_break.php'                         => true,
                 'smarty_internal_compile_call.php'                          => true,
                 'smarty_internal_compile_capture.php'                       => true,
