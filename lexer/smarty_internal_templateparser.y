@@ -135,7 +135,7 @@ class Smarty_Internal_Templateparser
     public $template_prefix = array();
 
     /**
-     * security object
+     * template prefix array
      *
      * @var \Smarty_Internal_ParseTree[]
      */

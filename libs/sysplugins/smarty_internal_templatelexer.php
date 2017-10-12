@@ -243,7 +243,7 @@ class Smarty_Internal_Templatelexer
         $this->dataLength = strlen($this->data);
         $this->counter = 0;
         if (preg_match('/^\xEF\xBB\xBF/i', $this->data, $match)) {
-            $this->counter += strlen($match[0]);
+            $this->counter += strlen($match[ 0 ]);
         }
         $this->line = 1;
         $this->smarty = $compiler->smarty;
@@ -252,15 +252,14 @@ class Smarty_Internal_Templatelexer
         $this->ldel_length = strlen($this->smarty->left_delimiter);
         $this->rdel = preg_quote($this->smarty->right_delimiter, '/');
         $this->rdel_length = strlen($this->smarty->right_delimiter);
-        $this->smarty_token_names['LDEL'] = $this->smarty->left_delimiter;
-        $this->smarty_token_names['RDEL'] = $this->smarty->right_delimiter;
+        $this->smarty_token_names[ 'LDEL' ] = $this->smarty->left_delimiter;
+        $this->smarty_token_names[ 'RDEL' ] = $this->smarty->right_delimiter;
         $literals = $this->smarty->getLiterals();
         if (!empty($literals)) {
             foreach ($literals as $key => $literal) {
                 $literals[ $key ] = preg_quote($literal, '/');
             }
         }
-
         if ($this->smarty->auto_literal) {
             $literals[] = $this->ldel . '{1,}\\s+';
         }
@@ -374,10 +373,9 @@ class Smarty_Internal_Templatelexer
         if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
-
         do {
             if (preg_match($this->yy_global_pattern1, $this->data, $yymatches, 0, $this->counter)) {
-                if (!isset($yymatches[0][1])) {
+                if (!isset($yymatches[ 0 ][ 1 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yymatches);
                 } else {
                     $yymatches = array_filter($yymatches);
@@ -426,8 +424,8 @@ class Smarty_Internal_Templatelexer
     function yy_r1_2()
     {
         preg_match("/[*]{$this->rdel}/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
-        if (isset($match[0][1])) {
-            $to = $match[0][1] + strlen($match[0][0]);
+        if (isset($match[ 0 ][ 1 ])) {
+            $to = $match[ 0 ][ 1 ] + strlen($match[ 0 ][ 0 ]);
         } else {
             $this->compiler->trigger_template_error("missing or misspelled comment closing tag '*{$this->smarty->right_delimiter}'");
         }
@@ -485,10 +483,9 @@ class Smarty_Internal_Templatelexer
         if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
-
         do {
             if (preg_match($this->yy_global_pattern2, $this->data, $yymatches, 0, $this->counter)) {
-                if (!isset($yymatches[0][1])) {
+                if (!isset($yymatches[ 0 ][ 1 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yymatches);
                 } else {
                     $yymatches = array_filter($yymatches);
@@ -618,10 +615,9 @@ class Smarty_Internal_Templatelexer
         if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
-
         do {
             if (preg_match($this->yy_global_pattern3, $this->data, $yymatches, 0, $this->counter)) {
-                if (!isset($yymatches[0][1])) {
+                if (!isset($yymatches[ 0 ][ 1 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yymatches);
                 } else {
                     $yymatches = array_filter($yymatches);
@@ -678,6 +674,7 @@ class Smarty_Internal_Templatelexer
     {
         $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
         $this->yypushstate(self::DOUBLEQUOTEDSTRING);
+        $this->compiler->enterDoubleQuote();
     }
 
     function yy_r3_4()
@@ -816,7 +813,7 @@ class Smarty_Internal_Templatelexer
         if (substr($this->data, $this->counter + strlen($this->value) - 1, $this->rdel_length) ==
             $this->smarty->right_delimiter) {
             preg_match("/\s+/", $this->value, $match);
-            $this->value = $match[0];
+            $this->value = $match[ 0 ];
             $this->token = Smarty_Internal_Templateparser::TP_SPACE;
         } else {
             $this->token = Smarty_Internal_Templateparser::TP_ATTR;
@@ -906,10 +903,9 @@ class Smarty_Internal_Templatelexer
         if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
-
         do {
             if (preg_match($this->yy_global_pattern4, $this->data, $yymatches, 0, $this->counter)) {
-                if (!isset($yymatches[0][1])) {
+                if (!isset($yymatches[ 0 ][ 1 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yymatches);
                 } else {
                     $yymatches = array_filter($yymatches);
@@ -989,10 +985,9 @@ class Smarty_Internal_Templatelexer
         if ($this->counter >= $this->dataLength) {
             return false; // end of input
         }
-
         do {
             if (preg_match($this->yy_global_pattern5, $this->data, $yymatches, 0, $this->counter)) {
-                if (!isset($yymatches[0][1])) {
+                if (!isset($yymatches[ 0 ][ 1 ])) {
                     $yymatches = preg_grep("/(.|\s)+/", $yymatches);
                 } else {
                     $yymatches = array_filter($yymatches);
@@ -1071,6 +1066,7 @@ class Smarty_Internal_Templatelexer
     {
         $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
         $this->yypopstate();
+        $this->compiler->leaveDoubleQuote();
     }
 
     function yy_r5_8()
@@ -1095,7 +1091,6 @@ class Smarty_Internal_Templatelexer
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
-
 }
 
      
