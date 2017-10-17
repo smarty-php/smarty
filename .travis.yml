@@ -30,6 +30,7 @@ before_script:
     - mysql -e "create database IF NOT EXISTS test;" -uroot
 
 before_install:
+    - if [ ${TRAVIS_PHP_VERSION:0:3} == "5.2" ]phpenv global 5.3; composer install; phpenv global "$TRAVIS_PHP_VERSION"; fi
     - phpenv config-rm xdebug.ini || return 0
 
 install:
