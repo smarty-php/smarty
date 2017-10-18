@@ -86,9 +86,20 @@ class DoubleQuotedStringTest extends PHPUnit_Smarty
      * @expectedException        SmartyCompilerException
      * @expectedExceptionMessage unclosed "{if}" in doubled quoted string
      */
-    public function testtestDoubleQuotedUnclosedBlock_001()
+    public function testDoubleQuotedUnclosedBlock_001()
     {
         $this->smarty->fetch('001_unclosedBlock.tpl');
+    }
+
+    /**
+     *
+     * test closed block tag
+     * {"{if true}hello world{/if}"}
+     *
+     */
+    public function testDoubleQuotedClosedBlock_001()
+    {
+        $this->assertEquals('hello world', $this->smarty->fetch('001_closedBlock.tpl'));
     }
 
 }

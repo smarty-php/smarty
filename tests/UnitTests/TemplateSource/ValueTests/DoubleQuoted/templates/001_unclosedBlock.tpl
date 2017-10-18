@@ -1,1 +1,1 @@
-{"hello {if true} world"}
+{"{if true} world"}
