@@ -37,7 +37,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test {load_config} loading section2
@@ -47,7 +47,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
         $this->assertEquals("Welcome to Smarty! Global Section1 Hello Section2", $this->smarty->fetch('001_section2.tpl'));
     }
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test {load_config} loading section2
@@ -59,7 +59,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      * test {load_config} loading section2
@@ -104,7 +104,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableOverwrite_006()
@@ -112,7 +112,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
         $this->assertEquals("Welcome to Smarty! Overwrite3", $this->smarty->fetch('006_overwrite.tpl'));
     }
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
     public function testConfigVariableOverwrite_0061()

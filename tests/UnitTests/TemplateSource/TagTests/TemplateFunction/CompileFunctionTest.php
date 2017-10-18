@@ -39,7 +39,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->assertEquals("default param default 1 2 1", $this->smarty->fetch('test_template_function_001.tpl'), $text);
     }
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProvider
      * test simple function call tag
@@ -82,7 +82,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProvider
      * test simple function call tag cached no cache default variable
@@ -181,7 +181,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider functionProviderInline
      * test function definition in include
@@ -214,7 +214,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * test external function definition and called by fetch
      *

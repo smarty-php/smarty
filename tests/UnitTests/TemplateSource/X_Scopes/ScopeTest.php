@@ -31,7 +31,7 @@ class ScopeTest extends PHPUnit_Smarty
     /**
      * Test scope
      *
-     * @run                 InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        dataTestAppendScope
      */
@@ -173,7 +173,7 @@ class ScopeTest extends PHPUnit_Smarty
     /**
      * Test scope
      *
-     * @run                 InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        dataTestIncludeScope
      */

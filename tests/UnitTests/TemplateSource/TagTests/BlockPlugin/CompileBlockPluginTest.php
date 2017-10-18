@@ -255,7 +255,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     /**
      * test tag stack
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */

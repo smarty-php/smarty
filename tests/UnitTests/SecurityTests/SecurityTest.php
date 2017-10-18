@@ -166,7 +166,7 @@ class SecurityTest extends PHPUnit_Smarty
      */
     public function testAllowedModifier1()
     {
-        error_reporting(E_ALL  & ~E_DEPRECATED | E_STRICT);
+        error_reporting(E_ALL  & E_STRICT);
         $this->smarty->security_policy->allowed_modifiers = array('capitalize');
         $this->assertEquals("Hello World", $this->smarty->fetch('eval:{"hello world"|capitalize}'));
         error_reporting(E_ALL | E_STRICT);

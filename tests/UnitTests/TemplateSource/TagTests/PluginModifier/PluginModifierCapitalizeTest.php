@@ -18,7 +18,6 @@ class PluginModifierCapitalizeTest extends PHPUnit_Smarty
      public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
-        error_reporting(E_ALL  & ~E_DEPRECATED | E_STRICT);
     }
 
     public function testDefault()

@@ -97,7 +97,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
     /**
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
      */

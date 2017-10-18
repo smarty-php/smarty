@@ -5,7 +5,7 @@
  *
  * @package                PHPunit
  * @author                 Rodney Rehm
- * @run TestsInSeparateProcess
+ * @runTestsInSeparateProcess
  * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
