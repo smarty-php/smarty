@@ -1250,6 +1250,7 @@ doublequoted_with_quotes(res) ::= QUOTE QUOTE. {
 }
 
 doublequoted_with_quotes(res) ::= QUOTE doublequoted(s) QUOTE. {
+    $this->compiler->leaveDoubleQuote();
     res = s->to_smarty_php($this);
 }
 

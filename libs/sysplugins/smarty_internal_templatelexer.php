@@ -1066,7 +1066,6 @@ class Smarty_Internal_Templatelexer
     {
         $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
         $this->yypopstate();
-        $this->compiler->leaveDoubleQuote();
     }
 
     function yy_r5_8()

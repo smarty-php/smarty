@@ -694,7 +694,6 @@ class Smarty_Internal_Templatelexer
      double_quote {
         $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
         $this->yypopstate();
-        $this->compiler->leaveDoubleQuote();
      }
      backtick dollar {
         $this->token = Smarty_Internal_Templateparser::TP_BACKTICK;

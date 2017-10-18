@@ -1,4 +1,9 @@
 ﻿===== 3.1.32 - dev ===
+18.10.2017
+  -bugfix fix implementation of unclosed block tag in double quoted string of 12.10.2017
+    https://github.com/smarty-php/smarty/issues/396 https://github.com/smarty-php/smarty/issues/397
+    https://github.com/smarty-php/smarty/issues/391 https://github.com/smarty-php/smarty/issues/392
+
 12.10.2017
   - bugfix $smarty.block.child and $smarty.block.parent could not be used like any
     $smarty special variable https://github.com/smarty-php/smarty/issues/393
