@@ -5,14 +5,18 @@ sudo: true
 
 dist: trusty
 
-php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-
+matrix:
+  include:
+   - php: 5.2
+        dist: precise
+   - php: 5.3
+       dist: precise
+   - php: 5.4
+   - php: 5.5
+   - php: 5.6
+   - php: 7.0
+   - php: 7.1
+   - php: 7.2
 
 services:
   - memcached
@@ -21,6 +25,7 @@ services:
 before_script:
     - if [ ${TRAVIS_PHP_VERSION:0:3} != "5.2" ]; then travis_retry composer --prefer-source --dev install; fi
     - if [ ${TRAVIS_PHP_VERSION:0:3} <= "5.6" ]; then  phpenv config-add travis.ini; fi
+    - if [ ${TRAVIS_PHP_VERSION:0:3} >= "5.3" ]; then  phpenv config-add error_reporting.ini; fi
     - if [[ $TRAVIS_PHP_VERSION = 7.* ]]; then  composer require phpunit/phpunit 6.4.1; fi
     - composer install
     - mysql -e "create database IF NOT EXISTS test;" -uroot
