@@ -9,7 +9,6 @@
 /**
  * class for delimiter tests
  *
- * @runTestsInSeparateProcess
  * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
@@ -40,8 +39,40 @@ class AutoliteralTest extends PHPUnit_Smarty
     {
         $this->smarty->setAutoLiteral(false);
         $this->smarty->setCompileId(1);
-        $this->smarty->assign('i','foo');
-        $this->assertEquals('foofoo', $this->smarty->fetch('autoliteral.tpl'));
+        $this->smarty->assign('i','bar');
+        $this->assertEquals('barbar', $this->smarty->fetch('autoliteral.tpl'));
+    }
+    /**
+     * test '{ ' delimiter in double quotes auto_literal true
+     * @runInSeparateProcess
+     *
+     */
+    public function testSetAutoliteralDoublequote()
+    {
+        $this->smarty->setAutoLiteral(true);
+        $this->assertEquals(' output: double { counter} 1 quote', $this->smarty->fetch('autoliteraldoublequote.tpl'));
+    }
+    /**
+     * test '{ ' delimiter in double quotes auto_literal false
+     * @runInSeparateProcess
+     *
+     */
+    public function testSetAutoliteralDoublequote2()
+    {
+        $this->smarty->setAutoLiteral(false);
+        $this->smarty->setCompileId(1);
+        $this->assertEquals(' output: double 1 2 quote', $this->smarty->fetch('autoliteraldoublequote.tpl'));
+    }
+
+    /**
+     * test '{{ ' delimiter in double quotes auto_literal true
+     * @runInSeparateProcess
+     *
+     */
+    public function testSetAutoliteralDoublequote3()
+    {
+        $this->smarty->setAutoLiteral(true);
+        $this->assertEquals(' output: double {{ counter} {{ counter}}  quote', $this->smarty->fetch('autoliteraldoublequote2.tpl'));
     }
 
     public function testSetAutoliteralBlock()

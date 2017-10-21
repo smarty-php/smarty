@@ -63,4 +63,10 @@ class UserliteralTest extends PHPUnit_Smarty
         $this->smarty->setLiterals(array('<--','-->'));
         $this->assertEquals('<- 1 -> <--1-->', $this->smarty->fetch('userliteral2.tpl'));
     }
+    public function testUserLiteral5()
+    {
+        $this->smarty->setAutoLiteral(true);
+        $this->smarty->setLiterals(array('{%'));
+        $this->assertEquals(' output: double {%counter} quote', $this->smarty->fetch('userliteraldoublequote.tpl'));
+    }
 }

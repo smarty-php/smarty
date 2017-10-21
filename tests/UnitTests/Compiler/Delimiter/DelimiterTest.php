@@ -32,8 +32,8 @@ class DelimiterTest extends PHPUnit_Smarty
     {
         $this->smarty->left_delimiter = '<{';
         $this->smarty->right_delimiter = '}>';
-        $tpl = $this->smarty->createTemplate('eval:<{* comment *}><{if true}><{"hello world"}><{/if}>');
-        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
+        $tpl = $this->smarty->createTemplate('eval:start <{* comment *}>hello <{if true}><{"world"}><{/if}> end');
+        $this->assertEquals("start hello world end", $this->smarty->fetch($tpl));
     }
     /**
      * test <{ }> delimiter
@@ -42,8 +42,8 @@ class DelimiterTest extends PHPUnit_Smarty
     {
         $this->smarty->left_delimiter = '<';
         $this->smarty->right_delimiter = '>';
-        $tpl = $this->smarty->createTemplate('eval:<* comment *><if 1 < 2><"hello world"></if>');
-        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
+        $tpl = $this->smarty->createTemplate('eval:start <* comment *>hello <if 1 < 2><"world"></if> end');
+        $this->assertEquals("start hello world end", $this->smarty->fetch($tpl));
     }
 
     /**
@@ -53,8 +53,8 @@ class DelimiterTest extends PHPUnit_Smarty
     {
         $this->smarty->left_delimiter = '<-{';
         $this->smarty->right_delimiter = '}->';
-        $tpl = $this->smarty->createTemplate('eval:<-{* comment *}-><-{if true}-><-{"hello world"}-><-{/if}->');
-        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
+        $tpl = $this->smarty->createTemplate('eval:<-<-{* comment *}-><-{if true}-><-{"hello world"}-><-{/if}->->');
+        $this->assertEquals("<-hello world->", $this->smarty->fetch($tpl));
     }
 
     /**
