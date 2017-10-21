@@ -1,6 +1,10 @@
 ﻿===== 3.1.32 - dev ===
+21.10.2017
+  - bugfix custom delimiters could fail since modification of  version 3.1.32-dev-23
+    https://github.com/smarty-php/smarty/issues/394
+
 18.10.2017
-  -bugfix fix implementation of unclosed block tag in double quoted string of 12.10.2017
+  - bugfix fix implementation of unclosed block tag in double quoted string of 12.10.2017
     https://github.com/smarty-php/smarty/issues/396 https://github.com/smarty-php/smarty/issues/397
     https://github.com/smarty-php/smarty/issues/391 https://github.com/smarty-php/smarty/issues/392
 

@@ -157,7 +157,7 @@ class Smarty_Internal_Templateparser
         $this->current_buffer = $this->root_buffer = new Smarty_Internal_ParseTree_Template();
     }
 
-    /**
+     /**
      * insert PHP code in current buffer
      *
      * @param string $code
@@ -167,7 +167,21 @@ class Smarty_Internal_Templateparser
         $this->current_buffer->append_subtree($this, new Smarty_Internal_ParseTree_Tag($this, $code));
     }
 
-   /**
+    /**
+     * error rundown
+     *
+     */
+    public function errorRunDown()
+    {
+        while ($this->yystack !== Array()) {
+            $this->yy_pop_parser_stack();
+        }
+        if (is_resource($this->yyTraceFILE)) {
+            fclose($this->yyTraceFILE);
+        }
+    }
+
+    /**
      *  merge PHP code with prefix code and return parse tree tag object
      *
      * @param string $code
@@ -176,13 +190,13 @@ class Smarty_Internal_Templateparser
      */
     public function mergePrefixCode($code)
     {
-        $tmp ='';
+        $tmp = '';
         foreach ($this->compiler->prefix_code as $preCode) {
             $tmp .= $preCode;
         }
-        $this->compiler->prefix_code=array();
+        $this->compiler->prefix_code = array();
         $tmp .= $code;
-        return new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode($tmp,true));
+        return new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode($tmp, true));
     }
 
 }
@@ -327,7 +341,7 @@ smartytag(res)   ::= tag(t) RDEL. {
 // output tags start here
 //
 smartytag(res)   ::= SIMPELOUTPUT(i). {
-    $var = trim(substr(i, $this->lex->ldel_length, -$this->lex->rdel_length), ' $');
+    $var = trim(substr(i, $this->compiler->getLdelLength(), -$this->compiler->getRdelLength()), ' $');
     if (preg_match('/^(.*)(\s+nocache)$/', $var, $match)) {
         res = $this->compiler->compileTag('private_print_expression',array('nocache'),array('value'=>$this->compiler->compileVariable('\''.$match[1].'\'')));
     } else {
@@ -381,8 +395,8 @@ tag(res)   ::= LDEL varindexed(vi) EQUAL expr(e) attributes(a). {
 
 // simple tag like {name}
 smartytag(res)::= SIMPLETAG(t). {
-    $tag = trim(substr(t, $this->lex->ldel_length, -$this->lex->rdel_length));
-    if ($tag == 'strip') {
+    $tag = trim(substr(t, $this->compiler->getLdelLength(), -$this->compiler->getRdelLength()));
+    if ($tag === 'strip') {
         $this->strip = true;
         res = null;;
     } else {
@@ -453,23 +467,23 @@ tag(res)   ::= LDELMAKENOCACHE DOLLARID(i). {
 
                   // {if}, {elseif} and {while} tag
 tag(res)   ::= LDELIF(i) expr(ie). {
-    $tag = trim(substr(i,$this->lex->ldel_length)); 
-    res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,array(),array('if condition'=>ie));
+    $tag = trim(substr(i,$this->compiler->getLdelLength())); 
+    res = $this->compiler->compileTag(($tag === 'else if')? 'elseif' : $tag,array(),array('if condition'=>ie));
 }
 
 tag(res)   ::= LDELIF(i) expr(ie) attributes(a). {
-    $tag = trim(substr(i,$this->lex->ldel_length));
-    res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,a,array('if condition'=>ie));
+    $tag = trim(substr(i,$this->compiler->getLdelLength()));
+    res = $this->compiler->compileTag(($tag === 'else if')? 'elseif' : $tag,a,array('if condition'=>ie));
 }
 
 tag(res)   ::= LDELIF(i) statement(ie). {
-    $tag = trim(substr(i,$this->lex->ldel_length));
-    res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,array(),array('if condition'=>ie));
+    $tag = trim(substr(i,$this->compiler->getLdelLength()));
+    res = $this->compiler->compileTag(($tag === 'else if')? 'elseif' : $tag,array(),array('if condition'=>ie));
 }
 
 tag(res)   ::= LDELIF(i) statement(ie)  attributes(a). {
-    $tag = trim(substr(i,$this->lex->ldel_length));
-    res = $this->compiler->compileTag(($tag == 'else if')? 'elseif' : $tag,a,array('if condition'=>ie));
+    $tag = trim(substr(i,$this->compiler->getLdelLength()));
+    res = $this->compiler->compileTag(($tag === 'else if')? 'elseif' : $tag,a,array('if condition'=>ie));
 }
 
                   // {for} tag
@@ -517,8 +531,8 @@ tag(res)   ::= LDELSETFILTER ID(m) modparameters(p) modifierlist(l). {
                   
                   // end of block tag  {/....}                  
 smartytag(res)::= CLOSETAG(t). {
-    $tag = trim(substr(t, $this->lex->ldel_length, -$this->lex->rdel_length), ' /');
-    if ($tag == 'strip') {
+    $tag = trim(substr(t, $this->compiler->getLdelLength(), -$this->compiler->getRdelLength()), ' /');
+    if ($tag === 'strip') {
         $this->strip = false;
         res = null;
     } else {
@@ -785,7 +799,7 @@ value(res)       ::= doublequoted_with_quotes(s). {
 
 value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
     $prefixVar = $this->compiler->getNewPrefixVariable();
-    if (vi['var'] == '\'smarty\'') {
+    if (vi['var'] === '\'smarty\'') {
         $this->compiler->appendPrefixCode("<?php $prefixVar" .' = '. $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).';?>');
      } else {
         $this->compiler->appendPrefixCode("<?php $prefixVar" .' = '. $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].';?>');
@@ -845,7 +859,7 @@ variable(res)    ::= DOLLARID(i). {
    res = $this->compiler->compileVariable('\''.substr(i,1).'\'');
 }
 variable(res)    ::= varindexed(vi). {
-    if (vi['var'] == '\'smarty\'') {
+    if (vi['var'] === '\'smarty\'') {
         $smarty_var = $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']);
         res = $smarty_var;
     } else {
@@ -987,7 +1001,7 @@ varvarele(res)   ::= ID(s). {
     res = '\''.s.'\'';
 }
 varvarele(res)   ::= SIMPELOUTPUT(i). {
-    $var = trim(substr(i, $this->lex->ldel_length, -$this->lex->rdel_length), ' $');
+    $var = trim(substr(i, $this->compiler->getLdelLength(), -$this->compiler->getRdelLength()), ' $');
     res = $this->compiler->compileVariable('\''.$var.'\'');
 }
 
@@ -1000,7 +1014,7 @@ varvarele(res)   ::= LDEL expr(e) RDEL. {
 // objects
 //
 object(res)    ::= varindexed(vi) objectchain(oc). {
-    if (vi['var'] == '\'smarty\'') {
+    if (vi['var'] === '\'smarty\'') {
         res =  $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).oc;
     } else {
         res = $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].oc;
@@ -1019,7 +1033,7 @@ objectchain(res) ::= objectchain(oc) objectelement(oe). {
 
                     // variable
 objectelement(res)::= PTR ID(i) arrayindex(a). {
-    if ($this->security && substr(i,0,1) == '_') {
+    if ($this->security && substr(i,0,1) === '_') {
         $this->compiler->trigger_template_error (self::Err1);
     }
     res = '->'.i.a;
@@ -1064,7 +1078,7 @@ function(res)     ::= ns1(f) OPENP params(p) CLOSEP. {
 // method
 //
 method(res)     ::= ID(f) OPENP params(p) CLOSEP. {
-    if ($this->security && substr(f,0,1) == '_') {
+    if ($this->security && substr(f,0,1) === '_') {
         $this->compiler->trigger_template_error (self::Err1);
     }
     res = f . "(". implode(',',p) .")";

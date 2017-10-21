@@ -270,6 +270,36 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @var array
      */
     public $_cache = array();
+    /**
+     * Lexer preg pattern for left delimiter
+     *
+     * @var string
+     */
+    private $ldelPreg = '[{]';
+    /**
+     * Lexer preg pattern for right delimiter
+     *
+     * @var string
+     */
+    private $rdelPreg = '[}]';
+    /**
+     * Length of right delimiter
+     *
+     * @var int
+     */
+    private $rdelLength = 0;
+    /**
+     * Length of left delimiter
+     *
+     * @var int
+     */
+    private $ldelLength = 0;
+    /**
+     * Lexer preg pattern for user literals
+     *
+     * @var string
+     */
+    private $literalPreg = '';
 
     /**
      * Initialize compiler
@@ -1002,6 +1032,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $error_text .= ', expected one of: ' . implode(' , ', $expect);
             }
         }
+        if ($this->smarty->_parserdebug) {
+            $this->parser->errorRunDown();
+            echo ob_get_clean();
+            flush();
+        }
         $e = new SmartyCompilerException($error_text);
         $e->line = $line;
         $e->source = trim(preg_replace('![\t\r\n]+!', ' ', $match[ $line - 1 ]));
@@ -1042,6 +1077,52 @@ abstract class Smarty_Internal_TemplateCompilerBase
     }
 
     /**
+     * @param $lexerPreg
+     *
+     * @return mixed
+     */
+    public function replaceDelimiter($lexerPreg)
+    {
+        return str_replace(array('SMARTYldel', 'SMARTYliteral', 'SMARTYrdel', 'SMARTYautoliteral', 'SMARTYal'),
+                           array($this->ldelPreg, $this->literalPreg, $this->rdelPreg,
+                                 $this->smarty->getAutoLiteral() ? '{1,}' : '{9}',
+                                 $this->smarty->getAutoLiteral() ? '' : '\\s*'),
+                           $lexerPreg);
+    }
+
+    /**
+     * Build lexer regular expressions for left and right delimiter and user defined literals
+     */
+    public function initDelimiterPreg()
+    {
+        $ldel = $this->smarty->getLeftDelimiter();
+        $this->ldelLength = strlen($ldel);
+        $this->ldelPreg = '';
+        foreach (str_split($ldel, 1) as $chr) {
+            $this->ldelPreg .= '[' . ($chr === '\\' ? '\\' : '') . $chr . ']';
+        }
+        $rdel = $this->smarty->getRightDelimiter();
+        $this->rdelLength = strlen($rdel);
+        $this->rdelPreg = '';
+        foreach (str_split($rdel, 1) as $chr) {
+            $this->rdelPreg .= '[' . ($chr === '\\' ? '\\' : '') . $chr . ']';
+        }
+        $literals = $this->smarty->getLiterals();
+        if (!empty($literals)) {
+            foreach ($literals as $key => $literal) {
+                $literalPreg = '';
+                foreach (str_split($literal, 1) as $chr) {
+                    $literalPreg .= '[' . ($chr === '\\' ? '\\' : '') . $chr . ']';
+                }
+                $literals[ $key ] = $literalPreg;
+            }
+            $this->literalPreg = '|' . implode('|', $literals);
+        } else {
+            $this->literalPreg = '';
+        }
+    }
+
+    /**
      *  leave double quoted string
      *  - throw exception if block in string was not closed
      *
@@ -1055,6 +1136,46 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                           null,
                                           true);
         }
+    }
+
+    /**
+     * Get left delimiter preg
+     *
+     * @return string
+     */
+    public function getLdelPreg()
+    {
+        return $this->ldelPreg;
+    }
+
+    /**
+     * Get right delimiter preg
+     *
+     * @return string
+     */
+    public function getRdelPreg()
+    {
+        return $this->rdelPreg;
+    }
+
+    /**
+     * Get length of left delimiter
+     *
+     * @return int
+     */
+    public function getLdelLength()
+    {
+        return $this->ldelLength;
+    }
+
+    /**
+     * Get length of right delimiter
+     *
+     * @return int
+     */
+    public function getRdelLength()
+    {
+        return $this->rdelLength;
     }
 
     /**
