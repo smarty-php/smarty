@@ -14,13 +14,14 @@
  *           the passed parameters<br>
  * Params:
  * <pre>
- * - name       (optional) - string default "select"
- * - values     (required) - if no options supplied) - array
- * - options    (required) - if no values supplied) - associative array
- * - selected   (optional) - string default not set
- * - output     (required) - if not options supplied) - array
- * - id         (optional) - string default not set
- * - class      (optional) - string default not set
+ * - name        (optional) - string default "select"
+ * - values      (required) - if no options supplied) - array
+ * - options     (required) - if no values supplied) - associative array
+ * - selected    (optional) - string default not set
+ * - output      (required) - if not options supplied) - array
+ * - id          (optional) - string default not set
+ * - class       (optional) - string default not set
+ * - placeholder (optional) - string default not set
  * </pre>
  *
  * @link     http://www.smarty.net/manual/en/language.function.html.options.php {html_image}
@@ -49,6 +50,7 @@ function smarty_function_html_options($params, Smarty_Internal_Template $templat
     $output = null;
     $id = null;
     $class = null;
+    $placeholder = null;
 
     $extra = '';
 
@@ -57,6 +59,7 @@ function smarty_function_html_options($params, Smarty_Internal_Template $templat
             case 'name':
             case 'class':
             case 'id':
+            case 'placeholder':
                 $$_key = (string) $_val;
                 break;
 
@@ -135,6 +138,10 @@ function smarty_function_html_options($params, Smarty_Internal_Template $templat
 
     $_html_result = '';
     $_idx = 0;
+
+    if (isset($placeholder)) {
+        $_html_result = smarty_function_html_options_optoutput('', $placeholder, null, $id, $class, $_idx);
+    }
 
     if (isset($options)) {
         foreach ($options as $_key => $_val) {
