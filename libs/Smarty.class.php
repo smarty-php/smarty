@@ -100,7 +100,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-27';
+    const SMARTY_VERSION = '3.1.32-dev-28';
     /**
      * define variable scopes
      */
@@ -545,12 +545,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $_debug = null;
     /**
-     * Directory separator
-     *
-     * @var string
-     */
-    public $ds = DIRECTORY_SEPARATOR;
-    /**
      * template directory
      *
      * @var array
@@ -942,7 +936,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $this->plugins_dir = (array)$this->plugins_dir;
             }
             foreach ($this->plugins_dir as $k => $v) {
-                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, "/\\") . $this->ds, true);
+                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, "/\\") . DIRECTORY_SEPARATOR, true);
             }
             $this->_cache[ 'plugin_files' ] = array();
             $this->_pluginsDirNormalized = true;
@@ -1133,9 +1127,9 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _realpath($path, $realpath = null)
     {
-        $nds = $this->ds == '/' ? '\\' : '/';
-        // normalize $this->ds
-        $path = str_replace($nds, $this->ds, $path);
+        $nds = DIRECTORY_SEPARATOR === '/' ? '\\' : '/';
+        // normalize DIRECTORY_SEPARATOR
+        $path = str_replace($nds, DIRECTORY_SEPARATOR, $path);
         preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
                    $path,
                    $parts);
@@ -1144,13 +1138,13 @@ class Smarty extends Smarty_Internal_TemplateBase
             $parts[ 'root' ] = substr(getcwd(), 0, 2) . $parts[ 'root' ];
         } else {
             if ($realpath !== null && !$parts[ 'root' ]) {
-                $path = getcwd() . $this->ds . $path;
+                $path = getcwd() . DIRECTORY_SEPARATOR . $path;
             }
         }
         // remove noop 'DIRECTORY_SEPARATOR DIRECTORY_SEPARATOR' and 'DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR' patterns
-        $path = preg_replace('#([\\\\/]([.]?[\\\\/])+)#u', $this->ds, $path);
+        $path = preg_replace('#([\\\\/]([.]?[\\\\/])+)#u', DIRECTORY_SEPARATOR, $path);
         // resolve '..DIRECTORY_SEPARATOR' pattern, smallest first
-        if (strpos($path, '..' . $this->ds) != false &&
+        if (strpos($path, '..' . DIRECTORY_SEPARATOR) != false &&
             preg_match_all('#(([.]?[\\\\/])*([.][.])[\\\\/]([.]?[\\\\/])*)+#u', $path, $match)
         ) {
             $counts = array();
@@ -1161,7 +1155,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             foreach ($counts as $count) {
                 $path = preg_replace('#(([\\\\/]([.]?[\\\\/])*[^\\\\/.]+){' . $count .
                                      '}[\\\\/]([.]?[\\\\/])*([.][.][\\\\/]([.]?[\\\\/])*){' . $count . '})(?=[^.])#u',
-                                     $this->ds,
+                                     DIRECTORY_SEPARATOR,
                                      $path);
             }
         }
@@ -1407,7 +1401,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     private function _normalizeDir($dirName, $dir)
     {
-        $this->{$dirName} = $this->_realpath(rtrim($dir, "/\\") . $this->ds, true);
+        $this->{$dirName} = $this->_realpath(rtrim($dir, "/\\") . DIRECTORY_SEPARATOR, true);
         if (!isset(Smarty::$_muted_directories[ $this->{$dirName} ])) {
             Smarty::$_muted_directories[ $this->{$dirName} ] = null;
         }
@@ -1433,7 +1427,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
         foreach ($dir as $k => $v) {
             if (!isset($processed[ $k ])) {
-                $dir[ $k ] = $v = $this->_realpath(rtrim($v, "/\\") . $this->ds, true);
+                $dir[ $k ] = $v = $this->_realpath(rtrim($v, "/\\") . DIRECTORY_SEPARATOR, true);
                 $processed[ $k ] = true;
             }
         }
