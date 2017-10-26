@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty cache resource file clear method
  *
@@ -7,7 +6,6 @@
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  */
-
 /**
  * Smarty Internal Runtime Cache Resource File Class
  *
@@ -43,7 +41,7 @@ class Smarty_Internal_Runtime_CacheResourceFile
             $_cache_id_parts_count = count($_cache_id_parts);
             if ($smarty->use_sub_dirs) {
                 foreach ($_cache_id_parts as $id_part) {
-                    $_dir .= $id_part . $smarty->ds;
+                    $_dir .= $id_part . DIRECTORY_SEPARATOR;
                 }
             }
         }
@@ -52,10 +50,8 @@ class Smarty_Internal_Runtime_CacheResourceFile
             $smarty->caching = true;
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
-
             // remove from template cache
             $tpl->source; // have the template registered before unset()
-
             if ($tpl->source->exists) {
                 $_resourcename_parts = basename(str_replace('^', '/', $tpl->cached->filepath));
             } else {
@@ -71,7 +67,7 @@ class Smarty_Internal_Runtime_CacheResourceFile
                 if (substr(basename($_file->getPathname()), 0, 1) == '.') {
                     continue;
                 }
-                $_filepath = (string) $_file;
+                $_filepath = (string)$_file;
                 // directory ?
                 if ($_file->isDir()) {
                     if (!$_cache->isDot()) {
@@ -80,7 +76,7 @@ class Smarty_Internal_Runtime_CacheResourceFile
                     }
                 } else {
                     // delete only php files
-                    if (substr($_filepath, - 4) !== '.php') {
+                    if (substr($_filepath, -4) !== '.php') {
                         continue;
                     }
                     $_parts = explode($_dir_sep, str_replace('\\', '/', substr($_filepath, $_dir_length)));
@@ -105,7 +101,7 @@ class Smarty_Internal_Runtime_CacheResourceFile
                         if ($_parts_count < $_cache_id_parts_count) {
                             continue;
                         }
-                        for ($i = 0; $i < $_cache_id_parts_count; $i ++) {
+                        for ($i = 0; $i < $_cache_id_parts_count; $i++) {
                             if ($_parts[ $i ] != $_cache_id_parts[ $i ]) {
                                 continue 2;
                             }
@@ -130,7 +126,7 @@ class Smarty_Internal_Runtime_CacheResourceFile
                             && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
                         ) {
                             opcache_invalidate($_filepath, true);
-                        } elseif (function_exists('apc_delete_file')) {
+                        } else if (function_exists('apc_delete_file')) {
                             apc_delete_file($_filepath);
                         }
                     }
