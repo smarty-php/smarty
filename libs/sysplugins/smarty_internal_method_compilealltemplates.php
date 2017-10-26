@@ -31,7 +31,10 @@ class Smarty_Internal_Method_CompileAllTemplates
      *
      * @return integer number of template files recompiled
      */
-    public function compileAllTemplates(Smarty $smarty, $extension = '.tpl', $force_compile = false, $time_limit = 0,
+    public function compileAllTemplates(Smarty $smarty,
+                                        $extension = '.tpl',
+                                        $force_compile = false,
+                                        $time_limit = 0,
                                         $max_errors = null)
     {
         return $this->compileAll($smarty, $extension, $force_compile, $time_limit, $max_errors);
@@ -49,7 +52,11 @@ class Smarty_Internal_Method_CompileAllTemplates
      *
      * @return int number of template files compiled
      */
-    protected function compileAll(Smarty $smarty, $extension, $force_compile, $time_limit, $max_errors,
+    protected function compileAll(Smarty $smarty,
+                                  $extension,
+                                  $force_compile,
+                                  $time_limit,
+                                  $max_errors,
                                   $isConfig = false)
     {
         // switch off time limit
@@ -69,11 +76,11 @@ class Smarty_Internal_Method_CompileAllTemplates
                 if (substr(basename($_fileinfo->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
                     continue;
                 }
-                if (!substr_compare($_file, $extension, - strlen($extension)) == 0) {
+                if (!substr_compare($_file, $extension, -strlen($extension)) == 0) {
                     continue;
                 }
-                if ($_fileinfo->getPath() !== substr($_dir, 0, - 1)) {
-                    $_file = substr($_fileinfo->getPath(), strlen($_dir)) . $smarty->ds . $_file;
+                if ($_fileinfo->getPath() !== substr($_dir, 0, -1)) {
+                    $_file = substr($_fileinfo->getPath(), strlen($_dir)) . DIRECTORY_SEPARATOR . $_file;
                 }
                 echo "\n<br>", $_dir, '---', $_file;
                 flush();
@@ -92,7 +99,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                         $isConfig ? Smarty_Template_Config::load($_tpl) : Smarty_Template_Source::load($_tpl);
                     if ($_tpl->mustCompile()) {
                         $_tpl->compileTemplateSource();
-                        $_count ++;
+                        $_count++;
                         echo ' compiled in  ', microtime(true) - $_start_time, ' seconds';
                         flush();
                     } else {
@@ -102,7 +109,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                 }
                 catch (Exception $e) {
                     echo "\n<br>        ------>Error: ", $e->getMessage(), "<br><br>\n";
-                    $_error_count ++;
+                    $_error_count++;
                 }
                 // free memory
                 unset($_tpl);
