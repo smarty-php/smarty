@@ -201,7 +201,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      * @param Smarty_Internal_Template $_template template object
      * @param string                   $code      compiled code
      *
-     * @return boolean success
+     * @return bool success
+     * @throws \SmartyException
      */
     public function write(Smarty_Internal_Template $_template, $code)
     {

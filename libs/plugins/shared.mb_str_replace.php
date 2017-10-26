@@ -6,14 +6,13 @@
  * @subpackage PluginsShared
  */
 if (!function_exists('smarty_mb_str_replace')) {
-
     /**
      * Multibyte string replace
      *
-     * @param  string $search  the string to be searched
-     * @param  string $replace the replacement string
-     * @param  string $subject the source string
-     * @param  int    &$count  number of matches found
+     * @param  string|string[] $search  the string to be searched
+     * @param  string|string[] $replace the replacement string
+     * @param  string          $subject the source string
+     * @param  int             &$count  number of matches found
      *
      * @return string replaced string
      * @author Rodney Rehm
@@ -29,7 +28,7 @@ if (!function_exists('smarty_mb_str_replace')) {
                 $string = smarty_mb_str_replace($search, $replace, $string, $c);
                 $count += $c;
             }
-        } elseif (is_array($search)) {
+        } else if (is_array($search)) {
             if (!is_array($replace)) {
                 foreach ($search as &$string) {
                     $subject = smarty_mb_str_replace($string, $replace, $subject, $c);
@@ -37,7 +36,7 @@ if (!function_exists('smarty_mb_str_replace')) {
                 }
             } else {
                 $n = max(count($search), count($replace));
-                while ($n --) {
+                while ($n--) {
                     $subject = smarty_mb_str_replace(current($search), current($replace), $subject, $c);
                     $count += $c;
                     next($search);
@@ -49,7 +48,6 @@ if (!function_exists('smarty_mb_str_replace')) {
             $count = count($parts) - 1;
             $subject = implode($replace, $parts);
         }
-
         return $subject;
     }
 }

@@ -163,7 +163,13 @@ function smarty_function_html_table($params)
 
     return $output;
 }
-
+/**
+ * @param $name
+ * @param $var
+ * @param $no
+ *
+ * @return string
+ */
 function smarty_function_html_table_cycle($name, $var, $no)
 {
     if (!is_array($var)) {

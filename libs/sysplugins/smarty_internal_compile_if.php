@@ -80,13 +80,12 @@ class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {else} tag
      *
-     * @param array                                 $args      array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param array                                 $parameter array with compilation parameter
+     * @param array                                 $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
-     */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+      */
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         list($nesting, $compiler->tag_nocache) = $this->closeTag($compiler, array('if', 'elseif'));
         $this->openTag($compiler, 'else', array($nesting, $compiler->tag_nocache));
@@ -188,13 +187,12 @@ class Smarty_Internal_Compile_Ifclose extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {/if} tag
      *
-     * @param array                                 $args      array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param array                                 $parameter array with compilation parameter
+     * @param array                                 $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         // must endblock be nocache?
         if ($compiler->nocache) {

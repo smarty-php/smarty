@@ -41,14 +41,12 @@ class Smarty_Internal_Compile_Make_Nocache extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {make_nocache} tag
      *
-     * @param  array                                $args      array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
+     * @param  array                                $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
-     * @throws \SmartyCompilerException
-     */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+      */
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);

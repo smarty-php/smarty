@@ -106,7 +106,8 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      * @param Smarty_Internal_Template $_template template object
      * @param string                   $content   content to cache
      *
-     * @return boolean success
+     * @return bool success
+     * @throws \SmartyException
      */
     public function writeCachedContent(Smarty_Internal_Template $_template, $content)
     {

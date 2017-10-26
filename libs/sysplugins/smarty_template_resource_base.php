@@ -80,9 +80,11 @@ abstract class Smarty_Template_Resource_Base
     public $required_plugins = array();
 
     /**
-     * Included subtemplates
+     * Included sub templates
+     * - index name
+     * - value use count
      *
-     * @var array
+     * @var int[]
      */
     public $includes = array();
 

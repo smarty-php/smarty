@@ -36,7 +36,7 @@ class Smarty_Internal_Runtime_GetIncludePath
     /**
      * stream cache
      *
-     * @var string[]
+     * @var string[][]
      */
     public $isFile = array();
     /**

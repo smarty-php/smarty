@@ -95,6 +95,9 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
      *
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
      * @param null|string                           $template optional inheritance parent template
+     *
+     * @throws \SmartyCompilerException
+     * @throws \SmartyException
      */
     private function compileEndChild(Smarty_Internal_TemplateCompilerBase $compiler, $template = null)
     {
@@ -117,6 +120,9 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
      *
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
      * @param  string                               $template subtemplate name
+     *
+     * @throws \SmartyCompilerException
+     * @throws \SmartyException
      */
     private function compileInclude(Smarty_Internal_TemplateCompilerBase $compiler, $template)
     {

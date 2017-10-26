@@ -134,6 +134,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
      * @param string                                $output   embedded output
      *
      * @return string
+     * @throws \SmartyException
      */
     private function compile_output_filter(Smarty_Internal_TemplateCompilerBase $compiler, $name, $output)
     {

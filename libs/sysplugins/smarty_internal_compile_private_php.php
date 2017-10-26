@@ -107,9 +107,11 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
      *
      * This code has been moved from lexer here fo easier debugging and maintenance
      *
-     * @param $lex
+     * @param Smarty_Internal_Templatelexer $lex
+     *
+     * @throws \SmartyCompilerException
      */
-    public function parsePhp($lex)
+    public function parsePhp(Smarty_Internal_Templatelexer $lex)
     {
         $lex->token = Smarty_Internal_Templateparser::TP_PHP;
         $close = 0;

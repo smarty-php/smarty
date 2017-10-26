@@ -153,6 +153,9 @@ class Smarty_Internal_Configfilelexer
         $this->yyTracePrompt = '<br>';
     } // end function
 
+    /**
+     * @param $state
+     */
     public function yybegin($state)
     {
         $this->_yy_state = $state;
@@ -165,7 +168,11 @@ class Smarty_Internal_Configfilelexer
         }
     }
 
-public function yylex1()
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function yylex1()
     {
         if (!isset($this->yy_global_pattern1)) {
             $this->yy_global_pattern1 =
@@ -221,11 +228,19 @@ public function yylex1()
 
     }
 
+    /**
+     * @param $input
+     *
+     * @return mixed
+     */
     public function replace($input)
     {
         return $input;
     }
 
+    /**
+     * @return mixed
+     */
     public function yylex()
     {
         return $this->{'yylex' . $this->_yy_state}();
@@ -238,6 +253,9 @@ public function yylex1()
         $this->yypushstate(self::COMMENT);
     }
 
+    /**
+     * @param $state
+     */
     public function yypushstate($state)
     {
         if ($this->yyTraceFILE) {
@@ -278,6 +296,9 @@ public function yylex1()
         $this->yypushstate(self::VALUE);
     }
 
+    /**
+     * @return bool
+     */
     function yy_r1_5()
     {
 
@@ -302,7 +323,11 @@ public function yylex1()
         $this->token = Smarty_Internal_Configfileparser::TPC_OTHER;
     }
 
-public function yylex2()
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function yylex2()
     {
         if (!isset($this->yy_global_pattern2)) {
             $this->yy_global_pattern2 =
@@ -358,6 +383,9 @@ public function yylex2()
 
     }
 
+    /**
+     * @return bool
+     */
     function yy_r2_1()
     {
 
@@ -419,6 +447,9 @@ public function yylex2()
         $this->yypopstate();
     } // end function
 
+    /**
+     * @return bool
+     */
     function yy_r2_7()
     {
 
@@ -448,7 +479,11 @@ public function yylex2()
         $this->yypopstate();
     } // end function
 
-public function yylex3()
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function yylex3()
     {
         if (!isset($this->yy_global_pattern3)) {
             $this->yy_global_pattern3 = $this->replace("/\G([^\n]+?(?=[ \t\r]*\n))/isS");
@@ -510,7 +545,11 @@ public function yylex3()
         $this->yypopstate();
     }
 
-public function yylex4()
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function yylex4()
     {
         if (!isset($this->yy_global_pattern4)) {
             $this->yy_global_pattern4 = $this->replace("/\G([ \t\r]+)|\G([^\n]+?(?=[ \t\r]*\n))|\G(\n)/isS");
@@ -565,6 +604,9 @@ public function yylex4()
 
     }
 
+    /**
+     * @return bool
+     */
     function yy_r4_1()
     {
 
@@ -584,7 +626,11 @@ public function yylex4()
         $this->yypopstate();
     }
 
-public function yylex5()
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function yylex5()
     {
         if (!isset($this->yy_global_pattern5)) {
             $this->yy_global_pattern5 = $this->replace("/\G(\\.)|\G(.*?(?=[\.=[\]\r\n]))/isS");
@@ -652,7 +698,11 @@ public function yylex5()
         $this->yypopstate();
     } // end function
 
-public function yylex6()
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function yylex6()
     {
         if (!isset($this->yy_global_pattern6)) {
             $this->yy_global_pattern6 = $this->replace("/\G(\"\"\"(?=[ \t\r]*[\n#;]))|\G([\S\s])/isS");

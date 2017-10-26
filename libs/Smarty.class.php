@@ -34,6 +34,9 @@
  * Sets SMARTY_DIR only if user application has not already defined it.
  */
 if (!defined('SMARTY_DIR')) {
+    /**
+     *
+     */
     define('SMARTY_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 }
 /**
@@ -41,12 +44,21 @@ if (!defined('SMARTY_DIR')) {
  * Sets SMARTY_SYSPLUGINS_DIR only if user application has not already defined it.
  */
 if (!defined('SMARTY_SYSPLUGINS_DIR')) {
+    /**
+     *
+     */
     define('SMARTY_SYSPLUGINS_DIR', SMARTY_DIR . 'sysplugins' . DIRECTORY_SEPARATOR);
 }
 if (!defined('SMARTY_PLUGINS_DIR')) {
+    /**
+     *
+     */
     define('SMARTY_PLUGINS_DIR', SMARTY_DIR . 'plugins' . DIRECTORY_SEPARATOR);
 }
 if (!defined('SMARTY_MBSTRING')) {
+    /**
+     *
+     */
     define('SMARTY_MBSTRING', function_exists('mb_get_info'));
 }
 if (!defined('SMARTY_RESOURCE_CHAR_SET')) {
@@ -100,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-30';
+    const SMARTY_VERSION = '3.1.32-dev-31';
     /**
      * define variable scopes
      */
@@ -620,7 +632,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Enable error handler to mute expected messages
      *
-     * @return void
+     * @return boolean
      * @deprecated
      */
     public static function muteExpectedErrors()
@@ -643,7 +655,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param  string $resource_name template name
      *
-     * @return boolean status
+     * @return bool status
+     * @throws \SmartyException
      */
     public function templateExists($resource_name)
     {
@@ -922,7 +935,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param  object  $parent     next higher level of Smarty variables
      * @param  boolean $do_clone   flag is Smarty object shall be cloned
      *
-     * @return object  template object
+     * @return object template object
+     * @throws \SmartyException
      */
     public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null, $do_clone = true)
     {
@@ -1002,6 +1016,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param \Smarty_Internal_Template $template
      *
      * @return string
+     * @throws \SmartyException
      */
     public function _getTemplateId($template_name,
                                    $cache_id = null,
@@ -1257,6 +1272,16 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function testInstall(&$errors = null)
     {
         Smarty_Internal_TestInstall::testInstall($this, $errors);
+    }
+
+    /**
+     * Get Smarty object
+     *
+     * @return Smarty
+     */
+    public function _getSmartyObj()
+    {
+        return $this;
     }
 
     /**

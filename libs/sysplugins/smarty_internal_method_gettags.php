@@ -28,6 +28,7 @@ class Smarty_Internal_Method_GetTags
      * @param null|string|Smarty_Internal_Template                            $template
      *
      * @return array of tag/attributes
+     * @throws \Exception
      * @throws \SmartyException
      */
     public function getTags(Smarty_Internal_TemplateBase $obj, $template = null)

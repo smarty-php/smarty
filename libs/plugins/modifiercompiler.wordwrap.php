@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
-
 /**
  * Smarty wordwrap modifier plugin
  * Type:     modifier<br>
@@ -15,10 +14,11 @@
  * @link   http://smarty.php.net/manual/en/language.modifier.wordwrap.php wordwrap (Smarty online manual)
  * @author Uwe Tews
  *
- * @param array $params parameters
- * @param       $compiler
+ * @param array                                 $params parameters
+ * @param \Smarty_Internal_TemplateCompilerBase $compiler
  *
  * @return string with compiled code
+ * @throws \SmartyException
  */
 function smarty_modifiercompiler_wordwrap($params, Smarty_Internal_TemplateCompilerBase $compiler)
 {

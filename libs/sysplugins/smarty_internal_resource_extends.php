@@ -118,6 +118,9 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
       *
       * @return bool
       */
+    /**
+     * @return bool
+     */
     public function checkTimestamps()
     {
         return false;

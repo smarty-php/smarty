@@ -43,6 +43,7 @@ class Smarty_Internal_Method_Literals
      *                                                                                   to add
      *
      * @return \Smarty|\Smarty_Internal_Template
+     * @throws \SmartyException
      */
     public function addLiterals(Smarty_Internal_TemplateBase $obj, $literals = null)
     {
@@ -62,6 +63,7 @@ class Smarty_Internal_Method_Literals
      *                                                                                   to set
      *
      * @return \Smarty|\Smarty_Internal_Template
+     * @throws \SmartyException
      */
     public function setLiterals(Smarty_Internal_TemplateBase $obj, $literals = null)
     {

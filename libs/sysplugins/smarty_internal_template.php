@@ -117,9 +117,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public static $isCacheTplObj = array();
 
     /**
-     * Subtemplate Info Cache
+     * Sub template Info Cache
+     * - index name
+     * - value use count
      *
-     * @var string[]int[]
+     * @var int[]
      */
     public static $subTplInfo = array();
 
@@ -170,6 +172,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @param  null|bool $display          true: display, false: fetch null: sub-template
      *
      * @return string
+     * @throws \Exception
      * @throws \SmartyException
      */
     public function render($no_output_filter = true, $display = null)
@@ -269,6 +272,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @param string  $uid            file dependency uid
      * @param string  $content_func   function name
      *
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function _subTemplateRender($template, $cache_id, $compile_id, $caching, $cache_lifetime, $data, $scope,
                                        $forceTplCache, $uid = null, $content_func = null)
@@ -528,6 +533,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * Get unique template id
      *
      * @return string
+     * @throws \SmartyException
      */
     public function _getTemplateId()
     {

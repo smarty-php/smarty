@@ -19,6 +19,7 @@
  * The following methods will be dynamically loaded by the extension handler when they are called.
  * They are located in a corresponding Smarty_Internal_Method_xxxx class
  *
+ * @method mixed _getConfigVariable(string $varName, bool $errorEnable = true)
  * @method mixed getConfigVariable(string $varName, bool $errorEnable = true)
  * @method mixed getConfigVars(string $varName = null, bool $searchParents = true)
  * @method mixed getGlobal(string $varName = null)
@@ -266,7 +267,7 @@ class Smarty_Internal_Data
      */
     public function _getSmartyObj()
     {
-        return $this->_objType === 1 ? $this : $this->smarty;
+        return $this->smarty;
     }
 
     /**

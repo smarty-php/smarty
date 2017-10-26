@@ -534,6 +534,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @param        array $parameter
      *
      * @return string
+     * @throws \SmartyCompilerException
      */
     public function compilePHPFunctionCall($name, $parameter)
     {
@@ -662,7 +663,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @param  mixed  $param2 optional parameter
      * @param  mixed  $param3 optional parameter
      *
-     * @return string|bool compiled code or false
+     * @return bool|string compiled code or false
+     * @throws \SmartyCompilerException
      */
     public function callTagCompiler($tag, $args, $param1 = null, $param2 = null, $param3 = null)
     {
@@ -680,7 +682,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
      *
      * @param  string $tag tag name
      *
-     * @return Smarty_Internal_CompileBase|bool tag compiler object or false if not found
+     * @return bool|\Smarty_Internal_CompileBase tag compiler object or false if not found
+     * @throws \SmartyCompilerException
      */
     public function getTagCompiler($tag)
     {
@@ -708,6 +711,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @param  string $plugin_type type of plugin
      *
      * @return string call name of function
+     * @throws \SmartyException
      */
     public function getPlugin($plugin_name, $plugin_type)
     {
@@ -772,7 +776,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @param  string $tag         name of tag
      * @param  string $plugin_type type of plugin
      *
-     * @return boolean true if found
+     * @return bool true if found
+     * @throws \SmartyCompilerException
      */
     public function getPluginFromDefaultHandler($tag, $plugin_type)
     {

@@ -97,6 +97,7 @@ class Smarty_Internal_Config_File_Compiler
      * @param Smarty_Internal_Template $template
      *
      * @return bool true if compiling succeeded, false if it failed
+     * @throws \SmartyException
      */
     public function compileTemplate(Smarty_Internal_Template $template)
     {

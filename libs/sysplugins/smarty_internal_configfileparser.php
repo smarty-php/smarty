@@ -1,10 +1,19 @@
 <?php
 
+/**
+ * Class TPC_yyToken
+ */
 class TPC_yyToken implements ArrayAccess
 {
     public $string   = '';
     public $metadata = array();
 
+    /**
+     * TPC_yyToken constructor.
+     *
+     * @param       $s
+     * @param array $m
+     */
     public function __construct($s, $m = array())
     {
         if ($s instanceof TPC_yyToken) {
@@ -20,21 +29,38 @@ class TPC_yyToken implements ArrayAccess
         }
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->string;
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return bool
+     */
     public function offsetExists($offset)
     {
         return isset($this->metadata[ $offset ]);
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
     public function offsetGet($offset)
     {
         return $this->metadata[ $offset ];
     }
 
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
     public function offsetSet($offset, $value)
     {
         if ($offset === null) {
@@ -58,12 +84,18 @@ class TPC_yyToken implements ArrayAccess
         }
     }
 
+    /**
+     * @param mixed $offset
+     */
     public function offsetUnset($offset)
     {
         unset($this->metadata[ $offset ]);
     }
 }
 
+/**
+ * Class TPC_yyStackEntry
+ */
 class TPC_yyStackEntry
 {
     public $stateno;       /* The state-number */
@@ -247,6 +279,10 @@ public $yystack = array();
         $this->configReadHidden = $this->smarty->config_read_hidden;
     }
 
+    /**
+     * @param $TraceFILE
+     * @param $zTracePrompt
+     */
     public function Trace($TraceFILE, $zTracePrompt)
     {
         if (!$TraceFILE) {
@@ -263,7 +299,11 @@ public $yystack = array();
         $this->yyTraceFILE = fopen('php://output', 'w');
         $this->yyTracePrompt = '<br>';
     }                    /* Index of top element in stack */
-
+    /**
+     * @param $tokenType
+     *
+     * @return mixed|string
+     */
     public function tokenName($tokenType)
     {
         if ($tokenType === 0) {
@@ -303,6 +343,10 @@ public $yystack = array();
         return $yymajor;
     }
 
+    /**
+     * @param $yymajor
+     * @param $yypminor
+     */
     public static function yy_destructor($yymajor, $yypminor)
     {
         switch ($yymajor) {
@@ -311,6 +355,11 @@ public $yystack = array();
         }
     }
 
+    /**
+     * @param $token
+     *
+     * @return array|mixed
+     */
     public function yy_get_expected_tokens($token)
     {
         static $res3 = array();
@@ -395,6 +444,11 @@ public $yystack = array();
         return array_unique($expected);
     }
 
+    /**
+     * @param $iLookAhead
+     *
+     * @return int|mixed
+     */
     public function yy_find_shift_action($iLookAhead)
     {
         $stateno = $this->yystack[ $this->yyidx ]->stateno;
@@ -430,6 +484,12 @@ public $yystack = array();
         }
     }
 
+    /**
+     * @param $stateno
+     * @param $iLookAhead
+     *
+     * @return int|mixed
+     */
     public function yy_find_reduce_action($stateno, $iLookAhead)
     {
         /* $stateno = $this->yystack[$this->yyidx]->stateno; */
@@ -692,6 +752,12 @@ public $yystack = array();
 
     #line 324 "../smarty/lexer/smarty_internal_configfileparser.y"
 
+    /**
+     * @param $yymajor
+     * @param $yytokenvalue
+     *
+     * @throws \SmartyCompilerException
+     */
     public function doParse($yymajor, $yytokenvalue)
     {
         $yyerrorhit = 0;   /* True if yymajor has invoked an error */
@@ -784,6 +850,11 @@ public $yystack = array();
         } while ($yymajor != self::YYNOCODE && $this->yyidx >= 0);
     }
 
+    /**
+     * @param $token
+     *
+     * @return bool
+     */
     public function yy_is_expected_token($token)
     {
         static $res = array();
@@ -873,6 +944,13 @@ public $yystack = array();
         return true;
     }
 
+    /**
+     * @param $yyNewState
+     * @param $yyMajor
+     * @param $yypMinor
+     *
+     * @throws \SmartyCompilerException
+     */
     public function yy_shift($yyNewState, $yyMajor, $yypMinor)
     {
         $this->yyidx++;
@@ -911,6 +989,11 @@ public $yystack = array();
         }
     }
 
+    /**
+     * @param $yyruleno
+     *
+     * @throws \SmartyCompilerException
+     */
     public function yy_reduce($yyruleno)
     {
         if ($this->yyTraceFILE && $yyruleno >= 0 && $yyruleno < count(self::$yyRuleName)) {
@@ -967,6 +1050,12 @@ public $yystack = array();
         $this->retvalue = $this->_retvalue;
     }
 
+    /**
+     * @param $yymajor
+     * @param $TOKEN
+     *
+     * @throws \SmartyCompilerException
+     */
     public function yy_syntax_error($yymajor, $TOKEN)
     {
         #line 232 "../smarty/lexer/smarty_internal_configfileparser.y"

@@ -57,13 +57,12 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
     /**
      * Compiles code for the {block} tag
      *
-     * @param  array                                 $args      array with attributes from parser
-     * @param  \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                 $parameter array with compilation parameter
+     * @param  array                                 $args     array with attributes from parser
+     * @param  \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         if (!isset($compiler->_cache['blockNesting'])) {
             $compiler->_cache['blockNesting'] = 0;
@@ -151,13 +150,13 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
     /**
      * Compiles code for the {/block} tag
      *
-     * @param  array                                $args      array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
+     * @param  array                                $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
+     * @internal param array $parameter array with compilation parameter
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         list($_attr, $_nocache, $_buffer, $_has_nocache_code, $_caching) = $this->closeTag($compiler, array('block'));
         // init block parameter

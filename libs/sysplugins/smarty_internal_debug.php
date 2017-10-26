@@ -193,6 +193,9 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
      *
      * @param Smarty_Internal_Template|Smarty $obj object to debug
      * @param bool                            $full
+     *
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function display_debug($obj, $full = false)
     {

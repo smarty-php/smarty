@@ -29,7 +29,8 @@ class Smarty_Internal_Method_ClearCompiledTemplate
      * @param  string  $compile_id    compile id
      * @param  integer $exp_time      expiration time
      *
-     * @return integer number of template files deleted
+     * @return int number of template files deleted
+     * @throws \SmartyException
      */
     public function clearCompiledTemplate(Smarty $smarty, $resource_name = null, $compile_id = null, $exp_time = null)
     {

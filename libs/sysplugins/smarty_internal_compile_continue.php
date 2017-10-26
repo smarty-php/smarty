@@ -16,18 +16,17 @@
  */
 class Smarty_Internal_Compile_Continue extends Smarty_Internal_Compile_Break
 {
-
     /**
      * Compiles code for the {continue} tag
      *
-     * @param  array                                $args      array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
+     * @param  array                                $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
+     * @internal param array $parameter array with compilation parameter
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         list($levels, $foreachLevels) = $this->checkLevels($args, $compiler, 'continue');
         $output = "<?php\n";

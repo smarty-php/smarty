@@ -676,7 +676,7 @@ class Smarty_Security
     {
         if ($security_class instanceof Smarty_Security) {
             $smarty->security_policy = $security_class;
-            return;
+            return $smarty;
         } elseif (is_object($security_class)) {
             throw new SmartyException("Class '" . get_class($security_class) . "' must extend Smarty_Security.");
         }
@@ -690,7 +690,7 @@ class Smarty_Security
         } else {
             $smarty->security_policy = new $security_class($smarty);
         }
-        return;
+        return $smarty;
     }
     /**
      * Start template processing

@@ -6,6 +6,8 @@
     as Smarty does no longer use error suppression like @filemtime().
     for backward compatibility code is moved from Smarty class to an external class and still can be
     called.
+  - correction of PHPDoc blocks
+  - minor code cleanup 
 
 21.10.2017
   - bugfix custom delimiters could fail since modification of  version 3.1.32-dev-23

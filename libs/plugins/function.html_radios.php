@@ -166,9 +166,21 @@ function smarty_function_html_radios($params, $template)
         return implode("\n", $_html_result);
     }
 }
-
+/**
+ * @param $name
+ * @param $value
+ * @param $output
+ * @param $selected
+ * @param $extra
+ * @param $separator
+ * @param $labels
+ * @param $label_ids
+ * @param $escape
+ *
+ * @return string
+ */
 function smarty_function_html_radios_output($name, $value, $output, $selected, $extra, $separator, $labels, $label_ids,
-                                            $escape)
+                                               $escape)
 {
     $_output = '';
 

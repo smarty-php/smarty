@@ -103,6 +103,9 @@ class Smarty_Internal_Runtime_Inheritance
      * @param null|string               $template optional name of inheritance parent template
      * @param null|string               $uid      uid of inline template
      * @param null|string               $func     function call name of inline template
+     *
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function endChild(Smarty_Internal_Template $tpl, $template = null, $uid = null, $func = null)
     {
@@ -135,6 +138,8 @@ class Smarty_Internal_Runtime_Inheritance
      * @param                           $className
      * @param string                    $name
      * @param int|null                  $tplIndex index of outer level {block} if nested
+     *
+     * @throws \SmartyException
      */
     public function instanceBlock(Smarty_Internal_Template $tpl, $className, $name, $tplIndex = null)
     {
@@ -203,7 +208,8 @@ class Smarty_Internal_Runtime_Inheritance
      * @param \Smarty_Internal_Block    $block
      * @param boolean                   $returnContent flag if content shall be returned
      *
-     * @return null|string  null or block content dependent on $returnContent
+     * @return null|string null or block content dependent on $returnContent
+     * @throws \SmartyException
      */
     public function callChild(Smarty_Internal_Template $tpl, Smarty_Internal_Block $block, $returnContent = false)
     {

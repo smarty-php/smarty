@@ -59,14 +59,15 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {include} tag
      *
-     * @param  array                                  $args      array with attributes from parser
-     * @param  Smarty_Internal_SmartyTemplateCompiler $compiler  compiler object
-     * @param  array                                  $parameter array with compilation parameter
+     * @param  array                                  $args     array with attributes from parser
+     * @param  Smarty_Internal_SmartyTemplateCompiler $compiler compiler object
      *
-     * @throws SmartyCompilerException
-     * @return string compiled code
+     * @return string
+     * @throws \Exception
+     * @throws \SmartyCompilerException
+     * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_SmartyTemplateCompiler $compiler, $parameter)
+    public function compile($args, Smarty_Internal_SmartyTemplateCompiler $compiler)
     {
         $uid = $t_hash = null;
         // check and get attributes
@@ -271,6 +272,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * @param  string                                 $t_hash
      *
      * @return bool
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function compileInlineTemplate(Smarty_Internal_SmartyTemplateCompiler $compiler,
                                           Smarty_Internal_Template $tpl,

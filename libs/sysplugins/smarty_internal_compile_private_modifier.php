@@ -26,6 +26,7 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
+     * @throws \SmartyException
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
@@ -34,6 +35,7 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
         $output = $parameter[ 'value' ];
         // loop over list of modifiers
         foreach ($parameter[ 'modifierlist' ] as $single_modifier) {
+            /* @var string $modifier */
             $modifier = $single_modifier[ 0 ];
             $single_modifier[ 0 ] = $output;
             $params = implode(',', $single_modifier);

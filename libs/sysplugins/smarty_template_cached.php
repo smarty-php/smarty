@@ -83,6 +83,8 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
      * create Cached Object container
      *
      * @param Smarty_Internal_Template $_template template object
+     *
+     * @throws \SmartyException
      */
     public function __construct(Smarty_Internal_Template $_template)
     {

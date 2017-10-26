@@ -126,12 +126,13 @@ class Smarty_Template_Source
     /**
      * create Source Object container
      *
-     * @param Smarty_Resource $handler  Resource Handler this source object communicates with
-     * @param Smarty          $smarty   Smarty instance this source object belongs to
-     * @param string          $resource full template_resource
-     * @param string          $type     type of resource
-     * @param string          $name     resource name
+     * @param Smarty $smarty   Smarty instance this source object belongs to
+     * @param string $resource full template_resource
+     * @param string $type     type of resource
+     * @param string $name     resource name
      *
+     * @throws \SmartyException
+     * @internal param \Smarty_Resource $handler Resource Handler this source object communicates with
      */
     public function __construct(Smarty $smarty, $resource, $type, $name)
     {
@@ -202,6 +203,7 @@ class Smarty_Template_Source
      * Get source content
      *
      * @return string
+     * @throws \SmartyException
      */
     public function getContent()
     {

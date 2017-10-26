@@ -78,14 +78,14 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
     /**
      * Compiles code for the {foreach} tag
      *
-     * @param  array                                $args      array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
+     * @param  array                                $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
+     * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         $compiler->loopNesting ++;
         // init
@@ -277,13 +277,12 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {foreachelse} tag
      *
-     * @param  array                                $args      array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
+     * @param  array                                $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -310,13 +309,13 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {/foreach} tag
      *
-     * @param  array                                $args      array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
+     * @param  array                                $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
-     */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+     * @throws \SmartyCompilerException
+      */
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         $compiler->loopNesting --;
         // must endblock be nocache?

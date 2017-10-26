@@ -26,7 +26,6 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
 {
     static $_double_encode = null;
     static $is_loaded1 = false;
-    static $is_loaded2 = false;
     if ($_double_encode === null) {
         $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
     }

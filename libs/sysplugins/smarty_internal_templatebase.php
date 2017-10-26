@@ -117,6 +117,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @param mixed  $cache_id   cache id to be used with this template
      * @param mixed  $compile_id compile id to be used with this template
      * @param object $parent     next higher level of Smarty variables
+     *
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function display($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
@@ -135,7 +138,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @param  mixed                                 $compile_id compile id to be used with this template
      * @param  object                                $parent     next higher level of Smarty variables
      *
-     * @return boolean       cache status
+     * @return bool cache status
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {

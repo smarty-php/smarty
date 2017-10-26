@@ -179,9 +179,21 @@ function smarty_function_html_checkboxes($params, $template)
         return implode("\n", $_html_result);
     }
 }
-
+/**
+ * @param      $name
+ * @param      $value
+ * @param      $output
+ * @param      $selected
+ * @param      $extra
+ * @param      $separator
+ * @param      $labels
+ * @param      $label_ids
+ * @param bool $escape
+ *
+ * @return string
+ */
 function smarty_function_html_checkboxes_output($name, $value, $output, $selected, $extra, $separator, $labels,
-                                                $label_ids, $escape = true)
+                                                   $label_ids, $escape = true)
 {
     $_output = '';
 

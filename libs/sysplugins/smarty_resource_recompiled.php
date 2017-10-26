@@ -85,6 +85,9 @@ abstract class Smarty_Resource_Recompiled extends Smarty_Resource
        *
        * @return bool
        */
+    /**
+     * @return bool
+     */
     public function checkTimestamps()
     {
         return false;

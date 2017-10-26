@@ -157,7 +157,16 @@ function smarty_function_html_options($params, Smarty_Internal_Template $templat
 
     return $_html_result;
 }
-
+/**
+ * @param $key
+ * @param $value
+ * @param $selected
+ * @param $id
+ * @param $class
+ * @param $idx
+ *
+ * @return string
+ */
 function smarty_function_html_options_optoutput($key, $value, $selected, $id, $class, &$idx)
 {
     if (!is_array($value)) {
@@ -196,7 +205,16 @@ function smarty_function_html_options_optoutput($key, $value, $selected, $id, $c
 
     return $_html_result;
 }
-
+/**
+ * @param $key
+ * @param $values
+ * @param $selected
+ * @param $id
+ * @param $class
+ * @param $idx
+ *
+ * @return string
+ */
 function smarty_function_html_options_optgroup($key, $values, $selected, $id, $class, &$idx)
 {
     $optgroup_html = '<optgroup label="' . smarty_function_escape_special_chars($key) . '">' . "\n";

@@ -180,7 +180,8 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      * @param  string  $compile_id    compile id
      * @param  integer $exp_time      expiration time [being ignored]
      *
-     * @return integer number of cache files deleted [always -1]
+     * @return int number of cache files deleted [always -1]
+     * @throws \SmartyException
      * @uses buildCachedFilepath() to generate the CacheID
      * @uses invalidate() to mark CacheIDs parent chain as outdated
      * @uses delete() to remove CacheID from cache

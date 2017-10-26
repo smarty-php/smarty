@@ -7,22 +7,18 @@
  * @package    Smarty
  * @subpackage Template
  */
-class Smarty_Undefined_Variable
+class Smarty_Undefined_Variable extends Smarty_Variable
 {
     /**
-     * Returns FALSE for 'nocache' and NULL otherwise.
+     * Returns null for not existing properties
      *
      * @param  string $name
      *
-     * @return bool
+     * @return null
      */
     public function __get($name)
     {
-        if ($name == 'nocache') {
-            return false;
-        } else {
             return null;
-        }
     }
 
     /**

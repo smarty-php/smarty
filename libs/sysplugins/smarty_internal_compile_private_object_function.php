@@ -34,6 +34,8 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
      * @param  string                               $method    name of method to call
      *
      * @return string compiled code
+     * @throws \SmartyCompilerException
+     * @throws \SmartyException
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag, $method)
     {
