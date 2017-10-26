@@ -100,7 +100,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-27';
+    const SMARTY_VERSION = '3.1.32-dev-28';
     /**
      * define variable scopes
      */
@@ -166,14 +166,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      * assigned global tpl vars
      */
     public static $global_tpl_vars = array();
-    /**
-     * error handler returned by set_error_handler() in Smarty::muteExpectedErrors()
-     */
-    public static $_previous_error_handler = null;
-    /**
-     * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
-     */
-    public static $_muted_directories = array();
     /**
      * Flag denoting if Multibyte String functions are available
      */
@@ -545,12 +537,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $_debug = null;
     /**
-     * Directory separator
-     *
-     * @var string
-     */
-    public $ds = DIRECTORY_SEPARATOR;
-    /**
      * template directory
      *
      * @var array
@@ -632,98 +618,20 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Error Handler to mute expected messages
-     *
-     * @link http://php.net/set_error_handler
-     *
-     * @param  integer $errno Error level
-     * @param          $errstr
-     * @param          $errfile
-     * @param          $errline
-     * @param          $errcontext
-     *
-     * @return bool|void
-     */
-    public static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
-    {
-        $_is_muted_directory = false;
-        // add the SMARTY_DIR to the list of muted directories
-        if (!isset(Smarty::$_muted_directories[ SMARTY_DIR ])) {
-            $smarty_dir = realpath(SMARTY_DIR);
-            if ($smarty_dir !== false) {
-                Smarty::$_muted_directories[ SMARTY_DIR ] =
-                    array('file' => $smarty_dir, 'length' => strlen($smarty_dir),);
-            }
-        }
-        // walk the muted directories and test against $errfile
-        foreach (Smarty::$_muted_directories as $key => &$dir) {
-            if (!$dir) {
-                // resolve directory and length for speedy comparisons
-                $file = realpath($key);
-                if ($file === false) {
-                    // this directory does not exist, remove and skip it
-                    unset(Smarty::$_muted_directories[ $key ]);
-                    continue;
-                }
-                $dir = array('file' => $file, 'length' => strlen($file),);
-            }
-            if (!strncmp($errfile, $dir[ 'file' ], $dir[ 'length' ])) {
-                $_is_muted_directory = true;
-                break;
-            }
-        }
-        // pass to next error handler if this error did not occur inside SMARTY_DIR
-        // or the error was within smarty but masked to be ignored
-        if (!$_is_muted_directory || ($errno && $errno & error_reporting())) {
-            if (Smarty::$_previous_error_handler) {
-                return call_user_func(Smarty::$_previous_error_handler,
-                                      $errno,
-                                      $errstr,
-                                      $errfile,
-                                      $errline,
-                                      $errcontext);
-            } else {
-                return false;
-            }
-        }
-        return;
-    }
-
-    /**
      * Enable error handler to mute expected messages
      *
      * @return void
+     * @deprecated
      */
     public static function muteExpectedErrors()
     {
-        /*
-            error muting is done because some people implemented custom error_handlers using
-            http://php.net/set_error_handler and for some reason did not understand the following paragraph:
-
-                It is important to remember that the standard PHP error handler is completely bypassed for the
-                error types specified by error_types unless the callback function returns FALSE.
-                error_reporting() settings will have no effect and your error handler will be called regardless -
-                however you are still able to read the current value of error_reporting and act appropriately.
-                Of particular note is that this value will be 0 if the statement that caused the error was
-                prepended by the @ error-control operator.
-
-            Smarty deliberately uses @filemtime() over file_exists() and filemtime() in some places. Reasons include
-                - @filemtime() is almost twice as fast as using an additional file_exists()
-                - between file_exists() and filemtime() a possible race condition is opened,
-                  which does not exist using the simple @filemtime() approach.
-        */
-        $error_handler = array('Smarty', 'mutingErrorHandler');
-        $previous = set_error_handler($error_handler);
-        // avoid dead loops
-        if ($previous !== $error_handler) {
-            Smarty::$_previous_error_handler = $previous;
-        }
+        return Smarty_Internal_ErrorHandler::muteExpectedErrors();
     }
 
     /**
      * Disable error handler muting expected messages
      *
-     * @return void
+     * @deprecated
      */
     public static function unmuteExpectedErrors()
     {
@@ -766,27 +674,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function disableSecurity()
     {
         $this->security_policy = null;
-        return $this;
-    }
-
-    /**
-     * Set template directory
-     *
-     * @param  string|array $template_dir directory(s) of template sources
-     * @param bool          $isConfig     true for config_dir
-     *
-     * @return \Smarty current Smarty instance for chaining
-     */
-    public function setTemplateDir($template_dir, $isConfig = false)
-    {
-        if ($isConfig) {
-            $this->config_dir = array();
-            $this->_processedConfigDir = array();
-        } else {
-            $this->template_dir = array();
-            $this->_processedTemplateDir = array();
-        }
-        $this->addTemplateDir($template_dir, null, $isConfig);
         return $this;
     }
 
@@ -859,15 +746,24 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Set config directory
+     * Set template directory
      *
-     * @param $config_dir
+     * @param  string|array $template_dir directory(s) of template sources
+     * @param bool          $isConfig     true for config_dir
      *
-     * @return Smarty       current Smarty instance for chaining
+     * @return \Smarty current Smarty instance for chaining
      */
-    public function setConfigDir($config_dir)
+    public function setTemplateDir($template_dir, $isConfig = false)
     {
-        return $this->setTemplateDir($config_dir, true);
+        if ($isConfig) {
+            $this->config_dir = array();
+            $this->_processedConfigDir = array();
+        } else {
+            $this->template_dir = array();
+            $this->_processedTemplateDir = array();
+        }
+        $this->addTemplateDir($template_dir, null, $isConfig);
+        return $this;
     }
 
     /**
@@ -896,17 +792,15 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Set plugins directory
+     * Set config directory
      *
-     * @param  string|array $plugins_dir directory(s) of plugins
+     * @param $config_dir
      *
      * @return Smarty       current Smarty instance for chaining
      */
-    public function setPluginsDir($plugins_dir)
+    public function setConfigDir($config_dir)
     {
-        $this->plugins_dir = (array)$plugins_dir;
-        $this->_pluginsDirNormalized = false;
-        return $this;
+        return $this->setTemplateDir($config_dir, true);
     }
 
     /**
@@ -942,7 +836,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $this->plugins_dir = (array)$this->plugins_dir;
             }
             foreach ($this->plugins_dir as $k => $v) {
-                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, "/\\") . $this->ds, true);
+                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, "/\\") . DIRECTORY_SEPARATOR, true);
             }
             $this->_cache[ 'plugin_files' ] = array();
             $this->_pluginsDirNormalized = true;
@@ -951,15 +845,16 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * Set plugins directory
      *
-     * @param  string $compile_dir directory to store compiled templates in
+     * @param  string|array $plugins_dir directory(s) of plugins
      *
-     * @return Smarty current Smarty instance for chaining
+     * @return Smarty       current Smarty instance for chaining
      */
-    public function setCompileDir($compile_dir)
+    public function setPluginsDir($plugins_dir)
     {
-        $this->_normalizeDir('compile_dir', $compile_dir);
-        $this->_compileDirNormalized = true;
+        $this->plugins_dir = (array)$plugins_dir;
+        $this->_pluginsDirNormalized = false;
         return $this;
     }
 
@@ -978,16 +873,15 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Set cache directory
      *
-     * @param  string $cache_dir directory to store cached templates in
+     * @param  string $compile_dir directory to store compiled templates in
      *
      * @return Smarty current Smarty instance for chaining
      */
-    public function setCacheDir($cache_dir)
+    public function setCompileDir($compile_dir)
     {
-        $this->_normalizeDir('cache_dir', $cache_dir);
-        $this->_cacheDirNormalized = true;
+        $this->_normalizeDir('compile_dir', $compile_dir);
+        $this->_compileDirNormalized = true;
         return $this;
     }
 
@@ -1003,6 +897,20 @@ class Smarty extends Smarty_Internal_TemplateBase
             $this->_cacheDirNormalized = true;
         }
         return $this->cache_dir;
+    }
+
+    /**
+     * Set cache directory
+     *
+     * @param  string $cache_dir directory to store cached templates in
+     *
+     * @return Smarty current Smarty instance for chaining
+     */
+    public function setCacheDir($cache_dir)
+    {
+        $this->_normalizeDir('cache_dir', $cache_dir);
+        $this->_cacheDirNormalized = true;
+        return $this;
     }
 
     /**
@@ -1133,24 +1041,24 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _realpath($path, $realpath = null)
     {
-        $nds = $this->ds == '/' ? '\\' : '/';
-        // normalize $this->ds
-        $path = str_replace($nds, $this->ds, $path);
+        $nds = DIRECTORY_SEPARATOR === '/' ? '\\' : '/';
+        // normalize DIRECTORY_SEPARATOR
+        $path = str_replace($nds, DIRECTORY_SEPARATOR, $path);
         preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
                    $path,
                    $parts);
         $path = $parts[ 'path' ];
-        if ($parts[ 'root' ] == '\\') {
+        if ($parts[ 'root' ] === '\\') {
             $parts[ 'root' ] = substr(getcwd(), 0, 2) . $parts[ 'root' ];
         } else {
             if ($realpath !== null && !$parts[ 'root' ]) {
-                $path = getcwd() . $this->ds . $path;
+                $path = getcwd() . DIRECTORY_SEPARATOR . $path;
             }
         }
         // remove noop 'DIRECTORY_SEPARATOR DIRECTORY_SEPARATOR' and 'DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR' patterns
-        $path = preg_replace('#([\\\\/]([.]?[\\\\/])+)#u', $this->ds, $path);
+        $path = preg_replace('#([\\\\/]([.]?[\\\\/])+)#u', DIRECTORY_SEPARATOR, $path);
         // resolve '..DIRECTORY_SEPARATOR' pattern, smallest first
-        if (strpos($path, '..' . $this->ds) != false &&
+        if (strpos($path, '..' . DIRECTORY_SEPARATOR) !== false &&
             preg_match_all('#(([.]?[\\\\/])*([.][.])[\\\\/]([.]?[\\\\/])*)+#u', $path, $match)
         ) {
             $counts = array();
@@ -1161,7 +1069,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             foreach ($counts as $count) {
                 $path = preg_replace('#(([\\\\/]([.]?[\\\\/])*[^\\\\/.]+){' . $count .
                                      '}[\\\\/]([.]?[\\\\/])*([.][.][\\\\/]([.]?[\\\\/])*){' . $count . '})(?=[^.])#u',
-                                     $this->ds,
+                                     DIRECTORY_SEPARATOR,
                                      $path);
             }
         }
@@ -1210,16 +1118,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Set auto_literal flag
-     *
-     * @param boolean $auto_literal
-     */
-    public function setAutoLiteral($auto_literal = true)
-    {
-        $this->auto_literal = $auto_literal;
-    }
-
-    /**
      * Return auto_literal flag
      *
      * @return boolean
@@ -1227,6 +1125,16 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function getAutoLiteral()
     {
         return $this->auto_literal;
+    }
+
+    /**
+     * Set auto_literal flag
+     *
+     * @param boolean $auto_literal
+     */
+    public function setAutoLiteral($auto_literal = true)
+    {
+        $this->auto_literal = $auto_literal;
     }
 
     /**
@@ -1246,16 +1154,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Set left delimiter
-     *
-     * @param string $left_delimiter
-     */
-    public function setLeftDelimiter($left_delimiter)
-    {
-        $this->left_delimiter = $left_delimiter;
-    }
-
-    /**
      * Get left delimiter
      *
      * @return string
@@ -1266,13 +1164,13 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Set right delimiter
+     * Set left delimiter
      *
-     * @param string
+     * @param string $left_delimiter
      */
-    public function setRightDelimiter($right_delimiter)
+    public function setLeftDelimiter($left_delimiter)
     {
-        $this->right_delimiter = $right_delimiter;
+        $this->left_delimiter = $left_delimiter;
     }
 
     /**
@@ -1283,6 +1181,16 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function getRightDelimiter()
     {
         return $this->right_delimiter;
+    }
+
+    /**
+     * Set right delimiter
+     *
+     * @param string
+     */
+    public function setRightDelimiter($right_delimiter)
+    {
+        $this->right_delimiter = $right_delimiter;
     }
 
     /**
@@ -1407,9 +1315,11 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     private function _normalizeDir($dirName, $dir)
     {
-        $this->{$dirName} = $this->_realpath(rtrim($dir, "/\\") . $this->ds, true);
-        if (!isset(Smarty::$_muted_directories[ $this->{$dirName} ])) {
-            Smarty::$_muted_directories[ $this->{$dirName} ] = null;
+        $this->{$dirName} = $this->_realpath(rtrim($dir, "/\\") . DIRECTORY_SEPARATOR, true);
+        if (class_exists('Smarty_Internal_ErrorHandler', false)) {
+            if (!isset(Smarty_Internal_ErrorHandler::$mutedDirectories[ $this->{$dirName} ])) {
+                Smarty_Internal_ErrorHandler::$mutedDirectories[ $this->{$dirName} ] = null;
+            }
         }
     }
 
@@ -1433,7 +1343,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
         foreach ($dir as $k => $v) {
             if (!isset($processed[ $k ])) {
-                $dir[ $k ] = $v = $this->_realpath(rtrim($v, "/\\") . $this->ds, true);
+                $dir[ $k ] = $v = $this->_realpath(rtrim($v, "/\\") . DIRECTORY_SEPARATOR, true);
                 $processed[ $k ] = true;
             }
         }
