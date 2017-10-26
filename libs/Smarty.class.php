@@ -167,6 +167,14 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public static $global_tpl_vars = array();
     /**
+     * error handler returned by set_error_handler() in Smarty::muteExpectedErrors()
+     */
+    public static $_previous_error_handler = null;
+    /**
+     * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
+     */
+    public static $_muted_directories = array();
+    /**
      * Flag denoting if Multibyte String functions are available
      */
     public static $_MBSTRING = SMARTY_MBSTRING;
@@ -618,20 +626,98 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * Error Handler to mute expected messages
+     *
+     * @link http://php.net/set_error_handler
+     *
+     * @param  integer $errno Error level
+     * @param          $errstr
+     * @param          $errfile
+     * @param          $errline
+     * @param          $errcontext
+     *
+     * @return bool|void
+     */
+    public static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
+    {
+        $_is_muted_directory = false;
+        // add the SMARTY_DIR to the list of muted directories
+        if (!isset(Smarty::$_muted_directories[ SMARTY_DIR ])) {
+            $smarty_dir = realpath(SMARTY_DIR);
+            if ($smarty_dir !== false) {
+                Smarty::$_muted_directories[ SMARTY_DIR ] =
+                    array('file' => $smarty_dir, 'length' => strlen($smarty_dir),);
+            }
+        }
+        // walk the muted directories and test against $errfile
+        foreach (Smarty::$_muted_directories as $key => &$dir) {
+            if (!$dir) {
+                // resolve directory and length for speedy comparisons
+                $file = realpath($key);
+                if ($file === false) {
+                    // this directory does not exist, remove and skip it
+                    unset(Smarty::$_muted_directories[ $key ]);
+                    continue;
+                }
+                $dir = array('file' => $file, 'length' => strlen($file),);
+            }
+            if (!strncmp($errfile, $dir[ 'file' ], $dir[ 'length' ])) {
+                $_is_muted_directory = true;
+                break;
+            }
+        }
+        // pass to next error handler if this error did not occur inside SMARTY_DIR
+        // or the error was within smarty but masked to be ignored
+        if (!$_is_muted_directory || ($errno && $errno & error_reporting())) {
+            if (Smarty::$_previous_error_handler) {
+                return call_user_func(Smarty::$_previous_error_handler,
+                                      $errno,
+                                      $errstr,
+                                      $errfile,
+                                      $errline,
+                                      $errcontext);
+            } else {
+                return false;
+            }
+        }
+        return;
+    }
+
+    /**
      * Enable error handler to mute expected messages
      *
      * @return void
-     * @deprecated
      */
     public static function muteExpectedErrors()
     {
-        return Smarty_Internal_ErrorHandler::muteExpectedErrors();
+        /*
+            error muting is done because some people implemented custom error_handlers using
+            http://php.net/set_error_handler and for some reason did not understand the following paragraph:
+
+                It is important to remember that the standard PHP error handler is completely bypassed for the
+                error types specified by error_types unless the callback function returns FALSE.
+                error_reporting() settings will have no effect and your error handler will be called regardless -
+                however you are still able to read the current value of error_reporting and act appropriately.
+                Of particular note is that this value will be 0 if the statement that caused the error was
+                prepended by the @ error-control operator.
+
+            Smarty deliberately uses @filemtime() over file_exists() and filemtime() in some places. Reasons include
+                - @filemtime() is almost twice as fast as using an additional file_exists()
+                - between file_exists() and filemtime() a possible race condition is opened,
+                  which does not exist using the simple @filemtime() approach.
+        */
+        $error_handler = array('Smarty', 'mutingErrorHandler');
+        $previous = set_error_handler($error_handler);
+        // avoid dead loops
+        if ($previous !== $error_handler) {
+            Smarty::$_previous_error_handler = $previous;
+        }
     }
 
     /**
      * Disable error handler muting expected messages
      *
-     * @deprecated
+     * @return void
      */
     public static function unmuteExpectedErrors()
     {
