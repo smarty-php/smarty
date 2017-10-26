@@ -18,6 +18,30 @@
 class Smarty_Internal_Resource_File extends Smarty_Resource
 {
     /**
+     * populate Source Object with meta data from Resource
+     *
+     * @param Smarty_Template_Source   $source    source object
+     * @param Smarty_Internal_Template $_template template object
+     *
+     * @throws \SmartyException
+     */
+    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    {
+        $source->filepath = $this->buildFilepath($source, $_template);
+        if ($source->filepath !== false) {
+            if (isset($source->smarty->security_policy) && is_object($source->smarty->security_policy)) {
+                $source->smarty->security_policy->isTrustedResourceDir($source->filepath, $source->isConfig);
+            }
+            $source->exists = true;
+            $source->uid = sha1($source->filepath . ($source->isConfig ? $source->smarty->_joined_config_dir :
+                                    $source->smarty->_joined_template_dir));
+            $source->timestamp = filemtime($source->filepath);
+        } else {
+            $source->timestamp = $source->exists = false;
+        }
+    }
+
+    /**
      * build template filepath by traversing the template_dir array
      *
      * @param Smarty_Template_Source    $source    source object
@@ -44,15 +68,15 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                 throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
             }
             // normalize path
-            $path = $source->smarty->_realpath(dirname($_template->parent->source->filepath) . $source->smarty->ds . $file);
+            $path =
+                $source->smarty->_realpath(dirname($_template->parent->source->filepath) . DIRECTORY_SEPARATOR . $file);
             // files relative to a template only get one shot
             return is_file($path) ? $path : false;
         }
-        // normalize $source->smarty->ds
-        if (strpos($file, $source->smarty->ds == '/' ? '\\' : '/') !== false) {
-            $file = str_replace($source->smarty->ds == '/' ? '\\' : '/', $source->smarty->ds, $file);
+        // normalize DIRECTORY_SEPARATOR
+        if (strpos($file, DIRECTORY_SEPARATOR === '/' ? '\\' : '/') !== false) {
+            $file = str_replace(DIRECTORY_SEPARATOR === '/' ? '\\' : '/', DIRECTORY_SEPARATOR, $file);
         }
-
         $_directories = $source->smarty->getTemplateDir(null, $source->isConfig);
         // template_dir index?
         if ($file[ 0 ] == '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
@@ -64,9 +88,9 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                 // try string indexes
                 if (isset($_directories[ $index ])) {
                     $_index_dirs[] = $_directories[ $index ];
-                } elseif (is_numeric($index)) {
+                } else if (is_numeric($index)) {
                     // try numeric index
-                    $index = (int) $index;
+                    $index = (int)$index;
                     if (isset($_directories[ $index ])) {
                         $_index_dirs[] = $_directories[ $index ];
                     } else {
@@ -85,12 +109,11 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                 $_directories = $_index_dirs;
             }
         }
-
         // relative file name?
         foreach ($_directories as $_directory) {
             $path = $_directory . $file;
             if (is_file($path)) {
-                return (strpos($path, '.' . $source->smarty->ds) !== false) ? $source->smarty->_realpath($path) : $path;
+                return (strpos($path, '.' . DIRECTORY_SEPARATOR) !== false) ? $source->smarty->_realpath($path) : $path;
             }
         }
         if (!isset($_index_dirs)) {
@@ -105,29 +128,6 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             return $source->smarty->ext->_getIncludePath->getIncludePath($_directories, $file, $source->smarty);
         }
         return false;
-    }
-
-    /**
-     * populate Source Object with meta data from Resource
-     *
-     * @param Smarty_Template_Source   $source    source object
-     * @param Smarty_Internal_Template $_template template object
-     */
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
-    {
-        $source->filepath = $this->buildFilepath($source, $_template);
-
-        if ($source->filepath !== false) {
-            if (isset($source->smarty->security_policy) && is_object($source->smarty->security_policy)) {
-                $source->smarty->security_policy->isTrustedResourceDir($source->filepath, $source->isConfig);
-            }
-            $source->exists = true;
-            $source->uid = sha1($source->filepath . ($source->isConfig ? $source->smarty->_joined_config_dir :
-                                    $source->smarty->_joined_template_dir));
-            $source->timestamp = filemtime($source->filepath);
-        } else {
-            $source->timestamp = $source->exists = false;
-        }
     }
 
     /**
