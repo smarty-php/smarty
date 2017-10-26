@@ -2,6 +2,10 @@
 26.10.2017  3.1.32-dev-28
   - bugfix Smarty version was  not filled in header comment of compiled and cached  files
   - optimization replace internal Smarty::$ds property by DIRECTORY_SEPARATOR
+  - deprecate functions Smarty::muteExpectedErrors() and Smarty::unmuteExpectedErrors()
+    as Smarty does no longer use error suppression like @filemtime().
+    for backward compatibility code is moved from Smarty class to an external class and still can be
+    called.
 
 21.10.2017
   - bugfix custom delimiters could fail since modification of  version 3.1.32-dev-23

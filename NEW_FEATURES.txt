@@ -4,6 +4,12 @@ This file contains a brief description of new features which have been added to 
 
 Smarty 3.1.32
 
+    Deprecate functions Smarty::muteExpectedErrors() and Smarty::unmuteExpectedErrors()
+    ===================================================================================
+    These functions to start a special error handler are no longer needed as Smarty does
+    no longer use error suppression like @filemtime().
+    For backward compatibility the functions still can be called.
+
     Using literals containing Smarty's left and right delimiter
     ===========================================================
     New Methods
