@@ -1,8 +1,4 @@
 ﻿===== 3.1.32 - dev ===
-22.10.2017  3.1.32-dev-28
-  - bugfix Smarty version was  not filled in header comment of compiled and cached  files
-  - optimization replace internal Smarty::$ds property by DIRECTORY_SEPARATOR
-  
 21.10.2017
   - bugfix custom delimiters could fail since modification of  version 3.1.32-dev-23
     https://github.com/smarty-php/smarty/issues/394
