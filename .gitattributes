@@ -1,7 +1,11 @@
-* text=auto !eol
-docs/chm/make_chm_spc.gif -text
-docs/fop/thryb.ttf -text
-docs/fop/thrybi.ttf -text
-docs/fop/thryi.ttf -text
-docs/fop/thryn.ttf -text
-misc/smarty_icon.gif -text
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# exclude from git export
+/travis.ini export-ignore
+/myconfig.ini export-ignore
+/.travis.yml export-ignore
+/.gitignore export-ignore
+/.gitattributes export-ignore
+/lexer/ export-ignore
+/utilities/ export-ignore
