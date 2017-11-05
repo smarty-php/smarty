@@ -1,4 +1,7 @@
 ﻿===== 3.1.32 - dev ===
+05.11.2017 3.1.32-dev-32
+  - lexer/parser optimization
+
 26.10.2017  3.1.32-dev-28
   - bugfix Smarty version was  not filled in header comment of compiled and cached  files
   - optimization replace internal Smarty::$ds property by DIRECTORY_SEPARATOR
@@ -7,7 +10,7 @@
     for backward compatibility code is moved from Smarty class to an external class and still can be
     called.
   - correction of PHPDoc blocks
-  - minor code cleanup 
+  - minor code cleanup
 
 21.10.2017
   - bugfix custom delimiters could fail since modification of  version 3.1.32-dev-23
