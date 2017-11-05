@@ -37,7 +37,7 @@ class CompileErrorTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unknown tag "unknown"
+     * @expectedExceptionMessage unknown tag 'unknown'
      * test unkown tag error
      */
     public function testUnknownTagError()

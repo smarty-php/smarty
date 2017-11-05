@@ -84,7 +84,7 @@ class DoubleQuotedStringTest extends PHPUnit_Smarty
      * test unclosed block tag
      *
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unclosed "{if}" in doubled quoted string
+     * @expectedExceptionMessage unclosed '{if}' in doubled quoted string
      */
     public function testDoubleQuotedUnclosedBlock_001()
     {

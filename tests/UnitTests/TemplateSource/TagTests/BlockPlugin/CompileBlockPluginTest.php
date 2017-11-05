@@ -49,7 +49,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      * test unknown block plugin tag
      *
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unknown tag "bar"
+     * @expectedExceptionMessage unknown tag 'bar'
      *
      */
     public function testBlockPluginUnknown()
@@ -278,9 +278,6 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     {
         $this->smarty->registerFilter('pre', array($this, 'prefilterTest'));
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'cachetest', 'myblockplugintest2', $cachable);
-        if ($testNumber == 13) {
-            $i = 0;
-        }
         $this->smarty->compile_id = $compileid;
         $this->smarty->caching = $caching;
         $this->smarty->cache_lifetime = 1000;

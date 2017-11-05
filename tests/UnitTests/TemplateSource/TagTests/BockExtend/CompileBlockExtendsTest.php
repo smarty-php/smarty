@@ -752,7 +752,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage "$smarty.block.child" used outside {block} tags
+     * @expectedExceptionMessage '$smarty.block.child' used outside {block} tags
      * test {$this->smarty.block.child} outside {block]
      */
     public function testSmartyBlockChildOutsideBlock_025()
@@ -762,7 +762,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage "$smarty.block.parent" used outside {block} tags
+     * @expectedExceptionMessage '$smarty.block.parent' used outside {block} tags
      * test {$this->smarty.block.parent} outside {block]
      */
     public function testSmartyBlockParentOutsideBlock_026()
@@ -998,7 +998,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * test smarty.block.foo
      *
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage invalid "$smarty.block.foo" expected "$smarty.block.child" or "$smarty.block.parent"
+     * @expectedExceptionMessage invalid '$smarty.block.foo' expected '$smarty.block.child' or '$smarty.block.parent'
      */
     public function testSmartyBlockWrongBlockName_036()
     {
@@ -1010,7 +1010,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * test smarty.block
      *
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage invalid "$smarty.block" expected "$smarty.block.child" or "$smarty.block.parent"
+     * @expectedExceptionMessage invalid '$smarty.block' expected '$smarty.block.child' or '$smarty.block.parent'
      */
     public function testSmartyBlockMissigBlockName_037()
     {

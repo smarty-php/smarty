@@ -112,7 +112,7 @@ class CompilePhpTest extends PHPUnit_Smarty
     /**
      * test {php no cache}illegal option
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage illegal value of option flag "no cache"
+     * @expectedExceptionMessage illegal value of option flag 'no cache'
      *
      */
     public function testPHP_Tag_IllegalOption()

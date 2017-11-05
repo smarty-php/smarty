@@ -96,7 +96,7 @@ class ModifierTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unknown modifier "unknown"
+     * @expectedExceptionMessage unknown modifier 'unknown'
      * test unknown modifier error
      */
     public function testUnknownModifier()

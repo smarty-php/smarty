@@ -29,7 +29,7 @@ class AttributeTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage missing "var" attribute
+     * @expectedExceptionMessage missing 'var' attribute
      * test required attribute
      */
     public function testRequiredAttributeVar()
@@ -39,7 +39,7 @@ class AttributeTest extends PHPUnit_Smarty
 
     /**
      * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unexpected "bar" attribute
+     * @expectedExceptionMessage unexpected 'bar' attribute
      * test unexpected attribute
      */
     public function testUnexpectedAttribute()
