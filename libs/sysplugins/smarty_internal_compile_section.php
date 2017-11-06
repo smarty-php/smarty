@@ -141,12 +141,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
                         $v = "(is_array(@\$_loop=$attr_value) ? count(\$_loop) : max(0, (int) \$_loop))";
                         $t = 1;
                     }
-                    if (isset($namedAttr[ 'loop' ])) {
-                        $initNamedProperty[ 'loop' ] = "'loop' => {$v}";
-                        if ($t === 1) {
-                            $v = "{$sectionVar}->value['loop']";
-                        }
-                    } elseif ($t === 1) {
+                    if ($t === 1) {
                         $initLocal[ 'loop' ] = $v;
                         $v = "{$local}loop";
                     }
@@ -338,7 +333,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
         }
 
         if (isset($namedAttr[ 'loop' ])) {
-            $initNamedProperty[ 'loop' ] = "'loop' => {$propValue['total']}";
+            $initNamedProperty[ 'loop' ] = "'loop' => {$propValue['loop']}";
         }
         if (isset($namedAttr[ 'total' ])) {
             $initNamedProperty[ 'total' ] = "'total' => {$propValue['total']}";
@@ -393,7 +388,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
         if (isset($namedAttr[ 'last' ])) {
             $output .= "{$sectionVar}->value['last'] = ({$propValue['iteration']} === {$propValue['total']});\n";
         }
-        $output .= "?>";
+        $output .= '?>';
 
         return $output;
     }
@@ -463,7 +458,7 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
         $output .= "if ({$local}saved) {\n";
         $output .= "{$sectionVar} = {$local}saved;\n";
         $output .= "}\n";
-        $output .= "?>";
+        $output .= '?>';
 
         return $output;
     }

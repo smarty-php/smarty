@@ -2,6 +2,8 @@
 05.11.2017
   - lexer/parser optimization
   - code cleanup and optimizations
+  - bugfix {$smarty.section.name.loop} used together with {$smarty.section.name.total} could produce
+    wrong results (forum topic 27041)
 
 26.10.2017
   - bugfix Smarty version was  not filled in header comment of compiled and cached  files
