@@ -7,7 +7,6 @@ Since 3.1.28 you can mix inheritance by extends resource with the {extends} tag.
 A template called by extends resource can extend a subtemplate or chain buy the {extends} tag.
 Since 3.1.31 this feature can be turned off by setting the new Smarty property Smarty::$extends_recursion to false.
 
-
 3.1.28
 Starting with version 3.1.28 template inheritance is no longer a compile time process.
 All {block} tag parent/child relations are resolved at run time.
@@ -75,13 +74,11 @@ With this setting all {include} subtemplate will be merge into the compiled inhe
 could be rejected by exception.
 
 
-If $smarty->inheritance_merge_compiled_includes = false; {include} subtemplate will not be merged. 
-You must now manually merge all {include} subtemplate which do contain {block} tags. This is done by setting the "inline" option.
+If $smarty->inheritance_merge_compiled_includes = false; {include} subtemplate will not be merged.You must now manually merge all {include} subtemplate which do contain {block} tags. This is done by setting the "inline" option.
 {include file='foo.bar' inline}
 
 1. In case of a variable file name like {include file=$foo inline} you must use the variable in a compile_id  $smarty->compile_id = $foo;
-2. If you use individual compile_id in {include file='foo.tpl' compile_id=$bar inline} it must be used in the 
-   global compile_id as well  $smarty->compile_id = $bar;
+2. If you use individual compile_id in {include file='foo.tpl' compile_id=$bar inline} it must be used in the   global compile_id as well  $smarty->compile_id = $bar;
 3. If call templates with different template_dir configurations and a parent could same named child template from different folders
    you must make the folder name part of the compile_id.
 
