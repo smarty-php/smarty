@@ -46,7 +46,7 @@ class Smarty_Internal_Method_RegisterFilter
         $this->_checkFilterType($type);
         $name = isset($name) ? $name : $this->_getFilterName($callback);
         if (!is_callable($callback)) {
-            throw new SmartyException("{$type}filter \"{$name}\" not callable");
+            throw new SmartyException("{$type}filter '{$name}' not callable");
         }
         $smarty->registered_filters[ $type ][ $name ] = $callback;
         return $obj;
@@ -82,7 +82,7 @@ class Smarty_Internal_Method_RegisterFilter
     public function _checkFilterType($type)
     {
         if (!isset($this->filterTypes[ $type ])) {
-            throw new SmartyException("Illegal filter type \"{$type}\"");
+            throw new SmartyException("Illegal filter type '{$type}'");
         }
     }
 }

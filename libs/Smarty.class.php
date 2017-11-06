@@ -112,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-32';
+    const SMARTY_VERSION = '3.1.32-dev-34';
     /**
      * define variable scopes
      */
@@ -166,14 +166,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     const PLUGIN_COMPILER         = 'compiler';
     const PLUGIN_MODIFIER         = 'modifier';
     const PLUGIN_MODIFIERCOMPILER = 'modifiercompiler';
-    /**
-     * Resource caching modes
-     * (not used since 3.1.30)
-     */
-    const RESOURCE_CACHE_OFF       = 0;
-    const RESOURCE_CACHE_AUTOMATIC = 1; // cache template objects by rules
-    const RESOURCE_CACHE_TEMPLATE  = 2; // cache all template objects
-    const RESOURCE_CACHE_ON        = 4;    // cache source and compiled resources
     /**
      * assigned global tpl vars
      */
@@ -283,13 +275,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var boolean
      */
     public $force_compile = false;
-    /**
-     * check template for modifications?
-     *
-     * @var boolean
-     */
-    public $compile_check = true;
-    /**
+     /**
      * use sub dirs for compiled/cached files?
      *
      * @var boolean
@@ -980,10 +966,10 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $tpl->tpl_vars[ $_key ] = new Smarty_Variable($_val);
             }
         }
-        if ($this->debugging || $this->debugging_ctrl == 'URL') {
+        if ($this->debugging || $this->debugging_ctrl === 'URL') {
             $tpl->smarty->_debug = new Smarty_Internal_Debug();
             // check URL debugging control
-            if (!$this->debugging && $this->debugging_ctrl == 'URL') {
+            if (!$this->debugging && $this->debugging_ctrl === 'URL') {
                 $tpl->smarty->_debug->debugUrl($tpl->smarty);
             }
         }
@@ -1098,14 +1084,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         Smarty_Internal_Template::$isCacheTplObj = array();
         Smarty_Internal_Template::$tplObjCache = array();
-    }
-
-    /**
-     * @param boolean $compile_check
-     */
-    public function setCompileCheck($compile_check)
-    {
-        $this->compile_check = $compile_check;
     }
 
     /**

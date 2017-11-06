@@ -38,12 +38,12 @@ class Smarty_Internal_Method_Append
         if (is_array($tpl_var)) {
             // $tpl_var is an array, ignore $value
             foreach ($tpl_var as $_key => $_val) {
-                if ($_key != '') {
+                if ($_key !== '') {
                     $this->append($data, $_key, $_val, $merge, $nocache);
                 }
             }
         } else {
-            if ($tpl_var != '' && isset($value)) {
+            if ($tpl_var !== '' && isset($value)) {
                 if (!isset($data->tpl_vars[ $tpl_var ])) {
                     $tpl_var_inst = $data->ext->getTemplateVars->_getVariable($data, $tpl_var, null, true, false);
                     if ($tpl_var_inst instanceof Smarty_Undefined_Variable) {

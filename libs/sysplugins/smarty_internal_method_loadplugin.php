@@ -76,7 +76,7 @@ class Smarty_Internal_Method_LoadPlugin
             }
         }
         $_file_names = array($_plugin_filename);
-        if ($_lower_filename != $_plugin_filename) {
+        if ($_lower_filename !== $_plugin_filename) {
             $_file_names[] = $_lower_filename;
         }
         $_p_dirs = $smarty->getPluginsDir();

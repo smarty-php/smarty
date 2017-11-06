@@ -42,14 +42,14 @@ function smarty_modifier_date_format($string, $format = null, $default_date = ''
         }
         $is_loaded = true;
     }
-    if ($string != '' && $string != '0000-00-00' && $string != '0000-00-00 00:00:00') {
+    if ($string !== '' && $string !== '0000-00-00' && $string !== '0000-00-00 00:00:00') {
         $timestamp = smarty_make_timestamp($string);
-    } elseif ($default_date != '') {
+    } elseif ($default_date !== '') {
         $timestamp = smarty_make_timestamp($default_date);
     } else {
         return;
     }
-    if ($formatter == 'strftime' || ($formatter == 'auto' && strpos($format, '%') !== false)) {
+    if ($formatter === 'strftime' || ($formatter === 'auto' && strpos($format, '%') !== false)) {
         if (Smarty::$_IS_WINDOWS) {
             $_win_from = array('%D',
                                '%h',

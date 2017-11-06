@@ -93,7 +93,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
     {
         $_smarty_tpl->cached->valid = false;
         if ($update && defined('HHVM_VERSION')) {
-            eval("?>" . file_get_contents($_smarty_tpl->cached->filepath));
+            eval('?>' . file_get_contents($_smarty_tpl->cached->filepath));
             return true;
         } else {
             return @include $_smarty_tpl->cached->filepath;
@@ -116,7 +116,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
                                                            $_template->smarty) === true
         ) {
             if (function_exists('opcache_invalidate') &&
-                (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api"))) < 1
+                (!function_exists('ini_get') || strlen(ini_get('opcache.restrict_api'))) < 1
             ) {
                 opcache_invalidate($_template->cached->filepath, true);
             } else if (function_exists('apc_compile_file')) {

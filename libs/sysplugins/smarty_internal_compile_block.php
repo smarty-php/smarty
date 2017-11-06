@@ -67,7 +67,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         if (!isset($compiler->_cache['blockNesting'])) {
             $compiler->_cache['blockNesting'] = 0;
         }
-        if ($compiler->_cache['blockNesting'] == 0) {
+        if ($compiler->_cache['blockNesting'] === 0) {
             // make sure that inheritance gets initialized in template code
             $this->registerInit($compiler);
             $this->option_flags = array('hide', 'nocache', 'append', 'prepend');
@@ -115,12 +115,12 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
     {
         $name = isset($parameter[1]) ? $compiler->getId($parameter[1]) : false;
         if (!$name) {
-            $compiler->trigger_template_error("invalid \"\$smarty.block\" expected \"\$smarty.block.child\" or \"\$smarty.block.parent\"",
+            $compiler->trigger_template_error("invalid '\$smarty.block' expected '\$smarty.block.child' or '\$smarty.block.parent'",
                                               null,
                                               true);
         }
         if (!isset($compiler->_cache['blockNesting'])) {
-            $compiler->trigger_template_error(" \"\$smarty.block.{$name}\" used outside {block} tags ",
+            $compiler->trigger_template_error(" '\$smarty.block.{$name}' used outside {block} tags ",
                                               $compiler->parser->lex->taglineno);
         }
         $compiler->has_code = true;
@@ -134,7 +134,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
                 return '$_smarty_tpl->inheritance->callParent($_smarty_tpl, $this, null, true)';
                 break;
             default:
-                $compiler->trigger_template_error("invalid \"\$smarty.block.{$name}\" expected \"\$smarty.block.child\" or \"\$smarty.block.parent\"",
+                $compiler->trigger_template_error("invalid '\$smarty.block.{$name}' expected '\$smarty.block.child' or '\$smarty.block.parent'",
                                                   null,
                                                   true);
         }
@@ -166,7 +166,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $_assign = isset($_attr['assign']) ? $_attr['assign'] : null;
         unset($_attr['assign'], $_attr['name']);
         foreach ($_attr as $name => $stat) {
-            if ((is_bool($stat) && $stat !== false) || (!is_bool($stat) && $stat != 'false')) {
+            if ((is_bool($stat) && $stat !== false) || (!is_bool($stat) && $stat !== 'false')) {
                 $_block[ $name ] = 'true';
             }
         }
@@ -225,14 +225,14 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $compiler->nocache = $_nocache;
         $compiler->parser->current_buffer = $_buffer;
         $output = "<?php \n";
-        if ($compiler->_cache['blockNesting'] == 1) {
+        if ($compiler->_cache['blockNesting'] === 1) {
             $output .= "\$_smarty_tpl->inheritance->instanceBlock(\$_smarty_tpl, '$_className', $_name);\n";
         } else {
             $output .= "\$_smarty_tpl->inheritance->instanceBlock(\$_smarty_tpl, '$_className', $_name, \$this->tplIndex);\n";
         }
         $output .= "?>\n";
         $compiler->_cache['blockNesting']--;
-        if ($compiler->_cache['blockNesting'] == 0) {
+        if ($compiler->_cache['blockNesting'] === 0) {
             unset($compiler->_cache['blockNesting']);
         }
         $compiler->has_code = true;

@@ -103,7 +103,7 @@ function smarty_function_mailto($params)
         return;
     }
     // FIXME: (rodneyrehm) document.write() excues me what? 1998 has passed!
-    if ($encode == 'javascript') {
+    if ($encode === 'javascript') {
         $string = 'document.write(\'<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>\');';
 
         $js_encode = '';
@@ -112,7 +112,7 @@ function smarty_function_mailto($params)
         }
 
         return '<script type="text/javascript">eval(unescape(\'' . $js_encode . '\'))</script>';
-    } elseif ($encode == 'javascript_charcode') {
+    } elseif ($encode === 'javascript_charcode') {
         $string = '<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>';
 
         for ($x = 0, $y = strlen($string); $x < $y; $x ++) {
@@ -123,7 +123,7 @@ function smarty_function_mailto($params)
                 implode(',', $ord) . "))" . "}\n" . "</script>\n";
 
         return $_ret;
-    } elseif ($encode == 'hex') {
+    } elseif ($encode === 'hex') {
         preg_match('!^(.*)(\?.*)$!', $address, $match);
         if (!empty($match[ 2 ])) {
             trigger_error("mailto: hex encoding does not work with extra attributes. Try javascript.", E_USER_WARNING);

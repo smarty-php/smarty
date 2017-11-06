@@ -44,7 +44,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         $_dir_sep = $smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;
-            $smarty->caching = false;
+            $smarty->caching = Smarty::CACHING_OFF;
             /* @var Smarty_Internal_Template $tpl */
             $tpl = $smarty->createTemplate($resource_name);
             $smarty->caching = $_save_stat;
@@ -104,7 +104,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                                                                       $_resource_part_2_length) === 0))
                 ) {
                     if (isset($exp_time)) {
-                        if (is_file($_filepath) && time() - @filemtime($_filepath) >= $exp_time) {
+                        if (is_file($_filepath) && time() - filemtime($_filepath) >= $exp_time) {
                             $unlink = true;
                         }
                     } else {
@@ -114,7 +114,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                 if ($unlink && is_file($_filepath) && @unlink($_filepath)) {
                     $_count++;
                     if (function_exists('opcache_invalidate')
-                        && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
+                        && (!function_exists('ini_get') || strlen(ini_get('opcache.restrict_api')) < 1)
                     ) {
                         opcache_invalidate($_filepath, true);
                     } else if (function_exists('apc_delete_file')) {

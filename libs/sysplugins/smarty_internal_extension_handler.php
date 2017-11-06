@@ -111,9 +111,9 @@ class Smarty_Internal_Extension_Handler
                         }
                         if ($propertyType) {
                             $obj = $propertyType === 1 ? $data : $smarty;
-                            if ($match[2] == 'get') {
+                            if ($match[2] === 'get') {
                                 return $obj->$property;
-                            } else if ($match[2] == 'set') {
+                            } else if ($match[2] === 'set') {
                                 return $obj->$property = $args[0];
                             }
                         }
@@ -154,7 +154,7 @@ class Smarty_Internal_Extension_Handler
     public function __get($property_name)
     {
         // object properties of runtime template extensions will start with '_'
-        if ($property_name[0] == '_') {
+        if ($property_name[0] === '_') {
             $class = 'Smarty_Internal_Runtime' . $this->upperCase($property_name);
         } else {
             $class = 'Smarty_Internal_Method_' . $this->upperCase($property_name);

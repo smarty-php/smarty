@@ -312,7 +312,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $compiled_code .= $tpl->compiler->postFilter($tpl->compiler->blockOrFunctionCode);
             $compiled_code .= "<?php\n\n";
             $compiled_code .= "/* End inline template \"{$sourceInfo}\" =============================*/\n";
-            $compiled_code .= "?>";
+            $compiled_code .= '?>';
             unset($tpl->compiler);
             if ($tpl->compiled->has_nocache_code) {
                 // replace nocache_hash

@@ -136,22 +136,22 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             $source->handler->process($_smarty_tpl);
         } else if (!$source->handler->uncompiled) {
             if (!$this->exists || $smarty->force_compile ||
-                ($smarty->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
+                ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
             ) {
                 $this->compileTemplateSource($_smarty_tpl);
-                $compileCheck = $smarty->compile_check;
-                $smarty->compile_check = false;
+                $compileCheck = $_smarty_tpl->compile_check;
+                $_smarty_tpl->compile_check = Smarty::COMPILECHECK_OFF;
                 $this->loadCompiledTemplate($_smarty_tpl);
-                $smarty->compile_check = $compileCheck;
+                $_smarty_tpl->compile_check = $compileCheck;
             } else {
                 $_smarty_tpl->mustCompile = true;
                 @include($this->filepath);
                 if ($_smarty_tpl->mustCompile) {
                     $this->compileTemplateSource($_smarty_tpl);
-                    $compileCheck = $smarty->compile_check;
-                    $smarty->compile_check = false;
+                    $compileCheck = $_smarty_tpl->compile_check;
+                    $_smarty_tpl->compile_check = Smarty::COMPILECHECK_OFF;
                     $this->loadCompiledTemplate($_smarty_tpl);
-                    $smarty->compile_check = $compileCheck;
+                    $_smarty_tpl->compile_check = $compileCheck;
                 }
             }
             $_smarty_tpl->_subTemplateRegister();
@@ -250,7 +250,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             apc_compile_file($this->filepath);
         }
         if (defined('HHVM_VERSION')) {
-            eval("?>" . file_get_contents($this->filepath));
+            eval('?>' . file_get_contents($this->filepath));
         } else {
             include($this->filepath);
         }

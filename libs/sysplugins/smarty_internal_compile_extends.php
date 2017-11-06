@@ -64,18 +64,18 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
         // add code to initialize inheritance
         $this->registerInit($compiler, true);
         $file = trim($_attr[ 'file' ], '\'"');
-        if (strlen($file) > 8 && substr($file, 0, 8) == 'extends:') {
+        if (strlen($file) > 8 && substr($file, 0, 8) === 'extends:') {
             // generate code for each template
             $files = array_reverse(explode('|', substr($file, 8)));
             $i = 0;
             foreach ($files as $file) {
-                if ($file[ 0 ] == '"') {
+                if ($file[ 0 ] === '"') {
                     $file = trim($file, '".');
                 } else {
                     $file = "'{$file}'";
                 }
                 $i ++;
-                if ($i == count($files) && isset($_attr[ 'extends_resource' ])) {
+                if ($i === count($files) && isset($_attr[ 'extends_resource' ])) {
                     $this->compileEndChild($compiler);
                 }
                 $this->compileInclude($compiler, $file);
@@ -104,14 +104,14 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
         $inlineUids = '';
         if (isset($template) && $compiler->smarty->merge_compiled_includes) {
             $code = $compiler->compileTag('include', array($template, array('scope' => 'parent')));
-            if (preg_match("/([,][\s]*['][a-z0-9]+['][,][\s]*[']content.*['])[)]/", $code, $match)) {
+            if (preg_match('/([,][\s]*[\'][a-z0-9]+[\'][,][\s]*[\']content.*[\'])[)]/', $code, $match)) {
                 $inlineUids = $match[ 1 ];
             }
         }
         $compiler->parser->template_postfix[] = new Smarty_Internal_ParseTree_Tag($compiler->parser,
-                                                                                  "<?php \$_smarty_tpl->inheritance->endChild(\$_smarty_tpl" .
+                                                                                  '<?php $_smarty_tpl->inheritance->endChild($_smarty_tpl' .
                                                                                   (isset($template) ?
-                                                                                      ', ' . $template . $inlineUids :
+                                                                                      ", {$template}{$inlineUids}" :
                                                                                       '') . ");\n?>\n");
     }
 

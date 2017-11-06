@@ -41,7 +41,7 @@ class Smarty_Internal_Method_MustCompile
         if ($_template->mustCompile === null) {
             $_template->mustCompile = (!$_template->source->handler->uncompiled &&
                                        ($_template->smarty->force_compile || $_template->source->handler->recompiled ||
-                                        !$_template->compiled->exists || ($_template->smarty->compile_check &&
+                                        !$_template->compiled->exists || ($_template->compile_check &&
                                                                           $_template->compiled->getTimeStamp() <
                                                                           $_template->source->getTimeStamp())));
         }

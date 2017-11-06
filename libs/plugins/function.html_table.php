@@ -127,7 +127,7 @@ function smarty_function_html_table($params)
     }
 
     if (is_array($cols)) {
-        $cols = ($hdir == 'right') ? $cols : array_reverse($cols);
+        $cols = ($hdir === 'right') ? $cols : array_reverse($cols);
         $output .= "<thead><tr>\n";
 
         for ($r = 0; $r < $cols_count; $r ++) {
@@ -141,11 +141,11 @@ function smarty_function_html_table($params)
     $output .= "<tbody>\n";
     for ($r = 0; $r < $rows; $r ++) {
         $output .= "<tr" . smarty_function_html_table_cycle('tr', $tr_attr, $r) . ">\n";
-        $rx = ($vdir == 'down') ? $r * $cols_count : ($rows - 1 - $r) * $cols_count;
+        $rx = ($vdir === 'down') ? $r * $cols_count : ($rows - 1 - $r) * $cols_count;
 
         for ($c = 0; $c < $cols_count; $c ++) {
-            $x = ($hdir == 'right') ? $rx + $c : $rx + $cols_count - 1 - $c;
-            if ($inner != 'cols') {
+            $x = ($hdir === 'right') ? $rx + $c : $rx + $cols_count - 1 - $c;
+            if ($inner !== 'cols') {
                 /* shuffle x to loop over rows*/
                 $x = floor($x / $cols_count) + ($x % $cols_count) * $rows;
             }

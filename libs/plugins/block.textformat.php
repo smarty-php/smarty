@@ -75,11 +75,11 @@ function smarty_block_textformat($params, $content, $template, &$repeat)
                 break;
 
             default:
-                trigger_error("textformat: unknown attribute '$_key'");
+                trigger_error("textformat: unknown attribute '{$_key}'");
         }
     }
 
-    if ($style == 'email') {
+    if ($style === 'email') {
         $wrap = 72;
     }
     // split into paragraphs

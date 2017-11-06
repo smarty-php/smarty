@@ -99,7 +99,7 @@ class Smarty_Internal_Compile_Break extends Smarty_Internal_CompileBase
             }
             $stack_count --;
         }
-        if ($level_count != 0) {
+        if ($level_count !== 0) {
             $compiler->trigger_template_error("cannot {$tag} {$levels} level(s)", null, true);
         }
         if ($lastTag === 'foreach' && $tag === 'break') {

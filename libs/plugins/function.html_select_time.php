@@ -34,7 +34,7 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
         require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
         $template->smarty->_cache[ '_required_smt' ] = true;
     }
-    $prefix = "Time_";
+    $prefix = 'Time_';
     $field_array = null;
     $field_separator = "\n";
     $option_separator = "\n";
@@ -143,7 +143,7 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
                 if (!is_array($_value)) {
                     $extra_attrs .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_value) . '"';
                 } else {
-                    trigger_error("html_select_date: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    trigger_error("html_select_date: extra attribute '{$_key}' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }
@@ -224,8 +224,8 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
         $end = $use_24_hours ? 23 : 12;
         for ($i = $start; $i <= $end; $i ++) {
             $_val = sprintf('%02d', $i);
-            $_text = $hour_format == '%02d' ? $_val : sprintf($hour_format, $i);
-            $_value = $hour_value_format == '%02d' ? $_val : sprintf($hour_value_format, $i);
+            $_text = $hour_format === '%02d' ? $_val : sprintf($hour_format, $i);
+            $_value = $hour_value_format === '%02d' ? $_val : sprintf($hour_value_format, $i);
 
             if (!$use_24_hours) {
                 $_hour12 = $_hour == 0 ? 12 : ($_hour <= 12 ? $_hour : $_hour - 12);
@@ -271,8 +271,8 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
         $selected = $_minute !== null ? ($_minute - $_minute % $minute_interval) : null;
         for ($i = 0; $i <= 59; $i += $minute_interval) {
             $_val = sprintf('%02d', $i);
-            $_text = $minute_format == '%02d' ? $_val : sprintf($minute_format, $i);
-            $_value = $minute_value_format == '%02d' ? $_val : sprintf($minute_value_format, $i);
+            $_text = $minute_format === '%02d' ? $_val : sprintf($minute_format, $i);
+            $_value = $minute_value_format === '%02d' ? $_val : sprintf($minute_value_format, $i);
             $_html_minutes .= '<option value="' . $_value . '"' . ($selected === $i ? ' selected="selected"' : '') .
                               '>' . $_text . '</option>' . $option_separator;
         }
@@ -312,8 +312,8 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
         $selected = $_second !== null ? ($_second - $_second % $second_interval) : null;
         for ($i = 0; $i <= 59; $i += $second_interval) {
             $_val = sprintf('%02d', $i);
-            $_text = $second_format == '%02d' ? $_val : sprintf($second_format, $i);
-            $_value = $second_value_format == '%02d' ? $_val : sprintf($second_value_format, $i);
+            $_text = $second_format === '%02d' ? $_val : sprintf($second_format, $i);
+            $_value = $second_value_format === '%02d' ? $_val : sprintf($second_value_format, $i);
             $_html_seconds .= '<option value="' . $_value . '"' . ($selected === $i ? ' selected="selected"' : '') .
                               '>' . $_text . '</option>' . $option_separator;
         }

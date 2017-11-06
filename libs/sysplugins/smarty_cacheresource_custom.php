@@ -138,7 +138,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
                          $_smarty_tpl->compile_id, $content, $timestamp);
         }
         if (isset($content)) {
-            eval("?>" . $content);
+            eval('?>' . $content);
             $cached->content = null;
             return true;
         }

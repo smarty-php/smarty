@@ -118,7 +118,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         $fromName = $compiler->getVariableName($_attr[ 'from' ]);
         if ($fromName) {
             foreach (array('item', 'key') as $a) {
-                if (isset($attributes[ $a ]) && $attributes[ $a ] == $fromName) {
+                if (isset($attributes[ $a ]) && $attributes[ $a ] === $fromName) {
                     $compiler->trigger_template_error("'{$a}' and 'from' may not have same variable name '{$fromName}'",
                                                       null, true);
                 }
@@ -137,7 +137,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         if (!empty($this->matchResults[ 'named' ])) {
             $namedAttr = $this->matchResults[ 'named' ];
         }
-        if (isset($_attr[ 'properties' ]) && preg_match_all("/['](.*?)[']/", $_attr[ 'properties' ], $match)) {
+        if (isset($_attr[ 'properties' ]) && preg_match_all('/[\'](.*?)[\']/', $_attr[ 'properties' ], $match)) {
             foreach ($match[ 1 ] as $prop) {
                 if (in_array($prop, $this->itemProperties)) {
                     $itemAttr[ $prop ] = true;
@@ -229,7 +229,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
             $output .= "{$itemVar}->first = !{$itemVar}->index;\n";
         }
         if (isset($itemAttr[ 'last' ])) {
-            $output .= "{$itemVar}->last = {$itemVar}->iteration == {$itemVar}->total;\n";
+            $output .= "{$itemVar}->last = {$itemVar}->iteration === {$itemVar}->total;\n";
         }
         if (isset($foreachVar)) {
             if (isset($namedAttr[ 'iteration' ])) {
@@ -242,13 +242,13 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
                 $output .= "{$foreachVar}->value['first'] = !{$foreachVar}->value['index'];\n";
             }
             if (isset($namedAttr[ 'last' ])) {
-                $output .= "{$foreachVar}->value['last'] = {$foreachVar}->value['iteration'] == {$foreachVar}->value['total'];\n";
+                $output .= "{$foreachVar}->value['last'] = {$foreachVar}->value['iteration'] === {$foreachVar}->value['total'];\n";
             }
         }
         if (!empty($itemAttr)) {
             $output .= "{$local}saved = {$itemVar};\n";
         }
-        $output .= "?>";
+        $output .= '?>';
 
         return $output;
     }
@@ -290,7 +290,7 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase
         list($openTag, $nocache, $local, $itemVar, $restore) = $this->closeTag($compiler, array('foreach'));
         $this->openTag($compiler, 'foreachelse', array('foreachelse', $nocache, $local, $itemVar, 0));
         $output = "<?php\n";
-        if ($restore == 2) {
+        if ($restore === 2) {
             $output .= "{$itemVar} = {$local}saved;\n";
         }
         $output .= "}\n} else {\n?>\n";
@@ -327,7 +327,7 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
             $this->closeTag($compiler, array('foreach', 'foreachelse'));
         $output = "<?php\n";
 
-        if ($restore == 2) {
+        if ($restore === 2) {
             $output .= "{$itemVar} = {$local}saved;\n";
         }
         if ($restore > 0) {

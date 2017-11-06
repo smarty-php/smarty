@@ -28,7 +28,7 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
     switch (gettype($var)) {
         case 'array' :
             $results = '<b>Array (' . count($var) . ')</b>';
-            if ($depth == $max) {
+            if ($depth === $max) {
                 break;
             }
             foreach ($var as $curr_key => $curr_val) {
@@ -46,7 +46,7 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
                 $results .= ' called recursive';
                 break;
             }
-            if ($depth == $max) {
+            if ($depth === $max) {
                 break;
             }
             $objects[] = $var;

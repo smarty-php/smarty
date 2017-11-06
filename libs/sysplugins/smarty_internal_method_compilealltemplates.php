@@ -72,10 +72,10 @@ class Smarty_Internal_Method_CompileAllTemplates
             $_dir_2 = new RecursiveIteratorIterator($_dir_1);
             foreach ($_dir_2 as $_fileinfo) {
                 $_file = $_fileinfo->getFilename();
-                if (substr(basename($_fileinfo->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
+                if (substr(basename($_fileinfo->getPathname()), 0, 1) === '.' || strpos($_file, '.svn') !== false) {
                     continue;
                 }
-                if (!substr_compare($_file, $extension, -strlen($extension)) == 0) {
+                if (!substr_compare($_file, $extension, -strlen($extension)) === 0) {
                     continue;
                 }
                 if ($_fileinfo->getPath() !== substr($_dir, 0, -1)) {
@@ -85,7 +85,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                 flush();
                 $_start_time = microtime(true);
                 $_smarty = clone $smarty;
-                // 
+                //
                 $_smarty->_cache = array();
                 $_smarty->ext = new Smarty_Internal_Extension_Handler();
                 $_smarty->ext->objType = $_smarty->_objType;
@@ -113,7 +113,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                 // free memory
                 unset($_tpl);
                 $_smarty->_clearTemplateCache();
-                if ($max_errors !== null && $_error_count == $max_errors) {
+                if ($max_errors !== null && $_error_count === $max_errors) {
                     echo "\n<br><br>too many errors\n";
                     exit();
                 }

@@ -71,7 +71,7 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
             $_scope = $compiler->convertScope($_attr, $this->valid_scopes);
         }
         // optional parameter
-        $_params = "";
+        $_params = '';
         if ($_nocache || $_scope) {
             $_params .= ' ,' . var_export($_nocache, true);
         }

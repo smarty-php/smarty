@@ -83,7 +83,7 @@ class Smarty_Internal_Method_ConfigLoad
         $this->_assignConfigVars($tpl->parent->config_vars, $tpl, $new_config_vars);
         $tagScope = $tpl->source->scope;
         if ($tagScope >= 0) {
-            if ($tagScope == Smarty::SCOPE_LOCAL) {
+            if ($tagScope === Smarty::SCOPE_LOCAL) {
                 $this->_updateVarStack($tpl, $new_config_vars);
                 $tagScope = 0;
                 if (!$tpl->scope) {

@@ -200,7 +200,7 @@ class Smarty_Internal_TestInstall
                 } else {
                     $errors[ 'plugins_dir' ] = $message;
                 }
-            } else if ($_core_plugins_dir && $_core_plugins_dir == realpath($plugin_dir)) {
+            } else if ($_core_plugins_dir && $_core_plugins_dir === realpath($plugin_dir)) {
                 $_core_plugins_available = true;
                 if ($errors === null) {
                     echo "$plugin_dir is OK.\n";

@@ -55,12 +55,12 @@ function smarty_function_cycle($params, $template)
 
     if (!isset($params[ 'values' ])) {
         if (!isset($cycle_vars[ $name ][ 'values' ])) {
-            trigger_error("cycle: missing 'values' parameter");
+            trigger_error('cycle: missing \'values\' parameter');
 
             return;
         }
     } else {
-        if (isset($cycle_vars[ $name ][ 'values' ]) && $cycle_vars[ $name ][ 'values' ] != $params[ 'values' ]) {
+        if (isset($cycle_vars[ $name ][ 'values' ]) && $cycle_vars[ $name ][ 'values' ] !== $params[ 'values' ]) {
             $cycle_vars[ $name ][ 'index' ] = 0;
         }
         $cycle_vars[ $name ][ 'values' ] = $params[ 'values' ];

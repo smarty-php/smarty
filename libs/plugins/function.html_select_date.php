@@ -65,18 +65,18 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
     }
 
     /* Default values. */
-    $prefix = "Date_";
+    $prefix = 'Date_';
     $start_year = null;
     $end_year = null;
     $display_days = true;
     $display_months = true;
     $display_years = true;
-    $month_format = "%B";
+    $month_format = '%B';
     /* Write months as numbers by default  GL */
-    $month_value_format = "%m";
-    $day_format = "%02d";
+    $month_value_format = '%m';
+    $day_format = '%02d';
     /* Write day values using this format MB */
-    $day_value_format = "%d";
+    $day_value_format = '%d';
     $year_as_text = false;
     /* Display years in reverse order? Ie. 2000,1999,.... */
     $reverse_years = false;
@@ -122,10 +122,10 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
                 break;
 
             case 'month_names':
-                if (is_array($_value) && count($_value) == 12) {
+                if (is_array($_value) && count($_value) === 12) {
                     $$_key = $_value;
                 } else {
-                    trigger_error("html_select_date: month_names must be an array of 12 strings", E_USER_NOTICE);
+                    trigger_error('html_select_date: month_names must be an array of 12 strings', E_USER_NOTICE);
                 }
                 break;
 
@@ -170,7 +170,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
                 if (!is_array($_value)) {
                     $extra_attrs .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_value) . '"';
                 } else {
-                    trigger_error("html_select_date: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    trigger_error("html_select_date: extra attribute '{$_key}' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }
@@ -220,9 +220,9 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
         $t = $$key;
         if ($t === null) {
             $$key = (int) $_current_year;
-        } elseif ($t[ 0 ] == '+') {
+        } elseif ($t[ 0 ] === '+') {
             $$key = (int) ($_current_year + (int) trim(substr($t, 1)));
-        } elseif ($t[ 0 ] == '-') {
+        } elseif ($t[ 0 ] === '-') {
             $$key = (int) ($_current_year - (int) trim(substr($t, 1)));
         } else {
             $$key = (int) $$key;
@@ -310,8 +310,8 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
         for ($i = 1; $i <= 12; $i ++) {
             $_val = sprintf('%02d', $i);
             $_text = isset($month_names) ? smarty_function_escape_special_chars($month_names[ $i ]) :
-                ($month_format == "%m" ? $_val : strftime($month_format, $_month_timestamps[ $i ]));
-            $_value = $month_value_format == "%m" ? $_val : strftime($month_value_format, $_month_timestamps[ $i ]);
+                ($month_format === '%m' ? $_val : strftime($month_format, $_month_timestamps[ $i ]));
+            $_value = $month_value_format === '%m' ? $_val : strftime($month_value_format, $_month_timestamps[ $i ]);
             $_html_months .= '<option value="' . $_value . '"' . ($_val == $_month ? ' selected="selected"' : '') .
                              '>' . $_text . '</option>' . $option_separator;
         }
@@ -348,8 +348,8 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
 
         for ($i = 1; $i <= 31; $i ++) {
             $_val = sprintf('%02d', $i);
-            $_text = $day_format == '%02d' ? $_val : sprintf($day_format, $i);
-            $_value = $day_value_format == '%02d' ? $_val : sprintf($day_value_format, $i);
+            $_text = $day_format === '%02d' ? $_val : sprintf($day_format, $i);
+            $_value = $day_value_format === '%02d' ? $_val : sprintf($day_value_format, $i);
             $_html_days .= '<option value="' . $_value . '"' . ($_val == $_day ? ' selected="selected"' : '') . '>' .
                            $_text . '</option>' . $option_separator;
         }

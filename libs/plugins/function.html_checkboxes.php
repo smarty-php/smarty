@@ -90,11 +90,11 @@ function smarty_function_html_checkboxes($params, $template)
                     $selected = array();
                     foreach ($_val as $_sel) {
                         if (is_object($_sel)) {
-                            if (method_exists($_sel, "__toString")) {
+                            if (method_exists($_sel, '__toString')) {
                                 $_sel = smarty_function_escape_special_chars((string) $_sel->__toString());
                             } else {
-                                trigger_error("html_checkboxes: selected attribute contains an object of class '" .
-                                              get_class($_sel) . "' without __toString() method", E_USER_NOTICE);
+                                trigger_error('html_checkboxes: selected attribute contains an object of class \'' .
+                                              get_class($_sel) . '\' without __toString() method', E_USER_NOTICE);
                                 continue;
                             }
                         } else {
@@ -103,11 +103,11 @@ function smarty_function_html_checkboxes($params, $template)
                         $selected[ $_sel ] = true;
                     }
                 } elseif (is_object($_val)) {
-                    if (method_exists($_val, "__toString")) {
+                    if (method_exists($_val, '__toString')) {
                         $selected = smarty_function_escape_special_chars((string) $_val->__toString());
                     } else {
-                        trigger_error("html_checkboxes: selected attribute is an object of class '" . get_class($_val) .
-                                      "' without __toString() method", E_USER_NOTICE);
+                        trigger_error('html_checkboxes: selected attribute is an object of class \'' . get_class($_val) .
+                                      '\' without __toString() method', E_USER_NOTICE);
                     }
                 } else {
                     $selected = smarty_function_escape_special_chars((string) $_val);
@@ -130,7 +130,7 @@ function smarty_function_html_checkboxes($params, $template)
             case 'readonly':
                 if (!empty($params[ 'strict' ])) {
                     if (!is_scalar($_val)) {
-                        trigger_error("html_options: $_key attribute must be a scalar, only boolean true or string '$_key' will actually add the attribute",
+                        trigger_error("html_options: {$_key} attribute must be a scalar, only boolean true or string '{$_key}' will actually add the attribute",
                                       E_USER_NOTICE);
                     }
 
@@ -146,7 +146,7 @@ function smarty_function_html_checkboxes($params, $template)
                 if (!is_array($_val)) {
                     $extra .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_val) . '"';
                 } else {
-                    trigger_error("html_checkboxes: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    trigger_error("html_checkboxes: extra attribute '{$_key}' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }
@@ -198,11 +198,11 @@ function smarty_function_html_checkboxes_output($name, $value, $output, $selecte
     $_output = '';
 
     if (is_object($value)) {
-        if (method_exists($value, "__toString")) {
+        if (method_exists($value, '__toString')) {
             $value = (string) $value->__toString();
         } else {
-            trigger_error("html_options: value is an object of class '" . get_class($value) .
-                          "' without __toString() method", E_USER_NOTICE);
+            trigger_error('html_options: value is an object of class \'' . get_class($value) .
+                          '\' without __toString() method', E_USER_NOTICE);
 
             return '';
         }
@@ -211,11 +211,11 @@ function smarty_function_html_checkboxes_output($name, $value, $output, $selecte
     }
 
     if (is_object($output)) {
-        if (method_exists($output, "__toString")) {
+        if (method_exists($output, '__toString')) {
             $output = (string) $output->__toString();
         } else {
-            trigger_error("html_options: output is an object of class '" . get_class($output) .
-                          "' without __toString() method", E_USER_NOTICE);
+            trigger_error('html_options: output is an object of class \'' . get_class($output) .
+                          '\' without __toString() method', E_USER_NOTICE);
 
             return '';
         }

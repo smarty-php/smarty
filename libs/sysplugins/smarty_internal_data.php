@@ -29,7 +29,7 @@
  * @method Smarty_Internal_Data clearConfig(string $varName = null)
  * @method Smarty_Internal_Data configLoad(string $config_file, mixed $sections = null, string $scope = 'local')
  */
-class Smarty_Internal_Data
+abstract class Smarty_Internal_Data
 {
     /**
      * This object type (Smarty = 1, template = 2, data = 4)
@@ -55,7 +55,7 @@ class Smarty_Internal_Data
     /**
      * parent template (if any)
      *
-     * @var Smarty|Smarty_Internal_Template|Smarty_Internal_Data
+     * @var Smarty|Smarty_Internal_Template|Smarty_Data
      */
     public $parent = null;
 
@@ -101,7 +101,7 @@ class Smarty_Internal_Data
                 $this->assign($_key, $_val, $nocache);
             }
         } else {
-            if ($tpl_var != '') {
+            if ($tpl_var !== '') {
                 if ($this->_objType === 2) {
                     /** @var  Smarty_Internal_Template $this */
                     $this->_assignInScope($tpl_var, $value, $nocache);

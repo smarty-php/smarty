@@ -67,7 +67,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                             preg_match_all('/(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|:|[^:]+)/',
                                            $single_default_modifier, $mod_array);
                             for ($i = 0, $count = count($mod_array[ 0 ]); $i < $count; $i ++) {
-                                if ($mod_array[ 0 ][ $i ] != ':') {
+                                if ($mod_array[ 0 ][ $i ] !== ':') {
                                     $modifierlist[ $key ][] = $mod_array[ 0 ][ $i ];
                                 }
                             }
@@ -110,7 +110,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                     }
                 }
                 foreach ($compiler->variable_filters as $filter) {
-                    if (count($filter) == 1 &&
+                    if (count($filter) === 1 &&
                         ($result = $this->compile_output_filter($compiler, $filter[ 0 ], $output)) !== false
                     ) {
                         $output = $result;

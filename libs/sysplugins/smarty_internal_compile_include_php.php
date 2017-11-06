@@ -81,7 +81,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
                 }
             }
         }
-        if ($_filepath == false) {
+        if ($_filepath === false) {
             $compiler->trigger_template_error("{include_php} file '{$_file}' is not readable", null, true);
         }
         if (isset($compiler->smarty->security_policy)) {
@@ -93,7 +93,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
         }
         $_once = '_once';
         if (isset($_attr[ 'once' ])) {
-            if ($_attr[ 'once' ] == 'false') {
+            if ($_attr[ 'once' ] === 'false') {
                 $_once = '';
             }
         }

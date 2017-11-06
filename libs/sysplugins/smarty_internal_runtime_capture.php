@@ -130,7 +130,7 @@ class Smarty_Internal_Runtime_Capture
      */
     public function error(Smarty_Internal_Template $_template)
     {
-        throw new SmartyException("Not matching {capture}{/capture} in \"{$_template->template_resource}\"");
+        throw new SmartyException("Not matching {capture}{/capture} in '{$_template->template_resource}'");
     }
 
     /**

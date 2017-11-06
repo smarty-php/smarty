@@ -27,7 +27,7 @@
  */
 function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_words = false, $middle = false)
 {
-    if ($length == 0) {
+    if ($length === 0) {
         return '';
     }
 

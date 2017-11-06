@@ -114,7 +114,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                 case 'rdelim':
                     return "\$_smarty_tpl->smarty->right_delimiter";
                 default:
-                    $compiler->trigger_template_error('$smarty.' . trim($_index[ 0 ], "'") . ' is not defined');
+                    $compiler->trigger_template_error('$smarty.' . trim($_index[ 0 ], '\'') . ' is not defined');
                     break;
             }
             if (isset($_index[ 1 ])) {

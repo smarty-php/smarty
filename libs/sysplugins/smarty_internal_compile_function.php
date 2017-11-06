@@ -59,7 +59,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
             $compiler->trigger_template_error('nocache option not allowed', null, true);
         }
         unset($_attr[ 'nocache' ]);
-        $_name = trim($_attr[ 'name' ], "'\"");
+        $_name = trim($_attr[ 'name' ], '\'"');
         $compiler->parent_compiler->tpl_function[ $_name ] = array();
         $save = array($_attr, $compiler->parser->current_buffer, $compiler->template->compiled->has_nocache_code,
                       $compiler->template->caching);
@@ -100,7 +100,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $this->compiler = $compiler;
         $saved_data = $this->closeTag($compiler, array('function'));
         $_attr = $saved_data[ 0 ];
-        $_name = trim($_attr[ 'name' ], "'\"");
+        $_name = trim($_attr[ 'name' ], '\'"');
         $compiler->parent_compiler->tpl_function[ $_name ][ 'compiled_filepath' ] =
             $compiler->parent_compiler->template->compiled->filepath;
         $compiler->parent_compiler->tpl_function[ $_name ][ 'uid' ] = $compiler->template->source->uid;
@@ -116,7 +116,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             }
         }
         if (!empty($_paramsArray)) {
-            $_params = 'array(' . implode(",", $_paramsArray) . ')';
+            $_params = 'array(' . implode(',', $_paramsArray) . ')';
             $_paramsCode = "\$params = array_merge($_params, \$params);\n";
         } else {
             $_paramsCode = '';
@@ -198,7 +198,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
 
     /**
      * Remove nocache code
-     * 
+     *
      * @param $match
      *
      * @return string

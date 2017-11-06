@@ -46,14 +46,14 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag, $function = null)
     {
-        if (!isset($tag[ 5 ]) || substr($tag, - 5) != 'close') {
+        if (!isset($tag[ 5 ]) || substr($tag, - 5) !== 'close') {
             // opening tag of block plugin
             // check and get attributes
             $_attr = $this->getAttributes($compiler, $args);
             $this->nesting ++;
             unset($_attr[ 'nocache' ]);
             list($callback, $_paramsArray, $callable) = $this->setup($compiler, $_attr, $tag, $function);
-            $_params = 'array(' . implode(",", $_paramsArray) . ')';
+            $_params = 'array(' . implode(',', $_paramsArray) . ')';
 
             // compile code
             $output = "<?php ";
@@ -90,11 +90,8 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                                                             array('modifierlist' => $parameter[ 'modifier_list' ],
                                                                   'value' => 'ob_get_clean()')) . ";\n";
             }
-            $output = "<?php " . $mod_content . "\$_block_repeat=false;\n" . $mod_pre .
-                      "echo {$callback}({$_params}, " . $mod_content2 .
-                      ", \$_smarty_tpl, \$_block_repeat);\n" . $mod_post . "}\n";
-            $output .= "array_pop(\$_smarty_tpl->smarty->_cache['_tag_stack']);";
-            $output .= "?>";
+            $output = "<?php {$mod_content}\$_block_repeat=false;\n{$mod_pre}echo {$callback}({$_params}, {$mod_content2}, \$_smarty_tpl, \$_block_repeat);\n{$mod_post}}\n";
+            $output .= 'array_pop($_smarty_tpl->smarty->_cache[\'_tag_stack\']);?>';
         }
         return $output . "\n";
     }

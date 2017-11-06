@@ -67,7 +67,7 @@ function smarty_function_html_image($params, $template)
                 if (!is_array($_val)) {
                     $$_key = smarty_function_escape_special_chars($_val);
                 } else {
-                    throw new SmartyException ("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    throw new SmartyException ("html_image: extra attribute '{$_key}' cannot be an array", E_USER_NOTICE);
                 }
                 break;
 
@@ -81,19 +81,19 @@ function smarty_function_html_image($params, $template)
                 if (!is_array($_val)) {
                     $extra .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_val) . '"';
                 } else {
-                    throw new SmartyException ("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    throw new SmartyException ("html_image: extra attribute '{$_key}' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }
     }
 
     if (empty($file)) {
-        trigger_error("html_image: missing 'file' parameter", E_USER_NOTICE);
+        trigger_error('html_image: missing \'file\' parameter', E_USER_NOTICE);
 
         return;
     }
 
-    if ($file[ 0 ] == '/') {
+    if ($file[ 0 ] === '/') {
         $_image_path = $basedir . $file;
     } else {
         $_image_path = $file;
@@ -127,15 +127,15 @@ function smarty_function_html_image($params, $template)
         // FIXME: (rodneyrehm) getimagesize() loads the complete file off a remote resource, use custom [jpg,png,gif]header reader!
         if (!$_image_data = @getimagesize($_image_path)) {
             if (!file_exists($_image_path)) {
-                trigger_error("html_image: unable to find '$_image_path'", E_USER_NOTICE);
+                trigger_error("html_image: unable to find '{$_image_path}'", E_USER_NOTICE);
 
                 return;
             } elseif (!is_readable($_image_path)) {
-                trigger_error("html_image: unable to read '$_image_path'", E_USER_NOTICE);
+                trigger_error("html_image: unable to read '{$_image_path}'", E_USER_NOTICE);
 
                 return;
             } else {
-                trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
+                trigger_error("html_image: '{$_image_path}' is not a valid image file", E_USER_NOTICE);
 
                 return;
             }

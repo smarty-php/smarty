@@ -85,10 +85,10 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
     public function renderUncompiled(Smarty_Template_Source $source, Smarty_Internal_Template $_template)
     {
         if (!$source->smarty->allow_php_templates) {
-            throw new SmartyException("PHP templates are disabled");
+            throw new SmartyException('PHP templates are disabled');
         }
         if (!$source->exists) {
-            throw new SmartyException("Unable to load template {$source->type} '{$source->name}'" .
+            throw new SmartyException("Unable to load template '{$source->type}:{$source->name}'" .
                                       ($_template->_isSubTpl() ? " in '{$_template->parent->template_resource}'" : ''));
         }
 

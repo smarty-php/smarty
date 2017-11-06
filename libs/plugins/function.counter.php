@@ -63,7 +63,7 @@ function smarty_function_counter($params, $template)
         $counter[ 'direction' ] = $params[ 'direction' ];
     }
 
-    if ($counter[ 'direction' ] == "down") {
+    if ($counter[ 'direction' ] === 'down') {
         $counter[ 'count' ] -= $counter[ 'skip' ];
     } else {
         $counter[ 'count' ] += $counter[ 'skip' ];

@@ -70,7 +70,7 @@ class Smarty_Internal_Runtime_Inheritance
     public function init(Smarty_Internal_Template $tpl, $initChild, $blockNames = array())
     {
         // if called while executing parent template it must be a sub-template with new inheritance root
-        if ($initChild && $this->state == 3 && (strpos($tpl->template_resource, 'extendsall') === false)) {
+        if ($initChild && $this->state === 3 && (strpos($tpl->template_resource, 'extendsall') === false)) {
             $tpl->inheritance = new Smarty_Internal_Runtime_Inheritance();
             $tpl->inheritance->init($tpl, $initChild, $blockNames);
             return;
@@ -90,7 +90,7 @@ class Smarty_Internal_Runtime_Inheritance
             //           $tpl->endRenderCallbacks[ 'inheritance' ] = array($this, 'subTemplateEnd');
         }
         // if state was waiting for parent change state to parent
-        if ($this->state == 2) {
+        if ($this->state === 2) {
             $this->state = 3;
         }
     }
@@ -131,7 +131,7 @@ class Smarty_Internal_Runtime_Inheritance
 
     /**
      * Smarty_Internal_Block constructor.
-     * - if outer level {block} of child template ($state == 1) save it as child root block
+     * - if outer level {block} of child template ($state === 1) save it as child root block
      * - otherwise process inheritance and render
      *
      * @param \Smarty_Internal_Template $tpl
@@ -147,7 +147,7 @@ class Smarty_Internal_Runtime_Inheritance
         if (isset($this->childRoot[ $name ])) {
             $block->child = $this->childRoot[ $name ];
         }
-        if ($this->state == 1) {
+        if ($this->state === 1) {
             $this->childRoot[ $name ] = $block;
             return;
         }
@@ -226,7 +226,7 @@ class Smarty_Internal_Runtime_Inheritance
     }
 
     /**
-     * Render parent block on $smarty.block.parent or {block append/prepend}     *
+     * Render parent block on $smarty.block.parent or {block append/prepend}
      *
      * @param \Smarty_Internal_Template $tpl
      * @param \Smarty_Internal_Block    $block
