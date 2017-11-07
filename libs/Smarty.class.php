@@ -594,6 +594,13 @@ class Smarty extends Smarty_Internal_TemplateBase
                                  'cache_dir'    => 'CacheDir',);
 
     /**
+     * Allows caching of the output filter result
+     * @internal
+     * @var bool
+     */
+    public $allow_caching_output_filters = false;
+
+    /**
      * Initialize new Smarty object
      */
     public function __construct()
@@ -649,6 +656,19 @@ class Smarty extends Smarty_Internal_TemplateBase
         // create source object
         $source = Smarty_Template_Source::load(null, $this, $resource_name);
         return $source->exists;
+    }
+
+    /**
+     * Enables caching of output filters
+     *
+     * @param bool $bool
+     *
+     * @return $this
+     */
+    public function enableOutputFilterCaching($bool=true)
+    {
+        $this->allow_caching_output_filters = $bool;
+        return $this;
     }
 
     /**
