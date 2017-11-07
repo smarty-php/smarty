@@ -80,7 +80,7 @@ This is an example of the html_options function:
 
 <form>
     <select name=states>
-        {html_options values=$option_values selected=$option_selected output=$option_output}
+        {html_options values=$option_values selected=$option_selected output=$option_output placeholder='-- Select state --'}
     </select>
 </form>
 
