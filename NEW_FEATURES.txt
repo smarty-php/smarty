@@ -44,7 +44,8 @@ Smarty 3.1.32
         ....
       {/foreach}
 
-    Smarty 3.1.31
+Smarty 3.1.31
+
     New tags for inheritance parent and child
     =========================================
     {block_parent}  == {$smarty.block.parent}
