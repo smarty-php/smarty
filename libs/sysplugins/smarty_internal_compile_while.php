@@ -33,8 +33,8 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
         $_attr = $this->getAttributes($compiler, $args);
         $this->openTag($compiler, 'while', $compiler->nocache);
 
-        if (!array_key_exists("if condition", $parameter)) {
-            $compiler->trigger_template_error("missing while condition", null, true);
+        if (!array_key_exists('if condition', $parameter)) {
+            $compiler->trigger_template_error('missing while condition', null, true);
         }
 
         // maybe nocache because of nocache variables
