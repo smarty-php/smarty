@@ -1685,9 +1685,8 @@ class Smarty_Internal_Templateparser
         }
         if ($tokenType > 0 && $tokenType < count($this->yyTokenName)) {
             return $this->yyTokenName[ $tokenType ];
-        } else {
-            return "Unknown";
         }
+        return 'Unknown';
     }
 
     public function yy_pop_parser_stack()
@@ -1912,8 +1911,8 @@ class Smarty_Internal_Templateparser
                 && ($iFallback = self::$yyFallback[ $iLookAhead ]) != 0) {
                 if ($this->yyTraceFILE) {
                     fwrite($this->yyTraceFILE,
-                           $this->yyTracePrompt . "FALLBACK " .
-                           $this->yyTokenName[ $iLookAhead ] . " => " .
+                           $this->yyTracePrompt . 'FALLBACK ' .
+                           $this->yyTokenName[ $iLookAhead ] . ' => ' .
                            $this->yyTokenName[ $iFallback ] . "\n");
                 }
                 return $this->yy_find_shift_action($iFallback);
@@ -1960,7 +1959,7 @@ class Smarty_Internal_Templateparser
             }
             #line 221 "../smarty/lexer/smarty_internal_templateparser.y"
             $this->internalError = true;
-            $this->compiler->trigger_template_error("Stack overflow in template parser");
+            $this->compiler->trigger_template_error('Stack overflow in template parser');
             return;
         }
         $yytos = new TP_yyStackEntry;

@@ -364,9 +364,8 @@ class Smarty_Internal_Configfileparser
         }
         if ($tokenType > 0 && $tokenType < count($this->yyTokenName)) {
             return $this->yyTokenName[ $tokenType ];
-        } else {
-            return "Unknown";
         }
+        return 'Unknown';
     }
 
     public function yy_pop_parser_stack()
@@ -591,8 +590,8 @@ class Smarty_Internal_Configfileparser
                 && ($iFallback = self::$yyFallback[ $iLookAhead ]) != 0) {
                 if ($this->yyTraceFILE) {
                     fwrite($this->yyTraceFILE,
-                           $this->yyTracePrompt . "FALLBACK " .
-                           $this->yyTokenName[ $iLookAhead ] . " => " .
+                           $this->yyTracePrompt . 'FALLBACK ' .
+                           $this->yyTokenName[ $iLookAhead ] . ' => ' .
                            $this->yyTokenName[ $iFallback ] . "\n");
                 }
                 return $this->yy_find_shift_action($iFallback);
