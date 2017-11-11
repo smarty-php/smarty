@@ -8,8 +8,8 @@
 
 /**
  * Smarty debug_print_var modifier plugin
- * Type:     modifier<br>
- * Name:     debug_print_var<br>
+ * Type:     modifier
+ * Name:     debug_print_var
  * Purpose:  formats variable contents for display in the console
  *
  * @author Monte Ohrt <monte at ohrt dot com>

@@ -8,8 +8,8 @@
 
 /**
  * Smarty strip_tags modifier plugin
- * Type:     modifier<br>
- * Name:     strip_tags<br>
+ * Type:     modifier
+ * Name:     strip_tags
  * Purpose:  strip html tags from text
  *
  * @link   http://www.smarty.net/docs/en/language.modifier.strip.tags.tpl strip_tags (Smarty online manual)

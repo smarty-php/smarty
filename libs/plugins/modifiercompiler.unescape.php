@@ -8,8 +8,8 @@
 
 /**
  * Smarty unescape modifier plugin
- * Type:     modifier<br>
- * Name:     unescape<br>
+ * Type:     modifier
+ * Name:     unescape
  * Purpose:  unescape html entities
  *
  * @author Rodney Rehm

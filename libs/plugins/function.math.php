@@ -9,8 +9,8 @@
 
 /**
  * Smarty {math} function plugin
- * Type:     function<br>
- * Name:     math<br>
+ * Type:     function
+ * Name:     math
  * Purpose:  handle math computations in template
  *
  * @link     http://www.smarty.net/manual/en/language.function.math.php {math}

@@ -8,8 +8,8 @@
 
 /**
  * Smarty {counter} function plugin
- * Type:     function<br>
- * Name:     counter<br>
+ * Type:     function
+ * Name:     counter
  * Purpose:  print out a counter value
  *
  * @author Monte Ohrt <monte at ohrt dot com>

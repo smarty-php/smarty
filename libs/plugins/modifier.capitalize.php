@@ -8,8 +8,8 @@
 
 /**
  * Smarty capitalize modifier plugin
- * Type:     modifier<br>
- * Name:     capitalize<br>
+ * Type:     modifier
+ * Name:     capitalize
  * Purpose:  capitalize words in the string
  * {@internal {$string|capitalize:true:true} is the fastest option for MBString enabled systems }}
  *

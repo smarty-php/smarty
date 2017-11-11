@@ -8,12 +8,12 @@
 
 /**
  * Smarty {cycle} function plugin
- * Type:     function<br>
- * Name:     cycle<br>
- * Date:     May 3, 2002<br>
- * Purpose:  cycle through given values<br>
+ * Type:     function
+ * Name:     cycle
+ * Date:     May 3, 2002
+ * Purpose:  cycle through given values
  * Params:
- * <pre>
+ *
  * - name      - name of cycle (optional)
  * - values    - comma separated list of values to cycle, or an array of values to cycle
  *               (this can be left out for subsequent calls)
@@ -22,13 +22,13 @@
  * - advance   - boolean - whether or not to advance the cycle
  * - delimiter - the value delimiter, default is ","
  * - assign    - boolean, assigns to template var instead of printed.
- * </pre>
- * Examples:<br>
- * <pre>
+ *
+ * Examples:
+ *
  * {cycle values="#eeeeee,#d0d0d0d"}
  * {cycle name=row values="one,two,three" reset=true}
  * {cycle name=row}
- * </pre>
+ *
  *
  * @link     http://www.smarty.net/manual/en/language.function.cycle.php {cycle}
  *           (Smarty online manual)

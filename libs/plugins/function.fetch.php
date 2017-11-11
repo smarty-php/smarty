@@ -8,8 +8,8 @@
 
 /**
  * Smarty {fetch} plugin
- * Type:     function<br>
- * Name:     fetch<br>
+ * Type:     function
+ * Name:     fetch
  * Purpose:  fetch file, web or ftp data and display results
  *
  * @link   http://www.smarty.net/manual/en/language.function.fetch.php {fetch}

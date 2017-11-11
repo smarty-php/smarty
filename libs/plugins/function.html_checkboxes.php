@@ -8,19 +8,19 @@
 
 /**
  * Smarty {html_checkboxes} function plugin
- * File:       function.html_checkboxes.php<br>
- * Type:       function<br>
- * Name:       html_checkboxes<br>
- * Date:       24.Feb.2003<br>
- * Purpose:    Prints out a list of checkbox input types<br>
+ * File:       function.html_checkboxes.php
+ * Type:       function
+ * Name:       html_checkboxes
+ * Date:       24.Feb.2003
+ * Purpose:    Prints out a list of checkbox input types
  * Examples:
- * <pre>
+ *
  * {html_checkboxes values=$ids output=$names}
  * {html_checkboxes values=$ids name='box' separator='<br>' output=$names}
  * {html_checkboxes values=$ids checked=$checked separator='<br>' output=$names}
- * </pre>
+ *
  * Params:
- * <pre>
+ *
  * - name       (optional) - string default "checkbox"
  * - values     (required) - array
  * - options    (optional) - associative array
@@ -29,7 +29,7 @@
  * - output     (optional) - the output next to each checkbox
  * - assign     (optional) - assign the output as an array to this variable
  * - escape     (optional) - escape the content (not value), defaults to true
- * </pre>
+ *
  *
  * @link       http://www.smarty.net/manual/en/language.function.html.checkboxes.php {html_checkboxes}
  *             (Smarty online manual)

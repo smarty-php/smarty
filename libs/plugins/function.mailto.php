@@ -8,12 +8,12 @@
 
 /**
  * Smarty {mailto} function plugin
- * Type:     function<br>
- * Name:     mailto<br>
+ * Type:     function
+ * Name:     mailto
  * Date:     May 21, 2002
- * Purpose:  automate mailto address link creation, and optionally encode them.<br>
+ * Purpose:  automate mailto address link creation, and optionally encode them.
  * Params:
- * <pre>
+ *
  * - address    - (required) - e-mail address
  * - text       - (optional) - text to display, default is address
  * - encode     - (optional) - can be one of:
@@ -27,16 +27,16 @@
  * - newsgroups - (optional) - newsgroup(s) to post to
  * - followupto - (optional) - address(es) to follow up to
  * - extra      - (optional) - extra tags for the href link
- * </pre>
+ *
  * Examples:
- * <pre>
+ *
  * {mailto address="me@domain.com"}
  * {mailto address="me@domain.com" encode="javascript"}
  * {mailto address="me@domain.com" encode="hex"}
  * {mailto address="me@domain.com" subject="Hello to you!"}
  * {mailto address="me@domain.com" cc="you@domain.com,they@domain.com"}
  * {mailto address="me@domain.com" extra='class="mailto"'}
- * </pre>
+ *
  *
  * @link     http://www.smarty.net/manual/en/language.function.mailto.php {mailto}
  *           (Smarty online manual)

@@ -8,12 +8,12 @@
 
 /**
  * Smarty {html_options} function plugin
- * Type:     function<br>
- * Name:     html_options<br>
+ * Type:     function
+ * Name:     html_options
  * Purpose:  Prints the list of <option> tags generated from
- *           the passed parameters<br>
+ *           the passed parameters
  * Params:
- * <pre>
+ *
  * - name       (optional) - string default "select"
  * - values     (required) - if no options supplied) - array
  * - options    (required) - if no values supplied) - associative array
@@ -21,7 +21,7 @@
  * - output     (required) - if not options supplied) - array
  * - id         (optional) - string default not set
  * - class      (optional) - string default not set
- * </pre>
+ *
  *
  * @link     http://www.smarty.net/manual/en/language.function.html.options.php {html_image}
  *           (Smarty online manual)

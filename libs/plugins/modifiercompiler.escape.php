@@ -8,8 +8,8 @@
 
 /**
  * Smarty escape modifier plugin
- * Type:     modifier<br>
- * Name:     escape<br>
+ * Type:     modifier
+ * Name:     escape
  * Purpose:  escape string for output
  *
  * @link   http://www.smarty.net/docsv2/en/language.modifier.escape count_characters (Smarty online manual)

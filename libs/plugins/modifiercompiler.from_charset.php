@@ -8,8 +8,8 @@
 
 /**
  * Smarty from_charset modifier plugin
- * Type:     modifier<br>
- * Name:     from_charset<br>
+ * Type:     modifier
+ * Name:     from_charset
  * Purpose:  convert character encoding from $charset to internal encoding
  *
  * @author Rodney Rehm

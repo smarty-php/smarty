@@ -8,8 +8,8 @@
 
 /**
  * Smarty {html_select_time} function plugin
- * Type:     function<br>
- * Name:     html_select_time<br>
+ * Type:     function
+ * Name:     html_select_time
  * Purpose:  Prints the dropdowns for time selection
  *
  * @link     http://www.smarty.net/manual/en/language.function.html.select.time.php {html_select_time}

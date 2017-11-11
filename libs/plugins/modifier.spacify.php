@@ -8,8 +8,8 @@
 
 /**
  * Smarty spacify modifier plugin
- * Type:     modifier<br>
- * Name:     spacify<br>
+ * Type:     modifier
+ * Name:     spacify
  * Purpose:  add spaces between characters in a string
  *
  * @link   http://smarty.php.net/manual/en/language.modifier.spacify.php spacify (Smarty online manual)

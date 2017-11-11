@@ -7,8 +7,8 @@
  */
 /**
  * Smarty wordwrap modifier plugin
- * Type:     modifier<br>
- * Name:     wordwrap<br>
+ * Type:     modifier
+ * Name:     wordwrap
  * Purpose:  wrap a string of text at a given length
  *
  * @link   http://smarty.php.net/manual/en/language.modifier.wordwrap.php wordwrap (Smarty online manual)

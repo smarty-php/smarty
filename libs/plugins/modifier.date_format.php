@@ -8,10 +8,10 @@
 
 /**
  * Smarty date_format modifier plugin
- * Type:     modifier<br>
- * Name:     date_format<br>
- * Purpose:  format datestamps via strftime<br>
- * Input:<br>
+ * Type:     modifier
+ * Name:     date_format
+ * Purpose:  format datestamps via strftime
+ * Input:
  *          - string: input date string
  *          - format: strftime format for output
  *          - default_date: default date if $string is empty

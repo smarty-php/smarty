@@ -7,8 +7,8 @@
  */
 /**
  * Smarty wordwrap modifier plugin
- * Type:     modifier<br>
- * Name:     mb_wordwrap<br>
+ * Type:     modifier
+ * Name:     mb_wordwrap
  * Purpose:  Wrap a string to a given number of characters
  *
 

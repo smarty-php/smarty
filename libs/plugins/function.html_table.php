@@ -8,12 +8,12 @@
 
 /**
  * Smarty {html_table} function plugin
- * Type:     function<br>
- * Name:     html_table<br>
- * Date:     Feb 17, 2003<br>
- * Purpose:  make an html table from an array of data<br>
+ * Type:     function
+ * Name:     html_table
+ * Date:     Feb 17, 2003
+ * Purpose:  make an html table from an array of data
  * Params:
- * <pre>
+ *
  * - loop       - array to loop through
  * - cols       - number of columns, comma separated list of column names
  *                or array of column names
@@ -28,13 +28,13 @@
  * - hdir       - horizontal direction (default: "right", means left-to-right)
  * - inner      - inner loop (default "cols": print $loop line by line,
  *                $loop will be printed column by column otherwise)
- * </pre>
+ *
  * Examples:
- * <pre>
+ *
  * {table loop=$data}
  * {table loop=$data cols=4 tr_attr='"bgcolor=red"'}
  * {table loop=$data cols="first,second,third" tr_attr=$colors}
- * </pre>
+ *
  *
  * @author   Monte Ohrt <monte at ohrt dot com>
  * @author   credit to Messju Mohr <messju at lammfellpuschen dot de>

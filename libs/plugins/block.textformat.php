@@ -8,19 +8,19 @@
 
 /**
  * Smarty {textformat}{/textformat} block plugin
- * Type:     block function<br>
- * Name:     textformat<br>
+ * Type:     block function
+ * Name:     textformat
  * Purpose:  format text a certain way with preset styles
- *           or custom wrap/indent settings<br>
+ *           or custom wrap/indent settings
  * Params:
- * <pre>
+ *
  * - style         - string (email)
  * - indent        - integer (0)
  * - wrap          - integer (80)
  * - wrap_char     - string ("\n")
  * - indent_char   - string (" ")
  * - wrap_boundary - boolean (true)
- * </pre>
+ * 
  *
  * @link   http://www.smarty.net/manual/en/language.function.textformat.php {textformat}
  *         (Smarty online manual)

@@ -8,7 +8,7 @@
 
 /**
  * Smarty count_sentences modifier plugin
- * Type:     modifier<br>
+ * Type:     modifier
  * Name:     count_sentences
  * Purpose:  count the number of sentences in a text
  *

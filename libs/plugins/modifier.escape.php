@@ -8,8 +8,8 @@
 
 /**
  * Smarty escape modifier plugin
- * Type:     modifier<br>
- * Name:     escape<br>
+ * Type:     modifier
+ * Name:     escape
  * Purpose:  escape string for output
  *
  * @link   http://www.smarty.net/docs/en/language.modifier.escape

@@ -8,8 +8,8 @@
 
 /**
  * Smarty indent modifier plugin
- * Type:     modifier<br>
- * Name:     indent<br>
+ * Type:     modifier
+ * Name:     indent
  * Purpose:  indent lines of text
  *
  * @link   http://www.smarty.net/manual/en/language.modifier.indent.php indent (Smarty online manual)

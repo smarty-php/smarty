@@ -8,8 +8,8 @@
 
 /**
  * Smarty upper modifier plugin
- * Type:     modifier<br>
- * Name:     lower<br>
+ * Type:     modifier
+ * Name:     lower
  * Purpose:  convert string to uppercase
  *
  * @link   http://smarty.php.net/manual/en/language.modifier.upper.php lower (Smarty online manual)
