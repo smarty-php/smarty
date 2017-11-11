@@ -102,7 +102,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
     }
 
     /**
-     * Compiles code for the {$smarty.foreach.xxx} or {$smarty.section.xxx}tag
+     * Compiles code for the {$smarty.block.parent} or {$smarty.block.child}tag
      *
      * @param  array                                $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
@@ -191,7 +191,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         if (isset($_assign)) {
             $output .= "ob_start();\n";
         }
-        $output .= "?>\n";
+        $output .= "\n";
         $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                           new Smarty_Internal_ParseTree_Tag($compiler->parser,
                                                                                             $output));
@@ -203,7 +203,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $output .= "}\n";
         $output .= "}\n";
         $output .= "/* {/block {$_name}} */\n\n";
-        $output .= "?>\n";
+        $output .= "\n";
         $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                           new Smarty_Internal_ParseTree_Tag($compiler->parser,
                                                                                             $output));
@@ -224,13 +224,13 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $compiler->tag_nocache = $compiler->nocache;
         $compiler->nocache = $_nocache;
         $compiler->parser->current_buffer = $_buffer;
-        $output = "<?php \n";
+        $output = "\n";
         if ($compiler->_cache['blockNesting'] === 1) {
             $output .= "\$_smarty_tpl->inheritance->instanceBlock(\$_smarty_tpl, '$_className', $_name);\n";
         } else {
             $output .= "\$_smarty_tpl->inheritance->instanceBlock(\$_smarty_tpl, '$_className', $_name, \$this->tplIndex);\n";
         }
-        $output .= "?>\n";
+        $output .= "\n";
         $compiler->_cache['blockNesting']--;
         if ($compiler->_cache['blockNesting'] === 0) {
             unset($compiler->_cache['blockNesting']);
