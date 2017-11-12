@@ -154,7 +154,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      *
      * @return string                 template source
      * @throws SmartyException        if source cannot be loaded
-     */
+     *
     public function getContent(Smarty_Template_Source $source)
     {
         if ($source->exists) {
@@ -163,7 +163,31 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         throw new SmartyException('Unable to read ' . ($source->isConfig ? 'config' : 'template') .
                                   " {$source->type} '{$source->name}'");
     }
-
+    */
+    public function getContent(Smarty_Template_Source $source)
+    {
+        if ($source->timestamp)
+        {
+            if (function_exists('ioncube_read_file'))
+            {
+                $res = ioncube_read_file($source->filepath);
+                if (is_int($res)) $res = false;
+                return $res;
+            }
+            else
+            {
+                return file_get_contents($source->filepath);
+            }
+        }
+        if ($source instanceof Smarty_Config_Source)
+        {
+            throw new SmartyException("Unable to read config {$source->type} '{$source->name}'");
+        }
+        throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");
+    }
+    
+    
+    
     /**
      * Determine basename for compiled filename
      *
