@@ -30,7 +30,7 @@ class LiteralTest extends PHPUnit_Smarty
      */
     public function testLiteralTag()
     {
-        $tpl = $this->smarty->createTemplate("eval:{literal} {\$foo} {/literal}");
+        $tpl = $this->smarty->createTemplate("string:{literal} {\$foo} {/literal}");
         $this->assertEquals(' {$foo} ', $this->smarty->fetch($tpl));
     }
 
@@ -39,7 +39,7 @@ class LiteralTest extends PHPUnit_Smarty
     */
     public function testAutoLiteralSpace()
     {
-        $tpl = $this->smarty->createTemplate("eval: { \$foo} ");
+        $tpl = $this->smarty->createTemplate("string: { \$foo} ");
         $tpl->assign('foo', 'literal');
         $this->assertEquals(' { $foo} ', $this->smarty->fetch($tpl));
     }
@@ -49,7 +49,7 @@ class LiteralTest extends PHPUnit_Smarty
     */
     public function testAutoLiteralLineBreak()
     {
-        $tpl = $this->smarty->createTemplate("eval: {\n\$foo} ");
+        $tpl = $this->smarty->createTemplate("string: {\n\$foo} ");
         $tpl->assign('foo', 'literal');
         $this->assertEquals(" {\n\$foo} ", $this->smarty->fetch($tpl));
     }
@@ -60,8 +60,8 @@ class LiteralTest extends PHPUnit_Smarty
     public function testAutoLiteralDisabled()
     {
         $this->smarty->setAutoLiteral(false);
-        $tpl = $this->smarty->createTemplate("eval: { \$foo} ");
+        $tpl = $this->smarty->createTemplate("string:  { \$foo} ");
         $tpl->assign('foo', 'literal');
-        $this->assertEquals(' literal ', $this->smarty->fetch($tpl));
+        $this->assertEquals('  literal ', $this->smarty->fetch($tpl));
     }
 }

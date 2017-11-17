@@ -63,7 +63,7 @@ class CompileFunctionPluginTest extends PHPUnit_Smarty
     public function testFunctionPluginRegisteredFunction()
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'plugintest', 'myplugintest');
-        $tpl = $this->smarty->createTemplate('eval:{plugintest foo=bar}', $this->smarty);
+        $tpl = $this->smarty->createTemplate('string:{plugintest foo=bar}', $this->smarty);
         $this->assertEquals("plugin test called bar", $this->smarty->fetch($tpl));
     }
 
@@ -72,7 +72,7 @@ class CompileFunctionPluginTest extends PHPUnit_Smarty
      */
     public function testMultiLineTags()
     {
-        $this->assertEquals("10", $this->smarty->fetch("eval:{counter\n\tstart=10}"));
+        $this->assertEquals("10", $this->smarty->fetch("string:{counter\n\tstart=10}"));
     }
 }
 

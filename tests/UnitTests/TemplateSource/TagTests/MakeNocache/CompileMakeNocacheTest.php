@@ -40,7 +40,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         if ($foo) {
             $this->smarty->assign('foo', $foo);
         }
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('001_test_foo.tpl')),
+        $this->assertEquals($result, $this->smarty->fetch('001_test_foo.tpl'),
                             "foo = {$foo}");
     }
 
@@ -55,8 +55,8 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         * result
         *
         */
-        return array(array(1, '#001_test_foo.tpl:$foo=1'), array(2, '#001_test_foo.tpl:$foo=2'),
-                     array(null, '#001_test_foo.tpl:$foo=>unassigned<'),);
+        return array(array(1, '#001_test_foo.tpl:$foo =1'), array(2, '#001_test_foo.tpl:$foo =2'),
+                     array(null, '#001_test_foo.tpl:$foo =>unassigned<'),);
     }
 
     /**
@@ -72,7 +72,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         if ($foo) {
             $this->smarty->assign('foo', $foo);
         }
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('001_test_foo.tpl')),
+        $this->assertEquals($result, $this->smarty->fetch('001_test_foo.tpl'),
                             "foo = {$foo}");
     }
 
@@ -87,14 +87,14 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         * result
         *
         */
-        return array(array(1, '#001_test_foo.tpl:$foo=1'), array(2, '#001_test_foo.tpl:$foo=1'),
-                     array(null, '#001_test_foo.tpl:$foo=1'),);
+        return array(array(1, '#001_test_foo.tpl:$foo =1'), array(2, '#001_test_foo.tpl:$foo =1'),
+                     array(null, '#001_test_foo.tpl:$foo =1'),);
     }
 
     /**
      * Test {make_nocache} cached tags existing nocahe variable
      *
-     * @not                 runInSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        dataTestMakeNocache001_2
      */
@@ -104,7 +104,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         if ($foo) {
             $this->smarty->assign('foo', $foo, true);
         }
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('001_test_foo.tpl')),
+        $this->assertEquals($result, $this->smarty->fetch('001_test_foo.tpl'),
                             "foo = {$foo}");
     }
 
@@ -119,14 +119,14 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         * result
         *
         */
-        return array(array(1, '#001_test_foo.tpl:$foo=1'), array(2, '#001_test_foo.tpl:$foo=2'),
-                     array(null, '#001_test_foo.tpl:$foo=1'),);
+        return array(array(1, '#001_test_foo.tpl:$foo =1'), array(2, '#001_test_foo.tpl:$foo =2'),
+                     array(null, '#001_test_foo.tpl:$foo =1'),);
     }
 
     /**
      * Test {make_nocache} cached tags reassign
      *
-     * @not                 runInSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        dataTestMakeNocache001_3
      */
@@ -137,7 +137,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
             $this->smarty->assign('foo', $foo);
         }
         $this->smarty->assign('bar', $foo + 4, true);
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('001_test_foo_assign.tpl')),
+        $this->assertEquals($result, $this->smarty->fetch('001_test_foo_assign.tpl'),
                             "foo = {$foo}");
     }
 
@@ -152,14 +152,14 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         * result
         *
         */
-        return array(array(1, '#001_test_foo_assign.tpl:$foo=5'), array(2, '#001_test_foo_assign.tpl:$foo=6'),
-                     array(null, '#001_test_foo_assign.tpl:$foo=4'),);
+        return array(array(1, '#001_test_foo_assign.tpl:$foo =5'), array(2, '#001_test_foo_assign.tpl:$foo =6'),
+                     array(null, '#001_test_foo_assign.tpl:$foo =4'),);
     }
 
     /**
      * Test {make_nocache} cached tags {if}
      *
-     * @not                 runInSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        dataTestMakeNocache001_4
      */
@@ -168,7 +168,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         $this->smarty->setCaching(true);
         $this->smarty->assign('foo', $foo);
         $this->smarty->assign('bar', $bar);
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('001_test_foo_if.tpl')),
+        $this->assertEquals($result, $this->smarty->fetch('001_test_foo_if.tpl'),
                             "foo = {$foo}");
     }
 
@@ -189,7 +189,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     /**
      * Test {make_nocache} cached tags {if} nocache
      *
-     * @not                 runInSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        dataTestMakeNocache001_5
      */
@@ -201,7 +201,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
             $this->smarty->assign('foo', $foo);
         }
         $this->smarty->assign('bar', $bar, true);
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('001_test_foo_if.tpl')),
+        $this->assertEquals($result, $this->smarty->fetch('001_test_foo_if.tpl'),
                             "foo = {$foo}");
     }
 
@@ -223,7 +223,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     /**
      * Test {make_nocache} cached tags {foreach}
      *
-     * @not                 runInSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        dataTestMakeNocache001_6
      */
@@ -232,7 +232,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         $this->smarty->setCaching(true);
         $this->smarty->assign('foo', $foo, true);
         $this->smarty->assign('bar', $bar);
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('001_test_foo_foreach.tpl')),
+        $this->assertEquals($result, $this->smarty->fetch('001_test_foo_foreach.tpl'),
                             "foo = {$foo}");
     }
 
@@ -248,13 +248,13 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         * result
         *
         */
-        return array(array(2, array(1, 2, 3, 4), '12match34'), array(3, array(7, 8, 9), '123match4'),);
+        return array(array(2, array(1, 2, 3, 4), '    1    2match    3    4'), array(3, array(7, 8, 9), '    1    2    3match    4'),);
     }
 
     /**
      * Test {make_nocache} cached tags {foreach} nocache
      *
-     * @not                 runInSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        dataTestMakeNocache001_7
      */
@@ -264,7 +264,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
         $this->smarty->compile_id = 1;
         $this->smarty->assign('foo', $foo, true);
         $this->smarty->assign('bar', $bar, true);
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('001_test_foo_foreach.tpl')),
+        $this->assertEquals($result, $this->smarty->fetch('001_test_foo_foreach.tpl'),
                             "foo = {$foo}");
     }
 
@@ -280,7 +280,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
        * result
        *
        */
-        return array(array(2, array(1, 2, 3, 4), '12match34'), array(7, array(7, 8, 9), '7match89'),);
+        return array(array(2, array(1, 2, 3, 4), '    1    2match    3    4'), array(7, array(7, 8, 9), '    7match    8    9'),);
     }
     /**
      * Test {make_nocache} with values containing '\'
@@ -291,7 +291,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     {
         $this->smarty->setCaching(true);
          $this->smarty->assign('foo', 'uwe\'s');
-        $this->assertEquals($this->strip('uwe\'s'), $this->strip($this->smarty->fetch('002_test_backslash.tpl')));
+        $this->assertEquals($this->strip('uwe\'s'), $this->smarty->fetch('002_test_backslash.tpl'));
     }
 
     /**
@@ -303,7 +303,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     {
         $this->smarty->setCaching(true);
         $this->smarty->assign('foo', 'the Smarty template engine');
-        $this->assertEquals($this->strip('the Smarty template engine'), $this->strip($this->smarty->fetch('003_test_spaces.tpl')));
+        $this->assertEquals('the Smarty template engine', $this->smarty->fetch('003_test_spaces.tpl'));
     }
 
 }

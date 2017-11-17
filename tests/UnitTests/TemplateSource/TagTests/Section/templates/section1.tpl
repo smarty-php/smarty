@@ -1,1 +1,0 @@
-{section name=bar loop=$foo}{$foo[bar]}{/section}

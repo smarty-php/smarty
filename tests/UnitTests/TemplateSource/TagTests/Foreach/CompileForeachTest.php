@@ -47,7 +47,7 @@ class CompileForeachTest extends PHPUnit_Smarty
             $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
         }
 
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)), "testForeach - {$code} - {$testName}");
+        $this->assertEquals($result, $this->smarty->fetch($file), "testForeach - {$code} - {$testName}");
     }
 
     /*
@@ -119,7 +119,7 @@ class CompileForeachTest extends PHPUnit_Smarty
             $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
         }
 
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)), "testForeach - {$code} - {$testName}");
+        $this->assertEquals($result, $this->smarty->fetch($file), "testForeach - {$code} - {$testName}");
     }
 
     /*
@@ -297,4 +297,90 @@ class CompileForeachTest extends PHPUnit_Smarty
         $this->assertEquals("false",
                             $this->smarty->fetch('037_foreach.tpl'));
     }
+    /**
+     * Test spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
+     */
+    public function testSpacing($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', array(1,2));
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "Spacing - {$file}");
+    }
+
+    /*
+      * Data provider für testSpacing
+      */
+    public function dataTestSpacing()
+    {
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array("A{foreach from=\$foo item='bar'}{\$bar}{/foreach}C", "A12C", 'Newline1', $i++),
+                     array("A{foreach from=\$foo item='bar'}\n{\$bar}{/foreach}C", "A12C", 'Newline2', $i++),
+                     array("A{foreach from=\$foo item='bar'}{\$bar}\n{/foreach}C", "A1\n2\nC", 'Newline3', $i++),
+                     array("A{foreach from=\$foo item='bar'}\n{\$bar}\n{/foreach}C", "A1\n2\nC", 'Newline4', $i++),
+                     array("A\n{foreach from=\$foo item='bar'}{\$bar}{/foreach}C", "A\n12C", 'Newline5', $i++),
+                     array("A{foreach from=\$foo item='bar'}{\$bar}{/foreach}\nC", "A12C", 'Newline6', $i++),
+                     array("A{foreach from=\$foo item='bar'}{\$bar}{foreachelse}D{/foreach}C", "A12C", 'Newline7', $i++),
+                     array("A{foreach from=\$foo item='bar'}{\$bar}\n{foreachelse}D{/foreach}C", "A1\n2\nC", 'Newline8', $i++),
+                     array("{foreach from=\$foo item='bar' name='buh'}{\$bar}{/foreach}A{\$smarty.foreach.buh.total}C", "12A2C", 'Newline9', $i++),
+                     array("{foreach from=\$foo item='bar' name='buh'}{\$bar}{/foreach}A\n{\$smarty.foreach.buh.total}C", "12A\n2C", 'Newline10', $i++),
+                     array("{foreach from=\$foo item='bar' name='buh'}{\$bar}{/foreach}A{\$smarty.foreach.buh.total}\nC", "12A2\nC", 'Newline11', $i++),
+        );
+    }
+    /**
+     * Test spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestElseSpacing
+     * @runInSeparateProcess
+     */
+    public function testElseSpacing($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_Else_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', array());
+        $this->smarty->assign('buh', 'buh');
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "Spacing - {$file}");
+    }
+
+    /*
+      * Data provider für testSpacing
+      */
+    public function dataTestElseSpacing()
+    {
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(
+            array("{foreach from=\$foo item='bar'}{\$bar}{foreachelse}A{\$buh}B{/foreach}", "AbuhB", 'Newline1', $i++),
+            array("{foreach from=\$foo item='bar'}{\$bar}{foreachelse}\nA{\$buh}B{/foreach}", "AbuhB", 'Newline2', $i++),
+            array("{foreach from=\$foo item='bar'}{\$bar}{foreachelse}A{\$buh}\nB{/foreach}", "Abuh\nB", 'Newline3', $i++),
+            array("{foreach from=\$foo item='bar'}{\$bar}{foreachelse}\nA{\$buh}\nB{/foreach}", "Abuh\nB", 'Newline4', $i++),
+            array("{foreach from=\$foo item='bar'}{\$bar}{foreachelse}{\$buh}\nB{/foreach}", "buh\nB", 'Newline5', $i++),
+            array("{foreach from=\$foo item='bar'}{\$bar}{foreachelse}{\$buh}{/foreach}", "buh", 'Newline6', $i++),
+           );
+    }
+
 }

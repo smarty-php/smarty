@@ -54,8 +54,8 @@ class CompileStripTest extends PHPUnit_Smarty
                     * test name
                     */
         return array(array("    foo\n    bar  buh\n\n", 'foobar  buh', '', $i ++),
-                     array("\n   <div style=\"float: right; cursor: url;\">[<a\n    onmouseover=\"this.style.cursor='pointer'\"\n    onmouseup=\"document.getElementById('screenEdit_(\$screen.id)').style.display='none'\";>X</a>]</div>\n\n\n   foo\n    bar\n",
-                           '<div style="float: right; cursor: url;">[<a onmouseover="this.style.cursor=\'pointer\'" onmouseup="document.getElementById(\'screenEdit_($screen.id)\').style.display=\'none\'";>X</a>]</div>foobar',
+                     array("\n   <div style=\"float: right; cursor: url;\">[<a\n    onmouseover=\"this.style.cursor='pointer'\"\n    onmouseup=\"document.getElementById('screenEdit_(\$screen.id)').style.display='none'\">X</a>]</div>\n\n\n   foo\n    bar\n",
+                           '<div style="float: right; cursor: url;">[<a onmouseover="this.style.cursor=\'pointer\'" onmouseup="document.getElementById(\'screenEdit_($screen.id)\').style.display=\'none\'">X</a>]</div>foobar',
                            '', $i ++),
                      array("\n    <ul>\n        <li>\n            <a href=\"#\">BlaBla</a>\n        </li>\n        <li>\n            <a href=\"#\">BlaBla</a>\n        </li>\n    </ul>\n",
                            '<ul><li><a href="#">BlaBla</a></li><li><a href="#">BlaBla</a></li></ul>', '', $i ++),

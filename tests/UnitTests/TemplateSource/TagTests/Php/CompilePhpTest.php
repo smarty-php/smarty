@@ -35,7 +35,7 @@ class CompilePhpTest extends PHPUnit_Smarty
 
     /**
      * Test
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider data
      *
@@ -43,6 +43,7 @@ class CompilePhpTest extends PHPUnit_Smarty
     public function testPHP($phpHandling, $templateFile, $result, $testName)
     {
         $result = str_replace("\r", '', $result);
+        $this->smartyBC->force_compile = true;
         $this->smartyBC->php_handling = $phpHandling;
         $this->smartyBC->compile_id = $testName.$this->smartyBC->php_handling ;
         $tpl = $this->smartyBC->createTemplate($templateFile);

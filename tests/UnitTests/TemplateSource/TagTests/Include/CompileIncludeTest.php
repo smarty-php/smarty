@@ -98,7 +98,7 @@ class CompileIncludeTest extends PHPUnit_Smarty
     }
 
     /**
-     * test standard output nocache var
+     * test standard output var
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
@@ -239,6 +239,89 @@ class CompileIncludeTest extends PHPUnit_Smarty
         return array(
             array('normal'),
             array('merged'),
+        );
+    }
+    /**
+     * Test Include spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
+     */
+    public function testIncludeSpacing($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->addTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'bar');
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "testSpacing - {$file}");
+    }
+    /**
+     * Test Output spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
+     */
+    public function testIncludeSpacingNocache($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_{$name}.tpl";
+        $this->smarty->setCompileId('1');
+        $this->smarty->setCaching(1);
+        $this->smarty->addTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'bar',true);
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "testSpacing - {$file}");
+    }
+    /**
+     * Test Output spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
+     */
+    public function testIncludeSpacingNocache2($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_{$name}.tpl";
+        $this->smarty->setCompileId('1');
+        $this->smarty->setCaching(1);
+        $this->smarty->addTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'foo',true);
+        $this->assertEquals(str_replace('bar','foo',$result),
+                            $this->smarty->fetch($file),
+                            "testSpacing - {$file}");
+    }
+
+    /*
+      * Data provider für testSpacing
+      */
+    public function dataTestSpacing()
+    {
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array('A{include file=\'include_spacing2.tpl\'}B', 'A barB', '2_Text1', $i++),
+                     array('A {include file=\'include_spacing2.tpl\'}B', 'A  barB', '2_Text2', $i++),
+                     array('A{include file=\'include_spacing2.tpl\'}B', 'A barB', '2_Text3', $i++),
+                     array("A{include file='include_spacing2.tpl'}\nB", "A barB", '2_Newline1', $i++),
+                     array("A\n{include file='include_spacing2.tpl'}\nB", "A\n barB", '2_Newline2', $i++),
+                     array("A{include file='include_spacing2.tpl'}B\nC", "A barB\nC", '2_Newline3', $i++),
+                     array('A{include file=\'include_spacing3.tpl\'}B', "AbarB", '3_Text1', $i++),
+                     array('A {include file=\'include_spacing3.tpl\'}B', "A barB", '3_Text2', $i++),
+                     array('A{include file=\'include_spacing3.tpl\'}B', "AbarB", '3_Text3', $i++),
+                     array("A{include file='include_spacing3.tpl'}\nB", "AbarB", '3_Newline1', $i++),
+                     array("A\n{include file='include_spacing3.tpl'}\nB", "A\nbarB", '3_Newline2', $i++),
+                     array("A{include file='include_spacing3.tpl'}B\nC", "AbarB\nC", '3_Newline3', $i++),
         );
     }
 }

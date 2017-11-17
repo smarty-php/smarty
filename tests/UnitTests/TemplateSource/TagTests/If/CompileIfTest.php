@@ -42,7 +42,7 @@ class CompileIfTest extends PHPUnit_Smarty
         $this->makeTemplateFile($file, $code);
         $this->smarty->assignGlobal('file', $file);
         $this->smarty->assign('bar', 'buh');
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)),
+        $this->assertEquals($result, $this->smarty->fetch($file),
                             "testIf - {$code} - {$name}");
     }
 
@@ -62,7 +62,7 @@ class CompileIfTest extends PHPUnit_Smarty
                      array('{if 2<1}yes{else}no{/if}', 'no', '', $i ++),
                      array('{if 2<1}yes{elseif 4<5}yes1{else}no{/if}', 'yes1', '', $i ++),
                      array('{if 2<1}yes{elseif 6<5}yes1{else}no{/if}', 'no', '', $i ++),
-                     array('{if true}yes{else}no{/if}', 'yes', '', $i ++),
+                     array('{if false}false{elseif true}yes{else}no{/if}', 'yes', '', $i ++),
                      array('{if false}yes{else}no{/if}', 'no', '', $i ++),
                      array('{if !(1<2)}yes{else}no{/if}', 'no', '', $i ++),
                      array('{if not (true)}yes{else}no{/if}', 'no', '', $i ++),
@@ -73,10 +73,11 @@ class CompileIfTest extends PHPUnit_Smarty
                      array('{$foo=true}{if $foo!==true}yes{else}no{/if}', 'no', '', $i ++),
                      array('{if 1 > 0}yes{else}no{/if}', 'yes', '', $i ++),
                      array('{if $x=1}yes{else}no{/if}{$x}', 'yes1', '', $i ++),
-                     array('{$x=0}{if $x++}yes{else}no{/if} {$x}', 'no1', '', $i ++),
-                     array('{$x=[1,2]}{if $x[] = 7}{$x|var_export:true}{else}no{/if}', 'array(0=>1,1=>2,2=>7,)', '',
-                           $i ++), array('{$x=[1,2]}{if $x[][\'a\'] = 7}{$x|var_export:true}{else}no{/if}',
-                                         'array(0=>1,1=>2,2=>array(\'a\'=>7,),)', '', $i ++),
+                     array('{$x=0}{if $x++}yes{else}no{/if} {$x}', 'no 1', '', $i ++),
+                     array('{$x=[1,2]}{if $x[] = 7}{$x|var_export:true}{else}no{/if}', var_export(array(0=>1,1=>2,2=>7,),true), '',
+                           $i ++),
+                     array('{$x=[1,2]}{if $x[][\'a\'] = 7}{$x|var_export:true}{else}no{/if}',
+                                         var_export(array(0=>1,1=>2,2=>array('a'=>7,),),true), '', $i ++),
                      array('{$foo=\'foo\'}{$bar=\'bar\'}{if $bar = "new_{$foo|default:\'\'}"}yes-{else}no{/if}{$bar}',
                            'yes-new_foo', '', $i ++),
                      array('{$foo=\'foo\'}{$bar=\'bar\'}{if false}false{elseif $bar = "new_{$foo|default:\'\'}"}yes-{else}no{/if}{$bar}',
@@ -106,8 +107,42 @@ class CompileIfTest extends PHPUnit_Smarty
                      array('{$foo=3}{$bar=3}{if 3+$bar is not odd by $foo}yes{else}no{/if}', 'yes', 'ExprIsNotOddByVar', $i ++),
                      array('{$foo=2}{$bar=6}{if (3+$bar) is not odd by ($foo+1)}yes{else}no{/if}', 'no', 'ExprIsNotOddByExpr', $i ++),
                      array('{if strlen("hello world") ===  11}yes{else}no{/if}', 'yes', 'FuncCmp', $i ++),
+                     array('{if 0>1}yes{else}no{/if}', 'no', 'GT2', $i ++),
+                     array('{if 1 GT 0}yes{else}no{/if}', 'yes', 'GT3', $i ++),
+                     array('{if 0 gt 1}yes{else}no{/if}', 'no', 'GT4', $i ++),
+                     array('{if 1 >= 0}yes{else}no{/if}', 'yes', 'GE1', $i ++),
+                     array('{if 1>=1}yes{else}no{/if}', 'yes', 'GE2', $i ++),
+                     array('{if 1 GE 1}yes{else}no{/if}', 'yes', 'GE3', $i ++),
+                     array('{if 0 ge 1}yes{else}no{/if}', 'no', 'GE4', $i ++),
+                     array('{if 0 < 0}yes{else}no{/if}', 'no', 'LT1', $i ++),
+                     array('{if 0<1}yes{else}no{/if}', 'yes', 'LT2', $i ++),
+                     array('{if 0 <= 0}yes{else}no{/if}', 'yes', 'LE1', $i ++),
+                     array('{if 0<=1}yes{else}no{/if}', 'yes', 'LE2', $i ++),
+                     array('{if 1 LE 0}yes{else}no{/if}', 'no', 'LE3', $i ++),
+                     array('{if 0 le 1}yes{else}no{/if}', 'yes', 'LE4', $i ++),
+                     array('{if 1 != 1}yes{else}no{/if}', 'no', 'NE1', $i ++),
+                     array('{if 1!=2}yes{else}no{/if}', 'yes', 'NE2', $i ++),
+                     array('{if 1 NE 1}yes{else}no{/if}', 'no', 'NE3', $i ++),
+                     array('{if 1 ne 2}yes{else}no{/if}', 'yes', 'NE4', $i ++),
+                     array('{if 1 === "1"}yes{else}no{/if}', 'no', 'Ident1', $i ++),
+                     array('{if "1" === "1"}yes{else}no{/if}', 'yes', 'Ident2', $i ++),
+                     array('{if 1 > 0 && 5 < 6}yes{else}no{/if}', 'yes', 'And1', $i ++),
+                     array('{if 1 > 0&&5 < 6}yes{else}no{/if}', 'yes', 'And2', $i ++),
+                     array('{if 1 > 0 AND 5 > 6}yes{else}no{/if}', 'no', 'And3', $i ++),
+                     array('{if (1 > 0) and (5 < 6)}yes{else}no{/if}', 'yes', 'And4', $i ++),
+                     array('{if 1 > 0 || 7 < 6}yes{else}no{/if}', 'yes', 'Or1', $i ++),
+                     array('{if 1 > 0||5 < 6}yes{else}no{/if}', 'yes', 'Or2', $i ++),
+                     array('{if 1 > 0 OR 5 > 6}yes{else}no{/if}', 'yes', 'Or3', $i ++),
+                     array('{if (0 > 0) or (9 < 6)}yes{else}no{/if}', 'no', 'Or4', $i ++),
+                     array('{if ((7>8)||(1 > 0)) and (5 < 6)}yes{else}no{/if}', 'yes', 'AndOr1', $i ++),
+                     array('{if {counter start=1} == 1}yes{else}no{/if}', 'yes', 'Tag1', $i ++),
+                     array('{if false}false{elseif {counter start=1} == 1}yes{else}no{/if}', 'yes', 'Tag2', $i ++),
+                     array('{if {counter start=1} == 0}false{elseif {counter} == 2}yes{else}no{/if}', 'yes', 'Tag3', $i ++),
          );
     }
+
+
+
 
     /**
      * Test if nocache tags
@@ -128,7 +163,7 @@ class CompileIfTest extends PHPUnit_Smarty
         $this->smarty->assign('file', $file, true);
         $this->smarty->assign($var, $value, true);
         $this->smarty->assign($var . '2', $value);
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch('run_code_caching.tpl')),
+        $this->assertEquals($result, $this->strip($this->smarty->fetch('run_code_caching.tpl')),
                             "testIfNocahe - {$code} - {$testName}");
     }
 
@@ -166,184 +201,60 @@ class CompileIfTest extends PHPUnit_Smarty
                      array('bar', 0, false, 'yes3', '', $i ++, 'testIfNoCache_Var4.tpl'),);
     }
 
-    public function testIfGT2()
+     /**
+     * Test spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
+     */
+    public function testSpacing($code, $result, $testName, $testNumber)
     {
-        $tpl = $this->smarty->createTemplate('eval:{if 0>1}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('bar', 'bar');
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            $file);
     }
 
-    public function testIfGT3()
+    /*
+      * Data provider für testSpacing
+      */
+    public function dataTestSpacing()
     {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 GT 0}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfGT4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 0 gt 1}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfGE1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 >= 0}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfGE2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1>=1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfGE3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 GE 1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfGE4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 0 ge 1}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfLT1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 0 < 0}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfLT2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 0<1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfLT3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 0 LT 1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfLT4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 0 lt 1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfLE1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 0 <= 0}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfLE2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 0<=1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfLE3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 LE 0}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfLE4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 0 le 1}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfNE1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 != 1}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfNE2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1!=2}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfNE3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 NE 1}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfNE4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 ne 2}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIdent1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 === "1"}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfIdent2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if "1" === "1"}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfAnd1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 > 0 && 5 < 6}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfAnd2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 > 0&&5 < 6}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfAnd3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 > 0 AND 5 > 6}}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfAnd4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if (1 > 0) and (5 < 6)}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfOr1()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 > 0 || 7 < 6}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfOr2()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 > 0||5 < 6}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfOr3()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if 1 > 0 OR 5 > 6}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfOr4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if (0 > 0) or (9 < 6)}yes{else}no{/if}');
-        $this->assertEquals("no", $this->smarty->fetch($tpl));
-    }
-
-    public function testIfAndOR4()
-    {
-        $tpl = $this->smarty->createTemplate('eval:{if ((7>8)||(1 > 0)) and (5 < 6)}yes{else}no{/if}');
-        $this->assertEquals("yes", $this->smarty->fetch($tpl));
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array("A{if false}false{elseif true}{\$bar}{/if}C", "AbarC", 'T1', $i++),
+                     array("A{if false}false{elseif true}\n{\$bar}{/if}C", "AbarC", 'T2', $i++),
+                     array("A{if false}false{elseif true}{\$bar}\n{/if}C", "Abar\nC", 'T3', $i++),
+                     array("A{if false}false{elseif true}\n{\$bar}\n{/if}C", "Abar\nC", 'T4', $i++),
+                     array("A\n{if false}false{elseif true}{\$bar}{/if}C", "A\nbarC", 'T5', $i++),
+                     array("A{if false}false{elseif true}{\$bar}{/if}\nC", "AbarC", 'T6', $i++),
+                     array("A{if false}false{elseif true}{\$bar}{else}D{/if}C", "AbarC", 'T7', $i++),
+                     array("A{if false}false{elseif true}{\$bar}\n{else}D{/if}C", "Abar\nC", 'T8', $i++),
+                     array("{if false}false{else}A{\$bar}B{/if}", "AbarB", 'T9', $i++),
+                     array("{if false}false{else}\nA{\$bar}B{/if}", "AbarB", 'T10', $i++),
+                     array("{if false}false{else}A{\$bar}\nB{/if}", "Abar\nB", 'T11', $i++),
+                     array("{if false}false{else}\nA{\$bar}\nB{/if}", "Abar\nB", 'T12', $i++),
+                     array("{if false}false{else}{\$bar}\nB{/if}", "bar\nB", 'T13', $i++),
+                     array("{if false}false{else}{\$bar}{/if}", "bar", 'T14', $i++),
+                     array("A{if false}false{elseif true}{\$bar}{/if}C", "AbarC", 'T15', $i++),
+                     array("A{if false}false{elseif true}\n{\$bar}{/if}C", "AbarC", 'T16', $i++),
+                     array("A{if false}false{elseif true}{\$bar}\n{/if}C", "Abar\nC", 'T17', $i++),
+                     array("A{if false}false{elseif true}\n{\$bar}\n{/if}C", "Abar\nC", 'T18', $i++),
+                     array("A\n{if false}false{elseif true}{\$bar}{/if}C", "A\nbarC", 'T19', $i++),
+                     array("A{if false}false{elseif true}{\$bar}{/if}\nC", "AbarC", 'T20', $i++),
+                     array("A{if false}false{elseif true}{\$bar}{else}D{/if}C", "AbarC", 'T21', $i++),
+                     array("A{if false}false{elseif true}{\$bar}\n{else}D{/if}C", "Abar\nC", 'T22', $i++),
+        );
     }
 
 

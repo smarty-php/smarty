@@ -32,6 +32,6 @@ class SmartyBcTest extends PHPUnit_Smarty
      */
     public function testSmartyPhpTag()
     {
-        $this->assertEquals('hello world', $this->smartyBC->fetch('eval:{php} echo "hello world"; {/php}'));
+        $this->assertEquals('hello world', $this->smartyBC->fetch('string:{php} echo "hello world"; {/php}'));
     }
 }

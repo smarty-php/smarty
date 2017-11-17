@@ -38,7 +38,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             1003 => 'Charlie Brown',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testSeparateArrays()
@@ -59,7 +59,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             'Charlie Brown',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testIterator()
@@ -80,7 +80,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
                                                          'Charlie Brown',
                                                      )));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testNoLabels()
@@ -100,7 +100,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             1003 => 'Charlie Brown',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testWithId()
@@ -120,7 +120,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             'work s ä' => 'Charlie Brown',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testNullString()
@@ -142,7 +142,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             2      => 'two',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testNullValue()
@@ -164,7 +164,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             2      => 'two',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testZeroValue()
@@ -186,7 +186,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             2      => 'two',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testZeroStringValue()
@@ -208,7 +208,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             2      => 'two',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testEmptyStringValue()
@@ -230,7 +230,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             2      => 'two',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testObject()
@@ -250,7 +250,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             1003 => 'Charlie Brown',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testObjectList()
@@ -270,7 +270,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             1003 => new _object_toString('Charlie Brown'),
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     protected $_errors = array();
@@ -351,7 +351,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             1003 => 'Charlie Brown',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 
     public function testDisabledStrict()
@@ -371,7 +371,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             1003 => 'Charlie Brown',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
 
         $n = "\n";
         $expected = '<label><input type="radio" name="id" value="1000" />Joe Schmoe</label><br />'
@@ -388,7 +388,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             1003 => 'Charlie Brown',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
 
         $n = "\n";
         $expected = '<label><input type="radio" name="id" value="1000" disabled="disabled" />Joe Schmoe</label><br />'
@@ -405,6 +405,6 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
             1003 => 'Charlie Brown',
         ));
 
-        $this->assertEquals($this->normalizeString($expected), $this->normalizeString($tpl->fetch()));
+        $this->assertEquals($expected, $tpl->fetch());
     }
 }

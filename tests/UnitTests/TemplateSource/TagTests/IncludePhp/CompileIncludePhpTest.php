@@ -57,7 +57,7 @@ class CompileIncludePhpTest extends PHPUnit_Smarty
     public function testIncludePhpVariableFileName()
     {
         $this->smartyBC->disableSecurity();
-        $tpl = $this->smartyBC->createTemplate('eval:start {include_php file=$filename once=false} end');
+        $tpl = $this->smartyBC->createTemplate('string:start {include_php file=$filename once=false} end');
         $tpl->assign('filename', 'scripts/test_include_php.php');
         $result = $this->smartyBC->fetch($tpl);
         $this->assertContains("test include php", $result);
@@ -66,7 +66,7 @@ class CompileIncludePhpTest extends PHPUnit_Smarty
     public function testIncludePhpVariableFileNameShortag()
     {
         $this->smartyBC->disableSecurity();
-        $tpl = $this->smartyBC->createTemplate('eval:start {include_php $filename once=false} end');
+        $tpl = $this->smartyBC->createTemplate('string:start {include_php $filename once=false} end');
         $tpl->assign('filename', 'scripts/test_include_php.php');
         $result = $this->smartyBC->fetch($tpl);
         $this->assertContains("test include php", $result);

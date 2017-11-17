@@ -39,7 +39,7 @@ class CompileCaptureTest extends PHPUnit_Smarty
         $file = "testCapture{$testNumber}.tpl";
         $this->makeTemplateFile($file, $code);
         $this->smarty->assignGlobal('file', $file);
-         $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)), "testCapture - {$code} - {$testName}");
+         $this->assertEquals($result, $this->smarty->fetch($file), "testCapture - {$code} - {$testName}");
     }
 
     /*
@@ -103,4 +103,47 @@ class CompileCaptureTest extends PHPUnit_Smarty
         $this->assertContains('lowercase', $result);
         $this->assertContains('uppercase', $result);
     }
+
+    /**
+     * Test spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
+     */
+    public function testSpacing($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'bar');
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "Spacing - {$file}");
+    }
+
+    /*
+      * Data provider für testSpacing
+      */
+    public function dataTestSpacing()
+    {
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array("A{capture}B{/capture}C{\$smarty.capture.default}", "ACB", 'Newline1', $i++),
+                     array("A{capture}\nB{/capture}C{\$smarty.capture.default}", "ACB", 'Newline2', $i++),
+                     array("A{capture}B\n{/capture}C{\$smarty.capture.default}", "ACB\n", 'Newline3', $i++),
+                     array("A\n{capture}\nB\n{/capture}C{\$smarty.capture.default}", "A\nCB\n", 'Newline4', $i++),
+                     array("{capture}B{/capture}A{\$smarty.capture.default}C", "ABC", 'Newline5', $i++),
+                     array("{capture}B{/capture}A\n{\$smarty.capture.default}C", "A\nBC", 'Newline6', $i++),
+                     array("{capture}B{/capture}A{\$smarty.capture.default}\nC", "AB\nC", 'Newline7', $i++),
+                     array("{capture}B{/capture}A\n{\$smarty.capture.default}\nC", "A\nB\nC", 'Newline8', $i++),
+        );
+   }
+
 }

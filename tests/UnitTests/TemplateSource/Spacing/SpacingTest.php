@@ -10,7 +10,7 @@
  * class for spacing test
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  */
 class SpacingTest extends PHPUnit_Smarty
@@ -18,92 +18,60 @@ class SpacingTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
-        $this->smarty->assign('foo', 'bar');
     }
-
 
     public function testInit()
     {
         $this->cleanDirs();
     }
-    /**
-     * test variable output
-     */
-    public function testVariableSpacing1()
-    {
-        $tpl = $this->smarty->createTemplate("eval:{\$foo}", null, null, $this->smarty);
-        $this->assertEquals("bar", $this->smarty->fetch($tpl));
-    }
-
-    public function testVariableSpacing2()
-    {
-        $tpl = $this->smarty->createTemplate("eval:{\$foo}{\$foo}", null, null, $this->smarty);
-        $this->assertEquals("barbar", $this->smarty->fetch($tpl));
-    }
-
-    public function testVariableSpacing3()
-    {
-        $tpl = $this->smarty->createTemplate("eval:{\$foo} {\$foo}", null, null, $this->smarty);
-        $this->assertEquals("bar bar", $this->smarty->fetch($tpl));
-    }
 
     /**
-     * test variable text combinations
+     * Test spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
      */
-    public function testVariableText1()
+    public function testSpacing($code, $result, $testName, $testNumber)
     {
-        $tpl = $this->smarty->createTemplate("eval:A{\$foo}B", null, null, $this->smarty);
-        $this->assertEquals("AbarB", $this->smarty->fetch($tpl));
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->template_dir = './templates_tmp';
+        $this->smarty->assign('file', $file);
+        $this->smarty->assign('foo', 'bar');
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            $file);
     }
 
-    public function testVariableText2()
+    /*
+      * Data provider für testSpacing
+      */
+    public function dataTestSpacing()
     {
-        $tpl = $this->smarty->createTemplate("eval:A {\$foo}B", null, null, $this->smarty);
-        $this->assertEquals("A barB", $this->smarty->fetch($tpl));
-    }
-
-    public function testVariableText3()
-    {
-        $tpl = $this->smarty->createTemplate("eval:A{\$foo} B", null, null, $this->smarty);
-        $this->assertEquals("Abar B", $this->smarty->fetch($tpl));
-    }
-
-    public function testVariableText4()
-    {
-        $tpl = $this->smarty->createTemplate("eval:A{\$foo}\nB", null, null, $this->smarty);
-        $this->assertEquals("Abar\nB", $this->smarty->fetch($tpl));
-    }
-
-    public function testVariableText5()
-    {
-        $tpl = $this->smarty->createTemplate("eval:A{\$foo}B\nC", null, null, $this->smarty);
-        $this->assertEquals("AbarB\nC", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test tag text combinations
-     */
-    public function testTagText1()
-    {
-        $tpl = $this->smarty->createTemplate("eval:A{assign var=zoo value='blah'}B");
-        $this->assertEquals("AB", $this->smarty->fetch($tpl));
-    }
-
-    public function testTagText2()
-    {
-        $tpl = $this->smarty->createTemplate("string:A\n{assign var=zoo value='blah'}\nB");
-        $this->assertEquals("A\nB", $this->smarty->fetch($tpl));
-    }
-
-    public function testTagText3()
-    {
-        $tpl = $this->smarty->createTemplate("eval:E{assign var=zoo value='blah'}\nF");
-        $this->assertEquals("EF", $this->smarty->fetch($tpl));
-    }
-
-    public function testTagText4()
-    {
-        $tpl = $this->smarty->createTemplate("eval:G\n{assign var=zoo value='blah'}H");
-        $this->assertEquals("G\nH", $this->smarty->fetch($tpl));
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array('{$foo}', 'bar', 'T1', $i++),
+                     array('{$foo}{$foo}', 'barbar', 'T2', $i++),
+                     array('A{$foo}{$foo}B', 'AbarbarB', 'T3', $i++),
+                     array('{$foo} {$foo}', 'bar bar', 'T4', $i++),
+                     array('A{$foo}B', 'AbarB', 'T5', $i++),
+                     array('A{counter}B', 'A1B', 'T6', $i++),
+                     array('A {$foo}B', 'A barB', 'T7', $i++),
+                     array('A{$foo} B', 'Abar B', 'T8', $i++),
+                     array("A{\$foo}\nB", "Abar\nB", 'T9', $i++),
+                     array("A{counter start=1}\nB", "A1\nB", 'T10', $i++),
+                     array("A{\$foo}B\nC", "AbarB\nC", 'T11', $i++),
+                     array("A{assign var=zoo value='blah'}B", "AB", 'T12', $i++),
+                     array("A\n{assign var=zoo value='blah'}\nB", "A\nB", 'T13', $i++),
+                     array("E{assign var=zoo value='blah'}\nF", "EF", 'T14', $i++),
+                     array("G\n{assign var=zoo value='blah'}H", "G\nH", 'T15', $i++),
+        );
     }
 }

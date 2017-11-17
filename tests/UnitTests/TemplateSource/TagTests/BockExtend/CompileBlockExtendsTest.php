@@ -1017,4 +1017,186 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->smarty->fetch('037_parent.tpl');
     }
 
+    /**
+     * Test spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
+     */
+    public function testSpacing($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'bar');
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "testSpacing - {$file}");
+    }
+    /**
+     * Test Output nocache spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
+     */
+    public function testBlockSpacingNocache($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_{$name}.tpl";
+        $this->smarty->setCompileId('VarNocache');
+        $this->smarty->setCaching(1);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'bar',true);
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "testVarNocache - {$file}");
+    }
+    /**
+     * Test Output nocache spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
+     */
+    public function testBlockSpacingNocache2($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_{$name}.tpl";
+        $this->smarty->setCompileId('VarNocache');
+        $this->smarty->setCaching(1);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'foo',true);
+        $this->assertEquals(str_replace('bar','foo',$result),
+                            $this->smarty->fetch($file),
+                            "testVarNocache1 - {$file}");
+    }
+
+    /*
+      * Data provider für testSpacing
+      */
+    public function dataTestSpacing()
+    {
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array("A{block name='a'}{\$foo}{/block}C", "AbarC", 'Var0', $i++),
+                     array("A{block name='a'}\n{\$foo}{/block}C", "A\nbarC", 'Var1', $i++),
+                     array("A{block name='a'}\n{\$foo}\n{/block}C", "A\nbar\nC", 'Var2', $i++),
+                     array("A{block name='a'}\n{\$foo}{/block}\nC", "A\nbar\nC", 'Var3', $i++),
+                     array("A\n{block name='a'}\n{\$foo}\n{/block}\nC", "A\n\nbar\n\nC", 'Var4', $i++),
+        );
+    }
+    /**
+     * Test spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestChildSpacing
+     * @runInSeparateProcess
+     */
+    public function testChildSpacing($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Spacing_Parent{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $child = "{extends file='$file'}\n";
+        $child .= preg_replace(array('/A/','/C/','/[$]foo/','/\s*[{][$]smarty[.]block[.]child[}]\s*/'),array('G','H','$bar','{$bar}'),$code);
+        $file = "Spacing_Child{$name}.tpl";
+        $this->makeTemplateFile($file, $child);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'foo');
+        $this->smarty->assign('bar', 'bar');
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "testChildSpacing - {$file}");
+    }
+
+    /*
+      * Data provider für testSpacing
+      */
+    public function dataTestChildSpacing()
+    {
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array("A{block name='a'}{\$foo}{/block}C", "AbarC", 'Var0', $i++),
+                     array("A{block name='a'}\n{\$foo}{/block}C", "A\nbarC", 'Var1', $i++),
+                     array("A{block name='a'}\n{\$foo}\n{/block}C", "A\nbar\nC", 'Var2', $i++),
+                     array("A{block name='a'}\n{\$foo}{/block}\nC", "A\nbar\nC", 'Var3', $i++),
+                     array("A\n{block name='a'}\n{\$foo}\n{/block}\nC", "A\n\nbar\n\nC", 'Var4', $i++),
+                     array("A{block name='a'}{\$smarty.block.child}{/block}C", "AbarC", 'BlockChild0', $i++),
+                     array("A{block name='a'}\n{\$smarty.block.child}{/block}C", "A\nbarC", 'BlockChild1', $i++),
+                     array("A{block name='a'}\n{\$smarty.block.child}\n{/block}C", "A\nbar\nC", 'BlockChild2', $i++),
+                     array("A{block name='a'}\n{\$smarty.block.child}{/block}\nC", "A\nbar\nC", 'BlockChild3', $i++),
+                     array("A\n{block name='a'}\n{\$smarty.block.child}\n{/block}\nC", "A\n\nbar\n\nC", 'BlockChild4', $i++),
+        );
+    }
+
+    /**
+     * Test Block nocache spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestBlockNocache
+     * @runInSeparateProcess
+     */
+    public function testBlockNocacheSpacing($code, $result, $name, $testNumber)
+    {
+        $file = "blockNocache_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->setCompileId('BlockNocache');
+        $this->smarty->setCaching(1);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'bar');
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "blockNocache - {$file}");
+    }
+    /**
+     * Test Block nocache spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestBlockNocache
+     * @runInSeparateProcess
+     */
+    public function testBlockNocacheSpacing2($code, $result, $name, $testNumber)
+    {
+        $file = "blockNocache_{$name}.tpl";
+        $this->smarty->setCompileId('BlockNocache');
+        $this->smarty->setCaching(1);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'foo');
+        $this->assertEquals(str_replace('bar','foo',$result),
+                            $this->smarty->fetch($file),
+                            "blockNocache - {$file}");
+    }
+    /*
+      * Data provider für TestBlockNocache
+      */
+    public function dataTestBlockNocache()
+    {
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array("A{nocache}{block name='a'}{\$foo}{/block}{/nocache}C", "AbarC", 'Var0', $i++),
+                     array("A{nocache}{block name='a'}\n{\$foo}{/block}{/nocache}C", "A\nbarC", 'Var1', $i++),
+                     array("A{nocache}{block name='a'}\n{\$foo}\n{/block}{/nocache}C", "A\nbar\nC", 'Var2', $i++),
+                     array("A{nocache}{block name='a'}\n{\$foo}{/block}\n{/nocache}C", "A\nbar\nC", 'Var3', $i++),
+                     array("A{nocache}\n{block name='a'}\n{\$foo}\n{/block}\n{/nocache}C", "A\n\nbar\n\nC", 'Var4', $i++),
+        );
+    }
+
 }

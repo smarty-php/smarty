@@ -30,13 +30,13 @@ class CompileDelimiterTest extends PHPUnit_Smarty
      */
     public function testLeftDelimiter()
     {
-        $tpl = $this->smarty->createTemplate('eval:x{ldelim}x');
+        $tpl = $this->smarty->createTemplate('string:x{ldelim}x');
         $this->assertEquals('x{x', $this->smarty->fetch($tpl));
     }
 
     public function testRightDelimiter()
     {
-        $tpl = $this->smarty->createTemplate('eval:x{rdelim}x');
+        $tpl = $this->smarty->createTemplate('string:x{rdelim}x');
         $this->assertEquals('x}x', $this->smarty->fetch($tpl));
     }
 }

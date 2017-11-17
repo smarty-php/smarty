@@ -41,7 +41,7 @@ class DoubleQuotedStringTest extends PHPUnit_Smarty
         $this->makeTemplateFile($file, $code);
         $this->smarty->assignGlobal('file', $file);
         $this->smarty->assign('bar', 'buh');
-        $this->assertEquals($this->strip($result), $this->strip($this->smarty->fetch($file)),
+        $this->assertEquals($result, $this->smarty->fetch($file),
                             "testDoubleQuoted - {$code} - {$name}");
     }
 

@@ -252,6 +252,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $this->smarty->registerDefaultPluginHandler('my_block_plugin_handler');
         $this->assertEquals('defaultblock hello world', $this->smarty->fetch('default2.tpl'));
     }
+
     /**
      * test tag stack
      *
@@ -262,7 +263,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     public function testBlockPluginTagStack()
     {
         $this->assertEquals('noop-teststack', $this->smarty->fetch('tag_stack.tpl'));
-        $this->assertEmpty($this->smarty->_cache['_tag_stack']);
+        $this->assertEmpty($this->smarty->_cache[ '_tag_stack' ]);
     }
 
     /**
@@ -273,8 +274,16 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      * @dataProvider        data
      *
      */
-    public function testCache($isCached, $caching, $cachable, $testNumber, $compileTestNumber, $renderTestNumber,
-                              $resultNumber, $nocache, $compileid, $testName)
+    public function testCache($isCached,
+                              $caching,
+                              $cachable,
+                              $testNumber,
+                              $compileTestNumber,
+                              $renderTestNumber,
+                              $resultNumber,
+                              $nocache,
+                              $compileid,
+                              $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'prefilterTest'));
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'cachetest', 'myblockplugintest2', $cachable);
@@ -288,7 +297,8 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
             $this->assertEquals($isCached, $tpl->isCached(), $testName . ' - isCached()');
         }
         $result = $this->smarty->fetch($tpl);
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}",
+                              $result,
                               $testName . ' - fetch() failure test number');
         $this->assertContains("block test{$resultNumber}", $result, $testName . ' - fetch() failure result');
     }
@@ -308,8 +318,152 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
                      array(true, true, true, 11, 10, 10, 11, true, 3, 'not cachable isCached'),
                      array(true, true, true, 12, 10, 10, 12, true, 3, 'not cachable isCached'),);
     }
-}
 
+    /**
+     * Test spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestSpacing
+     * @runInSeparateProcess
+     */
+    public function testSpacing($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "testSpacing_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('foo', 'bar');
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "testSpacing - {$file}");
+    }
+
+    /*
+      * Data provider für testSpacing
+      */
+    public function dataTestSpacing()
+    {
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array("A{noop}\nB{/noop}C", "ABC", 'Newline1', $i++),
+                     array("A{noop}\nB\n{/noop}C", "AB\nC", 'Newline2', $i++),
+                     array("A{noop}\nB{/noop}\nC", "ABC", 'Newline3', $i++),
+                     array("A\n{noop}\nB\n{/noop}\nC", "A\nB\nC", 'Newline4', $i++),
+                     array("A{noop}\n{\$foo}{/noop}C", "AbarC", 'Var1', $i++),
+                     array("A{noop}\n{\$foo}\n{/noop}C", "Abar\nC", 'Var2', $i++),
+                     array("A{noop}\n{\$foo}{/noop}\nC", "AbarC", 'Var3', $i++),
+                     array("A\n{noop}\n{\$foo}\n{/noop}\nC", "A\nbar\nC", 'Var4', $i++),
+        );
+    }
+    /**
+     * Test spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestDefaultSpacing
+     * @runInSeparateProcess
+     */
+    public function testSpacingDefault($code, $result, $testName, $testNumber)
+    {
+         $name = empty($testName) ? $testNumber : $testName;
+        $file = "testSpacing_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->registerDefaultPluginHandler('my_block_plugin_handler');
+        $this->smarty->compile_id='default';
+        $this->smarty->assign('foo', 'bar');
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "testSpacing - {$file}");
+    }
+
+    /*
+      * Data provider für testSpacing
+      */
+    public function dataTestDefaultSpacing()
+    {
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array("A{scriptblock}\nB{/scriptblock}C", "Ascriptblock BC", 'Newline1', $i++),
+                     array("A{scriptblock}\nB\n{/scriptblock}C", "Ascriptblock B\nC", 'Newline2', $i++),
+                     array("A{scriptblock}\nB{/scriptblock}\nC", "Ascriptblock BC", 'Newline3', $i++),
+                     array("A\n{scriptblock}\nB\n{/scriptblock}\nC", "A\nscriptblock B\nC", 'Newline4', $i++),
+                     array("A{scriptblock}\n{\$foo}{/scriptblock}C", "Ascriptblock barC", 'Var1', $i++),
+                     array("A{scriptblock}\n{\$foo}\n{/scriptblock}C", "Ascriptblock bar\nC", 'Var2', $i++),
+                     array("A{scriptblock}\n{\$foo}{/scriptblock}\nC", "Ascriptblock barC", 'Var3', $i++),
+                     array("A\n{scriptblock}\n{\$foo}\n{/scriptblock}\nC", "A\nscriptblock bar\nC", 'Var4', $i++),
+        );
+    }
+
+    /**
+     * Test nocache block spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestNocacheSpacing
+     * @runInSeparateProcess
+     */
+    public function testBlockNocache($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Nocache_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->setCompileId('nocache');
+        $this->smarty->setCaching(1);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('bar', 'bar',true);
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            "testNocache - {$file}");
+    }
+    /**
+     * Test nocache block spacings
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestNocacheSpacing
+     * @runInSeparateProcess
+     */
+    public function testBlockNocache2($code, $result, $testName, $testNumber)
+    {
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "Nocache_{$name}.tpl";
+        $this->smarty->setCompileId('nocache');
+        $this->smarty->setCaching(1);
+        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->assign('bar', 'foo',true);
+        $this->assertEquals(str_replace('bar','foo',$result),
+                            $this->smarty->fetch($file),
+                            "testNocache2 - {$file}");
+    }
+
+    /*
+  * Data provider für testSpacing
+  */
+    public function dataTestNocacheSpacing()
+    {
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array("A{testparameter value=\$bar}\n{\$foo}{/testparameter}C", "AbarC", 'Var1', $i++),
+                     array("A{testparameter value=\$bar}\n{\$foo}\n{/testparameter}C", "Abar\nC", 'Var2', $i++),
+                     array("A{testparameter value=\$bar}\n{\$foo}{/testparameter}\nC", "AbarC", 'Var3', $i++),
+                     array("A\n{testparameter value=\$bar}\n{\$foo}\n{/testparameter}\nC", "A\nbar\nC", 'Var4', $i++),
+    );
+    }
+
+}
 function myblockplugintest($params, $content, &$smarty_tpl, &$repeat)
 {
     if (!$repeat) {

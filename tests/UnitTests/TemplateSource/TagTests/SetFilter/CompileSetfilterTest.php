@@ -26,11 +26,22 @@ class CompileSetfilterTest extends PHPUnit_Smarty
         $this->cleanDirs();
     }
     /**
-     * test nested setfilter
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testNestedSetfilter()
     {
-        $tpl = $this->smarty->createTemplate('eval:{$foo}{setfilter htmlspecialchars} {$foo}{setfilter escape:"mail"} {$foo}{/setfilter} {$foo}{/setfilter} {$foo}');
+        $tpl = $this->smarty->createTemplate('string:{$foo}{setfilter htmlspecialchars} {$foo}{setfilter escape:"mail"} {$foo}{/setfilter} {$foo}{/setfilter} {$foo}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("<a@b.c> &lt;a@b.c&gt; <a [AT] b [DOT] c> &lt;a@b.c&gt; <a@b.c>", $this->smarty->fetch($tpl));
+    }
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testNestedSetfilter2()
+    {
+        $tpl = $this->smarty->createTemplate('string:{$foo}{setfilter htmlspecialchars} {$foo}{setfilter escape:"mail"} {$foo}{/setfilter} {$foo}{/setfilter} {$foo}');
         $tpl->assign('foo', '<a@b.c>');
         $this->assertEquals("<a@b.c> &lt;a@b.c&gt; <a [AT] b [DOT] c> &lt;a@b.c&gt; <a@b.c>", $this->smarty->fetch($tpl));
     }
