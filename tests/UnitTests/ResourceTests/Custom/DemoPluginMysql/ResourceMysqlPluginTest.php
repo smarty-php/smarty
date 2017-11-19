@@ -24,53 +24,111 @@ if (MysqlResourceEnable == true) {
                 $this->getConnection();
             }
             $this->setUpSmarty(dirname(__FILE__));
+            $this->smarty->addPluginsDir("./PHPunitplugins/");
         }
 
+        /**
+        *
+        */
         public function testInit()
         {
             $this->cleanDirs();
             $this->initMysqlResource();
-            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates VALUES ('test.tpl', '2010-12-25 22:00:00', '{\$x = \'hello world\'}{\$x}' )");
-            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates VALUES ('template.tpl', '2010-12-25 22:00:00', 'template = {\$smarty.template}' )");
-            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates VALUES ('current_dir.tpl', '2010-12-25 22:00:00', 'current_dir = {\$smarty.current_dir}' )");
+            $time = date('Y-m-d H:i:s');
+            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates VALUES ('test.tpl', '{$time}' , '{\$x = \'hello world\'}{\$x}' )");
         }
 
         /**
-         * test resource plugin rendering of a custom resource
-         */
+        * test resource plugin rendering of a custom resource
+        *
+        * @runInSeparateProcess
+        * @preserveGlobalState disabled
+        *
+        */
         public function testResourcePluginMysql()
         {
-            //$this->smarty->addPluginsDir(SMARTY_DIR . "../demo/plugins/");
-            $this->smarty->addPluginsDir("./PHPunitplugins/");
-            $this->assertEquals('hello world', $this->smarty->fetch('mysqltest:test.tpl'));
+             $this->assertEquals('hello world', $this->smarty->fetch('mysqltest:test.tpl'));
         }
 
-        /**
-         * test resource plugin timestamp of a custom resource
-         */
-        public function testResourcePluginMysqlTimestamp()
+       /**
+        * test must compile
+        *
+        * @runInSeparateProcess
+        * @preserveGlobalState disabled
+        *
+        */
+        public function testMustCompile()
         {
-            //       $this->smarty->addPluginsDir(SMARTY_DIR . "../demo/plugins/");
-            $this->smarty->addPluginsDir("./PHPunitplugins/");
+           $tpl = $this->smarty->createTemplate('mysqltest:test.tpl');
+           $this->assertFalse($tpl->mustCompile());
+        }
+
+         /**
+        * test must compile
+        *
+        * @runInSeparateProcess
+        * @preserveGlobalState disabled
+        *
+        */
+        public function testMustCompile2()
+        {
+            sleep(2);
+            $time = date('Y-m-d H:i:s');
+            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates VALUES ('test.tpl', '{$time}' , '{\$x = \'hello smarty\'}{\$x}' )");
             $tpl = $this->smarty->createTemplate('mysqltest:test.tpl');
-            $this->assertEquals(strtotime("2010-12-25 22:00:00"), $tpl->source->getTimeStamp());
+            $this->assertTrue($tpl->mustCompile());
         }
 
         /**
-         * test resource plugin compiledFilepath of a custom resource
-         */
+        * test resource plugin rendering of a custom resource
+        *
+        * @runInSeparateProcess
+        * @preserveGlobalState disabled
+        *
+        */
+        public function testResourcePluginMysql2()
+        {
+             $this->assertEquals('hello smarty', $this->smarty->fetch('mysqltest:test.tpl'));
+        }
+
+         /**
+        * test clear compiled
+        *
+        * @runInSeparateProcess
+        * @preserveGlobalState disabled
+        *
+        */
+        public function testClearCompiled()
+        {
+            $this->assertEquals(1, $this->smarty->clearCompiledTemplate('mysqltest:test.tpl'));
+        }
+
+       /**
+        * test must compile
+        *
+        * @runInSeparateProcess
+        * @preserveGlobalState disabled
+        *
+        */
+        public function testMustCompile3()
+        {
+           $tpl = $this->smarty->createTemplate('mysqltest:test.tpl');
+           $this->assertTrue($tpl->mustCompile());
+        }
+
+        /**
+        * test resource plugin compiledFilepath of a custom resource
+        */
         public function testResourcePluginMysqlCompiledFilepath()
         {
-            //       $this->smarty->addPluginsDir(SMARTY_DIR . "../demo/plugins/");
-            $this->smarty->addPluginsDir("./PHPunitplugins/");
+            //$this->smarty->addPluginsDir("./PHPunitplugins/");
             $tpl = $this->smarty->createTemplate('mysqltest:test.tpl');
             $this->assertEquals($this->buildCompiledPath($tpl, false, false, null, 'test.tpl', 'mysqltest', $this->smarty->getTemplateDir(0)), $tpl->compiled->filepath);
         }
 
         public function testResourcePluginMysqlCompiledFilepathCache()
         {
-            //$this->smarty->addPluginsDir(SMARTY_DIR . "../demo/plugins/");
-            $this->smarty->addPluginsDir("./PHPunitplugins/");
+            //$this->smarty->addPluginsDir("./PHPunitplugins/");
             $this->smarty->caching = true;
             $this->smarty->cache_lifetime = 1000;
             $this->smarty->setForceCompile(true);
@@ -81,30 +139,16 @@ if (MysqlResourceEnable == true) {
         }
 
         /**
-         * test resource plugin timestamp of a custom resource with only fetch() implemented
-         */
-        public function testResourcePluginMysqlTimestampWithoutFetchTimestamp()
-        {
-            //       $this->smarty->addPluginsDir(SMARTY_DIR . "../demo/plugins/");
-            $this->smarty->addPluginsDir("./PHPunitplugins/");
-            $tpl = $this->smarty->createTemplate('mysqlstest:test.tpl');
-            $this->assertEquals(strtotime("2010-12-25 22:00:00"), $tpl->source->getTimeStamp());
-        }
-        /**
-         * test {$smarty.template}
-         *
-         */
-        public function testSmartyTemplate() {
-            $this->smarty->addPluginsDir("./PHPunitplugins/");
-            $this->assertEquals('template = mysqlstest:template.tpl', $this->smarty->fetch('mysqlstest:template.tpl'));
-        }
-        /**
-         * test {$smarty.current_dir}
-         *
-         */
-        public function testSmartyCurrentDir() {
-            $this->smarty->addPluginsDir("./PHPunitplugins/");
-            $this->assertEquals('current_dir = .', $this->smarty->fetch('mysqlstest:current_dir.tpl'));
+        * test unknown template
+        *
+        * @expectedException        SmartyException
+        * @expectedExceptionMessage Unable to load template 'mysqlstest:foo.tpl'
+        * @runInSeparateProcess
+        * @preserveGlobalState disabled
+        *
+        */
+        public function testUnknownTemplate() {
+            $this->assertEquals('foo', $this->smarty->fetch('mysqlstest:foo.tpl'));
         }
     }
 }
