@@ -112,6 +112,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      */
     public function __construct($name = null, array $data = array(), $dataName = '')
     {
+        date_default_timezone_set('Europe/Berlin');
         if (!defined('individualFolders')) {
             define('individualFolders', true);
         }
@@ -193,7 +194,9 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
                 throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
             }
             $timezone = date_default_timezone_get();
-            PHPUnit_Smarty::$pdo->exec("SET time_zone = '{$timezone}';");
+            $j = PHPUnit_Smarty::$pdo->exec("SET time_zone = '{$timezone}';");
+
+
         }
     }
 
@@ -211,6 +214,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
  `source` text,
 PRIMARY KEY (`name`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
+
     }
 
     /**
@@ -221,21 +225,35 @@ PRIMARY KEY (`name`)
     {
         $this->getConnection();
         PHPUnit_Smarty::$pdo->exec("DROP TABLE `output_cache`");
-        PHPUnit_Smarty::$pdo->exec("CREATE TABLE IF NOT EXISTS `output_cache` (
-`id` char(40) NOT NULL COMMENT 'sha1 hash',
-`name` varchar(250) NOT NULL,
-`cache_id` varchar(250) DEFAULT NULL,
-`compile_id` varchar(250) DEFAULT NULL,
-`modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`expire` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-`content` mediumblob NOT NULL,
+         PHPUnit_Smarty::$pdo->exec("CREATE TABLE IF NOT EXISTS `output_cache` (
+ `name` varchar(256) NOT NULL,
+ `id` char(40) NOT NULL,
+ `cache_id` varchar(250) DEFAULT NULL,
+ `compile_id` varchar(250) DEFAULT NULL,
+`modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ `content` mediumblob NOT NULL,
 PRIMARY KEY (`id`),
-KEY `name` (`name`),
 KEY `cache_id` (`cache_id`),
 KEY `compile_id` (`compile_id`),
 KEY `modified` (`modified`),
-KEY `expire` (`expire`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8");
+KEY `name` (`name`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
+//     PHPUnit_Smarty::$pdo->exec("CREATE TABLE IF NOT EXISTS `output_cache` (
+//`id` char(40) NOT NULL,
+//`name` varchar(250) NOT NULL,
+//`cache_id` varchar(250) DEFAULT NULL,
+//`compile_id` varchar(250) DEFAULT NULL,
+//`modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+//`expire` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+//`content` mediumblob NOT NULL,
+///PRIMARY KEY (`id`),
+//KEY `name` (`name`),
+//KEY `cache_id` (`cache_id`),
+//KEY `compile_id` (`compile_id`),
+//KEY `modified` (`modified`),
+//KEY `expire` (`expire`)
+//) ENGINE=InnoDB DEFAULT CHARSET=utf8");
+
     }
 
     /**

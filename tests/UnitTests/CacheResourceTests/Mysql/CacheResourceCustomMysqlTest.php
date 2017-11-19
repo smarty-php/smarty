@@ -21,7 +21,8 @@ if (MysqlCacheEnable == true) {
 
         public function setUp()
         {
-            if (MysqlCacheEnable != true) {
+
+         if (MysqlCacheEnable != true) {
                 $this->markTestSkipped('mysql tests are disabled');
             }
             if (self::$init) {

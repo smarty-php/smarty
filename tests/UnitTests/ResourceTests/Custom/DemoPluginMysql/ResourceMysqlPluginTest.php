@@ -34,8 +34,7 @@ if (MysqlResourceEnable == true) {
         {
             $this->cleanDirs();
             $this->initMysqlResource();
-            $time = date('Y-m-d H:i:s');
-            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates VALUES ('test.tpl', '{$time}' , '{\$x = \'hello world\'}{\$x}' )");
+            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates (name, source) VALUES ('test.tpl', '{\$x = \'hello world\'}{\$x}')");
         }
 
         /**
@@ -73,8 +72,7 @@ if (MysqlResourceEnable == true) {
         public function testMustCompile2()
         {
             sleep(2);
-            $time = date('Y-m-d H:i:s');
-            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates VALUES ('test.tpl', '{$time}' , '{\$x = \'hello smarty\'}{\$x}' )");
+            PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates (name, source) VALUES ('test.tpl',  '{\$x = \'hello smarty\'}{\$x}' )");
             $tpl = $this->smarty->createTemplate('mysqltest:test.tpl');
             $this->assertTrue($tpl->mustCompile());
         }
@@ -128,7 +126,6 @@ if (MysqlResourceEnable == true) {
 
         public function testResourcePluginMysqlCompiledFilepathCache()
         {
-            //$this->smarty->addPluginsDir("./PHPunitplugins/");
             $this->smarty->caching = true;
             $this->smarty->cache_lifetime = 1000;
             $this->smarty->setForceCompile(true);
