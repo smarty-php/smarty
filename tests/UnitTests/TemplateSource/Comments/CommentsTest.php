@@ -10,7 +10,7 @@
  * class for security test
  *
  * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
+ * @preserveGlobalState    disabled
  * @backupStaticAttributes enabled
  */
 class CommentsTest extends PHPUnit_Smarty
@@ -26,67 +26,54 @@ class CommentsTest extends PHPUnit_Smarty
     }
 
     /**
-     * test simple comments
+     * Test comments
+     *
+     * @preserveGlobalState disabled
+     * @dataProvider        dataTestComments
      */
-    public function testSimpleComment1()
+    public function testComments($code, $result, $testName, $testNumber)
     {
-        $tpl = $this->smarty->createTemplate("eval:{* this is a comment *}");
-        $this->assertEquals("", $this->smarty->fetch($tpl));
+        $name = empty($testName) ? $testNumber : $testName;
+        $file = "testComments_{$name}.tpl";
+        $this->makeTemplateFile($file, $code);
+        $this->smarty->template_dir = './templates_tmp';
+        $this->assertEquals($result,
+                            $this->smarty->fetch($file),
+                            $file);
     }
 
-    public function testSimpleComment2()
+    /*
+      * Data provider für testComments
+      */
+    public function dataTestComments()
     {
-        $tpl = $this->smarty->createTemplate("eval:{* another \$foo comment *}");
-        $this->assertEquals("", $this->smarty->fetch($tpl));
+        $i = 1;
+        /*
+                    * Code
+                    * result
+                    * test name
+                    * test number
+                    */
+        return array(array('{* this is a comment *}', '', 'T1', $i++),
+                     array('{* another $foo comment *}', '', 'T2', $i++),
+                     array('{* another  comment *}some in between{* another  comment *}', 'some in between',
+                           'T3', $i++),
+                     array("{* multi line \n comment *}", '', 'T4', $i++),
+                     array('{* /* foo * / *}', '', 'T5', $i++),
+                     array("A{* comment *}B\nC", "AB\nC", 'T6', $i++),
+                     array("D{* comment *}\n{* comment *}E\nF", "DE\nF", 'T7', $i++),
+                     array("G{* multi \nline *}H", "GH", 'T8', $i++),
+                     array("I{* multi \nline *}\nJ", "IJ", 'T9', $i++),
+                     array("=\n{* comment *}\n{* comment *}\n    b\n{* comment *}\n{* comment *}\n=", "=\n    b\n=", 'T10', $i++),
+                     array("=\na\n{* comment 1 *}\n{* comment 2 *}\n{* comment 3 *}\nb\n=", "=\na\nb\n=", 'T11', $i++),
+                     array("=\na\n{* comment 1 *}\n {* comment 2 *}\n{* comment 3 *}\nb\n=", "=\na\n b\n=", 'T12', $i++),
+                     array("=\na\n{* comment 1 *}\n{* comment 2 *} \n{* comment 3 *}\nb\n=", "=\na\n \nb\n=", 'T13', $i++),
+                     array("=\na\n{* comment 1 *}\n {* comment 2 *} \n{* comment 3 *}\nb\n=", "=\na\n  \nb\n=", 'T14', $i++),
+        );
     }
 
-    public function testSimpleComment3()
-    {
-        $tpl = $this->smarty->createTemplate("eval:{* another  comment *}some in between{* another  comment *}");
-        $this->assertEquals("some in between", $this->smarty->fetch($tpl));
-    }
-
-    public function testSimpleComment4()
-    {
-        $tpl = $this->smarty->createTemplate("eval:{* multi line \n comment *}");
-        $this->assertEquals("", $this->smarty->fetch($tpl));
-    }
-
-    public function testSimpleComment5()
-    {
-        $tpl = $this->smarty->createTemplate("eval:{* /* foo * / *}");
-        $this->assertEquals("", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test comment text combinations
-     */
-    public function testTextComment1()
-    {
-        $tpl = $this->smarty->createTemplate("eval:A{* comment *}B\nC");
-        $this->assertEquals("AB\nC", $this->smarty->fetch($tpl));
-    }
-
-    public function testTextComment2()
-    {
-        $tpl = $this->smarty->createTemplate("eval:D{* comment *}\n{* comment *}E\nF");
-        $this->assertEquals("D\nE\nF", $this->smarty->fetch($tpl));
-    }
-
-    public function testTextComment3()
-    {
-        $tpl = $this->smarty->createTemplate("eval:G{* multi \nline *}H");
-        $this->assertEquals("GH", $this->smarty->fetch($tpl));
-    }
-
-    public function testTextComment4()
-    {
-        $tpl = $this->smarty->createTemplate("eval:I{* multi \nline *}\nJ");
-        $this->assertEquals("I\nJ", $this->smarty->fetch($tpl));
-    }
     public function testTextComment5()
     {
-        $tpl = $this->smarty->createTemplate("longcomment.tpl");
-        $this->assertEquals("I\nJ", $this->smarty->fetch($tpl));
+        $this->assertEquals("IJ", $this->smarty->fetch("longcomment.tpl"), 'Comments longcomment.tpl');
     }
 }
