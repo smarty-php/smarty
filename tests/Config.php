@@ -9,10 +9,10 @@
 define('individualFolders', true);
 define('MemCacheEnable', false);
 define('ApcCacheEnable', false);
-define('MysqlCacheEnable', true);
+define('MysqlCacheEnable', false);
 define('PdoCacheEnable', false);
 define('PdoGzipCacheEnable', false);
-define('MysqlResourceEnable', true);
+define('MysqlResourceEnable', false);
 define('DB_DSN', "mysql:dbname=test;host=localhost");
 define('DB_USER', "travis");
 define('DB_PASSWD', "");
