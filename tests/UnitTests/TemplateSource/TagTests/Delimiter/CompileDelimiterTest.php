@@ -9,7 +9,7 @@
 /**
  * class for delimiter tags tests
  *
- * @runTestsInSeparateProcess
+ * @run TestsInSeparateProcess
  * @preserveGlobalState disabled
  * @backupStaticAttributes enabled
  */
@@ -25,10 +25,11 @@ class CompileDelimiterTest extends PHPUnit_Smarty
     {
         $this->cleanDirs();
     }
+
     /**
      * test delimiter tag test
      */
-    public function testLeftDelimiter()
+     public function testLeftDelimiter()
     {
         $tpl = $this->smarty->createTemplate('string:x{ldelim}x');
         $this->assertEquals('x{x', $this->smarty->fetch($tpl));
@@ -39,4 +40,16 @@ class CompileDelimiterTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('string:x{rdelim}x');
         $this->assertEquals('x}x', $this->smarty->fetch($tpl));
     }
+
+    /**
+     * @expectedException        SmartyCompilerException
+     * @expectedExceptionMessage nocache option not allowed
+     */
+    public function testLeftDelimiterError()
+    {
+        $tpl = $this->smarty->createTemplate('string:x{ldelim nocache}x');
+        $this->assertEquals('x{x', $this->smarty->fetch($tpl));
+    }
+
+
 }
