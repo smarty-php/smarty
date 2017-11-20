@@ -132,7 +132,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             $output = "<?php\n";
             $output .= "/* {$_funcNameCaching} */\n";
             $output .= "if (!function_exists('{$_funcNameCaching}')) {\n";
-            $output .= "function {$_funcNameCaching} (\$_smarty_tpl,\$params) {\n";
+            $output .= "function {$_funcNameCaching} (Smarty_Internal_Template \$_smarty_tpl,\$params) {\n";
             $output .= "ob_start();\n";
             $output .= "\$_smarty_tpl->compiled->has_nocache_code = true;\n";
             $output .= $_paramsCode;
@@ -164,7 +164,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $output = "<?php\n";
         $output .= "/* {$_funcName} */\n";
         $output .= "if (!function_exists('{$_funcName}')) {\n";
-        $output .= "function {$_funcName}(\$_smarty_tpl,\$params) {\n";
+        $output .= "function {$_funcName}(Smarty_Internal_Template \$_smarty_tpl,\$params) {\n";
         $output .= $_paramsCode;
         $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}?>";
         $compiler->parser->current_buffer->append_subtree($compiler->parser,

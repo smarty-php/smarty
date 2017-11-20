@@ -112,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-35';
+    const SMARTY_VERSION = '3.1.32-dev-36';
     /**
      * define variable scopes
      */
@@ -921,7 +921,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param  object  $parent     next higher level of Smarty variables
      * @param  boolean $do_clone   flag is Smarty object shall be cloned
      *
-     * @return object template object
+     * @return \Smarty_Internal_Template template object
      * @throws \SmartyException
      */
     public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null, $do_clone = true)

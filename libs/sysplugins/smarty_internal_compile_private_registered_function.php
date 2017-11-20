@@ -80,8 +80,6 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
                                             array('modifierlist' => $parameter[ 'modifierlist' ],
                                                   'value' => $output));
         }
-        //Does tag create output
-        $compiler->has_output = true;
         $output = "<?php echo {$output};?>\n";
         return $output;
     }

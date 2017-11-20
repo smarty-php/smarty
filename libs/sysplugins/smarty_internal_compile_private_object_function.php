@@ -41,9 +41,6 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        //Does tag create output
-        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
-
         unset($_attr[ 'nocache' ]);
         $_assign = null;
         if (isset($_attr[ 'assign' ])) {
@@ -76,9 +73,6 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
             $output = $compiler->compileTag('private_modifier', array(),
                                             array('modifierlist' => $parameter[ 'modifierlist' ], 'value' => $output));
         }
-        //Does tag create output
-        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
-
         if (empty($_assign)) {
             return "<?php echo {$output};?>\n";
         } else {

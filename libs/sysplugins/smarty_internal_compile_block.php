@@ -123,7 +123,6 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
             $compiler->trigger_template_error(" '\$smarty.block.{$name}' used outside {block} tags ",
                                               $compiler->parser->lex->taglineno);
         }
-        $compiler->has_code = true;
         $compiler->suppressNocacheProcessing = true;
         switch ($name) {
             case 'child':
@@ -235,7 +234,6 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         if ($compiler->_cache['blockNesting'] === 0) {
             unset($compiler->_cache['blockNesting']);
         }
-        $compiler->has_code = true;
         $compiler->suppressNocacheProcessing = true;
         return $output;
     }

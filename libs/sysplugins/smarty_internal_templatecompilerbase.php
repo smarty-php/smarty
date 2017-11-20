@@ -225,12 +225,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @var bool
      */
     public $has_variable_string = false;
-    /**
-     * Tag creates output
-     *
-     * @var bool
-     */
-    public $has_output = false;
+
     /**
      * Stack for {setfilter} {/setfilter}
      *
@@ -833,9 +828,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function appendCode($left, $right)
     {
-        if (preg_match('/\s*\?>\s*$/', $left) && preg_match('/^\s*<\?php\s+/', $right)) {
-            $left = preg_replace('/\s*\?>\s*$/', "\n", $left);
-            $left .= preg_replace('/^\s*<\?php\s+/', '', $right);
+        if (preg_match('/\s*\?>\s?$/D', $left) && preg_match('/^<\?php\s+/', $right)) {
+            $left = preg_replace('/\s*\?>\s?$/D', "\n", $left);
+            $left .= preg_replace('/^<\?php\s+/', '', $right);
         } else {
             $left .= $right;
         }
@@ -1298,7 +1293,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // $args contains the attributes parsed and compiled by the lexer/parser
         // assume that tag does compile into code, but creates no HTML output
         $this->has_code = true;
-        $this->has_output = false;
         // log tag/attributes
         if (isset($this->smarty->_cache[ 'get_used_tags' ])) {
             $this->template->_cache[ 'used_tags' ][] = array($tag,
@@ -1333,10 +1327,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
             if ($_output !== true) {
                 // did we get compiled code
                 if ($this->has_code) {
-                    // Does it create output?
-                    if ($this->has_output) {
-                        $_output .= "\n";
-                    }
                     // return compiled code
                     return $_output;
                 }

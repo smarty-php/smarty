@@ -27,14 +27,15 @@
  * Method extensions
  * @property Smarty_Internal_Method_GetTemplateVars    $getTemplateVars
  * @property Smarty_Internal_Method_Append             $append
- * @property Smarty_Internal_Method_AppendByRef        $appendByRef
- * @property Smarty_Internal_Method_AssignGlobal       $assignGlobal
- * @property Smarty_Internal_Method_AssignByRef        $assignByRef
- * @property Smarty_Internal_Method_LoadFilter         $loadFilter
- * @property Smarty_Internal_Method_LoadPlugin         $loadPlugin
- * @property Smarty_Internal_Method_RegisterFilter     $registerFilter
- * @property Smarty_Internal_Method_RegisterObject     $registerObject
- * @property Smarty_Internal_Method_RegisterPlugin     $registerPlugin
+ * @property Smarty_Internal_Method_AppendByRef    $appendByRef
+ * @property Smarty_Internal_Method_AssignGlobal   $assignGlobal
+ * @property Smarty_Internal_Method_AssignByRef    $assignByRef
+ * @property Smarty_Internal_Method_LoadFilter     $loadFilter
+ * @property Smarty_Internal_Method_LoadPlugin     $loadPlugin
+ * @property Smarty_Internal_Method_RegisterFilter $registerFilter
+ * @property Smarty_Internal_Method_RegisterObject $registerObject
+ * @property Smarty_Internal_Method_RegisterPlugin $registerPlugin
+ * @property mixed|\Smarty_Template_Cached         configLoad
  */
 class Smarty_Internal_Extension_Handler
 {

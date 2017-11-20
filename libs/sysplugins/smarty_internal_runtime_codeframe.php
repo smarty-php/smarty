@@ -88,7 +88,7 @@ class Smarty_Internal_Runtime_CodeFrame
                 $output .= "?>/*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%*/';\n";
             }
         }
-        $output .= "?>\n";
+        $output .= "?>";
         $output .= $content;
         $output .= "<?php }\n?>";
         $output .= $functions;

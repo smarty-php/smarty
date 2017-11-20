@@ -52,8 +52,6 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        //Does tag create output
-        $compiler->has_output = isset($_attr[ 'assign' ]) ? false : true;
         $nocacheParam = $compiler->template->caching && ($compiler->tag_nocache || $compiler->nocache);
         if (!$nocacheParam) {
             // do not compile as nocache code

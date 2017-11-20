@@ -9,9 +9,6 @@ class TP_yyStackEntry
                      ** is the value of the token  */
 }
 
-;
-#line 11 "../smarty/lexer/smarty_internal_templateparser.y"
-
 /**
  * Smarty Template Parser Class
  *

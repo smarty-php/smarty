@@ -85,9 +85,9 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
             $output .= "settype(\$_tmp_array, 'array');\n";
             $output .= "}\n";
             $output .= "\$_tmp_array{$parameter['smarty_internal_index']} = {$_attr['value']};\n";
-            $output .= "\$_smarty_tpl->_assignInScope({$_var}, \$_tmp_array{$_params});\n?>";
+            $output .= "\$_smarty_tpl->_assignInScope({$_var}, \$_tmp_array{$_params});?>";
         } else {
-            $output = "<?php \$_smarty_tpl->_assignInScope({$_var}, {$_attr['value']}{$_params});\n?>";
+            $output = "<?php \$_smarty_tpl->_assignInScope({$_var}, {$_attr['value']}{$_params});?>";
         }
         return $output;
     }

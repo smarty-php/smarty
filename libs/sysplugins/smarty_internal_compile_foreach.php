@@ -262,7 +262,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
      */
     public function compileRestore($levels)
     {
-        return "\$_smarty_tpl->smarty->ext->_foreach->restore(\$_smarty_tpl, {$levels});\n";
+        return "\$_smarty_tpl->smarty->ext->_foreach->restore(\$_smarty_tpl, {$levels});";
     }
 }
 
@@ -293,7 +293,7 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase
         if ($restore === 2) {
             $output .= "{$itemVar} = {$local}saved;\n";
         }
-        $output .= "}\n} else {\n?>\n";
+        $output .= "}\n} else {\n?>";
         return $output;
     }
 }
@@ -337,7 +337,7 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
         /* @var Smarty_Internal_Compile_Foreach $foreachCompiler */
         $foreachCompiler = $compiler->getTagCompiler('foreach');
         $output .= $foreachCompiler->compileRestore(1);
-        $output .= "?>\n";
+        $output .= "?>";
         return $output;
     }
 }

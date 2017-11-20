@@ -65,7 +65,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                 $output .= "if (!is_callable({$callable})) {\nthrow new SmartyException('block tag \'{$tag}\' not callable or registered');\n}\n";
             }
             $output .= "\$_smarty_tpl->smarty->_cache['_tag_stack'][] = array('{$tag}', {$_params});\n";
-            $output .= "\$_block_repeat=true;\necho {$callback}({$_params}, null, \$_smarty_tpl, \$_block_repeat);\nwhile (\$_block_repeat) {\nob_start();\n?>";
+            $output .= "\$_block_repeat=true;\necho {$callback}({$_params}, null, \$_smarty_tpl, \$_block_repeat);\nwhile (\$_block_repeat) {\nob_start();?>";
             $this->openTag($compiler, $tag, array($_params, $compiler->nocache, $callback));
             // maybe nocache because of nocache variables or nocache plugin
             $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
@@ -76,8 +76,6 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             }
             // closing tag of block plugin, restore nocache
             list($_params, $compiler->nocache, $callback) = $this->closeTag($compiler, substr($tag, 0, - 5));
-            //Does tag create output
-            $compiler->has_output = isset($_params[ 'assign' ]) ? false : true;
             // compile code
             if (!isset($parameter[ 'modifier_list' ])) {
                 $mod_pre = $mod_post = $mod_content = '';
@@ -93,7 +91,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             $output = "<?php {$mod_content}\$_block_repeat=false;\n{$mod_pre}echo {$callback}({$_params}, {$mod_content2}, \$_smarty_tpl, \$_block_repeat);\n{$mod_post}}\n";
             $output .= 'array_pop($_smarty_tpl->smarty->_cache[\'_tag_stack\']);?>';
         }
-        return $output . "\n";
+        return $output;
     }
 
     /**

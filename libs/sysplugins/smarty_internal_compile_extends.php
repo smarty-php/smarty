@@ -112,7 +112,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
                                                                                   '<?php $_smarty_tpl->inheritance->endChild($_smarty_tpl' .
                                                                                   (isset($template) ?
                                                                                       ", {$template}{$inlineUids}" :
-                                                                                      '') . ");\n?>\n");
+                                                                                      '') . ");\n?>");
     }
 
     /**

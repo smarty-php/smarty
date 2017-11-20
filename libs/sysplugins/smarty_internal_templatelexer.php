@@ -368,7 +368,11 @@ class Smarty_Internal_Templatelexer
 
     function yy_r1_2()
     {
-        preg_match("/[*]{$this->compiler->getRdelPreg()}/", $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
+        preg_match("/[*]{$this->compiler->getRdelPreg()}[\n]?/",
+                   $this->data,
+                   $match,
+                   PREG_OFFSET_CAPTURE,
+                   $this->counter);
         if (isset($match[ 0 ][ 1 ])) {
             $to = $match[ 0 ][ 1 ] + strlen($match[ 0 ][ 0 ]);
         } else {

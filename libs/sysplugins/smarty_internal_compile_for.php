@@ -164,7 +164,7 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
         if ($openTag !== 'forelse') {
             $output .= "}\n";
         }
-        $output .= "?>\n";
+        $output .= "?>";
         return $output;
     }
 }

@@ -68,8 +68,6 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
                                             array('modifierlist' => $parameter[ 'modifierlist' ],
                                                   'value' => $output));
         }
-        //Does tag create output
-        $compiler->has_output = true;
         $output = "<?php echo {$output};?>\n";
         return $output;
     }

@@ -1,4 +1,8 @@
 ﻿===== 3.1.32 - dev ===
+20.11.2017
+  - bugfix rework of newline spacing between tag code and template text.
+    now again identical with Smarty2 (forum topic 26878)
+
 05.11.2017
   - lexer/parser optimization
   - code cleanup and optimizations
