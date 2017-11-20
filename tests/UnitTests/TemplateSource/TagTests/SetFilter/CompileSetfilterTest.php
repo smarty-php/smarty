@@ -42,8 +42,8 @@ class CompileSetfilterTest extends PHPUnit_Smarty
         $this->smarty->setCaching(1);
         $tpl = $this->smarty->createTemplate('string:{$foo}{setfilter htmlspecialchars} {$foo}{$foo nocache}{setfilter escape:"mail"} {$foo}{$foo nocache}{/setfilter} {$foo}{/setfilter} {$foo}');
         $tpl->assign('foo', '<e@f.d>');
-        $this->assertEquals(    }
-"<a@b.c> &lt;a@b.c&gt;&lt;e@f.d&gt; <a [AT] b [DOT] c><e [AT] f [DOT] d> &lt;a@b.c&gt; <a@b.c>", $this->smarty->fetch($tpl));
+        $this->assertEquals("<a@b.c> &lt;a@b.c&gt;&lt;e@f.d&gt; <a [AT] b [DOT] c><e [AT] f [DOT] d> &lt;a@b.c&gt; <a@b.c>", $this->smarty->fetch($tpl));
+    }
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
