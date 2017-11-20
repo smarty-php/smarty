@@ -2,6 +2,7 @@
 20.11.2017
   - bugfix rework of newline spacing between tag code and template text.
     now again identical with Smarty2 (forum topic 26878)
+  - bugfix variable filter might not have been loaded in cache file for use in nocache sections.
 
 05.11.2017
   - lexer/parser optimization
