@@ -220,7 +220,7 @@ class Smarty_Internal_Templateparser
 %stack_overflow
 {
     $this->internalError = true;
-    $this->compiler->trigger_template_error("Stack overflow in template parser");
+    $this->compiler->trigger_template_error('Stack overflow in template parser');
 }
 
 
@@ -317,7 +317,7 @@ smartytag(A)::= SIMPLETAG(B). {
             A = $this->compiler->compileTag('private_print_expression',array(),array('value'=>$tag));
         } else {
             if (preg_match('/^(.*)(\s+nocache)$/', $tag, $match)) {
-                A = $this->compiler->compileTag($match[1],array("'nocache'"));
+                A = $this->compiler->compileTag($match[1],array('\'nocache\''));
             } else {
                 A = $this->compiler->compileTag($tag,array());
             }
@@ -785,7 +785,7 @@ value(res)       ::= ns1(c)DOUBLECOLON static_class_access(s). {
             res = c.'::'.s[0].s[1];
         } 
     } else {
-        $this->compiler->trigger_template_error ("static class '".c."' is undefined or not allowed by security setting");
+        $this->compiler->trigger_template_error ('static class \''.c.'\' is undefined or not allowed by security setting');
     }
 }
 //
@@ -1235,7 +1235,7 @@ doublequotedcontent(res)           ::=  BACKTICK variable(v) BACKTICK. {
 }
 
 doublequotedcontent(res)           ::=  BACKTICK expr(e) BACKTICK. {
-    res = new Smarty_Internal_ParseTree_Code('(string)'.e);
+    res = new Smarty_Internal_ParseTree_Code('(string)('.e.')');
 }
 
 doublequotedcontent(res)           ::=  DOLLARID(i). {

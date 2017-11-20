@@ -761,7 +761,7 @@ class Smarty_Internal_Templatelexer
         // resolve conflicts with shorttag and right_delimiter starting with '='
         if (substr($this->data, $this->counter + strlen($this->value) - 1, $this->compiler->getRdelLength()) ===
             $this->smarty->getRightDelimiter()) {
-            preg_match("/\s+/", $this->value, $match);
+            preg_match('/\s+/', $this->value, $match);
             $this->value = $match[ 0 ];
             $this->token = Smarty_Internal_Templateparser::TP_SPACE;
         } else {
