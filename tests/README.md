@@ -1,5 +1,5 @@
-#Smarty 3 template engine
-##PHPUnit repository
+# Smarty 3 template engine
+## PHPUnit repository
 
 For installing the PHPUnit test by composer use the following:
 
@@ -9,9 +9,7 @@ For installing the PHPUnit test by composer use the following:
 
 Replace 3.1.21 with the installed Smarty version number.
 
-Starting with Smarty version 3.1.22 the "require-dev" section will be added
-to the composer.json file of the Smarty distribution.
 
 The tests for the custom template and cache resources Mysql, Memcache and APC can
-be enabled in config.xml.
+be enabled in config.php.
 
