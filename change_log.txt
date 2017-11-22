@@ -1,4 +1,8 @@
 ﻿===== 3.1.32 - dev ===
+22.11.2017
+ - bugfix {break} and {continue} could fail if {foreach}{/foreach} did contain other
+   looping tags like {for}, {section} and {while} https://github.com/smarty-php/smarty/issues/323
+
 20.11.2017
   - bugfix rework of newline spacing between tag code and template text.
     now again identical with Smarty2 (forum topic 26878)
