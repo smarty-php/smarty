@@ -91,14 +91,14 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
             if ($this->subtrees[ $key ] instanceof Smarty_Internal_ParseTree_Text) {
                 $subtree = $this->subtrees[ $key ]->to_smarty_php($parser);
                 while ($key + 1 < $cnt && ($this->subtrees[ $key + 1 ] instanceof Smarty_Internal_ParseTree_Text ||
-                                           $this->subtrees[ $key + 1 ]->data == '')) {
+                                           $this->subtrees[ $key + 1 ]->data === '')) {
                     $key ++;
-                    if ($this->subtrees[ $key ]->data == '') {
+                    if ($this->subtrees[ $key ]->data === '') {
                         continue;
                     }
                     $subtree .= $this->subtrees[ $key ]->to_smarty_php($parser);
                 }
-                if ($subtree == '') {
+                if ($subtree === '') {
                     continue;
                 }
                 $code .= preg_replace('/((<%)|(%>)|(<\?php)|(<\?)|(\?>)|(<\/?script))/', "<?php echo '\$1'; ?>\n",
@@ -108,14 +108,14 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
             if ($this->subtrees[ $key ] instanceof Smarty_Internal_ParseTree_Tag) {
                 $subtree = $this->subtrees[ $key ]->to_smarty_php($parser);
                 while ($key + 1 < $cnt && ($this->subtrees[ $key + 1 ] instanceof Smarty_Internal_ParseTree_Tag ||
-                                           $this->subtrees[ $key + 1 ]->data == '')) {
+                                           $this->subtrees[ $key + 1 ]->data === '')) {
                     $key ++;
-                    if ($this->subtrees[ $key ]->data == '') {
+                    if ($this->subtrees[ $key ]->data === '') {
                         continue;
                     }
                     $subtree = $parser->compiler->appendCode($subtree, $this->subtrees[ $key ]->to_smarty_php($parser));
                 }
-                if ($subtree == '') {
+                if ($subtree === '') {
                     continue;
                 }
                 $code .= $subtree;

@@ -48,11 +48,11 @@ class Smarty_Internal_Runtime_FilterHandler
                         // loaded class of filter plugin
                         $callback = array($plugin_name, 'execute');
                     } else {
-                        throw new SmartyException("Auto load {$type}-filter plugin method \"{$plugin_name}::execute\" not callable");
+                        throw new SmartyException("Auto load {$type}-filter plugin method '{$plugin_name}::execute' not callable");
                     }
                 } else {
                     // nothing found, throw exception
-                    throw new SmartyException("Unable to auto load {$type}-filter plugin \"{$plugin_name}\"");
+                    throw new SmartyException("Unable to auto load {$type}-filter plugin '{$plugin_name}'");
                 }
                 $content = call_user_func($callback, $content, $template);
             }

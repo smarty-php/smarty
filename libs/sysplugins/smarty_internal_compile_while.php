@@ -33,8 +33,8 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
         $_attr = $this->getAttributes($compiler, $args);
         $this->openTag($compiler, 'while', $compiler->nocache);
 
-        if (!array_key_exists("if condition", $parameter)) {
-            $compiler->trigger_template_error("missing while condition", null, true);
+        if (!array_key_exists('if condition', $parameter)) {
+            $compiler->trigger_template_error('missing while condition', null, true);
         }
 
         // maybe nocache because of nocache variables
@@ -52,15 +52,15 @@ class Smarty_Internal_Compile_While extends Smarty_Internal_CompileBase
             $prefixVar = $compiler->getNewPrefixVariable();
             $assignCompiler = new Smarty_Internal_Compile_Assign();
             $assignAttr = array();
-            $assignAttr[][ 'value' ] = "{$prefixVar}";
+            $assignAttr[][ 'value' ] = $prefixVar;
             if (is_array($parameter[ 'if condition' ][ 'var' ])) {
                 $assignAttr[][ 'var' ] = $parameter[ 'if condition' ][ 'var' ][ 'var' ];
-                $_output = "<?php while ({$prefixVar} = " . $parameter[ 'if condition' ][ 'value' ] . ") {?>";
+                $_output = "<?php while ({$prefixVar} = {$parameter[ 'if condition' ][ 'value' ]}) {?>";
                 $_output .= $assignCompiler->compile($assignAttr, $compiler,
                                                      array('smarty_internal_index' => $parameter[ 'if condition' ][ 'var' ][ 'smarty_internal_index' ]));
             } else {
                 $assignAttr[][ 'var' ] = $parameter[ 'if condition' ][ 'var' ];
-                $_output = "<?php while ({$prefixVar} = " . $parameter[ 'if condition' ][ 'value' ] . ") {?>";
+                $_output = "<?php while ({$prefixVar} = {$parameter[ 'if condition' ][ 'value' ]}) {?>";
                 $_output .= $assignCompiler->compile($assignAttr, $compiler, array());
             }
 

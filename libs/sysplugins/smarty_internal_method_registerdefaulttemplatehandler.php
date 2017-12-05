@@ -35,7 +35,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
         if (is_callable($callback)) {
             $smarty->default_template_handler_func = $callback;
         } else {
-            throw new SmartyException("Default template handler not callable");
+            throw new SmartyException('Default template handler not callable');
         }
         return $obj;
     }
@@ -62,7 +62,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
             if ($source->exists) {
                 $source->timestamp = filemtime($_return);
             } else {
-                throw new SmartyException("Default handler: Unable to load " .
+                throw new SmartyException('Default handler: Unable to load ' .
                                           ($source->isConfig ? 'config' : 'template') .
                                           " default file '{$_return}' for '{$source->type}:{$source->name}'");
             }

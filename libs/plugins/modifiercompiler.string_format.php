@@ -8,8 +8,8 @@
 
 /**
  * Smarty string_format modifier plugin
- * Type:     modifier<br>
- * Name:     string_format<br>
+ * Type:     modifier
+ * Name:     string_format
  * Purpose:  format strings via sprintf
  *
  * @link   http://www.smarty.net/manual/en/language.modifier.string.format.php string_format (Smarty online manual)

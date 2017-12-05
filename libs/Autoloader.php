@@ -14,13 +14,13 @@
  *                  require_once '...path/Autoloader.php';
  *                  Smarty_Autoloader::register();
  *             or
- *                  include '...path/bootstarp.php';
+ *                  include '...path/bootstrap.php';
  *
  *                  $smarty = new Smarty();
  */
 class Smarty_Autoloader
 {
-    /**
+   /**
      * Filepath to Smarty root
      *
      * @var string

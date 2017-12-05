@@ -89,12 +89,16 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
           then written to compiled files. */
         // init the lexer/parser to compile the template
         $this->parser =
-            new $this->parser_class(new $this->lexer_class(str_replace(array("\r\n", "\r"), "\n", $_content), $this),
+            new $this->parser_class(new $this->lexer_class(str_replace(array("\r\n",
+                                                                             "\r"), "\n", $_content), $this),
                                     $this);
         if ($isTemplateSource && $this->template->caching) {
             $this->parser->insertPhpCode("<?php\n\$_smarty_tpl->compiled->nocache_hash = '{$this->nocache_hash}';\n?>\n");
         }
-        if (function_exists('mb_internal_encoding') && ((int) ini_get('mbstring.func_overload')) & 2) {
+        if (function_exists('mb_internal_encoding')
+            && function_exists('ini_get')
+            && ((int) ini_get('mbstring.func_overload')) & 2
+        ) {
             $mbEncoding = mb_internal_encoding();
             mb_internal_encoding('ASCII');
         } else {

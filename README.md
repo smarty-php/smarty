@@ -1,5 +1,11 @@
-#Smarty 3 template engine
-##Distribution repository
+# Smarty 3 template engine
+www.smarty.net
+
+## Documentation
+
+For documentation see 
+www.smarty.net/docs/en/ 
+## Distribution repository
 
 > Smarty 3.1.28 introduces run time template inheritance
 
@@ -62,4 +68,4 @@ Or you could use
 
 Which is a wrapper to install all 3 packages
 
-Composer can also be used for Smarty2 versions 2.6.24 to 2.6.28
+Composer can also be used for Smarty2 versions 2.6.24 to 2.6.30

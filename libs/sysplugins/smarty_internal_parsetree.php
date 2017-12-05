@@ -1,7 +1,7 @@
 <?php
 /**
- * Smarty Internal Plugin Templateparser Parsetrees
- * These are classes to build parsetrees in the template parser
+ * Smarty Internal Plugin Templateparser Parsetree
+ * These are classes to build parsetree in the template parser
  *
  * @package    Smarty
  * @subpackage Compiler

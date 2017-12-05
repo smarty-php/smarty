@@ -42,7 +42,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
         foreach ($components as $component) {
             /* @var \Smarty_Template_Source $_s */
             $_s = Smarty_Template_Source::load(null, $smarty, $component);
-            if ($_s->type == 'php') {
+            if ($_s->type === 'php') {
                 throw new SmartyException("Resource type {$_s->type} cannot be used with the extends resource type");
             }
             $sources[ $_s->uid ] = $_s;
@@ -118,6 +118,9 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
       *
       * @return bool
       */
+    /**
+     * @return bool
+     */
     public function checkTimestamps()
     {
         return false;

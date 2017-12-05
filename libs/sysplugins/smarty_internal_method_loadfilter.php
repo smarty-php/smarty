@@ -58,7 +58,7 @@ class Smarty_Internal_Method_LoadFilter
                 return true;
             }
         }
-        throw new SmartyException("{$type}filter \"{$name}\" not found or callable");
+        throw new SmartyException("{$type}filter '{$name}' not found or callable");
     }
 
     /**
@@ -71,7 +71,7 @@ class Smarty_Internal_Method_LoadFilter
     public function _checkFilterType($type)
     {
         if (!isset($this->filterTypes[ $type ])) {
-            throw new SmartyException("Illegal filter type \"{$type}\"");
+            throw new SmartyException("Illegal filter type '{$type}'");
         }
     }
 }

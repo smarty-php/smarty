@@ -30,7 +30,7 @@ class Smarty_Internal_Method_ConfigLoad
      *                                                                             section or null
      *
      * @return \Smarty|\Smarty_Internal_Data|\Smarty_Internal_Template
-     * @throws \SmartyException
+     * @throws \Exception
      */
     public function configLoad(Smarty_Internal_Data $data, $config_file, $sections = null)
     {
@@ -52,7 +52,7 @@ class Smarty_Internal_Method_ConfigLoad
      *                                                                             shall be loaded
      *
      * @return \Smarty|\Smarty_Internal_Data|\Smarty_Internal_Template
-     * @throws \SmartyException
+     * @throws \Exception
      */
     public function _loadConfigFile(Smarty_Internal_Data $data, $config_file, $sections = null, $scope = 0)
     {
@@ -83,7 +83,7 @@ class Smarty_Internal_Method_ConfigLoad
         $this->_assignConfigVars($tpl->parent->config_vars, $tpl, $new_config_vars);
         $tagScope = $tpl->source->scope;
         if ($tagScope >= 0) {
-            if ($tagScope == Smarty::SCOPE_LOCAL) {
+            if ($tagScope === Smarty::SCOPE_LOCAL) {
                 $this->_updateVarStack($tpl, $new_config_vars);
                 $tagScope = 0;
                 if (!$tpl->scope) {
@@ -94,6 +94,7 @@ class Smarty_Internal_Method_ConfigLoad
                 $mergedScope = $tagScope | $tpl->scope;
                 if ($mergedScope) {
                     // update scopes
+                    /* @var \Smarty_Internal_Template|\Smarty|\Smarty_Internal_Data $ptr */
                     foreach ($tpl->smarty->ext->_updateScope->_getAffectedScopes($tpl->parent, $mergedScope) as $ptr) {
                         $this->_assignConfigVars($ptr->config_vars, $tpl, $new_config_vars);
                         if ($tagScope && $ptr->_isTplObj() && isset($tpl->_cache[ 'varStack' ])) {

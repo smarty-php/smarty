@@ -38,7 +38,7 @@ class Smarty_Internal_Block
     public $prepend = false;
 
     /**
-     * Block calls {$smarty.block.child}
+     * Block calls $smarty.block.child
      *
      * @var bool
      */
@@ -67,7 +67,7 @@ class Smarty_Internal_Block
 
     /**
      * Smarty_Internal_Block constructor.
-     * - if outer level {block} of child template ($state == 1) save it as child root block
+     * - if outer level {block} of child template ($state === 1) save it as child root block
      * - otherwise process inheritance and render
      *
      * @param string   $name     block name

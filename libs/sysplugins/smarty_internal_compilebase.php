@@ -45,15 +45,15 @@ abstract class Smarty_Internal_CompileBase
     public $option_flags = array('nocache');
 
     /**
-     * Mapping array for boolqn option value
-     * 
+     * Mapping array for boolean option value
+     *
      * @var array
      */
     public $optionMap = array(1 => true, 0 => false, 'true' => true, 'false' => false);
 
     /**
      * Mapping array with attributes as key
-     * 
+     *
      * @var array
      */
     public $mapCache = array();
@@ -117,11 +117,11 @@ abstract class Smarty_Internal_CompileBase
         // check if all required attributes present
         foreach ($this->required_attributes as $attr) {
             if (!isset($_indexed_attr[ $attr ])) {
-                $compiler->trigger_template_error("missing \"" . $attr . "\" attribute", null, true);
+                $compiler->trigger_template_error("missing '{$attr}' attribute", null, true);
             }
         }
         // check for not allowed attributes
-        if ($this->optional_attributes != array('_any')) {
+        if ($this->optional_attributes !== array('_any')) {
             if (!isset($this->mapCache[ 'all' ])) {
                 $this->mapCache[ 'all' ] =
                     array_fill_keys(array_merge($this->required_attributes, $this->optional_attributes,
@@ -129,7 +129,7 @@ abstract class Smarty_Internal_CompileBase
             }
             foreach ($_indexed_attr as $key => $dummy) {
                 if (!isset($this->mapCache[ 'all' ][ $key ]) && $key !== 0) {
-                    $compiler->trigger_template_error("unexpected \"" . $key . "\" attribute", null, true);
+                    $compiler->trigger_template_error("unexpected '{$key}' attribute", null, true);
                 }
             }
         }
@@ -183,13 +183,12 @@ abstract class Smarty_Internal_CompileBase
                 }
             }
             // wrong nesting of tags
-            $compiler->trigger_template_error("unclosed {$compiler->smarty->left_delimiter}" . $_openTag .
-                                              "{$compiler->smarty->right_delimiter} tag");
+            $compiler->trigger_template_error("unclosed '{$compiler->smarty->left_delimiter}{$_openTag}{$compiler->smarty->right_delimiter}' tag");
 
             return;
         }
         // wrong nesting of tags
-        $compiler->trigger_template_error("unexpected closing tag", null, true);
+        $compiler->trigger_template_error('unexpected closing tag', null, true);
 
         return;
     }

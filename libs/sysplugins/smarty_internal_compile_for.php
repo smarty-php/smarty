@@ -35,7 +35,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
     public function compile($args, $compiler, $parameter)
     {
         $compiler->loopNesting ++;
-        if ($parameter == 0) {
+        if ($parameter === 0) {
             $this->required_attributes = array('start', 'to');
             $this->optional_attributes = array('max', 'step');
         } else {
@@ -47,7 +47,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
         $_attr = $this->getAttributes($compiler, $args);
 
         $output = "<?php\n";
-        if ($parameter == 1) {
+        if ($parameter === 1) {
             foreach ($_attr[ 'start' ] as $_statement) {
                 if (is_array($_statement[ 'var' ])) {
                     $var = $_statement[ 'var' ][ 'var' ];
@@ -89,10 +89,10 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
             }
             $output .= "if (\$_smarty_tpl->tpl_vars[$var]->total > 0) {\n";
             $output .= "for (\$_smarty_tpl->tpl_vars[$var]->value{$index} = $_statement[value], \$_smarty_tpl->tpl_vars[$var]->iteration = 1;\$_smarty_tpl->tpl_vars[$var]->iteration <= \$_smarty_tpl->tpl_vars[$var]->total;\$_smarty_tpl->tpl_vars[$var]->value{$index} += \$_smarty_tpl->tpl_vars[$var]->step, \$_smarty_tpl->tpl_vars[$var]->iteration++) {\n";
-            $output .= "\$_smarty_tpl->tpl_vars[$var]->first = \$_smarty_tpl->tpl_vars[$var]->iteration == 1;";
-            $output .= "\$_smarty_tpl->tpl_vars[$var]->last = \$_smarty_tpl->tpl_vars[$var]->iteration == \$_smarty_tpl->tpl_vars[$var]->total;";
+            $output .= "\$_smarty_tpl->tpl_vars[$var]->first = \$_smarty_tpl->tpl_vars[$var]->iteration === 1;";
+            $output .= "\$_smarty_tpl->tpl_vars[$var]->last = \$_smarty_tpl->tpl_vars[$var]->iteration === \$_smarty_tpl->tpl_vars[$var]->total;";
         }
-        $output .= "?>";
+        $output .= '?>';
 
         $this->openTag($compiler, 'for', array('for', $compiler->nocache));
         // maybe nocache because of nocache variables
@@ -161,10 +161,10 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
         list($openTag, $compiler->nocache) = $this->closeTag($compiler, array('for', 'forelse'));
 
         $output = "<?php }\n";
-        if ($openTag != 'forelse') {
+        if ($openTag !== 'forelse') {
             $output .= "}\n";
         }
-        $output .= "?>\n";
+        $output .= "?>";
         return $output;
     }
 }

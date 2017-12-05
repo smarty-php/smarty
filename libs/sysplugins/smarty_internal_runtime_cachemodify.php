@@ -16,6 +16,9 @@ class Smarty_Internal_Runtime_CacheModify
      * @param \Smarty_Template_Cached   $cached
      * @param \Smarty_Internal_Template $_template
      * @param  string                   $content
+     *
+     * @throws \Exception
+     * @throws \SmartyException
      */
     public function cacheModifiedCheck(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template, $content)
     {

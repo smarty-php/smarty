@@ -11,7 +11,6 @@
  */
 class Smarty_Internal_Method_GetAutoloadFilters extends Smarty_Internal_Method_SetAutoloadFilters
 {
-
     /**
      * Get autoload filters
      *
@@ -22,8 +21,9 @@ class Smarty_Internal_Method_GetAutoloadFilters extends Smarty_Internal_Method_S
      *                                                                              for. Defaults to all autoload
      *                                                                              filters
      *
-     * @return array  array( 'type1' => array( 'filter1', 'filter2', … ) ) or array( 'filter1', 'filter2', …) if $type
+     * @return array array( 'type1' => array( 'filter1', 'filter2', … ) ) or array( 'filter1', 'filter2', …) if $type
      *                was specified
+     * @throws \SmartyException
      */
     public function getAutoloadFilters(Smarty_Internal_TemplateBase $obj, $type = null)
     {

@@ -8,11 +8,11 @@
 
 /**
  * Smarty strip modifier plugin
- * Type:     modifier<br>
- * Name:     strip<br>
+ * Type:     modifier
+ * Name:     strip
  * Purpose:  Replace all repeated spaces, newlines, tabs
- *              with a single space or supplied replacement string.<br>
- * Example:  {$var|strip} {$var|strip:"&nbsp;"}<br>
+ *              with a single space or supplied replacement string.
+ * Example:  {$var|strip} {$var|strip:"&nbsp;"}
  * Date:     September 25th, 2002
  *
  * @link   http://www.smarty.net/manual/en/language.modifier.strip.php strip (Smarty online manual)

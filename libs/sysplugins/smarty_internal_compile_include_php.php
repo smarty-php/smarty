@@ -7,7 +7,6 @@
  * @subpackage Compiler
  * @author     Uwe Tews
  */
-
 /**
  * Smarty Internal Plugin Compile Insert Class
  *
@@ -57,7 +56,6 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
         }
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-
         /** @var Smarty_Internal_Template $_smarty_tpl
          * used in evaluated code
          */
@@ -74,8 +72,8 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
                 $_dir = $compiler->smarty->trusted_dir;
             }
             if (!empty($_dir)) {
-                foreach ((array) $_dir as $_script_dir) {
-                    $_path = $compiler->smarty->_realpath($_script_dir . $compiler->smarty->ds . $_file, true);
+                foreach ((array)$_dir as $_script_dir) {
+                    $_path = $compiler->smarty->_realpath($_script_dir . DIRECTORY_SEPARATOR . $_file, true);
                     if (file_exists($_path)) {
                         $_filepath = $_path;
                         break;
@@ -83,25 +81,22 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
                 }
             }
         }
-        if ($_filepath == false) {
+        if ($_filepath === false) {
             $compiler->trigger_template_error("{include_php} file '{$_file}' is not readable", null, true);
         }
-
         if (isset($compiler->smarty->security_policy)) {
             $compiler->smarty->security_policy->isTrustedPHPDir($_filepath);
         }
-
         if (isset($_attr[ 'assign' ])) {
             // output will be stored in a smarty variable instead of being displayed
             $_assign = $_attr[ 'assign' ];
         }
         $_once = '_once';
         if (isset($_attr[ 'once' ])) {
-            if ($_attr[ 'once' ] == 'false') {
+            if ($_attr[ 'once' ] === 'false') {
                 $_once = '';
             }
         }
-
         if (isset($_assign)) {
             return "<?php ob_start();\ninclude{$_once} ('{$_filepath}');\n\$_smarty_tpl->assign({$_assign},ob_get_clean());\n?>";
         } else {

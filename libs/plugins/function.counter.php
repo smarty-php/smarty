@@ -8,8 +8,8 @@
 
 /**
  * Smarty {counter} function plugin
- * Type:     function<br>
- * Name:     counter<br>
+ * Type:     function
+ * Name:     counter
  * Purpose:  print out a counter value
  *
  * @author Monte Ohrt <monte at ohrt dot com>
@@ -63,7 +63,7 @@ function smarty_function_counter($params, $template)
         $counter[ 'direction' ] = $params[ 'direction' ];
     }
 
-    if ($counter[ 'direction' ] == "down") {
+    if ($counter[ 'direction' ] === 'down') {
         $counter[ 'count' ] -= $counter[ 'skip' ];
     } else {
         $counter[ 'count' ] += $counter[ 'skip' ];

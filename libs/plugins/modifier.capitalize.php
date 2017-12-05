@@ -8,8 +8,8 @@
 
 /**
  * Smarty capitalize modifier plugin
- * Type:     modifier<br>
- * Name:     capitalize<br>
+ * Type:     modifier
+ * Name:     capitalize
  * Purpose:  capitalize words in the string
  * {@internal {$string|capitalize:true:true} is the fastest option for MBString enabled systems }}
  *
@@ -72,7 +72,7 @@ function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = fals
     return $upper_string;
 }
 
-/* 
+/*
  *
  * Bug: create_function() use exhausts memory when used in long loops
  * Fix: use declared functions for callbacks instead of using create_function()
@@ -80,21 +80,38 @@ function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = fals
  *
  * @author Kyle Renfrow
  */
+/**
+ * @param $matches
+ *
+ * @return string
+ */
 function smarty_mod_cap_mbconvert_cb($matches)
 {
     return stripslashes($matches[ 1 ]) . mb_convert_case(stripslashes($matches[ 2 ]), MB_CASE_UPPER, Smarty::$_CHARSET);
 }
-
+/**
+ * @param $matches
+ *
+ * @return string
+ */
 function smarty_mod_cap_mbconvert2_cb($matches)
 {
     return stripslashes($matches[ 1 ]) . mb_convert_case(stripslashes($matches[ 3 ]), MB_CASE_UPPER, Smarty::$_CHARSET);
 }
-
+/**
+ * @param $matches
+ *
+ * @return string
+ */
 function smarty_mod_cap_ucfirst_cb($matches)
 {
     return stripslashes($matches[ 1 ]) . ucfirst(stripslashes($matches[ 2 ]));
 }
-
+/**
+ * @param $matches
+ *
+ * @return string
+ */
 function smarty_mod_cap_ucfirst2_cb($matches)
 {
     return stripslashes($matches[ 1 ]) . ucfirst(stripslashes($matches[ 3 ]));

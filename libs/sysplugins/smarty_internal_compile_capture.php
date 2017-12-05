@@ -45,11 +45,11 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
     public static function compileSpecialVariable($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = null)
     {
         $tag = trim($parameter[ 0 ], '"\'');
-        $name = isset($parameter[ 1 ]) ? $compiler->getId($parameter[ 1 ]) : false;
+        $name = isset($parameter[ 1 ]) ? $compiler->getId($parameter[ 1 ]) : null;
         if (!$name) {
-            $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
+            //$compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
         }
-        return "\$_smarty_tpl->smarty->ext->_capture->getBuffer(\$_smarty_tpl, '{$name}')";
+        return '$_smarty_tpl->smarty->ext->_capture->getBuffer($_smarty_tpl'.(isset($name)?", '{$name}')":')');
     }
 
     /**

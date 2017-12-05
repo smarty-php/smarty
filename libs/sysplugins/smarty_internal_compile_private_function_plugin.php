@@ -42,6 +42,8 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
      * @param  string                               $function  PHP function name
      *
      * @return string compiled code
+     * @throws \SmartyCompilerException
+     * @throws \SmartyException
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag, $function)
     {
@@ -58,7 +60,7 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
                 $_paramsArray[] = "'$_key'=>$_value";
             }
         }
-        $_params = 'array(' . implode(",", $_paramsArray) . ')';
+        $_params = 'array(' . implode(',', $_paramsArray) . ')';
         // compile code
         $output = "{$function}({$_params},\$_smarty_tpl)";
         if (!empty($parameter[ 'modifierlist' ])) {
@@ -66,8 +68,6 @@ class Smarty_Internal_Compile_Private_Function_Plugin extends Smarty_Internal_Co
                                             array('modifierlist' => $parameter[ 'modifierlist' ],
                                                   'value' => $output));
         }
-        //Does tag create output
-        $compiler->has_output = true;
         $output = "<?php echo {$output};?>\n";
         return $output;
     }

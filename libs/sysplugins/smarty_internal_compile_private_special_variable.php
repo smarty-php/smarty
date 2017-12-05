@@ -51,6 +51,9 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                     return '';
                 case 'now':
                     return 'time()';
+                case 'block':
+                    $tag = $compiler->getTagCompiler('block');
+                    return $tag->compileSpecialVariable(array(), $compiler, $_index);
                 case 'cookies':
                     if (isset($compiler->smarty->security_policy) &&
                         !$compiler->smarty->security_policy->allow_super_globals
@@ -111,7 +114,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                 case 'rdelim':
                     return "\$_smarty_tpl->smarty->right_delimiter";
                 default:
-                    $compiler->trigger_template_error('$smarty.' . trim($_index[ 0 ], "'") . ' is not defined');
+                    $compiler->trigger_template_error('$smarty.' . trim($_index[ 0 ], '\'') . ' is not defined');
                     break;
             }
             if (isset($_index[ 1 ])) {

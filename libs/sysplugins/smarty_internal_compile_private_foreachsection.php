@@ -76,6 +76,8 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
      *
      * @param  array                                $attributes
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
+     *
+     * @throws \SmartyException
      */
     public function scanForProperties($attributes, Smarty_Internal_TemplateCompilerBase $compiler)
     {
@@ -161,6 +163,8 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
      * Find matches in all parent template source
      *
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
+     *
+     * @throws \SmartyException
      */
     public function matchParentTemplateSource(Smarty_Internal_TemplateCompilerBase $compiler)
     {
@@ -171,7 +175,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
             if ($compiler !== $nextCompiler) {
                 // get template source
                 $_content = $nextCompiler->template->source->getContent();
-                if ($_content != '') {
+                if ($_content !== '') {
                     // run pre filter if required
                     if ((isset($nextCompiler->smarty->autoload_filters[ 'pre' ]) ||
                          isset($nextCompiler->smarty->registered_filters[ 'pre' ]))

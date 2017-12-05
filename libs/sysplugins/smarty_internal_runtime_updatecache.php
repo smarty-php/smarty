@@ -91,15 +91,15 @@ class Smarty_Internal_Runtime_UpdateCache
             $_template->smarty->_debug->start_cache($_template);
         }
         $this->removeNoCacheHash($cached, $_template, $no_output_filter);
-        $compile_check = $_template->smarty->compile_check;
-        $_template->smarty->compile_check = false;
+        $compile_check = (int)$_template->compile_check;
+        $_template->compile_check = Smarty::COMPILECHECK_OFF;
         if ($_template->_isSubTpl()) {
             $_template->compiled->unifunc = $_template->parent->compiled->unifunc;
         }
         if (!$_template->cached->processed) {
             $_template->cached->process($_template, true);
         }
-        $_template->smarty->compile_check = $compile_check;
+        $_template->compile_check = $compile_check;
         $cached->getRenderedTemplateCode($_template);
         if ($_template->smarty->debugging) {
             $_template->smarty->_debug->end_cache($_template);
@@ -117,8 +117,7 @@ class Smarty_Internal_Runtime_UpdateCache
      */
     public function writeCachedContent(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template, $content)
     {
-        if ($_template->source->handler->recompiled || !($_template->caching == Smarty::CACHING_LIFETIME_CURRENT ||
-                                                         $_template->caching == Smarty::CACHING_LIFETIME_SAVED)
+        if ($_template->source->handler->recompiled || !$_template->caching
         ) {
             // don't write cache file
             return false;

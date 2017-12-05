@@ -8,8 +8,8 @@
 
 /**
  * Smarty regex_replace modifier plugin
- * Type:     modifier<br>
- * Name:     regex_replace<br>
+ * Type:     modifier
+ * Name:     regex_replace
  * Purpose:  regular expression search/replace
  *
  * @link    http://smarty.php.net/manual/en/language.modifier.regex.replace.php

@@ -30,32 +30,32 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     {
         $file = $source->name;
         // absolute file ?
-        if ($file[ 0 ] == '/' || $file[ 1 ] == ':') {
+        if ($file[ 0 ] === '/' || $file[ 1 ] === ':') {
             $file = $source->smarty->_realpath($file, true);
             return is_file($file) ? $file : false;
         }
         // go relative to a given template?
-        if ($file[ 0 ] == '.' && $_template && $_template->_isSubTpl() &&
+        if ($file[ 0 ] === '.' && $_template && $_template->_isSubTpl() &&
             preg_match('#^[.]{1,2}[\\\/]#', $file)
         ) {
-            if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' &&
+            if ($_template->parent->source->type !== 'file' && $_template->parent->source->type !== 'extends' &&
                 !isset($_template->parent->_cache[ 'allow_relative_path' ])
             ) {
                 throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
             }
             // normalize path
-            $path = $source->smarty->_realpath(dirname($_template->parent->source->filepath) . $source->smarty->ds . $file);
+            $path = $source->smarty->_realpath(dirname($_template->parent->source->filepath) . DIRECTORY_SEPARATOR . $file);
             // files relative to a template only get one shot
             return is_file($path) ? $path : false;
         }
-        // normalize $source->smarty->ds
-        if (strpos($file, $source->smarty->ds == '/' ? '\\' : '/') !== false) {
-            $file = str_replace($source->smarty->ds == '/' ? '\\' : '/', $source->smarty->ds, $file);
+        // normalize DIRECTORY_SEPARATOR
+        if (strpos($file, DIRECTORY_SEPARATOR === '/' ? '\\' : '/') !== false) {
+            $file = str_replace(DIRECTORY_SEPARATOR === '/' ? '\\' : '/', DIRECTORY_SEPARATOR, $file);
         }
 
         $_directories = $source->smarty->getTemplateDir(null, $source->isConfig);
         // template_dir index?
-        if ($file[ 0 ] == '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
+        if ($file[ 0 ] === '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
             $file = $fileMatch[ 2 ];
             $_indices = explode(',', $fileMatch[ 1 ]);
             $_index_dirs = array();
@@ -90,7 +90,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         foreach ($_directories as $_directory) {
             $path = $_directory . $file;
             if (is_file($path)) {
-                return (strpos($path, '.' . $source->smarty->ds) !== false) ? $source->smarty->_realpath($path) : $path;
+                return (strpos($path, '.' . DIRECTORY_SEPARATOR) !== false) ? $source->smarty->_realpath($path) : $path;
             }
         }
         if (!isset($_index_dirs)) {
@@ -112,6 +112,8 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      *
      * @param Smarty_Template_Source   $source    source object
      * @param Smarty_Internal_Template $_template template object
+     *
+     * @throws \SmartyException
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
     {

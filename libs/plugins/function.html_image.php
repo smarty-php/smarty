@@ -8,20 +8,20 @@
 
 /**
  * Smarty {html_image} function plugin
- * Type:     function<br>
- * Name:     html_image<br>
- * Date:     Feb 24, 2003<br>
- * Purpose:  format HTML tags for the image<br>
- * Examples: {html_image file="/images/masthead.gif"}<br>
- * Output:   <img src="/images/masthead.gif" width=400 height=23><br>
+ * Type:     function
+ * Name:     html_image
+ * Date:     Feb 24, 2003
+ * Purpose:  format HTML tags for the image
+ * Examples: {html_image file="/images/masthead.gif"}
+ * Output:   <img src="/images/masthead.gif" width=400 height=23>
  * Params:
- * <pre>
+ *
  * - file        - (required) - file (and path) of image
  * - height      - (optional) - image height (default actual height)
  * - width       - (optional) - image width (default actual width)
  * - basedir     - (optional) - base directory for absolute paths, default is environment variable DOCUMENT_ROOT
  * - path_prefix - prefix for path output (optional, default empty)
- * </pre>
+ *
  *
  * @link    http://www.smarty.net/manual/en/language.function.html.image.php {html_image}
  *          (Smarty online manual)
@@ -38,8 +38,9 @@
  */
 function smarty_function_html_image($params, $template)
 {
-    if (!is_callable('smarty_function_escape_special_chars')) {
+    if (!isset($template->smarty->_cache[ '_required_sesc' ])) {
         require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        $template->smarty->_cache[ '_required_sesc' ] = true;
     }
 
     $alt = '';
@@ -66,7 +67,7 @@ function smarty_function_html_image($params, $template)
                 if (!is_array($_val)) {
                     $$_key = smarty_function_escape_special_chars($_val);
                 } else {
-                    throw new SmartyException ("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    throw new SmartyException ("html_image: extra attribute '{$_key}' cannot be an array", E_USER_NOTICE);
                 }
                 break;
 
@@ -80,19 +81,19 @@ function smarty_function_html_image($params, $template)
                 if (!is_array($_val)) {
                     $extra .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_val) . '"';
                 } else {
-                    throw new SmartyException ("html_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    throw new SmartyException ("html_image: extra attribute '{$_key}' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }
     }
 
     if (empty($file)) {
-        trigger_error("html_image: missing 'file' parameter", E_USER_NOTICE);
+        trigger_error('html_image: missing \'file\' parameter', E_USER_NOTICE);
 
         return;
     }
 
-    if ($file[ 0 ] == '/') {
+    if ($file[ 0 ] === '/') {
         $_image_path = $basedir . $file;
     } else {
         $_image_path = $file;
@@ -126,15 +127,15 @@ function smarty_function_html_image($params, $template)
         // FIXME: (rodneyrehm) getimagesize() loads the complete file off a remote resource, use custom [jpg,png,gif]header reader!
         if (!$_image_data = @getimagesize($_image_path)) {
             if (!file_exists($_image_path)) {
-                trigger_error("html_image: unable to find '$_image_path'", E_USER_NOTICE);
+                trigger_error("html_image: unable to find '{$_image_path}'", E_USER_NOTICE);
 
                 return;
             } elseif (!is_readable($_image_path)) {
-                trigger_error("html_image: unable to read '$_image_path'", E_USER_NOTICE);
+                trigger_error("html_image: unable to read '{$_image_path}'", E_USER_NOTICE);
 
                 return;
             } else {
-                trigger_error("html_image: '$_image_path' is not a valid image file", E_USER_NOTICE);
+                trigger_error("html_image: '{$_image_path}' is not a valid image file", E_USER_NOTICE);
 
                 return;
             }

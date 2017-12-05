@@ -8,8 +8,8 @@
 
 /**
  * Smarty escape modifier plugin
- * Type:     modifier<br>
- * Name:     escape<br>
+ * Type:     modifier
+ * Name:     escape
  * Purpose:  escape string for output
  *
  * @link   http://www.smarty.net/docsv2/en/language.modifier.escape count_characters (Smarty online manual)
@@ -23,8 +23,12 @@
 function smarty_modifiercompiler_escape($params, $compiler)
 {
     static $_double_encode = null;
-    if (!is_callable('smarty_literal_compiler_param')) {
-        require_once(SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php');
+    static $is_loaded = false;
+    if (!$is_loaded) {
+        if (!is_callable('smarty_literal_compiler_param')) {
+            require_once(SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php');
+        }
+        $is_loaded = true;
     }
     if ($_double_encode === null) {
         $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');

@@ -28,6 +28,7 @@ class Smarty_Internal_Method_GetTags
      * @param null|string|Smarty_Internal_Template                            $template
      *
      * @return array of tag/attributes
+     * @throws \Exception
      * @throws \SmartyException
      */
     public function getTags(Smarty_Internal_TemplateBase $obj, $template = null)
@@ -52,11 +53,11 @@ class Smarty_Internal_Method_GetTags
             $tpl->_cache[ 'used_tags' ] = array();
             $tpl->smarty->merge_compiled_includes = false;
             $tpl->smarty->disableSecurity();
-            $tpl->caching = false;
+            $tpl->caching = Smarty::CACHING_OFF;
             $tpl->loadCompiler();
             $tpl->compiler->compileTemplate($tpl);
             return $tpl->_cache[ 'used_tags' ];
         }
-        throw new SmartyException("Missing template specification");
+        throw new SmartyException('Missing template specification');
     }
 }

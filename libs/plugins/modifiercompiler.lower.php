@@ -8,8 +8,8 @@
 
 /**
  * Smarty lower modifier plugin
- * Type:     modifier<br>
- * Name:     lower<br>
+ * Type:     modifier
+ * Name:     lower
  * Purpose:  convert string to lowercase
  *
  * @link   http://www.smarty.net/manual/en/language.modifier.lower.php lower (Smarty online manual)

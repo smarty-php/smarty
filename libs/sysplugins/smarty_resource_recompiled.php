@@ -49,7 +49,7 @@ abstract class Smarty_Resource_Recompiled extends Smarty_Resource
         $_smarty_tpl->loadCompiler();
         // call compiler
         try {
-            eval("?>" . $_smarty_tpl->compiler->compileTemplate($_smarty_tpl));
+            eval('?>' . $_smarty_tpl->compiler->compileTemplate($_smarty_tpl));
         }
         catch (Exception $e) {
             unset($_smarty_tpl->compiler);
@@ -85,6 +85,9 @@ abstract class Smarty_Resource_Recompiled extends Smarty_Resource
        *
        * @return bool
        */
+    /**
+     * @return bool
+     */
     public function checkTimestamps()
     {
         return false;

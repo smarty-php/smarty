@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty cache resource file clear method
  *
@@ -7,7 +6,6 @@
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  */
-
 /**
  * Smarty Internal Runtime Cache Resource File Class
  *
@@ -34,7 +32,7 @@ class Smarty_Internal_Runtime_CacheResourceFile
         $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
         $_compile_id_offset = $smarty->use_sub_dirs ? 3 : 0;
         $_dir = $smarty->getCacheDir();
-        if ($_dir == '/') { //We should never want to delete this!
+        if ($_dir === '/') { //We should never want to delete this!
             return 0;
         }
         $_dir_length = strlen($_dir);
@@ -43,19 +41,17 @@ class Smarty_Internal_Runtime_CacheResourceFile
             $_cache_id_parts_count = count($_cache_id_parts);
             if ($smarty->use_sub_dirs) {
                 foreach ($_cache_id_parts as $id_part) {
-                    $_dir .= $id_part . $smarty->ds;
+                    $_dir .= $id_part . DIRECTORY_SEPARATOR;
                 }
             }
         }
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;
-            $smarty->caching = true;
+            $smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
-
             // remove from template cache
             $tpl->source; // have the template registered before unset()
-
             if ($tpl->source->exists) {
                 $_resourcename_parts = basename(str_replace('^', '/', $tpl->cached->filepath));
             } else {
@@ -68,10 +64,10 @@ class Smarty_Internal_Runtime_CacheResourceFile
             $_cacheDirs = new RecursiveDirectoryIterator($_dir);
             $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
             foreach ($_cache as $_file) {
-                if (substr(basename($_file->getPathname()), 0, 1) == '.') {
+                if (substr(basename($_file->getPathname()), 0, 1) === '.') {
                     continue;
                 }
-                $_filepath = (string) $_file;
+                $_filepath = (string)$_file;
                 // directory ?
                 if ($_file->isDir()) {
                     if (!$_cache->isDot()) {
@@ -87,13 +83,13 @@ class Smarty_Internal_Runtime_CacheResourceFile
                     $_parts_count = count($_parts);
                     // check name
                     if (isset($resource_name)) {
-                        if ($_parts[ $_parts_count - 1 ] != $_resourcename_parts) {
+                        if ($_parts[ $_parts_count - 1 ] !== $_resourcename_parts) {
                             continue;
                         }
                     }
                     // check compile id
                     if (isset($_compile_id) && (!isset($_parts[ $_parts_count - 2 - $_compile_id_offset ]) ||
-                                                $_parts[ $_parts_count - 2 - $_compile_id_offset ] != $_compile_id)
+                                                $_parts[ $_parts_count - 2 - $_compile_id_offset ] !== $_compile_id)
                     ) {
                         continue;
                     }
@@ -105,28 +101,34 @@ class Smarty_Internal_Runtime_CacheResourceFile
                         if ($_parts_count < $_cache_id_parts_count) {
                             continue;
                         }
-                        for ($i = 0; $i < $_cache_id_parts_count; $i ++) {
-                            if ($_parts[ $i ] != $_cache_id_parts[ $i ]) {
+                        for ($i = 0; $i < $_cache_id_parts_count; $i++) {
+                            if ($_parts[ $i ] !== $_cache_id_parts[ $i ]) {
                                 continue 2;
                             }
                         }
                     }
-                    // expired ?
-                    if (isset($exp_time)) {
-                        if ($exp_time < 0) {
-                            preg_match('#\'cache_lifetime\' =>\s*(\d*)#', file_get_contents($_file), $match);
-                            if ($_time < (@filemtime($_file) + $match[ 1 ])) {
-                                continue;
-                            }
-                        } else {
-                            if ($_time - @filemtime($_file) < $exp_time) {
-                                continue;
+                    if (is_file($_filepath)) {
+                        // expired ?
+                        if (isset($exp_time)) {
+                            if ($exp_time < 0) {
+                                preg_match('#\'cache_lifetime\' =>\s*(\d*)#', file_get_contents($_filepath), $match);
+                                if ($_time < (filemtime($_filepath) + $match[ 1 ])) {
+                                    continue;
+                                }
+                            } else {
+                                if ($_time - filemtime($_filepath) < $exp_time) {
+                                    continue;
+                                }
                             }
                         }
-                    }
-                    $_count += @unlink($_filepath) ? 1 : 0;
-                    if (function_exists('opcache_invalidate') && strlen(ini_get("opcache.restrict_api")) < 1) {
-                        opcache_invalidate($_filepath, true);
+                        $_count += @unlink($_filepath) ? 1 : 0;
+                        if (function_exists('opcache_invalidate')
+                            && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
+                        ) {
+                            opcache_invalidate($_filepath, true);
+                        } else if (function_exists('apc_delete_file')) {
+                            apc_delete_file($_filepath);
+                        }
                     }
                 }
             }

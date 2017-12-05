@@ -8,8 +8,8 @@
 
 /**
  * Smarty truncate modifier plugin
- * Type:     modifier<br>
- * Name:     truncate<br>
+ * Type:     modifier
+ * Name:     truncate
  * Purpose:  Truncate a string to a certain length if necessary,
  *               optionally splitting in the middle of a word, and
  *               appending the $etc string or inserting $etc into the middle.
@@ -27,7 +27,7 @@
  */
 function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_words = false, $middle = false)
 {
-    if ($length == 0) {
+    if ($length === 0) {
         return '';
     }
 

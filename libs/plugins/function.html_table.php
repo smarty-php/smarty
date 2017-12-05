@@ -8,12 +8,12 @@
 
 /**
  * Smarty {html_table} function plugin
- * Type:     function<br>
- * Name:     html_table<br>
- * Date:     Feb 17, 2003<br>
- * Purpose:  make an html table from an array of data<br>
+ * Type:     function
+ * Name:     html_table
+ * Date:     Feb 17, 2003
+ * Purpose:  make an html table from an array of data
  * Params:
- * <pre>
+ *
  * - loop       - array to loop through
  * - cols       - number of columns, comma separated list of column names
  *                or array of column names
@@ -28,13 +28,13 @@
  * - hdir       - horizontal direction (default: "right", means left-to-right)
  * - inner      - inner loop (default "cols": print $loop line by line,
  *                $loop will be printed column by column otherwise)
- * </pre>
+ *
  * Examples:
- * <pre>
+ *
  * {table loop=$data}
  * {table loop=$data cols=4 tr_attr='"bgcolor=red"'}
  * {table loop=$data cols="first,second,third" tr_attr=$colors}
- * </pre>
+ *
  *
  * @author   Monte Ohrt <monte at ohrt dot com>
  * @author   credit to Messju Mohr <messju at lammfellpuschen dot de>
@@ -127,7 +127,7 @@ function smarty_function_html_table($params)
     }
 
     if (is_array($cols)) {
-        $cols = ($hdir == 'right') ? $cols : array_reverse($cols);
+        $cols = ($hdir === 'right') ? $cols : array_reverse($cols);
         $output .= "<thead><tr>\n";
 
         for ($r = 0; $r < $cols_count; $r ++) {
@@ -141,11 +141,11 @@ function smarty_function_html_table($params)
     $output .= "<tbody>\n";
     for ($r = 0; $r < $rows; $r ++) {
         $output .= "<tr" . smarty_function_html_table_cycle('tr', $tr_attr, $r) . ">\n";
-        $rx = ($vdir == 'down') ? $r * $cols_count : ($rows - 1 - $r) * $cols_count;
+        $rx = ($vdir === 'down') ? $r * $cols_count : ($rows - 1 - $r) * $cols_count;
 
         for ($c = 0; $c < $cols_count; $c ++) {
-            $x = ($hdir == 'right') ? $rx + $c : $rx + $cols_count - 1 - $c;
-            if ($inner != 'cols') {
+            $x = ($hdir === 'right') ? $rx + $c : $rx + $cols_count - 1 - $c;
+            if ($inner !== 'cols') {
                 /* shuffle x to loop over rows*/
                 $x = floor($x / $cols_count) + ($x % $cols_count) * $rows;
             }
@@ -163,7 +163,13 @@ function smarty_function_html_table($params)
 
     return $output;
 }
-
+/**
+ * @param $name
+ * @param $var
+ * @param $no
+ *
+ * @return string
+ */
 function smarty_function_html_table_cycle($name, $var, $no)
 {
     if (!is_array($var)) {

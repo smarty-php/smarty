@@ -8,7 +8,7 @@
 
 /**
  * escape_special_chars common function
- * Function: smarty_function_escape_special_chars<br>
+ * Function: smarty_function_escape_special_chars
  * Purpose:  used by other smarty functions to escape
  *           special chars except for already escaped ones
  *

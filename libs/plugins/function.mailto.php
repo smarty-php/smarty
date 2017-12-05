@@ -8,35 +8,35 @@
 
 /**
  * Smarty {mailto} function plugin
- * Type:     function<br>
- * Name:     mailto<br>
+ * Type:     function
+ * Name:     mailto
  * Date:     May 21, 2002
- * Purpose:  automate mailto address link creation, and optionally encode them.<br>
+ * Purpose:  automate mailto address link creation, and optionally encode them.
  * Params:
- * <pre>
+ *
  * - address    - (required) - e-mail address
  * - text       - (optional) - text to display, default is address
  * - encode     - (optional) - can be one of:
  *                             * none : no encoding (default)
  *                             * javascript : encode with javascript
  *                             * javascript_charcode : encode with javascript charcode
- *                             * hex : encode with hexidecimal (no javascript)
+ *                             * hex : encode with hexadecimal (no javascript)
  * - cc         - (optional) - address(es) to carbon copy
  * - bcc        - (optional) - address(es) to blind carbon copy
  * - subject    - (optional) - e-mail subject
  * - newsgroups - (optional) - newsgroup(s) to post to
  * - followupto - (optional) - address(es) to follow up to
  * - extra      - (optional) - extra tags for the href link
- * </pre>
+ *
  * Examples:
- * <pre>
+ *
  * {mailto address="me@domain.com"}
  * {mailto address="me@domain.com" encode="javascript"}
  * {mailto address="me@domain.com" encode="hex"}
  * {mailto address="me@domain.com" subject="Hello to you!"}
  * {mailto address="me@domain.com" cc="you@domain.com,they@domain.com"}
  * {mailto address="me@domain.com" extra='class="mailto"'}
- * </pre>
+ *
  *
  * @link     http://www.smarty.net/manual/en/language.function.mailto.php {mailto}
  *           (Smarty online manual)
@@ -103,7 +103,7 @@ function smarty_function_mailto($params)
         return;
     }
     // FIXME: (rodneyrehm) document.write() excues me what? 1998 has passed!
-    if ($encode == 'javascript') {
+    if ($encode === 'javascript') {
         $string = 'document.write(\'<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>\');';
 
         $js_encode = '';
@@ -112,7 +112,7 @@ function smarty_function_mailto($params)
         }
 
         return '<script type="text/javascript">eval(unescape(\'' . $js_encode . '\'))</script>';
-    } elseif ($encode == 'javascript_charcode') {
+    } elseif ($encode === 'javascript_charcode') {
         $string = '<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>';
 
         for ($x = 0, $y = strlen($string); $x < $y; $x ++) {
@@ -123,7 +123,7 @@ function smarty_function_mailto($params)
                 implode(',', $ord) . "))" . "}\n" . "</script>\n";
 
         return $_ret;
-    } elseif ($encode == 'hex') {
+    } elseif ($encode === 'hex') {
         preg_match('!^(.*)(\?.*)$!', $address, $match);
         if (!empty($match[ 2 ])) {
             trigger_error("mailto: hex encoding does not work with extra attributes. Try javascript.", E_USER_WARNING);

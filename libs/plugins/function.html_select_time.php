@@ -8,8 +8,8 @@
 
 /**
  * Smarty {html_select_time} function plugin
- * Type:     function<br>
- * Name:     html_select_time<br>
+ * Type:     function
+ * Name:     html_select_time
  * Purpose:  Prints the dropdowns for time selection
  *
  * @link     http://www.smarty.net/manual/en/language.function.html.select.time.php {html_select_time}
@@ -17,20 +17,24 @@
  * @author   Roberto Berto <roberto@berto.net>
  * @author   Monte Ohrt <monte AT ohrt DOT com>
  *
- * @param array $params parameters
+ * @param array                     $params parameters
+ *
+ * @param \Smarty_Internal_Template $template
  *
  * @return string
  * @uses     smarty_make_timestamp()
  */
-function smarty_function_html_select_time($params)
+function smarty_function_html_select_time($params, Smarty_Internal_Template $template)
 {
-    if (!is_callable('smarty_function_escape_special_chars')) {
+    if (!isset($template->smarty->_cache[ '_required_sesc' ])) {
         require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+        $template->smarty->_cache[ '_required_sesc' ] = true;
     }
-    if (!is_callable('smarty_make_timestamp')) {
+    if (!isset($template->smarty->_cache[ '_required_smt' ])) {
         require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
+        $template->smarty->_cache[ '_required_smt' ] = true;
     }
-    $prefix = "Time_";
+    $prefix = 'Time_';
     $field_array = null;
     $field_separator = "\n";
     $option_separator = "\n";
@@ -139,7 +143,7 @@ function smarty_function_html_select_time($params)
                 if (!is_array($_value)) {
                     $extra_attrs .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_value) . '"';
                 } else {
-                    trigger_error("html_select_date: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+                    trigger_error("html_select_date: extra attribute '{$_key}' cannot be an array", E_USER_NOTICE);
                 }
                 break;
         }
@@ -148,7 +152,9 @@ function smarty_function_html_select_time($params)
     if (isset($params[ 'time' ]) && is_array($params[ 'time' ])) {
         if (isset($params[ 'time' ][ $prefix . 'Hour' ])) {
             // $_REQUEST[$field_array] given
-            foreach (array('H' => 'Hour', 'i' => 'Minute', 's' => 'Second') as $_elementKey => $_elementName) {
+            foreach (array('H' => 'Hour',
+                           'i' => 'Minute',
+                           's' => 'Second') as $_elementKey => $_elementName) {
                 $_variableName = '_' . strtolower($_elementName);
                 $$_variableName =
                     isset($params[ 'time' ][ $prefix . $_elementName ]) ? $params[ 'time' ][ $prefix . $_elementName ] :
@@ -161,7 +167,9 @@ function smarty_function_html_select_time($params)
             list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s', $time));
         } elseif (isset($params[ 'time' ][ $field_array ][ $prefix . 'Hour' ])) {
             // $_REQUEST given
-            foreach (array('H' => 'Hour', 'i' => 'Minute', 's' => 'Second') as $_elementKey => $_elementName) {
+            foreach (array('H' => 'Hour',
+                           'i' => 'Minute',
+                           's' => 'Second') as $_elementKey => $_elementName) {
                 $_variableName = '_' . strtolower($_elementName);
                 $$_variableName = isset($params[ 'time' ][ $field_array ][ $prefix . $_elementName ]) ?
                     $params[ 'time' ][ $field_array ][ $prefix . $_elementName ] : date($_elementKey);
@@ -216,8 +224,8 @@ function smarty_function_html_select_time($params)
         $end = $use_24_hours ? 23 : 12;
         for ($i = $start; $i <= $end; $i ++) {
             $_val = sprintf('%02d', $i);
-            $_text = $hour_format == '%02d' ? $_val : sprintf($hour_format, $i);
-            $_value = $hour_value_format == '%02d' ? $_val : sprintf($hour_value_format, $i);
+            $_text = $hour_format === '%02d' ? $_val : sprintf($hour_format, $i);
+            $_value = $hour_value_format === '%02d' ? $_val : sprintf($hour_value_format, $i);
 
             if (!$use_24_hours) {
                 $_hour12 = $_hour == 0 ? 12 : ($_hour <= 12 ? $_hour : $_hour - 12);
@@ -263,8 +271,8 @@ function smarty_function_html_select_time($params)
         $selected = $_minute !== null ? ($_minute - $_minute % $minute_interval) : null;
         for ($i = 0; $i <= 59; $i += $minute_interval) {
             $_val = sprintf('%02d', $i);
-            $_text = $minute_format == '%02d' ? $_val : sprintf($minute_format, $i);
-            $_value = $minute_value_format == '%02d' ? $_val : sprintf($minute_value_format, $i);
+            $_text = $minute_format === '%02d' ? $_val : sprintf($minute_format, $i);
+            $_value = $minute_value_format === '%02d' ? $_val : sprintf($minute_value_format, $i);
             $_html_minutes .= '<option value="' . $_value . '"' . ($selected === $i ? ' selected="selected"' : '') .
                               '>' . $_text . '</option>' . $option_separator;
         }
@@ -304,8 +312,8 @@ function smarty_function_html_select_time($params)
         $selected = $_second !== null ? ($_second - $_second % $second_interval) : null;
         for ($i = 0; $i <= 59; $i += $second_interval) {
             $_val = sprintf('%02d', $i);
-            $_text = $second_format == '%02d' ? $_val : sprintf($second_format, $i);
-            $_value = $second_value_format == '%02d' ? $_val : sprintf($second_value_format, $i);
+            $_text = $second_format === '%02d' ? $_val : sprintf($second_format, $i);
+            $_value = $second_value_format === '%02d' ? $_val : sprintf($second_value_format, $i);
             $_html_seconds .= '<option value="' . $_value . '"' . ($selected === $i ? ' selected="selected"' : '') .
                               '>' . $_text . '</option>' . $option_separator;
         }
@@ -350,7 +358,10 @@ function smarty_function_html_select_time($params)
     }
 
     $_html = '';
-    foreach (array('_html_hours', '_html_minutes', '_html_seconds', '_html_meridian') as $k) {
+    foreach (array('_html_hours',
+                   '_html_minutes',
+                   '_html_seconds',
+                   '_html_meridian') as $k) {
         if (isset($$k)) {
             if ($_html) {
                 $_html .= $field_separator;

@@ -9,8 +9,8 @@
 
 /**
  * Smarty {math} function plugin
- * Type:     function<br>
- * Name:     math<br>
+ * Type:     function
+ * Name:     math
  * Purpose:  handle math computations in template
  *
  * @link     http://www.smarty.net/manual/en/language.function.math.php {math}
@@ -38,7 +38,7 @@ function smarty_function_math($params, $template)
     $equation = $params[ 'equation' ];
 
     // make sure parenthesis are balanced
-    if (substr_count($equation, "(") != substr_count($equation, ")")) {
+    if (substr_count($equation, '(') !== substr_count($equation, ')')) {
         trigger_error("math: unbalanced parenthesis", E_USER_WARNING);
 
         return;
@@ -59,9 +59,9 @@ function smarty_function_math($params, $template)
     }
 
     foreach ($params as $key => $val) {
-        if ($key != "equation" && $key != "format" && $key != "assign") {
+        if ($key !== 'equation' && $key !== 'format' && $key !== 'assign') {
             // make sure value is not empty
-            if (strlen($val) == 0) {
+            if (strlen($val) === 0) {
                 trigger_error("math: parameter '{$key}' is empty", E_USER_WARNING);
 
                 return;
@@ -86,7 +86,7 @@ function smarty_function_math($params, $template)
     }
 
     foreach ($params as $key => $val) {
-        if ($key != "equation" && $key != "format" && $key != "assign") {
+        if ($key !== 'equation' && $key !== 'format' && $key !== 'assign') {
             $equation = preg_replace("/\b$key\b/", " \$params['$key'] ", $equation);
         }
     }
