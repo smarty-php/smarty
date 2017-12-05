@@ -25,21 +25,26 @@ class Smarty_Autoloader
      *
      * @var string
      */
-    public static $SMARTY_DIR = null;
+    private static $SMARTY_DIR = '';
 
     /**
      * Filepath to Smarty internal plugins
      *
      * @var string
      */
-    public static $SMARTY_SYSPLUGINS_DIR = null;
+    private static $SMARTY_SYSPLUGINS_DIR = '';
 
     /**
      * Array with Smarty core classes and their filename
      *
      * @var array
      */
-    public static $rootClasses = array('smarty' => 'Smarty.class.php', 'smartybc' => 'SmartyBC.class.php',);
+    private static $rootClasses = array(
+            'smarty' => 'Smarty.class.php',
+            'smartybc' => 'SmartyBC.class.php',
+            'smartyexception' => 'SmartyException.php',
+            'smartycompilerexception' => 'SmartyCompilerException.php',
+        );
 
     /**
      * Registers Smarty_Autoloader backward compatible to older installations.
@@ -90,21 +95,17 @@ class Smarty_Autoloader
      */
     public static function autoload($class)
     {
-        if ($class[ 0 ] !== 'S' && strpos($class, 'Smarty') !== 0) {
-            return;
-        }
         $_class = strtolower($class);
-        if (isset(self::$rootClasses[ $_class ])) {
-            $file = self::$SMARTY_DIR . self::$rootClasses[ $_class ];
-            if (is_file($file)) {
-                include $file;
-            }
-        } else {
-            $file = self::$SMARTY_SYSPLUGINS_DIR . $_class . '.php';
-            if (is_file($file)) {
-                include $file;
-            }
+
+        if (isset(self::$rootClasses[$_class])) {
+            $file = self::$SMARTY_DIR . self::$rootClasses[$_class];
         }
-        return;
+        elseif (strpos($_class, 'smarty_') === 0) {
+            $file = self::$SMARTY_SYSPLUGINS_DIR . "{$_class}.php";
+        }
+
+        if (isset($file) && is_file($file)) {
+            return include_once $file;
+        }
     }
 }
