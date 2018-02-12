@@ -505,6 +505,11 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $escape_html = false;
     /**
+     * htmlspecialchars parameter $double_encode (just applies when $smarty->escape_html = true)
+     * @var bool
+     */
+    public $escape_html_double_encode = true;
+    /**
      * start time for execution time calculation
      *
      * @var int
@@ -1108,6 +1113,14 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function setEscapeHtml($escape_html)
     {
         $this->escape_html = $escape_html;
+    }
+
+    /**
+     * @param $escape_html_double_encode
+     */
+    public function setEscapeHtmlDoubleEncode($escape_html_double_encode)
+    {
+        $this->escape_html_double_encode = $escape_html_double_encode;
     }
 
     /**
