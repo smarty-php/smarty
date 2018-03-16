@@ -135,16 +135,17 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
     /**
      * Create source code for {extends} from source components array
      *
-     * @param []\Smarty_Internal_Template_Source $components
+     * @param \Smarty_Internal_Template $template
      *
      * @return string
      */
-    public static function extendsSourceArrayCode($components)
+    public static function extendsSourceArrayCode(Smarty_Internal_Template $template)
     {
         $resources = array();
-        foreach ($components as $source) {
+        foreach ($template->source->components as $source) {
             $resources[] = $source->resource;
         }
-        return '{extends file=\'extends:' . join('|', $resources) . '\' extends_resource=true}';
+        return $template->smarty->left_delimiter . 'extends file=\'extends:' . join('|', $resources) .
+               '\' extends_resource=true' . $template->smarty->right_delimiter;
     }
 }

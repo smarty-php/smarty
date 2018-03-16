@@ -112,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-38';
+    const SMARTY_VERSION = '3.1.32-dev-39';
     /**
      * define variable scopes
      */
@@ -1270,6 +1270,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param  string $name property name
      *
      * @return mixed
+     * @throws \SmartyException
      */
     public function __get($name)
     {
@@ -1293,6 +1294,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param string $name  property name
      * @param mixed  $value parameter passed to setter
+     *
+     * @throws \SmartyException
      */
     public function __set($name, $value)
     {

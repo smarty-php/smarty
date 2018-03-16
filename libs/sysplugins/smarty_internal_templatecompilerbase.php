@@ -394,7 +394,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 // we have array of inheritance templates by extends: resource
                 // generate corresponding source code sequence
                 $_content =
-                    Smarty_Internal_Compile_Extends::extendsSourceArrayCode($this->template->source->components);
+                    Smarty_Internal_Compile_Extends::extendsSourceArrayCode($this->template);
             } else {
                 // get template source
                 $_content = $this->template->source->getContent();

@@ -1,4 +1,7 @@
 ﻿===== 3.1.32 - dev ===
+16.03.2018
+ - bugfix extends resource did not work with user defined left/right delimiter https://github.com/smarty-php/smarty/issues/419
+
 22.11.2017
  - bugfix {break} and {continue} could fail if {foreach}{/foreach} did contain other
    looping tags like {for}, {section} and {while} https://github.com/smarty-php/smarty/issues/323
