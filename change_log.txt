@@ -1,4 +1,7 @@
 ﻿===== 3.1.32 - dev ===
+17.03.2018
+ - improvement Smarty::compileAllTemplates() exit with a non-zero status code if max errors is reached https://github.com/smarty-php/smarty/pull/402
+
 16.03.2018
  - bugfix extends resource did not work with user defined left/right delimiter https://github.com/smarty-php/smarty/issues/419
 

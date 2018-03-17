@@ -115,7 +115,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                 $_smarty->_clearTemplateCache();
                 if ($max_errors !== null && $_error_count === $max_errors) {
                     echo "\n<br><br>too many errors\n";
-                    exit();
+                    exit(1);
                 }
             }
         }
