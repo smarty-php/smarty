@@ -61,7 +61,7 @@ class Smarty_Internal_Runtime_UpdateCache
                 $content .= $cache_parts[ 1 ][ $curr_idx ];
             }
         }
-        if (!$no_output_filter && !$_template->cached->has_nocache_code &&
+        if (!$no_output_filter && (!$_template->cached->has_nocache_code || $_template->smarty->allow_caching_output_filters === true) &&
             (isset($_template->smarty->autoload_filters[ 'output' ]) ||
              isset($_template->smarty->registered_filters[ 'output' ]))
         ) {
