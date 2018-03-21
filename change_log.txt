@@ -2,6 +2,7 @@
 21.03.2018
  - bugfix {$smarty.section...} used outside {section}{/section} showed incorrect values if {section}{/section} was called inside
    another loop https://github.com/smarty-php/smarty/issues/422
+ - bugfix short form of {section} attributes did not work https://github.com/smarty-php/smarty/issues/428
 
 17.03.2018
  - improvement Smarty::compileAllTemplates() exit with a non-zero status code if max errors is reached https://github.com/smarty-php/smarty/pull/402
