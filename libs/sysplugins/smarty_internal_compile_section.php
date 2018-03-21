@@ -104,8 +104,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
 
-        $initLocal =
-            array('saved' => "isset(\$_smarty_tpl->tpl_vars['__smarty_section_{$attributes['name']}']) ? \$_smarty_tpl->tpl_vars['__smarty_section_{$attributes['name']}'] : false",);
+        $initLocal = array();
         $initNamedProperty = array();
         $initFor = array();
         $incFor = array();
@@ -455,9 +454,6 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
         } else {
             $output .= "}\n}\n";
         }
-        $output .= "if ({$local}saved) {\n";
-        $output .= "{$sectionVar} = {$local}saved;\n";
-        $output .= "}\n";
         $output .= '?>';
 
         return $output;
