@@ -72,6 +72,7 @@ class Smarty_Internal_Runtime_UpdateCache
         $php_pattern = '/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/';
         $content = ob_get_clean();
         $hash_array = $cached->hashes;
+        $hash_array[$_template->compiled->nocache_hash] = true;
         $hash_array = array_keys($hash_array);
         $nocache_hash = '(' . implode('|', $hash_array) . ')';
         $_template->cached->has_nocache_code = false;
