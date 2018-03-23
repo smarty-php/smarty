@@ -22,56 +22,6 @@ class Smarty_Internal_Runtime_UpdateCache
     }
 
     /**
-     * Sanitize content and write it to cache resource
-     *
-     * @param \Smarty_Template_Cached  $cached
-     * @param Smarty_Internal_Template $_template
-     * @param bool                     $no_output_filter
-     *
-     * @throws \SmartyException
-     */
-    public function removeNoCacheHash(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template,
-                                      $no_output_filter)
-    {
-        $content = ob_get_clean();
-        unset($cached->hashes[ $_template->compiled->nocache_hash ]);
-        if (!empty($cached->hashes)) {
-            $hash_array = array();
-            foreach ($cached->hashes as $hash => $foo) {
-                $hash_array[] = "/{$hash}/";
-            }
-            $content = preg_replace($hash_array, $_template->compiled->nocache_hash, $content);
-        }
-        $_template->cached->has_nocache_code = false;
-        // get text between non-cached items
-        $cache_split =
-            preg_split("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s",
-                       $content);
-        // get non-cached items
-        preg_match_all("!/\*%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%\*/!s",
-                       $content, $cache_parts);
-        $content = '';
-        // loop over items, stitch back together
-        foreach ($cache_split as $curr_idx => $curr_split) {
-            // escape PHP tags in template content
-            $content .= preg_replace('/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/',
-                                     "<?php echo '\$1'; ?>\n", $curr_split);
-            if (isset($cache_parts[ 0 ][ $curr_idx ])) {
-                $_template->cached->has_nocache_code = true;
-                $content .= $cache_parts[ 1 ][ $curr_idx ];
-            }
-        }
-        if (!$no_output_filter && !$_template->cached->has_nocache_code &&
-            (isset($_template->smarty->autoload_filters[ 'output' ]) ||
-             isset($_template->smarty->registered_filters[ 'output' ]))
-        ) {
-            $content = $_template->smarty->ext->_filterHandler->runFilter('output', $content, $_template);
-        }
-        // write cache file content
-        $this->writeCachedContent($cached, $_template, $content);
-    }
-
-    /**
      * Cache was invalid , so render from compiled and write to cache
      *
      * @param \Smarty_Template_Cached   $cached
@@ -104,6 +54,67 @@ class Smarty_Internal_Runtime_UpdateCache
         if ($_template->smarty->debugging) {
             $_template->smarty->_debug->end_cache($_template);
         }
+    }
+
+    /**
+     * Sanitize content and write it to cache resource
+     *
+     * @param \Smarty_Template_Cached  $cached
+     * @param Smarty_Internal_Template $_template
+     * @param bool                     $no_output_filter
+     *
+     * @throws \SmartyException
+     */
+    public function removeNoCacheHash(Smarty_Template_Cached $cached,
+                                      Smarty_Internal_Template $_template,
+                                      $no_output_filter)
+    {
+        $php_pattern = '/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/';
+        $content = ob_get_clean();
+        $hash_array = $cached->hashes;
+        $hash_array = array_keys($hash_array);
+        $nocache_hash = '(' . implode('|', $hash_array) . ')';
+        $_template->cached->has_nocache_code = false;
+        // get text between non-cached items
+        $cache_split =
+            preg_split("!/\*%%SmartyNocache:{$nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$nocache_hash}%%\*/!s",
+                       $content);
+        // get non-cached items
+        preg_match_all("!/\*%%SmartyNocache:{$nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$nocache_hash}%%\*/!s",
+                       $content,
+                       $cache_parts);
+        $content = '';
+        // loop over items, stitch back together
+        foreach ($cache_split as $curr_idx => $curr_split) {
+            if (preg_match($php_pattern, $curr_split)) {
+                // escape PHP tags in template content
+                $php_split = preg_split($php_pattern,
+                                        $curr_split);
+                preg_match_all($php_pattern,
+                               $curr_split,
+                               $php_parts);
+                foreach ($php_split as $idx_php => $curr_php) {
+                    $content .= $curr_php;
+                    if (isset($php_parts[ 0 ][ $idx_php ])) {
+                        $content .= "<?php echo '{$php_parts[ 1 ][ $idx_php ]}'; ?>\n";
+                    }
+                }
+            } else {
+                $content .= $curr_split;
+            }
+            if (isset($cache_parts[ 0 ][ $curr_idx ])) {
+                $_template->cached->has_nocache_code = true;
+                $content .= $cache_parts[ 2 ][ $curr_idx ];
+            }
+        }
+        if (!$no_output_filter && !$_template->cached->has_nocache_code &&
+            (isset($_template->smarty->autoload_filters[ 'output' ]) ||
+             isset($_template->smarty->registered_filters[ 'output' ]))
+        ) {
+            $content = $_template->smarty->ext->_filterHandler->runFilter('output', $content, $_template);
+        }
+        // write cache file content
+        $this->writeCachedContent($cached, $_template, $content);
     }
 
     /**
@@ -148,7 +159,6 @@ class Smarty_Internal_Runtime_UpdateCache
                 if ($_template->smarty->cache_locking) {
                     $cached->handler->releaseLock($_template->smarty, $cached);
                 }
-
                 return true;
             }
             $cached->content = null;
@@ -157,8 +167,6 @@ class Smarty_Internal_Runtime_UpdateCache
             $cached->valid = false;
             $cached->processed = false;
         }
-
         return false;
     }
-
 }

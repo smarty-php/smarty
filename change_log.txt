@@ -1,4 +1,7 @@
 ﻿===== 3.1.32 - dev ===
+23.03.2018
+ - bugfix preg_replace could fail on large content resulting in a blank page https://github.com/smarty-php/smarty/issues/417
+
 21.03.2018
  - bugfix {$smarty.section...} used outside {section}{/section} showed incorrect values if {section}{/section} was called inside
    another loop https://github.com/smarty-php/smarty/issues/422

@@ -94,6 +94,29 @@ class Smarty_Internal_Runtime_CodeFrame
         $output .= $functions;
         $output .= "<?php }\n";
         // remove unneeded PHP tags
-        return preg_replace(array('/\s*\?>[\n]?<\?php\s*/', '/\?>\s*$/'), array("\n", ''), $output);
+        if (preg_match('/\s*\?>[\n]?<\?php\s*/', $output)) {
+            $curr_split = preg_split('/\s*\?>[\n]?<\?php\s*/',
+                                     $output);
+            var_dump($curr_split);
+            preg_match_all('/\s*\?>[\n]?<\?php\s*/',
+                           $output,
+                           $curr_parts);
+            $output = '';
+            foreach ($curr_split as $idx => $curr_output) {
+                $output .= $curr_output;
+                if (isset($curr_parts[ 0 ][ $idx ])) {
+                    $output .= "\n";
+                }
+            }
+        }
+        if (preg_match('/\?>\s*$/', $output)) {
+            $curr_split = preg_split('/\?>\s*$/',
+                                     $output);
+            $output = '';
+            foreach ($curr_split as $idx => $curr_output) {
+                $output .= $curr_output;
+            }
+        }
+        return $output;
     }
 }
