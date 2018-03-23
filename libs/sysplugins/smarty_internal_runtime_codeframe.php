@@ -97,7 +97,6 @@ class Smarty_Internal_Runtime_CodeFrame
         if (preg_match('/\s*\?>[\n]?<\?php\s*/', $output)) {
             $curr_split = preg_split('/\s*\?>[\n]?<\?php\s*/',
                                      $output);
-            var_dump($curr_split);
             preg_match_all('/\s*\?>[\n]?<\?php\s*/',
                            $output,
                            $curr_parts);
