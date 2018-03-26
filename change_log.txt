@@ -1,4 +1,7 @@
 ﻿===== 3.1.32 - dev ===
+26.03.2018
+ - new feature {parent} =  {$smarty.block.parent} {child} =  {$smarty.block.child}
+
 23.03.2018
  - bugfix preg_replace could fail on large content resulting in a blank page https://github.com/smarty-php/smarty/issues/417
 

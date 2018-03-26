@@ -18,10 +18,10 @@
  */
 class Smarty_Internal_Templatelexer
 {
-    const TEXT               = 1;
-    const TAG                = 2;
-    const TAGBODY            = 3;
-    const LITERAL            = 4;
+    const TEXT = 1;
+    const TAG = 2;
+    const TAGBODY = 3;
+    const LITERAL = 4;
     const DOUBLEQUOTEDSTRING = 5;
     /**
      * Source
@@ -192,8 +192,8 @@ class Smarty_Internal_Templatelexer
      * @var null
      */
     private $yy_global_pattern5 = null;
-    private $_yy_state          = 1;
-    private $_yy_stack          = array();
+    private $_yy_state = 1;
+    private $_yy_stack = array();
 
     /**
      * constructor
@@ -239,7 +239,7 @@ class Smarty_Internal_Templatelexer
         return $this->compiler->replaceDelimiter($preg);
     }
 
-    /**
+        /**
      * check if current value is an autoliteral left delimiter
      *
      * @return bool
@@ -306,7 +306,7 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    public function yylex1()
+public function yylex1()
     {
         if (!isset($this->yy_global_pattern1)) {
             $this->yy_global_pattern1 =
@@ -398,7 +398,7 @@ class Smarty_Internal_Templatelexer
         $this->yypushstate(self::LITERAL);
     }
 
-    function yy_r1_12()
+        function yy_r1_12()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LITERALEND;
         $this->yypushstate(self::LITERAL);
@@ -420,11 +420,11 @@ class Smarty_Internal_Templatelexer
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
-    public function yylex2()
+public function yylex2()
     {
         if (!isset($this->yy_global_pattern2)) {
             $this->yy_global_pattern2 =
-                $this->replace("/\G((SMARTYldel)SMARTYal(if|elseif|else if|while)\\s+)|\G((SMARTYldel)SMARTYalfor\\s+)|\G((SMARTYldel)SMARTYalforeach(?![^\s]))|\G((SMARTYldel)SMARTYalsetfilter\\s+)|\G((SMARTYldel)SMARTYalmake_nocache\\s+)|\G((SMARTYldel)SMARTYal[0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/](?:(?!block)[0-9]*[a-zA-Z_]\\w*)\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[$][0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/])|\G((SMARTYldel)SMARTYal)/isS");
+                $this->replace("/\G((SMARTYldel)SMARTYal(if|elseif|else if|while)\\s+)|\G((SMARTYldel)SMARTYalfor\\s+)|\G((SMARTYldel)SMARTYalforeach(?![^\s]))|\G((SMARTYldel)SMARTYalsetfilter\\s+)|\G((SMARTYldel)SMARTYalmake_nocache\\s+)|\G((SMARTYldel)SMARTYal[0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[$]smarty\\.block\\.(child|parent)\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/][0-9]*[a-zA-Z_]\\w*\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[$][0-9]*[a-zA-Z_]\\w*(\\s+nocache)?\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/])|\G((SMARTYldel)SMARTYal)/isS");
         }
         if (!isset($this->dataLength)) {
             $this->dataLength = strlen($this->data);
@@ -520,11 +520,18 @@ class Smarty_Internal_Templatelexer
     function yy_r2_15()
     {
         $this->yypopstate();
+        $this->token = Smarty_Internal_Templateparser::TP_SMARTYBLOCKCHILDPARENT;
+        $this->taglineno = $this->line;
+    }
+
+    function yy_r2_18()
+    {
+        $this->yypopstate();
         $this->token = Smarty_Internal_Templateparser::TP_CLOSETAG;
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_17()
+        function yy_r2_20()
     {
         if ($this->_yy_stack[ count($this->_yy_stack) - 1 ] === self::TEXT) {
             $this->yypopstate();
@@ -538,21 +545,21 @@ class Smarty_Internal_Templatelexer
         }
     } // end function
 
-    function yy_r2_20()
+    function yy_r2_23()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
         $this->yybegin(self::TAGBODY);
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_22()
+    function yy_r2_25()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LDEL;
         $this->yybegin(self::TAGBODY);
         $this->taglineno = $this->line;
     }
 
-    public function yylex3()
+public function yylex3()
     {
         if (!isset($this->yy_global_pattern3)) {
             $this->yy_global_pattern3 =
@@ -830,7 +837,7 @@ class Smarty_Internal_Templatelexer
         $this->token = Smarty_Internal_Templateparser::TP_HEX;
     }
 
-    function yy_r3_58()
+        function yy_r3_58()
     {
         $this->token = Smarty_Internal_Templateparser::TP_SPACE;
     } // end function
@@ -840,7 +847,7 @@ class Smarty_Internal_Templatelexer
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
-    public function yylex4()
+public function yylex4()
     {
         if (!isset($this->yy_global_pattern4)) {
             $this->yy_global_pattern4 =
@@ -912,12 +919,12 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    function yy_r4_5()
+        function yy_r4_5()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
     } // end function
 
-    public function yylex5()
+public function yylex5()
     {
         if (!isset($this->yy_global_pattern5)) {
             $this->yy_global_pattern5 =
