@@ -26,27 +26,7 @@ class CompileFunctionPluginTest extends PHPUnit_Smarty
         $this->cleanDirs();
     }
 
-    /**
-     * test function plugin nocache tag
-     */
-    public function testFunctionPluginFromTemplateFileNocache1()
-    {
-        $this->smarty->assign('foo',5);
-        $this->smarty->setCaching(true);
-        $tpl = $this->smarty->createTemplate('functionplugintestnocache.tpl', $this->smarty);
-        $this->assertEquals("5", $this->smarty->fetch($tpl));
-        $this->assertContains("%%*/<?php \$_smarty = \$_smarty_tpl->smarty; if (!is_callable(\\'smarty_function_getvar\\'))", file_get_contents($tpl->compiled->filepath));
-    }
 
-    /**
-     * test function plugin tag in template file
-     */
-    public function testFunctionPluginFromTemplateFile()
-    {
-        $tpl = $this->smarty->createTemplate('functionplugintest.tpl', $this->smarty);
-        $this->assertEquals("10", $this->smarty->fetch($tpl));
-        $this->assertContains("if (!is_callable('smarty_function_counter'))", file_get_contents($tpl->compiled->filepath));
-    }
     /**
      * test function plugin tag in compiled template file
      */
