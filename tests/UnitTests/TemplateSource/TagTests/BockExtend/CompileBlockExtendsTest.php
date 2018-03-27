@@ -245,7 +245,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     /**
      * test  child/parent template chain with {$this->smarty.block.child)
      *
-     * @run InSeparateProcess
+     * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider        data
      */
