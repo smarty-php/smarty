@@ -25,7 +25,8 @@
 function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $double_encode = true)
 {
     static $_double_encode = null;
-    static $is_loaded1 = false;
+    static $is_loaded_1 = false;
+    static $is_loaded_2 = false;
     if ($_double_encode === null) {
         $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
     }
@@ -123,11 +124,11 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
         case 'hexentity':
             $return = '';
             if (Smarty::$_MBSTRING) {
-                if (!$is_loaded1) {
+                if (!$is_loaded_1) {
                     if (!is_callable('smarty_mb_to_unicode')) {
                         require_once(SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php');
-                        $is_loaded1 = true;
                     }
+                    $is_loaded_1 = true;
                 }
                 $return = '';
                 foreach (smarty_mb_to_unicode($string, Smarty::$_CHARSET) as $unicode) {
@@ -147,11 +148,11 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
         case 'decentity':
             $return = '';
             if (Smarty::$_MBSTRING) {
-                if (!$is_loaded1) {
+                if (!$is_loaded_1) {
                     if (!is_callable('smarty_mb_to_unicode')) {
                         require_once(SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php');
                     }
-                    $is_loaded1 = true;
+                    $is_loaded_1 = true;
                 }
                 $return = '';
                 foreach (smarty_mb_to_unicode($string, Smarty::$_CHARSET) as $unicode) {
@@ -179,8 +180,11 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
 
         case 'mail':
             if (Smarty::$_MBSTRING) {
-                if (!is_callable('smarty_mb_str_replace')) {
-                    require_once(SMARTY_PLUGINS_DIR . 'shared.mb_str_replace.php');
+                if (!$is_loaded_2) {
+                    if (!is_callable('smarty_mb_str_replace')) {
+                        require_once(SMARTY_PLUGINS_DIR . 'shared.mb_str_replace.php');
+                    }
+                    $is_loaded_2 = true;
                 }
                 return smarty_mb_str_replace(array('@',
                                                    '.'), array(' [AT] ',
@@ -195,11 +199,11 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
             // escape non-standard chars, such as ms document quotes
             $return = '';
             if (Smarty::$_MBSTRING) {
-                if (!$is_loaded1) {
+                if (!$is_loaded_1) {
                     if (!is_callable('smarty_mb_to_unicode')) {
                         require_once(SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php');
                     }
-                    $is_loaded1 = true;
+                    $is_loaded_1 = true;
                 }
                 foreach (smarty_mb_to_unicode($string, Smarty::$_CHARSET) as $unicode) {
                     if ($unicode >= 126) {

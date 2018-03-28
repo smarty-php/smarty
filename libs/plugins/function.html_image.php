@@ -36,12 +36,10 @@
  * @return string
  * @uses    smarty_function_escape_special_chars()
  */
-function smarty_function_html_image($params, $template)
+function smarty_function_html_image($params, Smarty_Internal_Template $template)
 {
-    if (!isset($template->smarty->_cache[ '_required_sesc' ])) {
-        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-        $template->smarty->_cache[ '_required_sesc' ] = true;
-    }
+    $template->_checkPlugins(array(array('function' => 'smarty_function_escape_special_chars',
+                                         'file' => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php')));
 
     $alt = '';
     $file = '';

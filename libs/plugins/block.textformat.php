@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsBlock
  */
-
 /**
  * Smarty {textformat}{/textformat} block plugin
  * Type:     block function
@@ -20,7 +19,7 @@
  * - wrap_char     - string ("\n")
  * - indent_char   - string (" ")
  * - wrap_boundary - boolean (true)
- * 
+ *
  *
  * @link   http://www.smarty.net/manual/en/language.function.textformat.php {textformat}
  *         (Smarty online manual)
@@ -32,18 +31,16 @@
  *
  * @return string content re-formatted
  * @author Monte Ohrt <monte at ohrt dot com>
+ * @throws \SmartyException
  */
-function smarty_block_textformat($params, $content, $template, &$repeat)
+function smarty_block_textformat($params, $content, Smarty_Internal_Template $template, &$repeat)
 {
-    static $mb_wordwrap_loaded = false;
     if (is_null($content)) {
         return;
     }
-    if (Smarty::$_MBSTRING && !$mb_wordwrap_loaded) {
-        if (!is_callable('smarty_modifier_mb_wordwrap')) {
-            require_once(SMARTY_PLUGINS_DIR . 'modifier.mb_wordwrap.php');
-        }
-        $mb_wordwrap_loaded = true;
+    if (Smarty::$_MBSTRING) {
+        $template->_checkPlugins(array(array('function' => 'smarty_modifier_mb_wordwrap',
+                                             'file' => SMARTY_PLUGINS_DIR . 'modifier.mb_wordwrap.php')));
     }
 
     $style = null;

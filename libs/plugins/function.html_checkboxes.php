@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsFunction
  */
-
 /**
  * Smarty {html_checkboxes} function plugin
  * File:       function.html_checkboxes.php
@@ -37,18 +36,17 @@
  * @author     credits to Monte Ohrt <monte at ohrt dot com>
  * @version    1.0
  *
- * @param array  $params   parameters
- * @param object $template template object
+ * @param array                    $params   parameters
+ * @param Smarty_Internal_Template $template template object
  *
  * @return string
  * @uses       smarty_function_escape_special_chars()
+ * @throws \SmartyException
  */
-function smarty_function_html_checkboxes($params, $template)
+function smarty_function_html_checkboxes($params, Smarty_Internal_Template $template)
 {
-    if (!isset($template->smarty->_cache[ '_required_sesc' ])) {
-        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-        $template->smarty->_cache[ '_required_sesc' ] = true;
-    }
+    $template->_checkPlugins(array(array('function' => 'smarty_function_escape_special_chars',
+                                         'file' => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php')));
 
     $name = 'checkbox';
     $values = null;

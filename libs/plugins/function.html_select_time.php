@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsFunction
  */
-
 /**
  * Smarty {html_select_time} function plugin
  * Type:     function
@@ -23,17 +22,12 @@
  *
  * @return string
  * @uses     smarty_make_timestamp()
+ * @throws \SmartyException
  */
 function smarty_function_html_select_time($params, Smarty_Internal_Template $template)
 {
-    if (!isset($template->smarty->_cache[ '_required_sesc' ])) {
-        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-        $template->smarty->_cache[ '_required_sesc' ] = true;
-    }
-    if (!isset($template->smarty->_cache[ '_required_smt' ])) {
-        require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
-        $template->smarty->_cache[ '_required_smt' ] = true;
-    }
+    $template->_checkPlugins(array(array('function' => 'smarty_function_escape_special_chars',
+                                         'file' => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php')));
     $prefix = 'Time_';
     $field_array = null;
     $field_separator = "\n";
@@ -84,6 +78,8 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
         switch ($_key) {
             case 'time':
                 if (!is_array($_value) && $_value !== null) {
+                    $template->_checkPlugins(array(array('function' => 'smarty_make_timestamp',
+                                                         'file' => SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php')));
                     $time = smarty_make_timestamp($_value);
                 }
                 break;
