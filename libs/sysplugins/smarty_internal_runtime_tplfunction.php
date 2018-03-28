@@ -120,15 +120,13 @@ class Smarty_Internal_Runtime_TplFunction
                     }
                     // add template function code to cache file
                     if (isset($tplPtr->cached)) {
-                        /* @var Smarty_Template_Cached $cache */
-                        $cache = $tplPtr->cached;
-                        $content = $cache->read($tplPtr);
+                        $content = $tplPtr->cached->read($tplPtr);
                         if ($content) {
                             // check if we must update file dependency
                             if (!preg_match("/'{$funcParam['uid']}'(.*?)'nocache_hash'/", $content, $match2)) {
                                 $content = preg_replace("/('file_dependency'(.*?)\()/", "\\1{$match1[0]}", $content);
                             }
-                            $tplPtr->smarty->ext->_updateCache->write($cache, $tplPtr,
+                            $tplPtr->smarty->ext->_updateCache->write($tplPtr,
                                                                       preg_replace('/\s*\?>\s*$/', "\n", $content) .
                                                                       "\n" . preg_replace(array('/^\s*<\?php\s+/',
                                                                                                 '/\s*\?>\s*$/',), "\n",

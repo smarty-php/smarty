@@ -77,6 +77,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
                        array($_attr, $compiler->nocache, $compiler->parser->current_buffer,
                              $compiler->template->compiled->has_nocache_code,
                              $compiler->template->caching));
+        $compiler->saveRequiredPlugins(true);
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
         $compiler->template->compiled->has_nocache_code = false;
@@ -126,7 +127,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
             $output .= "public \${$property} = " . var_export($value,true) .";\n";
         }
         $output .= "public function callBlock(Smarty_Internal_Template \$_smarty_tpl) {\n";
-        //$output .= "/*/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n";
+        $output .= $compiler->compileRequiredPlugins();
+        $compiler->restoreRequiredPlugins();
         if ($compiler->template->compiled->has_nocache_code) {
             $output .= "\$_smarty_tpl->cached->hashes['{$compiler->template->compiled->nocache_hash}'] = true;\n";
         }
@@ -151,16 +153,6 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
                                                                                             $output));
         $compiler->blockOrFunctionCode .= $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
-        // nocache plugins must be copied
-        if (!empty($compiler->template->compiled->required_plugins[ 'nocache' ])) {
-            foreach ($compiler->template->compiled->required_plugins[ 'nocache' ] as $plugin => $tmp) {
-                foreach ($tmp as $type => $data) {
-                    $compiler->parent_compiler->template->compiled->required_plugins[ 'compiled' ][ $plugin ][ $type ] =
-                        $data;
-                }
-            }
-        }
-
         // restore old status
         $compiler->template->compiled->has_nocache_code = $_has_nocache_code;
         $compiler->tag_nocache = $compiler->nocache;

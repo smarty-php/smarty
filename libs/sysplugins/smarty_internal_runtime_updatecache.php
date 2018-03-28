@@ -115,41 +115,43 @@ class Smarty_Internal_Runtime_UpdateCache
             $content = $_template->smarty->ext->_filterHandler->runFilter('output', $content, $_template);
         }
         // write cache file content
-        $this->writeCachedContent($cached, $_template, $content);
+        $this->writeCachedContent($_template, $content);
     }
 
     /**
      * Writes the content to cache resource
      *
-     * @param \Smarty_Template_Cached  $cached
      * @param Smarty_Internal_Template $_template
      * @param string                   $content
      *
      * @return bool
      */
-    public function writeCachedContent(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template, $content)
+    public function writeCachedContent(Smarty_Internal_Template $_template, $content)
     {
         if ($_template->source->handler->recompiled || !$_template->caching
         ) {
             // don't write cache file
             return false;
         }
+        if (!isset($_template->cached)) {
+            $_template->loadCached();
+        }
         $content = $_template->smarty->ext->_codeFrame->create($_template, $content, '', true);
-        return $this->write($cached, $_template, $content);
+        return $this->write($_template, $content);
     }
 
     /**
      * Write this cache object to handler
      *
-     * @param \Smarty_Template_Cached  $cached
      * @param Smarty_Internal_Template $_template template object
      * @param string                   $content   content to cache
      *
      * @return bool success
      */
-    public function write(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template, $content)
+    public function write(Smarty_Internal_Template $_template, $content)
     {
         if (!$_template->source->handler->recompiled) {
+            $cached = $_template->cached;
             if ($cached->handler->writeCachedContent($_template, $content)) {
                 $cached->content = null;
                 $cached->timestamp = time();
@@ -160,6 +162,7 @@ class Smarty_Internal_Runtime_UpdateCache
                 if ($_template->smarty->cache_locking) {
                     $cached->handler->releaseLock($_template->smarty, $cached);
                 }
+
                 return true;
             }
             $cached->content = null;
@@ -168,6 +171,7 @@ class Smarty_Internal_Runtime_UpdateCache
             $cached->valid = false;
             $cached->processed = false;
         }
+
         return false;
     }
 }

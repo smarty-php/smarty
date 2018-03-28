@@ -58,35 +58,9 @@ class Smarty_Internal_Runtime_CodeFrame
                        var_export($_template->smarty->ext->_tplFunction->getTplFunction($_template), true) . ");\n";
 
         }
-        // include code for plugins
-        if (!$cache) {
-            if (!empty($_template->compiled->required_plugins[ 'compiled' ])) {
-                foreach ($_template->compiled->required_plugins[ 'compiled' ] as $tmp) {
-                    foreach ($tmp as $data) {
-                        $file = addslashes($data[ 'file' ]);
-                        if (is_array($data[ 'function' ])) {
-                            $output .= "if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) require_once '{$file}';\n";
-                        } else {
-                            $output .= "if (!is_callable('{$data['function']}')) require_once '{$file}';\n";
-                        }
-                    }
-                }
-            }
-            if ($_template->caching && !empty($_template->compiled->required_plugins[ 'nocache' ])) {
-                $_template->compiled->has_nocache_code = true;
-                $output .= "echo '/*%%SmartyNocache:{$_template->compiled->nocache_hash}%%*/<?php \$_smarty = \$_smarty_tpl->smarty; ";
-                foreach ($_template->compiled->required_plugins[ 'nocache' ] as $tmp) {
-                    foreach ($tmp as $data) {
-                        $file = addslashes($data[ 'file' ]);
-                        if (is_array($data[ 'function' ])) {
-                            $output .= addslashes("if (!is_callable(array('{$data['function'][0]}','{$data['function'][1]}'))) require_once '{$file}';\n");
-                        } else {
-                            $output .= addslashes("if (!is_callable('{$data['function']}')) require_once '{$file}';\n");
-                        }
-                    }
-                }
-                $output .= "?>/*/%%SmartyNocache:{$_template->compiled->nocache_hash}%%*/';\n";
-            }
+        // include code for required plugins
+        if (!$cache && isset($compiler)) {
+            $output .= $compiler->compileRequiredPlugins();
         }
         $output .= "?>";
         $output .= $content;
