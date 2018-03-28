@@ -114,33 +114,19 @@ class CompileFunctionTest extends PHPUnit_Smarty
     /**
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     * @dataProvider functionProviderCaching
+     * @dataProvider functionProviderCachingValue
      * test simple function call tag plugin
      *
      */
-    public function testSimpleFunctionPlugin_003($caching, $text)
+    public function testSimpleFunctionPlugin_003($caching, $text, $start,$result)
     {
         $this->smarty->setCaching($caching);
-        $this->smarty->assign('param', 1);
-        $this->smarty->assign('default', 2, true);
-        $this->assertEquals("default 1", $this->smarty->fetch('test_template_function_003.tpl'), $text);
+        $this->smarty->assign('start', $start, true);
+        $this->smarty->assign('start1', $start+10);
+        $this->assertEquals($result, $this->smarty->fetch('test_template_function_003.tpl'), $text);
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @dataProvider functionProvider
-     * test simple function call tag plugin nocache
-     *
-     */
-    public function testSimpleFunctionCachedPluginNocache_003($text)
-    {
-        $this->smarty->setCaching(1);
-        $this->smarty->setCompileId(1);
-        $this->smarty->assign('param', 1);
-        $this->smarty->assign('default', 2, true);
-        $this->assertEquals("default 1", $this->smarty->fetch('test_template_function_003.tpl'), $text);
-    }
+
 
 
     /**
@@ -346,6 +332,18 @@ class CompileFunctionTest extends PHPUnit_Smarty
             array(false, 'normal call'),
             array(true, 'cached compile'),
             array(true, 'cached call'),
+        );
+    }
+    /**
+     * Function data provider
+     */
+    public function functionProviderCachingValue()
+    {
+        return array(
+            array(false, 'normal compile',5,'15 215 5'),
+            array(false, 'normal call',3,'13 213 3'),
+            array(true, 'cached compile',6,'16 216 6'),
+            array(true, 'cached call',8,'16 218 8'),
         );
     }
     /**
