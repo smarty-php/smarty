@@ -324,6 +324,18 @@ smartytag(A)::= SIMPLETAG(B). {
         }
     }
 }
+                  // {$smarty.block.child} or {$smarty.block.parent}
+smartytag(A)   ::= SMARTYBLOCKCHILDPARENT(i). {
+    $j = strrpos(i,'.');
+    if (i[$j+1] == 'c') {
+        // {$smarty.block.child}
+        A = $this->compiler->compileTag('child',array(),array(i));;
+    } else {
+        // {$smarty.block.parent}
+       A = $this->compiler->compileTag('parent',array(),array(i));;
+     }
+}
+
 smartytag(A)   ::= LDEL tagbody(B) RDEL. {
     A  = B;
 }
