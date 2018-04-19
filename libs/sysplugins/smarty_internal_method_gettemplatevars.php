@@ -53,7 +53,7 @@ class Smarty_Internal_Method_GetTemplateVars
                     }
                 }
                 // not found, try at parent
-                if ($searchParents) {
+                if ($searchParents && isset($_ptr->parent)) {
                     $_ptr = $_ptr->parent;
                 } else {
                     $_ptr = null;
@@ -93,7 +93,7 @@ class Smarty_Internal_Method_GetTemplateVars
                 return $_ptr->tpl_vars[ $varName ];
             }
             // not found, try at parent
-            if ($searchParents) {
+            if ($searchParents && isset($_ptr->parent)) {
                 $_ptr = $_ptr->parent;
             } else {
                 $_ptr = null;
@@ -103,14 +103,11 @@ class Smarty_Internal_Method_GetTemplateVars
             // found it, return it
             return Smarty::$global_tpl_vars[ $varName ];
         }
-        /* @var \Smarty $smarty */
-        $smarty = isset($data->smarty) ? $data->smarty : $data;
-        if ($smarty->error_unassigned && $errorEnable) {
+        if ($errorEnable && $data->_getSmartyObj()->error_unassigned) {
             // force a notice
             $x = $$varName;
         }
 
         return new Smarty_Undefined_Variable;
     }
-
 }
