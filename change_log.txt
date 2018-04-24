@@ -1,4 +1,4 @@
-﻿===== 3.1.32 - dev ===
+﻿===== 3.1.32 ===== (24.04.2018)
 24.04.2018
  - bugfix  possible Security Vulnerability in Smarty_Security class.
 
