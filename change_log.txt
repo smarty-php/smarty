@@ -1,4 +1,7 @@
 ﻿===== 3.1.32 - dev ===
+24.04.2018
+ - bugfix  possible Security Vulnerability in Smarty_Security class.
+
 26.03.2018
  - bugfix plugins may not be loaded if {function} or {block} tags are executed in nocache mode
    https://github.com/smarty-php/smarty/issues/371
