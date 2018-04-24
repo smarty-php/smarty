@@ -1042,10 +1042,16 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _realpath($path, $realpath = null)
     {
-        static $nds = array('/' => '\\', '\\' => '/');
-        static $sepDotsep = DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR;
-        static $sepDot = DIRECTORY_SEPARATOR . '.';
-        static $sepSep = DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR;
+        static $nds = null;
+        static $sepDotsep = null;
+        static $sepDot = null;
+        static $sepSep =null;
+        if (!isset($nds)) {
+            $nds = array('/' => '\\', '\\' => '/');
+            $sepDotsep = DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR;
+            $sepDot = DIRECTORY_SEPARATOR . '.';
+            $sepSep = DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR;
+        }
         // normalize DIRECTORY_SEPARATOR
         $path = str_replace(array($nds[DIRECTORY_SEPARATOR], $sepDotsep), DIRECTORY_SEPARATOR, $path);
         if (strpos($path,$sepDot) === false && (($realpath === false && $path[0] === '.') || $realpath === null) && $path[0] !== '\\') {
