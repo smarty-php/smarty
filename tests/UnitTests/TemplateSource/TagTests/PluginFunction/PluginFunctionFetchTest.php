@@ -20,8 +20,48 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
         $this->setUpSmarty(dirname(__FILE__));
     }
 
-    public function testTodo()
+   public function testInit()
     {
-        // TODO: UnitTests for {fetch}
+        $this->cleanDirs();
+    }
+
+
+/**
+* test {fetch} from UIR
+*
+* @runInSeparateProcess
+* @preserveGlobalState disabled
+*/
+   public function testFetchUri()
+    {
+        $this->assertContains('<title>Preface | Smarty</title>', $this->smarty->fetch('string:{fetch file="https://www.smarty.net/docs/en/preface.tpl"}'));
+    }
+
+/**
+* test {fetch} invalid uri
+*
+* @expectedException        SmartyException
+* @expectedExceptionMessage  {fetch} cannot read resource 'https://foo.smarty.net/foo.dat'
+* @runInSeparateProcess
+* @preserveGlobalState disabled
+*/
+  public function testFetchInvalidUri()
+    {
+ $result = $this->smarty->fetch('string:{fetch file="https://foo.smarty.net/foo.dat"}');
+    }
+
+  /**
+  * test {fetch file=...} access to file from path not aloowed by security settings
+  *
+  * @expectedException        SmartyException
+  * @expectedExceptionMessage  not allowed by security setting
+  * @run InSeparateProcess
+  * @preserveGlobalState disabled
+  */
+  public function testFetchSecurity()
+    {
+        $dir=$this->smarty->getTemplateDir();
+        $this->smarty->enableSecurity();
+ $result = $this->smarty->fetch('string:{fetch file=\''. $dir[0]. '..\..\..\..\..\etc\passwd\'}');
     }
 }
