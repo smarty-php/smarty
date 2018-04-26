@@ -20,7 +20,7 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
         $this->setUpSmarty(dirname(__FILE__));
     }
 
-   public function testInit()
+    public function testInit()
     {
         $this->cleanDirs();
     }
@@ -46,22 +46,23 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
 * @preserveGlobalState disabled
 */
   public function testFetchInvalidUri()
-    {
- $result = $this->smarty->fetch('string:{fetch file="https://foo.smarty.net/foo.dat"}');
-    }
+  {
+      $result = $this->smarty->fetch('string:{fetch file="https://foo.smarty.net/foo.dat"}');
+  }
 
   /**
-  * test {fetch file=...} access to file from path not aloowed by security settings
+  * test {fetch file=...} access to file from path not aloo/wed by security settings
   *
   * @expectedException        SmartyException
-  * @expectedExceptionMessage  not allowed by security setting
+  * @expectedExceptionMessage   not trusted file pat
   * @run InSeparateProcess
   * @preserveGlobalState disabled
   */
   public function testFetchSecurity()
-    {
-        $dir=$this->smarty->getTemplateDir();
-        $this->smarty->enableSecurity();
- $result = $this->smarty->fetch('string:{fetch file=\''. $dir[0]. '..\..\..\..\..\etc\passwd\'}');
-    }
+  {
+      $this->cleanDirs();
+      $dir=$this->smarty->getTemplateDir();
+      $this->smarty->enableSecurity();
+      $result = $this->smarty->fetch('string:{fetch file=\''. $dir[0]. '../../../../../etc/passwd\'}');
+  }
 }
