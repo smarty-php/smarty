@@ -1,4 +1,8 @@
-﻿===== 3.1.32 ===== (24.04.2018)
+﻿===== 3.1.33-dev-1 =====
+26.04.2018
+ - bugfix  regarding Security Vulnerability did not solve the problem under Linux.
+
+===== 3.1.32 ===== (24.04.2018)
 24.04.2018
  - bugfix  possible Security Vulnerability in Smarty_Security class.
 

@@ -27,7 +27,7 @@
  * @author    Uwe Tews   <uwe dot tews at gmail dot com>
  * @author    Rodney Rehm
  * @package   Smarty
- * @version   3.1.32
+ * @version   3.1.33-dev
  */
 /**
  * set SMARTY_DIR to absolute path to Smarty library files.
@@ -112,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32';
+    const SMARTY_VERSION = '3.1.33-dev-1';
     /**
      * define variable scopes
      */
@@ -835,7 +835,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $this->plugins_dir = (array)$this->plugins_dir;
             }
             foreach ($this->plugins_dir as $k => $v) {
-                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, "/\\") . DIRECTORY_SEPARATOR, true);
+                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, '/\\') . DIRECTORY_SEPARATOR, true);
             }
             $this->_cache[ 'plugin_files' ] = array();
             $this->_pluginsDirNormalized = true;
@@ -1043,20 +1043,15 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function _realpath($path, $realpath = null)
     {
         static $nds = null;
-        static $sepDotsep = null;
-        static $sepDot = null;
-        static $sepSep =null;
+        static $sepDotSep = null;
+         static $sepSep =null;
         if (!isset($nds)) {
             $nds = array('/' => '\\', '\\' => '/');
-            $sepDotsep = DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR;
-            $sepDot = DIRECTORY_SEPARATOR . '.';
+            $sepDotSep = DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR;
             $sepSep = DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR;
         }
         // normalize DIRECTORY_SEPARATOR
-        $path = str_replace(array($nds[DIRECTORY_SEPARATOR], $sepDotsep), DIRECTORY_SEPARATOR, $path);
-        if (strpos($path,$sepDot) === false && (($realpath === false && $path[0] === '.') || $realpath === null) && $path[0] !== '\\') {
-            return $path;
-        }
+        $path = str_replace(array($nds[DIRECTORY_SEPARATOR], $sepDotSep), DIRECTORY_SEPARATOR, $path);
         preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
                    $path,
                    $parts);
@@ -1069,7 +1064,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             }
         }
        // remove noop 'DIRECTORY_SEPARATOR DIRECTORY_SEPARATOR' and 'DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR' patterns
-        $path = str_replace(array($sepDotsep,$sepSep), DIRECTORY_SEPARATOR, $path);
+        $path = str_replace(array($sepDotSep,$sepSep), DIRECTORY_SEPARATOR, $path);
         // resolve '..DIRECTORY_SEPARATOR' pattern, smallest first
         if (strpos($path, '..' . DIRECTORY_SEPARATOR) !== false &&
             preg_match_all('#[\\\\/]([.][.][\\\\/])+#u', $path, $match)
