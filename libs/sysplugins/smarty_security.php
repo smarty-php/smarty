@@ -639,7 +639,8 @@ class Smarty_Security
     {
         $directory = dirname($this->smarty->_realpath($filepath, true)) . DIRECTORY_SEPARATOR;
         $_directory = array();
-        while (true) {
+        if (!preg_match('#[\\\\/][.][.][\\\\/]#',$directory)) {
+            while (true) {
              // test if the directory is trusted
             if (isset($dirs[ $directory ])) {
                return $_directory;
@@ -647,13 +648,16 @@ class Smarty_Security
             // abort if we've reached root
             if (!preg_match('#[\\\\/][^\\\\/]+[\\\\/]$#', $directory)) {
                 // give up
-                throw new SmartyException(sprintf('Smarty Security: not trusted file path \'%s\' ',$filepath));
+                break;
             }
             // remember the directory to add it to _resource_dir in case we're successful
             $_directory[ $directory ] = true;
            // bubble up one level
             $directory = preg_replace('#[\\\\/][^\\\\/]+[\\\\/]$#', DIRECTORY_SEPARATOR, $directory);
+            }
         }
+        // give up
+        throw new SmartyException(sprintf('Smarty Security: not trusted file path \'%s\' ',$filepath));
     }
 
     /**
