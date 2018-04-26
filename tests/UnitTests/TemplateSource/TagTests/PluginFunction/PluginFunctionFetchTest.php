@@ -54,7 +54,7 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
   * test {fetch file=...} access to file from path not aloo/wed by security settings
   *
   * @expectedException        SmartyException
-  * @expectedExceptionMessage   not trusted file pat
+  * @expectedExceptionMessage   not trusted file path
   * @run InSeparateProcess
   * @preserveGlobalState disabled
   */
@@ -65,4 +65,21 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
       $this->smarty->enableSecurity();
       $result = $this->smarty->fetch('string:{fetch file=\''. $dir[0]. '../../../../../etc/passwd\'}');
   }
+  /**
+  * test {fetch file=...} access to file from path not aloo/wed by security settings
+  *
+  * @expectedException        SmartyException
+  * @expectedExceptionMessage   not trusted file path
+  * @run InSeparateProcess
+  * @preserveGlobalState disabled
+  */
+  public function testFetchSecurity2()
+  {
+      $this->cleanDirs();
+      $dir=$this->smarty->getTemplateDir();
+      $this->smarty->enableSecurity();
+      $this->smarty->setTemplateDir('/templates');
+      $result = $this->smarty->fetch('string:{fetch file="/templates/../etc/passwd"}');
+  }
+
 }
