@@ -18,6 +18,7 @@ class FileResourceTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
+        $this->smarty->enableSecurity();
     }
 
     public function testInit()
@@ -200,7 +201,7 @@ class FileResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      *
      */

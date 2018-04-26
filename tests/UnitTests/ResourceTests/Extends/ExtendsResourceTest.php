@@ -18,6 +18,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
     public function setUp()
     {
         $this->setUpSmarty(dirname(__FILE__));
+        $this->smarty->enableSecurity();
     }
 
 
@@ -52,7 +53,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
     }
     /**
      * test  child/parent template chain with apppend
-     * @runInSeparateProcess
+     * @run InSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider data
      */
