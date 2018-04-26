@@ -652,7 +652,7 @@ class Smarty_Security
             // remember the directory to add it to _resource_dir in case we're successful
             $_directory[ $directory ] = true;
            // bubble up one level
-            $directory = preg_replace('#[\\\\/][^\\\\/]+[\\\\/]$#', '/', $directory);
+            $directory = preg_replace('#[\\\\/][^\\\\/]+[\\\\/]$#', DIRECTORY_SEPARATOR, $directory);
         }
     }
 

@@ -1042,16 +1042,9 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _realpath($path, $realpath = null)
     {
-        static $nds = null;
-        static $sepDotSep = null;
-         static $sepSep =null;
-        if (!isset($nds)) {
-            $nds = array('/' => '\\', '\\' => '/');
-            $sepDotSep = DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR;
-            $sepSep = DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR;
-        }
+        $nds = array('/' => '\\', '\\' => '/');
         // normalize DIRECTORY_SEPARATOR
-        $path = str_replace(array($nds[DIRECTORY_SEPARATOR], $sepDotSep), DIRECTORY_SEPARATOR, $path);
+        $path = str_replace(array($nds[DIRECTORY_SEPARATOR], DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR, $path);
         preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
                    $path,
                    $parts);
@@ -1063,24 +1056,11 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $path = getcwd() . DIRECTORY_SEPARATOR . $path;
             }
         }
-       // remove noop 'DIRECTORY_SEPARATOR DIRECTORY_SEPARATOR' and 'DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR' patterns
-        $path = str_replace(array($sepDotSep,$sepSep), DIRECTORY_SEPARATOR, $path);
-        // resolve '..DIRECTORY_SEPARATOR' pattern, smallest first
-        if (strpos($path, '..' . DIRECTORY_SEPARATOR) !== false &&
-            preg_match_all('#[\\\\/]([.][.][\\\\/])+#u', $path, $match)
-        ) {
-            $counts = array();
-            foreach ($match[ 0 ] as $m) {
-                $counts[] = (int)((strlen($m) - 1) / 3);
-            }
-            sort($counts);
-            foreach ($counts as $count) {
-                $path = preg_replace('#([\\\\/]+[^\\\\/]+){' . $count .
-                                     '}[\\\\/]+([.][.][\\\\/]+){' . $count . '}#u',
-                                     DIRECTORY_SEPARATOR,
-                                     $path);
-            }
-        }
+        do {
+            $path = preg_replace(
+            array('#[\\\\/]{2}#', '#[\\\\/][.][\\\\/]#', '#[\\\\/]([^\\\\/.]+)[\\\\/][.][.][\\\\/]#'),
+            DIRECTORY_SEPARATOR, $path, -1, $count);
+        } while($count > 0);
         return $realpath !== false ? $parts[ 'root' ] . $path : str_ireplace(getcwd(), '.', $parts[ 'root' ] . $path);
     }
 
@@ -1284,13 +1264,13 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (isset($this->accessMap[ $name ])) {
             $method = 'get' . $this->accessMap[ $name ];
             return $this->{$method}();
-        } else if (isset($this->_cache[ $name ])) {
+        } else {if (isset($this->_cache[ $name ])) {
             return $this->_cache[ $name ];
-        } else if (in_array($name, $this->obsoleteProperties)) {
+        } else {if (in_array($name, $this->obsoleteProperties)) {
             return null;
         } else {
             trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
-        }
+        }}}
         return null;
     }
 
@@ -1309,7 +1289,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (isset($this->accessMap[ $name ])) {
             $method = 'set' . $this->accessMap[ $name ];
             $this->{$method}($value);
-        } else if (in_array($name, $this->obsoleteProperties)) {
+        } else {if (in_array($name, $this->obsoleteProperties)) {
             return;
         } else {
             if (is_object($value) && method_exists($value, $name)) {
@@ -1317,7 +1297,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             } else {
                 trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
             }
-        }
+        }}
     }
 
     /**
