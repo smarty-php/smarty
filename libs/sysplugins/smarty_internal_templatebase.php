@@ -20,7 +20,7 @@
  * They are located in a corresponding Smarty_Internal_Method_xxxx class
  *
  * @method Smarty_Internal_TemplateBase addAutoloadFilters(mixed $filters, string $type = null)
- * @method Smarty_Internal_TemplateBase addDefaultModifier(mixed $modifiers)
+ * @method Smarty_Internal_TemplateBase addDefaultModifiers(mixed $modifiers)
  * @method Smarty_Internal_TemplateBase addLiterals(mixed $literals)
  * @method Smarty_Internal_TemplateBase createData(Smarty_Internal_Data $parent = null, string $name = null)
  * @method array getAutoloadFilters(string $type = null)
