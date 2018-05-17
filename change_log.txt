@@ -1,4 +1,7 @@
-﻿===== 3.1.33-dev-1 =====
+﻿===== 3.1.33-dev-2 =====
+17.05.2018
+ - bugfix  plugins may not be loaded when setMergeCompiledIncludes is true https://github.com/smarty-php/smarty/issues/435
+
 26.04.2018
  - bugfix  regarding Security Vulnerability did not solve the problem under Linux.
 

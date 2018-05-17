@@ -58,10 +58,6 @@ class Smarty_Internal_Runtime_CodeFrame
                        var_export($_template->smarty->ext->_tplFunction->getTplFunction($_template), true) . ");\n";
 
         }
-        // include code for required plugins
-        if (!$cache && isset($compiler)) {
-            $output .= $compiler->compileRequiredPlugins();
-        }
         $output .= "?>";
         $output .= $content;
         $output .= "<?php }\n?>";

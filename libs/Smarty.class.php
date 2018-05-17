@@ -112,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.33-dev-1';
+    const SMARTY_VERSION = '3.1.33-dev-2';
     /**
      * define variable scopes
      */
@@ -1011,7 +1011,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                                    Smarty_Internal_Template $template = null)
     {
         $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
-            $template_name;
+        $template_name;
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
         $caching = (int)($caching === null ? $this->caching : $caching);
@@ -1044,7 +1044,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $nds = array('/' => '\\', '\\' => '/');
         // normalize DIRECTORY_SEPARATOR
-        $path = str_replace(array($nds[DIRECTORY_SEPARATOR], DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR, $path);
+        //$path = str_replace(array($nds[DIRECTORY_SEPARATOR], DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR, $path);
         preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
                    $path,
                    $parts);

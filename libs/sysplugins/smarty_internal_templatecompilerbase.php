@@ -421,6 +421,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $_content = $this->template->source->getContent();
             }
             $_compiled_code = $this->postFilter($this->doCompile($this->preFilter($_content), true));
+            if (!empty($this->required_plugins[ 'compiled' ]) || !empty($this->required_plugins[ 'nocache' ])) {
+               $_compiled_code = '<?php ' . $this->compileRequiredPlugins() . "?>\n" . $_compiled_code;
+            }
         }
         catch (Exception $e) {
             if ($this->smarty->debugging) {
