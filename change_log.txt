@@ -1,6 +1,7 @@
 ﻿===== 3.1.33-dev-4 =====
 17.05.2018
- - Smarty::compileAllTemplates ignores `$extension` parameter https://github.com/smarty-php/smarty/issues/437
+ - bugfix strip-block produces different output in Smarty v3.1.32 https://github.com/smarty-php/smarty/issues/436
+ - bugfix Smarty::compileAllTemplates ignores `$extension` parameter https://github.com/smarty-php/smarty/issues/437
    https://github.com/smarty-php/smarty/pull/438
  - improvement do not compute total property in {foreach} if not needed https://github.com/smarty-php/smarty/issues/443
  - bugfix  plugins may not be loaded when setMergeCompiledIncludes is true https://github.com/smarty-php/smarty/issues/435
