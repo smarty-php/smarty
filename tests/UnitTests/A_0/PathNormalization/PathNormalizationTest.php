@@ -24,7 +24,7 @@ class PathNormalizationTest extends PHPUnit_Smarty
         $d = $this->smarty->_realpath('./foo/a.foo', true);
         $this->assertEquals(getcwd() . DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'a.foo', $d);
     }
-    public function testNormalizeAbsolute() {
+    /**public function testNormalizeAbsolute() {
         if (DIRECTORY_SEPARATOR == '/') {
             $d = $this->smarty->_realpath('\\foo\\a.foo', true);
             $this->assertEquals('/foo/a.foo', $d);
@@ -35,6 +35,7 @@ class PathNormalizationTest extends PHPUnit_Smarty
             $this->assertEquals(substr(getcwd(), 0, 2) . DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'a.foo', $d);
         }
     }
+ * */
     public function testNormalizeToAbsoluteNoStart() {
         $d = $this->smarty->_realpath('foo/a.foo', true);
         $this->assertEquals(getcwd() . DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'a.foo', $d);
