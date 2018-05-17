@@ -75,7 +75,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                 if (substr(basename($_fileinfo->getPathname()), 0, 1) === '.' || strpos($_file, '.svn') !== false) {
                     continue;
                 }
-                if (!substr_compare($_file, $extension, -strlen($extension)) === 0) {
+                if (substr_compare($_file, $extension, -strlen($extension)) !== 0) {
                     continue;
                 }
                 if ($_fileinfo->getPath() !== substr($_dir, 0, -1)) {
