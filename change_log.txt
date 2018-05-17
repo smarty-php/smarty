@@ -1,5 +1,6 @@
-﻿===== 3.1.33-dev-2 =====
+﻿===== 3.1.33-dev-3 =====
 17.05.2018
+ - improvement do not compute total property in {foreach} if not needed https://github.com/smarty-php/smarty/issues/443
  - bugfix  plugins may not be loaded when setMergeCompiledIncludes is true https://github.com/smarty-php/smarty/issues/435
 
 26.04.2018
