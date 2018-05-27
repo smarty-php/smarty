@@ -103,7 +103,7 @@ abstract class Smarty_Internal_Data
         } else {
             if ($tpl_var !== '') {
                 if ($this->_objType === 2) {
-                    /** @var  Smarty_Internal_Template $this */
+                    /** @var Smarty_Internal_Template $this */
                     $this->_assignInScope($tpl_var, $value, $nocache);
                 } else {
                     $this->tpl_vars[ $tpl_var ] = new Smarty_Variable($value, $nocache);
