@@ -24,7 +24,7 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
      */
     public $option_flags = array('nocache', 'noscope');
 
-   /**
+    /**
      * Valid scope names
      *
      * @var array
@@ -36,9 +36,9 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {assign} tag
      *
-     * @param  array                                $args      array with attributes from parser
+     * @param array                                 $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
+     * @param array                                 $parameter array with compilation parameter
      *
      * @return string compiled code
      * @throws \SmartyCompilerException

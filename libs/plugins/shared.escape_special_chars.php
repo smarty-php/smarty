@@ -12,9 +12,9 @@
  * Purpose:  used by other smarty functions to escape
  *           special chars except for already escaped ones
  *
- * @author   Monte Ohrt <monte at ohrt dot com>
+ * @author Monte Ohrt <monte at ohrt dot com>
  *
- * @param  string $string text that should by escaped
+ * @param string $string text that should by escaped
  *
  * @return string
  */

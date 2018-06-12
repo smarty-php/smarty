@@ -27,10 +27,10 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
     /**
      * Compiles code for the execution of a registered function
      *
-     * @param  array                                $args      array with attributes from parser
+     * @param array                                 $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
-     * @param  string                               $tag       name of function
+     * @param array                                 $parameter array with compilation parameter
+     * @param string                                $tag       name of function
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
@@ -76,9 +76,11 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
             }
         }
         if (!empty($parameter[ 'modifierlist' ])) {
-            $output = $compiler->compileTag('private_modifier', array(),
-                                            array('modifierlist' => $parameter[ 'modifierlist' ],
-                                                  'value' => $output));
+            $output = $compiler->compileTag(
+                'private_modifier', array(),
+                array('modifierlist' => $parameter[ 'modifierlist' ],
+                'value' => $output)
+            );
         }
         $output = "<?php echo {$output};?>\n";
         return $output;

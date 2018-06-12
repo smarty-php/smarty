@@ -74,7 +74,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
     /**
      * Scan sources for used tag attributes
      *
-     * @param  array                                $attributes
+     * @param array                                 $attributes
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
      *
      * @throws \SmartyException
@@ -178,11 +178,13 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
                 $_content = $nextCompiler->template->source->getContent();
                 if ($_content !== '') {
                     // run pre filter if required
-                    if ((isset($nextCompiler->smarty->autoload_filters[ 'pre' ]) ||
-                         isset($nextCompiler->smarty->registered_filters[ 'pre' ]))
+                    if ((isset($nextCompiler->smarty->autoload_filters[ 'pre' ]) 
+                        || isset($nextCompiler->smarty->registered_filters[ 'pre' ]))
                     ) {
-                        $_content = $nextCompiler->smarty->ext->_filterHandler->runFilter('pre', $_content,
-                                                                                          $nextCompiler->template);
+                        $_content = $nextCompiler->smarty->ext->_filterHandler->runFilter(
+                            'pre', $_content,
+                            $nextCompiler->template
+                        );
                     }
                     $this->matchProperty($_content);
                 }
@@ -202,9 +204,9 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
     /**
      * Compiles code for the {$smarty.foreach.xxx} or {$smarty.section.xxx}tag
      *
-     * @param  array                                $args      array with attributes from parser
+     * @param array                                 $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
+     * @param array                                 $parameter array with compilation parameter
      *
      * @return string compiled code
      * @throws \SmartyCompilerException

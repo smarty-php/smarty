@@ -29,14 +29,13 @@
  * {cycle name=row values="one,two,three" reset=true}
  * {cycle name=row}
  *
- *
- * @link     http://www.smarty.net/manual/en/language.function.cycle.php {cycle}
+ * @link    http://www.smarty.net/manual/en/language.function.cycle.php {cycle}
  *           (Smarty online manual)
- * @author   Monte Ohrt <monte at ohrt dot com>
- * @author   credit to Mark Priatel <mpriatel@rogers.com>
- * @author   credit to Gerard <gerard@interfold.com>
- * @author   credit to Jason Sweat <jsweat_php@yahoo.com>
- * @version  1.3
+ * @author  Monte Ohrt <monte at ohrt dot com>
+ * @author  credit to Mark Priatel <mpriatel@rogers.com>
+ * @author  credit to Gerard <gerard@interfold.com>
+ * @author  credit to Jason Sweat <jsweat_php@yahoo.com>
+ * @version 1.3
  *
  * @param array                    $params   parameters
  * @param Smarty_Internal_Template $template template object

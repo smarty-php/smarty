@@ -30,7 +30,7 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
      * {@internal implementing this method is optional.
      *  Only implement it if modification times can be accessed faster than loading the complete template source.}}
      *
-     * @param  string $name template name
+     * @param string $name template name
      *
      * @return integer|boolean timestamp (epoch) the template was modified, or false if not found
      */
@@ -47,7 +47,7 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
     {
-        $source->filepath = $source->type . ':' . substr(preg_replace('/[^A-Za-z0-9.]/','',$source->name),0,25);
+        $source->filepath = $source->type . ':' . substr(preg_replace('/[^A-Za-z0-9.]/', '', $source->name), 0, 25);
         $source->uid = sha1($source->type . ':' . $source->name);
 
         $mtime = $this->fetchTimestamp($source->name);
@@ -66,7 +66,7 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
     /**
      * Load template's source into current template object
      *
-     * @param  Smarty_Template_Source $source source object
+     * @param Smarty_Template_Source $source source object
      *
      * @return string                 template source
      * @throws SmartyException        if source cannot be loaded
@@ -84,12 +84,12 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
     /**
      * Determine basename for compiled filename
      *
-     * @param  Smarty_Template_Source $source source object
+     * @param Smarty_Template_Source $source source object
      *
      * @return string                 resource's basename
      */
     public function getBasename(Smarty_Template_Source $source)
     {
-        return basename(substr(preg_replace('/[^A-Za-z0-9.]/','',$source->name),0,25));
+        return basename(substr(preg_replace('/[^A-Za-z0-9.]/', '', $source->name), 0, 25));
     }
 }

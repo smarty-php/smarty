@@ -17,11 +17,12 @@ class Smarty_Internal_Method_AddAutoloadFilters extends Smarty_Internal_Method_S
      * @api Smarty::setAutoloadFilters()
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  array                                                          $filters filters to load automatically
-     * @param  string                                                         $type    "pre", "output", … specify the
-     *                                                                                 filter type to set. Defaults to
-     *                                                                                 none treating $filters' keys as
-     *                                                                                 the appropriate types
+     * @param array                                                           $filters filters to load automatically
+     * @param string                                                          $type    "pre", "output", … specify
+     *                                                                                 the filter type to set.
+     *                                                                                 Defaults to none treating
+     *                                                                                 $filters' keys as the
+     *                                                                                 appropriate types
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException

@@ -20,8 +20,8 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     /**
      * build template filepath by traversing the template_dir array
      *
-     * @param Smarty_Template_Source    $source    source object
-     * @param  Smarty_Internal_Template $_template template object
+     * @param Smarty_Template_Source   $source    source object
+     * @param Smarty_Internal_Template $_template template object
      *
      * @return string fully qualified filepath
      * @throws SmartyException
@@ -35,11 +35,11 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             return is_file($file) ? $file : false;
         }
         // go relative to a given template?
-        if ($file[ 0 ] === '.' && $_template && $_template->_isSubTpl() &&
-            preg_match('#^[.]{1,2}[\\\/]#', $file)
+        if ($file[ 0 ] === '.' && $_template && $_template->_isSubTpl() 
+            && preg_match('#^[.]{1,2}[\\\/]#', $file)
         ) {
-            if ($_template->parent->source->type !== 'file' && $_template->parent->source->type !== 'extends' &&
-                !isset($_template->parent->_cache[ 'allow_relative_path' ])
+            if ($_template->parent->source->type !== 'file' && $_template->parent->source->type !== 'extends' 
+                && !isset($_template->parent->_cache[ 'allow_relative_path' ])
             ) {
                 throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
             }
@@ -124,8 +124,10 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                 $source->smarty->security_policy->isTrustedResourceDir($source->filepath, $source->isConfig);
             }
             $source->exists = true;
-            $source->uid = sha1($source->filepath . ($source->isConfig ? $source->smarty->_joined_config_dir :
-                                    $source->smarty->_joined_template_dir));
+            $source->uid = sha1(
+                $source->filepath . ($source->isConfig ? $source->smarty->_joined_config_dir :
+                $source->smarty->_joined_template_dir)
+            );
             $source->timestamp = filemtime($source->filepath);
         } else {
             $source->timestamp = $source->exists = false;
@@ -150,7 +152,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
     /**
      * Load template's source from file into current template object
      *
-     * @param  Smarty_Template_Source $source source object
+     * @param Smarty_Template_Source $source source object
      *
      * @return string                 template source
      * @throws SmartyException        if source cannot be loaded
@@ -160,14 +162,16 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
         if ($source->exists) {
             return file_get_contents($source->filepath);
         }
-        throw new SmartyException('Unable to read ' . ($source->isConfig ? 'config' : 'template') .
-                                  " {$source->type} '{$source->name}'");
+        throw new SmartyException(
+            'Unable to read ' . ($source->isConfig ? 'config' : 'template') .
+            " {$source->type} '{$source->name}'"
+        );
     }
 
     /**
      * Determine basename for compiled filename
      *
-     * @param  Smarty_Template_Source $source source object
+     * @param Smarty_Template_Source $source source object
      *
      * @return string                 resource's basename
      */

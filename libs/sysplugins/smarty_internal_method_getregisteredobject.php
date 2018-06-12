@@ -25,7 +25,7 @@ class Smarty_Internal_Method_GetRegisteredObject
      * @link http://www.smarty.net/docs/en/api.get.registered.object.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string                                                         $object_name object name
+     * @param string                                                          $object_name object name
      *
      * @return object
      * @throws \SmartyException if no such object is found

@@ -108,28 +108,34 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
                 $inlineUids = $match[ 1 ];
             }
         }
-        $compiler->parser->template_postfix[] = new Smarty_Internal_ParseTree_Tag($compiler->parser,
-                                                                                  '<?php $_smarty_tpl->inheritance->endChild($_smarty_tpl' .
+        $compiler->parser->template_postfix[] = new Smarty_Internal_ParseTree_Tag(
+            $compiler->parser,
+            '<?php $_smarty_tpl->inheritance->endChild($_smarty_tpl' .
                                                                                   (isset($template) ?
                                                                                       ", {$template}{$inlineUids}" :
-                                                                                      '') . ");\n?>");
+            '') . ");\n?>"
+        );
     }
 
     /**
      * Add code for including subtemplate to end of template
      *
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
-     * @param  string                               $template subtemplate name
+     * @param string                                $template subtemplate name
      *
      * @throws \SmartyCompilerException
      * @throws \SmartyException
      */
     private function compileInclude(Smarty_Internal_TemplateCompilerBase $compiler, $template)
     {
-        $compiler->parser->template_postfix[] = new Smarty_Internal_ParseTree_Tag($compiler->parser,
-                                                                                  $compiler->compileTag('include',
-                                                                                                        array($template,
-                                                                                                              array('scope' => 'parent'))));
+        $compiler->parser->template_postfix[] = new Smarty_Internal_ParseTree_Tag(
+            $compiler->parser,
+            $compiler->compileTag(
+                'include',
+                array($template,
+                array('scope' => 'parent'))
+            )
+        );
     }
 
     /**

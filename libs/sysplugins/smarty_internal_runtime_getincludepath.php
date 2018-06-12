@@ -104,18 +104,16 @@ class Smarty_Internal_Runtime_GetIncludePath
     /**
      * Return full file path from PHP include_path
      *
-     * @param  string[] $dirs
-     * @param  string   $file
-     * @param \Smarty   $smarty
+     * @param string[] $dirs
+     * @param string   $file
+     * @param \Smarty  $smarty
      *
      * @return bool|string full filepath or false
-     *
      */
     public function getIncludePath($dirs, $file, Smarty $smarty)
     {
         //if (!(isset($this->_has_stream_include) ? $this->_has_stream_include : $this->_has_stream_include = false)) {
-        if (!(isset($this->_has_stream_include) ? $this->_has_stream_include :
-            $this->_has_stream_include = function_exists('stream_resolve_include_path'))
+        if (!(isset($this->_has_stream_include) ? $this->_has_stream_include :        $this->_has_stream_include = function_exists('stream_resolve_include_path'))
         ) {
             $this->isNewIncludePath($smarty);
         }

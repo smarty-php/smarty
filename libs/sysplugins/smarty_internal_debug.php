@@ -191,7 +191,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     /**
      * Opens a window for the Smarty Debugging Console and display the data
      *
-     * @param Smarty_Internal_Template|Smarty $obj object to debug
+     * @param Smarty_Internal_Template|Smarty $obj  object to debug
      * @param bool                            $full
      *
      * @throws \Exception
@@ -264,7 +264,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     /**
      * Recursively gets variables from all template/data scopes
      *
-     * @param  Smarty_Internal_Template|Smarty_Data $obj object to debug
+     * @param Smarty_Internal_Template|Smarty_Data $obj object to debug
      *
      * @return StdClass
      */

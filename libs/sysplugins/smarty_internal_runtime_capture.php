@@ -55,9 +55,9 @@ class Smarty_Internal_Runtime_Capture
      * Open capture section
      *
      * @param \Smarty_Internal_Template $_template
-     * @param string                    $buffer capture name
-     * @param string                    $assign variable name
-     * @param string                    $append variable name
+     * @param string                    $buffer    capture name
+     * @param string                    $assign    variable name
+     * @param string                    $append    variable name
      */
     public function open(Smarty_Internal_Template $_template, $buffer, $assign, $append)
     {
@@ -137,7 +137,7 @@ class Smarty_Internal_Runtime_Capture
      * Return content of named capture buffer by key or as array
      *
      * @param \Smarty_Internal_Template $_template
-     * @param   string|null             $name
+     * @param string|null               $name
      *
      * @return string|string[]|null
      */

@@ -276,10 +276,10 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public $force_compile = false;
      /**
-     * use sub dirs for compiled/cached files?
-     *
-     * @var boolean
-     */
+      * use sub dirs for compiled/cached files?
+      *
+      * @var boolean
+      */
     public $use_sub_dirs = false;
     /**
      * allow ambiguous resources (that are made unique by the resource handler)
@@ -618,7 +618,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Enable error handler to mute expected messages
      *
-     * @return boolean
+     * @return     boolean
      * @deprecated
      */
     public static function muteExpectedErrors()
@@ -639,7 +639,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Check if a template resource exists
      *
-     * @param  string $resource_name template name
+     * @param string $resource_name template name
      *
      * @return bool status
      * @throws \SmartyException
@@ -654,7 +654,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Loads security class and enables security
      *
-     * @param  string|Smarty_Security $security_class if a string is used, it must be class-name
+     * @param string|Smarty_Security $security_class if a string is used, it must be class-name
      *
      * @return Smarty                 current Smarty instance for chaining
      * @throws SmartyException        when an invalid class name is provided
@@ -679,9 +679,9 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Add template directory(s)
      *
-     * @param  string|array $template_dir directory(s) of template sources
-     * @param  string       $key          of the array element to assign the template dir to
-     * @param bool          $isConfig     true for config_dir
+     * @param string|array $template_dir directory(s) of template sources
+     * @param string       $key          of the array element to assign the template dir to
+     * @param bool         $isConfig     true for config_dir
      *
      * @return Smarty          current Smarty instance for chaining
      */
@@ -747,8 +747,8 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Set template directory
      *
-     * @param  string|array $template_dir directory(s) of template sources
-     * @param bool          $isConfig     true for config_dir
+     * @param string|array $template_dir directory(s) of template sources
+     * @param bool         $isConfig     true for config_dir
      *
      * @return \Smarty current Smarty instance for chaining
      */
@@ -846,7 +846,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Set plugins directory
      *
-     * @param  string|array $plugins_dir directory(s) of plugins
+     * @param string|array $plugins_dir directory(s) of plugins
      *
      * @return Smarty       current Smarty instance for chaining
      */
@@ -901,7 +901,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Set cache directory
      *
-     * @param  string $cache_dir directory to store cached templates in
+     * @param string $cache_dir directory to store cached templates in
      *
      * @return Smarty current Smarty instance for chaining
      */
@@ -915,11 +915,11 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * creates a template object
      *
-     * @param  string  $template   the resource handle of the template file
-     * @param  mixed   $cache_id   cache id to be used with this template
-     * @param  mixed   $compile_id compile id to be used with this template
-     * @param  object  $parent     next higher level of Smarty variables
-     * @param  boolean $do_clone   flag is Smarty object shall be cloned
+     * @param string  $template   the resource handle of the template file
+     * @param mixed   $cache_id   cache id to be used with this template
+     * @param mixed   $compile_id compile id to be used with this template
+     * @param object  $parent     next higher level of Smarty variables
+     * @param boolean $do_clone   flag is Smarty object shall be cloned
      *
      * @return \Smarty_Internal_Template template object
      * @throws \SmartyException
@@ -981,8 +981,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      * class name format: Smarty_PluginType_PluginName
      * plugin filename format: plugintype.pluginname.php
      *
-     * @param  string $plugin_name class plugin name to load
-     * @param  bool   $check       check if already loaded
+     * @param string $plugin_name class plugin name to load
+     * @param bool   $check       check if already loaded
      *
      * @throws SmartyException
      * @return string |boolean filepath of loaded file or false
@@ -1005,11 +1005,11 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @throws \SmartyException
      */
     public function _getTemplateId($template_name,
-                                   $cache_id = null,
-                                   $compile_id = null,
-                                   $caching = null,
-                                   Smarty_Internal_Template $template = null)
-    {
+        $cache_id = null,
+        $compile_id = null,
+        $caching = null,
+        Smarty_Internal_Template $template = null
+    ) {
         $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
         $template_name;
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
@@ -1033,10 +1033,11 @@ class Smarty extends Smarty_Internal_TemplateBase
      *  - remove /./ and /../
      *  - make it absolute if required
      *
-     * @param string $path      file path
-     * @param bool   $realpath  if true - convert to absolute
-     *                          false - convert to relative
-     *                          null - keep as it is but remove /./ /../
+     * @param string $path     file path
+     * @param bool   $realpath if true - convert to absolute
+     *                         false - convert to relative
+     *                         null - keep as it is but
+     *                         remove /./ /../
      *
      * @return string
      */
@@ -1045,9 +1046,11 @@ class Smarty extends Smarty_Internal_TemplateBase
         $nds = array('/' => '\\', '\\' => '/');
         // normalize DIRECTORY_SEPARATOR
         //$path = str_replace(array($nds[DIRECTORY_SEPARATOR], DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR, $path);
-        preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
-                   $path,
-                   $parts);
+        preg_match(
+            '%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
+            $path,
+            $parts
+        );
         $path = $parts[ 'path' ];
         if ($parts[ 'root' ] === '\\') {
             $parts[ 'root' ] = substr(getcwd(), 0, 2) . $parts[ 'root' ];
@@ -1058,8 +1061,9 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
         do {
             $path = preg_replace(
-            array('#[\\\\/]{2}#', '#[\\\\/][.][\\\\/]#', '#[\\\\/]([^\\\\/.]+)[\\\\/][.][.][\\\\/]#'),
-            DIRECTORY_SEPARATOR, $path, -1, $count);
+                array('#[\\\\/]{2}#', '#[\\\\/][.][\\\\/]#', '#[\\\\/]([^\\\\/.]+)[\\\\/][.][.][\\\\/]#'),
+                DIRECTORY_SEPARATOR, $path, -1, $count
+            );
         } while($count > 0);
         return $realpath !== false ? $parts[ 'root' ] . $path : str_ireplace(getcwd(), '.', $parts[ 'root' ] . $path);
     }
@@ -1254,7 +1258,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Calls the appropriate getter function.
      * Issues an E_USER_NOTICE if no valid getter is found.
      *
-     * @param  string $name property name
+     * @param string $name property name
      *
      * @return mixed
      * @throws \SmartyException
@@ -1265,12 +1269,14 @@ class Smarty extends Smarty_Internal_TemplateBase
             $method = 'get' . $this->accessMap[ $name ];
             return $this->{$method}();
         } else {if (isset($this->_cache[ $name ])) {
-            return $this->_cache[ $name ];
+                return $this->_cache[ $name ];
         } else {if (in_array($name, $this->obsoleteProperties)) {
-            return null;
+                return null;
         } else {
             trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
-        }}}
+        }
+        }
+        }
         return null;
     }
 
@@ -1290,14 +1296,15 @@ class Smarty extends Smarty_Internal_TemplateBase
             $method = 'set' . $this->accessMap[ $name ];
             $this->{$method}($value);
         } else {if (in_array($name, $this->obsoleteProperties)) {
-            return;
+                return;
         } else {
             if (is_object($value) && method_exists($value, $name)) {
                 $this->$name = $value;
             } else {
                 trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
             }
-        }}
+        }
+        }
     }
 
     /**
@@ -1320,7 +1327,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      * Normalize template_dir or config_dir
      *
      * @param bool $isConfig true for config_dir
-     *
      */
     private function _normalizeTemplateConfig($isConfig)
     {

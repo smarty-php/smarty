@@ -42,7 +42,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {include_php} tag
      *
-     * @param  array                                $args     array with attributes from parser
+     * @param array                                 $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string
@@ -56,7 +56,10 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
         }
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        /** @var Smarty_Internal_Template $_smarty_tpl
+        /**
+* 
+         *
+ * @var Smarty_Internal_Template $_smarty_tpl
          * used in evaluated code
          */
         $_smarty_tpl = $compiler->template;

@@ -165,12 +165,12 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
     /**
      * fetch cached content and its modification time from data source
      *
-     * @param  string      $id         unique cache content identifier
-     * @param  string      $name       template name
-     * @param  string|null $cache_id   cache id
-     * @param  string|null $compile_id compile id
-     * @param  string      $content    cached content
-     * @param  integer     $mtime      cache modification timestamp (epoch)
+     * @param string      $id         unique cache content identifier
+     * @param string      $name       template name
+     * @param string|null $cache_id   cache id
+     * @param string|null $compile_id compile id
+     * @param string      $content    cached content
+     * @param integer     $mtime      cache modification timestamp (epoch)
      *
      * @return void
      * @access protected
@@ -197,10 +197,10 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
      * {@internal implementing this method is optional.
      *  Only implement it if modification times can be accessed faster than loading the complete cached content.}}
      *
-     * @param  string      $id         unique cache content identifier
-     * @param  string      $name       template name
-     * @param  string|null $cache_id   cache id
-     * @param  string|null $compile_id compile id
+     * @param string      $id         unique cache content identifier
+     * @param string      $name       template name
+     * @param string|null $cache_id   cache id
+     * @param string|null $compile_id compile id
      *
      * @return integer|boolean timestamp (epoch) the template was modified, or false if not found
      * @access protected
@@ -269,10 +269,10 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
     /**
      * Delete content from cache
      *
-     * @param string|null $name       template name
-     * @param string|null $cache_id   cache id
-     * @param string|null $compile_id compile id
-     * @param  integer|null|-1 $exp_time seconds till expiration or null
+     * @param string|null     $name       template name
+     * @param string|null     $cache_id   cache id
+     * @param string|null     $compile_id compile id
+     * @param integer|null|-1 $exp_time   seconds till expiration or null
      *
      * @return integer number of deleted caches
      * @access protected

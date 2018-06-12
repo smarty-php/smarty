@@ -32,7 +32,7 @@ class Smarty_CacheResource_Memcache extends Smarty_CacheResource_KeyValueStore
     /**
      * Read values for a set of keys from cache
      *
-     * @param  array $keys list of keys to fetch
+     * @param array $keys list of keys to fetch
      *
      * @return array   list of values with the given keys used as indexes
      * @return boolean true on success, false on failure
@@ -57,8 +57,8 @@ class Smarty_CacheResource_Memcache extends Smarty_CacheResource_KeyValueStore
     /**
      * Save values for a set of keys to cache
      *
-     * @param  array $keys   list of values to save
-     * @param  int   $expire expiration time
+     * @param array $keys   list of values to save
+     * @param int   $expire expiration time
      *
      * @return boolean true on success, false on failure
      */
@@ -75,7 +75,7 @@ class Smarty_CacheResource_Memcache extends Smarty_CacheResource_KeyValueStore
     /**
      * Remove values from cache
      *
-     * @param  array $keys list of keys to delete
+     * @param array $keys list of keys to delete
      *
      * @return boolean true on success, false on failure
      */

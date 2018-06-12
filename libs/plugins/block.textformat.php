@@ -20,8 +20,7 @@
  * - indent_char   - string (" ")
  * - wrap_boundary - boolean (true)
  *
- *
- * @link   http://www.smarty.net/manual/en/language.function.textformat.php {textformat}
+ * @link http://www.smarty.net/manual/en/language.function.textformat.php {textformat}
  *         (Smarty online manual)
  *
  * @param array                    $params   parameters
@@ -39,8 +38,10 @@ function smarty_block_textformat($params, $content, Smarty_Internal_Template $te
         return;
     }
     if (Smarty::$_MBSTRING) {
-        $template->_checkPlugins(array(array('function' => 'smarty_modifier_mb_wordwrap',
-                                             'file' => SMARTY_PLUGINS_DIR . 'modifier.mb_wordwrap.php')));
+        $template->_checkPlugins(
+            array(array('function' => 'smarty_modifier_mb_wordwrap',
+            'file' => SMARTY_PLUGINS_DIR . 'modifier.mb_wordwrap.php'))
+        );
     }
 
     $style = null;
@@ -54,25 +55,25 @@ function smarty_block_textformat($params, $content, Smarty_Internal_Template $te
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-            case 'style':
-            case 'indent_char':
-            case 'wrap_char':
-            case 'assign':
-                $$_key = (string) $_val;
-                break;
+        case 'style':
+        case 'indent_char':
+        case 'wrap_char':
+        case 'assign':
+            $$_key = (string) $_val;
+            break;
 
-            case 'indent':
-            case 'indent_first':
-            case 'wrap':
-                $$_key = (int) $_val;
-                break;
+        case 'indent':
+        case 'indent_first':
+        case 'wrap':
+            $$_key = (int) $_val;
+            break;
 
-            case 'wrap_cut':
-                $$_key = (bool) $_val;
-                break;
+        case 'wrap_cut':
+            $$_key = (bool) $_val;
+            break;
 
-            default:
-                trigger_error("textformat: unknown attribute '{$_key}'");
+        default:
+            trigger_error("textformat: unknown attribute '{$_key}'");
         }
     }
 
@@ -88,10 +89,12 @@ function smarty_block_textformat($params, $content, Smarty_Internal_Template $te
         }
         // convert mult. spaces & special chars to single space
         $_paragraph =
-            preg_replace(array('!\s+!' . Smarty::$_UTF8_MODIFIER,
+            preg_replace(
+                array('!\s+!' . Smarty::$_UTF8_MODIFIER,
                                '!(^\s+)|(\s+$)!' . Smarty::$_UTF8_MODIFIER),
-                         array(' ',
-                               ''), $_paragraph);
+                array(' ',
+                ''), $_paragraph
+            );
         // indent first line
         if ($indent_first > 0) {
             $_paragraph = str_repeat($indent_char, $indent_first) . $_paragraph;

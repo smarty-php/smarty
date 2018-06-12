@@ -99,7 +99,7 @@ abstract class Smarty_Template_Resource_Base
      * get rendered template content by calling compiled or cached template code
      *
      * @param \Smarty_Internal_Template $_template
-     * @param string                    $unifunc function with template code
+     * @param string                    $unifunc   function with template code
      *
      * @throws \Exception
      */

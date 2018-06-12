@@ -79,8 +79,8 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
     /**
      * Compiles code for the {section} tag
      *
-     * @param  array                                 $args     array with attributes from parser
-     * @param  \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+     * @param array                                 $args     array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
@@ -132,50 +132,50 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
         $output = "<?php\n";
         foreach ($_attr as $attr_name => $attr_value) {
             switch ($attr_name) {
-                case 'loop':
-                    if (is_numeric($attr_value)) {
-                        $v = (int) $attr_value;
-                        $t = 0;
-                    } else {
-                        $v = "(is_array(@\$_loop=$attr_value) ? count(\$_loop) : max(0, (int) \$_loop))";
-                        $t = 1;
-                    }
-                    if ($t === 1) {
-                        $initLocal[ 'loop' ] = $v;
-                        $v = "{$local}loop";
-                    }
-                    break;
-                case 'show':
-                    if (is_bool($attr_value)) {
-                        $v = $attr_value ? 'true' : 'false';
-                        $t = 0;
-                    } else {
-                        $v = "(bool) $attr_value";
-                        $t = 3;
-                    }
-                    break;
-                case 'step':
-                    if (is_numeric($attr_value)) {
-                        $v = (int) $attr_value;
-                        $v = ($v === 0) ? 1 : $v;
-                        $t = 0;
-                        break;
-                    }
-                    $initLocal[ 'step' ] = "((int)@$attr_value) === 0 ? 1 : (int)@$attr_value";
-                    $v = "{$local}step";
-                    $t = 2;
-                    break;
-
-                case 'max':
-                case 'start':
-                    if (is_numeric($attr_value)) {
-                        $v = (int) $attr_value;
-                        $t = 0;
-                        break;
-                    }
-                    $v = "(int)@$attr_value";
+            case 'loop':
+                if (is_numeric($attr_value)) {
+                    $v = (int) $attr_value;
+                    $t = 0;
+                } else {
+                    $v = "(is_array(@\$_loop=$attr_value) ? count(\$_loop) : max(0, (int) \$_loop))";
+                    $t = 1;
+                }
+                if ($t === 1) {
+                    $initLocal[ 'loop' ] = $v;
+                    $v = "{$local}loop";
+                }
+                break;
+            case 'show':
+                if (is_bool($attr_value)) {
+                    $v = $attr_value ? 'true' : 'false';
+                    $t = 0;
+                } else {
+                    $v = "(bool) $attr_value";
                     $t = 3;
+                }
+                break;
+            case 'step':
+                if (is_numeric($attr_value)) {
+                    $v = (int) $attr_value;
+                    $v = ($v === 0) ? 1 : $v;
+                    $t = 0;
                     break;
+                }
+                $initLocal[ 'step' ] = "((int)@$attr_value) === 0 ? 1 : (int)@$attr_value";
+                $v = "{$local}step";
+                $t = 2;
+                break;
+
+            case 'max':
+            case 'start':
+                if (is_numeric($attr_value)) {
+                    $v = (int) $attr_value;
+                    $t = 0;
+                    break;
+                }
+                $v = "(int)@$attr_value";
+                $t = 3;
+                break;
             }
             if ($t === 3 && $compiler->getId($attr_value)) {
                 $t = 1;
@@ -264,8 +264,10 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
                         $start_code[ $i ] = '';
                     }
                     if ($propType[ 'start' ] === 0) {
-                        $start_code = array(max($propValue[ 'step' ] > 0 ? 0 : - 1,
-                                                $propValue[ 'start' ] + $propValue[ 'loop' ]));
+                        $start_code = array(max(
+                            $propValue[ 'step' ] > 0 ? 0 : - 1,
+                            $propValue[ 'start' ] + $propValue[ 'loop' ]
+                        ));
                     }
                 } else {
                     for ($i = 1; $i <= 11; $i ++) {
@@ -273,8 +275,10 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
                     }
                     if ($propType[ 'start' ] === 0) {
                         $start_code =
-                            array(min($propValue[ 'step' ] > 0 ? $propValue[ 'loop' ] : $propValue[ 'loop' ] - 1,
-                                      $propValue[ 'start' ]));
+                            array(min(
+                                $propValue[ 'step' ] > 0 ? $propValue[ 'loop' ] : $propValue[ 'loop' ] - 1,
+                                $propValue[ 'start' ]
+                            ));
                     }
                 }
             }
@@ -295,8 +299,12 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
                 $propType[ 'start' ] + $propType[ 'loop' ] + $propType[ 'step' ] + $propType[ 'max' ];
             if ($propType[ 'total' ] === 0) {
                 $propValue[ 'total' ] =
-                    min(ceil(($propValue[ 'step' ] > 0 ? $propValue[ 'loop' ] - $propValue[ 'start' ] :
-                                 (int) $propValue[ 'start' ] + 1) / abs($propValue[ 'step' ])), $propValue[ 'max' ]);
+                    min(
+                        ceil(
+                            ($propValue[ 'step' ] > 0 ? $propValue[ 'loop' ] - $propValue[ 'start' ] :
+                            (int) $propValue[ 'start' ] + 1) / abs($propValue[ 'step' ])
+                        ), $propValue[ 'max' ]
+                    );
             } else {
                 $total_code = array(1 => 'min(', 2 => 'ceil(', 3 => '(', 4 => "{$propValue['step']} > 0 ? ",
                                     5 => $propValue[ 'loop' ], 6 => ' - ', 7 => $propValue[ 'start' ], 8 => ' : ',
@@ -404,7 +412,7 @@ class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {sectionelse} tag
      *
-     * @param  array                                $args     array with attributes from parser
+     * @param array                                 $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
@@ -432,7 +440,7 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {/section} tag
      *
-     * @param  array                                $args     array with attributes from parser
+     * @param array                                 $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code

@@ -25,28 +25,35 @@ class Smarty_Internal_Method_RegisterObject
      * @link http://www.smarty.net/docs/en/api.register.object.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string                                                         $object_name
-     * @param  object                                                         $object                     the
+     * @param string                                                          $object_name
+     * @param object                                                          $object                     the
      *                                                                                                    referenced
-     *                                                                                                    PHP object to
+     *                                                                                                    PHP
+     *                                                                                                    object
+     *                                                                                                    to
      *                                                                                                    register
-     * @param  array                                                          $allowed_methods_properties list of
+     *
+     * @param array                                                           $allowed_methods_properties list of
      *                                                                                                    allowed
      *                                                                                                    methods
-     *                                                                                                    (empty = all)
-     * @param  bool                                                           $format                     smarty
+     *                                                                                                    (empty
+     *                                                                                                    = all)
+     *
+     * @param bool                                                            $format                     smarty
      *                                                                                                    argument
-     *                                                                                                    format, else
+     *                                                                                                    format,
+     *                                                                                                    else
      *                                                                                                    traditional
-     * @param  array                                                          $block_methods              list of
+     *
+     * @param array                                                           $block_methods              list of
      *                                                                                                    block-methods
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException
      */
     public function registerObject(Smarty_Internal_TemplateBase $obj, $object_name, $object,
-                                   $allowed_methods_properties = array(), $format = true, $block_methods = array())
-    {
+        $allowed_methods_properties = array(), $format = true, $block_methods = array()
+    ) {
         $smarty = $obj->_getSmartyObj();
         // test if allowed methods callable
         if (!empty($allowed_methods_properties)) {

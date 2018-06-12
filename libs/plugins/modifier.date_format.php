@@ -38,7 +38,7 @@ function smarty_modifier_date_format($string, $format = null, $default_date = ''
     static $is_loaded = false;
     if (!$is_loaded) {
         if (!is_callable('smarty_make_timestamp')) {
-            require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
+            include_once SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php';
         }
         $is_loaded = true;
     }

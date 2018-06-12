@@ -25,7 +25,7 @@ class Smarty_Internal_Method_UnregisterResource
      * @link http://www.smarty.net/docs/en/api.unregister.resource.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string                                                         $type name of resource type
+     * @param string                                                          $type name of resource type
      *
      * @return \Smarty|\Smarty_Internal_Template
      */

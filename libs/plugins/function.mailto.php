@@ -37,12 +37,11 @@
  * {mailto address="me@domain.com" cc="you@domain.com,they@domain.com"}
  * {mailto address="me@domain.com" extra='class="mailto"'}
  *
- *
- * @link     http://www.smarty.net/manual/en/language.function.mailto.php {mailto}
+ * @link    http://www.smarty.net/manual/en/language.function.mailto.php {mailto}
  *           (Smarty online manual)
- * @version  1.2
- * @author   Monte Ohrt <monte at ohrt dot com>
- * @author   credits to Jason Sweat (added cc, bcc and subject functionality)
+ * @version 1.2
+ * @author  Monte Ohrt <monte at ohrt dot com>
+ * @author  credits to Jason Sweat (added cc, bcc and subject functionality)
  *
  * @param array $params parameters
  *
@@ -70,24 +69,24 @@ function smarty_function_mailto($params)
     $mail_parms = array();
     foreach ($params as $var => $value) {
         switch ($var) {
-            case 'cc':
-            case 'bcc':
-            case 'followupto':
-                if (!empty($value)) {
-                    $mail_parms[] = $var . '=' . str_replace($search, $replace, rawurlencode($value));
-                }
-                break;
+        case 'cc':
+        case 'bcc':
+        case 'followupto':
+            if (!empty($value)) {
+                $mail_parms[] = $var . '=' . str_replace($search, $replace, rawurlencode($value));
+            }
+            break;
 
-            case 'subject':
-            case 'newsgroups':
-                $mail_parms[] = $var . '=' . rawurlencode($value);
-                break;
+        case 'subject':
+        case 'newsgroups':
+            $mail_parms[] = $var . '=' . rawurlencode($value);
+            break;
 
-            case 'extra':
-            case 'text':
-                $$var = $value;
+        case 'extra':
+        case 'text':
+            $$var = $value;
 
-            default:
+        default:
         }
     }
 
@@ -97,8 +96,10 @@ function smarty_function_mailto($params)
 
     $encode = (empty($params[ 'encode' ])) ? 'none' : $params[ 'encode' ];
     if (!isset($_allowed_encoding[ $encode ])) {
-        trigger_error("mailto: 'encode' parameter must be none, javascript, javascript_charcode or hex",
-                      E_USER_WARNING);
+        trigger_error(
+            "mailto: 'encode' parameter must be none, javascript, javascript_charcode or hex",
+            E_USER_WARNING
+        );
 
         return;
     }

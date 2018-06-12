@@ -6,7 +6,6 @@
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
- *
  */
 class Smarty_Internal_Runtime_Make_Nocache
 {
@@ -38,8 +37,8 @@ class Smarty_Internal_Runtime_Make_Nocache
      * Store variable value saved while rendering compiled template in cached template context
      *
      * @param \Smarty_Internal_Template $tpl
-     * @param  string                   $var variable name
-     * @param  array                    $properties
+     * @param string                    $var        variable name
+     * @param array                     $properties
      */
     public function store(Smarty_Internal_Template $tpl, $var, $properties)
     {

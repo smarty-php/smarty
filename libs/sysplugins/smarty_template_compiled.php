@@ -7,7 +7,7 @@
  * @package    Smarty
  * @subpackage TemplateResources
  * @author     Rodney Rehm
- * @property string $content compiled content
+ * @property   string $content compiled content
  */
 class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
 {
@@ -21,7 +21,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     /**
      * get a Compiled Object of this source
      *
-     * @param  Smarty_Internal_Template $_template template object
+     * @param Smarty_Internal_Template $_template template object
      *
      * @return Smarty_Template_Compiled compiled object
      */
@@ -135,8 +135,8 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if ($source->handler->recompiled) {
             $source->handler->process($_smarty_tpl);
         } else if (!$source->handler->uncompiled) {
-            if (!$this->exists || $smarty->force_compile ||
-                ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
+            if (!$this->exists || $smarty->force_compile 
+                || ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
             ) {
                 $this->compileTemplateSource($_smarty_tpl);
                 $compileCheck = $_smarty_tpl->compile_check;
@@ -145,7 +145,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 $_smarty_tpl->compile_check = $compileCheck;
             } else {
                 $_smarty_tpl->mustCompile = true;
-                @include($this->filepath);
+                @include $this->filepath;
                 if ($_smarty_tpl->mustCompile) {
                     $this->compileTemplateSource($_smarty_tpl);
                     $compileCheck = $_smarty_tpl->compile_check;
@@ -252,7 +252,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if (defined('HHVM_VERSION')) {
             eval('?>' . file_get_contents($this->filepath));
         } else {
-            include($this->filepath);
+            include $this->filepath;
         }
     }
 }
