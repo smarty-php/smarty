@@ -234,15 +234,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                     $this->smarty->_debug->display_debug($this, true);
                 }
             }
-            if ($this->_isSubTpl()) {
-                foreach ($this->compiled->required_plugins as $code => $tmp1) {
-                    foreach ($tmp1 as $name => $tmp) {
-                        foreach ($tmp as $type => $data) {
-                            $this->parent->compiled->required_plugins[ $code ][ $name ][ $type ] = $data;
-                        }
-                    }
-                }
-            }
             if (!$no_output_filter &&
                 (!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled) &&
                 (isset($this->smarty->autoload_filters[ 'output' ]) ||
@@ -429,6 +420,39 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * Check if plugins are callable require file otherwise
+     *
+     * @param array $plugins required plugins
+     *
+     * @throws \SmartyException
+     */
+    public function _checkPlugins($plugins) {
+        static $checked = array();
+        foreach($plugins as $plugin) {
+            $name = join('::', (array)$plugin[ 'function' ]);
+            if (!isset($checked[$name])) {
+                if (!is_callable($plugin['function'])) {
+                    if (is_file($plugin['file'])) {
+                        require_once $plugin['file'];
+                        if (is_callable($plugin['function'])) {
+                            $checked[ $name ] = true;
+                        }
+                    }
+                } else {
+                    $checked[ $name ] = true;
+                }
+            }
+            if (!isset($checked[ $name ])) {
+                if (false !== $this->smarty->loadPlugin($name)) {
+                    $checked[ $name ] = true;
+                } else {
+                    throw new SmartyException("Plugin '{$name}' not callable");
+                }
+            }
+        }
+    }
+
+    /**
      * This function is executed automatically when a compiled or cached template file is included
      * - Decode saved properties from compiled template and cache files
      * - Check if compiled or cache file is valid
@@ -523,7 +547,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function writeCachedContent($content)
     {
-        return $this->smarty->ext->_updateCache->writeCachedContent($this->cached, $this, $content);
+        return $this->smarty->ext->_updateCache->writeCachedContent($this, $content);
     }
 
     /**

@@ -67,6 +67,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
         // Init temporary context
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
         $compiler->template->compiled->has_nocache_code = false;
+        $compiler->saveRequiredPlugins(true);
         return true;
     }
 }
@@ -134,13 +135,14 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             $output .= "if (!function_exists('{$_funcNameCaching}')) {\n";
             $output .= "function {$_funcNameCaching} (Smarty_Internal_Template \$_smarty_tpl,\$params) {\n";
             $output .= "ob_start();\n";
+            $output .= $compiler->compileRequiredPlugins();
             $output .= "\$_smarty_tpl->compiled->has_nocache_code = true;\n";
             $output .= $_paramsCode;
-            $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}";
+            $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}\n";
             $output .= "\$params = var_export(\$params, true);\n";
             $output .= "echo \"/*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/<?php ";
             $output .= "\\\$_smarty_tpl->smarty->ext->_tplFunction->saveTemplateVariables(\\\$_smarty_tpl, '{$_name}');\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->tpl_vars[\\\$key] = new Smarty_Variable(\\\$value, \\\$_smarty_tpl->isRenderingCache);\n}\n?>";
-            $output .= "/*/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\n\";?>";
+            $output .= "/*/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\";?>";
             $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                               new Smarty_Internal_ParseTree_Tag($compiler->parser,
                                                                                                 $output));
@@ -166,7 +168,9 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $output .= "if (!function_exists('{$_funcName}')) {\n";
         $output .= "function {$_funcName}(Smarty_Internal_Template \$_smarty_tpl,\$params) {\n";
         $output .= $_paramsCode;
-        $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}?>";
+        $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new Smarty_Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}\n";
+        $output .= $compiler->compileCheckPlugins(array_merge($compiler->required_plugins[ 'compiled' ], $compiler->required_plugins[ 'nocache' ]));
+        $output .= "?>\n";
         $compiler->parser->current_buffer->append_subtree($compiler->parser,
                                                           new Smarty_Internal_ParseTree_Tag($compiler->parser,
                                                                                             $output));
@@ -178,19 +182,10 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
                                                           new Smarty_Internal_ParseTree_Tag($compiler->parser,
                                                                                             $output));
         $compiler->parent_compiler->blockOrFunctionCode .= $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
-        // nocache plugins must be copied
-        if (!empty($compiler->template->compiled->required_plugins[ 'nocache' ])) {
-            foreach ($compiler->template->compiled->required_plugins[ 'nocache' ] as $plugin => $tmp) {
-                foreach ($tmp as $type => $data) {
-                    $compiler->parent_compiler->template->compiled->required_plugins[ 'compiled' ][ $plugin ][ $type ] =
-                        $data;
-                }
-            }
-        }
-        // restore old buffer
-
+       // restore old buffer
         $compiler->parser->current_buffer = $saved_data[ 1 ];
         // restore old status
+        $compiler->restoreRequiredPlugins();
         $compiler->template->compiled->has_nocache_code = $saved_data[ 2 ];
         $compiler->template->caching = $saved_data[ 3 ];
         return true;

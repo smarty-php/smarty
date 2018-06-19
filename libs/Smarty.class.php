@@ -21,13 +21,13 @@
  * smarty-discussion-subscribe@googlegroups.com
  *
  * @link      http://www.smarty.net/
- * @copyright 2017 New Digital Group, Inc.
- * @copyright 2017 Uwe Tews
+ * @copyright 2018 New Digital Group, Inc.
+ * @copyright 2018 Uwe Tews
  * @author    Monte Ohrt <monte at ohrt dot com>
- * @author    Uwe Tews
+ * @author    Uwe Tews   <uwe dot tews at gmail dot com>
  * @author    Rodney Rehm
  * @package   Smarty
- * @version   3.1.32-dev
+ * @version   3.1.33-dev
  */
 /**
  * set SMARTY_DIR to absolute path to Smarty library files.
@@ -112,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.32-dev-38';
+    const SMARTY_VERSION = '3.1.33-dev-5';
     /**
      * define variable scopes
      */
@@ -835,7 +835,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $this->plugins_dir = (array)$this->plugins_dir;
             }
             foreach ($this->plugins_dir as $k => $v) {
-                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, "/\\") . DIRECTORY_SEPARATOR, true);
+                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, '/\\') . DIRECTORY_SEPARATOR, true);
             }
             $this->_cache[ 'plugin_files' ] = array();
             $this->_pluginsDirNormalized = true;
@@ -1011,7 +1011,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                                    Smarty_Internal_Template $template = null)
     {
         $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
-            $template_name;
+        $template_name;
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
         $caching = (int)($caching === null ? $this->caching : $caching);
@@ -1042,9 +1042,9 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _realpath($path, $realpath = null)
     {
-        $nds = DIRECTORY_SEPARATOR === '/' ? '\\' : '/';
+        $nds = array('/' => '\\', '\\' => '/');
         // normalize DIRECTORY_SEPARATOR
-        $path = str_replace($nds, DIRECTORY_SEPARATOR, $path);
+        //$path = str_replace(array($nds[DIRECTORY_SEPARATOR], DIRECTORY_SEPARATOR . '.' . DIRECTORY_SEPARATOR), DIRECTORY_SEPARATOR, $path);
         preg_match('%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
                    $path,
                    $parts);
@@ -1056,25 +1056,12 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $path = getcwd() . DIRECTORY_SEPARATOR . $path;
             }
         }
-        // remove noop 'DIRECTORY_SEPARATOR DIRECTORY_SEPARATOR' and 'DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR' patterns
-        $path = preg_replace('#([\\\\/]([.]?[\\\\/])+)#u', DIRECTORY_SEPARATOR, $path);
-        // resolve '..DIRECTORY_SEPARATOR' pattern, smallest first
-        if (strpos($path, '..' . DIRECTORY_SEPARATOR) !== false &&
-            preg_match_all('#(([.]?[\\\\/])*([.][.])[\\\\/]([.]?[\\\\/])*)+#u', $path, $match)
-        ) {
-            $counts = array();
-            foreach ($match[ 0 ] as $m) {
-                $counts[] = (int)((strlen($m) - 1) / 3);
-            }
-            sort($counts);
-            foreach ($counts as $count) {
-                $path = preg_replace('#(([\\\\/]([.]?[\\\\/])*[^\\\\/.]+){' . $count .
-                                     '}[\\\\/]([.]?[\\\\/])*([.][.][\\\\/]([.]?[\\\\/])*){' . $count . '})(?=[^.])#u',
-                                     DIRECTORY_SEPARATOR,
-                                     $path);
-            }
-        }
-        return $parts[ 'root' ] . $path;
+        do {
+            $path = preg_replace(
+            array('#[\\\\/]{2}#', '#[\\\\/][.][\\\\/]#', '#[\\\\/]([^\\\\/.]+)[\\\\/][.][.][\\\\/]#'),
+            DIRECTORY_SEPARATOR, $path, -1, $count);
+        } while($count > 0);
+        return $realpath !== false ? $parts[ 'root' ] . $path : str_ireplace(getcwd(), '.', $parts[ 'root' ] . $path);
     }
 
     /**
@@ -1270,19 +1257,20 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param  string $name property name
      *
      * @return mixed
+     * @throws \SmartyException
      */
     public function __get($name)
     {
         if (isset($this->accessMap[ $name ])) {
             $method = 'get' . $this->accessMap[ $name ];
             return $this->{$method}();
-        } else if (isset($this->_cache[ $name ])) {
+        } else {if (isset($this->_cache[ $name ])) {
             return $this->_cache[ $name ];
-        } else if (in_array($name, $this->obsoleteProperties)) {
+        } else {if (in_array($name, $this->obsoleteProperties)) {
             return null;
         } else {
             trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
-        }
+        }}}
         return null;
     }
 
@@ -1293,13 +1281,15 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param string $name  property name
      * @param mixed  $value parameter passed to setter
+     *
+     * @throws \SmartyException
      */
     public function __set($name, $value)
     {
         if (isset($this->accessMap[ $name ])) {
             $method = 'set' . $this->accessMap[ $name ];
             $this->{$method}($value);
-        } else if (in_array($name, $this->obsoleteProperties)) {
+        } else {if (in_array($name, $this->obsoleteProperties)) {
             return;
         } else {
             if (is_object($value) && method_exists($value, $name)) {
@@ -1307,7 +1297,7 @@ class Smarty extends Smarty_Internal_TemplateBase
             } else {
                 trigger_error('Undefined property: ' . get_class($this) . '::$' . $name, E_USER_NOTICE);
             }
-        }
+        }}
     }
 
     /**

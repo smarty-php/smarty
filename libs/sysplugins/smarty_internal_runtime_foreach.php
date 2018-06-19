@@ -37,17 +37,20 @@ class Smarty_Internal_Runtime_Foreach
     public function init(Smarty_Internal_Template $tpl, $from, $item, $needTotal = false, $key = null, $name = null,
                          $properties = array())
     {
+        $needTotal = $needTotal || isset($properties[ 'total' ]);
         $saveVars = array();
         $total = null;
         if (!is_array($from)) {
             if (is_object($from)) {
-                $total = $this->count($from);
+                if ($needTotal) {
+                    $total = $this->count($from);
+                }
             } else {
                 settype($from, 'array');
             }
         }
         if (!isset($total)) {
-            $total = empty($from) ? 0 : (($needTotal || isset($properties[ 'total' ])) ? count($from) : 1);
+            $total = empty($from) ? 0 : ($needTotal ? count($from) : 1);
         }
         if (isset($tpl->tpl_vars[ $item ])) {
             $saveVars[ 'item' ] = array($item,

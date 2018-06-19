@@ -281,7 +281,7 @@ class Smarty_Internal_Templatelexer
      ldel = ~(SMARTYldel)SMARTYal~
      rdel = ~\s*SMARTYrdel~
      nocacherdel = ~(\s+nocache)?\s*SMARTYrdel~
-     notblockid = ~(?:(?!block)[0-9]*[a-zA-Z_]\w*)~
+     smartyblockchildparent = ~[\$]smarty\.block\.(child|parent)~
      integer = ~\d+~
      hex =  ~0[xX][0-9a-fA-F]+~
      math = ~\s*([*]{1,2}|[%/^&]|[<>]{2})\s*~
@@ -321,7 +321,6 @@ class Smarty_Internal_Templatelexer
      as = ~\s+as\s+~
      to = ~\s+to\s+~
      step = ~\s+step\s+~
-     block = ~block~
      if = ~(if|elseif|else if|while)\s+~
      for = ~for\s+~
      makenocache = ~make_nocache\s+~
@@ -406,7 +405,12 @@ class Smarty_Internal_Templatelexer
         $this->token = Smarty_Internal_Templateparser::TP_SIMPLETAG;
         $this->taglineno = $this->line;
      }
-     ldel slash notblockid rdel {
+     ldel smartyblockchildparent rdel {
+         $this->yypopstate();
+         $this->token = Smarty_Internal_Templateparser::TP_SMARTYBLOCKCHILDPARENT;
+         $this->taglineno = $this->line;
+     }
+     ldel slash id rdel {
         $this->yypopstate();
         $this->token = Smarty_Internal_Templateparser::TP_CLOSETAG;
         $this->taglineno = $this->line;

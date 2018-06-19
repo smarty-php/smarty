@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsFunction
  */
-
 /**
  * Smarty {html_select_date} plugin
  * Type:     function
@@ -42,17 +41,12 @@
  * @param \Smarty_Internal_Template $template
  *
  * @return string
+ * @throws \SmartyException
  */
 function smarty_function_html_select_date($params, Smarty_Internal_Template $template)
 {
-    if (!isset($template->smarty->_cache[ '_required_sesc' ])) {
-        require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-        $template->smarty->_cache[ '_required_sesc' ] = true;
-    }
-    if (!isset($template->smarty->_cache[ '_required_smt' ])) {
-        require_once(SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php');
-        $template->smarty->_cache[ '_required_smt' ] = true;
-    }
+    $template->_checkPlugins(array(array('function' => 'smarty_function_escape_special_chars',
+                                         'file' => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php')));
     // generate timestamps used for month names only
     static $_month_timestamps = null;
     static $_current_year = null;
@@ -117,6 +111,8 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
         switch ($_key) {
             case 'time':
                 if (!is_array($_value) && $_value !== null) {
+                    $template->_checkPlugins(array(array('function' => 'smarty_make_timestamp',
+                                                         'file' => SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php')));
                     $time = smarty_make_timestamp($_value);
                 }
                 break;

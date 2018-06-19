@@ -1,4 +1,39 @@
-﻿===== 3.1.32 - dev ===
+﻿===== 3.1.33-dev-4 =====
+17.05.2018
+ - bugfix strip-block produces different output in Smarty v3.1.32 https://github.com/smarty-php/smarty/issues/436
+ - bugfix Smarty::compileAllTemplates ignores `$extension` parameter https://github.com/smarty-php/smarty/issues/437
+   https://github.com/smarty-php/smarty/pull/438
+ - improvement do not compute total property in {foreach} if not needed https://github.com/smarty-php/smarty/issues/443
+ - bugfix  plugins may not be loaded when setMergeCompiledIncludes is true https://github.com/smarty-php/smarty/issues/435
+
+26.04.2018
+ - bugfix  regarding Security Vulnerability did not solve the problem under Linux.
+
+===== 3.1.32 ===== (24.04.2018)
+24.04.2018
+ - bugfix  possible Security Vulnerability in Smarty_Security class.
+
+26.03.2018
+ - bugfix plugins may not be loaded if {function} or {block} tags are executed in nocache mode
+   https://github.com/smarty-php/smarty/issues/371
+
+26.03.2018
+ - new feature {parent} =  {$smarty.block.parent} {child} =  {$smarty.block.child}
+
+23.03.2018
+ - bugfix preg_replace could fail on large content resulting in a blank page https://github.com/smarty-php/smarty/issues/417
+
+21.03.2018
+ - bugfix {$smarty.section...} used outside {section}{/section} showed incorrect values if {section}{/section} was called inside
+   another loop https://github.com/smarty-php/smarty/issues/422
+ - bugfix short form of {section} attributes did not work https://github.com/smarty-php/smarty/issues/428
+
+17.03.2018
+ - improvement Smarty::compileAllTemplates() exit with a non-zero status code if max errors is reached https://github.com/smarty-php/smarty/pull/402
+
+16.03.2018
+ - bugfix extends resource did not work with user defined left/right delimiter https://github.com/smarty-php/smarty/issues/419
+
 22.11.2017
  - bugfix {break} and {continue} could fail if {foreach}{/foreach} did contain other
    looping tags like {for}, {section} and {while} https://github.com/smarty-php/smarty/issues/323

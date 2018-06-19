@@ -1,4 +1,11 @@
-3.1.31-dev
+3.1.3"
+New tags for inheritance parent and chilD
+{parent}  == {$smarty.block.parent}
+{child}  == {$smarty.block.child}
+Both tags support the assign attribute like
+{child assign=foo}
+
+3.1.31
 New tags for inheritance parent and child
 {block_parent}  == {$smarty.block.parent}
 {block_child}  == {$smarty.block.child}

@@ -295,12 +295,12 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $tpl->mustCompile = true;
             $compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ][ 'nocache_hash' ] =
                 $tpl->compiled->nocache_hash;
-            if ($compiler->template->source->type === 'file') {
-                $sourceInfo = $compiler->template->source->filepath;
+            if ($tpl->source->type === 'file') {
+                $sourceInfo = $tpl->source->filepath;
             } else {
-                $basename = $compiler->template->source->handler->getBasename($compiler->template->source);
-                $sourceInfo = $compiler->template->source->type . ':' .
-                              ($basename ? $basename : $compiler->template->source->name);
+                $basename = $tpl->source->handler->getBasename($tpl->source);
+                $sourceInfo = $tpl->source->type . ':' .
+                              ($basename ? $basename : $tpl->source->name);
             }
             // get compiled code
             $compiled_code = "<?php\n\n";
