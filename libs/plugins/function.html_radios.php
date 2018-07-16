@@ -158,6 +158,9 @@ function smarty_function_html_radios($params, Smarty_Internal_Template $template
         }
     }
 
+    // remove 'separator' from last index
+    $_html_result[(count($_html_result) - 1)] = rtrim($_html_result[(count($_html_result) - 1)], $separator);
+
     if (!empty($params[ 'assign' ])) {
         $template->assign($params[ 'assign' ], $_html_result);
     } else {
