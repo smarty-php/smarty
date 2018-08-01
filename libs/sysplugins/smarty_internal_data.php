@@ -96,7 +96,8 @@ abstract class Smarty_Internal_Data
      */
     public function assign($tpl_var, $value = null, $nocache = false)
     {
-        if (is_array($tpl_var)) {
+        if (is_array($tpl_var)
+            && $value !== null) {
             foreach ($tpl_var as $_key => $_val) {
                 $this->assign($_key, $_val, $nocache);
             }
