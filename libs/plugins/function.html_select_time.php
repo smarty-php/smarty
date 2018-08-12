@@ -11,23 +11,25 @@
  * Name:     html_select_time
  * Purpose:  Prints the dropdowns for time selection
  *
- * @link     http://www.smarty.net/manual/en/language.function.html.select.time.php {html_select_time}
+ * @link   http://www.smarty.net/manual/en/language.function.html.select.time.php {html_select_time}
  *           (Smarty online manual)
- * @author   Roberto Berto <roberto@berto.net>
- * @author   Monte Ohrt <monte AT ohrt DOT com>
+ * @author Roberto Berto <roberto@berto.net>
+ * @author Monte Ohrt <monte AT ohrt DOT com>
  *
- * @param array                     $params parameters
+ * @param array                     $params   parameters
  *
  * @param \Smarty_Internal_Template $template
  *
  * @return string
- * @uses     smarty_make_timestamp()
+ * @uses   smarty_make_timestamp()
  * @throws \SmartyException
  */
 function smarty_function_html_select_time($params, Smarty_Internal_Template $template)
 {
-    $template->_checkPlugins(array(array('function' => 'smarty_function_escape_special_chars',
-                                         'file' => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php')));
+    $template->_checkPlugins(
+        array(array('function' => 'smarty_function_escape_special_chars',
+        'file' => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php'))
+    );
     $prefix = 'Time_';
     $field_array = null;
     $field_separator = "\n";
@@ -76,72 +78,74 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
 
     foreach ($params as $_key => $_value) {
         switch ($_key) {
-            case 'time':
-                if (!is_array($_value) && $_value !== null) {
-                    $template->_checkPlugins(array(array('function' => 'smarty_make_timestamp',
-                                                         'file' => SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php')));
-                    $time = smarty_make_timestamp($_value);
-                }
-                break;
+        case 'time':
+            if (!is_array($_value) && $_value !== null) {
+                $template->_checkPlugins(
+                    array(array('function' => 'smarty_make_timestamp',
+                                                     'file' => SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php'))
+                );
+                $time = smarty_make_timestamp($_value);
+            }
+            break;
 
-            case 'prefix':
-            case 'field_array':
+        case 'prefix':
+        case 'field_array':
 
-            case 'field_separator':
-            case 'option_separator':
+        case 'field_separator':
+        case 'option_separator':
 
-            case 'all_extra':
-            case 'hour_extra':
-            case 'minute_extra':
-            case 'second_extra':
-            case 'meridian_extra':
+        case 'all_extra':
+        case 'hour_extra':
+        case 'minute_extra':
+        case 'second_extra':
+        case 'meridian_extra':
 
-            case 'all_empty':
-            case 'hour_empty':
-            case 'minute_empty':
-            case 'second_empty':
-            case 'meridian_empty':
+        case 'all_empty':
+        case 'hour_empty':
+        case 'minute_empty':
+        case 'second_empty':
+        case 'meridian_empty':
 
-            case 'all_id':
-            case 'hour_id':
-            case 'minute_id':
-            case 'second_id':
-            case 'meridian_id':
+        case 'all_id':
+        case 'hour_id':
+        case 'minute_id':
+        case 'second_id':
+        case 'meridian_id':
 
-            case 'hour_format':
-            case 'hour_value_format':
-            case 'minute_format':
-            case 'minute_value_format':
-            case 'second_format':
-            case 'second_value_format':
-                $$_key = (string) $_value;
-                break;
+        case 'hour_format':
+        case 'hour_value_format':
+        case 'minute_format':
+        case 'minute_value_format':
+        case 'second_format':
+        case 'second_value_format':
+            $$_key = (string) $_value;
+            break;
 
-            case 'display_hours':
-            case 'display_minutes':
-            case 'display_seconds':
-            case 'display_meridian':
-            case 'use_24_hours':
-                $$_key = (bool) $_value;
-                break;
+        case 'display_hours':
+        case 'display_minutes':
+        case 'display_seconds':
+        case 'display_meridian':
+        case 'use_24_hours':
+            $$_key = (bool) $_value;
+            break;
 
-            case 'minute_interval':
-            case 'second_interval':
+        case 'minute_interval':
+        case 'second_interval':
 
-            case 'hour_size':
-            case 'minute_size':
-            case 'second_size':
-            case 'meridian_size':
-                $$_key = (int) $_value;
-                break;
+        case 'hour_size':
+        case 'minute_size':
+        case 'second_size':
+        case 'meridian_size':
+            $$_key = (int) $_value;
+            break;
 
-            default:
-                if (!is_array($_value)) {
-                    $extra_attrs .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_value) . '"';
-                } else {
-                    trigger_error("html_select_date: extra attribute '{$_key}' cannot be an array", E_USER_NOTICE);
-                }
-                break;
+        default:
+            if (!is_array($_value)) {
+                $extra_attrs .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_value) . '"';
+            } else {
+                trigger_error("html_select_date: extra attribute '{$_key}' cannot be an array", E_USER_NOTICE);
+            }
+            break;
         }
     }
 
@@ -203,8 +207,10 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
         $_html_hours = '<select name="' . $_name . '"';
         if ($hour_id !== null || $all_id !== null) {
             $_html_hours .= ' id="' .
-                            smarty_function_escape_special_chars($hour_id !== null ? ($hour_id ? $hour_id : $_name) :
-                                                                     ($all_id ? ($all_id . $_name) : $_name)) . '"';
+                            smarty_function_escape_special_chars(
+                                $hour_id !== null ? ($hour_id ? $hour_id : $_name) :
+                                ($all_id ? ($all_id . $_name) : $_name)
+                            ) . '"';
         }
         if ($hour_size) {
             $_html_hours .= ' size="' . $hour_size . '"';
@@ -249,10 +255,12 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
 
         $_html_minutes = '<select name="' . $_name . '"';
         if ($minute_id !== null || $all_id !== null) {
-            $_html_minutes .= ' id="' . smarty_function_escape_special_chars($minute_id !== null ?
+            $_html_minutes .= ' id="' . smarty_function_escape_special_chars(
+                $minute_id !== null ?
                                                                                  ($minute_id ? $minute_id : $_name) :
                                                                                  ($all_id ? ($all_id . $_name) :
-                                                                                     $_name)) . '"';
+                $_name)
+            ) . '"';
         }
         if ($minute_size) {
             $_html_minutes .= ' size="' . $minute_size . '"';
@@ -290,10 +298,12 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
 
         $_html_seconds = '<select name="' . $_name . '"';
         if ($second_id !== null || $all_id !== null) {
-            $_html_seconds .= ' id="' . smarty_function_escape_special_chars($second_id !== null ?
+            $_html_seconds .= ' id="' . smarty_function_escape_special_chars(
+                $second_id !== null ?
                                                                                  ($second_id ? $second_id : $_name) :
                                                                                  ($all_id ? ($all_id . $_name) :
-                                                                                     $_name)) . '"';
+                $_name)
+            ) . '"';
         }
         if ($second_size) {
             $_html_seconds .= ' size="' . $second_size . '"';
@@ -331,11 +341,13 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
 
         $_html_meridian = '<select name="' . $_name . '"';
         if ($meridian_id !== null || $all_id !== null) {
-            $_html_meridian .= ' id="' . smarty_function_escape_special_chars($meridian_id !== null ?
+            $_html_meridian .= ' id="' . smarty_function_escape_special_chars(
+                $meridian_id !== null ?
                                                                                   ($meridian_id ? $meridian_id :
                                                                                       $_name) :
                                                                                   ($all_id ? ($all_id . $_name) :
-                                                                                      $_name)) . '"';
+                $_name)
+            ) . '"';
         }
         if ($meridian_size) {
             $_html_meridian .= ' size="' . $meridian_size . '"';

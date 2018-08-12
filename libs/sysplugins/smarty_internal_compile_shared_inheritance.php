@@ -37,10 +37,12 @@ class Smarty_Internal_Compile_Shared_Inheritance extends Smarty_Internal_Compile
     public function registerInit(Smarty_Internal_TemplateCompilerBase $compiler, $initChildSequence = false)
     {
         if ($initChildSequence || !isset($compiler->_cache['inheritanceInit'])) {
-            $compiler->registerPostCompileCallback(array('Smarty_Internal_Compile_Shared_Inheritance', 'postCompile'),
-                                                   array($initChildSequence),
-                                                   'inheritanceInit',
-                                                   $initChildSequence);
+            $compiler->registerPostCompileCallback(
+                array('Smarty_Internal_Compile_Shared_Inheritance', 'postCompile'),
+                array($initChildSequence),
+                'inheritanceInit',
+                $initChildSequence
+            );
 
             $compiler->_cache['inheritanceInit'] = true;
         }

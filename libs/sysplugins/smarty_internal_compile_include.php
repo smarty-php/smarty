@@ -59,8 +59,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {include} tag
      *
-     * @param  array                                  $args     array with attributes from parser
-     * @param  Smarty_Internal_SmartyTemplateCompiler $compiler compiler object
+     * @param array                                  $args     array with attributes from parser
+     * @param Smarty_Internal_SmartyTemplateCompiler $compiler compiler object
      *
      * @return string
      * @throws \Exception
@@ -91,8 +91,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                         $compiled->includes[ $fullResourceName ]++;
                         $cache_tpl = true;
                     } else {
-                        if ("{$compiler->template->source->type}:{$compiler->template->source->name}" ==
-                            $fullResourceName
+                        if ("{$compiler->template->source->type}:{$compiler->template->source->name}" ==                        $fullResourceName
                         ) {
                             // recursive call of current template
                             $compiled->includes[ $fullResourceName ] = 2;
@@ -193,9 +192,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $t_hash = sha1($c_id . ($_caching ? '--caching' : '--nocaching'));
             $compiler->smarty->allow_ambiguous_resources = true;
             /* @var Smarty_Internal_Template $tpl */
-            $tpl = new $compiler->smarty->template_class (trim($fullResourceName, '"\''), $compiler->smarty,
-                                                          $compiler->template, $compiler->template->cache_id, $c_id,
-                                                          $_caching);
+            $tpl = new $compiler->smarty->template_class(
+                trim($fullResourceName, '"\''), $compiler->smarty,
+                $compiler->template, $compiler->template->cache_id, $c_id,
+                $_caching
+            );
             $uid = $tpl->source->type . $tpl->source->uid;
             if (!isset($compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ])) {
                 $has_compiled_template = $this->compileInlineTemplate($compiler, $tpl, $t_hash);
@@ -269,16 +270,16 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      *
      * @param \Smarty_Internal_SmartyTemplateCompiler $compiler
      * @param \Smarty_Internal_Template               $tpl
-     * @param  string                                 $t_hash
+     * @param string                                  $t_hash
      *
      * @return bool
      * @throws \Exception
      * @throws \SmartyException
      */
     public function compileInlineTemplate(Smarty_Internal_SmartyTemplateCompiler $compiler,
-                                          Smarty_Internal_Template $tpl,
-                                          $t_hash)
-    {
+        Smarty_Internal_Template $tpl,
+        $t_hash
+    ) {
         $uid = $tpl->source->type . $tpl->source->uid;
         if (!($tpl->source->handler->uncompiled) && $tpl->source->exists) {
             $compiler->parent_compiler->mergedSubTemplatesData[ $uid ][ $t_hash ][ 'uid' ] = $tpl->source->uid;
@@ -317,9 +318,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             if ($tpl->compiled->has_nocache_code) {
                 // replace nocache_hash
                 $compiled_code =
-                    str_replace("{$tpl->compiled->nocache_hash}",
-                                $compiler->template->compiled->nocache_hash,
-                                $compiled_code);
+                    str_replace(
+                        "{$tpl->compiled->nocache_hash}",
+                        $compiler->template->compiled->nocache_hash,
+                        $compiled_code
+                    );
                 $compiler->template->compiled->has_nocache_code = true;
             }
             $compiler->parent_compiler->mergedSubTemplatesCode[ $tpl->compiled->unifunc ] = $compiled_code;

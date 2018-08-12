@@ -28,7 +28,7 @@ function smarty_modifier_replace($string, $search, $replace)
     if (Smarty::$_MBSTRING) {
         if (!$is_loaded) {
             if (!is_callable('smarty_mb_str_replace')) {
-                require_once(SMARTY_PLUGINS_DIR . 'shared.mb_str_replace.php');
+                include_once SMARTY_PLUGINS_DIR . 'shared.mb_str_replace.php';
             }
             $is_loaded = true;
         }

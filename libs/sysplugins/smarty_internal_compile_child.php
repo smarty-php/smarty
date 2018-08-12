@@ -40,9 +40,9 @@ class Smarty_Internal_Compile_Child extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {child} tag
      *
-     * @param  array                                 $args      array with attributes from parser
-     * @param  \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                 $parameter array with compilation parameter
+     * @param array                                 $args      array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param array                                 $parameter array with compilation parameter
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
@@ -53,8 +53,10 @@ class Smarty_Internal_Compile_Child extends Smarty_Internal_CompileBase
         $_attr = $this->getAttributes($compiler, $args);
         $tag = isset($parameter[0]) ? "'{$parameter[0]}'" : "'{{$this->tag}}'";
         if (!isset($compiler->_cache[ 'blockNesting' ])) {
-            $compiler->trigger_template_error("{$tag} used outside {block} tags ",
-                                              $compiler->parser->lex->taglineno);
+            $compiler->trigger_template_error(
+                "{$tag} used outside {block} tags ",
+                $compiler->parser->lex->taglineno
+            );
         }
         $compiler->has_code = true;
         $compiler->suppressNocacheProcessing = true;

@@ -24,8 +24,8 @@ class Smarty_Internal_Method_LoadPlugin
      * plugin filename format: plugintype.pluginname.php
      *
      * @param \Smarty $smarty
-     * @param  string $plugin_name class plugin name to load
-     * @param  bool   $check       check if already loaded
+     * @param string  $plugin_name class plugin name to load
+     * @param bool    $check       check if already loaded
      *
      * @return bool|string
      * @throws \SmartyException
@@ -50,7 +50,7 @@ class Smarty_Internal_Method_LoadPlugin
             } else {
                 if (is_file($file)) {
                     $this->plugin_files[ $file ] = $file;
-                    require_once($file);
+                    include_once $file;
                     return $file;
                 } else {
                     $this->plugin_files[ $file ] = false;
@@ -87,7 +87,7 @@ class Smarty_Internal_Method_LoadPlugin
                     $file = $_plugin_dir . $name;
                     if (is_file($file)) {
                         $this->plugin_files[ 'plugins_dir' ][ $_lower_filename ] = $file;
-                        require_once($file);
+                        include_once $file;
                         return $file;
                     }
                     $this->plugin_files[ 'plugins_dir' ][ $_lower_filename ] = false;
@@ -100,7 +100,7 @@ class Smarty_Internal_Method_LoadPlugin
                 $file = $smarty->ext->_getIncludePath->getIncludePath($_p_dirs, $_file_name, $smarty);
                 $this->plugin_files[ 'include_path' ][ $_lower_filename ] = $file;
                 if ($file !== false) {
-                    require_once($file);
+                    include_once $file;
                     return $file;
                 }
             }

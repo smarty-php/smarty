@@ -10,12 +10,12 @@
  * Smarty trimwhitespace outputfilter plugin
  * Trim unnecessary whitespace from HTML markup.
  *
- * @author   Rodney Rehm
+ * @author Rodney Rehm
  *
  * @param string $source input string
  *
  * @return string filtered output
- * @todo     substr_replace() is not overloaded by mbstring.func_overload - so this function might fail!
+ * @todo   substr_replace() is not overloaded by mbstring.func_overload - so this function might fail!
  */
 function smarty_outputfilter_trimwhitespace($source)
 {
@@ -27,8 +27,11 @@ function smarty_outputfilter_trimwhitespace($source)
     $source = preg_replace('/\015\012|\015|\012/', "\n", $source);
 
     // capture Internet Explorer and KnockoutJS Conditional Comments
-    if (preg_match_all('#<!--((\[[^\]]+\]>.*?<!\[[^\]]+\])|(\s*/?ko\s+.+))-->#is', $source, $matches,
-                       PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+    if (preg_match_all(
+        '#<!--((\[[^\]]+\]>.*?<!\[[^\]]+\])|(\s*/?ko\s+.+))-->#is', $source, $matches,
+        PREG_OFFSET_CAPTURE | PREG_SET_ORDER
+    )
+    ) {
         foreach ($matches as $match) {
             $store[] = $match[ 0 ][ 0 ];
             $_length = strlen($match[ 0 ][ 0 ]);
@@ -46,8 +49,11 @@ function smarty_outputfilter_trimwhitespace($source)
 
     // capture html elements not to be messed with
     $_offset = 0;
-    if (preg_match_all('#(<script[^>]*>.*?</script[^>]*>)|(<textarea[^>]*>.*?</textarea[^>]*>)|(<pre[^>]*>.*?</pre[^>]*>)#is',
-                       $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+    if (preg_match_all(
+        '#(<script[^>]*>.*?</script[^>]*>)|(<textarea[^>]*>.*?</textarea[^>]*>)|(<pre[^>]*>.*?</pre[^>]*>)#is',
+        $source, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER
+    )
+    ) {
         foreach ($matches as $match) {
             $store[] = $match[ 0 ][ 0 ];
             $_length = strlen($match[ 0 ][ 0 ]);

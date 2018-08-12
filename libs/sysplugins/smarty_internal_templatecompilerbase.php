@@ -16,8 +16,8 @@
  *
  * @property Smarty_Internal_SmartyTemplateCompiler $prefixCompiledCode  = ''
  * @property Smarty_Internal_SmartyTemplateCompiler $postfixCompiledCode = ''
- * @method registerPostCompileCallback($callback, $parameter = array(), $key = null, $replace = false)
- * @method unregisterPostCompileCallback($key)
+ * @method   registerPostCompileCallback($callback, $parameter = array(), $key = null, $replace = false)
+ * @method   unregisterPostCompileCallback($key)
  */
 abstract class Smarty_Internal_TemplateCompilerBase
 {
@@ -324,35 +324,41 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function __construct(Smarty $smarty)
     {
         $this->smarty = $smarty;
-        $this->nocache_hash = str_replace(array('.',
+        $this->nocache_hash = str_replace(
+            array('.',
                                                 ','),
-                                          '_',
-                                          uniqid(rand(), true));
+            '_',
+            uniqid(rand(), true)
+        );
     }
 
     /**
      * Method to compile a Smarty template
      *
-     * @param  Smarty_Internal_Template                 $template template object to compile
-     * @param  bool                                     $nocache  true is shall be compiled in nocache mode
+     * @param Smarty_Internal_Template                  $template        template object to compile
+     * @param bool                                      $nocache         true is shall be compiled in nocache mode
      * @param null|Smarty_Internal_TemplateCompilerBase $parent_compiler
      *
      * @return bool true if compiling succeeded, false if it failed
      * @throws \Exception
      */
     public function compileTemplate(Smarty_Internal_Template $template,
-                                    $nocache = null,
-                                    Smarty_Internal_TemplateCompilerBase $parent_compiler = null)
-    {
+        $nocache = null,
+        Smarty_Internal_TemplateCompilerBase $parent_compiler = null
+    ) {
         // get code frame of compiled template
-        $_compiled_code = $template->smarty->ext->_codeFrame->create($template,
-                                                                     $this->compileTemplateSource($template,
-                                                                                                  $nocache,
-                                                                                                  $parent_compiler),
-                                                                     $this->postFilter($this->blockOrFunctionCode) .
+        $_compiled_code = $template->smarty->ext->_codeFrame->create(
+            $template,
+            $this->compileTemplateSource(
+                $template,
+                $nocache,
+                $parent_compiler
+            ),
+            $this->postFilter($this->blockOrFunctionCode) .
                                                                      join('', $this->mergedSubTemplatesCode),
-                                                                     false,
-                                                                     $this);
+            false,
+            $this
+        );
         return $_compiled_code;
     }
 
@@ -360,16 +366,16 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * Compile template source and run optional post filter
      *
      * @param \Smarty_Internal_Template             $template
-     * @param null|bool                             $nocache flag if template must be compiled in nocache mode
+     * @param null|bool                             $nocache         flag if template must be compiled in nocache mode
      * @param \Smarty_Internal_TemplateCompilerBase $parent_compiler
      *
      * @return string
      * @throws \Exception
      */
     public function compileTemplateSource(Smarty_Internal_Template $template,
-                                          $nocache = null,
-                                          Smarty_Internal_TemplateCompilerBase $parent_compiler = null)
-    {
+        $nocache = null,
+        Smarty_Internal_TemplateCompilerBase $parent_compiler = null
+    ) {
         try {
             // save template object in compiler class
             $this->template = $template;
@@ -422,7 +428,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             }
             $_compiled_code = $this->postFilter($this->doCompile($this->preFilter($_content), true));
             if (!empty($this->required_plugins[ 'compiled' ]) || !empty($this->required_plugins[ 'nocache' ])) {
-               $_compiled_code = '<?php ' . $this->compileRequiredPlugins() . "?>\n" . $_compiled_code;
+                $_compiled_code = '<?php ' . $this->compileRequiredPlugins() . "?>\n" . $_compiled_code;
             }
         }
         catch (Exception $e) {
@@ -455,8 +461,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function postFilter($code)
     {
         // run post filter if on code
-        if (!empty($code) &&
-            (isset($this->smarty->autoload_filters[ 'post' ]) || isset($this->smarty->registered_filters[ 'post' ]))
+        if (!empty($code) 
+            && (isset($this->smarty->autoload_filters[ 'post' ]) || isset($this->smarty->registered_filters[ 'post' ]))
         ) {
             return $this->smarty->ext->_filterHandler->runFilter('post', $code, $this->template);
         } else {
@@ -475,8 +481,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function preFilter($_content)
     {
         // run pre filter if required
-        if ($_content !== '' &&
-            ((isset($this->smarty->autoload_filters[ 'pre' ]) || isset($this->smarty->registered_filters[ 'pre' ])))
+        if ($_content !== '' 
+            && ((isset($this->smarty->autoload_filters[ 'pre' ]) || isset($this->smarty->registered_filters[ 'pre' ])))
         ) {
             return $this->smarty->ext->_filterHandler->runFilter('pre', $_content, $this->template);
         } else {
@@ -493,9 +499,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * Merge tag prefix code with saved one
      * (required nested tags in attributes)
      *
-     * @param  string $tag       tag name
-     * @param  array  $args      array with tag attributes
-     * @param  array  $parameter array with compilation parameter
+     * @param string $tag       tag name
+     * @param array  $args      array with tag attributes
+     * @param array  $parameter array with compilation parameter
      *
      * @throws SmartyCompilerException
      * @throws SmartyException
@@ -523,11 +529,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
             // not a variable variable
             $var = trim($variable, '\'');
             $this->tag_nocache = $this->tag_nocache |
-                                 $this->template->ext->getTemplateVars->_getVariable($this->template,
-                                                                                     $var,
-                                                                                     null,
-                                                                                     true,
-                                                                                     false)->nocache;
+                                $this->template->ext->getTemplateVars->_getVariable(
+                                    $this->template,
+                                    $var,
+                                    null,
+                                    true,
+                                    false
+                                )->nocache;
             // todo $this->template->compiled->properties['variables'][$var] = $this->tag_nocache | $this->nocache;
         }
         return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';
@@ -549,8 +557,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
     /**
      * compile PHP function call
      *
-     * @param string       $name
-     * @param        array $parameter
+     * @param string $name
+     * @param array  $parameter
      *
      * @return string
      * @throws \SmartyCompilerException
@@ -558,8 +566,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function compilePHPFunctionCall($name, $parameter)
     {
         if (!$this->smarty->security_policy || $this->smarty->security_policy->isTrustedPhpFunction($name, $this)) {
-            if (strcasecmp($name, 'isset') === 0 || strcasecmp($name, 'empty') === 0 ||
-                strcasecmp($name, 'array') === 0 || is_callable($name)
+            if (strcasecmp($name, 'isset') === 0 || strcasecmp($name, 'empty') === 0 
+                || strcasecmp($name, 'array') === 0 || is_callable($name)
             ) {
                 $func_name = strtolower($name);
                 $par = implode(',', $parameter);
@@ -578,13 +586,16 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         $isset_par = str_replace("')->value", "',null,true,false)->value", $par);
                     }
                     return $name . '(' . $isset_par . ')';
-                } else if (in_array($func_name,
-                                    array('empty',
+                } else if (in_array(
+                    $func_name,
+                    array('empty',
                                           'reset',
                                           'current',
                                           'end',
                                           'prev',
-                                          'next'))) {
+                    'next')
+                )
+                ) {
                     if (count($parameter) !== 1) {
                         $this->trigger_template_error("Illegal number of parameter in '{$func_name()}'");
                     }
@@ -625,8 +636,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 if (strpos($text, '<') !== false) {
                     // capture html elements not to be messed with
                     $_offset = 0;
-                    if (preg_match_all('#(<script[^>]*>.*?</script[^>]*>)|(<textarea[^>]*>.*?</textarea[^>]*>)|(<pre[^>]*>.*?</pre[^>]*>)#is',
-                                       $text, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+                    if (preg_match_all(
+                        '#(<script[^>]*>.*?</script[^>]*>)|(<textarea[^>]*>.*?</textarea[^>]*>)|(<pre[^>]*>.*?</pre[^>]*>)#is',
+                        $text, $matches, PREG_OFFSET_CAPTURE | PREG_SET_ORDER
+                    )
+                    ) {
                         foreach ($matches as $match) {
                             $store[] = $match[ 0 ][ 0 ];
                             $_length = strlen($match[ 0 ][ 0 ]);
@@ -648,8 +662,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
 
                     $text = preg_replace(array_keys($expressions), array_values($expressions), $text);
                     $_offset = 0;
-                    if (preg_match_all('#@!@SMARTY:([0-9]+):SMARTY@!@#is', $text, $matches,
-                                       PREG_OFFSET_CAPTURE | PREG_SET_ORDER)) {
+                    if (preg_match_all(
+                        '#@!@SMARTY:([0-9]+):SMARTY@!@#is', $text, $matches,
+                        PREG_OFFSET_CAPTURE | PREG_SET_ORDER
+                    )
+                    ) {
                         foreach ($matches as $match) {
                             $_length = strlen($match[ 0 ][ 0 ]);
                             $replace = $store[ $match[ 1 ][ 0 ] ];
@@ -674,11 +691,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * class name format:  Smarty_Internal_Compile_TagName
      * plugin filename format: Smarty_Internal_TagName.php
      *
-     * @param  string $tag    tag name
-     * @param  array  $args   list of tag attributes
-     * @param  mixed  $param1 optional parameter
-     * @param  mixed  $param2 optional parameter
-     * @param  mixed  $param3 optional parameter
+     * @param string $tag    tag name
+     * @param array  $args   list of tag attributes
+     * @param mixed  $param1 optional parameter
+     * @param mixed  $param2 optional parameter
+     * @param mixed  $param3 optional parameter
      *
      * @return bool|string compiled code or false
      * @throws \SmartyCompilerException
@@ -697,7 +714,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * class name format:  Smarty_Internal_Compile_TagName
      * plugin filename format: Smarty_Internal_TagName.php
      *
-     * @param  string $tag tag name
+     * @param string $tag tag name
      *
      * @return bool|\Smarty_Internal_CompileBase tag compiler object or false if not found
      * @throws \SmartyCompilerException
@@ -710,8 +727,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $_tag = explode('_', $tag);
             $_tag = array_map('ucfirst', $_tag);
             $class_name = 'Smarty_Internal_Compile_' . implode('_', $_tag);
-            if (class_exists($class_name) &&
-                (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))
+            if (class_exists($class_name) 
+                && (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))
             ) {
                 self::$_tag_objects[ $tag ] = new $class_name;
             } else {
@@ -724,8 +741,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
     /**
      * Check for plugins and return function name
      *
-     * @param         $plugin_name
-     * @param  string $plugin_type type of plugin
+     * @param $plugin_name
+     * @param string      $plugin_type type of plugin
      *
      * @return string call name of function
      * @throws \SmartyException
@@ -790,8 +807,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
     /**
      * Check for plugins by default plugin handler
      *
-     * @param  string $tag         name of tag
-     * @param  string $plugin_type type of plugin
+     * @param string $tag         name of tag
+     * @param string $plugin_type type of plugin
      *
      * @return bool true if found
      * @throws \SmartyCompilerException
@@ -801,13 +818,15 @@ abstract class Smarty_Internal_TemplateCompilerBase
         $callback = null;
         $script = null;
         $cacheable = true;
-        $result = call_user_func_array($this->smarty->default_plugin_handler_func,
-                                       array($tag,
+        $result = call_user_func_array(
+            $this->smarty->default_plugin_handler_func,
+            array($tag,
                                              $plugin_type,
                                              $this->template,
                                              &$callback,
                                              &$script,
-                                             &$cacheable,));
+            &$cacheable,)
+        );
         if ($result) {
             $this->tag_nocache = $this->tag_nocache || !$cacheable;
             if ($script !== null) {
@@ -823,7 +842,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         $this->required_plugins[ 'compiled' ][ $tag ][ $plugin_type ][ 'function' ] =
                             $callback;
                     }
-                    require_once $script;
+                    include_once $script;
                 } else {
                     $this->trigger_template_error("Default plugin handler: Returned script file '{$script}' for '{$tag}' not found");
                 }
@@ -865,8 +884,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * If the content is compiled code and it should be not cached the code is injected
      * into the rendered output.
      *
-     * @param  string  $content content of template element
-     * @param  boolean $is_code true if content is compiled code
+     * @param string  $content content of template element
+     * @param boolean $is_code true if content is compiled code
      *
      * @return string  content
      */
@@ -875,8 +894,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // If the template is not evaluated and we have a nocache section and or a nocache tag
         if ($is_code && !empty($content)) {
             // generate replacement code
-            if ((!($this->template->source->handler->recompiled) || $this->forceNocache) && $this->caching &&
-                !$this->suppressNocacheProcessing && ($this->nocache || $this->tag_nocache)
+            if ((!($this->template->source->handler->recompiled) || $this->forceNocache) && $this->caching 
+                && !$this->suppressNocacheProcessing && ($this->nocache || $this->tag_nocache)
             ) {
                 $this->template->compiled->has_nocache_code = true;
                 $_output = addcslashes($content, '\'\\');
@@ -950,7 +969,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     }
 
     /**
-     * @param array $_attr tag attributes
+     * @param array $_attr       tag attributes
      * @param array $validScopes
      *
      * @return int|string
@@ -997,8 +1016,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * In this case the parser is called to obtain information about expected tokens.
      * If parameter $args contains a string this is used as error message
      *
-     * @param  string   $args    individual error message or null
-     * @param  string   $line    line-number
+     * @param string    $args    individual error message or null
+     * @param string    $line    line-number
      * @param null|bool $tagline if true the line number of last tag
      *
      * @throws \SmartyCompilerException when an unexpected token is found
@@ -1015,14 +1034,21 @@ abstract class Smarty_Internal_TemplateCompilerBase
         } else {
             $line = (int)$line;
         }
-        if (in_array($this->template->source->type,
-                     array('eval',
-                           'string'))) {
-            $templateName = $this->template->source->type . ':' . trim(preg_replace('![\t\r\n]+!',
-                                                                                    ' ',
-                                                                                    strlen($lex->data) > 40 ?
+        if (in_array(
+            $this->template->source->type,
+            array('eval',
+            'string')
+        )
+        ) {
+            $templateName = $this->template->source->type . ':' . trim(
+                preg_replace(
+                    '![\t\r\n]+!',
+                    ' ',
+                    strlen($lex->data) > 40 ?
                                                                                         substr($lex->data, 0, 40) .
-                                                                                        '...' : $lex->data));
+                    '...' : $lex->data
+                )
+            );
         } else {
             $templateName = $this->template->source->type . ':' . $this->template->source->filepath;
         }
@@ -1069,7 +1095,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     /**
      * Return var_export() value with all white spaces removed
      *
-     * @param  mixed $value
+     * @param mixed $value
      *
      * @return string
      */
@@ -1104,11 +1130,13 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     public function replaceDelimiter($lexerPreg)
     {
-        return str_replace(array('SMARTYldel', 'SMARTYliteral', 'SMARTYrdel', 'SMARTYautoliteral', 'SMARTYal'),
-                           array($this->ldelPreg, $this->literalPreg, $this->rdelPreg,
+        return str_replace(
+            array('SMARTYldel', 'SMARTYliteral', 'SMARTYrdel', 'SMARTYautoliteral', 'SMARTYal'),
+            array($this->ldelPreg, $this->literalPreg, $this->rdelPreg,
                                  $this->smarty->getAutoLiteral() ? '{1,}' : '{9}',
                                  $this->smarty->getAutoLiteral() ? '' : '\\s*'),
-                           $lexerPreg);
+            $lexerPreg
+        );
     }
 
     /**
@@ -1153,9 +1181,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
     {
         if (array_pop($this->_tag_stack_count) !== $this->getTagStackCount()) {
             $tag = $this->getOpenBlockTag();
-            $this->trigger_template_error("unclosed '{{$tag}}' in doubled quoted string",
-                                          null,
-                                          true);
+            $this->trigger_template_error(
+                "unclosed '{{$tag}}' in doubled quoted string",
+                null,
+                true
+            );
         }
     }
 
@@ -1350,7 +1380,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     /**
      * method to compile a Smarty template
      *
-     * @param mixed $_content template source
+     * @param mixed $_content         template source
      * @param bool  $isTemplateSource
      *
      * @return bool true if compiling succeeded, false if it failed
@@ -1360,9 +1390,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
     /**
      * Compile Tag
      *
-     * @param  string $tag       tag name
-     * @param  array  $args      array with tag attributes
-     * @param  array  $parameter array with compilation parameter
+     * @param string $tag       tag name
+     * @param array  $args      array with tag attributes
+     * @param array  $parameter array with compilation parameter
      *
      * @throws SmartyCompilerException
      * @throws SmartyException
@@ -1395,9 +1425,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
         }
         // compile the smarty tag (required compile classes to compile the tag are auto loaded)
         if (($_output = $this->callTagCompiler($tag, $args, $parameter)) === false) {
-            if (isset($this->parent_compiler->tpl_function[ $tag ]) ||
-                (isset ($this->template->smarty->ext->_tplFunction) &&
-                 $this->template->smarty->ext->_tplFunction->getTplFunction($this->template, $tag) !== false)
+            if (isset($this->parent_compiler->tpl_function[ $tag ]) 
+                || (isset($this->template->smarty->ext->_tplFunction) 
+                && $this->template->smarty->ext->_tplFunction->getTplFunction($this->template, $tag) !== false)
             ) {
                 // template defined by {template} tag
                 $args[ '_attr' ][ 'name' ] = "'{$tag}'";
@@ -1428,23 +1458,27 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 // check if tag is a registered object
                 if (isset($this->smarty->registered_objects[ $tag ]) && isset($parameter[ 'object_method' ])) {
                     $method = $parameter[ 'object_method' ];
-                    if (!in_array($method, $this->smarty->registered_objects[ $tag ][ 3 ]) &&
-                        (empty($this->smarty->registered_objects[ $tag ][ 1 ]) ||
-                         in_array($method, $this->smarty->registered_objects[ $tag ][ 1 ]))
+                    if (!in_array($method, $this->smarty->registered_objects[ $tag ][ 3 ]) 
+                        && (empty($this->smarty->registered_objects[ $tag ][ 1 ]) 
+                        || in_array($method, $this->smarty->registered_objects[ $tag ][ 1 ]))
                     ) {
                         return $this->callTagCompiler('private_object_function', $args, $parameter, $tag, $method);
                     } else if (in_array($method, $this->smarty->registered_objects[ $tag ][ 3 ])) {
-                        return $this->callTagCompiler('private_object_block_function',
-                                                      $args,
-                                                      $parameter,
-                                                      $tag,
-                                                      $method);
+                        return $this->callTagCompiler(
+                            'private_object_block_function',
+                            $args,
+                            $parameter,
+                            $tag,
+                            $method
+                        );
                     } else {
                         // throw exception
-                        $this->trigger_template_error('not allowed method "' . $method . '" in registered object "' .
+                        $this->trigger_template_error(
+                            'not allowed method "' . $method . '" in registered object "' .
                                                       $tag . '"',
-                                                      null,
-                                                      true);
+                            null,
+                            true
+                        );
                     }
                 }
                 // check if tag is registered
@@ -1465,25 +1499,29 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             if (!$this->smarty->registered_plugins[ $plugin_type ][ $tag ][ 1 ]) {
                                 $this->tag_nocache = true;
                             }
-                            return call_user_func_array($this->smarty->registered_plugins[ $plugin_type ][ $tag ][ 0 ],
-                                                        array($new_args,
-                                                              $this));
+                            return call_user_func_array(
+                                $this->smarty->registered_plugins[ $plugin_type ][ $tag ][ 0 ],
+                                array($new_args,
+                                $this)
+                            );
                         }
                         // compile registered function or block function
                         if ($plugin_type === Smarty::PLUGIN_FUNCTION || $plugin_type === Smarty::PLUGIN_BLOCK) {
-                            return $this->callTagCompiler('private_registered_' . $plugin_type,
-                                                          $args,
-                                                          $parameter,
-                                                          $tag);
+                            return $this->callTagCompiler(
+                                'private_registered_' . $plugin_type,
+                                $args,
+                                $parameter,
+                                $tag
+                            );
                         }
                     }
                 }
                 // check plugins from plugins folder
                 foreach ($this->plugin_search_order as $plugin_type) {
-                    if ($plugin_type === Smarty::PLUGIN_COMPILER &&
-                        $this->smarty->loadPlugin('smarty_compiler_' . $tag) &&
-                        (!isset($this->smarty->security_policy) ||
-                         $this->smarty->security_policy->isTrustedTag($tag, $this))
+                    if ($plugin_type === Smarty::PLUGIN_COMPILER 
+                        && $this->smarty->loadPlugin('smarty_compiler_' . $tag) 
+                        && (!isset($this->smarty->security_policy) 
+                        || $this->smarty->security_policy->isTrustedTag($tag, $this))
                     ) {
                         $plugin = 'smarty_compiler_' . $tag;
                         if (is_callable($plugin)) {
@@ -1507,14 +1545,16 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         throw new SmartyException("Plugin '{$tag}' not callable");
                     } else {
                         if ($function = $this->getPlugin($tag, $plugin_type)) {
-                            if (!isset($this->smarty->security_policy) ||
-                                $this->smarty->security_policy->isTrustedTag($tag, $this)
+                            if (!isset($this->smarty->security_policy) 
+                                || $this->smarty->security_policy->isTrustedTag($tag, $this)
                             ) {
-                                return $this->callTagCompiler('private_' . $plugin_type . '_plugin',
-                                                              $args,
-                                                              $parameter,
-                                                              $tag,
-                                                              $function);
+                                return $this->callTagCompiler(
+                                    'private_' . $plugin_type . '_plugin',
+                                    $args,
+                                    $parameter,
+                                    $tag,
+                                    $function
+                                );
                             }
                         }
                     }
@@ -1548,14 +1588,18 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                     $new_args[ $key ] = $mixed;
                                 }
                             }
-                            return call_user_func_array($this->default_handler_plugins[ $plugin_type ][ $tag ][ 0 ],
-                                                        array($new_args,
-                                                              $this));
+                            return call_user_func_array(
+                                $this->default_handler_plugins[ $plugin_type ][ $tag ][ 0 ],
+                                array($new_args,
+                                $this)
+                            );
                         } else {
-                            return $this->callTagCompiler('private_registered_' . $plugin_type,
-                                                          $args,
-                                                          $parameter,
-                                                          $tag);
+                            return $this->callTagCompiler(
+                                'private_registered_' . $plugin_type,
+                                $args,
+                                $parameter,
+                                $tag
+                            );
                         }
                     }
                 }
@@ -1566,22 +1610,26 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 if (isset($this->smarty->registered_objects[ $base_tag ]) && isset($parameter[ 'object_method' ])) {
                     $method = $parameter[ 'object_method' ];
                     if (in_array($method, $this->smarty->registered_objects[ $base_tag ][ 3 ])) {
-                        return $this->callTagCompiler('private_object_block_function',
-                                                      $args,
-                                                      $parameter,
-                                                      $tag,
-                                                      $method);
+                        return $this->callTagCompiler(
+                            'private_object_block_function',
+                            $args,
+                            $parameter,
+                            $tag,
+                            $method
+                        );
                     } else {
                         // throw exception
-                        $this->trigger_template_error('not allowed closing tag method "' . $method .
+                        $this->trigger_template_error(
+                            'not allowed closing tag method "' . $method .
                                                       '" in registered object "' . $base_tag . '"',
-                                                      null,
-                                                      true);
+                            null,
+                            true
+                        );
                     }
                 }
                 // registered block tag ?
-                if (isset($this->smarty->registered_plugins[ Smarty::PLUGIN_BLOCK ][ $base_tag ]) ||
-                    isset($this->default_handler_plugins[ Smarty::PLUGIN_BLOCK ][ $base_tag ])
+                if (isset($this->smarty->registered_plugins[ Smarty::PLUGIN_BLOCK ][ $base_tag ]) 
+                    || isset($this->default_handler_plugins[ Smarty::PLUGIN_BLOCK ][ $base_tag ])
                 ) {
                     return $this->callTagCompiler('private_registered_block', $args, $parameter, $tag);
                 }
@@ -1595,8 +1643,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 }
                 // function plugin?
                 if ($function = $this->getPlugin($tag, Smarty::PLUGIN_FUNCTION)) {
-                    if (!isset($this->smarty->security_policy) ||
-                        $this->smarty->security_policy->isTrustedTag($tag, $this)
+                    if (!isset($this->smarty->security_policy) 
+                        || $this->smarty->security_policy->isTrustedTag($tag, $this)
                     ) {
                         return $this->callTagCompiler('private_function_plugin', $args, $parameter, $tag, $function);
                     }
@@ -1608,9 +1656,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     if (!$this->smarty->registered_plugins[ Smarty::PLUGIN_COMPILER ][ $tag ][ 1 ]) {
                         $this->tag_nocache = true;
                     }
-                    return call_user_func_array($this->smarty->registered_plugins[ Smarty::PLUGIN_COMPILER ][ $tag ][ 0 ],
-                                                array($args,
-                                                      $this));
+                    return call_user_func_array(
+                        $this->smarty->registered_plugins[ Smarty::PLUGIN_COMPILER ][ $tag ][ 0 ],
+                        array($args,
+                        $this)
+                    );
                 }
                 if ($this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
                     $plugin = 'smarty_compiler_' . $tag;

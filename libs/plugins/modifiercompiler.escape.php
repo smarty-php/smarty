@@ -14,8 +14,8 @@
  * @link   http://www.smarty.net/docsv2/en/language.modifier.escape count_characters (Smarty online manual)
  * @author Rodney Rehm
  *
- * @param array                                 $params parameters
- * @param  Smarty_Internal_TemplateCompilerBase $compiler
+ * @param array                                $params   parameters
+ * @param Smarty_Internal_TemplateCompilerBase $compiler
  *
  * @return string with compiled code
  * @throws \SmartyException
@@ -24,8 +24,10 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
 {
     static $_double_encode = null;
     static $is_loaded = false;
-    $compiler->template->_checkPlugins(array(array('function' => 'smarty_literal_compiler_param',
-                                         'file' => SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php')));
+    $compiler->template->_checkPlugins(
+        array(array('function' => 'smarty_literal_compiler_param',
+        'file' => SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php'))
+    );
     if ($_double_encode === null) {
         $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
     }
@@ -40,57 +42,57 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
         }
 
         switch ($esc_type) {
-            case 'html':
-                if ($_double_encode) {
-                    return 'htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
-                           var_export($double_encode, true) . ')';
-                } elseif ($double_encode) {
-                    return 'htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ')';
-                } else {
-                    // fall back to modifier.escape.php
-                }
+        case 'html':
+            if ($_double_encode) {
+                return 'htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
+                       var_export($double_encode, true) . ')';
+            } elseif ($double_encode) {
+                return 'htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ')';
+            } else {
+                // fall back to modifier.escape.php
+            }
 
-            case 'htmlall':
-                if (Smarty::$_MBSTRING) {
-                    if ($_double_encode) {
-                        // php >=5.2.3 - go native
-                        return 'mb_convert_encoding(htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' .
-                               var_export($char_set, true) . ', ' . var_export($double_encode, true) .
-                               '), "HTML-ENTITIES", ' . var_export($char_set, true) . ')';
-                    } elseif ($double_encode) {
-                        // php <5.2.3 - only handle double encoding
-                        return 'mb_convert_encoding(htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' .
-                               var_export($char_set, true) . '), "HTML-ENTITIES", ' . var_export($char_set, true) . ')';
-                    } else {
-                        // fall back to modifier.escape.php
-                    }
-                }
-
-                // no MBString fallback
+        case 'htmlall':
+            if (Smarty::$_MBSTRING) {
                 if ($_double_encode) {
                     // php >=5.2.3 - go native
-                    return 'htmlentities(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
-                           var_export($double_encode, true) . ')';
+                    return 'mb_convert_encoding(htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' .
+                           var_export($char_set, true) . ', ' . var_export($double_encode, true) .
+                           '), "HTML-ENTITIES", ' . var_export($char_set, true) . ')';
                 } elseif ($double_encode) {
                     // php <5.2.3 - only handle double encoding
-                    return 'htmlentities(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ')';
+                    return 'mb_convert_encoding(htmlspecialchars(' . $params[ 0 ] . ', ENT_QUOTES, ' .
+                           var_export($char_set, true) . '), "HTML-ENTITIES", ' . var_export($char_set, true) . ')';
                 } else {
                     // fall back to modifier.escape.php
                 }
+            }
 
-            case 'url':
-                return 'rawurlencode(' . $params[ 0 ] . ')';
+            // no MBString fallback
+            if ($_double_encode) {
+                // php >=5.2.3 - go native
+                return 'htmlentities(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
+                       var_export($double_encode, true) . ')';
+            } elseif ($double_encode) {
+                // php <5.2.3 - only handle double encoding
+                return 'htmlentities(' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ')';
+            } else {
+                // fall back to modifier.escape.php
+            }
 
-            case 'urlpathinfo':
-                return 'str_replace("%2F", "/", rawurlencode(' . $params[ 0 ] . '))';
+        case 'url':
+            return 'rawurlencode(' . $params[ 0 ] . ')';
 
-            case 'quotes':
-                // escape unescaped single quotes
-                return 'preg_replace("%(?<!\\\\\\\\)\'%", "\\\'",' . $params[ 0 ] . ')';
+        case 'urlpathinfo':
+            return 'str_replace("%2F", "/", rawurlencode(' . $params[ 0 ] . '))';
 
-            case 'javascript':
-                // escape quotes and backslashes, newlines, etc.
-                return 'strtr(' . $params[ 0 ] .
+        case 'quotes':
+            // escape unescaped single quotes
+            return 'preg_replace("%(?<!\\\\\\\\)\'%", "\\\'",' . $params[ 0 ] . ')';
+
+        case 'javascript':
+            // escape quotes and backslashes, newlines, etc.
+            return 'strtr(' . $params[ 0 ] .
                        ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", "\\n" => "\\\n", "</" => "<\/" ))';
         }
     }

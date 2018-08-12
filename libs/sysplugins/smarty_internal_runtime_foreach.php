@@ -6,7 +6,6 @@
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
- *
  */
 class Smarty_Internal_Runtime_Foreach
 {
@@ -35,8 +34,8 @@ class Smarty_Internal_Runtime_Foreach
      * @return mixed $from
      */
     public function init(Smarty_Internal_Template $tpl, $from, $item, $needTotal = false, $key = null, $name = null,
-                         $properties = array())
-    {
+        $properties = array()
+    ) {
         $needTotal = $needTotal || isset($properties[ 'total' ]);
         $saveVars = array();
         $total = null;
@@ -97,10 +96,9 @@ class Smarty_Internal_Runtime_Foreach
     }
 
     /**
-     *
      * [util function] counts an array, arrayAccess/traversable or PDOStatement object
      *
-     * @param  mixed $value
+     * @param mixed $value
      *
      * @return int   the count for arrays and objects that implement countable, 1 for other objects that don't, and 0
      *               for empty elements

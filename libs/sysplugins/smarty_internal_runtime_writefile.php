@@ -17,9 +17,9 @@ class Smarty_Internal_Runtime_WriteFile
     /**
      * Writes file in a safe way to disk
      *
-     * @param  string $_filepath complete filepath
-     * @param  string $_contents file content
-     * @param  Smarty $smarty    smarty instance
+     * @param string $_filepath complete filepath
+     * @param string $_contents file content
+     * @param Smarty $smarty    smarty instance
      *
      * @throws SmartyException
      * @return boolean true

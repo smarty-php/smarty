@@ -12,9 +12,9 @@
  * Name:     count_paragraphs
  * Purpose:  count the number of paragraphs in a text
  *
- * @link    http://www.smarty.net/manual/en/language.modifier.count.paragraphs.php
+ * @link   http://www.smarty.net/manual/en/language.modifier.count.paragraphs.php
  *          count_paragraphs (Smarty online manual)
- * @author  Uwe Tews
+ * @author Uwe Tews
  *
  * @param array $params parameters
  *

@@ -34,11 +34,11 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
     /**
      * Compiles code for the execution of block plugin
      *
-     * @param  array                                $args      array with attributes from parser
+     * @param array                                 $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
-     * @param  string                               $tag       name of block plugin
-     * @param  string                               $function  PHP function name
+     * @param array                                 $parameter array with compilation parameter
+     * @param string                                $tag       name of block plugin
+     * @param string                                $function  PHP function name
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
@@ -84,9 +84,11 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                 $mod_content2 = "\$_block_content{$this->nesting}";
                 $mod_content = "\$_block_content{$this->nesting} = ob_get_clean();\n";
                 $mod_pre = "ob_start();\n";
-                $mod_post = 'echo ' . $compiler->compileTag('private_modifier', array(),
-                                                            array('modifierlist' => $parameter[ 'modifier_list' ],
-                                                                  'value' => 'ob_get_clean()')) . ";\n";
+                $mod_post = 'echo ' . $compiler->compileTag(
+                    'private_modifier', array(),
+                    array('modifierlist' => $parameter[ 'modifier_list' ],
+                    'value' => 'ob_get_clean()')
+                ) . ";\n";
             }
             $output = "<?php {$mod_content}\$_block_repeat=false;\n{$mod_pre}echo {$callback}({$_params}, {$mod_content2}, \$_smarty_tpl, \$_block_repeat);\n{$mod_post}}\n";
             $output .= 'array_pop($_smarty_tpl->smarty->_cache[\'_tag_stack\']);?>';
@@ -98,9 +100,9 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
      * Setup callback and parameter array
      *
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
-     * @param  array                                $_attr attributes
-     * @param  string                               $tag
-     * @param  string                               $function
+     * @param array                                 $_attr    attributes
+     * @param string                                $tag
+     * @param string                                $function
      *
      * @return array
      */

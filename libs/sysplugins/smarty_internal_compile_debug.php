@@ -20,8 +20,8 @@ class Smarty_Internal_Compile_Debug extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {debug} tag
      *
-     * @param  array  $args     array with attributes from parser
-     * @param  object $compiler compiler object
+     * @param array  $args     array with attributes from parser
+     * @param object $compiler compiler object
      *
      * @return string compiled code
      */

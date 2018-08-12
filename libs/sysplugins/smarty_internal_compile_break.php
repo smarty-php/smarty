@@ -33,16 +33,16 @@ class Smarty_Internal_Compile_Break extends Smarty_Internal_CompileBase
     public $shorttag_order = array('levels');
 
     /**
-    * Tag name may be overloaded by Smarty_Internal_Compile_Continue
-    *
-    * @var string
-    */
+     * Tag name may be overloaded by Smarty_Internal_Compile_Continue
+     *
+     * @var string
+     */
     public $tag = 'break';
 
     /**
      * Compiles code for the {break} tag
      *
-     * @param  array                                $args     array with attributes from parser
+     * @param array                                 $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
@@ -67,7 +67,7 @@ class Smarty_Internal_Compile_Break extends Smarty_Internal_CompileBase
     /**
      * check attributes and return array of break and foreach levels
      *
-     * @param  array                                $args     array with attributes from parser
+     * @param array                                 $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return array

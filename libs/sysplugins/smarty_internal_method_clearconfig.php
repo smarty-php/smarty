@@ -25,7 +25,7 @@ class Smarty_Internal_Method_ClearConfig
      * @link http://www.smarty.net/docs/en/api.clear.config.tpl
      *
      * @param \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty $data
-     * @param  string|null                                            $name variable name or null
+     * @param string|null                                             $name variable name or null
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */

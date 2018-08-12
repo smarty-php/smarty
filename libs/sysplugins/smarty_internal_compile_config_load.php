@@ -60,7 +60,7 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {config_load} tag
      *
-     * @param  array                                $args     array with attributes from parser
+     * @param array                                 $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code

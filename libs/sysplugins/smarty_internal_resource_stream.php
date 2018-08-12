@@ -68,9 +68,9 @@ class Smarty_Internal_Resource_Stream extends Smarty_Resource_Recompiled
     /**
      * modify resource_name according to resource handlers specifications
      *
-     * @param Smarty   $smarty        Smarty instance
-     * @param string   $resource_name resource_name to make unique
-     * @param  boolean $isConfig      flag for config resource
+     * @param Smarty  $smarty        Smarty instance
+     * @param string  $resource_name resource_name to make unique
+     * @param boolean $isConfig      flag for config resource
      *
      * @return string unique resource name
      */

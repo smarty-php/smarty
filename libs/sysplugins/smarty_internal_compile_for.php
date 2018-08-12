@@ -26,9 +26,9 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
      * The parser is generating different sets of attribute by which this compiler can
      * determine which syntax is used.
      *
-     * @param  array  $args      array with attributes from parser
-     * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param array  $args      array with attributes from parser
+     * @param object $compiler  compiler object
+     * @param array  $parameter array with compilation parameter
      *
      * @return string compiled code
      */
@@ -113,9 +113,9 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {forelse} tag
      *
-     * @param  array  $args      array with attributes from parser
-     * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param array  $args      array with attributes from parser
+     * @param object $compiler  compiler object
+     * @param array  $parameter array with compilation parameter
      *
      * @return string compiled code
      */
@@ -142,9 +142,9 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {/for} tag
      *
-     * @param  array  $args      array with attributes from parser
-     * @param  object $compiler  compiler object
-     * @param  array  $parameter array with compilation parameter
+     * @param array  $args      array with attributes from parser
+     * @param object $compiler  compiler object
+     * @param array  $parameter array with compilation parameter
      *
      * @return string compiled code
      */

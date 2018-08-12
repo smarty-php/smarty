@@ -30,21 +30,21 @@ function smarty_modifiercompiler_unescape($params)
     }
 
     switch (trim($params[ 1 ], '"\'')) {
-        case 'entity':
-        case 'htmlall':
-            if (Smarty::$_MBSTRING) {
-                return 'mb_convert_encoding(' . $params[ 0 ] . ', ' . $params[ 2 ] . ', \'HTML-ENTITIES\')';
-            }
+    case 'entity':
+    case 'htmlall':
+        if (Smarty::$_MBSTRING) {
+            return 'mb_convert_encoding(' . $params[ 0 ] . ', ' . $params[ 2 ] . ', \'HTML-ENTITIES\')';
+        }
 
-            return 'html_entity_decode(' . $params[ 0 ] . ', ENT_NOQUOTES, ' . $params[ 2 ] . ')';
+        return 'html_entity_decode(' . $params[ 0 ] . ', ENT_NOQUOTES, ' . $params[ 2 ] . ')';
 
-        case 'html':
-            return 'htmlspecialchars_decode(' . $params[ 0 ] . ', ENT_QUOTES)';
+    case 'html':
+        return 'htmlspecialchars_decode(' . $params[ 0 ] . ', ENT_QUOTES)';
 
-        case 'url':
-            return 'rawurldecode(' . $params[ 0 ] . ')';
+    case 'url':
+        return 'rawurldecode(' . $params[ 0 ] . ')';
 
-        default:
-            return $params[ 0 ];
+    default:
+        return $params[ 0 ];
     }
 }

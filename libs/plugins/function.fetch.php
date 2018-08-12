@@ -81,73 +81,73 @@ function smarty_function_fetch($params, $template)
             // loop through parameters, setup headers
             foreach ($params as $param_key => $param_value) {
                 switch ($param_key) {
-                    case 'file':
-                    case 'assign':
-                    case 'assign_headers':
-                        break;
-                    case 'user':
-                        if (!empty($param_value)) {
-                            $user = $param_value;
-                        }
-                        break;
-                    case 'pass':
-                        if (!empty($param_value)) {
-                            $pass = $param_value;
-                        }
-                        break;
-                    case 'accept':
-                        if (!empty($param_value)) {
-                            $accept = $param_value;
-                        }
-                        break;
-                    case 'header':
-                        if (!empty($param_value)) {
-                            if (!preg_match('![\w\d-]+: .+!', $param_value)) {
-                                trigger_error("[plugin] invalid header format '{$param_value}'", E_USER_NOTICE);
-
-                                return;
-                            } else {
-                                $extra_headers[] = $param_value;
-                            }
-                        }
-                        break;
-                    case 'proxy_host':
-                        if (!empty($param_value)) {
-                            $proxy_host = $param_value;
-                        }
-                        break;
-                    case 'proxy_port':
-                        if (!preg_match('!\D!', $param_value)) {
-                            $proxy_port = (int) $param_value;
-                        } else {
-                            trigger_error("[plugin] invalid value for attribute '{$param_key }'", E_USER_NOTICE);
+                case 'file':
+                case 'assign':
+                case 'assign_headers':
+                    break;
+                case 'user':
+                    if (!empty($param_value)) {
+                        $user = $param_value;
+                    }
+                    break;
+                case 'pass':
+                    if (!empty($param_value)) {
+                        $pass = $param_value;
+                    }
+                    break;
+                case 'accept':
+                    if (!empty($param_value)) {
+                        $accept = $param_value;
+                    }
+                    break;
+                case 'header':
+                    if (!empty($param_value)) {
+                        if (!preg_match('![\w\d-]+: .+!', $param_value)) {
+                            trigger_error("[plugin] invalid header format '{$param_value}'", E_USER_NOTICE);
 
                             return;
-                        }
-                        break;
-                    case 'agent':
-                        if (!empty($param_value)) {
-                            $agent = $param_value;
-                        }
-                        break;
-                    case 'referer':
-                        if (!empty($param_value)) {
-                            $referer = $param_value;
-                        }
-                        break;
-                    case 'timeout':
-                        if (!preg_match('!\D!', $param_value)) {
-                            $timeout = (int) $param_value;
                         } else {
-                            trigger_error("[plugin] invalid value for attribute '{$param_key}'", E_USER_NOTICE);
-
-                            return;
+                            $extra_headers[] = $param_value;
                         }
-                        break;
-                    default:
-                        trigger_error("[plugin] unrecognized attribute '{$param_key}'", E_USER_NOTICE);
+                    }
+                    break;
+                case 'proxy_host':
+                    if (!empty($param_value)) {
+                        $proxy_host = $param_value;
+                    }
+                    break;
+                case 'proxy_port':
+                    if (!preg_match('!\D!', $param_value)) {
+                        $proxy_port = (int) $param_value;
+                    } else {
+                        trigger_error("[plugin] invalid value for attribute '{$param_key }'", E_USER_NOTICE);
 
                         return;
+                    }
+                    break;
+                case 'agent':
+                    if (!empty($param_value)) {
+                        $agent = $param_value;
+                    }
+                    break;
+                case 'referer':
+                    if (!empty($param_value)) {
+                        $referer = $param_value;
+                    }
+                    break;
+                case 'timeout':
+                    if (!preg_match('!\D!', $param_value)) {
+                        $timeout = (int) $param_value;
+                    } else {
+                        trigger_error("[plugin] invalid value for attribute '{$param_key}'", E_USER_NOTICE);
+
+                        return;
+                    }
+                    break;
+                default:
+                    trigger_error("[plugin] unrecognized attribute '{$param_key}'", E_USER_NOTICE);
+
+                    return;
                 }
             }
             if (!empty($proxy_host) && !empty($proxy_port)) {

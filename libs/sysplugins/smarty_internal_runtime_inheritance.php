@@ -6,7 +6,6 @@
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
- *
  **/
 class Smarty_Internal_Runtime_Inheritance
 {
@@ -64,7 +63,6 @@ class Smarty_Internal_Runtime_Inheritance
      * @param \Smarty_Internal_Template $tpl        template object of caller
      * @param bool                      $initChild  if true init for child template
      * @param array                     $blockNames outer level block name
-     *
      */
     public function init(Smarty_Internal_Template $tpl, $initChild, $blockNames = array())
     {
@@ -113,18 +111,21 @@ class Smarty_Internal_Runtime_Inheritance
             ob_end_clean();
             $this->state = 2;
         }
-        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends') ||
-                                 $tpl->smarty->extends_recursion)) {
-            $tpl->_subTemplateRender($template,
-                                     $tpl->cache_id,
-                                     $tpl->compile_id,
-                                     $tpl->caching ? 9999 : 0,
-                                     $tpl->cache_lifetime,
-                                     array(),
-                                     2,
-                                     false,
-                                     $uid,
-                                     $func);
+        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends') 
+            || $tpl->smarty->extends_recursion)
+        ) {
+            $tpl->_subTemplateRender(
+                $template,
+                $tpl->cache_id,
+                $tpl->compile_id,
+                $tpl->caching ? 9999 : 0,
+                $tpl->cache_lifetime,
+                array(),
+                2,
+                false,
+                $uid,
+                $func
+            );
         }
     }
 
@@ -134,7 +135,7 @@ class Smarty_Internal_Runtime_Inheritance
      * - otherwise process inheritance and render
      *
      * @param \Smarty_Internal_Template $tpl
-     * @param                           $className
+     * @param $className
      * @param string                    $name
      * @param int|null                  $tplIndex index of outer level {block} if nested
      *
@@ -167,8 +168,8 @@ class Smarty_Internal_Runtime_Inheritance
      * @throws \SmartyException
      */
     public function process(Smarty_Internal_Template $tpl, Smarty_Internal_Block $block,
-                            Smarty_Internal_Block $parent = null)
-    {
+        Smarty_Internal_Block $parent = null
+    ) {
         if ($block->hide && !isset($block->child)) {
             return;
         }
@@ -187,8 +188,8 @@ class Smarty_Internal_Runtime_Inheritance
         if ($block->prepend && isset($parent)) {
             $this->callParent($tpl, $block, '{block prepend}');
             if ($block->append) {
-                if ($block->callsChild || !isset($block->child) ||
-                    ($block->child->hide && !isset($block->child->child))
+                if ($block->callsChild || !isset($block->child) 
+                    || ($block->child->hide && !isset($block->child->child))
                 ) {
                     $this->callBlock($block, $tpl);
                 } else {

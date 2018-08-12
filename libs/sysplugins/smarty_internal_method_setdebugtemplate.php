@@ -24,7 +24,7 @@ class Smarty_Internal_Method_SetDebugTemplate
      * @api Smarty::setDebugTemplate()
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string                                                         $tpl_name
+     * @param string                                                          $tpl_name
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws SmartyException if file is not readable

@@ -26,8 +26,8 @@ class Smarty_Internal_Runtime_CodeFrame
      * @return string
      */
     public function create(Smarty_Internal_Template $_template, $content = '', $functions = '', $cache = false,
-                           Smarty_Internal_TemplateCompilerBase $compiler = null)
-    {
+        Smarty_Internal_TemplateCompilerBase $compiler = null
+    ) {
         // build property code
         $properties[ 'version' ] = Smarty::SMARTY_VERSION;
         $properties[ 'unifunc' ] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
@@ -35,14 +35,14 @@ class Smarty_Internal_Runtime_CodeFrame
             $properties[ 'has_nocache_code' ] = $_template->compiled->has_nocache_code;
             $properties[ 'file_dependency' ] = $_template->compiled->file_dependency;
             $properties[ 'includes' ] = $_template->compiled->includes;
-         } else {
+        } else {
             $properties[ 'has_nocache_code' ] = $_template->cached->has_nocache_code;
             $properties[ 'file_dependency' ] = $_template->cached->file_dependency;
             $properties[ 'cache_lifetime' ] = $_template->cache_lifetime;
         }
         $output = "<?php\n";
         $output .= "/* Smarty version {$properties[ 'version' ]}, created on " . strftime("%Y-%m-%d %H:%M:%S") .
-                   "\n  from '" . str_replace('*/','* /',$_template->source->filepath) . "' */\n\n";
+                   "\n  from '" . str_replace('*/', '* /', $_template->source->filepath) . "' */\n\n";
         $output .= "/* @var Smarty_Internal_Template \$_smarty_tpl */\n";
         $dec = "\$_smarty_tpl->_decodeProperties(\$_smarty_tpl, " . var_export($properties, true) . ',' .
                ($cache ? 'true' : 'false') . ')';
@@ -65,11 +65,15 @@ class Smarty_Internal_Runtime_CodeFrame
         $output .= "<?php }\n";
         // remove unneeded PHP tags
         if (preg_match('/\s*\?>[\n]?<\?php\s*/', $output)) {
-            $curr_split = preg_split('/\s*\?>[\n]?<\?php\s*/',
-                                     $output);
-            preg_match_all('/\s*\?>[\n]?<\?php\s*/',
-                           $output,
-                           $curr_parts);
+            $curr_split = preg_split(
+                '/\s*\?>[\n]?<\?php\s*/',
+                $output
+            );
+            preg_match_all(
+                '/\s*\?>[\n]?<\?php\s*/',
+                $output,
+                $curr_parts
+            );
             $output = '';
             foreach ($curr_split as $idx => $curr_output) {
                 $output .= $curr_output;
@@ -79,8 +83,10 @@ class Smarty_Internal_Runtime_CodeFrame
             }
         }
         if (preg_match('/\?>\s*$/', $output)) {
-            $curr_split = preg_split('/\?>\s*$/',
-                                     $output);
+            $curr_split = preg_split(
+                '/\?>\s*$/',
+                $output
+            );
             $output = '';
             foreach ($curr_split as $idx => $curr_output) {
                 $output .= $curr_output;

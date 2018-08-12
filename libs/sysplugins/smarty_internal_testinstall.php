@@ -21,7 +21,7 @@ class Smarty_Internal_TestInstall
      * If $errors is secified, the diagnostic report will be appended to the array, rather than being output.
      *
      * @param \Smarty $smarty
-     * @param  array  $errors array to push results into rather than outputting them
+     * @param array   $errors array to push results into rather than outputting them
      *
      * @return bool status, true if everything is fine, false else
      */
