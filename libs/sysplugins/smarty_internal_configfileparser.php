@@ -275,7 +275,7 @@ class Smarty_Internal_Configfileparser
      * @param Smarty_Internal_Configfilelexer      $lex
      * @param Smarty_Internal_Config_File_Compiler $compiler
      */
-    function __construct(Smarty_Internal_Configfilelexer $lex, Smarty_Internal_Config_File_Compiler $compiler)
+    public function __construct(Smarty_Internal_Configfilelexer $lex, Smarty_Internal_Config_File_Compiler $compiler)
     {
         $this->lex = $lex;
         $this->smarty = $compiler->smarty;
