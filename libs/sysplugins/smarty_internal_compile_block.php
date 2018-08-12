@@ -66,7 +66,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         ++$compiler->_cache[ 'blockNesting' ];
-        $_className = 'Block_' . preg_replace('![^\w]+!', '_', uniqid(rand(), true));
+        $_className = 'Block_' . preg_replace('![^\w]+!', '_', uniqid(mt_rand(), true));
         $compiler->_cache[ 'blockName' ][ $compiler->_cache[ 'blockNesting' ] ] = $_attr[ 'name' ];
         $compiler->_cache[ 'blockClass' ][ $compiler->_cache[ 'blockNesting' ] ] = $_className;
         $compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ] = array();

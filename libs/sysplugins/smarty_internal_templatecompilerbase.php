@@ -328,7 +328,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             array('.',
                                                 ','),
             '_',
-            uniqid(rand(), true)
+            uniqid(mt_rand(), true)
         );
     }
 

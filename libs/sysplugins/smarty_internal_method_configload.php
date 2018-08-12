@@ -52,7 +52,6 @@ class Smarty_Internal_Method_ConfigLoad
      * @param int                                                     $scope       scope into which config variables
      *                                                                             shall be loaded
      *
-     * @return \Smarty|\Smarty_Internal_Data|\Smarty_Internal_Template
      * @throws \Exception
      */
     public function _loadConfigFile(Smarty_Internal_Data $data, $config_file, $sections = null, $scope = 0)
