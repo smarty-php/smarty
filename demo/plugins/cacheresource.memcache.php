@@ -96,6 +96,6 @@ class Smarty_CacheResource_Memcache extends Smarty_CacheResource_KeyValueStore
      */
     protected function purge()
     {
-        $this->memcache->flush();
+        return $this->memcache->flush();
     }
 }

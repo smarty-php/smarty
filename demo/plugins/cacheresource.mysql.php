@@ -33,6 +33,11 @@ class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom
 
     protected $save;
 
+    /**
+     * Smarty_CacheResource_Mysql constructor.
+     *
+     * @throws \SmartyException
+     */
     public function __construct()
     {
         try {
