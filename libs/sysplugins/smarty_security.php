@@ -264,10 +264,9 @@ class Smarty_Security
      * Check if PHP function is trusted.
      *
      * @param string $function_name
-     * @param object $compiler      compiler object
+     * @param object $compiler compiler object
      *
      * @return boolean                 true if function is trusted
-     * @throws SmartyCompilerException if php function is not trusted
      */
     public function isTrustedPhpFunction($function_name, $compiler)
     {
@@ -286,10 +285,9 @@ class Smarty_Security
      * Check if static class is trusted.
      *
      * @param string $class_name
-     * @param object $compiler   compiler object
+     * @param object $compiler compiler object
      *
      * @return boolean                 true if class is trusted
-     * @throws SmartyCompilerException if static class is not trusted
      */
     public function isTrustedStaticClass($class_name, $compiler)
     {
@@ -309,10 +307,9 @@ class Smarty_Security
      *
      * @param string $class_name
      * @param string $params
-     * @param object $compiler   compiler object
+     * @param object $compiler compiler object
      *
      * @return boolean                 true if class method is trusted
-     * @throws SmartyCompilerException if static class method is not trusted
      */
     public function isTrustedStaticClassAccess($class_name, $params, $compiler)
     {
@@ -347,10 +344,9 @@ class Smarty_Security
      * Check if PHP modifier is trusted.
      *
      * @param string $modifier_name
-     * @param object $compiler      compiler object
+     * @param object $compiler compiler object
      *
      * @return boolean                 true if modifier is trusted
-     * @throws SmartyCompilerException if modifier is not trusted
      */
     public function isTrustedPhpModifier($modifier_name, $compiler)
     {
@@ -372,7 +368,6 @@ class Smarty_Security
      * @param object $compiler compiler object
      *
      * @return boolean                 true if tag is trusted
-     * @throws SmartyCompilerException if modifier is not trusted
      */
     public function isTrustedTag($tag_name, $compiler)
     {
@@ -410,7 +405,6 @@ class Smarty_Security
      * @param object $compiler compiler object
      *
      * @return boolean                 true if tag is trusted
-     * @throws SmartyCompilerException if modifier is not trusted
      */
     public function isTrustedSpecialSmartyVar($var_name, $compiler)
     {
@@ -430,10 +424,9 @@ class Smarty_Security
      * Check if modifier plugin is trusted.
      *
      * @param string $modifier_name
-     * @param object $compiler      compiler object
+     * @param object $compiler compiler object
      *
      * @return boolean                 true if tag is trusted
-     * @throws SmartyCompilerException if modifier is not trusted
      */
     public function isTrustedModifier($modifier_name, $compiler)
     {

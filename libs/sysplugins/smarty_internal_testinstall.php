@@ -82,7 +82,7 @@ class Smarty_Internal_TestInstall
                 } else {
                     $errors[ 'template_dir' ] = $message;
                 }
-            } else if (!is_readable($template_dir)) {
+            } elseif (!is_readable($template_dir)) {
                 $status = false;
                 $message = "FAILED: $template_dir is not readable";
                 if ($errors === null) {
@@ -110,7 +110,7 @@ class Smarty_Internal_TestInstall
             } else {
                 $errors[ 'compile_dir' ] = $message;
             }
-        } else if (!is_dir($_compile_dir)) {
+        } elseif (!is_dir($_compile_dir)) {
             $status = false;
             $message = "FAILED: {$_compile_dir} is not a directory";
             if ($errors === null) {
@@ -118,7 +118,7 @@ class Smarty_Internal_TestInstall
             } else {
                 $errors[ 'compile_dir' ] = $message;
             }
-        } else if (!is_readable($_compile_dir)) {
+        } elseif (!is_readable($_compile_dir)) {
             $status = false;
             $message = "FAILED: {$_compile_dir} is not readable";
             if ($errors === null) {
@@ -126,7 +126,7 @@ class Smarty_Internal_TestInstall
             } else {
                 $errors[ 'compile_dir' ] = $message;
             }
-        } else if (!is_writable($_compile_dir)) {
+        } elseif (!is_writable($_compile_dir)) {
             $status = false;
             $message = "FAILED: {$_compile_dir} is not writable";
             if ($errors === null) {
@@ -192,7 +192,7 @@ class Smarty_Internal_TestInstall
                 } else {
                     $errors[ 'plugins_dir' ] = $message;
                 }
-            } else if (!is_readable($plugin_dir)) {
+            } elseif (!is_readable($plugin_dir)) {
                 $status = false;
                 $message = "FAILED: $plugin_dir is not readable";
                 if ($errors === null) {
@@ -200,7 +200,7 @@ class Smarty_Internal_TestInstall
                 } else {
                     $errors[ 'plugins_dir' ] = $message;
                 }
-            } else if ($_core_plugins_dir && $_core_plugins_dir == realpath($plugin_dir)) {
+            } elseif ($_core_plugins_dir && $_core_plugins_dir == realpath($plugin_dir)) {
                 $_core_plugins_available = true;
                 if ($errors === null) {
                     echo "$plugin_dir is OK.\n";
@@ -216,7 +216,7 @@ class Smarty_Internal_TestInstall
             $message = "WARNING: Smarty's own libs/plugins is not available";
             if ($errors === null) {
                 echo $message . ".\n";
-            } else if (!isset($errors[ 'plugins_dir' ])) {
+            } elseif (!isset($errors[ 'plugins_dir' ])) {
                 $errors[ 'plugins_dir' ] = $message;
             }
         }
@@ -234,7 +234,7 @@ class Smarty_Internal_TestInstall
             } else {
                 $errors[ 'cache_dir' ] = $message;
             }
-        } else if (!is_dir($_cache_dir)) {
+        } elseif (!is_dir($_cache_dir)) {
             $status = false;
             $message = "FAILED: {$_cache_dir} is not a directory";
             if ($errors === null) {
@@ -242,7 +242,7 @@ class Smarty_Internal_TestInstall
             } else {
                 $errors[ 'cache_dir' ] = $message;
             }
-        } else if (!is_readable($_cache_dir)) {
+        } elseif (!is_readable($_cache_dir)) {
             $status = false;
             $message = "FAILED: {$_cache_dir} is not readable";
             if ($errors === null) {
@@ -250,7 +250,7 @@ class Smarty_Internal_TestInstall
             } else {
                 $errors[ 'cache_dir' ] = $message;
             }
-        } else if (!is_writable($_cache_dir)) {
+        } elseif (!is_writable($_cache_dir)) {
             $status = false;
             $message = "FAILED: {$_cache_dir} is not writable";
             if ($errors === null) {
@@ -312,7 +312,7 @@ class Smarty_Internal_TestInstall
                 } else {
                     $errors[ 'config_dir' ] = $message;
                 }
-            } else if (!is_readable($config_dir)) {
+            } elseif (!is_readable($config_dir)) {
                 $status = false;
                 $message = "FAILED: $config_dir is not readable";
                 if ($errors === null) {
@@ -502,7 +502,7 @@ class Smarty_Internal_TestInstall
                 } else {
                     $errors[ 'sysplugins' ] = $message;
                 }
-            } else if ($errors === null) {
+            } elseif ($errors === null) {
                 echo "... OK\n";
             }
         } else {
@@ -586,7 +586,7 @@ class Smarty_Internal_TestInstall
                 } else {
                     $errors[ 'plugins' ] = $message;
                 }
-            } else if ($errors === null) {
+            } elseif ($errors === null) {
                 echo "... OK\n";
             }
         } else {

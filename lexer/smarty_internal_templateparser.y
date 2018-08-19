@@ -147,7 +147,7 @@ class Smarty_Internal_Templateparser
      * @param Smarty_Internal_Templatelexer        $lex
      * @param Smarty_Internal_TemplateCompilerBase $compiler
      */
-    function __construct(Smarty_Internal_Templatelexer $lex, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function __construct(Smarty_Internal_Templatelexer $lex, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         $this->lex = $lex;
         $this->compiler = $compiler;

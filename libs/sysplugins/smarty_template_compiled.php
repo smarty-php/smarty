@@ -134,7 +134,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $smarty = &$_smarty_tpl->smarty;
         if ($source->handler->recompiled) {
             $source->handler->process($_smarty_tpl);
-        } else if (!$source->handler->uncompiled) {
+        } elseif (!$source->handler->uncompiled) {
             if (!$this->exists || $smarty->force_compile 
                 || ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
             ) {
@@ -246,7 +246,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
         ) {
             opcache_invalidate($this->filepath, true);
-        } else if (function_exists('apc_compile_file')) {
+        } elseif (function_exists('apc_compile_file')) {
             apc_compile_file($this->filepath);
         }
         if (defined('HHVM_VERSION')) {

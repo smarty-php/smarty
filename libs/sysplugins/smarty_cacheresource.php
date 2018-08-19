@@ -25,12 +25,12 @@ abstract class Smarty_CacheResource
     /**
      * populate Cached Object with meta data from Resource
      *
-     * @param Smarty_Template_Cached   $cached    cached object
+     * @param \Smarty_Template_Cached   $cached    cached object
      * @param Smarty_Internal_Template $_template template object
      *
      * @return void
      */
-    abstract public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template);
+    abstract public function populate(\Smarty_Template_Cached $cached, Smarty_Internal_Template $_template);
 
     /**
      * populate Cached Object with timestamp and exists from Resource

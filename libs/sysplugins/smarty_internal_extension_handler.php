@@ -61,7 +61,6 @@ class Smarty_Internal_Extension_Handler
      * @param array                 $args argument array
      *
      * @return mixed
-     * @throws SmartyException
      */
     public function _callExternalMethod(Smarty_Internal_Data $data, $name, $args)
     {
@@ -106,7 +105,7 @@ class Smarty_Internal_Extension_Handler
                             if ($property !== false) {
                                 if (property_exists($data, $property)) {
                                     $propertyType = $this->resolvedProperties[ $match[0] ][ $objType ] = 1;
-                                } else if (property_exists($smarty, $property)) {
+                                } elseif (property_exists($smarty, $property)) {
                                     $propertyType = $this->resolvedProperties[ $match[0] ][ $objType ] = 2;
                                 } else {
                                     $this->resolvedProperties['property'][ $basename ] = $property = false;
@@ -120,7 +119,7 @@ class Smarty_Internal_Extension_Handler
                             $obj = $propertyType === 1 ? $data : $smarty;
                             if ($match[2] === 'get') {
                                 return $obj->$property;
-                            } else if ($match[2] === 'set') {
+                            } elseif ($match[2] === 'set') {
                                 return $obj->$property = $args[0];
                             }
                         }
@@ -156,7 +155,6 @@ class Smarty_Internal_Extension_Handler
      * @param string $property_name property name
      *
      * @return mixed|Smarty_Template_Cached
-     * @throws SmartyException
      */
     public function __get($property_name)
     {
@@ -178,7 +176,6 @@ class Smarty_Internal_Extension_Handler
      * @param string $property_name property name
      * @param mixed  $value         value
      *
-     * @throws SmartyException
      */
     public function __set($property_name, $value)
     {
@@ -192,7 +189,6 @@ class Smarty_Internal_Extension_Handler
      * @param array  $args argument array
      *
      * @return mixed
-     * @throws SmartyException
      */
     public function __call($name, $args)
     {

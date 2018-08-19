@@ -26,7 +26,6 @@ class Smarty_Internal_Resource_Stream extends Smarty_Resource_Recompiled
      * @param Smarty_Internal_Template $_template template object
      *
      * @return void
-     * @throws \SmartyException
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
     {
@@ -46,7 +45,6 @@ class Smarty_Internal_Resource_Stream extends Smarty_Resource_Recompiled
      * @param Smarty_Template_Source $source source object
      *
      * @return string template source
-     * @throws SmartyException if source cannot be loaded
      */
     public function getContent(Smarty_Template_Source $source)
     {

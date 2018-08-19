@@ -40,7 +40,6 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
      * @param array                                 $parameter array with compilation parameter
      *
      * @return string compiled code
-     * @throws \SmartyCompilerException
      */
     public static function compileSpecialVariable($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = null)
     {

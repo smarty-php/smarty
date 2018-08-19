@@ -29,7 +29,7 @@ class Smarty_Internal_Method_CreateData
      *                                                                                     variables
      * @param string                                                               $name   optional data block name
      *
-     * @returns Smarty_Data data object
+     * @return \Smarty_Data data object
      */
     public function createData(Smarty_Internal_TemplateBase $obj, Smarty_Internal_Data $parent = null, $name = null)
     {

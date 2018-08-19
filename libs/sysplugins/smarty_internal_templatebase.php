@@ -271,7 +271,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @param mixed    $cache_attr caching attributes if any
      *
      * @return \Smarty|\Smarty_Internal_Template
-     * @throws SmartyException              when the plugin tag is invalid
+     * @throws \SmartyException
      */
     public function registerPlugin($type, $name, $callback, $cacheable = true, $cache_attr = null)
     {
@@ -288,7 +288,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @param string $name filter name
      *
      * @return bool
-     * @throws SmartyException if filter could not be loaded
+     * @throws \SmartyException
      */
     public function loadFilter($type, $name)
     {
@@ -301,9 +301,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @api  Smarty::registerFilter()
      * @link http://www.smarty.net/docs/en/api.register.filter.tpl
      *
-     * @param string      $type     filter type
+     * @param string      $type filter type
      * @param callback    $callback
-     * @param string|null $name     optional filter name
+     * @param string|null $name optional filter name
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException

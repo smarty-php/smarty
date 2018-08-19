@@ -62,7 +62,7 @@ function smarty_modifier_mb_wordwrap($str, $width = 75, $break = "\n", $cut = fa
                     }
                     $length = $token_length;
                 }
-            } else if ($token === "\n") {
+            } elseif ($token === "\n") {
                 // hard break must reset counters
                 $length = 0;
             }

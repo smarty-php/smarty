@@ -126,7 +126,7 @@ class Smarty_Internal_Runtime_CacheResourceFile
                             && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
                         ) {
                             opcache_invalidate($_filepath, true);
-                        } else if (function_exists('apc_delete_file')) {
+                        } elseif (function_exists('apc_delete_file')) {
                             apc_delete_file($_filepath);
                         }
                     }

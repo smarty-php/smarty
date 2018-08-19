@@ -24,7 +24,6 @@ class Smarty_Internal_ErrorHandler
     /**
      * Enable error handler to mute expected messages
      *
-     * @return boolean
      */
     public static function muteExpectedErrors()
     {
