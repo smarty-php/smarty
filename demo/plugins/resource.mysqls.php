@@ -27,6 +27,11 @@ class Smarty_Resource_Mysqls extends Smarty_Resource_Custom
     // prepared fetch() statement
     protected $fetch;
 
+    /**
+     * Smarty_Resource_Mysqls constructor.
+     *
+     * @throws \SmartyException
+     */
     public function __construct()
     {
         try {

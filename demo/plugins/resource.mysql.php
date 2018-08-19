@@ -28,6 +28,11 @@ class Smarty_Resource_Mysql extends Smarty_Resource_Custom
     // prepared fetchTimestamp() statement
     protected $mtime;
 
+    /**
+     * Smarty_Resource_Mysql constructor.
+     *
+     * @throws \SmartyException
+     */
     public function __construct()
     {
         try {

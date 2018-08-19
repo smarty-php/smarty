@@ -11,6 +11,11 @@
  */
 class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
 {
+    /**
+     * Smarty_CacheResource_Apc constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         // test if APC is present
