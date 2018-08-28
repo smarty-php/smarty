@@ -218,7 +218,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
      *
      * @return string
      */
-    function removeNocache($match)
+    public function removeNocache($match)
     {
         $code =
             preg_replace(

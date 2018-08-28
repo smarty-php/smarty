@@ -107,8 +107,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                         echo ' is up to date';
                         flush();
                     }
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     echo "\n<br>        ------>Error: ", $e->getMessage(), "<br><br>\n";
                     $_error_count++;
                 }

@@ -29,7 +29,7 @@
  */
 class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
 {
-    protected $fetchStatements = Array('default' => 'SELECT %2$s
+    protected $fetchStatements = array('default' => 'SELECT %2$s
                                                                                     FROM %1$s 
                                                                                     WHERE 1 
                                                                                     AND id          = :id 
@@ -74,14 +74,16 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
     protected $truncateStatement = 'TRUNCATE TABLE %s';
     protected $fetchColumns = 'modified, content';
     protected $fetchTimestampColumns = 'modified';
-    protected $pdo, $table, $database;
+    protected $pdo;
+    protected $table;
+    protected $database;
 
-    /* 
-     * Constructor 
-     * 
-     * @param PDO $pdo PDO : active connection 
-     * @param string $table : table (or view) name 
-     * @param string $database : optional - if table is located in another db 
+    /*
+     * Constructor
+     *
+     * @param PDO $pdo PDO : active connection
+     * @param string $table : table (or view) name
+     * @param string $database : optional - if table is located in another db
      */
     /**
      * Smarty_CacheResource_Pdo constructor.
@@ -103,15 +105,15 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
         $this->fillStatementsWithTableName();
     }
 
-    /* 
-     * Fills the table name into the statements. 
-     * 
-     * @return Current Instance 
-     * @access protected 
+    /*
+     * Fills the table name into the statements.
+     *
+     * @return Current Instance
+     * @access protected
      */
     protected function fillStatementsWithTableName()
     {
-        foreach ($this->fetchStatements AS &$statement) {
+        foreach ($this->fetchStatements as &$statement) {
             $statement = sprintf($statement, $this->getTableName(), '%s');
         }
         $this->insertStatement = sprintf($this->insertStatement, $this->getTableName());
@@ -120,31 +122,31 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
         return $this;
     }
 
-    /* 
-     * Gets the fetch statement, depending on what you specify 
-     * 
-     * @param string        $columns : the column(s) name(s) you want to retrieve from the database 
-     * @param string        $id unique cache content identifier 
-     * @param string|null   $cache_id cache id 
-     * @param string|null   $compile_id compile id 
-     * @access protected 
+    /*
+     * Gets the fetch statement, depending on what you specify
+     *
+     * @param string        $columns : the column(s) name(s) you want to retrieve from the database
+     * @param string        $id unique cache content identifier
+     * @param string|null   $cache_id cache id
+     * @param string|null   $compile_id compile id
+     * @access protected
      */
     protected function getFetchStatement($columns, $id, $cache_id = null, $compile_id = null)
     {
         if (!is_null($cache_id) && !is_null($compile_id)) {
-            $query = $this->fetchStatements[ 'withCacheIdAndCompileId' ] AND
-            $args = Array('id' => $id, 'cache_id' => $cache_id, 'compile_id' => $compile_id);
+            $query = $this->fetchStatements[ 'withCacheIdAndCompileId' ] and
+            $args = array('id' => $id, 'cache_id' => $cache_id, 'compile_id' => $compile_id);
         } elseif (is_null($cache_id) && !is_null($compile_id)) {
-            $query = $this->fetchStatements[ 'withCompileId' ] AND
-            $args = Array('id' => $id, 'compile_id' => $compile_id);
+            $query = $this->fetchStatements[ 'withCompileId' ] and
+            $args = array('id' => $id, 'compile_id' => $compile_id);
         } elseif (!is_null($cache_id) && is_null($compile_id)) {
-            $query = $this->fetchStatements[ 'withCacheId' ] AND $args = Array('id' => $id, 'cache_id' => $cache_id);
+            $query = $this->fetchStatements[ 'withCacheId' ] and $args = array('id' => $id, 'cache_id' => $cache_id);
         } else {
-            $query = $this->fetchStatements[ 'default' ] AND $args = Array('id' => $id);
+            $query = $this->fetchStatements[ 'default' ] and $args = array('id' => $id);
         }
         $query = sprintf($query, $columns);
         $stmt = $this->pdo->prepare($query);
-        foreach ($args AS $key => $value) {
+        foreach ($args as $key => $value) {
             $stmt->bindValue($key, $value);
         }
         return $stmt;
@@ -224,24 +226,24 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
         return !!$stmt->rowCount();
     }
 
-    /* 
-     * Encodes the content before saving to database 
-     * 
-     * @param string $content 
-     * @return string $content 
-     * @access protected 
+    /*
+     * Encodes the content before saving to database
+     *
+     * @param string $content
+     * @return string $content
+     * @access protected
      */
     protected function inputContent($content)
     {
         return $content;
     }
 
-    /* 
-     * Decodes the content before saving to database 
-     * 
-     * @param string $content 
-     * @return string $content 
-     * @access protected 
+    /*
+     * Decodes the content before saving to database
+     *
+     * @param string $content
+     * @return string $content
+     * @access protected
      */
     protected function outputContent($content)
     {
@@ -263,33 +265,33 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
     {
         // delete the whole cache
         if ($name === null && $cache_id === null && $compile_id === null && $exp_time === null) {
-            // returning the number of deleted caches would require a second query to count them 
+            // returning the number of deleted caches would require a second query to count them
             $this->pdo->query($this->truncateStatement);
             return -1;
         }
-        // build the filter 
+        // build the filter
         $where = array();
-        // equal test name 
+        // equal test name
         if ($name !== null) {
             $where[] = 'name = ' . $this->pdo->quote($name);
         }
-        // equal test cache_id and match sub-groups 
+        // equal test cache_id and match sub-groups
         if ($cache_id !== null) {
             $where[] = '(cache_id = ' . $this->pdo->quote($cache_id) . ' OR cache_id LIKE ' .
                        $this->pdo->quote($cache_id . '|%') . ')';
         }
-        // equal test compile_id 
+        // equal test compile_id
         if ($compile_id !== null) {
             $where[] = 'compile_id = ' . $this->pdo->quote($compile_id);
         }
-        // for clearing expired caches 
+        // for clearing expired caches
         if ($exp_time === Smarty::CLEAR_EXPIRED) {
             $where[] = 'expire < CURRENT_TIMESTAMP';
         } // range test expiration time
         elseif ($exp_time !== null) {
             $where[] = 'modified < DATE_SUB(NOW(), INTERVAL ' . intval($exp_time) . ' SECOND)';
         }
-        // run delete query 
+        // run delete query
         $query = $this->pdo->query(sprintf($this->deleteStatement, join(' AND ', $where)));
         return $query->rowCount();
     }
@@ -305,4 +307,3 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
         return (is_null($this->database)) ? "`{$this->table}`" : "`{$this->database}`.`{$this->table}`";
     }
 }
- 

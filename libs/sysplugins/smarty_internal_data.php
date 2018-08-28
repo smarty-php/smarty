@@ -210,8 +210,7 @@ abstract class Smarty_Internal_Data
                                 Smarty_Internal_Data $_ptr = null,
                                 $searchParents = true,
                                 $error_enable = true
-    )
-    {
+    ) {
         return $this->ext->getTemplateVars->_getVariable($this, $variable, $_ptr, $searchParents, $error_enable);
     }
 

@@ -119,7 +119,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
             $_template->smarty
         ) === true
         ) {
-            if (function_exists('opcache_invalidate') 
+            if (function_exists('opcache_invalidate')
                 && (!function_exists('ini_get') || strlen(ini_get('opcache.restrict_api'))) < 1
             ) {
                 opcache_invalidate($_template->cached->filepath, true);

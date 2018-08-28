@@ -148,5 +148,4 @@ class Smarty_Internal_Runtime_Foreach
             $levels --;
         }
     }
-
 }

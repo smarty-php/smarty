@@ -35,10 +35,10 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             return is_file($file) ? $file : false;
         }
         // go relative to a given template?
-        if ($file[ 0 ] === '.' && $_template && $_template->_isSubTpl() 
+        if ($file[ 0 ] === '.' && $_template && $_template->_isSubTpl()
             && preg_match('#^[.]{1,2}[\\\/]#', $file)
         ) {
-            if ($_template->parent->source->type !== 'file' && $_template->parent->source->type !== 'extends' 
+            if ($_template->parent->source->type !== 'file' && $_template->parent->source->type !== 'extends'
                 && !isset($_template->parent->_cache[ 'allow_relative_path' ])
             ) {
                 throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");

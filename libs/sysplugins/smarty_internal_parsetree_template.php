@@ -24,7 +24,7 @@ class Smarty_Internal_ParseTree_Template extends Smarty_Internal_ParseTree
      *
      * @var array
      */
-    public $subtrees = Array();
+    public $subtrees = array();
 
     /**
      * Create root of parse tree for template elements

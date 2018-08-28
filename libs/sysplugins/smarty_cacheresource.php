@@ -71,7 +71,7 @@ abstract class Smarty_CacheResource
      *
      * @return string  content
      */
-    abstract function readCachedContent(Smarty_Internal_Template $_template);
+    abstract public function readCachedContent(Smarty_Internal_Template $_template);
 
     /**
      * Return cached content

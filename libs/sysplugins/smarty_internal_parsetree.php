@@ -48,7 +48,4 @@ abstract class Smarty_Internal_ParseTree
         $this->data = null;
         $this->subtrees = null;
     }
-
 }
-
-

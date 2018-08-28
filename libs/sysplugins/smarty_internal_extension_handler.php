@@ -38,7 +38,6 @@
  */
 class Smarty_Internal_Extension_Handler
 {
-
     public $objType = null;
 
     /**
@@ -49,7 +48,7 @@ class Smarty_Internal_Extension_Handler
      */
     private $_property_info     = array('AutoloadFilters' => 0, 'DefaultModifiers' => 0, 'ConfigVars' => 0,
                                         'DebugTemplate'   => 0, 'RegisteredObject' => 0, 'StreamVariable' => 0,
-                                        'TemplateVars'    => 0, 'Literals' => 'Literals',);// 
+                                        'TemplateVars'    => 0, 'Literals' => 'Literals',);//
 
     private $resolvedProperties = array();
 
@@ -69,7 +68,7 @@ class Smarty_Internal_Extension_Handler
         if (!isset($smarty->ext->$name)) {
             if (preg_match('/^((set|get)|(.*?))([A-Z].*)$/', $name, $match)) {
                 $basename = $this->upperCase($match[4]);
-                if (!isset($smarty->ext->$basename) && isset($this->_property_info[ $basename ]) 
+                if (!isset($smarty->ext->$basename) && isset($this->_property_info[ $basename ])
                     && is_string($this->_property_info[ $basename ])
                 ) {
                     $class = 'Smarty_Internal_Method_' . $this->_property_info[ $basename ];
@@ -194,5 +193,4 @@ class Smarty_Internal_Extension_Handler
     {
         return call_user_func_array(array(new Smarty_Internal_Undefined(), $name), array($this));
     }
-
 }

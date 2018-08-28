@@ -37,8 +37,7 @@ class Smarty_Resource_Mysql extends Smarty_Resource_Custom
     {
         try {
             $this->db = new PDO("mysql:dbname=test;host=127.0.0.1", "smarty");
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
         }
         $this->fetch = $this->db->prepare('SELECT modified, source FROM templates WHERE name = :name');

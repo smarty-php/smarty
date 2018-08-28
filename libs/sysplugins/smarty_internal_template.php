@@ -153,8 +153,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                                 $_caching = null,
                                 $_cache_lifetime = null,
                                 $_isConfig = false
-    )
-    {
+    ) {
         $this->smarty = $smarty;
         // Smarty parameter
         $this->cache_id = $_cache_id === null ? $this->smarty->cache_id : $_cache_id;
@@ -285,8 +284,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                                        $forceTplCache,
                                        $uid = null,
                                        $content_func = null
-    )
-    {
+    ) {
         $tpl = clone $this;
         $tpl->parent = $this;
         $smarty = &$this->smarty;
@@ -504,7 +502,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                     if ($tpl->source->filepath === $_file_to_check[ 0 ]) {
                         // do not recheck current template
                         continue;
-                        //$mtime = $tpl->source->getTimeStamp();
+                    //$mtime = $tpl->source->getTimeStamp();
                     } else {
                         // file and php types can be checked without loading the respective resource handlers
                         $mtime = is_file($_file_to_check[ 0 ]) ? filemtime($_file_to_check[ 0 ]) : false;
