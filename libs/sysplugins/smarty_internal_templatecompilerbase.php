@@ -1147,20 +1147,20 @@ abstract class Smarty_Internal_TemplateCompilerBase
         $this->ldelLength = strlen($ldel);
         $this->ldelPreg = '';
         foreach (str_split($ldel, 1) as $chr) {
-            $this->ldelPreg .= '[' . ($chr === '\\' ? '\\' : '') . $chr . ']';
+            $this->ldelPreg .= '[' . preg_quote($chr,'/') . ']';
         }
         $rdel = $this->smarty->getRightDelimiter();
         $this->rdelLength = strlen($rdel);
         $this->rdelPreg = '';
         foreach (str_split($rdel, 1) as $chr) {
-            $this->rdelPreg .= '[' . ($chr === '\\' ? '\\' : '') . $chr . ']';
+            $this->rdelPreg .= '[' . preg_quote($chr,'/') . ']';
         }
         $literals = $this->smarty->getLiterals();
         if (!empty($literals)) {
             foreach ($literals as $key => $literal) {
                 $literalPreg = '';
                 foreach (str_split($literal, 1) as $chr) {
-                    $literalPreg .= '[' . ($chr === '\\' ? '\\' : '') . $chr . ']';
+                    $literalPreg .= '[' . preg_quote($chr,'/') . ']';
                 }
                 $literals[ $key ] = $literalPreg;
             }
