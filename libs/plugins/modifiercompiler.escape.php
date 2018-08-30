@@ -87,8 +87,7 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                        $params[ 0 ] .
                        ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", "\\n" => "\\\n", "</" => "<\/" ))';
         }
-    }
-    catch (SmartyException $e) {
+    } catch (SmartyException $e) {
         // pass through to regular plugin fallback
     }
     // could not optimize |escape call, so fallback to regular plugin

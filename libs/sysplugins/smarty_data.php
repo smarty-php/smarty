@@ -22,7 +22,7 @@ class Smarty_Data extends Smarty_Internal_Data
      *
      * @var int
      */
-    static $count = 0;
+    public static $count = 0;
 
     /**
      * Data block name

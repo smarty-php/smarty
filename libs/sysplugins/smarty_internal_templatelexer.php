@@ -356,12 +356,12 @@ class Smarty_Internal_Templatelexer
         } while (true);
     }
 
-    function yy_r1_1()
+    public function yy_r1_1()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
-    function yy_r1_2()
+    public function yy_r1_2()
     {
         preg_match("/[*]{$this->compiler->getRdelPreg()}[\n]?/",
                    $this->data,
@@ -377,40 +377,40 @@ class Smarty_Internal_Templatelexer
         return false;
     }
 
-    function yy_r1_4()
+    public function yy_r1_4()
     {
         $this->compiler->getTagCompiler('private_php')->parsePhp($this);
     }
 
-    function yy_r1_8()
+    public function yy_r1_8()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
-    function yy_r1_10()
+    public function yy_r1_10()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LITERALSTART;
         $this->yypushstate(self::LITERAL);
     }
 
-    function yy_r1_12()
+    public function yy_r1_12()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LITERALEND;
         $this->yypushstate(self::LITERAL);
     } // end function
 
-    function yy_r1_14()
+    public function yy_r1_14()
     {
         $this->yypushstate(self::TAG);
         return true;
     }
 
-    function yy_r1_16()
+    public function yy_r1_16()
     {
         $this->compiler->getTagCompiler('private_php')->parsePhp($this);
     }
 
-    function yy_r1_19()
+    public function yy_r1_19()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
@@ -470,63 +470,63 @@ class Smarty_Internal_Templatelexer
         } while (true);
     }
 
-    function yy_r2_1()
+    public function yy_r2_1()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LDELIF;
         $this->yybegin(self::TAGBODY);
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_4()
+    public function yy_r2_4()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LDELFOR;
         $this->yybegin(self::TAGBODY);
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_6()
+    public function yy_r2_6()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LDELFOREACH;
         $this->yybegin(self::TAGBODY);
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_8()
+    public function yy_r2_8()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LDELSETFILTER;
         $this->yybegin(self::TAGBODY);
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_10()
+    public function yy_r2_10()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LDELMAKENOCACHE;
         $this->yybegin(self::TAGBODY);
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_12()
+    public function yy_r2_12()
     {
         $this->yypopstate();
         $this->token = Smarty_Internal_Templateparser::TP_SIMPLETAG;
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_15()
+    public function yy_r2_15()
     {
         $this->yypopstate();
         $this->token = Smarty_Internal_Templateparser::TP_SMARTYBLOCKCHILDPARENT;
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_18()
+    public function yy_r2_18()
     {
         $this->yypopstate();
         $this->token = Smarty_Internal_Templateparser::TP_CLOSETAG;
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_20()
+    public function yy_r2_20()
     {
         if ($this->_yy_stack[ count($this->_yy_stack) - 1 ] === self::TEXT) {
             $this->yypopstate();
@@ -540,14 +540,14 @@ class Smarty_Internal_Templatelexer
         }
     } // end function
 
-    function yy_r2_23()
+    public function yy_r2_23()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LDELSLASH;
         $this->yybegin(self::TAGBODY);
         $this->taglineno = $this->line;
     }
 
-    function yy_r2_25()
+    public function yy_r2_25()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LDEL;
         $this->yybegin(self::TAGBODY);
@@ -609,156 +609,156 @@ class Smarty_Internal_Templatelexer
         } while (true);
     }
 
-    function yy_r3_1()
+    public function yy_r3_1()
     {
         $this->token = Smarty_Internal_Templateparser::TP_RDEL;
         $this->yypopstate();
     }
 
-    function yy_r3_2()
+    public function yy_r3_2()
     {
         $this->yypushstate(self::TAG);
         return true;
     }
 
-    function yy_r3_4()
+    public function yy_r3_4()
     {
         $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
         $this->yypushstate(self::DOUBLEQUOTEDSTRING);
         $this->compiler->enterDoubleQuote();
     }
 
-    function yy_r3_5()
+    public function yy_r3_5()
     {
         $this->token = Smarty_Internal_Templateparser::TP_SINGLEQUOTESTRING;
     }
 
-    function yy_r3_6()
+    public function yy_r3_6()
     {
         $this->token = Smarty_Internal_Templateparser::TP_DOLLARID;
     }
 
-    function yy_r3_7()
+    public function yy_r3_7()
     {
         $this->token = Smarty_Internal_Templateparser::TP_DOLLAR;
     }
 
-    function yy_r3_8()
+    public function yy_r3_8()
     {
         $this->token = Smarty_Internal_Templateparser::TP_ISIN;
     }
 
-    function yy_r3_9()
+    public function yy_r3_9()
     {
         $this->token = Smarty_Internal_Templateparser::TP_AS;
     }
 
-    function yy_r3_10()
+    public function yy_r3_10()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TO;
     }
 
-    function yy_r3_11()
+    public function yy_r3_11()
     {
         $this->token = Smarty_Internal_Templateparser::TP_STEP;
     }
 
-    function yy_r3_12()
+    public function yy_r3_12()
     {
         $this->token = Smarty_Internal_Templateparser::TP_INSTANCEOF;
     }
 
-    function yy_r3_13()
+    public function yy_r3_13()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LOGOP;
     }
 
-    function yy_r3_15()
+    public function yy_r3_15()
     {
         $this->token = Smarty_Internal_Templateparser::TP_SLOGOP;
     }
 
-    function yy_r3_17()
+    public function yy_r3_17()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TLOGOP;
     }
 
-    function yy_r3_20()
+    public function yy_r3_20()
     {
         $this->token = Smarty_Internal_Templateparser::TP_SINGLECOND;
     }
 
-    function yy_r3_23()
+    public function yy_r3_23()
     {
         $this->token = Smarty_Internal_Templateparser::TP_NOT;
     }
 
-    function yy_r3_24()
+    public function yy_r3_24()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TYPECAST;
     }
 
-    function yy_r3_28()
+    public function yy_r3_28()
     {
         $this->token = Smarty_Internal_Templateparser::TP_OPENP;
     }
 
-    function yy_r3_29()
+    public function yy_r3_29()
     {
         $this->token = Smarty_Internal_Templateparser::TP_CLOSEP;
     }
 
-    function yy_r3_30()
+    public function yy_r3_30()
     {
         $this->token = Smarty_Internal_Templateparser::TP_OPENB;
     }
 
-    function yy_r3_31()
+    public function yy_r3_31()
     {
         $this->token = Smarty_Internal_Templateparser::TP_CLOSEB;
     }
 
-    function yy_r3_32()
+    public function yy_r3_32()
     {
         $this->token = Smarty_Internal_Templateparser::TP_PTR;
     }
 
-    function yy_r3_33()
+    public function yy_r3_33()
     {
         $this->token = Smarty_Internal_Templateparser::TP_APTR;
     }
 
-    function yy_r3_34()
+    public function yy_r3_34()
     {
         $this->token = Smarty_Internal_Templateparser::TP_EQUAL;
     }
 
-    function yy_r3_35()
+    public function yy_r3_35()
     {
         $this->token = Smarty_Internal_Templateparser::TP_INCDEC;
     }
 
-    function yy_r3_37()
+    public function yy_r3_37()
     {
         $this->token = Smarty_Internal_Templateparser::TP_UNIMATH;
     }
 
-    function yy_r3_39()
+    public function yy_r3_39()
     {
         $this->token = Smarty_Internal_Templateparser::TP_MATH;
     }
 
-    function yy_r3_41()
+    public function yy_r3_41()
     {
         $this->token = Smarty_Internal_Templateparser::TP_AT;
     }
 
-    function yy_r3_42()
+    public function yy_r3_42()
     {
         $this->token = Smarty_Internal_Templateparser::TP_HATCH;
     }
 
-    function yy_r3_43()
+    public function yy_r3_43()
     {
         // resolve conflicts with shorttag and right_delimiter starting with '='
         if (substr($this->data, $this->counter + strlen($this->value) - 1, $this->compiler->getRdelLength()) ===
@@ -771,73 +771,73 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    function yy_r3_44()
+    public function yy_r3_44()
     {
         $this->token = Smarty_Internal_Templateparser::TP_NAMESPACE;
     }
 
-    function yy_r3_47()
+    public function yy_r3_47()
     {
         $this->token = Smarty_Internal_Templateparser::TP_ID;
     }
 
-    function yy_r3_48()
+    public function yy_r3_48()
     {
         $this->token = Smarty_Internal_Templateparser::TP_INTEGER;
     }
 
-    function yy_r3_49()
+    public function yy_r3_49()
     {
         $this->token = Smarty_Internal_Templateparser::TP_BACKTICK;
         $this->yypopstate();
     }
 
-    function yy_r3_50()
+    public function yy_r3_50()
     {
         $this->token = Smarty_Internal_Templateparser::TP_VERT;
     }
 
-    function yy_r3_51()
+    public function yy_r3_51()
     {
         $this->token = Smarty_Internal_Templateparser::TP_DOT;
     }
 
-    function yy_r3_52()
+    public function yy_r3_52()
     {
         $this->token = Smarty_Internal_Templateparser::TP_COMMA;
     }
 
-    function yy_r3_53()
+    public function yy_r3_53()
     {
         $this->token = Smarty_Internal_Templateparser::TP_SEMICOLON;
     }
 
-    function yy_r3_54()
+    public function yy_r3_54()
     {
         $this->token = Smarty_Internal_Templateparser::TP_DOUBLECOLON;
     }
 
-    function yy_r3_55()
+    public function yy_r3_55()
     {
         $this->token = Smarty_Internal_Templateparser::TP_COLON;
     }
 
-    function yy_r3_56()
+    public function yy_r3_56()
     {
         $this->token = Smarty_Internal_Templateparser::TP_QMARK;
     }
 
-    function yy_r3_57()
+    public function yy_r3_57()
     {
         $this->token = Smarty_Internal_Templateparser::TP_HEX;
     }
 
-    function yy_r3_58()
+    public function yy_r3_58()
     {
         $this->token = Smarty_Internal_Templateparser::TP_SPACE;
     } // end function
 
-    function yy_r3_59()
+    public function yy_r3_59()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
@@ -897,13 +897,13 @@ class Smarty_Internal_Templatelexer
         } while (true);
     }
 
-    function yy_r4_1()
+    public function yy_r4_1()
     {
         $this->literal_cnt++;
         $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
     }
 
-    function yy_r4_3()
+    public function yy_r4_3()
     {
         if ($this->literal_cnt) {
             $this->literal_cnt--;
@@ -914,7 +914,7 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    function yy_r4_5()
+    public function yy_r4_5()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
     } // end function
@@ -974,47 +974,47 @@ class Smarty_Internal_Templatelexer
         } while (true);
     }
 
-    function yy_r5_1()
+    public function yy_r5_1()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
-    function yy_r5_3()
+    public function yy_r5_3()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
-    function yy_r5_5()
+    public function yy_r5_5()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
-    function yy_r5_7()
+    public function yy_r5_7()
     {
         $this->yypushstate(self::TAG);
         return true;
     }
 
-    function yy_r5_9()
+    public function yy_r5_9()
     {
         $this->yypushstate(self::TAG);
         return true;
     }
 
-    function yy_r5_11()
+    public function yy_r5_11()
     {
         $this->token = Smarty_Internal_Templateparser::TP_LDEL;
         $this->taglineno = $this->line;
         $this->yypushstate(self::TAGBODY);
     }
 
-    function yy_r5_13()
+    public function yy_r5_13()
     {
         $this->token = Smarty_Internal_Templateparser::TP_QUOTE;
         $this->yypopstate();
     }
 
-    function yy_r5_14()
+    public function yy_r5_14()
     {
         $this->token = Smarty_Internal_Templateparser::TP_BACKTICK;
         $this->value = substr($this->value, 0, -1);
@@ -1022,20 +1022,18 @@ class Smarty_Internal_Templatelexer
         $this->taglineno = $this->line;
     }
 
-    function yy_r5_15()
+    public function yy_r5_15()
     {
         $this->token = Smarty_Internal_Templateparser::TP_DOLLARID;
     }
 
-    function yy_r5_16()
+    public function yy_r5_16()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
-    function yy_r5_17()
+    public function yy_r5_17()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 }
-
-     

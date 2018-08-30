@@ -40,7 +40,7 @@ class Smarty_Internal_ParseTree_Dq extends Smarty_Internal_ParseTree
     public function append_subtree(Smarty_Internal_Templateparser $parser, Smarty_Internal_ParseTree $subtree)
     {
         $last_subtree = count($this->subtrees) - 1;
-        if ($last_subtree >= 0 && $this->subtrees[ $last_subtree ] instanceof Smarty_Internal_ParseTree_Tag 
+        if ($last_subtree >= 0 && $this->subtrees[ $last_subtree ] instanceof Smarty_Internal_ParseTree_Tag
             && $this->subtrees[ $last_subtree ]->saved_block_nesting < $parser->block_nesting_level
         ) {
             if ($subtree instanceof Smarty_Internal_ParseTree_Code) {

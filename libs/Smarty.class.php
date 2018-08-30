@@ -1079,8 +1079,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                                    $compile_id = null,
                                    $caching = null,
                                    Smarty_Internal_Template $template = null
-    )
-    {
+    ) {
         $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
             $template_name;
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;

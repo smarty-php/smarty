@@ -111,7 +111,7 @@ class Smarty_Internal_Runtime_Inheritance
             ob_end_clean();
             $this->state = 2;
         }
-        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends') 
+        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends')
             || $tpl->smarty->extends_recursion)
         ) {
             $tpl->_subTemplateRender(
@@ -188,7 +188,7 @@ class Smarty_Internal_Runtime_Inheritance
         if ($block->prepend && isset($parent)) {
             $this->callParent($tpl, $block, '{block prepend}');
             if ($block->append) {
-                if ($block->callsChild || !isset($block->child) 
+                if ($block->callsChild || !isset($block->child)
                     || ($block->child->hide && !isset($block->child->child))
                 ) {
                     $this->callBlock($block, $tpl);

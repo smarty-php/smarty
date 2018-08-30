@@ -57,7 +57,7 @@ class Smarty_Internal_Compile_Include_Php extends Smarty_Internal_CompileBase
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         /**
-* 
+*
          *
  * @var Smarty_Internal_Template $_smarty_tpl
          * used in evaluated code

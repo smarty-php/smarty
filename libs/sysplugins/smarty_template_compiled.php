@@ -25,7 +25,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
      *
      * @return Smarty_Template_Compiled compiled object
      */
-    static function load($_template)
+    public static function load($_template)
     {
         $compiled = new Smarty_Template_Compiled();
         if ($_template->source->handler->hasCompiledHandler) {
@@ -135,7 +135,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if ($source->handler->recompiled) {
             $source->handler->process($_smarty_tpl);
         } elseif (!$source->handler->uncompiled) {
-            if (!$this->exists || $smarty->force_compile 
+            if (!$this->exists || $smarty->force_compile
                 || ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
             ) {
                 $this->compileTemplateSource($_smarty_tpl);
@@ -182,8 +182,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             // call compiler
             $_template->loadCompiler();
             $this->write($_template, $_template->compiler->compileTemplate($_template));
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             // restore old timestamp in case of error
             if ($saved_timestamp && is_file($this->filepath)) {
                 touch($this->filepath, $saved_timestamp);

@@ -211,8 +211,7 @@ function smarty_function_html_checkboxes_output($name,
                                                 $labels,
                                                 $label_ids,
                                                 $escape = true
-)
-{
+) {
     $_output = '';
     if (is_object($value)) {
         if (method_exists($value, '__toString')) {

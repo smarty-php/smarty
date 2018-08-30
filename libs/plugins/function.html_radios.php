@@ -195,8 +195,7 @@ function smarty_function_html_radios_output($name,
                                             $labels,
                                             $label_ids,
                                             $escape
-)
-{
+) {
     $_output = '';
     if (is_object($value)) {
         if (method_exists($value, '__toString')) {

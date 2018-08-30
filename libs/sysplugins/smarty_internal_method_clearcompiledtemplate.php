@@ -69,8 +69,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         try {
             $_compileDirs = new RecursiveDirectoryIterator($_dir);
             // NOTE: UnexpectedValueException thrown for PHP >= 5.3
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return 0;
         }
         $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
@@ -90,14 +89,14 @@ class Smarty_Internal_Method_ClearCompiledTemplate
                     continue;
                 }
                 $unlink = false;
-                if ((!isset($_compile_id) || (isset($_filepath[ $_compile_id_part_length ]) && $a =!strncmp($_filepath, $_compile_id_part, $_compile_id_part_length))) 
-                    && (!isset($resource_name) || (isset($_filepath[ $_resource_part_1_length ]) 
+                if ((!isset($_compile_id) || (isset($_filepath[ $_compile_id_part_length ]) && $a =!strncmp($_filepath, $_compile_id_part, $_compile_id_part_length)))
+                    && (!isset($resource_name) || (isset($_filepath[ $_resource_part_1_length ])
                     && substr_compare(
                         $_filepath,
                         $_resource_part_1,
                         -$_resource_part_1_length,
                         $_resource_part_1_length
-                    ) ===0) || (isset($_filepath[ $_resource_part_2_length ]) 
+                    ) ===0) || (isset($_filepath[ $_resource_part_2_length ])
                     && substr_compare(
                         $_filepath,
                         $_resource_part_2,

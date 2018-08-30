@@ -170,7 +170,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         if ($lex->phpType === 'unmatched') {
             return;
         }
-        if (($lex->phpType === 'php' || $lex->phpType === 'asp') 
+        if (($lex->phpType === 'php' || $lex->phpType === 'asp')
             && ($lex->compiler->php_handling === Smarty::PHP_PASSTHRU || $lex->compiler->php_handling === Smarty::PHP_QUOTE)
         ) {
             return;

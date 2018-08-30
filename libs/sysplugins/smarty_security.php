@@ -270,7 +270,7 @@ class Smarty_Security
      */
     public function isTrustedPhpFunction($function_name, $compiler)
     {
-        if (isset($this->php_functions) 
+        if (isset($this->php_functions)
             && (empty($this->php_functions) || in_array($function_name, $this->php_functions))
         ) {
             return true;
@@ -291,7 +291,7 @@ class Smarty_Security
      */
     public function isTrustedStaticClass($class_name, $compiler)
     {
-        if (isset($this->static_classes) 
+        if (isset($this->static_classes)
             && (empty($this->static_classes) || in_array($class_name, $this->static_classes))
         ) {
             return true;
@@ -330,7 +330,7 @@ class Smarty_Security
                 // fall back
                 return $this->isTrustedStaticClass($class_name, $compiler);
             }
-            if (isset($allowed[ $class_name ]) 
+            if (isset($allowed[ $class_name ])
                 && (empty($allowed[ $class_name ]) || in_array($name, $allowed[ $class_name ]))
             ) {
                 return true;
@@ -350,7 +350,7 @@ class Smarty_Security
      */
     public function isTrustedPhpModifier($modifier_name, $compiler)
     {
-        if (isset($this->php_modifiers) 
+        if (isset($this->php_modifiers)
             && (empty($this->php_modifiers) || in_array($modifier_name, $this->php_modifiers))
         ) {
             return true;
@@ -444,7 +444,7 @@ class Smarty_Security
                     true
                 );
             }
-        } elseif (in_array($modifier_name, $this->allowed_modifiers) 
+        } elseif (in_array($modifier_name, $this->allowed_modifiers)
             && !in_array($modifier_name, $this->disabled_modifiers)
         ) {
             return true;
@@ -522,13 +522,13 @@ class Smarty_Security
             $this->_include_path_status = $this->smarty->use_include_path;
         }
 
-            $_dir = $this->smarty->getTemplateDir();
+        $_dir = $this->smarty->getTemplateDir();
         if ($this->_template_dir !== $_dir) {
             $this->_updateResourceDir($this->_template_dir, $_dir);
             $this->_template_dir = $_dir;
         }
 
-            $_dir = $this->smarty->getConfigDir();
+        $_dir = $this->smarty->getConfigDir();
         if ($this->_config_dir !== $_dir) {
             $this->_updateResourceDir($this->_config_dir, $_dir);
             $this->_config_dir = $_dir;
@@ -536,7 +536,7 @@ class Smarty_Security
 
         if ($this->_secure_dir !== $this->secure_dir) {
             $this->secure_dir = (array)$this->secure_dir;
-            foreach($this->secure_dir as $k => $d) {
+            foreach ($this->secure_dir as $k => $d) {
                 $this->secure_dir[$k] = $this->smarty->_realpath($d. DIRECTORY_SEPARATOR, true);
             }
             $this->_updateResourceDir($this->_secure_dir, $this->secure_dir);
@@ -604,7 +604,7 @@ class Smarty_Security
         if ($addPath !== false) {
             $this->_php_resource_dir = array_merge($this->_php_resource_dir, $addPath);
         }
-         return true;
+        return true;
     }
 
     /**
@@ -613,7 +613,7 @@ class Smarty_Security
      * @param array $oldDir
      * @param array $newDir
      */
-    private function _updateResourceDir($oldDir, $newDir) 
+    private function _updateResourceDir($oldDir, $newDir)
     {
         foreach ($oldDir as $directory) {
             //           $directory = $this->smarty->_realpath($directory, true);

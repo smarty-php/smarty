@@ -88,7 +88,7 @@ class Smarty_Internal_Runtime_CacheResourceFile
                         }
                     }
                     // check compile id
-                    if (isset($_compile_id) && (!isset($_parts[ $_parts_count - 2 - $_compile_id_offset ]) 
+                    if (isset($_compile_id) && (!isset($_parts[ $_parts_count - 2 - $_compile_id_offset ])
                         || $_parts[ $_parts_count - 2 - $_compile_id_offset ] !== $_compile_id)
                     ) {
                         continue;

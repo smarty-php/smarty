@@ -32,8 +32,7 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
                 $sources[ $s->uid ] = $s;
                 $uid .= $s->filepath;
                 $timestamp = $s->timestamp > $timestamp ? $s->timestamp : $timestamp;
-            }
-            catch (SmartyException $e) {
+            } catch (SmartyException $e) {
             }
         }
         if (!$sources) {
@@ -61,5 +60,4 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
     {
         return false;
     }
-
 }

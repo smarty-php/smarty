@@ -107,4 +107,3 @@ class Smarty_Internal_Resource_String extends Smarty_Resource
         return false;
     }
 }
-

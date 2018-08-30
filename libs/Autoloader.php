@@ -54,7 +54,7 @@ class Smarty_Autoloader
         if (!defined('SMARTY_SPL_AUTOLOAD')) {
             define('SMARTY_SPL_AUTOLOAD', 0);
         }
-        if (SMARTY_SPL_AUTOLOAD 
+        if (SMARTY_SPL_AUTOLOAD
             && set_include_path(get_include_path() . PATH_SEPARATOR . SMARTY_SYSPLUGINS_DIR) !== false
         ) {
             $registeredAutoLoadFunctions = spl_autoload_functions();
