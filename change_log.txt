@@ -1,5 +1,8 @@
-﻿===== 3.1.33-dev-8 =====
+﻿===== 3.1.33-dev-9 =====
 31.08.2018
+  - bugfix on Windows absolute filepathes did fail if the drive letter was followed by a linux DIRECTORY_SEPARATOR
+    like C:/  at Smarty > 3.1.33-dev-5 https://github.com/smarty-php/smarty/issues/451
+
   - PSR-2 code style fixes for config and template file Lexer/Parser generated with
     the Smarty Lexer/Parser generator from https://github.com/smarty-php/smarty-lexer
     https://github.com/smarty-php/smarty/pull/483

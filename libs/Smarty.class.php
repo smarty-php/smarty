@@ -112,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.33-dev-8';
+    const SMARTY_VERSION = '3.1.33-dev-9';
     /**
      * define variable scopes
      */
@@ -1116,7 +1116,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $nds = array('/' => '\\', '\\' => '/');
         preg_match(
-            '%^(?<root>(?:[[:alpha:]]:[\\\\]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
+            '%^(?<root>(?:[[:alpha:]]:[\\\\/]|/|[\\\\]{2}[[:alpha:]]+|[[:print:]]{2,}:[/]{2}|[\\\\])?)(?<path>(.*))$%u',
             $path,
             $parts
         );
@@ -1130,6 +1130,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
         // normalize DIRECTORY_SEPARATOR
         $path = str_replace($nds[DIRECTORY_SEPARATOR], DIRECTORY_SEPARATOR, $path);
+        $parts[ 'root' ] = str_replace($nds[DIRECTORY_SEPARATOR], DIRECTORY_SEPARATOR, $parts[ 'root' ]);
         do {
             $path = preg_replace(
                 array('#[\\\\/]{2}#', '#[\\\\/][.][\\\\/]#', '#[\\\\/]([^\\\\/.]+)[\\\\/][.][.][\\\\/]#'),
