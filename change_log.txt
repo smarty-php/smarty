@@ -1,4 +1,9 @@
-﻿===== 3.1.33-dev-7 =====
+﻿===== 3.1.33-dev-8 =====
+31.08.2018
+  - PSR-2 code style fixes for config and template file Lexer/Parser generated with
+    the Smarty Lexer/Parser generator from https://github.com/smarty-php/smarty-lexer
+    https://github.com/smarty-php/smarty/pull/483
+
 26.08.2018
   - bugfix/enhancement {capture} allow variable as capture block name in Smarty special variable
     like $smarty.capture.$foo https://github.com/smarty-php/smarty/issues/478 https://github.com/smarty-php/smarty/pull/481

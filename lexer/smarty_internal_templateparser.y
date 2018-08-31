@@ -61,7 +61,7 @@ class Smarty_Internal_Templateparser
     /**
      * root parse tree buffer
      *
-     * @var Smarty_Internal_ParseTree
+     * @var Smarty_Internal_ParseTree_Template
      */
     public $root_buffer;
 
