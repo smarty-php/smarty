@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
-
 /**
  * Smarty cat modifier plugin
  * Type:     modifier

@@ -145,16 +145,16 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      *
      * @throws \SmartyException
      */
-    public function __construct($template_resource,
-                                Smarty $smarty,
-                                Smarty_Internal_Data $_parent = null,
-                                $_cache_id = null,
-                                $_compile_id = null,
-                                $_caching = null,
-                                $_cache_lifetime = null,
-                                $_isConfig = false
-    )
-    {
+    public function __construct(
+        $template_resource,
+        Smarty $smarty,
+        Smarty_Internal_Data $_parent = null,
+        $_cache_id = null,
+        $_compile_id = null,
+        $_caching = null,
+        $_cache_lifetime = null,
+        $_isConfig = false
+    ) {
         $this->smarty = $smarty;
         // Smarty parameter
         $this->cache_id = $_cache_id === null ? $this->smarty->cache_id : $_cache_id;
@@ -275,18 +275,18 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @throws \Exception
      * @throws \SmartyException
      */
-    public function _subTemplateRender($template,
-                                       $cache_id,
-                                       $compile_id,
-                                       $caching,
-                                       $cache_lifetime,
-                                       $data,
-                                       $scope,
-                                       $forceTplCache,
-                                       $uid = null,
-                                       $content_func = null
-    )
-    {
+    public function _subTemplateRender(
+        $template,
+        $cache_id,
+        $compile_id,
+        $caching,
+        $cache_lifetime,
+        $data,
+        $scope,
+        $forceTplCache,
+        $uid = null,
+        $content_func = null
+    ) {
         $tpl = clone $this;
         $tpl->parent = $this;
         $smarty = &$this->smarty;
@@ -551,6 +551,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     /**
      * Compiles the template
      * If the template is not evaluated the compiled template is saved on disk
+     *
+     * @throws \Exception
      */
     public function compileTemplateSource()
     {
@@ -583,6 +585,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
 
     /**
      * runtime error not matching capture tags
+     *
+     * @throws \SmartyException
      */
     public function capture_error()
     {
@@ -645,7 +649,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         $this->compiler =
             new $this->source->compiler_class(
-                $this->source->template_lexer_class, $this->source->template_parser_class,
+                $this->source->template_lexer_class,
+                $this->source->template_parser_class,
                 $this->smarty
             );
     }
@@ -657,7 +662,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @param array  $args argument array
      *
      * @return mixed
-     * @throws SmartyException
      */
     public function __call($name, $args)
     {

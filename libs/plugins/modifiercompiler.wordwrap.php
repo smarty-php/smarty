@@ -14,7 +14,7 @@
  * @link   http://smarty.php.net/manual/en/language.modifier.wordwrap.php wordwrap (Smarty online manual)
  * @author Uwe Tews
  *
- * @param array                                 $params   parameters
+ * @param array                                 $params parameters
  * @param \Smarty_Internal_TemplateCompilerBase $compiler
  *
  * @return string with compiled code

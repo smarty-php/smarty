@@ -30,13 +30,17 @@ class Smarty_Internal_Method_RegisterPlugin
      * @param callback                                                        $callback   PHP callback to register
      * @param bool                                                            $cacheable  if true (default) this
      *                                                                                    function is cache able
-
      * @param mixed                                                           $cache_attr caching attributes if any
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws SmartyException              when the plugin tag is invalid
      */
-    public function registerPlugin(Smarty_Internal_TemplateBase $obj, $type, $name, $callback, $cacheable = true,
+    public function registerPlugin(
+        Smarty_Internal_TemplateBase $obj,
+        $type,
+        $name,
+        $callback,
+        $cacheable = true,
         $cache_attr = null
     ) {
         $smarty = $obj->_getSmartyObj();
@@ -45,7 +49,7 @@ class Smarty_Internal_Method_RegisterPlugin
         } elseif (!is_callable($callback)) {
             throw new SmartyException("Plugin '{$name}' not callable");
         } else {
-            $smarty->registered_plugins[ $type ][ $name ] = array($callback, (bool) $cacheable, (array) $cache_attr);
+            $smarty->registered_plugins[ $type ][ $name ] = array($callback, (bool)$cacheable, (array)$cache_attr);
         }
         return $obj;
     }

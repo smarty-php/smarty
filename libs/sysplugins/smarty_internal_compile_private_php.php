@@ -16,7 +16,6 @@
  */
 class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
 {
-
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -62,7 +61,8 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                 $output =
                     preg_replace_callback(
                         '#(<\?(?:php|=)?)|(<%)|(<script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*>)|(\?>)|(%>)|(<\/script>)#i',
-                        array($this, 'quote'), $_attr[ 'code' ]
+                        array($this, 'quote'),
+                        $_attr[ 'code' ]
                     );
                 $compiler->parser->current_buffer->append_subtree(
                     $compiler->parser,
@@ -87,7 +87,8 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                 if (!($compiler->smarty instanceof SmartyBC)) {
                     $compiler->trigger_template_error(
                         '$smarty->php_handling PHP_ALLOW not allowed. Use SmartyBC to enable it',
-                        null, true
+                        null,
+                        true
                     );
                 }
                 $compiler->has_code = true;
@@ -99,7 +100,8 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
             $compiler->has_code = true;
             if (!($compiler->smarty instanceof SmartyBC)) {
                 $compiler->trigger_template_error(
-                    '{php}{/php} tags not allowed. Use SmartyBC to enable them', null,
+                    '{php}{/php} tags not allowed. Use SmartyBC to enable them',
+                    null,
                     true
                 );
             }
@@ -115,7 +117,8 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
             }
             return preg_replace(
                 array("#^{$ldel}\\s*php\\s*(.)*?{$rdel}#", "#{$ldel}\\s*/\\s*php\\s*{$rdel}$#"),
-                array('<?php ', '?>'), $_attr[ 'code' ]
+                array('<?php ', '?>'),
+                $_attr[ 'code' ]
             );
         }
     }
@@ -170,8 +173,10 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         if ($lex->phpType === 'unmatched') {
             return;
         }
-        if (($lex->phpType === 'php' || $lex->phpType === 'asp') 
-            && ($lex->compiler->php_handling === Smarty::PHP_PASSTHRU || $lex->compiler->php_handling === Smarty::PHP_QUOTE)
+        if (($lex->phpType === 'php' || $lex->phpType === 'asp')
+            &&
+            ($lex->compiler->php_handling === Smarty::PHP_PASSTHRU ||
+             $lex->compiler->php_handling === Smarty::PHP_QUOTE)
         ) {
             return;
         }
@@ -185,7 +190,10 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         while ($body) {
             if (preg_match(
                 '~([/][*])|([/][/][^\n]*)|(\'[^\'\\\\]*(?:\\.[^\'\\\\]*)*\')|("[^"\\\\]*(?:\\.[^"\\\\]*)*")~',
-                $lex->data, $match, PREG_OFFSET_CAPTURE, $start
+                $lex->data,
+                $match,
+                PREG_OFFSET_CAPTURE,
+                $start
             )
             ) {
                 $value = $match[ 0 ][ 0 ];
@@ -204,7 +212,10 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                     }
                     while ($close > $pos && $close < $start) {
                         if (preg_match(
-                            '~' . preg_quote($closeTag, '~') . '~i', $lex->data, $match, PREG_OFFSET_CAPTURE,
+                            '~' . preg_quote($closeTag, '~') . '~i',
+                            $lex->data,
+                            $match,
+                            PREG_OFFSET_CAPTURE,
                             $from
                         )
                         ) {

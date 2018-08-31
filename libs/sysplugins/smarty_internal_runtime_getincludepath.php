@@ -21,42 +21,49 @@ class Smarty_Internal_Runtime_GetIncludePath
      * @var string
      */
     public $_include_path = '';
+
     /**
      * include path directory cache
      *
      * @var array
      */
     public $_include_dirs = array();
+
     /**
      * include path directory cache
      *
      * @var array
      */
     public $_user_dirs = array();
+
     /**
      * stream cache
      *
      * @var string[][]
      */
     public $isFile = array();
+
     /**
      * stream cache
      *
      * @var string[]
      */
     public $isPath = array();
+
     /**
      * stream cache
      *
      * @var int[]
      */
     public $number = array();
+
     /**
      * status cache
      *
      * @var bool
      */
     public $_has_stream_include = null;
+
     /**
      * Number for array index
      *
@@ -113,7 +120,8 @@ class Smarty_Internal_Runtime_GetIncludePath
     public function getIncludePath($dirs, $file, Smarty $smarty)
     {
         //if (!(isset($this->_has_stream_include) ? $this->_has_stream_include : $this->_has_stream_include = false)) {
-        if (!(isset($this->_has_stream_include) ? $this->_has_stream_include :        $this->_has_stream_include = function_exists('stream_resolve_include_path'))
+        if (!(isset($this->_has_stream_include) ? $this->_has_stream_include :
+            $this->_has_stream_include = function_exists('stream_resolve_include_path'))
         ) {
             $this->isNewIncludePath($smarty);
         }

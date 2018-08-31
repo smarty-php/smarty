@@ -7,6 +7,7 @@
  * @subpackage Compiler
  * @author     Uwe Tews
  */
+
 /**
  * Smarty Internal Plugin Compile Include Class
  *
@@ -19,6 +20,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * caching mode to create nocache code but no cache file
      */
     const CACHING_NOCACHE_CODE = 9999;
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -26,6 +28,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('file');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -33,6 +36,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('file');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -40,6 +44,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $option_flags = array('nocache', 'inline', 'caching');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -47,14 +52,17 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $optional_attributes = array('_any');
+
     /**
      * Valid scope names
      *
      * @var array
      */
-    public $valid_scopes = array('parent' => Smarty::SCOPE_PARENT, 'root' => Smarty::SCOPE_ROOT,
-                                 'global' => Smarty::SCOPE_GLOBAL, 'tpl_root' => Smarty::SCOPE_TPL_ROOT,
-                                 'smarty' => Smarty::SCOPE_SMARTY);
+    public $valid_scopes = array(
+        'parent' => Smarty::SCOPE_PARENT, 'root' => Smarty::SCOPE_ROOT,
+        'global' => Smarty::SCOPE_GLOBAL, 'tpl_root' => Smarty::SCOPE_TPL_ROOT,
+        'smarty' => Smarty::SCOPE_SMARTY
+    );
 
     /**
      * Compiles code for the {include} tag
@@ -91,7 +99,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
                         $compiled->includes[ $fullResourceName ]++;
                         $cache_tpl = true;
                     } else {
-                        if ("{$compiler->template->source->type}:{$compiler->template->source->name}" ==                        $fullResourceName
+                        if ("{$compiler->template->source->type}:{$compiler->template->source->name}" ==
+                            $fullResourceName
                         ) {
                             // recursive call of current template
                             $compiled->includes[ $fullResourceName ] = 2;
@@ -193,8 +202,11 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $compiler->smarty->allow_ambiguous_resources = true;
             /* @var Smarty_Internal_Template $tpl */
             $tpl = new $compiler->smarty->template_class(
-                trim($fullResourceName, '"\''), $compiler->smarty,
-                $compiler->template, $compiler->template->cache_id, $c_id,
+                trim($fullResourceName, '"\''),
+                $compiler->smarty,
+                $compiler->template,
+                $compiler->template->cache_id,
+                $c_id,
                 $_caching
             );
             $uid = $tpl->source->type . $tpl->source->uid;
@@ -276,7 +288,8 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * @throws \Exception
      * @throws \SmartyException
      */
-    public function compileInlineTemplate(Smarty_Internal_SmartyTemplateCompiler $compiler,
+    public function compileInlineTemplate(
+        Smarty_Internal_SmartyTemplateCompiler $compiler,
         Smarty_Internal_Template $tpl,
         $t_hash
     ) {

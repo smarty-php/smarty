@@ -25,8 +25,12 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
     static $_double_encode = null;
     static $is_loaded = false;
     $compiler->template->_checkPlugins(
-        array(array('function' => 'smarty_literal_compiler_param',
-                    'file'     => SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php'))
+        array(
+            array(
+                'function' => 'smarty_literal_compiler_param',
+                'file'     => SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php'
+            )
+        )
     );
     if ($_double_encode === null) {
         $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
@@ -48,6 +52,7 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                 } else {
                     // fall back to modifier.escape.php
                 }
+            // no break
             case 'htmlall':
                 if (Smarty::$_MBSTRING) {
                     if ($_double_encode) {
@@ -74,6 +79,7 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                 } else {
                     // fall back to modifier.escape.php
                 }
+            // no break
             case 'url':
                 return 'rawurlencode(' . $params[ 0 ] . ')';
             case 'urlpathinfo':
@@ -87,8 +93,7 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                        $params[ 0 ] .
                        ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", "\\n" => "\\\n", "</" => "<\/" ))';
         }
-    }
-    catch (SmartyException $e) {
+    } catch (SmartyException $e) {
         // pass through to regular plugin fallback
     }
     // could not optimize |escape call, so fallback to regular plugin

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Smarty Internal Plugin Compile extend
  * Compiles the {extends} tag
@@ -74,7 +73,7 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
                 } else {
                     $file = "'{$file}'";
                 }
-                $i ++;
+                $i++;
                 if ($i === count($files) && isset($_attr[ 'extends_resource' ])) {
                     $this->compileEndChild($compiler);
                 }
@@ -111,9 +110,9 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
         $compiler->parser->template_postfix[] = new Smarty_Internal_ParseTree_Tag(
             $compiler->parser,
             '<?php $_smarty_tpl->inheritance->endChild($_smarty_tpl' .
-                                                                                  (isset($template) ?
-                                                                                      ", {$template}{$inlineUids}" :
-            '') . ");\n?>"
+            (isset($template) ?
+                ", {$template}{$inlineUids}" :
+                '') . ");\n?>"
         );
     }
 
@@ -132,8 +131,10 @@ class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inh
             $compiler->parser,
             $compiler->compileTag(
                 'include',
-                array($template,
-                array('scope' => 'parent'))
+                array(
+                    $template,
+                    array('scope' => 'parent')
+                )
             )
         );
     }

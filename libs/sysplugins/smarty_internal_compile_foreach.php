@@ -87,7 +87,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
-        $compiler->loopNesting ++;
+        $compiler->loopNesting++;
         // init
         $this->isNamed = false;
         // check and get attributes
@@ -121,14 +121,14 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
                 if (isset($attributes[ $a ]) && $attributes[ $a ] === $fromName) {
                     $compiler->trigger_template_error(
                         "'{$a}' and 'from' may not have same variable name '{$fromName}'",
-                        null, true
+                        null,
+                        true
                     );
                 }
             }
         }
-
         $itemVar = "\$_smarty_tpl->tpl_vars['{$item}']";
-        $local = '$__foreach_' . $attributes[ 'item' ] . '_' . $this->counter ++ . '_';
+        $local = '$__foreach_' . $attributes[ 'item' ] . '_' . $this->counter++ . '_';
         // search for used tag attributes
         $itemAttr = array();
         $namedAttr = array();
@@ -190,7 +190,8 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         $needTotal = isset($itemAttr[ 'total' ]);
         // Register tag
         $this->openTag(
-            $compiler, 'foreach',
+            $compiler,
+            'foreach',
             array('foreach', $compiler->nocache, $local, $itemVar, empty($itemAttr) ? 1 : 2)
         );
         // maybe nocache because of nocache variables
@@ -253,7 +254,6 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
             $output .= "{$local}saved = {$itemVar};\n";
         }
         $output .= '?>';
-
         return $output;
     }
 
@@ -290,7 +290,6 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-
         list($openTag, $nocache, $local, $itemVar, $restore) = $this->closeTag($compiler, array('foreach'));
         $this->openTag($compiler, 'foreachelse', array('foreachelse', $nocache, $local, $itemVar, 0));
         $output = "<?php\n";
@@ -321,16 +320,14 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
     {
-        $compiler->loopNesting --;
+        $compiler->loopNesting--;
         // must endblock be nocache?
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;
         }
-
         list($openTag, $compiler->nocache, $local, $itemVar, $restore) =
             $this->closeTag($compiler, array('foreach', 'foreachelse'));
         $output = "<?php\n";
-
         if ($restore === 2) {
             $output .= "{$itemVar} = {$local}saved;\n";
         }

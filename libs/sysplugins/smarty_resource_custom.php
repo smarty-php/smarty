@@ -49,7 +49,6 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
     {
         $source->filepath = $source->type . ':' . substr(preg_replace('/[^A-Za-z0-9.]/', '', $source->name), 0, 25);
         $source->uid = sha1($source->type . ':' . $source->name);
-
         $mtime = $this->fetchTimestamp($source->name);
         if ($mtime !== null) {
             $source->timestamp = $mtime;
@@ -77,7 +76,6 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
         if (isset($content)) {
             return $content;
         }
-
         throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");
     }
 

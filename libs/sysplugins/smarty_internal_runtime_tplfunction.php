@@ -54,8 +54,11 @@ class Smarty_Internal_Runtime_TplFunction
      * Register template functions defined by template
      *
      * @param \Smarty|\Smarty_Internal_Template|\Smarty_Internal_TemplateBase $obj
-     * @param array                                                           $tplFunctions source information array of template functions defined in template
-     * @param bool                                                            $override     if true replace existing functions with same name
+     * @param array                                                           $tplFunctions source information array of
+     *                                                                                      template functions defined
+     *                                                                                      in template
+     * @param bool                                                            $override     if true replace existing
+     *                                                                                      functions with same name
      */
     public function registerTplFunctions(Smarty_Internal_TemplateBase $obj, $tplFunctions, $override = true)
     {
@@ -127,11 +130,14 @@ class Smarty_Internal_Runtime_TplFunction
                             $tplPtr->smarty->ext->_updateCache->write(
                                 $tplPtr,
                                 preg_replace('/\s*\?>\s*$/', "\n", $content) .
-                                                                    "\n" . preg_replace(
-                                                                        array('/^\s*<\?php\s+/',
-                                                                                                '/\s*\?>\s*$/',), "\n",
-                                                                        $match[ 0 ]
-                                                                    )
+                                "\n" . preg_replace(
+                                    array(
+                                        '/^\s*<\?php\s+/',
+                                        '/\s*\?>\s*$/',
+                                    ),
+                                    "\n",
+                                    $match[ 0 ]
+                                )
                             );
                         }
                     }

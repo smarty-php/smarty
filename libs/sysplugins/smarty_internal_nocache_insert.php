@@ -46,7 +46,6 @@ class Smarty_Internal_Nocache_Insert
         while ($_tpl->_isSubTpl()) {
             $_tpl = $_tpl->parent;
         }
-
         return "/*%%SmartyNocache:{$_tpl->compiled->nocache_hash}%%*/{$_output}/*/%%SmartyNocache:{$_tpl->compiled->nocache_hash}%%*/";
     }
 }

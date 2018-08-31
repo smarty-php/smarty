@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsShared
  */
-
 /**
  * evaluate compiler parameter
  *
@@ -30,9 +29,7 @@ function smarty_literal_compiler_param($params, $index, $default = null)
             '] is not a literal and is thus not evaluatable at compile time'
         );
     }
-
     $t = null;
     eval("\$t = " . $params[ $index ] . ";");
-
     return $t;
 }

@@ -11,7 +11,7 @@
  * Name:     mb_wordwrap
  * Purpose:  Wrap a string to a given number of characters
  *
- * @link http://php.net/manual/en/function.wordwrap.php for similarity
+ * @link   http://php.net/manual/en/function.wordwrap.php for similarity
  *
  * @param string  $str   the string to wrap
  * @param int     $width the width of the output
@@ -29,7 +29,6 @@ function smarty_modifier_mb_wordwrap($str, $width = 75, $break = "\n", $cut = fa
     $t = '';
     $_previous = false;
     $_space = false;
-
     foreach ($tokens as $_token) {
         $token_length = mb_strlen($_token, Smarty::$_CHARSET);
         $_tokens = array($_token);
@@ -43,18 +42,15 @@ function smarty_modifier_mb_wordwrap($str, $width = 75, $break = "\n", $cut = fa
                 );
             }
         }
-
         foreach ($_tokens as $token) {
             $_space = !!preg_match('!^\s$!S' . Smarty::$_UTF8_MODIFIER, $token);
             $token_length = mb_strlen($token, Smarty::$_CHARSET);
             $length += $token_length;
-
             if ($length > $width) {
                 // remove space before inserted break
                 if ($_previous) {
                     $t = mb_substr($t, 0, -1, Smarty::$_CHARSET);
                 }
-
                 if (!$_space) {
                     // add the break before the token
                     if (!empty($t)) {
@@ -71,6 +67,5 @@ function smarty_modifier_mb_wordwrap($str, $width = 75, $break = "\n", $cut = fa
             $t .= $token;
         }
     }
-
     return $t;
 }

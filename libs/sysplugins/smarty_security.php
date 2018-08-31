@@ -6,12 +6,12 @@
  * @subpackage Security
  * @author     Uwe Tews
  */
-
-/*
+/**
  * FIXME: Smarty_Security API
  *      - getter and setter instead of public properties would allow cultivating an internal cache properly
- *      - current implementation of isTrustedResourceDir() assumes that Smarty::$template_dir and Smarty::$config_dir are immutable
- *        the cache is killed every time either of the variables change. That means that two distinct Smarty objects with differing
+ *      - current implementation of isTrustedResourceDir() assumes that Smarty::$template_dir and Smarty::$config_dir
+ *      are immutable the cache is killed every time either of the variables change. That means that two distinct
+ *      Smarty objects with differing
  *        $template_dir or $config_dir should NOT share the same Smarty_Security instance,
  *        as this would lead to (severe) performance penalty! how should this be handled?
  */
@@ -270,14 +270,12 @@ class Smarty_Security
      */
     public function isTrustedPhpFunction($function_name, $compiler)
     {
-        if (isset($this->php_functions) 
+        if (isset($this->php_functions)
             && (empty($this->php_functions) || in_array($function_name, $this->php_functions))
         ) {
             return true;
         }
-
         $compiler->trigger_template_error("PHP function '{$function_name}' not allowed by security setting");
-
         return false; // should not, but who knows what happens to the compiler in the future?
     }
 
@@ -291,14 +289,12 @@ class Smarty_Security
      */
     public function isTrustedStaticClass($class_name, $compiler)
     {
-        if (isset($this->static_classes) 
+        if (isset($this->static_classes)
             && (empty($this->static_classes) || in_array($class_name, $this->static_classes))
         ) {
             return true;
         }
-
         $compiler->trigger_template_error("access to static class '{$class_name}' not allowed by security setting");
-
         return false; // should not, but who knows what happens to the compiler in the future?
     }
 
@@ -330,7 +326,7 @@ class Smarty_Security
                 // fall back
                 return $this->isTrustedStaticClass($class_name, $compiler);
             }
-            if (isset($allowed[ $class_name ]) 
+            if (isset($allowed[ $class_name ])
                 && (empty($allowed[ $class_name ]) || in_array($name, $allowed[ $class_name ]))
             ) {
                 return true;
@@ -350,14 +346,12 @@ class Smarty_Security
      */
     public function isTrustedPhpModifier($modifier_name, $compiler)
     {
-        if (isset($this->php_modifiers) 
+        if (isset($this->php_modifiers)
             && (empty($this->php_modifiers) || in_array($modifier_name, $this->php_modifiers))
         ) {
             return true;
         }
-
         $compiler->trigger_template_error("modifier '{$modifier_name}' not allowed by security setting");
-
         return false; // should not, but who knows what happens to the compiler in the future?
     }
 
@@ -374,10 +368,12 @@ class Smarty_Security
         // check for internal always required tags
         if (in_array(
             $tag_name,
-            array('assign', 'call', 'private_filter', 'private_block_plugin', 'private_function_plugin',
-                           'private_object_block_function', 'private_object_function', 'private_registered_function',
-                           'private_registered_block', 'private_special_variable', 'private_print_expression',
-            'private_modifier')
+            array(
+                'assign', 'call', 'private_filter', 'private_block_plugin', 'private_function_plugin',
+                'private_object_block_function', 'private_object_function', 'private_registered_function',
+                'private_registered_block', 'private_special_variable', 'private_print_expression',
+                'private_modifier'
+            )
         )
         ) {
             return true;
@@ -394,7 +390,6 @@ class Smarty_Security
         } else {
             $compiler->trigger_template_error("tag '{$tag_name}' not allowed by security setting", null, true);
         }
-
         return false; // should not, but who knows what happens to the compiler in the future?
     }
 
@@ -413,10 +408,10 @@ class Smarty_Security
         } else {
             $compiler->trigger_template_error(
                 "special variable '\$smarty.{$var_name}' not allowed by security setting",
-                null, true
+                null,
+                true
             );
         }
-
         return false; // should not, but who knows what happens to the compiler in the future?
     }
 
@@ -440,21 +435,22 @@ class Smarty_Security
                 return true;
             } else {
                 $compiler->trigger_template_error(
-                    "modifier '{$modifier_name}' disabled by security setting", null,
+                    "modifier '{$modifier_name}' disabled by security setting",
+                    null,
                     true
                 );
             }
-        } elseif (in_array($modifier_name, $this->allowed_modifiers) 
-            && !in_array($modifier_name, $this->disabled_modifiers)
+        } elseif (in_array($modifier_name, $this->allowed_modifiers)
+                  && !in_array($modifier_name, $this->disabled_modifiers)
         ) {
             return true;
         } else {
             $compiler->trigger_template_error(
-                "modifier '{$modifier_name}' not allowed by security setting", null,
+                "modifier '{$modifier_name}' not allowed by security setting",
+                null,
                 true
             );
         }
-
         return false; // should not, but who knows what happens to the compiler in the future?
     }
 
@@ -498,7 +494,6 @@ class Smarty_Security
         if (isset($this->streams) && (empty($this->streams) || in_array($stream_name, $this->streams))) {
             return true;
         }
-
         throw new SmartyException("stream '{$stream_name}' not allowed by security setting");
     }
 
@@ -514,35 +509,33 @@ class Smarty_Security
     public function isTrustedResourceDir($filepath, $isConfig = null)
     {
         if ($this->_include_path_status !== $this->smarty->use_include_path) {
-            $_dir = $this->smarty->use_include_path ? $this->smarty->ext->_getIncludePath->getIncludePathDirs($this->smarty) : array();
+            $_dir =
+                $this->smarty->use_include_path ? $this->smarty->ext->_getIncludePath->getIncludePathDirs($this->smarty) : array();
             if ($this->_include_dir !== $_dir) {
                 $this->_updateResourceDir($this->_include_dir, $_dir);
                 $this->_include_dir = $_dir;
             }
             $this->_include_path_status = $this->smarty->use_include_path;
         }
-
-            $_dir = $this->smarty->getTemplateDir();
+        $_dir = $this->smarty->getTemplateDir();
         if ($this->_template_dir !== $_dir) {
             $this->_updateResourceDir($this->_template_dir, $_dir);
             $this->_template_dir = $_dir;
         }
-
-            $_dir = $this->smarty->getConfigDir();
+        $_dir = $this->smarty->getConfigDir();
         if ($this->_config_dir !== $_dir) {
             $this->_updateResourceDir($this->_config_dir, $_dir);
             $this->_config_dir = $_dir;
         }
-
         if ($this->_secure_dir !== $this->secure_dir) {
             $this->secure_dir = (array)$this->secure_dir;
-            foreach($this->secure_dir as $k => $d) {
-                $this->secure_dir[$k] = $this->smarty->_realpath($d. DIRECTORY_SEPARATOR, true);
+            foreach ($this->secure_dir as $k => $d) {
+                $this->secure_dir[ $k ] = $this->smarty->_realpath($d . DIRECTORY_SEPARATOR, true);
             }
             $this->_updateResourceDir($this->_secure_dir, $this->secure_dir);
             $this->_secure_dir = $this->secure_dir;
         }
-        $addPath =  $this->_checkDir($filepath, $this->_resource_dir);
+        $addPath = $this->_checkDir($filepath, $this->_resource_dir);
         if ($addPath !== false) {
             $this->_resource_dir = array_merge($this->_resource_dir, $addPath);
         }
@@ -572,7 +565,6 @@ class Smarty_Security
                 }
             }
         }
-
         throw new SmartyException("URI '{$uri}' not allowed by security setting");
     }
 
@@ -589,22 +581,20 @@ class Smarty_Security
         if (empty($this->trusted_dir)) {
             throw new SmartyException("directory '{$filepath}' not allowed by security setting (no trusted_dir specified)");
         }
-
         // check if index is outdated
         if (!$this->_trusted_dir || $this->_trusted_dir !== $this->trusted_dir) {
             $this->_php_resource_dir = array();
-
             $this->_trusted_dir = $this->trusted_dir;
-            foreach ((array) $this->trusted_dir as $directory) {
+            foreach ((array)$this->trusted_dir as $directory) {
                 $directory = $this->smarty->_realpath($directory . '/', true);
                 $this->_php_resource_dir[ $directory ] = true;
             }
         }
-        $addPath =  $this->_checkDir($filepath, $this->_php_resource_dir);
+        $addPath = $this->_checkDir($filepath, $this->_php_resource_dir);
         if ($addPath !== false) {
             $this->_php_resource_dir = array_merge($this->_php_resource_dir, $addPath);
         }
-         return true;
+        return true;
     }
 
     /**
@@ -613,7 +603,7 @@ class Smarty_Security
      * @param array $oldDir
      * @param array $newDir
      */
-    private function _updateResourceDir($oldDir, $newDir) 
+    private function _updateResourceDir($oldDir, $newDir)
     {
         foreach ($oldDir as $directory) {
             //           $directory = $this->smarty->_realpath($directory, true);
@@ -629,11 +619,12 @@ class Smarty_Security
             $this->_resource_dir[ $directory ] = true;
         }
     }
+
     /**
      * Check if file is inside a valid directory
      *
      * @param string $filepath
-     * @param array  $dirs     valid directories
+     * @param array  $dirs valid directories
      *
      * @return array|bool
      * @throws \SmartyException
@@ -692,6 +683,7 @@ class Smarty_Security
         }
         return $smarty;
     }
+
     /**
      * Start template processing
      *
@@ -701,7 +693,7 @@ class Smarty_Security
      */
     public function startTemplate($template)
     {
-        if ($this->max_template_nesting > 0 && $this->_current_template_nesting ++ >= $this->max_template_nesting) {
+        if ($this->max_template_nesting > 0 && $this->_current_template_nesting++ >= $this->max_template_nesting) {
             throw new SmartyException("maximum template nesting level of '{$this->max_template_nesting}' exceeded when calling '{$template->template_resource}'");
         }
     }
@@ -712,7 +704,7 @@ class Smarty_Security
     public function endTemplate()
     {
         if ($this->max_template_nesting > 0) {
-            $this->_current_template_nesting --;
+            $this->_current_template_nesting--;
         }
     }
 

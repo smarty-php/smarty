@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty Method CompileAllTemplates
  *
@@ -30,7 +31,8 @@ class Smarty_Internal_Method_CompileAllTemplates
      *
      * @return integer number of template files recompiled
      */
-    public function compileAllTemplates(Smarty $smarty,
+    public function compileAllTemplates(
+        Smarty $smarty,
         $extension = '.tpl',
         $force_compile = false,
         $time_limit = 0,
@@ -51,7 +53,8 @@ class Smarty_Internal_Method_CompileAllTemplates
      *
      * @return int number of template files compiled
      */
-    protected function compileAll(Smarty $smarty,
+    protected function compileAll(
+        Smarty $smarty,
         $extension,
         $force_compile,
         $time_limit,
@@ -68,8 +71,9 @@ class Smarty_Internal_Method_CompileAllTemplates
         // loop over array of source directories
         foreach ($sourceDir as $_dir) {
             $_dir_1 = new RecursiveDirectoryIterator(
-                $_dir, defined('FilesystemIterator::FOLLOW_SYMLINKS') ?
-                FilesystemIterator::FOLLOW_SYMLINKS : 0
+                $_dir,
+                defined('FilesystemIterator::FOLLOW_SYMLINKS') ?
+                    FilesystemIterator::FOLLOW_SYMLINKS : 0
             );
             $_dir_2 = new RecursiveIteratorIterator($_dir_1);
             foreach ($_dir_2 as $_fileinfo) {
@@ -107,8 +111,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                         echo ' is up to date';
                         flush();
                     }
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     echo "\n<br>        ------>Error: ", $e->getMessage(), "<br><br>\n";
                     $_error_count++;
                 }

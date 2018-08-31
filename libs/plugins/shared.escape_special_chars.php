@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsShared
  */
-
 /**
  * escape_special_chars common function
  * Function: smarty_function_escape_special_chars
@@ -29,6 +28,5 @@ function smarty_function_escape_special_chars($string)
             $string = str_replace(array('%%%SMARTY_START%%%', '%%%SMARTY_END%%%'), array('&', ';'), $string);
         }
     }
-
     return $string;
 }

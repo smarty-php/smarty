@@ -68,9 +68,11 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
         $compiled->timestamp = $_template->source->timestamp;
         $compiled->exists = $_template->source->exists;
         $compiled->file_dependency[ $_template->source->uid ] =
-            array($compiled->filepath,
-                  $compiled->timestamp,
-                  $_template->source->type,);
+            array(
+                $compiled->filepath,
+                $compiled->timestamp,
+                $_template->source->type,
+            );
     }
 
     /**
@@ -93,18 +95,16 @@ class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
                 ($_template->_isSubTpl() ? " in '{$_template->parent->template_resource}'" : '')
             );
         }
-
         // prepare variables
         extract($_template->getTemplateVars());
-
         // include PHP template with short open tags enabled
         if (function_exists('ini_set')) {
             ini_set('short_open_tag', '1');
         }
         /**
-* 
          *
- * @var Smarty_Internal_Template $_smarty_template
+         *
+         * @var Smarty_Internal_Template $_smarty_template
          * used in included file
          */
         $_smarty_template = $_template;

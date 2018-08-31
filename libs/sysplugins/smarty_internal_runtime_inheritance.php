@@ -9,7 +9,6 @@
  **/
 class Smarty_Internal_Runtime_Inheritance
 {
-
     /**
      * State machine
      * - 0 idle next extends will create a new inheritance tree
@@ -41,7 +40,7 @@ class Smarty_Internal_Runtime_Inheritance
      *
      * @var int
      */
-    public $tplIndex = - 1;
+    public $tplIndex = -1;
 
     /**
      * Array of template source objects
@@ -74,7 +73,6 @@ class Smarty_Internal_Runtime_Inheritance
         }
         ++$this->tplIndex;
         $this->sources[ $this->tplIndex ] = $tpl->source;
-
         // start of child sub template(s)
         if ($initChild) {
             $this->state = 1;
@@ -111,8 +109,8 @@ class Smarty_Internal_Runtime_Inheritance
             ob_end_clean();
             $this->state = 2;
         }
-        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends') 
-            || $tpl->smarty->extends_recursion)
+        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends')
+                                 || $tpl->smarty->extends_recursion)
         ) {
             $tpl->_subTemplateRender(
                 $template,
@@ -135,7 +133,7 @@ class Smarty_Internal_Runtime_Inheritance
      * - otherwise process inheritance and render
      *
      * @param \Smarty_Internal_Template $tpl
-     * @param $className
+     * @param                           $className
      * @param string                    $name
      * @param int|null                  $tplIndex index of outer level {block} if nested
      *
@@ -167,7 +165,9 @@ class Smarty_Internal_Runtime_Inheritance
      *
      * @throws \SmartyException
      */
-    public function process(Smarty_Internal_Template $tpl, Smarty_Internal_Block $block,
+    public function process(
+        Smarty_Internal_Template $tpl,
+        Smarty_Internal_Block $block,
         Smarty_Internal_Block $parent = null
     ) {
         if ($block->hide && !isset($block->child)) {
@@ -188,7 +188,7 @@ class Smarty_Internal_Runtime_Inheritance
         if ($block->prepend && isset($parent)) {
             $this->callParent($tpl, $block, '{block prepend}');
             if ($block->append) {
-                if ($block->callsChild || !isset($block->child) 
+                if ($block->callsChild || !isset($block->child)
                     || ($block->child->hide && !isset($block->child->child))
                 ) {
                     $this->callBlock($block, $tpl);

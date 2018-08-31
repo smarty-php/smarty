@@ -140,7 +140,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @api  Smarty::isCached()
      * @link http://www.smarty.net/docs/en/api.is.cached.tpl
      *
-     * @param null|string|\Smarty_Internal_Template $template   the resource handle of the template file or template object
+     * @param null|string|\Smarty_Internal_Template $template   the resource handle of the template file or template
+     *                                                          object
      * @param mixed                                 $cache_id   cache id to be used with this template
      * @param mixed                                 $compile_id compile id to be used with this template
      * @param object                                $parent     next higher level of Smarty variables
@@ -185,7 +186,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         } else {
             // get template object
             $saveVars = false;
-
             $template = $smarty->createTemplate($template, $cache_id, $compile_id, $parent ? $parent : $this, false);
             if ($this->_objType === 1) {
                 // set caching in template object
@@ -246,8 +246,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 error_reporting($_smarty_old_error_level);
             }
             return $result;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
@@ -328,12 +327,20 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException
      */
-    public function registerObject($object_name, $object, $allowed_methods_properties = array(), $format = true,
+    public function registerObject(
+        $object_name,
+        $object,
+        $allowed_methods_properties = array(),
+        $format = true,
         $block_methods = array()
     ) {
         return $this->ext->registerObject->registerObject(
-            $this, $object_name, $object, $allowed_methods_properties,
-            $format, $block_methods
+            $this,
+            $object_name,
+            $object,
+            $allowed_methods_properties,
+            $format,
+            $block_methods
         );
     }
 
@@ -376,6 +383,4 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     {
         $this->cache_id = $cache_id;
     }
-
 }
-

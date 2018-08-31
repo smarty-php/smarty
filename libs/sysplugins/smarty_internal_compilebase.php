@@ -105,7 +105,9 @@ abstract class Smarty_Internal_CompileBase
                             } else {
                                 $compiler->trigger_template_error(
                                     "illegal value '" . var_export($v, true) .
-                                    "' for option flag '{$k}'", null, true
+                                    "' for option flag '{$k}'",
+                                    null,
+                                    true
                                 );
                             }
                         }
@@ -128,9 +130,11 @@ abstract class Smarty_Internal_CompileBase
                 $this->mapCache[ 'all' ] =
                     array_fill_keys(
                         array_merge(
-                            $this->required_attributes, $this->optional_attributes,
+                            $this->required_attributes,
+                            $this->optional_attributes,
                             $this->option_flags
-                        ), true
+                        ),
+                        true
                     );
             }
             foreach ($_indexed_attr as $key => $dummy) {
@@ -179,7 +183,7 @@ abstract class Smarty_Internal_CompileBase
             // get stacked info
             list($_openTag, $_data) = array_pop($compiler->_tag_stack);
             // open tag must match with the expected ones
-            if (in_array($_openTag, (array) $expectedTag)) {
+            if (in_array($_openTag, (array)$expectedTag)) {
                 if (is_null($_data)) {
                     // return opening tag
                     return $_openTag;
@@ -190,12 +194,10 @@ abstract class Smarty_Internal_CompileBase
             }
             // wrong nesting of tags
             $compiler->trigger_template_error("unclosed '{$compiler->smarty->left_delimiter}{$_openTag}{$compiler->smarty->right_delimiter}' tag");
-
             return;
         }
         // wrong nesting of tags
         $compiler->trigger_template_error('unexpected closing tag', null, true);
-
         return;
     }
 }

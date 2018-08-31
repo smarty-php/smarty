@@ -88,9 +88,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
         if (!$source->exists) {
             throw new SmartyException("Unable to load template '{$source->type}:{$source->name}'");
         }
-
         $_components = array_reverse($source->components);
-
         $_content = '';
         /* @var \Smarty_Template_Source $_s */
         foreach ($_components as $_s) {

@@ -31,7 +31,6 @@ class Smarty_Internal_Compile_Setfilter extends Smarty_Internal_CompileBase
         $compiler->variable_filters = $parameter[ 'modifier_list' ];
         // this tag does not return compiled code
         $compiler->has_code = false;
-
         return true;
     }
 }
@@ -64,7 +63,6 @@ class Smarty_Internal_Compile_Setfilterclose extends Smarty_Internal_CompileBase
         }
         // this tag does not return compiled code
         $compiler->has_code = false;
-
         return true;
     }
 }

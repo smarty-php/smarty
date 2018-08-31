@@ -63,7 +63,6 @@ class Smarty_Internal_Resource_Eval extends Smarty_Resource_Recompiled
                 return urldecode(substr($string, 10));
             }
         }
-
         return $string;
     }
 

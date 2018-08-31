@@ -27,4 +27,3 @@ $code = preg_replace('#\$expectedPlugins =[^;]+#', $expectedPlugins, $code);
 $expectedSysplugins = '$expectedSysplugins = ' . var_export($sysplugins, true);
 $code = preg_replace('#\$expectedSysplugins =[^;]+#', $expectedSysplugins, $code);
 file_put_contents(dirname(__FILE__) . '/../libs/sysplugins/smarty_internal_testinstall.php', $code);
-

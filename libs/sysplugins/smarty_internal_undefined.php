@@ -11,7 +11,6 @@
  */
 class Smarty_Internal_Undefined
 {
-
     /**
      * Name of undefined extension class
      *

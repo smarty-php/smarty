@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Smarty.
  *
  * (c) 2015 Uwe Tews
@@ -22,6 +22,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('name');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -29,6 +30,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('name');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -36,6 +38,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
      * @see Smarty_Internal_CompileBase
      */
     public $option_flags = array('hide', 'nocache');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -74,9 +77,11 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         $this->openTag(
             $compiler,
             'block',
-            array($_attr, $compiler->nocache, $compiler->parser->current_buffer,
-                             $compiler->template->compiled->has_nocache_code,
-            $compiler->template->caching)
+            array(
+                $_attr, $compiler->nocache, $compiler->parser->current_buffer,
+                $compiler->template->compiled->has_nocache_code,
+                $compiler->template->caching
+            )
         );
         $compiler->saveRequiredPlugins(true);
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
@@ -85,6 +90,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         $compiler->suppressNocacheProcessing = true;
     }
 }
+
 /**
  * Smarty Internal Plugin Compile BlockClose Class
  */
@@ -118,13 +124,12 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $_functionCode = $compiler->parser->current_buffer;
         // setup buffer for template function code
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
-
         $output = "<?php\n";
         $output .= "/* {block {$_name}} */\n";
         $output .= "class {$_className} extends Smarty_Internal_Block\n";
         $output .= "{\n";
         foreach ($_block as $property => $value) {
-            $output .= "public \${$property} = " . var_export($value, true) .";\n";
+            $output .= "public \${$property} = " . var_export($value, true) . ";\n";
         }
         $output .= "public function callBlock(Smarty_Internal_Template \$_smarty_tpl) {\n";
         $output .= $compiler->compileRequiredPlugins();

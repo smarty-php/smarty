@@ -40,7 +40,6 @@ class Smarty_Internal_Compile_Nocache extends Smarty_Internal_CompileBase
         $compiler->nocache = true;
         // this tag does not return compiled code
         $compiler->has_code = false;
-
         return true;
     }
 }
@@ -69,7 +68,6 @@ class Smarty_Internal_Compile_Nocacheclose extends Smarty_Internal_CompileBase
         list($compiler->nocache) = $this->closeTag($compiler, array('nocache'));
         // this tag does not return compiled code
         $compiler->has_code = false;
-
         return true;
     }
 }

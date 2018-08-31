@@ -38,7 +38,7 @@ class Smarty_Internal_Method_GetGlobal
             }
         } else {
             $_result = array();
-            foreach (Smarty::$global_tpl_vars AS $key => $var) {
+            foreach (Smarty::$global_tpl_vars as $key => $var) {
                 $_result[ $key ] = $var->value;
             }
             return $_result;

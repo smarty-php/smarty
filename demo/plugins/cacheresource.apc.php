@@ -39,7 +39,6 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
         foreach ($res as $k => $v) {
             $_res[ $k ] = $v;
         }
-
         return $_res;
     }
 
@@ -56,7 +55,6 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
         foreach ($keys as $k => $v) {
             apc_store($k, $v, $expire);
         }
-
         return true;
     }
 
@@ -72,7 +70,6 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
         foreach ($keys as $k) {
             apc_delete($k);
         }
-
         return true;
     }
 

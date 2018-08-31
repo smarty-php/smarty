@@ -46,15 +46,20 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                     $string = preg_replace('!&(#?\w+);!', '%%%SMARTY_START%%%\\1%%%SMARTY_END%%%', $string);
                     $string = htmlspecialchars($string, ENT_QUOTES, $char_set);
                     $string = str_replace(
-                        array('%%%SMARTY_START%%%',
-                              '%%%SMARTY_END%%%'),
-                        array('&',
-                              ';'),
+                        array(
+                            '%%%SMARTY_START%%%',
+                            '%%%SMARTY_END%%%'
+                        ),
+                        array(
+                            '&',
+                            ';'
+                        ),
                         $string
                     );
                     return $string;
                 }
             }
+        // no break
         case 'htmlall':
             if (Smarty::$_MBSTRING) {
                 // mb_convert_encoding ignores htmlspecialchars()
@@ -71,10 +76,14 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                         $string = htmlspecialchars($string, ENT_QUOTES, $char_set);
                         $string =
                             str_replace(
-                                array('%%%SMARTY_START%%%',
-                                      '%%%SMARTY_END%%%'),
-                                array('&',
-                                      ';'),
+                                array(
+                                    '%%%SMARTY_START%%%',
+                                    '%%%SMARTY_END%%%'
+                                ),
+                                array(
+                                    '&',
+                                    ';'
+                                ),
                                 $string
                             );
                         return $string;
@@ -93,15 +102,20 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                     $string = preg_replace('!&(#?\w+);!', '%%%SMARTY_START%%%\\1%%%SMARTY_END%%%', $string);
                     $string = htmlentities($string, ENT_QUOTES, $char_set);
                     $string = str_replace(
-                        array('%%%SMARTY_START%%%',
-                              '%%%SMARTY_END%%%'),
-                        array('&',
-                              ';'),
+                        array(
+                            '%%%SMARTY_START%%%',
+                            '%%%SMARTY_END%%%'
+                        ),
+                        array(
+                            '&',
+                            ';'
+                        ),
                         $string
                     );
                     return $string;
                 }
             }
+        // no break
         case 'url':
             return rawurlencode($string);
         case 'urlpathinfo':
@@ -164,12 +178,14 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
             // escape quotes and backslashes, newlines, etc.
             return strtr(
                 $string,
-                array('\\' => '\\\\',
-                      "'"  => "\\'",
-                      '"'  => '\\"',
-                      "\r" => '\\r',
-                      "\n" => '\\n',
-                      '</' => '<\/')
+                array(
+                    '\\' => '\\\\',
+                    "'"  => "\\'",
+                    '"'  => '\\"',
+                    "\r" => '\\r',
+                    "\n" => '\\n',
+                    '</' => '<\/'
+                )
             );
         case 'mail':
             if (Smarty::$_MBSTRING) {
@@ -180,19 +196,27 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                     $is_loaded_2 = true;
                 }
                 return smarty_mb_str_replace(
-                    array('@',
-                          '.'),
-                    array(' [AT] ',
-                          ' [DOT] '),
+                    array(
+                        '@',
+                        '.'
+                    ),
+                    array(
+                        ' [AT] ',
+                        ' [DOT] '
+                    ),
                     $string
                 );
             }
             // no MBString fallback
             return str_replace(
-                array('@',
-                      '.'),
-                array(' [AT] ',
-                      ' [DOT] '),
+                array(
+                    '@',
+                    '.'
+                ),
+                array(
+                    ' [AT] ',
+                    ' [DOT] '
+                ),
                 $string
             );
         case 'nonstd':

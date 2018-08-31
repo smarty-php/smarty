@@ -11,7 +11,6 @@
  */
 class Smarty_Internal_Method_AppendByRef
 {
-
     /**
      * appends values to template variables by reference
      *

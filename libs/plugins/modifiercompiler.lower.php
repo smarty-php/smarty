@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
-
 /**
  * Smarty lower modifier plugin
  * Type:     modifier
@@ -20,7 +19,6 @@
  *
  * @return string with compiled code
  */
-
 function smarty_modifiercompiler_lower($params)
 {
     if (Smarty::$_MBSTRING) {

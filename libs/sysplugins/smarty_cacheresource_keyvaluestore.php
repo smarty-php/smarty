@@ -56,7 +56,6 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
     {
         $cached->filepath = $_template->source->uid . '#' . $this->sanitize($cached->source->resource) . '#' .
                             $this->sanitize($cached->cache_id) . '#' . $this->sanitize($cached->compile_id);
-
         $this->populateTimestamp($cached);
     }
 
@@ -70,14 +69,19 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
     public function populateTimestamp(Smarty_Template_Cached $cached)
     {
         if (!$this->fetch(
-            $cached->filepath, $cached->source->name, $cached->cache_id, $cached->compile_id, $content,
-            $timestamp, $cached->source->uid
+            $cached->filepath,
+            $cached->source->name,
+            $cached->cache_id,
+            $cached->compile_id,
+            $content,
+            $timestamp,
+            $cached->source->uid
         )
         ) {
             return;
         }
         $cached->content = $content;
-        $cached->timestamp = (int) $timestamp;
+        $cached->timestamp = (int)$timestamp;
         $cached->exists = !!$cached->timestamp;
     }
 
@@ -90,7 +94,9 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      *
      * @return boolean                 true or false if the cached content does not exist
      */
-    public function process(Smarty_Internal_Template $_smarty_tpl, Smarty_Template_Cached $cached = null,
+    public function process(
+        Smarty_Internal_Template $_smarty_tpl,
+        Smarty_Template_Cached $cached = null,
         $update = false
     ) {
         if (!$cached) {
@@ -100,8 +106,13 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
         $timestamp = $cached->timestamp ? $cached->timestamp : null;
         if ($content === null || !$timestamp) {
             if (!$this->fetch(
-                $_smarty_tpl->cached->filepath, $_smarty_tpl->source->name, $_smarty_tpl->cache_id,
-                $_smarty_tpl->compile_id, $content, $timestamp, $_smarty_tpl->source->uid
+                $_smarty_tpl->cached->filepath,
+                $_smarty_tpl->source->name,
+                $_smarty_tpl->cache_id,
+                $_smarty_tpl->compile_id,
+                $content,
+                $timestamp,
+                $_smarty_tpl->source->uid
             )
             ) {
                 return false;
@@ -109,10 +120,8 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
         }
         if (isset($content)) {
             eval('?>' . $content);
-
             return true;
         }
-
         return false;
     }
 
@@ -127,7 +136,6 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
     public function writeCachedContent(Smarty_Internal_Template $_template, $content)
     {
         $this->addMetaTimestamp($content);
-
         return $this->write(array($_template->cached->filepath => $content), $_template->cache_lifetime);
     }
 
@@ -144,8 +152,13 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
         $timestamp = null;
         if ($content === null) {
             if (!$this->fetch(
-                $_template->cached->filepath, $_template->source->name, $_template->cache_id,
-                $_template->compile_id, $content, $timestamp, $_template->source->uid
+                $_template->cached->filepath,
+                $_template->source->name,
+                $_template->cache_id,
+                $_template->compile_id,
+                $content,
+                $timestamp,
+                $_template->source->uid
             )
             ) {
                 return false;
@@ -173,7 +186,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
         if (!$this->purge()) {
             $this->invalidate(null);
         }
-        return - 1;
+        return -1;
     }
 
     /**
@@ -199,7 +212,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
                $this->sanitize($compile_id);
         $this->delete(array($cid));
         $this->invalidate($cid, $resource_name, $cache_id, $compile_id, $uid);
-        return - 1;
+        return -1;
     }
 
     /**
@@ -251,13 +264,18 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      *
      * @return boolean success
      */
-    protected function fetch($cid, $resource_name = null, $cache_id = null, $compile_id = null, &$content = null,
-        &$timestamp = null, $resource_uid = null
+    protected function fetch(
+        $cid,
+        $resource_name = null,
+        $cache_id = null,
+        $compile_id = null,
+        &$content = null,
+        &$timestamp = null,
+        $resource_uid = null
     ) {
         $t = $this->read(array($cid));
         $content = !empty($t[ $cid ]) ? $t[ $cid ] : null;
         $timestamp = null;
-
         if ($content && ($timestamp = $this->getMetaTimestamp($content))) {
             $invalidated =
                 $this->getLatestInvalidationTimestamp($cid, $resource_name, $cache_id, $compile_id, $resource_uid);
@@ -266,7 +284,6 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
                 $content = null;
             }
         }
-
         return !!$content;
     }
 
@@ -279,7 +296,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
     protected function addMetaTimestamp(&$content)
     {
         $mt = explode(' ', microtime());
-        $ts = pack('NN', $mt[ 1 ], (int) ($mt[ 0 ] * 100000000));
+        $ts = pack('NN', $mt[ 1 ], (int)($mt[ 0 ] * 100000000));
         $content = $ts . $content;
     }
 
@@ -311,7 +328,11 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      *
      * @return void
      */
-    protected function invalidate($cid = null, $resource_name = null, $cache_id = null, $compile_id = null,
+    protected function invalidate(
+        $cid = null,
+        $resource_name = null,
+        $cache_id = null,
+        $compile_id = null,
         $resource_uid = null
     ) {
         $now = microtime(true);
@@ -352,7 +373,11 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      *
      * @return float  the microtime the CacheID was invalidated
      */
-    protected function getLatestInvalidationTimestamp($cid, $resource_name = null, $cache_id = null, $compile_id = null,
+    protected function getLatestInvalidationTimestamp(
+        $cid,
+        $resource_name = null,
+        $cache_id = null,
+        $compile_id = null,
         $resource_uid = null
     ) {
         // abort if there is no CacheID
@@ -363,14 +388,12 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
         if (!($_cid = $this->listInvalidationKeys($cid, $resource_name, $cache_id, $compile_id, $resource_uid))) {
             return 0;
         }
-
         // there are no InValidationKeys
         if (!($values = $this->read($_cid))) {
             return 0;
         }
         // make sure we're dealing with floats
         $values = array_map('floatval', $values);
-
         return max($values);
     }
 
@@ -387,7 +410,11 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      * @return array  list of InvalidationKeys
      * @uses   $invalidationKeyPrefix to prepend to each InvalidationKey
      */
-    protected function listInvalidationKeys($cid, $resource_name = null, $cache_id = null, $compile_id = null,
+    protected function listInvalidationKeys(
+        $cid,
+        $resource_name = null,
+        $cache_id = null,
+        $compile_id = null,
         $resource_uid = null
     ) {
         $t = array('IVK#ALL');
@@ -421,9 +448,8 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
             $t[] = 'IVK#CACHE#' . $part;
             $t[] = 'IVK#CID' . $_name . $part . $_compile;
             // skip past delimiter position
-            $i ++;
+            $i++;
         }
-
         return $t;
     }
 
@@ -439,7 +465,6 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
     {
         $key = 'LOCK#' . $cached->filepath;
         $data = $this->read(array($key));
-
         return $data && time() - $data[ $key ] < $smarty->locking_timeout;
     }
 

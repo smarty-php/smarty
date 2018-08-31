@@ -129,7 +129,11 @@ class SmartyBC extends Smarty
      * @throws   SmartyException
      * @internal param array $block_functs list of methods that are block format
      */
-    public function register_object($object, $object_impl, $allowed = array(), $smarty_args = true,
+    public function register_object(
+        $object,
+        $object_impl,
+        $allowed = array(),
+        $smarty_args = true,
         $block_methods = array()
     ) {
         settype($allowed, 'array');
@@ -150,8 +154,8 @@ class SmartyBC extends Smarty
     /**
      * Registers block function to be used in templates
      *
-     * @param string $block       name of template block
-     * @param string $block_impl  PHP function to register
+     * @param string $block      name of template block
+     * @param string $block_impl PHP function to register
      * @param bool   $cacheable
      * @param mixed  $cache_attrs
      *
@@ -352,7 +356,7 @@ class SmartyBC extends Smarty
     /**
      * test to see if valid cache exists for this template
      *
-     * @param string $tpl_file   name of template file
+     * @param string $tpl_file name of template file
      * @param string $cache_id
      * @param string $compile_id
      *

@@ -45,8 +45,8 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
             $tag_info = $compiler->smarty->registered_plugins[ Smarty::PLUGIN_FUNCTION ][ $tag ];
             $is_registered = true;
         } else {
-             $tag_info = $compiler->default_handler_plugins[ Smarty::PLUGIN_FUNCTION ][ $tag ];
-             $is_registered = false;
+            $tag_info = $compiler->default_handler_plugins[ Smarty::PLUGIN_FUNCTION ][ $tag ];
+            $is_registered = false;
         }
         // not cacheable?
         $compiler->tag_nocache = $compiler->tag_nocache || !$tag_info[ 1 ];
@@ -77,9 +77,12 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
         }
         if (!empty($parameter[ 'modifierlist' ])) {
             $output = $compiler->compileTag(
-                'private_modifier', array(),
-                array('modifierlist' => $parameter[ 'modifierlist' ],
-                'value' => $output)
+                'private_modifier',
+                array(),
+                array(
+                    'modifierlist' => $parameter[ 'modifierlist' ],
+                    'value'        => $output
+                )
             );
         }
         $output = "<?php echo {$output};?>\n";

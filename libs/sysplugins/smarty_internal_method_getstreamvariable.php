@@ -38,7 +38,6 @@ class Smarty_Internal_Method_GetStreamVariable
                 $_result .= $current_line;
             }
             fclose($fp);
-
             return $_result;
         }
         $smarty = isset($data->smarty) ? $data->smarty : $data;

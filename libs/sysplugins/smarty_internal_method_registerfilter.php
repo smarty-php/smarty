@@ -28,14 +28,14 @@ class Smarty_Internal_Method_RegisterFilter
     /**
      * Registers a filter function
      *
-     * @api Smarty::registerFilter()
+     * @api  Smarty::registerFilter()
      *
      * @link http://www.smarty.net/docs/en/api.register.filter.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param string                                                          $type     filter type
+     * @param string                                                          $type filter type
      * @param callback                                                        $callback
-     * @param string|null                                                     $name     optional filter name
+     * @param string|null                                                     $name optional filter name
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException
@@ -63,7 +63,6 @@ class Smarty_Internal_Method_RegisterFilter
     {
         if (is_array($function_name)) {
             $_class_name = (is_object($function_name[ 0 ]) ? get_class($function_name[ 0 ]) : $function_name[ 0 ]);
-
             return $_class_name . '_' . $function_name[ 1 ];
         } elseif (is_string($function_name)) {
             return $function_name;

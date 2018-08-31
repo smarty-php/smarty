@@ -112,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.33-dev-9';
+    const SMARTY_VERSION = '3.1.33-dev-10';
     /**
      * define variable scopes
      */
@@ -650,18 +650,22 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var string[]
      */
-    protected $obsoleteProperties = array('resource_caching', 'template_resource_caching', 'direct_access_security',
-                                          '_dir_perms', '_file_perms', 'plugin_search_order',
-                                          'inheritance_merge_compiled_includes', 'resource_cache_mode',);
+    protected $obsoleteProperties = array(
+        'resource_caching', 'template_resource_caching', 'direct_access_security',
+        '_dir_perms', '_file_perms', 'plugin_search_order',
+        'inheritance_merge_compiled_includes', 'resource_cache_mode',
+    );
 
     /**
      * List of private properties which will call getter/setter on a direct access
      *
      * @var string[]
      */
-    protected $accessMap = array('template_dir' => 'TemplateDir', 'config_dir' => 'ConfigDir',
-                                 'plugins_dir'  => 'PluginsDir', 'compile_dir' => 'CompileDir',
-                                 'cache_dir'    => 'CacheDir',);
+    protected $accessMap = array(
+        'template_dir' => 'TemplateDir', 'config_dir' => 'ConfigDir',
+        'plugins_dir'  => 'PluginsDir', 'compile_dir' => 'CompileDir',
+        'cache_dir'    => 'CacheDir',
+    );
 
     /**
      * Initialize new Smarty object
@@ -1074,13 +1078,13 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @return string
      * @throws \SmartyException
      */
-    public function _getTemplateId($template_name,
-                                   $cache_id = null,
-                                   $compile_id = null,
-                                   $caching = null,
-                                   Smarty_Internal_Template $template = null
-    )
-    {
+    public function _getTemplateId(
+        $template_name,
+        $cache_id = null,
+        $compile_id = null,
+        $caching = null,
+        Smarty_Internal_Template $template = null
+    ) {
         $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
             $template_name;
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
@@ -1129,8 +1133,8 @@ class Smarty extends Smarty_Internal_TemplateBase
             }
         }
         // normalize DIRECTORY_SEPARATOR
-        $path = str_replace($nds[DIRECTORY_SEPARATOR], DIRECTORY_SEPARATOR, $path);
-        $parts[ 'root' ] = str_replace($nds[DIRECTORY_SEPARATOR], DIRECTORY_SEPARATOR, $parts[ 'root' ]);
+        $path = str_replace($nds[ DIRECTORY_SEPARATOR ], DIRECTORY_SEPARATOR, $path);
+        $parts[ 'root' ] = str_replace($nds[ DIRECTORY_SEPARATOR ], DIRECTORY_SEPARATOR, $parts[ 'root' ]);
         do {
             $path = preg_replace(
                 array('#[\\\\/]{2}#', '#[\\\\/][.][\\\\/]#', '#[\\\\/]([^\\\\/.]+)[\\\\/][.][.][\\\\/]#'),

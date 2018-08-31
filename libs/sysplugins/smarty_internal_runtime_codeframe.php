@@ -25,7 +25,11 @@ class Smarty_Internal_Runtime_CodeFrame
      *
      * @return string
      */
-    public function create(Smarty_Internal_Template $_template, $content = '', $functions = '', $cache = false,
+    public function create(
+        Smarty_Internal_Template $_template,
+        $content = '',
+        $functions = '',
+        $cache = false,
         Smarty_Internal_TemplateCompilerBase $compiler = null
     ) {
         // build property code
@@ -56,7 +60,6 @@ class Smarty_Internal_Runtime_CodeFrame
         if ($cache && isset($_template->smarty->ext->_tplFunction)) {
             $output .= "\$_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions(\$_smarty_tpl, " .
                        var_export($_template->smarty->ext->_tplFunction->getTplFunction($_template), true) . ");\n";
-
         }
         $output .= "?>";
         $output .= $content;

@@ -16,7 +16,6 @@
  */
 class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_CompileBase
 {
-
     /**
      * Preg search pattern
      *
@@ -113,8 +112,10 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
     {
         if ($named) {
             $this->resultOffsets[ 'named' ] = $this->startOffset + 4;
-            $this->propertyPreg .= "(([\$]smarty[.]{$this->tagName}[.]" . ($this->tagName === 'section' ? "|[\[]\s*" : '')
-                                   . "){$attributes['name']}[.](";
+            $this->propertyPreg .= "(([\$]smarty[.]{$this->tagName}[.]" .
+                                   ($this->tagName === 'section' ? "|[\[]\s*" : '')
+                                   .
+                                   "){$attributes['name']}[.](";
             $properties = $this->nameProperties;
         } else {
             $this->resultOffsets[ 'item' ] = $this->startOffset + 3;
@@ -178,11 +179,12 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
                 $_content = $nextCompiler->template->source->getContent();
                 if ($_content !== '') {
                     // run pre filter if required
-                    if ((isset($nextCompiler->smarty->autoload_filters[ 'pre' ]) 
-                        || isset($nextCompiler->smarty->registered_filters[ 'pre' ]))
+                    if ((isset($nextCompiler->smarty->autoload_filters[ 'pre' ])
+                         || isset($nextCompiler->smarty->registered_filters[ 'pre' ]))
                     ) {
                         $_content = $nextCompiler->smarty->ext->_filterHandler->runFilter(
-                            'pre', $_content,
+                            'pre',
+                            $_content,
                             $nextCompiler->template
                         );
                     }

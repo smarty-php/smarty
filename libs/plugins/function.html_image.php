@@ -37,8 +37,12 @@
 function smarty_function_html_image($params, Smarty_Internal_Template $template)
 {
     $template->_checkPlugins(
-        array(array('function' => 'smarty_function_escape_special_chars',
-                    'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php'))
+        array(
+            array(
+                'function' => 'smarty_function_escape_special_chars',
+                'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php'
+            )
+        )
     );
     $alt = '';
     $file = '';
@@ -63,8 +67,10 @@ function smarty_function_html_image($params, Smarty_Internal_Template $template)
                 if (!is_array($_val)) {
                     $$_key = smarty_function_escape_special_chars($_val);
                 } else {
-                    throw new SmartyException("html_image: extra attribute '{$_key}' cannot be an array",
-                                              E_USER_NOTICE);
+                    throw new SmartyException(
+                        "html_image: extra attribute '{$_key}' cannot be an array",
+                        E_USER_NOTICE
+                    );
                 }
                 break;
             case 'link':
@@ -76,8 +82,10 @@ function smarty_function_html_image($params, Smarty_Internal_Template $template)
                 if (!is_array($_val)) {
                     $extra .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_val) . '"';
                 } else {
-                    throw new SmartyException("html_image: extra attribute '{$_key}' cannot be an array",
-                                              E_USER_NOTICE);
+                    throw new SmartyException(
+                        "html_image: extra attribute '{$_key}' cannot be an array",
+                        E_USER_NOTICE
+                    );
                 }
                 break;
         }

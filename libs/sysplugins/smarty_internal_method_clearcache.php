@@ -34,7 +34,12 @@ class Smarty_Internal_Method_ClearCache
      * @return int number of cache files deleted
      * @throws \SmartyException
      */
-    public function clearCache(Smarty $smarty, $template_name, $cache_id = null, $compile_id = null, $exp_time = null,
+    public function clearCache(
+        Smarty $smarty,
+        $template_name,
+        $cache_id = null,
+        $compile_id = null,
+        $exp_time = null,
         $type = null
     ) {
         $smarty->_clearTemplateCache();

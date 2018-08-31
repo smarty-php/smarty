@@ -29,9 +29,11 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
      *
      * @var array
      */
-    public $valid_scopes = array('local' => Smarty::SCOPE_LOCAL, 'parent' => Smarty::SCOPE_PARENT,
-                                 'root' => Smarty::SCOPE_ROOT, 'global' => Smarty::SCOPE_GLOBAL,
-                                 'tpl_root' => Smarty::SCOPE_TPL_ROOT, 'smarty' => Smarty::SCOPE_SMARTY);
+    public $valid_scopes = array(
+        'local'    => Smarty::SCOPE_LOCAL, 'parent' => Smarty::SCOPE_PARENT,
+        'root'     => Smarty::SCOPE_ROOT, 'global' => Smarty::SCOPE_GLOBAL,
+        'tpl_root' => Smarty::SCOPE_TPL_ROOT, 'smarty' => Smarty::SCOPE_SMARTY
+    );
 
     /**
      * Compiles code for the {assign} tag
@@ -66,7 +68,7 @@ class Smarty_Internal_Compile_Assign extends Smarty_Internal_CompileBase
         }
         // scope setup
         if ($_attr[ 'noscope' ]) {
-            $_scope = - 1;
+            $_scope = -1;
         } else {
             $_scope = $compiler->convertScope($_attr, $this->valid_scopes);
         }

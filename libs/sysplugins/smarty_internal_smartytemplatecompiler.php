@@ -76,7 +76,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
     /**
      * method to compile a Smarty template
      *
-     * @param mixed $_content         template source
+     * @param mixed $_content template source
      * @param bool  $isTemplateSource
      *
      * @return bool true if compiling succeeded, false if it failed
@@ -92,9 +92,14 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
             new $this->parser_class(
                 new $this->lexer_class(
                     str_replace(
-                        array("\r\n",
-                        "\r"), "\n", $_content
-                    ), $this
+                        array(
+                            "\r\n",
+                            "\r"
+                        ),
+                        "\n",
+                        $_content
+                    ),
+                    $this
                 ),
                 $this
             );
@@ -103,14 +108,13 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         }
         if (function_exists('mb_internal_encoding')
             && function_exists('ini_get')
-            && ((int) ini_get('mbstring.func_overload')) & 2
+            && ((int)ini_get('mbstring.func_overload')) & 2
         ) {
             $mbEncoding = mb_internal_encoding();
             mb_internal_encoding('ASCII');
         } else {
             $mbEncoding = null;
         }
-
         if ($this->smarty->_parserdebug) {
             $this->parser->PrintTrace();
             $this->parser->lex->PrintTrace();
@@ -123,7 +127,6 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
             }
             $this->parser->doParse($this->parser->lex->token, $this->parser->lex->value);
         }
-
         // finish parsing process
         $this->parser->doParse(0, 0);
         if ($mbEncoding) {

@@ -6,6 +6,7 @@
  * @subpackage PluginsInternal
  * @author     Monte Ohrt
  */
+
 /**
  * Smarty Internal Write File Class
  *

@@ -48,7 +48,6 @@ class Smarty_Internal_Method_ConfigLoad
      * @param string                                                  $config_file filename
      * @param mixed                                                   $sections    array of section names, single
      *                                                                             section or null
-
      * @param int                                                     $scope       scope into which config variables
      *                                                                             shall be loaded
      *
@@ -119,19 +118,19 @@ class Smarty_Internal_Method_ConfigLoad
             if ($tpl->smarty->config_overwrite || !isset($config_vars[ $variable ])) {
                 $config_vars[ $variable ] = $value;
             } else {
-                $config_vars[ $variable ] = array_merge((array) $config_vars[ $variable ], (array) $value);
+                $config_vars[ $variable ] = array_merge((array)$config_vars[ $variable ], (array)$value);
             }
         }
         // scan sections
         $sections = $tpl->source->config_sections;
         if (!empty($sections)) {
-            foreach ((array) $sections as $tpl_section) {
+            foreach ((array)$sections as $tpl_section) {
                 if (isset($new_config_vars[ 'sections' ][ $tpl_section ])) {
                     foreach ($new_config_vars[ 'sections' ][ $tpl_section ][ 'vars' ] as $variable => $value) {
                         if ($tpl->smarty->config_overwrite || !isset($config_vars[ $variable ])) {
                             $config_vars[ $variable ] = $value;
                         } else {
-                            $config_vars[ $variable ] = array_merge((array) $config_vars[ $variable ], (array) $value);
+                            $config_vars[ $variable ] = array_merge((array)$config_vars[ $variable ], (array)$value);
                         }
                     }
                 }
@@ -150,7 +149,7 @@ class Smarty_Internal_Method_ConfigLoad
         $i = 0;
         while (isset($tpl->_cache[ 'varStack' ][ $i ])) {
             $this->_assignConfigVars($tpl->_cache[ 'varStack' ][ $i ][ 'config' ], $tpl, $config_vars);
-            $i ++;
+            $i++;
         }
     }
 
@@ -158,7 +157,7 @@ class Smarty_Internal_Method_ConfigLoad
      * gets  a config variable value
      *
      * @param \Smarty|\Smarty_Internal_Data|\Smarty_Internal_Template $data
-     * @param string                                                  $varName     the name of the config variable
+     * @param string                                                  $varName the name of the config variable
      * @param bool                                                    $errorEnable
      *
      * @return null|string  the value of the config variable

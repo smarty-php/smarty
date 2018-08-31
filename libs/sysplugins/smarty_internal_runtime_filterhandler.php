@@ -34,7 +34,7 @@ class Smarty_Internal_Runtime_FilterHandler
     {
         // loop over autoload filters of specified type
         if (!empty($template->smarty->autoload_filters[ $type ])) {
-            foreach ((array) $template->smarty->autoload_filters[ $type ] as $name) {
+            foreach ((array)$template->smarty->autoload_filters[ $type ] as $name) {
                 $plugin_name = "Smarty_{$type}filter_{$name}";
                 if (function_exists($plugin_name)) {
                     $callback = $plugin_name;

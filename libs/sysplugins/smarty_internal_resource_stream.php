@@ -56,7 +56,6 @@ class Smarty_Internal_Resource_Stream extends Smarty_Resource_Recompiled
                 $t .= $current_line;
             }
             fclose($fp);
-
             return $t;
         } else {
             return false;

@@ -25,7 +25,7 @@ class Smarty_Internal_Runtime_UpdateCache
      *
      * @param \Smarty_Template_Cached   $cached
      * @param \Smarty_Internal_Template $_template
-     * @param $no_output_filter
+     * @param                           $no_output_filter
      *
      * @throws \Exception
      */
@@ -64,14 +64,15 @@ class Smarty_Internal_Runtime_UpdateCache
      *
      * @throws \SmartyException
      */
-    public function removeNoCacheHash(Smarty_Template_Cached $cached,
+    public function removeNoCacheHash(
+        Smarty_Template_Cached $cached,
         Smarty_Internal_Template $_template,
         $no_output_filter
     ) {
         $php_pattern = '/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/';
         $content = ob_get_clean();
         $hash_array = $cached->hashes;
-        $hash_array[$_template->compiled->nocache_hash] = true;
+        $hash_array[ $_template->compiled->nocache_hash ] = true;
         $hash_array = array_keys($hash_array);
         $nocache_hash = '(' . implode('|', $hash_array) . ')';
         $_template->cached->has_nocache_code = false;
@@ -115,9 +116,9 @@ class Smarty_Internal_Runtime_UpdateCache
                 $content .= $cache_parts[ 2 ][ $curr_idx ];
             }
         }
-        if (!$no_output_filter && !$_template->cached->has_nocache_code 
-            && (isset($_template->smarty->autoload_filters[ 'output' ]) 
-            || isset($_template->smarty->registered_filters[ 'output' ]))
+        if (!$no_output_filter && !$_template->cached->has_nocache_code
+            && (isset($_template->smarty->autoload_filters[ 'output' ])
+                || isset($_template->smarty->registered_filters[ 'output' ]))
         ) {
             $content = $_template->smarty->ext->_filterHandler->runFilter('output', $content, $_template);
         }
@@ -169,7 +170,6 @@ class Smarty_Internal_Runtime_UpdateCache
                 if ($_template->smarty->cache_locking) {
                     $cached->handler->releaseLock($_template->smarty, $cached);
                 }
-
                 return true;
             }
             $cached->content = null;
@@ -178,7 +178,6 @@ class Smarty_Internal_Runtime_UpdateCache
             $cached->valid = false;
             $cached->processed = false;
         }
-
         return false;
     }
 }

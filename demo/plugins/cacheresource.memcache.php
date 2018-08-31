@@ -19,6 +19,9 @@ class Smarty_CacheResource_Memcache extends Smarty_CacheResource_KeyValueStore
      */
     protected $memcache = null;
 
+    /**
+     * Smarty_CacheResource_Memcache constructor.
+     */
     public function __construct()
     {
         if (class_exists('Memcached')) {
@@ -50,7 +53,6 @@ class Smarty_CacheResource_Memcache extends Smarty_CacheResource_KeyValueStore
         foreach ($res as $k => $v) {
             $_res[ $lookup[ $k ] ] = $v;
         }
-
         return $_res;
     }
 
@@ -68,7 +70,6 @@ class Smarty_CacheResource_Memcache extends Smarty_CacheResource_KeyValueStore
             $k = sha1($k);
             $this->memcache->set($k, $v, 0, $expire);
         }
-
         return true;
     }
 
@@ -85,7 +86,6 @@ class Smarty_CacheResource_Memcache extends Smarty_CacheResource_KeyValueStore
             $k = sha1($k);
             $this->memcache->delete($k);
         }
-
         return true;
     }
 

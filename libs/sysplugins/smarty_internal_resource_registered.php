@@ -62,8 +62,7 @@ class Smarty_Internal_Resource_Registered extends Smarty_Resource
             $source->smarty->registered_resources[ $source->type ][ 0 ][ 1 ],
             array($source->name, &$time_stamp, $source->smarty)
         );
-
-        return is_numeric($time_stamp) ? (int) $time_stamp : $time_stamp;
+        return is_numeric($time_stamp) ? (int)$time_stamp : $time_stamp;
     }
 
     /**
@@ -85,7 +84,6 @@ class Smarty_Internal_Resource_Registered extends Smarty_Resource
         if (is_bool($t) && !$t) {
             throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");
         }
-
         return $content;
     }
 

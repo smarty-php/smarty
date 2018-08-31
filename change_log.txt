@@ -1,5 +1,7 @@
-﻿===== 3.1.33-dev-9 =====
+﻿===== 3.1.33-dev-10 =====
 31.08.2018
+  - reformating for PSR-2 coding standards https://github.com/smarty-php/smarty/pull/483
+
   - bugfix on Windows absolute filepathes did fail if the drive letter was followed by a linux DIRECTORY_SEPARATOR
     like C:/  at Smarty > 3.1.33-dev-5 https://github.com/smarty-php/smarty/issues/451
 

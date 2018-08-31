@@ -14,17 +14,27 @@
  *   PRIMARY KEY (`name`)
  * ) ENGINE=InnoDB DEFAULT CHARSET=utf8;</pre>
  * Demo data:
- * <pre>INSERT INTO `templates` (`name`, `modified`, `source`) VALUES ('test.tpl', "2010-12-25 22:00:00", '{$x="hello world"}{$x}');</pre>
+ * <pre>INSERT INTO `templates` (`name`, `modified`, `source`) VALUES ('test.tpl', "2010-12-25 22:00:00", '{$x="hello
+ * world"}{$x}');</pre>
+ *
  *
  * @package Resource-examples
  * @author  Rodney Rehm
  */
 class Smarty_Resource_Mysqls extends Smarty_Resource_Custom
 {
-    // PDO instance
+    /**
+     * PDO instance
+     *
+     * @var \PDO
+     */
     protected $db;
 
-    // prepared fetch() statement
+    /**
+     * prepared fetch() statement
+     *
+     * @var \PDOStatement
+     */
     protected $fetch;
 
     /**
@@ -36,8 +46,7 @@ class Smarty_Resource_Mysqls extends Smarty_Resource_Custom
     {
         try {
             $this->db = new PDO("mysql:dbname=test;host=127.0.0.1", "smarty");
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
         }
         $this->fetch = $this->db->prepare('SELECT modified, source FROM templates WHERE name = :name');

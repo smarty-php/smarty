@@ -336,8 +336,11 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state TEXT');
+                                        ' an empty string.  Input "' . substr(
+                                            $this->data,
+                                            $this->counter,
+                                            5
+                                        ) . '... state TEXT');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -446,8 +449,11 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state TAG');
+                                        ' an empty string.  Input "' . substr(
+                                            $this->data,
+                                            $this->counter,
+                                            5
+                                        ) . '... state TAG');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -584,8 +590,11 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state TAGBODY');
+                                        ' an empty string.  Input "' . substr(
+                                            $this->data,
+                                            $this->counter,
+                                            5
+                                        ) . '... state TAGBODY');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -871,8 +880,11 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state LITERAL');
+                                        ' an empty string.  Input "' . substr(
+                                            $this->data,
+                                            $this->counter,
+                                            5
+                                        ) . '... state LITERAL');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -947,8 +959,11 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr($this->data,
-                            $this->counter, 5) . '... state DOUBLEQUOTEDSTRING');
+                                        ' an empty string.  Input "' . substr(
+                                            $this->data,
+                                            $this->counter,
+                                            5
+                                        ) . '... state DOUBLEQUOTEDSTRING');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -1043,5 +1058,3 @@ class Smarty_Internal_Templatelexer
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 }
-
-     

@@ -28,7 +28,7 @@ class Smarty_Internal_Method_LoadFilter
     /**
      * load a filter of specified type and name
      *
-     * @api Smarty::loadFilter()
+     * @api  Smarty::loadFilter()
      *
      * @link http://www.smarty.net/docs/en/api.load.filter.tpl
      *

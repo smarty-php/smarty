@@ -71,7 +71,8 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
         }
         if (!empty($parameter[ 'modifierlist' ])) {
             $output = $compiler->compileTag(
-                'private_modifier', array(),
+                'private_modifier',
+                array(),
                 array('modifierlist' => $parameter[ 'modifierlist' ], 'value' => $output)
             );
         }

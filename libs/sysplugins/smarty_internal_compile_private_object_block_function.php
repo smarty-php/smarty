@@ -20,7 +20,7 @@ class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Inter
      * Setup callback and parameter array
      *
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
-     * @param array                                 $_attr    attributes
+     * @param array                                 $_attr attributes
      * @param string                                $tag
      * @param string                                $method
      *

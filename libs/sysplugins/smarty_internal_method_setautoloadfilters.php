@@ -46,12 +46,12 @@ class Smarty_Internal_Method_SetAutoloadFilters
         $smarty = $obj->_getSmartyObj();
         if ($type !== null) {
             $this->_checkFilterType($type);
-            $smarty->autoload_filters[ $type ] = (array) $filters;
+            $smarty->autoload_filters[ $type ] = (array)$filters;
         } else {
-            foreach ((array) $filters as $type => $value) {
+            foreach ((array)$filters as $type => $value) {
                 $this->_checkFilterType($type);
             }
-            $smarty->autoload_filters = (array) $filters;
+            $smarty->autoload_filters = (array)$filters;
         }
         return $obj;
     }

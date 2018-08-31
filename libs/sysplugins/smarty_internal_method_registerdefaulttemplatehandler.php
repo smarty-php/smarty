@@ -66,7 +66,7 @@ class Smarty_Internal_Method_RegisterDefaultTemplateHandler
             } else {
                 throw new SmartyException(
                     'Default handler: Unable to load ' .
-                                          ($source->isConfig ? 'config' : 'template') .
+                    ($source->isConfig ? 'config' : 'template') .
                     " default file '{$_return}' for '{$source->type}:{$source->name}'"
                 );
             }

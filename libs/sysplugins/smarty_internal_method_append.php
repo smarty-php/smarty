@@ -52,8 +52,8 @@ class Smarty_Internal_Method_Append
                         $data->tpl_vars[ $tpl_var ] = clone $tpl_var_inst;
                     }
                 }
-                if (!(is_array($data->tpl_vars[ $tpl_var ]->value) 
-                    || $data->tpl_vars[ $tpl_var ]->value instanceof ArrayAccess)
+                if (!(is_array($data->tpl_vars[ $tpl_var ]->value)
+                      || $data->tpl_vars[ $tpl_var ]->value instanceof ArrayAccess)
                 ) {
                     settype($data->tpl_vars[ $tpl_var ]->value, 'array');
                 }

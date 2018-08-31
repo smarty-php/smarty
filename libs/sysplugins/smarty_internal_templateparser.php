@@ -4,9 +4,11 @@ class TP_yyStackEntry
 {
     public $stateno;       /* The state-number */
     public $major;         /* The major token value.  This is the code
-                     ** number for the token at this stack level */
-    public $minor; /* The user-supplied minor token value.  This
-                     ** is the value of the token  */
+                            * number for the token at this stack level
+                            */
+    public $minor;          /* The user-supplied minor token value.  This
+                            * is the value of the token
+                            */
 }
 
 // line 11 "../smarty/lexer/smarty_internal_templateparser.y"
@@ -22,9 +24,9 @@ class TP_yyStackEntry
 class Smarty_Internal_Templateparser
 {
     // line 23 "../smarty/lexer/smarty_internal_templateparser.y"
-    const Err1                      = 'Security error: Call to private object member not allowed';
-    const Err2                      = 'Security error: Call to dynamic object member not allowed';
-    const Err3                      = 'PHP in template not allowed. Use SmartyBC to enable it';
+    const ERR1                      = 'Security error: Call to private object member not allowed';
+    const ERR2                      = 'Security error: Call to dynamic object member not allowed';
+    const ERR3                      = 'PHP in template not allowed. Use SmartyBC to enable it';
     const TP_VERT                   = 1;
     const TP_COLON                  = 2;
     const TP_UNIMATH                = 3;
@@ -1760,9 +1762,11 @@ class Smarty_Internal_Templateparser
         }
         $yytos = array_pop($this->yystack);
         if ($this->yyTraceFILE && $this->yyidx >= 0) {
-            fwrite($this->yyTraceFILE,
+            fwrite(
+                $this->yyTraceFILE,
                 $this->yyTracePrompt . 'Popping ' . $this->yyTokenName[ $yytos->major ] .
-                "\n");
+                "\n"
+            );
         }
         $yymajor = $yytos->major;
         self::yy_destructor($yymajor, $yytos->minor);
@@ -1772,7 +1776,7 @@ class Smarty_Internal_Templateparser
 
     public function __destruct()
     {
-        while ($this->yystack !== Array()) {
+        while ($this->yystack !== array()) {
             $this->yy_pop_parser_stack();
         }
         if (is_resource($this->yyTraceFILE)) {
@@ -1814,7 +1818,8 @@ class Smarty_Internal_Templateparser
                     $this->yyidx -= self::$yyRuleInfo[ $yyruleno ][ 1 ];
                     $nextstate = $this->yy_find_reduce_action(
                         $this->yystack[ $this->yyidx ]->stateno,
-                        self::$yyRuleInfo[ $yyruleno ][ 0 ]);
+                        self::$yyRuleInfo[ $yyruleno ][ 0 ]
+                    );
                     if (isset(self::$yyExpectedTokens[ $nextstate ])) {
                         $expected = array_merge($expected, self::$yyExpectedTokens[ $nextstate ]);
                         if (isset($res4[ $nextstate ][ $token ])) {
@@ -1900,7 +1905,8 @@ class Smarty_Internal_Templateparser
                     $this->yyidx -= self::$yyRuleInfo[ $yyruleno ][ 1 ];
                     $nextstate = $this->yy_find_reduce_action(
                         $this->yystack[ $this->yyidx ]->stateno,
-                        self::$yyRuleInfo[ $yyruleno ][ 0 ]);
+                        self::$yyRuleInfo[ $yyruleno ][ 0 ]
+                    );
                     if (isset($res2[ $nextstate ][ $token ])) {
                         if ($res2[ $nextstate ][ $token ]) {
                             $this->yyidx = $yyidx;
@@ -2030,12 +2036,19 @@ class Smarty_Internal_Templateparser
         $yytos->minor = $yypMinor;
         $this->yystack[] = $yytos;
         if ($this->yyTraceFILE && $this->yyidx > 0) {
-            fprintf($this->yyTraceFILE, "%sShift %d\n", $this->yyTracePrompt,
-                $yyNewState);
+            fprintf(
+                $this->yyTraceFILE,
+                "%sShift %d\n",
+                $this->yyTracePrompt,
+                $yyNewState
+            );
             fprintf($this->yyTraceFILE, "%sStack:", $this->yyTracePrompt);
             for ($i = 1; $i <= $this->yyidx; $i++) {
-                fprintf($this->yyTraceFILE, " %s",
-                    $this->yyTokenName[ $this->yystack[ $i ]->major ]);
+                fprintf(
+                    $this->yyTraceFILE,
+                    " %s",
+                    $this->yyTokenName[ $this->yystack[ $i ]->major ]
+                );
             }
             fwrite($this->yyTraceFILE, "\n");
         }
@@ -2178,11 +2191,11 @@ class Smarty_Internal_Templateparser
         if ($this->yystack[ $this->yyidx + 0 ]->minor[ $j + 1 ] == 'c') {
             // {$smarty.block.child}
             $this->_retvalue =
-                $this->compiler->compileTag('child', array(), array($this->yystack[ $this->yyidx + 0 ]->minor));;
+                $this->compiler->compileTag('child', array(), array($this->yystack[ $this->yyidx + 0 ]->minor));
         } else {
             // {$smarty.block.parent}
             $this->_retvalue =
-                $this->compiler->compileTag('parent', array(), array($this->yystack[ $this->yyidx + 0 ]->minor));;
+                $this->compiler->compileTag('parent', array(), array($this->yystack[ $this->yyidx + 0 ]->minor));
         }
     }
 
@@ -2983,7 +2996,7 @@ class Smarty_Internal_Templateparser
         $this->_retvalue =
             '[' .
             $this->compiler->compileVariable('\'' . substr($this->yystack[ $this->yyidx + -1 ]->minor, 1) . '\'') .
-            ']';;
+            ']';
     }
 
     // line 950 "../smarty/lexer/smarty_internal_templateparser.y"
@@ -3057,7 +3070,7 @@ class Smarty_Internal_Templateparser
     public function yy_r140()
     {
         if ($this->security && substr($this->yystack[ $this->yyidx + -1 ]->minor, 0, 1) === '_') {
-            $this->compiler->trigger_template_error(self::Err1);
+            $this->compiler->trigger_template_error(self::ERR1);
         }
         $this->_retvalue =
             '->' . $this->yystack[ $this->yyidx + -1 ]->minor . $this->yystack[ $this->yyidx + 0 ]->minor;
@@ -3067,7 +3080,7 @@ class Smarty_Internal_Templateparser
     public function yy_r141()
     {
         if ($this->security) {
-            $this->compiler->trigger_template_error(self::Err2);
+            $this->compiler->trigger_template_error(self::ERR2);
         }
         $this->_retvalue =
             '->{' .
@@ -3080,7 +3093,7 @@ class Smarty_Internal_Templateparser
     public function yy_r142()
     {
         if ($this->security) {
-            $this->compiler->trigger_template_error(self::Err2);
+            $this->compiler->trigger_template_error(self::ERR2);
         }
         $this->_retvalue =
             '->{' . $this->yystack[ $this->yyidx + -2 ]->minor . $this->yystack[ $this->yyidx + 0 ]->minor . '}';
@@ -3090,7 +3103,7 @@ class Smarty_Internal_Templateparser
     public function yy_r143()
     {
         if ($this->security) {
-            $this->compiler->trigger_template_error(self::Err2);
+            $this->compiler->trigger_template_error(self::ERR2);
         }
         $this->_retvalue =
             '->{\'' .
@@ -3119,7 +3132,7 @@ class Smarty_Internal_Templateparser
     public function yy_r146()
     {
         if ($this->security && substr($this->yystack[ $this->yyidx + -3 ]->minor, 0, 1) === '_') {
-            $this->compiler->trigger_template_error(self::Err1);
+            $this->compiler->trigger_template_error(self::ERR1);
         }
         $this->_retvalue =
             $this->yystack[ $this->yyidx + -3 ]->minor .
@@ -3132,7 +3145,7 @@ class Smarty_Internal_Templateparser
     public function yy_r147()
     {
         if ($this->security) {
-            $this->compiler->trigger_template_error(self::Err2);
+            $this->compiler->trigger_template_error(self::ERR2);
         }
         $prefixVar = $this->compiler->getNewPrefixVariable();
         $this->compiler->appendPrefixCode("<?php {$prefixVar} = " .
@@ -3355,9 +3368,13 @@ class Smarty_Internal_Templateparser
     {
         if ($this->yyTraceFILE && $yyruleno >= 0
             && $yyruleno < count(self::$yyRuleName)) {
-            fprintf($this->yyTraceFILE, "%sReduce (%d) [%s].\n",
-                $this->yyTracePrompt, $yyruleno,
-                self::$yyRuleName[ $yyruleno ]);
+            fprintf(
+                $this->yyTraceFILE,
+                "%sReduce (%d) [%s].\n",
+                $this->yyTracePrompt,
+                $yyruleno,
+                self::$yyRuleName[ $yyruleno ]
+            );
         }
         $this->_retvalue = $yy_lefthand_side = null;
         if (isset(self::$yyReduceMap[ $yyruleno ])) {
@@ -3436,8 +3453,12 @@ class Smarty_Internal_Templateparser
         }
         $yyendofinput = ($yymajor == 0);
         if ($this->yyTraceFILE) {
-            fprintf($this->yyTraceFILE, "%sInput %s\n",
-                $this->yyTracePrompt, $this->yyTokenName[ $yymajor ]);
+            fprintf(
+                $this->yyTraceFILE,
+                "%sInput %s\n",
+                $this->yyTracePrompt,
+                $this->yyTokenName[ $yymajor ]
+            );
         }
         do {
             $yyact = $this->yy_find_shift_action($yymajor);
@@ -3458,8 +3479,11 @@ class Smarty_Internal_Templateparser
                 $this->yy_reduce($yyact - self::YYNSTATE);
             } elseif ($yyact === self::YY_ERROR_ACTION) {
                 if ($this->yyTraceFILE) {
-                    fprintf($this->yyTraceFILE, "%sSyntax Error!\n",
-                        $this->yyTracePrompt);
+                    fprintf(
+                        $this->yyTraceFILE,
+                        "%sSyntax Error!\n",
+                        $this->yyTracePrompt
+                    );
                 }
                 if (self::YYERRORSYMBOL) {
                     if ($this->yyerrcnt < 0) {
@@ -3468,8 +3492,12 @@ class Smarty_Internal_Templateparser
                     $yymx = $this->yystack[ $this->yyidx ]->major;
                     if ($yymx === self::YYERRORSYMBOL || $yyerrorhit) {
                         if ($this->yyTraceFILE) {
-                            fprintf($this->yyTraceFILE, "%sDiscard input token %s\n",
-                                $this->yyTracePrompt, $this->yyTokenName[ $yymajor ]);
+                            fprintf(
+                                $this->yyTraceFILE,
+                                "%sDiscard input token %s\n",
+                                $this->yyTracePrompt,
+                                $this->yyTokenName[ $yymajor ]
+                            );
                         }
                         $this->yy_destructor($yymajor, $yytokenvalue);
                         $yymajor = self::YYNOCODE;
@@ -3509,4 +3537,3 @@ class Smarty_Internal_Templateparser
         } while ($yymajor !== self::YYNOCODE && $this->yyidx >= 0);
     }
 }
-
