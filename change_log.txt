@@ -1,5 +1,8 @@
 ﻿===== 3.1.33-dev-10 =====
 31.08.2018
+  - bugfix some custom left and right delimiters like '{^' '^}' did not work
+    https://github.com/smarty-php/smarty/issues/450 https://github.com/smarty-php/smarty/pull/482
+
   - reformating for PSR-2 coding standards https://github.com/smarty-php/smarty/pull/483
 
   - bugfix on Windows absolute filepathes did fail if the drive letter was followed by a linux DIRECTORY_SEPARATOR
