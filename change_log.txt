@@ -1,4 +1,8 @@
-﻿===== 3.1.33-dev-10 =====
+﻿===== 3.1.33-dev-12 =====
+03.09.2018
+  - bugfix {foreach} using new style property access like {$item@property} on
+    Smarty 2 style named foreach loop could produce errors https://github.com/smarty-php/smarty/issues/484
+
 31.08.2018
   - bugfix some custom left and right delimiters like '{^' '^}' did not work
     https://github.com/smarty-php/smarty/issues/450 https://github.com/smarty-php/smarty/pull/482

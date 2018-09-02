@@ -325,8 +325,9 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;
         }
-        list($openTag, $compiler->nocache, $local, $itemVar, $restore) =
-            $this->closeTag($compiler, array('foreach', 'foreachelse'));
+        list(
+            $openTag, $compiler->nocache, $local, $itemVar, $restore
+            ) = $this->closeTag($compiler, array('foreach', 'foreachelse'));
         $output = "<?php\n";
         if ($restore === 2) {
             $output .= "{$itemVar} = {$local}saved;\n";
