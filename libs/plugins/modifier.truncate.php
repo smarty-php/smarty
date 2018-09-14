@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsModifier
  */
-
 /**
  * Smarty truncate modifier plugin
  * Type:     modifier
@@ -30,25 +29,24 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_wo
     if ($length === 0) {
         return '';
     }
-
     if (Smarty::$_MBSTRING) {
         if (mb_strlen($string, Smarty::$_CHARSET) > $length) {
             $length -= min($length, mb_strlen($etc, Smarty::$_CHARSET));
             if (!$break_words && !$middle) {
-                $string = preg_replace('/\s+?(\S+)?$/' . Smarty::$_UTF8_MODIFIER, '',
-                                       mb_substr($string, 0, $length + 1, Smarty::$_CHARSET));
+                $string = preg_replace(
+                    '/\s+?(\S+)?$/' . Smarty::$_UTF8_MODIFIER,
+                    '',
+                    mb_substr($string, 0, $length + 1, Smarty::$_CHARSET)
+                );
             }
             if (!$middle) {
                 return mb_substr($string, 0, $length, Smarty::$_CHARSET) . $etc;
             }
-
             return mb_substr($string, 0, $length / 2, Smarty::$_CHARSET) . $etc .
-                   mb_substr($string, - $length / 2, $length, Smarty::$_CHARSET);
+                   mb_substr($string, -$length / 2, $length, Smarty::$_CHARSET);
         }
-
         return $string;
     }
-
     // no MBString fallback
     if (isset($string[ $length ])) {
         $length -= min($length, strlen($etc));
@@ -58,9 +56,7 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_wo
         if (!$middle) {
             return substr($string, 0, $length) . $etc;
         }
-
-        return substr($string, 0, $length / 2) . $etc . substr($string, - $length / 2);
+        return substr($string, 0, $length / 2) . $etc . substr($string, -$length / 2);
     }
-
     return $string;
 }

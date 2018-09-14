@@ -11,6 +11,11 @@
  */
 class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
 {
+    /**
+     * Smarty_CacheResource_Apc constructor.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         // test if APC is present
@@ -22,7 +27,7 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
     /**
      * Read values for a set of keys from cache
      *
-     * @param  array $keys list of keys to fetch
+     * @param array $keys list of keys to fetch
      *
      * @return array   list of values with the given keys used as indexes
      * @return boolean true on success, false on failure
@@ -34,15 +39,14 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
         foreach ($res as $k => $v) {
             $_res[ $k ] = $v;
         }
-
         return $_res;
     }
 
     /**
      * Save values for a set of keys to cache
      *
-     * @param  array $keys   list of values to save
-     * @param  int   $expire expiration time
+     * @param array $keys   list of values to save
+     * @param int   $expire expiration time
      *
      * @return boolean true on success, false on failure
      */
@@ -51,14 +55,13 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
         foreach ($keys as $k => $v) {
             apc_store($k, $v, $expire);
         }
-
         return true;
     }
 
     /**
      * Remove values from cache
      *
-     * @param  array $keys list of keys to delete
+     * @param array $keys list of keys to delete
      *
      * @return boolean true on success, false on failure
      */
@@ -67,7 +70,6 @@ class Smarty_CacheResource_Apc extends Smarty_CacheResource_KeyValueStore
         foreach ($keys as $k) {
             apc_delete($k);
         }
-
         return true;
     }
 

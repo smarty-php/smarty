@@ -1,4 +1,34 @@
-﻿===== 3.1.33-dev-4 =====
+﻿===== 3.1.33 release ===== 12.09.2018
+===== 3.1.33-dev-12 =====
+03.09.2018
+  - bugfix {foreach} using new style property access like {$item@property} on
+    Smarty 2 style named foreach loop could produce errors https://github.com/smarty-php/smarty/issues/484
+
+31.08.2018
+  - bugfix some custom left and right delimiters like '{^' '^}' did not work
+    https://github.com/smarty-php/smarty/issues/450 https://github.com/smarty-php/smarty/pull/482
+
+  - reformating for PSR-2 coding standards https://github.com/smarty-php/smarty/pull/483
+
+  - bugfix on Windows absolute filepathes did fail if the drive letter was followed by a linux DIRECTORY_SEPARATOR
+    like C:/  at Smarty > 3.1.33-dev-5 https://github.com/smarty-php/smarty/issues/451
+
+  - PSR-2 code style fixes for config and template file Lexer/Parser generated with
+    the Smarty Lexer/Parser generator from https://github.com/smarty-php/smarty-lexer
+    https://github.com/smarty-php/smarty/pull/483
+
+26.08.2018
+  - bugfix/enhancement {capture} allow variable as capture block name in Smarty special variable
+    like $smarty.capture.$foo https://github.com/smarty-php/smarty/issues/478 https://github.com/smarty-php/smarty/pull/481
+
+===== 3.1.33-dev-6 =====
+19.08.2018
+  - fix PSR-2 coding standards and PHPDoc blocks https://github.com/smarty-php/smarty/pull/452
+    https://github.com/smarty-php/smarty/pull/475
+    https://github.com/smarty-php/smarty/pull/473
+  - bugfix PHP5.2 compatibility https://github.com/smarty-php/smarty/pull/472
+
+===== 3.1.33-dev-4 =====
 17.05.2018
  - bugfix strip-block produces different output in Smarty v3.1.32 https://github.com/smarty-php/smarty/issues/436
  - bugfix Smarty::compileAllTemplates ignores `$extension` parameter https://github.com/smarty-php/smarty/issues/437
@@ -8,6 +38,7 @@
 
 26.04.2018
  - bugfix  regarding Security Vulnerability did not solve the problem under Linux.
+   Security issue CVE-2018-16831
 
 ===== 3.1.32 ===== (24.04.2018)
 24.04.2018

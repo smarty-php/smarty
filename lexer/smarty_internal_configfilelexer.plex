@@ -124,7 +124,7 @@ class Smarty_Internal_Configfilelexer
      * @param   string                             $data template source
      * @param Smarty_Internal_Config_File_Compiler $compiler
      */
-    function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)
+    public function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)
     {
         $this->data = $data . "\n"; //now all lines are \n-terminated
         $this->dataLength = strlen($data);
@@ -308,7 +308,7 @@ text {
   if (isset($match[0][1])) {
     $to = $match[0][1];
   } else {
-    $this->compiler->trigger_template_error ('missing or misspelled literal closing tag');
+    $this->compiler->trigger_config_file_error ('missing or misspelled literal closing tag');
   }  
   $this->value = substr($this->data,$this->counter,$to-$this->counter);
   $this->token = Smarty_Internal_Configfileparser::TPC_TRIPPLE_TEXT;

@@ -19,11 +19,11 @@ class Smarty_Internal_Nocache_Insert
     /**
      * Compiles code for the {insert} tag into cache file
      *
-     * @param  string                   $_function insert function name
-     * @param  array                    $_attr     array with parameter
-     * @param  Smarty_Internal_Template $_template template object
-     * @param  string                   $_script   script name to load or 'null'
-     * @param  string                   $_assign   optional variable name
+     * @param string                   $_function insert function name
+     * @param array                    $_attr     array with parameter
+     * @param Smarty_Internal_Template $_template template object
+     * @param string                   $_script   script name to load or 'null'
+     * @param string                   $_assign   optional variable name
      *
      * @return string                   compiled code
      */
@@ -46,7 +46,6 @@ class Smarty_Internal_Nocache_Insert
         while ($_tpl->_isSubTpl()) {
             $_tpl = $_tpl->parent;
         }
-
         return "/*%%SmartyNocache:{$_tpl->compiled->nocache_hash}%%*/{$_output}/*/%%SmartyNocache:{$_tpl->compiled->nocache_hash}%%*/";
     }
 }

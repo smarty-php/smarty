@@ -21,42 +21,49 @@ class Smarty_Internal_Runtime_GetIncludePath
      * @var string
      */
     public $_include_path = '';
+
     /**
      * include path directory cache
      *
      * @var array
      */
     public $_include_dirs = array();
+
     /**
      * include path directory cache
      *
      * @var array
      */
     public $_user_dirs = array();
+
     /**
      * stream cache
      *
      * @var string[][]
      */
     public $isFile = array();
+
     /**
      * stream cache
      *
      * @var string[]
      */
     public $isPath = array();
+
     /**
      * stream cache
      *
      * @var int[]
      */
     public $number = array();
+
     /**
      * status cache
      *
      * @var bool
      */
     public $_has_stream_include = null;
+
     /**
      * Number for array index
      *
@@ -104,12 +111,11 @@ class Smarty_Internal_Runtime_GetIncludePath
     /**
      * Return full file path from PHP include_path
      *
-     * @param  string[] $dirs
-     * @param  string   $file
-     * @param \Smarty   $smarty
+     * @param string[] $dirs
+     * @param string   $file
+     * @param \Smarty  $smarty
      *
      * @return bool|string full filepath or false
-     *
      */
     public function getIncludePath($dirs, $file, Smarty $smarty)
     {

@@ -21,10 +21,10 @@ class Smarty_Internal_Method_GetGlobal
     /**
      * Returns a single or all global  variables
      *
-     * @api  Smarty::getGlobal()
+     * @api Smarty::getGlobal()
      *
      * @param \Smarty_Internal_Data $data
-     * @param  string              $varName variable name or null
+     * @param string                $varName variable name or null
      *
      * @return string|array variable value or or array of variables
      */
@@ -38,7 +38,7 @@ class Smarty_Internal_Method_GetGlobal
             }
         } else {
             $_result = array();
-            foreach (Smarty::$global_tpl_vars AS $key => $var) {
+            foreach (Smarty::$global_tpl_vars as $key => $var) {
                 $_result[ $key ] = $var->value;
             }
             return $_result;

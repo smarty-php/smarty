@@ -76,8 +76,8 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
     /**
      * method to compile a Smarty template
      *
-     * @param  mixed $_content template source
-     * @param bool   $isTemplateSource
+     * @param mixed $_content template source
+     * @param bool  $isTemplateSource
      *
      * @return bool true if compiling succeeded, false if it failed
      * @throws \SmartyCompilerException
@@ -89,22 +89,32 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
           then written to compiled files. */
         // init the lexer/parser to compile the template
         $this->parser =
-            new $this->parser_class(new $this->lexer_class(str_replace(array("\r\n",
-                                                                             "\r"), "\n", $_content), $this),
-                                    $this);
+            new $this->parser_class(
+                new $this->lexer_class(
+                    str_replace(
+                        array(
+                            "\r\n",
+                            "\r"
+                        ),
+                        "\n",
+                        $_content
+                    ),
+                    $this
+                ),
+                $this
+            );
         if ($isTemplateSource && $this->template->caching) {
             $this->parser->insertPhpCode("<?php\n\$_smarty_tpl->compiled->nocache_hash = '{$this->nocache_hash}';\n?>\n");
         }
         if (function_exists('mb_internal_encoding')
             && function_exists('ini_get')
-            && ((int) ini_get('mbstring.func_overload')) & 2
+            && ((int)ini_get('mbstring.func_overload')) & 2
         ) {
             $mbEncoding = mb_internal_encoding();
             mb_internal_encoding('ASCII');
         } else {
             $mbEncoding = null;
         }
-
         if ($this->smarty->_parserdebug) {
             $this->parser->PrintTrace();
             $this->parser->lex->PrintTrace();
@@ -117,7 +127,6 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
             }
             $this->parser->doParse($this->parser->lex->token, $this->parser->lex->value);
         }
-
         // finish parsing process
         $this->parser->doParse(0, 0);
         if ($mbEncoding) {
@@ -127,8 +136,10 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         if (count($this->_tag_stack) > 0) {
             // get stacked info
             list($openTag, $_data) = array_pop($this->_tag_stack);
-            $this->trigger_template_error("unclosed {$this->smarty->left_delimiter}" . $openTag .
-                                          "{$this->smarty->right_delimiter} tag");
+            $this->trigger_template_error(
+                "unclosed {$this->smarty->left_delimiter}" . $openTag .
+                "{$this->smarty->right_delimiter} tag"
+            );
         }
         // call post compile callbacks
         foreach ($this->postCompileCallbacks as $cb) {
@@ -148,7 +159,6 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * @param array    $parameter optional parameter array
      * @param string   $key       optional key for callback
      * @param bool     $replace   if true replace existing keyed callback
-     *
      */
     public function registerPostCompileCallback($callback, $parameter = array(), $key = null, $replace = false)
     {

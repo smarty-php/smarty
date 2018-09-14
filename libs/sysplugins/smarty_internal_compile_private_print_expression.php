@@ -49,9 +49,14 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
         $output = $parameter[ 'value' ];
         // tag modifier
         if (!empty($parameter[ 'modifierlist' ])) {
-            $output = $compiler->compileTag('private_modifier', array(),
-                                            array('modifierlist' => $parameter[ 'modifierlist' ],
-                                                  'value' => $output));
+            $output = $compiler->compileTag(
+                'private_modifier',
+                array(),
+                array(
+                    'modifierlist' => $parameter[ 'modifierlist' ],
+                    'value'        => $output
+                )
+            );
         }
         if (isset($_attr[ 'assign' ])) {
             // assign output to variable
@@ -64,9 +69,12 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                     if (empty($compiler->default_modifier_list)) {
                         $modifierlist = array();
                         foreach ($compiler->smarty->default_modifiers as $key => $single_default_modifier) {
-                            preg_match_all('/(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|:|[^:]+)/',
-                                           $single_default_modifier, $mod_array);
-                            for ($i = 0, $count = count($mod_array[ 0 ]); $i < $count; $i ++) {
+                            preg_match_all(
+                                '/(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|:|[^:]+)/',
+                                $single_default_modifier,
+                                $mod_array
+                            );
+                            for ($i = 0, $count = count($mod_array[ 0 ]); $i < $count; $i++) {
                                 if ($mod_array[ 0 ][ $i ] !== ':') {
                                     $modifierlist[ $key ][] = $mod_array[ 0 ][ $i ];
                                 }
@@ -74,9 +82,14 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                         }
                         $compiler->default_modifier_list = $modifierlist;
                     }
-                    $output = $compiler->compileTag('private_modifier', array(),
-                                                    array('modifierlist' => $compiler->default_modifier_list,
-                                                          'value' => $output));
+                    $output = $compiler->compileTag(
+                        'private_modifier',
+                        array(),
+                        array(
+                            'modifierlist' => $compiler->default_modifier_list,
+                            'value'        => $output
+                        )
+                    );
                 }
                 // autoescape html
                 if ($compiler->template->smarty->escape_html) {
@@ -85,7 +98,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                 // loop over registered filters
                 if (!empty($compiler->template->smarty->registered_filters[ Smarty::FILTER_VARIABLE ])) {
                     foreach ($compiler->template->smarty->registered_filters[ Smarty::FILTER_VARIABLE ] as $key =>
-                             $function) {
+                        $function) {
                         if (!is_array($function)) {
                             $output = "{$function}({$output},\$_smarty_tpl)";
                         } elseif (is_object($function[ 0 ])) {
@@ -98,8 +111,7 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                 }
                 // auto loaded filters
                 if (isset($compiler->smarty->autoload_filters[ Smarty::FILTER_VARIABLE ])) {
-                    foreach ((array) $compiler->template->smarty->autoload_filters[ Smarty::FILTER_VARIABLE ] as $name)
-                    {
+                    foreach ((array)$compiler->template->smarty->autoload_filters[ Smarty::FILTER_VARIABLE ] as $name) {
                         $result = $this->compile_variable_filter($compiler, $name, $output);
                         if ($result !== false) {
                             $output = $result;
@@ -110,19 +122,21 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                     }
                 }
                 foreach ($compiler->variable_filters as $filter) {
-                    if (count($filter) === 1 &&
-                        ($result = $this->compile_variable_filter($compiler, $filter[ 0 ], $output)) !== false
+                    if (count($filter) === 1
+                        && ($result = $this->compile_variable_filter($compiler, $filter[ 0 ], $output)) !== false
                     ) {
                         $output = $result;
                     } else {
-                        $output = $compiler->compileTag('private_modifier', array(),
-                                                        array('modifierlist' => array($filter), 'value' => $output));
+                        $output = $compiler->compileTag(
+                            'private_modifier',
+                            array(),
+                            array('modifierlist' => array($filter), 'value' => $output)
+                        );
                     }
                 }
             }
             $output = "<?php echo {$output};?>\n";
         }
-
         return $output;
     }
 
@@ -136,12 +150,12 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
      */
     private function compile_variable_filter(Smarty_Internal_TemplateCompilerBase $compiler, $name, $output)
     {
-       $function= $compiler->getPlugin($name, 'variablefilter');
-       if ($function) {
+        $function = $compiler->getPlugin($name, 'variablefilter');
+        if ($function) {
             return "{$function}({$output},\$_smarty_tpl)";
-       } else {
+        } else {
             // not found
             return false;
-       }
+        }
     }
 }

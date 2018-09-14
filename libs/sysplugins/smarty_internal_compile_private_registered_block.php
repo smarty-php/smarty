@@ -20,9 +20,9 @@ class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_C
      * Setup callback, parameter array and nocache mode
      *
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
-     * @param  array                                $_attr attributes
-     * @param  string                               $tag
-     * @param  null                                 $function
+     * @param array                                 $_attr attributes
+     * @param string                                $tag
+     * @param null                                  $function
      *
      * @return array
      */

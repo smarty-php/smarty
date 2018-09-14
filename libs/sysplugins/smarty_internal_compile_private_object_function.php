@@ -27,11 +27,11 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
     /**
      * Compiles code for the execution of function plugin
      *
-     * @param  array                                $args      array with attributes from parser
+     * @param array                                 $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
-     * @param  string                               $tag       name of function
-     * @param  string                               $method    name of method to call
+     * @param array                                 $parameter array with compilation parameter
+     * @param string                                $tag       name of function
+     * @param string                                $method    name of method to call
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
@@ -70,8 +70,11 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
             $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}";
         }
         if (!empty($parameter[ 'modifierlist' ])) {
-            $output = $compiler->compileTag('private_modifier', array(),
-                                            array('modifierlist' => $parameter[ 'modifierlist' ], 'value' => $output));
+            $output = $compiler->compileTag(
+                'private_modifier',
+                array(),
+                array('modifierlist' => $parameter[ 'modifierlist' ], 'value' => $output)
+            );
         }
         if (empty($_assign)) {
             return "<?php echo {$output};?>\n";

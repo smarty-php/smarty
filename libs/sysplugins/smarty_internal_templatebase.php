@@ -11,8 +11,8 @@
 /**
  * Class with shared smarty/template methods
  *
- * @package      Smarty
- * @subpackage   Template
+ * @package    Smarty
+ * @subpackage Template
  *
  * @property int $_objType
  *
@@ -102,10 +102,10 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     /**
      * fetches a rendered Smarty template
      *
-     * @param  string $template   the resource handle of the template file or template object
-     * @param  mixed  $cache_id   cache id to be used with this template
-     * @param  mixed  $compile_id compile id to be used with this template
-     * @param  object $parent     next higher level of Smarty variables
+     * @param string $template   the resource handle of the template file or template object
+     * @param mixed  $cache_id   cache id to be used with this template
+     * @param mixed  $compile_id compile id to be used with this template
+     * @param object $parent     next higher level of Smarty variables
      *
      * @throws Exception
      * @throws SmartyException
@@ -140,10 +140,11 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @api  Smarty::isCached()
      * @link http://www.smarty.net/docs/en/api.is.cached.tpl
      *
-     * @param  null|string|\Smarty_Internal_Template $template   the resource handle of the template file or template object
-     * @param  mixed                                 $cache_id   cache id to be used with this template
-     * @param  mixed                                 $compile_id compile id to be used with this template
-     * @param  object                                $parent     next higher level of Smarty variables
+     * @param null|string|\Smarty_Internal_Template $template   the resource handle of the template file or template
+     *                                                          object
+     * @param mixed                                 $cache_id   cache id to be used with this template
+     * @param mixed                                 $compile_id compile id to be used with this template
+     * @param object                                $parent     next higher level of Smarty variables
      *
      * @return bool cache status
      * @throws \Exception
@@ -157,11 +158,11 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     /**
      * fetches a rendered Smarty template
      *
-     * @param  string $template   the resource handle of the template file or template object
-     * @param  mixed  $cache_id   cache id to be used with this template
-     * @param  mixed  $compile_id compile id to be used with this template
-     * @param  object $parent     next higher level of Smarty variables
-     * @param  string $function   function type 0 = fetch,  1 = display, 2 = isCache
+     * @param string $template   the resource handle of the template file or template object
+     * @param mixed  $cache_id   cache id to be used with this template
+     * @param mixed  $compile_id compile id to be used with this template
+     * @param object $parent     next higher level of Smarty variables
+     * @param string $function   function type 0 = fetch,  1 = display, 2 = isCache
      *
      * @return mixed
      * @throws \Exception
@@ -185,7 +186,6 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
         } else {
             // get template object
             $saveVars = false;
-
             $template = $smarty->createTemplate($template, $cache_id, $compile_id, $parent ? $parent : $this, false);
             if ($this->_objType === 1) {
                 // set caching in template object
@@ -246,8 +246,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 error_reporting($_smarty_old_error_level);
             }
             return $result;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
@@ -264,14 +263,14 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @api  Smarty::registerPlugin()
      * @link http://www.smarty.net/docs/en/api.register.plugin.tpl
      *
-     * @param  string   $type       plugin type
-     * @param  string   $name       name of template tag
-     * @param  callback $callback   PHP callback to register
-     * @param  bool     $cacheable  if true (default) this function is cache able
-     * @param  mixed    $cache_attr caching attributes if any
+     * @param string   $type       plugin type
+     * @param string   $name       name of template tag
+     * @param callback $callback   PHP callback to register
+     * @param bool     $cacheable  if true (default) this function is cache able
+     * @param mixed    $cache_attr caching attributes if any
      *
      * @return \Smarty|\Smarty_Internal_Template
-     * @throws SmartyException              when the plugin tag is invalid
+     * @throws \SmartyException
      */
     public function registerPlugin($type, $name, $callback, $cacheable = true, $cache_attr = null)
     {
@@ -284,11 +283,11 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @api  Smarty::loadFilter()
      * @link http://www.smarty.net/docs/en/api.load.filter.tpl
      *
-     * @param  string $type filter type
-     * @param  string $name filter name
+     * @param string $type filter type
+     * @param string $name filter name
      *
      * @return bool
-     * @throws SmartyException if filter could not be loaded
+     * @throws \SmartyException
      */
     public function loadFilter($type, $name)
     {
@@ -301,9 +300,9 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @api  Smarty::registerFilter()
      * @link http://www.smarty.net/docs/en/api.register.filter.tpl
      *
-     * @param  string      $type filter type
-     * @param  callback    $callback
-     * @param  string|null $name optional filter name
+     * @param string      $type filter type
+     * @param callback    $callback
+     * @param string|null $name optional filter name
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException
@@ -319,20 +318,30 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @api  Smarty::registerObject()
      * @link http://www.smarty.net/docs/en/api.register.object.tpl
      *
-     * @param  string $object_name
-     * @param  object $object                     the referenced PHP object to register
-     * @param  array  $allowed_methods_properties list of allowed methods (empty = all)
-     * @param  bool   $format                     smarty argument format, else traditional
-     * @param  array  $block_methods              list of block-methods
+     * @param string $object_name
+     * @param object $object                     the referenced PHP object to register
+     * @param array  $allowed_methods_properties list of allowed methods (empty = all)
+     * @param bool   $format                     smarty argument format, else traditional
+     * @param array  $block_methods              list of block-methods
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException
      */
-    public function registerObject($object_name, $object, $allowed_methods_properties = array(), $format = true,
-                                   $block_methods = array())
-    {
-        return $this->ext->registerObject->registerObject($this, $object_name, $object, $allowed_methods_properties,
-                                                          $format, $block_methods);
+    public function registerObject(
+        $object_name,
+        $object,
+        $allowed_methods_properties = array(),
+        $format = true,
+        $block_methods = array()
+    ) {
+        return $this->ext->registerObject->registerObject(
+            $this,
+            $object_name,
+            $object,
+            $allowed_methods_properties,
+            $format,
+            $block_methods
+        );
     }
 
     /**
@@ -374,6 +383,4 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
     {
         $this->cache_id = $cache_id;
     }
-
 }
-

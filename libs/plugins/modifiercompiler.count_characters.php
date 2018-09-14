@@ -5,14 +5,14 @@
  * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
-
 /**
  * Smarty count_characters modifier plugin
  * Type:     modifier
  * Name:     count_characters
  * Purpose:  count the number of characters in a text
  *
- * @link   http://www.smarty.net/manual/en/language.modifier.count.characters.php count_characters (Smarty online manual)
+ * @link   http://www.smarty.net/manual/en/language.modifier.count.characters.php count_characters (Smarty online
+ *         manual)
  * @author Uwe Tews
  *
  * @param array $params parameters

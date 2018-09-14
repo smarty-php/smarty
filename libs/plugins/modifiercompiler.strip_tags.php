@@ -5,7 +5,6 @@
  * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
-
 /**
  * Smarty strip_tags modifier plugin
  * Type:     modifier

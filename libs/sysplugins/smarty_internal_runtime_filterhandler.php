@@ -23,9 +23,9 @@ class Smarty_Internal_Runtime_FilterHandler
      * plugin filename format: filtertype.filtername.php
      * Smarty2 filter plugins could be used
      *
-     * @param  string                   $type     the type of filter ('pre','post','output') which shall run
-     * @param  string                   $content  the content which shall be processed by the filters
-     * @param  Smarty_Internal_Template $template template object
+     * @param string                   $type     the type of filter ('pre','post','output') which shall run
+     * @param string                   $content  the content which shall be processed by the filters
+     * @param Smarty_Internal_Template $template template object
      *
      * @throws SmartyException
      * @return string                   the filtered content
@@ -34,7 +34,7 @@ class Smarty_Internal_Runtime_FilterHandler
     {
         // loop over autoload filters of specified type
         if (!empty($template->smarty->autoload_filters[ $type ])) {
-            foreach ((array) $template->smarty->autoload_filters[ $type ] as $name) {
+            foreach ((array)$template->smarty->autoload_filters[ $type ] as $name) {
                 $plugin_name = "Smarty_{$type}filter_{$name}";
                 if (function_exists($plugin_name)) {
                     $callback = $plugin_name;

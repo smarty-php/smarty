@@ -1,6 +1,11 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
+*.php text eol=lf
+*.y   text eol=lf
+*.lex text eol=lf
+
+
 # exclude from git export
 /travis.ini export-ignore
 /myconfig.ini export-ignore

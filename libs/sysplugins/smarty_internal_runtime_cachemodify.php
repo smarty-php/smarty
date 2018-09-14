@@ -6,7 +6,6 @@
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
- *
  **/
 class Smarty_Internal_Runtime_CacheModify
 {
@@ -15,7 +14,7 @@ class Smarty_Internal_Runtime_CacheModify
      *
      * @param \Smarty_Template_Cached   $cached
      * @param \Smarty_Internal_Template $_template
-     * @param  string                   $content
+     * @param string                    $content
      *
      * @throws \Exception
      * @throws \SmartyException
@@ -32,17 +31,15 @@ class Smarty_Internal_Runtime_CacheModify
                 case 'fpm-fcgi': // php-fpm >= 5.3.3
                     header('Status: 304 Not Modified');
                     break;
-
                 case 'cli':
-                    if ( /* ^phpunit */
+                    if (/* ^phpunit */
                     !empty($_SERVER[ 'SMARTY_PHPUNIT_DISABLE_HEADERS' ]) /* phpunit$ */
                     ) {
                         $_SERVER[ 'SMARTY_PHPUNIT_HEADERS' ][] = '304 Not Modified';
                     }
                     break;
-
                 default:
-                    if ( /* ^phpunit */
+                    if (/* ^phpunit */
                     !empty($_SERVER[ 'SMARTY_PHPUNIT_DISABLE_HEADERS' ]) /* phpunit$ */
                     ) {
                         $_SERVER[ 'SMARTY_PHPUNIT_HEADERS' ][] = '304 Not Modified';
@@ -54,7 +51,7 @@ class Smarty_Internal_Runtime_CacheModify
         } else {
             switch (PHP_SAPI) {
                 case 'cli':
-                    if ( /* ^phpunit */
+                    if (/* ^phpunit */
                     !empty($_SERVER[ 'SMARTY_PHPUNIT_DISABLE_HEADERS' ]) /* phpunit$ */
                     ) {
                         $_SERVER[ 'SMARTY_PHPUNIT_HEADERS' ][] =

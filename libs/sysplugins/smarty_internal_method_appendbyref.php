@@ -11,7 +11,6 @@
  */
 class Smarty_Internal_Method_AppendByRef
 {
-
     /**
      * appends values to template variables by reference
      *
@@ -19,9 +18,9 @@ class Smarty_Internal_Method_AppendByRef
      * @link http://www.smarty.net/docs/en/api.append.by.ref.tpl
      *
      * @param \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty $data
-     * @param  string                                                 $tpl_var the template variable name
-     * @param  mixed                                                  &$value  the referenced value to append
-     * @param  bool                                                   $merge   flag if array elements shall be merged
+     * @param string                                                  $tpl_var the template variable name
+     * @param mixed                                                   &$value  the referenced value to append
+     * @param bool                                                    $merge   flag if array elements shall be merged
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */

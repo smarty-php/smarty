@@ -6,11 +6,9 @@
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
- *
  */
 class Smarty_Internal_Runtime_Foreach
 {
-
     /**
      * Stack of saved variables
      *
@@ -34,9 +32,15 @@ class Smarty_Internal_Runtime_Foreach
      *
      * @return mixed $from
      */
-    public function init(Smarty_Internal_Template $tpl, $from, $item, $needTotal = false, $key = null, $name = null,
-                         $properties = array())
-    {
+    public function init(
+        Smarty_Internal_Template $tpl,
+        $from,
+        $item,
+        $needTotal = false,
+        $key = null,
+        $name = null,
+        $properties = array()
+    ) {
         $needTotal = $needTotal || isset($properties[ 'total' ]);
         $saveVars = array();
         $total = null;
@@ -53,8 +57,10 @@ class Smarty_Internal_Runtime_Foreach
             $total = empty($from) ? 0 : ($needTotal ? count($from) : 1);
         }
         if (isset($tpl->tpl_vars[ $item ])) {
-            $saveVars[ 'item' ] = array($item,
-                                        $tpl->tpl_vars[ $item ]);
+            $saveVars[ 'item' ] = array(
+                $item,
+                $tpl->tpl_vars[ $item ]
+            );
         }
         $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
         if ($total === 0) {
@@ -62,8 +68,10 @@ class Smarty_Internal_Runtime_Foreach
         } else {
             if ($key) {
                 if (isset($tpl->tpl_vars[ $key ])) {
-                    $saveVars[ 'key' ] = array($key,
-                                               $tpl->tpl_vars[ $key ]);
+                    $saveVars[ 'key' ] = array(
+                        $key,
+                        $tpl->tpl_vars[ $key ]
+                    );
                 }
                 $tpl->tpl_vars[ $key ] = new Smarty_Variable(null, $tpl->isRenderingCache);
             }
@@ -74,8 +82,10 @@ class Smarty_Internal_Runtime_Foreach
         if ($name) {
             $namedVar = "__smarty_foreach_{$name}";
             if (isset($tpl->tpl_vars[ $namedVar ])) {
-                $saveVars[ 'named' ] = array($namedVar,
-                                             $tpl->tpl_vars[ $namedVar ]);
+                $saveVars[ 'named' ] = array(
+                    $namedVar,
+                    $tpl->tpl_vars[ $namedVar ]
+                );
             }
             $namedProp = array();
             if (isset($properties[ 'total' ])) {
@@ -85,7 +95,7 @@ class Smarty_Internal_Runtime_Foreach
                 $namedProp[ 'iteration' ] = 0;
             }
             if (isset($properties[ 'index' ])) {
-                $namedProp[ 'index' ] = - 1;
+                $namedProp[ 'index' ] = -1;
             }
             if (isset($properties[ 'show' ])) {
                 $namedProp[ 'show' ] = ($total > 0);
@@ -97,10 +107,9 @@ class Smarty_Internal_Runtime_Foreach
     }
 
     /**
-     *
      * [util function] counts an array, arrayAccess/traversable or PDOStatement object
      *
-     * @param  mixed $value
+     * @param mixed $value
      *
      * @return int   the count for arrays and objects that implement countable, 1 for other objects that don't, and 0
      *               for empty elements
@@ -120,7 +129,7 @@ class Smarty_Internal_Runtime_Foreach
         } elseif ($value instanceof Traversable) {
             return iterator_count($value);
         }
-        return count((array) $value);
+        return count((array)$value);
     }
 
     /**
@@ -147,8 +156,7 @@ class Smarty_Internal_Runtime_Foreach
                     $tpl->tpl_vars[ $saveVars[ 'named' ][ 0 ] ] = $saveVars[ 'named' ][ 1 ];
                 }
             }
-            $levels --;
+            $levels--;
         }
     }
-
 }

@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Smarty.
  *
  * (c) 2015 Uwe Tews

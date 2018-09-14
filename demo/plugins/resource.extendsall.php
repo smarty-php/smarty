@@ -13,8 +13,8 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param  Smarty_Template_Source   $source    source object
-     * @param  Smarty_Internal_Template $_template template object
+     * @param Smarty_Template_Source   $source    source object
+     * @param Smarty_Internal_Template $_template template object
      *
      * @return void
      */
@@ -32,15 +32,13 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
                 $sources[ $s->uid ] = $s;
                 $uid .= $s->filepath;
                 $timestamp = $s->timestamp > $timestamp ? $s->timestamp : $timestamp;
-            }
-            catch (SmartyException $e) {
+            } catch (SmartyException $e) {
             }
         }
         if (!$sources) {
             $source->exists = false;
             return;
         }
-
         $sources = array_reverse($sources, true);
         reset($sources);
         $s = current($sources);
@@ -51,15 +49,14 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
         $source->timestamp = $timestamp;
     }
 
-    /*
+    /**
      * Disable timestamp checks for extendsall resource.
      * The individual source components will be checked.
      *
-     * @return bool
+     * @return bool false
      */
     public function checkTimestamps()
     {
         return false;
     }
-
 }

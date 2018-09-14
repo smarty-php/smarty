@@ -16,7 +16,6 @@
  */
 abstract class Smarty_Internal_ParseTree
 {
-
     /**
      * Buffer content
      *
@@ -48,7 +47,4 @@ abstract class Smarty_Internal_ParseTree
         $this->data = null;
         $this->subtrees = null;
     }
-
 }
-
-

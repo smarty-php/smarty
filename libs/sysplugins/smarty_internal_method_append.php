@@ -25,10 +25,10 @@ class Smarty_Internal_Method_Append
      * @link http://www.smarty.net/docs/en/api.append.tpl
      *
      * @param \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty $data
-     * @param  array|string                                           $tpl_var the template variable name(s)
-     * @param  mixed                                                  $value   the value to append
-     * @param  bool                                                   $merge   flag if array elements shall be merged
-     * @param  bool                                                   $nocache if true any output of this variable will
+     * @param array|string                                            $tpl_var the template variable name(s)
+     * @param mixed                                                   $value   the value to append
+     * @param bool                                                    $merge   flag if array elements shall be merged
+     * @param bool                                                    $nocache if true any output of this variable will
      *                                                                         be not cached
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
@@ -52,8 +52,8 @@ class Smarty_Internal_Method_Append
                         $data->tpl_vars[ $tpl_var ] = clone $tpl_var_inst;
                     }
                 }
-                if (!(is_array($data->tpl_vars[ $tpl_var ]->value) ||
-                      $data->tpl_vars[ $tpl_var ]->value instanceof ArrayAccess)
+                if (!(is_array($data->tpl_vars[ $tpl_var ]->value)
+                      || $data->tpl_vars[ $tpl_var ]->value instanceof ArrayAccess)
                 ) {
                     settype($data->tpl_vars[ $tpl_var ]->value, 'array');
                 }

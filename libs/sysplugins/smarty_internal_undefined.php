@@ -11,7 +11,6 @@
  */
 class Smarty_Internal_Undefined
 {
-
     /**
      * Name of undefined extension class
      *
@@ -32,9 +31,9 @@ class Smarty_Internal_Undefined
     /**
      * Wrapper for obsolete class Smarty_Internal_Runtime_ValidateCompiled
      *
-     * @param  \Smarty_Internal_Template $tpl
-     * @param  array                     $properties special template properties
-     * @param  bool                      $cache      flag if called from cache file
+     * @param \Smarty_Internal_Template $tpl
+     * @param array                     $properties special template properties
+     * @param bool                      $cache      flag if called from cache file
      *
      * @return bool false
      */

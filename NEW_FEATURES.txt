@@ -2,7 +2,14 @@
 
 This file contains a brief description of new features which have been added to Smarty 3.1
 
-Smarty 3.1.32    New tags for inheritance parent and child
+Smarty 3.1.33-dev
+    Variable capture name in Smarty special variable
+    ================================================
+    {$smarty.capture.$foo} can now be used to access the content of a named
+     capture block
+
+Smarty 3.1.32
+    New tags for inheritance parent and child
     =========================================
     {parent}  == {$smarty.block.parent}
     {child}  == {$smarty.block.child}

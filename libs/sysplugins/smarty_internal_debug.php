@@ -53,8 +53,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     public function start_template(Smarty_Internal_Template $template, $mode = null)
     {
         if (isset($mode) && !$template->_isSubTpl()) {
-            $this->index ++;
-            $this->offset ++;
+            $this->index++;
+            $this->offset++;
             $this->template_data[ $this->index ] = null;
         }
         $key = $this->get_key($template);
@@ -117,7 +117,6 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             if (isset($this->ignore_uid[ $template->source->uid ])) {
                 return;
             }
-
             $key = $this->get_key($template);
         }
         $this->template_data[ $this->index ][ $key ][ 'compile_time' ] +=
@@ -200,7 +199,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     public function display_debug($obj, $full = false)
     {
         if (!$full) {
-            $this->offset ++;
+            $this->offset++;
             $savedIndex = $this->index;
             $this->index = 9999;
         }
@@ -211,7 +210,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         // copy the working dirs from application
         $debObj->setCompileDir($smarty->getCompileDir());
         // init properties by hand as user may have edited the original Smarty class
-        $debObj->setPluginsDir(is_dir(__DIR__ . '/../plugins') ? __DIR__ . '/../plugins' : $smarty->getPluginsDir());
+        $debObj->setPluginsDir(is_dir(dirname(__FILE__) . '/../plugins') ? dirname(__FILE__) .
+                                                                           '/../plugins' : $smarty->getPluginsDir());
         $debObj->force_compile = false;
         $debObj->compile_check = Smarty::COMPILECHECK_ON;
         $debObj->left_delimiter = '{';
@@ -220,7 +220,8 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $debObj->debugging = false;
         $debObj->debugging_ctrl = 'NONE';
         $debObj->error_reporting = E_ALL & ~E_NOTICE;
-        $debObj->debug_tpl = isset($smarty->debug_tpl) ? $smarty->debug_tpl : 'file:' . __DIR__ . '/../debug.tpl';
+        $debObj->debug_tpl =
+            isset($smarty->debug_tpl) ? $smarty->debug_tpl : 'file:' . dirname(__FILE__) . '/../debug.tpl';
         $debObj->registered_plugins = array();
         $debObj->registered_resources = array();
         $debObj->registered_filters = array();
@@ -237,7 +238,6 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $_config_vars = $ptr->config_vars;
         ksort($_config_vars);
         $debugging = $smarty->debugging;
-
         $_template = new Smarty_Internal_Template($debObj->debug_tpl, $debObj);
         if ($obj->_isTplObj()) {
             $_template->assign('template_name', $obj->source->type . ':' . $obj->source->name);
@@ -254,7 +254,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $_template->assign('offset', $this->offset * 50);
         echo $_template->fetch();
         if (isset($full)) {
-            $this->index --;
+            $this->index--;
         }
         if (!$full) {
             $this->index = $savedIndex;
@@ -264,7 +264,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
     /**
      * Recursively gets variables from all template/data scopes
      *
-     * @param  Smarty_Internal_Template|Smarty_Data $obj object to debug
+     * @param Smarty_Internal_Template|Smarty_Data $obj object to debug
      *
      * @return StdClass
      */
@@ -306,7 +306,6 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
                 $tpl_vars[ $key ][ 'scope' ] = 'Smarty object';
             }
         }
-
         if (isset($obj->parent)) {
             $parent = $this->get_debug_vars($obj->parent);
             foreach ($parent->tpl_vars as $name => $pvar) {
@@ -315,7 +314,6 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
                 }
             }
             $tpl_vars = array_merge($parent->tpl_vars, $tpl_vars);
-
             foreach ($parent->config_vars as $name => $pvar) {
                 if (isset($config_vars[ $name ]) && $config_vars[ $name ][ 'value' ] === $pvar[ 'value' ]) {
                     $config_vars[ $name ][ 'scope' ] = $pvar[ 'scope' ];
@@ -344,8 +342,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
                 }
             }
         }
-
-        return (object) array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
+        return (object)array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
     }
 
     /**
@@ -376,7 +373,6 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
             $this->template_data[ $this->index ][ $key ][ 'render_time' ] = 0;
             $this->template_data[ $this->index ][ $key ][ 'cache_time' ] = 0;
             $this->template_data[ $this->index ][ $key ][ 'total_time' ] = 0;
-
             return $key;
         }
     }

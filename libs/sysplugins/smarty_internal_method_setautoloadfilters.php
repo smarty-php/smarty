@@ -31,11 +31,12 @@ class Smarty_Internal_Method_SetAutoloadFilters
      * @api Smarty::setAutoloadFilters()
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  array                                                          $filters filters to load automatically
-     * @param  string                                                         $type    "pre", "output", … specify the
-     *                                                                                 filter type to set. Defaults to
-     *                                                                                 none treating $filters' keys as
-     *                                                                                 the appropriate types
+     * @param array                                                           $filters filters to load automatically
+     * @param string                                                          $type    "pre", "output", … specify
+     *                                                                                 the filter type to set.
+     *                                                                                 Defaults to none treating
+     *                                                                                 $filters' keys as the
+     *                                                                                 appropriate types
      *
      * @return \Smarty|\Smarty_Internal_Template
      * @throws \SmartyException
@@ -45,12 +46,12 @@ class Smarty_Internal_Method_SetAutoloadFilters
         $smarty = $obj->_getSmartyObj();
         if ($type !== null) {
             $this->_checkFilterType($type);
-            $smarty->autoload_filters[ $type ] = (array) $filters;
+            $smarty->autoload_filters[ $type ] = (array)$filters;
         } else {
-            foreach ((array) $filters as $type => $value) {
+            foreach ((array)$filters as $type => $value) {
                 $this->_checkFilterType($type);
             }
-            $smarty->autoload_filters = (array) $filters;
+            $smarty->autoload_filters = (array)$filters;
         }
         return $obj;
     }

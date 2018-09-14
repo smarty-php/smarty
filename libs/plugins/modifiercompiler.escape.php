@@ -14,8 +14,8 @@
  * @link   http://www.smarty.net/docsv2/en/language.modifier.escape count_characters (Smarty online manual)
  * @author Rodney Rehm
  *
- * @param array                                 $params parameters
- * @param  Smarty_Internal_TemplateCompilerBase $compiler
+ * @param array                                $params parameters
+ * @param Smarty_Internal_TemplateCompilerBase $compiler
  *
  * @return string with compiled code
  * @throws \SmartyException
@@ -24,21 +24,24 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
 {
     static $_double_encode = null;
     static $is_loaded = false;
-    $compiler->template->_checkPlugins(array(array('function' => 'smarty_literal_compiler_param',
-                                         'file' => SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php')));
+    $compiler->template->_checkPlugins(
+        array(
+            array(
+                'function' => 'smarty_literal_compiler_param',
+                'file'     => SMARTY_PLUGINS_DIR . 'shared.literal_compiler_param.php'
+            )
+        )
+    );
     if ($_double_encode === null) {
         $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
     }
-
     try {
         $esc_type = smarty_literal_compiler_param($params, 1, 'html');
         $char_set = smarty_literal_compiler_param($params, 2, Smarty::$_CHARSET);
         $double_encode = smarty_literal_compiler_param($params, 3, true);
-
         if (!$char_set) {
             $char_set = Smarty::$_CHARSET;
         }
-
         switch ($esc_type) {
             case 'html':
                 if ($_double_encode) {
@@ -49,7 +52,7 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                 } else {
                     // fall back to modifier.escape.php
                 }
-
+            // no break
             case 'htmlall':
                 if (Smarty::$_MBSTRING) {
                     if ($_double_encode) {
@@ -65,7 +68,6 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                         // fall back to modifier.escape.php
                     }
                 }
-
                 // no MBString fallback
                 if ($_double_encode) {
                     // php >=5.2.3 - go native
@@ -77,27 +79,23 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                 } else {
                     // fall back to modifier.escape.php
                 }
-
+            // no break
             case 'url':
                 return 'rawurlencode(' . $params[ 0 ] . ')';
-
             case 'urlpathinfo':
                 return 'str_replace("%2F", "/", rawurlencode(' . $params[ 0 ] . '))';
-
             case 'quotes':
                 // escape unescaped single quotes
                 return 'preg_replace("%(?<!\\\\\\\\)\'%", "\\\'",' . $params[ 0 ] . ')';
-
             case 'javascript':
                 // escape quotes and backslashes, newlines, etc.
-                return 'strtr(' . $params[ 0 ] .
+                return 'strtr(' .
+                       $params[ 0 ] .
                        ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", "\\n" => "\\\n", "</" => "<\/" ))';
         }
-    }
-    catch (SmartyException $e) {
+    } catch (SmartyException $e) {
         // pass through to regular plugin fallback
     }
-
     // could not optimize |escape call, so fallback to regular plugin
     if ($compiler->template->caching && ($compiler->tag_nocache | $compiler->nocache)) {
         $compiler->required_plugins[ 'nocache' ][ 'escape' ][ 'modifier' ][ 'file' ] =
@@ -110,6 +108,5 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
         $compiler->required_plugins[ 'compiled' ][ 'escape' ][ 'modifier' ][ 'function' ] =
             'smarty_modifier_escape';
     }
-
     return 'smarty_modifier_escape(' . join(', ', $params) . ')';
 }

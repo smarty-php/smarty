@@ -22,9 +22,10 @@ class Smarty_Internal_Method_AssignGlobal
      * assigns a global Smarty variable
      *
      * @param \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty $data
-     * @param  string                                                 $varName the global variable name
-     * @param  mixed                                                  $value   the value to assign
-     * @param  boolean                                                $nocache if true any output of this variable will be not cached
+     * @param string                                                  $varName the global variable name
+     * @param mixed                                                   $value   the value to assign
+     * @param boolean                                                 $nocache if true any output of this variable will
+     *                                                                         be not cached
      *
      * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
      */

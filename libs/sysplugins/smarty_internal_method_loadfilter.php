@@ -33,8 +33,8 @@ class Smarty_Internal_Method_LoadFilter
      * @link http://www.smarty.net/docs/en/api.load.filter.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string                                                         $type filter type
-     * @param  string                                                         $name filter name
+     * @param string                                                          $type filter type
+     * @param string                                                          $name filter name
      *
      * @return bool
      * @throws SmartyException if filter could not be loaded

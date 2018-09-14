@@ -23,6 +23,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('name');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -30,6 +31,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('name');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -41,7 +43,7 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
     /**
      * Compiles code for the {insert} tag
      *
-     * @param  array                                $args     array with attributes from parser
+     * @param array                                 $args     array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
      *
      * @return string compiled code
@@ -104,11 +106,13 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
             }
             // code for script file loading
             $_output .= "require_once '{$_filepath}' ;";
-            require_once $_filepath;
+            include_once $_filepath;
             if (!is_callable($_function)) {
-                $compiler->trigger_template_error(" {insert} function '{$_function}' is not callable in script file '{$_script}'",
-                                                  null,
-                                                  true);
+                $compiler->trigger_template_error(
+                    " {insert} function '{$_function}' is not callable in script file '{$_script}'",
+                    null,
+                    true
+                );
             }
         } else {
             $_filepath = 'null';
@@ -117,9 +121,11 @@ class Smarty_Internal_Compile_Insert extends Smarty_Internal_CompileBase
             if (!is_callable($_function)) {
                 // try plugin
                 if (!$_function = $compiler->getPlugin($_name, 'insert')) {
-                    $compiler->trigger_template_error("{insert} no function or plugin found for '{$_name}'",
-                                                      null,
-                                                      true);
+                    $compiler->trigger_template_error(
+                        "{insert} no function or plugin found for '{$_name}'",
+                        null,
+                        true
+                    );
                 }
             }
         }

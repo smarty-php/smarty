@@ -20,7 +20,6 @@
  * - indent_char   - string (" ")
  * - wrap_boundary - boolean (true)
  *
- *
  * @link   http://www.smarty.net/manual/en/language.function.textformat.php {textformat}
  *         (Smarty online manual)
  *
@@ -39,10 +38,15 @@ function smarty_block_textformat($params, $content, Smarty_Internal_Template $te
         return;
     }
     if (Smarty::$_MBSTRING) {
-        $template->_checkPlugins(array(array('function' => 'smarty_modifier_mb_wordwrap',
-                                             'file' => SMARTY_PLUGINS_DIR . 'modifier.mb_wordwrap.php')));
+        $template->_checkPlugins(
+            array(
+                array(
+                    'function' => 'smarty_modifier_mb_wordwrap',
+                    'file'     => SMARTY_PLUGINS_DIR . 'modifier.mb_wordwrap.php'
+                )
+            )
+        );
     }
-
     $style = null;
     $indent = 0;
     $indent_first = 0;
@@ -51,47 +55,48 @@ function smarty_block_textformat($params, $content, Smarty_Internal_Template $te
     $wrap_char = "\n";
     $wrap_cut = false;
     $assign = null;
-
     foreach ($params as $_key => $_val) {
         switch ($_key) {
             case 'style':
             case 'indent_char':
             case 'wrap_char':
             case 'assign':
-                $$_key = (string) $_val;
+                $$_key = (string)$_val;
                 break;
-
             case 'indent':
             case 'indent_first':
             case 'wrap':
-                $$_key = (int) $_val;
+                $$_key = (int)$_val;
                 break;
-
             case 'wrap_cut':
-                $$_key = (bool) $_val;
+                $$_key = (bool)$_val;
                 break;
-
             default:
                 trigger_error("textformat: unknown attribute '{$_key}'");
         }
     }
-
     if ($style === 'email') {
         $wrap = 72;
     }
     // split into paragraphs
     $_paragraphs = preg_split('![\r\n]{2}!', $content);
-
     foreach ($_paragraphs as &$_paragraph) {
         if (!$_paragraph) {
             continue;
         }
         // convert mult. spaces & special chars to single space
         $_paragraph =
-            preg_replace(array('!\s+!' . Smarty::$_UTF8_MODIFIER,
-                               '!(^\s+)|(\s+$)!' . Smarty::$_UTF8_MODIFIER),
-                         array(' ',
-                               ''), $_paragraph);
+            preg_replace(
+                array(
+                    '!\s+!' . Smarty::$_UTF8_MODIFIER,
+                    '!(^\s+)|(\s+$)!' . Smarty::$_UTF8_MODIFIER
+                ),
+                array(
+                    ' ',
+                    ''
+                ),
+                $_paragraph
+            );
         // indent first line
         if ($indent_first > 0) {
             $_paragraph = str_repeat($indent_char, $indent_first) . $_paragraph;
@@ -108,7 +113,6 @@ function smarty_block_textformat($params, $content, Smarty_Internal_Template $te
         }
     }
     $_output = implode($wrap_char . $wrap_char, $_paragraphs);
-
     if ($assign) {
         $template->assign($assign, $_output);
     } else {

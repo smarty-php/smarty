@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Double quoted string inside a tag.
  *
@@ -40,17 +39,21 @@ class Smarty_Internal_ParseTree_Dq extends Smarty_Internal_ParseTree
     public function append_subtree(Smarty_Internal_Templateparser $parser, Smarty_Internal_ParseTree $subtree)
     {
         $last_subtree = count($this->subtrees) - 1;
-        if ($last_subtree >= 0 && $this->subtrees[ $last_subtree ] instanceof Smarty_Internal_ParseTree_Tag &&
-            $this->subtrees[ $last_subtree ]->saved_block_nesting < $parser->block_nesting_level
+        if ($last_subtree >= 0 && $this->subtrees[ $last_subtree ] instanceof Smarty_Internal_ParseTree_Tag
+            && $this->subtrees[ $last_subtree ]->saved_block_nesting < $parser->block_nesting_level
         ) {
             if ($subtree instanceof Smarty_Internal_ParseTree_Code) {
                 $this->subtrees[ $last_subtree ]->data =
-                    $parser->compiler->appendCode($this->subtrees[ $last_subtree ]->data,
-                                                  '<?php echo ' . $subtree->data . ';?>');
+                    $parser->compiler->appendCode(
+                        $this->subtrees[ $last_subtree ]->data,
+                        '<?php echo ' . $subtree->data . ';?>'
+                    );
             } elseif ($subtree instanceof Smarty_Internal_ParseTree_DqContent) {
                 $this->subtrees[ $last_subtree ]->data =
-                    $parser->compiler->appendCode($this->subtrees[ $last_subtree ]->data,
-                                                  '<?php echo "' . $subtree->data . '";?>');
+                    $parser->compiler->appendCode(
+                        $this->subtrees[ $last_subtree ]->data,
+                        '<?php echo "' . $subtree->data . '";?>'
+                    );
             } else {
                 $this->subtrees[ $last_subtree ]->data =
                     $parser->compiler->appendCode($this->subtrees[ $last_subtree ]->data, $subtree->data);
@@ -82,14 +85,11 @@ class Smarty_Internal_ParseTree_Dq extends Smarty_Internal_ParseTree
             } else {
                 $more_php = $subtree->to_smarty_php($parser);
             }
-
             $code .= $more_php;
-
             if (!$subtree instanceof Smarty_Internal_ParseTree_DqContent) {
                 $parser->compiler->has_variable_string = true;
             }
         }
-
         return $code;
     }
 }

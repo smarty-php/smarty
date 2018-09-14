@@ -43,8 +43,8 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
     /**
      * Compiles the calls of user defined tags defined by {function}
      *
-     * @param  array  $args     array with attributes from parser
-     * @param  object $compiler compiler object
+     * @param array  $args     array with attributes from parser
+     * @param object $compiler compiler object
      *
      * @return string compiled code
      */

@@ -6,7 +6,6 @@
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
- *
  **/
 class Smarty_Internal_Runtime_TplFunction
 {
@@ -36,14 +35,14 @@ class Smarty_Internal_Runtime_TplFunction
             }
             if (function_exists($function)) {
                 $this->saveTemplateVariables($tpl, $name);
-                $function ($tpl, $params);
+                $function($tpl, $params);
                 $this->restoreTemplateVariables($tpl, $name);
                 return;
             }
             // try to load template function dynamically
             if ($this->addTplFuncToCache($tpl, $name, $function)) {
                 $this->saveTemplateVariables($tpl, $name);
-                $function ($tpl, $params);
+                $function($tpl, $params);
                 $this->restoreTemplateVariables($tpl, $name);
                 return;
             }
@@ -55,8 +54,11 @@ class Smarty_Internal_Runtime_TplFunction
      * Register template functions defined by template
      *
      * @param \Smarty|\Smarty_Internal_Template|\Smarty_Internal_TemplateBase $obj
-     * @param  array                                                          $tplFunctions source information array of template functions defined in template
-     * @param bool                                                            $override     if true replace existing functions with same name
+     * @param array                                                           $tplFunctions source information array of
+     *                                                                                      template functions defined
+     *                                                                                      in template
+     * @param bool                                                            $override     if true replace existing
+     *                                                                                      functions with same name
      */
     public function registerTplFunctions(Smarty_Internal_TemplateBase $obj, $tplFunctions, $override = true)
     {
@@ -90,7 +92,6 @@ class Smarty_Internal_Runtime_TplFunction
     }
 
     /**
-     *
      * Add template function to cache file for nocache calls
      *
      * @param Smarty_Internal_Template $tpl
@@ -126,11 +127,18 @@ class Smarty_Internal_Runtime_TplFunction
                             if (!preg_match("/'{$funcParam['uid']}'(.*?)'nocache_hash'/", $content, $match2)) {
                                 $content = preg_replace("/('file_dependency'(.*?)\()/", "\\1{$match1[0]}", $content);
                             }
-                            $tplPtr->smarty->ext->_updateCache->write($tplPtr,
-                                                                      preg_replace('/\s*\?>\s*$/', "\n", $content) .
-                                                                      "\n" . preg_replace(array('/^\s*<\?php\s+/',
-                                                                                                '/\s*\?>\s*$/',), "\n",
-                                                                                          $match[ 0 ]));
+                            $tplPtr->smarty->ext->_updateCache->write(
+                                $tplPtr,
+                                preg_replace('/\s*\?>\s*$/', "\n", $content) .
+                                "\n" . preg_replace(
+                                    array(
+                                        '/^\s*<\?php\s+/',
+                                        '/\s*\?>\s*$/',
+                                    ),
+                                    "\n",
+                                    $match[ 0 ]
+                                )
+                            );
                         }
                     }
                     return true;
@@ -144,7 +152,7 @@ class Smarty_Internal_Runtime_TplFunction
      * Save current template variables on stack
      *
      * @param \Smarty_Internal_Template $tpl
-     * @param  string                   $name stack name
+     * @param string                    $name stack name
      */
     public function saveTemplateVariables(Smarty_Internal_Template $tpl, $name)
     {
@@ -156,7 +164,7 @@ class Smarty_Internal_Runtime_TplFunction
      * Restore saved variables into template objects
      *
      * @param \Smarty_Internal_Template $tpl
-     * @param  string                   $name stack name
+     * @param string                    $name stack name
      */
     public function restoreTemplateVariables(Smarty_Internal_Template $tpl, $name)
     {

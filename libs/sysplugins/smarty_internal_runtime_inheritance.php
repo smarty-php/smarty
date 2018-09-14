@@ -6,11 +6,9 @@
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
- *
  **/
 class Smarty_Internal_Runtime_Inheritance
 {
-
     /**
      * State machine
      * - 0 idle next extends will create a new inheritance tree
@@ -42,7 +40,7 @@ class Smarty_Internal_Runtime_Inheritance
      *
      * @var int
      */
-    public $tplIndex = - 1;
+    public $tplIndex = -1;
 
     /**
      * Array of template source objects
@@ -64,7 +62,6 @@ class Smarty_Internal_Runtime_Inheritance
      * @param \Smarty_Internal_Template $tpl        template object of caller
      * @param bool                      $initChild  if true init for child template
      * @param array                     $blockNames outer level block name
-     *
      */
     public function init(Smarty_Internal_Template $tpl, $initChild, $blockNames = array())
     {
@@ -76,7 +73,6 @@ class Smarty_Internal_Runtime_Inheritance
         }
         ++$this->tplIndex;
         $this->sources[ $this->tplIndex ] = $tpl->source;
-
         // start of child sub template(s)
         if ($initChild) {
             $this->state = 1;
@@ -113,18 +109,21 @@ class Smarty_Internal_Runtime_Inheritance
             ob_end_clean();
             $this->state = 2;
         }
-        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends') ||
-                                 $tpl->smarty->extends_recursion)) {
-            $tpl->_subTemplateRender($template,
-                                     $tpl->cache_id,
-                                     $tpl->compile_id,
-                                     $tpl->caching ? 9999 : 0,
-                                     $tpl->cache_lifetime,
-                                     array(),
-                                     2,
-                                     false,
-                                     $uid,
-                                     $func);
+        if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends')
+                                 || $tpl->smarty->extends_recursion)
+        ) {
+            $tpl->_subTemplateRender(
+                $template,
+                $tpl->cache_id,
+                $tpl->compile_id,
+                $tpl->caching ? 9999 : 0,
+                $tpl->cache_lifetime,
+                array(),
+                2,
+                false,
+                $uid,
+                $func
+            );
         }
     }
 
@@ -166,9 +165,11 @@ class Smarty_Internal_Runtime_Inheritance
      *
      * @throws \SmartyException
      */
-    public function process(Smarty_Internal_Template $tpl, Smarty_Internal_Block $block,
-                            Smarty_Internal_Block $parent = null)
-    {
+    public function process(
+        Smarty_Internal_Template $tpl,
+        Smarty_Internal_Block $block,
+        Smarty_Internal_Block $parent = null
+    ) {
         if ($block->hide && !isset($block->child)) {
             return;
         }
@@ -187,8 +188,8 @@ class Smarty_Internal_Runtime_Inheritance
         if ($block->prepend && isset($parent)) {
             $this->callParent($tpl, $block, '{block prepend}');
             if ($block->append) {
-                if ($block->callsChild || !isset($block->child) ||
-                    ($block->child->hide && !isset($block->child->child))
+                if ($block->callsChild || !isset($block->child)
+                    || ($block->child->hide && !isset($block->child->child))
                 ) {
                     $this->callBlock($block, $tpl);
                 } else {

@@ -50,8 +50,7 @@ abstract class Smarty_Resource_Recompiled extends Smarty_Resource
         // call compiler
         try {
             eval('?>' . $_smarty_tpl->compiler->compileTemplate($_smarty_tpl));
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             unset($_smarty_tpl->compiler);
             while (ob_get_level() > $level) {
                 ob_end_clean();
@@ -68,8 +67,8 @@ abstract class Smarty_Resource_Recompiled extends Smarty_Resource
     /**
      * populate Compiled Object with compiled filepath
      *
-     * @param  Smarty_Template_Compiled $compiled  compiled object
-     * @param  Smarty_Internal_Template $_template template object
+     * @param Smarty_Template_Compiled $compiled  compiled object
+     * @param Smarty_Internal_Template $_template template object
      *
      * @return void
      */

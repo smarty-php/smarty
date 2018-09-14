@@ -6,25 +6,24 @@
  * @package    Smarty
  * @subpackage PluginsInternal
  * @author     Uwe Tews
- *
  **/
 class Smarty_Internal_Runtime_UpdateScope
 {
-
     /**
      * Update new assigned template or config variable in other effected scopes
      *
-     * @param Smarty_Internal_Template $tpl     data object
-     * @param string|null              $varName variable name
-     * @param int                      $tagScope   tag scope to which bubble up variable value
-     *
+     * @param Smarty_Internal_Template $tpl      data object
+     * @param string|null              $varName  variable name
+     * @param int                      $tagScope tag scope to which bubble up variable value
      */
     public function _updateScope(Smarty_Internal_Template $tpl, $varName, $tagScope = 0)
     {
         if ($tagScope) {
             $this->_updateVarStack($tpl, $varName);
             $tagScope = $tagScope & ~Smarty::SCOPE_LOCAL;
-            if (!$tpl->scope && !$tagScope) return;
+            if (!$tpl->scope && !$tagScope) {
+                return;
+            }
         }
         $mergedScope = $tagScope | $tpl->scope;
         if ($mergedScope) {
@@ -34,8 +33,9 @@ class Smarty_Internal_Runtime_UpdateScope
             // update scopes
             foreach ($this->_getAffectedScopes($tpl, $mergedScope) as $ptr) {
                 $this->_updateVariableInOtherScope($ptr->tpl_vars, $tpl, $varName);
-                if($tagScope && $ptr->_isTplObj() && isset($tpl->_cache[ 'varStack' ])) {
-                    $this->_updateVarStack($ptr, $varName);              }
+                if ($tagScope && $ptr->_isTplObj() && isset($tpl->_cache[ 'varStack' ])) {
+                    $this->_updateVarStack($ptr, $varName);
+                }
             }
         }
     }
@@ -62,8 +62,8 @@ class Smarty_Internal_Runtime_UpdateScope
             $ptr = $ptr->parent;
         }
         while (isset($ptr) && $ptr->_isTplObj()) {
-                $_stack[] = $ptr;
-             $ptr = $ptr->parent;
+            $_stack[] = $ptr;
+            $ptr = $ptr->parent;
         }
         if ($mergedScope & Smarty::SCOPE_SMARTY) {
             if (isset($tpl->smarty)) {
@@ -84,9 +84,9 @@ class Smarty_Internal_Runtime_UpdateScope
     /**
      * Update variable in other scope
      *
-     * @param array     $tpl_vars template variable array
+     * @param array                     $tpl_vars template variable array
      * @param \Smarty_Internal_Template $from
-     * @param string               $varName variable name
+     * @param string                    $varName  variable name
      */
     public function _updateVariableInOtherScope(&$tpl_vars, Smarty_Internal_Template $from, $varName)
     {
@@ -109,7 +109,7 @@ class Smarty_Internal_Runtime_UpdateScope
         $i = 0;
         while (isset($tpl->_cache[ 'varStack' ][ $i ])) {
             $this->_updateVariableInOtherScope($tpl->_cache[ 'varStack' ][ $i ][ 'tpl' ], $tpl, $varName);
-            $i ++;
+            $i++;
         }
     }
 }

@@ -17,7 +17,7 @@ class Smarty_Internal_Method_GetAutoloadFilters extends Smarty_Internal_Method_S
      * @api Smarty::getAutoloadFilters()
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
-     * @param  string                                                         $type type of filter to get auto loads
+     * @param string                                                          $type type of filter to get auto loads
      *                                                                              for. Defaults to all autoload
      *                                                                              filters
      *

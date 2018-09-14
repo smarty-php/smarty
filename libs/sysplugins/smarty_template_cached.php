@@ -92,7 +92,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
         $this->cache_id = $_template->cache_id;
         $this->source = $_template->source;
         if (!class_exists('Smarty_CacheResource', false)) {
-            require SMARTY_SYSPLUGINS_DIR . 'smarty_cacheresource.php';
+            include SMARTY_SYSPLUGINS_DIR . 'smarty_cacheresource.php';
         }
         $this->handler = Smarty_CacheResource::load($_template->smarty);
     }
@@ -102,7 +102,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
      *
      * @return Smarty_Template_Cached
      */
-    static function load(Smarty_Internal_Template $_template)
+    public static function load(Smarty_Internal_Template $_template)
     {
         $_template->cached = new Smarty_Template_Cached($_template);
         $_template->cached->handler->populate($_template->cached, $_template);
@@ -118,7 +118,7 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
      * Render cache template
      *
      * @param \Smarty_Internal_Template $_template
-     * @param  bool                     $no_output_filter
+     * @param bool                      $no_output_filter
      *
      * @throws \Exception
      */
@@ -163,14 +163,14 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
                 } else {
                     $this->valid = true;
                 }
-                if ($this->valid && $_template->caching === Smarty::CACHING_LIFETIME_CURRENT &&
-                    $_template->cache_lifetime >= 0 && time() > ($this->timestamp + $_template->cache_lifetime)
+                if ($this->valid && $_template->caching === Smarty::CACHING_LIFETIME_CURRENT
+                    && $_template->cache_lifetime >= 0 && time() > ($this->timestamp + $_template->cache_lifetime)
                 ) {
                     // lifetime expired
                     $this->valid = false;
                 }
-                if ($this->valid && $_template->compile_check === Smarty::COMPILECHECK_ON &&
-                    $_template->source->getTimeStamp() > $this->timestamp
+                if ($this->valid && $_template->compile_check === Smarty::COMPILECHECK_ON
+                    && $_template->source->getTimeStamp() > $this->timestamp
                 ) {
                     $this->valid = false;
                 }
@@ -204,9 +204,9 @@ class Smarty_Template_Cached extends Smarty_Template_Resource_Base
             } else {
                 return $this->valid;
             }
-            if ($this->valid && $_template->caching === Smarty::CACHING_LIFETIME_SAVED &&
-                $_template->cached->cache_lifetime >= 0 &&
-                (time() > ($_template->cached->timestamp + $_template->cached->cache_lifetime))
+            if ($this->valid && $_template->caching === Smarty::CACHING_LIFETIME_SAVED
+                && $_template->cached->cache_lifetime >= 0
+                && (time() > ($_template->cached->timestamp + $_template->cached->cache_lifetime))
             ) {
                 $this->valid = false;
             }

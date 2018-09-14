@@ -16,28 +16,6 @@
  */
 class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_CompileBase
 {
-
-    /**
-     * Preg search pattern
-     *
-     * @var string
-     */
-    private $propertyPreg = '';
-
-    /**
-     * Offsets in preg match result
-     *
-     * @var array
-     */
-    private $resultOffsets = array();
-
-    /**
-     * Start offset
-     *
-     * @var int
-     */
-    private $startOffset = 0;
-
     /**
      * Name of this tag
      *
@@ -72,9 +50,30 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
     public $matchResults = array();
 
     /**
+     * Preg search pattern
+     *
+     * @var string
+     */
+    private $propertyPreg = '';
+
+    /**
+     * Offsets in preg match result
+     *
+     * @var array
+     */
+    private $resultOffsets = array();
+
+    /**
+     * Start offset
+     *
+     * @var int
+     */
+    private $startOffset = 0;
+
+    /**
      * Scan sources for used tag attributes
      *
-     * @param  array                                $attributes
+     * @param array                                 $attributes
      * @param \Smarty_Internal_TemplateCompilerBase $compiler
      *
      * @throws \SmartyException
@@ -82,10 +81,10 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
     public function scanForProperties($attributes, Smarty_Internal_TemplateCompilerBase $compiler)
     {
         $this->propertyPreg = '~(';
-        $this->startOffset = 0;
+        $this->startOffset = 1;
         $this->resultOffsets = array();
         $this->matchResults = array('named' => array(), 'item' => array());
-        if ($this->isNamed) {
+        if (isset($attributes[ 'name' ])) {
             $this->buildPropertyPreg(true, $attributes);
         }
         if (isset($this->itemProperties)) {
@@ -112,19 +111,19 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
     public function buildPropertyPreg($named, $attributes)
     {
         if ($named) {
-            $this->resultOffsets[ 'named' ] = $this->startOffset + 4;
-            $this->propertyPreg .= "(([\$]smarty[.]{$this->tagName}[.]" . ($this->tagName === 'section' ? "|[\[]\s*" : '')
-                                   . "){$attributes['name']}[.](";
+            $this->resultOffsets[ 'named' ] = $this->startOffset = $this->startOffset + 3;
+            $this->propertyPreg .= "(([\$]smarty[.]{$this->tagName}[.]" .
+                                   ($this->tagName === 'section' ? "|[\[]\s*" : '') .
+                                   "){$attributes['name']}[.](";
             $properties = $this->nameProperties;
         } else {
-            $this->resultOffsets[ 'item' ] = $this->startOffset + 3;
+            $this->resultOffsets[ 'item' ] = $this->startOffset = $this->startOffset + 2;
             $this->propertyPreg .= "([\$]{$attributes['item']}[@](";
             $properties = $this->itemProperties;
         }
-        $this->startOffset += count($properties) + 2;
         $propName = reset($properties);
         while ($propName) {
-            $this->propertyPreg .= "({$propName})";
+            $this->propertyPreg .= "{$propName}";
             $propName = next($properties);
             if ($propName) {
                 $this->propertyPreg .= '|';
@@ -140,11 +139,11 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
      */
     public function matchProperty($source)
     {
-        preg_match_all($this->propertyPreg, $source, $match, PREG_SET_ORDER);
+        preg_match_all($this->propertyPreg, $source, $match);
         foreach ($this->resultOffsets as $key => $offset) {
-            foreach ($match as $m) {
-                if (isset($m[ $offset ]) && !empty($m[ $offset ])) {
-                    $this->matchResults[ $key ][ strtolower($m[ $offset ]) ] = true;
+            foreach ($match[ $offset ] as $m) {
+                if (!empty($m)) {
+                    $this->matchResults[ $key ][ strtolower($m) ] = true;
                 }
             }
         }
@@ -181,8 +180,11 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
                     if ((isset($nextCompiler->smarty->autoload_filters[ 'pre' ]) ||
                          isset($nextCompiler->smarty->registered_filters[ 'pre' ]))
                     ) {
-                        $_content = $nextCompiler->smarty->ext->_filterHandler->runFilter('pre', $_content,
-                                                                                          $nextCompiler->template);
+                        $_content = $nextCompiler->smarty->ext->_filterHandler->runFilter(
+                            'pre',
+                            $_content,
+                            $nextCompiler->template
+                        );
                     }
                     $this->matchProperty($_content);
                 }
@@ -202,9 +204,9 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
     /**
      * Compiles code for the {$smarty.foreach.xxx} or {$smarty.section.xxx}tag
      *
-     * @param  array                                $args      array with attributes from parser
+     * @param array                                 $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
+     * @param array                                 $parameter array with compilation parameter
      *
      * @return string compiled code
      * @throws \SmartyCompilerException

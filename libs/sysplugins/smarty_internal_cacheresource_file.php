@@ -7,6 +7,7 @@
  * @author     Uwe Tews
  * @author     Rodney Rehm
  */
+
 /**
  * This class does contain all necessary methods for the HTML cache on file system
  * Implements the file system as resource for the HTML cache Version ussing nocache inserts.
@@ -32,11 +33,17 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         $_filepath = sha1($source->uid . $smarty->_joined_template_dir);
         $cached->filepath = $smarty->getCacheDir();
         if (isset($_template->cache_id)) {
-            $cached->filepath .= preg_replace(array('![^\w|]+!',
-                                                    '![|]+!'),
-                                              array('_',
-                                                    $_compile_dir_sep),
-                                              $_template->cache_id) . $_compile_dir_sep;
+            $cached->filepath .= preg_replace(
+                                     array(
+                                         '![^\w|]+!',
+                                         '![|]+!'
+                                     ),
+                                     array(
+                                         '_',
+                                         $_compile_dir_sep
+                                     ),
+                                     $_template->cache_id
+                                 ) . $_compile_dir_sep;
         }
         if (isset($_template->compile_id)) {
             $cached->filepath .= preg_replace('![^\w]+!', '_', $_template->compile_id) . $_compile_dir_sep;
@@ -87,10 +94,11 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      *
      * @return boolean true or false if the cached content does not exist
      */
-    public function process(Smarty_Internal_Template $_smarty_tpl,
-                            Smarty_Template_Cached $cached = null,
-                            $update = false)
-    {
+    public function process(
+        Smarty_Internal_Template $_smarty_tpl,
+        Smarty_Template_Cached $cached = null,
+        $update = false
+    ) {
         $_smarty_tpl->cached->valid = false;
         if ($update && defined('HHVM_VERSION')) {
             eval('?>' . file_get_contents($_smarty_tpl->cached->filepath));
@@ -111,15 +119,17 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      */
     public function writeCachedContent(Smarty_Internal_Template $_template, $content)
     {
-        if ($_template->smarty->ext->_writeFile->writeFile($_template->cached->filepath,
-                                                           $content,
-                                                           $_template->smarty) === true
+        if ($_template->smarty->ext->_writeFile->writeFile(
+                $_template->cached->filepath,
+                $content,
+                $_template->smarty
+            ) === true
         ) {
-            if (function_exists('opcache_invalidate') &&
-                (!function_exists('ini_get') || strlen(ini_get('opcache.restrict_api'))) < 1
+            if (function_exists('opcache_invalidate')
+                && (!function_exists('ini_get') || strlen(ini_get('opcache.restrict_api'))) < 1
             ) {
                 opcache_invalidate($_template->cached->filepath, true);
-            } else if (function_exists('apc_compile_file')) {
+            } elseif (function_exists('apc_compile_file')) {
                 apc_compile_file($_template->cached->filepath);
             }
             $cached = $_template->cached;
@@ -135,7 +145,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
     /**
      * Read cached template from cache
      *
-     * @param  Smarty_Internal_Template $_template template object
+     * @param Smarty_Internal_Template $_template template object
      *
      * @return string  content
      */

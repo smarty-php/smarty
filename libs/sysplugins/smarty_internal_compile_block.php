@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * This file is part of Smarty.
  *
  * (c) 2015 Uwe Tews
@@ -22,6 +22,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
      * @see Smarty_Internal_CompileBase
      */
     public $required_attributes = array('name');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -29,6 +30,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
      * @see Smarty_Internal_CompileBase
      */
     public $shorttag_order = array('name');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -36,6 +38,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
      * @see Smarty_Internal_CompileBase
      */
     public $option_flags = array('hide', 'nocache');
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -47,10 +50,9 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
     /**
      * Compiles code for the {block} tag
      *
-     * @param  array                                 $args      array with attributes from parser
-     * @param  \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                 $parameter array with compilation parameter
-     *
+     * @param array                                 $args      array with attributes from parser
+     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param array                                 $parameter array with compilation parameter
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
@@ -67,16 +69,20 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
         ++$compiler->_cache[ 'blockNesting' ];
-        $_className = 'Block_' . preg_replace('![^\w]+!', '_', uniqid(rand(), true));
+        $_className = 'Block_' . preg_replace('![^\w]+!', '_', uniqid(mt_rand(), true));
         $compiler->_cache[ 'blockName' ][ $compiler->_cache[ 'blockNesting' ] ] = $_attr[ 'name' ];
         $compiler->_cache[ 'blockClass' ][ $compiler->_cache[ 'blockNesting' ] ] = $_className;
         $compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ] = array();
         $compiler->_cache[ 'blockParams' ][ 1 ][ 'subBlocks' ][ trim($_attr[ 'name' ], '"\'') ][] = $_className;
-        $this->openTag($compiler,
-                       'block',
-                       array($_attr, $compiler->nocache, $compiler->parser->current_buffer,
-                             $compiler->template->compiled->has_nocache_code,
-                             $compiler->template->caching));
+        $this->openTag(
+            $compiler,
+            'block',
+            array(
+                $_attr, $compiler->nocache, $compiler->parser->current_buffer,
+                $compiler->template->compiled->has_nocache_code,
+                $compiler->template->caching
+            )
+        );
         $compiler->saveRequiredPlugins(true);
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
@@ -84,18 +90,18 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
         $compiler->suppressNocacheProcessing = true;
     }
 }
+
 /**
  * Smarty Internal Plugin Compile BlockClose Class
- *
  */
 class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_Inheritance
 {
     /**
      * Compiles code for the {/block} tag
      *
-     * @param  array                                $args      array with attributes from parser
+     * @param array                                 $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
-     * @param  array                                $parameter array with compilation parameter
+     * @param array                                 $parameter array with compilation parameter
      *
      * @return bool true
      */
@@ -118,13 +124,12 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $_functionCode = $compiler->parser->current_buffer;
         // setup buffer for template function code
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
-
         $output = "<?php\n";
         $output .= "/* {block {$_name}} */\n";
         $output .= "class {$_className} extends Smarty_Internal_Block\n";
         $output .= "{\n";
         foreach ($_block as $property => $value) {
-            $output .= "public \${$property} = " . var_export($value,true) .";\n";
+            $output .= "public \${$property} = " . var_export($value, true) . ";\n";
         }
         $output .= "public function callBlock(Smarty_Internal_Template \$_smarty_tpl) {\n";
         $output .= $compiler->compileRequiredPlugins();
@@ -136,9 +141,13 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
             $output .= "ob_start();\n";
         }
         $output .= "?>\n";
-        $compiler->parser->current_buffer->append_subtree($compiler->parser,
-                                                          new Smarty_Internal_ParseTree_Tag($compiler->parser,
-                                                                                            $output));
+        $compiler->parser->current_buffer->append_subtree(
+            $compiler->parser,
+            new Smarty_Internal_ParseTree_Tag(
+                $compiler->parser,
+                $output
+            )
+        );
         $compiler->parser->current_buffer->append_subtree($compiler->parser, $_functionCode);
         $output = "<?php\n";
         if (isset($_assign)) {
@@ -148,9 +157,13 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $output .= "}\n";
         $output .= "/* {/block {$_name}} */\n\n";
         $output .= "?>\n";
-        $compiler->parser->current_buffer->append_subtree($compiler->parser,
-                                                          new Smarty_Internal_ParseTree_Tag($compiler->parser,
-                                                                                            $output));
+        $compiler->parser->current_buffer->append_subtree(
+            $compiler->parser,
+            new Smarty_Internal_ParseTree_Tag(
+                $compiler->parser,
+                $output
+            )
+        );
         $compiler->blockOrFunctionCode .= $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
         $compiler->parser->current_buffer = new Smarty_Internal_ParseTree_Template();
         // restore old status
