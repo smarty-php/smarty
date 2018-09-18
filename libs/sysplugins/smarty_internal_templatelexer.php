@@ -215,9 +215,23 @@ class Smarty_Internal_Templatelexer
      */
     private $yy_global_pattern5 = null;
 
-    private $_yy_state          = 1;
+    /**
+     * preg token pattern for text
+     *
+     * @var null
+     */
+    private $yy_global_text = null;
 
-    private $_yy_stack          = array();
+    /**
+     * preg token pattern for literal
+     *
+     * @var null
+     */
+    private $yy_global_literal = null;
+
+    private $_yy_state         = 1;
+
+    private $_yy_stack         = array();
 
     /**
      * constructor
@@ -319,7 +333,7 @@ class Smarty_Internal_Templatelexer
     {
         if (!isset($this->yy_global_pattern1)) {
             $this->yy_global_pattern1 =
-                $this->replace("/\G([{][}])|\G((SMARTYldel)SMARTYal[*])|\G((SMARTYldel)SMARTYalphp([ ].*?)?SMARTYrdel|(SMARTYldel)SMARTYal[\/]phpSMARTYrdel)|\G((SMARTYldel)SMARTYautoliteral\\s+SMARTYliteral)|\G((SMARTYldel)SMARTYalliteral\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/]literal\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal)|\G([<][?]((php\\s+|=)|\\s+)|[<][%]|[<][?]xml\\s+|[<]script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*[>]|[?][>]|[%][>])|\G((.*?)(?=((SMARTYldel)SMARTYal|[<][?]((php\\s+|=)|\\s+)|[<][%]|[<][?]xml\\s+|[<]script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*[>]|[?][>]|[%][>]SMARTYliteral))|[\s\S]+)/isS");
+                $this->replace("/\G([{][}])|\G((SMARTYldel)SMARTYal[*])|\G((SMARTYldel)SMARTYalphp([ ].*?)?SMARTYrdel|(SMARTYldel)SMARTYal[\/]phpSMARTYrdel)|\G((SMARTYldel)SMARTYautoliteral\\s+SMARTYliteral)|\G((SMARTYldel)SMARTYalliteral\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/]literal\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal)|\G([<][?]((php\\s+|=)|\\s+)|[<][%]|[<][?]xml\\s+|[<]script\\s+language\\s*=\\s*[\"']?\\s*php\\s*[\"']?\\s*[>]|[?][>]|[%][>])|\G([\S\s])/isS");
         }
         if (!isset($this->dataLength)) {
             $this->dataLength = strlen($this->data);
@@ -336,11 +350,8 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr(
-                                            $this->data,
-                                            $this->counter,
-                                            5
-                                        ) . '... state TEXT');
+                                        ' an empty string.  Input "' . substr($this->data,
+                            $this->counter, 5) . '... state TEXT');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -379,6 +390,7 @@ class Smarty_Internal_Templatelexer
 
     public function yy_r1_2()
     {
+        $to = $this->dataLength;
         preg_match("/[*]{$this->compiler->getRdelPreg()}[\n]?/", $this->data, $match, PREG_OFFSET_CAPTURE,
             $this->counter);
         if (isset($match[ 0 ][ 1 ])) {
@@ -425,6 +437,16 @@ class Smarty_Internal_Templatelexer
 
     public function yy_r1_19()
     {
+        if (!isset($this->yy_global_text)) {
+            $this->yy_global_text =
+                $this->replace('/(SMARTYldel)SMARTYal|[<][?]((php\s+|=)|\s+)|[<][%]|[<][?]xml\s+|[<]script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*[>]|[?][>]|[%][>]SMARTYliteral/isS');
+        }
+        $to = $this->dataLength;
+        preg_match($this->yy_global_text, $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
+        if (isset($match[ 0 ][ 1 ])) {
+            $to = $match[ 0 ][ 1 ];
+        }
+        $this->value = substr($this->data, $this->counter, $to - $this->counter);
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
 
@@ -449,11 +471,8 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr(
-                                            $this->data,
-                                            $this->counter,
-                                            5
-                                        ) . '... state TAG');
+                                        ' an empty string.  Input "' . substr($this->data,
+                            $this->counter, 5) . '... state TAG');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -590,11 +609,8 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr(
-                                            $this->data,
-                                            $this->counter,
-                                            5
-                                        ) . '... state TAGBODY');
+                                        ' an empty string.  Input "' . substr($this->data,
+                            $this->counter, 5) . '... state TAGBODY');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -863,7 +879,7 @@ class Smarty_Internal_Templatelexer
     {
         if (!isset($this->yy_global_pattern4)) {
             $this->yy_global_pattern4 =
-                $this->replace("/\G((SMARTYldel)SMARTYalliteral\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/]literal\\s*SMARTYrdel)|\G((.*?)(?=(SMARTYldel)SMARTYal[\/]?literalSMARTYrdel))/isS");
+                $this->replace("/\G((SMARTYldel)SMARTYalliteral\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/]literal\\s*SMARTYrdel)|\G([\S\s])/isS");
         }
         if (!isset($this->dataLength)) {
             $this->dataLength = strlen($this->data);
@@ -880,11 +896,8 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr(
-                                            $this->data,
-                                            $this->counter,
-                                            5
-                                        ) . '... state LITERAL');
+                                        ' an empty string.  Input "' . substr($this->data,
+                            $this->counter, 5) . '... state LITERAL');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -935,6 +948,17 @@ class Smarty_Internal_Templatelexer
 
     public function yy_r4_5()
     {
+        if (!isset($this->yy_global_literal)) {
+            $this->yy_global_literal = $this->replace('/(SMARTYldel)SMARTYal[\/]?literalSMARTYrdel/isS');
+        }
+        $to = $this->dataLength;
+        preg_match($this->yy_global_literal, $this->data, $match, PREG_OFFSET_CAPTURE, $this->counter);
+        if (isset($match[ 0 ][ 1 ])) {
+            $to = $match[ 0 ][ 1 ];
+        } else {
+            $this->compiler->trigger_template_error("missing or misspelled literal closing tag");
+        }
+        $this->value = substr($this->data, $this->counter, $to - $this->counter);
         $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
     } // end function
 
@@ -942,7 +966,7 @@ class Smarty_Internal_Templatelexer
     {
         if (!isset($this->yy_global_pattern5)) {
             $this->yy_global_pattern5 =
-                $this->replace("/\G((SMARTYldel)SMARTYautoliteral\\s+SMARTYliteral)|\G((SMARTYldel)SMARTYalliteral\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/]literal\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/])|\G((SMARTYldel)SMARTYal[0-9]*[a-zA-Z_]\\w*)|\G((SMARTYldel)SMARTYal)|\G([\"])|\G([`][$])|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(([^\"\\\\]*?)((?:\\\\.[^\"\\\\]*?)*?)(?=((SMARTYldel)SMARTYal|\\$|`\\$|\"SMARTYliteral)))/isS");
+                $this->replace("/\G((SMARTYldel)SMARTYautoliteral\\s+SMARTYliteral)|\G((SMARTYldel)SMARTYalliteral\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/]literal\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal[\/])|\G((SMARTYldel)SMARTYal[0-9]*[a-zA-Z_]\\w*)|\G((SMARTYldel)SMARTYal)|\G([\"])|\G([`][$])|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(([^\"\\\\]*?)((?:\\\\.[^\"\\\\]*?)*?)(?=((SMARTYldel)SMARTYal|\\$|`\\$|\"SMARTYliteral)))|\G([\S\s])/isS");
         }
         if (!isset($this->dataLength)) {
             $this->dataLength = strlen($this->data);
@@ -959,11 +983,8 @@ class Smarty_Internal_Templatelexer
                 }
                 if (empty($yymatches)) {
                     throw new Exception('Error: lexing failed because a rule matched' .
-                                        ' an empty string.  Input "' . substr(
-                                            $this->data,
-                                            $this->counter,
-                                            5
-                                        ) . '... state DOUBLEQUOTEDSTRING');
+                                        ' an empty string.  Input "' . substr($this->data,
+                            $this->counter, 5) . '... state DOUBLEQUOTEDSTRING');
                 }
                 next($yymatches); // skip global match
                 $this->token = key($yymatches); // token number
@@ -1057,4 +1078,13 @@ class Smarty_Internal_Templatelexer
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
+
+    public function yy_r5_22()
+    {
+        $to = $this->dataLength;
+        $this->value = substr($this->data, $this->counter, $to - $this->counter);
+        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+    }
 }
+
+     

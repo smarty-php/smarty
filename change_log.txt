@@ -1,4 +1,10 @@
-﻿===== 3.1.33 release ===== 12.09.2018
+﻿===== 3.1.34-dev-1 =====
+18.09.2018
+  - bugfix large plain text template sections without a Smarty tag > 700kB could
+    could fail in version 3.1.32 and 3.1.33 because PHP preg_match() restrictions
+    https://github.com/smarty-php/smarty/issues/488
+
+===== 3.1.33 release ===== 12.09.2018
 ===== 3.1.33-dev-12 =====
 03.09.2018
   - bugfix {foreach} using new style property access like {$item@property} on
