@@ -220,6 +220,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
             $output .= "{$itemVar}->index = -1;\n";
         }
         $output .= "if (\$_from !== null) {\n";
+        $output .= "\$_from = \$_from instanceof Closure ? \$_from() : \$_from;\n";
         $output .= "foreach (\$_from as {$keyTerm}{$itemVar}->value) {\n";
         if (isset($attributes[ 'key' ]) && isset($itemAttr[ 'key' ])) {
             $output .= "\$_smarty_tpl->tpl_vars['{$key}']->value = {$itemVar}->key;\n";
