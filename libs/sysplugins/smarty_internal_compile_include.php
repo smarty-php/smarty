@@ -158,21 +158,21 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         } else {
             $_new_caching = Smarty::CACHING_LIFETIME_CURRENT;
         }
-        if (isset($_attr[ 'cache_lifetime' ])) {
+        if (!empty($_attr[ 'cache_lifetime' ])) {
             $_cache_lifetime = $_attr[ 'cache_lifetime' ];
             $call_nocache = true;
             $_caching = $_new_caching;
         } else {
             $_cache_lifetime = '$_smarty_tpl->cache_lifetime';
         }
-        if (isset($_attr[ 'cache_id' ])) {
+        if (!empty($_attr[ 'cache_id' ])) {
             $_cache_id = $_attr[ 'cache_id' ];
             $call_nocache = true;
             $_caching = $_new_caching;
         } else {
             $_cache_id = '$_smarty_tpl->cache_id';
         }
-        if (isset($_attr[ 'compile_id' ])) {
+        if (!empty($_attr[ 'compile_id' ])) {
             $_compile_id = $_attr[ 'compile_id' ];
         } else {
             $_compile_id = '$_smarty_tpl->compile_id';
