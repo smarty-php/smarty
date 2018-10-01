@@ -491,7 +491,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->parent_compiler = null;
             $this->template = null;
             $this->parser = null;
-            throw $e;
+            throw new Exception("Error while compiling template source", null, $e);
         }
         if ($this->smarty->debugging) {
             $this->smarty->_debug->end_compile($this->template);

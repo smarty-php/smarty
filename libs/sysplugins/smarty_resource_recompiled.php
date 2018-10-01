@@ -55,7 +55,7 @@ abstract class Smarty_Resource_Recompiled extends Smarty_Resource
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
-            throw $e;
+            throw new Exception("Error while processing template", null, $e);
         }
         // release compiler object to free memory
         unset($_smarty_tpl->compiler);

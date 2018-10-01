@@ -253,7 +253,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             if (isset($_smarty_old_error_level)) {
                 error_reporting($_smarty_old_error_level);
             }
-            throw $e;
+            throw new Exception("Error while fetching template", null, $e);
         }
     }
 

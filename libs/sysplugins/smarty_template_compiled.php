@@ -188,7 +188,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 touch($this->filepath, $saved_timestamp);
             }
             unset($_template->compiler);
-            throw $e;
+            throw new Exception("Error while compiling template source", null, $e);
         }
         // release compiler object to free memory
         unset($_template->compiler);

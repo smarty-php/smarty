@@ -133,7 +133,7 @@ abstract class Smarty_Template_Resource_Base
             if (isset($smarty->security_policy)) {
                 $smarty->security_policy->endTemplate();
             }
-            throw $e;
+            throw new Exception("Error reading rendered template code", null, $e);
         }
     }
 
