@@ -72,6 +72,8 @@ class CompileInsertTest extends PHPUnit_Smarty
 
     /**
      * test insert plugin
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testInsertPlugin1()
     {
@@ -97,6 +99,8 @@ class CompileInsertTest extends PHPUnit_Smarty
 
     /**
      * test insert plugin caching
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testInsertPluginCaching1_1()
     {
@@ -161,6 +165,8 @@ class CompileInsertTest extends PHPUnit_Smarty
     }
     /**
      * test insert plugin caching 2
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testInsertPluginCaching2_1()
     {
@@ -186,12 +192,36 @@ class CompileInsertTest extends PHPUnit_Smarty
         $this->smarty->compile_id = 1;
         $tpl = $this->smarty->createTemplate('insertplugintest.tpl');
         $tpl->assign('foo', 'buh');
-        $this->assertEquals('param foo bar globalvar global 2', $this->smarty->fetch($tpl));
+        $this->assertContains('param foo bar globalvar global 2', $this->smarty->fetch($tpl));
+    }
+    /**
+     * test insert plugin caching 3
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testInsertPluginCaching3_1()
+    {
+        $this->smarty->caching = true;
+        $this->assertContains(time().'Inner template', $this->smarty->fetch('insertplugintest2.tpl'));
+    }
+
+    /**
+     * test insert plugin caching 2
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testInsertPluginCaching3_2()
+    {
+        sleep(2);
+        $this->smarty->caching = true;
+        $this->assertContains(time().'Inner template', $this->smarty->fetch('insertplugintest2.tpl'));
     }
 
 
     /**
      * test inserted function none existing function
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testInsertFunctionNoneExistingFunction()
     {
@@ -209,6 +239,8 @@ class CompileInsertTest extends PHPUnit_Smarty
 
     /**
      * test inserted function none existing script
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testInsertFunctionNoneExistingScript()
     {
