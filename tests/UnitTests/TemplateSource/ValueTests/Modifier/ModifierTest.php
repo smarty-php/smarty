@@ -67,6 +67,7 @@ class ModifierTest extends PHPUnit_Smarty
                      array('{"hello world"|truncate:6|strlen + ("hello world"|truncate:8|strlen)}', '14', 'Expression', $i ++),
                      array('{1.1*7.1|round}', '7.7', 'InExpression', $i ++),
                      array('{counter|truncate:5 start=100000}', '10...', 'PluginOutput', $i ++),
+                     array('{1 + [1,2,3]|count}', '4', 'SumExpression', $i ++),
        );
     }
 
