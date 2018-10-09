@@ -338,6 +338,7 @@ class Smarty_Internal_Templatelexer
      if = ~(if|elseif|else if|while)\s+~
      for = ~for\s+~
      makenocache = ~make_nocache\s+~
+     array = ~array~
      foreach = ~foreach(?![^\s])~
      setfilter = ~setfilter\s+~
      instanceof = ~\s+instanceof\s+~
@@ -549,6 +550,9 @@ class Smarty_Internal_Templatelexer
      }
      at {
         $this->token = Smarty_Internal_Templateparser::TP_AT;
+     }
+     array openP {
+        $this->token = Smarty_Internal_Templateparser::TP_ARRAYOPEN;
      }
      hatch {
         $this->token = Smarty_Internal_Templateparser::TP_HATCH;

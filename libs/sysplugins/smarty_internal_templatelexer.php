@@ -592,7 +592,7 @@ class Smarty_Internal_Templatelexer
     {
         if (!isset($this->yy_global_pattern3)) {
             $this->yy_global_pattern3 =
-                $this->replace("/\G(\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal)|\G([\"])|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(\\s+is\\s+in\\s+)|\G(\\s+as\\s+)|\G(\\s+to\\s+)|\G(\\s+step\\s+)|\G(\\s+instanceof\\s+)|\G(\\s*([!=][=]{1,2}|[<][=>]?|[>][=]?|[&|]{2})\\s*)|\G(\\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor)\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even|div)\\s+by\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even))|\G([!]\\s*|not\\s+)|\G([(](int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)[)]\\s*)|\G(\\s*[(]\\s*)|\G(\\s*[)])|\G(\\[\\s*)|\G(\\s*\\])|\G(\\s*[-][>]\\s*)|\G(\\s*[=][>]\\s*)|\G(\\s*[=]\\s*)|\G(([+]|[-]){2})|\G(\\s*([+]|[-])\\s*)|\G(\\s*([*]{1,2}|[%\/^&]|[<>]{2})\\s*)|\G([@])|\G([#])|\G(\\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\\s*[=]\\s*)|\G(([0-9]*[a-zA-Z_]\\w*)?(\\\\[0-9]*[a-zA-Z_]\\w*)+)|\G([0-9]*[a-zA-Z_]\\w*)|\G(\\d+)|\G([`])|\G([|][@]?)|\G([.])|\G(\\s*[,]\\s*)|\G(\\s*[;]\\s*)|\G([:]{2})|\G(\\s*[:]\\s*)|\G(\\s*[?]\\s*)|\G(0[xX][0-9a-fA-F]+)|\G(\\s+)|\G([\S\s])/isS");
+                $this->replace("/\G(\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal)|\G([\"])|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(\\s+is\\s+in\\s+)|\G(\\s+as\\s+)|\G(\\s+to\\s+)|\G(\\s+step\\s+)|\G(\\s+instanceof\\s+)|\G(\\s*([!=][=]{1,2}|[<][=>]?|[>][=]?|[&|]{2})\\s*)|\G(\\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor)\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even|div)\\s+by\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even))|\G([!]\\s*|not\\s+)|\G([(](int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)[)]\\s*)|\G(\\s*[(]\\s*)|\G(\\s*[)])|\G(\\[\\s*)|\G(\\s*\\])|\G(\\s*[-][>]\\s*)|\G(\\s*[=][>]\\s*)|\G(\\s*[=]\\s*)|\G(([+]|[-]){2})|\G(\\s*([+]|[-])\\s*)|\G(\\s*([*]{1,2}|[%\/^&]|[<>]{2})\\s*)|\G([@])|\G(array\\s*[(]\\s*)|\G([#])|\G(\\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\\s*[=]\\s*)|\G(([0-9]*[a-zA-Z_]\\w*)?(\\\\[0-9]*[a-zA-Z_]\\w*)+)|\G([0-9]*[a-zA-Z_]\\w*)|\G(\\d+)|\G([`])|\G([|][@]?)|\G([.])|\G(\\s*[,]\\s*)|\G(\\s*[;]\\s*)|\G([:]{2})|\G(\\s*[:]\\s*)|\G(\\s*[?]\\s*)|\G(0[xX][0-9a-fA-F]+)|\G(\\s+)|\G([\S\s])/isS");
         }
         if (!isset($this->dataLength)) {
             $this->dataLength = strlen($this->data);
@@ -788,10 +788,15 @@ class Smarty_Internal_Templatelexer
 
     public function yy_r3_42()
     {
-        $this->token = Smarty_Internal_Templateparser::TP_HATCH;
+        $this->token = Smarty_Internal_Templateparser::TP_ARRAYOPEN;
     }
 
     public function yy_r3_43()
+    {
+        $this->token = Smarty_Internal_Templateparser::TP_HATCH;
+    }
+
+    public function yy_r3_44()
     {
         // resolve conflicts with shorttag and right_delimiter starting with '='
         if (substr($this->data, $this->counter + strlen($this->value) - 1, $this->compiler->getRdelLength()) ===
@@ -804,73 +809,73 @@ class Smarty_Internal_Templatelexer
         }
     }
 
-    public function yy_r3_44()
+    public function yy_r3_45()
     {
         $this->token = Smarty_Internal_Templateparser::TP_NAMESPACE;
     }
 
-    public function yy_r3_47()
+    public function yy_r3_48()
     {
         $this->token = Smarty_Internal_Templateparser::TP_ID;
     }
 
-    public function yy_r3_48()
+    public function yy_r3_49()
     {
         $this->token = Smarty_Internal_Templateparser::TP_INTEGER;
     }
 
-    public function yy_r3_49()
+    public function yy_r3_50()
     {
         $this->token = Smarty_Internal_Templateparser::TP_BACKTICK;
         $this->yypopstate();
     }
 
-    public function yy_r3_50()
+    public function yy_r3_51()
     {
         $this->token = Smarty_Internal_Templateparser::TP_VERT;
     }
 
-    public function yy_r3_51()
+    public function yy_r3_52()
     {
         $this->token = Smarty_Internal_Templateparser::TP_DOT;
     }
 
-    public function yy_r3_52()
+    public function yy_r3_53()
     {
         $this->token = Smarty_Internal_Templateparser::TP_COMMA;
     }
 
-    public function yy_r3_53()
+    public function yy_r3_54()
     {
         $this->token = Smarty_Internal_Templateparser::TP_SEMICOLON;
     }
 
-    public function yy_r3_54()
+    public function yy_r3_55()
     {
         $this->token = Smarty_Internal_Templateparser::TP_DOUBLECOLON;
     }
 
-    public function yy_r3_55()
+    public function yy_r3_56()
     {
         $this->token = Smarty_Internal_Templateparser::TP_COLON;
     }
 
-    public function yy_r3_56()
+    public function yy_r3_57()
     {
         $this->token = Smarty_Internal_Templateparser::TP_QMARK;
     }
 
-    public function yy_r3_57()
+    public function yy_r3_58()
     {
         $this->token = Smarty_Internal_Templateparser::TP_HEX;
     }
 
-    public function yy_r3_58()
+    public function yy_r3_59()
     {
         $this->token = Smarty_Internal_Templateparser::TP_SPACE;
     } // end function
 
-    public function yy_r3_59()
+    public function yy_r3_60()
     {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
     }
