@@ -2,7 +2,9 @@
 11.10.2018
  - bugfix {insert} not works when caching is enabled and included template is present
    https://github.com/smarty-php/smarty/issues/496
-   
+ - bugfix in date-format modifier; NULL at date string or default_date did not produce correct output
+   https://github.com/smarty-php/smarty/pull/458
+
 09.10.2018
  - bugfix fix of 26.8.2017 https://github.com/smarty-php/smarty/issues/327
    modifier is applied to sum expression https://github.com/smarty-php/smarty/issues/491
