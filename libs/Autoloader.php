@@ -90,7 +90,7 @@ class Smarty_Autoloader
      */
     public static function autoload($class)
     {
-        if ($class[ 0 ] !== 'S' && strpos($class, 'Smarty') !== 0) {
+        if ($class[ 0 ] !== 'S' || strpos($class, 'Smarty') !== 0) {
             return;
         }
         $_class = strtolower($class);
