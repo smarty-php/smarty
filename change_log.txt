@@ -1,4 +1,8 @@
-﻿===== 3.1.34-dev-5 =====
+﻿===== 3.1.34-dev-6 =====
+29.10.2018
+ - bugfix Smarty::$php_handling == PHP_PASSTHRU (default) did eat the "\n" (newline) character if it did directly followed
+   a PHP tag like "?>" or other https://github.com/smarty-php/smarty/issues/501
+
 14.10.2018
  - bugfix autoloader exit shortcut https://github.com/smarty-php/smarty/issues/467
 

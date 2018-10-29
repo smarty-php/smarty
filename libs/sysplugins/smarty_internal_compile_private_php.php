@@ -47,7 +47,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                 new Smarty_Internal_ParseTree_Tag(
                     $compiler->parser,
                     $compiler->processNocacheCode(
-                        "<?php echo '{$output}';?>",
+                        "<?php echo '{$output}';?>\n",
                         true
                     )
                 )
@@ -77,7 +77,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
                     new Smarty_Internal_ParseTree_Tag(
                         $compiler->parser,
                         $compiler->processNocacheCode(
-                            "<?php echo '{$output}';?>",
+                            "<?php echo '{$output}';?>\n",
                             true
                         )
                     )
