@@ -30,8 +30,8 @@
         "php": ">=5.2"
     },
     "autoload": {
-        "files": [
-            "libs/bootstrap.php"
+        "classmap": [
+            "libs"
         ]
     },
     "extra": {
