@@ -35,13 +35,13 @@ Smarty 3.1.32
     will be treated now as literal. (This does apply for any number of delimiter repeatations).
     However {{foo}} is not an literal but will be interpreted as a recursive Smarty tag.
     If you use
-         $smarty->setLiteral(array('{{','}}'));
+         $smarty->setLiterals(array('{{','}}'));
          {{foo}}  is now a literal as well.
     NOTE: In the last example nested Smarty tags starting with '{{' or ending with '}}' will not
     work any longer, but this should be very very raw occouring restriction.
     B) Example 2
     Assume your delimiter are '<-' , '->' and '<--' , '-->' shall be literals 
-          $smarty->setLiteral(array('<--','-->'));
+          $smarty->setLiterals(array('<--','-->'));
 
 
     The capture buffers can now be accessed as array
