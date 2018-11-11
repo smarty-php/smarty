@@ -1,2 +1,2 @@
-{insert name='test2'}
+{insert name='test2' var='insert'}
 {include 'inner.tpl'}

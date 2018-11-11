@@ -202,7 +202,8 @@ class CompileInsertTest extends PHPUnit_Smarty
     public function testInsertPluginCaching3_1()
     {
         $this->smarty->caching = true;
-        $this->assertContains(time().'Inner template', $this->smarty->fetch('insertplugintest2.tpl'));
+        $this->smarty->assign('insert',$t=time());
+        $this->assertContains($t.'Inner template', $this->smarty->fetch('insertplugintest2.tpl'));
     }
 
     /**
@@ -214,7 +215,8 @@ class CompileInsertTest extends PHPUnit_Smarty
     {
         sleep(2);
         $this->smarty->caching = true;
-        $this->assertContains(time().'Inner template', $this->smarty->fetch('insertplugintest2.tpl'));
+        $this->smarty->assign('insert',$t=time());
+        $this->assertContains($t.'Inner template', $this->smarty->fetch('insertplugintest2.tpl'));
     }
 
 
