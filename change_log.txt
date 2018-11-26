@@ -1,4 +1,32 @@
-﻿===== 3.1.33 release ===== 12.09.2018
+﻿===== 3.1.34-dev-6 =====
+30.10.2018
+ - bugfix a nested subblock in an inheritance child template was not replace by
+   outer level block with same name in same child template https://github.com/smarty-php/smarty/issues/500
+
+29.10.2018
+ - bugfix Smarty::$php_handling == PHP_PASSTHRU (default) did eat the "\n" (newline) character if it did directly followed
+   a PHP tag like "?>" or other https://github.com/smarty-php/smarty/issues/501
+
+14.10.2018
+ - bugfix autoloader exit shortcut https://github.com/smarty-php/smarty/issues/467
+
+11.10.2018
+ - bugfix {insert} not works when caching is enabled and included template is present
+   https://github.com/smarty-php/smarty/issues/496
+ - bugfix in date-format modifier; NULL at date string or default_date did not produce correct output
+   https://github.com/smarty-php/smarty/pull/458
+
+09.10.2018
+ - bugfix fix of 26.8.2017 https://github.com/smarty-php/smarty/issues/327
+   modifier is applied to sum expression https://github.com/smarty-php/smarty/issues/491
+ - bugfix indexed arrays could not be defined "array(...)""
+
+18.09.2018
+  - bugfix large plain text template sections without a Smarty tag > 700kB could
+    could fail in version 3.1.32 and 3.1.33 because PHP preg_match() restrictions
+    https://github.com/smarty-php/smarty/issues/488
+
+===== 3.1.33 release ===== 12.09.2018
 ===== 3.1.33-dev-12 =====
 03.09.2018
   - bugfix {foreach} using new style property access like {$item@property} on

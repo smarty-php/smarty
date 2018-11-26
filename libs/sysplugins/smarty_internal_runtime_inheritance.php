@@ -150,7 +150,7 @@ class Smarty_Internal_Runtime_Inheritance
             return;
         }
         // make sure we got child block of child template of current block
-        while ($block->child && $block->tplIndex <= $block->child->tplIndex) {
+        while ($block->child && $block->child->child && $block->tplIndex <= $block->child->tplIndex) {
             $block->child = $block->child->child;
         }
         $this->process($tpl, $block);

@@ -41,9 +41,9 @@ function smarty_modifier_date_format($string, $format = null, $default_date = ''
         }
         $is_loaded = true;
     }
-    if ($string !== '' && $string !== '0000-00-00' && $string !== '0000-00-00 00:00:00') {
+    if (!empty($string) && $string !== '0000-00-00' && $string !== '0000-00-00 00:00:00') {
         $timestamp = smarty_make_timestamp($string);
-    } elseif ($default_date !== '') {
+    } elseif (!empty($default_date)) {
         $timestamp = smarty_make_timestamp($default_date);
     } else {
         return;

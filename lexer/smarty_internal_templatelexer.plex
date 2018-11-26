@@ -210,6 +210,20 @@ class Smarty_Internal_Templatelexer
     private $yy_global_pattern5 = null;
 
     /**
+     * preg token pattern for text
+     *
+     * @var null
+     */
+    private $yy_global_text = null;
+
+    /**
+     * preg token pattern for literal
+     *
+     * @var null
+     */
+    private $yy_global_literal = null;
+
+    /**
      * constructor
      *
      * @param   string                             $source template source
@@ -324,14 +338,13 @@ class Smarty_Internal_Templatelexer
      if = ~(if|elseif|else if|while)\s+~
      for = ~for\s+~
      makenocache = ~make_nocache\s+~
+     array = ~array~
      foreach = ~foreach(?![^\s])~
      setfilter = ~setfilter\s+~
      instanceof = ~\s+instanceof\s+~
      not = ~[!]\s*|not\s+~
      typecast = ~[(](int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)[)]\s*~
      double_quote = ~["]~
-     text = ~(.*?)(?=((SMARTYldel)SMARTYal|[<][?]((php\s+|=)|\s+)|[<][%]|[<][?]xml\s+|[<]script\s+language\s*=\s*["']?\s*php\s*["']?\s*[>]|[?][>]|[%][>]SMARTYliteral))|[\s\S]+~
-     literaltext = ~(.*?)(?=(SMARTYldel)SMARTYal[/]?literalSMARTYrdel)~
      */
      /*!lex2php
      %statename TEXT
@@ -339,7 +352,8 @@ class Smarty_Internal_Templatelexer
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
      comment {
-        preg_match("/[*]{$this->compiler->getRdelPreg()}[\n]?/",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
+       $to = $this->dataLength;
+       preg_match("/[*]{$this->compiler->getRdelPreg()}[\n]?/",$this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
         if (isset($match[0][1])) {
             $to = $match[0][1] + strlen($match[0][0]);
         } else {
@@ -369,8 +383,17 @@ class Smarty_Internal_Templatelexer
      phpstart {
         $this->compiler->getTagCompiler('private_php')->parsePhp($this);
      }
-     text {
-        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+     char {
+       if (!isset($this->yy_global_text)) {
+           $this->yy_global_text = $this->replace('/(SMARTYldel)SMARTYal|[<][?]((php\s+|=)|\s+)|[<][%]|[<][?]xml\s+|[<]script\s+language\s*=\s*["\']?\s*php\s*["\']?\s*[>]|[?][>]|[%][>]SMARTYliteral/isS');
+       }
+       $to = $this->dataLength;
+       preg_match($this->yy_global_text, $this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
+       if (isset($match[0][1])) {
+         $to = $match[0][1];
+       }
+       $this->value = substr($this->data,$this->counter,$to-$this->counter);
+       $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
      */
      /*!lex2php
@@ -528,6 +551,9 @@ class Smarty_Internal_Templatelexer
      at {
         $this->token = Smarty_Internal_Templateparser::TP_AT;
      }
+     array openP {
+        $this->token = Smarty_Internal_Templateparser::TP_ARRAYOPEN;
+     }
      hatch {
         $this->token = Smarty_Internal_Templateparser::TP_HATCH;
      }
@@ -601,8 +627,19 @@ class Smarty_Internal_Templatelexer
             $this->yypopstate();
         }
      }
-     literaltext {
-        $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
+     char {
+       if (!isset($this->yy_global_literal)) {
+           $this->yy_global_literal = $this->replace('/(SMARTYldel)SMARTYal[\/]?literalSMARTYrdel/isS');
+       }
+       $to = $this->dataLength;
+       preg_match($this->yy_global_literal, $this->data,$match,PREG_OFFSET_CAPTURE,$this->counter);
+       if (isset($match[0][1])) {
+         $to = $match[0][1];
+       } else {
+          $this->compiler->trigger_template_error ("missing or misspelled literal closing tag");
+       }
+       $this->value = substr($this->data,$this->counter,$to-$this->counter);
+       $this->token = Smarty_Internal_Templateparser::TP_LITERAL;
      }
      */
      /*!lex2php
@@ -648,7 +685,12 @@ class Smarty_Internal_Templatelexer
      textdoublequoted {
         $this->token = Smarty_Internal_Templateparser::TP_TEXT;
      }
-     */
+     char {
+        $to = $this->dataLength;
+        $this->value = substr($this->data,$this->counter,$to-$this->counter);
+        $this->token = Smarty_Internal_Templateparser::TP_TEXT;
+     }
+    */
   }
 
      
