@@ -30,13 +30,16 @@
         "php": ">=5.2"
     },
     "autoload": {
-        "files": [
-            "libs/bootstrap.php"
+        "classmap": [
+            "libs/"
         ]
     },
     "extra": {
         "branch-alias": {
             "dev-master": "3.1.x-dev"
         }
+    },
+    "require-dev": {
+        "smarty/smarty-dev": "~3.1@dev"
     }
 }
