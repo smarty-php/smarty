@@ -60,7 +60,7 @@ class Smarty_Internal_Runtime_FilterHandler
         // loop over registered filters of specified type
         if (!empty($template->smarty->registered_filters[ $type ])) {
             foreach ($template->smarty->registered_filters[ $type ] as $key => $name) {
-                $content = call_user_func_array($template->smarty->registered_filters[ $type ][ $key ], [$content, &$template]);
+                $content = call_user_func_array($template->smarty->registered_filters[ $type ][ $key ], array($content, &$template));
             }
         }
         // return filtered output
