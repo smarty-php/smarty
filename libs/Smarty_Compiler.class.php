@@ -1955,7 +1955,11 @@ class Smarty_Compiler extends Smarty {
                 $_modifier_args = '';
 
             if ($_map_array) {
-                $output = "((is_array(\$_tmp=$output)) ? \$this->_run_mod_handler('$_modifier_name', true, \$_tmp$_modifier_args) : " . $this->_compile_plugin_call('modifier', $_modifier_name) . "(\$_tmp$_modifier_args))";
+                if(strtolower($_modifier_name) == 'count'){
+                    $output = "((is_array(\$_tmp=$output)) ? \$this->_run_mod_handler('$_modifier_name', true, \$_tmp$_modifier_args) : ((is_array(\$_tmp) || \$_tmp instanceof Countable)?" .  $this->_compile_plugin_call('modifier', $_modifier_name)."(\$_tmp$_modifier_args):(is_null(\$_tmp)?0:1)))";
+                } else {
+                    $output = "((is_array(\$_tmp=$output)) ? \$this->_run_mod_handler('$_modifier_name', true, \$_tmp$_modifier_args) : " . $this->_compile_plugin_call('modifier', $_modifier_name) . "(\$_tmp$_modifier_args))";
+                }
 
             } else {
 

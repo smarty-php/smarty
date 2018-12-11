@@ -1690,7 +1690,17 @@ class Smarty
         $_var = $_args[0];
         foreach ($_var as $_key => $_val) {
             $_args[0] = $_val;
-            $_var[$_key] = call_user_func_array($_func_name, $_args);
+            if(strtolower($_func_name) == 'count') {
+                if(is_array($_val) || $_val instanceof Countable){
+                    $_var[$_key] = call_user_func_array($_func_name, $_args);
+                } elseif(is_null($_val)) {
+                    $_var[$_key] = 0;
+                } else {
+                    $_var[$_key] = 1;
+                }
+            } else {
+                $_var[$_key] = call_user_func_array($_func_name, $_args);
+            }
         }
         return $_var;
     }
