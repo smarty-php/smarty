@@ -150,7 +150,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
             if ($this->isNamed) {
                 foreach ($match[ 1 ] as $prop) {
                     if (in_array($prop, $this->nameProperties)) {
-                        $nameAttr[ $prop ] = true;
+                        $namedAttr[ $prop ] = true;
                     } else {
                         $compiler->trigger_template_error("Invalid property '{$prop}'", null, true);
                     }
