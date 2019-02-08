@@ -36,25 +36,21 @@ class Smarty_Internal_Runtime_Foreach
         Smarty_Internal_Template $tpl,
         $from,
         $item,
-        $needTotal = false,
         $key = null,
         $name = null,
         $properties = array()
     ) {
-        $needTotal = $needTotal || isset($properties[ 'total' ]);
         $saveVars = array();
         $total = null;
         if (!is_array($from)) {
             if (is_object($from)) {
-                if ($needTotal) {
-                    $total = $this->count($from);
-                }
+                $total = $this->count($from);
             } else {
                 settype($from, 'array');
             }
         }
         if (!isset($total)) {
-            $total = empty($from) ? 0 : ($needTotal ? count($from) : 1);
+            $total = empty($from) ? 0 : count($from);
         }
         if (isset($tpl->tpl_vars[ $item ])) {
             $saveVars[ 'item' ] = array(
@@ -63,9 +59,7 @@ class Smarty_Internal_Runtime_Foreach
             );
         }
         $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
-        if ($total === 0) {
-            $from = null;
-        } else {
+        if ($total !== 0) {
             if ($key) {
                 if (isset($tpl->tpl_vars[ $key ])) {
                     $saveVars[ 'key' ] = array(
@@ -76,9 +70,7 @@ class Smarty_Internal_Runtime_Foreach
                 $tpl->tpl_vars[ $key ] = new Smarty_Variable(null, $tpl->isRenderingCache);
             }
         }
-        if ($needTotal) {
-            $tpl->tpl_vars[ $item ]->total = $total;
-        }
+        $tpl->tpl_vars[ $item ]->total = $total;
         if ($name) {
             $namedVar = "__smarty_foreach_{$name}";
             if (isset($tpl->tpl_vars[ $namedVar ])) {
@@ -98,7 +90,7 @@ class Smarty_Internal_Runtime_Foreach
                 $namedProp[ 'index' ] = -1;
             }
             if (isset($properties[ 'show' ])) {
-                $namedProp[ 'show' ] = ($total > 0);
+                $namedProp[ 'show' ] = ($total = -1) || ($total > 0);
             }
             $tpl->tpl_vars[ $namedVar ] = new Smarty_Variable($namedProp);
         }
@@ -116,18 +108,16 @@ class Smarty_Internal_Runtime_Foreach
      */
     public function count($value)
     {
-        if ($value instanceof IteratorAggregate) {
-            // Note: getIterator() returns a Traversable, not an Iterator
-            // thus rewind() and valid() methods may not be present
-            return iterator_count($value->getIterator());
-        } elseif ($value instanceof Iterator) {
-            return $value instanceof Generator ? 1 : iterator_count($value);
-        } elseif ($value instanceof Countable) {
+        if ($value instanceof Countable) {
             return count($value);
         } elseif ($value instanceof PDOStatement) {
             return $value->rowCount();
+        } elseif ($value instanceof Iterator) {
+            return $value instanceof Generator ? 1 : -1;
         } elseif ($value instanceof Traversable) {
-            return iterator_count($value);
+            return -1;
+        } elseif ($value instanceof IteratorAggregate) {
+            return -1;
         }
         return count((array)$value);
     }
