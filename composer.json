@@ -40,6 +40,6 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.4.1|^7.0"
+        "phpunit/phpunit": "^6.4.1"
     }
 }
