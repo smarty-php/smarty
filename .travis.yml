@@ -7,10 +7,21 @@ dist: trusty
 
 matrix:
   include:
+   - php: 5.3
+     dist: precise
+   - php: 5.4
+   - php: 5.5
+   - php: 5.6
    - php: 7.0
    - php: 7.1
    - php: 7.2
+   - php: 7.3
+   - php: 7.4snapshot
+   - php: nightly
   fast_finish: true
+  allow_failures:
+   - php: 7.4snapshot
+   - php: nightly
 
 services:
   - memcached
@@ -20,7 +31,7 @@ before_script:
     - if [ ${TRAVIS_PHP_VERSION:0:3} != "5.2" ]; then travis_retry composer --prefer-source --dev install; fi
     - if [ ${TRAVIS_PHP_VERSION:0:3} <= "5.6" ]; then  phpenv config-add travis.ini; fi
     - if [ ${TRAVIS_PHP_VERSION:0:3} >= "5.3" ]; then  phpenv config-add error_reporting.ini; fi
-    - if [[ $TRAVIS_PHP_VERSION = 7.* ]]; then  composer require phpunit/phpunit 6.4.1; fi
+    - if [[ $TRAVIS_PHP_VERSION:0:2 = "7." ]]; then  composer require phpunit/phpunit 6.4.1; fi
     - mysql -e "create database IF NOT EXISTS test;" -uroot
 
 before_install:
@@ -32,10 +43,9 @@ install:
 
 script:
    - cd smarty-phpunit
-   - if [[ $TRAVIS_PHP_VERSION = 7.* ]]; then
+   - if [[ $TRAVIS_PHP_VERSION0:2 = "7." ]]; then
         ../vendor/bin/phpunit ./;
     else
         phpunit ./;
     fi
-
 
