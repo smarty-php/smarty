@@ -1200,7 +1200,7 @@ class Smarty_Compiler extends Smarty {
             $output .= "    foreach (\$_from as $key_part\$this->_tpl_vars['$item']):\n";
             $output .= "        {$foreach_props}['iteration']++;\n";
         } else {
-            $output .= "if (count(\$_from)):\n";
+            $output .= "if (count((array)\$_from)):\n";
             $output .= "    foreach (\$_from as $key_part\$this->_tpl_vars['$item']):\n";
         }
         $output .= '?>';
