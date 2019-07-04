@@ -1,10 +1,16 @@
 # Smarty 3 template engine
 [smarty.net](https://www.smarty.net/) 
 
+[![Build Status](https://travis-ci.org/smarty-php/smarty.svg?branch=master)](https://travis-ci.org/smarty-php/smarty)
+
 ## Documentation
 
 For documentation see 
 [www.smarty.net/docs/en/](https://www.smarty.net/docs/en/) 
+
+## Requirements
+
+Smarty can be run with PHP 5.2 to PHP 7.4.
 
 ## Distribution repository
 
