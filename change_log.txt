@@ -1,4 +1,12 @@
 ===== 3.1.34 release ===== 05.11.2019
+13.01.2020
+ - fix typo in exception message (JercSi)
+ - fix typehint warning with callable (bets4breakfast)
+ - add travis badge and compatability info to readme (matks)
+ - fix stdClass cast when compiling foreach (carpii)
+ - fix wrong set/get methods for memcached (IT-Experte)
+ - fix pborm assigning value to object variables in smarty_internal_compile_assign (Hunman)
+ - exclude error_reporting.ini from git export (glensc)
 ===== 3.1.34-dev-6 =====
 30.10.2018
  - bugfix a nested subblock in an inheritance child template was not replace by
