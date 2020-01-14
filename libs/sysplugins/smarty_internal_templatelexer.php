@@ -376,7 +376,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
+                throw new Exception('Unexpected input at line ' . $this->line .
                                     ': ' . $this->data[ $this->counter ]);
             }
             break;
@@ -497,7 +497,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
+                throw new Exception('Unexpected input at line ' . $this->line .
                                     ': ' . $this->data[ $this->counter ]);
             }
             break;
@@ -635,7 +635,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
+                throw new Exception('Unexpected input at line ' . $this->line .
                                     ': ' . $this->data[ $this->counter ]);
             }
             break;
@@ -927,7 +927,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
+                throw new Exception('Unexpected input at line ' . $this->line .
                                     ': ' . $this->data[ $this->counter ]);
             }
             break;
@@ -1014,7 +1014,7 @@ class Smarty_Internal_Templatelexer
                     continue;
                 }
             } else {
-                throw new Exception('Unexpected input at line' . $this->line .
+                throw new Exception('Unexpected input at line ' . $this->line .
                                     ': ' . $this->data[ $this->counter ]);
             }
             break;
