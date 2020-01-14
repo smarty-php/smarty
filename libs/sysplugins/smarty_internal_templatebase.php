@@ -265,7 +265,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      *
      * @param string   $type       plugin type
      * @param string   $name       name of template tag
-     * @param callback $callback   PHP callback to register
+     * @param callable $callback   PHP callback to register
      * @param bool     $cacheable  if true (default) this function is cache able
      * @param mixed    $cache_attr caching attributes if any
      *
@@ -301,7 +301,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
      * @link http://www.smarty.net/docs/en/api.register.filter.tpl
      *
      * @param string      $type filter type
-     * @param callback    $callback
+     * @param callable    $callback
      * @param string|null $name optional filter name
      *
      * @return \Smarty|\Smarty_Internal_Template
