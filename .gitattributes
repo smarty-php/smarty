@@ -5,7 +5,6 @@
 *.y   text eol=lf
 *.lex text eol=lf
 
-
 # exclude from git export
 /travis.ini export-ignore
 /myconfig.ini export-ignore
@@ -14,3 +13,4 @@
 /.gitattributes export-ignore
 /lexer/ export-ignore
 /utilities/ export-ignore
+/error_reporting.ini export-ignore
