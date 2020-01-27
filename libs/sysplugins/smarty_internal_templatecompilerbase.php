@@ -627,16 +627,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     if (count($parameter) === 0) {
                         $this->trigger_template_error('Illegal number of parameter in "isset()"');
                     }
-                    if ($parHasFuction) {
-                        $pa = array();
-                        foreach ($parameter as $p) {
-                            $pa[] = (strpos($p, '(') === false) ? ('isset(' . $p . ')') : ('(' . $p . ' !== null )');
-                        }
-                        return '(' . implode(' && ', $pa) . ')';
-                    } else {
-                        $isset_par = str_replace("')->value", "',null,true,false)->value", $par);
-                    }
-                    return $name . '(' . $isset_par . ')';
+	                $isset_par = str_replace("')->value", "',null,true,false)->value", $par);
+                    return '@!is_null(' . $isset_par . ')';
                 } elseif (in_array(
                     $func_name,
                     array(
