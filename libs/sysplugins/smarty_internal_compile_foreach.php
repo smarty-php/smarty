@@ -192,7 +192,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         $this->openTag(
             $compiler,
             'foreach',
-            array('foreach', $compiler->nocache, $local, $itemVar, empty($itemAttr) ? 1 : 2)
+            array('foreach', $compiler->nocache, $local, $itemVar, empty($itemAttr) ? 0 : 1)
         );
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
@@ -219,8 +219,9 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
         if (isset($itemAttr[ 'index' ])) {
             $output .= "{$itemVar}->index = -1;\n";
         }
-        $output .= "if (\$_from !== null) {\n";
+	    $output .= "{$itemVar}->do_else = true;\n";
         $output .= "foreach (\$_from as {$keyTerm}{$itemVar}->value) {\n";
+	    $output .= "{$itemVar}->do_else = false;\n";
         if (isset($attributes[ 'key' ]) && isset($itemAttr[ 'key' ])) {
             $output .= "\$_smarty_tpl->tpl_vars['{$key}']->value = {$itemVar}->key;\n";
         }
@@ -296,7 +297,7 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase
         if ($restore === 2) {
             $output .= "{$itemVar} = {$local}saved;\n";
         }
-        $output .= "}\n} else {\n?>";
+        $output .= "}\nif ({$itemVar}->do_else) {\n?>";
         return $output;
     }
 }
