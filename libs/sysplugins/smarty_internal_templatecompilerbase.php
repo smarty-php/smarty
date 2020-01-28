@@ -621,14 +621,18 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 || strcasecmp($name, 'array') === 0 || is_callable($name)
             ) {
                 $func_name = strtolower($name);
-                $par = implode(',', $parameter);
-                $parHasFuction = strpos($par, '(') !== false;
+
                 if ($func_name === 'isset') {
                     if (count($parameter) === 0) {
                         $this->trigger_template_error('Illegal number of parameter in "isset()"');
                     }
-	                $isset_par = str_replace("')->value", "',null,true,false)->value", $par);
-                    return '@!is_null(' . $isset_par . ')';
+
+	                $pa = array();
+	                foreach ($parameter as $p) {
+		                $pa[] = $this->syntaxMatchesVariable($p) ? 'isset(' . $p . ')' : '(' . $p . ' !== null )';
+	                }
+	                return '(' . implode(' && ', $pa) . ')';
+
                 } elseif (in_array(
                     $func_name,
                     array(
@@ -645,7 +649,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         $this->trigger_template_error("Illegal number of parameter in '{$func_name()}'");
                     }
                     if ($func_name === 'empty') {
-                        if ($parHasFuction && version_compare(PHP_VERSION, '5.5.0', '<')) {
+                        if (!$this->syntaxMatchesVariable($parameter[0]) && version_compare(PHP_VERSION, '5.5.0', '<')) {
                             return '(' . $parameter[ 0 ] . ' === false )';
                         } else {
                             return $func_name . '(' .
@@ -661,6 +665,18 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $this->trigger_template_error("unknown function '{$name}'");
             }
         }
+    }
+
+	/**
+	 * Determines whether the passed string represents a valid (PHP) variable.
+	 * This is important, because `isset()` only works on variables and `empty()` can only be passed
+	 * a variable prior to php5.5
+	 * @param $string
+	 * @return bool
+	 */
+	private function syntaxMatchesVariable($string) {
+    	static $regex_pattern = '/^\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*((->)[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*|\[.*]*\])*$/';
+    	return 1 === preg_match($regex_pattern, trim($string));
     }
 
     /**
