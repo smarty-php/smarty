@@ -2252,7 +2252,7 @@ class Smarty_Internal_Templateparser
                 -$this->compiler->getRdelLength()));
         if ($tag == 'strip') {
             $this->strip = true;
-            $this->_retvalue = null;;
+            $this->_retvalue = null;
         } else {
             if (defined($tag)) {
                 if ($this->security) {
