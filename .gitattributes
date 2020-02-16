@@ -11,6 +11,5 @@
 /.travis.yml export-ignore
 /.gitignore export-ignore
 /.gitattributes export-ignore
-/lexer/ export-ignore
 /utilities/ export-ignore
 /error_reporting.ini export-ignore
