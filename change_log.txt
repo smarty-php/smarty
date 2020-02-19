@@ -1,4 +1,5 @@
  - fix foreachelse on arrayiterators https://github.com/smarty-php/smarty/issues/506
+ - use same method for handling https as http in `{fetch}` https://github.com/smarty-php/smarty/issues/465
 
 ===== 3.1.34 release ===== 05.11.2019
 13.01.2020

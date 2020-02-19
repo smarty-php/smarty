@@ -49,7 +49,7 @@ function smarty_function_fetch($params, $template)
         }
     }
     $content = '';
-    if ($protocol === 'http') {
+    if ($protocol === 'http' || $protocol === 'https') {
         // http fetch
         if ($uri_parts = parse_url($params[ 'file' ])) {
             // set defaults
@@ -62,7 +62,7 @@ function smarty_function_fetch($params, $template)
             $uri .= !empty($uri_parts[ 'query' ]) ? '?' . $uri_parts[ 'query' ] : '';
             $_is_proxy = false;
             if (empty($uri_parts[ 'port' ])) {
-                $port = 80;
+                $port = $protocol === 'https' ? 443 : 80;
             } else {
                 $port = $uri_parts[ 'port' ];
             }
