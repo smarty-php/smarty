@@ -48,6 +48,8 @@ class Smarty_Internal_Method_RegisterPlugin
             throw new SmartyException("Plugin tag '{$name}' already registered");
         } elseif (!is_callable($callback)) {
             throw new SmartyException("Plugin '{$name}' not callable");
+        } elseif ($cacheable && $cache_attr) {
+            throw new SmartyException("Cannot set caching attributes for plugin '{$name}' when it is cacheable.");
         } else {
             $smarty->registered_plugins[ $type ][ $name ] = array($callback, (bool)$cacheable, (array)$cache_attr);
         }
