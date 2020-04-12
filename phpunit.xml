@@ -1,7 +1,7 @@
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
-        bootstrap="Bootstrap.php"
+        bootstrap="tests/Bootstrap.php"
         colors="true"
         backupGlobals="false"
         backupStaticAttributes="true"
@@ -21,23 +21,23 @@
 <filter>
         <testsuites>
             <testsuite name="Smarty Test Suite">
-                <directory>UnitTests</directory>
+                <directory>tests/UnitTests</directory>
             </testsuite>
         </testsuites>
         <blacklist>
-            <directory suffix=".php">./</directory>
-            <directory suffix=".php">cache</directory>
-            <directory suffix=".php">templates_c</directory>
+            <directory suffix=".php">tests</directory>
+            <directory suffix=".php">tests/cache</directory>
+            <directory suffix=".php">tests/templates_c</directory>
         </blacklist>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../smarty/libs</directory>
-            <directory suffix=".php">../smarty/libs/plugins</directory>
-            <directory suffix=".php">../smarty/libs/sysplugins</directory>
-            <directory suffix=".php">../smarty/demo/plugins</directory>
+            <directory suffix=".php">libs</directory>
+            <directory suffix=".php">libs/plugins</directory>
+            <directory suffix=".php">libs/sysplugins</directory>
+            <directory suffix=".php">demo/plugins</directory>
         </whitelist>
     </filter>
     <logging>
-        <log type="tap" target="TestResults.tap"/>
+        <log type="tap" target="tests/TestResults.tap"/>
     </logging>
 
 </phpunit>

@@ -1,3 +1,2 @@
 #! /bin/bash
-
-php ../../phpunit/phpunit/phpunit ./
+vendor/phpunit/phpunit/phpunit tests/UnitTests

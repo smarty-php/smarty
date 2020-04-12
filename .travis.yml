@@ -30,8 +30,6 @@ before_install:
 
 install:
     - travis_retry composer install
-    - git clone --depth=50 --branch=master git://github.com/smarty-php/smarty-phpunit.git
 
 script:
-   - cd smarty-phpunit
-   - ../vendor/bin/phpunit ./
+   - ./phpunit.sh
