@@ -1,0 +1,1 @@
+{config_load 'test.conf'}{config_load 'test2.conf'}{foreach #overwrite# as $over}{$over} {/foreach}

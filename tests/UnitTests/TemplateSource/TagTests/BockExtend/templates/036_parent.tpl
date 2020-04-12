@@ -1,0 +1,1 @@
+{block name='b'}{$smarty.block.foo}{/block}

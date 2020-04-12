@@ -1,0 +1,1 @@
+{function name=functest6i loop=0}{$loop}{if $loop < 5}{call name=functest6i loop=$loop+1}{/if}{/function}

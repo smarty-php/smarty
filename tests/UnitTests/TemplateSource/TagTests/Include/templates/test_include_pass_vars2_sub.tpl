@@ -1,0 +1,1 @@
+{$myvar1}{$myvar2}

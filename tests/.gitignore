@@ -1,0 +1,12 @@
+.idea
+
+# Unit test / coverage reports
+.coverage
+.tox
+
+#Smarty
+testdox.html
+TestResults.tap
+TestResults.txt
+.templates_c/*.php
+.cache/*.php

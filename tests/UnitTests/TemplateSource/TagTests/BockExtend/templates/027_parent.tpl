@@ -1,0 +1,1 @@
+{block 'b1'}this {$smarty.block.parent} is illegal{/block}

@@ -1,0 +1,1 @@
+#test#{cachetest var=$var}hello world{/cachetest}
