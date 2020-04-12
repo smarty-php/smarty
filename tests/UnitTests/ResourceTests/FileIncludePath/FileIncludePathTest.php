@@ -28,7 +28,7 @@ class FileIncludePathTest extends PHPUnit_Smarty
      */
     protected function tearDown()
     {
-        restore_include_path();
+        ini_restore('include_path');
         $this->smarty->disableSecurity();
         parent::tearDown();
      }
