@@ -199,7 +199,7 @@ class ProtectedFolderVarsTest extends PHPUnit_Smarty
     {
         $s = new FolderT();
         $d = $s->getCacheDir();
-        $this->assertEquals(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cach' . DIRECTORY_SEPARATOR, $d);
+        $this->assertEquals(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR, $d);
     }
 
     public function testCacheDirDirectRelativeExtends2()
@@ -219,7 +219,7 @@ class FolderT extends Smarty
 
     protected $plugins_dir = './plug/';
 
-    protected $cache_dir = './cach/';
+    protected $cache_dir = './cache/';
 
     protected $config_dir = array('./conf/');
 
