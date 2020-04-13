@@ -1,0 +1,1 @@
+{config_load 'test.conf'}{if #booleanon# === $expected}passed{/if}

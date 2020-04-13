@@ -1,0 +1,1 @@
+{textformat assign=foo}hello world{testblock}{/testblock}{/textformat}{$foo}

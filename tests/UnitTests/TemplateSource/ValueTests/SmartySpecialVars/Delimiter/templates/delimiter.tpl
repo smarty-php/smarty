@@ -1,0 +1,1 @@
+left = {$smarty.ldelim} right = {$smarty.rdelim}

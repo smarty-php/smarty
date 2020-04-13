@@ -1,0 +1,1 @@
+{function name=functest default='default'}{$default} {$param}{$foo = $param scope=local}{/function}{call name=functest param='param'} {call name=functest param=$param} {call name=functest param=$param default=$default}
