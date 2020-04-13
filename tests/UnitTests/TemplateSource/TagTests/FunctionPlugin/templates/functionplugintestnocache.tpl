@@ -1,0 +1,1 @@
+{getvar var=foo nocache}

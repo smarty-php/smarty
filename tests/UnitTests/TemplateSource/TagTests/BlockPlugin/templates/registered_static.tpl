@@ -1,0 +1,1 @@
+{blockpluginstatic}hello world{/blockpluginstatic}

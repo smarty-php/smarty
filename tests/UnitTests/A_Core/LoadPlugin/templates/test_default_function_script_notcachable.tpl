@@ -1,0 +1,1 @@
+{scriptfunctionnotcachable value=$foo}
