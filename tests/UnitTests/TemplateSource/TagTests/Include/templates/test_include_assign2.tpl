@@ -1,0 +1,1 @@
+{assign var=foo value=bar}{include file="helloworld.tpl" assign=foo}{$foo}

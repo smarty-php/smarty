@@ -11,11 +11,10 @@ matrix:
    - php: 7.1
    - php: 7.2
    - php: 7.3
-   - php: 7.4snapshot
+   - php: 7.4
    - php: nightly
   fast_finish: true
   allow_failures:
-   - php: 7.4snapshot
    - php: nightly
 
 services:
@@ -30,8 +29,6 @@ before_install:
 
 install:
     - travis_retry composer install
-    - git clone --depth=50 --branch=master git://github.com/smarty-php/smarty-phpunit.git
 
 script:
-   - cd smarty-phpunit
-   - ../vendor/bin/phpunit ./
+   - ./phpunit.sh

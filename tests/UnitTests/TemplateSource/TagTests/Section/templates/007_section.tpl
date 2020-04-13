@@ -1,0 +1,1 @@
+{section name=bar loop=$foo}{$smarty.section.bar.index}{$smarty.section.bar.iteration}{sectionelse} else {/section}

@@ -1,0 +1,43 @@
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
+        bootstrap="tests/Bootstrap.php"
+        colors="true"
+        backupGlobals="false"
+        backupStaticAttributes="true"
+        forceCoversAnnotation="false"
+        mapTestClassNameToCoveredClassName="false"
+        processIsolation="false"
+        stopOnError="false"
+        stopOnFailure="false"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+        stopOnRisky="false"
+        timeoutForSmallTests="1"
+        timeoutForMediumTests="10"
+        timeoutForLargeTests="60"
+        verbose="false">
+
+<filter>
+        <testsuites>
+            <testsuite name="Smarty Test Suite">
+                <directory>tests/UnitTests</directory>
+            </testsuite>
+        </testsuites>
+        <blacklist>
+            <directory suffix=".php">tests</directory>
+            <directory suffix=".php">tests/cache</directory>
+            <directory suffix=".php">tests/templates_c</directory>
+        </blacklist>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">libs</directory>
+            <directory suffix=".php">libs/plugins</directory>
+            <directory suffix=".php">libs/sysplugins</directory>
+            <directory suffix=".php">demo/plugins</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="tap" target="tests/TestResults.tap"/>
+    </logging>
+
+</phpunit>

@@ -1,0 +1,1 @@
+{$foo="double { counter} {counter} quote"} output: {$foo}
