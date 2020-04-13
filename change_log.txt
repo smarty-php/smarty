@@ -1,5 +1,6 @@
  - remove whitespaces after comments https://github.com/smarty-php/smarty/issues/447
  - fix foreachelse on arrayiterators https://github.com/smarty-php/smarty/issues/506
+ - fix files contained in git export archive for package maintainers https://github.com/smarty-php/smarty/issues/325
  - throw SmartyException when setting caching attributes for cacheable plugin https://github.com/smarty-php/smarty/issues/457
  - fix errors that occured where isset was replaced with null check such as https://github.com/smarty-php/smarty/issues/453
 
