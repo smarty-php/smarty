@@ -1,10 +1,18 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
  - remove whitespaces after comments https://github.com/smarty-php/smarty/issues/447
  - fix foreachelse on arrayiterators https://github.com/smarty-php/smarty/issues/506
  - fix files contained in git export archive for package maintainers https://github.com/smarty-php/smarty/issues/325
  - throw SmartyException when setting caching attributes for cacheable plugin https://github.com/smarty-php/smarty/issues/457
  - fix errors that occured where isset was replaced with null check such as https://github.com/smarty-php/smarty/issues/453
+ - unit tests are now in the repository
 
-===== 3.1.34 release ===== 05.11.2019
+## 3.1.34 release - 05.11.2019
 13.01.2020
  - fix typo in exception message (JercSi)
  - fix typehint warning with callable (bets4breakfast)
@@ -13,7 +21,8 @@
  - fix wrong set/get methods for memcached (IT-Experte)
  - fix pborm assigning value to object variables in smarty_internal_compile_assign (Hunman)
  - exclude error_reporting.ini from git export (glensc)
-===== 3.1.34-dev-6 =====
+
+## 3.1.34-dev-6 -
 30.10.2018
  - bugfix a nested subblock in an inheritance child template was not replace by
    outer level block with same name in same child template https://github.com/smarty-php/smarty/issues/500
@@ -41,8 +50,8 @@
     could fail in version 3.1.32 and 3.1.33 because PHP preg_match() restrictions
     https://github.com/smarty-php/smarty/issues/488
 
-===== 3.1.33 release ===== 12.09.2018
-===== 3.1.33-dev-12 =====
+## 3.1.33 release - 12.09.2018
+## 3.1.33-dev-12 -
 03.09.2018
   - bugfix {foreach} using new style property access like {$item@property} on
     Smarty 2 style named foreach loop could produce errors https://github.com/smarty-php/smarty/issues/484
@@ -64,14 +73,14 @@
   - bugfix/enhancement {capture} allow variable as capture block name in Smarty special variable
     like $smarty.capture.$foo https://github.com/smarty-php/smarty/issues/478 https://github.com/smarty-php/smarty/pull/481
 
-===== 3.1.33-dev-6 =====
+## 3.1.33-dev-6 -
 19.08.2018
   - fix PSR-2 coding standards and PHPDoc blocks https://github.com/smarty-php/smarty/pull/452
     https://github.com/smarty-php/smarty/pull/475
     https://github.com/smarty-php/smarty/pull/473
   - bugfix PHP5.2 compatibility https://github.com/smarty-php/smarty/pull/472
 
-===== 3.1.33-dev-4 =====
+## 3.1.33-dev-4 -
 17.05.2018
  - bugfix strip-block produces different output in Smarty v3.1.32 https://github.com/smarty-php/smarty/issues/436
  - bugfix Smarty::compileAllTemplates ignores `$extension` parameter https://github.com/smarty-php/smarty/issues/437
@@ -83,7 +92,7 @@
  - bugfix  regarding Security Vulnerability did not solve the problem under Linux.
    Security issue CVE-2018-16831
 
-===== 3.1.32 ===== (24.04.2018)
+## 3.1.32 - (24.04.2018)
 24.04.2018
  - bugfix  possible Security Vulnerability in Smarty_Security class.
 
@@ -224,7 +233,7 @@
 13.4.2017
   - bugfix array_merge() parameter should be checked https://github.com/smarty-php/smarty/issues/350
 
-===== 3.1.31 ===== (14.12.2016)
+## 3.1.31 - (14.12.2016)
   23.11.2016
    - move template object cache into static variables
 
@@ -338,7 +347,7 @@
            compiled or cached template files https://github.com/smarty-php/smarty/issues/269
   - optimization remove unneeded call to update acopes when {assign} scope and template scope was local (default)
 
-===== 3.1.30 ===== (07.08.2016)
+## 3.1.30 - (07.08.2016)
 
  07.08.2016
   - bugfix update of 04.08.2016 was incomplete
@@ -561,7 +570,7 @@
   - optimization of filepath normalization
   - bugfix {strip} must remove all blanks between html tags https://github.com/smarty-php/smarty/issues/136
 
- ===== 3.1.29 ===== (21.12.2015)
+ - 3.1.29 - (21.12.2015)
  21.12.2015
   - optimization improve speed of filetime checks on extends and extendsall resource
 
@@ -597,7 +606,7 @@
   - bugfix  {$smarty.config.foo} broken in 3.1.28 https://github.com/smarty-php/smarty/issues/120
   - bugfix  multiple calls of {section} with same name droped E_NOTICE error https://github.com/smarty-php/smarty/issues/118
 
- ===== 3.1.28 ===== (13.12.2015)
+ - 3.1.28 - (13.12.2015)
  13.12.2015
   - bugfix {foreach} and {section} with uppercase characters in name attribute did not work (forum topic 25819)
   - bugfix $smarty->debugging_ctrl = 'URL' did not work (forum topic 25811)
@@ -776,18 +785,18 @@
  19.06.2015
   - improvement allow closures as callback at $smarty->registerFilter() https://github.com/smarty-php/smarty/issues/59
 
- ===== 3.1.27===== (18.06.2015)
+ - 3.1.27- (18.06.2015)
  18.06.2015
   - bugfix another update on file path normalization failed on path containing something like "/.foo/" https://github.com/smarty-php/smarty/issues/56
 
- ===== 3.1.26===== (18.06.2015)
+ - 3.1.26- (18.06.2015)
  18.06.2015
   - bugfix file path normalization failed on path containing something like "/.foo/" https://github.com/smarty-php/smarty/issues/56
 
  17.06.2015
   - bugfix calling a plugin with nocache option but no other attributes like {foo nocache} caused call to undefined function https://github.com/smarty-php/smarty/issues/55
 
- ===== 3.1.25===== (15.06.2015)
+ - 3.1.25- (15.06.2015)
  15.06.2015
   - optimization of smarty_cachereource_keyvaluestore.php code
 
@@ -817,7 +826,7 @@
  24.05.2015
   - bugfix if condition string 'neq' broken due to a typo https://github.com/smarty-php/smarty/issues/42
 
- ===== 3.1.24===== (23.05.2015)
+ - 3.1.24- (23.05.2015)
  23.05.2015
   - improvement on php_handling to allow very large PHP sections, better error handling
   - improvement allow extreme large comment sections (forum 25538)
@@ -855,12 +864,12 @@
   - bugfix access to undefined config variable like {#undef#} did fail https://github.com/smarty-php/smarty/issues/29
   - bugfix in nested {foreach} saved item attributes got overwritten https://github.com/smarty-php/smarty/issues/33
 
- ===== 3.1.23 ===== (12.05.2015)
+ - 3.1.23 - (12.05.2015)
  12.05.2015
   - bugfix of smaller performance issue introduce in 3.1.22 when caching is enabled
   - bugfix missig entry for smarty-temmplate-config in autoloader
 
- ===== 3.1.22 ===== tag was deleted because 3.1.22 did fail caused by the missing entry for smarty-temmplate-config in autoloader
+ - 3.1.22 - tag was deleted because 3.1.22 did fail caused by the missing entry for smarty-temmplate-config in autoloader
  10.05.2015
   - bugfix custom cache resource did not observe compile_id and cache_id when $cache_locking == true
   - bugfix cache lock was not handled correctly after timeout when $cache_locking == true
@@ -1012,7 +1021,7 @@
  - bugfix E_NOTICE message was created during compilation when ASP tags '<%' or '%>' are in template source text
  - bugfix merge_compiled_includes option failed when caching  enables and same subtemplate was included cached and not cached
 
- ===== 3.1.21 ===== (18.10.2014)
+ - 3.1.21 - (18.10.2014)
  18.10.2014
   - composer moved to github
 
@@ -1035,7 +1044,7 @@
  - bugfix change of 08.10.2014 could create E_NOTICE meassage when using "<?php" tags
  - bugfix "<script language=php>" with $php_handling PHP_PASSTHRU was executed in {nocache} sections
 
- ===== 3.1.20 ===== (09.10.2014)
+ - 3.1.20 - (09.10.2014)
  08.10.2014
  - bugfix security mode of "<script language=php>" must be controlled by $php_handling property (Thue Kristensen)
 
@@ -1055,7 +1064,7 @@
  04.07.2014
  - bugfix the bufix of 02.06.2014 broke correct handling of child templates with same name but different template folders in extends resource (issue 194 and topic 25099)
 
- ===== 3.1.19 ===== (30.06.2014)
+ - 3.1.19 - (30.06.2014)
  20.06.2014
  - bugfix template variables could not be passed as parameter in {include} when the include was in a {nocache} section (topic 25131)
 
@@ -1082,7 +1091,7 @@
  18.04.2014
  - revert bugfix of 5.4.2014 because %-e date format is not supported on all operating systems
 
- ===== 3.1.18 ===== (07.04.2014)
+ - 3.1.18 - (07.04.2014)
  06.04.2014
  - bugfix template inheritance fail when using custom resource after patch of 8.3.2014 (Issue 187)
  - bugfix update of composer file (Issue 168 and 184)
@@ -1111,7 +1120,7 @@
  13.03.2014
  - bugfix clearXxx() change of 27.1.2014 did not work when specifing cache_id or compile_id  (forum topic 24868 and 24867)
 
- ===== 3.1.17 =====
+ - 3.1.17 -
  08.03.2014
  - bugfix relative file path {include} within {block} of child templates did throw exception on first call (Issue 177)
 
@@ -1142,7 +1151,7 @@
  - bugfix Smarty_CacheResource_Custom did not handle template resource type specifications on clearCache() calls (Issue 169)
  - bugfix SmartyBC.class.php should use require_once to load Smarty.class.php (forum topic 24683)
 
- ===== 3.1.16 =====
+ - 3.1.16 -
  15.12.2013
  - bugfix {include} with {block} tag handling (forum topic 24599, 24594, 24682) (Issue 161)
    Read 3.1.16_RELEASE_NOTES for more details
@@ -1175,7 +1184,7 @@
 03.10.2013
  - bugfix loops using modifier capitalize did eat up memory (issue 159)
 
- ===== Smarty 3.1.15 =====
+ - Smarty 3.1.15 -
 01.10.2013
  - use current delimiters in compiler error messages (issue 157)
  - improvement on performance when using error handler and multiple template folders (issue 152)
@@ -1239,7 +1248,7 @@
 2.7.2013
 - bugfix trimwhitespace would replace captured items in wrong order (forum topic 24387)
 
-===== Smarty-3.1.14 =====
+## Smarty-3.1.14 -
 27.06.2013
 - bugfix removed PHP 5.5 deprecated preg_replace /e option in modifier capitalize (forum topic 24389)
 
@@ -1272,7 +1281,7 @@
 24.01.2013
 - bugfix wrong tag type in smarty_internal_templatecompilerbase.php could cause wrong plugin search order (Forum Topic 24028)
 
-===== Smarty-3.1.13 =====
+## Smarty-3.1.13 -
 13.01.2013
 - enhancement allow to disable exception message escaping by SmartyException::$escape = false;  (Issue #130)
 
@@ -1303,7 +1312,7 @@
 01.11.2012
 - bugfix muteExcpetedErrors() would screw up for non-readable paths (Issue #118)
 
-===== Smarty-3.1.12  =====
+## Smarty-3.1.12  -
 14.09.2012
 - bugfix template inheritance failed to compile with delimiters {/ and /} (Forum Topic 23008)
 
@@ -1348,7 +1357,7 @@
 - bugfix the default plugin handler did create wrong compiled code for static class methods
   from external script files (issue 108)
 
-===== Smarty-3.1.11 =====
+## Smarty-3.1.11 -
 30.06.2012
 - bugfix {block.. hide} did not work as nested child (Forum Topic 22216)
 
@@ -1361,12 +1370,12 @@
 11.06.2012
 - bugfix the patch for Topic 21856 did break tabs between tag attributes (Forum Topic 22124)
 
-===== Smarty-3.1.10  =====
+## Smarty-3.1.10  -
 09.06.2012
 - bugfix the compiler did ignore registered compiler plugins for closing tags (Forum Topic 22094)
 - bugfix the patch for Topic 21856 did break multiline tags (Forum Topic 22124)
 
-===== Smarty-3.1.9 =====
+## Smarty-3.1.9 -
 07.06.2012
 - bugfix fetch() and display() with relative paths (Issue 104)
 - bugfix treat "0000-00-00" as 0 in modifier.date_format (Issue 103)
@@ -1420,7 +1429,7 @@
 - enhancement the default plugin handler can now also resolve undefined modifier (Smarty::PLUGIN_MODIFIER)
   (Issue 85)
 
-===== Smarty-3.1.8  =====
+## Smarty-3.1.8  -
 19.02.2012
 - bugfix {include} could result in a fatal error if used in appended or prepended nested {block} tags
   (reported by mh and Issue 83)
@@ -1467,7 +1476,7 @@
 - bugfix template inheritance: {$smarty.block.child} in nested child {block} tags did not return
   content after {$smarty.block.child} (Forum Topic 20564)
 
-===== Smarty-3.1.7 =====
+## Smarty-3.1.7 -
 18.12.2011
 - bugfix strings ending with " in multiline strings of config files failed to compile (issue #67)
 - added chaining to Smarty_Internal_Templatebase
@@ -1492,7 +1501,7 @@
 - bugfix template inheritance: {$smarty.block.child} in nested child {block} tags did not return expected
   result (Forum Topic 20564)
 
-===== Smarty-3.1.6  =====
+## Smarty-3.1.6  -
 30.11.2011
 - bugfix is_cache() for individual cached subtemplates with $smarty->caching = CACHING_OFF did produce
   an exception (Forum Topic 20531)
@@ -1517,7 +1526,7 @@
 - bugfix Smarty_Resource::load() did not always return a proper resource handler (Forum Topic 20414)
 - added escape argument to html_checkboxes and html_radios (Forum Topic 20425)
 
-===== Smarty-3.1.5  =====
+## Smarty-3.1.5  -
 14.11.2011
 - bugfix allow space between function name and open bracket (forum topic 20375)
 
@@ -1549,7 +1558,7 @@
 - revert PHP4 constructor message
 - fixed PHP4 constructor message
 
-===== Smarty-3.1.4 =====
+## Smarty-3.1.4 -
 19.10.2011
 - added exception when using PHP4 style constructor
 
@@ -1578,7 +1587,7 @@
 - bugfix <?xml> tag did create wrong output when caching enabled and the tag was in included subtemplate
 - bugfix Smarty_CacheResource_mysql example was missing strtotime() calls
 
-===== Smarty-3.1.3  =====
+## Smarty-3.1.3  -
 07.10.2011
 - improvement removed html comments from {mailto} (Forum Topic 20092)
 - bugfix testInstall() would not show path to internal plugins_dir (Forum Post 74627)
@@ -1605,7 +1614,7 @@
 - add unloadFilter() method
 - bugfix has_nocache_code flag was not reset before compilation
 
-===== Smarty-3.1.2  =====
+## Smarty-3.1.2  -
 03.10.2011
 - improvement add internal $joined_template_dir property instead computing it on the fly several times
 
@@ -1645,7 +1654,7 @@
   extended Smarty class created problems
 - bugfix error muting was not implemented for cache locking
 
-===== Smarty 3.1.1  =====
+## Smarty 3.1.1  -
 22.09.2011
 - bugfix {foreachelse} does fail if {section} was nested inside {foreach}
 - bugfix debug.tpl did not display correctly when it was compiled with escape_html = true
@@ -1678,7 +1687,7 @@
 - bugfix lock_id for file resource would create invalid filepath
 - bugfix resource caching did not care about file.tpl in different template_dir
 
-===== Smarty 3.1.0  =====
+## Smarty 3.1.0  -
 15/09/2011
 - optimization of {foreach}; call internal _count() method only when "total" or "last" {foreach} properties are used
 
@@ -1771,7 +1780,7 @@
 - update of README_3_1_DEV.txt and moved into the distribution folder
 - improvement show first characters of eval and string templates instead sha1 Uid in debug window
 
-===== Smarty 3.1-RC1 =====
+## Smarty 3.1-RC1 -
 25/06/2011
 - revert change of 17/06/2011. $_smarty varibale removed. call loadPlugin() from inside plugin code if required
 - code cleanup, remove no longer used properties and methods
@@ -1972,7 +1981,7 @@
 24/12/2010
 - optimize smarty_function_escape_special_chars() for PHP >= 5.2.3
 
-===== SVN 3.0 trunk  =====
+## SVN 3.0 trunk  -
 14/05/2011
 - bugfix error handling at stream resources
 
@@ -2032,7 +2041,7 @@
 - removed obsolete {popup_init..} plugin from demo templates
 - bugfix replace $smarty->triggerError() by exception in smarty_internal_resource_extends.php
 
-===== Smarty 3.0.7  =====
+## Smarty 3.0.7  -
 09/02/2011
 - patched vulnerability when using {$smarty.template}
 
@@ -2086,7 +2095,7 @@
 - bugfix {$smarty.template} in child template did not return right content
 - bugfix Smarty3 did not search the PHP include_path for template files
 
-===== Smarty 3.0.6  =====
+## Smarty 3.0.6  -
 
 12/12/2010
 - bugfix fixed typo regarding yesterdays change to allow streamWrapper
@@ -2121,7 +2130,7 @@
 - bugfix on template inheritance when an {extends} tag was inserted by a prefilter
 - added error message for illegal variable file attributes at {extends...} tags
 
-===== Smarty 3.0.5  =====
+## Smarty 3.0.5  -
 
 
 19/11/2010
@@ -2148,7 +2157,7 @@
 - bugfix captured content could not be accessed globally
 - bugfix Smarty2 wrapper functions could not be call from within plugins
 
-===== Smarty 3.0.4  =====
+## Smarty 3.0.4  -
 
 14/11/2010
 - bugfix isset() did not allow multiple parameter
@@ -2161,7 +2170,7 @@
 				(introduced with 3.0.2)
 - code cleanup
 								
-===== Smarty 3.0.3  =====
+## Smarty 3.0.3  -
 
 13/11/2010
 - bugfix on {debug}
@@ -2170,7 +2179,7 @@
 - fixed internal_config (removed unwanted code line)
 - improvement  remove last linebreak from {function} definition
 
-===== Smarty 3.0.2  =====
+## Smarty 3.0.2  -
 
 12/11/2010
 - reactivated $error_reporting property handling
@@ -2180,7 +2189,7 @@
   with transparent access to Smarty object
 - fixed {config_load} scoping form compile time to run time
 
-===== Smarty 3.0.0  =====
+## Smarty 3.0.0  -
 
 
 
@@ -2222,7 +2231,7 @@ request_use_auto_globals
 - bugfix on template inheritance using nested eval or string resource in {extends} tags
 - bugfix on output buffer handling in isCached() method
 
-=====  RC4 =====
+##  RC4 -
 
 01/10/2010
 - added {break} and {continue} tags for flow control of {foreach},{section},{for} and {while} loops
@@ -2319,7 +2328,7 @@ request_use_auto_globals
 15/07/2010
 - bufix  {$smarty.template} does include now the relative path, not just filename
 
-=====  RC3 =====
+##  RC3 -
 
 
 
@@ -2373,7 +2382,7 @@ request_use_auto_globals
 - make handling of Smarty comments followed by newline BC to Smarty2
 
 
-=====  RC2 =====
+##  RC2 -
 
 
 
@@ -2445,7 +2454,7 @@ request_use_auto_globals
 - bugfix on {function} tag with name attribute in doublequoted strings
 - fix to make calling of template functions unambiguously by madatory usage of the {call} tag
 
-=====  RC1 =====
+##  RC1 -
 
 27/04/2010
 - change default of $debugging_ctrl to 'NONE'

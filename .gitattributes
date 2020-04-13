@@ -13,6 +13,7 @@
 /.gitignore export-ignore
 /.travis.yml export-ignore
 /error_reporting.ini export-ignore
+/make-release.sh export-ignore
 /phpunit.sh export-ignore
 /phpunit.xml export-ignore
 /TODO.md export-ignore
