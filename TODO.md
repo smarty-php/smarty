@@ -1,18 +1,5 @@
 # Todo
 
-## Add unit test for strip issue in correct branch
-tests/UnitTests/TemplateSource/TagTests/Strip/CompileStripTest.php 
-```
-@@ -76,6 +76,7 @@ class CompileStripTest extends PHPUnit_Smarty
-                      array("{'Var'}\n <b></b> <c></c>", 'Var<b></b> <c></c>', '', $i ++),
-                      array("\n<b></b>  <c></c>", '<b></b> <c></c>', '', $i ++),
-                      array("\n<b></b>\n  <c></c>", '<b></b><c></c>', '', $i ++),
-+                     array("\n<b>\n  {* a comment *}\n   <c>", '<b><c>', '', $i ++),
-
-         );
-     }
-```
-
 ## Add unit test for isset issue in correct branch
 tests/UnitTests/TemplateSource/ValueTests/PHPfunctions/PhpFunctionTest.php
 ```php
