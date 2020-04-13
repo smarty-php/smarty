@@ -1,0 +1,1 @@
+{call name=functest4}

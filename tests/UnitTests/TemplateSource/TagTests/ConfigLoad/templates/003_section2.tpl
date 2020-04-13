@@ -1,0 +1,1 @@
+{config_load file='test.conf' section='section2'}{#title#} {#sec1#} {include '003_include.tpl'}

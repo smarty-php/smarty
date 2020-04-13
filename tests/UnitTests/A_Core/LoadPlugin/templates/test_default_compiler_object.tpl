@@ -1,0 +1,1 @@
+{compilerobject value='foo bar'}

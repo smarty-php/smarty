@@ -1,0 +1,1 @@
+{bar}hello world{/bar}

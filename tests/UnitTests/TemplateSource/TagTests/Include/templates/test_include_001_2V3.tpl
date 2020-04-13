@@ -1,0 +1,1 @@
+I2{include file='test_include_001_3.tpl' nocache}

@@ -1,0 +1,1 @@
+{$smarty.const.MY_CONST_VAL}
