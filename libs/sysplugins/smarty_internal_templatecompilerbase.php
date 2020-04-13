@@ -621,22 +621,18 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 || strcasecmp($name, 'array') === 0 || is_callable($name)
             ) {
                 $func_name = strtolower($name);
-                $par = implode(',', $parameter);
-                $parHasFuction = strpos($par, '(') !== false;
+
                 if ($func_name === 'isset') {
                     if (count($parameter) === 0) {
                         $this->trigger_template_error('Illegal number of parameter in "isset()"');
                     }
-                    if ($parHasFuction) {
-                        $pa = array();
-                        foreach ($parameter as $p) {
-                            $pa[] = (strpos($p, '(') === false) ? ('isset(' . $p . ')') : ('(' . $p . ' !== null )');
-                        }
-                        return '(' . implode(' && ', $pa) . ')';
-                    } else {
-                        $isset_par = str_replace("')->value", "',null,true,false)->value", $par);
-                    }
-                    return $name . '(' . $isset_par . ')';
+
+	                $pa = array();
+	                foreach ($parameter as $p) {
+		                $pa[] = $this->syntaxMatchesVariable($p) ? 'isset(' . $p . ')' : '(' . $p . ' !== null )';
+	                }
+	                return '(' . implode(' && ', $pa) . ')';
+
                 } elseif (in_array(
                     $func_name,
                     array(
@@ -653,7 +649,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         $this->trigger_template_error("Illegal number of parameter in '{$func_name()}'");
                     }
                     if ($func_name === 'empty') {
-                        if ($parHasFuction && version_compare(PHP_VERSION, '5.5.0', '<')) {
+                        if (!$this->syntaxMatchesVariable($parameter[0]) && version_compare(PHP_VERSION, '5.5.0', '<')) {
                             return '(' . $parameter[ 0 ] . ' === false )';
                         } else {
                             return $func_name . '(' .
@@ -671,74 +667,82 @@ abstract class Smarty_Internal_TemplateCompilerBase
         }
     }
 
+	/**
+	 * Determines whether the passed string represents a valid (PHP) variable.
+	 * This is important, because `isset()` only works on variables and `empty()` can only be passed
+	 * a variable prior to php5.5
+	 * @param $string
+	 * @return bool
+	 */
+	private function syntaxMatchesVariable($string) {
+    	static $regex_pattern = '/^\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*((->)[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*|\[.*]*\])*$/';
+    	return 1 === preg_match($regex_pattern, trim($string));
+    }
+
     /**
-     * This method is called from parser to process a text content section
+     * This method is called from parser to process a text content section if strip is enabled
      * - remove text from inheritance child templates as they may generate output
-     * - strip text if strip is enabled
      *
      * @param string $text
      *
-     * @return null|\Smarty_Internal_ParseTree_Text
+     * @return string
      */
     public function processText($text)
     {
-        if ((string)$text != '') {
-            $store = array();
-            $_store = 0;
-            if ($this->parser->strip) {
-                if (strpos($text, '<') !== false) {
-                    // capture html elements not to be messed with
-                    $_offset = 0;
-                    if (preg_match_all(
-                        '#(<script[^>]*>.*?</script[^>]*>)|(<textarea[^>]*>.*?</textarea[^>]*>)|(<pre[^>]*>.*?</pre[^>]*>)#is',
-                        $text,
-                        $matches,
-                        PREG_OFFSET_CAPTURE | PREG_SET_ORDER
-                    )
-                    ) {
-                        foreach ($matches as $match) {
-                            $store[] = $match[ 0 ][ 0 ];
-                            $_length = strlen($match[ 0 ][ 0 ]);
-                            $replace = '@!@SMARTY:' . $_store . ':SMARTY@!@';
-                            $text = substr_replace($text, $replace, $match[ 0 ][ 1 ] - $_offset, $_length);
-                            $_offset += $_length - strlen($replace);
-                            $_store++;
-                        }
-                    }
-                    $expressions = array(// replace multiple spaces between tags by a single space
-                                         '#(:SMARTY@!@|>)[\040\011]+(?=@!@SMARTY:|<)#s'                            => '\1 \2',
-                                         // remove newline between tags
-                                         '#(:SMARTY@!@|>)[\040\011]*[\n]\s*(?=@!@SMARTY:|<)#s'                     => '\1\2',
-                                         // remove multiple spaces between attributes (but not in attribute values!)
-                                         '#(([a-z0-9]\s*=\s*("[^"]*?")|(\'[^\']*?\'))|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \5',
-                                         '#>[\040\011]+$#Ss'                                                       => '> ',
-                                         '#>[\040\011]*[\n]\s*$#Ss'                                                => '>',
-                                         $this->stripRegEx                                                         => '',
-                    );
-                    $text = preg_replace(array_keys($expressions), array_values($expressions), $text);
-                    $_offset = 0;
-                    if (preg_match_all(
-                        '#@!@SMARTY:([0-9]+):SMARTY@!@#is',
-                        $text,
-                        $matches,
-                        PREG_OFFSET_CAPTURE | PREG_SET_ORDER
-                    )
-                    ) {
-                        foreach ($matches as $match) {
-                            $_length = strlen($match[ 0 ][ 0 ]);
-                            $replace = $store[ $match[ 1 ][ 0 ] ];
-                            $text = substr_replace($text, $replace, $match[ 0 ][ 1 ] + $_offset, $_length);
-                            $_offset += strlen($replace) - $_length;
-                            $_store++;
-                        }
-                    }
-                } else {
-                    $text = preg_replace($this->stripRegEx, '', $text);
-                }
-            }
-            return new Smarty_Internal_ParseTree_Text($text);
+
+        if (strpos($text, '<') === false) {
+        	return preg_replace($this->stripRegEx, '', $text);
         }
-        return null;
+
+	    $store = array();
+	    $_store = 0;
+
+        // capture html elements not to be messed with
+        $_offset = 0;
+        if (preg_match_all(
+            '#(<script[^>]*>.*?</script[^>]*>)|(<textarea[^>]*>.*?</textarea[^>]*>)|(<pre[^>]*>.*?</pre[^>]*>)#is',
+            $text,
+            $matches,
+            PREG_OFFSET_CAPTURE | PREG_SET_ORDER
+        )
+        ) {
+            foreach ($matches as $match) {
+                $store[] = $match[ 0 ][ 0 ];
+                $_length = strlen($match[ 0 ][ 0 ]);
+                $replace = '@!@SMARTY:' . $_store . ':SMARTY@!@';
+                $text = substr_replace($text, $replace, $match[ 0 ][ 1 ] - $_offset, $_length);
+                $_offset += $_length - strlen($replace);
+                $_store++;
+            }
+        }
+        $expressions = array(// replace multiple spaces between tags by a single space
+                             '#(:SMARTY@!@|>)[\040\011]+(?=@!@SMARTY:|<)#s'                            => '\1 \2',
+                             // remove newline between tags
+                             '#(:SMARTY@!@|>)[\040\011]*[\n]\s*(?=@!@SMARTY:|<)#s'                     => '\1\2',
+                             // remove multiple spaces between attributes (but not in attribute values!)
+                             '#(([a-z0-9]\s*=\s*("[^"]*?")|(\'[^\']*?\'))|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \5',
+                             '#>[\040\011]+$#Ss'                                                       => '> ',
+                             '#>[\040\011]*[\n]\s*$#Ss'                                                => '>',
+                             $this->stripRegEx                                                         => '',
+        );
+        $text = preg_replace(array_keys($expressions), array_values($expressions), $text);
+        $_offset = 0;
+        if (preg_match_all(
+            '#@!@SMARTY:([0-9]+):SMARTY@!@#is',
+            $text,
+            $matches,
+            PREG_OFFSET_CAPTURE | PREG_SET_ORDER
+        )
+        ) {
+            foreach ($matches as $match) {
+                $_length = strlen($match[ 0 ][ 0 ]);
+                $replace = $store[ $match[ 1 ][ 0 ] ];
+                $text = substr_replace($text, $replace, $match[ 0 ][ 1 ] + $_offset, $_length);
+                $_offset += strlen($replace) - $_length;
+                $_store++;
+            }
+        }
+        return $text;
     }
 
     /**
