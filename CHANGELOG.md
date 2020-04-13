@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.1.35] - 2020-04-14
  - remove whitespaces after comments https://github.com/smarty-php/smarty/issues/447
  - fix foreachelse on arrayiterators https://github.com/smarty-php/smarty/issues/506
  - fix files contained in git export archive for package maintainers https://github.com/smarty-php/smarty/issues/325
