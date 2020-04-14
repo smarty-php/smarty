@@ -154,6 +154,7 @@ class Smarty_Internal_Templateparser
         $this->template = $this->compiler->template;
         $this->smarty = $this->template->smarty;
         $this->security = isset($this->smarty->security_policy) ? $this->smarty->security_policy : false;
+        $this->allow_inline_constants = $this->smarty->allow_inline_constants;
         $this->current_buffer = $this->root_buffer = new Smarty_Internal_ParseTree_Template();
     }
 
@@ -310,7 +311,7 @@ smartytag(A)::= SIMPLETAG(B). {
         $this->strip = true;
         A = null;;
     } else {
-        if (defined($tag)) {
+        if ($this->allow_inline_constants AND defined($tag)) {
             if ($this->security) {
                $this->security->isTrustedConstant($tag, $this->compiler);
             }
@@ -381,7 +382,7 @@ output(A) ::= expr(B). {
 
                   // tag with optional Smarty2 style attributes
 tag(res)   ::= LDEL ID(i) attributes(a). {
-        if (defined(i)) {
+        if ($this->allow_inline_constants AND defined(i)) {
             if ($this->security) {
                 $this->security->isTrustedConstant(i, $this->compiler);
             }
@@ -391,7 +392,7 @@ tag(res)   ::= LDEL ID(i) attributes(a). {
         }
 }
 tag(res)   ::= LDEL ID(i). {
-        if (defined(i)) {
+        if ($this->allow_inline_constants AND defined(i)) {
             if ($this->security) {
                 $this->security->isTrustedConstant(i, $this->compiler);
             }
@@ -404,7 +405,7 @@ tag(res)   ::= LDEL ID(i). {
 
                   // tag with modifier and optional Smarty2 style attributes
 tag(res)   ::= LDEL ID(i) modifierlist(l)attributes(a). {
-        if (defined(i)) {
+        if ($this->allow_inline_constants AND defined(i)) {
             if ($this->security) {
                 $this->security->isTrustedConstant(i, $this->compiler);
             }
@@ -541,7 +542,7 @@ attributes(res)  ::= . {
                   
                   // attribute
 attribute(res)   ::= SPACE ID(v) EQUAL ID(id). {
-    if (defined(id)) {
+    if ($this->allow_inline_constants AND defined(id)) {
         if ($this->security) {
             $this->security->isTrustedConstant(id, $this->compiler);
         }
@@ -713,7 +714,7 @@ value(res)       ::= DOT INTEGER(n1). {
 
                  // ID, true, false, null
 value(res)       ::= ID(id). {
-    if (defined(id)) {
+    if ($this->allow_inline_constants AND defined(id)) {
         if ($this->security) {
              $this->security->isTrustedConstant(id, $this->compiler);
         }
