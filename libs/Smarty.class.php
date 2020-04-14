@@ -800,7 +800,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param mixed $index    index of directory to get, null to get all
      * @param bool  $isConfig true for config_dir
      *
-     * @return array list of template directories, or directory of $index
+     * @return array|string list of template directories, or directory of $index
      */
     public function getTemplateDir($index = null, $isConfig = false)
     {
