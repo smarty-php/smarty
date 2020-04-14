@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+ - Smarty::SMARTY_VERSION wasn't updated in v3.1.35 https://github.com/smarty-php/smarty/issues/584
+
 ## [3.1.35] - 2020-04-14
  - remove whitespaces after comments https://github.com/smarty-php/smarty/issues/447
  - fix foreachelse on arrayiterators https://github.com/smarty-php/smarty/issues/506
