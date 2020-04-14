@@ -90,7 +90,7 @@ class Smarty_Internal_Extension_Handler
                         if (!isset($this->resolvedProperties[ $match[ 0 ] ][ $objType ])) {
                             $property = isset($this->resolvedProperties[ 'property' ][ $basename ]) ?
                                 $this->resolvedProperties[ 'property' ][ $basename ] :
-                                $property = $this->resolvedProperties[ 'property' ][ $basename ] = strtolower(
+                                $property = $this->resolvedProperties[ 'property' ][ $basename ] = strtr(
                                     join(
                                         '_',
                                         preg_split(
@@ -100,7 +100,8 @@ class Smarty_Internal_Extension_Handler
                                             PREG_SPLIT_NO_EMPTY |
                                             PREG_SPLIT_DELIM_CAPTURE
                                         )
-                                    )
+                                    ),
+                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'
                                 );
                             if ($property !== false) {
                                 if (property_exists($data, $property)) {
@@ -145,7 +146,9 @@ class Smarty_Internal_Extension_Handler
     public function upperCase($name)
     {
         $_name = explode('_', $name);
-        $_name = array_map('ucfirst', $_name);
+        foreach ($_name as &$namePart) {
+            $namePart = strtr(substr($namePart,0,1), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') . substr($namePart,1);
+        }
         return implode('_', $_name);
     }
 

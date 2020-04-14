@@ -29,7 +29,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
         $_index = preg_split("/\]\[/", substr($parameter, 1, strlen($parameter) - 2));
-        $variable = strtolower($compiler->getId($_index[ 0 ]));
+        $variable = strtr($compiler->getId($_index[ 0 ]), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
         if ($variable === false) {
             $compiler->trigger_template_error("special \$Smarty variable name index can not be variable", null, true);
         }
@@ -40,7 +40,8 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                 case 'foreach':
                 case 'section':
                     if (!isset(Smarty_Internal_TemplateCompilerBase::$_tag_objects[ $variable ])) {
-                        $class = 'Smarty_Internal_Compile_' . ucfirst($variable);
+                        $variableUcfirst = strtr(substr($variable,0,1), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') . substr($variable,1);
+                        $class = 'Smarty_Internal_Compile_' . $variableUcfirst;
                         Smarty_Internal_TemplateCompilerBase::$_tag_objects[ $variable ] = new $class;
                     }
                     return Smarty_Internal_TemplateCompilerBase::$_tag_objects[ $variable ]->compileSpecialVariable(
@@ -76,7 +77,8 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                         $compiler->trigger_template_error("(secure mode) super globals not permitted");
                         break;
                     }
-                    $compiled_ref = '$_' . strtoupper($variable);
+                    $variableToUpper = strtr($variable, 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                    $compiled_ref = '$_' . $variableUpper;
                     break;
                 case 'template':
                     return 'basename($_smarty_tpl->source->filepath)';

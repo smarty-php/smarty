@@ -93,7 +93,7 @@ class Smarty_Autoloader
         if ($class[ 0 ] !== 'S' || strpos($class, 'Smarty') !== 0) {
             return;
         }
-        $_class = strtolower($class);
+        $_class = strtr($class, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
         if (isset(self::$rootClasses[ $_class ])) {
             $file = self::$SMARTY_DIR . self::$rootClasses[ $_class ];
             if (is_file($file)) {
