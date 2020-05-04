@@ -23,7 +23,7 @@ function smarty_modifiercompiler_unescape($params)
         $params[ 1 ] = 'html';
     }
     if (!isset($params[ 2 ])) {
-        $params[ 2 ] = '\'' . addslashes(Smarty::$_CHARSET) . '\'';
+        $params[ 2 ] = var_export(Smarty::$_CHARSET, true);
     } else {
         $params[ 2 ] = "'{$params[ 2 ]}'";
     }
