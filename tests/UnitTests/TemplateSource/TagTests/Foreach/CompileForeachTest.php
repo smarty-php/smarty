@@ -95,7 +95,7 @@ class CompileForeachTest extends PHPUnit_Smarty
             array('{foreach $foo x y foo}{$y}.{$x},{foreachelse}else{/foreach}total{$smarty.foreach.foo.total}', array(9,10,11), '0.9,1.10,2.11,total3', '', $i ++),
             array('{$x = "hallo"}{$bar=[1,2,3]}{foreach $foo as $x}outer={$x@index}.{$x}#{foreach $bar as $x}inner={$x@index}.{$x}{/foreach}##{/foreach}###{$x}', array(9,10,11), 'outer=0.9#inner=0.1inner=1.2inner=2.3##outer=1.10#inner=0.1inner=1.2inner=2.3##outer=2.11#inner=0.1inner=1.2inner=2.3#####hallo', '', $i ++),
 	        array('{foreach $foo as $x}{$x}{foreachelse}else{/foreach}', null, 'else', '', $i ++),
-	        array('{foreach $foo as $x}{$x}{foreachelse}else{/foreach}', [], 'else', '', $i ++),
+	        array('{foreach $foo as $x}{$x}{foreachelse}else{/foreach}', array(), 'else', '', $i ++),
 	        array('{foreach $foo as $x}{$x}{foreachelse}else{/foreach}', new \ArrayIterator(), 'else', '', $i ++),
         );
     }

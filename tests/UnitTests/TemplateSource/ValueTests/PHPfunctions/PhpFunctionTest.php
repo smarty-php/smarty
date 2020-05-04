@@ -57,7 +57,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty2()
     {
         if (version_compare(phpversion(), '5.5', '<')) {
-            $this->markTestSkipped('runs only on PHP > 5.5');
+            $this->markTestSkipped('runs only on PHP >= 5.5');
         }
 
         $this->smarty->disableSecurity();
@@ -82,7 +82,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty3()
     {
         if (version_compare(phpversion(), '5.5', '<')) {
-            $this->markTestSkipped('runs only on PHP > 5.5');
+            $this->markTestSkipped('runs only on PHP >= 5.5');
         }
         $this->smarty->disableSecurity();
         $this->smarty->assign('var', array(true,
@@ -104,7 +104,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty4()
     {
         if (version_compare(phpversion(), '5.5', '<')) {
-        $this->markTestSkipped('runs only on PHP > 5.5');
+        $this->markTestSkipped('runs only on PHP >= 5.5');
         }
 
         $this->smarty->disableSecurity();
@@ -168,11 +168,11 @@ class PhpFunctionTest extends PHPUnit_Smarty
 		$this->smarty->disableSecurity();
 
 		$this->smarty->assign('varobject', new TestIsset());
-		$this->smarty->assign('vararray', $vararray = [
+		$this->smarty->assign('vararray', $vararray = array(
 			'keythatexists' => false,
-			'keywitharray' => [1 => 1],
-			'keywithobject' => new TestIsset()]
-		);
+			'keywitharray' => array(1 => 1),
+			'keywithobject' => new TestIsset()
+		));
 
 		$this->smarty->assign('key', 'A');
 		$this->smarty->assign('_varsimpleA', 1);
