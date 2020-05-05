@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Travis unit tests now run for all php versions >= 5.3
+
 ### Fixed
 - PHP5.3 compatability fixes
 

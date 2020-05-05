@@ -5,14 +5,20 @@ sudo: false
 
 dist: trusty
 
+php:
+#  - 5.2 # we cannot run 5.2 because phpunit is installed using composer
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4
+  - nightly
+
 matrix:
-  include:
-   - php: 7.0
-   - php: 7.1
-   - php: 7.2
-   - php: 7.3
-   - php: 7.4
-   - php: nightly
   fast_finish: true
   allow_failures:
    - php: nightly
