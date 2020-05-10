@@ -542,7 +542,7 @@ attributes(res)  ::= . {
                   
                   // attribute
 attribute(res)   ::= SPACE ID(v) EQUAL ID(id). {
-    if ($this->allow_inline_constants AND defined(id)) {
+    if (defined(id)) {
         if ($this->security) {
             $this->security->isTrustedConstant(id, $this->compiler);
         }
@@ -714,7 +714,7 @@ value(res)       ::= DOT INTEGER(n1). {
 
                  // ID, true, false, null
 value(res)       ::= ID(id). {
-    if ($this->allow_inline_constants AND defined(id)) {
+    if (defined(id)) {
         if ($this->security) {
              $this->security->isTrustedConstant(id, $this->compiler);
         }
