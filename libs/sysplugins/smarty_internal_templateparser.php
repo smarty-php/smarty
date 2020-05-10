@@ -2615,7 +2615,7 @@ class Smarty_Internal_Templateparser
     // line 554 "../smarty/lexer/smarty_internal_templateparser.y"
     public function yy_r53()
     {
-        if ($this->allow_inline_constants AND defined($this->yystack[ $this->yyidx + 0 ]->minor)) {
+        if (defined($this->yystack[ $this->yyidx + 0 ]->minor)) {
             if ($this->security) {
                 $this->security->isTrustedConstant($this->yystack[ $this->yyidx + 0 ]->minor, $this->compiler);
             }
@@ -2810,7 +2810,7 @@ class Smarty_Internal_Templateparser
     // line 732 "../smarty/lexer/smarty_internal_templateparser.y"
     public function yy_r88()
     {
-        if ($this->allow_inline_constants AND defined($this->yystack[ $this->yyidx + 0 ]->minor)) {
+        if (defined($this->yystack[ $this->yyidx + 0 ]->minor)) {
             if ($this->security) {
                 $this->security->isTrustedConstant($this->yystack[ $this->yyidx + 0 ]->minor, $this->compiler);
             }
