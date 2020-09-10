@@ -27,7 +27,7 @@ class MuteExpectedErrorsTest extends PHPUnit_Smarty
     {
         $this->cleanDirs();
     }
-    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext = [])
+    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext = array())
     {
         $this->_errors[] = $errfile . ' line ' . $errline;
     }
