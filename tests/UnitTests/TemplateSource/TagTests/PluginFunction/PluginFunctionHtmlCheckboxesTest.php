@@ -275,7 +275,7 @@ class PluginFunctionHtmlCheckboxesTest extends PHPUnit_Smarty
 
     protected $_errors = array();
 
-    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
+    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext = [])
     {
         $this->_errors[] = $errstr;
     }

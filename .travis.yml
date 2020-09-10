@@ -6,7 +6,7 @@ dist: trusty
 
 matrix:
   include:
-   - php: 5.3 # Composer requires PHP 5.3.2+ to run, so we cannot test below 5.3
+   - php: 5.3 # Composer and PHPUnit require PHP 5.3.2+ to run, so we cannot test below 5.3
      dist: precise # PHP 5.3 is supported only on Precise.
    - php: 5.4
    - php: 5.5

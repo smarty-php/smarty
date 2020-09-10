@@ -36,7 +36,7 @@ class ClearAssignTest extends PHPUnit_Smarty
      */
     public function testClearAssign()
     {
-        $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
+        $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE | E_WARNING));
         $this->smarty->clearAssign('blar');
         $this->assertEquals('foobar', $this->smarty->fetch('eval:{$foo}{$bar}{$blar}'));
     }
@@ -46,7 +46,7 @@ class ClearAssignTest extends PHPUnit_Smarty
      */
     public function testArrayClearAssign()
     {
-        $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
+        $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE | E_WARNING));
         $this->smarty->clearAssign(array('blar', 'foo'));
         $this->assertEquals('bar', $this->smarty->fetch('eval:{$foo}{$bar}{$blar}'));
     }

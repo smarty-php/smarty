@@ -29,7 +29,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     public function testE_NoticeDisabled()
     {
         $e1 = error_reporting();
-        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
         $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
         $e2 = error_reporting();
         $this->assertEquals($e1, $e2);
@@ -41,7 +41,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     public function testE_NoticeDisabledTplObject_1()
     {
         $e1 = error_reporting();
-        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
         $tpl = $this->smarty->createTemplate('001_main.tpl');
         $this->assertEquals('undefined = ', $tpl->fetch());
         $e2 = error_reporting();
@@ -51,7 +51,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     public function testE_NoticeDisabledTplObject_2()
     {
         $e1 = error_reporting();
-        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
         $tpl = $this->smarty->createTemplate('001_main.tpl');
         $this->assertEquals('undefined = ', $this->smarty->fetch($tpl));
         $e2 = error_reporting();
@@ -60,15 +60,19 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
 
     /**
      * Throw E_NOTICE message
-     *
-     * @expectedException PHPUnit_Framework_Error_Notice
-     * @expectedExceptionMessage Undefined index: foo
      */
     public function testE_Notice()
     {
-            $e1 = error_reporting();
-            $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
-            $e2 = error_reporting();
-            $this->assertEquals($e1, $e2);
+        if (PHP_VERSION_ID >= 80000) {
+            $this->expectExceptionMessage("Undefined array key \"foo\"");
+            $this->expectException(PHPUnit_Framework_Error_Warning::class);
+        } else {
+            $this->expectExceptionMessage("Undefined index: foo");
+            $this->expectException(PHPUnit_Framework_Error_Notice::class);
+        }
+        $e1 = error_reporting();
+        $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
+        $e2 = error_reporting();
+        $this->assertEquals($e1, $e2);
     }
 }
