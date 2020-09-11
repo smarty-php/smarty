@@ -27,7 +27,7 @@
  * @author    Uwe Tews   <uwe dot tews at gmail dot com>
  * @author    Rodney Rehm
  * @package   Smarty
- * @version   3.1.34-dev
+ * @version   3.1.36
  */
 /**
  * set SMARTY_DIR to absolute path to Smarty library files.
