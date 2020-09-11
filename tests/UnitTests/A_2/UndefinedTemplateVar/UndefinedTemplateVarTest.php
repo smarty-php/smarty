@@ -72,6 +72,8 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         } elseif (PHP_VERSION_ID >= 56000) {
             $this->expectExceptionMessage("Undefined index: foo");
             $this->expectException(PHPUnit_Framework_Error_Notice::class);
+        } else {
+        	return; // skip this test
         }
         $e1 = error_reporting();
         $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
