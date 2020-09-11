@@ -76,13 +76,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         } catch (Exception $e) {
 
         	$exceptionThrown = true;
-
-	        if (PHP_VERSION_ID >= 80000) {
-		        $this->assertStringStartsWith('Undefined array key', $e->getMessage());
-	        } else {
-		        $this->assertStringStartsWith('Undefined index', $e->getMessage());
-	        }
-
+	        $this->assertStringStartsWith('Undefined ', $e->getMessage());
 	        $this->assertTrue(in_array(
 	        	get_class($e),
 		        array(
