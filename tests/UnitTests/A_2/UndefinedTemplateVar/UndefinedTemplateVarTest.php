@@ -66,18 +66,33 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
      */
     public function testError()
     {
-        if (PHP_VERSION_ID >= 80000) {
-            $this->expectExceptionMessage("Undefined array key \"foo\"");
-            $this->expectException(PHPUnit_Framework_Error_Warning::class);
-        } elseif (PHP_VERSION_ID >= 56000) {
-            $this->expectExceptionMessage("Undefined index: foo");
-            $this->expectException(PHPUnit_Framework_Error_Notice::class);
-        } else {
-        	return; // skip this test
+	    $exceptionThrown = false;
+
+        try {
+	        $e1 = error_reporting();
+	        $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
+	        $e2 = error_reporting();
+	        $this->assertEquals($e1, $e2);
+        } catch (Exception $e) {
+
+        	$exceptionThrown = true;
+
+	        if (PHP_VERSION_ID >= 80000) {
+		        $this->assertStringStartsWith('Undefined array key', $e->getMessage());
+	        } else {
+		        $this->assertStringStartsWith('Undefined index', $e->getMessage());
+	        }
+
+	        $this->assertTrue(in_array(
+	        	get_class($e),
+		        array(
+		        	'PHPUnit_Framework_Error_Warning',
+			        'PHPUnit_Framework_Error_Notice',
+			        'PHPUnit\Framework\Error\Warning',
+			        'PHPUnit\Framework\Error\Notice',
+		        )
+	        ));
         }
-        $e1 = error_reporting();
-        $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
-        $e2 = error_reporting();
-        $this->assertEquals($e1, $e2);
+	    $this->assertTrue($exceptionThrown);
     }
 }

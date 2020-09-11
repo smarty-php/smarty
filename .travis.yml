@@ -25,6 +25,7 @@ jobs:
    - php: 7.3
    - php: 7.4
    - php: nightly
+     install: travis_retry composer config platform.php 7.4.0 && composer require phpunit/phpunit:^7.5
   fast_finish: true
   allow_failures:
    - php: nightly
@@ -34,10 +35,10 @@ services:
   - mysql
 
 before_script:
-    - mysql -e "create database IF NOT EXISTS test;" -uroot
+  - mysql -e "create database IF NOT EXISTS test;" -uroot
 
 before_install:
-    - phpenv config-rm xdebug.ini || return 0
+  - phpenv config-rm xdebug.ini || return 0
 
 script:
-   - ./phpunit.sh
+  - ./phpunit.sh

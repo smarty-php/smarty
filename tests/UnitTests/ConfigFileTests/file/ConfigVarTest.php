@@ -404,9 +404,9 @@ class ConfigVarTest extends PHPUnit_Smarty
         }
         catch (Exception $e) {
 	        if (PHP_VERSION_ID >= 80000) {
-		        $this->assertEquals('Undefined variable $foo', $e->getMessage());
+		        $this->assertStringStartsWith('Undefined variable', $e->getMessage());
 	        } else {
-		        $this->assertEquals('Undefined variable: foo', $e->getMessage());
+		        $this->assertStringStartsWith('Undefined variable', $e->getMessage());
 	        }
         }
     }
