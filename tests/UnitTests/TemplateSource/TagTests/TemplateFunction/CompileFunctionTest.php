@@ -297,7 +297,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
      */
     public function testExternalDefinedFunctionRecursion($text)
     {
-        $this->assertEquals('12345', $this->smarty->fetch('test_template_function_recursion2.tpl'), $text);
+        $this->assertEquals('012345', $this->smarty->fetch('test_template_function_recursion2.tpl'), $text);
     }
 
     /**
