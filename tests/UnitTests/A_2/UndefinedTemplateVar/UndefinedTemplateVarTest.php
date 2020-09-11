@@ -24,9 +24,9 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->cleanDirs();
     }
     /**
-     * Test E_NOTICE suppression template fetched by Smarty object
+     * Test Error suppression template fetched by Smarty object
      */
-    public function testE_NoticeDisabled()
+    public function testErrorDisabled()
     {
         $e1 = error_reporting();
         $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
@@ -36,9 +36,9 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     }
 
     /**
-     * Test E_NOTICE suppression template fetched by template object
+     * Test Error suppression template fetched by template object
      */
-    public function testE_NoticeDisabledTplObject_1()
+    public function testErrorDisabledTplObject_1()
     {
         $e1 = error_reporting();
         $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
@@ -48,7 +48,10 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->assertEquals($e1, $e2);
     }
 
-    public function testE_NoticeDisabledTplObject_2()
+	/**
+	 * Test Error suppression template object fetched by Smarty object
+	 */
+    public function testErrorDisabledTplObject_2()
     {
         $e1 = error_reporting();
         $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
@@ -59,14 +62,14 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     }
 
     /**
-     * Throw E_NOTICE message
+     * Throw Error message
      */
-    public function testE_Notice()
+    public function testError()
     {
         if (PHP_VERSION_ID >= 80000) {
             $this->expectExceptionMessage("Undefined array key \"foo\"");
             $this->expectException(PHPUnit_Framework_Error_Warning::class);
-        } else {
+        } elseif (PHP_VERSION_ID >= 56000) {
             $this->expectExceptionMessage("Undefined index: foo");
             $this->expectException(PHPUnit_Framework_Error_Notice::class);
         }
