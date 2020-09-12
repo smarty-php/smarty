@@ -33,14 +33,14 @@ class ClearAssignBCTest extends PHPUnit_Smarty
     }
     public function testSmarty2ClearAssign()
     {
-        $this->smartyBC->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
+        $this->smartyBC->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE | E_WARNING));
         $this->smartyBC->clear_assign('blar');
         $this->assertEquals('foobar', $this->smartyBC->fetch('eval:{$foo}{$bar}{$blar}'));
     }
 
     public function testSmarty2ArrayClearAssign()
     {
-        $this->smartyBC->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
+        $this->smartyBC->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE | E_WARNING));
         $this->smartyBC->clear_assign(array('blar', 'foo'));
         $this->assertEquals('bar', $this->smartyBC->fetch('eval:{$foo}{$bar}{$blar}'));
     }

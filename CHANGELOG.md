@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Travis unit tests now run for all php versions >= 5.3
+- Changed error handlers and handling of undefined constants for php8-compatibility (set $errcontext argument optional) https://github.com/smarty-php/smarty/issues/605
+- Changed expected error levels in unit tests for php8-compatibility
+- Travis unit tests now run for all php versions >= 5.3, including php8
+- Travis runs on Xenial where possible
 
 ### Fixed
-- PHP5.3 compatability fixes
+- PHP5.3 compatibility fixes
 
 ## [3.1.36] - 2020-04-14
 

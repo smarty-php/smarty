@@ -44,7 +44,7 @@ class CompileForeachTest extends PHPUnit_Smarty
             $this->smarty->assign('foo', $foo);
         } else {
             // unassigned $from parameter
-            $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE));
+            $this->smarty->setErrorReporting(error_reporting() & ~(E_NOTICE | E_USER_NOTICE | E_WARNING));
         }
 
         $this->assertEquals($result, $this->smarty->fetch($file), "testForeach - {$code} - {$testName}");

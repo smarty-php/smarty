@@ -24,34 +24,37 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->cleanDirs();
     }
     /**
-     * Test E_NOTICE suppression template fetched by Smarty object
+     * Test Error suppression template fetched by Smarty object
      */
-    public function testE_NoticeDisabled()
+    public function testErrorDisabled()
     {
         $e1 = error_reporting();
-        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
         $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
         $e2 = error_reporting();
         $this->assertEquals($e1, $e2);
     }
 
     /**
-     * Test E_NOTICE suppression template fetched by template object
+     * Test Error suppression template fetched by template object
      */
-    public function testE_NoticeDisabledTplObject_1()
+    public function testErrorDisabledTplObject_1()
     {
         $e1 = error_reporting();
-        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
         $tpl = $this->smarty->createTemplate('001_main.tpl');
         $this->assertEquals('undefined = ', $tpl->fetch());
         $e2 = error_reporting();
         $this->assertEquals($e1, $e2);
     }
 
-    public function testE_NoticeDisabledTplObject_2()
+	/**
+	 * Test Error suppression template object fetched by Smarty object
+	 */
+    public function testErrorDisabledTplObject_2()
     {
         $e1 = error_reporting();
-        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
         $tpl = $this->smarty->createTemplate('001_main.tpl');
         $this->assertEquals('undefined = ', $this->smarty->fetch($tpl));
         $e2 = error_reporting();
@@ -59,16 +62,31 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     }
 
     /**
-     * Throw E_NOTICE message
-     *
-     * @expectedException PHPUnit_Framework_Error_Notice
-     * @expectedExceptionMessage Undefined index: foo
+     * Throw Error message
      */
-    public function testE_Notice()
+    public function testError()
     {
-            $e1 = error_reporting();
-            $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
-            $e2 = error_reporting();
-            $this->assertEquals($e1, $e2);
+	    $exceptionThrown = false;
+
+        try {
+	        $e1 = error_reporting();
+	        $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
+	        $e2 = error_reporting();
+	        $this->assertEquals($e1, $e2);
+        } catch (Exception $e) {
+
+        	$exceptionThrown = true;
+	        $this->assertStringStartsWith('Undefined ', $e->getMessage());
+	        $this->assertTrue(in_array(
+	        	get_class($e),
+		        array(
+		        	'PHPUnit_Framework_Error_Warning',
+			        'PHPUnit_Framework_Error_Notice',
+			        'PHPUnit\Framework\Error\Warning',
+			        'PHPUnit\Framework\Error\Notice',
+		        )
+	        ));
+        }
+	    $this->assertTrue($exceptionThrown);
     }
 }

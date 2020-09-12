@@ -94,9 +94,9 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                         break;
                     }
                     if (strpos($_index[ 1 ], '$') === false && strpos($_index[ 1 ], '\'') === false) {
-                        return "@constant('{$_index[1]}')";
+                        return "defined('{$_index[1]}') ? constant('{$_index[1]}') : null";
                     } else {
-                        return "@constant({$_index[1]})";
+                        return "defined({$_index[1]}) ? constant({$_index[1]}) : null";
                     }
                 // no break
                 case 'config':

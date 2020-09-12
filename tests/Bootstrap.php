@@ -16,7 +16,6 @@ if (!class_exists('\PHPUnit_Framework_TestCase') && class_exists('\PHPUnit\Frame
     class_alias('\PHPUnit\Framework\Error\Error', '\PHPUnit_Framework_Error_Error');
     class_alias('\PHPUnit\Framework\Error\Warning', '\PHPUnit_Framework_Error_Warning');
     class_alias('\PHPUnit\Framework\Error\Warning', '\PHPUnit_Framework_Error_Deprecated');
-    class_alias('\PHPUnit\Util\Configuration', '\PHPUnit_Util_Configuration');
 }
 
 require_once 'PHPUnit_Smarty.php';

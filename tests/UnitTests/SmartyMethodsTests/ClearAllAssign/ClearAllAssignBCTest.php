@@ -33,7 +33,7 @@ class ClearAllAssignBCTest extends PHPUnit_Smarty
 
     public function testSmarty2ClearAllAssignInSmarty()
     {
-        error_reporting((error_reporting() & ~(E_NOTICE | E_USER_NOTICE)));
+        error_reporting((error_reporting() & ~(E_NOTICE | E_WARNING | E_USER_NOTICE)));
         $this->smartyBC->clear_all_assign();
         $this->assertEquals('barblar', $this->smartyBC->fetch($this->_tplBC));
     }
