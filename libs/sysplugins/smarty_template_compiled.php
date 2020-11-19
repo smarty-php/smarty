@@ -76,7 +76,11 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         $this->filepath .= '.php';
         $this->timestamp = $this->exists = is_file($this->filepath);
         if ($this->exists) {
-            $this->timestamp = filemtime($this->filepath);
+            if (function_exists("opcache_is_script_cached") && opcache_is_script_cached($this->filepath)) {
+                $this->timestamp = time();
+            } else {
+                $this->timestamp = filemtime($this->filepath);
+            }
         }
     }
 
