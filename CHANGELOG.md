@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - PHP5.3 compatibility fixes
+- Brought lexer source functionally up-to-date with compiled version
 
 ## [3.1.36] - 2020-04-14
 
