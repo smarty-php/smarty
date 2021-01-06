@@ -730,7 +730,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param string|Smarty_Security $security_class if a string is used, it must be class-name
      *
-     * @return Smarty                 current Smarty instance for chaining
+     * @return static                 current Smarty instance for chaining
      * @throws \SmartyException
      */
     public function enableSecurity($security_class = null)
@@ -742,7 +742,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Disable security
      *
-     * @return Smarty current Smarty instance for chaining
+     * @return static current Smarty instance for chaining
      */
     public function disableSecurity()
     {
@@ -757,7 +757,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param string       $key          of the array element to assign the template dir to
      * @param bool         $isConfig     true for config_dir
      *
-     * @return Smarty          current Smarty instance for chaining
+     * @return static          current Smarty instance for chaining
      */
     public function addTemplateDir($template_dir, $key = null, $isConfig = false)
     {
@@ -824,7 +824,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param string|array $template_dir directory(s) of template sources
      * @param bool         $isConfig     true for config_dir
      *
-     * @return \Smarty current Smarty instance for chaining
+     * @return static current Smarty instance for chaining
      */
     public function setTemplateDir($template_dir, $isConfig = false)
     {
@@ -845,7 +845,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param string|array $config_dir directory(s) of config sources
      * @param mixed        $key        key of the array element to assign the config dir to
      *
-     * @return Smarty current Smarty instance for chaining
+     * @return static current Smarty instance for chaining
      */
     public function addConfigDir($config_dir, $key = null)
     {
@@ -869,7 +869,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param $config_dir
      *
-     * @return Smarty       current Smarty instance for chaining
+     * @return static       current Smarty instance for chaining
      */
     public function setConfigDir($config_dir)
     {
@@ -881,7 +881,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param null|array|string $plugins_dir
      *
-     * @return Smarty current Smarty instance for chaining
+     * @return static current Smarty instance for chaining
      */
     public function addPluginsDir($plugins_dir)
     {
@@ -922,7 +922,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param string|array $plugins_dir directory(s) of plugins
      *
-     * @return Smarty       current Smarty instance for chaining
+     * @return static       current Smarty instance for chaining
      */
     public function setPluginsDir($plugins_dir)
     {
@@ -949,7 +949,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param  string $compile_dir directory to store compiled templates in
      *
-     * @return Smarty current Smarty instance for chaining
+     * @return static current Smarty instance for chaining
      */
     public function setCompileDir($compile_dir)
     {
@@ -977,7 +977,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @param string $cache_dir directory to store cached templates in
      *
-     * @return Smarty current Smarty instance for chaining
+     * @return static current Smarty instance for chaining
      */
     public function setCacheDir($cache_dir)
     {
@@ -1325,7 +1325,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Get Smarty object
      *
-     * @return Smarty
+     * @return static
      */
     public function _getSmartyObj()
     {
