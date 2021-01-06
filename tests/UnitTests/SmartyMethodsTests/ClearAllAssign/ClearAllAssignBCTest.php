@@ -20,7 +20,7 @@ class ClearAllAssignBCTest extends PHPUnit_Smarty
     protected $_dataBC = null;
     protected $_tplBC = null;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
 

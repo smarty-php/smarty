@@ -11,7 +11,7 @@
  */
 class IncludePathTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->use_include_path = true;
@@ -26,7 +26,7 @@ class IncludePathTest extends PHPUnit_Smarty
      * This method is called after a test is executed.
      *
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         ini_restore('include_path');
         $this->smarty->disableSecurity();
@@ -38,14 +38,14 @@ class IncludePathTest extends PHPUnit_Smarty
     }
     public function testInclude1()
     {
-        $this->assertContains('plugin1', $this->smarty->fetch('test_include_path1.tpl'));
+        $this->assertStringContainsString('plugin1', $this->smarty->fetch('test_include_path1.tpl'));
     }
     public function testInclude2()
     {
-        $this->assertContains('plugin2', $this->smarty->fetch('test_include_path2.tpl'));
+        $this->assertStringContainsString('plugin2', $this->smarty->fetch('test_include_path2.tpl'));
     }
     public function testInclude3()
     {
-        $this->assertContains('plugin3', $this->smarty->fetch('test_include_path3.tpl'));
+        $this->assertStringContainsString('plugin3', $this->smarty->fetch('test_include_path3.tpl'));
     }
   }

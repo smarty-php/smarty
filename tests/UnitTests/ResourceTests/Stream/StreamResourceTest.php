@@ -15,7 +15,7 @@
  */
 class StreamResourceTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
 
@@ -32,7 +32,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     {
         $this->cleanDirs();
     }
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         stream_wrapper_unregister("global");
@@ -138,8 +138,6 @@ class StreamResourceTest extends PHPUnit_Smarty
         $this->assertFalse($this->smarty->templateExists('global:notthere'));
     }
     /**
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage 'global:notthere'
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -148,7 +146,9 @@ class StreamResourceTest extends PHPUnit_Smarty
 
     public function testTemplateStramNotExists3()
     {
-            $result = $this->smarty->fetch('global:notthere');
+	    $this->expectException('SmartyException');
+	    $this->expectExceptionMessage('\'global:notthere\'');
+        $this->smarty->fetch('global:notthere');
     }
 
     /**

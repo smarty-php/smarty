@@ -16,7 +16,7 @@
 class RegisterBlockTest extends PHPUnit_Smarty
 {
     public $loadSmartyBC = true;
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->disableSecurity();

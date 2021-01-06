@@ -20,7 +20,7 @@ class ClearCompiledBCTest extends ClearCompiledTest
     public $loadSmartyBC = true;
     public $loadSmarty = false;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smartyBC->addTemplateDir('./templates_2/');

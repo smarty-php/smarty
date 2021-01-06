@@ -15,7 +15,7 @@
  */
 class UserliteralTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!property_exists('Smarty', 'literals')) {
             $this->markTestSkipped('user literal support');

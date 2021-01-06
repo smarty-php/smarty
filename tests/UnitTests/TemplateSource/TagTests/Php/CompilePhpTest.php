@@ -16,7 +16,7 @@
 class CompilePhpTest extends PHPUnit_Smarty
 {
     public $loadSmartyBC = true;
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->setUseSubDirs(true);
@@ -79,13 +79,11 @@ class CompilePhpTest extends PHPUnit_Smarty
         $content = $tpl->fetch();
         $this->assertEquals($result, $content, $testName);
     }
-    /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage $smarty->php_handling PHP_ALLOW not allowed. Use SmartyBC to enable it
-     */
 
     public function testPHP_ALLOW_error()
     {
+	    $this->expectException('SmartyCompilerException');
+	    $this->expectExceptionMessage('$smarty->php_handling PHP_ALLOW not allowed. Use SmartyBC to enable it');
         $this->smarty->setPhpHandling(Smarty::PHP_ALLOW);
         $content = $this->smarty->fetch("string:aa <?php echo 'hallo'; ?> ae");
     }
@@ -112,13 +110,12 @@ class CompilePhpTest extends PHPUnit_Smarty
     }
     /**
      * test {php no cache}illegal option
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage illegal value of option flag 'no cache'
-     *
      */
     public function testPHP_Tag_IllegalOption()
     {
-        $content = $this->smartyBC->fetch("string:aa {php no cache} echo 'hallo'; {/php} ae");
+	    $this->expectException('SmartyCompilerException');
+	    $this->expectExceptionMessage('illegal value of option flag \'no cache\'');
+        $this->smartyBC->fetch("string:aa {php no cache} echo 'hallo'; {/php} ae");
     }
 
     /**

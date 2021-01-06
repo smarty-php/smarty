@@ -86,7 +86,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      * This method is called before the first test of this test class is run.
      *
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         error_reporting(E_ALL & ~E_STRICT);
         self::$init = true;
@@ -97,7 +97,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      * This method is called after the last test of this test class is run.
      *
      */
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         //self::$pdo = null;
         self::$testNumber = 0;
@@ -676,7 +676,7 @@ KEY `name` (`name`)
      * This method is called after a test is executed.
      *
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if (class_exists('Smarty_Internal_TemplateCompilerBase') &&
             isset(Smarty_Internal_TemplateCompilerBase::$_tag_objects)

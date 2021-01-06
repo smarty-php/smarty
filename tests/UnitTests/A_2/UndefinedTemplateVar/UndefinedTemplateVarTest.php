@@ -13,7 +13,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     /*
      * Setup test fixture
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         error_reporting(E_ALL | E_STRICT);

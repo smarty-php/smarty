@@ -15,7 +15,7 @@
  */
 class ModifierTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->addTemplateDir("./templates_tmp");
@@ -96,12 +96,12 @@ class ModifierTest extends PHPUnit_Smarty
     }
 
     /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unknown modifier 'unknown'
      * test unknown modifier error
      */
     public function testUnknownModifier()
     {
+    	$this->expectException('SmartyCompilerException');
+	    $this->expectExceptionMessage('unknown modifier \'unknown\'');
         $this->smarty->fetch('eval:{"hello world"|unknown}');
     }
 

@@ -15,7 +15,7 @@
  */
 class FileResourceTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->enableSecurity();
@@ -65,16 +65,14 @@ class FileResourceTest extends PHPUnit_Smarty
     }
 
     /**
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage Unable to
-     * @expectedExceptionMessage notthere.tpl
-     *
      * test not existing file
      */
     public function testTemplateFileNotExists3()
     {
-
-            $result = $this->smarty->fetch('notthere.tpl');
+	    $this->expectException('SmartyException');
+	    $this->expectExceptionMessage('Unable to');
+	    $this->expectExceptionMessage('notthere.tpl');
+	    $this->smarty->fetch('notthere.tpl');
     }
 
     public function testGetTemplateTimestamp()
@@ -196,7 +194,7 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testRelativeInclude()
     {
         $result = $this->smarty->fetch('relative.tpl');
-        $this->assertContains('hello world', $result);
+        $this->assertStringContainsString('hello world', $result);
     }
 
     /**
@@ -208,12 +206,9 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testRelativeIncludeSub()
     {
         $result = $this->smarty->fetch('sub/relative.tpl');
-        $this->assertContains('hello world', $result);
+        $this->assertStringContainsString('hello world', $result);
     }
     /**
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage Unable to
-     * @expectedExceptionMessage notthereh.tpl
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -221,11 +216,11 @@ class FileResourceTest extends PHPUnit_Smarty
      */
     public function testRelativeIncludeFail()
     {
-        $result =  $this->smarty->fetch('relative_sub.tpl');
+	    $this->expectException('SmartyException');
+	    $this->expectExceptionMessage('Unable to');
+        $this->smarty->fetch('relative_sub.tpl');
     }
     /**
-     * @expectedException        SmartyException
-      * @expectedExceptionMessage ./hello.tpl
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      *
@@ -233,8 +228,10 @@ class FileResourceTest extends PHPUnit_Smarty
      */
     public function testRelativeIncludeFailOtherDir()
     {
+	    $this->expectException('SmartyException');
+	    $this->expectExceptionMessage('./hello.tpl');
         $this->smarty->addTemplateDir('./templates_2');
-         $result =    $this->smarty->fetch('relative_notexist.tpl');
+        $this->smarty->fetch('relative_notexist.tpl');
      }
 
     /**

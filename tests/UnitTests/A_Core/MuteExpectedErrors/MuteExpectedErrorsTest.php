@@ -17,7 +17,7 @@ class MuteExpectedErrorsTest extends PHPUnit_Smarty
 {
     protected $_errors = array();
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }

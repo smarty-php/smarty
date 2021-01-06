@@ -20,7 +20,7 @@ class RegisterFunctionBCTest extends PHPUnit_Smarty
 
     public $loadSmarty = false;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }

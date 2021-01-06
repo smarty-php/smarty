@@ -18,7 +18,7 @@ class get_template_varsBCTest extends PHPUnit_Smarty
     public $loadSmartyBC = true;
     public $loadSmarty = false;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }

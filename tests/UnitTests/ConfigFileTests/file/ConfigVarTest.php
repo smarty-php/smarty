@@ -20,7 +20,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      * This method is called before a test is executed.
      *
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }

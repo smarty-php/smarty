@@ -17,7 +17,7 @@ class CompileIncludePhpTest extends PHPUnit_Smarty
 {
     public $loadSmartyBC = true;
     public $loadSmarty = false;
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smartyBC->setForceCompile(true);
@@ -36,7 +36,7 @@ class CompileIncludePhpTest extends PHPUnit_Smarty
         $this->smartyBC->disableSecurity();
         $tpl = $this->smartyBC->createTemplate('include_php.tpl');
         $result = $this->smartyBC->fetch($tpl);
-        $this->assertContains("test include php", $result);
+        $this->assertStringContainsString("test include php", $result);
     }
 
     /**
@@ -48,7 +48,7 @@ class CompileIncludePhpTest extends PHPUnit_Smarty
         $this->smartyBC->security_policy->trusted_dir = '.\\scripts\\';
         $tpl = $this->smartyBC->createTemplate('include_php_trusted.tpl');
         $result = $this->smartyBC->fetch($tpl);
-        $this->assertContains("test include php", $result);
+        $this->assertStringContainsString("test include php", $result);
     }
 
     /**
@@ -60,7 +60,7 @@ class CompileIncludePhpTest extends PHPUnit_Smarty
         $tpl = $this->smartyBC->createTemplate('string:start {include_php file=$filename once=false} end');
         $tpl->assign('filename', 'scripts/test_include_php.php');
         $result = $this->smartyBC->fetch($tpl);
-        $this->assertContains("test include php", $result);
+        $this->assertStringContainsString("test include php", $result);
     }
 
     public function testIncludePhpVariableFileNameShortag()
@@ -69,6 +69,6 @@ class CompileIncludePhpTest extends PHPUnit_Smarty
         $tpl = $this->smartyBC->createTemplate('string:start {include_php $filename once=false} end');
         $tpl->assign('filename', 'scripts/test_include_php.php');
         $result = $this->smartyBC->fetch($tpl);
-        $this->assertContains("test include php", $result);
+        $this->assertStringContainsString("test include php", $result);
     }
 }

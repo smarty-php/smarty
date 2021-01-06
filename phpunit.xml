@@ -6,7 +6,6 @@
         backupGlobals="false"
         backupStaticAttributes="true"
         forceCoversAnnotation="false"
-        mapTestClassNameToCoveredClassName="false"
         processIsolation="false"
         stopOnError="false"
         stopOnFailure="false"
@@ -17,18 +16,7 @@
         timeoutForMediumTests="10"
         timeoutForLargeTests="60"
         verbose="false">
-
-<filter>
-        <testsuites>
-            <testsuite name="Smarty Test Suite">
-                <directory>tests/UnitTests</directory>
-            </testsuite>
-        </testsuites>
-        <blacklist>
-            <directory suffix=".php">tests</directory>
-            <directory suffix=".php">tests/cache</directory>
-            <directory suffix=".php">tests/templates_c</directory>
-        </blacklist>
+    <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">libs</directory>
             <directory suffix=".php">libs/plugins</directory>
@@ -39,5 +27,4 @@
     <logging>
         <log type="tap" target="tests/TestResults.tap"/>
     </logging>
-
 </phpunit>
