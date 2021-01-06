@@ -249,7 +249,13 @@ template       ::= template PHP(B). {
 
                       // template text
 template       ::= template  TEXT(B). {
-         $this->current_buffer->append_subtree($this, $this->compiler->processText(B));
+         $text = $this->yystack[ $this->yyidx + 0 ]->minor;
+
+         if ((string)$text == '') {
+            $this->current_buffer->append_subtree($this, null);
+         }
+
+         $this->current_buffer->append_subtree($this, new Smarty_Internal_ParseTree_Text($text, $this->strip));
 }
                       // strip on
 template       ::= template  STRIPON. {
@@ -308,7 +314,7 @@ smartytag(A)::= SIMPLETAG(B). {
     $tag = trim(substr(B, $this->compiler->getLdelLength(), -$this->compiler->getRdelLength()));
     if ($tag == 'strip') {
         $this->strip = true;
-        A = null;;
+        A = null;
     } else {
         if (defined($tag)) {
             if ($this->security) {
