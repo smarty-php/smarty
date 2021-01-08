@@ -20,8 +20,13 @@ class MuteExpectedErrorsTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
+        set_error_handler(array($this, 'error_handler'));
     }
 
+    public function tearDown(): void {
+        restore_error_handler();
+        parent::tearDown();
+    }
 
     public function testInit()
     {
@@ -34,7 +39,7 @@ class MuteExpectedErrorsTest extends PHPUnit_Smarty
 
     public function testMuted()
     {
-        set_error_handler(array($this, 'error_handler'));
+
         Smarty::muteExpectedErrors();
 
         $this->smarty->clearCache('default.tpl');
@@ -48,7 +53,6 @@ class MuteExpectedErrorsTest extends PHPUnit_Smarty
         $this->assertEquals($this->_errors, $error);
 
         Smarty::unmuteExpectedErrors();
-        restore_error_handler();
     }
 
     /**
@@ -58,18 +62,16 @@ class MuteExpectedErrorsTest extends PHPUnit_Smarty
      */
     public function testUnmuted()
     {
-        set_error_handler(array($this, 'error_handler'));
 
         $this->smarty->clearCache('default.tpl');
         $this->smarty->clearCompiledTemplate('default.tpl');
         $this->smarty->fetch('default.tpl');
 
-        $this->assertEquals(Smarty::$_IS_WINDOWS ? 2 : 2, count($this->_errors));
+        $this->assertEquals($this->_errors, array());
 
         @filemtime('ckxladanwijicajscaslyxck');
-        $this->assertEquals(Smarty::$_IS_WINDOWS ? 3 : 3, count($this->_errors));
+        $this->assertEquals(1, count($this->_errors));
 
-        restore_error_handler();
     }
 
     /**
@@ -80,7 +82,6 @@ class MuteExpectedErrorsTest extends PHPUnit_Smarty
      */
     public function testMutedCaching()
     {
-        set_error_handler(array($this, 'error_handler'));
         Smarty::muteExpectedErrors();
 
         $this->smarty->caching = true;
@@ -95,7 +96,6 @@ class MuteExpectedErrorsTest extends PHPUnit_Smarty
         $this->assertEquals($error, $this->_errors);
 
         Smarty::unmuteExpectedErrors();
-        restore_error_handler();
     }
 
     /**
@@ -105,18 +105,16 @@ class MuteExpectedErrorsTest extends PHPUnit_Smarty
      */
     public function testUnmutedCaching()
     {
-        set_error_handler(array($this, 'error_handler'));
 
         $this->smarty->caching = true;
         $this->smarty->clearCache('default.tpl');
         $this->smarty->clearCompiledTemplate('default.tpl');
         $this->smarty->fetch('default.tpl');
 
-        $this->assertEquals(Smarty::$_IS_WINDOWS ? 2 : 2, count($this->_errors));
+        $this->assertEquals($this->_errors, array());
 
         @filemtime('ckxladanwijicajscaslyxck');
-        $error = array(__FILE__ . ' line ' . (__LINE__ - 1));
-        $this->assertEquals(Smarty::$_IS_WINDOWS ? 3 : 3, count($this->_errors));
+        $this->assertEquals(1, count($this->_errors));
 
         restore_error_handler();
     }
