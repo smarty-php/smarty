@@ -115,7 +115,7 @@ class Smarty_Internal_Config_File_Compiler
             $this->smarty->_debug->start_compile($this->template);
         }
         // init the lexer/parser to compile the config file
-        /* @var Smarty_Internal_ConfigFileLexer $this ->lex */
+        /* @var Smarty_Internal_ConfigFileLexer $this->lex */
         $this->lex = new $this->lexer_class(
             str_replace(
                 array(
@@ -127,7 +127,7 @@ class Smarty_Internal_Config_File_Compiler
             ) . "\n",
             $this
         );
-        /* @var Smarty_Internal_ConfigFileParser $this ->parser */
+        /* @var Smarty_Internal_ConfigFileParser $this->parser */
         $this->parser = new $this->parser_class($this->lex, $this);
         if (function_exists('mb_internal_encoding')
             && function_exists('ini_get')
