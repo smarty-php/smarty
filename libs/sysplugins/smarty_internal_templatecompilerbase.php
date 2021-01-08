@@ -649,12 +649,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         $this->trigger_template_error("Illegal number of parameter in '{$func_name()}'");
                     }
                     if ($func_name === 'empty') {
-                        if (!$this->syntaxMatchesVariable($parameter[0]) && version_compare(PHP_VERSION, '5.5.0', '<')) {
-                            return '(' . $parameter[ 0 ] . ' === false )';
-                        } else {
-                            return $func_name . '(' .
-                                   str_replace("')->value", "',null,true,false)->value", $parameter[ 0 ]) . ')';
-                        }
+                        return $func_name . '(' .
+                               str_replace("')->value", "',null,true,false)->value", $parameter[ 0 ]) . ')';
                     } else {
                         return $func_name . '(' . $parameter[ 0 ] . ')';
                     }

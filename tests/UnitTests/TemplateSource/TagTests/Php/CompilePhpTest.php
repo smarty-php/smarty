@@ -170,9 +170,6 @@ echo \'bar \';
 $foo = 3;
 { /php}<--', 'PHP_ALLOW, \'phptag_literal.tpl\''),
         );
-        if (version_compare(phpversion(), '5.7.0', '<')) {
-            $data[] = array(Smarty::PHP_ALLOW, 'script.tpl', '<br> This is a script <br> 5<br>', 'PHP_ALLOW, \'script.tpl\'');
-        }
         return $data;
     }
     /*
