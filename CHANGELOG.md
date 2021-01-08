@@ -7,12 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Updated unit tests to avoid skipped and risky test warnings
+
+### Removed
+- Dropped support for PHP7.0 and below, so Smarty now requires PHP >=7.1
+- Dropped support for php asp tags in templates (removed from php since php7.0)
+
+## [3.1.37] - 2021-01-07
+
+### Changed
 - Dropped support for PHP versions lower than PHP7.1 (and disabled unit tests for 7.1) 
 - Changed error handlers and handling of undefined constants for php8-compatibility (set $errcontext argument optional) https://github.com/smarty-php/smarty/issues/605
 - Changed expected error levels in unit tests for php8-compatibility
 - Travis unit tests now run for all php versions >= 5.3, including php8
 - Travis runs on Xenial where possible
-
 
 ### Fixed
 - PHP5.3 compatibility fixes

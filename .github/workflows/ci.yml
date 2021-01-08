@@ -31,7 +31,6 @@ jobs:
           - "7.3"
           - "7.4"
           - "8.0"
-          - "8.1"
 
         compiler:
           - default
@@ -39,10 +38,6 @@ jobs:
         include:
           - os: ubuntu-latest
             php-version: "8.0"
-            compiler: jit
-
-          - os: ubuntu-latest
-            php-version: "8.1"
             compiler: jit
 
     steps:

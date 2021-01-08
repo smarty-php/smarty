@@ -18,7 +18,6 @@ class HttpModifiedSinceTest extends PHPUnit_Smarty
 
     public function setUp(): void
     {
-        $this->markTestSkipped('modified since tests are disabled');
         $this->setUpSmarty(dirname(__FILE__));
      }
 

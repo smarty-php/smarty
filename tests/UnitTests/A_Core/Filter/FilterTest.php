@@ -187,17 +187,11 @@ class FilterTest extends PHPUnit_Smarty
 
     /**
      * test registered pre filter closure
-     * @requires PHP 5.3
      */
 
     public function testRegisteredPreFilterClosure()
     {
-       if (version_compare(PHP_VERSION,'5.3','<'))
-       {
-           $this->markTestSkipped('does not run for PHP 5.2');
-       } else {
-           include 'FilterClosure.php';
-       }
+       include 'FilterClosure.php';
     }
 
     /**

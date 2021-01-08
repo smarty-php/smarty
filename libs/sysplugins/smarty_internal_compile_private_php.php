@@ -144,9 +144,6 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
             return;
         } elseif (strpos($lex->value, '<?') === 0) {
             $lex->phpType = 'php';
-        } elseif (strpos($lex->value, '<%') === 0) {
-            $lex->phpType = 'asp';
-            $closeTag = '%>';
         } elseif (strpos($lex->value, '%>') === 0) {
             $lex->phpType = 'unmatched';
         } elseif (strpos($lex->value, '?>') === 0) {
@@ -173,7 +170,7 @@ class Smarty_Internal_Compile_Private_Php extends Smarty_Internal_CompileBase
         if ($lex->phpType === 'unmatched') {
             return;
         }
-        if (($lex->phpType === 'php' || $lex->phpType === 'asp')
+        if (($lex->phpType === 'php')
             &&
             ($lex->compiler->php_handling === Smarty::PHP_PASSTHRU ||
              $lex->compiler->php_handling === Smarty::PHP_QUOTE)

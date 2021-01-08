@@ -108,6 +108,9 @@ class FileResourceTest extends PHPUnit_Smarty
         );
     }
 
+	/**
+	 * @doesNotPerformAssertions
+	 */
     public function testGetCompiledTimestampPrepare()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
@@ -140,6 +143,9 @@ class FileResourceTest extends PHPUnit_Smarty
         $this->assertTrue($tpl->mustCompile());
     }
 
+	/**
+	 * @doesNotPerformAssertions
+	 */
     public function testMustCompileTouchedSourcePrepare()
     {
         // touch to prepare next test

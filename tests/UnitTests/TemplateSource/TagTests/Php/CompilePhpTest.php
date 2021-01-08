@@ -131,7 +131,6 @@ class CompilePhpTest extends PHPUnit_Smarty
     public function data()
     {
         $shortTag = ini_get('short_open_tag') == 1;
-        $aspTag = ini_get('asp_tags') == 1;
 
         $data = array(
             /*
@@ -159,13 +158,6 @@ class CompilePhpTest extends PHPUnit_Smarty
 echo \'<?  \';
 echo \'?> \';
 ?><--', 'PHP_ALLOW, \'php2.tpl\''),
-            array(Smarty::PHP_REMOVE, 'asp.tpl', '--><--', 'PHP_REMOVE, \'asp.tpl\''),
-            array(Smarty::PHP_PASSTHRU, 'asp.tpl', '', 'PHP_PASSTHRU, \'asp.tpl\''),
-            array(Smarty::PHP_QUOTE, 'asp.tpl', '', 'PHP_QUOTE, \'asp.tpl\''),
-            array(Smarty::PHP_ALLOW, 'asp.tpl', $aspTag ? '-->hello world <% %> <--' : '--><% echo \'hello world \';
-echo \'<% \';
-echo \'%> \';
-%><--', 'PHP_ALLOW, \'asp.tpl\''),
             array(Smarty::PHP_REMOVE, 'script.tpl', '<br><br>', 'PHP_REMOVE, \'script.tpl\''),
             array(Smarty::PHP_PASSTHRU, 'script.tpl', '', 'PHP_PASSTHRU, \'script.tpl\''),
             array(Smarty::PHP_QUOTE, 'script.tpl', '', 'PHP_QUOTE, \'script.tpl\''),

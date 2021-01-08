@@ -24,12 +24,8 @@ class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
      */
     public function setUp(): void
     {
-        if (MemCacheEnable != true) {
-            $this->markTestSkipped('Memcache tests are disabled');
-        } else {
-            if (!class_exists('Memcache')) {
-                $this->markTestSkipped('Memcache not available');
-            }
+        if (!class_exists('Memcache')) {
+            $this->markTestSkipped('Memcache not available');
         }
         $this->setUpSmarty(dirname(__FILE__));
         parent::setUp();

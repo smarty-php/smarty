@@ -199,16 +199,6 @@ class SecurityTest extends PHPUnit_Smarty
         $this->assertEquals('&lt;?php echo "hello world"; ?&gt;', $this->smarty->fetch('string:<?php echo "hello world"; ?>'));
     }
 
-    public function testSmartyPhpQuoteAsp()
-    {
-        // NOTE: asp_tags cannot be changed by ini_set()
-        if (!ini_get('asp_tags')) {
-            $this->markTestSkipped('asp tags disabled in php.ini');
-        }
-        $this->smarty->security_policy->php_handling = Smarty::PHP_QUOTE;
-        $this->assertEquals('&lt;% echo "hello world"; %&gt;', $this->smarty->fetch('string:<% echo "hello world"; %>'));
-    }
-
 /**
  * test Smarty::PHP_REMOVE
  */
@@ -218,16 +208,6 @@ class SecurityTest extends PHPUnit_Smarty
         $this->assertEquals('', $this->smarty->fetch('string:<?php echo "hello world"; ?>'));
     }
 
-    public function testSmartyPhpRemoveAsp()
-    {
-        // NOTE: asp_tags cannot be changed by ini_set()
-        if (!ini_get('asp_tags')) {
-            $this->markTestSkipped('asp tags disabled in php.ini');
-        }
-        $this->smarty->security_policy->php_handling = Smarty::PHP_REMOVE;
-        $this->assertEquals('', $this->smarty->fetch('string:<% echo "hello world"; %>'));
-    }
-
 /**
  * test Smarty::PHP_ALLOW
  */
@@ -235,16 +215,6 @@ class SecurityTest extends PHPUnit_Smarty
     {
         $this->smartyBC->security_policy->php_handling = Smarty::PHP_ALLOW;
         $this->assertEquals('hello world', $this->smartyBC->fetch('string:<?php echo "hello world"; ?>'));
-    }
-
-    public function testSmartyPhpAllowAsp()
-    {
-        // NOTE: asp_tags cannot be changed by ini_set()
-        if (!ini_get('asp_tags')) {
-            $this->markTestSkipped('asp tags disabled in php.ini');
-        }
-        $this->smartyBC->security_policy->php_handling = Smarty::PHP_ALLOW;
-        $this->assertEquals('hello world', $this->smartyBC->fetch('string:<% echo "hello world"; %>'));
     }
 
 /**

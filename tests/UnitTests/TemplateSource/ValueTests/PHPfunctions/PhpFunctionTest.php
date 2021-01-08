@@ -56,10 +56,6 @@ class PhpFunctionTest extends PHPUnit_Smarty
      */
     public function testEmpty2()
     {
-        if (version_compare(phpversion(), '5.5', '<')) {
-            $this->markTestSkipped('runs only on PHP >= 5.5');
-        }
-
         $this->smarty->disableSecurity();
         $this->smarty->assign('var', array(null,
                                            false,
@@ -81,9 +77,6 @@ class PhpFunctionTest extends PHPUnit_Smarty
      */
     public function testEmpty3()
     {
-        if (version_compare(phpversion(), '5.5', '<')) {
-            $this->markTestSkipped('runs only on PHP >= 5.5');
-        }
         $this->smarty->disableSecurity();
         $this->smarty->assign('var', array(true,
                                            (int) 1,
@@ -103,10 +96,6 @@ class PhpFunctionTest extends PHPUnit_Smarty
      */
     public function testEmpty4()
     {
-        if (version_compare(phpversion(), '5.5', '<')) {
-        $this->markTestSkipped('runs only on PHP >= 5.5');
-        }
-
         $this->smarty->disableSecurity();
         $this->smarty->assign('var', new TestIsset());
         $expected = ' true , false , false , true , true , true , false ';
