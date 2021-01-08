@@ -59,7 +59,7 @@ class StreamVariableTest extends PHPUnit_Smarty
         }
     */
     /**
-     * test no existant stream variable
+     * test no existent stream variable
      */
     //    public function testStreamVariable2()
     //    {
