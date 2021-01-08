@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.38] - 2021-01-08
+
+### Fixed
+- Smarty::SMARTY_VERSION wasn't updated https://github.com/smarty-php/smarty/issues/628
+
+## [3.1.37] - 2021-01-07
+
 ### Changed
 - Switch CI from Travis to Github CI
 - Updated unit tests to avoid skipped and risky test warnings
@@ -26,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - PHP5.3 compatibility fixes
+- Brought lexer source functionally up-to-date with compiled version
 
 ## [3.1.36] - 2020-04-14
 
