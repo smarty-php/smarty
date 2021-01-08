@@ -112,7 +112,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.36';
+    const SMARTY_VERSION = '3.1.37-dev-1';
     /**
      * define variable scopes
      */
@@ -309,6 +309,14 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var boolean
      */
     public $allow_ambiguous_resources = false;
+
+    /**
+     * allow inline constants (use defined constants without the $smarty.const. prefix)
+     * default to true for backwards compatibility
+     *
+     * @var boolean
+     */
+    public $allow_inline_constants = true;
 
     /**
      * merge compiled includes

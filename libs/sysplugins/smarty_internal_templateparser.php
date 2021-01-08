@@ -1771,6 +1771,7 @@ class Smarty_Internal_Templateparser
         $this->template = $this->compiler->template;
         $this->smarty = $this->template->smarty;
         $this->security = isset($this->smarty->security_policy) ? $this->smarty->security_policy : false;
+        $this->allow_inline_constants = $this->smarty->allow_inline_constants;
         $this->current_buffer = $this->root_buffer = new Smarty_Internal_ParseTree_Template();
     }  /* The parser's stack */
     public static function yy_destructor($yymajor, $yypminor)
@@ -2259,7 +2260,7 @@ class Smarty_Internal_Templateparser
             $this->strip = true;
             $this->_retvalue = null;
         } else {
-            if (defined($tag)) {
+            if ($this->allow_inline_constants AND defined($tag)) {
                 if ($this->security) {
                     $this->security->isTrustedConstant($tag, $this->compiler);
                 }
@@ -2348,7 +2349,7 @@ class Smarty_Internal_Templateparser
     // line 393 "../smarty/lexer/smarty_internal_templateparser.y"
     public function yy_r25()
     {
-        if (defined($this->yystack[ $this->yyidx + -1 ]->minor)) {
+        if ($this->allow_inline_constants AND defined($this->yystack[ $this->yyidx + -1 ]->minor)) {
             if ($this->security) {
                 $this->security->isTrustedConstant($this->yystack[ $this->yyidx + -1 ]->minor, $this->compiler);
             }
@@ -2365,7 +2366,7 @@ class Smarty_Internal_Templateparser
     // line 406 "../smarty/lexer/smarty_internal_templateparser.y"
     public function yy_r26()
     {
-        if (defined($this->yystack[ $this->yyidx + 0 ]->minor)) {
+        if ($this->allow_inline_constants AND defined($this->yystack[ $this->yyidx + 0 ]->minor)) {
             if ($this->security) {
                 $this->security->isTrustedConstant($this->yystack[ $this->yyidx + 0 ]->minor, $this->compiler);
             }
@@ -2380,7 +2381,7 @@ class Smarty_Internal_Templateparser
     // line 418 "../smarty/lexer/smarty_internal_templateparser.y"
     public function yy_r27()
     {
-        if (defined($this->yystack[ $this->yyidx + -2 ]->minor)) {
+        if ($this->allow_inline_constants AND defined($this->yystack[ $this->yyidx + -2 ]->minor)) {
             if ($this->security) {
                 $this->security->isTrustedConstant($this->yystack[ $this->yyidx + -2 ]->minor, $this->compiler);
             }
