@@ -1,9 +1,5 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
-## TODO:
-## - memcached/mysql services?
-## - remove travis
-
 on:
   - pull_request
   - push

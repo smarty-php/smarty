@@ -1,7 +1,7 @@
 # Smarty 3 template engine
 [smarty.net](https://www.smarty.net/) 
 
-[![Build Status](https://travis-ci.org/smarty-php/smarty.svg?branch=master)](https://travis-ci.org/smarty-php/smarty)
+![CI](https://github.com/smarty-php/smarty/workflows/CI/badge.svg)
 
 ## Documentation
 

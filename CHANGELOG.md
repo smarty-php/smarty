@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Switch CI from Travis to Github CI
 - Updated unit tests to avoid skipped and risky test warnings
 
 ### Removed

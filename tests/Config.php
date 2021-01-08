@@ -12,5 +12,5 @@ define('PdoCacheEnable', false);
 define('PdoGzipCacheEnable', false);
 define('MysqlResourceEnable', false);
 define('DB_DSN', "mysql:dbname=test;host=localhost");
-define('DB_USER', "travis");
+define('DB_USER', "root");
 define('DB_PASSWD', "");
