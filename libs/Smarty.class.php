@@ -27,7 +27,6 @@
  * @author    Uwe Tews   <uwe dot tews at gmail dot com>
  * @author    Rodney Rehm
  * @package   Smarty
- * @version   3.1.36
  */
 /**
  * set SMARTY_DIR to absolute path to Smarty library files.
@@ -112,7 +111,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '3.1.36';
+    const SMARTY_VERSION = '3.1.38';
     /**
      * define variable scopes
      */
