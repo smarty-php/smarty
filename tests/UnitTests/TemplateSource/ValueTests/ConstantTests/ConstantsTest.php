@@ -76,16 +76,22 @@ class ConstantsTest extends PHPUnit_Smarty
         $tpl->assign('obj', new TestConst());
         $this->assertEquals("yes", $this->smarty->fetch($tpl));
     }
+
     public function testConstantsUndefined()
     {
-	    $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
         $tpl = $this->smarty->createTemplate('string:{$smarty.const.MYCONSTANT2}');
         $this->assertEquals("", $this->smarty->fetch($tpl));
     }
+
     public function testConstantsUndefined2()
     {
-	    $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
         $tpl = $this->smarty->createTemplate('eval:{$foo = MYCONSTANT2}{$foo}');
         $this->assertEquals("MYCONSTANT2", $this->smarty->fetch($tpl));
+    }
+
+    public function testConstantsUndefined3()
+    {
+        $tpl = $this->smarty->createTemplate('eval:{if $smarty.const.MYCONSTANT2}{$smarty.const.MYCONSTANT2}{/if}');
+        $this->assertEquals("", $this->smarty->fetch($tpl));
     }
 }
