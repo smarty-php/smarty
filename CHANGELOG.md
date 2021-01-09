@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dropped support for PHP7.0 and below, so Smarty now requires PHP >=7.1
 - Dropped support for php asp tags in templates (removed from php since php7.0)
 - Dropped deprecated API calls that where only accessible through SmartyBC
-- Dropped support for {php} and {include_php} tags
+- Dropped support for {php} and {include_php} tags and embedded PHP in templates. Embedded PHP will now be passed through as is.
 - Removed all PHP_VERSION_ID and compare_version checks and conditional code blocks that are now no longer required
 
 ## [3.1.38] - 2021-01-08
