@@ -403,9 +403,6 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
      */
     public function testCache($lockTime, $lockTimeout, $compile_id, $cache_id, $isCached, $tmin, $tmax, $forceCompile, $forceCache, $update, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
     {
-        if ($testNumber == 13) {
-            $i =0;
-        }
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->assign('test', $testNumber);
