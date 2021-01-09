@@ -15,15 +15,12 @@
  */
 class SecurityTest extends PHPUnit_Smarty
 {
-    public $loadSmartyBC = true;
     public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
 
         $this->smarty->setForceCompile(true);
         $this->smarty->enableSecurity();
-        $this->smartyBC->setForceCompile(true);
-        $this->smartyBC->enableSecurity();
    }
    public function testInit()
     {
@@ -190,32 +187,24 @@ class SecurityTest extends PHPUnit_Smarty
         $this->smarty->fetch('string:{"hello"|upper}{"world"|lower}');
     }
 
-/**
- * test Smarty::PHP_QUOTE
- */
-    public function testSmartyPhpQuote()
-    {
-        $this->smarty->security_policy->php_handling = Smarty::PHP_QUOTE;
-        $this->assertEquals('&lt;?php echo "hello world"; ?&gt;', $this->smarty->fetch('string:<?php echo "hello world"; ?>'));
-    }
 
 /**
- * test Smarty::PHP_REMOVE
- */
-    public function testSmartyPhpRemove()
-    {
-        $this->smarty->security_policy->php_handling = Smarty::PHP_REMOVE;
-        $this->assertEquals('', $this->smarty->fetch('string:<?php echo "hello world"; ?>'));
-    }
-
-/**
- * test Smarty::PHP_ALLOW
+ * test Smarty no longer handles embedded PHP
  */
     public function testSmartyPhpAllow()
     {
-        $this->smartyBC->security_policy->php_handling = Smarty::PHP_ALLOW;
-        $this->assertEquals('hello world', $this->smartyBC->fetch('string:<?php echo "hello world"; ?>'));
+        $this->assertEquals('<?php echo "hello world"; ?>', $this->smarty->fetch('string:<?php echo "hello world"; ?>'));
     }
+
+	public function testSmartyPhpAllow2()
+	{
+		$this->assertEquals('<? echo "hello world"; ?>', $this->smarty->fetch('string:<? echo "hello world"; ?>'));
+	}
+
+	public function testSmartyPhpAllow3()
+	{
+		$this->assertEquals('<% echo "hello world"; %>', $this->smarty->fetch('string:<% echo "hello world"; %>'));
+	}
 
 /**
  * test standard directory

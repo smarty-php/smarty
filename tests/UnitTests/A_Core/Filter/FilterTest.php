@@ -15,7 +15,6 @@
  */
 class FilterTest extends PHPUnit_Smarty
 {
-    public $loadSmartyBC = true;
 
     public function setUp(): void
     {
@@ -55,13 +54,6 @@ class FilterTest extends PHPUnit_Smarty
         $this->smarty->loadFilter(Smarty::FILTER_OUTPUT, 'trimwhitespace');
         $tpl = $this->smarty->createTemplate('string:{"    <br>hello world"}');
         $this->assertEquals("<br>hello world", $this->smarty->fetch($tpl));
-    }
-
-    public function testLoadedOutputFilterWrapper()
-    {
-        $this->smartyBC->load_filter(Smarty::FILTER_OUTPUT, 'trimwhitespace');
-        $tpl = $this->smartyBC->createTemplate('eval:{"    <br>hello world"}');
-        $this->assertEquals("<br>hello world", $this->smartyBC->fetch($tpl));
     }
 
     /**
@@ -164,9 +156,9 @@ class FilterTest extends PHPUnit_Smarty
 
     public function testRegisteredOutputFilterWrapper()
     {
-        $this->smartyBC->register_outputfilter('myoutputfilter');
-        $tpl = $this->smartyBC->createTemplate('eval:{"hello   world"}');
-        $this->assertEquals("hello world", $this->smartyBC->fetch($tpl));
+        $this->smarty->registerFilter('output', 'myoutputfilter');
+        $tpl = $this->smarty->createTemplate('eval:{"hello   world"}');
+        $this->assertEquals("hello world", $this->smarty->fetch($tpl));
     }
 
     /**

@@ -9,33 +9,13 @@
  */
 class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
 {
-    /**
-     * Smarty object
-     *
-     * @var SmartyBC
-     */
-    public $smartyBC = null;
 
     /**
-     * SmartyBC object
+     * Smarty object
      *
      * @var Smarty
      */
     public $smarty = null;
-
-    /**
-     * Flag if test is using the Smarty object
-     *
-     * @var bool
-     */
-    public $loadSmarty = true;
-
-    /**
-     * Flag if test is using the SmartyBC object
-     *
-     * @var bool
-     */
-    public $loadSmartyBC = false;
 
     /**
      * Flag for initialization at first test
@@ -161,23 +141,15 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
             self::$init = false;
         }
         clearstatcache();
+
         // instance Smarty class
-        if ($this->loadSmarty) {
-            $this->smarty = new Smarty;
-            if (individualFolders != 'true') {
-                $this->smarty->setCompileDir(dirname(__FILE__) . '/templates_c');
-                $this->smarty->setCacheDir(dirname(__FILE__) . '/cache');
-            }
+        $this->smarty = new Smarty;
+        if (individualFolders != 'true') {
+            $this->smarty->setCompileDir(dirname(__FILE__) . '/templates_c');
+            $this->smarty->setCacheDir(dirname(__FILE__) . '/cache');
         }
-        // instance SmartyBC class
-        if ($this->loadSmartyBC) {
-            $this->smartyBC = new SmartyBC;
-            if (individualFolders != 'true') {
-                $this->smartyBC->setCompileDir(dirname(__FILE__) . '/templates_c');
-                $this->smartyBC->setCacheDir(dirname(__FILE__) . '/cache');
-            }
-        }
-        $smarty = $this->getSmartyObj();
+
+        $this->getSmartyObj();
     }
 
     /**
@@ -658,10 +630,10 @@ KEY `name` (`name`)
 
     /**
      *  Gat Smarty object
-     * @return null|\Smarty|\SmartyBC
+     * @return null|\Smarty
      */
     public function getSmartyObj(){
-        return isset($this->smarty) ? $this->smarty : (isset($this->smartyBC) ? $this->smartyBC : null);
+        return $this->smarty;
     }
 
     public static function getSmartyPluginsDir(){
@@ -688,12 +660,6 @@ KEY `name` (`name`)
         }
         if (isset($this->smarty)) {
             $this->smarty = null;
-        }
-        if (isset($this->smartyBC->smarty)) {
-            $this->smartyBC->smarty = null;
-        }
-        if (isset($this->smartyBC)) {
-            $this->smartyBC = null;
         }
     }
 }

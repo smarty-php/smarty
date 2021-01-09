@@ -143,13 +143,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     const DEBUG_OFF        = 0;
     const DEBUG_ON         = 1;
     const DEBUG_INDIVIDUAL = 2;
-    /**
-     * modes for handling of "<?php ... ?>" tags in templates.
-     */
-    const PHP_PASSTHRU = 0; //-> print tags as plain text
-    const PHP_QUOTE    = 1; //-> escape tags as entities
-    const PHP_REMOVE   = 2; //-> escape tags as entities
-    const PHP_ALLOW    = 3; //-> escape tags as entities
+
     /**
      * filter types
      */
@@ -368,13 +362,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @var Smarty_Security
      */
     public $security_policy = null;
-
-    /**
-     * controls handling of PHP-blocks
-     *
-     * @var integer
-     */
-    public $php_handling = self::PHP_PASSTHRU;
 
     /**
      * controls if the php template file resource is allowed

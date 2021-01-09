@@ -204,13 +204,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public $blockOrFunctionCode = '';
 
     /**
-     * php_handling setting either from Smarty or security
-     *
-     * @var int
-     */
-    public $php_handling = 0;
-
-    /**
      * flags for used modifier plugins
      *
      * @var array
@@ -437,11 +430,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     $this->smarty->_debug = new Smarty_Internal_Debug();
                 }
                 $this->smarty->_debug->start_compile($this->template);
-            }
-            if (isset($this->template->smarty->security_policy)) {
-                $this->php_handling = $this->template->smarty->security_policy->php_handling;
-            } else {
-                $this->php_handling = $this->template->smarty->php_handling;
             }
             $this->parent_compiler = $parent_compiler ? $parent_compiler : $this;
             $nocache = isset($nocache) ? $nocache : false;

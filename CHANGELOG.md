@@ -6,13 +6,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.1.38] - 2021-01-08
-
-### Fixed
-- Smarty::SMARTY_VERSION wasn't updated https://github.com/smarty-php/smarty/issues/628
-
-## [3.1.37] - 2021-01-07
-
 ### Changed
 - Switch CI from Travis to Github CI
 - Updated unit tests to avoid skipped and risky test warnings
@@ -20,7 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Dropped support for PHP7.0 and below, so Smarty now requires PHP >=7.1
 - Dropped support for php asp tags in templates (removed from php since php7.0)
+- Dropped deprecated API calls that where only accessible through SmartyBC
+- Dropped support for {php} and {include_php} tags
 - Removed all PHP_VERSION_ID and compare_version checks and conditional code blocks that are now no longer required
+
+## [3.1.38] - 2021-01-08
+
+### Fixed
+- Smarty::SMARTY_VERSION wasn't updated https://github.com/smarty-php/smarty/issues/628
 
 ## [3.1.37] - 2021-01-07
 
