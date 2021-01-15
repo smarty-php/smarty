@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Smarty plugin
  * -------------------------------------------------------------
@@ -8,30 +9,21 @@
  * Purpose:  Fetches templates from a database
  * -------------------------------------------------------------
  */
-function smarty_resource_db_source($tpl_name, &$tpl_source, $smarty)
-{
-    // do database call here to fetch your template,
-    // populating $tpl_source
-    $tpl_source = '{$x="hello world"}{$x}';
 
-    return true;
-}
+class Smarty_Resource_Db extends Smarty_Resource_Recompiled {
 
-function smarty_resource_db_timestamp($tpl_name, &$tpl_timestamp, $smarty)
-{
-    // $tpl_timestamp.
-    $tpl_timestamp = (int) floor(time() / 100) * 100;
+	public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null) {
+		$source->filepath = 'db:';
+		$source->uid = sha1($source->resource);
+		$source->timestamp = 0;
+		$source->exists = true;
+	}
 
-    return true;
-}
+	public function populateTimestamp(Smarty_Template_Source $source): int {
+		return 1000000000;
+	}
 
-function smarty_resource_db_secure($tpl_name, $smarty)
-{
-    // assume all templates are secure
-    return true;
-}
-
-function smarty_resource_db_trusted($tpl_name, $smarty)
-{
-    // not used for templates
+	public function getContent(Smarty_Template_Source $source) {
+		return '{$x="hello world"}{$x}';
+	}
 }
