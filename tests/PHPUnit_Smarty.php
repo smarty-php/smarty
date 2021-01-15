@@ -7,7 +7,7 @@
 /**
  * Smarty Test Case Fixture
  */
-class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
+class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
 {
 
     /**
