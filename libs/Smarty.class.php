@@ -60,19 +60,6 @@ if (!defined('SMARTY_MBSTRING')) {
      */
     define('SMARTY_MBSTRING', function_exists('mb_get_info'));
 }
-if (!defined('SMARTY_RESOURCE_CHAR_SET')) {
-    // UTF-8 can only be done properly when mbstring is available!
-    /**
-     * @deprecated in favor of Smarty::$_CHARSET
-     */
-    define('SMARTY_RESOURCE_CHAR_SET', SMARTY_MBSTRING ? 'UTF-8' : 'ISO-8859-1');
-}
-if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
-    /**
-     * @deprecated in favor of Smarty::$_DATE_FORMAT
-     */
-    define('SMARTY_RESOURCE_DATE_FORMAT', '%b %e, %Y');
-}
 /**
  * Load Smarty_Autoloader
  */
@@ -173,13 +160,13 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * The character set to adhere to (e.g. "UTF-8")
      */
-    public static $_CHARSET = SMARTY_RESOURCE_CHAR_SET;
+    public static $_CHARSET = SMARTY_MBSTRING ? 'UTF-8' : 'ISO-8859-1';
 
     /**
      * The date format to be used internally
      * (accepts date() and strftime())
      */
-    public static $_DATE_FORMAT = SMARTY_RESOURCE_DATE_FORMAT;
+    public static $_DATE_FORMAT = '%b %e, %Y';
 
     /**
      * Flag denoting if PCRE should run in UTF-8 mode
@@ -673,27 +660,6 @@ class Smarty extends Smarty_Internal_TemplateBase
         if (Smarty::$_CHARSET !== 'UTF-8') {
             Smarty::$_UTF8_MODIFIER = '';
         }
-    }
-
-    /**
-     * Enable error handler to mute expected messages
-     *
-     * @return     boolean
-     * @deprecated
-     */
-    public static function muteExpectedErrors()
-    {
-        return Smarty_Internal_ErrorHandler::muteExpectedErrors();
-    }
-
-    /**
-     * Disable error handler muting expected messages
-     *
-     * @deprecated
-     */
-    public static function unmuteExpectedErrors()
-    {
-        restore_error_handler();
     }
 
     /**
@@ -1374,11 +1340,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     private function _normalizeDir($dirName, $dir)
     {
         $this->{$dirName} = $this->_realpath(rtrim($dir, "/\\") . DIRECTORY_SEPARATOR, true);
-        if (class_exists('Smarty_Internal_ErrorHandler', false)) {
-            if (!isset(Smarty_Internal_ErrorHandler::$mutedDirectories[ $this->{$dirName} ])) {
-                Smarty_Internal_ErrorHandler::$mutedDirectories[ $this->{$dirName} ] = null;
-            }
-        }
     }
 
     /**
