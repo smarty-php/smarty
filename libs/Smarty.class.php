@@ -641,6 +641,12 @@ class Smarty extends Smarty_Internal_TemplateBase
     );
 
     /**
+     * PHP7 Compatibility mode
+     * @var bool
+     */
+    private $php7CompatMode = false;
+
+    /**
      * Initialize new Smarty object
      */
     public function __construct()
@@ -1369,4 +1375,23 @@ class Smarty extends Smarty_Internal_TemplateBase
         $isConfig ? $this->_joined_config_dir = join('#', $this->config_dir) :
             $this->_joined_template_dir = join('#', $this->template_dir);
     }
+
+    /**
+     * Activates PHP7 compatibility mode:
+     * - converts E_WARNINGS for "undefined array key" and "trying to read property of null" errors to E_NOTICE
+     *
+     * @void
+     */
+    public function setPHP7CompatMode(): void {
+        $this->php7CompatMode = true;
+    }
+
+    /**
+     * Indicates if PHP7 compatibility mode is set.
+     * @bool
+     */
+    public function getPHP7CompatMode(): bool {
+        return $this->php7CompatMode;
+    }
+
 }

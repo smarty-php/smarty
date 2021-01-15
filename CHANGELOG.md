@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- You can now use `$smarty->setPHP7CompatMode()` to activate php7 compatibility mode when running PHP8
+
 ### Changed
 - Switch CI from Travis to Github CI
 - Updated unit tests to avoid skipped and risky test warnings

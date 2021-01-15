@@ -285,12 +285,7 @@ class PluginFunctionHtmlCheckboxesTest extends PHPUnit_Smarty
         $this->_errors = array();
         set_error_handler(array($this, 'error_handler'));
 
-        $n = "\n";
-        $expected = '<label><input type="checkbox" name="id[]" value="1000" />Joe Schmoe</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1001" checked="checked" />Jack Smith</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1002" />Jane Johnson</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1003" />Charlie Brown</label><br />';
-
+	    $this->smarty->setPHP7CompatMode();
         $tpl = $this->smarty->createTemplate('eval:{html_checkboxes name="id" options=$cust_radios selected=$customer_id separator="<br />"}');
         $tpl->assign('customer_id', new _object_noString(1001));
         $tpl->assign('cust_radios', array(
@@ -311,12 +306,6 @@ class PluginFunctionHtmlCheckboxesTest extends PHPUnit_Smarty
     {
         $this->_errors = array();
         set_error_handler(array($this, 'error_handler'));
-
-        $n = "\n";
-        $expected = '<label><input type="checkbox" name="id[]" value="1000" />Joe Schmoe</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1001" checked="checked" />Jack Smith</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1002" />Jane Johnson</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1003" />Charlie Brown</label><br />';
 
         $tpl = $this->smarty->createTemplate('eval:{html_checkboxes name="id" options=$cust_radios selected=$customer_id separator="<br />"}');
         $tpl->assign('customer_id', 1001);
