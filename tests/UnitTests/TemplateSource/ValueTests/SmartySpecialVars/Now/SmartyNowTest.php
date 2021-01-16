@@ -35,7 +35,7 @@ class SmartyNowTest extends PHPUnit_Smarty
     }
     /**
      * test {$smarty.now nocache}
-     *
+     * @group slow
      */
     public function testSmartyNowNocache() {
         $this->smarty->setCaching(true);

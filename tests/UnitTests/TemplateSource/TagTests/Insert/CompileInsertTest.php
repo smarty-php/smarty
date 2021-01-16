@@ -210,6 +210,7 @@ class CompileInsertTest extends PHPUnit_Smarty
      * test insert plugin caching 2
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @group slow
      */
     public function testInsertPluginCaching3_2()
     {
