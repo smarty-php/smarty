@@ -15,7 +15,7 @@
  */
 class PluginFunctionFetchTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }
@@ -34,52 +34,52 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
 */
    public function testFetchUri()
     {
-        $this->assertContains('<title>Preface | Smarty</title>', $this->smarty->fetch('string:{fetch file="https://www.smarty.net/docs/en/preface.tpl"}'));
+        $this->assertStringContainsString('<title>Preface | Smarty</title>', $this->smarty->fetch('string:{fetch file="https://www.smarty.net/docs/en/preface.tpl"}'));
     }
 
 /**
 * test {fetch} invalid uri
 *
-* @expectedException        SmartyException
-* @expectedExceptionMessage  {fetch} cannot read resource 'https://foo.smarty.net/foo.dat'
 * @runInSeparateProcess
 * @preserveGlobalState disabled
 */
   public function testFetchInvalidUri()
   {
-      $result = $this->smarty->fetch('string:{fetch file="https://foo.smarty.net/foo.dat"}');
+	  $this->expectException('SmartyException');
+	  $this->expectExceptionMessage('{fetch} cannot read resource \'https://foo.smarty.net/foo.dat\'');
+      $this->smarty->fetch('string:{fetch file="https://foo.smarty.net/foo.dat"}');
   }
 
   /**
   * test {fetch file=...} access to file from path not aloo/wed by security settings
   *
-  * @expectedException        SmartyException
-  * @expectedExceptionMessage   not trusted file path
   * @run InSeparateProcess
   * @preserveGlobalState disabled
   */
   public function testFetchSecurity()
   {
+	  $this->expectException('SmartyException');
+	  $this->expectExceptionMessage('not trusted file path');
       $this->cleanDirs();
       $dir=$this->smarty->getTemplateDir();
       $this->smarty->enableSecurity();
-      $result = $this->smarty->fetch('string:{fetch file=\''. $dir[0]. '../../../../../etc/passwd\'}');
+      $this->smarty->fetch('string:{fetch file=\''. $dir[0]. '../../../../../etc/passwd\'}');
   }
   /**
   * test {fetch file=...} access to file from path not aloo/wed by security settings
   *
-  * @expectedException        SmartyException
-  * @expectedExceptionMessage   not trusted file path
   * @run InSeparateProcess
   * @preserveGlobalState disabled
   */
   public function testFetchSecurity2()
   {
+	  $this->expectException('SmartyException');
+	  $this->expectExceptionMessage('not trusted file path');
       $this->cleanDirs();
-      $dir=$this->smarty->getTemplateDir();
+      $this->smarty->getTemplateDir();
       $this->smarty->enableSecurity();
       $this->smarty->setTemplateDir('/templates');
-      $result = $this->smarty->fetch('string:{fetch file="/templates/../etc/passwd"}');
+      $this->smarty->fetch('string:{fetch file="/templates/../etc/passwd"}');
   }
 
 }

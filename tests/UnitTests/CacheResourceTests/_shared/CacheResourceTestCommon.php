@@ -15,7 +15,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
 {
     public static $touchResource = null;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->smarty->setTemplateDir(dirname(__FILE__) . '/templates');
         $this->smarty->addPluginsDir(dirname(__FILE__) . '/PHPunitplugins');
@@ -407,9 +407,6 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
      */
     public function testCache($lockTime, $lockTimeout, $compile_id, $cache_id, $isCached, $tmin, $tmax, $forceCompile, $forceCache, $update, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
     {
-        if ($testNumber == 13) {
-            $i =0;
-        }
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->assign('test', $testNumber);
@@ -555,7 +552,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
         }
         $tpl = $this->smarty->createTemplate('templatedir.tpl', $this->smarty);
         $this->assertEquals($iscached, $tpl->isCached());
-        $this->assertContains($result, $tpl->fetch());
+        $this->assertStringContainsString($result, $tpl->fetch());
     }
 
     public function dataDir(){

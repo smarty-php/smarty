@@ -15,7 +15,7 @@
  */
 class CompileDelimiterTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }
@@ -41,12 +41,10 @@ class CompileDelimiterTest extends PHPUnit_Smarty
         $this->assertEquals('x}x', $this->smarty->fetch($tpl));
     }
 
-    /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage nocache option not allowed
-     */
     public function testLeftDelimiterError()
     {
+	    $this->expectException('SmartyCompilerException');
+	    $this->expectExceptionMessage('nocache option not allowed');
         $tpl = $this->smarty->createTemplate('string:x{ldelim nocache}x');
         $this->assertEquals('x{x', $this->smarty->fetch($tpl));
     }

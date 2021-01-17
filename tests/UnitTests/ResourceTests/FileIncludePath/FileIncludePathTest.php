@@ -11,7 +11,7 @@
  */
 class FileIncludePathTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->use_include_path = true;
@@ -26,7 +26,7 @@ class FileIncludePathTest extends PHPUnit_Smarty
      * This method is called after a test is executed.
      *
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         ini_restore('include_path');
         $this->smarty->disableSecurity();
@@ -38,30 +38,30 @@ class FileIncludePathTest extends PHPUnit_Smarty
     }
     public function testInclude1()
     {
-        $this->assertContains('include_test1', $this->smarty->fetch('test1.tpl'));
+        $this->assertStringContainsString('include_test1', $this->smarty->fetch('test1.tpl'));
     }
     public function testInclude2()
     {
-        $this->assertContains('include_test2', $this->smarty->fetch('test2.tpl'));
+        $this->assertStringContainsString('include_test2', $this->smarty->fetch('test2.tpl'));
     }
     public function testInclude3()
     {
-        $this->assertContains('include_test3', $this->smarty->fetch('test3.tpl'));
+        $this->assertStringContainsString('include_test3', $this->smarty->fetch('test3.tpl'));
     }
     public function testInclude31()
     {
         $this->smarty->use_include_path = false;
         $this->smarty->security_policy->secure_dir = getcwd();
-        $this->assertContains('include_test3', $this->smarty->fetch('test3.tpl'));
+        $this->assertStringContainsString('include_test3', $this->smarty->fetch('test3.tpl'));
     }
     public function testInclude4()
     {
-        $this->assertContains('include_test4', $this->smarty->fetch('test4.tpl'));
+        $this->assertStringContainsString('include_test4', $this->smarty->fetch('test4.tpl'));
     }
     public function testInclude5()
     {
         $this->smarty->setTemplateDir(array('./'));
-        $this->assertContains('include path root', $this->smarty->fetch('test5.tpl'));
+        $this->assertStringContainsString('include path root', $this->smarty->fetch('test5.tpl'));
     }
 
  }

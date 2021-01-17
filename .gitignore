@@ -9,5 +9,6 @@ utilies/*.php
 
 # Dev
 phpunit*
+.phpunit.result.cache
 vendor/*
 composer.lock

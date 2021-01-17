@@ -7,35 +7,15 @@
 /**
  * Smarty Test Case Fixture
  */
-class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
+class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
 {
-    /**
-     * Smarty object
-     *
-     * @var SmartyBC
-     */
-    public $smartyBC = null;
 
     /**
-     * SmartyBC object
+     * Smarty object
      *
      * @var Smarty
      */
     public $smarty = null;
-
-    /**
-     * Flag if test is using the Smarty object
-     *
-     * @var bool
-     */
-    public $loadSmarty = true;
-
-    /**
-     * Flag if test is using the SmartyBC object
-     *
-     * @var bool
-     */
-    public $loadSmartyBC = false;
 
     /**
      * Flag for initialization at first test
@@ -86,7 +66,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      * This method is called before the first test of this test class is run.
      *
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         error_reporting(E_ALL & ~E_STRICT);
         self::$init = true;
@@ -97,7 +77,7 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
      * This method is called after the last test of this test class is run.
      *
      */
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         //self::$pdo = null;
         self::$testNumber = 0;
@@ -161,23 +141,15 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
             self::$init = false;
         }
         clearstatcache();
+
         // instance Smarty class
-        if ($this->loadSmarty) {
-            $this->smarty = new Smarty;
-            if (individualFolders != 'true') {
-                $this->smarty->setCompileDir(dirname(__FILE__) . '/templates_c');
-                $this->smarty->setCacheDir(dirname(__FILE__) . '/cache');
-            }
+        $this->smarty = new Smarty;
+        if (individualFolders != 'true') {
+            $this->smarty->setCompileDir(dirname(__FILE__) . '/templates_c');
+            $this->smarty->setCacheDir(dirname(__FILE__) . '/cache');
         }
-        // instance SmartyBC class
-        if ($this->loadSmartyBC) {
-            $this->smartyBC = new SmartyBC;
-            if (individualFolders != 'true') {
-                $this->smartyBC->setCompileDir(dirname(__FILE__) . '/templates_c');
-                $this->smartyBC->setCacheDir(dirname(__FILE__) . '/cache');
-            }
-        }
-        $smarty = $this->getSmartyObj();
+
+        $this->getSmartyObj();
     }
 
     /**
@@ -658,10 +630,10 @@ KEY `name` (`name`)
 
     /**
      *  Gat Smarty object
-     * @return null|\Smarty|\SmartyBC
+     * @return null|\Smarty
      */
     public function getSmartyObj(){
-        return isset($this->smarty) ? $this->smarty : (isset($this->smartyBC) ? $this->smartyBC : null);
+        return $this->smarty;
     }
 
     public static function getSmartyPluginsDir(){
@@ -676,7 +648,7 @@ KEY `name` (`name`)
      * This method is called after a test is executed.
      *
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if (class_exists('Smarty_Internal_TemplateCompilerBase') &&
             isset(Smarty_Internal_TemplateCompilerBase::$_tag_objects)
@@ -688,12 +660,6 @@ KEY `name` (`name`)
         }
         if (isset($this->smarty)) {
             $this->smarty = null;
-        }
-        if (isset($this->smartyBC->smarty)) {
-            $this->smartyBC->smarty = null;
-        }
-        if (isset($this->smartyBC)) {
-            $this->smartyBC = null;
         }
     }
 }

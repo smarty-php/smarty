@@ -15,7 +15,7 @@
  */
 class DefaultTemplateHandlerTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->setForceCompile(true);
@@ -36,7 +36,7 @@ class DefaultTemplateHandlerTest extends PHPUnit_Smarty
             $this->smarty->fetch('foo.tpl');
         }
         catch (Exception $e) {
-            $this->assertContains('Unable to load template', $e->getMessage());
+            $this->assertStringContainsString('Unable to load template', $e->getMessage());
 
             return;
         }
@@ -52,8 +52,8 @@ class DefaultTemplateHandlerTest extends PHPUnit_Smarty
             $this->smarty->registerDefaultTemplateHandler('foo');
         }
         catch (Exception $e) {
-            $this->assertContains("Default template handler", $e->getMessage());
-            $this->assertContains("not callable", $e->getMessage());
+            $this->assertStringContainsString("Default template handler", $e->getMessage());
+            $this->assertStringContainsString("not callable", $e->getMessage());
 
             return;
         }
@@ -85,7 +85,7 @@ class DefaultTemplateHandlerTest extends PHPUnit_Smarty
             $this->smarty->fetch('foo.tpl');
         }
         catch (Exception $e) {
-            $this->assertContains('Default handler: No template default content for \'file:foo.tpl\'', $e->getMessage());
+            $this->assertStringContainsString('Default handler: No template default content for \'file:foo.tpl\'', $e->getMessage());
 
             return;
         }

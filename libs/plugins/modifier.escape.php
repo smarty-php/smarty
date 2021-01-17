@@ -23,12 +23,9 @@
  */
 function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $double_encode = true)
 {
-    static $_double_encode = null;
+    static $_double_encode = true;
     static $is_loaded_1 = false;
     static $is_loaded_2 = false;
-    if ($_double_encode === null) {
-        $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
-    }
     if (!$char_set) {
         $char_set = Smarty::$_CHARSET;
     }

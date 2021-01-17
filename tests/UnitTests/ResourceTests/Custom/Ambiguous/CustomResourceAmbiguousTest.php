@@ -17,7 +17,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 {
     public $_resource = null;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         require_once dirname(__FILE__) . '/PHPunitplugins/resource.ambiguous.php';
