@@ -285,7 +285,7 @@ class PluginFunctionHtmlCheckboxesTest extends PHPUnit_Smarty
         $this->_errors = array();
         set_error_handler(array($this, 'error_handler'));
 
-	    $this->smarty->setPHP7CompatMode();
+        $this->smarty->setPHP7CompatMode();
         $tpl = $this->smarty->createTemplate('eval:{html_checkboxes name="id" options=$cust_radios selected=$customer_id separator="<br />"}');
         $tpl->assign('customer_id', new _object_noString(1001));
         $tpl->assign('cust_radios', array(

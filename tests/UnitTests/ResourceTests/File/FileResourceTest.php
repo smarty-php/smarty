@@ -69,10 +69,10 @@ class FileResourceTest extends PHPUnit_Smarty
      */
     public function testTemplateFileNotExists3()
     {
-	    $this->expectException('SmartyException');
-	    $this->expectExceptionMessage('Unable to');
-	    $this->expectExceptionMessage('notthere.tpl');
-	    $this->smarty->fetch('notthere.tpl');
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('Unable to');
+        $this->expectExceptionMessage('notthere.tpl');
+        $this->smarty->fetch('notthere.tpl');
     }
 
     public function testGetTemplateTimestamp()
@@ -108,9 +108,9 @@ class FileResourceTest extends PHPUnit_Smarty
         );
     }
 
-	/**
-	 * @doesNotPerformAssertions
-	 */
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testGetCompiledTimestampPrepare()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
@@ -143,9 +143,9 @@ class FileResourceTest extends PHPUnit_Smarty
         $this->assertTrue($tpl->mustCompile());
     }
 
-	/**
-	 * @doesNotPerformAssertions
-	 */
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testMustCompileTouchedSourcePrepare()
     {
         // touch to prepare next test
@@ -222,8 +222,8 @@ class FileResourceTest extends PHPUnit_Smarty
      */
     public function testRelativeIncludeFail()
     {
-	    $this->expectException('SmartyException');
-	    $this->expectExceptionMessage('Unable to');
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('Unable to');
         $this->smarty->fetch('relative_sub.tpl');
     }
     /**
@@ -234,8 +234,8 @@ class FileResourceTest extends PHPUnit_Smarty
      */
     public function testRelativeIncludeFailOtherDir()
     {
-	    $this->expectException('SmartyException');
-	    $this->expectExceptionMessage('./hello.tpl');
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('./hello.tpl');
         $this->smarty->addTemplateDir('./templates_2');
         $this->smarty->fetch('relative_notexist.tpl');
      }

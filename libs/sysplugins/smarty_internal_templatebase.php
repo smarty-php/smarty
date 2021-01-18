@@ -201,8 +201,8 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) : null;
 
             if ($smarty->getPHP7CompatMode()) {
-	            $errorHandler = new Smarty_Internal_ErrorHandler();
-	            $errorHandler->activate();
+                $errorHandler = new Smarty_Internal_ErrorHandler();
+                $errorHandler->activate();
             }
 
             if ($this->_objType === 2) {
@@ -250,7 +250,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             }
 
             if (isset($errorHandler)) {
-	            $errorHandler->deactivate();
+                $errorHandler->deactivate();
             }
 
             if (isset($_smarty_old_error_level)) {
@@ -261,13 +261,13 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
-	        if (isset($errorHandler)) {
-		        $errorHandler->deactivate();
-	        }
+            if (isset($errorHandler)) {
+                $errorHandler->deactivate();
+            }
 
-	        if (isset($_smarty_old_error_level)) {
-		        error_reporting($_smarty_old_error_level);
-	        }
+            if (isset($_smarty_old_error_level)) {
+                error_reporting($_smarty_old_error_level);
+            }
             throw $e;
         }
     }

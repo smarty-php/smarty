@@ -291,9 +291,9 @@ class ScopeTest extends PHPUnit_Smarty
                            'no  smarty', $i ++,),);
     }
 
-	/**
-	 * @doesNotPerformAssertions
-	 */
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testFunctionScope()
     {
         $this->smarty->assign('scope', 'none');
