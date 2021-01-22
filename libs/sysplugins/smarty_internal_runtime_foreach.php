@@ -56,12 +56,6 @@ class Smarty_Internal_Runtime_Foreach
         if (!isset($total)) {
             $total = empty($from) ? 0 : ($needTotal ? count($from) : 1);
         }
-        if (isset($tpl->tpl_vars[ $item ])) {
-            $saveVars[ 'item' ] = array(
-                $item,
-                $tpl->tpl_vars[ $item ]
-            );
-        }
         $tpl->tpl_vars[ $item ] = new Smarty_Variable(null, $tpl->isRenderingCache);
         if ($total === 0) {
             $from = null;
