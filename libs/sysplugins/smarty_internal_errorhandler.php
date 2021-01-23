@@ -31,7 +31,7 @@ class Smarty_Internal_ErrorHandler
     public function activate() {
         /*
             Error muting is done because some people implemented custom error_handlers using
-            http://php.net/set_error_handler and for some reason did not understand the following paragraph:
+            https://php.net/set_error_handler and for some reason did not understand the following paragraph:
 
             It is important to remember that the standard PHP error handler is completely bypassed for the
             error types specified by error_types unless the callback function returns FALSE.
@@ -54,7 +54,7 @@ class Smarty_Internal_ErrorHandler
     /**
      * Error Handler to mute expected messages
      *
-     * @link http://php.net/set_error_handler
+     * @link https://php.net/set_error_handler
      *
      * @param integer $errno Error level
      * @param         $errstr
