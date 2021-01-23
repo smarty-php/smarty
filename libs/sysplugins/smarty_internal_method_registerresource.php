@@ -22,7 +22,7 @@ class Smarty_Internal_Method_RegisterResource
      * Registers a resource to fetch a template
      *
      * @api  Smarty::registerResource()
-     * @link http://www.smarty.net/docs/en/api.register.resource.tpl
+     * @link https://www.smarty.net/docs/en/api.register.resource.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
      * @param string                                                          $name             name of resource type
