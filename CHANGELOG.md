@@ -32,7 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [3.1.37] - 2021-01-07
 
 ### Changed
-- Dropped support for PHP versions lower than PHP7.1 (and disabled unit tests for 7.1) 
 - Changed error handlers and handling of undefined constants for php8-compatibility (set $errcontext argument optional) https://github.com/smarty-php/smarty/issues/605
 - Changed expected error levels in unit tests for php8-compatibility
 - Travis unit tests now run for all php versions >= 5.3, including php8
