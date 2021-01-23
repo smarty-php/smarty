@@ -28,8 +28,8 @@ class SmartyErrorTest extends PHPUnit_Smarty
      * test undefined Smarty special variable
      */
     public function testSmartyError() {
-	    $this->expectException('SmartyException');
-	    $this->expectExceptionMessage('$smarty.foo is not defined');
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('$smarty.foo is not defined');
         $this->assertEquals(Smarty::SMARTY_VERSION, $this->smarty->fetch('error.tpl'));
     }
  }

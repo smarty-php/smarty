@@ -615,11 +615,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         $this->trigger_template_error('Illegal number of parameter in "isset()"');
                     }
 
-	                $pa = array();
-	                foreach ($parameter as $p) {
-		                $pa[] = $this->syntaxMatchesVariable($p) ? 'isset(' . $p . ')' : '(' . $p . ' !== null )';
-	                }
-	                return '(' . implode(' && ', $pa) . ')';
+                    $pa = array();
+                    foreach ($parameter as $p) {
+                        $pa[] = $this->syntaxMatchesVariable($p) ? 'isset(' . $p . ')' : '(' . $p . ' !== null )';
+                    }
+                    return '(' . implode(' && ', $pa) . ')';
 
                 } elseif (in_array(
                     $func_name,
@@ -651,16 +651,16 @@ abstract class Smarty_Internal_TemplateCompilerBase
         }
     }
 
-	/**
-	 * Determines whether the passed string represents a valid (PHP) variable.
-	 * This is important, because `isset()` only works on variables and `empty()` can only be passed
-	 * a variable prior to php5.5
-	 * @param $string
-	 * @return bool
-	 */
-	private function syntaxMatchesVariable($string) {
-    	static $regex_pattern = '/^\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*((->)[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*|\[.*]*\])*$/';
-    	return 1 === preg_match($regex_pattern, trim($string));
+    /**
+     * Determines whether the passed string represents a valid (PHP) variable.
+     * This is important, because `isset()` only works on variables and `empty()` can only be passed
+     * a variable prior to php5.5
+     * @param $string
+     * @return bool
+     */
+    private function syntaxMatchesVariable($string) {
+        static $regex_pattern = '/^\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*((->)[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*|\[.*]*\])*$/';
+        return 1 === preg_match($regex_pattern, trim($string));
     }
 
     /**
@@ -675,11 +675,11 @@ abstract class Smarty_Internal_TemplateCompilerBase
     {
 
         if (strpos($text, '<') === false) {
-        	return preg_replace($this->stripRegEx, '', $text);
+            return preg_replace($this->stripRegEx, '', $text);
         }
 
-	    $store = array();
-	    $_store = 0;
+        $store = array();
+        $_store = 0;
 
         // capture html elements not to be messed with
         $_offset = 0;

@@ -121,7 +121,7 @@ abstract class Smarty_Internal_Data
      * appends values to template variables
      *
      * @api  Smarty::append()
-     * @link http://www.smarty.net/docs/en/api.append.tpl
+     * @link https://www.smarty.net/docs/en/api.append.tpl
      *
      * @param array|string $tpl_var the template variable name(s)
      * @param mixed        $value   the value to append
@@ -182,7 +182,7 @@ abstract class Smarty_Internal_Data
      * Returns a single or all template variables
      *
      * @api  Smarty::getTemplateVars()
-     * @link http://www.smarty.net/docs/en/api.get.template.vars.tpl
+     * @link https://www.smarty.net/docs/en/api.get.template.vars.tpl
      *
      * @param string                                                  $varName       variable name or null
      * @param \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty $_ptr          optional pointer to data object

@@ -32,8 +32,8 @@ class AttributeTest extends PHPUnit_Smarty
      */
     public function testRequiredAttributeVar()
     {
-	    $this->expectException('SmartyCompilerException');
-	    $this->expectExceptionMessage('missing \'var\' attribute');
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('missing \'var\' attribute');
         $this->smarty->fetch('string:{assign value=1}');
     }
 
@@ -42,8 +42,8 @@ class AttributeTest extends PHPUnit_Smarty
      */
     public function testUnexpectedAttribute()
     {
-	    $this->expectException('SmartyCompilerException');
-	    $this->expectExceptionMessage('unexpected \'bar\' attribute');
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('unexpected \'bar\' attribute');
         $this->smarty->fetch('string:{assign var=foo value=1 bar=2}');
     }
 
@@ -52,9 +52,9 @@ class AttributeTest extends PHPUnit_Smarty
      */
     public function testIllegalOptionValue()
     {
-	    $this->expectException('SmartyCompilerException');
-	    $this->expectExceptionMessage('for option flag \'nocache\'');
-	    $this->expectExceptionMessage('illegal value');
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('for option flag \'nocache\'');
+        $this->expectExceptionMessage('illegal value');
         $this->smarty->fetch('string:{assign var=foo value=1 nocache=buh}');
     }
 
@@ -63,8 +63,8 @@ class AttributeTest extends PHPUnit_Smarty
      */
     public function testTooManyShorthands()
     {
-	    $this->expectException('SmartyCompilerException');
-	    $this->expectExceptionMessage('too many shorthand attributes');
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('too many shorthand attributes');
         $this->smarty->fetch('string:{assign foo 1 2}');
     }
 

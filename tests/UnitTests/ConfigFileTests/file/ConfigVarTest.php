@@ -403,7 +403,7 @@ class ConfigVarTest extends PHPUnit_Smarty
             $this->assertEquals("", $this->smarty->fetch('foo.tpl'));
         }
         catch (Exception $e) {
-	        $this->assertStringStartsWith('Undefined variable', $e->getMessage());
+            $this->assertStringStartsWith('Undefined variable', $e->getMessage());
         }
     }
 }

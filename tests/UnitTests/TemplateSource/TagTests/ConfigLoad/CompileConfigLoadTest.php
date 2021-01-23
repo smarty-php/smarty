@@ -165,8 +165,8 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
      */
     public function testConfigSyntaxError_009()
     {
-	    $this->expectException('SmartyCompilerException');
-	    $this->expectExceptionMessage('Syntax error in config file');
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('Syntax error in config file');
         $this->smarty->fetch('009_error.tpl');
     }
 }

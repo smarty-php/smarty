@@ -20,7 +20,7 @@
  * Smarty mailing list. Send a blank e-mail to
  * smarty-discussion-subscribe@googlegroups.com
  *
- * @link      http://www.smarty.net/
+ * @link      https://www.smarty.net/
  * @copyright 2018 New Digital Group, Inc.
  * @copyright 2018 Uwe Tews
  * @author    Monte Ohrt <monte at ohrt dot com>

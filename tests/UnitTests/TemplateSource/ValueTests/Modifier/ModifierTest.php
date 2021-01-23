@@ -100,8 +100,8 @@ class ModifierTest extends PHPUnit_Smarty
      */
     public function testUnknownModifier()
     {
-    	$this->expectException('SmartyCompilerException');
-	    $this->expectExceptionMessage('unknown modifier \'unknown\'');
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('unknown modifier \'unknown\'');
         $this->smarty->fetch('eval:{"hello world"|unknown}');
     }
 

@@ -11,7 +11,7 @@
  * Name:     escape
  * Purpose:  escape string for output
  *
- * @link   http://www.smarty.net/docsv2/en/language.modifier.escape count_characters (Smarty online manual)
+ * @link   https://www.smarty.net/docsv2/en/language.modifier.escape count_characters (Smarty online manual)
  * @author Rodney Rehm
  *
  * @param array                                $params parameters

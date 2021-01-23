@@ -84,48 +84,48 @@ class RegisteredResourceTest extends PHPUnit_Smarty
 
 class RegisteredResourceTest_Resource1 extends Smarty_Resource_Custom {
 
-	protected function fetch($name, &$source, &$mtime) {
-		$source = '{$x="hello world"}{$x}';
-		$mtime = 1000000000;
-	}
+    protected function fetch($name, &$source, &$mtime) {
+        $source = '{$x="hello world"}{$x}';
+        $mtime = 1000000000;
+    }
 
 }
 
 class RegisteredResourceTest_Resource2 extends Smarty_Resource_Custom {
 
-	protected function fetch($name, &$source, &$mtime) {
+    protected function fetch($name, &$source, &$mtime) {
 
-		// we update a counter, so that we return a new source for every call
-		static $counter = 0;
-		$counter ++;
+        // we update a counter, so that we return a new source for every call
+        static $counter = 0;
+        $counter ++;
 
-		// construct a new source
-		$source = "this is template $counter";
+        // construct a new source
+        $source = "this is template $counter";
 
-		$mtime = 1000000000;
-	}
+        $mtime = 1000000000;
+    }
 
-	protected function fetchTimestamp($name)
-	{
-		return 1000000000;
-	}
+    protected function fetchTimestamp($name)
+    {
+        return 1000000000;
+    }
 
 }
 
 class RegisteredResourceTest_Resource3 extends Smarty_Resource_Custom {
 
-	protected function fetch($name, &$source, &$mtime) {
-		$source = 'template = {$smarty.template}';
-		$mtime = 1000000000;
-	}
+    protected function fetch($name, &$source, &$mtime) {
+        $source = 'template = {$smarty.template}';
+        $mtime = 1000000000;
+    }
 
 }
 
 class RegisteredResourceTest_Resource4 extends Smarty_Resource_Custom {
 
-	protected function fetch($name, &$source, &$mtime) {
-		$source = 'current_dir = {$smarty.current_dir}';
-		$mtime = 1000000000;
-	}
+    protected function fetch($name, &$source, &$mtime) {
+        $source = 'current_dir = {$smarty.current_dir}';
+        $mtime = 1000000000;
+    }
 
 }
