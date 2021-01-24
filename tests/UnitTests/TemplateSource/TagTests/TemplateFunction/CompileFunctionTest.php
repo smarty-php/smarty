@@ -431,5 +431,14 @@ class CompileFunctionTest extends PHPUnit_Smarty
                      array("{function name=simple}A{\$foo}\nC{/function}{call name='simple'}", "Abar\nC", 'T14', $i++),
                      array("{function name=simple}A\n{\$foo}\nC{/function}{call name='simple'}", "A\nbar\nC", 'T15', $i++),
         );
-            }
+    }
+
+    /**
+     * Test handling of function names that are a security risk
+     */
+    public function testIllegalFunctionName() {
+	    $this->expectException(SmartyCompilerException::class);
+	    $this->smarty->fetch('string:{function name=\'rce(){};echo "hi";function \'}{/function}');
+    }
+
 }

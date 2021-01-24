@@ -58,6 +58,11 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
         }
         unset($_attr[ 'nocache' ]);
         $_name = trim($_attr[ 'name' ], '\'"');
+
+        if (!preg_match('/^[a-zA-Z0-9_\x80-\xff]+$/', $_name)) {
+	        $compiler->trigger_template_error("Function name contains invalid characters: {$_name}", null, true);
+        }
+
         $compiler->parent_compiler->tpl_function[ $_name ] = array();
         $save = array(
             $_attr, $compiler->parser->current_buffer, $compiler->template->compiled->has_nocache_code,

@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- Code injection vulnerability by using illegal function names in `{function name='blah'}{/function}` 
+
 ## [3.1.38] - 2021-01-08
 
 ### Fixed
