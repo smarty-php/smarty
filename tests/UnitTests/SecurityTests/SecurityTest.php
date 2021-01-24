@@ -382,6 +382,15 @@ class SecurityTest extends PHPUnit_Smarty
         $this->smarty->security_policy->trusted_uri = array();
         $this->assertContains('<title>Preface | Smarty</title>', $this->smarty->fetch('string:{fetch file="https://www.smarty.net/docs/en/preface.tpl"}'));
     }
+
+    /**
+     * In security mode, accessing $smarty.template_object should be illegal.
+     */
+    public function testSmartyTemplateObject() {
+    	$this->expectException(SmartyCompilerException::class);
+	    $this->smarty->display('string:{$smarty.template_object}');
+    }
+
 }
 
 class mysecuritystaticclass
