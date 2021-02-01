@@ -435,9 +435,9 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
     /**
      * Test handling of function names that are a security risk
+     * @expectedException        SmartyCompilerException
      */
     public function testIllegalFunctionName() {
-	    $this->expectException(SmartyCompilerException::class);
 	    $this->smarty->fetch('string:{function name=\'rce(){};echo "hi";function \'}{/function}');
     }
 
