@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
+### Security
 - Prevent access to `$smarty.template_object` in Security mode
 
 ## [3.1.38] - 2021-01-08
