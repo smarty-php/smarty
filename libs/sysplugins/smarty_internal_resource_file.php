@@ -37,7 +37,8 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                 $source->filepath . ($source->isConfig ? $source->smarty->_joined_config_dir :
                     $source->smarty->_joined_template_dir)
             );
-            $source->timestamp = filemtime($source->filepath);
+            // When not doing compile_check, set timestamp to true
+            $source->timestamp = $source->smarty->compile_check ? filemtime($source->filepath) : true;
         } else {
             $source->timestamp = $source->exists = false;
         }
@@ -50,6 +51,10 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     public function populateTimestamp(Smarty_Template_Source $source)
     {
+        if (!$source->smarty->compile_check) {
+            $source->timestamp =  $source->exists = true;
+            return;
+        }
         if (!$source->exists) {
             $source->timestamp = $source->exists = is_file($source->filepath);
         }
@@ -68,13 +73,15 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     public function getContent(Smarty_Template_Source $source)
     {
-        if ($source->exists) {
-            return file_get_contents($source->filepath);
+        if (($source->smarty->compile_check && $source->exists)
+            || false === ($content = file_get_contents($source->filepath))
+        ) {
+            throw new SmartyException(
+                'Unable to read ' . ($source->isConfig ? 'config' : 'template') .
+                " {$source->type} '{$source->name}'"
+            );
         }
-        throw new SmartyException(
-            'Unable to read ' . ($source->isConfig ? 'config' : 'template') .
-            " {$source->type} '{$source->name}'"
-        );
+        return $content;
     }
 
     /**
@@ -126,6 +133,17 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
             $file = str_replace(DIRECTORY_SEPARATOR === '/' ? '\\' : '/', DIRECTORY_SEPARATOR, $file);
         }
         $_directories = $source->smarty->getTemplateDir(null, $source->isConfig);
+
+        // If possible, assume the file exists when compile_check = false;
+        if (!$source->smarty->compile_check
+            && count($_directories) == 1    // if there are multiple directories, we'll have to scan them
+            && $file[ 0 ] !== '['           // template_dir index
+            && !$source->smarty->use_include_path // cannot optimize when we need to use include path
+        ) {
+            $path = reset($_directories) . $file;
+            return (strpos($path, '.' . DIRECTORY_SEPARATOR) !== false) ? $source->smarty->_realpath($path) : $path;
+        }
+
         // template_dir index?
         if ($file[ 0 ] === '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
             $file = $fileMatch[ 2 ];
@@ -157,6 +175,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
                 $_directories = $_index_dirs;
             }
         }
+
         // relative file name?
         foreach ($_directories as $_directory) {
             $path = $_directory . $file;
