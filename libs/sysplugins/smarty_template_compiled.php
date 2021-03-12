@@ -74,9 +74,14 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             $this->filepath .= '.cache';
         }
         $this->filepath .= '.php';
-        $this->timestamp = $this->exists = is_file($this->filepath);
-        if ($this->exists) {
-            $this->timestamp = filemtime($this->filepath);
+
+        if ($smarty->compile_check) {
+            $this->timestamp = $this->exists = is_file($this->filepath);
+            if ($this->exists) {
+                $this->timestamp = filemtime($this->filepath);
+            }
+        } else {
+            $this->timestamp = $this->exists = true;
         }
     }
 
@@ -135,8 +140,9 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if ($source->handler->recompiled) {
             $source->handler->process($_smarty_tpl);
         } elseif (!$source->handler->uncompiled) {
-            if (!$this->exists || $smarty->force_compile
-                || ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
+            if (
+                $smarty->force_compile ||
+                ($_smarty_tpl->compile_check && (!$this->exists || ($source->getTimeStamp() > $this->getTimeStamp())))
             ) {
                 $this->compileTemplateSource($_smarty_tpl);
                 $compileCheck = $_smarty_tpl->compile_check;
