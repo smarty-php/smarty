@@ -73,7 +73,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource
      */
     public function getContent(Smarty_Template_Source $source)
     {
-        if (($source->smarty->compile_check && $source->exists)
+        if (($source->smarty->compile_check && !$source->exists)
             || false === ($content = file_get_contents($source->filepath))
         ) {
             throw new SmartyException(
