@@ -250,6 +250,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
             }
             return $return;
         default:
+            trigger_error("escape: unsupported type: $esc_type - returning unmodified string", E_USER_NOTICE);
             return $string;
     }
 }
