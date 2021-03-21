@@ -674,7 +674,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
 	 * @param $string
 	 * @return bool
 	 */
-	private function syntaxMatchesVariable($string) {
+	public function syntaxMatchesVariable($string) {
     	static $regex_pattern = '/^\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*((->)[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*|\[.*]*\])*$/';
     	return 1 === preg_match($regex_pattern, trim($string));
     }

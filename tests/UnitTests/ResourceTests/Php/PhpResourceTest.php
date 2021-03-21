@@ -161,7 +161,7 @@ class PhpResourceTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     *
+     * @doesNotPerformAssertions
      */
     public function testIsCachedTouchedSourcePrepare()
     {
@@ -212,6 +212,7 @@ class PhpResourceTest extends PHPUnit_Smarty
 
     /**
      * test $smarty->is_cached
+     * @doesNotPerformAssertions
      */
     public function testSmartyIsCachedPrepare()
     {

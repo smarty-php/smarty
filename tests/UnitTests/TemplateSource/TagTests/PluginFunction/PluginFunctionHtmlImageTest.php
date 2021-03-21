@@ -20,6 +20,9 @@ class PluginFunctionHtmlImageTest extends PHPUnit_Smarty
         $this->setUpSmarty(dirname(__FILE__));
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testFoo()
     {
         // TODO: UnitTests for {html_image}
