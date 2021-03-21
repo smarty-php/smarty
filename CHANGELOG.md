@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- modifier escape now triggers a E_USER_NOTICE when an unsupported escape type is used https://github.com/smarty-php/smarty/pull/649
+
 ## [3.1.39] - 2021-02-17
 
 ### Security
