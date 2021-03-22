@@ -330,6 +330,6 @@ class CompileIncludeTest extends PHPUnit_Smarty
 	 */
 	public function testInlineStringInclude()
 	{
-		$this->assertEquals('include-inline', $this->smarty->fetch('inline_string_include.tpl'));
+		$this->assertEquals("include-inline\n", $this->smarty->fetch('inline_string_include.tpl'));
 	}
 }
