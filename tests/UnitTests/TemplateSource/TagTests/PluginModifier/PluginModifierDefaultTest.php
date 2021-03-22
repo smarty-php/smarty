@@ -13,6 +13,7 @@ class PluginModifierDefaultTest extends PHPUnit_Smarty
 	public function setUp()
 	{
 		$this->setUpSmarty(dirname(__FILE__));
+		$this->smarty->setErrorReporting(E_ALL ^ E_NOTICE);
 	}
 
 	/**
@@ -102,6 +103,8 @@ class PluginModifierDefaultTest extends PHPUnit_Smarty
 			'p' => array('v' => 'v4'),
 			'v' => 'v2'
 		));
+		$this->smarty->assign('k', 'k');
+		$this->smarty->assign('nk', 'nk');
 		$this->assertEquals($expected, $this->smarty->fetch($tpl));
 	}
 
@@ -113,6 +116,10 @@ class PluginModifierDefaultTest extends PHPUnit_Smarty
 			array('string:{$a.v|default:"B"}', 'v1'),     // array key set
 			array('string:{$o->v|default:"B"}', 'v2'),    // object property set
 			array('string:{$a.k->v|default:"B"}', 'v3'),  // complex combi of array and key access
+			array('string:{$a["k"]->v|default:"B"}', 'v3'),  // complex combi of array and key access
+			array('string:{$a[$k]->v|default:"B"}', 'v3'),  // complex combi of array and key access
+			array('string:{$a[$nk]->v|default:"B"}', 'B'),  // complex combi of array and key access
+			array('string:{$a[$u]->v|default:"B"}', 'B'),  // complex combi of array and key access
 			array('string:{$o->p.v|default:"B"}', 'v4'),  // complex combi of array and key access
 
 			array('string:{$a.c|default:"B"}', 'B'),     // array key not set
@@ -120,6 +127,10 @@ class PluginModifierDefaultTest extends PHPUnit_Smarty
 			array('string:{$o->u|default:"B"}', 'B'),    // object property not set
 			array('string:{$u->u|default:"B"}', 'B'),    // object not set
 			array('string:{$a.k->u|default:"B"}', 'B'),  // complex combi of array and key access with something unset
+			array('string:{$a["k"]->u|default:"B"}', 'B'),  // complex combi of array and key access with something unset
+			array('string:{$a[$k]->u|default:"B"}', 'B'),  // complex combi of array and key access with something unset
+			array('string:{$a[$nk]->u|default:"B"}', 'B'),  // complex combi of array and key access with something unset
+			array('string:{$a[$u]->u|default:"B"}', 'B'),  // complex combi of array and key access with something unset
 			array('string:{$a.u->u|default:"B"}', 'B'),  // complex combi of array and key access with something unset
 			array('string:{$o->p.u|default:"B"}', 'B'),  // complex combi of array and key access with something unset
 			array('string:{$o->u.u|default:"B"}', 'B'),  // complex combi of array and key access with something unset
