@@ -28,7 +28,7 @@ function smarty_modifiercompiler_default($params, Smarty_Internal_TemplateCompil
     foreach ($params as $param) {
 
         if ($compiler->syntaxMatchesVariable($output)) {
-            $output = '(empty(' . $output . ') ? ' . $param . ' : ' . $output . ')';
+            $output = '(!isset(' . $output . ') || ' . $output . ' === \'\' ? ' . $param . ' : ' . $output . ')';
         } else {
             $output = '(($tmp = ' . $output . ')===null||$tmp===\'\' ? ' . $param . ' : $tmp)';
         }

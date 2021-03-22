@@ -63,19 +63,30 @@ class PluginModifierDefaultTest extends PHPUnit_Smarty
 		$this->assertEquals('B', $this->smarty->fetch($tpl));
 	}
 
-	public function testNull()
+	/**
+	 * @dataProvider dataFalsyValues
+	 */
+	public function testFalsyValues($falsyvalue, $expected)
 	{
 		$tpl = $this->smarty->createTemplate('string:{$s|default:"B"}');
-		$this->smarty->assign('s', null);
-		$this->assertEquals('B', $this->smarty->fetch($tpl));
+		$this->smarty->assign('s', $falsyvalue);
+		$this->assertEquals($expected, $this->smarty->fetch($tpl));
 	}
 
-	public function testFalse()
-	{
-		$tpl = $this->smarty->createTemplate('string:{$s|default:"B"}');
-		$this->smarty->assign('s', false);
-		$this->assertEquals('B', $this->smarty->fetch($tpl));
+	/**
+	 * Data for ::testFalsyValues
+	 */
+	public function dataFalsyValues() {
+		return array(
+			array(false, false),
+			array(0, 0),
+			array('0', '0'),
+			array(array(), 'Array'),
+			array(null, 'B'),
+			array('', 'B'),
+		);
 	}
+
 
 	public function testFunctionCall()
 	{
@@ -137,7 +148,4 @@ class PluginModifierDefaultTest extends PHPUnit_Smarty
 
 		);
 	}
-
-
-
 }
