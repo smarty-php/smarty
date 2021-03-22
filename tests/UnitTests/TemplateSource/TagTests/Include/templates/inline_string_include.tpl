@@ -1,1 +1,1 @@
-{include "string:include-inline" inline}
+{include "string:include-inline\n" inline}
