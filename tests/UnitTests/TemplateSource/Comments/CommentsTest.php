@@ -61,19 +61,19 @@ class CommentsTest extends PHPUnit_Smarty
                      array("{* multi line \n comment *}", '', 'T4', $i++),
                      array('{* /* foo * / *}', '', 'T5', $i++),
                      array("A{* comment *}B\nC", "AB\nC", 'T6', $i++),
-                     array("D{* comment *}\n{* comment *}E\nF", "DE\nF", 'T7', $i++),
+                     array("D{* comment *}\n{* comment *}E\nF", "D\nE\nF", 'T7', $i++),
                      array("G{* multi \nline *}H", "GH", 'T8', $i++),
-                     array("I{* multi \nline *}\nJ", "IJ", 'T9', $i++),
-                     array("=\n{* comment *}\n{* comment *}\n    b\n{* comment *}\n{* comment *}\n=", "=\n    b\n=", 'T10', $i++),
-                     array("=\na\n{* comment 1 *}\n{* comment 2 *}\n{* comment 3 *}\nb\n=", "=\na\nb\n=", 'T11', $i++),
-                     array("=\na\n{* comment 1 *}\n {* comment 2 *}\n{* comment 3 *}\nb\n=", "=\na\n b\n=", 'T12', $i++),
-                     array("=\na\n{* comment 1 *}\n{* comment 2 *} \n{* comment 3 *}\nb\n=", "=\na\n \nb\n=", 'T13', $i++),
-                     array("=\na\n{* comment 1 *}\n {* comment 2 *} \n{* comment 3 *}\nb\n=", "=\na\n  \nb\n=", 'T14', $i++),
+                     array("I{* multi \nline *}\nJ", "I\nJ", 'T9', $i++),
+                     array("=\n{* comment *}\n{* comment *}\n    b\n{* comment *}\n{* comment *}\n=", "=\n\n\n    b\n\n\n=", 'T10', $i++),
+                     array("=\na\n{* comment 1 *}\n{* comment 2 *}\n{* comment 3 *}\nb\n=", "=\na\n\n\n\nb\n=", 'T11', $i++),
+                     array("=\na\n{* comment 1 *}\n {* comment 2 *}\n{* comment 3 *}\nb\n=", "=\na\n\n \n\nb\n=", 'T12', $i++),
+                     array("=\na\n{* comment 1 *}\n{* comment 2 *} \n{* comment 3 *}\nb\n=", "=\na\n\n \n\nb\n=", 'T13', $i++),
+                     array("=\na\n{* comment 1 *}\n {* comment 2 *} \n{* comment 3 *}\nb\n=", "=\na\n\n  \n\nb\n=", 'T14', $i++),
         );
     }
 
     public function testTextComment5()
     {
-        $this->assertEquals("IJ", $this->smarty->fetch("longcomment.tpl"), 'Comments longcomment.tpl');
+        $this->assertEquals("I\nJ", $this->smarty->fetch("longcomment.tpl"), 'Comments longcomment.tpl');
     }
 }
