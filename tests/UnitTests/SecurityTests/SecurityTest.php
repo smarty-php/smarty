@@ -311,6 +311,19 @@ class SecurityTest extends PHPUnit_Smarty
             $this->smarty->fetch('string:{mysecuritystaticclass::square(5)}');
     }
 
+    /**
+     * test not trusted PHP function
+     * @expectedException        SmartyException
+     * @expectedExceptionMessage   access to static class 'mysecuritystaticclass' not allowed by security setting
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
+    public function testNotTrustedStaticClassEval()
+    {
+        $this->smarty->security_policy->static_classes = array('null');
+        $result = $this->smarty->fetch('string:{$test = "mysecuritystaticclass"}{$test::square(5)}');
+    }
+
     public function testChangedTrustedDirectory()
     {
         $this->smarty->security_policy->secure_dir = array(
@@ -390,8 +403,10 @@ class SecurityTest extends PHPUnit_Smarty
     public function testSmartyTemplateObject() {
         $this->smarty->display('string:{$smarty.template_object}');
     }
-
 }
+
+
+
 
 class mysecuritystaticclass
 {
