@@ -14,6 +14,6 @@ git pull
 git merge --no-ff "release/$1"
 git branch -d "release/$1"
 git tag -a "v$1" -m "Release $1"
-git push --follow-tags
 
 printf 'Done creating release %s\n' "$1"
+printf 'Run `git push --follow-tags origin` to publish it.\n'
