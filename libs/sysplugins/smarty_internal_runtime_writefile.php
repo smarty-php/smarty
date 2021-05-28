@@ -54,7 +54,10 @@ class Smarty_Internal_Runtime_WriteFile
             }
         }
         // write to tmp file, then move to overt file lock race condition
-        $_tmp_file = $_dirpath . DIRECTORY_SEPARATOR . str_replace(array('.', ','), '_', uniqid('wrt', true));
+        // use the original file extension/basename to prevent extensive file scans
+        // by antiviruses like Microsoft Defender
+        $_tmp_file = $_dirpath . DIRECTORY_SEPARATOR . '.' . str_replace(array('.', ','), '_', uniqid('wrt', true))
+            . '.' . basename($_filepath);
         if (!file_put_contents($_tmp_file, $_contents)) {
             error_reporting($_error_reporting);
             throw new SmartyException("unable to write file {$_tmp_file}");
