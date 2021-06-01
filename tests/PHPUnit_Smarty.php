@@ -177,7 +177,6 @@ class PHPUnit_Smarty extends PHPUnit_Framework_TestCase
                 $this->smartyBC->setCacheDir(dirname(__FILE__) . '/cache');
             }
         }
-        $smarty = $this->getSmartyObj();
     }
 
     /**

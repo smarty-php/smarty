@@ -1,0 +1,2 @@
+A{* comment *}B
+C
