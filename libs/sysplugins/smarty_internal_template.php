@@ -317,7 +317,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $tpl->template_resource = $template;
                 $tpl->cache_id = $cache_id;
                 $tpl->compile_id = $compile_id;
-                if (isset($uid)) {
+                if (isset($uid) && isset($tpl->compiled->file_dependency[ $uid ])) {
                     // for inline templates we can get all resource information from file dependency
                     list($filepath, $timestamp, $type) = $tpl->compiled->file_dependency[ $uid ];
                     $tpl->source = new Smarty_Template_Source($smarty, $filepath, $type, $filepath);

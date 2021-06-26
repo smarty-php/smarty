@@ -324,4 +324,12 @@ class CompileIncludeTest extends PHPUnit_Smarty
                      array("A{include file='include_spacing3.tpl'}B\nC", "AbarB\nC", '3_Newline3', $i++),
         );
     }
+
+	/**
+	 * Test Inline Include with string template
+	 */
+	public function testInlineStringInclude()
+	{
+		$this->assertEquals('include-inline', $this->smarty->fetch('inline_string_include.tpl'));
+	}
 }
