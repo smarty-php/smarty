@@ -89,14 +89,14 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
 
     public function testUndefinedSimpleVar() {
         $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
-        $this->smarty->setPHP7CompatMode();
+        $this->smarty->muteUndefinedOrNullWarnings();
         $tpl = $this->smarty->createTemplate('string:a{if $undef}def{/if}b');
         $this->assertEquals("ab", $this->smarty->fetch($tpl));
     }
 
     public function testUndefinedArrayIndex() {
         $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
-        $this->smarty->setPHP7CompatMode();
+        $this->smarty->muteUndefinedOrNullWarnings();
         $tpl = $this->smarty->createTemplate('string:a{if $ar.undef}def{/if}b');
         $tpl->assign('ar', []);
         $this->assertEquals("ab", $this->smarty->fetch($tpl));
@@ -104,7 +104,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
 
     public function testUndefinedArrayIndexDeep() {
         $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
-        $this->smarty->setPHP7CompatMode();
+        $this->smarty->muteUndefinedOrNullWarnings();
         $tpl = $this->smarty->createTemplate('string:a{if $ar.undef.nope.neither}def{/if}b');
         $tpl->assign('ar', []);
         $this->assertEquals("ab", $this->smarty->fetch($tpl));

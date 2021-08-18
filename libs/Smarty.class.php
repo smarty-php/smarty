@@ -644,7 +644,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * PHP7 Compatibility mode
      * @var bool
      */
-    private $php7CompatMode = false;
+    private $isMutingUndefinedOrNullWarnings = false;
 
     /**
      * Initialize new Smarty object
@@ -1382,16 +1382,16 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @void
      */
-    public function setPHP7CompatMode(): void {
-        $this->php7CompatMode = true;
+    public function muteUndefinedOrNullWarnings(): void {
+        $this->isMutingUndefinedOrNullWarnings = true;
     }
 
     /**
      * Indicates if PHP7 compatibility mode is set.
      * @bool
      */
-    public function getPHP7CompatMode(): bool {
-        return $this->php7CompatMode;
+    public function isMutingUndefinedOrNullWarnings(): bool {
+        return $this->isMutingUndefinedOrNullWarnings;
     }
 
 }
