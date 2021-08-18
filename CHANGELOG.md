@@ -32,7 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [3.1.37] - 2021-01-07
 
 ### Changed
-- Dropped support for PHP versions lower than PHP7.1 (and disabled unit tests for 7.1) 
 - Changed error handlers and handling of undefined constants for php8-compatibility (set $errcontext argument optional) https://github.com/smarty-php/smarty/issues/605
 - Changed expected error levels in unit tests for php8-compatibility
 - Travis unit tests now run for all php versions >= 5.3, including php8
@@ -337,7 +336,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  20.09.2016
   - bugfix some $smarty special template variables are no longer accessed as real variable.
     using them on calls like {if isset($smarty.foo)} or {if empty($smarty.foo)} will fail
-    http://www.smarty.net/forums/viewtopic.php?t=26222
+    https://www.smarty.net/forums/viewtopic.php?t=26222
   - temporary fix for https://github.com/smarty-php/smarty/issues/293 main reason still under investigation
   - improvement new tags {block_parent} {block_child} in template inheritance
 
@@ -349,7 +348,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - bugfix assigning a variable in if condition by function like {if $value = array_shift($array)} the function got called twice https://github.com/smarty-php/smarty/issues/291
   - bugfix function plugins called with assign attribute like {foo assign='bar'} did not output returned content because
            because assumption was made that it was assigned to a variable https://github.com/smarty-php/smarty/issues/292
-  - bugfix calling $smarty->isCached() on a not existing cache file with $smarty->cache_locking = true; could cause a 10 second delay http://www.smarty.net/forums/viewtopic.php?t=26282
+  - bugfix calling $smarty->isCached() on a not existing cache file with $smarty->cache_locking = true; could cause a 10 second delay https://www.smarty.net/forums/viewtopic.php?t=26282
   - improvement make Smarty::clearCompiledTemplate() on custom resource independent from changes of templateId computation
 
  11.09.2016

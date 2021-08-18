@@ -51,7 +51,7 @@ $smarty->unregisterFilter(...)
 
 Please refer to the online documentation for all specific changes:
 
-http://www.smarty.net/documentation
+https://www.smarty.net/documentation
 
 ----
 

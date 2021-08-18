@@ -20,11 +20,11 @@ class PluginModifierDefaultTest extends PHPUnit_Smarty
         $this->setUpSmarty(dirname(__FILE__));
     }
 
-	public function testDefault()
-	{
-		$tpl = $this->smarty->createTemplate('string:{$array.a.b|default:$array.c:\'defaultval\'}');
+    public function testDefault()
+    {
+        $tpl = $this->smarty->createTemplate('string:{$array.a.b|default:$array.c:\'defaultval\'}');
 
-		$this->smarty->assign('array', []);
-		$this->assertEquals('defaultval', $this->smarty->fetch($tpl));
-	}
+        $this->smarty->assign('array', []);
+        $this->assertEquals('defaultval', $this->smarty->fetch($tpl));
+    }
 }

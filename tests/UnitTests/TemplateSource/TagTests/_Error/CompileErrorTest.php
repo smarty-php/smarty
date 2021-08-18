@@ -30,8 +30,8 @@ class CompileErrorTest extends PHPUnit_Smarty
      */
     public function testNoneExistingTemplateError()
     {
-	    $this->expectException('SmartyException');
-	    $this->expectExceptionMessage('no.tpl');
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('no.tpl');
         $this->smarty->fetch('eval:{include file=\'no.tpl\'}');
     }
 
@@ -40,8 +40,8 @@ class CompileErrorTest extends PHPUnit_Smarty
      */
     public function testUnknownTagError()
     {
-	    $this->expectException('SmartyCompilerException');
-	    $this->expectExceptionMessage('unknown tag \'unknown\'');
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('unknown tag \'unknown\'');
         $this->smarty->fetch('eval:{unknown}');
     }
 
@@ -50,8 +50,8 @@ class CompileErrorTest extends PHPUnit_Smarty
      */
     public function testUnclosedTagError()
     {
-	    $this->expectException('SmartyCompilerException');
-	    $this->expectExceptionMessage('unclosed {if} tag');
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('unclosed {if} tag');
         $this->smarty->fetch('eval:{if true}');
     }
 
@@ -60,8 +60,8 @@ class CompileErrorTest extends PHPUnit_Smarty
      */
     public function testSyntaxError()
     {
-	    $this->expectException('SmartyCompilerException');
-	    $this->expectExceptionMessage('Unexpected "}"');
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('Unexpected "}"');
         $this->smarty->fetch('eval:{assign var=}');
     }
 }
