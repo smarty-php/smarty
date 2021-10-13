@@ -9,8 +9,7 @@ For documentation see
 [www.smarty.net/docs/en/](https://www.smarty.net/docs/en/) 
 
 ## Requirements
-
-Smarty can be run with PHP 5.2 to PHP 7.4.
+Smarty can be run with PHP 7.1 to PHP 8.0.
 
 ## Distribution repository
 
@@ -74,5 +73,3 @@ Or you could use:
 ```
 
 Which is a wrapper to install all 3 packages.
-
-Composer can also be used for Smarty2 versions 2.6.24 to 2.6.30.
