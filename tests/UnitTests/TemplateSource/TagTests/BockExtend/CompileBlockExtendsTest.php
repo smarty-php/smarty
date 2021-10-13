@@ -610,7 +610,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     *
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_2()
     {
@@ -645,7 +645,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     *
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_3()
     {
@@ -670,7 +670,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     *
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_32()
     {
@@ -692,6 +692,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_4()
     {
@@ -716,6 +717,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_42()
     {

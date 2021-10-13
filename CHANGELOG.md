@@ -24,6 +24,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dropped deprecated $smarty->getVariable() method. Use $smarty->getTemplateVars() instead.
 - $smarty->registerResource() no longer accepts an array of callback functions
 
+## [3.1.40] - 2021-10-13
+
+### Changed
+- modifier escape now triggers a E_USER_NOTICE when an unsupported escape type is used https://github.com/smarty-php/smarty/pull/649
+
+### Security
+- More advanced javascript escaping to handle https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements thanks to m-haritonov
+
+## [3.1.39] - 2021-02-17
+
+### Security
+- Prevent access to `$smarty.template_object` in sandbox mode. This addresses CVE-2021-26119.
+- Fixed code injection vulnerability by using illegal function names in `{function name='blah'}{/function}`. This addresses CVE-2021-26120.
+
 ## [3.1.38] - 2021-01-08
 
 ### Fixed
@@ -336,7 +350,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  20.09.2016
   - bugfix some $smarty special template variables are no longer accessed as real variable.
     using them on calls like {if isset($smarty.foo)} or {if empty($smarty.foo)} will fail
-    https://www.smarty.net/forums/viewtopic.php?t=26222
+    http://www.smarty.net/forums/viewtopic.php?t=26222
   - temporary fix for https://github.com/smarty-php/smarty/issues/293 main reason still under investigation
   - improvement new tags {block_parent} {block_child} in template inheritance
 
@@ -348,7 +362,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - bugfix assigning a variable in if condition by function like {if $value = array_shift($array)} the function got called twice https://github.com/smarty-php/smarty/issues/291
   - bugfix function plugins called with assign attribute like {foo assign='bar'} did not output returned content because
            because assumption was made that it was assigned to a variable https://github.com/smarty-php/smarty/issues/292
-  - bugfix calling $smarty->isCached() on a not existing cache file with $smarty->cache_locking = true; could cause a 10 second delay https://www.smarty.net/forums/viewtopic.php?t=26282
+  - bugfix calling $smarty->isCached() on a not existing cache file with $smarty->cache_locking = true; could cause a 10 second delay http://www.smarty.net/forums/viewtopic.php?t=26282
   - improvement make Smarty::clearCompiledTemplate() on custom resource independent from changes of templateId computation
 
  11.09.2016

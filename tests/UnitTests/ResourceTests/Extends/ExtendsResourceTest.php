@@ -125,7 +125,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
      * test  grandchild/child/parent dependency test2
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     *
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_2()
     {
@@ -193,7 +193,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
      * test  grandchild/child/parent dependency test4
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     *
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_4()
     {

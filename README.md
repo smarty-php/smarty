@@ -17,7 +17,7 @@ Smarty can be run with PHP 7.1 to PHP 8.0.
 
 > Read the NEW_FEATURES and INHERITANCE_RELEASE_NOTES file for recent extensions to Smarty 3.1 functionality
 
-Smarty versions 3.1.11 or later are now on github and can be installed with Composer.
+Smarty versions 3.1.11 or later are now on GitHub and can be installed with Composer.
 
 
 The "smarty/smarty" package will start at libs/....   subfolder.

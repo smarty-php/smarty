@@ -339,6 +339,10 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
         $this->assertNull($tpl->cached->handler->getCachedContent($tpl3));
         $this->assertEquals('hello world', $tpl->cached->handler->getCachedContent($tpl4));
     }
+
+    /**
+     * @group slow
+     */
    public function testClearCacheExpired()
     {
         $this->smarty->caching = true;
@@ -399,7 +403,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @dataProvider data
-     *
+     * @group slow
      */
     public function testCache($lockTime, $lockTimeout, $compile_id, $cache_id, $isCached, $tmin, $tmax, $forceCompile, $forceCache, $update, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
     {
