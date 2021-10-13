@@ -138,13 +138,13 @@ if (MysqlResourceEnable == true) {
         /**
         * test unknown template
         *
-        * @expectedException        SmartyException
-        * @expectedExceptionMessage Unable to load template 'mysqlstest:foo.tpl'
         * @runInSeparateProcess
         * @preserveGlobalState disabled
         *
         */
         public function testUnknownTemplate() {
+            $this->expectException('SmartyException');
+            $this->expectExceptionMessage('Unable to load template \'mysqlstest:foo.tpl\'');
             $this->assertEquals('foo', $this->smarty->fetch('mysqlstest:foo.tpl'));
         }
     }

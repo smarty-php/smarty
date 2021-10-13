@@ -207,7 +207,7 @@ class PluginFunctionHtmlSelectDateTest extends PHPUnit_Smarty
 <option value="031">31</option>',
     );
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
 

@@ -11,7 +11,7 @@
  * Name:     escape
  * Purpose:  escape string for output
  *
- * @link   http://www.smarty.net/docsv2/en/language.modifier.escape count_characters (Smarty online manual)
+ * @link   https://www.smarty.net/docsv2/en/language.modifier.escape count_characters (Smarty online manual)
  * @author Rodney Rehm
  *
  * @param array                                $params parameters
@@ -22,7 +22,7 @@
  */
 function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompilerBase $compiler)
 {
-    static $_double_encode = null;
+    static $_double_encode = true;
     static $is_loaded = false;
     $compiler->template->_checkPlugins(
         array(
@@ -32,9 +32,6 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
             )
         )
     );
-    if ($_double_encode === null) {
-        $_double_encode = version_compare(PHP_VERSION, '5.2.3', '>=');
-    }
     try {
         $esc_type = smarty_literal_compiler_param($params, 1, 'html');
         $char_set = smarty_literal_compiler_param($params, 2, Smarty::$_CHARSET);

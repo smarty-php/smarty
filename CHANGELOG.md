@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- You can now use `$smarty->muteUndefinedOrNullWarnings()` to activate convert warnings about undefined or null template vars to notices when running PHP8
+
+### Changed
+- Switch CI from Travis to Github CI
+- Updated unit tests to avoid skipped and risky test warnings
+
+### Removed
+- Dropped support for PHP7.0 and below, so Smarty now requires PHP >=7.1
+- Dropped support for php asp tags in templates (removed from php since php7.0)
+- Dropped deprecated API calls that where only accessible through SmartyBC
+- Dropped support for {php} and {include_php} tags and embedded PHP in templates. Embedded PHP will now be passed through as is.
+- Removed all PHP_VERSION_ID and compare_version checks and conditional code blocks that are now no longer required
+- Dropped deprecated SMARTY_RESOURCE_CHAR_SET and SMARTY_RESOURCE_DATE_FORMAT constants
+- Dropped deprecated Smarty::muteExpectedErrors and Smarty::unmuteExpectedErrors API methods
+- Dropped deprecated $smarty->getVariable() method. Use $smarty->getTemplateVars() instead.
+- $smarty->registerResource() no longer accepts an array of callback functions
+
 ## [3.1.40] - 2021-10-13
 
 ### Changed

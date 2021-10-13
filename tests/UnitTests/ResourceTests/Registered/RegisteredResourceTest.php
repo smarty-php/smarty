@@ -16,14 +16,11 @@
 class RegisteredResourceTest extends PHPUnit_Smarty
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
 
-        $this->smarty->registerResource("rr", array("rr_get_template",
-                                                    "rr_get_timestamp",
-                                                    "rr_get_secure",
-                                                    "rr_get_trusted"));
+        $this->smarty->registerResource("rr", new RegisteredResourceTest_Resource1());
     }
 
 
@@ -59,7 +56,7 @@ class RegisteredResourceTest extends PHPUnit_Smarty
      */
     public function testResourceCompileIdChange()
     {
-        $this->smarty->registerResource('myresource', array('getSource', 'getTimestamp', 'getSecure', 'getTrusted'));
+        $this->smarty->registerResource('myresource', new RegisteredResourceTest_Resource2());
         $this->smarty->compile_id = 'a';
         $this->assertEquals('this is template 1', $this->smarty->fetch('myresource:some'));
         $this->assertEquals('this is template 1', $this->smarty->fetch('myresource:some'));
@@ -72,7 +69,7 @@ class RegisteredResourceTest extends PHPUnit_Smarty
      *
      */
     public function testSmartyTemplate() {
-        $this->smarty->registerResource('mytpl', array('getTemplate', 'getTimestamp', 'getSecure', 'getTrusted'));
+        $this->smarty->registerResource('mytpl', new RegisteredResourceTest_Resource3());
         $this->assertEquals('template = mytpl:foo', $this->smarty->fetch('mytpl:foo'));
     }
     /**
@@ -80,83 +77,55 @@ class RegisteredResourceTest extends PHPUnit_Smarty
      *
      */
     public function testSmartyCurrentDir() {
-        $this->smarty->registerResource('mytpl', array('getCurrentDir', 'getTimestamp', 'getSecure', 'getTrusted'));
+        $this->smarty->registerResource('mytpl', new RegisteredResourceTest_Resource4());
         $this->assertEquals('current_dir = .', $this->smarty->fetch('mytpl:bar'));
     }
 }
 
+class RegisteredResourceTest_Resource1 extends Smarty_Resource_Custom {
 
-/**
- * resource functions
- */
-function rr_get_template($tpl_name, &$tpl_source, $smarty_obj)
-{
-    // populating $tpl_source
-    $tpl_source = '{$x="hello world"}{$x}';
+    protected function fetch($name, &$source, &$mtime) {
+        $source = '{$x="hello world"}{$x}';
+        $mtime = 1000000000;
+    }
 
-    return true;
 }
 
-function rr_get_timestamp($tpl_name, &$tpl_timestamp, $smarty_obj)
-{
-    // $tpl_timestamp.
-    $tpl_timestamp = (int) floor(time() / 100) * 100;
+class RegisteredResourceTest_Resource2 extends Smarty_Resource_Custom {
 
-    return true;
+    protected function fetch($name, &$source, &$mtime) {
+
+        // we update a counter, so that we return a new source for every call
+        static $counter = 0;
+        $counter ++;
+
+        // construct a new source
+        $source = "this is template $counter";
+
+        $mtime = 1000000000;
+    }
+
+    protected function fetchTimestamp($name)
+    {
+        return 1000000000;
+    }
+
 }
 
-function rr_get_secure($tpl_name, $smarty_obj)
-{
-    // assume all templates are secure
-    return true;
+class RegisteredResourceTest_Resource3 extends Smarty_Resource_Custom {
+
+    protected function fetch($name, &$source, &$mtime) {
+        $source = 'template = {$smarty.template}';
+        $mtime = 1000000000;
+    }
+
 }
 
-function rr_get_trusted($tpl_name, $smarty_obj)
-{
-    // not used for templates
-}
+class RegisteredResourceTest_Resource4 extends Smarty_Resource_Custom {
 
-// resource functions for compile_id change test
+    protected function fetch($name, &$source, &$mtime) {
+        $source = 'current_dir = {$smarty.current_dir}';
+        $mtime = 1000000000;
+    }
 
-function getSecure($name, $smarty)
-{
-    return true;
-}
-
-function getTrusted($name, $smarty)
-{
-}
-
-function getSource($name, &$source, $smarty)
-{
-    // we update a counter, so that we return a new source for every call
-    static $counter = 0;
-    $counter ++;
-
-    // construct a new source
-    $source = "this is template $counter";
-
-    return true;
-}
-function getTemplate($name, &$source, $smarty)
-{
-    // construct a new source
-    $source = 'template = {$smarty.template}';
-
-    return true;
-}
-function getCurrentDir($name, &$source, $smarty)
-{
-    // construct a new source
-    $source = 'current_dir = {$smarty.current_dir}';
-
-    return true;
-}
-
-function getTimestamp($name, &$timestamp, $smarty)
-{
-    // always pretend the template is brand new
-    $timestamp = (int) floor(time() / 100) * 100;
-
-    return true;
 }

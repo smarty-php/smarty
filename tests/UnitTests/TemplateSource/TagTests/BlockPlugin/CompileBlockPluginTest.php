@@ -15,7 +15,7 @@
  */
 class CompileBlockPluginTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->addPluginsDir("./PHPunitplugins/");
@@ -47,13 +47,11 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
 
     /**
      * test unknown block plugin tag
-     *
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unknown tag 'bar'
-     *
      */
     public function testBlockPluginUnknown()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('unknown tag \'bar\'');
         $this->assertEquals("hello world", $this->smarty->fetch('unknown.tpl'));
     }
 
@@ -75,12 +73,11 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState      disabled
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage block tag 'blockplugintest' not callable
-     *
      */
     public function testBlockPluginRegisteredFunction2()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('block tag \'blockplugintest\' not callable');
         $this->assertEquals('block test', $this->smarty->fetch('registered.tpl'));
     }
 
@@ -102,12 +99,12 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState      disabled
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage block tag 'blockpluginstatic' not callable
      *
      */
     public function testBlockPluginRegisteredStatic2()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('block tag \'blockpluginstatic\' not callable');
         $this->assertEquals('static block test', $this->smarty->fetch('registered_static.tpl'));
     }
 
@@ -130,12 +127,11 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState      disabled
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage block tag 'blockpluginmethod' not callable
-     *
      */
     public function testBlockPluginRegisteredMethod2()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('block tag \'blockpluginmethod\' not callable');
         $this->assertEquals('method block test', $this->smarty->fetch('registered_method.tpl'));
     }
 
@@ -158,12 +154,11 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState      disabled
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage block tag 'myobject' not callable
-     *
      */
     public function testBlockPluginRegisteredObject2()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('block tag \'myobject\' not callable');
         $this->assertEquals('object block test', $this->smarty->fetch('registered_object.tpl'));
     }
 
@@ -297,10 +292,10 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
             $this->assertEquals($isCached, $tpl->isCached(), $testName . ' - isCached()');
         }
         $result = $this->smarty->fetch($tpl);
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}",
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}",
                               $result,
                               $testName . ' - fetch() failure test number');
-        $this->assertContains("block test{$resultNumber}", $result, $testName . ' - fetch() failure result');
+        $this->assertStringContainsString("block test{$resultNumber}", $result, $testName . ' - fetch() failure result');
     }
 
     public function data()

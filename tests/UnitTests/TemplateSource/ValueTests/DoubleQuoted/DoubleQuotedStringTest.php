@@ -15,7 +15,7 @@
 */
 class DoubleQuotedStringTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
@@ -80,14 +80,12 @@ class DoubleQuotedStringTest extends PHPUnit_Smarty
 
 
     /**
-     *
      * test unclosed block tag
-     *
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unclosed '{if}' in doubled quoted string
      */
     public function testDoubleQuotedUnclosedBlock_001()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('unclosed \'{if}\' in doubled quoted string');
         $this->smarty->fetch('001_unclosedBlock.tpl');
     }
 

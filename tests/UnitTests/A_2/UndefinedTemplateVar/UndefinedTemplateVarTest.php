@@ -13,10 +13,9 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     /*
      * Setup test fixture
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
-        error_reporting(E_ALL | E_STRICT);
     }
 
     public function testInit()
@@ -48,9 +47,9 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->assertEquals($e1, $e2);
     }
 
-	/**
-	 * Test Error suppression template object fetched by Smarty object
-	 */
+    /**
+     * Test Error suppression template object fetched by Smarty object
+     */
     public function testErrorDisabledTplObject_2()
     {
         $e1 = error_reporting();
@@ -66,27 +65,73 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
      */
     public function testError()
     {
-	    $exceptionThrown = false;
+        $exceptionThrown = false;
 
         try {
-	        $e1 = error_reporting();
-	        $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
-	        $e2 = error_reporting();
-	        $this->assertEquals($e1, $e2);
+            $e1 = error_reporting();
+            $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
+            $e2 = error_reporting();
+            $this->assertEquals($e1, $e2);
         } catch (Exception $e) {
 
-        	$exceptionThrown = true;
-	        $this->assertStringStartsWith('Undefined ', $e->getMessage());
-	        $this->assertTrue(in_array(
-	        	get_class($e),
-		        array(
-		        	'PHPUnit_Framework_Error_Warning',
-			        'PHPUnit_Framework_Error_Notice',
-			        'PHPUnit\Framework\Error\Warning',
-			        'PHPUnit\Framework\Error\Notice',
-		        )
-	        ));
+            $exceptionThrown = true;
+            $this->assertStringStartsWith('Undefined ', $e->getMessage());
+            $this->assertTrue(in_array(
+                get_class($e),
+                [
+                    'PHPUnit\Framework\Error\Warning',
+                    'PHPUnit\Framework\Error\Notice',
+                ]
+            ));
         }
-	    $this->assertTrue($exceptionThrown);
+        $this->assertTrue($exceptionThrown);
     }
+
+    public function testUndefinedSimpleVar() {
+        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->muteUndefinedOrNullWarnings();
+        $tpl = $this->smarty->createTemplate('string:a{if $undef}def{/if}b');
+        $this->assertEquals("ab", $this->smarty->fetch($tpl));
+    }
+
+    public function testUndefinedArrayIndex() {
+        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->muteUndefinedOrNullWarnings();
+        $tpl = $this->smarty->createTemplate('string:a{if $ar.undef}def{/if}b');
+        $tpl->assign('ar', []);
+        $this->assertEquals("ab", $this->smarty->fetch($tpl));
+    }
+
+    public function testUndefinedArrayIndexDeep() {
+        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->muteUndefinedOrNullWarnings();
+        $tpl = $this->smarty->createTemplate('string:a{if $ar.undef.nope.neither}def{/if}b');
+        $tpl->assign('ar', []);
+        $this->assertEquals("ab", $this->smarty->fetch($tpl));
+    }
+
+    public function testUndefinedArrayIndexError()
+    {
+        $exceptionThrown = false;
+
+        try {
+            $tpl = $this->smarty->createTemplate('string:a{if $ar.undef}def{/if}b');
+            $tpl->assign('ar', []);
+            $this->smarty->fetch($tpl);
+        } catch (Exception $e) {
+
+            $exceptionThrown = true;
+            $this->assertStringStartsWith('Undefined ', $e->getMessage());
+            $this->assertTrue(in_array(
+                get_class($e),
+                [
+                    'PHPUnit\Framework\Error\Warning',
+                    'PHPUnit\Framework\Error\Notice',
+                ]
+            ));
+        }
+        $this->assertTrue($exceptionThrown);
+    }
+
+
 }

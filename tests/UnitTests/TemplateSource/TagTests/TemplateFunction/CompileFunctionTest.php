@@ -15,7 +15,7 @@
  */
 class CompileFunctionTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
    }
@@ -196,7 +196,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('test_template_function.tpl', $cacheId);
         $tpl->assign('foo', 'foo');
-        $this->assertContains('foo foo', $this->smarty->fetch($tpl), $text);
+        $this->assertStringContainsString('foo foo', $this->smarty->fetch($tpl), $text);
     }
 
     /**
@@ -208,9 +208,9 @@ class CompileFunctionTest extends PHPUnit_Smarty
     public function testExternalDefinedFunctionCalledByFetch()
     {
         $this->smarty->assign('foo', 'foo');
-        $this->assertContains('foo foo', $this->smarty->fetch('test_template_function.tpl'));
+        $this->assertStringContainsString('foo foo', $this->smarty->fetch('test_template_function.tpl'));
         $this->smarty->assign('foo', 'bar');
-        $this->assertContains('bar bar', $this->smarty->fetch('test_template_function_call.tpl'));
+        $this->assertStringContainsString('bar bar', $this->smarty->fetch('test_template_function_call.tpl'));
     }
 
     /**
@@ -229,7 +229,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('test_template_function.tpl', $cacheId);
         $this->assertTrue($this->smarty->isCached($tpl), $text);
         $tpl->assign('foo', 'bar');
-        $this->assertContains('foo bar', $this->smarty->fetch($tpl), $text);
+        $this->assertStringContainsString('foo bar', $this->smarty->fetch($tpl), $text);
     }
 
     /**
@@ -247,7 +247,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('test_template_function_nocache_call.tpl', $cacheId);
         $tpl->assign('foo', 'foo');
-        $this->assertContains('foo foo', $this->smarty->fetch($tpl), $text);
+        $this->assertStringContainsString('foo foo', $this->smarty->fetch($tpl), $text);
     }
 
     /**
@@ -266,7 +266,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('test_template_function_nocache_call.tpl', $cacheId);
         $this->assertTrue($this->smarty->isCached($tpl), $text);
         $tpl->assign('foo', 'bar');
-        $this->assertContains('bar bar', $this->smarty->fetch($tpl), $text);
+        $this->assertStringContainsString('bar bar', $this->smarty->fetch($tpl), $text);
     }
 
     /**
@@ -285,7 +285,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('test_template_function_nocache_call.tpl', $cacheId);
         $this->assertTrue($this->smarty->isCached($tpl), $text);
         $tpl->assign('foo', 'bar');
-        $this->assertContains('bar bar', $this->smarty->fetch($tpl), $text);
+        $this->assertStringContainsString('bar bar', $this->smarty->fetch($tpl), $text);
     }
 
     /**
