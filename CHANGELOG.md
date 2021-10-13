@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0-rc.0] - 2021-10-13
+
 ### Added
 - You can now use `$smarty->muteUndefinedOrNullWarnings()` to activate convert warnings about undefined or null template vars to notices when running PHP8
 
