@@ -306,11 +306,36 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
             $_html_months .= '<option value="">' . (isset($month_empty) ? $month_empty : $all_empty) . '</option>' .
                              $option_separator;
         }
+
+        $formatter = null;
+        $format_compare = '%m';
+        if (class_exists('IntlDateFormatter')) {
+            $format_compare = 'm';
+            $patterns = array('%b', '%h', '%B', '%m');
+            $replacement = array('MMM', 'MMM', 'MMMM', 'MM');
+            $month_format = str_replace($patterns, $replacement, $month_format);
+            $month_value_format = str_replace($patterns, $replacement, $month_value_format);
+            $formatter = new IntlDateFormatter(
+                setlocale(LC_TIME, '0'),
+                IntlDateFormatter::NONE,
+                IntlDateFormatter::NONE)
+            ;
+        }
         for ($i = 1; $i <= 12; $i++) {
+            if (null !== $formatter) {
+                $formatter->setPattern($month_format);
+                $_text = $formatter->format($_month_timestamps[ $i ]);
+                $formatter->setPattern($month_value_format);
+                $_value = $formatter->format($_month_timestamps[ $i ]);
+            } else {
+                $_text = strftime($month_format, $_month_timestamps[ $i ]);
+                $_value = strftime($month_value_format, $_month_timestamps[ $i ]);
+            }
+
             $_val = sprintf('%02d', $i);
             $_text = isset($month_names) ? smarty_function_escape_special_chars($month_names[ $i ]) :
-                ($month_format === '%m' ? $_val : strftime($month_format, $_month_timestamps[ $i ]));
-            $_value = $month_value_format === '%m' ? $_val : strftime($month_value_format, $_month_timestamps[ $i ]);
+                ($month_format === $format_compare ? $_val : $_text);
+            $_value = $month_value_format === $format_compare ? $_val : $_value;
             $_html_months .= '<option value="' . $_value . '"' . ($_val == $_month ? ' selected="selected"' : '') .
                              '>' . $_text . '</option>' . $option_separator;
         }
