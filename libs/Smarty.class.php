@@ -1208,7 +1208,7 @@ class Smarty
                         $_server_vars = ($this->request_use_auto_globals) ? $_SERVER : $GLOBALS['HTTP_SERVER_VARS'];
                         $_last_modified_date = @substr($_server_vars['HTTP_IF_MODIFIED_SINCE'], 0, strpos($_server_vars['HTTP_IF_MODIFIED_SINCE'], 'GMT') + 3);
                         $_gmt_mtime = gmdate('D, d M Y H:i:s', $this->_cache_info['timestamp']).' GMT';
-                        if (@count($this->_cache_info['insert_tags']) == 0
+                        if (empty($this->_cache_info['insert_tags'])
                             && !$this->_cache_serials
                             && $_gmt_mtime == $_last_modified_date) {
                             if (php_sapi_name()=='cgi')
