@@ -7,3 +7,4 @@ lexer/*.out
 utilies/*.php
 /composer.lock
 /vendor
+/tests
