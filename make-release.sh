@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$1" =~ ^3\.[0-9]$ ]]; then
+if [[ "$1" =~ ^3\.[0-9\.-rc]+$ ]]; then
    printf 'Creating release %s\n' "$1"
 else
    echo "Invalid version number: $1. This script can only make v3.x.x releases."
