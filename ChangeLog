@@ -1,5 +1,7 @@
 === Unreleased ===
 
+=== 2.6.32 - 2021-10-22 ===
+
 === 2.6.31 - 2017-11-03 ===
 - replace functions deprecated in PHP 7.2
 - {math} fix parameter checking order to avoid misleading message
