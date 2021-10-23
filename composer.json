@@ -29,5 +29,5 @@
             "libs/Smarty_Compiler.class.php",
             "libs/Config_File.class.php"
         ]
-    },
+    }
 }
