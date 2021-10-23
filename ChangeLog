@@ -1,4 +1,6 @@
 === Unreleased ===
+
+=== 2.6.33 - 2021-10-23 ===
 - Removed trailing comma in composer.json
 
 === 2.6.32 - 2021-10-22 ===

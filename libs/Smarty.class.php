@@ -464,7 +464,7 @@ class Smarty
      *
      * @var string
      */
-    var $_version = '2.6.32';
+    var $_version = '2.6.33';
 
     /**
      * current template inclusion depth
