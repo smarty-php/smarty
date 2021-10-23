@@ -1,6 +1,8 @@
 === Unreleased ===
+- Removed trailing comma in composer.json
 
 === 2.6.32 - 2021-10-22 ===
+- php8 compatability fix using empty() instead of @count()
 
 === 2.6.31 - 2017-11-03 ===
 - replace functions deprecated in PHP 7.2
