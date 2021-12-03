@@ -21,7 +21,6 @@ Built-in Functions {#language.builtin.functions}
 - [{ldelim},{rdelim}](./language-builtin-functions/language-function-ldelim.md)
 - [{literal}](./language-builtin-functions/language-function-literal.md)
 - [{nocache}](./language-builtin-functions/language-function-nocache.md)
-- [{php}](./language-builtin-functions/language-function-php.md)
 - [{section},{sectionelse}](./language-builtin-functions/language-function-section.md)
 - [{setfilter}](./language-builtin-functions/language-function-setfilter.md)
 - [{strip}](./language-builtin-functions/language-function-strip.md)

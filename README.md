@@ -17,12 +17,4 @@ To get the latest stable version of Smarty use:
 composer require smarty/smarty
 ````
 
-To get the latest, unreleased version, use:
-```bash
-composer require smarty/smarty:dev-master
-````
-
-To get the previous stable version of Smarty, Smarty 3, use:
-```bash
-composer require smarty/smarty:^3
-````
+More in the [Getting Started](./docs/getting-started.md) section of the docs.
