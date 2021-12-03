@@ -5,7 +5,7 @@
     "keywords": [
         "templating"
     ],
-    "homepage": "https://www.smarty.net",
+    "homepage": "https://smarty-php.github.io/smarty/",
     "license": "LGPL-3.0",
     "authors": [
         {
@@ -27,7 +27,7 @@
     ],
     "support": {
         "issues": "https://github.com/smarty-php/smarty/issues",
-        "forum": "https://www.smarty.net/forums/"
+        "forum": "https://github.com/smarty-php/smarty/discussions"
     },
     "require": {
         "php": "^7.1 || ^8.0"
