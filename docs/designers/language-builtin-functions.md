@@ -2,7 +2,7 @@ Built-in Functions {#language.builtin.functions}
 ==================
 
 ## Table of contents
-- [{$var=...}](./language-builtin-functions.md)
+- [{$var=...}](./language-builtin-functions/language-function-shortform-assign.md)
 - [{append}](./language-builtin-functions/language-function-append.md)
 - [{assign}](./language-builtin-functions/language-function-assign.md)
 - [{block}](./language-builtin-functions/language-function-block.md)
