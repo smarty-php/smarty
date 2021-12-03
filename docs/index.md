@@ -25,3 +25,7 @@ Smarty is a template engine for PHP, facilitating the separation of presentation
 - [Resources](./programmers/resources.md)
 - [Advanced Features](./programmers/advanced-features.md)
 - [Extending Smarty With Plugins](./programmers/plugins.md)
+
+## Other
+- Some random [tips & tricks](./appendixes/tips.md)
+- [Troubleshooting](./appendixes/troubleshooting.md)
