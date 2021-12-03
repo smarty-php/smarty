@@ -1,4 +1,4 @@
-What is Smarty? {#what.is.smarty}
+What is Smarty?
 ===============
 
 Smarty is a template engine for PHP. More specifically, it facilitates a

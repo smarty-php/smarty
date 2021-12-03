@@ -1,9 +1,9 @@
-Basic Syntax {#language.basic.syntax}
+Basic Syntax
 ============
 
 All Smarty template tags are enclosed within delimiters. By default
 these are `{` and `}`, but they can be
-[changed](#variable.left.delimiter).
+[changed](../programmers/api-variables/variable-left-delimiter.md).
 
 For the examples in this manual, we will assume that you are using the
 default delimiters. In Smarty, all content outside of delimiters is
@@ -11,10 +11,10 @@ displayed as static content, or unchanged. When Smarty encounters
 template tags, it attempts to interpret them, and displays the
 appropriate output in their place.
 
-DESIGNERS.LANGUAGE-BASIC-SYNTAX.LANGUAGE-SYNTAX-COMMENTS
-DESIGNERS.LANGUAGE-BASIC-SYNTAX.LANGUAGE-SYNTAX-VARIABLES
-DESIGNERS.LANGUAGE-BASIC-SYNTAX.LANGUAGE-SYNTAX-FUNCTIONS
-DESIGNERS.LANGUAGE-BASIC-SYNTAX.LANGUAGE-SYNTAX-ATTRIBUTES
-DESIGNERS.LANGUAGE-BASIC-SYNTAX.LANGUAGE-SYNTAX-QUOTES
-DESIGNERS.LANGUAGE-BASIC-SYNTAX.LANGUAGE-MATH
-DESIGNERS.LANGUAGE-BASIC-SYNTAX.LANGUAGE-ESCAPING
+- [Comments](./language-basic-syntax/language-syntax-comments.md)
+- [Variables](./language-basic-syntax/language-syntax-variables.md)
+- [Functions](./language-basic-syntax/language-syntax-functions.md)
+- [Attributes](./language-basic-syntax/language-syntax-attributes.md)
+- [Quotes](./language-basic-syntax/language-syntax-quotes.md)
+- [Math](./language-basic-syntax/language-math.md)
+- [Escaping](./language-basic-syntax/language-escaping.md)

@@ -34,7 +34,7 @@ updated.
 
       
 
-Values of [config file variables](#language.config.variables) can be in
+Values of [config file variables](./language-variables/language-config-variables.md) can be in
 quotes, but not necessary. You can use either single or double quotes.
 If you have a value that spans more than one line, enclose the entire
 value with triple quotes (\"\"\"). You can put comments into config
@@ -51,12 +51,12 @@ global variables and the variables from that section are also loaded. If
 a variable exists both as a global and in a section, the section
 variable is used. If you name two variables the same within a section,
 the last one will be used unless
-[`$config_overwrite`](#variable.config.overwrite) is disabled.
+[`$config_overwrite`](../programmers/api-variables/variable-config-overwrite.md) is disabled.
 
 Config files are loaded into templates with the built-in template
 function [`
-  {config_load}`](#language.function.config.load) or the API
-[`configLoad()`](#api.config.load) function.
+  {config_load}`](./language-builtin-functions/language-function-config-load.md) or the API
+[`configLoad()`](../programmers/api-functions/api-config-load.md) function.
 
 You can hide variables or entire sections by prepending the variable
 name or section name with a period(.) eg `[.hidden]`. This is useful if
@@ -69,9 +69,9 @@ Config files (or resources) are loaded by the same resource facilities
 as templates. That means that a config file can also be loaded from a db
 `$smarty->configLoad("db:my.conf")`.
 
-See also [`{config_load}`](#language.function.config.load),
-[`$config_overwrite`](#variable.config.overwrite),
-[`$default_config_handler_func`](#variable.default.config.handler.func),
-[`getConfigVars()`](#api.get.config.vars),
-[`clearConfig()`](#api.clear.config) and
-[`configLoad()`](#api.config.load)
+See also [`{config_load}`](./language-builtin-functions/language-function-config-load.md),
+[`$config_overwrite`](../programmers/api-variables/variable-config-overwrite.md),
+[`$default_config_handler_func`](../programmers/api-variables/variable-default-config-handler-func.md),
+[`getConfigVars()`](../programmers/api-functions/api-get-config-vars.md),
+[`clearConfig()`](../programmers/api-functions/api-clear-config.md) and
+[`configLoad()`](../programmers/api-functions/api-config-load.md)

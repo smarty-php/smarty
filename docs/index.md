@@ -6,7 +6,7 @@ Smarty is a template engine for PHP, facilitating the separation of presentation
 - [Preface](./preface.md)
 - [Getting Started](./getting-started.md)
 
-## Smarty for Designers
+## Smarty for template developers
 - [Basic Syntax](./designers/language-basic-syntax.md)
 - [Variables](./designers/language-variables.md)
 - [Variable Modifiers](./designers/language-modifiers.md)
@@ -16,7 +16,7 @@ Smarty is a template engine for PHP, facilitating the separation of presentation
 - [Config Files](./designers/config-files.md)
 - [Debugging Console](./designers/chapter-debugging-console.md)
 
-## Smarty of Programmers
+## Smarty for php developers
 - [Charset Encoding](./programmers/charset.md)
 - [Constants](./programmers/smarty-constants.md)
 - [Smarty Class Variables](./programmers/api-variables.md)

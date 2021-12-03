@@ -1,15 +1,41 @@
 Variable Modifiers {#language.modifiers}
 ==================
 
+## Table of contents
+- [capitalize](./language-modifiers/language.modifiers.md)
+- [cat](./language-modifiers/language.modifier.md)
+- [count_characters](./language-modifiers/language.modifier.md)
+- [count_paragraphs](./language-modifiers/language.modifier.md)
+- [count_sentences](./language-modifiers/language.modifier.md)
+- [count_words](./language-modifiers/language.modifier.md)
+- [date_format](./language-modifiers/language.modifier.md)
+- [default](./language-modifiers/language.modifier.md)
+- [escape](./language-modifiers/language.modifier.md)
+- [from_charset](./language-modifiers/language.modifier.md)
+- [indent](./language-modifiers/language.modifier.md)
+- [lower](./language-modifiers/language.modifier.md)
+- [nl2br](./language-modifiers/language.modifier.md)
+- [regex_replace](./language-modifiers/language.modifier.md)
+- [replace](./language-modifiers/language.modifier.md)
+- [spacify](./language-modifiers/language.modifier.md)
+- [string_format](./language-modifiers/language.modifier.md)
+- [strip](./language-modifiers/language.modifier.md)
+- [strip_tags](./language-modifiers/language.modifier.md)
+- [to_charset](./language-modifiers/language.modifier.md)
+- [truncate](./language-modifiers/language.modifier.md)
+- [unescape](./language-modifiers/language.modifier.md)
+- [upper](./language-modifiers/language.modifier.md)
+- [wordwrap](./language-modifiers/language.modifier.md)
+
 Variable modifiers can be applied to
-[variables](#language.syntax.variables), [custom
-functions](#language.custom.functions) or strings. To apply a modifier,
+[variables](./language-variables.md), [custom
+functions](./language-custom-functions.md) or strings. To apply a modifier,
 specify the value followed by a `|` (pipe) and the modifier name. A
 modifier may accept additional parameters that affect its behavior.
 These parameters follow the modifier name and are separated by a `:`
 (colon). Also, *all php-functions can be used as modifiers implicitly*
 (more below) and modifiers can be
-[combined](#language.combining.modifiers).
+[combined](./language-combining-modifiers.md).
 
 
     {* apply modifier to a variable *}
@@ -46,7 +72,7 @@ These parameters follow the modifier name and are separated by a `:`
 
       
 
--   Modifiers can be applied to any type of variables, including arrays
+- Modifiers can be applied to any type of variables, including arrays
     and objects.
 
     > **Note**
@@ -71,13 +97,13 @@ These parameters follow the modifier name and are separated by a `:`
     > gives 9. To get the old result use parentheses like
     > `{(8+2)|count_characters}`.
 
--   Modifiers are autoloaded from the
-    [`$plugins_dir`](#variable.plugins.dir) or can be registered
-    explicitly with the [`registerPlugin()`](#api.register.plugin)
+- Modifiers are autoloaded from the
+    [`$plugins_dir`](../programmers/api-variables/variable-plugins-dir.md) or can be registered
+    explicitly with the [`registerPlugin()`](../programmers/api-functions/api-register-plugin.md)
     function. The later is useful for sharing a function between php
     scripts and smarty templates.
 
--   All php-functions can be used as modifiers implicitly, as
+- All php-functions can be used as modifiers implicitly, as
     demonstrated in the example above. However, using php-functions as
     modifiers has two little pitfalls:
 
@@ -90,33 +116,8 @@ These parameters follow the modifier name and are separated by a `:`
     -   Secondly - if security is enabled, all php-functions that are to
         be used as modifiers have to be declared trusted in the
         `$modifiers` property of the securty policy. See the
-        [Security](#advanced.features.security) section for details.
+        [Security](../programmers/advanced-features/advanced-features-security.md) section for details.
 
-See also [`registerPlugin()`](#api.register.plugin), [combining
-modifiers](#language.combining.modifiers). and [extending smarty with
-plugins](#plugins)
-
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-CAPITALIZE
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-CAT
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-COUNT-CHARACTERS
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-COUNT-PARAGRAPHS
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-COUNT-SENTENCES
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-COUNT-WORDS
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-DATE-FORMAT
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-DEFAULT
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-ESCAPE
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-FROM-CHARSET
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-INDENT
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-LOWER
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-NL2BR
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-REGEX-REPLACE
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-REPLACE
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-SPACIFY
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-STRING-FORMAT
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-STRIP
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-STRIP-TAGS
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-TO-CHARSET
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-TRUNCATE
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-UNESCAPE
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-UPPER
-DESIGNERS.LANGUAGE-MODIFIERS.LANGUAGE-MODIFIER-WORDWRAP
+See also [`registerPlugin()`](../programmers/api-functions/api-register-plugin.md), [combining
+modifiers](./language-combining-modifiers.md). and [extending smarty with
+plugins](../programmers/plugins.md)

@@ -6,21 +6,13 @@ Preface
 The Smarty design was largely driven by these goals:
 
 -   clean separation of presentation from application code
-
 -   PHP backend, Smarty template frontend
-
 -   complement PHP, not replace it
-
 -   fast development/deployment for programmers and designers
-
 -   quick and easy to maintain
-
 -   syntax easy to understand, no PHP knowledge necessary
-
 -   flexibility for custom development
-
 -   security: insulation from PHP
-
 -   free, open source
 
 **What is Smarty?**
@@ -202,7 +194,7 @@ website.
 
 There are tens of thousands of unique visitors on the Smarty website
 daily, mostly developers reading documentation. Many well-known PHP
-projects make use of Smarty such as XOOPS CMS, CMS Made Simple , Tiki
+projects make use of Smarty such as XOOPS CMS, CMS Made Simple, Tiki
 CMS/Groupware and X-Cart to name a few.
 
 **Summary**
@@ -212,15 +204,9 @@ solution, it can accommodate your needs. There are numerous features
 that make Smarty a great choice:
 
 -   separation of PHP from HTML/CSS just makes sense
-
 -   readability for organization and management
-
 -   security for 3rd party template access
-
 -   feature completeness, and easily extendable to your own needs
-
 -   massive user base, Smarty is here to stay
-
 -   LGPL license for commercial use
-
 -   100% free to use, open source project

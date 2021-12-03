@@ -7,7 +7,7 @@ Charset Encoding {#charset.encoding}
 There are a variety of encodings for textual data, ISO-8859-1 (Latin1)
 and UTF-8 being the most popular. Unless specified otherwise with the
 `SMARTY_RESOURCE_CHAR_SET` constant, Smarty recognizes `UTF-8` as the
-internal charset if [Multibyte String](&url.php-manual;mbstring) is
+internal charset if [Multibyte String](https://www.php.net/mbstring) is
 available, `ISO-8859-1` if not.
 
 > **Note**
@@ -27,7 +27,7 @@ available, `ISO-8859-1` if not.
 >
 > Smarty\'s internals and core plugins are truly UTF-8 compatible since
 > Smarty 3.1. To achieve unicode compatibility, the [Multibyte
-> String](&url.php-manual;mbstring) PECL is required. Unless your PHP
+> String](https://www.php.net/mbstring) PECL is required. Unless your PHP
 > environment offers this package, Smarty will not be able to offer
 > full-scale UTF-8 compatibility.
 
