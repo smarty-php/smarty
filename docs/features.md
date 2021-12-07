@@ -24,7 +24,7 @@ Some of Smarty's features:
     easy management of template content.
 -   [Plugin](#plugins) architecture
 
-## Seperation of presentation from application code
+## Separation of presentation from application code
 -   This means templates can certainly contain logic under the condition
     that it is for presentation only. Things such as
     [including](./designers/language-builtin-functions/language-function-include.md) other templates,
