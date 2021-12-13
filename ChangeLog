@@ -15,7 +15,7 @@
 - {math} shell injection vulnerability patch provided by Tim Weber
 - fixed plugin filepath cache must not be static, because of possible problem
       when using multiple Smarty instances with diffrent plugins_dir settings
-         https://github.com/smarty-php/smarty/issues/146 
+         https://github.com/smarty-php/smarty/issues/146
 
 === 2.6.29 - 2015-06-21 ===
 - PHP7 raises E_DEPRECATED use __construct for compatibility
@@ -24,7 +24,7 @@
 - Fixed old vulnerability bug https://bugs.gentoo.org/show_bug.cgi?id=356615
 - Fixed made Smarty_Compiler.class.php compatible with PHP 5.5
 
-=== 2.6.27 - 2012-09-24===
+=== 2.6.27 - 2012-09-24 ===
 - Fixed escape Smarty error messages to avoid possible script execution
 - Fixed security hole in {math} plugin
 
@@ -795,7 +795,7 @@
       docs/fr/programmers/plugins/plugins-inserts.xml:
       sync with EN
 
-2006-10-14  Fernando Correa da Concei��o  <fernando_conceicao@yahoo.com.br>
+2006-10-14  Fernando Correa da Conceição  <fernando_conceicao@yahoo.com.br>
 
     * docs/pt_BR/programmers/api-variables/variable-error-reporting.xml:
       New Translation
@@ -4336,7 +4336,7 @@
       fixed bug in _run_mod_handler
 
     * libs/Smarty_Compiler.class.php:
-      fixed bug with autoload-handling of modifiers. thanks �ndre.
+      fixed bug with autoload-handling of modifiers. thanks ándre.
 
 2003-08-05  Messju Mohr  <messju@lammfellpuschen.de>
 
