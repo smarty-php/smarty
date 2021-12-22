@@ -169,6 +169,11 @@ class Smarty extends Smarty_Internal_TemplateBase
     public static $_DATE_FORMAT = '%b %e, %Y';
 
     /**
+     * The date format to be used internally by IntlDateFormatter
+     */
+    public static $_ICU_DATE_FORMAT = 'MMM d, yyyy';
+
+    /**
      * Flag denoting if PCRE should run in UTF-8 mode
      */
     public static $_UTF8_MODIFIER = 'u';
