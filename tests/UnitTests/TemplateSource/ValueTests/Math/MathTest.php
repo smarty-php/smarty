@@ -107,4 +107,35 @@ class MathTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="x * y" x=$x y=$y format="%0.2f"} -- {math equation="20.5 / 5" format="%0.2f"}');
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
     }
+
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Warning
+	 */
+	public function testBackticksIllegal()
+	{
+		$expected = "22.00";
+		$tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="`ls` x * y" x=$x y=$y}');
+		$this->assertEquals($expected, $this->smarty->fetch($tpl));
+	}
+
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Warning
+	 */
+	public function testDollarSignsIllegal()
+	{
+		$expected = "22.00";
+		$tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="$" x=$x y=$y}');
+		$this->assertEquals($expected, $this->smarty->fetch($tpl));
+	}
+
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Warning
+	 */
+	public function testBracketsIllegal()
+	{
+		$expected = "I";
+		$tpl = $this->smarty->createTemplate('eval:{$x = "0"}{$y = "1"}{math equation="((y/x).(x))[x]" x=$x y=$y}');
+		$this->assertEquals($expected, $this->smarty->fetch($tpl));
+	}
+
 }
