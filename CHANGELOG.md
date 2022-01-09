@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- Rewrote the mailto function to not use `eval` when encoding with javascript
+
 ## [4.0.0] - 2021-11-25
 
 ## [4.0.0-rc.0] - 2021-10-13
