@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.2] - 2022-01-10
+
 ### Security
 - Prevent arbitrary PHP code execution through maliciously crafted expression for the math function. This addresses CVE-2021-29454
 
