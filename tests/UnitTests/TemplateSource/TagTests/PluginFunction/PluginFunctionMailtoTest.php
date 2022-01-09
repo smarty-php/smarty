@@ -54,7 +54,7 @@ class PluginFunctionMailtoTest extends PHPUnit_Smarty
 
     public function testEncodeJavascript()
     {
-        $result = '<script type="text/javascript">eval(unescape(\'%64%6f%63%75%6d%65%6e%74%2e%77%72%69%74%65%28%27%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%6d%65%40%65%78%61%6d%70%6c%65%2e%63%6f%6d%22%20%3e%6d%65%40%65%78%61%6d%70%6c%65%2e%63%6f%6d%3c%2f%61%3e%27%29%3b\'))</script>';
+        $result = '<script type="text/javascript">document.write(unescape(\'%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%6d%65%40%65%78%61%6d%70%6c%65%2e%63%6f%6d%22%20%3e%6d%65%40%65%78%61%6d%70%6c%65%2e%63%6f%6d%3c%2f%61%3e\'))</script>';
         $tpl = $this->smarty->createTemplate('eval:{mailto address="me@example.com" encode="javascript"}');
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
     }
@@ -62,7 +62,7 @@ class PluginFunctionMailtoTest extends PHPUnit_Smarty
     public function testEncodeJavascriptWithoutMbstring()
     {
         Smarty::$_MBSTRING = false;
-        $result = '<script type="text/javascript">eval(unescape(\'%64%6f%63%75%6d%65%6e%74%2e%77%72%69%74%65%28%27%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%6d%65%40%65%78%61%6d%70%6c%65%2e%63%6f%6d%22%20%3e%6d%65%40%65%78%61%6d%70%6c%65%2e%63%6f%6d%3c%2f%61%3e%27%29%3b\'))</script>';
+        $result = '<script type="text/javascript">document.write(unescape(\'%3c%61%20%68%72%65%66%3d%22%6d%61%69%6c%74%6f%3a%6d%65%40%65%78%61%6d%70%6c%65%2e%63%6f%6d%22%20%3e%6d%65%40%65%78%61%6d%70%6c%65%2e%63%6f%6d%3c%2f%61%3e\'))</script>';
         $tpl = $this->smarty->createTemplate('eval:{mailto address="me@example.com" encode="javascript"}');
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
         Smarty::$_MBSTRING = true;
@@ -70,7 +70,7 @@ class PluginFunctionMailtoTest extends PHPUnit_Smarty
 
     public function testEncodeJavascriptCharcode()
     {
-        $result = "<script type=\"text/javascript\" language=\"javascript\">\n{document.write(String.fromCharCode(60,97,32,104,114,101,102,61,34,109,97,105,108,116,111,58,109,101,64,101,120,97,109,112,108,101,46,99,111,109,34,32,62,109,101,64,101,120,97,109,112,108,101,46,99,111,109,60,47,97,62))}\n</script>\n";
+        $result = '<script type="text/javascript">document.write(String.fromCharCode(60,97,32,104,114,101,102,61,34,109,97,105,108,116,111,58,109,101,64,101,120,97,109,112,108,101,46,99,111,109,34,32,62,109,101,64,101,120,97,109,112,108,101,46,99,111,109,60,47,97,62))</script>';
         $tpl = $this->smarty->createTemplate('eval:{mailto address="me@example.com" encode="javascript_charcode"}');
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
     }
@@ -78,7 +78,7 @@ class PluginFunctionMailtoTest extends PHPUnit_Smarty
     public function testEncodeJavascriptCharcodeWithoutMbstring()
     {
         Smarty::$_MBSTRING = false;
-        $result = "<script type=\"text/javascript\" language=\"javascript\">\n{document.write(String.fromCharCode(60,97,32,104,114,101,102,61,34,109,97,105,108,116,111,58,109,101,64,101,120,97,109,112,108,101,46,99,111,109,34,32,62,109,101,64,101,120,97,109,112,108,101,46,99,111,109,60,47,97,62))}\n</script>\n";
+        $result = '<script type="text/javascript">document.write(String.fromCharCode(60,97,32,104,114,101,102,61,34,109,97,105,108,116,111,58,109,101,64,101,120,97,109,112,108,101,46,99,111,109,34,32,62,109,101,64,101,120,97,109,112,108,101,46,99,111,109,60,47,97,62))</script>';
         $tpl = $this->smarty->createTemplate('eval:{mailto address="me@example.com" encode="javascript_charcode"}');
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
         Smarty::$_MBSTRING = true;
