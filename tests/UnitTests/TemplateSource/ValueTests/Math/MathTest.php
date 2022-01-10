@@ -108,31 +108,25 @@ class MathTest extends PHPUnit_Smarty
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
     }
 
-	/**
-	 * @expectedException PHPUnit_Framework_Error_Warning
-	 */
 	public function testBackticksIllegal()
 	{
+		$this->expectException(PHPUnit\Framework\Error\Warning::class);
 		$expected = "22.00";
 		$tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="`ls` x * y" x=$x y=$y}');
 		$this->assertEquals($expected, $this->smarty->fetch($tpl));
 	}
 
-	/**
-	 * @expectedException PHPUnit_Framework_Error_Warning
-	 */
 	public function testDollarSignsIllegal()
 	{
+		$this->expectException(PHPUnit\Framework\Error\Warning::class);
 		$expected = "22.00";
 		$tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="$" x=$x y=$y}');
 		$this->assertEquals($expected, $this->smarty->fetch($tpl));
 	}
 
-	/**
-	 * @expectedException PHPUnit_Framework_Error_Warning
-	 */
 	public function testBracketsIllegal()
 	{
+		$this->expectException(PHPUnit\Framework\Error\Warning::class);
 		$expected = "I";
 		$tpl = $this->smarty->createTemplate('eval:{$x = "0"}{$y = "1"}{math equation="((y/x).(x))[x]" x=$x y=$y}');
 		$this->assertEquals($expected, $this->smarty->fetch($tpl));
