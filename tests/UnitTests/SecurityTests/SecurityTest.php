@@ -257,18 +257,40 @@ class SecurityTest extends PHPUnit_Smarty
         $this->assertEquals('25', $this->smarty->fetch($tpl));
     }
 
-/**
- * test not trusted PHP function
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
-  */
-    public function testNotTrustedStaticClass()
-    {
+	/**
+	 * test not trusted PHP function
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 */
+	public function testNotTrustedStaticClass()
+	{
         $this->expectException('SmartyException');
         $this->expectExceptionMessage('access to static class \'mysecuritystaticclass\' not allowed by security setting');
         $this->smarty->security_policy->static_classes = array('null');
         $this->smarty->fetch('string:{mysecuritystaticclass::square(5)}');
     }
+
+	/**
+	 * test not trusted PHP function
+	 */
+	public function testNotTrustedStaticClassEval()
+	{
+		$this->expectException('SmartyException');
+		$this->expectExceptionMessage('dynamic static class not allowed by security setting');
+		$this->smarty->security_policy->static_classes = array('null');
+		$this->smarty->fetch('string:{$test = "mysecuritystaticclass"}{$test::square(5)}');
+	}
+
+	/**
+	 * test not trusted PHP function
+	 */
+	public function testNotTrustedStaticClassSmartyVar()
+	{
+		$this->expectException('SmartyException');
+		$this->expectExceptionMessage('dynamic static class not allowed by security setting');
+		$this->smarty->security_policy->static_classes = array('null');
+		$this->smarty->fetch('string:{$smarty.template_object::square(5)}');
+	}
 
     public function testChangedTrustedDirectory()
     {

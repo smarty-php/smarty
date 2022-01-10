@@ -2397,6 +2397,9 @@ public static $yy_action = array(
     }
 // line 749 "../smarty/lexer/smarty_internal_templateparser.y"
     public function yy_r94(){
+	    if ($this->security && $this->security->static_classes !== array()) {
+		    $this->compiler->trigger_template_error('dynamic static class not allowed by security setting');
+	    }
     $prefixVar = $this->compiler->getNewPrefixVariable();
     if ($this->yystack[$this->yyidx + -2]->minor['var'] === '\'smarty\'') {
         $this->compiler->appendPrefixCode("<?php {$prefixVar} = ". $this->compiler->compileTag('private_special_variable',array(),$this->yystack[$this->yyidx + -2]->minor['smarty_internal_index']).';?>');
