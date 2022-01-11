@@ -18,9 +18,9 @@ class SmartyCompilerException extends SmartyException
     /**
      * The line number of the template error
      *
-     * @type int|null
+     * @type int
      */
-    public $line = null;
+    public $line;
 
     /**
      * The template source snippet relating to the error
