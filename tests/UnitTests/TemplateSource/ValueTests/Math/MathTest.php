@@ -44,6 +44,14 @@ class MathTest extends PHPUnit_Smarty
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
     }
 
+    public function testMultipleOperators()
+    {
+        $this->smarty->disableSecurity();
+        $expected = "2 -- 2";
+        $tpl = $this->smarty->createTemplate('eval:{$x = 5}{$y = 4}{math equation="x - y + 1" x=$x y=$y} -- {math equation="5 - 4 + 1"}');
+        $this->assertEquals($expected, $this->smarty->fetch($tpl));
+    }
+
     public function testSyntaxSin()
     {
         $this->smarty->disableSecurity();
