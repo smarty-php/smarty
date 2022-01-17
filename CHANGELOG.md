@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Fixed illegal characters bug in math function security check [#702](https://github.com/smarty-php/smarty/issues/702)
+
 ## [3.1.43] - 2022-01-10
 
 ### Security
