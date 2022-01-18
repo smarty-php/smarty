@@ -416,7 +416,7 @@ class ResourceStreamSecurity
         $v = &$GLOBALS[$this->varname];
         $l = strlen($data);
         $p = &$this->position;
-        $v = substr($v, 0, $p) . $data . substr($v, $p += $l);
+        $v = substr($v ?? '', 0, $p) . $data . substr($v ?? '', $p += $l);
 
         return $l;
     }
