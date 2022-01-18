@@ -366,9 +366,9 @@ class SecurityTest extends PHPUnit_Smarty
 
     /**
      * In security mode, accessing $smarty.template_object should be illegal.
-     * @expectedException SmartyCompilerException
      */
     public function testSmartyTemplateObject() {
+        $this->expectException(SmartyCompilerException::class);
         $this->smarty->display('string:{$smarty.template_object}');
     }
 
@@ -416,7 +416,7 @@ class ResourceStreamSecurity
         $v = &$GLOBALS[$this->varname];
         $l = strlen($data);
         $p = &$this->position;
-        $v = substr($v, 0, $p) . $data . substr($v, $p += $l);
+        $v = substr($v ?? '', 0, $p) . $data . substr($v ?? '', $p += $l);
 
         return $l;
     }
