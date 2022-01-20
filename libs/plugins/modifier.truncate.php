@@ -29,6 +29,9 @@ function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_wo
     if ($length === 0) {
         return '';
     }
+    if(empty( $string )) {
+        return;
+    }
     if (Smarty::$_MBSTRING) {
         if (mb_strlen($string, Smarty::$_CHARSET) > $length) {
             $length -= min($length, mb_strlen($etc, Smarty::$_CHARSET));
