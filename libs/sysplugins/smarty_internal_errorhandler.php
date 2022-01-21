@@ -71,7 +71,7 @@ class Smarty_Internal_ErrorHandler
         }
 
         if ($this->allowUndefinedArrayKeys && preg_match(
-            '/^(Undefined array key|Trying to access array offset on value of type null)/',
+            '/^(?:Undefined array key|Trying to access array offset on value of type (?:null|bool))/',
             $errstr
         )) {
             return; // suppresses this error
