@@ -52,6 +52,22 @@ class MathTest extends PHPUnit_Smarty
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
     }
 
+    public function testMathMaxFunctionParameters()
+    {
+        $this->smarty->disableSecurity();
+        $expected = max(0, 2) . ' -- ' . max(0, 2, 3);
+        $tpl = $this->smarty->createTemplate('eval:{$x = 0}{$y = 2}{$z = 3}{math equation="max(x, y)" x=$x y=$y} -- {math equation="max(x, y, z)" x=$x y=$y z=$z}');
+        $this->assertEquals($expected, $this->smarty->fetch($tpl));
+    }
+
+    public function testMathMinFunctionParameters()
+    {
+        $this->smarty->disableSecurity();
+        $expected = min(1, 2) . ' -- ' . min(1, 2, 0);
+        $tpl = $this->smarty->createTemplate('eval:{$x = 1}{$y = 2}{$z = 0}{math equation="min(x, y)" x=$x y=$y} -- {math equation="min(x, y, z)" x=$x y=$y z=$z}');
+        $this->assertEquals($expected, $this->smarty->fetch($tpl));
+    }
+
     public function testSyntaxSin()
     {
         $this->smarty->disableSecurity();
