@@ -196,7 +196,7 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
      * @return void
      * @access protected
      */
-    protected function fetch($id, $name, $cache_id = null, $compile_id = null, &$content, &$mtime)
+    protected function fetch($id, $name, $cache_id, $compile_id, &$content, &$mtime)
     {
         $stmt = $this->getFetchStatement($this->fetchColumns, $id, $cache_id, $compile_id);
         $stmt->execute();
@@ -244,7 +244,7 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
      * @return boolean success
      * @access protected
      */
-    protected function save($id, $name, $cache_id = null, $compile_id = null, $exp_time, $content)
+    protected function save($id, $name, $cache_id, $compile_id, $exp_time, $content)
     {
         $stmt = $this->pdo->prepare($this->insertStatement);
         $stmt->bindValue('id', $id);
