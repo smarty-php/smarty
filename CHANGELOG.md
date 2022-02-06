@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] - 2022-02-06
+
 ### Added
 - PHP8.1 compatibility [#713](https://github.com/smarty-php/smarty/pull/713)
 
