@@ -37,6 +37,9 @@ jobs:
           - os: ubuntu-latest
             php-version: "8.0"
             compiler: jit
+          - os: ubuntu-latest
+            php-version: "8.1"
+            compiler: jit
 
     steps:
     - name: Checkout
