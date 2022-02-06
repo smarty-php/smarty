@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+-  PHP 8.1 deprecation notices in demo/plugins/cacheresource.pdo.php [#706](https://github.com/smarty-php/smarty/issues/706)
+
 ### Added
 - PHP8.1 compatibility [#713](https://github.com/smarty-php/smarty/pull/713)
 
