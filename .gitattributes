@@ -7,7 +7,8 @@
 
 # exclude from git export
 /tests export-ignore
-/utilities/ export-ignore
+/utilities export-ignore
+/.github export-ignore
 
 /.gitattributes export-ignore
 /.gitignore export-ignore
