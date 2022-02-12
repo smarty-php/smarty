@@ -35,13 +35,19 @@ class Smarty_Internal_Runtime_FilterHandler
         // loop over autoload filters of specified type
         if (!empty($template->smarty->autoload_filters[ $type ])) {
             foreach ((array)$template->smarty->autoload_filters[ $type ] as $name) {
-                $plugin_name = "Smarty_{$type}filter_{$name}";
+		$plugin_prefix = 'Smarty';
+		$plugin_type = "{$type}filter";
+		$plugin_name = "{$plugin_prefix}_{$plugin_type}_{$name}";
                 if (function_exists($plugin_name)) {
                     $callback = $plugin_name;
                 } elseif (class_exists($plugin_name, false) && is_callable(array($plugin_name, 'execute'))) {
                     $callback = array($plugin_name, 'execute');
-                } elseif ($template->smarty->loadPlugin($plugin_name, false)) {
-                    if (function_exists($plugin_name)) {
+		} elseif ($template->smarty->loadPlugin($plugin_prefix, $plugin_type, $name, false)) {
+		    if (class_exists($name, true) && is_callable(array($name, $plugin_type))) {
+		        // use autoloader style plugin
+			$callback = array($name, $plugin_type);
+                    }
+		    elseif (function_exists($plugin_name)) {
                         // use loaded Smarty2 style plugin
                         $callback = $plugin_name;
                     } elseif (class_exists($plugin_name, false) && is_callable(array($plugin_name, 'execute'))) {

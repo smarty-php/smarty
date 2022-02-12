@@ -23,19 +23,35 @@ class Smarty_Internal_Method_LoadPlugin
      * class name format: Smarty_PluginType_PluginName
      * plugin filename format: plugintype.pluginname.php
      *
+     * plugin classes may also be autoloaded and will be
+     * used, if they implement the appropriate method
+     *
      * @param \Smarty $smarty
      * @param string  $plugin_name class plugin name to load
      * @param bool    $check       check if already loaded
      *
-     * @return bool|string
+     * @return bool|string|array
      * @throws \SmartyException
      */
-    public function loadPlugin(Smarty $smarty, $plugin_name, $check)
+    public function loadPlugin(Smarty $smarty, $plugin_prefix, $plugin_type, $name, $check)
     {
         // if function or class exists, exit silently (already loaded)
+	$plugin_name = "{$plugin_prefix}_{$plugin_type}_{$name}";
         if ($check && (is_callable($plugin_name) || class_exists($plugin_name, false))) {
             return true;
         }
+
+        // check for auto-loader plugin
+        foreach ($smarty->getPluginsNamespace() as $namespace) {
+            $class = $namespace . '\\' . $name;
+            if (class_exists($class, true) && is_callable(array($class, $plugin_type))) {
+                // the requested class exists and implements the required interface.
+                // as we are using the autoloader, we do not know the file name
+                if ($check) return true;
+                else return array($class, $plugin_type);
+            }
+        }
+
         if (!preg_match('#^smarty_((internal)|([^_]+))_(.+)$#i', $plugin_name, $match)) {
             throw new SmartyException("plugin {$plugin_name} is not a valid name format");
         }

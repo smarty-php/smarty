@@ -43,7 +43,7 @@ class Smarty_Template_Config extends Smarty_Template_Source
      *
      * @var string
      */
-    public $compiler_class = 'Smarty_Internal_Config_File_Compiler';
+    public $compiler_class = array('prefix' => 'Smarty', 'type' => 'Internal', 'name' => 'Config_File_Compiler');
 
     /**
      * Name of the Class to tokenize this resource's contents with

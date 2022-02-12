@@ -263,6 +263,13 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $_pluginsDirNormalized = false;
 
     /**
+     * plugins namespace
+     *
+     * @var array
+     */
+    public $plugins_namespace = array();
+
+    /**
      * flag if template_dir is normalized
      *
      * @var bool
@@ -890,6 +897,29 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * Get plugin namespace(s)
+     *
+     * @return array list of plugin namespace(s)
+     */
+    public function getPluginsNamespace() : Array
+    {
+        return $this->plugins_namespace;
+    }
+
+    /**
+     * Set plugin namepaces
+     *
+     * @param string|array $plugins_namespace namespace(s) of plugins
+     *
+     * @return Smarty       current Smarty instance for chaining
+     */
+    public function setPluginsNamespace($plugins_namespace)
+    {
+        $this->plugins_namespace = (array)$plugins_namespace;
+       return $this;
+    }
+
+    /**
      * Get compiled directory
      *
      * @return string path to compiled templates
@@ -1019,9 +1049,9 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @return string |boolean filepath of loaded file or false
      * @throws \SmartyException
      */
-    public function loadPlugin($plugin_name, $check = true)
+    public function loadPlugin($plugin_prefix, $plugin_type, $plugin_name, $check = true)
     {
-        return $this->ext->loadPlugin->loadPlugin($this, $plugin_name, $check);
+        return $this->ext->loadPlugin->loadPlugin($this, $plugin_prefix, $plugin_type, $plugin_name, $check);
     }
 
     /**

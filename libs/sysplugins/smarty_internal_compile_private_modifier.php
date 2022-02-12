@@ -77,7 +77,7 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
                         break;
                     case 3:
                         // modifiercompiler plugin
-                        if ($compiler->smarty->loadPlugin('smarty_modifiercompiler_' . $modifier)) {
+                        if ($compiler->smarty->loadPlugin('smarty', 'modifiercompiler', $modifier)) {
                             // check if modifier allowed
                             if (!is_object($compiler->smarty->security_policy)
                                 || $compiler->smarty->security_policy->isTrustedModifier($modifier, $compiler)

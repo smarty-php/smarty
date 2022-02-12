@@ -448,24 +448,37 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         static $checked = array();
         foreach ($plugins as $plugin) {
-            $name = join('::', (array)$plugin[ 'function' ]);
-            if (!isset($checked[ $name ])) {
-                if (!is_callable($plugin[ 'function' ])) {
-                    if (is_file($plugin[ 'file' ])) {
-                        include_once $plugin[ 'file' ];
-                        if (is_callable($plugin[ 'function' ])) {
-                            $checked[ $name ] = true;
-                        }
-                    }
-                } else {
+            if (array_key_exists('method', $plugin)) {
+                // autoloader plugins
+                $name = join('::', $plugin[ 'method' ]);
+                if (is_callable($name)) {
                     $checked[ $name ] = true;
                 }
+                 else {
+                     throw new SmartyException("Plugin '{$name}' not callable");
+                 }
             }
-            if (!isset($checked[ $name ])) {
-                if (false !== $this->smarty->loadPlugin($name)) {
-                    $checked[ $name ] = true;
-                } else {
-                    throw new SmartyException("Plugin '{$name}' not callable");
+            elseif (array_key_exists('function', $plugin)) {
+                 // legacy plugins
+                 $name = join('::', (array)$plugin[ 'function' ]);
+                 if (!isset($checked[ $name ])) {
+                     if (!is_callable($plugin[ 'function' ])) {
+                         if (is_file($plugin[ 'file' ])) {
+                             include_once $plugin[ 'file' ];
+                             if (is_callable($plugin[ 'function' ])) {
+                                 $checked[ $name ] = true;
+                             }
+                        }
+                    } else {
+                        $checked[ $name ] = true;
+                    }
+                }
+                if (!isset($checked[ $name ])) {
+                    if (false !== $this->smarty->loadPlugin($name)) {
+                        $checked[ $name ] = true;
+                    } else {
+                        throw new SmartyException("Plugin '{$name}' not callable");
+                    }
                 }
             }
         }
@@ -644,11 +657,16 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function loadCompiler()
     {
-        if (!class_exists($this->source->compiler_class)) {
-            $this->smarty->loadPlugin($this->source->compiler_class);
+        $prefix = $this->source->compiler_class['prefix'];
+        $type = $this->source->compiler_class['type'];
+        $name = $this->source->compiler_class['name'];
+        $class = "{$prefix}_{$type}_{$name}";
+
+        if (!class_exists($class)) {
+            $this->smarty->loadPlugin($prefix, $type, $name);
         }
         $this->compiler =
-            new $this->source->compiler_class(
+            new $class(
                 $this->source->template_lexer_class,
                 $this->source->template_parser_class,
                 $this->smarty

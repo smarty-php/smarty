@@ -49,7 +49,7 @@ class Smarty_Internal_Method_LoadFilter
             $smarty->registered_filters[ $type ][ $_filter_name ] = $_plugin;
             return true;
         }
-        if ($smarty->loadPlugin($_plugin)) {
+        if ($smarty->loadPlugin('smarty', "{$type}filter", $name)) {
             if (class_exists($_plugin, false)) {
                 $_plugin = array($_plugin, 'execute');
             }

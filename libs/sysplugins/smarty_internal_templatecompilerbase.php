@@ -821,10 +821,26 @@ abstract class Smarty_Internal_TemplateCompilerBase
             return $function;
         }
         // loop through plugin dirs and find the plugin
-        $function = 'smarty_' . $plugin_type . '_' . $plugin_name;
-        $file = $this->smarty->loadPlugin($function, false);
-        if (is_string($file)) {
+        $function = "smarty_{$plugin_type}_{$plugin_name}";
+        $file = $this->smarty->loadPlugin('smarty', $plugin_type, $plugin_name, false);
+        if (is_array($file)) {
+             // plugin is a static method of a class
             if ($this->caching && ($this->nocache || $this->tag_nocache)) {
+                $this->required_plugins[ 'nocache' ][ $plugin_name ][ $plugin_type ][ 'method' ] =
+                    $file;
+            } else {
+                $this->required_plugins[ 'compiled' ][ $plugin_name ][ $plugin_type ][ 'method' ] =
+                    $file;
+            }
+            if ($plugin_type === 'modifier') {
+                $this->modifier_plugins[ $plugin_name ] = true;
+            }
+            return join('::', $file);
+        }
+        elseif (is_string($file)) {
+            // plugin is a function within a file
+            if ($this->caching && ($this->nocache || $this->tag_nocache)) {
+
                 $this->required_plugins[ 'nocache' ][ $plugin_name ][ $plugin_type ][ 'file' ] =
                     $file;
                 $this->required_plugins[ 'nocache' ][ $plugin_name ][ $plugin_type ][ 'function' ] =
@@ -1577,7 +1593,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 // check plugins from plugins folder
                 foreach ($this->plugin_search_order as $plugin_type) {
                     if ($plugin_type === Smarty::PLUGIN_COMPILER
-                        && $this->smarty->loadPlugin('smarty_compiler_' . $tag)
+                        && $this->smarty->loadPlugin('smarty', 'compiler', $tag)
                         && (!isset($this->smarty->security_policy)
                             || $this->smarty->security_policy->isTrustedTag($tag, $this))
                     ) {
@@ -1724,7 +1740,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         )
                     );
                 }
-                if ($this->smarty->loadPlugin('smarty_compiler_' . $tag)) {
+                if ($this->smarty->loadPlugin('smarty', 'compiler', $tag)) {
                     $plugin = 'smarty_compiler_' . $tag;
                     if (is_callable($plugin)) {
                         return $plugin($args, $this->smarty);
