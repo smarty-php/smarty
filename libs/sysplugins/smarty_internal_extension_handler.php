@@ -31,6 +31,7 @@
  * @property   Smarty_Internal_Method_AssignByRef        $assignByRef
  * @property   Smarty_Internal_Method_LoadFilter         $loadFilter
  * @property   Smarty_Internal_Method_LoadPlugin         $loadPlugin
+ * @property   Smarty_Internal_Method_AutoLoadPlugin     $autoLoadPlugin
  * @property   Smarty_Internal_Method_RegisterFilter     $registerFilter
  * @property   Smarty_Internal_Method_RegisterObject     $registerObject
  * @property   Smarty_Internal_Method_RegisterPlugin     $registerPlugin

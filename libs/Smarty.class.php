@@ -263,13 +263,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $_pluginsDirNormalized = false;
 
     /**
-     * plugins namespace
-     *
-     * @var array
-     */
-    public $plugins_namespace = array();
-
-    /**
      * flag if template_dir is normalized
      *
      * @var bool
@@ -619,6 +612,13 @@ class Smarty extends Smarty_Internal_TemplateBase
     protected $plugins_dir = array();
 
     /**
+     * plugins namespace
+     *
+     * @var array
+     */
+    protected $plugins_namespaces = array();
+
+    /**
      * cache directory
      *
      * @var string
@@ -897,26 +897,39 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * Adds namespace for plugin files
+     *
+     * @param null|array|string $plugins_namespaces
+     *
+     * @return Smarty current Smarty instance for chaining
+     */
+    public function addPluginsNamespace($plugins_namespaces)
+    {
+        $this->plugins_namespaces = array_merge($this->plugins_namespaces, (array)$plugins_namespaces);
+        return $this;
+    }
+
+    /**
      * Get plugin namespace(s)
      *
      * @return array list of plugin namespace(s)
      */
-    public function getPluginsNamespace() : Array
+    public function getPluginsNamespaces() : Array
     {
-        return $this->plugins_namespace;
+        return $this->plugins_namespaces;
     }
 
     /**
      * Set plugin namepaces
      *
-     * @param string|array $plugins_namespace namespace(s) of plugins
+     * @param string|array $plugins_namespaces namespace(s) of plugins
      *
      * @return Smarty       current Smarty instance for chaining
      */
-    public function setPluginsNamespace($plugins_namespace)
+    public function setPluginsNamespaces($plugins_namespaces)
     {
-        $this->plugins_namespace = (array)$plugins_namespace;
-       return $this;
+        $this->plugins_namespaces = (array)$plugins_namespaces;
+        return $this;
     }
 
     /**
@@ -1049,9 +1062,12 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @return string |boolean filepath of loaded file or false
      * @throws \SmartyException
      */
-    public function loadPlugin($plugin_prefix, $plugin_type, $plugin_name, $check = true)
+    public function loadPlugin($plugin_name, $check = true)
     {
-        return $this->ext->loadPlugin->loadPlugin($this, $plugin_prefix, $plugin_type, $plugin_name, $check);
+        $result = $this->ext->autoLoadPlugin->autoLoadPlugin($this, $plugin_name, $check);
+	if ($result === false) $result = $this->ext->loadPlugin->loadPlugin($this, $plugin_name, $check);
+
+	return $result;
     }
 
     /**

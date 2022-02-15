@@ -80,8 +80,8 @@ abstract class Smarty_Resource
             return $smarty->_cache[ 'resource_handlers' ][ $type ] = new $_resource_class();
         }
         // try plugins dir
-        if ($smarty->loadPlugin('Smarty', 'Resource', ucfirst($type))) {
-            $_resource_class = 'Smarty_Resource_' . ucfirst($type);
+        $_resource_class = 'Smarty_Resource_' . ucfirst($type);
+        if ($smarty->loadPlugin($_resource_class)) {
             if (class_exists($_resource_class, false)) {
                 return $smarty->_cache[ 'resource_handlers' ][ $type ] = new $_resource_class();
             } else {

@@ -209,8 +209,8 @@ abstract class Smarty_CacheResource
             return $smarty->_cache[ 'cacheresource_handlers' ][ $type ] = new $cache_resource_class();
         }
         // try plugins dir
-        if ($smarty->loadPlugin('Smarty', 'CacheResource', ucfirst($type))) {
-            $cache_resource_class = 'Smarty_CacheResource_' . ucfirst($type);
+        $cache_resource_class = 'Smarty_CacheResource_' . ucfirst($type);
+        if ($smarty->loadPlugin($cache_resource_class)) {
             return $smarty->_cache[ 'cacheresource_handlers' ][ $type ] = new $cache_resource_class();
         }
         // give up

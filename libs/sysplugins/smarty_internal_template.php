@@ -473,12 +473,18 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                         $checked[ $name ] = true;
                     }
                 }
-                if (!isset($checked[ $name ])) {
-                    if (false !== $this->smarty->loadPlugin($name)) {
-                        $checked[ $name ] = true;
-                    } else {
-                        throw new SmartyException("Plugin '{$name}' not callable");
-                    }
+            }
+	    else {
+	        // plugin must either set "method" (auto-load plugins)
+		// or "function" (procedural plugins)
+                throw new SmartyException("Plugin '{$name}' not defined");
+	    }
+
+            if (!isset($checked[ $name ])) {
+                if (false !== $this->smarty->loadPlugin($name)) {
+                    $checked[ $name ] = true;
+                } else {
+                    throw new SmartyException("Plugin '{$name}' not callable");
                 }
             }
         }
@@ -657,16 +663,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function loadCompiler()
     {
-        $prefix = $this->source->compiler_class['prefix'];
-        $type = $this->source->compiler_class['type'];
-        $name = $this->source->compiler_class['name'];
-        $class = "{$prefix}_{$type}_{$name}";
-
-        if (!class_exists($class)) {
-            $this->smarty->loadPlugin($prefix, $type, $name);
+        if (!class_exists($this->source->compiler_class)) {
+            $this->smarty->loadPlugin($this->source->compiler_class);
         }
         $this->compiler =
-            new $class(
+            new $this->source->compiler_class(
                 $this->source->template_lexer_class,
                 $this->source->template_parser_class,
                 $this->smarty
