@@ -66,7 +66,7 @@ class Smarty_Internal_ErrorHandler
      */
     public function handleError($errno, $errstr, $errfile, $errline, $errcontext = [])
     {
-        if ($this->allowUndefinedVars && $errstr == 'Attempt to read property "value" on null') {
+        if ($this->allowUndefinedVars && preg_match('/^Attempt to read property ".+?" on null$/', $errstr)) {
             return; // suppresses this error
         }
 
