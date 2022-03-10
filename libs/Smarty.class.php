@@ -867,7 +867,7 @@ class Smarty extends Smarty_Internal_TemplateBase
                 $this->plugins_dir = (array)$this->plugins_dir;
             }
             foreach ($this->plugins_dir as $k => $v) {
-                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v, '/\\') . DIRECTORY_SEPARATOR, true);
+                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v ?? '', '/\\') . DIRECTORY_SEPARATOR, true);
             }
             $this->_cache[ 'plugin_files' ] = array();
             $this->_pluginsDirNormalized = true;
@@ -1345,7 +1345,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     private function _normalizeDir($dirName, $dir)
     {
-        $this->{$dirName} = $this->_realpath(rtrim($dir, "/\\") . DIRECTORY_SEPARATOR, true);
+        $this->{$dirName} = $this->_realpath(rtrim($dir ?? '', "/\\") . DIRECTORY_SEPARATOR, true);
     }
 
     /**
@@ -1367,7 +1367,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
         foreach ($dir as $k => $v) {
             if (!isset($processed[ $k ])) {
-                $dir[ $k ] = $v = $this->_realpath(rtrim($v, "/\\") . DIRECTORY_SEPARATOR, true);
+                $dir[ $k ] = $v = $this->_realpath(rtrim($v ?? '', "/\\") . DIRECTORY_SEPARATOR, true);
                 $processed[ $k ] = true;
             }
         }
