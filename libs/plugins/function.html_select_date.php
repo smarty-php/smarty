@@ -27,10 +27,11 @@
  *              of 0000-00-00 dates (cybot, boots)
  *            - 2.0 complete rewrite for performance,
  *              added attributes month_names, *_id
+ *            - 2.1 use date() for php 8.1 compatiblity
  *
  * @link    https://www.smarty.net/manual/en/language.function.html.select.date.php {html_select_date}
  *           (Smarty online manual)
- * @version 2.0
+ * @version 2.1
  * @author  Andrei Zmievski
  * @author  Monte Ohrt <monte at ohrt dot com>
  * @author  Rodney Rehm
@@ -69,12 +70,12 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
     $display_days = true;
     $display_months = true;
     $display_years = true;
-    $month_format = '%B';
+    $month_format = 'F';
     /* Write months as numbers by default  GL */
-    $month_value_format = '%m';
+    $month_value_format = 'm';
     $day_format = '%02d';
     /* Write day values using this format MB */
-    $day_value_format = '%d';
+    $day_value_format = 'd';
     $year_as_text = false;
     /* Display years in reverse order? Ie. 2000,1999,.... */
     $reverse_years = false;
@@ -176,7 +177,6 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
                 break;
         }
     }
-    // Note: date() is faster than strftime()
     // Note: explode(date()) is faster than date() date() date()
     if (isset($params[ 'time' ]) && is_array($params[ 'time' ])) {
         if (isset($params[ 'time' ][ $prefix . 'Year' ])) {
@@ -309,8 +309,8 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
         for ($i = 1; $i <= 12; $i++) {
             $_val = sprintf('%02d', $i);
             $_text = isset($month_names) ? smarty_function_escape_special_chars($month_names[ $i ]) :
-                ($month_format === '%m' ? $_val : strftime($month_format, $_month_timestamps[ $i ]));
-            $_value = $month_value_format === '%m' ? $_val : strftime($month_value_format, $_month_timestamps[ $i ]);
+                ($month_format === '%m' ? $_val : date($month_format, $_month_timestamps[ $i ]));
+            $_value = $month_value_format === '%m' ? $_val : date($month_value_format, $_month_timestamps[ $i ]);
             $_html_months .= '<option value="' . $_value . '"' . ($_val == $_month ? ' selected="selected"' : '') .
                              '>' . $_text . '</option>' . $option_separator;
         }
