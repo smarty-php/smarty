@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PHP 8.1 deprecation notices in truncate modifier [#699](https://github.com/smarty-php/smarty/issues/699)
 - Math equation `max(x, y)` didn't work anymore [#721](https://github.com/smarty-php/smarty/issues/721)
 - Fix PHP 8.1 deprecated warning when calling rtrim [#743](https://github.com/smarty-php/smarty/pull/743)
+- PHP 8.1: fix deprecation in escape modifier [#727](https://github.com/smarty-php/smarty/pull/727)
 
 ## [4.1.0] - 2022-02-06
 
