@@ -1439,6 +1439,10 @@ abstract class Smarty_Internal_TemplateCompilerBase
      */
     abstract protected function doCompile($_content, $isTemplateSource = false);
 
+    public function cStyleComment($string) {
+        return '/*' . str_replace('*/', '* /' , $string) . '*/';
+    }
+
     /**
      * Compile Tag
      *
