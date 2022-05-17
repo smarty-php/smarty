@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [4.1.1] - 2022-05-17
 
 ### Security
-- Prevent PHP injection through malicious block name or include file name. This addresses CVE-2022-
+- Prevent PHP injection through malicious block name or include file name. This addresses CVE-2022-29221
 
 ### Fixed
 - Exclude docs and demo from export and composer [#751](https://github.com/smarty-php/smarty/pull/751)
