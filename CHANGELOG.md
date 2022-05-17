@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.1] - 2022-05-17
+
 ### Security
 - Prevent PHP injection through malicious block name or include file name. This addresses CVE-2022-
 
