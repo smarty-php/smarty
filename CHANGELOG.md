@@ -6,10 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
-- Exclude docs and demo from export and composer [#751](https://github.com/smarty-php/smarty/pull/751)
+### Security
+- Prevent PHP injection through malicious block name or include file name. This addresses CVE-2022-
 
 ### Fixed
+- Exclude docs and demo from export and composer [#751](https://github.com/smarty-php/smarty/pull/751)
 - PHP 8.1 deprecation notices in demo/plugins/cacheresource.pdo.php [#706](https://github.com/smarty-php/smarty/issues/706)
 - PHP 8.1 deprecation notices in truncate modifier [#699](https://github.com/smarty-php/smarty/issues/699)
 - Math equation `max(x, y)` didn't work anymore [#721](https://github.com/smarty-php/smarty/issues/721)
