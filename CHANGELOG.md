@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Security
-- Prevent PHP injection through malicious block name or include file name. This addresses CVE-2022-
+- Prevent PHP injection through malicious block name or include file name. This addresses CVE-2022-29221
 
 ### Fixed
 - Math equation `max(x, y)` didn't work anymore [#721](https://github.com/smarty-php/smarty/issues/721)
