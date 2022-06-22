@@ -5,10 +5,10 @@ Charset Encoding {#charset.encoding}
 ================
 
 There are a variety of encodings for textual data, ISO-8859-1 (Latin1)
-and UTF-8 being the most popular. Unless specified otherwise with the
-`SMARTY_RESOURCE_CHAR_SET` constant, Smarty recognizes `UTF-8` as the
-internal charset if [Multibyte String](https://www.php.net/mbstring) is
-available, `ISO-8859-1` if not.
+and UTF-8 being the most popular. Unless you change `Smarty::$_CHARSET`, 
+Smarty recognizes `UTF-8` as the internal charset if 
+[Multibyte String](https://www.php.net/mbstring) is available, 
+`ISO-8859-1` if not.
 
 > **Note**
 >
@@ -36,8 +36,9 @@ available, `ISO-8859-1` if not.
     if (function_exists('mb_internal_charset')) {
       mb_internal_charset('EUC-JP');
     }
-    define('SMARTY_RESOURCE_CHAR_SET', 'EUC-JP');
+
     require_once 'libs/Smarty.class.php';
+    Smarty::$_CHARSET = 'EUC-JP';
     $smarty = new Smarty();
       
      

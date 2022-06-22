@@ -29,6 +29,9 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
     if (!$char_set) {
         $char_set = Smarty::$_CHARSET;
     }
+
+    $string = (string)$string;
+
     switch ($esc_type) {
         case 'html':
             if ($_double_encode) {
