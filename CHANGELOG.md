@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Updated HTML of the debug template [#599](https://github.com/smarty-php/smarty/pull/599)
+
 ## [4.1.1] - 2022-05-17
 
 ### Security
