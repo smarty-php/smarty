@@ -422,9 +422,6 @@ abstract class Smarty_Internal_TemplateCompilerBase
         try {
             // save template object in compiler class
             $this->template = $template;
-            if (property_exists($this->template->smarty, 'plugin_search_order')) {
-                $this->plugin_search_order = $this->template->smarty->plugin_search_order;
-            }
             if ($this->smarty->debugging) {
                 if (!isset($this->smarty->_debug)) {
                     $this->smarty->_debug = new Smarty_Internal_Debug();
