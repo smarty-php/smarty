@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Fixed problems with smarty_mb_str_replace [#549](https://github.com/smarty-php/smarty/issues/549)
+- Fixed second parameter of unescape modifier not working [#777](https://github.com/smarty-php/smarty/issues/777)
 
 ### Changed
 - Updated HTML of the debug template [#599](https://github.com/smarty-php/smarty/pull/599)
