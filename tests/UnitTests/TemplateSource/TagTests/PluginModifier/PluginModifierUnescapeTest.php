@@ -63,6 +63,11 @@ class PluginModifierUnescapeTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|unescape:"url"}');
         $this->assertEquals($result, $this->smarty->fetch($tpl));
     }
-}
 
-?>
+    public function testCharset()
+    {
+        $tpl = $this->smarty->createTemplate("string:{'&#039;Stiff Opposition Expected to Casketless Funeral Plan&#039;'|unescape:'htmlall':'utf-8'}");
+        $this->assertEquals("'Stiff Opposition Expected to Casketless Funeral Plan'", $this->smarty->fetch($tpl));
+    }
+
+}
