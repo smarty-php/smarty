@@ -130,7 +130,6 @@ class Smarty extends Smarty_Internal_TemplateBase
     const DEBUG_OFF        = 0;
     const DEBUG_ON         = 1;
     const DEBUG_INDIVIDUAL = 2;
-
     /**
      * filter types
      */
