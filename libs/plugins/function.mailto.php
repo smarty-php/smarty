@@ -95,7 +95,7 @@ function smarty_function_mailto($params)
         return;
     }
     if ($encode === 'javascript') {
-	    $string = '<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>';
+        $string = '<a href="mailto:' . $address . '" ' . $extra . '>' . $text . '</a>';
         $js_encode = '';
         for ($x = 0, $_length = strlen($string); $x < $_length; $x++) {
             $js_encode .= '%' . bin2hex($string[ $x ]);
@@ -106,7 +106,7 @@ function smarty_function_mailto($params)
         for ($x = 0, $_length = strlen($string); $x < $_length; $x++) {
             $ord[] = ord($string[ $x ]);
         }
-	    return '<script type="text/javascript">document.write(String.fromCharCode(' . implode(',', $ord) . '))</script>';
+        return '<script type="text/javascript">document.write(String.fromCharCode(' . implode(',', $ord) . '))</script>';
     } elseif ($encode === 'hex') {
         preg_match('!^(.*)(\?.*)$!', $address, $match);
         if (!empty($match[ 2 ])) {
