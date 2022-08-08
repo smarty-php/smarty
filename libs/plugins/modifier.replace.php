@@ -11,7 +11,8 @@
  * Name:     replace
  * Purpose:  simple search/replace
  *
- * @link   https://www.smarty.net/docs/en/language.modifier.replace.php replace (Smarty online manual)
+ * @link   https://www.smarty.net/docs/en/language.modifier.replace.php replace
+ *         (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Uwe Tews
  *
