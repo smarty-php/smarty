@@ -12,7 +12,6 @@
                 margin: 1px;
                 padding: 0;
             }
-
             h1 {
                 margin: 0;
                 text-align: left;
@@ -22,7 +21,6 @@
                 font-weight: bold;
                 font-size: 1.2em;
             }
-
             h2 {
                 background-color: #9B410E;
                 color: white;
@@ -31,7 +29,6 @@
                 padding: 2px;
                 border-top: 1px solid black;
             }
-
             h3 {
                 text-align: left;
                 font-weight: bold;
@@ -39,71 +36,58 @@
                 font-size: 0.7em;
                 padding: 2px;
             }
-
             body {
                 background: black;
             }
-
             p, table, div {
                 background: #f0ead8;
             }
-
             p {
                 margin: 0;
                 font-style: italic;
                 text-align: center;
             }
-
             table {
                 width: 100%;
             }
-
             th, td {
                 font-family: monospace;
                 vertical-align: top;
                 text-align: left;
             }
-
             td {
                 color: green;
             }
-
             tr:nth-child(odd) {
                 background-color: #eeeeee;
             }
-
             tr:nth-child(even) {
                 background-color: #fafafa;
             }
-
             .exectime {
                 font-size: 0.8em;
                 font-style: italic;
             }
-
             #bold div {
                 color: black;
                 font-weight: bold;
             }
-
             #blue h3 {
                 color: blue;
             }
-
             #normal div {
                 color: black;
                 font-weight: normal;
             }
-
             #table_assigned_vars th {
                 color: blue;
                 font-weight: bold;
             }
-
             #table_config_vars th {
                 color: maroon;
             }
             {/literal}
+
         </style>
     </head>
     <body>
@@ -121,6 +105,7 @@
                  </span>
                 <br>
             {/foreach}
+
         </div>
     {/if}
 
@@ -144,11 +129,14 @@
                         {$vars['attributes']|debug_print_var nofilter}
                     {/if}
                 </td>
+            </tr>
          {/foreach}
+
     </table>
 
     <h2>assigned config file variables</h2>
 
+    {if NOT empty($config_vars)}
     <table id="table_config_vars">
         {foreach $config_vars as $vars}
             <tr>
@@ -163,6 +151,8 @@
         {/foreach}
 
     </table>
+    {/if}
+
     </body>
     </html>
 {/capture}
