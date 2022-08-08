@@ -22,6 +22,7 @@ class SmartyCompilerException extends SmartyException
     {
         $this->line = $line;
     }
+
     /**
      * The template source snippet relating to the error
      *
