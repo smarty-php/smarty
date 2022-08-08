@@ -63,6 +63,7 @@ if (!function_exists('smarty_mb_str_replace')) {
             }
 
             $parts = mb_split(preg_quote($search), $subject) ?: array();
+
             // If original regex encoding was not unicode...
             if(!$reg_is_unicode) {
                 // ...restore original regex encoding to avoid breaking the system.
