@@ -11,7 +11,8 @@
  * Name:     indent
  * Purpose:  indent lines of text
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.indent.php indent (Smarty online manual)
+ * @link   https://www.smarty.net/docs/en/language.modifier.indent.php indent
+ *           (Smarty online manual)
  * @author Uwe Tews
  *
  * @param array $params parameters

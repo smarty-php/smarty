@@ -11,7 +11,8 @@
  * Name:     count_words
  * Purpose:  count the number of words in a text
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.count.words.php count_words (Smarty online manual)
+ * @link   https://www.smarty.net/docs/en/language.modifier.count.words.php count_words
+ *           (Smarty online manual)
  * @author Uwe Tews
  *
  * @param array $params parameters

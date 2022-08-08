@@ -11,7 +11,8 @@
  * Name:     spacify
  * Purpose:  add spaces between characters in a string
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.spacify.php spacify (Smarty online manual)
+ * @link   https://www.smarty.net/docs/en/language.modifier.spacify.php spacify
+ *         (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
  *
  * @param string $string       input string

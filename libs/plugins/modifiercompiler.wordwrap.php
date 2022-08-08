@@ -11,7 +11,8 @@
  * Name:     wordwrap
  * Purpose:  wrap a string of text at a given length
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.wordwrap.php wordwrap (Smarty online manual)
+ * @link   https://www.smarty.net/docs/en/language.modifier.wordwrap.php wordwrap
+ *           (Smarty online manual)
  * @author Uwe Tews
  *
  * @param array                                 $params parameters

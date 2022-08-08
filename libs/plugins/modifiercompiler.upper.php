@@ -11,7 +11,8 @@
  * Name:     lower
  * Purpose:  convert string to uppercase
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.upper.php lower (Smarty online manual)
+ * @link   https://www.smarty.net/docs/en/language.modifier.upper.php lower
+ *           (Smarty online manual)
  * @author Uwe Tews
  *
  * @param array $params parameters

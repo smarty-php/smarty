@@ -11,7 +11,8 @@
  * Name:     lower
  * Purpose:  convert string to lowercase
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.lower.php lower (Smarty online manual)
+ * @link   https://www.smarty.net/docs/en/language.modifier.lower.php lower
+ *           (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Uwe Tews
  *

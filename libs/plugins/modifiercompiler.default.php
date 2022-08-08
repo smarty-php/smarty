@@ -11,7 +11,8 @@
  * Name:     default
  * Purpose:  designate default value for empty variables
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.default.php default (Smarty online manual)
+ * @link   https://www.smarty.net/docs/en/language.modifier.default default
+ *           (Smarty online manual)
  * @author Uwe Tews
  *
  * @param array $params parameters
