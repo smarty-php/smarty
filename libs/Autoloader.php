@@ -42,31 +42,6 @@ class Smarty_Autoloader
     public static $rootClasses = array('smarty' => 'Smarty.class.php');
 
     /**
-     * Registers Smarty_Autoloader backward compatible to older installations.
-     *
-     * @param bool $prepend Whether to prepend the autoloader or not.
-     */
-    public static function registerBC($prepend = false)
-    {
-        /**
-         * register the class autoloader
-         */
-        if (!defined('SMARTY_SPL_AUTOLOAD')) {
-            define('SMARTY_SPL_AUTOLOAD', 0);
-        }
-        if (SMARTY_SPL_AUTOLOAD
-            && set_include_path(get_include_path() . PATH_SEPARATOR . SMARTY_SYSPLUGINS_DIR) !== false
-        ) {
-            $registeredAutoLoadFunctions = spl_autoload_functions();
-            if (!isset($registeredAutoLoadFunctions[ 'spl_autoload' ])) {
-                spl_autoload_register();
-            }
-        } else {
-            self::register($prepend);
-        }
-    }
-
-    /**
      * Registers Smarty_Autoloader as an SPL autoloader.
      *
      * @param bool $prepend Whether to prepend the autoloader or not.
