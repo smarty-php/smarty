@@ -40,7 +40,7 @@ class Smarty_Internal_Method_GetStreamVariable
             fclose($fp);
             return $_result;
         }
-        $smarty = isset($data->smarty) ? $data->smarty : $data;
+        $smarty = $data->smarty ?? $data;
         if ($smarty->error_unassigned) {
             throw new SmartyException('Undefined stream variable "' . $variable . '"');
         } else {

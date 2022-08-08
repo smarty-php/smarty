@@ -156,7 +156,7 @@ function smarty_function_html_radios($params, Smarty_Internal_Template $template
         }
     } else {
         foreach ($values as $_i => $_key) {
-            $_val = isset($output[ $_i ]) ? $output[ $_i ] : '';
+            $_val = $output[ $_i ] ?? '';
             $_html_result[] =
                 smarty_function_html_radios_output(
                     $name,

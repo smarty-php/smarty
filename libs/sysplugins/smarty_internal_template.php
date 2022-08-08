@@ -221,7 +221,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $this->smarty->ext->_cacheModify->cacheModifiedCheck(
                     $this->cached,
                     $this,
-                    isset($content) ? $content : ob_get_clean()
+                    ($content ?? ob_get_clean())
                 );
             } else {
                 if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
@@ -292,7 +292,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         $smarty = &$this->smarty;
         $_templateId = $smarty->_getTemplateId($template, $cache_id, $compile_id, $caching, $tpl);
         // recursive call ?
-        if (isset($tpl->templateId) ? $tpl->templateId : $tpl->_getTemplateId() !== $_templateId) {
+        if (($tpl->templateId ?? $tpl->_getTemplateId()) !== $_templateId) {
             // already in template cache?
             if (isset(self::$tplObjCache[ $_templateId ])) {
                 // copy data from cached object
@@ -537,7 +537,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         } else {
             $tpl->mustCompile = !$is_valid;
             $resource = $tpl->compiled;
-            $resource->includes = isset($properties[ 'includes' ]) ? $properties[ 'includes' ] : array();
+            $resource->includes = $properties[ 'includes' ] ?? array();
         }
         if ($is_valid) {
             $resource->unifunc = $properties[ 'unifunc' ];
@@ -579,8 +579,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function _getTemplateId()
     {
-        return isset($this->templateId) ? $this->templateId : $this->templateId =
-            $this->smarty->_getTemplateId($this->template_resource, $this->cache_id, $this->compile_id);
+        return ($this->templateId ?? ($this->templateId =
+            $this->smarty->_getTemplateId($this->template_resource, $this->cache_id, $this->compile_id)));
     }
 
     /**

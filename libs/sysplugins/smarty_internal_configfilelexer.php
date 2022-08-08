@@ -193,7 +193,7 @@ class Smarty_Internal_Configfilelexer
                 $this->yyTraceFILE,
                 "%sState push %s\n",
                 $this->yyTracePrompt,
-                isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] : $this->_yy_state
+                $this->state_name[ $this->_yy_state ] ?? $this->_yy_state
             );
         }
         array_push($this->_yy_stack, $this->_yy_state);
@@ -203,7 +203,7 @@ class Smarty_Internal_Configfilelexer
                 $this->yyTraceFILE,
                 "%snew State %s\n",
                 $this->yyTracePrompt,
-                isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] : $this->_yy_state
+                $this->state_name[ $this->_yy_state ] ?? $this->_yy_state
             );
         }
     }
@@ -215,7 +215,7 @@ class Smarty_Internal_Configfilelexer
                 $this->yyTraceFILE,
                 "%sState pop %s\n",
                 $this->yyTracePrompt,
-                isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] : $this->_yy_state
+                $this->state_name[ $this->_yy_state ] ?? $this->_yy_state
             );
         }
         $this->_yy_state = array_pop($this->_yy_stack);
@@ -224,7 +224,7 @@ class Smarty_Internal_Configfilelexer
                 $this->yyTraceFILE,
                 "%snew State %s\n",
                 $this->yyTracePrompt,
-                isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] : $this->_yy_state
+                $this->state_name[ $this->_yy_state ] ?? $this->_yy_state
             );
         }
     }
@@ -237,7 +237,7 @@ class Smarty_Internal_Configfilelexer
                 $this->yyTraceFILE,
                 "%sState set %s\n",
                 $this->yyTracePrompt,
-                isset($this->state_name[ $this->_yy_state ]) ? $this->state_name[ $this->_yy_state ] : $this->_yy_state
+                $this->state_name[ $this->_yy_state ] ?? $this->_yy_state
             );
         }
     }

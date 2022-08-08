@@ -230,7 +230,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if (!$_template->source->handler->recompiled) {
             return file_get_contents($this->filepath);
         }
-        return isset($this->content) ? $this->content : false;
+        return ($this->content ?? false);
     }
 
     /**

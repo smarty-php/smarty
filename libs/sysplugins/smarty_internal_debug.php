@@ -220,8 +220,7 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data
         $debObj->debugging = false;
         $debObj->debugging_ctrl = 'NONE';
         $debObj->error_reporting = E_ALL & ~E_NOTICE;
-        $debObj->debug_tpl =
-            isset($smarty->debug_tpl) ? $smarty->debug_tpl : 'file:' . dirname(__FILE__) . '/../debug.tpl';
+        $debObj->debug_tpl = $smarty->debug_tpl ?? 'file:' . dirname(__FILE__) . '/../debug.tpl';
         $debObj->registered_plugins = array();
         $debObj->registered_resources = array();
         $debObj->registered_filters = array();

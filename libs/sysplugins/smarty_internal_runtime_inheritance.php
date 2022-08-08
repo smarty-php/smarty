@@ -141,7 +141,7 @@ class Smarty_Internal_Runtime_Inheritance
      */
     public function instanceBlock(Smarty_Internal_Template $tpl, $className, $name, $tplIndex = null)
     {
-        $block = new $className($name, isset($tplIndex) ? $tplIndex : $this->tplIndex);
+        $block = new $className($name, ($tplIndex ?? $this->tplIndex));
         if (isset($this->childRoot[ $name ])) {
             $block->child = $this->childRoot[ $name ];
         }

@@ -196,7 +196,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
         }
         $has_compiled_template = false;
         if ($merge_compiled_includes) {
-            $c_id = isset($_attr[ 'compile_id' ]) ? $_attr[ 'compile_id' ] : $compiler->template->compile_id;
+            $c_id = $_attr[ 'compile_id' ] ?? $compiler->template->compile_id;
             // we must observe different compile_id and caching
             $t_hash = sha1($c_id . ($_caching ? '--caching' : '--nocaching'));
             $compiler->smarty->allow_ambiguous_resources = true;
@@ -314,7 +314,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             } else {
                 $basename = $tpl->source->handler->getBasename($tpl->source);
                 $sourceInfo = $tpl->source->type . ':' .
-                              ($basename ? $basename : $tpl->source->name);
+                              ($basename ?? $tpl->source->name);
             }
             // get compiled code
             $compiled_code = "<?php\n\n";

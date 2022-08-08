@@ -150,7 +150,7 @@ class Smarty_Internal_Runtime_Capture
     public function getBuffer(Smarty_Internal_Template $_template, $name = null)
     {
         if (isset($name)) {
-            return isset($this->namedBuffer[ $name ]) ? $this->namedBuffer[ $name ] : null;
+            return ($this->namedBuffer[ $name ] ?? null);
         } else {
             return $this->namedBuffer;
         }

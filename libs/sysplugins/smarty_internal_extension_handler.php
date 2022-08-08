@@ -66,7 +66,7 @@ class Smarty_Internal_Extension_Handler
     public function _callExternalMethod(Smarty_Internal_Data $data, $name, $args)
     {
         /* @var Smarty $data ->smarty */
-        $smarty = isset($data->smarty) ? $data->smarty : $data;
+        $smarty = $data->smarty ?? $data;
         if (!isset($smarty->ext->$name)) {
             if (preg_match('/^((set|get)|(.*?))([A-Z].*)$/', $name, $match)) {
                 $basename = $this->upperCase($match[ 4 ]);

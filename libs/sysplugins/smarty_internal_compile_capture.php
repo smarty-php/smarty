@@ -63,9 +63,9 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args, $parameter, 'capture');
-        $buffer = isset($_attr[ 'name' ]) ? $_attr[ 'name' ] : "'default'";
-        $assign = isset($_attr[ 'assign' ]) ? $_attr[ 'assign' ] : 'null';
-        $append = isset($_attr[ 'append' ]) ? $_attr[ 'append' ] : 'null';
+        $buffer = $_attr[ 'name' ] ?? "'default'";
+        $assign = $_attr[ 'assign' ] ?? 'null';
+        $append = $_attr[ 'append' ] ?? 'null';
         $compiler->_cache[ 'capture_stack' ][] = array($compiler->nocache);
         // maybe nocache because of nocache variables
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;

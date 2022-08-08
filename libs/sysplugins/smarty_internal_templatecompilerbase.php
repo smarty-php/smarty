@@ -428,8 +428,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 }
                 $this->smarty->_debug->start_compile($this->template);
             }
-            $this->parent_compiler = $parent_compiler ? $parent_compiler : $this;
-            $nocache = isset($nocache) ? $nocache : false;
+            $this->parent_compiler = $parent_compiler ?? $this;
+            $nocache = $nocache ?? false;
             if (empty($template->compiled->nocache_hash)) {
                 $template->compiled->nocache_hash = $this->nocache_hash;
             } else {
@@ -1029,7 +1029,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                 $_scope = $_scopeName;
             } elseif (is_string($_scopeName)) {
                 $_scopeName = trim($_scopeName, '\'"');
-                $_scope = isset($validScopes[ $_scopeName ]) ? $validScopes[ $_scopeName ] : false;
+                $_scope = $validScopes[ $_scopeName ] ?? false;
             } else {
                 $_scope = false;
             }

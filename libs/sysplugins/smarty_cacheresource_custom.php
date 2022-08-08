@@ -117,7 +117,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
             $cached->content,
             $timestamp
         );
-        $cached->timestamp = isset($timestamp) ? $timestamp : false;
+        $cached->timestamp = $timestamp ?? false;
         $cached->exists = !!$cached->timestamp;
     }
 
@@ -138,8 +138,8 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
         if (!$cached) {
             $cached = $_smarty_tpl->cached;
         }
-        $content = $cached->content ? $cached->content : null;
-        $timestamp = $cached->timestamp ? $cached->timestamp : null;
+        $content = $cached->content ?? null;
+        $timestamp = $cached->timestamp ?? null;
         if ($content === null || !$timestamp) {
             $this->fetch(
                 $_smarty_tpl->cached->filepath,
@@ -187,7 +187,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      */
     public function readCachedContent(Smarty_Internal_Template $_template)
     {
-        $content = $_template->cached->content ? $_template->cached->content : null;
+        $content = $_template->cached->content ?? null;
         $timestamp = null;
         if ($content === null) {
             $timestamp = null;

@@ -30,7 +30,7 @@ class Smarty_Internal_Method_GetAutoloadFilters extends Smarty_Internal_Method_S
         $smarty = $obj->_getSmartyObj();
         if ($type !== null) {
             $this->_checkFilterType($type);
-            return isset($smarty->autoload_filters[ $type ]) ? $smarty->autoload_filters[ $type ] : array();
+            return ($smarty->autoload_filters[ $type ] ?? array());
         }
         return $smarty->autoload_filters;
     }

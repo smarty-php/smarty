@@ -21,8 +21,7 @@ class Smarty_Internal_Runtime_TplFunction
      */
     public function callTemplateFunction(Smarty_Internal_Template $tpl, $name, $params, $nocache)
     {
-        $funcParam = isset($tpl->tplFunctions[ $name ]) ? $tpl->tplFunctions[ $name ] :
-            (isset($tpl->smarty->tplFunctions[ $name ]) ? $tpl->smarty->tplFunctions[ $name ] : null);
+        $funcParam = $tpl->tplFunctions[ $name ] ?? ($tpl->smarty->tplFunctions[ $name ] ?? null);
         if (isset($funcParam)) {
             if (!$tpl->caching || ($tpl->caching && $nocache)) {
                 $function = $funcParam[ 'call_name' ];
@@ -84,8 +83,7 @@ class Smarty_Internal_Runtime_TplFunction
     public function getTplFunction(Smarty_Internal_Template $tpl, $name = null)
     {
         if (isset($name)) {
-            return isset($tpl->tplFunctions[ $name ]) ? $tpl->tplFunctions[ $name ] :
-                (isset($tpl->smarty->tplFunctions[ $name ]) ? $tpl->smarty->tplFunctions[ $name ] : false);
+            return ($tpl->tplFunctions[ $name ] ?? ($tpl->smarty->tplFunctions[ $name ] ?? false));
         } else {
             return empty($tpl->tplFunctions) ? $tpl->smarty->tplFunctions : $tpl->tplFunctions;
         }
