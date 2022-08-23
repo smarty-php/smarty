@@ -36,7 +36,8 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
         case 'html':
             if ($_double_encode) {
                 // php >=5.3.2 - go native
-                return htmlspecialchars($string, ENT_QUOTES, $char_set, $double_encode);
+                // do not use null coalescing operator to stay compatible with php < 7
+                return htmlspecialchars(null !== $string ? $string : '', ENT_QUOTES, $char_set, $double_encode);
             } else {
                 if ($double_encode) {
                     // php <5.2.3 - only handle double encoding
@@ -65,7 +66,8 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                 // mb_convert_encoding ignores htmlspecialchars()
                 if ($_double_encode) {
                     // php >=5.3.2 - go native
-                    $string = htmlspecialchars($string, ENT_QUOTES, $char_set, $double_encode);
+                    // do not use null coalescing operator to stay compatible with php < 7
+                    $string = htmlspecialchars(null !== $string ? $string : '', ENT_QUOTES, $char_set, $double_encode);
                 } else {
                     if ($double_encode) {
                         // php <5.2.3 - only handle double encoding
@@ -94,7 +96,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
             }
             // no MBString fallback
             if ($_double_encode) {
-                return htmlentities($string, ENT_QUOTES, $char_set, $double_encode);
+                return htmlentities(null !== $string ? $string : '', ENT_QUOTES, $char_set, $double_encode);
             } else {
                 if ($double_encode) {
                     return htmlentities($string, ENT_QUOTES, $char_set);
