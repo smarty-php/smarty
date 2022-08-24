@@ -62,6 +62,8 @@ if (!function_exists('smarty_mb_str_replace')) {
                 $replace = mb_convert_encoding($replace, $current_charset, Smarty::$_CHARSET);
             }
 
+            // work around for PHP8.1 "Deprecated: mb_split(): Passing null to parameter #2 ($string) of type string is deprecated"
+            $subject = null !== $subject ? $subject : '';
             $parts = mb_split(preg_quote($search), $subject);
             // If original regex encoding was not unicode...
             if(!$reg_is_unicode) {
