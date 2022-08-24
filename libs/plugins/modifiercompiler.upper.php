@@ -20,9 +20,13 @@
  */
 function smarty_modifiercompiler_upper($params)
 {
+    $stringtoupper = $params[0];
+    if (version_compare(PHP_VERSION, '8.1', '>=')) {
+        $stringtoupper .= ' ?? \'\'';
+    }
     if (Smarty::$_MBSTRING) {
-        return 'mb_strtoupper(' . $params[ 0 ] . ', \'' . addslashes(Smarty::$_CHARSET) . '\')';
+        return 'mb_strtoupper(' . $stringtoupper . ', \'' . addslashes(Smarty::$_CHARSET) . '\')';
     }
     // no MBString fallback
-    return 'strtoupper(' . $params[ 0 ] . ')';
+    return 'strtoupper(' . $stringtoupper . ')';
 }
