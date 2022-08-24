@@ -21,8 +21,6 @@
  */
 function smarty_modifier_explode($separator, $string, $limit = PHP_INT_MAX)
 {
-    static $is_loaded = false;
-
     $string = null !== $string ? $string : '';
 
     return explode($separator, $string, $limit);

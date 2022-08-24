@@ -22,8 +22,6 @@
  */
 function smarty_modifier_number_format($num, $decimals = 0, $decimal_separator =".", $thousands_separator = ",")
 {
-    static $is_loaded = false;
-
     $num = null !== $num ? $num : 0;
 
     return number_format($num, $decimals, $decimal_separator, $thousands_separator);
