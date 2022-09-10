@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Fixed PHP8.1 deprecation errors in modifiers (upper, explode, number_format and replace) [#755](https://github.com/smarty-php/smarty/pull/755) and [#788](https://github.com/smarty-php/smarty/pull/788)
+
 ## [4.2.0] - 2022-08-01
 
 ### Fixed
