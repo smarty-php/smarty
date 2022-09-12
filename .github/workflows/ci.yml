@@ -54,17 +54,17 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate
 
-#    - name: Cache Composer packages
-#      id: composer-cache
-#      uses: actions/cache@v2
-#      with:
-#        path: vendor
-#        key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
-#        restore-keys: |
-#          ${{ runner.os }}-php-${{ matrix.php-version }}-
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: Smartyv3-${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          Smartyv3-${{ runner.os }}-php-${{ matrix.php-version }}-
 
     - name: Install dependencies
-#      if: steps.composer-cache.outputs.cache-hit != 'true'
+      if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Run tests with phpunit
