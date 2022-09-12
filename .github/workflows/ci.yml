@@ -1,8 +1,10 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-  - pull_request
-  - push
+  pull_request:
+  push:
+    branches:
+      - 'support/3.1'
 
 name: CI
 
