@@ -162,4 +162,12 @@ class MathTest extends PHPUnit_Smarty
 		$this->assertEquals($expected, $this->smarty->fetch($tpl));
 	}
 
+	public function testRand()
+	{
+		$tpl = $this->smarty->createTemplate('eval:{$x = "0"}{math equation="x * rand()" x=$x}');
+		// this assertion may seem silly, but it serves to prove that using rand() without a parameter
+		// will not trigger a security error (see https://github.com/smarty-php/smarty/issues/794)
+		$this->assertEquals("0", $this->smarty->fetch($tpl));
+	}
+
 }
