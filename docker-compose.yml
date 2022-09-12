@@ -1,0 +1,51 @@
+version: "2"
+services:
+  base:
+    build:
+      context: .
+      dockerfile: ./utilities/testrunners/php54/Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app
+    entrypoint: sh ./utilities/testrunners/run-test.sh
+  php54:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php54/Dockerfile
+  php55:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php55/Dockerfile
+  php56:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php56/Dockerfile
+  php70:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php70/Dockerfile
+  php71:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php71/Dockerfile
+  php72:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php72/Dockerfile
+  php73:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php73/Dockerfile
+  php74:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php74/Dockerfile
+
