@@ -3,6 +3,7 @@ services:
   base:
     build:
       context: .
+      dockerfile: ./utilities/testrunners/php71/Dockerfile
     volumes:
       - .:/app
     working_dir: /app
