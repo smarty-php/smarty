@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Fixed PHP8.1 deprecation errors in modifiers (upper, explode, number_format and replace) [#755](https://github.com/smarty-php/smarty/pull/755) and [#788](https://github.com/smarty-php/smarty/pull/788)
+- Fixed PHP8.1 deprecation errors in capitalize modifier [#789](https://github.com/smarty-php/smarty/issues/789)
 - Fixed use of `rand()` without a parameter in math function [#794](https://github.com/smarty-php/smarty/issues/794)
 
 ## [4.2.0] - 2022-08-01
