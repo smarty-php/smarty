@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixes
+### Security
+- Applied appropriate javascript and html escaping in mailto plugin to counter injection attacks [#454](https://github.com/smarty-php/smarty/issues/454)
+
+### Fixed
 - Fixed use of `rand()` without a parameter in math function [#794](https://github.com/smarty-php/smarty/issues/794)
 
 ## [3.1.46] - 2022-08-01
