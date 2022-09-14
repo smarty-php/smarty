@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- Applied appropriate javascript and html escaping in mailto plugin to counter injection attacks [#454](https://github.com/smarty-php/smarty/issues/454)
+
 ### Fixed
 - Fixed PHP8.1 deprecation errors in modifiers (upper, explode, number_format and replace) [#755](https://github.com/smarty-php/smarty/pull/755) and [#788](https://github.com/smarty-php/smarty/pull/788)
 - Fixed PHP8.1 deprecation errors in capitalize modifier [#789](https://github.com/smarty-php/smarty/issues/789)
