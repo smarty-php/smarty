@@ -219,7 +219,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
             )
         );
         $time = smarty_make_timestamp($time);
-        [$_year, $_month, $_day] = explode('-', date('Y-m-d', $time));
+	    list($_year, $_month, $_day) = explode('-', date('Y-m-d', $time));
     }
 
     // make syntax "+N" or "-N" work with $start_year and $end_year
