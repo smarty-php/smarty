@@ -101,8 +101,13 @@ function smarty_function_mailto($params)
         return;
     }
 
-    $string = '<a href="mailto:' . htmlspecialchars($address, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, Smarty::$_CHARSET) .
-        '" ' . $extra . '>' . htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, Smarty::$_CHARSET) . '</a>';
+    $flags = ENT_QUOTES;
+    if (defined('ENT_SUBSTITUTE') && defined('ENT_HTML401')) {
+        $flags |= ENT_SUBSTITUTE | ENT_HTML401;
+    }
+
+    $string = '<a href="mailto:' . htmlspecialchars($address, $flags, Smarty::$_CHARSET) .
+        '" ' . $extra . '>' . htmlspecialchars($text, $flags, Smarty::$_CHARSET) . '</a>';
 
     if ($encode === 'javascript') {
         $js_encode = '';
