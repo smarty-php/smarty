@@ -196,7 +196,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
             }
         } else {
             // no date found, use NOW
-            [$_year, $_month, $_day] = explode('-', date('Y-m-d'));
+            list($_year, $_month, $_day) = explode('-', date('Y-m-d'));
         }
     } elseif (isset($time) && preg_match("/(\d*)-(\d*)-(\d*)/", $time, $matches)) {
         $_year = $_month = $_day = null;
@@ -207,7 +207,7 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
         if (array_key_exists('time', $params)) {
             $_year = $_month = $_day = null;
         } else {
-            [$_year, $_month, $_day] = explode('-', date('Y-m-d'));
+            list($_year, $_month, $_day) = explode('-', date('Y-m-d'));
         }
     } else {
         $template->_checkPlugins(
