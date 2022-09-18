@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Output buffer is now cleaned for internal PHP errors as well, not just for Exceptions [#514](https://github.com/smarty-php/smarty/issues/514)
 - Fixed recursion and out of memory errors when caching in complicated template set-ups using inheritance and includes [#801](https://github.com/smarty-php/smarty/pull/801)
+- Fixed PHP8.1 deprecation errors in strip_tags 
 
 ## [4.2.1] - 2022-09-14
 
