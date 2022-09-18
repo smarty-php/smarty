@@ -22,7 +22,7 @@
  */
 function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = false)
 {
-	$string = (string) $string;
+    $string = (string) $string;
 
     if (Smarty::$_MBSTRING) {
         if ($lc_rest) {
