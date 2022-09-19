@@ -56,11 +56,11 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                         // php >=5.2.3 - go native
                         return 'htmlspecialchars_decode(mb_convert_encoding(htmlentities(htmlspecialchars((string)' . $params[ 0 ] . ', ENT_QUOTES, ' .
                                 var_export($char_set, true) . ', ' . var_export($double_encode, true) .
-                                '), ENT_COMPAT, ' . var_export($char_set, true) . '),' . var_export($char_set, true) . '))';
+                                '), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, ' . var_export($char_set, true) . '),' . var_export($char_set, true) . '))';
                     } elseif ($double_encode) {
                         // php <5.2.3 - only handle double encoding
                         return 'htmlspecialchars_decode(mb_convert_encoding(htmlentities(htmlspecialchars((string)' . $params[ 0 ] . ', ENT_QUOTES, ' .
-                                var_export($char_set, true) . '), ENT_COMPAT, ' . var_export($char_set, true) . '), ' . var_export($char_set, true) . '))';
+                                var_export($char_set, true) . '), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, ' . var_export($char_set, true) . '), ' . var_export($char_set, true) . '))';
                     } else {
                         // fall back to modifier.escape.php
                     }
