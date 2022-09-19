@@ -203,7 +203,7 @@ class PluginModifierEscapeTest extends PHPUnit_Smarty
     public function testNonstdWithoutMbstring()
     {
         Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $tpl = $this->smarty->createTemplate('string:{"' . utf8_decode('sma\'rty@»example«.com') . '"|escape:"nonstd"}');
+        $tpl = $this->smarty->createTemplate('string:{"' . mb_convert_encoding('sma\'rty@»example«.com', 'ISO-8859-1', 'UTF-8') . '"|escape:"nonstd"}');
         $this->assertEquals("sma'rty@&#187;example&#171;.com", $this->smarty->fetch($tpl));
         Smarty::$_MBSTRING = true;
     }

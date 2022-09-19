@@ -68,6 +68,7 @@ class StreamVariableTest extends PHPUnit_Smarty
     //    }
 }
 
+#[AllowDynamicProperties]
 class VariableStream
 {
     private $position;
