@@ -7,8 +7,6 @@
 
 # exclude from git export
 /tests export-ignore
-/demo export-ignore
-/docs export-ignore
 /utilities export-ignore
 /docker-compose.yml export-ignore
 /.github export-ignore
