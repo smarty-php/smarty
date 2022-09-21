@@ -17,7 +17,7 @@ require_once(dirname(__FILE__) . '/helpers/_object_tostring.php');
  */
 class PluginFunctionHtmlCheckboxesTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }
@@ -275,7 +275,7 @@ class PluginFunctionHtmlCheckboxesTest extends PHPUnit_Smarty
 
     protected $_errors = array();
 
-    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
+    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext = array())
     {
         $this->_errors[] = $errstr;
     }
@@ -285,12 +285,7 @@ class PluginFunctionHtmlCheckboxesTest extends PHPUnit_Smarty
         $this->_errors = array();
         set_error_handler(array($this, 'error_handler'));
 
-        $n = "\n";
-        $expected = '<label><input type="checkbox" name="id[]" value="1000" />Joe Schmoe</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1001" checked="checked" />Jack Smith</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1002" />Jane Johnson</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1003" />Charlie Brown</label><br />';
-
+        $this->smarty->muteUndefinedOrNullWarnings();
         $tpl = $this->smarty->createTemplate('eval:{html_checkboxes name="id" options=$cust_radios selected=$customer_id separator="<br />"}');
         $tpl->assign('customer_id', new _object_noString(1001));
         $tpl->assign('cust_radios', array(
@@ -311,12 +306,6 @@ class PluginFunctionHtmlCheckboxesTest extends PHPUnit_Smarty
     {
         $this->_errors = array();
         set_error_handler(array($this, 'error_handler'));
-
-        $n = "\n";
-        $expected = '<label><input type="checkbox" name="id[]" value="1000" />Joe Schmoe</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1001" checked="checked" />Jack Smith</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1002" />Jane Johnson</label><br />'
-            . $n . '<label><input type="checkbox" name="id[]" value="1003" />Charlie Brown</label><br />';
 
         $tpl = $this->smarty->createTemplate('eval:{html_checkboxes name="id" options=$cust_radios selected=$customer_id separator="<br />"}');
         $tpl->assign('customer_id', 1001);

@@ -16,7 +16,7 @@ require_once(dirname(__FILE__) . '/helpers/_object_tostring.php');
  */
 class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }
@@ -275,7 +275,7 @@ class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
 
     protected $_errors = array();
 
-    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
+    public function error_handler($errno, $errstr, $errfile, $errline, $errcontext = array())
     {
         $this->_errors[] = $errstr;
     }

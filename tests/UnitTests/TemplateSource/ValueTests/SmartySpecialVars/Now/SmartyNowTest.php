@@ -15,7 +15,7 @@
  */
 class SmartyNowTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }
@@ -35,7 +35,7 @@ class SmartyNowTest extends PHPUnit_Smarty
     }
     /**
      * test {$smarty.now nocache}
-     *
+     * @group slow
      */
     public function testSmartyNowNocache() {
         $this->smarty->setCaching(true);

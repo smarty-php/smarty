@@ -21,33 +21,30 @@ class DefaultConfigHandlerTest extends PHPUnit_Smarty
      * This method is called before a test is executed.
      *
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->setForceCompile(true);
     }
 
     /**
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage Unable to load config 'file:foo.conf'
-     *
      * test unknown config file
      */
     public function testUnknownConfigFile()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('Unable to load config \'file:foo.conf\'');
         $this->smarty->configLoad('foo.conf');
     }
 
     /**
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage Default config handler
-     * @expectedExceptionMessage not callable
-     *
      * test register unknown default config handler
-     *
      */
     public function testRegisterUnknownDefaultConfigHandler()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('Default config handler');
+        $this->expectExceptionMessage('not callable');
         $this->smarty->registerDefaultConfigHandler('foo');
     }
 
@@ -77,42 +74,32 @@ class DefaultConfigHandlerTest extends PHPUnit_Smarty
         $this->assertEquals("123.4", $this->smarty->fetch('number.tpl'));
     }
 
-    /**
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage Unable to load config default file 'no.conf' for 'file:fo.conf'
-     *
-     *
-     */
     public function testDefaultConfigHandlerReplacementByConfigFileFail()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage("Unable to load config default file 'no.conf' for 'file:fo.conf'");
         $this->smarty->registerDefaultConfigHandler('configHandlerFile');
         $this->smarty->configLoad('fo.conf');
         $this->assertEquals("123.4", $this->smarty->fetch('number.tpl'));
     }
 
     /**
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage Unable to load config 'file:foo.conf'
-     *
-     *
      * test default config handler replacement (return false)
-     *
      */
     public function testDefaultConfigHandlerReplacementReturningFalse()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('Unable to load config \'file:foo.conf\'');
         $this->smarty->configLoad('foo.conf');
     }
 
     /**
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage No config default content for 'file:bla.conf'
-     *
-     *
      * test default config handler replacement (return false)
-     *
      */
     public function testDefaultConfigHandlerReplacementReturningFalse1()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('No config default content for \'file:bla.conf\'');
         $this->smarty->registerDefaultConfigHandler('configHandlerData');
         $this->smarty->configLoad('bla.conf');
     }

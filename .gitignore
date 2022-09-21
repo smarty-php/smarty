@@ -5,9 +5,9 @@
 lexer/*.php
 lexer/*.php.bak
 lexer/*.out
-utilies/*.php
 
 # Dev
 phpunit*
+.phpunit.result.cache
 vendor/*
 composer.lock

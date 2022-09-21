@@ -15,7 +15,7 @@
  */
 class AttributeTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
@@ -28,43 +28,43 @@ class AttributeTest extends PHPUnit_Smarty
     }
 
     /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage missing 'var' attribute
      * test required attribute
      */
     public function testRequiredAttributeVar()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('missing \'var\' attribute');
         $this->smarty->fetch('string:{assign value=1}');
     }
 
     /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unexpected 'bar' attribute
      * test unexpected attribute
      */
     public function testUnexpectedAttribute()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('unexpected \'bar\' attribute');
         $this->smarty->fetch('string:{assign var=foo value=1 bar=2}');
     }
 
     /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage for option flag 'nocache'
-     * @expectedExceptionMessage illegal value
      * test illegal option value
      */
     public function testIllegalOptionValue()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('for option flag \'nocache\'');
+        $this->expectExceptionMessage('illegal value');
         $this->smarty->fetch('string:{assign var=foo value=1 nocache=buh}');
     }
 
     /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage too many shorthand attributes
      * test too many shorthands
      */
     public function testTooManyShorthands()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('too many shorthand attributes');
         $this->smarty->fetch('string:{assign foo 1 2}');
     }
 
