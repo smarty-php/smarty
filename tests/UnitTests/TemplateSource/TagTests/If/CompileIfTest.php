@@ -21,6 +21,7 @@ class CompileIfTest extends PHPUnit_Smarty
         $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
         $this->smarty->addTemplateDir("../../../__shared/templates/");
         $this->smarty->addTemplateDir("./templates_tmp");
+        $this->smarty->registerPlugin('modifier', 'var_export', 'var_export');
     }
 
     public function testInit()
