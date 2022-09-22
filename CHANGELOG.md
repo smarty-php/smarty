@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Output buffer is now cleaned for internal PHP errors as well, not just for Exceptions [#514](https://github.com/smarty-php/smarty/issues/514)
 - Fixed recursion and out of memory errors when caching in complicated template set-ups using inheritance and includes [#801](https://github.com/smarty-php/smarty/pull/801)
 - Fix Variable Usage in Exception message when unable to load subtemplate [#808](https://github.com/smarty-php/smarty/pull/808)
+- Fixed PHP8.1 deprecation notices for strftime [#672](https://github.com/smarty-php/smarty/issues/672)
 
 ## [4.2.1] - 2022-09-14
 
@@ -20,8 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Applied appropriate javascript and html escaping in mailto plugin to counter injection attacks [#454](https://github.com/smarty-php/smarty/issues/454)
 
 ### Fixed
-- Fixed PHP8.1 deprecation errors in modifiers (upper, explode, number_format and replace) [#755](https://github.com/smarty-php/smarty/pull/755) and [#788](https://github.com/smarty-php/smarty/pull/788)
-- Fixed PHP8.1 deprecation errors in capitalize modifier [#789](https://github.com/smarty-php/smarty/issues/789)
+- Fixed PHP8.1 deprecation notices in modifiers (upper, explode, number_format and replace) [#755](https://github.com/smarty-php/smarty/pull/755) and [#788](https://github.com/smarty-php/smarty/pull/788)
+- Fixed PHP8.1 deprecation notices in capitalize modifier [#789](https://github.com/smarty-php/smarty/issues/789)
 - Fixed use of `rand()` without a parameter in math function [#794](https://github.com/smarty-php/smarty/issues/794)
 - Fixed unselected year/month/day not working in html_select_date [#395](https://github.com/smarty-php/smarty/issues/395)
 
