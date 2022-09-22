@@ -15,7 +15,7 @@
  */
 class PluginChainedLoadTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }
@@ -28,6 +28,6 @@ class PluginChainedLoadTest extends PHPUnit_Smarty
     public function testPluginChainedLoad()
     {
         $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
-        $this->assertContains('from chain3', $this->smarty->fetch('test_plugin_chained_load.tpl'));
+        $this->assertStringContainsString('from chain3', $this->smarty->fetch('test_plugin_chained_load.tpl'));
     }
 }

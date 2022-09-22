@@ -15,7 +15,7 @@
  */
 class CompileCaptureTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->addTemplateDir("./templates_tmp");
@@ -70,15 +70,15 @@ class CompileCaptureTest extends PHPUnit_Smarty
     public function testCapture9()
     {
         $result = $this->smarty->fetch('009_capture.tpl');
-        $this->assertContains('-->hello world<--', $result);
-        $this->assertContains('-->hello world2<--', $result);
+        $this->assertStringContainsString('-->hello world<--', $result);
+        $this->assertStringContainsString('-->hello world2<--', $result);
     }
 
     public function testCompileCaptureNocache1()
     {
         $this->smarty->assign('foo', 1);
         $this->smarty->caching = 1;
-        $this->assertContains('foo 1', $this->smarty->fetch('test_capture_nocache.tpl'));
+        $this->assertStringContainsString('foo 1', $this->smarty->fetch('test_capture_nocache.tpl'));
     }
 
     /**
@@ -92,7 +92,7 @@ class CompileCaptureTest extends PHPUnit_Smarty
         $this->smarty->assign('foo', 2);
         $this->smarty->caching = 1;
         $this->assertTrue($this->smarty->isCached('test_capture_nocache.tpl'));
-        $this->assertContains('foo 2', $this->smarty->fetch('test_capture_nocache.tpl'));
+        $this->assertStringContainsString('foo 2', $this->smarty->fetch('test_capture_nocache.tpl'));
     }
     /*
      *  Test capture buffer names with uppercase
@@ -100,8 +100,8 @@ class CompileCaptureTest extends PHPUnit_Smarty
     public function testCapture10()
     {
         $result = $this->smarty->fetch('010_capture.tpl');
-        $this->assertContains('lowercase', $result);
-        $this->assertContains('uppercase', $result);
+        $this->assertStringContainsString('lowercase', $result);
+        $this->assertStringContainsString('uppercase', $result);
     }
 
     /**

@@ -17,7 +17,7 @@
  */
 class PhpFunctionTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }
@@ -56,10 +56,6 @@ class PhpFunctionTest extends PHPUnit_Smarty
      */
     public function testEmpty2()
     {
-        if (version_compare(phpversion(), '5.5', '<')) {
-            $this->markTestSkipped('runs only on PHP > 5.5');
-        }
-
         $this->smarty->disableSecurity();
         $this->smarty->assign('var', array(null,
                                            false,
@@ -81,9 +77,6 @@ class PhpFunctionTest extends PHPUnit_Smarty
      */
     public function testEmpty3()
     {
-        if (version_compare(phpversion(), '5.5', '<')) {
-            $this->markTestSkipped('runs only on PHP > 5.5');
-        }
         $this->smarty->disableSecurity();
         $this->smarty->assign('var', array(true,
                                            (int) 1,
@@ -103,10 +96,6 @@ class PhpFunctionTest extends PHPUnit_Smarty
      */
     public function testEmpty4()
     {
-        if (version_compare(phpversion(), '5.5', '<')) {
-        $this->markTestSkipped('runs only on PHP > 5.5');
-        }
-
         $this->smarty->disableSecurity();
         $this->smarty->assign('var', new TestIsset());
         $expected = ' true , false , false , true , true , true , false ';
@@ -157,56 +146,56 @@ class PhpFunctionTest extends PHPUnit_Smarty
         '));
     }
 
-	/**
-	 * test PHP isset() on (non-)variables
-	 * @dataProvider        dataTestIsset3
-	 * @param string $strTemplate template to test
-	 * @param string $result expected result
-	 */
-	public function testIsset3($strTemplate, $result)
-	{
-		$this->smarty->disableSecurity();
+    /**
+     * test PHP isset() on (non-)variables
+     * @dataProvider        dataTestIsset3
+     * @param string $strTemplate template to test
+     * @param string $result expected result
+     */
+    public function testIsset3($strTemplate, $result)
+    {
+        $this->smarty->disableSecurity();
 
-		$this->smarty->assign('varobject', new TestIsset());
-		$this->smarty->assign('vararray', $vararray = [
-			'keythatexists' => false,
-			'keywitharray' => [1 => 1],
-			'keywithobject' => new TestIsset()]
-		);
+        $this->smarty->assign('varobject', new TestIsset());
+        $this->smarty->assign('vararray', $vararray = array(
+            'keythatexists' => false,
+            'keywitharray' => array(1 => 1),
+            'keywithobject' => new TestIsset()
+        ));
 
-		$this->smarty->assign('key', 'A');
-		$this->smarty->assign('_varsimpleA', 1);
-		$this->smarty->assign('varsimpleB', 0);
-		$this->smarty->assign('varsimpleC', null);
+        $this->smarty->assign('key', 'A');
+        $this->smarty->assign('_varsimpleA', 1);
+        $this->smarty->assign('varsimpleB', 0);
+        $this->smarty->assign('varsimpleC', null);
 
-		$this->assertEquals($result, $this->smarty->fetch('string:' . $strTemplate));
-	}
+        $this->assertEquals($result, $this->smarty->fetch('string:' . $strTemplate));
+    }
 
-	/**
-	 * Data provider for testIsset3
-	 */
-	public function dataTestIsset3()
-	{
-		return array(
-			array('{if isset($varobject->arr)}true{else}false{/if}', 'true'),
-			array('{if isset($vararray["keywitharray"])}true{else}false{/if}', 'true'),
-			array('{if isset($vararray["keythatexists"])}true{else}false{/if}', 'true'),
-			array('{if isset($vararray["nonexistingkey"])}true{else}false{/if}', 'false'),
-			array('{if isset($_GET["sscr6hr6cz34j6"])}true{else}false{/if}', 'false'),
-			array('{if isset(count([\'hi\']))}true{else}false{/if}', 'true'),
-			array('{if isset($vararray[\'keywitharray\'][intval(\'1\')])}true{else}false{/if}', 'true'),
-			array('{if isset($vararray[\'keywithobject\']->arr[\'isSet\'])}true{else}false{/if}', 'true'),
-			array('{if isset($vararray[\'keywithobject\']->arr[\'isNull\'])}true{else}false{/if}', 'false'),
-			array('{if isset($varobject->arr[\'isSet\'])}true{else}false{/if}', 'true'),
-			array('{if isset($varobject->arr[\'isNull\'])}true{else}false{/if}', 'false'),
-			array('{if isset($_varsimpleA)}true{else}false{/if}', 'true'),
-			array('{if isset($varsimpleB)}true{else}false{/if}', 'true'),
-			array('{if isset($varsimpleC)}true{else}false{/if}', 'false'),
-			array('{if isset($_varsimpleA && varsimpleB)}true{else}false{/if}', 'true'),
-			array('{if isset($_varsimpleA && varsimpleC)}true{else}false{/if}', 'true'),
-			array('{if isset($_varsimple{$key})}true{else}false{/if}', 'true'),
-		);
-	}
+    /**
+     * Data provider for testIsset3
+     */
+    public function dataTestIsset3()
+    {
+        return array(
+            array('{if isset($varobject->arr)}true{else}false{/if}', 'true'),
+            array('{if isset($vararray["keywitharray"])}true{else}false{/if}', 'true'),
+            array('{if isset($vararray["keythatexists"])}true{else}false{/if}', 'true'),
+            array('{if isset($vararray["nonexistingkey"])}true{else}false{/if}', 'false'),
+            array('{if isset($_GET["sscr6hr6cz34j6"])}true{else}false{/if}', 'false'),
+            array('{if isset(count([\'hi\']))}true{else}false{/if}', 'true'),
+            array('{if isset($vararray[\'keywitharray\'][intval(\'1\')])}true{else}false{/if}', 'true'),
+            array('{if isset($vararray[\'keywithobject\']->arr[\'isSet\'])}true{else}false{/if}', 'true'),
+            array('{if isset($vararray[\'keywithobject\']->arr[\'isNull\'])}true{else}false{/if}', 'false'),
+            array('{if isset($varobject->arr[\'isSet\'])}true{else}false{/if}', 'true'),
+            array('{if isset($varobject->arr[\'isNull\'])}true{else}false{/if}', 'false'),
+            array('{if isset($_varsimpleA)}true{else}false{/if}', 'true'),
+            array('{if isset($varsimpleB)}true{else}false{/if}', 'true'),
+            array('{if isset($varsimpleC)}true{else}false{/if}', 'false'),
+            array('{if isset($_varsimpleA && varsimpleB)}true{else}false{/if}', 'true'),
+            array('{if isset($_varsimpleA && varsimpleC)}true{else}false{/if}', 'true'),
+            array('{if isset($_varsimple{$key})}true{else}false{/if}', 'true'),
+        );
+    }
 }
 
 /**

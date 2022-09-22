@@ -1,6 +1,11 @@
 #!/bin/bash
 
-printf 'Creating release %s\n' "$1"
+if [[ "$1" =~ ^4\.[0-9\.-rc]+$ ]]; then
+   printf 'Creating release %s\n' "$1"
+else
+   echo "Invalid version number: $1. This script can only make v4.x.x releases."
+   exit 1;
+fi
 
 git checkout -b "release/$1"
 sed -i "s/## \\[Unreleased\\]/## \\[Unreleased\\]\\n\\n## \\[$1\\] - $(date +%Y-%m-%d)/" CHANGELOG.md
@@ -14,6 +19,6 @@ git pull
 git merge --no-ff "release/$1"
 git branch -d "release/$1"
 git tag -a "v$1" -m "Release $1"
-git push --follow-tags
 
 printf 'Done creating release %s\n' "$1"
+printf 'Run `git push --follow-tags origin` to publish it.\n'
