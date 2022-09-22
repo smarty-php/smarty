@@ -14,7 +14,7 @@ class PluginModifierExplodeTest extends \PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-		$this->smarty->registerPlugin('modifier', 'json_encode', 'json_encode');
+        $this->smarty->registerPlugin('modifier', 'json_encode', 'json_encode');
     }
 
     /**

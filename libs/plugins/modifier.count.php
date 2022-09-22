@@ -21,16 +21,16 @@
  */
 function smarty_modifier_count($arrayOrObject, $mode = 0)
 {
-	/*
-	 * @see https://www.php.net/count
-	 * > Prior to PHP 8.0.0, if the parameter was neither an array nor an object that implements the Countable interface,
-	 * > 1 would be returned, unless value was null, in which case 0 would be returned.
-	 */
+    /*
+     * @see https://www.php.net/count
+     * > Prior to PHP 8.0.0, if the parameter was neither an array nor an object that implements the Countable interface,
+     * > 1 would be returned, unless value was null, in which case 0 would be returned.
+     */
 
-	if ($arrayOrObject instanceof Countable || is_array($arrayOrObject)) {
-		return count($arrayOrObject, (int) $mode);
-	} elseif ($arrayOrObject === null) {
-		return 0;
-	}
-	return 1;
+    if ($arrayOrObject instanceof Countable || is_array($arrayOrObject)) {
+        return count($arrayOrObject, (int) $mode);
+    } elseif ($arrayOrObject === null) {
+        return 0;
+    }
+    return 1;
 }

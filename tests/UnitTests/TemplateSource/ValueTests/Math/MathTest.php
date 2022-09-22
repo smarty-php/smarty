@@ -18,7 +18,7 @@ class MathTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
-		$this->smarty->registerPlugin('modifier', 'sin', 'sin');
+        $this->smarty->registerPlugin('modifier', 'sin', 'sin');
     }
 
     public function testInit()
@@ -133,36 +133,36 @@ class MathTest extends PHPUnit_Smarty
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
     }
 
-	public function testBackticksIllegal()
-	{
-		$this->expectException(PHPUnit\Framework\Error\Warning::class);
-		$expected = "22.00";
-		$tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="`ls` x * y" x=$x y=$y}');
-		$this->assertEquals($expected, $this->smarty->fetch($tpl));
-	}
+    public function testBackticksIllegal()
+    {
+        $this->expectException(PHPUnit\Framework\Error\Warning::class);
+        $expected = "22.00";
+        $tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="`ls` x * y" x=$x y=$y}');
+        $this->assertEquals($expected, $this->smarty->fetch($tpl));
+    }
 
-	public function testDollarSignsIllegal()
-	{
-		$this->expectException(PHPUnit\Framework\Error\Warning::class);
-		$expected = "22.00";
-		$tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="$" x=$x y=$y}');
-		$this->assertEquals($expected, $this->smarty->fetch($tpl));
-	}
+    public function testDollarSignsIllegal()
+    {
+        $this->expectException(PHPUnit\Framework\Error\Warning::class);
+        $expected = "22.00";
+        $tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="$" x=$x y=$y}');
+        $this->assertEquals($expected, $this->smarty->fetch($tpl));
+    }
 
-	public function testBracketsIllegal()
-	{
-		$this->expectException(PHPUnit\Framework\Error\Warning::class);
-		$expected = "I";
-		$tpl = $this->smarty->createTemplate('eval:{$x = "0"}{$y = "1"}{math equation="((y/x).(x))[x]" x=$x y=$y}');
-		$this->assertEquals($expected, $this->smarty->fetch($tpl));
-	}
+    public function testBracketsIllegal()
+    {
+        $this->expectException(PHPUnit\Framework\Error\Warning::class);
+        $expected = "I";
+        $tpl = $this->smarty->createTemplate('eval:{$x = "0"}{$y = "1"}{math equation="((y/x).(x))[x]" x=$x y=$y}');
+        $this->assertEquals($expected, $this->smarty->fetch($tpl));
+    }
 
-	public function testRand()
-	{
-		$tpl = $this->smarty->createTemplate('eval:{$x = "0"}{math equation="x * rand()" x=$x}');
-		// this assertion may seem silly, but it serves to prove that using rand() without a parameter
-		// will not trigger a security error (see https://github.com/smarty-php/smarty/issues/794)
-		$this->assertEquals("0", $this->smarty->fetch($tpl));
-	}
+    public function testRand()
+    {
+        $tpl = $this->smarty->createTemplate('eval:{$x = "0"}{math equation="x * rand()" x=$x}');
+        // this assertion may seem silly, but it serves to prove that using rand() without a parameter
+        // will not trigger a security error (see https://github.com/smarty-php/smarty/issues/794)
+        $this->assertEquals("0", $this->smarty->fetch($tpl));
+    }
 
 }
