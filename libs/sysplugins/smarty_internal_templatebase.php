@@ -246,7 +246,15 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 error_reporting($_smarty_old_error_level);
             }
             return $result;
-        } catch (Exception $e) {
+        } catch (Exception $e) { // PHP 5.x specific
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+            if (isset($_smarty_old_error_level)) {
+                error_reporting($_smarty_old_error_level);
+            }
+            throw $e;
+        } catch (Throwable $e) { // For PHP ^7.0 this can also catch Errors
             while (ob_get_level() > $level) {
                 ob_end_clean();
             }
