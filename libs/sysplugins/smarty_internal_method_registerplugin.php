@@ -22,7 +22,7 @@ class Smarty_Internal_Method_RegisterPlugin
      * Registers plugin to be used in templates
      *
      * @api  Smarty::registerPlugin()
-     * @link http://www.smarty.net/docs/en/api.register.plugin.tpl
+     * @link https://www.smarty.net/docs/en/api.register.plugin.tpl
      *
      * @param \Smarty_Internal_TemplateBase|\Smarty_Internal_Template|\Smarty $obj
      * @param string                                                          $type       plugin type
@@ -48,6 +48,8 @@ class Smarty_Internal_Method_RegisterPlugin
             throw new SmartyException("Plugin tag '{$name}' already registered");
         } elseif (!is_callable($callback)) {
             throw new SmartyException("Plugin '{$name}' not callable");
+        } elseif ($cacheable && $cache_attr) {
+            throw new SmartyException("Cannot set caching attributes for plugin '{$name}' when it is cacheable.");
         } else {
             $smarty->registered_plugins[ $type ][ $name ] = array($callback, (bool)$cacheable, (array)$cache_attr);
         }

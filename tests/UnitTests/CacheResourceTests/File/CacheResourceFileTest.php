@@ -18,7 +18,7 @@ include_once dirname(__FILE__) . '/../_shared/CacheResourceTestCommon.php';
 class CacheResourceFileTest extends CacheResourceTestCommon
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         parent::setUp();

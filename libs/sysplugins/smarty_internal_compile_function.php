@@ -58,6 +58,11 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
         }
         unset($_attr[ 'nocache' ]);
         $_name = trim($_attr[ 'name' ], '\'"');
+
+        if (!preg_match('/^[a-zA-Z0-9_\x80-\xff]+$/', $_name)) {
+	        $compiler->trigger_template_error("Function name contains invalid characters: {$_name}", null, true);
+        }
+
         $compiler->parent_compiler->tpl_function[ $_name ] = array();
         $save = array(
             $_attr, $compiler->parser->current_buffer, $compiler->template->compiled->has_nocache_code,
@@ -129,7 +134,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         if ($compiler->template->compiled->has_nocache_code) {
             $compiler->parent_compiler->tpl_function[ $_name ][ 'call_name_caching' ] = $_funcNameCaching;
             $output = "<?php\n";
-            $output .= "/* {$_funcNameCaching} */\n";
+            $output .= $compiler->cStyleComment(" {$_funcNameCaching} ") . "\n";
             $output .= "if (!function_exists('{$_funcNameCaching}')) {\n";
             $output .= "function {$_funcNameCaching} (Smarty_Internal_Template \$_smarty_tpl,\$params) {\n";
             $output .= "ob_start();\n";
@@ -152,9 +157,9 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             $output = "<?php echo \"/*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/<?php ";
             $output .= "\\\$_smarty_tpl->smarty->ext->_tplFunction->restoreTemplateVariables(\\\$_smarty_tpl, '{$_name}');?>\n";
             $output .= "/*/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\";\n?>";
-            $output .= "<?php echo str_replace('{$compiler->template->compiled->nocache_hash}', \$_smarty_tpl->compiled->nocache_hash, ob_get_clean());\n";
+            $output .= "<?php echo str_replace('{$compiler->template->compiled->nocache_hash}', \$_smarty_tpl->compiled->nocache_hash ?? '', ob_get_clean());\n";
             $output .= "}\n}\n";
-            $output .= "/*/ {$_funcName}_nocache */\n\n";
+            $output .= $compiler->cStyleComment("/ {$_funcName}_nocache ") . "\n\n";
             $output .= "?>\n";
             $compiler->parser->current_buffer->append_subtree(
                 $compiler->parser,
@@ -174,7 +179,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         }
         $compiler->parent_compiler->tpl_function[ $_name ][ 'call_name' ] = $_funcName;
         $output = "<?php\n";
-        $output .= "/* {$_funcName} */\n";
+        $output .= $compiler->cStyleComment(" {$_funcName} ") . "\n";
         $output .= "if (!function_exists('{$_funcName}')) {\n";
         $output .= "function {$_funcName}(Smarty_Internal_Template \$_smarty_tpl,\$params) {\n";
         $output .= $_paramsCode;
@@ -191,7 +196,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         );
         $compiler->parser->current_buffer->append_subtree($compiler->parser, $_functionCode);
         $output = "<?php\n}}\n";
-        $output .= "/*/ {$_funcName} */\n\n";
+        $output .= $compiler->cStyleComment("/ {$_funcName} ") . "\n\n";
         $output .= "?>\n";
         $compiler->parser->current_buffer->append_subtree(
             $compiler->parser,

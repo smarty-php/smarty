@@ -15,7 +15,7 @@
  */
 class CompileBlockExtendsTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         //$this->smarty->setMergeCompiledIncludes(true);
@@ -54,7 +54,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     {
         $this->smarty->assign('parent', 'parent');
         $result = $this->smarty->fetch('001_parent.tpl');
-        $this->assertContains('(parent|b)content parent b(parent|/b)', $result);
+        $this->assertStringContainsString('(parent|b)content parent b(parent|/b)', $result);
     }
 
     /**
@@ -77,8 +77,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('002_child.tpl');
-        $this->assertContains('(child|b)content child b(child|/b)', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString('(child|b)content child b(child|/b)', $result, $testName . ' - content');
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -102,9 +102,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('003_child.tpl');
-        $this->assertContains('(child|b)content child b(child|/b)(parent|b)content parent b(parent|/b)', $result,
+        $this->assertStringContainsString('(child|b)content child b(child|/b)(parent|b)content parent b(parent|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -129,9 +129,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('003_grand.tpl');
-        $this->assertContains('(grand|b)content grand b(grand|/b)(child|b)content child b(child|/b)(parent|b)content parent b(parent|/b)',
+        $this->assertStringContainsString('(grand|b)content grand b(grand|/b)(child|b)content child b(child|/b)(parent|b)content parent b(parent|/b)',
                               $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -156,9 +156,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('004_child.tpl');
-        $this->assertContains('(parent|b)content parent b(parent|/b)(child|b)content child b(child|/b)', $result,
+        $this->assertStringContainsString('(parent|b)content parent b(parent|/b)(child|b)content child b(child|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -183,9 +183,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('004_grand.tpl');
-        $this->assertContains('(parent|b)content parent b(parent|/b)(child|b)content child b(child|/b)(grand|b)content grand b(grand|/b)',
+        $this->assertStringContainsString('(parent|b)content parent b(parent|/b)(child|b)content child b(child|/b)(grand|b)content grand b(grand|/b)',
                               $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -210,9 +210,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('004_grand2.tpl');
-        $this->assertContains('(parent|b)content parent b(parent|/b)(grand|b)content grand b(grand|/b)(child|b)content child b(child|/b)(grand|b)content grand b(grand|/b)',
+        $this->assertStringContainsString('(parent|b)content parent b(parent|/b)(grand|b)content grand b(grand|/b)(child|b)content child b(child|/b)(grand|b)content grand b(grand|/b)',
                               $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -236,9 +236,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('005_child.tpl');
-        $this->assertContains('(parent|b)content parent b(parent|/b)(child|b)content child b(child|/b)', $result,
+        $this->assertStringContainsString('(parent|b)content parent b(parent|/b)(child|b)content child b(child|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -262,9 +262,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('006_child.tpl');
-        $this->assertContains('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
+        $this->assertStringContainsString('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -289,9 +289,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('007_child.tpl');
-        $this->assertContains('(child|b)content (parent|b)content parent b(parent|/b) b(child|/b)', $result,
+        $this->assertStringContainsString('(child|b)content (parent|b)content parent b(parent|/b) b(child|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -316,9 +316,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('007_grand.tpl');
-        $this->assertContains('(grand|b)content (child|b)content (parent|b)content parent b(parent|/b) b(child|/b) b(grand|/b)',
+        $this->assertStringContainsString('(grand|b)content (child|b)content (parent|b)content parent b(parent|/b) b(child|/b) b(grand|/b)',
                               $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -343,9 +343,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('008_child.tpl');
-        $this->assertContains('(child|b)content escaped &lt;text&gt; child 1 b(child|/b', $result,
+        $this->assertStringContainsString('(child|b)content escaped &lt;text&gt; child 1 b(child|/b', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -368,9 +368,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('009_parent.tpl');
-        $this->assertContains('(parent|b)content (parent|c)content parent c(parent|/c) b(parent|/b)', $result,
+        $this->assertStringContainsString('(parent|b)content (parent|c)content parent c(parent|/c) b(parent|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -394,9 +394,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('010_child.tpl');
-        $this->assertContains('(parent|b)content (parent|c)content child c(parent|/c) b(parent|/b)', $result,
+        $this->assertStringContainsString('(parent|b)content (parent|c)content child c(parent|/c) b(parent|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -421,9 +421,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('011_grand.tpl');
-        $this->assertContains('(child|b)content(child|c)content(child|n)content(include)content child i(/include)n(child|/n)c(child|/c)(grand|c)content grand c(grand|\c)b(child|/b)',
+        $this->assertStringContainsString('(child|b)content(child|c)content(child|n)content(include)content child i(/include)n(child|/n)c(child|/c)(grand|c)content grand c(grand|\c)b(child|/b)',
                               $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -448,9 +448,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('012_grandgrand.tpl');
-        $this->assertContains('(grand|b)content (grandgrand|c)content c(grandgrand|\c)(grand|c)content c(grand|\c) b(grand|/b)',
+        $this->assertStringContainsString('(grand|b)content (grandgrand|c)content c(grandgrand|\c)(grand|c)content c(grand|\c) b(grand|/b)',
                               $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -472,9 +472,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('018_child.tpl');
-        $this->assertContains('(child|b)content(child|c)content child c(child|/c)b(child|/b)', $result,
+        $this->assertStringContainsString('(child|b)content(child|c)content child c(child|/c)b(child|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -496,9 +496,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('018_grand.tpl');
-        $this->assertContains('(child|b)content(child|c)content child c(child|/c)(child|d)content (grand|d)content grand d(grand|/d) d(child|/d)b(child|/b)',
+        $this->assertStringContainsString('(child|b)content(child|c)content child c(child|/c)(child|d)content (grand|d)content grand d(grand|/d) d(child|/d)b(child|/b)',
                               $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -520,9 +520,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('018_grandgrand.tpl');
-        $this->assertContains('(child|b)content(grand|c)content (grandgrand|c)content grandgrand c(grandgrand|/c) c(grand|/c)(child|d)content (grandgrand|d)content grandgrand d(grandgrand|/d) d(child|/d)b(child|/b)',
+        $this->assertStringContainsString('(child|b)content(grand|c)content (grandgrand|c)content grandgrand c(grandgrand|/c) c(grand|/c)(child|d)content (grandgrand|d)content grandgrand d(grandgrand|/d) d(child|/d)b(child|/b)',
                               $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -544,13 +544,13 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('020_include_root.tpl');
-        $this->assertContains('(include1)(include1|p)content 1 p(include1|\p)(include1|b)content 1 b(include1|\b)(\include1)',
+        $this->assertStringContainsString('(include1)(include1|p)content 1 p(include1|\p)(include1|b)content 1 b(include1|\b)(\include1)',
                               $result, $testName . ' - include 1');
-        $this->assertContains('(include2)(include2|p)content 2 p(include2|\p)(include2|b)content 2 b(include2|\b)(\include2)',
+        $this->assertStringContainsString('(include2)(include2|p)content 2 p(include2|\p)(include2|b)content 2 b(include2|\b)(\include2)',
                               $result, $testName . ' - include 1');
-        $this->assertContains('(include3)(include3|p)content 3 p(include3|\p)(include3|b)content 3 b(include3|\b)(\include3)',
+        $this->assertStringContainsString('(include3)(include3|p)content 3 p(include3|\p)(include3|b)content 3 b(include3|\b)(\include3)',
                               $result, $testName . ' - include 1');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -571,7 +571,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
-        $this->assertContains('(grand|b)content grand b(grand|/b)(child|b)content child b(child|/b)(parent|b)content parent b(parent|/b)',
+        $this->assertStringContainsString('(grand|b)content grand b(grand|/b)(child|b)content child b(child|/b)(parent|b)content parent b(parent|/b)',
                               $result);
         $this->smarty->_clearTemplateCache();
         $this->smarty->assign('parent', 'parent2');
@@ -580,7 +580,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
-        $this->assertContains('(grand|b)content grand2 b(grand|/b)(child|b)content child2 b(child|/b)(parent|b)content parent b(parent|/b)',
+        $this->assertStringContainsString('(grand|b)content grand2 b(grand|/b)(child|b)content child2 b(child|/b)(parent|b)content parent b(parent|/b)',
                               $result);
     }
 
@@ -601,7 +601,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
-        $this->assertContains('(grand|b)content grand3 b(grand|/b)(child|b)content child3 b(child|/b)(parent|b)content parent b(parent|/b)',
+        $this->assertStringContainsString('(grand|b)content grand3 b(grand|/b)(child|b)content child3 b(child|/b)(parent|b)content parent b(parent|/b)',
                               $result);
     }
 
@@ -610,7 +610,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     *
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_2()
     {
@@ -626,7 +626,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
-        $this->assertContains('(grand|b)content grand4 b(grand|/b)(child|b)content child4 b(child|/b)(parent|b)content parent4 b(parent|/b)',
+        $this->assertStringContainsString('(grand|b)content grand4 b(grand|/b)(child|b)content child4 b(child|/b)(parent|b)content parent4 b(parent|/b)',
                               $result);
         $this->smarty->_clearTemplateCache();
         $this->smarty->assign('parent', 'parent5');
@@ -636,7 +636,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
-        $this->assertContains('(grand|b)content grand5 b(grand|/b)(child|b)content child5 b(child|/b)(parent|b)content parent4 b(parent|/b)',
+        $this->assertStringContainsString('(grand|b)content grand5 b(grand|/b)(child|b)content child5 b(child|/b)(parent|b)content parent4 b(parent|/b)',
                               $result);
     }
 
@@ -645,7 +645,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     *
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_3()
     {
@@ -661,7 +661,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
-        $this->assertContains('(grand|b)content grand6 b(grand|/b)(child|b)content child6 b(child|/b)(parent|b)content parent6 b(parent|/b)',
+        $this->assertStringContainsString('(grand|b)content grand6 b(grand|/b)(child|b)content child6 b(child|/b)(parent|b)content parent6 b(parent|/b)',
                               $result);
     }
 
@@ -670,7 +670,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
-     *
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_32()
     {
@@ -683,7 +683,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
-        $this->assertContains('(grand|b)content grand7 b(grand|/b)(child|b)content child7 b(child|/b)(parent|b)content parent6 b(parent|/b)',
+        $this->assertStringContainsString('(grand|b)content grand7 b(grand|/b)(child|b)content child7 b(child|/b)(parent|b)content parent6 b(parent|/b)',
                               $result);
     }
 
@@ -692,6 +692,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_4()
     {
@@ -707,7 +708,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertFalse($tpl->isCached());
         $result = $this->smarty->fetch($tpl);
-        $this->assertContains('(grand|b)content grand8 b(grand|/b)(child|b)content child8 b(child|/b)(parent|b)content parent8 b(parent|/b)',
+        $this->assertStringContainsString('(grand|b)content grand8 b(grand|/b)(child|b)content child8 b(child|/b)(parent|b)content parent8 b(parent|/b)',
                               $result);
     }
 
@@ -716,6 +717,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_42()
     {
@@ -728,7 +730,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
-        $this->assertContains('(grand|b)content grand9 b(grand|/b)(child|b)content child9 b(child|/b)(parent|b)content parent8 b(parent|/b)',
+        $this->assertStringContainsString('(grand|b)content grand9 b(grand|/b)(child|b)content child9 b(child|/b)(parent|b)content parent8 b(parent|/b)',
                               $result);
     }
 
@@ -747,37 +749,37 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     public function testNotExistingChildBlock_024()
     {
         $result = $this->smarty->fetch('024_parent.tpl');
-        $this->assertContains('no >< child', $result);
+        $this->assertStringContainsString('no >< child', $result);
     }
 
     /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage '{$smarty.block.child}' used outside {block} tags
      * test {$this->smarty.block.child} outside {block]
      */
     public function testSmartyBlockChildOutsideBlock_025()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('\'{$smarty.block.child}\' used outside {block} tags');
         $this->smarty->fetch('025_parent.tpl');
     }
 
     /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage '{$smarty.block.parent}' used outside {block} tags
      * test {$this->smarty.block.parent} outside {block]
      */
     public function testSmartyBlockParentOutsideBlock_026()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('\'{$smarty.block.parent}\' used outside {block} tags');
         $this->smarty->fetch('026_child.tpl');
     }
 
     /**
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage illegal '{$smarty.block.parent}'
      * test {$this->smarty.block.parent} in parent template
      */
     public function testSmartyBlockParentInParent_027()
     {
-        $result = $this->smarty->fetch('027_parent.tpl');
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('illegal \'{$smarty.block.parent}\'');
+        $this->smarty->fetch('027_parent.tpl');
     }
 
     /**
@@ -800,8 +802,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         }
         $this->smarty->assign('foo', '028_parent_include1.tpl');
         $result = $this->smarty->fetch('028_child.tpl');
-        $this->assertContains('b1-include-1--b1', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString('b1-include-1--b1', $result, $testName . ' - content');
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -822,8 +824,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         }
         $this->smarty->assign('foo', '028_parent_include2.tpl');
         $result = $this->smarty->fetch('028_child.tpl');
-        $this->assertContains('b1-child-i2-include-2--b1', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString('b1-child-i2-include-2--b1', $result, $testName . ' - content');
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -845,9 +847,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('030_grandchild_nested.tpl');
-        $this->assertContains('child pre -grandchild content- child post', $result, $testName . ' - content');
-        $this->assertContains('include:' . $testNumber, $result, $testName . ' - content 2');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString('child pre -grandchild content- child post', $result, $testName . ' - content');
+        $this->assertStringContainsString('include:' . $testNumber, $result, $testName . ' - content 2');
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
     /**
@@ -868,9 +870,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('sub/030_grandchild_nested_rel.tpl');
-        $this->assertContains('child pre -grandchild content- child post', $result, $testName . ' - content');
-        $this->assertContains('include:' . $testNumber, $result, $testName . ' - content 2');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString('child pre -grandchild content- child post', $result, $testName . ' - content');
+        $this->assertStringContainsString('include:' . $testNumber, $result, $testName . ' - content 2');
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
      /**
@@ -891,8 +893,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('034_1child.tpl');
-        $this->assertContains('parent b1', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString('parent b1', $result, $testName . ' - content');
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
     /**
@@ -913,8 +915,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('034_2child.tpl');
-        $this->assertContains('parent b1', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString('parent b1', $result, $testName . ' - content');
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
     /**
@@ -935,8 +937,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('034_3child.tpl');
-        $this->assertContains('parent b1', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString('parent b1', $result, $testName . ' - content');
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
     /**
@@ -957,8 +959,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('034_4child.tpl');
-        $this->assertContains('parent b1', $result, $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString('parent b1', $result, $testName . ' - content');
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
     /**
@@ -982,9 +984,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('035_child.tpl');
-        $this->assertContains('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
+        $this->assertStringContainsString('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -1009,9 +1011,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('035_child.tpl');
-        $this->assertContains('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
+        $this->assertStringContainsString('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
     /**
@@ -1035,9 +1037,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('035_child.tpl');
-        $this->assertContains('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
+        $this->assertStringContainsString('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
     /**
@@ -1061,9 +1063,9 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('035_child.tpl');
-        $this->assertContains('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
+        $this->assertStringContainsString('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
                               $testName . ' - content');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
 
@@ -1102,7 +1104,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->smarty->loadFilter('post', 'test031');
         $this->smarty->assign('foo', 'foo');
         $this->smarty->assign('bar', 'bar');
-        $this->assertContains('bar', $this->smarty->fetch('031_post_filter.tpl'));
+        $this->assertStringContainsString('bar', $this->smarty->fetch('031_post_filter.tpl'));
     }
     /*
       * Test new inheritance root in outermost include
@@ -1110,11 +1112,11 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     public function testInclude_032()
     {
         $result = $this->smarty->fetch('032_child.tpl');
-        $this->assertContains('foo in 032_child.tpl', $result);
-        $this->assertContains('bar in 032_included_child.tpl', $result);
-        $this->assertContains('foo in 032_included_parent.tpl', $result);
-        $this->assertNotContains('bar in 032_included_parent.tpl', $result);
-        $this->assertNotContains('foo in 032_parent.tpl', $result);
+        $this->assertStringContainsString('foo in 032_child.tpl', $result);
+        $this->assertStringContainsString('bar in 032_included_child.tpl', $result);
+        $this->assertStringContainsString('foo in 032_included_parent.tpl', $result);
+        $this->assertStringNotContainsString('bar in 032_included_parent.tpl', $result);
+        $this->assertStringNotContainsString('foo in 032_parent.tpl', $result);
     }
     /**
      * test  relative includes in {block}
@@ -1134,66 +1136,56 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
             $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('033_grandchild.tpl');
-        $this->assertContains('include grand:content include grand', $result, $testName . ' - grand');
-        $this->assertContains('include child:content include child', $result, $testName . ' - grand');
-        $this->assertContains('include parent:content include parent', $result, $testName . ' - grand');
-        $this->assertContains("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
+        $this->assertStringContainsString('include grand:content include grand', $result, $testName . ' - grand');
+        $this->assertStringContainsString('include child:content include child', $result, $testName . ' - grand');
+        $this->assertStringContainsString('include parent:content include parent', $result, $testName . ' - grand');
+        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
     /**
-     *
      * test smarty.block.foo
-     *
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage $smarty.block is not defined
      */
     public function testSmartyBlockWrongBlockName_036()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('$smarty.block is not defined');
         $this->smarty->fetch('036_parent.tpl');
     }
     /**
-     *
      * test '{$smarty.block.parent}'
-     *
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage inheritance: illegal '{$smarty.block.parent}' used in child template
      */
     public function testSmartyParentBlockCalledInParent_036_1()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('inheritance: illegal \'{$smarty.block.parent}\' used in child template');
         $this->smarty->fetch('036_1_parent.tpl');
     }
     /**
-     *
      * test {block_parent}
-     *
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage inheritance: illegal '{block_parent}' used in child template
      */
     public function testSmartyParentBlockCalledInParent_036_2()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('inheritance: illegal \'{block_parent}\' used in child template');
         $this->smarty->fetch('036_2_parent.tpl');
     }
     /**
-     *
      * test {block_parent}
-     *
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage inheritance: illegal '{parent}' used in child template
      */
     public function testSmartyParentBlockCalledInParent_036_3()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('inheritance: illegal \'{parent}\' used in child template');
         $this->smarty->fetch('036_3_parent.tpl');
     }
 
     /**
-     *
      * test smarty.block
-     *
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage $smarty.block is not defined
      */
     public function testSmartyBlockMissigBlockName_037()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('$smarty.block is not defined');
         $this->smarty->fetch('037_parent.tpl');
     }
 

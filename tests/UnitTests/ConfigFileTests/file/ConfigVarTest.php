@@ -20,7 +20,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      * This method is called before a test is executed.
      *
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }
@@ -403,7 +403,7 @@ class ConfigVarTest extends PHPUnit_Smarty
             $this->assertEquals("", $this->smarty->fetch('foo.tpl'));
         }
         catch (Exception $e) {
-            $this->assertEquals('Undefined variable: foo', $e->getMessage());
+            $this->assertStringStartsWith('Undefined variable', $e->getMessage());
         }
     }
 }

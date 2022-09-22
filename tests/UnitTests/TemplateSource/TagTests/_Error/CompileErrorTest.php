@@ -15,7 +15,7 @@
  */
 class CompileErrorTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }
@@ -26,42 +26,42 @@ class CompileErrorTest extends PHPUnit_Smarty
     }
 
     /**
-     * @expectedException        SmartyException
-     * @expectedExceptionMessage no.tpl
      * test none existing template file error
      */
     public function testNoneExistingTemplateError()
     {
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('no.tpl');
         $this->smarty->fetch('eval:{include file=\'no.tpl\'}');
     }
 
     /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unknown tag 'unknown'
      * test unkown tag error
      */
     public function testUnknownTagError()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('unknown tag \'unknown\'');
         $this->smarty->fetch('eval:{unknown}');
     }
 
     /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage unclosed {if} tag
      * test unclosed tag error
      */
     public function testUnclosedTagError()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('unclosed {if} tag');
         $this->smarty->fetch('eval:{if true}');
     }
 
     /**
-     * @expectedException        SmartyCompilerException
-     * @expectedExceptionMessage Unexpected "}"
      * test syntax error
      */
     public function testSyntaxError()
     {
+        $this->expectException('SmartyCompilerException');
+        $this->expectExceptionMessage('Unexpected "}"');
         $this->smarty->fetch('eval:{assign var=}');
     }
 }

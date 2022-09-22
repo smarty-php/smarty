@@ -15,7 +15,7 @@
  */
 class CompileIncludeTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
@@ -187,7 +187,7 @@ class CompileIncludeTest extends PHPUnit_Smarty
         $this->smarty->assign('foo', 1);
         $this->smarty->assign('bar', 'bar');
         $content = $this->smarty->fetch('test_recursive_includes.tpl');
-        $this->assertContains("before 1 bar<br>\nbefore 2 bar<br>\nbefore 3 bar<br>\nafter 3 bar<br>\nafter 2 bar<br>\nafter 1 bar<br>", $content, $text);
+        $this->assertStringContainsString("before 1 bar<br>\nbefore 2 bar<br>\nbefore 3 bar<br>\nafter 3 bar<br>\nafter 2 bar<br>\nafter 1 bar<br>", $content, $text);
     }
 
     /**
@@ -203,7 +203,7 @@ class CompileIncludeTest extends PHPUnit_Smarty
         $this->smarty->assign('foo', 1);
         $this->smarty->assign('bar', 'bar');
         $content = $this->smarty->fetch('test_recursive_includes2.tpl');
-        $this->assertContains("before 1 bar<br>\nbefore 3 bar<br>\nbefore 5 bar<br>\nafter 5 bar<br>\nafter 3 bar<br>\nafter 1 bar<br>", $content, $text);
+        $this->assertStringContainsString("before 1 bar<br>\nbefore 3 bar<br>\nbefore 5 bar<br>\nafter 5 bar<br>\nafter 3 bar<br>\nafter 1 bar<br>", $content, $text);
     }
 
     /**

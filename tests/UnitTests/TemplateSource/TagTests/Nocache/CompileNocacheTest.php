@@ -15,7 +15,7 @@
  */
 class CompileNocacheTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }
@@ -34,13 +34,13 @@ class CompileNocacheTest extends PHPUnit_Smarty
         $this->smarty->assign('foo', 0);
         $this->smarty->assign('bar', 'A');
         $content = $this->smarty->fetch('test_nocache_tag.tpl');
-        $this->assertContains("root 2A", $content);
-        $this->assertContains("include 4A", $content);
+        $this->assertStringContainsString("root 2A", $content);
+        $this->assertStringContainsString("include 4A", $content);
         $this->smarty->assign('foo', 2);
         $this->smarty->assign('bar', 'B');
         $content = $this->smarty->fetch('test_nocache_tag.tpl');
-        $this->assertContains("root 4B", $content);
-        $this->assertContains("include 6B", $content);
+        $this->assertStringContainsString("root 4B", $content);
+        $this->assertStringContainsString("include 6B", $content);
     }
 
     /**
@@ -52,8 +52,8 @@ class CompileNocacheTest extends PHPUnit_Smarty
         $this->smarty->assign('foo', 0);
         $this->smarty->assign('bar', 'A');
         $content = $this->smarty->fetch('test_nocache_tag.tpl');
-        $this->assertContains("root 2A", $content);
-        $this->assertContains("include 4A", $content);
+        $this->assertStringContainsString("root 2A", $content);
+        $this->assertStringContainsString("include 4A", $content);
 
     }
 
@@ -69,7 +69,7 @@ class CompileNocacheTest extends PHPUnit_Smarty
         $this->smarty->assign('foo', 2);
         $this->smarty->assign('bar', 'B');
         $content = $this->smarty->fetch('test_nocache_tag.tpl');
-        $this->assertContains("root 4A", $content);
-        $this->assertContains("include 6A", $content);
+        $this->assertStringContainsString("root 4A", $content);
+        $this->assertStringContainsString("include 6A", $content);
     }
 }

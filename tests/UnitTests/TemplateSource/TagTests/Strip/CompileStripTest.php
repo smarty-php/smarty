@@ -15,7 +15,7 @@
  */
 class CompileStripTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
         $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
@@ -76,7 +76,7 @@ class CompileStripTest extends PHPUnit_Smarty
                      array("{'Var'}\n <b></b> <c></c>", 'Var<b></b> <c></c>', '', $i ++),
                      array("\n<b></b>  <c></c>", '<b></b> <c></c>', '', $i ++),
                      array("\n<b></b>\n  <c></c>", '<b></b><c></c>', '', $i ++),
-
+                     array("\n<b>\n  {* a comment *}\n   <c>", '<b><c>', '', $i ++),
         );
     }
 

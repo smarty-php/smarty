@@ -15,7 +15,7 @@ class TemplateNormalizationTest extends PHPUnit_Smarty
     /*
      * Setup test fixture
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
     }

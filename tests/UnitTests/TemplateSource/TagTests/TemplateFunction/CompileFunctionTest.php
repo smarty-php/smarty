@@ -15,7 +15,7 @@
  */
 class CompileFunctionTest extends PHPUnit_Smarty
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
    }
@@ -196,7 +196,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('test_template_function.tpl', $cacheId);
         $tpl->assign('foo', 'foo');
-        $this->assertContains('foo foo', $this->smarty->fetch($tpl), $text);
+        $this->assertStringContainsString('foo foo', $this->smarty->fetch($tpl), $text);
     }
 
     /**
@@ -208,9 +208,9 @@ class CompileFunctionTest extends PHPUnit_Smarty
     public function testExternalDefinedFunctionCalledByFetch()
     {
         $this->smarty->assign('foo', 'foo');
-        $this->assertContains('foo foo', $this->smarty->fetch('test_template_function.tpl'));
+        $this->assertStringContainsString('foo foo', $this->smarty->fetch('test_template_function.tpl'));
         $this->smarty->assign('foo', 'bar');
-        $this->assertContains('bar bar', $this->smarty->fetch('test_template_function_call.tpl'));
+        $this->assertStringContainsString('bar bar', $this->smarty->fetch('test_template_function_call.tpl'));
     }
 
     /**
@@ -229,7 +229,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('test_template_function.tpl', $cacheId);
         $this->assertTrue($this->smarty->isCached($tpl), $text);
         $tpl->assign('foo', 'bar');
-        $this->assertContains('foo bar', $this->smarty->fetch($tpl), $text);
+        $this->assertStringContainsString('foo bar', $this->smarty->fetch($tpl), $text);
     }
 
     /**
@@ -247,7 +247,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('test_template_function_nocache_call.tpl', $cacheId);
         $tpl->assign('foo', 'foo');
-        $this->assertContains('foo foo', $this->smarty->fetch($tpl), $text);
+        $this->assertStringContainsString('foo foo', $this->smarty->fetch($tpl), $text);
     }
 
     /**
@@ -266,7 +266,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('test_template_function_nocache_call.tpl', $cacheId);
         $this->assertTrue($this->smarty->isCached($tpl), $text);
         $tpl->assign('foo', 'bar');
-        $this->assertContains('bar bar', $this->smarty->fetch($tpl), $text);
+        $this->assertStringContainsString('bar bar', $this->smarty->fetch($tpl), $text);
     }
 
     /**
@@ -285,7 +285,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('test_template_function_nocache_call.tpl', $cacheId);
         $this->assertTrue($this->smarty->isCached($tpl), $text);
         $tpl->assign('foo', 'bar');
-        $this->assertContains('bar bar', $this->smarty->fetch($tpl), $text);
+        $this->assertStringContainsString('bar bar', $this->smarty->fetch($tpl), $text);
     }
 
     /**
@@ -297,7 +297,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
      */
     public function testExternalDefinedFunctionRecursion($text)
     {
-        $this->assertEquals('12345', $this->smarty->fetch('test_template_function_recursion2.tpl'), $text);
+        $this->assertEquals('012345', $this->smarty->fetch('test_template_function_recursion2.tpl'), $text);
     }
 
     /**
@@ -431,5 +431,14 @@ class CompileFunctionTest extends PHPUnit_Smarty
                      array("{function name=simple}A{\$foo}\nC{/function}{call name='simple'}", "Abar\nC", 'T14', $i++),
                      array("{function name=simple}A\n{\$foo}\nC{/function}{call name='simple'}", "A\nbar\nC", 'T15', $i++),
         );
-            }
+    }
+
+    /**
+     * Test handling of function names that are a security risk
+     */
+    public function testIllegalFunctionName() {
+        $this->expectException(SmartyCompilerException::class);
+	    $this->smarty->fetch('string:{function name=\'rce(){};echo "hi";function \'}{/function}');
+    }
+
 }
