@@ -71,9 +71,5 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-${{ matrix.php-version }}-
 
-    - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --prefer-dist --no-progress --no-suggest
-
     - name: Run tests with phpunit
-      run: ./phpunit.sh
+      run: ./run-tests.sh
