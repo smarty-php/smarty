@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed PHP8.1 deprecation notices for strftime [#672](https://github.com/smarty-php/smarty/issues/672)
 - Fixed PHP8.1 deprecation errors passing null to parameter in trim [#807](https://github.com/smarty-php/smarty/pull/807)
 - Adapt Smarty upper/lower functions to be codesafe (e.g. for Turkish locale) [#586](https://github.com/smarty-php/smarty/pull/586)
+- Bug fix for underscore and limited length in template name in custom resources [#581](https://github.com/smarty-php/smarty/pull/581)
 
 ## [4.2.1] - 2022-09-14
 
