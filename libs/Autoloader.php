@@ -5,6 +5,11 @@
  * @package Smarty
  */
 
+
+if (!defined('SMARTY_HELPER_FUNCTIONS_LOADED')) {
+	include dirname(__FILE__) . '/functions.php';
+}
+
 /**
  * Smarty Autoloader
  *
@@ -89,7 +94,7 @@ class Smarty_Autoloader
         if ($class[ 0 ] !== 'S' || strpos($class, 'Smarty') !== 0) {
             return;
         }
-        $_class = strtolower($class);
+        $_class = smarty_strtolower_ascii($class);
         if (isset(self::$rootClasses[ $_class ])) {
             $file = self::$SMARTY_DIR . self::$rootClasses[ $_class ];
             if (is_file($file)) {
