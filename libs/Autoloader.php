@@ -5,6 +5,11 @@
  * @package Smarty
  */
 
+
+if (!defined('SMARTY_HELPER_FUNCTIONS_LOADED')) {
+	include dirname(__FILE__) . '/functions.php';
+}
+
 /**
  * Smarty Autoloader
  *

@@ -74,12 +74,21 @@ if (!defined('SMARTY_RESOURCE_DATE_FORMAT')) {
      */
     define('SMARTY_RESOURCE_DATE_FORMAT', '%b %e, %Y');
 }
+
+/**
+ * Load helper functions
+ */
+if (!defined('SMARTY_HELPER_FUNCTIONS_LOADED')) {
+	include dirname(__FILE__) . '/functions.php';
+}
+
 /**
  * Load Smarty_Autoloader
  */
 if (!class_exists('Smarty_Autoloader')) {
     include dirname(__FILE__) . '/bootstrap.php';
 }
+
 /**
  * Load always needed external class files
  */

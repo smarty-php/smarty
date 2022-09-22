@@ -620,7 +620,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
             if (strcasecmp($name, 'isset') === 0 || strcasecmp($name, 'empty') === 0
                 || strcasecmp($name, 'array') === 0 || is_callable($name)
             ) {
-                $func_name = strtr($name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
+	            $func_name = smarty_strtolower_ascii($name);
 
                 if ($func_name === 'isset') {
                     if (count($parameter) === 0) {
@@ -784,9 +784,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
         if (!isset(self::$_tag_objects[ $tag ])) {
             // lazy load internal compiler plugin
             $_tag = explode('_', $tag);
-            foreach ($_tag as &$tagPart) {
-                $tagPart = strtr(substr($tagPart,0,1), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') . substr($tagPart,1);
-            }
+	        $_tag = array_map('smarty_ucfirst_ascii', $_tag);
             $class_name = 'Smarty_Internal_Compile_' . implode('_', $_tag);
             if (class_exists($class_name)
                 && (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))

@@ -194,7 +194,6 @@ abstract class Smarty_CacheResource
         if (!isset($type)) {
             $type = $smarty->caching_type;
         }
-        $typeUcfirst = strtr(substr($type,0,1), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') . substr($type,1);
         // try smarty's cache
         if (isset($smarty->_cache[ 'cacheresource_handlers' ][ $type ])) {
             return $smarty->_cache[ 'cacheresource_handlers' ][ $type ];
@@ -206,11 +205,11 @@ abstract class Smarty_CacheResource
         }
         // try sysplugins dir
         if (isset(self::$sysplugins[ $type ])) {
-            $cache_resource_class = 'Smarty_Internal_CacheResource_' . $typeUcfirst;
+            $cache_resource_class = 'Smarty_Internal_CacheResource_' . smarty_ucfirst_ascii($type);
             return $smarty->_cache[ 'cacheresource_handlers' ][ $type ] = new $cache_resource_class();
         }
         // try plugins dir
-        $cache_resource_class = 'Smarty_CacheResource_' . $typeUcfirst;
+        $cache_resource_class = 'Smarty_CacheResource_' . smarty_ucfirst_ascii($type);
         if ($smarty->loadPlugin($cache_resource_class)) {
             return $smarty->_cache[ 'cacheresource_handlers' ][ $type ] = new $cache_resource_class();
         }

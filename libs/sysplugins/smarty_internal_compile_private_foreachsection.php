@@ -143,8 +143,7 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
         foreach ($this->resultOffsets as $key => $offset) {
             foreach ($match[ $offset ] as $m) {
                 if (!empty($m)) {
-                    $m = strtr($m, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
-                    $this->matchResults[ $key ][ $m ] = true;
+                    $this->matchResults[ $key ][ smarty_strtolower_ascii($m) ] = true;
                 }
             }
         }
@@ -214,12 +213,12 @@ class Smarty_Internal_Compile_Private_ForeachSection extends Smarty_Internal_Com
      */
     public function compileSpecialVariable($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        $tag = strtr(trim($parameter[ 0 ], '"\''), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
+	    $tag = smarty_strtolower_ascii(trim($parameter[ 0 ], '"\''));
         $name = isset($parameter[ 1 ]) ? $compiler->getId($parameter[ 1 ]) : false;
         if (!$name) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} name attribute", null, true);
         }
-        $property = isset($parameter[ 2 ]) ? strtr($compiler->getId($parameter[ 2 ]), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') : false;
+	    $property = isset($parameter[ 2 ]) ? smarty_strtolower_ascii($compiler->getId($parameter[ 2 ])) : false;
         if (!$property || !in_array($property, $this->nameProperties)) {
             $compiler->trigger_template_error("missing or illegal \$smarty.{$tag} property attribute", null, true);
         }

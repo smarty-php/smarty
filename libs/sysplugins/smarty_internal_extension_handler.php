@@ -88,21 +88,19 @@ class Smarty_Internal_Extension_Handler
                         $objType = $data->_objType;
                         $propertyType = false;
                         if (!isset($this->resolvedProperties[ $match[ 0 ] ][ $objType ])) {
-                            $property = isset($this->resolvedProperties[ 'property' ][ $basename ]) ?
-                                $this->resolvedProperties[ 'property' ][ $basename ] :
-                                $property = $this->resolvedProperties[ 'property' ][ $basename ] = strtr(
-                                    join(
-                                        '_',
-                                        preg_split(
-                                            '/([A-Z][^A-Z]*)/',
-                                            $basename,
-                                            -1,
-                                            PREG_SPLIT_NO_EMPTY |
-                                            PREG_SPLIT_DELIM_CAPTURE
-                                        )
-                                    ),
-                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'
-                                );
+                            $property = $this->resolvedProperties['property'][$basename] ??
+	                            $this->resolvedProperties['property'][$basename] = smarty_strtolower_ascii(
+	                            join(
+		                            '_',
+		                            preg_split(
+			                            '/([A-Z][^A-Z]*)/',
+			                            $basename,
+			                            -1,
+			                            PREG_SPLIT_NO_EMPTY |
+			                            PREG_SPLIT_DELIM_CAPTURE
+		                            )
+	                            )
+                            );
                             if ($property !== false) {
                                 if (property_exists($data, $property)) {
                                     $propertyType = $this->resolvedProperties[ $match[ 0 ] ][ $objType ] = 1;
@@ -146,9 +144,7 @@ class Smarty_Internal_Extension_Handler
     public function upperCase($name)
     {
         $_name = explode('_', $name);
-        foreach ($_name as &$namePart) {
-            $namePart = strtr(substr($namePart,0,1), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ') . substr($namePart,1);
-        }
+	    $_name = array_map('smarty_ucfirst_ascii', $_name);
         return implode('_', $_name);
     }
 
