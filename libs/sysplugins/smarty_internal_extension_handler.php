@@ -89,17 +89,17 @@ class Smarty_Internal_Extension_Handler
                         $propertyType = false;
                         if (!isset($this->resolvedProperties[ $match[ 0 ] ][ $objType ])) {
                             $property = $this->resolvedProperties['property'][$basename] ??
-	                            $this->resolvedProperties['property'][$basename] = smarty_strtolower_ascii(
-	                            join(
-		                            '_',
-		                            preg_split(
-			                            '/([A-Z][^A-Z]*)/',
-			                            $basename,
-			                            -1,
-			                            PREG_SPLIT_NO_EMPTY |
-			                            PREG_SPLIT_DELIM_CAPTURE
-		                            )
-	                            )
+                                $this->resolvedProperties['property'][$basename] = smarty_strtolower_ascii(
+                                join(
+                                    '_',
+                                    preg_split(
+                                        '/([A-Z][^A-Z]*)/',
+                                        $basename,
+                                        -1,
+                                        PREG_SPLIT_NO_EMPTY |
+                                        PREG_SPLIT_DELIM_CAPTURE
+                                    )
+                                )
                             );
                             if ($property !== false) {
                                 if (property_exists($data, $property)) {
@@ -144,7 +144,7 @@ class Smarty_Internal_Extension_Handler
     public function upperCase($name)
     {
         $_name = explode('_', $name);
-	    $_name = array_map('smarty_ucfirst_ascii', $_name);
+        $_name = array_map('smarty_ucfirst_ascii', $_name);
         return implode('_', $_name);
     }
 
