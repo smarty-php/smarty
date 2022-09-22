@@ -47,7 +47,7 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
     {
-        $source->filepath = $source->type . ':' . substr(preg_replace('/[^A-Za-z0-9._]/', '', $source->name), 0, 255);
+        $source->filepath = $source->type . ':' . substr(preg_replace('/[^A-Za-z0-9._]/', '', $source->name), 0, 127);
         $source->uid = sha1($source->type . ':' . $source->name);
         $mtime = $this->fetchTimestamp($source->name);
         if ($mtime !== null) {
@@ -88,6 +88,6 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
      */
     public function getBasename(Smarty_Template_Source $source)
     {
-        return basename(substr(preg_replace('/[^A-Za-z0-9._]/', '', $source->name), 0, 255));
+        return basename(substr(preg_replace('/[^A-Za-z0-9._]/', '', $source->name), 0, 127));
     }
 }
