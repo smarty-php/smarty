@@ -18,6 +18,7 @@ class ModifierIssue327Test extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
+		$this->smarty->registerPlugin('modifier', 'substr', 'substr');
     }
 
     public function testInit()

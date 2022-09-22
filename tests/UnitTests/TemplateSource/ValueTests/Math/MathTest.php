@@ -18,6 +18,7 @@ class MathTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(dirname(__FILE__));
+		$this->smarty->registerPlugin('modifier', 'sin', 'sin');
     }
 
     public function testInit()
@@ -104,7 +105,7 @@ class MathTest extends PHPUnit_Smarty
     {
         $this->smarty->disableSecurity();
         $expected = "22.00 -- 4.10";
-        $tpl = $this->smarty->createTemplate('eval:{$x = 4}{$y = 5.5}{$z = $x * $y}{"%0.2f"|sprintf:$z} -- {$x = 20.5}{$y = 5}{$z = $x / $y}{"%0.2f"|sprintf:$z}');
+        $tpl = $this->smarty->createTemplate('eval:{$x = 4}{$y = 5.5}{$z = $x * $y}{$z|string_format:"%0.2f"} -- {$x = 20.5}{$y = 5}{$z = $x / $y}{$z|string_format:"%0.2f"}');
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
     }
 
@@ -120,7 +121,7 @@ class MathTest extends PHPUnit_Smarty
     {
         $this->smarty->disableSecurity();
         $expected = "22.00 -- 4.10";
-        $tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{$z = $x * $y}{"%0.2f"|sprintf:$z} -- {$x = "20.5"}{$y = "5"}{$z = $x / $y}{"%0.2f"|sprintf:$z}');
+        $tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{$z = $x * $y}{$z|string_format:"%0.2f"} -- {$x = "20.5"}{$y = "5"}{$z = $x / $y}{$z|string_format:"%0.2f"}');
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
     }
 

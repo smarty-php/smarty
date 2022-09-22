@@ -105,7 +105,7 @@ class Smarty_Security
      *
      * @var array
      */
-    public $php_modifiers = array('escape', 'count', 'nl2br',);
+    public $php_modifiers = array('escape', 'count', 'sizeof', 'nl2br',);
 
     /**
      * This is an array of allowed tags.
@@ -328,7 +328,7 @@ class Smarty_Security
      *
      * @param string $modifier_name
      * @param object $compiler compiler object
-     *
+     * @deprecated
      * @return boolean                 true if modifier is trusted
      */
     public function isTrustedPhpModifier($modifier_name, $compiler)
