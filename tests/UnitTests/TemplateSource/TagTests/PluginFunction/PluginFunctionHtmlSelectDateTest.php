@@ -209,7 +209,7 @@ class PluginFunctionHtmlSelectDateTest extends PHPUnit_Smarty
 
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
         $this->smarty->setErrorReporting(E_ALL & ~E_DEPRECATED);
 
         $year = date('Y');

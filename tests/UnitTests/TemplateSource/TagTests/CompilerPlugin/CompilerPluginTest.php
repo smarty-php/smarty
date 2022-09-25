@@ -17,7 +17,7 @@ class CompilerPluginTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
     }
 
 
@@ -30,7 +30,7 @@ class CompilerPluginTest extends PHPUnit_Smarty
      */
     public function testCompilerPlugin()
     {
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
+        $this->smarty->addPluginsDir(__DIR__ . "/PHPunitplugins/");
         $this->assertEquals('test output', $this->smarty->fetch('eval:{test data="test output"}{/test}'));
     }
 }

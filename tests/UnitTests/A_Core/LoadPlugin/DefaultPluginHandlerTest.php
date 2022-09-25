@@ -17,7 +17,7 @@ class DefaultPluginHandlerTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
         $this->smarty->setForceCompile(true);
         $this->smarty->disableSecurity();
         $this->smarty->registerDefaultPluginHandler('my_plugin_handler');

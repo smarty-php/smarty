@@ -19,8 +19,8 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
-        require_once dirname(__FILE__) . '/PHPunitplugins/resource.ambiguous.php';
+        $this->setUpSmarty(__DIR__);
+        require_once __DIR__ . '/PHPunitplugins/resource.ambiguous.php';
 
         // empty the template dir
         $this->smarty->setTemplateDir(array());
@@ -36,7 +36,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
     protected function relative($path)
     {
-        $path = str_replace(dirname(__FILE__), '.', $path);
+        $path = str_replace(__DIR__, '.', $path);
         if (DIRECTORY_SEPARATOR == "\\") {
             $path = str_replace("\\", "/", $path);
         }
@@ -46,7 +46,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
     public function testNone()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_Ambiguous(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
         $this->smarty->setAllowAmbiguousResources(true);
@@ -63,7 +63,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
      */
     public function testCase1()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_Ambiguous(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
         $this->smarty->setAllowAmbiguousResources(true);
@@ -83,7 +83,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
      */
     public function testCase2()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_Ambiguous(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
         $this->smarty->setAllowAmbiguousResources(true);
@@ -103,7 +103,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
      */
     public function testCaseSwitching()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(dirname(__FILE__) . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_Ambiguous(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
         $this->smarty->setAllowAmbiguousResources(true);

@@ -6,7 +6,7 @@
  * @author  Rodney Rehm
  */
 
-require_once(dirname(__FILE__) . '/helpers/_object_tostring.php');
+require_once(__DIR__ . '/helpers/_object_tostring.php');
 
 /**
  * class for modifier tests
@@ -19,7 +19,7 @@ class PluginFunctionHtmlOptionsTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
     }
 
     public function testAssociativeArray()

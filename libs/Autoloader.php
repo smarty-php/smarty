@@ -7,7 +7,7 @@
 
 
 if (!defined('SMARTY_HELPER_FUNCTIONS_LOADED')) {
-	include dirname(__FILE__) . '/functions.php';
+	include __DIR__ . '/functions.php';
 }
 
 /**
@@ -78,7 +78,7 @@ class Smarty_Autoloader
      */
     public static function register($prepend = false)
     {
-        self::$SMARTY_DIR = defined('SMARTY_DIR') ? SMARTY_DIR : dirname(__FILE__) . DIRECTORY_SEPARATOR;
+        self::$SMARTY_DIR = defined('SMARTY_DIR') ? SMARTY_DIR : __DIR__ . DIRECTORY_SEPARATOR;
         self::$SMARTY_SYSPLUGINS_DIR = defined('SMARTY_SYSPLUGINS_DIR') ? SMARTY_SYSPLUGINS_DIR :
             self::$SMARTY_DIR . 'sysplugins' . DIRECTORY_SEPARATOR;
         spl_autoload_register(array(__CLASS__, 'autoload'), true, $prepend);
