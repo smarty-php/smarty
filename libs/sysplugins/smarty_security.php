@@ -556,35 +556,6 @@ class Smarty_Security
     }
 
     /**
-     * Check if directory of file resource is trusted.
-     *
-     * @param string $filepath
-     *
-     * @return boolean         true if directory is trusted
-     * @throws SmartyException if PHP directory is not trusted
-     */
-    public function isTrustedPHPDir($filepath)
-    {
-        if (empty($this->trusted_dir)) {
-            throw new SmartyException("directory '{$filepath}' not allowed by security setting (no trusted_dir specified)");
-        }
-        // check if index is outdated
-        if (!$this->_trusted_dir || $this->_trusted_dir !== $this->trusted_dir) {
-            $this->_php_resource_dir = array();
-            $this->_trusted_dir = $this->trusted_dir;
-            foreach ((array)$this->trusted_dir as $directory) {
-                $directory = $this->smarty->_realpath($directory . '/', true);
-                $this->_php_resource_dir[ $directory ] = true;
-            }
-        }
-        $addPath = $this->_checkDir($filepath, $this->_php_resource_dir);
-        if ($addPath !== false) {
-            $this->_php_resource_dir = array_merge($this->_php_resource_dir, $addPath);
-        }
-        return true;
-    }
-
-    /**
      * Remove old directories and its sub folders, add new directories
      *
      * @param array $oldDir
