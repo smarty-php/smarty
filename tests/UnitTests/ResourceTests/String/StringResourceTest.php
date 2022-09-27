@@ -17,7 +17,7 @@ class StringResourceTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
     }
 
 
@@ -28,7 +28,7 @@ class StringResourceTest extends PHPUnit_Smarty
 
     protected function relative($path)
     {
-        $path = str_replace(dirname(__FILE__), '.', $path);
+        $path = str_replace(__DIR__, '.', $path);
         if (DIRECTORY_SEPARATOR == "\\") {
             $path = str_replace("\\", "/", $path);
         }

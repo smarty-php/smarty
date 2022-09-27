@@ -36,7 +36,7 @@ if (!defined('SMARTY_DIR')) {
     /**
      *
      */
-    define('SMARTY_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+    define('SMARTY_DIR', __DIR__ . DIRECTORY_SEPARATOR);
 }
 /**
  * set SMARTY_SYSPLUGINS_DIR to absolute path to Smarty internal plugins.
@@ -65,14 +65,14 @@ if (!defined('SMARTY_MBSTRING')) {
  * Load helper functions
  */
 if (!defined('SMARTY_HELPER_FUNCTIONS_LOADED')) {
-    include dirname(__FILE__) . '/functions.php';
+    include __DIR__ . '/functions.php';
 }
 
 /**
  * Load Smarty_Autoloader
  */
 if (!class_exists('Smarty_Autoloader')) {
-    include dirname(__FILE__) . '/bootstrap.php';
+    include __DIR__ . '/bootstrap.php';
 }
 
 /**

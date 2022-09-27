@@ -17,7 +17,7 @@ class MathTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
         $this->smarty->registerPlugin('modifier', 'sin', 'sin');
     }
 

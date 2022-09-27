@@ -36,7 +36,7 @@ class MbSplitEncodingIssue549Test extends PHPUnit_Smarty
         }
 
         $this->charset = \Smarty::$_CHARSET;
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
     }
 
     protected function tearDown(): void

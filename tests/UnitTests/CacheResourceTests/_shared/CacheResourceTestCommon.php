@@ -17,8 +17,8 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
 
     public function setUp(): void
     {
-        $this->smarty->setTemplateDir(dirname(__FILE__) . '/templates');
-        $this->smarty->addPluginsDir(dirname(__FILE__) . '/PHPunitplugins');
+        $this->smarty->setTemplateDir(__DIR__ . '/templates');
+        $this->smarty->addPluginsDir(__DIR__ . '/PHPunitplugins');
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
     }
 
@@ -543,9 +543,9 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
     {
         $this->smarty->setCaching(true);
         if ($folder == 0) {
-            $this->smarty->setTemplateDir(array(dirname(__FILE__) . '/../_shared/templates', dirname(__FILE__) . '/../_shared/templates/a'));
+            $this->smarty->setTemplateDir(array(__DIR__ . '/../_shared/templates', __DIR__ . '/../_shared/templates/a'));
         } else {
-            $this->smarty->setTemplateDir(array(dirname(__FILE__) . '/../_shared/templates', dirname(__FILE__) . '/../_shared/templates/b'));
+            $this->smarty->setTemplateDir(array(__DIR__ . '/../_shared/templates', __DIR__ . '/../_shared/templates/b'));
         }
         if ($merge) {
             $this->smarty->setCompileId(1);

@@ -17,7 +17,7 @@ class StreamVariableTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
 
         stream_wrapper_register("var", "VariableStream")
         or die("Failed to register protocol");

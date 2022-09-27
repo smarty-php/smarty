@@ -17,7 +17,7 @@ class SecurityTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
 
         $this->smarty->setForceCompile(true);
         $this->smarty->enableSecurity();
@@ -237,7 +237,7 @@ class SecurityTest extends PHPUnit_Smarty
     {
         $this->expectException('SmartyException');
         $this->expectExceptionMessage('not trusted file path');
-        $this->smarty->security_policy->secure_dir = array(str_replace('\\', '/', dirname(__FILE__) . '/templates_3/'));
+        $this->smarty->security_policy->secure_dir = array(str_replace('\\', '/', __DIR__ . '/templates_3/'));
         $this->smarty->fetch('string:{include file="templates_2/hello.tpl"}');
      }
 
