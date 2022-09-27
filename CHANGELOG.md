@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Include docs and demo in the releases [#799](https://github.com/smarty-php/smarty/issues/799)
 - Using PHP functions as modifiers now triggers a deprecation notice because we will drop support for this in the next major release [#813](https://github.com/smarty-php/smarty/issues/813) 
+-  Dropped remaining references to removed PHP-support in Smarty 4 from docs, lexer and security class. [#816](https://github.com/smarty-php/smarty/issues/816)
 
 ### Fixed
 - Output buffer is now cleaned for internal PHP errors as well, not just for Exceptions [#514](https://github.com/smarty-php/smarty/issues/514)
