@@ -3,10 +3,11 @@ services:
   base:
     build:
       context: .
+      dockerfile: ./utilities/testrunners/php71/Dockerfile
     volumes:
       - .:/app
     working_dir: /app
-    entrypoint: sh ./utilities/testrunners/run-test.sh
+    entrypoint: sh ./run-tests.sh
   php71:
     extends:
       service: base

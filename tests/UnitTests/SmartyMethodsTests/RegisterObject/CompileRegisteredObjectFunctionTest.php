@@ -17,7 +17,7 @@ class CompileRegisteredObjectFunctionTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
 
         $this->smarty->setForceCompile(true);
         $this->smarty->disableSecurity();
@@ -60,13 +60,13 @@ class CompileRegisteredObjectFunctionTest extends PHPUnit_Smarty
 
     public function testRegisteredObjectBlockFunctionModifier1()
     {
-        $tpl = $this->smarty->createTemplate('eval:{objecttest->myblock}hello world{/objecttest->myblock|strtoupper}');
+        $tpl = $this->smarty->createTemplate('eval:{objecttest->myblock}hello world{/objecttest->myblock|upper}');
         $this->assertEquals(strtoupper('block test'), $this->smarty->fetch($tpl));
     }
 
     public function testRegisteredObjectBlockFunctionModifier2()
     {
-        $tpl = $this->smarty->createTemplate('eval:{objecttest->myblock}hello world{/objecttest->myblock|default:""|strtoupper}');
+        $tpl = $this->smarty->createTemplate('eval:{objecttest->myblock}hello world{/objecttest->myblock|default:""|upper}');
         $this->assertEquals(strtoupper('block test'), $this->smarty->fetch($tpl));
     }
     // TODO

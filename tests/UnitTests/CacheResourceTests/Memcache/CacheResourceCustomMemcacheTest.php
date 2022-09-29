@@ -6,7 +6,7 @@
  * @author  Uwe Tews
  */
 
-include_once dirname(__FILE__) . '/../_shared/CacheResourceTestCommon.php';
+include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
 
 /**
  * class for cache resource memcache tests
@@ -27,7 +27,7 @@ class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
         if (!class_exists('Memcache')) {
             $this->markTestSkipped('Memcache not available');
         }
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
         parent::setUp();
         $this->smarty->setCachingType('memcachetest');
     }

@@ -7,11 +7,10 @@
 
 # exclude from git export
 /tests export-ignore
-/demo export-ignore
-/docs export-ignore
 /utilities export-ignore
 /docker-compose.yml export-ignore
 /.github export-ignore
+/run_tests_for_all_php_versions.sh export-ignore
 /.gitattributes export-ignore
 /.gitignore export-ignore
 /make-release.sh export-ignore

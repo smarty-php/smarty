@@ -209,8 +209,8 @@ class PluginFunctionHtmlSelectDateTest extends PHPUnit_Smarty
 
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
-	    $this->smarty->setErrorReporting(E_ALL & ~E_DEPRECATED);
+        $this->setUpSmarty(__DIR__);
+        $this->smarty->setErrorReporting(E_ALL & ~E_DEPRECATED);
 
         $year = date('Y');
         $this->now = mktime(15, 0, 0, 2, 20, $year);
@@ -239,6 +239,7 @@ class PluginFunctionHtmlSelectDateTest extends PHPUnit_Smarty
 
         $this->years['default'] = "<option value=\"{$year}\" selected=\"selected\">{$year}</option>";
         $this->years['none'] = "<option value=\"{$year}\">{$year}</option>";
+
     }
 
     protected function reverse($string)
@@ -392,6 +393,33 @@ class PluginFunctionHtmlSelectDateTest extends PHPUnit_Smarty
             . $n . '<select name="Date_Day">' . $n . '<option value="">day</option>' . $n . $this->days['none'] . $n . '</select>'
             . $n . '<select name="Date_Year">' . $n . '<option value="">year</option>' . $n . $this->years['none'] . $n . '</select>';
         $tpl = $this->smarty->createTemplate('eval:{html_select_date time=null year_empty="year" month_empty="month" day_empty="day"}');
+        $this->assertEquals($result, $tpl->fetch());
+    }
+
+    public function testEmptyDayWithDateString() {
+        $n = "\n";
+        $result = '<select name="Date_Month">' . $n . $this->months['default'] . $n . '</select>'
+            . $n . '<select name="Date_Day">' . $n . '<option value="">day</option>' . $n . $this->days['none'] . $n . '</select>'
+            . $n . '<select name="Date_Year">' . $n . $this->years['start_2005'] . $n . '</select>';
+        $tpl = $this->smarty->createTemplate('eval:{html_select_date time="2022-02-" day_empty="day" start_year=2005}');
+        $this->assertEquals($result, $tpl->fetch());
+    }
+
+    public function testEmptyMonthWithDateStrings() {
+        $n = "\n";
+        $result = '<select name="Date_Month">' . $n . '<option value="">month</option>' . $n . $this->months['none'] . $n . '</select>'
+            . $n . '<select name="Date_Day">' . $n . $this->days['default'] . $n . '</select>'
+            . $n . '<select name="Date_Year">' . $n . $this->years['start_2005'] . $n . '</select>';
+        $tpl = $this->smarty->createTemplate('eval:{html_select_date time="2022--20" month_empty="month" start_year=2005}');
+        $this->assertEquals($result, $tpl->fetch());
+    }
+
+    public function testEmptyYearWithDateStrings() {
+        $n = "\n";
+        $result = '<select name="Date_Month">' . $n . $this->months['default'] . $n . '</select>'
+            . $n . '<select name="Date_Day">' . $n . $this->days['default'] . $n . '</select>'
+            . $n . '<select name="Date_Year">' . $n . '<option value="">year</option>' . $n . $this->years['none'] . $n . '</select>';
+        $tpl = $this->smarty->createTemplate('eval:{html_select_date time="-02-20" year_empty="year"}');
         $this->assertEquals($result, $tpl->fetch());
     }
 

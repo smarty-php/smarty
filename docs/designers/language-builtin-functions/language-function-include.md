@@ -188,7 +188,5 @@ current template.
 
       
 
-See also [`{include_php}`](#language.function.include.php),
-[`{insert}`](#language.function.insert),
-[`{php}`](#language.function.php), [template resources](#resources) and
+See also [`{insert}`](#language.function.insert), [template resources](#resources) and
 [componentized templates](#tips.componentized.templates).

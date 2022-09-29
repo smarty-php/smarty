@@ -17,7 +17,7 @@ class PhpResourceTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
     }
 
     public function testInit()
@@ -27,7 +27,7 @@ class PhpResourceTest extends PHPUnit_Smarty
 
     protected function relative($path)
     {
-        $path = str_replace(str_replace("\\", "/", dirname(__FILE__)), '.', str_replace("\\", "/", $path));
+        $path = str_replace(str_replace("\\", "/", __DIR__), '.', str_replace("\\", "/", $path));
 
         return $path;
     }
