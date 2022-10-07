@@ -570,6 +570,13 @@ class Smarty extends Smarty_Internal_TemplateBase
     public $_debug = null;
 
     /**
+     * force using of only compiled templates, ignoring source
+     *
+     * @var boolean
+     */
+    public $use_only_compiled = false;
+
+    /**
      * template directory
      *
      * @var array
@@ -1268,6 +1275,14 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function setCachingType($caching_type)
     {
         $this->caching_type = $caching_type;
+    }
+
+    /**
+     * @param boolean $use_only_compiled
+     */
+    public function setUseOnlyCompiled($use_only_compiled)
+    {
+        $this->use_only_compiled = $use_only_compiled;
     }
 
     /**
