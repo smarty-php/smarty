@@ -191,7 +191,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->smarty->_debug->start_template($this, $display);
         }
         // checks if template exists
-        if (!$this->source->exists) {
+        if (!$this->source->exists && !$this->smarty->use_only_compiled) {
             throw new SmartyException(
                 "Unable to load template '{$this->source->type}:{$this->source->name}'" .
                 ($this->_isSubTpl() ? " in '{$this->parent->template_resource}'" : '')
