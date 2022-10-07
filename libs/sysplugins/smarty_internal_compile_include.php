@@ -145,6 +145,10 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             if (isset($_attr[ 'compile_id' ]) && $compiler->isVariable($_attr[ 'compile_id' ])) {
                 $merge_compiled_includes = false;
             }
+            // compile names without uid
+            if ($compiler->smarty->use_only_compiled) {
+                $merge_compiled_includes = false;
+            }
         }
         /*
         * if the {include} tag provides individual parameter for caching or compile_id
