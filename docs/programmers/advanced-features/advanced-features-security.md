@@ -2,7 +2,7 @@ Security {#advanced.features.security}
 ========
 
 Security is good for situations when you have untrusted parties editing
-the templates eg via ftp, and you want to reduce the risk of system
+the templates e.g. via ftp, and you want to reduce the risk of system
 security compromises through the template language.
 
 The settings of the security policy are defined by properties of an
@@ -10,7 +10,7 @@ instance of the Smarty\_Security class. These are the possible settings:
 
 -   `$secure_dir` is an array of template directories that are
     considered secure. [`$template_dir`](#variable.template.dir)
-    concidered secure implicitly. The default is an empty array.
+    considered secure implicitly. The default is an empty array.
 
 -   `$trusted_dir` is an array of all directories that are considered
     trusted. Trusted directories are where you keep php scripts that are
@@ -27,7 +27,7 @@ instance of the Smarty\_Security class. These are the possible settings:
     like authentication-tokens).
 
     The expression `'#https?://.*smarty.net$#i'` would allow accessing
-    the follwing URIs:
+    the following URIs:
 
     -   `http://smarty.net/foo`
 
@@ -140,5 +140,5 @@ Smarty\_Security class or create an instance of it.
 > **Note**
 >
 > Most security policy settings are only checked when the template gets
-> compiled. For that reasion you should delete all cached and compiled
+> compiled. For that reason you should delete all cached and compiled
 > template files when you change your security settings.

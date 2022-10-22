@@ -10,7 +10,7 @@ The filter can be:
 
 -   A variable filter plugin specified by it\'s name.
 
--   A modidier specified by it\'s name and optional additional
+-   A modifier specified by it\'s name and optional additional
     parameter.
 
 `{setfilter}...{/setfilter}` blocks can be nested. The filter definition
