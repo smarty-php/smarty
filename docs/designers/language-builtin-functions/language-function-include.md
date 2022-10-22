@@ -131,7 +131,7 @@ cache lifetime of 500 seconds.
       
 
 In this example included template will be cached independent of the
-global cahing setting.
+global caching setting.
 
 
     {include 'sub_template.tpl' caching}
