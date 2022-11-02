@@ -1131,12 +1131,16 @@ abstract class Smarty_Internal_TemplateCompilerBase
             echo ob_get_clean();
             flush();
         }
-        throw new SmartyCompilerException(
+        $e = new SmartyCompilerException(
             $error_text,
             0,
             $this->template->source->filepath,
             $line
         );
+        $e->source = trim(preg_replace('![\t\r\n]+!', ' ', $match[ $line - 1 ]));
+        $e->desc = $args;
+        $e->template = $this->template->source->filepath;
+        throw $e;
     }
 
     /**
