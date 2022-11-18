@@ -90,7 +90,9 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                     }
                 }
                 // htmlentities() won't convert everything, so use mb_convert_encoding
-                return mb_convert_encoding($string, 'HTML-ENTITIES', $char_set);
+                $string = mb_convert_encoding($string, 'UTF-8', $char_set);
+                $string = htmlentities($string);
+                return htmlspecialchars_decode($string);
             }
             // no MBString fallback
             if ($_double_encode) {
