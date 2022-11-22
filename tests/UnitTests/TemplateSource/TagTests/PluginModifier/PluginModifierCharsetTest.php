@@ -23,7 +23,7 @@ class PluginModifierCharsetTest extends PHPUnit_Smarty
     public function testToLatin1()
     {
         $encoded = "hällö wörld 1";
-        $result = utf8_decode($encoded);
+        $result = mb_convert_encoding($encoded, 'ISO-8859-1', 'UTF-8');
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|to_charset}');
         $this->assertEquals(str_replace("\r", '', $result), $tpl->fetch());
     }
@@ -33,7 +33,7 @@ class PluginModifierCharsetTest extends PHPUnit_Smarty
         Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $encoded = "hällö wörld 2";
-        $result = utf8_decode($encoded);
+        $result = mb_convert_encoding($encoded, 'ISO-8859-1', 'UTF-8');
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|to_charset}');
         $this->assertEquals($encoded, $tpl->fetch());
         Smarty::$_MBSTRING = true;
@@ -42,7 +42,7 @@ class PluginModifierCharsetTest extends PHPUnit_Smarty
     public function testFromLatin1()
     {
         $result = "hällö wörld 3";
-        $encoded = utf8_decode($result);
+        $encoded = mb_convert_encoding($result, 'ISO-8859-1', 'UTF-8');
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|from_charset}');
         $this->assertEquals(str_replace("\r", '', $result), $tpl->fetch());
     }
@@ -52,7 +52,7 @@ class PluginModifierCharsetTest extends PHPUnit_Smarty
         Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $result = "hällö wörld 4";
-        $encoded = utf8_decode($result);
+        $encoded = mb_convert_encoding($result, 'ISO-8859-1', 'UTF-8');
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|from_charset}');
         $this->assertEquals($encoded, $tpl->fetch());
         Smarty::$_MBSTRING = true;

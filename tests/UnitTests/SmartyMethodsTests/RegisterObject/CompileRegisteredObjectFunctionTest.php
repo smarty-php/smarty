@@ -15,6 +15,11 @@
  */
 class CompileRegisteredObjectFunctionTest extends PHPUnit_Smarty
 {
+    /**
+     * @var RegObject
+     */
+    private $object;
+
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);

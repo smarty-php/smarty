@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- PHP8.2 compatibility [#775](https://github.com/smarty-php/smarty/pull/775)
+
 ### Changed
 - Include docs and demo in the releases [#799](https://github.com/smarty-php/smarty/issues/799)
 - Using PHP functions as modifiers now triggers a deprecation notice because we will drop support for this in the next major release [#813](https://github.com/smarty-php/smarty/issues/813) 
