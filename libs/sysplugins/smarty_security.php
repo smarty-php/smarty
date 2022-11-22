@@ -19,6 +19,7 @@
 /**
  * This class does contain the security settings
  */
+#[\AllowDynamicProperties]
 class Smarty_Security
 {
     /**

@@ -37,9 +37,8 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
         // no break
         case 'htmlall':
             if (Smarty::$_MBSTRING) {
-                $string = htmlspecialchars($string, ENT_QUOTES, $char_set, $double_encode);
-                // htmlentities() won't convert everything, so use mb_convert_encoding
-                return mb_convert_encoding($string, 'HTML-ENTITIES', $char_set);
+                $string = mb_convert_encoding($string, 'UTF-8', $char_set);
+                return htmlentities($string, ENT_QUOTES, 'UTF-8', $double_encode);
             }
             // no MBString fallback
             return htmlentities($string, ENT_QUOTES, $char_set, $double_encode);

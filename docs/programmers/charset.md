@@ -15,7 +15,7 @@ Smarty recognizes `UTF-8` as the internal charset if
 > `ISO-8859-1` has been PHP\'s default internal charset since the
 > beginning. Unicode has been evolving since 1991. Since then it has
 > become the one charset to conquer them all, as it is capable of
-> encoding most of the known characters even accross different character
+> encoding most of the known characters even across different character
 > systems (latin, cyrillic, japanese, ...). `UTF-8` is unicode\'s most
 > used encoding, as it allows referencing the thousands of character
 > with the smallest size overhead possible.

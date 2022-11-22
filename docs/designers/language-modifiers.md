@@ -115,7 +115,7 @@ These parameters follow the modifier name and are separated by a `:`
 
     -   Secondly - if security is enabled, all php-functions that are to
         be used as modifiers have to be declared trusted in the
-        `$modifiers` property of the securty policy. See the
+        `$modifiers` property of the security policy. See the
         [Security](../programmers/advanced-features/advanced-features-security.md) section for details.
 
 See also [`registerPlugin()`](../programmers/api-functions/api-register-plugin.md), [combining

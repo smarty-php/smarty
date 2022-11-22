@@ -206,6 +206,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     }
 }
 
+#[AllowDynamicProperties]
 class ResourceStream
 {
     private $position;

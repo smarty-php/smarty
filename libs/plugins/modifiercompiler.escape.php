@@ -19,11 +19,10 @@
  * @param Smarty_Internal_TemplateCompilerBase $compiler
  *
  * @return string with compiled code
- * @throws \SmartyException
+ * @throws SmartyException
  */
 function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompilerBase $compiler)
 {
-    static $is_loaded = false;
     $compiler->template->_checkPlugins(
         array(
             array(
@@ -42,18 +41,16 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
         switch ($esc_type) {
             case 'html':
                 return 'htmlspecialchars((string)' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
-                       var_export($double_encode, true) . ')';
-            // no break
+                    var_export($double_encode, true) . ')';
             case 'htmlall':
                 if (Smarty::$_MBSTRING) {
-                    return 'mb_convert_encoding(htmlspecialchars((string)' . $params[ 0 ] . ', ENT_QUOTES, ' .
-                           var_export($char_set, true) . ', ' . var_export($double_encode, true) .
-                           '), "HTML-ENTITIES", ' . var_export($char_set, true) . ')';
+                    return 'htmlentities(mb_convert_encoding((string)' . $params[ 0 ] . ', \'UTF-8\', ' .
+                        var_export($char_set, true) . '), ENT_QUOTES, \'UTF-8\', ' .
+                        var_export($double_encode, true) . ')';
                 }
                 // no MBString fallback
                 return 'htmlentities((string)' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
-                       var_export($double_encode, true) . ')';
-            // no break
+                    var_export($double_encode, true) . ')';
             case 'url':
                 return 'rawurlencode((string)' . $params[ 0 ] . ')';
             case 'urlpathinfo':

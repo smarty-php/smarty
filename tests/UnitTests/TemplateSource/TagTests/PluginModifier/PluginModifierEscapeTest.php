@@ -20,9 +20,16 @@ class PluginModifierEscapeTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
-    public function testHtml()
+    public function testHtmlCompiled()
     {
         $tpl = $this->smarty->createTemplate('string:{"I\'m some <html> to ä be \"escaped\" or &copy;"|escape:"html"}');
+        $this->assertEquals("I&#039;m some &lt;html&gt; to ä be &quot;escaped&quot; or &amp;copy;", $this->smarty->fetch($tpl));
+    }
+
+    public function testHtmlModifier()
+    {
+        $tpl = $this->smarty->createTemplate('string:{"I\'m some <html> to ä be \"escaped\" or &copy;"|escape:$mode}');
+        $this->smarty->assign('mode', 'html');
         $this->assertEquals("I&#039;m some &lt;html&gt; to ä be &quot;escaped&quot; or &amp;copy;", $this->smarty->fetch($tpl));
     }
 
@@ -48,16 +55,32 @@ class PluginModifierEscapeTest extends PHPUnit_Smarty
         Smarty::$_MBSTRING = true;
     }
 
-    public function testHtmlall()
+    public function testHtmlallCompiled()
     {
         $tpl = $this->smarty->createTemplate('string:{"I\'m some <html> to ä be \"escaped\" or &copy;"|escape:"htmlall"}');
         $this->assertEquals("I&#039;m some &lt;html&gt; to &auml; be &quot;escaped&quot; or &amp;copy;", $this->smarty->fetch($tpl));
     }
 
-    public function testHtmlallWithoutMbstring()
+    public function testHtmlallModifier()
+    {
+        $tpl = $this->smarty->createTemplate('string:{"I\'m some <html> to ä be \"escaped\" or &copy;"|escape:$mode}');
+        $this->smarty->assign('mode', 'htmlall');
+        $this->assertEquals("I&#039;m some &lt;html&gt; to &auml; be &quot;escaped&quot; or &amp;copy;", $this->smarty->fetch($tpl));
+    }
+
+    public function testHtmlallWithoutMbstringCompiled()
     {
         Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
         $tpl = $this->smarty->createTemplate('string:{"I\'m some <html> to ä be \"escaped\" or &copy;"|escape:"htmlall"}');
+        $this->assertEquals("I&#039;m some &lt;html&gt; to &auml; be &quot;escaped&quot; or &amp;copy;", $this->smarty->fetch($tpl));
+        Smarty::$_MBSTRING = true;
+    }
+
+    public function testHtmlallWithoutMbstringModifier()
+    {
+        Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
+        $tpl = $this->smarty->createTemplate('string:{"I\'m some <html> to ä be \"escaped\" or &copy;"|escape:$mode}');
+        $this->smarty->assign('mode', 'htmlall');
         $this->assertEquals("I&#039;m some &lt;html&gt; to &auml; be &quot;escaped&quot; or &amp;copy;", $this->smarty->fetch($tpl));
         Smarty::$_MBSTRING = true;
     }
@@ -76,9 +99,16 @@ class PluginModifierEscapeTest extends PHPUnit_Smarty
         Smarty::$_MBSTRING = true;
     }
 
-    public function testUrl()
+    public function testUrlCompiled()
     {
         $tpl = $this->smarty->createTemplate('string:{"http://some.encoded.com/url?parts#foo"|escape:"url"}');
+        $this->assertEquals("http%3A%2F%2Fsome.encoded.com%2Furl%3Fparts%23foo", $this->smarty->fetch($tpl));
+    }
+
+    public function testUrlModifier()
+    {
+        $tpl = $this->smarty->createTemplate('string:{"http://some.encoded.com/url?parts#foo"|escape:$mode}');
+        $this->smarty->assign('mode', 'url');
         $this->assertEquals("http%3A%2F%2Fsome.encoded.com%2Furl%3Fparts%23foo", $this->smarty->fetch($tpl));
     }
 
@@ -203,7 +233,7 @@ class PluginModifierEscapeTest extends PHPUnit_Smarty
     public function testNonstdWithoutMbstring()
     {
         Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $tpl = $this->smarty->createTemplate('string:{"' . utf8_decode('sma\'rty@»example«.com') . '"|escape:"nonstd"}');
+        $tpl = $this->smarty->createTemplate('string:{"' . mb_convert_encoding('sma\'rty@»example«.com', 'ISO-8859-1', 'UTF-8') . '"|escape:"nonstd"}');
         $this->assertEquals("sma'rty@&#187;example&#171;.com", $this->smarty->fetch($tpl));
         Smarty::$_MBSTRING = true;
     }
