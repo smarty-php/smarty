@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Include docs and demo in the releases [#799](https://github.com/smarty-php/smarty/issues/799)
 - Using PHP functions as modifiers now triggers a deprecation notice because we will drop support for this in the next major release [#813](https://github.com/smarty-php/smarty/issues/813) 
 -  Dropped remaining references to removed PHP-support in Smarty 4 from docs, lexer and security class. [#816](https://github.com/smarty-php/smarty/issues/816)
-
+- Support umask when writing (template) files and set dir permissions to 777 [#548](https://github.com/smarty-php/smarty/issues/548) [#819](https://github.com/smarty-php/smarty/issues/819) 
+ 
 ### Fixed
 - Output buffer is now cleaned for internal PHP errors as well, not just for Exceptions [#514](https://github.com/smarty-php/smarty/issues/514)
 - Fixed recursion and out of memory errors when caching in complicated template set-ups using inheritance and includes [#801](https://github.com/smarty-php/smarty/pull/801)
@@ -23,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed PHP8.1 deprecation errors passing null to parameter in trim [#807](https://github.com/smarty-php/smarty/pull/807)
 - Adapt Smarty upper/lower functions to be codesafe (e.g. for Turkish locale) [#586](https://github.com/smarty-php/smarty/pull/586)
 - Bug fix for underscore and limited length in template name in custom resources [#581](https://github.com/smarty-php/smarty/pull/581)
+
 
 ## [4.2.1] - 2022-09-14
 
