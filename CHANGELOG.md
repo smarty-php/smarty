@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP7 notices for undefined array indexes [#736](https://github.com/smarty-php/smarty/issues/736)
+
 ## [4.3.0] - 2022-11-22
 
 ### Added
