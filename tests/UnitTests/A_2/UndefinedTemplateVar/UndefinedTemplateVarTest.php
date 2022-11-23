@@ -133,5 +133,19 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->assertTrue($exceptionThrown);
     }
 
+    public function testUsingNullAsAnArray() {
+        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->muteUndefinedOrNullWarnings();
+        $tpl = $this->smarty->createTemplate('string:a{if $undef.k}def{/if}b');
+        $this->assertEquals("ab", $this->smarty->fetch($tpl));
+    }
+
+    public function testUsingFalseAsAnArray() {
+        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->muteUndefinedOrNullWarnings();
+        $tpl = $this->smarty->createTemplate('string:a{if $nottrue.k}def{/if}b');
+        $this->smarty->assign('nottrue', false);
+        $this->assertEquals("ab", $this->smarty->fetch($tpl));
+    }
 
 }
