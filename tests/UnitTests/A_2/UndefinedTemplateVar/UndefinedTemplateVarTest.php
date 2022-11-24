@@ -130,48 +130,6 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->assertTrue($exceptionThrown);
     }
 
-    public function testUsingNullAsAnArrayTriggersError() {
-        $exceptionThrown = false;
-        try {
-            $this->smarty->setErrorReporting(E_ALL);
-            $tpl = $this->smarty->createTemplate('string:a{if $undef.k}def{/if}b');
-            $this->smarty->assign('undef', null);
-            $this->assertEquals("ab", $this->smarty->fetch($tpl));
-        } catch (Exception $e) {
-            $exceptionThrown = true;
-            $this->assertStringStartsWith('Trying to access array offset on value of type null', $e->getMessage());
-            $this->assertTrue(in_array(
-                get_class($e),
-                [
-                    'PHPUnit\Framework\Error\Warning',
-                    'PHPUnit\Framework\Error\Notice',
-                ]
-            ));
-        }
-        $this->assertTrue($exceptionThrown);
-    }
-
-    public function testUsingFalseAsAnArrayTriggersError() {
-        $exceptionThrown = false;
-        try {
-            $this->smarty->setErrorReporting(E_ALL);
-            $tpl = $this->smarty->createTemplate('string:a{if $nottrue.k}def{/if}b');
-            $this->smarty->assign('nottrue', false);
-            $this->assertEquals("ab", $this->smarty->fetch($tpl));
-        } catch (Exception $e) {
-            $exceptionThrown = true;
-            $this->assertStringStartsWith('Trying to access array offset on value of type bool', $e->getMessage());
-            $this->assertTrue(in_array(
-                get_class($e),
-                [
-                    'PHPUnit\Framework\Error\Warning',
-                    'PHPUnit\Framework\Error\Notice',
-                ]
-            ));
-        }
-        $this->assertTrue($exceptionThrown);
-    }
-
     public function testUsingNullAsAnArrayIsMuted() {
         $this->smarty->setErrorReporting(E_ALL);
         $this->smarty->muteUndefinedOrNullWarnings();
