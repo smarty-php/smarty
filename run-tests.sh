@@ -1,13 +1,10 @@
 #!/bin/sh
-composer update
 
-php -r 'echo "\nPHP version " . phpversion() . ". ";';
+# Runs composer update, echoes php version and runs PHPUnit
+# Usage examples:
+# - ./run-tests.sh --group 20221124
+# - ./run-tests.sh --exclude-group slow
 
-if [ -z $1 ];
-then
-  echo "Running all unit tests.\n"
-  php ./vendor/phpunit/phpunit/phpunit
-else
-  echo "Running all unit tests, except tests marked with @group $1.\n"
-  php ./vendor/phpunit/phpunit/phpunit --exclude-group $1
-fi
+composer update --quiet
+#php -r 'echo "\nPHP version " . phpversion() . ". ";'
+php ./vendor/phpunit/phpunit/phpunit $@
