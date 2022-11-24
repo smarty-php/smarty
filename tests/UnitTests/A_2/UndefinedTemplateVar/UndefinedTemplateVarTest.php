@@ -145,4 +145,37 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->assertEquals("ab", $this->smarty->fetch($tpl));
     }
 
+	/**
+	 * @group 20221124
+	 */
+	public function testDereferenceOnNull() {
+		$this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
+		$this->smarty->muteUndefinedOrNullWarnings();
+		$tpl = $this->smarty->createTemplate('string:a{if $object->myprop}def{/if}b');
+		$this->smarty->assign('object', null);
+		$this->assertEquals("ab", $this->smarty->fetch($tpl));
+	}
+
+	/**
+	 * @group 20221124
+	 */
+	public function testDereferenceOnBool() {
+		$this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+		$this->smarty->muteUndefinedOrNullWarnings();
+		$tpl = $this->smarty->createTemplate('string:a{if $object->myprop}def{/if}b');
+		$this->smarty->assign('object', false);
+		$this->assertEquals("ab", $this->smarty->fetch($tpl));
+	}
+
+	/**
+	 * @group 20221124
+	 */
+	public function testDereferenceOnString() {
+		$this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+		$this->smarty->muteUndefinedOrNullWarnings();
+		$tpl = $this->smarty->createTemplate('string:a{if $object->myprop}def{/if}b');
+		$this->smarty->assign('object', 'xyz');
+		$this->assertEquals("ab", $this->smarty->fetch($tpl));
+	}
+
 }

@@ -23,6 +23,12 @@ class Smarty_Internal_ErrorHandler
      */
     public $allowUndefinedArrayKeys = true;
 
+    /**
+     * Allows {$foo->bar} where bar is not an object (e.g. null or false).
+     * @var bool
+     */
+    public $allowDereferencingNonObjects = true;
+
     private $previousErrorHandler = null;
 
     /**
@@ -75,9 +81,16 @@ class Smarty_Internal_ErrorHandler
         }
 
         if ($this->allowUndefinedArrayKeys && preg_match(
-            '/^(Undefined index|Undefined array key|Trying to access array offset on value of type (null|bool))/',
+            '/^(Undefined index|Undefined array key|Trying to access array offset on value of type)/',
             $errstr
         )) {
+            return; // suppresses this error
+        }
+
+        if ($this->allowDereferencingNonObjects && preg_match(
+                '/^Attempt to read property ".+?" on/',
+                $errstr
+            )) {
             return; // suppresses this error
         }
 

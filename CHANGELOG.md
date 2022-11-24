@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP7 notices for undefined array indexes [#736](https://github.com/smarty-php/smarty/issues/736)
 - `$smarty->muteUndefinedOrNullWarnings()` now treats undefined vars and array access of a null or false variables 
   equivalent across all supported PHP versions
-
+- `$smarty->muteUndefinedOrNullWarnings()` now allows dereferencing of non-objects accross all supported PHP versions [#831](https://github.com/smarty-php/smarty/issues/831)
 ## [4.3.0] - 2022-11-22
 
 ### Added
