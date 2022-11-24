@@ -70,7 +70,7 @@ function smarty_function_math($params, $template)
     $number = '(?:\d+(?:[,.]\d+)?|pi|π)'; // What is a number
     $functionsOrVars = '((?:0x[a-fA-F0-9]+)|([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*))';
     $operators = '[,+\/*\^%-]'; // Allowed math operators
-    $regexp = '/^(('.$number.'|'.$functionsOrVars.'|('.$functionsOrVars.'\s*\((?1)+\)|\((?1)+\)))(?:'.$operators.'(?1))?)+$/';
+    $regexp = '/^(('.$number.'|'.$functionsOrVars.'|('.$functionsOrVars.'\s*\((?1)*\)|\((?1)*\)))(?:'.$operators.'(?1))?)+$/';
 
     if (!preg_match($regexp, $equation)) {
         trigger_error("math: illegal characters", E_USER_WARNING);

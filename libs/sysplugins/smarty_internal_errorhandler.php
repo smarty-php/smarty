@@ -66,12 +66,15 @@ class Smarty_Internal_ErrorHandler
      */
     public function handleError($errno, $errstr, $errfile, $errline, $errcontext = [])
     {
-        if ($this->allowUndefinedVars && preg_match('/^Attempt to read property ".+?" on null$/', $errstr)) {
+        if ($this->allowUndefinedVars && preg_match(
+                '/^(Attempt to read property ".+?" on null|Trying to get property (\'.+?\' )?of non-object)/',
+                $errstr
+            )) {
             return; // suppresses this error
         }
 
         if ($this->allowUndefinedArrayKeys && preg_match(
-            '/^(Undefined array key|Trying to access array offset on value of type null)/',
+            '/^(Undefined index|Undefined array key|Trying to access array offset on value of type (null|bool))/',
             $errstr
         )) {
             return; // suppresses this error

@@ -128,7 +128,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
                     }
                     $s_dir[ $dir ] = true;
                 }
-                $dir = dirname(__FILE__);
+                $dir = __DIR__;
             }
             if (!is_dir($dir . '/templates_c')) {
                 mkdir($dir . '/templates_c');
@@ -145,8 +145,8 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
         // instance Smarty class
         $this->smarty = new Smarty;
         if (individualFolders != 'true') {
-            $this->smarty->setCompileDir(dirname(__FILE__) . '/templates_c');
-            $this->smarty->setCacheDir(dirname(__FILE__) . '/cache');
+            $this->smarty->setCompileDir(__DIR__ . '/templates_c');
+            $this->smarty->setCacheDir(__DIR__ . '/cache');
         }
 
         $this->getSmartyObj();
@@ -637,10 +637,10 @@ KEY `name` (`name`)
     }
 
     public static function getSmartyPluginsDir(){
-        if (is_dir(dirname(__FILE__) . '/../smarty/libs/plugins')) {
-            return dirname(__FILE__) . '/../smarty/libs/plugins';
-        } else if(is_dir(dirname(__FILE__) . '/../libs/plugins')) {
-            return dirname(__FILE__) . '/../libs/plugins';
+        if (is_dir(__DIR__ . '/../smarty/libs/plugins')) {
+            return __DIR__ . '/../smarty/libs/plugins';
+        } else if(is_dir(__DIR__ . '/../libs/plugins')) {
+            return __DIR__ . '/../libs/plugins';
         }
     }
     /**
