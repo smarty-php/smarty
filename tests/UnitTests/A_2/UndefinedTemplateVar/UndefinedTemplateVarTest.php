@@ -88,14 +88,12 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     }
 
     public function testUndefinedSimpleVar() {
-        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
         $this->smarty->muteUndefinedOrNullWarnings();
         $tpl = $this->smarty->createTemplate('string:a{if $undef}def{/if}b');
         $this->assertEquals("ab", $this->smarty->fetch($tpl));
     }
 
     public function testUndefinedArrayIndex() {
-        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
         $this->smarty->muteUndefinedOrNullWarnings();
         $tpl = $this->smarty->createTemplate('string:a{if $ar.undef}def{/if}b');
         $tpl->assign('ar', []);
@@ -103,7 +101,6 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     }
 
     public function testUndefinedArrayIndexDeep() {
-        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
         $this->smarty->muteUndefinedOrNullWarnings();
         $tpl = $this->smarty->createTemplate('string:a{if $ar.undef.nope.neither}def{/if}b');
         $tpl->assign('ar', []);
@@ -133,5 +130,19 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->assertTrue($exceptionThrown);
     }
 
+    public function testUsingNullAsAnArrayIsMuted() {
+        $this->smarty->setErrorReporting(E_ALL);
+        $this->smarty->muteUndefinedOrNullWarnings();
+        $tpl = $this->smarty->createTemplate('string:a{if $undef.k}def{/if}b');
+        $this->assertEquals("ab", $this->smarty->fetch($tpl));
+    }
+
+    public function testUsingFalseAsAnArrayIsMuted() {
+        $this->smarty->setErrorReporting(E_ALL);
+        $this->smarty->muteUndefinedOrNullWarnings();
+        $tpl = $this->smarty->createTemplate('string:a{if $nottrue.k}def{/if}b');
+        $this->smarty->assign('nottrue', false);
+        $this->assertEquals("ab", $this->smarty->fetch($tpl));
+    }
 
 }
