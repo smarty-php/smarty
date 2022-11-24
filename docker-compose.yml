@@ -7,7 +7,6 @@ services:
     volumes:
       - .:/app
     working_dir: /app
-    entrypoint: sh ./run-tests.sh
   php71:
     extends:
       service: base
