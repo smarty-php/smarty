@@ -68,7 +68,7 @@ class Smarty_Internal_ErrorHandler
     {
 
         if ($this->allowUndefinedVars && preg_match(
-                '/^(Attempt to read property "value" on null|Trying to get property \'value\' of non-object)/',
+                '/^(Attempt to read property "value" on null|Trying to get property (\'value\' )?of non-object)/',
                 $errstr
             )) {
             return; // suppresses this error
