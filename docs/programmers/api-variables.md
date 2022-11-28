@@ -31,7 +31,6 @@ them directly, or use the corresponding setter/getter methods.
 - [$default_resource_type](./api-variables/variable-default-resource-type.md)
 - [$default_config_handler_func](./api-variables/variable-default-config-handler-func.md)
 - [$default_template_handler_func](./api-variables/variable-default-template-handler-func.md)
-- [$direct_access_security](./api-variables/variable-direct-access-security.md)
 - [$error_reporting](./api-variables/variable-error-reporting.md)
 - [$escape_html](./api-variables/variable-escape-html.md)
 - [$force_cache](./api-variables/variable-force-cache.md)

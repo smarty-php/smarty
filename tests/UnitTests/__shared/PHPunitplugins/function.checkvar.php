@@ -28,9 +28,9 @@ function smarty_function_checkvar($params, $template)
             $output .= "#{$ptr->source->name}:\${$var} =";
             $output .= isset($ptr->tpl_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->tpl_vars[$var]->value, true)) : '>unassigned<';
             $i = 0;
-            while (isset($ptr->_cache[ 'varStack' ][ $i ])) {
-                $output .= "#{$ptr->_cache[ 'varStack' ][ $i ]['name']} = ";
-                $output .= isset($ptr->_cache[ 'varStack' ][ $i ][ 'tpl' ][$var]) ? preg_replace('/\s/', '', var_export($ptr->_cache[ 'varStack' ][ $i ][ 'tpl' ][$var]->value, true)) : '>unassigned<';
+            while (isset($ptr->_var_stack[ $i ])) {
+                $output .= "#{$ptr->_var_stack[ $i ]['name']} = ";
+                $output .= isset($ptr->_var_stack[ $i ][ 'tpl' ][$var]) ? preg_replace('/\s/', '', var_export($ptr->_var_stack[ $i ][ 'tpl' ][$var]->value, true)) : '>unassigned<';
                 $i ++;
             }
             $ptr = $ptr->parent;

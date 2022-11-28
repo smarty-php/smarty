@@ -67,13 +67,6 @@ class Smarty_Internal_Templatelexer
      */
     public $taglineno;
 
-    /**
-     * php code type
-     *
-     * @var string
-     */
-    public $phpType = '';
-
    /**
      * state number
      *

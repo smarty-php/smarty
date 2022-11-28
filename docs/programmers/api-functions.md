@@ -31,7 +31,6 @@ Smarty Class Methods {#api.functions}
 - [getConfigVars()](./api-functions/api-get-config-vars.md) — returns the given loaded config variable value
 - [getPluginsDir()](./api-functions/api-get-plugins-dir.md) — return the directory where plugins are stored
 - [getRegisteredObject()](./api-functions/api-get-registered-object.md) — returns a reference to a registered object
-- [getTags()](./api-functions/api-get-tags.md) — return tags used by template
 - [getTemplateDir()](./api-functions/api-get-template-dir.md) — return the directory where templates are stored
 - [getTemplateVars()](./api-functions/api-get-template-vars.md) — returns  assigned variable value(s)
 - [isCached()](./api-functions/api-is-cached.md) — returns true if there is a valid cache for this template
@@ -55,7 +54,6 @@ Smarty Class Methods {#api.functions}
 - [unregisterPlugin()](./api-functions/api-unregister-plugin.md) — dynamically unregister plugins
 - [unregisterObject()](./api-functions/api-unregister-object.md) — dynamically unregister an object
 - [unregisterResource()](./api-functions/api-unregister-resource.md) — dynamically unregister a resource plugin
-- [testInstall()](./api-functions/api-test-install.md) — checks Smarty installation
 
 > **Note**
 >

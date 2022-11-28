@@ -60,14 +60,14 @@ class Smarty_Internal_Templateparser
     /**
      * root parse tree buffer
      *
-     * @var Smarty_Internal_ParseTree_Template
+     * @var \Smarty\ParseTree\Template
      */
     public $root_buffer;
 
     /**
      * current parse tree object
      *
-     * @var Smarty_Internal_ParseTree
+     * @var \Smarty\ParseTree\Base
      */
     public $current_buffer;
 
@@ -129,14 +129,14 @@ class Smarty_Internal_Templateparser
     /**
      * template prefix array
      *
-     * @var \Smarty_Internal_ParseTree[]
+     * @var \Smarty\ParseTree\Base[]
      */
     public $template_prefix = array();
 
     /**
      * template prefix array
      *
-     * @var \Smarty_Internal_ParseTree[]
+     * @var \Smarty\ParseTree\Base[]
      */
     public $template_postfix = array();
 
@@ -153,7 +153,7 @@ class Smarty_Internal_Templateparser
         $this->template = $this->compiler->template;
         $this->smarty = $this->template->smarty;
         $this->security = isset($this->smarty->security_policy) ? $this->smarty->security_policy : false;
-        $this->current_buffer = $this->root_buffer = new Smarty_Internal_ParseTree_Template();
+        $this->current_buffer = $this->root_buffer = new \Smarty\ParseTree\Template();
     }
 
      /**
@@ -163,7 +163,7 @@ class Smarty_Internal_Templateparser
      */
     public function insertPhpCode($code)
     {
-        $this->current_buffer->append_subtree($this, new Smarty_Internal_ParseTree_Tag($this, $code));
+        $this->current_buffer->append_subtree($this, new \Smarty\ParseTree\Tag($this, $code));
     }
 
     /**
@@ -185,7 +185,7 @@ class Smarty_Internal_Templateparser
      *
      * @param string $code
      *
-     * @return Smarty_Internal_ParseTree_Tag
+     * @return \Smarty\ParseTree\Tag
      */
     public function mergePrefixCode($code)
     {
@@ -195,7 +195,7 @@ class Smarty_Internal_Templateparser
         }
         $this->compiler->prefix_code = array();
         $tmp .= $code;
-        return new Smarty_Internal_ParseTree_Tag($this, $this->compiler->processNocacheCode($tmp, true));
+        return new \Smarty\ParseTree\Tag($this, $this->compiler->processNocacheCode($tmp, true));
     }
 
 }
@@ -244,7 +244,7 @@ template       ::= template  TEXT(B). {
             $this->current_buffer->append_subtree($this, null);
          }
 
-         $this->current_buffer->append_subtree($this, new Smarty_Internal_ParseTree_Text($text, $this->strip));
+         $this->current_buffer->append_subtree($this, new \Smarty\ParseTree\Text($text, $this->strip));
 }
                       // strip on
 template       ::= template  STRIPON. {
@@ -257,7 +257,7 @@ template       ::= template STRIPOFF. {
 
                      // Literal
 template       ::= template LITERALSTART literal_e2(B) LITERALEND. {
-       $this->current_buffer->append_subtree($this, new Smarty_Internal_ParseTree_Text(B));
+       $this->current_buffer->append_subtree($this, new \Smarty\ParseTree\Text(B));
 }
 
 
@@ -1236,34 +1236,34 @@ doublequoted(res)          ::= doublequoted(o1) doublequotedcontent(o2). {
 }
 
 doublequoted(res)          ::= doublequotedcontent(o). {
-    res = new Smarty_Internal_ParseTree_Dq($this, o);
+    res = new \Smarty\ParseTree\Dq($this, o);
 }
 
 doublequotedcontent(res)           ::=  BACKTICK variable(v) BACKTICK. {
-    res = new Smarty_Internal_ParseTree_Code('(string)'.v);
+    res = new \Smarty\ParseTree\Code('(string)'.v);
 }
 
 doublequotedcontent(res)           ::=  BACKTICK expr(e) BACKTICK. {
-    res = new Smarty_Internal_ParseTree_Code('(string)('.e.')');
+    res = new \Smarty\ParseTree\Code('(string)('.e.')');
 }
 
 doublequotedcontent(res)           ::=  DOLLARID(i). {
-    res = new Smarty_Internal_ParseTree_Code('(string)$_smarty_tpl->tpl_vars[\''. substr(i,1) .'\']->value');
+    res = new \Smarty\ParseTree\Code('(string)$_smarty_tpl->tpl_vars[\''. substr(i,1) .'\']->value');
 }
 
 doublequotedcontent(res)           ::=  LDEL variable(v) RDEL. {
-    res = new Smarty_Internal_ParseTree_Code('(string)'.v);
+    res = new \Smarty\ParseTree\Code('(string)'.v);
 }
 
 doublequotedcontent(res)           ::=  LDEL expr(e) RDEL. {
-    res = new Smarty_Internal_ParseTree_Code('(string)('.e.')');
+    res = new \Smarty\ParseTree\Code('(string)('.e.')');
 }
 
 doublequotedcontent(res)     ::=  smartytag(st). {
-    res = new Smarty_Internal_ParseTree_Tag($this, st);
+    res = new \Smarty\ParseTree\Tag($this, st);
 }
 
 doublequotedcontent(res)           ::=  TEXT(o). {
-    res = new Smarty_Internal_ParseTree_DqContent(o);
+    res = new \Smarty\ParseTree\DqContent(o);
 }
 

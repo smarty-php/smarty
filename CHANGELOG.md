@@ -1776,7 +1776,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 27.09.2011
 - bugfix possible warning "attempt to modify property of non-object" in {section} (issue #34)
-- added chaining to Smarty_Internal_Data so $smarty->assign('a',1)->assign('b',2); is possible now
+- added chaining to \Smarty\Data so $smarty->assign('a',1)->assign('b',2); is possible now
 - bugfix remove race condition when a custom resource did change timestamp during compilation
 - bugfix variable property did not work on objects variable in template
 - bugfix smarty_make_timestamp() failed to process DateTime objects properly
@@ -2111,7 +2111,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - optimize smarty_modified_escape for hex, hexentity, decentity.
 
 28/12/2010
-- changed $tpl_vars, $config_vars and $parent to belong to Smarty_Internal_Data
+- changed $tpl_vars, $config_vars and $parent to belong to \Smarty\Data
 - added Smarty::registerCacheResource() for dynamic cache resource object registration
 
 27/12/2010

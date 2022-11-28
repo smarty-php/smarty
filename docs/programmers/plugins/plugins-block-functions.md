@@ -60,12 +60,6 @@ cannot have both custom function `{func}` and block function
     function implementation is called again with the new block contents
     in the parameter `$content`.
 
-If you have nested block functions, it\'s possible to find out what the
-parent block function is by accessing `$smarty->_tag_stack` variable.
-Just do a [`var_dump()`](&url.php-manual;var_dump) on it and the
-structure should be apparent.
-
-
     <?php
     /*
      * Smarty plugin

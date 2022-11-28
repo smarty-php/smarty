@@ -637,8 +637,8 @@ KEY `name` (`name`)
     }
 
     public static function getSmartyPluginsDir(){
-        if (is_dir(__DIR__ . '/../smarty/libs/plugins')) {
-            return __DIR__ . '/../smarty/libs/plugins';
+        if (is_dir(__DIR__ . '/../smarty/src/plugins')) {
+            return __DIR__ . '/../smarty/src/plugins';
         } else if(is_dir(__DIR__ . '/../libs/plugins')) {
             return __DIR__ . '/../libs/plugins';
         }
