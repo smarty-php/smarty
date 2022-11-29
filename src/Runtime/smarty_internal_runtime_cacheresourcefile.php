@@ -48,7 +48,7 @@ class Smarty_Internal_Runtime_CacheResourceFile
         }
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;
-            $smarty->caching = Smarty::CACHING_LIFETIME_CURRENT;
+            $smarty->caching = \Smarty\Smarty::CACHING_LIFETIME_CURRENT;
             $tpl = new $smarty->template_class($resource_name, $smarty);
             $smarty->caching = $_save_stat;
             // remove from template cache

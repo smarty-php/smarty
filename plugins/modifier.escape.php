@@ -23,10 +23,8 @@
  */
 function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $double_encode = true)
 {
-    static $is_loaded_1 = false;
-    static $is_loaded_2 = false;
     if (!$char_set) {
-        $char_set = Smarty::$_CHARSET;
+        $char_set = \Smarty\Smarty::$_CHARSET;
     }
 
     $string = (string)$string;
@@ -36,7 +34,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
             return htmlspecialchars($string, ENT_QUOTES, $char_set, $double_encode);
         // no break
         case 'htmlall':
-            if (Smarty::$_MBSTRING) {
+            if (\Smarty\Smarty::$_MBSTRING) {
                 $string = mb_convert_encoding($string, 'UTF-8', $char_set);
                 return htmlentities($string, ENT_QUOTES, 'UTF-8', $double_encode);
             }
@@ -61,15 +59,9 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
             return $return;
         case 'hexentity':
             $return = '';
-            if (Smarty::$_MBSTRING) {
-                if (!$is_loaded_1) {
-                    if (!is_callable('smarty_mb_to_unicode')) {
-                        include_once SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php';
-                    }
-                    $is_loaded_1 = true;
-                }
+            if (\Smarty\Smarty::$_MBSTRING) {
                 $return = '';
-                foreach (smarty_mb_to_unicode($string, Smarty::$_CHARSET) as $unicode) {
+                foreach (smarty_mb_to_unicode($string, \Smarty\Smarty::$_CHARSET) as $unicode) {
                     $return .= '&#x' . strtoupper(dechex($unicode)) . ';';
                 }
                 return $return;
@@ -82,15 +74,9 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
             return $return;
         case 'decentity':
             $return = '';
-            if (Smarty::$_MBSTRING) {
-                if (!$is_loaded_1) {
-                    if (!is_callable('smarty_mb_to_unicode')) {
-                        include_once SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php';
-                    }
-                    $is_loaded_1 = true;
-                }
-                $return = '';
-                foreach (smarty_mb_to_unicode($string, Smarty::$_CHARSET) as $unicode) {
+            if (\Smarty\Smarty::$_MBSTRING) {
+                 $return = '';
+                foreach (smarty_mb_to_unicode($string, \Smarty\Smarty::$_CHARSET) as $unicode) {
                     $return .= '&#' . $unicode . ';';
                 }
                 return $return;
@@ -119,13 +105,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                 )
             );
         case 'mail':
-            if (Smarty::$_MBSTRING) {
-                if (!$is_loaded_2) {
-                    if (!is_callable('smarty_mb_str_replace')) {
-                        include_once SMARTY_PLUGINS_DIR . 'shared.mb_str_replace.php';
-                    }
-                    $is_loaded_2 = true;
-                }
+            if (\Smarty\Smarty::$_MBSTRING) {
                 return smarty_mb_str_replace(
                     array(
                         '@',
@@ -153,14 +133,8 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
         case 'nonstd':
             // escape non-standard chars, such as ms document quotes
             $return = '';
-            if (Smarty::$_MBSTRING) {
-                if (!$is_loaded_1) {
-                    if (!is_callable('smarty_mb_to_unicode')) {
-                        include_once SMARTY_PLUGINS_DIR . 'shared.mb_unicode.php';
-                    }
-                    $is_loaded_1 = true;
-                }
-                foreach (smarty_mb_to_unicode($string, Smarty::$_CHARSET) as $unicode) {
+            if (\Smarty\Smarty::$_MBSTRING) {
+                foreach (smarty_mb_to_unicode($string, \Smarty\Smarty::$_CHARSET) as $unicode) {
                     if ($unicode >= 126) {
                         $return .= '&#' . $unicode . ';';
                     } else {

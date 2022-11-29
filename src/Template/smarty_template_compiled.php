@@ -97,7 +97,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         }
         if ($_template->smarty->debugging) {
             if (!isset($_template->smarty->_debug)) {
-                $_template->smarty->_debug = new Smarty_Internal_Debug();
+                $_template->smarty->_debug = new \Smarty\Debug();
             }
             $_template->smarty->_debug->start_render($_template);
         }
@@ -140,7 +140,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             ) {
                 $this->compileTemplateSource($_smarty_tpl);
                 $compileCheck = $_smarty_tpl->compile_check;
-                $_smarty_tpl->compile_check = Smarty::COMPILECHECK_OFF;
+                $_smarty_tpl->compile_check = \Smarty\Smarty::COMPILECHECK_OFF;
                 $this->loadCompiledTemplate($_smarty_tpl);
                 $_smarty_tpl->compile_check = $compileCheck;
             } else {
@@ -149,7 +149,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 if ($_smarty_tpl->mustCompile) {
                     $this->compileTemplateSource($_smarty_tpl);
                     $compileCheck = $_smarty_tpl->compile_check;
-                    $_smarty_tpl->compile_check = Smarty::COMPILECHECK_OFF;
+                    $_smarty_tpl->compile_check = \Smarty\Smarty::COMPILECHECK_OFF;
                     $this->loadCompiledTemplate($_smarty_tpl);
                     $_smarty_tpl->compile_check = $compileCheck;
                 }

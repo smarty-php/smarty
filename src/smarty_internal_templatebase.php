@@ -28,7 +28,7 @@
  * @method array getDefaultModifier()
  * @method array getLiterals()
  * @method object getRegisteredObject(string $object_name)
- * @method Smarty_Internal_TemplateBase registerCacheResource(string $name, Smarty_CacheResource $resource_handler)
+ * @method Smarty_Internal_TemplateBase registerCacheResource(string $name, \Smarty\Cacheresource\Base $resource_handler)
  * @method Smarty_Internal_TemplateBase registerClass(string $class_name, string $class_impl)
  * @method Smarty_Internal_TemplateBase registerDefaultConfigHandler(callback $callback)
  * @method Smarty_Internal_TemplateBase registerDefaultPluginHandler(callback $callback)
@@ -68,14 +68,14 @@ abstract class Smarty_Internal_TemplateBase extends \Smarty\Data
      *
      * @var int
      */
-    public $caching = Smarty::CACHING_OFF;
+    public $caching = \Smarty\Smarty::CACHING_OFF;
 
     /**
      * check template for modifications?
      *
      * @var int
      */
-    public $compile_check = Smarty::COMPILECHECK_ON;
+    public $compile_check = \Smarty\Smarty::COMPILECHECK_ON;
 
     /**
      * cache lifetime in seconds
@@ -200,7 +200,7 @@ abstract class Smarty_Internal_TemplateBase extends \Smarty\Data
                 isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) : null;
 
             if ($smarty->isMutingUndefinedOrNullWarnings()) {
-                $errorHandler = new Smarty_Internal_ErrorHandler();
+                $errorHandler = new \Smarty\ErrorHandler();
                 $errorHandler->activate();
             }
 
@@ -231,8 +231,8 @@ abstract class Smarty_Internal_TemplateBase extends \Smarty\Data
                 }
                 ob_start();
                 $template->_mergeVars();
-                if (!empty(Smarty::$global_tpl_vars)) {
-                    $template->tpl_vars = array_merge(Smarty::$global_tpl_vars, $template->tpl_vars);
+                if (!empty(\Smarty\Smarty::$global_tpl_vars)) {
+                    $template->tpl_vars = array_merge(\Smarty\Smarty::$global_tpl_vars, $template->tpl_vars);
                 }
                 $result = $template->render(false, $function);
                 $template->_cleanUp();

@@ -29,11 +29,11 @@ class LoadPluginTest extends PHPUnit_Smarty
     }
 
     /**
-     * loadPlugin test Smarty_Internal_Debug exists
+     * loadPlugin test \Smarty\Debug exists
      */
     public function testLoadPluginSmartyInternalDebug()
     {
-        $this->assertTrue($this->smarty->loadPlugin('Smarty_Internal_Debug') == true);
+        $this->assertTrue($this->smarty->loadPlugin('\Smarty\Debug') == true);
     }
 
     /**

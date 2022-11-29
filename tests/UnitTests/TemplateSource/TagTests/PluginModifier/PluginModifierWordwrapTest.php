@@ -28,11 +28,11 @@ class PluginModifierWordwrapTest extends PHPUnit_Smarty
 
     public function testDefaultWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $tpl = $this->smarty->createTemplate('string:{"Blind woman gets new kidney from dad she hasn\'t seen in years."|wordwrap}');
         $this->assertEquals("Blind woman gets new kidney from dad she hasn't seen in years.", $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testDefaultUmlauts()
@@ -49,11 +49,11 @@ class PluginModifierWordwrapTest extends PHPUnit_Smarty
 
     public function testLengthWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $tpl = $this->smarty->createTemplate('string:{"Blind woman gets new kidney from dad she hasn\'t seen in years."|wordwrap:30}');
         $this->assertEquals("Blind woman gets new kidney\nfrom dad she hasn't seen in\nyears.", $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testBreak()
@@ -64,11 +64,11 @@ class PluginModifierWordwrapTest extends PHPUnit_Smarty
 
     public function testBreakWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $tpl = $this->smarty->createTemplate('string:{"Blind woman gets new kidney from dad she hasn\'t seen in years."|wordwrap:30:"<br />\n"}');
         $this->assertEquals("Blind woman gets new kidney<br />\nfrom dad she hasn't seen in<br />\nyears.", $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testLong()
@@ -79,11 +79,11 @@ class PluginModifierWordwrapTest extends PHPUnit_Smarty
 
     public function testLongWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $tpl = $this->smarty->createTemplate('string:{"Blind woman withaverylongandunpronoucablenameorso gets new kidney from dad she hasn\'t seen in years."|wordwrap:26:"\n"}');
         $this->assertEquals("Blind woman\nwithaverylongandunpronoucablenameorso\ngets new kidney from dad\nshe hasn't seen in years.", $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testLongUmlauts()
@@ -100,11 +100,11 @@ class PluginModifierWordwrapTest extends PHPUnit_Smarty
 
     public function testLongCutWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $tpl = $this->smarty->createTemplate('string:{"Blind woman withaverylongandunpronoucablenameorso gets new kidney from dad she hasn\'t seen in years."|wordwrap:26:"\n":true}');
         $this->assertEquals("Blind woman\nwithaverylongandunpronouca\nblenameorso gets new\nkidney from dad she hasn't\nseen in years.", $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testLongCutUmlauts()
@@ -121,11 +121,11 @@ class PluginModifierWordwrapTest extends PHPUnit_Smarty
 
     public function testLinebreaksWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $tpl = $this->smarty->createTemplate('string:{"Blind woman\ngets new kidney from dad she hasn\'t seen in years."|wordwrap:30}');
         $this->assertEquals("Blind woman\ngets new kidney from dad she\nhasn't seen in years.", $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testLinebreaks2()
@@ -140,7 +140,7 @@ class PluginModifierWordwrapTest extends PHPUnit_Smarty
 
     public function testLinebreaks2WithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $tpl = $this->smarty->createTemplate('string:{"Blind woman
             gets
@@ -148,7 +148,7 @@ class PluginModifierWordwrapTest extends PHPUnit_Smarty
         $this->assertEquals("Blind woman
             gets
             new kidney from\ndad she hasn't seen in years.", $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
+	    \Smarty\Smarty::$_MBSTRING = true;
     }
     /*
     public function testUnicodeSpaces()

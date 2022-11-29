@@ -29,6 +29,6 @@ class SmartyVersionTest extends PHPUnit_Smarty
      *
      */
     public function testSmartyVersion() {
-        $this->assertEquals(Smarty::SMARTY_VERSION, $this->smarty->fetch('version.tpl'));
+        $this->assertEquals(\Smarty\Smarty::SMARTY_VERSION, $this->smarty->fetch('version.tpl'));
     }
  }

@@ -44,14 +44,6 @@
  */
 function smarty_function_html_select_date($params, Smarty_Internal_Template $template)
 {
-    $template->_checkPlugins(
-        array(
-            array(
-                'function' => 'smarty_function_escape_special_chars',
-                'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php'
-            )
-        )
-    );
     // generate timestamps used for month names only
     static $_month_timestamps = null;
     static $_current_year = null;
@@ -210,14 +202,6 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
             [$_year, $_month, $_day] = explode('-', date('Y-m-d'));
         }
     } else {
-        $template->_checkPlugins(
-            array(
-                array(
-                    'function' => 'smarty_make_timestamp',
-                    'file'     => SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php'
-                )
-            )
-        );
         $time = smarty_make_timestamp($time);
         [$_year, $_month, $_day] = explode('-', date('Y-m-d', $time));
     }

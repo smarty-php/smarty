@@ -28,11 +28,11 @@ class PluginModifierLowerTest extends PHPUnit_Smarty
 
     public function testDefaultWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
+        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
         $result = "two convicts evade noose, jury hung.";
         $tpl = $this->smarty->createTemplate('string:{"Two Convicts Evade Noose, Jury Hung."|lower}');
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testUmlauts()
@@ -44,10 +44,10 @@ class PluginModifierLowerTest extends PHPUnit_Smarty
 
     public function testUmlautsWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
+        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
         $result = "two convicts eväde nööse, jury hung.";
         $tpl = $this->smarty->createTemplate('string:{"Two Convicts Eväde NöÖse, Jury Hung."|lower}');
         $this->assertNotEquals($result, $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 }

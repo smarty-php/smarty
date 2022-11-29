@@ -41,7 +41,7 @@ class Smarty_Internal_Runtime_UpdateCache
         }
         $this->removeNoCacheHash($cached, $_template, $no_output_filter);
         $compile_check = (int)$_template->compile_check;
-        $_template->compile_check = Smarty::COMPILECHECK_OFF;
+        $_template->compile_check = \Smarty\Smarty::COMPILECHECK_OFF;
         if ($_template->_isSubTpl()) {
             $_template->compiled->unifunc = $_template->parent->compiled->unifunc;
         }

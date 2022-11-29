@@ -29,18 +29,9 @@
 function smarty_modifier_date_format($string, $format = null, $default_date = '', $formatter = 'auto')
 {
     if ($format === null) {
-        $format = Smarty::$_DATE_FORMAT;
+        $format = \Smarty\Smarty::$_DATE_FORMAT;
     }
-    /**
-     * require_once the {@link shared.make_timestamp.php} plugin
-     */
-    static $is_loaded = false;
-    if (!$is_loaded) {
-        if (!is_callable('smarty_make_timestamp')) {
-            include_once SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php';
-        }
-        $is_loaded = true;
-    }
+
     if (!empty($string) && $string !== '0000-00-00' && $string !== '0000-00-00 00:00:00') {
         $timestamp = smarty_make_timestamp($string);
     } elseif (!empty($default_date)) {
@@ -49,7 +40,7 @@ function smarty_modifier_date_format($string, $format = null, $default_date = ''
         return;
     }
     if ($formatter === 'strftime' || ($formatter === 'auto' && strpos($format, '%') !== false)) {
-        if (Smarty::$_IS_WINDOWS) {
+        if (\Smarty\Smarty::$_IS_WINDOWS) {
             $_win_from = array(
                 '%D',
                 '%h',

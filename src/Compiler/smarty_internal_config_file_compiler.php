@@ -110,7 +110,7 @@ class Smarty_Internal_Config_File_Compiler
             );
         if ($this->smarty->debugging) {
             if (!isset($this->smarty->_debug)) {
-                $this->smarty->_debug = new Smarty_Internal_Debug();
+                $this->smarty->_debug = new \Smarty\Debug();
             }
             $this->smarty->_debug->start_compile($this->template);
         }
@@ -159,7 +159,7 @@ class Smarty_Internal_Config_File_Compiler
         // template header code
         $template_header = sprintf(
             "<?php /* Smarty version %s, created on %s\n         compiled from '%s' */ ?>\n",
-            Smarty::SMARTY_VERSION,
+	        \Smarty\Smarty::SMARTY_VERSION,
             date("Y-m-d H:i:s"),
             str_replace('*/', '* /' , $this->template->source->filepath)
         );

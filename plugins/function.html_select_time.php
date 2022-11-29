@@ -26,14 +26,6 @@
  */
 function smarty_function_html_select_time($params, Smarty_Internal_Template $template)
 {
-    $template->_checkPlugins(
-        array(
-            array(
-                'function' => 'smarty_function_escape_special_chars',
-                'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php'
-            )
-        )
-    );
     $prefix = 'Time_';
     $field_array = null;
     $field_separator = "\n";
@@ -76,14 +68,6 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
         switch ($_key) {
             case 'time':
                 if (!is_array($_value) && $_value !== null) {
-                    $template->_checkPlugins(
-                        array(
-                            array(
-                                'function' => 'smarty_make_timestamp',
-                                'file'     => SMARTY_PLUGINS_DIR . 'shared.make_timestamp.php'
-                            )
-                        )
-                    );
                     $time = smarty_make_timestamp($_value);
                 }
                 break;

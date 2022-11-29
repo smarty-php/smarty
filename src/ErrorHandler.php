@@ -1,5 +1,7 @@
 <?php
 
+namespace Smarty;
+
 /**
  * Smarty error handler to fix new error levels in PHP8 for backwards compatibility
  *
@@ -8,7 +10,7 @@
  * @author     Simon Wisselink
  *
  */
-class Smarty_Internal_ErrorHandler
+class ErrorHandler
 {
 
     /**

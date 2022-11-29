@@ -44,7 +44,7 @@ class Smarty_Internal_Method_ClearCache
     ) {
         $smarty->_clearTemplateCache();
         // load cache resource and call clear
-        $_cache_resource = Smarty_CacheResource::load($smarty, $type);
+        $_cache_resource = \Smarty\Cacheresource\Base::load($smarty, $type);
         return $_cache_resource->clear($smarty, $template_name, $cache_id, $compile_id, $exp_time);
     }
 }

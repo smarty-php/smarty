@@ -32,10 +32,10 @@ class Smarty_Internal_Method_AssignGlobal
     public function assignGlobal(\Smarty\Data $data, $varName, $value = null, $nocache = false)
     {
         if ($varName !== '') {
-            Smarty::$global_tpl_vars[ $varName ] = new \Smarty\Variable($value, $nocache);
+	        \Smarty\Smarty::$global_tpl_vars[ $varName ] = new \Smarty\Variable($value, $nocache);
             $ptr = $data;
             while ($ptr->_isTplObj()) {
-                $ptr->tpl_vars[ $varName ] = clone Smarty::$global_tpl_vars[ $varName ];
+                $ptr->tpl_vars[ $varName ] = clone \Smarty\Smarty::$global_tpl_vars[ $varName ];
                 $ptr = $ptr->parent;
             }
         }

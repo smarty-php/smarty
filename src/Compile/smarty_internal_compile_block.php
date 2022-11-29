@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+use Smarty\Compile\Inheritance;
+
 /**
  * Smarty Internal Plugin Compile Block Class
  *
@@ -83,7 +85,6 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
                 $compiler->template->caching
             )
         );
-        $compiler->saveRequiredPlugins(true);
         $compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
         $compiler->parser->current_buffer = new \Smarty\ParseTree\Template();
         $compiler->template->compiled->has_nocache_code = false;
@@ -94,7 +95,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
 /**
  * Smarty Internal Plugin Compile BlockClose Class
  */
-class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_Inheritance
+class Smarty_Internal_Compile_Blockclose extends Inheritance
 {
     /**
      * Compiles code for the {/block} tag
@@ -107,7 +108,7 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
      */
     public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
-        list($_attr, $_nocache, $_buffer, $_has_nocache_code, $_caching) = $this->closeTag($compiler, array('block'));
+        [$_attr, $_nocache, $_buffer, $_has_nocache_code, $_caching] = $this->closeTag($compiler, array('block'));
         // init block parameter
         $_block = $compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ];
         unset($compiler->_cache[ 'blockParams' ][ $compiler->_cache[ 'blockNesting' ] ]);
@@ -126,14 +127,12 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $compiler->parser->current_buffer = new \Smarty\ParseTree\Template();
         $output = "<?php\n";
         $output .= $compiler->cStyleComment(" {block {$_name}} ") . "\n";
-        $output .= "class {$_className} extends Smarty_Internal_Block\n";
+        $output .= "class {$_className} extends \\Smarty\\Block\n";
         $output .= "{\n";
         foreach ($_block as $property => $value) {
             $output .= "public \${$property} = " . var_export($value, true) . ";\n";
         }
         $output .= "public function callBlock(Smarty_Internal_Template \$_smarty_tpl) {\n";
-        $output .= $compiler->compileRequiredPlugins();
-        $compiler->restoreRequiredPlugins();
         if ($compiler->template->compiled->has_nocache_code) {
             $output .= "\$_smarty_tpl->cached->hashes['{$compiler->template->compiled->nocache_hash}'] = true;\n";
         }

@@ -5,7 +5,7 @@
      * @requires PHP 5.3
      */
 
-        $this->smarty->registerFilter(Smarty::FILTER_PRE, function ($input) {
+        $this->smarty->registerFilter(\Smarty\Smarty::FILTER_PRE, function ($input) {
             return '{$foo}' . $input;
         });
         $tpl = $this->smarty->createTemplate('eval:{" hello world"}');

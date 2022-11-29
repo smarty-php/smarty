@@ -31,14 +31,14 @@ class Smarty_Internal_Method_GetGlobal
     public function getGlobal(\Smarty\Data $data, $varName = null)
     {
         if (isset($varName)) {
-            if (isset(Smarty::$global_tpl_vars[ $varName ])) {
-                return Smarty::$global_tpl_vars[ $varName ]->value;
+            if (isset(\Smarty\Smarty::$global_tpl_vars[ $varName ])) {
+                return \Smarty\Smarty::$global_tpl_vars[ $varName ]->value;
             } else {
                 return '';
             }
         } else {
             $_result = array();
-            foreach (Smarty::$global_tpl_vars as $key => $var) {
+            foreach (\Smarty\Smarty::$global_tpl_vars as $key => $var) {
                 $_result[ $key ] = $var->value;
             }
             return $_result;

@@ -60,7 +60,7 @@ class Smarty_Internal_Runtime_WriteFile
          * currently reading that file to fail, but linux' rename()
          * seems to be smart enough to handle that for us.
          */
-        if (Smarty::$_IS_WINDOWS) {
+        if (\Smarty\Smarty::$_IS_WINDOWS) {
             // remove original file
             if (is_file($_filepath)) {
                 @unlink($_filepath);

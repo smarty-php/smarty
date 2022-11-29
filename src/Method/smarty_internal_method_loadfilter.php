@@ -49,14 +49,12 @@ class Smarty_Internal_Method_LoadFilter
             $smarty->registered_filters[ $type ][ $_filter_name ] = $_plugin;
             return true;
         }
-        if ($smarty->loadPlugin($_plugin)) {
-            if (class_exists($_plugin, false)) {
-                $_plugin = array($_plugin, 'execute');
-            }
-            if (is_callable($_plugin)) {
-                $smarty->registered_filters[ $type ][ $_filter_name ] = $_plugin;
-                return true;
-            }
+        if (class_exists($_plugin, false)) {
+            $_plugin = array($_plugin, 'execute');
+        }
+        if (is_callable($_plugin)) {
+            $smarty->registered_filters[ $type ][ $_filter_name ] = $_plugin;
+            return true;
         }
         throw new SmartyException("{$type}filter '{$name}' not found or callable");
     }

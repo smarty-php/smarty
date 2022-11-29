@@ -28,10 +28,10 @@ class PluginModifierRegexReplaceTest extends PHPUnit_Smarty
 
     public function testDefaultWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
+        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
         $tpl = $this->smarty->createTemplate('string:{"Infertility unlikely to\nbe passed on, experts say."|regex_replace:"/[\r\t\n]/":" "}');
         $this->assertEquals("Infertility unlikely to be passed on, experts say.", $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testUmlauts()

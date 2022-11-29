@@ -44,14 +44,6 @@
  */
 function smarty_function_html_checkboxes($params, Smarty_Internal_Template $template)
 {
-    $template->_checkPlugins(
-        array(
-            array(
-                'function' => 'smarty_function_escape_special_chars',
-                'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php'
-            )
-        )
-    );
     $name = 'checkbox';
     $values = null;
     $options = null;
@@ -251,7 +243,7 @@ function smarty_function_html_checkboxes_output(
         if ($label_ids) {
             $_id = smarty_function_escape_special_chars(
                 preg_replace(
-                    '![^\w\-\.]!' . Smarty::$_UTF8_MODIFIER,
+                    '![^\w\-\.]!' . \Smarty\Smarty::$_UTF8_MODIFIER,
                     '_',
                     $name . '_' . $value
                 )

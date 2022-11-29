@@ -74,30 +74,30 @@ function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth =
             break;
         case 'string':
             $results = strtr($var, $_replace);
-            if (Smarty::$_MBSTRING) {
-                if (mb_strlen($var, Smarty::$_CHARSET) > $length) {
-                    $results = mb_substr($var, 0, $length - 3, Smarty::$_CHARSET) . '...';
+            if (\Smarty\Smarty::$_MBSTRING) {
+                if (mb_strlen($var, \Smarty\Smarty::$_CHARSET) > $length) {
+                    $results = mb_substr($var, 0, $length - 3, \Smarty\Smarty::$_CHARSET) . '...';
                 }
             } else {
                 if (isset($var[ $length ])) {
                     $results = substr($var, 0, $length - 3) . '...';
                 }
             }
-            $results = htmlspecialchars('"' . $results . '"', ENT_QUOTES, Smarty::$_CHARSET);
+            $results = htmlspecialchars('"' . $results . '"', ENT_QUOTES, \Smarty\Smarty::$_CHARSET);
             break;
         case 'unknown type':
         default:
             $results = strtr((string)$var, $_replace);
-            if (Smarty::$_MBSTRING) {
-                if (mb_strlen($results, Smarty::$_CHARSET) > $length) {
-                    $results = mb_substr($results, 0, $length - 3, Smarty::$_CHARSET) . '...';
+            if (\Smarty\Smarty::$_MBSTRING) {
+                if (mb_strlen($results, \Smarty\Smarty::$_CHARSET) > $length) {
+                    $results = mb_substr($results, 0, $length - 3, \Smarty\Smarty::$_CHARSET) . '...';
                 }
             } else {
                 if (strlen($results) > $length) {
                     $results = substr($results, 0, $length - 3) . '...';
                 }
             }
-            $results = htmlspecialchars($results, ENT_QUOTES, Smarty::$_CHARSET);
+            $results = htmlspecialchars($results, ENT_QUOTES, \Smarty\Smarty::$_CHARSET);
     }
     return $results;
 }

@@ -1,5 +1,7 @@
 <?php
 
+namespace Smarty;
+
 /**
  * Smarty {block} tag class
  *
@@ -7,7 +9,7 @@
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  */
-class Smarty_Internal_Block
+class Block
 {
     /**
      * Block name
@@ -47,14 +49,14 @@ class Smarty_Internal_Block
     /**
      * Inheritance child block
      *
-     * @var Smarty_Internal_Block|null
+     * @var Block|null
      */
     public $child = null;
 
     /**
      * Inheritance calling parent block
      *
-     * @var Smarty_Internal_Block|null
+     * @var Block|null
      */
     public $parent = null;
 
@@ -66,7 +68,7 @@ class Smarty_Internal_Block
     public $tplIndex = 0;
 
     /**
-     * Smarty_Internal_Block constructor.
+     * Block constructor.
      * - if outer level {block} of child template ($state === 1) save it as child root block
      * - otherwise process inheritance and render
      *
@@ -84,7 +86,7 @@ class Smarty_Internal_Block
      *
      * @param \Smarty_Internal_Template $tpl
      */
-    public function callBlock(Smarty_Internal_Template $tpl)
+    public function callBlock(\Smarty_Internal_Template $tpl)
     {
     }
 }

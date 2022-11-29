@@ -44,7 +44,7 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         $_dir_sep = $smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
         if (isset($resource_name)) {
             $_save_stat = $smarty->caching;
-            $smarty->caching = Smarty::CACHING_OFF;
+            $smarty->caching = \Smarty\Smarty::CACHING_OFF;
             /* @var Smarty_Internal_Template $tpl */
             $tpl = $smarty->createTemplate($resource_name);
             $smarty->caching = $_save_stat;

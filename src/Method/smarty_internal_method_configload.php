@@ -59,7 +59,7 @@ class Smarty_Internal_Method_ConfigLoad
         $smarty = $data->_getSmartyObj();
         /* @var \Smarty_Internal_Template $confObj */
         $confObj = new Smarty_Internal_Template($config_file, $smarty, $data, null, null, null, null, true);
-        $confObj->caching = Smarty::CACHING_OFF;
+        $confObj->caching = \Smarty\Smarty::CACHING_OFF;
         $confObj->source->config_sections = $sections;
         $confObj->source->scope = $scope;
         $confObj->compiled = Smarty_Template_Compiled::load($confObj);
@@ -81,7 +81,7 @@ class Smarty_Internal_Method_ConfigLoad
         $this->_assignConfigVars($tpl->parent->config_vars, $tpl, $new_config_vars);
         $tagScope = $tpl->source->scope;
         if ($tagScope >= 0) {
-            if ($tagScope === Smarty::SCOPE_LOCAL) {
+            if ($tagScope === \Smarty\Smarty::SCOPE_LOCAL) {
                 $this->_updateVarStack($tpl, $new_config_vars);
                 $tagScope = 0;
                 if (!$tpl->scope) {

@@ -3,6 +3,7 @@
 namespace Smarty\Compile;
 
 use Smarty\CompileBase;
+use Smarty\Smarty;
 
 /**
  * Smarty Internal Plugin Compile Assign
@@ -50,7 +51,7 @@ class Assign extends CompileBase
      * @return string compiled code
      * @throws \SmartyCompilerException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compile($args, \Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
     {
         // the following must be assigned at runtime because it will be overwritten in Append
         $this->required_attributes = array('var', 'value');

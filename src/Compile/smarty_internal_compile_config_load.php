@@ -54,9 +54,9 @@ class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
      * @var array
      */
     public $valid_scopes = array(
-        'local'  => Smarty::SCOPE_LOCAL, 'parent' => Smarty::SCOPE_PARENT,
-        'root'   => Smarty::SCOPE_ROOT, 'tpl_root' => Smarty::SCOPE_TPL_ROOT,
-        'smarty' => Smarty::SCOPE_SMARTY, 'global' => Smarty::SCOPE_SMARTY
+        'local'  => \Smarty\Smarty::SCOPE_LOCAL, 'parent' => \Smarty\Smarty::SCOPE_PARENT,
+        'root'   => \Smarty\Smarty::SCOPE_ROOT, 'tpl_root' => \Smarty\Smarty::SCOPE_TPL_ROOT,
+        'smarty' => \Smarty\Smarty::SCOPE_SMARTY, 'global' => \Smarty\Smarty::SCOPE_SMARTY
     );
 
     /**

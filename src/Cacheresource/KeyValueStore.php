@@ -1,4 +1,11 @@
 <?php
+
+namespace Smarty\Cacheresource;
+
+use Smarty\Smarty;
+use Smarty_Internal_Template;
+use Smarty_Template_Cached;
+
 /**
  * Smarty Internal Plugin
  *
@@ -28,7 +35,7 @@
  * @subpackage Cacher
  * @author     Rodney Rehm
  */
-abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
+abstract class KeyValueStore extends Base
 {
     /**
      * cache for contents
@@ -85,15 +92,15 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
         $cached->exists = !!$cached->timestamp;
     }
 
-    /**
-     * Read the cached template and process the header
-     *
-     * @param \Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
-     * @param Smarty_Template_Cached    $cached      cached object
-     * @param boolean                   $update      flag if called because cache update
-     *
-     * @return boolean                 true or false if the cached content does not exist
-     */
+	/**
+	 * Read the cached template and process the header
+	 *
+	 * @param Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
+	 * @param Smarty_Template_Cached|null $cached cached object
+	 * @param boolean $update flag if called because cache update
+	 *
+	 * @return boolean                 true or false if the cached content does not exist
+	 */
     public function process(
         Smarty_Internal_Template $_smarty_tpl,
         Smarty_Template_Cached $cached = null,
@@ -102,8 +109,8 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
         if (!$cached) {
             $cached = $_smarty_tpl->cached;
         }
-        $content = $cached->content ? $cached->content : null;
-        $timestamp = $cached->timestamp ? $cached->timestamp : null;
+        $content = $cached->content ?: null;
+        $timestamp = $cached->timestamp ?: null;
         if ($content === null || !$timestamp) {
             if (!$this->fetch(
                 $_smarty_tpl->cached->filepath,
@@ -380,11 +387,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
         $compile_id = null,
         $resource_uid = null
     ) {
-        // abort if there is no CacheID
-        if (false && !$cid) {
-            return 0;
-        }
-        // abort if there are no InvalidationKeys to check
+	    // abort if there are no InvalidationKeys to check
         if (!($_cid = $this->listInvalidationKeys($cid, $resource_name, $cache_id, $compile_id, $resource_uid))) {
             return 0;
         }
@@ -489,7 +492,7 @@ abstract class Smarty_CacheResource_KeyValueStore extends Smarty_CacheResource
      * @param Smarty                 $smarty Smarty object
      * @param Smarty_Template_Cached $cached cached object
      *
-     * @return bool|void
+     * @return void
      */
     public function releaseLock(Smarty $smarty, Smarty_Template_Cached $cached)
     {

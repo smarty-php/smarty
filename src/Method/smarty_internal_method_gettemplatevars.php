@@ -62,8 +62,8 @@ class Smarty_Internal_Method_GetTemplateVars
                     $_ptr = null;
                 }
             }
-            if ($searchParents && isset(Smarty::$global_tpl_vars)) {
-                foreach (Smarty::$global_tpl_vars as $key => $var) {
+            if ($searchParents && isset(\Smarty\Smarty::$global_tpl_vars)) {
+                foreach (\Smarty\Smarty::$global_tpl_vars as $key => $var) {
                     if (!array_key_exists($key, $_result)) {
                         $_result[ $key ] = $var->value;
                     }
@@ -106,9 +106,9 @@ class Smarty_Internal_Method_GetTemplateVars
                 $_ptr = null;
             }
         }
-        if (isset(Smarty::$global_tpl_vars[ $varName ])) {
+        if (isset(\Smarty\Smarty::$global_tpl_vars[ $varName ])) {
             // found it, return it
-            return Smarty::$global_tpl_vars[ $varName ];
+            return \Smarty\Smarty::$global_tpl_vars[ $varName ];
         }
         if ($errorEnable && $data->_getSmartyObj()->error_unassigned) {
             // force a notice

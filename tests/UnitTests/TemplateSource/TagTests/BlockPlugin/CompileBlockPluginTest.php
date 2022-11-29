@@ -64,7 +64,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      */
     public function testBlockPluginRegisteredFunction()
     {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockplugintest', 'myblockplugintest');
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_BLOCK, 'blockplugintest', 'myblockplugintest');
         $this->assertEquals('block test', $this->smarty->fetch('registered.tpl'));
     }
 
@@ -90,7 +90,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      */
     public function testBlockPluginRegisteredStatic()
     {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockpluginstatic', array('myblockclass1', 'staticfunc'));
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_BLOCK, 'blockpluginstatic', array('myblockclass1', 'staticfunc'));
         $this->assertEquals('static block test', $this->smarty->fetch('registered_static.tpl'));
     }
 
@@ -118,7 +118,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     public function testBlockPluginRegisteredMethod()
     {
         $object = new myblockclass1();
-        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'blockpluginmethod', array($object, 'methodfunc'));
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_BLOCK, 'blockpluginmethod', array($object, 'methodfunc'));
         $this->assertEquals('method block test', $this->smarty->fetch('registered_method.tpl'));
     }
 
@@ -281,7 +281,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
                               $testName)
     {
         $this->smarty->registerFilter('pre', array($this, 'prefilterTest'));
-        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'cachetest', 'myblockplugintest2', $cachable);
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_BLOCK, 'cachetest', 'myblockplugintest2', $cachable);
         $this->smarty->compile_id = $compileid;
         $this->smarty->caching = $caching;
         $this->smarty->cache_lifetime = 1000;
@@ -507,7 +507,7 @@ class myblockclass1
 function my_block_plugin_handler($tag, $type, $template, &$callback, &$script, &$cachable)
 {
     switch ($type) {
-        case Smarty::PLUGIN_BLOCK:
+        case \Smarty\Smarty::PLUGIN_BLOCK:
             switch ($tag) {
                 case 'scriptblock':
                     $script = './scripts/script_block_tag.php';

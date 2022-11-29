@@ -5,11 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-/**
- * Registers some helper/polyfill functions.
- */
-
-const SMARTY_HELPER_FUNCTIONS_LOADED = true;
 
 /**
  * Converts the first characters in $string to uppercase (A-Z) if it is an ASCII lowercase character (a-z).

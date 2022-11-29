@@ -54,12 +54,12 @@ if (!function_exists('smarty_mb_str_replace')) {
 
             // See if charset used by Smarty is matching one used by regex...
             $current_charset = mb_regex_encoding();
-            $convert_result = (bool)strcasecmp(Smarty::$_CHARSET, $current_charset);
+            $convert_result = (bool)strcasecmp(\Smarty\Smarty::$_CHARSET, $current_charset);
             if($convert_result) {
                 // ...convert to it if not.
-                $subject = mb_convert_encoding($subject, $current_charset, Smarty::$_CHARSET);
-                $search = mb_convert_encoding($search, $current_charset, Smarty::$_CHARSET);
-                $replace = mb_convert_encoding($replace, $current_charset, Smarty::$_CHARSET);
+                $subject = mb_convert_encoding($subject, $current_charset, \Smarty\Smarty::$_CHARSET);
+                $search = mb_convert_encoding($search, $current_charset, \Smarty\Smarty::$_CHARSET);
+                $replace = mb_convert_encoding($replace, $current_charset, \Smarty\Smarty::$_CHARSET);
             }
 
             $parts = mb_split(preg_quote($search), $subject ?? "") ?: array();
@@ -79,7 +79,7 @@ if (!function_exists('smarty_mb_str_replace')) {
             $subject = implode($replace, $parts);
             // Convert results back to charset used by Smarty, if needed.
             if($convert_result) {
-                $subject = mb_convert_encoding($subject, Smarty::$_CHARSET, $current_charset);
+                $subject = mb_convert_encoding($subject, \Smarty\Smarty::$_CHARSET, $current_charset);
             }
         }
         return $subject;

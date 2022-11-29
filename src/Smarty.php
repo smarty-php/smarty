@@ -1,7 +1,9 @@
 <?php
+
+namespace Smarty;
+
 /**
  * Project:     Smarty: the PHP compiling template engine
- * File:        Smarty.class.php
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -26,66 +28,16 @@
  * @author    Monte Ohrt <monte at ohrt dot com>
  * @author    Uwe Tews   <uwe dot tews at gmail dot com>
  * @author    Rodney Rehm
+ * @author    Simon Wisselink
  * @package   Smarty
  */
-/**
- * set SMARTY_DIR to absolute path to Smarty library files.
- * Sets SMARTY_DIR only if user application has not already defined it.
- */
-if (!defined('SMARTY_DIR')) {
-    /**
-     *
-     */
-    define('SMARTY_DIR', __DIR__ . DIRECTORY_SEPARATOR);
-}
-/**
- * set SMARTY_SYSPLUGINS_DIR to absolute path to Smarty internal plugins.
- * Sets SMARTY_SYSPLUGINS_DIR only if user application has not already defined it.
- */
-if (!defined('SMARTY_SYSPLUGINS_DIR')) {
-    /**
-     *
-     */
-    define('SMARTY_SYSPLUGINS_DIR', SMARTY_DIR . 'sysplugins' . DIRECTORY_SEPARATOR);
-}
-if (!defined('SMARTY_PLUGINS_DIR')) {
-    /**
-     *
-     */
-    define('SMARTY_PLUGINS_DIR', SMARTY_DIR . 'plugins' . DIRECTORY_SEPARATOR);
-}
+
 if (!defined('SMARTY_MBSTRING')) {
     /**
      *
      */
     define('SMARTY_MBSTRING', function_exists('mb_get_info'));
 }
-
-/**
- * Load helper functions
- */
-if (!defined('SMARTY_HELPER_FUNCTIONS_LOADED')) {
-    include __DIR__ . '/functions.php';
-}
-
-/**
- * Load Smarty_Autoloader
- */
-if (!class_exists('Smarty_Autoloader')) {
-    include __DIR__ . '/bootstrap.php';
-}
-
-/**
- * Load always needed external class files
- */
-require_once SMARTY_SYSPLUGINS_DIR . 'Data.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_extension_handler.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_templatebase.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_template.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'Base.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_source.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_template_resource_base.php';
-require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
 
 /**
  * This is the main Smarty class
@@ -101,7 +53,7 @@ require_once SMARTY_SYSPLUGINS_DIR . 'smarty_internal_resource_file.php';
  * @method int compileAllConfig(string $extension = '.conf', bool $force_compile = false, int $time_limit = 0, $max_errors = null)
  * @method int clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
  */
-class Smarty extends Smarty_Internal_TemplateBase
+class Smarty extends \Smarty_Internal_TemplateBase
 {
     /**
      * smarty version
@@ -131,14 +83,6 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     const COMPILECHECK_OFF       = 0;
     const COMPILECHECK_ON        = 1;
-    const COMPILECHECK_CACHEMISS = 2;
-    /**
-     * define debug modes
-     */
-    const DEBUG_OFF        = 0;
-    const DEBUG_ON         = 1;
-    const DEBUG_INDIVIDUAL = 2;
-
     /**
      * filter types
      */
@@ -344,17 +288,17 @@ class Smarty extends Smarty_Internal_TemplateBase
 
     /**
      * class name
-     * This should be instance of Smarty_Security.
+     * This should be instance of \Smarty_Security.
      *
      * @var string
-     * @see Smarty_Security
+     * @see \Smarty_Security
      */
-    public $security_class = 'Smarty_Security';
+    public $security_class = \Smarty_Security::class;
 
     /**
      * implementation of security class
      *
-     * @var Smarty_Security
+     * @var \Smarty_Security
      */
     public $security_policy = null;
 
@@ -451,7 +395,7 @@ class Smarty extends Smarty_Internal_TemplateBase
 
     /**
      * resource type used if none given
-     * Must be an valid key of $registered_resources.
+     * Must be a valid key of $registered_resources.
      *
      * @var string
      */
@@ -573,7 +517,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Debug object
      *
-     * @var Smarty_Internal_Debug
+     * @var \Smarty\Debug
      */
     public $_debug = null;
 
@@ -652,17 +596,17 @@ class Smarty extends Smarty_Internal_TemplateBase
         $this->_clearTemplateCache();
         parent::__construct();
         if (is_callable('mb_internal_encoding')) {
-            mb_internal_encoding(Smarty::$_CHARSET);
+            mb_internal_encoding(\Smarty\Smarty::$_CHARSET);
         }
         $this->start_time = microtime(true);
         if (isset($_SERVER[ 'SCRIPT_NAME' ])) {
-            Smarty::$global_tpl_vars[ 'SCRIPT_NAME' ] = new \Smarty\Variable($_SERVER[ 'SCRIPT_NAME' ]);
+	        \Smarty\Smarty::$global_tpl_vars[ 'SCRIPT_NAME' ] = new \Smarty\Variable($_SERVER[ 'SCRIPT_NAME' ]);
         }
-        // Check if we're running on windows
-        Smarty::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+        // Check if we're running on Windows
+        \Smarty\Smarty::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
         // let PCRE (preg_*) treat strings as ISO-8859-1 if we're not dealing with UTF-8
-        if (Smarty::$_CHARSET !== 'UTF-8') {
-            Smarty::$_UTF8_MODIFIER = '';
+        if (\Smarty\Smarty::$_CHARSET !== 'UTF-8') {
+            \Smarty\Smarty::$_UTF8_MODIFIER = '';
         }
     }
 
@@ -677,21 +621,21 @@ class Smarty extends Smarty_Internal_TemplateBase
     public function templateExists($resource_name)
     {
         // create source object
-        $source = Smarty_Template_Source::load(null, $this, $resource_name);
+        $source = \Smarty_Template_Source::load(null, $this, $resource_name);
         return $source->exists;
     }
 
     /**
      * Loads security class and enables security
      *
-     * @param string|Smarty_Security $security_class if a string is used, it must be class-name
+     * @param string|\Smarty_Security $security_class if a string is used, it must be class-name
      *
      * @return Smarty                 current Smarty instance for chaining
      * @throws \SmartyException
      */
     public function enableSecurity($security_class = null)
     {
-        Smarty_Security::enableSecurity($this, $security_class);
+        \Smarty_Security::enableSecurity($this, $security_class);
         return $this;
     }
 
@@ -780,7 +724,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      * @param string|array $template_dir directory(s) of template sources
      * @param bool         $isConfig     true for config_dir
      *
-     * @return \Smarty current Smarty instance for chaining
+     * @return Smarty current Smarty instance for chaining
      */
     public function setTemplateDir($template_dir, $isConfig = false)
     {
@@ -841,35 +785,9 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function addPluginsDir($plugins_dir)
     {
-        if (empty($this->plugins_dir)) {
-            $this->plugins_dir[] = SMARTY_PLUGINS_DIR;
-        }
         $this->plugins_dir = array_merge($this->plugins_dir, (array)$plugins_dir);
         $this->_pluginsDirNormalized = false;
         return $this;
-    }
-
-    /**
-     * Get plugin directories
-     *
-     * @return array list of plugin directories
-     */
-    public function getPluginsDir()
-    {
-        if (empty($this->plugins_dir)) {
-            $this->plugins_dir[] = SMARTY_PLUGINS_DIR;
-            $this->_pluginsDirNormalized = false;
-        }
-        if (!$this->_pluginsDirNormalized) {
-            if (!is_array($this->plugins_dir)) {
-                $this->plugins_dir = (array)$this->plugins_dir;
-            }
-            foreach ($this->plugins_dir as $k => $v) {
-                $this->plugins_dir[ $k ] = $this->_realpath(rtrim($v ?? '', '/\\') . DIRECTORY_SEPARATOR, true);
-            }
-            $this->_pluginsDirNormalized = true;
-        }
-        return $this->plugins_dir;
     }
 
     /**
@@ -970,17 +888,17 @@ class Smarty extends Smarty_Internal_TemplateBase
         }
         $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
         $tpl = null;
-        if ($this->caching && isset(Smarty_Internal_Template::$isCacheTplObj[ $_templateId ])) {
-            $tpl = $do_clone ? clone Smarty_Internal_Template::$isCacheTplObj[ $_templateId ] :
-                Smarty_Internal_Template::$isCacheTplObj[ $_templateId ];
+        if ($this->caching && isset(\Smarty_Internal_Template::$isCacheTplObj[ $_templateId ])) {
+            $tpl = $do_clone ? clone \Smarty_Internal_Template::$isCacheTplObj[ $_templateId ] :
+                \Smarty_Internal_Template::$isCacheTplObj[ $_templateId ];
             $tpl->inheritance = null;
             $tpl->tpl_vars = $tpl->config_vars = array();
-        } elseif (!$do_clone && isset(Smarty_Internal_Template::$tplObjCache[ $_templateId ])) {
-            $tpl = clone Smarty_Internal_Template::$tplObjCache[ $_templateId ];
+        } elseif (!$do_clone && isset(\Smarty_Internal_Template::$tplObjCache[ $_templateId ])) {
+            $tpl = clone \Smarty_Internal_Template::$tplObjCache[ $_templateId ];
             $tpl->inheritance = null;
             $tpl->tpl_vars = $tpl->config_vars = array();
         } else {
-            /* @var Smarty_Internal_Template $tpl */
+            /* @var \Smarty_Internal_Template $tpl */
             $tpl = new $this->template_class($template, $this, null, $cache_id, $compile_id, null, null);
             $tpl->templateId = $_templateId;
         }
@@ -996,29 +914,13 @@ class Smarty extends Smarty_Internal_TemplateBase
             }
         }
         if ($this->debugging || $this->debugging_ctrl === 'URL') {
-            $tpl->smarty->_debug = new Smarty_Internal_Debug();
+            $tpl->smarty->_debug = new \Smarty\Debug();
             // check URL debugging control
             if (!$this->debugging && $this->debugging_ctrl === 'URL') {
                 $tpl->smarty->_debug->debugUrl($tpl->smarty);
             }
         }
         return $tpl;
-    }
-
-    /**
-     * Takes unknown classes and loads plugin files for them
-     * class name format: Smarty_PluginType_PluginName
-     * plugin filename format: plugintype.pluginname.php
-     *
-     * @param string $plugin_name class plugin name to load
-     * @param bool   $check       check if already loaded
-     *
-     * @return string |boolean filepath of loaded file or false
-     * @throws \SmartyException
-     */
-    public function loadPlugin($plugin_name, $check = true)
-    {
-        return $this->ext->loadPlugin->loadPlugin($this, $plugin_name, $check);
     }
 
     /**
@@ -1038,7 +940,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         $cache_id = null,
         $compile_id = null,
         $caching = null,
-        Smarty_Internal_Template $template = null
+        \Smarty_Internal_Template $template = null
     ) {
         $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
             $template_name;
@@ -1047,7 +949,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         $caching = (int)($caching === null ? $this->caching : $caching);
         if ((isset($template) && strpos($template_name, ':.') !== false) || $this->allow_ambiguous_resources) {
             $_templateId =
-                Smarty_Resource::getUniqueTemplateName((isset($template) ? $template : $this), $template_name) .
+                \Smarty_Resource::getUniqueTemplateName((isset($template) ? $template : $this), $template_name) .
                 "#{$cache_id}#{$compile_id}#{$caching}";
         } else {
             $_templateId = $this->_joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}#{$caching}";
@@ -1107,8 +1009,8 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function _clearTemplateCache()
     {
-        Smarty_Internal_Template::$isCacheTplObj = array();
-        Smarty_Internal_Template::$tplObjCache = array();
+        \Smarty_Internal_Template::$isCacheTplObj = array();
+        \Smarty_Internal_Template::$tplObjCache = array();
     }
 
     /**

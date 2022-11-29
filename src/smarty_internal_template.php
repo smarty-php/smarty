@@ -187,7 +187,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         if ($this->smarty->debugging) {
             if (!isset($this->smarty->_debug)) {
-                $this->smarty->_debug = new Smarty_Internal_Debug();
+                $this->smarty->_debug = new \Smarty\Debug();
             }
             $this->smarty->_debug->start_template($this, $display);
         }
@@ -200,10 +200,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         // disable caching for evaluated code
         if ($this->source->handler->recompiled) {
-            $this->caching = Smarty::CACHING_OFF;
+            $this->caching = \Smarty\Smarty::CACHING_OFF;
         }
         // read from cache or render
-        if ($this->caching === Smarty::CACHING_LIFETIME_CURRENT || $this->caching === Smarty::CACHING_LIFETIME_SAVED) {
+        if ($this->caching === \Smarty\Smarty::CACHING_LIFETIME_CURRENT || $this->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED) {
             if (!isset($this->cached) || $this->cached->cache_id !== $this->cache_id
                 || $this->cached->compile_id !== $this->compile_id
             ) {
@@ -369,7 +369,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if (isset($uid)) {
             if ($smarty->debugging) {
                 if (!isset($smarty->_debug)) {
-                    $smarty->_debug = new Smarty_Internal_Debug();
+                    $smarty->_debug = new \Smarty\Debug();
                 }
                 $smarty->_debug->start_template($tpl);
                 $smarty->_debug->start_render($tpl);
@@ -439,40 +439,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     }
 
     /**
-     * Check if plugins are callable require file otherwise
-     *
-     * @param array $plugins required plugins
-     *
-     * @throws \SmartyException
-     */
-    public function _checkPlugins($plugins)
-    {
-        static $checked = array();
-        foreach ($plugins as $plugin) {
-            $name = join('::', (array)$plugin[ 'function' ]);
-            if (!isset($checked[ $name ])) {
-                if (!is_callable($plugin[ 'function' ])) {
-                    if (is_file($plugin[ 'file' ])) {
-                        include_once $plugin[ 'file' ];
-                        if (is_callable($plugin[ 'function' ])) {
-                            $checked[ $name ] = true;
-                        }
-                    }
-                } else {
-                    $checked[ $name ] = true;
-                }
-            }
-            if (!isset($checked[ $name ])) {
-                if (false !== $this->smarty->loadPlugin($name)) {
-                    $checked[ $name ] = true;
-                } else {
-                    throw new SmartyException("Plugin '{$name}' not callable");
-                }
-            }
-        }
-    }
-
-    /**
      * This function is executed automatically when a compiled or cached template file is included
      * - Decode saved properties from compiled template and cache files
      * - Check if compiled or cache file is valid
@@ -487,7 +453,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function _decodeProperties(Smarty_Internal_Template $tpl, $properties, $cache = false)
     {
         // on cache resources other than file check version stored in cache code
-        if (!isset($properties[ 'version' ]) || Smarty::SMARTY_VERSION !== $properties[ 'version' ]) {
+        if (!isset($properties[ 'version' ]) || \Smarty\Smarty::SMARTY_VERSION !== $properties[ 'version' ]) {
             if ($cache) {
                 $tpl->smarty->clearAllCache();
             } else {
@@ -497,7 +463,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         $is_valid = true;
         if (!empty($properties[ 'file_dependency' ])
-            && ((!$cache && $tpl->compile_check) || $tpl->compile_check === Smarty::COMPILECHECK_ON)
+            && ((!$cache && $tpl->compile_check) || $tpl->compile_check === \Smarty\Smarty::COMPILECHECK_ON)
         ) {
             // check file dependencies at compiled code
             foreach ($properties[ 'file_dependency' ] as $_file_to_check) {
@@ -527,7 +493,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         if ($cache) {
             // CACHING_LIFETIME_SAVED cache expiry has to be validated here since otherwise we'd define the unifunc
-            if ($tpl->caching === Smarty::CACHING_LIFETIME_SAVED && $properties[ 'cache_lifetime' ] >= 0
+            if ($tpl->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED && $properties[ 'cache_lifetime' ] >= 0
                 && (time() > ($tpl->cached->timestamp + $properties[ 'cache_lifetime' ]))
             ) {
                 $is_valid = false;
@@ -645,9 +611,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function loadCompiler()
     {
-        if (!class_exists($this->source->compiler_class)) {
-            $this->smarty->loadPlugin($this->source->compiler_class);
-        }
         $this->compiler =
             new $this->source->compiler_class(
                 $this->source->template_lexer_class,

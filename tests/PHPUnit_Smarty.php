@@ -13,7 +13,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     /**
      * Smarty object
      *
-     * @var Smarty
+     * @var \Smarty\Smarty
      */
     public $smarty = null;
 
@@ -143,7 +143,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
         clearstatcache();
 
         // instance Smarty class
-        $this->smarty = new Smarty;
+        $this->smarty = new \Smarty\Smarty();
         if (individualFolders != 'true') {
             $this->smarty->setCompileDir(__DIR__ . '/templates_c');
             $this->smarty->setCacheDir(__DIR__ . '/cache');
@@ -400,7 +400,7 @@ KEY `name` (`name`)
             case 'php':
             case 'file':
             case 'filetest':
-                if ($tpl instanceof Smarty) {
+                if ($tpl instanceof \Smarty\Smarty) {
                     return sha1($this->normalizePath($this->smarty->getTemplateDir(0) . $name) .
                                 $this->smarty->_joined_template_dir);
                 }
@@ -436,7 +436,7 @@ KEY `name` (`name`)
         if ($match[1] === '') {
             if ($match[ 2 ] !== '' || $match[ 2 ] . $match[ 3 ] . $match[ 4 ] === '') {
                 $path = $getcwd . $ds . $path;
-            } else if (Smarty::$_IS_WINDOWS && $match[ 3 ] !== '') {
+            } else if (\Smarty\Smarty::$_IS_WINDOWS && $match[ 3 ] !== '') {
                 $path = substr($getcwd, 0, 2) . $path;
             }
         }

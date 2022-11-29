@@ -1,3 +1,8 @@
+
+namespace Smarty\Parser;
+
+use \Smarty\Lexer\Configfile as Lexer;
+
 /**
 * Smarty Internal Plugin Configfileparser
 *
@@ -19,7 +24,7 @@
 * @subpackage Compiler
 * @author Uwe Tews
 */
-class Smarty_Internal_Configfileparser
+class Configfile
 }
 %include_class
 {
@@ -42,7 +47,7 @@ class Smarty_Internal_Configfileparser
     /**
      * lexer object
      *
-     * @var Smarty_Internal_Configfilelexer
+     * @var Lexer
      */
     private $lex;
     /**
@@ -86,10 +91,10 @@ class Smarty_Internal_Configfileparser
     /**
      * constructor
      *
-     * @param Smarty_Internal_Configfilelexer      $lex
+     * @param Lexer      $lex
      * @param Smarty_Internal_Config_File_Compiler $compiler
      */
-    public function __construct(Smarty_Internal_Configfilelexer $lex, Smarty_Internal_Config_File_Compiler $compiler)
+    public function __construct(Lexer $lex, Smarty_Internal_Config_File_Compiler $compiler)
     {
         $this->lex = $lex;
         $this->smarty = $compiler->smarty;

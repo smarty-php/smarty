@@ -3,7 +3,7 @@ Setting Up Caching {#caching.setting.up}
 
 The first thing to do is enable caching by setting
 [`$caching`](#variable.caching) to one of
-`Smarty::CACHING_LIFETIME_CURRENT` or `Smarty::CACHING_LIFETIME_SAVED`.
+`\Smarty\Smarty::CACHING_LIFETIME_CURRENT` or `Smarty::CACHING_LIFETIME_SAVED`.
 
 
     <?php
@@ -36,7 +36,7 @@ Each cached page has a limited lifetime determined by
 seconds, or one hour. After that time expires, the cache is regenerated.
 It is possible to give individual caches their own expiration time by
 setting [`$caching`](#variable.caching) to
-`Smarty::CACHING_LIFETIME_SAVED`. See
+`\Smarty\Smarty::CACHING_LIFETIME_SAVED`. See
 [`$cache_lifetime`](#variable.cache.lifetime) for more details.
 
 
@@ -92,7 +92,7 @@ however this also seriously degrades performance.
 [`$force_compile`](#variable.force.compile) is meant to be used for
 [debugging](#chapter.debugging.console) purposes. The appropriate way to
 disable caching is to set [`$caching`](#variable.caching) to
-Smarty::CACHING\_OFF.
+\Smarty\Smarty::CACHING\_OFF.
 
 The [`isCached()`](#api.is.cached) function can be used to test if a
 template has a valid cache or not. If you have a cached template that

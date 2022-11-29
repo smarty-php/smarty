@@ -5,7 +5,7 @@ Charset Encoding {#charset.encoding}
 ================
 
 There are a variety of encodings for textual data, ISO-8859-1 (Latin1)
-and UTF-8 being the most popular. Unless you change `Smarty::$_CHARSET`, 
+and UTF-8 being the most popular. Unless you change `\Smarty\Smarty::$_CHARSET`, 
 Smarty recognizes `UTF-8` as the internal charset if 
 [Multibyte String](https://www.php.net/mbstring) is available, 
 `ISO-8859-1` if not.

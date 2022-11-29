@@ -99,7 +99,7 @@ class Smarty_Internal_Method_CompileAllTemplates
                 try {
                     /* @var Smarty_Internal_Template $_tpl */
                     $_tpl = new $smarty->template_class($_file, $_smarty);
-                    $_tpl->caching = Smarty::CACHING_OFF;
+                    $_tpl->caching = \Smarty\Smarty::CACHING_OFF;
                     $_tpl->source =
                         $isConfig ? Smarty_Template_Config::load($_tpl) : Smarty_Template_Source::load($_tpl);
                     if ($_tpl->mustCompile()) {

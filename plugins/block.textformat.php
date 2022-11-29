@@ -37,16 +37,6 @@ function smarty_block_textformat($params, $content, Smarty_Internal_Template $te
     if (is_null($content)) {
         return;
     }
-    if (Smarty::$_MBSTRING) {
-        $template->_checkPlugins(
-            array(
-                array(
-                    'function' => 'smarty_modifier_mb_wordwrap',
-                    'file'     => SMARTY_PLUGINS_DIR . 'modifier.mb_wordwrap.php'
-                )
-            )
-        );
-    }
     $style = null;
     $indent = 0;
     $indent_first = 0;
@@ -88,8 +78,8 @@ function smarty_block_textformat($params, $content, Smarty_Internal_Template $te
         $_paragraph =
             preg_replace(
                 array(
-                    '!\s+!' . Smarty::$_UTF8_MODIFIER,
-                    '!(^\s+)|(\s+$)!' . Smarty::$_UTF8_MODIFIER
+                    '!\s+!' . \Smarty::$_UTF8_MODIFIER,
+                    '!(^\s+)|(\s+$)!' . \Smarty::$_UTF8_MODIFIER
                 ),
                 array(
                     ' ',
@@ -102,7 +92,7 @@ function smarty_block_textformat($params, $content, Smarty_Internal_Template $te
             $_paragraph = str_repeat($indent_char, $indent_first) . $_paragraph;
         }
         // wordwrap sentences
-        if (Smarty::$_MBSTRING) {
+        if (\Smarty\Smarty::$_MBSTRING) {
             $_paragraph = smarty_modifier_mb_wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);
         } else {
             $_paragraph = wordwrap($_paragraph, $wrap - $indent, $wrap_char, $wrap_cut);

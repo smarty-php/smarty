@@ -28,8 +28,8 @@ class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_C
      */
     public function setup(Smarty_Internal_TemplateCompilerBase $compiler, $_attr, $tag, $function)
     {
-        if (isset($compiler->smarty->registered_plugins[ Smarty::PLUGIN_BLOCK ][ $tag ])) {
-            $tag_info = $compiler->smarty->registered_plugins[ Smarty::PLUGIN_BLOCK ][ $tag ];
+        if (isset($compiler->smarty->registered_plugins[ \Smarty\Smarty::PLUGIN_BLOCK ][ $tag ])) {
+            $tag_info = $compiler->smarty->registered_plugins[ \Smarty\Smarty::PLUGIN_BLOCK ][ $tag ];
             $callback = $tag_info[ 0 ];
             if (is_array($callback)) {
                 if (is_object($callback[ 0 ])) {
@@ -46,7 +46,7 @@ class Smarty_Internal_Compile_Private_Registered_Block extends Smarty_Internal_C
                 $callback = array("\$_smarty_tpl->smarty->registered_plugins['block']['{$tag}'][0]", '');
             }
         } else {
-            $tag_info = $compiler->default_handler_plugins[ Smarty::PLUGIN_BLOCK ][ $tag ];
+            $tag_info = $compiler->default_handler_plugins[ \Smarty\Smarty::PLUGIN_BLOCK ][ $tag ];
             $callback = $tag_info[ 0 ];
             if (is_array($callback)) {
                 $callable = "array('{$callback[0]}', '{$callback[1]}')";

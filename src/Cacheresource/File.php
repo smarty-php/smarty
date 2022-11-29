@@ -1,4 +1,11 @@
 <?php
+
+namespace Smarty\Cacheresource;
+
+use Smarty\Smarty;
+use Smarty_Internal_Template;
+use Smarty_Template_Cached;
+
 /**
  * Smarty Internal Plugin CacheResource File
  *
@@ -15,10 +22,10 @@
  * @package    Smarty
  * @subpackage Cacher
  */
-class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
+class File extends Base
 {
     /**
-     * populate Cached Object with meta data from Resource
+     * populate Cached Object with metadata from Resource
      *
      * @param Smarty_Template_Cached   $cached    cached object
      * @param Smarty_Internal_Template $_template template object
@@ -85,15 +92,15 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         }
     }
 
-    /**
-     * Read the cached template and process its header
-     *
-     * @param \Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
-     * @param Smarty_Template_Cached    $cached      cached object
-     * @param bool                      $update      flag if called because cache update
-     *
-     * @return boolean true or false if the cached content does not exist
-     */
+	/**
+	 * Read the cached template and process its header
+	 *
+	 * @param Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
+	 * @param Smarty_Template_Cached|null $cached cached object
+	 * @param bool $update flag if called because cache update
+	 *
+	 * @return boolean true or false if the cached content does not exist
+	 */
     public function process(
         Smarty_Internal_Template $_smarty_tpl,
         Smarty_Template_Cached $cached = null,
@@ -211,7 +218,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      * @param Smarty                 $smarty Smarty object
      * @param Smarty_Template_Cached $cached cached object
      *
-     * @return bool|void
+     * @return void
      */
     public function acquireLock(Smarty $smarty, Smarty_Template_Cached $cached)
     {
@@ -225,7 +232,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      * @param Smarty                 $smarty Smarty object
      * @param Smarty_Template_Cached $cached cached object
      *
-     * @return bool|void
+     * @return void
      */
     public function releaseLock(Smarty $smarty, Smarty_Template_Cached $cached)
     {

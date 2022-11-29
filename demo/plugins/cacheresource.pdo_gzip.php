@@ -6,7 +6,6 @@ require_once 'cacheresource.pdo.php';
  * Example usage :
  *      $cnx    =   new PDO("mysql:host=localhost;dbname=mydb", "username", "password");
  *      $smarty->setCachingType('pdo_gzip');
- *      $smarty->loadPlugin('Smarty_CacheResource_Pdo_Gzip');
  *      $smarty->registerCacheResource('pdo_gzip', new Smarty_CacheResource_Pdo_Gzip($cnx, 'smarty_cache'));
  *
  * @require Smarty_CacheResource_Pdo class

@@ -72,7 +72,6 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
         // Init temporary context
         $compiler->parser->current_buffer = new \Smarty\ParseTree\Template();
         $compiler->template->compiled->has_nocache_code = false;
-        $compiler->saveRequiredPlugins(true);
         return true;
     }
 }
@@ -138,7 +137,6 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
             $output .= "if (!function_exists('{$_funcNameCaching}')) {\n";
             $output .= "function {$_funcNameCaching} (Smarty_Internal_Template \$_smarty_tpl,\$params) {\n";
             $output .= "ob_start();\n";
-            $output .= $compiler->compileRequiredPlugins();
             $output .= "\$_smarty_tpl->compiled->has_nocache_code = true;\n";
             $output .= $_paramsCode;
             $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new \\Smarty\\Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}\n";
@@ -184,8 +182,6 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         $output .= "function {$_funcName}(Smarty_Internal_Template \$_smarty_tpl,\$params) {\n";
         $output .= $_paramsCode;
         $output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new \\Smarty\\Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}\n";
-        $output .= $compiler->compileCheckPlugins(array_merge($compiler->required_plugins[ 'compiled' ],
-            $compiler->required_plugins[ 'nocache' ]));
         $output .= "?>\n";
         $compiler->parser->current_buffer->append_subtree(
             $compiler->parser,
@@ -209,7 +205,6 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
         // restore old buffer
         $compiler->parser->current_buffer = $saved_data[ 1 ];
         // restore old status
-        $compiler->restoreRequiredPlugins();
         $compiler->template->compiled->has_nocache_code = $saved_data[ 2 ];
         $compiler->template->caching = $saved_data[ 3 ];
         return true;

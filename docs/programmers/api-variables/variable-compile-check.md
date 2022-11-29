@@ -18,7 +18,7 @@ enabled, then the cache files will get regenerated if an involved
 template file or config file was updated.
 
 As of Smarty 3.1 `$compile_check` can be set to the value
-`Smarty::COMPILECHECK_CACHEMISS`. This enables Smarty to revalidate the
+`\Smarty\Smarty::COMPILECHECK_CACHEMISS`. This enables Smarty to revalidate the
 compiled template, once a cache file is regenerated. So if there was a
 cached template, but it\'s expired, Smarty will run a single
 compile\_check before regenerating the cache.

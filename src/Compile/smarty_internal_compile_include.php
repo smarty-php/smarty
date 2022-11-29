@@ -59,9 +59,9 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
      * @var array
      */
     public $valid_scopes = array(
-        'parent' => Smarty::SCOPE_PARENT, 'root' => Smarty::SCOPE_ROOT,
-        'global' => Smarty::SCOPE_GLOBAL, 'tpl_root' => Smarty::SCOPE_TPL_ROOT,
-        'smarty' => Smarty::SCOPE_SMARTY
+        'parent' => \Smarty\Smarty::SCOPE_PARENT, 'root' => \Smarty\Smarty::SCOPE_ROOT,
+        'global' => \Smarty\Smarty::SCOPE_GLOBAL, 'tpl_root' => \Smarty\Smarty::SCOPE_TPL_ROOT,
+        'smarty' => \Smarty\Smarty::SCOPE_SMARTY
     );
 
     /**
@@ -127,7 +127,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $_cache_tpl = 'false';
         }
         // assume caching is off
-        $_caching = Smarty::CACHING_OFF;
+        $_caching = \Smarty\Smarty::CACHING_OFF;
         $call_nocache = $compiler->tag_nocache || $compiler->nocache;
         // caching was on and {include} is not in nocache mode
         if ($compiler->template->caching && !$compiler->nocache && !$compiler->tag_nocache) {
@@ -156,7 +156,7 @@ class Smarty_Internal_Compile_Include extends Smarty_Internal_CompileBase
             $_caching = $_new_caching = (int)$_attr[ 'caching' ];
             $call_nocache = true;
         } else {
-            $_new_caching = Smarty::CACHING_LIFETIME_CURRENT;
+            $_new_caching = \Smarty\Smarty::CACHING_LIFETIME_CURRENT;
         }
         if (isset($_attr[ 'cache_lifetime' ])) {
             $_cache_lifetime = $_attr[ 'cache_lifetime' ];

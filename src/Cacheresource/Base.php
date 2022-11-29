@@ -1,4 +1,11 @@
 <?php
+
+namespace Smarty\Cacheresource;
+
+use Smarty\Smarty;
+use Smarty_Internal_Template;
+use Smarty_Template_Cached;
+
 /**
  * Smarty Internal Plugin
  *
@@ -13,24 +20,24 @@
  * @subpackage Cacher
  * @author     Rodney Rehm
  */
-abstract class Smarty_CacheResource
+abstract class Base
 {
     /**
      * resource types provided by the core
      *
      * @var array
      */
-    protected static $sysplugins = array('file' => 'smarty_internal_cacheresource_file.php',);
+    protected static $sysplugins = array('file' => 'File.php',);
 
     /**
      * populate Cached Object with meta data from Resource
      *
-     * @param \Smarty_Template_Cached  $cached    cached object
+     * @param Smarty_Template_Cached  $cached    cached object
      * @param Smarty_Internal_Template $_template template object
      *
      * @return void
      */
-    abstract public function populate(\Smarty_Template_Cached $cached, Smarty_Internal_Template $_template);
+    abstract public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template);
 
     /**
      * populate Cached Object with timestamp and exists from Resource
@@ -187,7 +194,7 @@ abstract class Smarty_CacheResource
      * @param string $type   name of the cache resource
      *
      * @throws SmartyException
-     * @return Smarty_CacheResource Cache Resource Handler
+     * @return Base Cache Resource Handler
      */
     public static function load(Smarty $smarty, $type = null)
     {
@@ -205,15 +212,11 @@ abstract class Smarty_CacheResource
         }
         // try sysplugins dir
         if (isset(self::$sysplugins[ $type ])) {
-            $cache_resource_class = 'Smarty_Internal_CacheResource_' . smarty_ucfirst_ascii($type);
+            $cache_resource_class = 'Smarty_Internal_CacheResource_' . \smarty_ucfirst_ascii($type);
             return $smarty->_cacheresource_handlers[ $type ] = new $cache_resource_class();
         }
         // try plugins dir
-        $cache_resource_class = 'Smarty_CacheResource_' . smarty_ucfirst_ascii($type);
-        if ($smarty->loadPlugin($cache_resource_class)) {
-            return $smarty->_cacheresource_handlers[ $type ] = new $cache_resource_class();
-        }
-        // give up
-        throw new SmartyException("Unable to load cache resource '{$type}'");
+        $cache_resource_class = 'Smarty_CacheResource_' . \smarty_ucfirst_ascii($type);
+	    return $smarty->_cacheresource_handlers[ $type ] = new $cache_resource_class();
     }
 }

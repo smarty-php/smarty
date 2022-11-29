@@ -84,20 +84,18 @@ abstract class Base
         }
         // try plugins dir
         $_resource_class = 'Smarty_Resource_' . \smarty_ucfirst_ascii($type);
-        if ($smarty->loadPlugin($_resource_class)) {
-            if (class_exists($_resource_class, false)) {
-                return $smarty->_resource_handlers[ $type ] = new $_resource_class();
-            } else {
-                $smarty->registerResource(
-                    $type,
-                    array(
-                        "smarty_resource_{$type}_source", "smarty_resource_{$type}_timestamp",
-                        "smarty_resource_{$type}_secure", "smarty_resource_{$type}_trusted"
-                    )
-                );
-                // give it another try, now that the resource is registered properly
-                return self::load($smarty, $type);
-            }
+        if (class_exists($_resource_class, false)) {
+            return $smarty->_resource_handlers[ $type ] = new $_resource_class();
+        } else {
+            $smarty->registerResource(
+                $type,
+                array(
+                    "smarty_resource_{$type}_source", "smarty_resource_{$type}_timestamp",
+                    "smarty_resource_{$type}_secure", "smarty_resource_{$type}_trusted"
+                )
+            );
+            // give it another try, now that the resource is registered properly
+            return self::load($smarty, $type);
         }
         // try streams
         $_known_stream = stream_get_wrappers();

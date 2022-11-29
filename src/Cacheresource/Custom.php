@@ -1,10 +1,15 @@
 <?php
+
+namespace Smarty\Cacheresource;
+
 /**
  * Smarty Internal Plugin
  *
  * @package    Smarty
  * @subpackage Cacher
  */
+
+use Smarty\Cacheresource\Base;
 
 /**
  * Cache Handler API
@@ -13,7 +18,7 @@
  * @subpackage Cacher
  * @author     Rodney Rehm
  */
-abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
+abstract class Custom extends Base
 {
     /**
      * fetch cached content and its modification time from data source
@@ -73,7 +78,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     abstract protected function delete($name, $cache_id, $compile_id, $exp_time);
 
     /**
-     * populate Cached Object with meta data from Resource
+     * populate Cached Object with metadata from Resource
      *
      * @param Smarty_Template_Cached   $cached    cached object
      * @param Smarty_Internal_Template $_template template object
@@ -187,9 +192,8 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      */
     public function readCachedContent(Smarty_Internal_Template $_template)
     {
-        $content = $_template->cached->content ? $_template->cached->content : null;
-        $timestamp = null;
-        if ($content === null) {
+        $content = $_template->cached->content ?: null;
+	    if ($content === null) {
             $timestamp = null;
             $this->fetch(
                 $_template->cached->filepath,
@@ -206,15 +210,15 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
         return false;
     }
 
-    /**
-     * Empty cache
-     *
-     * @param Smarty  $smarty   Smarty object
-     * @param integer $exp_time expiration time (number of seconds, not timestamp)
-     *
-     * @return integer number of cache files deleted
-     */
-    public function clearAll(Smarty $smarty, $exp_time = null)
+	/**
+	 * Empty cache
+	 *
+	 * @param \Smarty\Smarty $smarty Smarty object
+	 * @param null $exp_time expiration time (number of seconds, not timestamp)
+	 *
+	 * @return integer number of cache files deleted
+	 */
+    public function clearAll(\Smarty\Smarty $smarty, $exp_time = null)
     {
         return $this->delete(null, null, null, $exp_time);
     }
@@ -222,7 +226,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     /**
      * Empty cache for a specific template
      *
-     * @param Smarty  $smarty        Smarty object
+     * @param \Smarty\Smarty  $smarty        Smarty object
      * @param string  $resource_name template name
      * @param string  $cache_id      cache id
      * @param string  $compile_id    compile id
@@ -231,7 +235,7 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
      * @return int number of cache files deleted
      * @throws \SmartyException
      */
-    public function clear(Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
+    public function clear(\Smarty\Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
     {
         $cache_name = null;
         if (isset($resource_name)) {
@@ -248,12 +252,12 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     /**
      * Check is cache is locked for this template
      *
-     * @param Smarty                 $smarty Smarty object
+     * @param \Smarty\Smarty                 $smarty Smarty object
      * @param Smarty_Template_Cached $cached cached object
      *
      * @return boolean               true or false if cache is locked
      */
-    public function hasLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function hasLock(\Smarty\Smarty $smarty, Smarty_Template_Cached $cached)
     {
         $id = $cached->lock_id;
         $name = $cached->source->name . '.lock';
@@ -267,12 +271,12 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     /**
      * Lock cache for this template
      *
-     * @param Smarty                 $smarty Smarty object
+     * @param \Smarty\Smarty                 $smarty Smarty object
      * @param Smarty_Template_Cached $cached cached object
      *
      * @return bool|void
      */
-    public function acquireLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function acquireLock(\Smarty\Smarty $smarty, Smarty_Template_Cached $cached)
     {
         $cached->is_locked = true;
         $id = $cached->lock_id;
@@ -283,12 +287,12 @@ abstract class Smarty_CacheResource_Custom extends Smarty_CacheResource
     /**
      * Unlock cache for this template
      *
-     * @param Smarty                 $smarty Smarty object
+     * @param \Smarty\Smarty                 $smarty Smarty object
      * @param Smarty_Template_Cached $cached cached object
      *
      * @return bool|void
      */
-    public function releaseLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function releaseLock(\Smarty\Smarty $smarty, Smarty_Template_Cached $cached)
     {
         $cached->is_locked = false;
         $name = $cached->source->name . '.lock';

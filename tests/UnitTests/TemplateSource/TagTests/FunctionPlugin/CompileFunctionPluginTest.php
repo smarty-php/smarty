@@ -42,7 +42,7 @@ class CompileFunctionPluginTest extends PHPUnit_Smarty
      */
     public function testFunctionPluginRegisteredFunction()
     {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'plugintest', 'myplugintest');
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_FUNCTION, 'plugintest', 'myplugintest');
         $tpl = $this->smarty->createTemplate('string:{plugintest foo=bar}', $this->smarty);
         $this->assertEquals("plugin test called bar", $this->smarty->fetch($tpl));
     }

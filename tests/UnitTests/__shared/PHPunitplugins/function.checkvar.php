@@ -49,8 +49,8 @@ function smarty_function_checkvar($params, $template)
     }
     if (in_array('global', $types)) {
         $output .= "#global:\${$var} =";
-        $output .= isset(Smarty::$global_tpl_vars[ $var ]) ?
-            preg_replace('/\s/', '', var_export(Smarty::$global_tpl_vars[ $var ]->value, true)) : '>unassigned<';
+        $output .= isset(\Smarty\Smarty::$global_tpl_vars[ $var ]) ?
+            preg_replace('/\s/', '', var_export(\Smarty\Smarty::$global_tpl_vars[ $var ]->value, true)) : '>unassigned<';
     }
     return $output;
 }

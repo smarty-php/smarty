@@ -20,15 +20,15 @@ class Smarty_Internal_Runtime_UpdateScope
     {
         if ($tagScope) {
             $this->_updateVarStack($tpl, $varName);
-            $tagScope = $tagScope & ~Smarty::SCOPE_LOCAL;
+            $tagScope = $tagScope & ~\Smarty\Smarty::SCOPE_LOCAL;
             if (!$tpl->scope && !$tagScope) {
                 return;
             }
         }
         $mergedScope = $tagScope | $tpl->scope;
         if ($mergedScope) {
-            if ($mergedScope & Smarty::SCOPE_GLOBAL && $varName) {
-                Smarty::$global_tpl_vars[ $varName ] = $tpl->tpl_vars[ $varName ];
+            if ($mergedScope & \Smarty\Smarty::SCOPE_GLOBAL && $varName) {
+	            \Smarty\Smarty::$global_tpl_vars[ $varName ] = $tpl->tpl_vars[ $varName ];
             }
             // update scopes
             foreach ($this->_getAffectedScopes($tpl, $mergedScope) as $ptr) {
@@ -54,7 +54,7 @@ class Smarty_Internal_Runtime_UpdateScope
         $ptr = $tpl->parent;
         if ($mergedScope && isset($ptr) && $ptr->_isTplObj()) {
             $_stack[] = $ptr;
-            $mergedScope = $mergedScope & ~Smarty::SCOPE_PARENT;
+            $mergedScope = $mergedScope & ~\Smarty\Smarty::SCOPE_PARENT;
             if (!$mergedScope) {
                 // only parent was set, we are done
                 return $_stack;
@@ -65,11 +65,11 @@ class Smarty_Internal_Runtime_UpdateScope
             $_stack[] = $ptr;
             $ptr = $ptr->parent;
         }
-        if ($mergedScope & Smarty::SCOPE_SMARTY) {
+        if ($mergedScope & \Smarty\Smarty::SCOPE_SMARTY) {
             if (isset($tpl->smarty)) {
                 $_stack[] = $tpl->smarty;
             }
-        } elseif ($mergedScope & Smarty::SCOPE_ROOT) {
+        } elseif ($mergedScope & \Smarty\Smarty::SCOPE_ROOT) {
             while (isset($ptr)) {
                 if (!$ptr->_isTplObj()) {
                     $_stack[] = $ptr;

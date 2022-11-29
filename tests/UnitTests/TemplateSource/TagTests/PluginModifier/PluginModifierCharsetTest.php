@@ -30,13 +30,13 @@ class PluginModifierCharsetTest extends PHPUnit_Smarty
 
     public function testToLatin1WithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $encoded = "hällö wörld 2";
         $result = mb_convert_encoding($encoded, 'ISO-8859-1', 'UTF-8');
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|to_charset}');
         $this->assertEquals($encoded, $tpl->fetch());
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testFromLatin1()
@@ -49,13 +49,13 @@ class PluginModifierCharsetTest extends PHPUnit_Smarty
 
     public function testFromLatin1WithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $result = "hällö wörld 4";
         $encoded = mb_convert_encoding($result, 'ISO-8859-1', 'UTF-8');
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|from_charset}');
         $this->assertEquals($encoded, $tpl->fetch());
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testFromUtf32le()
@@ -68,13 +68,13 @@ class PluginModifierCharsetTest extends PHPUnit_Smarty
 
     public function testFromUtf32leWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $result = "hällö wörld 6";
         $encoded = mb_convert_encoding($result, "UTF-32LE", "UTF-8");
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|from_charset:"UTF-32LE"}');
         $this->assertEquals($encoded, $tpl->fetch());
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testToUtf32le()
@@ -87,12 +87,12 @@ class PluginModifierCharsetTest extends PHPUnit_Smarty
 
     public function testToUtf32leWithoutMbstring()
     {
-        Smarty::$_MBSTRING = false;
+        \Smarty\Smarty::$_MBSTRING = false;
         $this->smarty->setCompileId('mb');
         $encoded = "hällö wörld 8";
         $result = mb_convert_encoding($encoded, "UTF-32LE", "UTF-8");
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|to_charset:"UTF-32LE"}');
         $this->assertEquals($encoded, $tpl->fetch());
-        Smarty::$_MBSTRING = true;
+        \Smarty\Smarty::$_MBSTRING = true;
     }
 }

@@ -89,7 +89,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                 case 'current_dir':
                     return 'dirname($_smarty_tpl->source->filepath)';
                 case 'version':
-                    return "Smarty::SMARTY_VERSION";
+                    return "\\Smarty\\Smarty::SMARTY_VERSION";
                 case 'const':
                     if (isset($compiler->smarty->security_policy)
                         && !$compiler->smarty->security_policy->allow_constants

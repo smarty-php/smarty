@@ -93,25 +93,25 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                 }
                 // autoescape html
                 if ($compiler->template->smarty->escape_html) {
-                    $output = "htmlspecialchars((string) {$output}, ENT_QUOTES, '" . addslashes(Smarty::$_CHARSET) . "')";
+                    $output = "htmlspecialchars((string) {$output}, ENT_QUOTES, '" . addslashes(\Smarty\Smarty::$_CHARSET) . "')";
                 }
                 // loop over registered filters
-                if (!empty($compiler->template->smarty->registered_filters[ Smarty::FILTER_VARIABLE ])) {
-                    foreach ($compiler->template->smarty->registered_filters[ Smarty::FILTER_VARIABLE ] as $key =>
+                if (!empty($compiler->template->smarty->registered_filters[ \Smarty\Smarty::FILTER_VARIABLE ])) {
+                    foreach ($compiler->template->smarty->registered_filters[ \Smarty\Smarty::FILTER_VARIABLE ] as $key =>
                         $function) {
                         if (!is_array($function)) {
                             $output = "{$function}({$output},\$_smarty_tpl)";
                         } elseif (is_object($function[ 0 ])) {
                             $output =
-                                "\$_smarty_tpl->smarty->registered_filters[Smarty::FILTER_VARIABLE]['{$key}'][0]->{$function[1]}({$output},\$_smarty_tpl)";
+                                "\$_smarty_tpl->smarty->registered_filters[\Smarty\Smarty::FILTER_VARIABLE]['{$key}'][0]->{$function[1]}({$output},\$_smarty_tpl)";
                         } else {
                             $output = "{$function[0]}::{$function[1]}({$output},\$_smarty_tpl)";
                         }
                     }
                 }
                 // auto loaded filters
-                if (isset($compiler->smarty->autoload_filters[ Smarty::FILTER_VARIABLE ])) {
-                    foreach ((array)$compiler->template->smarty->autoload_filters[ Smarty::FILTER_VARIABLE ] as $name) {
+                if (isset($compiler->smarty->autoload_filters[ \Smarty\Smarty::FILTER_VARIABLE ])) {
+                    foreach ((array)$compiler->template->smarty->autoload_filters[ \Smarty\Smarty::FILTER_VARIABLE ] as $name) {
                         $result = $this->compile_variable_filter($compiler, $name, $output);
                         if ($result !== false) {
                             $output = $result;

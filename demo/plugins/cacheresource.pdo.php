@@ -22,12 +22,11 @@
  * Example usage :
  *      $cnx    =   new PDO("mysql:host=localhost;dbname=mydb", "username", "password");
  *      $smarty->setCachingType('pdo');
- *      $smarty->loadPlugin('Smarty_CacheResource_Pdo');
  *      $smarty->registerCacheResource('pdo', new Smarty_CacheResource_Pdo($cnx, 'smarty_cache'));
  *
  * @author Beno!t POLASZEK - 2014
  */
-class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
+class Smarty_CacheResource_Pdo extends \Smarty\Cacheresource\Custom
 {
     /**
      * @var string[]
@@ -322,7 +321,7 @@ class Smarty_CacheResource_Pdo extends Smarty_CacheResource_Custom
             $where[] = 'compile_id = ' . $this->pdo->quote($compile_id);
         }
         // for clearing expired caches
-        if ($exp_time === Smarty::CLEAR_EXPIRED) {
+        if ($exp_time === \Smarty\Smarty::CLEAR_EXPIRED) {
             $where[] = 'expire < CURRENT_TIMESTAMP';
         } // range test expiration time
         elseif ($exp_time !== null) {

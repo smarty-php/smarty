@@ -8,13 +8,15 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Inheritance;
+
 /**
  * Smarty Internal Plugin Compile extend Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Extends extends Smarty_Internal_Compile_Shared_Inheritance
+class Smarty_Internal_Compile_Extends extends Inheritance
 {
     /**
      * Attribute definition: Overwrites base class.

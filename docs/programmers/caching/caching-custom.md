@@ -17,11 +17,11 @@ faster storage engine, centralize the cache to be accessible to multiple
 servers.
 
 Smarty allows CacheResource implementations to use one of the APIs
-`Smarty_CacheResource_Custom` or `Smarty_CacheResource_KeyValueStore`.
-`Smarty_CacheResource_Custom` is a simple API directing all read, write,
+`\Smarty\Cacheresource\Custom` or `\Smarty\Cacheresource\KeyValueStore`.
+`\Smarty\Cacheresource\Custom` is a simple API directing all read, write,
 clear calls to your implementation. This API allows you to store
 wherever and however you deem fit. The
-`Smarty_CacheResource_KeyValueStore` API allows you to turn any \"dumb\"
+`\Smarty\Cacheresource\KeyValueStore` API allows you to turn any \"dumb\"
 KeyValue-Store (like APC, Memcache, ...) into a full-featured
 CacheResource implementation. That is, everything around deep
 cache-groups like \"a\|b\|c\" is being handled for you in way that
@@ -66,7 +66,7 @@ to invoke your custom CacheResource implementation.
      * @package CacheResource-examples
      * @author Rodney Rehm
      */
-    class Smarty_CacheResource_Mysql extends Smarty_CacheResource_Custom {
+    class Smarty_CacheResource_Mysql extends \Smarty\Cacheresource\Custom {
         // PDO instance
         protected $db;
         protected $fetch;
@@ -214,7 +214,7 @@ to invoke your custom CacheResource implementation.
      * @package CacheResource-examples
      * @author Rodney Rehm
      */
-    class Smarty_CacheResource_Memcache extends Smarty_CacheResource_KeyValueStore {
+    class Smarty_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore {
         /**
          * memcache instance
          * @var Memcache

@@ -36,14 +36,6 @@
  */
 function smarty_function_html_image($params, Smarty_Internal_Template $template)
 {
-    $template->_checkPlugins(
-        array(
-            array(
-                'function' => 'smarty_function_escape_special_chars',
-                'file'     => SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php'
-            )
-        )
-    );
     $alt = '';
     $file = '';
     $height = '';

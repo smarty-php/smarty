@@ -79,7 +79,7 @@ class ModifierTest extends PHPUnit_Smarty
      */
     public function testModifierRegisteredStaticClass()
     {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier', array('testmodifierclass', 'staticcall'));
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'testmodifier', array('testmodifierclass', 'staticcall'));
         $this->smarty->assign('foo', 1);
         $this->assertEquals("mymodifier static 1", $this->smarty->fetch('testModifier_RegisteredStatic.tpl'));
     }
@@ -90,7 +90,7 @@ class ModifierTest extends PHPUnit_Smarty
     public function testModifierRegisteredMethodCall()
     {
         $obj = new testmodifierclass();
-        $this->smarty->registerPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier', array($obj, 'method'));
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'testmodifier', array($obj, 'method'));
         $this->smarty->assign('foo', 3);
         $this->assertEquals("mymodifier method 3", $this->smarty->fetch('testModifier_RegisteredMethod.tpl'));
     }
