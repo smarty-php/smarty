@@ -10,8 +10,7 @@ output filters operate on the template output when it is executed.
 
 Output filters can be either [registered](#api.register.filter) or
 loaded from the [plugins directory](#variable.plugins.dir) by using the
-[`loadFilter()`](#api.load.filter) method or by setting the
-[`$autoload_filters`](#variable.autoload.filters) variable. Smarty will
+[`loadFilter()`](#api.load.filter) method. Smarty will
 pass the template output as the first argument, and expect the function
 to return the result of the processing.
 
@@ -38,6 +37,5 @@ to return the result of the processing.
 
 See also [`registerFilter()`](#api.register.filter),
 [`loadFilter()`](#api.load.filter),
-[`$autoload_filters`](#variable.autoload.filters),
 [postfilters](#advanced.features.postfilters) and
 [`$plugins_dir`](#variable.plugins.dir).

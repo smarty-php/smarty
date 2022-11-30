@@ -109,18 +109,6 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                         }
                     }
                 }
-                // auto loaded filters
-                if (isset($compiler->smarty->autoload_filters[ \Smarty\Smarty::FILTER_VARIABLE ])) {
-                    foreach ((array)$compiler->template->smarty->autoload_filters[ \Smarty\Smarty::FILTER_VARIABLE ] as $name) {
-                        $result = $this->compile_variable_filter($compiler, $name, $output);
-                        if ($result !== false) {
-                            $output = $result;
-                        } else {
-                            // not found, throw exception
-                            throw new SmartyException("Unable to load variable filter '{$name}'");
-                        }
-                    }
-                }
                 foreach ($compiler->variable_filters as $filter) {
                     if (count($filter) === 1
                         && ($result = $this->compile_variable_filter($compiler, $filter[ 0 ], $output)) !== false

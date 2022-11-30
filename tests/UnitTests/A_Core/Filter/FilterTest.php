@@ -27,26 +27,6 @@ class FilterTest extends PHPUnit_Smarty
     }
 
     /**
-     * test autoload output filter
-     */
-    public function testAutoloadOutputFilter()
-    {
-        $this->smarty->autoload_filters[ 'output' ] = 'trimwhitespace';
-        $tpl = $this->smarty->createTemplate('eval:{"    <br>hello world"}');
-        $this->assertEquals("<br>hello world", $this->smarty->fetch($tpl));
-    }
-
-    /**
-     * test autoload variable filter
-     */
-    public function testAutoloadVariableFilter()
-    {
-        $this->smarty->autoload_filters[ 'variable' ] = 'htmlspecialchars';
-        $tpl = $this->smarty->createTemplate('eval:{"<test>"}');
-        $this->assertEquals("&lt;test&gt;", $this->smarty->fetch($tpl));
-    }
-
-    /**
      * test loaded filter
      */
     public function testLoadedOutputFilter()

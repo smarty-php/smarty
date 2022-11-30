@@ -37,6 +37,5 @@ specifies the `name` of the filter plugin.
 
        
 
-See also [`registerFilter()`](#api.register.filter),
-[`$autoload_filters`](#variable.autoload.filters) and [advanced
+See also [`registerFilter()`](#api.register.filter) and [advanced
 features](#advanced.features).

@@ -466,13 +466,6 @@ class Smarty extends \Smarty_Internal_TemplateBase
     public $registered_cache_resources = array();
 
     /**
-     * autoload filter
-     *
-     * @var array
-     */
-    public $autoload_filters = array();
-
-    /**
      * default modifier
      *
      * @var array

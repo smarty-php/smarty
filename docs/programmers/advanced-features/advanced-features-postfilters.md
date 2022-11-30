@@ -5,8 +5,7 @@ Template postfilters are PHP functions that your templates are ran
 through *after they are compiled*. Postfilters can be either
 [registered](#api.register.filter) or loaded from the [plugins
 directory](#variable.plugins.dir) by using the
-[`loadFilter()`](#api.load.filter) function or by setting the
-[`$autoload_filters`](#variable.autoload.filters) variable. Smarty will
+[`loadFilter()`](#api.load.filter) function. Smarty will
 pass the compiled template code as the first argument, and expect the
 function to return the result of the processing.
 

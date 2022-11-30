@@ -6,7 +6,6 @@ them directly, or use the corresponding setter/getter methods.
 
 - [$allow_php_templates](./api-variables/variable-allow-php-templates.md)
 - [$auto_literal](./api-variables/variable-auto-literal.md)
-- [$autoload_filters](./api-variables/variable-autoload-filters.md)
 - [$cache_dir](./api-variables/variable-cache-dir.md)
 - [$cache_id](./api-variables/variable-cache-id.md)
 - [$cache_lifetime](./api-variables/variable-cache-lifetime.md)

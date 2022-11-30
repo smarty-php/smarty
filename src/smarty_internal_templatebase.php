@@ -19,11 +19,9 @@
  * The following methods will be dynamically loaded by the extension handler when they are called.
  * They are located in a corresponding Smarty_Internal_Method_xxxx class
  *
- * @method Smarty_Internal_TemplateBase addAutoloadFilters(mixed $filters, string $type = null)
  * @method Smarty_Internal_TemplateBase addDefaultModifiers(mixed $modifiers)
  * @method Smarty_Internal_TemplateBase addLiterals(mixed $literals)
  * @method Smarty_Internal_TemplateBase createData(\Smarty\Data $parent = null, string $name = null)
- * @method array getAutoloadFilters(string $type = null)
  * @method string getDebugTemplate()
  * @method array getDefaultModifier()
  * @method array getLiterals()
@@ -34,7 +32,6 @@
  * @method Smarty_Internal_TemplateBase registerDefaultPluginHandler(callback $callback)
  * @method Smarty_Internal_TemplateBase registerDefaultTemplateHandler(callback $callback)
  * @method Smarty_Internal_TemplateBase registerResource(string $name, mixed $resource_handler)
- * @method Smarty_Internal_TemplateBase setAutoloadFilters(mixed $filters, string $type = null)
  * @method Smarty_Internal_TemplateBase setDebugTemplate(string $tpl_name)
  * @method Smarty_Internal_TemplateBase setDefaultModifiers(mixed $modifiers)
  * @method Smarty_Internal_TemplateBase setLiterals(mixed $literals)

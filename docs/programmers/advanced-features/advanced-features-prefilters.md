@@ -8,8 +8,7 @@ putting in their templates, etc.
 
 Prefilters can be either [registered](#api.register.filter) or loaded
 from the [plugins directory](#variable.plugins.dir) by using
-[`loadFilter()`](#api.load.filter) function or by setting the
-[`$autoload_filters`](#variable.autoload.filters) variable.
+[`loadFilter()`](#api.load.filter) function.
 
 Smarty will pass the template source code as the first argument, and
 expect the function to return the resulting template source code.

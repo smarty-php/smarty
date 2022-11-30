@@ -226,8 +226,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 );
             } else {
                 if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
-                    && !$no_output_filter && (isset($this->smarty->autoload_filters[ 'output' ])
-                                              || isset($this->smarty->registered_filters[ 'output' ]))
+                    && !$no_output_filter && isset($this->smarty->registered_filters[ 'output' ])
                 ) {
                     echo $this->smarty->ext->_filterHandler->runFilter('output', ob_get_clean(), $this);
                 } else {
@@ -247,10 +246,10 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                     $this->smarty->_debug->display_debug($this, true);
                 }
             }
-            if (!$no_output_filter
+            if (
+				!$no_output_filter
                 && (!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
-                && (isset($this->smarty->autoload_filters[ 'output' ])
-                    || isset($this->smarty->registered_filters[ 'output' ]))
+                && isset($this->smarty->registered_filters[ 'output' ])
             ) {
                 return $this->smarty->ext->_filterHandler->runFilter('output', ob_get_clean(), $this);
             }

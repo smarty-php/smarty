@@ -472,9 +472,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function postFilter($code)
     {
         // run post filter if on code
-        if (!empty($code)
-            && (isset($this->smarty->autoload_filters[ 'post' ]) || isset($this->smarty->registered_filters[ 'post' ]))
-        ) {
+        if (!empty($code) && isset($this->smarty->registered_filters[ 'post' ])) {
             return $this->smarty->ext->_filterHandler->runFilter('post', $code, $this->template);
         } else {
             return $code;
@@ -492,9 +490,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
     public function preFilter($_content)
     {
         // run pre filter if required
-        if ($_content !== ''
-            && ((isset($this->smarty->autoload_filters[ 'pre' ]) || isset($this->smarty->registered_filters[ 'pre' ])))
-        ) {
+        if ($_content !== '' && isset($this->smarty->registered_filters[ 'pre' ])) {
             return $this->smarty->ext->_filterHandler->runFilter('pre', $_content, $this->template);
         } else {
             return $_content;

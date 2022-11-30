@@ -216,7 +216,6 @@ class Debug extends Data
         $debObj->registered_plugins = array();
         $debObj->registered_resources = array();
         $debObj->registered_filters = array();
-        $debObj->autoload_filters = array();
         $debObj->default_modifiers = array();
         $debObj->escape_html = true;
         $debObj->caching = \Smarty::CACHING_OFF;

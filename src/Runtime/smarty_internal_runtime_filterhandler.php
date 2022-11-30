@@ -32,28 +32,6 @@ class Smarty_Internal_Runtime_FilterHandler
      */
     public function runFilter($type, $content, Smarty_Internal_Template $template)
     {
-        // loop over autoload filters of specified type
-        if (!empty($template->smarty->autoload_filters[ $type ])) {
-            foreach ((array)$template->smarty->autoload_filters[ $type ] as $name) {
-                $plugin_name = "Smarty_{$type}filter_{$name}";
-                if (function_exists($plugin_name)) {
-                    $callback = $plugin_name;
-                } elseif (class_exists($plugin_name, false) && is_callable(array($plugin_name, 'execute'))) {
-                    $callback = array($plugin_name, 'execute');
-                } else {
-                    if (function_exists($plugin_name)) {
-                        // use loaded Smarty2 style plugin
-                        $callback = $plugin_name;
-                    } elseif (class_exists($plugin_name, false) && is_callable(array($plugin_name, 'execute'))) {
-                        // loaded class of filter plugin
-                        $callback = array($plugin_name, 'execute');
-                    } else {
-                        throw new SmartyException("Auto load {$type}-filter plugin method '{$plugin_name}::execute' not callable");
-                    }
-                }
-                $content = call_user_func($callback, $content, $template);
-            }
-        }
         // loop over registered filters of specified type
         if (!empty($template->smarty->registered_filters[ $type ])) {
             foreach ($template->smarty->registered_filters[ $type ] as $key => $name) {
