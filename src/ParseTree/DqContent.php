@@ -12,7 +12,7 @@ namespace Smarty\ParseTree;
  */
 
 /**
- * Raw chars as part of a double quoted string.
+ * Raw chars as part of a double-quoted string.
  *
  * @package    Smarty
  * @subpackage Compiler
@@ -31,7 +31,7 @@ class DqContent extends Base
     }
 
     /**
-     * Return content as double quoted string
+     * Return content as double-quoted string
      *
      * @param \Smarty_Internal_Templateparser $parser
      *

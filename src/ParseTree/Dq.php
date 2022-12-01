@@ -2,7 +2,7 @@
 
 namespace Smarty\ParseTree;
 /**
- * Double quoted string inside a tag.
+ * Double-quoted string inside a tag.
  *
  * @package    Smarty
  * @subpackage Compiler
@@ -19,7 +19,7 @@ namespace Smarty\ParseTree;
 class Dq extends Base
 {
     /**
-     * Create parse tree buffer for double quoted string subtrees
+     * Create parse tree buffer for double-quoted string subtrees
      *
      * @param object                    $parser  parser object
      * @param Base $subtree parse tree buffer

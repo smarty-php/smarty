@@ -8,6 +8,8 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Main abstract compiler class
  *
@@ -712,9 +714,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
      * @return bool|string compiled code or false
      * @throws \SmartyCompilerException
      */
-    public function callTagCompiler($tag, $args, $param1 = null, $param2 = null, $param3 = null)
+    private function callTagCompiler($tag, $args, $param1 = null, $param2 = null, $param3 = null)
     {
-        /* @var Smarty_Internal_CompileBase $tagCompiler */
+        /* @var Base $tagCompiler */
         $tagCompiler = $this->getTagCompiler($tag);
         // compile this tag
         return $tagCompiler === false ? false : $tagCompiler->compile($args, $this, $param1, $param2, $param3);
@@ -723,21 +725,35 @@ abstract class Smarty_Internal_TemplateCompilerBase
     /**
      * lazy loads internal compile plugin for tag compile objects cached for reuse.
      *
-     * class name format:  Smarty_Internal_Compile_TagName
-     * plugin filename format: Smarty_Internal_TagName.php
+     * class name format:  \Smarty\Compile\TagName
      *
      * @param string $tag tag name
      *
-     * @return bool|\Smarty_Internal_CompileBase tag compiler object or false if not found
+     * @return bool|\Smarty\Compile\Base tag compiler object or false if not found
      */
     public function getTagCompiler($tag)
     {
+
+		static $map = [
+			'break' => \Smarty\Compile\BreakTag::class,
+			'config_load' => \Smarty\Compile\ConfigLoad::class,
+			'eval' => \Smarty\Compile\EvalTag::class,
+			'include' => \Smarty\Compile\IncludeTag::class,
+			'while' => \Smarty\Compile\WhileTag::class,
+			'private_modifier' => \Smarty\Compile\PrivateModifier::class,
+		];
+
         // re-use object if already exists
         if (!isset(self::$_tag_objects[ $tag ])) {
-            // lazy load internal compiler plugin
-            $_tag = explode('_', $tag);
-            $_tag = array_map('smarty_ucfirst_ascii', $_tag);
-            $class_name = 'Smarty_Internal_Compile_' . implode('_', $_tag);
+
+			if (isset($map[$tag])) {
+				$class_name = $map[$tag];
+			} else {
+				$_tag = explode('_', $tag);
+				$_tag = array_map('smarty_ucfirst_ascii', $_tag);
+				$class_name = '\\Smarty\\Compile\\' . implode('_', $_tag);
+			}
+
             if (class_exists($class_name)
                 && (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))
             ) {
