@@ -30,11 +30,6 @@ class MbSplitEncodingIssue549Test extends PHPUnit_Smarty
 
 	public function setUp(): void
     {
-        if(!\Smarty::$_MBSTRING)
-        {
-            $this->markTestSkipped("mbstring extension is not in use by Smarty");
-        }
-
         $this->charset = \Smarty::$_CHARSET;
         $this->setUpSmarty(__DIR__);
     }

@@ -24,57 +24,17 @@ function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = fals
 {
     $string = (string) $string;
 
-    if (\Smarty\Smarty::$_MBSTRING) {
-        if ($lc_rest) {
-            // uppercase (including hyphenated words)
-            $upper_string = mb_convert_case($string, MB_CASE_TITLE, \Smarty\Smarty::$_CHARSET);
-        } else {
-            // uppercase word breaks
-            $upper_string = preg_replace_callback(
-                "!(^|[^\p{L}'])([\p{Ll}])!S" . \Smarty\Smarty::$_UTF8_MODIFIER,
-                'smarty_mod_cap_mbconvert_cb',
-                $string
-            );
-        }
-        // check uc_digits case
-        if (!$uc_digits) {
-            if (preg_match_all(
-                "!\b([\p{L}]*[\p{N}]+[\p{L}]*)\b!" . \Smarty\Smarty::$_UTF8_MODIFIER,
-                $string,
-                $matches,
-                PREG_OFFSET_CAPTURE
-            )
-            ) {
-                foreach ($matches[ 1 ] as $match) {
-                    $upper_string =
-                        substr_replace(
-                            $upper_string,
-                            mb_strtolower($match[ 0 ], \Smarty\Smarty::$_CHARSET),
-                            $match[ 1 ],
-                            strlen($match[ 0 ])
-                        );
-                }
-            }
-        }
-        $upper_string =
-            preg_replace_callback(
-                "!((^|\s)['\"])(\w)!" . \Smarty\Smarty::$_UTF8_MODIFIER,
-                'smarty_mod_cap_mbconvert2_cb',
-                $upper_string
-            );
-        return $upper_string;
-    }
-    // lowercase first
     if ($lc_rest) {
-        $string = strtolower($string);
-    }
-    // uppercase (including hyphenated words)
-    $upper_string =
-        preg_replace_callback(
+        // uppercase (including hyphenated words)
+        $upper_string = mb_convert_case($string, MB_CASE_TITLE, \Smarty\Smarty::$_CHARSET);
+    } else {
+        // uppercase word breaks
+        $upper_string = preg_replace_callback(
             "!(^|[^\p{L}'])([\p{Ll}])!S" . \Smarty\Smarty::$_UTF8_MODIFIER,
-            'smarty_mod_cap_ucfirst_cb',
+            'smarty_mod_cap_mbconvert_cb',
             $string
         );
+    }
     // check uc_digits case
     if (!$uc_digits) {
         if (preg_match_all(
@@ -86,15 +46,21 @@ function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = fals
         ) {
             foreach ($matches[ 1 ] as $match) {
                 $upper_string =
-                    substr_replace($upper_string, strtolower($match[ 0 ]), $match[ 1 ], strlen($match[ 0 ]));
+                    substr_replace(
+                        $upper_string,
+                        mb_strtolower($match[ 0 ], \Smarty\Smarty::$_CHARSET),
+                        $match[ 1 ],
+                        strlen($match[ 0 ])
+                    );
             }
         }
     }
-    $upper_string = preg_replace_callback(
-        "!((^|\s)['\"])(\w)!" . \Smarty\Smarty::$_UTF8_MODIFIER,
-        'smarty_mod_cap_ucfirst2_cb',
-        $upper_string
-    );
+    $upper_string =
+        preg_replace_callback(
+            "!((^|\s)['\"])(\w)!" . \Smarty\Smarty::$_UTF8_MODIFIER,
+            'smarty_mod_cap_mbconvert2_cb',
+            $upper_string
+        );
     return $upper_string;
 }
 

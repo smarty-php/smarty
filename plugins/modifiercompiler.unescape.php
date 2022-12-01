@@ -29,10 +29,7 @@ function smarty_modifiercompiler_unescape($params, Smarty_Internal_TemplateCompi
     switch ($esc_type) {
         case 'entity':
         case 'htmlall':
-            if (\Smarty\Smarty::$_MBSTRING) {
-                return 'html_entity_decode(mb_convert_encoding(' . $params[ 0 ] . ', ' . $params[ 2 ] . ', \'UTF-8\'), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, ' . $params[ 2 ] . ')';
-            }
-            return 'html_entity_decode(' . $params[ 0 ] . ', ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, ' . $params[ 2 ] . ')';
+            return 'html_entity_decode(mb_convert_encoding(' . $params[ 0 ] . ', ' . $params[ 2 ] . ', \'UTF-8\'), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401, ' . $params[ 2 ] . ')';
         case 'html':
             return 'htmlspecialchars_decode(' . $params[ 0 ] . ', ENT_QUOTES)';
         case 'url':

@@ -34,12 +34,8 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
             return htmlspecialchars($string, ENT_QUOTES, $char_set, $double_encode);
         // no break
         case 'htmlall':
-            if (\Smarty\Smarty::$_MBSTRING) {
-                $string = mb_convert_encoding($string, 'UTF-8', $char_set);
-                return htmlentities($string, ENT_QUOTES, 'UTF-8', $double_encode);
-            }
-            // no MBString fallback
-            return htmlentities($string, ENT_QUOTES, $char_set, $double_encode);
+            $string = mb_convert_encoding($string, 'UTF-8', $char_set);
+            return htmlentities($string, ENT_QUOTES, 'UTF-8', $double_encode);
         // no break
         case 'url':
             return rawurlencode($string);
@@ -59,32 +55,14 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
             return $return;
         case 'hexentity':
             $return = '';
-            if (\Smarty\Smarty::$_MBSTRING) {
-                $return = '';
-                foreach (smarty_mb_to_unicode($string, \Smarty\Smarty::$_CHARSET) as $unicode) {
-                    $return .= '&#x' . strtoupper(dechex($unicode)) . ';';
-                }
-                return $return;
-            }
-            // no MBString fallback
-            $_length = strlen($string);
-            for ($x = 0; $x < $_length; $x++) {
-                $return .= '&#x' . bin2hex($string[ $x ]) . ';';
+            foreach (smarty_mb_to_unicode($string, \Smarty\Smarty::$_CHARSET) as $unicode) {
+                $return .= '&#x' . strtoupper(dechex($unicode)) . ';';
             }
             return $return;
         case 'decentity':
             $return = '';
-            if (\Smarty\Smarty::$_MBSTRING) {
-                 $return = '';
-                foreach (smarty_mb_to_unicode($string, \Smarty\Smarty::$_CHARSET) as $unicode) {
-                    $return .= '&#' . $unicode . ';';
-                }
-                return $return;
-            }
-            // no MBString fallback
-            $_length = strlen($string);
-            for ($x = 0; $x < $_length; $x++) {
-                $return .= '&#' . ord($string[ $x ]) . ';';
+            foreach (smarty_mb_to_unicode($string, \Smarty\Smarty::$_CHARSET) as $unicode) {
+                $return .= '&#' . $unicode . ';';
             }
             return $return;
         case 'javascript':
@@ -105,21 +83,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
                 )
             );
         case 'mail':
-            if (\Smarty\Smarty::$_MBSTRING) {
-                return smarty_mb_str_replace(
-                    array(
-                        '@',
-                        '.'
-                    ),
-                    array(
-                        ' [AT] ',
-                        ' [DOT] '
-                    ),
-                    $string
-                );
-            }
-            // no MBString fallback
-            return str_replace(
+            return smarty_mb_str_replace(
                 array(
                     '@',
                     '.'
@@ -133,24 +97,11 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
         case 'nonstd':
             // escape non-standard chars, such as ms document quotes
             $return = '';
-            if (\Smarty\Smarty::$_MBSTRING) {
-                foreach (smarty_mb_to_unicode($string, \Smarty\Smarty::$_CHARSET) as $unicode) {
-                    if ($unicode >= 126) {
-                        $return .= '&#' . $unicode . ';';
-                    } else {
-                        $return .= chr($unicode);
-                    }
-                }
-                return $return;
-            }
-            $_length = strlen($string);
-            for ($_i = 0; $_i < $_length; $_i++) {
-                $_ord = ord(substr($string, $_i, 1));
-                // non-standard char, escape it
-                if ($_ord >= 126) {
-                    $return .= '&#' . $_ord . ';';
+            foreach (smarty_mb_to_unicode($string, \Smarty\Smarty::$_CHARSET) as $unicode) {
+                if ($unicode >= 126) {
+                    $return .= '&#' . $unicode . ';';
                 } else {
-                    $return .= substr($string, $_i, 1);
+                    $return .= chr($unicode);
                 }
             }
             return $return;

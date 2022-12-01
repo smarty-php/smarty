@@ -20,15 +20,9 @@ namespace Smarty\Resource;
  */
 class Extending extends Base
 {
-    /**
-     * mbstring.overload flag
-     *
-     * @var int
-     */
-    public $mbstring_overload = 0;
 
     /**
-     * populate Source Object with meta data from Resource
+     * populate Source Object with metadata from Resource
      *
      * @param \Smarty_Template_Source   $source    source object
      * @param \Smarty_Internal_Template $_template template object

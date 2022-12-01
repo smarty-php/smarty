@@ -30,12 +30,13 @@
         "forum": "https://github.com/smarty-php/smarty/discussions"
     },
     "require": {
-        "php": "^7.1 || ^8.0"
+        "php": "^7.1 || ^8.0",
+        "symfony/polyfill-mbstring": "^1.27"
     },
     "autoload": {
-        "classmap": [
-            "libs/"
-        ]
+        "psr-4" : {
+            "Smarty\\" : "src/"
+        }
     },
     "extra": {
         "branch-alias": {

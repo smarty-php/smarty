@@ -1,7 +1,9 @@
 <?php
 
 // compiler.testclose.php
-class smarty_compiler_testclose extends Smarty_Internal_CompileBase
+use Smarty\Compile\Base;
+
+class smarty_compiler_testclose extends Base
 {
     public function execute($args, $compiler)
     {

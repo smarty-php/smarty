@@ -28,32 +28,12 @@ class PluginModifierUnescapeTest extends PHPUnit_Smarty
         $this->assertEquals($result, $this->smarty->fetch($tpl));
     }
 
-    public function testHtmlWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $encoded = "a&#228;&#1047;&#1076;&#1088;&#1072;&gt;&lt;&amp;amp;&auml;&#228;&#1074;&#1089;&#1089;&#1090;&#1074;&#1091;&#1081;&#1090;&#1077;";
-        $result = "a&#228;&#1047;&#1076;&#1088;&#1072;><&amp;&auml;&#228;&#1074;&#1089;&#1089;&#1090;&#1074;&#1091;&#1081;&#1090;&#1077;";
-        $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|unescape:"html"}');
-        $this->assertEquals($result, $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
-
     public function testHtmlall()
     {
         $encoded = "&#039;&quot;a&#228;&#1047;&#1076;&#1088;&#1072;&gt;&lt;&amp;amp;&auml;&#228;&#1074;&#1089;&#1089;&#1090;&#1074;&#1091;&#1081;&#1090;&#1077;";
         $result = "'\"aäЗдра><&amp;ääвсствуйте";
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|unescape:"htmlall"}');
         $this->assertEquals($result, $this->smarty->fetch($tpl));
-    }
-
-    public function testHtmlallWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $encoded = "&#039;&quot;a&#228;&#1047;&#1076;&#1088;&#1072;&gt;&lt;&amp;amp;&auml;&#228;&#1074;&#1089;&#1089;&#1090;&#1074;&#1091;&#1081;&#1090;&#1077;";
-        $result = "'\"aäЗдра><&amp;ääвсствуйте";
-        $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|unescape:"htmlall"}');
-        $this->assertEquals($result, $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testUrl()

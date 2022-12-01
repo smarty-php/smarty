@@ -23,8 +23,5 @@
  */
 function smarty_modifier_replace($string, $search, $replace)
 {
-    if (\Smarty\Smarty::$_MBSTRING) {
-        return smarty_mb_str_replace($search, $replace, $string);
-    }
-    return str_replace($search, $replace, $string);
+    return smarty_mb_str_replace($search, $replace, $string);
 }

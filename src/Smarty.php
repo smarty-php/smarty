@@ -32,13 +32,6 @@ namespace Smarty;
  * @package   Smarty
  */
 
-if (!defined('SMARTY_MBSTRING')) {
-    /**
-     *
-     */
-    define('SMARTY_MBSTRING', function_exists('mb_get_info'));
-}
-
 /**
  * This is the main Smarty class
  *
@@ -105,14 +98,9 @@ class Smarty extends \Smarty_Internal_TemplateBase
     public static $global_tpl_vars = array();
 
     /**
-     * Flag denoting if Multibyte String functions are available
+     * The character set to adhere to (defaults to "UTF-8")
      */
-    public static $_MBSTRING = SMARTY_MBSTRING;
-
-    /**
-     * The character set to adhere to (e.g. "UTF-8")
-     */
-    public static $_CHARSET = SMARTY_MBSTRING ? 'UTF-8' : 'ISO-8859-1';
+    public static $_CHARSET = 'UTF-8';
 
     /**
      * The date format to be used internally

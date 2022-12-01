@@ -35,13 +35,8 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                     var_export($double_encode, true) . ')';
             // no break
             case 'htmlall':
-                if (\Smarty\Smarty::$_MBSTRING) {
-                    return 'htmlentities(mb_convert_encoding((string)' . $params[ 0 ] . ', \'UTF-8\', ' .
-                        var_export($char_set, true) . '), ENT_QUOTES, \'UTF-8\', ' .
-                        var_export($double_encode, true) . ')';
-                }
-                // no MBString fallback
-                return 'htmlentities((string)' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
+                return 'htmlentities(mb_convert_encoding((string)' . $params[ 0 ] . ', \'UTF-8\', ' .
+                    var_export($char_set, true) . '), ENT_QUOTES, \'UTF-8\', ' .
                     var_export($double_encode, true) . ')';
             // no break
             case 'url':

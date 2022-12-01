@@ -27,29 +27,11 @@ class PluginModifierTruncateTest extends PHPUnit_Smarty
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
     }
 
-    public function testDefaultWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $result = 'Two Sisters Reunite after Eighteen Years at Checkout Counter.';
-        $tpl = $this->smarty->createTemplate('string:{"Two Sisters Reunite after Eighteen Years at Checkout Counter."|truncate}');
-        $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
-
     public function testLength()
     {
         $result = 'Two Sisters Reunite after...';
         $tpl = $this->smarty->createTemplate('string:{"Two Sisters Reunite after Eighteen Years at Checkout Counter."|truncate:30}');
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-    }
-
-    public function testLengthWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $result = 'Two Sisters Reunite after...';
-        $tpl = $this->smarty->createTemplate('string:{"Two Sisters Reunite after Eighteen Years at Checkout Counter."|truncate:30}');
-        $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testEtc()
@@ -59,29 +41,11 @@ class PluginModifierTruncateTest extends PHPUnit_Smarty
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
     }
 
-    public function testEtcWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $result = 'Two Sisters Reunite after';
-        $tpl = $this->smarty->createTemplate('string:{"Two Sisters Reunite after Eighteen Years at Checkout Counter."|truncate:30:""}');
-        $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
-
     public function testEtc2()
     {
         $result = 'Two Sisters Reunite after---';
         $tpl = $this->smarty->createTemplate('string:{"Two Sisters Reunite after Eighteen Years at Checkout Counter."|truncate:30:"---"}');
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-    }
-
-    public function testEtc2WithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $result = 'Two Sisters Reunite after---';
-        $tpl = $this->smarty->createTemplate('string:{"Two Sisters Reunite after Eighteen Years at Checkout Counter."|truncate:30:"---"}');
-        $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testBreak()
@@ -91,29 +55,11 @@ class PluginModifierTruncateTest extends PHPUnit_Smarty
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
     }
 
-    public function testBreakWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $result = 'Two Sisters Reunite after Eigh';
-        $tpl = $this->smarty->createTemplate('string:{"Two Sisters Reunite after Eighteen Years at Checkout Counter."|truncate:30:"":true}');
-        $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
-
     public function testBreak2()
     {
         $result = 'Two Sisters Reunite after E...';
         $tpl = $this->smarty->createTemplate('string:{"Two Sisters Reunite after Eighteen Years at Checkout Counter."|truncate:30:"...":true}');
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-    }
-
-    public function testBreak2WithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $result = 'Two Sisters Reunite after E...';
-        $tpl = $this->smarty->createTemplate('string:{"Two Sisters Reunite after Eighteen Years at Checkout Counter."|truncate:30:"...":true}');
-        $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testMiddle()
@@ -123,12 +69,4 @@ class PluginModifierTruncateTest extends PHPUnit_Smarty
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
     }
 
-    public function testMiddleWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $result = 'Two Sisters Re..ckout Counter.';
-        $tpl = $this->smarty->createTemplate('string:{"Two Sisters Reunite after Eighteen Years at Checkout Counter."|truncate:30:"..":true:true}');
-        $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
 }

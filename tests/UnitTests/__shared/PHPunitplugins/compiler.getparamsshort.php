@@ -6,6 +6,8 @@
  * @subpackage PHPunitPlugin
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty {getparams}
  *
@@ -14,13 +16,13 @@
  *
  * @return string
  */
-class smarty_compiler_getparamsshort extends Smarty_Internal_CompileBase
+class smarty_compiler_getparamsshort extends Base
 {
     /**
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $required_attributes = array();
 
@@ -28,14 +30,14 @@ class smarty_compiler_getparamsshort extends Smarty_Internal_CompileBase
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $optional_attributes = array('_any');
     /**
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $shorttag_order = array('s1', 's2', 's3');
 

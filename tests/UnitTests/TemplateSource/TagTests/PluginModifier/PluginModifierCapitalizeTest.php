@@ -40,50 +40,12 @@ class PluginModifierCapitalizeTest extends PHPUnit_Smarty
         $this->assertEquals("Next X-Men Film, X3, Delayed. Ümlauts Äre Cööl.", $this->smarty->fetch($tpl));
     }
 
-    public function testDefaultWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;
-        $this->smarty->setCompileId('mb');
-        $tpl = $this->smarty->createTemplate('string:{"next x-men fiLm, x3, delayed."|capitalize}');
-        $this->assertEquals("Next X-Men FiLm, x3, Delayed.", $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
-
-    public function testDigitsWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;
-        $this->smarty->setCompileId('mb');
-        $tpl = $this->smarty->createTemplate('string:{"next x-men fiLm, x3, delayed."|capitalize:true}');
-        $this->assertEquals("Next X-Men FiLm, X3, Delayed.", $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
-
-    public function testTrueCaptialsWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;
-        $this->smarty->setCompileId('mb');
-        $tpl = $this->smarty->createTemplate('string:{"next x-men fiLm, x3, delayed."|capitalize:true:true}');
-        $this->assertEquals("Next X-Men Film, X3, Delayed.", $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
-
     public function testQuotes()
     {
         $tpl = $this->smarty->createTemplate('string:{"next x-men fiLm, x3, \"delayed. umlauts\" foo."|capitalize}');
         $this->assertEquals("Next X-Men FiLm, x3, \"Delayed. Umlauts\" Foo.", $this->smarty->fetch($tpl));
         $tpl = $this->smarty->createTemplate('string:{"next x-men fiLm, x3, \'delayed. umlauts\' foo."|capitalize}');
         $this->assertEquals("Next X-Men FiLm, x3, 'Delayed. Umlauts' Foo.", $this->smarty->fetch($tpl));
-    }
-
-    public function testQuotesWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;
-        $this->smarty->setCompileId('mb');
-        $tpl = $this->smarty->createTemplate('string:{"next x-men fiLm, x3, \"delayed. umlauts\" foo."|capitalize}');
-        $this->assertEquals("Next X-Men FiLm, x3, \"Delayed. Umlauts\" Foo.", $this->smarty->fetch($tpl));
-        $tpl = $this->smarty->createTemplate('string:{"next x-men fiLm, x3, \'delayed. umlauts\' foo."|capitalize}');
-        $this->assertEquals("Next X-Men FiLm, x3, 'Delayed. Umlauts' Foo.", $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
     }
 
     public function testQuotesDigits()
@@ -96,19 +58,6 @@ class PluginModifierCapitalizeTest extends PHPUnit_Smarty
         $this->assertEquals("Next X-Men FiLm, X3, 'Delayed. Umlauts' Foo.", $this->smarty->fetch($tpl));
     }
 
-    public function testQuotesDigitsWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;
-        $this->smarty->setCompileId('mb');
-        $tpl =
-            $this->smarty->createTemplate('string:{"next x-men fiLm, x3, \"delayed. umlauts\" foo."|capitalize:true}');
-        $this->assertEquals("Next X-Men FiLm, X3, \"Delayed. Umlauts\" Foo.", $this->smarty->fetch($tpl));
-        $tpl =
-            $this->smarty->createTemplate('string:{"next x-men fiLm, x3, \'delayed. umlauts\' foo."|capitalize:true}');
-        $this->assertEquals("Next X-Men FiLm, X3, 'Delayed. Umlauts' Foo.", $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
-
     public function testQuotesTrueCapitals()
     {
         $tpl =
@@ -119,19 +68,6 @@ class PluginModifierCapitalizeTest extends PHPUnit_Smarty
         $this->assertEquals("Next X-Men Film, X3, 'Delayed. Umlauts' Foo.", $this->smarty->fetch($tpl));
     }
 
-    public function testQuotesTrueCapitalsWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;
-        $this->smarty->setCompileId('mb');
-        $tpl =
-            $this->smarty->createTemplate('string:{"next x-men fiLm, x3, \"delayed. umlauts\" foo."|capitalize:true:true}');
-        $this->assertEquals("Next X-Men Film, X3, \"Delayed. Umlauts\" Foo.", $this->smarty->fetch($tpl));
-        $tpl =
-            $this->smarty->createTemplate('string:{"next x-men fiLm, x3, \'delayed. umlauts\' foo."|capitalize:true:true}');
-        $this->assertEquals("Next X-Men Film, X3, 'Delayed. Umlauts' Foo.", $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
-
     public function testQuotesBeginning()
     {
         $tpl = $this->smarty->createTemplate('string:{"\"delayed. umlauts\" foo."|capitalize}');
@@ -140,14 +76,4 @@ class PluginModifierCapitalizeTest extends PHPUnit_Smarty
         $this->assertEquals("'Delayed. Umlauts' Foo.", $this->smarty->fetch($tpl));
     }
 
-    public function testQuotesBeginningWithoutMbstring()
-    {
-        \Smarty\Smarty::$_MBSTRING = false;
-        $this->smarty->setCompileId('mb');
-        $tpl = $this->smarty->createTemplate('string:{"\"delayed. umlauts\" foo."|capitalize}');
-        $this->assertEquals("\"Delayed. Umlauts\" Foo.", $this->smarty->fetch($tpl));
-        $tpl = $this->smarty->createTemplate('string:{"\'delayed. umlauts\' foo."|capitalize}');
-        $this->assertEquals("'Delayed. Umlauts' Foo.", $this->smarty->fetch($tpl));
-        \Smarty\Smarty::$_MBSTRING = true;
-    }
 }
