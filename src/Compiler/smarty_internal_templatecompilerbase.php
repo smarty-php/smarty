@@ -23,12 +23,6 @@ use Smarty\Compile\Base;
  */
 abstract class Smarty_Internal_TemplateCompilerBase
 {
-    /**
-     * compile tag objects cache
-     *
-     * @var array
-     */
-    public static $_tag_objects = array();
 
     /**
      * counter for prefix variable number
@@ -729,40 +723,44 @@ abstract class Smarty_Internal_TemplateCompilerBase
      *
      * @param string $tag tag name
      *
-     * @return bool|\Smarty\Compile\Base tag compiler object or false if not found
+     * @return bool|Base tag compiler object or false if not found or untrusted by security policy
      */
     public function getTagCompiler($tag)
     {
 
-		static $map = [
-			'break' => \Smarty\Compile\BreakTag::class,
-			'config_load' => \Smarty\Compile\ConfigLoad::class,
-			'eval' => \Smarty\Compile\EvalTag::class,
-			'include' => \Smarty\Compile\IncludeTag::class,
-			'while' => \Smarty\Compile\WhileTag::class,
-			'private_modifier' => \Smarty\Compile\PrivateModifier::class,
-		];
+		if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->isTrustedTag($tag, $this)) {
+			return false;
+		}
 
-        // re-use object if already exists
-        if (!isset(self::$_tag_objects[ $tag ])) {
+		switch ($tag) {
+			case 'append': return new \Smarty\Compile\Append();
+			case 'assign': return new \Smarty\Compile\Assign();
+			case 'block': return new \Smarty\Compile\Block();
+			case 'blockclose': return new \Smarty\Compile\Blockclose();
+			case 'break': return new \Smarty\Compile\BreakTag();
+			case 'call': return new \Smarty\Compile\Call();
+			case 'child': return new \Smarty\Compile\Child();
+			case 'config_load': return new \Smarty\Compile\ConfigLoad();
+			case 'continue': return new \Smarty\Compile\ContinueTag();
+			case 'debug': return new \Smarty\Compile\Debug();
+			case 'eval': return new \Smarty\Compile\EvalTag();
+			case 'include': return new \Smarty\Compile\IncludeTag();
+			case 'insert': return new \Smarty\Compile\Inser();
+			case 'ldelim': return new \Smarty\Compile\Ldelim();
+			case 'make_nocache': return new \Smarty\Compile\MakeNocache();
+			case 'private_block_plugin': return new \Smarty\Compile\PrivateBlockPlugin();
+			case 'private_function_plugin': return new \Smarty\Compile\PrivateFunctionPlugin();
+			case 'private_modifier': return new \Smarty\Compile\PrivateModifier();
+			case 'private_object_function': return new \Smarty\Compile\PrivateObjectFunction();
+			case 'private_object_block_function': return new \Smarty\Compile\PrivateObjectBlockFunction();
+			case 'private_print_expression': return new \Smarty\Compile\PrivatePrintExpression();
+			case 'private_registered_function': return new \Smarty\Compile\PrivateRegisteredFunction();
+			case 'private_special_variable': return new \Smarty\Compile\PrivateSpecialVariable();
+			case 'while': return new \Smarty\Compile\WhileTag();
+			case 'whileclose': return new \Smarty\Compile\Whileclose();
+		}
 
-			if (isset($map[$tag])) {
-				$class_name = $map[$tag];
-			} else {
-				$_tag = explode('_', $tag);
-				$_tag = array_map('smarty_ucfirst_ascii', $_tag);
-				$class_name = '\\Smarty\\Compile\\' . implode('_', $_tag);
-			}
-
-            if (class_exists($class_name)
-                && (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this))
-            ) {
-                self::$_tag_objects[ $tag ] = new $class_name;
-            } else {
-                self::$_tag_objects[ $tag ] = false;
-            }
-        }
-        return self::$_tag_objects[ $tag ];
+	    return false;
     }
 
     /**

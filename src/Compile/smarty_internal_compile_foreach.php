@@ -8,6 +8,7 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\ForeachSection;
 use Smarty\Compile\Base;
 
 /**
@@ -16,7 +17,7 @@ use Smarty\Compile\Base;
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Foreach extends _Private_ForeachSection
+class Smarty_Internal_Compile_Foreach extends ForeachSection
 {
     /**
      * Attribute definition: Overwrites base class.

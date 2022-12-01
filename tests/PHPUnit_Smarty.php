@@ -650,11 +650,6 @@ KEY `name` (`name`)
      */
     protected function tearDown(): void
     {
-        if (class_exists('Smarty_Internal_TemplateCompilerBase') &&
-            isset(Smarty_Internal_TemplateCompilerBase::$_tag_objects)
-        ) {
-            Smarty_Internal_TemplateCompilerBase::$_tag_objects = array();
-        }
         if (isset($this->smarty->smarty)) {
             $this->smarty->smarty = null;
         }

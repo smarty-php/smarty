@@ -8,13 +8,15 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\PrivateBlockPlugin;
+
 /**
  * Smarty Internal Plugin Compile Registered Block Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Registered_Block extends _Private_Block_Plugin
+class Smarty_Internal_Compile__Registered_Private_Block extends PrivateBlockPlugin
 {
     /**
      * Setup callback, parameter array and nocache mode
@@ -26,7 +28,7 @@ class Smarty_Internal_Compile_Private_Registered_Block extends _Private_Block_Pl
      *
      * @return array
      */
-    public function setup(Smarty_Internal_TemplateCompilerBase $compiler, $_attr, $tag, $function)
+    protected function setup(Smarty_Internal_TemplateCompilerBase $compiler, $_attr, $tag, $function)
     {
         if (isset($compiler->smarty->registered_plugins[ \Smarty\Smarty::PLUGIN_BLOCK ][ $tag ])) {
             $tag_info = $compiler->smarty->registered_plugins[ \Smarty\Smarty::PLUGIN_BLOCK ][ $tag ];

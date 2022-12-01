@@ -37,14 +37,12 @@ class _Capture extends Base
     /**
      * Compiles code for the {$smarty.capture.xxx}
      *
-     * @param array                                 $args      array with attributes from parser
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
      * @param array                                 $parameter array with compilation parameter
      *
      * @return string compiled code
      */
     public static function compileSpecialVariable(
-        $args,
         Smarty_Internal_TemplateCompilerBase $compiler,
         $parameter = null
     ) {

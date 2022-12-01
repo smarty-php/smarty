@@ -8,6 +8,8 @@
  * @author     Uwe Tews
  */
 
+namespace Smarty\Compile;
+
 use Smarty\Compile\BreakTag;
 
 /**
@@ -16,12 +18,12 @@ use Smarty\Compile\BreakTag;
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Continue extends BreakTag
-{
-    /**
-     * Tag name
-     *
-     * @var string
-     */
-    public $tag = 'continue';
+class ContinueTag extends BreakTag {
+
+	/**
+	 * Tag name
+	 *
+	 * @var string
+	 */
+	public $tag = 'continue';
 }
