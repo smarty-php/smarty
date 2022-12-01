@@ -8,13 +8,15 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Ldelim;
+
 /**
  * Smarty Internal Plugin Compile Rdelim Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Rdelim extends Smarty_Internal_Compile_Ldelim
+class Smarty_Internal_Compile_Rdelim extends Ldelim
 {
     /**
      * Compiles code for the {rdelim} tag
@@ -26,7 +28,7 @@ class Smarty_Internal_Compile_Rdelim extends Smarty_Internal_Compile_Ldelim
      * @return string compiled code
      * @throws \SmartyCompilerException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         parent::compile($args, $compiler);
         return $compiler->smarty->right_delimiter;

@@ -14,7 +14,7 @@
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Object_Block_Function extends Smarty_Internal_Compile_Private_Block_Plugin
+class Smarty_Internal_Compile_Private_Object_Block_Function extends _Private_Block_Plugin
 {
     /**
      * Setup callback and parameter array

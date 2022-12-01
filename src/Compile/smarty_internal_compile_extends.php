@@ -9,6 +9,7 @@
  */
 
 use Smarty\Compile\Inheritance;
+use Smarty\Compile\Base;
 
 /**
  * Smarty Internal Plugin Compile extend Class
@@ -22,7 +23,7 @@ class Smarty_Internal_Compile_Extends extends Inheritance
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $required_attributes = array('file');
 
@@ -38,7 +39,7 @@ class Smarty_Internal_Compile_Extends extends Inheritance
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $shorttag_order = array('file');
 
@@ -52,7 +53,7 @@ class Smarty_Internal_Compile_Extends extends Inheritance
      * @throws \SmartyCompilerException
      * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);

@@ -17,7 +17,7 @@ namespace Smarty\Compile;
  * @package    Smarty
  * @subpackage Compiler
  */
-abstract class Inheritance extends \Smarty_Internal_CompileBase
+abstract class Inheritance extends \Smarty\Compile\Base
 {
     /**
      * Compile inheritance initialization code as prefix

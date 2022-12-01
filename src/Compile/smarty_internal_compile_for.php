@@ -8,13 +8,15 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile For Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
+class _For extends Base
 {
     /**
      * Compiles code for the {for} tag
@@ -32,7 +34,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         $compiler->loopNesting++;
         if ($parameter === 0) {
@@ -106,7 +108,7 @@ class Smarty_Internal_Compile_For extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
+class _Forelse extends Base
 {
     /**
      * Compiles code for the {forelse} tag
@@ -117,11 +119,11 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        list($openTag, $nocache) = $this->closeTag($compiler, array('for'));
+        [$openTag, $nocache] = $this->closeTag($compiler, array('for'));
         $this->openTag($compiler, 'forelse', array('forelse', $nocache));
         return "<?php }} else { ?>";
     }
@@ -133,7 +135,7 @@ class Smarty_Internal_Compile_Forelse extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
+class _Forclose extends Base
 {
     /**
      * Compiles code for the {/for} tag
@@ -144,7 +146,7 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         $compiler->loopNesting--;
         // check and get attributes
@@ -153,7 +155,7 @@ class Smarty_Internal_Compile_Forclose extends Smarty_Internal_CompileBase
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;
         }
-        list($openTag, $compiler->nocache) = $this->closeTag($compiler, array('for', 'forelse'));
+        [$openTag, $compiler->nocache] = $this->closeTag($compiler, array('for', 'forelse'));
         $output = "<?php }\n";
         if ($openTag !== 'forelse') {
             $output .= "}\n";

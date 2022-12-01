@@ -8,19 +8,21 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile Registered Function Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Internal_CompileBase
+class _Private_Registered_Function extends Base
 {
     /**
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $optional_attributes = array('_any');
 
@@ -36,7 +38,7 @@ class Smarty_Internal_Compile_Private_Registered_Function extends Smarty_Interna
      * @throws \SmartyCompilerException
      * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);

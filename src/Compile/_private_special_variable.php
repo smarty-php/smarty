@@ -8,13 +8,15 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile special Smarty Variable Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_CompileBase
+class _Private_Special_Variable extends Base
 {
     /**
      * Compiles code for the special $smarty variables
@@ -26,7 +28,7 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
      * @return string compiled code
      * @throws \SmartyCompilerException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         $_index = preg_split("/\]\[/", substr($parameter, 1, strlen($parameter) - 2));
         $variable = smarty_strtolower_ascii($compiler->getId($_index[ 0 ]));
@@ -49,8 +51,8 @@ class Smarty_Internal_Compile_Private_Special_Variable extends Smarty_Internal_C
                         $_index
                     );
                 case 'capture':
-                    if (class_exists('Smarty_Internal_Compile_Capture')) {
-                        return Smarty_Internal_Compile_Capture::compileSpecialVariable(array(), $compiler, $_index);
+                    if (class_exists('_Capture')) {
+                        return _Capture::compileSpecialVariable(array(), $compiler, $_index);
                     }
                     return '';
                 case 'now':

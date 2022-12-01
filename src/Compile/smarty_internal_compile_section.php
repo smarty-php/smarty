@@ -8,19 +8,21 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile Section Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_ForeachSection
+class Smarty_Internal_Compile_Section extends _Private_ForeachSection
 {
     /**
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $required_attributes = array('name', 'loop');
 
@@ -28,7 +30,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $shorttag_order = array('name', 'loop');
 
@@ -36,7 +38,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $optional_attributes = array('start', 'step', 'max', 'show', 'properties');
 
@@ -88,7 +90,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
      * @throws \SmartyCompilerException
      * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         $compiler->loopNesting++;
         // check and get attributes
@@ -405,7 +407,7 @@ class Smarty_Internal_Compile_Section extends Smarty_Internal_Compile_Private_Fo
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase
+class _Sectionelse extends Base
 {
     /**
      * Compiles code for the {sectionelse} tag
@@ -415,11 +417,11 @@ class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        list($openTag, $nocache, $local, $sectionVar) = $this->closeTag($compiler, array('section'));
+        [$openTag, $nocache, $local, $sectionVar] = $this->closeTag($compiler, array('section'));
         $this->openTag($compiler, 'sectionelse', array('sectionelse', $nocache, $local, $sectionVar));
         return "<?php }} else {\n ?>";
     }
@@ -431,7 +433,7 @@ class Smarty_Internal_Compile_Sectionelse extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
+class _Sectionclose extends Base
 {
     /**
      * Compiles code for the {/section} tag
@@ -441,14 +443,14 @@ class Smarty_Internal_Compile_Sectionclose extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         $compiler->loopNesting--;
         // must endblock be nocache?
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;
         }
-        list($openTag, $compiler->nocache, $local, $sectionVar) =
+        [$openTag, $compiler->nocache, $local, $sectionVar] =
             $this->closeTag($compiler, array('section', 'sectionelse'));
         $output = "<?php\n";
         if ($openTag === 'sectionelse') {

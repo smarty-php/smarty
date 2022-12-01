@@ -8,19 +8,21 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile Capture Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
+class _Capture extends Base
 {
     /**
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $shorttag_order = array('name');
 
@@ -28,7 +30,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $optional_attributes = array('name', 'assign', 'append');
 
@@ -59,7 +61,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = null)
+	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args, $parameter, 'capture');
@@ -80,7 +82,7 @@ class Smarty_Internal_Compile_Capture extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
+class _CaptureClose extends Base
 {
     /**
      * Compiles code for the {/capture} tag
@@ -91,7 +93,7 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args, $parameter, '/capture');
@@ -99,7 +101,7 @@ class Smarty_Internal_Compile_CaptureClose extends Smarty_Internal_CompileBase
         if ($compiler->nocache) {
             $compiler->tag_nocache = true;
         }
-        list($compiler->nocache) = array_pop($compiler->_cache[ 'capture_stack' ]);
+        [$compiler->nocache] = array_pop($compiler->_cache[ 'capture_stack' ]);
         return "<?php \$_smarty_tpl->smarty->ext->_capture->close(\$_smarty_tpl);?>";
     }
 }

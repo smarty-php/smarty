@@ -8,19 +8,21 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile Function_Call Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
+class Call extends Base
 {
     /**
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $required_attributes = array('name');
 
@@ -28,7 +30,7 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $shorttag_order = array('name');
 
@@ -36,7 +38,7 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $optional_attributes = array('_any');
 
@@ -48,7 +50,7 @@ class Smarty_Internal_Compile_Call extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, $compiler)
+	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);

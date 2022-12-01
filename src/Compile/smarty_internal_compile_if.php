@@ -9,6 +9,7 @@
  */
 
 use Smarty\Compile\Assign;
+use Smarty\Compile\Base;
 
 /**
  * Smarty Internal Plugin Compile If Class
@@ -16,7 +17,7 @@ use Smarty\Compile\Assign;
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase
+class _If extends Base
 {
     /**
      * Compiles code for the {if} tag
@@ -28,7 +29,7 @@ class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase
      * @return string compiled code
      * @throws \SmartyCompilerException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -78,7 +79,7 @@ class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase
+class _Else extends Base
 {
     /**
      * Compiles code for the {else} tag
@@ -88,7 +89,7 @@ class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         [$nesting, $compiler->tag_nocache] = $this->closeTag($compiler, array('if', 'elseif'));
         $this->openTag($compiler, 'else', array($nesting, $compiler->tag_nocache));
@@ -102,7 +103,7 @@ class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Elseif extends Smarty_Internal_CompileBase
+class _Elseif extends Base
 {
     /**
      * Compiles code for the {elseif} tag
@@ -114,7 +115,7 @@ class Smarty_Internal_Compile_Elseif extends Smarty_Internal_CompileBase
      * @return string compiled code
      * @throws \SmartyCompilerException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -183,7 +184,7 @@ class Smarty_Internal_Compile_Elseif extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Ifclose extends Smarty_Internal_CompileBase
+class _Ifclose extends Base
 {
     /**
      * Compiles code for the {/if} tag
@@ -193,7 +194,7 @@ class Smarty_Internal_Compile_Ifclose extends Smarty_Internal_CompileBase
      *
      * @return string compiled code
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // must endblock be nocache?
         if ($compiler->nocache) {

@@ -8,19 +8,21 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile Block Plugin Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_CompileBase
+class _Private_Block_Plugin extends Base
 {
     /**
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $optional_attributes = array('_any');
 
@@ -44,7 +46,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
      * @throws \SmartyCompilerException
      * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag, $function = null)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         if (!isset($tag[ 5 ]) || substr($tag, -5) !== 'close') {
             // opening tag of block plugin
@@ -52,7 +54,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
             $_attr = $this->getAttributes($compiler, $args);
             $this->nesting++;
             unset($_attr[ 'nocache' ]);
-            list($callback, $_paramsArray, $callable) = $this->setup($compiler, $_attr, $tag, $function);
+            [$callback, $_paramsArray, $callable] = $this->setup($compiler, $_attr, $tag, $function);
             $_params = 'array(' . implode(',', $_paramsArray) . ')';
             // compile code
             $output = "<?php ";
@@ -73,7 +75,7 @@ class Smarty_Internal_Compile_Private_Block_Plugin extends Smarty_Internal_Compi
                 $compiler->tag_nocache = true;
             }
             // closing tag of block plugin, restore nocache
-            list($_params, $compiler->nocache, $callback) = $this->closeTag($compiler, substr($tag, 0, -5));
+            [$_params, $compiler->nocache, $callback] = $this->closeTag($compiler, substr($tag, 0, -5));
             // compile code
             if (!isset($parameter[ 'modifier_list' ])) {
                 $mod_pre = $mod_post = $mod_content = '';

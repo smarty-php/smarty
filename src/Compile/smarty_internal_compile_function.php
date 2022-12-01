@@ -8,19 +8,21 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile Function Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
+class _Function extends Base
 {
     /**
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $required_attributes = array('name');
 
@@ -28,7 +30,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $shorttag_order = array('name');
 
@@ -36,7 +38,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $optional_attributes = array('_any');
 
@@ -49,7 +51,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
      * @return bool true
      * @throws \SmartyCompilerException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -82,7 +84,7 @@ class Smarty_Internal_Compile_Function extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
+class _Functionclose extends Base
 {
     /**
      * Compiler object
@@ -99,7 +101,7 @@ class Smarty_Internal_Compile_Functionclose extends Smarty_Internal_CompileBase
      *
      * @return bool true
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         $this->compiler = $compiler;
         $saved_data = $this->closeTag($compiler, array('function'));

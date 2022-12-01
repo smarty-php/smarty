@@ -8,13 +8,15 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\BreakTag;
+
 /**
  * Smarty Internal Plugin Compile Continue Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Continue extends Smarty_Internal_Compile_Break
+class Smarty_Internal_Compile_Continue extends BreakTag
 {
     /**
      * Tag name

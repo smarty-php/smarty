@@ -8,13 +8,15 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile Nocache Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Nocache extends Smarty_Internal_CompileBase
+class _Nocache extends Base
 {
     /**
      * Array of names of valid option flags
@@ -32,7 +34,7 @@ class Smarty_Internal_Compile_Nocache extends Smarty_Internal_CompileBase
      *
      * @return bool
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         $_attr = $this->getAttributes($compiler, $args);
         $this->openTag($compiler, 'nocache', array($compiler->nocache));
@@ -50,7 +52,7 @@ class Smarty_Internal_Compile_Nocache extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Nocacheclose extends Smarty_Internal_CompileBase
+class _Nocacheclose extends Base
 {
     /**
      * Compiles code for the {/nocache} tag
@@ -61,11 +63,11 @@ class Smarty_Internal_Compile_Nocacheclose extends Smarty_Internal_CompileBase
      *
      * @return bool
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         $_attr = $this->getAttributes($compiler, $args);
         // leave nocache mode
-        list($compiler->nocache) = $this->closeTag($compiler, array('nocache'));
+        [$compiler->nocache] = $this->closeTag($compiler, array('nocache'));
         // this tag does not return compiled code
         $compiler->has_code = false;
         return true;

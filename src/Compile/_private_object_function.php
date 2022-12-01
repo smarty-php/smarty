@@ -8,19 +8,21 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile Object Function Class
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_CompileBase
+class _Private_Object_Function extends Base
 {
     /**
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Smarty_Internal_CompileBase
+     * @see Base
      */
     public $optional_attributes = array('_any');
 
@@ -31,13 +33,13 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
      * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
      * @param array                                 $parameter array with compilation parameter
      * @param string                                $tag       name of function
-     * @param string                                $method    name of method to call
+     * @param string                                $function    name of method to call
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
      * @throws \SmartyException
      */
-    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter, $tag, $method)
+    public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
@@ -48,7 +50,7 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
             unset($_attr[ 'assign' ]);
         }
         // method or property ?
-        if (is_callable(array($compiler->smarty->registered_objects[ $tag ][ 0 ], $method))) {
+        if (is_callable(array($compiler->smarty->registered_objects[ $tag ][ 0 ], $function))) {
             // convert attributes into parameter array string
             if ($compiler->smarty->registered_objects[ $tag ][ 2 ]) {
                 $_paramsArray = array();
@@ -60,14 +62,14 @@ class Smarty_Internal_Compile_Private_Object_Function extends Smarty_Internal_Co
                     }
                 }
                 $_params = 'array(' . implode(',', $_paramsArray) . ')';
-                $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params},\$_smarty_tpl)";
+                $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$function}({$_params},\$_smarty_tpl)";
             } else {
                 $_params = implode(',', $_attr);
-                $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}({$_params})";
+                $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$function}({$_params})";
             }
         } else {
             // object property
-            $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$method}";
+            $output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$function}";
         }
         if (!empty($parameter[ 'modifierlist' ])) {
             $output = $compiler->compileTag(
