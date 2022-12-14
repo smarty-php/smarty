@@ -22,7 +22,7 @@ class ConfigVarTest extends PHPUnit_Smarty
      */
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
     }
 
     /**
@@ -387,7 +387,7 @@ class ConfigVarTest extends PHPUnit_Smarty
 
     public function testConfigResourceDb4()
     {
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
+        $this->smarty->addPluginsDir(__DIR__ . "/PHPunitplugins/");
         $this->smarty->configLoad('db4:foo.conf');
         $this->assertEquals("bar", $this->smarty->fetch('foo.tpl'));
     }

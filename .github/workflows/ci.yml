@@ -31,6 +31,7 @@ jobs:
           - "7.4"
           - "8.0"
           - "8.1"
+          - "8.2"
 
         compiler:
           - default
@@ -41,6 +42,9 @@ jobs:
             compiler: jit
           - os: ubuntu-latest
             php-version: "8.1"
+            compiler: jit
+          - os: ubuntu-latest
+            php-version: "8.2"
             compiler: jit
 
     steps:
@@ -71,9 +75,5 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-${{ matrix.php-version }}-
 
-    - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --prefer-dist --no-progress --no-suggest
-
     - name: Run tests with phpunit
-      run: ./phpunit.sh
+      run: ./run-tests.sh

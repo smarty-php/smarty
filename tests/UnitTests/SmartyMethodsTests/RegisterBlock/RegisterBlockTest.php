@@ -17,7 +17,7 @@ class RegisterBlockTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
         $this->smarty->disableSecurity();
     }
 
@@ -40,14 +40,14 @@ class RegisterBlockTest extends PHPUnit_Smarty
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testblock', 'myblock');
         $this->smarty->assign('value', 1);
-        $this->assertEquals(strtoupper('function hello world 1 1 function hello world 1 2 function hello world 1 3 '), $this->smarty->fetch('eval:{testblock}hello world {$value}{/testblock|strtoupper}'));
+        $this->assertEquals(strtoupper('function hello world 1 1 function hello world 1 2 function hello world 1 3 '), $this->smarty->fetch('eval:{testblock}hello world {$value}{/testblock|upper}'));
     }
 
     public function testRegisterBlockFunctionModifier2()
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testblock', 'myblock');
         $this->smarty->assign('value', 1);
-        $this->assertEquals(strtoupper('function hello world 1 1 function hello world 1 2 function hello world 1 3 '), $this->smarty->fetch('eval:{testblock}hello world {$value}{/testblock|default:""|strtoupper}'));
+        $this->assertEquals(strtoupper('function hello world 1 1 function hello world 1 2 function hello world 1 3 '), $this->smarty->fetch('eval:{testblock}hello world {$value}{/testblock|default:""|upper}'));
     }
 
     public function testRegisterBlockFunctionWrapper()

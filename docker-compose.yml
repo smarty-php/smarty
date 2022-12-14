@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/app
     working_dir: /app
-    entrypoint: sh ./utilities/testrunners/run-test.sh
+    entrypoint: sh ./run-tests.sh
   php71:
     extends:
       service: base
@@ -38,3 +38,8 @@ services:
       service: base
     build:
       dockerfile: ./utilities/testrunners/php81/Dockerfile
+  php82:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php82/Dockerfile

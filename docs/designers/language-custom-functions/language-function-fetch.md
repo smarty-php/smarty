@@ -22,7 +22,7 @@ ftp and display the contents.
     >
     > If security is enabled and you are fetching a file from the local
     > file system, `{fetch}` will only allow files from within the
-    > `$secure_dir` path of the securty policy. See the
+    > `$secure_dir` path of the security policy. See the
     > [Security](#advanced.features.security) section for details.
 
 -   If the `assign` attribute is set, the output of the `{fetch}`

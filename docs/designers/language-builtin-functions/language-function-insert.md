@@ -65,7 +65,7 @@ and display the returned results in place of the {insert} tag.
     The path can be either absolute, or relative to
     [`$trusted_dir`](#variable.trusted.dir). If security is enabled,
     then the script must be located in the `$trusted_dir` path of the
-    securty policy. See the [Security](#advanced.features.security)
+    security policy. See the [Security](#advanced.features.security)
     section for details.
 
 The Smarty object is passed as the second argument. This way you can

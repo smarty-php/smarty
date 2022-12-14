@@ -17,8 +17,8 @@ class CompileInsertTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
+        $this->setUpSmarty(__DIR__);
+        $this->smarty->addPluginsDir(__DIR__ . "/PHPunitplugins/");
         $this->smarty->enableSecurity();
     }
 
@@ -120,7 +120,7 @@ class CompileInsertTest extends PHPUnit_Smarty
      */
     public function testInsertPluginCaching1_2()
     {
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
+        $this->smarty->addPluginsDir(__DIR__ . "/PHPunitplugins/");
         global $insertglobal;
         $insertglobal = 'changed global 2';
         $this->smarty->caching = 1;
@@ -138,7 +138,7 @@ class CompileInsertTest extends PHPUnit_Smarty
      */
     public function testInsertPluginCaching1_3()
     {
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
+        $this->smarty->addPluginsDir(__DIR__ . "/PHPunitplugins/");
         global $insertglobal;
         $insertglobal = 'changed global';
         $this->smarty->caching = 1;
@@ -156,7 +156,7 @@ class CompileInsertTest extends PHPUnit_Smarty
     public function testInsertPluginCaching1_4()
     {
         global $insertglobal;
-        $this->smarty->addPluginsDir(dirname(__FILE__) . "/PHPunitplugins/");
+        $this->smarty->addPluginsDir(__DIR__ . "/PHPunitplugins/");
             $insertglobal = 'changed global 4';
             $this->smarty->caching = 1;
             $this->smarty->assign('foo', 'buh', true);

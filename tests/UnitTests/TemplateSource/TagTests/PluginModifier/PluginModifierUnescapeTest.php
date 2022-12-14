@@ -17,7 +17,7 @@ class PluginModifierUnescapeTest extends PHPUnit_Smarty
 {
     public function setUp(): void
     {
-        $this->setUpSmarty(dirname(__FILE__));
+        $this->setUpSmarty(__DIR__);
     }
 
     public function testHtml()
@@ -40,8 +40,8 @@ class PluginModifierUnescapeTest extends PHPUnit_Smarty
 
     public function testHtmlall()
     {
-        $encoded = "a&#228;&#1047;&#1076;&#1088;&#1072;&gt;&lt;&amp;amp;&auml;&#228;&#1074;&#1089;&#1089;&#1090;&#1074;&#1091;&#1081;&#1090;&#1077;";
-        $result = "aäЗдра><&amp;ääвсствуйте";
+        $encoded = "&#039;&quot;a&#228;&#1047;&#1076;&#1088;&#1072;&gt;&lt;&amp;amp;&auml;&#228;&#1074;&#1089;&#1089;&#1090;&#1074;&#1091;&#1081;&#1090;&#1077;";
+        $result = "'\"aäЗдра><&amp;ääвсствуйте";
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|unescape:"htmlall"}');
         $this->assertEquals($result, $this->smarty->fetch($tpl));
     }
@@ -49,8 +49,8 @@ class PluginModifierUnescapeTest extends PHPUnit_Smarty
     public function testHtmlallWithoutMbstring()
     {
         Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $encoded = "a&#228;&#1047;&#1076;&#1088;&#1072;&gt;&lt;&amp;amp;&auml;&#228;&#1074;&#1089;&#1089;&#1090;&#1074;&#1091;&#1081;&#1090;&#1077;";
-        $result = "aäЗдра><&amp;ääвсствуйте";
+        $encoded = "&#039;&quot;a&#228;&#1047;&#1076;&#1088;&#1072;&gt;&lt;&amp;amp;&auml;&#228;&#1074;&#1089;&#1089;&#1090;&#1074;&#1091;&#1081;&#1090;&#1077;";
+        $result = "'\"aäЗдра><&amp;ääвсствуйте";
         $tpl = $this->smarty->createTemplate('string:{"' . $encoded . '"|unescape:"htmlall"}');
         $this->assertEquals($result, $this->smarty->fetch($tpl));
         Smarty::$_MBSTRING = true;

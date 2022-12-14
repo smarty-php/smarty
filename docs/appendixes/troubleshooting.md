@@ -109,7 +109,7 @@ the corresponding error is in the template.
 
        
 
--   This means that your application registered a custom error hander
+-   This means that your application registered a custom error handler
     (using [set\_error\_handler()](&url.php-manual;set_error_handler))
     which is not respecting the given `$errno` as it should. If, for
     whatever reason, this is the desired behaviour of your custom error

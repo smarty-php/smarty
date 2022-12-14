@@ -19,7 +19,7 @@ automatically calculated from the image file if they are not supplied.
     from. If not given, the web server\'s document root
     `$_ENV['DOCUMENT_ROOT']` is used as the base. If security is
     enabled, then the image must be located in the `$secure_dir` path of
-    the securty policy. See the [Security](#advanced.features.security)
+    the security policy. See the [Security](#advanced.features.security)
     section for details.
 
 -   `href` is the href value to link the image to. If link is supplied,

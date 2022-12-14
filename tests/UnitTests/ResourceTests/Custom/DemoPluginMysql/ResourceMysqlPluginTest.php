@@ -23,7 +23,7 @@ if (MysqlResourceEnable == true) {
                 if (self::$init) {
                 $this->getConnection();
             }
-            $this->setUpSmarty(dirname(__FILE__));
+            $this->setUpSmarty(__DIR__);
             $this->smarty->addPluginsDir("./PHPunitplugins/");
         }
 

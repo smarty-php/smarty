@@ -6,7 +6,7 @@
  * @author  Uwe Tews
  */
 if (MysqlCacheEnable == true) {
-    include_once dirname(__FILE__) . '/../_shared/CacheResourceTestCommon.php';
+    include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
 
     /**
      * class for cache resource file tests
@@ -25,10 +25,10 @@ if (MysqlCacheEnable == true) {
             if (self::$init) {
                 $this->getConnection();
             }
-            $this->setUpSmarty(dirname(__FILE__));
+            $this->setUpSmarty(__DIR__);
             parent::setUp();
             if (!class_exists('Smarty_CacheResource_Mysqltest', false)) {
-                require_once(dirname(__FILE__) . "/../_shared/PHPunitplugins/cacheresource.mysqltest.php");
+                require_once(__DIR__ . "/../_shared/PHPunitplugins/cacheresource.mysqltest.php");
             }
             $this->smarty->setCachingType('foobar');
             $this->smarty->registerCacheResource('foobar', new Smarty_CacheResource_Mysqltest());
