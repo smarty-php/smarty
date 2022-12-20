@@ -8,7 +8,7 @@ use Smarty_Internal_TemplateCompilerBase;
 /**
  * Smarty Internal Plugin Compile BlockClose Class
  */
-class Blockclose extends Inheritance {
+class BlockClose extends Inheritance {
 
 	/**
 	 * Compiles code for the {/block} tag

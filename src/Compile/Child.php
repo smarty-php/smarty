@@ -32,14 +32,14 @@ class Child extends Base {
 	 *
 	 * @var string
 	 */
-	private $tag = 'child';
+	protected $tag = 'child';
 
 	/**
 	 * Block type
 	 *
 	 * @var string
 	 */
-	private $blockType = 'Child';
+	protected $blockType = 'Child';
 
 	/**
 	 * Compiles code for the {child} tag

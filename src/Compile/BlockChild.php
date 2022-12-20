@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  */
 
-use Smarty\Compile\Child;
+namespace Smarty\Compile;
 
 /**
  * Smarty Internal Plugin Compile Block Child Class
  *
  * @author Uwe Tews <uwe.tews@googlemail.com>
  */
-class Smarty_Internal_Compile_Block_Child extends Child
-{
-    /**
-     * Tag name
-     *
-     * @var string
-     */
-    public $tag = 'block_child';
+class BlockChild extends Child {
+
+	/**
+	 * Tag name
+	 *
+	 * @var string
+	 */
+	protected $tag = 'block_child';
 }

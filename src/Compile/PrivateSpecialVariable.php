@@ -10,10 +10,10 @@
 
 namespace Smarty\Compile;
 
-use _Capture;
+use Smarty\Compile\Capture;
 use Smarty\Compile\Base;
-use Smarty_Internal_Compile_Foreach;
-use Smarty_Internal_Compile_Section;
+use Smarty\Compile\ForeachTag;
+use Smarty\Compile\Section;
 use Smarty_Internal_TemplateCompilerBase;
 
 /**
@@ -45,11 +45,11 @@ class PrivateSpecialVariable extends Base {
 		) {
 			switch ($variable) {
 				case 'foreach':
-					return (new Smarty_Internal_Compile_Foreach())->compileSpecialVariable($compiler, $_index);
+					return (new ForeachTag())->compileSpecialVariable($compiler, $_index);
 				case 'section':
-					return (new Smarty_Internal_Compile_Section())->compileSpecialVariable($compiler, $_index);
+					return (new Section())->compileSpecialVariable($compiler, $_index);
 				case 'capture':
-					return (new _Capture())->compileSpecialVariable($compiler, $_index);
+					return (new Capture())->compileSpecialVariable($compiler, $_index);
 				case 'now':
 					return 'time()';
 				case 'cookies':

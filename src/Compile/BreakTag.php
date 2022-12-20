@@ -10,7 +10,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_Compile_Foreach;
+use Smarty\Compile\ForeachTag;
 use Smarty_Internal_TemplateCompilerBase;
 
 /**
@@ -42,7 +42,7 @@ class BreakTag extends Base {
 	 *
 	 * @var string
 	 */
-	private $tag = 'break';
+	protected $tag = 'break';
 
 	/**
 	 * Compiles code for the {break} tag
@@ -61,7 +61,7 @@ class BreakTag extends Base {
 			$foreachLevels--;
 		}
 		if ($foreachLevels > 0) {
-			/* @var Smarty_Internal_Compile_Foreach $foreachCompiler */
+			/* @var ForeachTag $foreachCompiler */
 			$foreachCompiler = $compiler->getTagCompiler('foreach');
 			$output .= $foreachCompiler->compileRestore($foreachLevels);
 		}

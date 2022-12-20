@@ -10,7 +10,6 @@
 
 namespace Smarty\Compile;
 
-use Smarty\Compile\Base;
 use Smarty_Internal_TemplateCompilerBase;
 
 /**
@@ -26,33 +25,33 @@ abstract class ForeachSection extends Base {
 	 *
 	 * @var string
 	 */
-	public $tagName = '';
+	protected $tagName = '';
 
 	/**
 	 * Valid properties of $smarty.xxx variable
 	 *
 	 * @var array
 	 */
-	public $nameProperties = [];
+	protected $nameProperties = [];
 
 	/**
 	 * {section} tag has no item properties
 	 *
 	 * @var array
 	 */
-	public $itemProperties = null;
+	protected $itemProperties = null;
 
 	/**
 	 * {section} tag has always name attribute
 	 *
 	 * @var bool
 	 */
-	public $isNamed = true;
+	protected $isNamed = true;
 
 	/**
 	 * @var array
 	 */
-	public $matchResults = [];
+	protected $matchResults = [];
 
 	/**
 	 * Preg search pattern

@@ -1,0 +1,53 @@
+<?php
+/**
+ * Smarty Internal Plugin Compile Foreach
+ * Compiles the {foreach} {foreachelse} {/foreach} tags
+ *
+ * @package    Smarty
+ * @subpackage Compiler
+ * @author     Uwe Tews
+ */
+
+namespace Smarty\Compile;
+
+use Smarty_Internal_Compile_Foreach;
+use Smarty_Internal_TemplateCompilerBase;
+
+/**
+ * Smarty Internal Plugin Compile Foreachclose Class
+ *
+ * @package    Smarty
+ * @subpackage Compiler
+ */
+class ForeachClose extends Base {
+
+	/**
+	 * Compiles code for the {/foreach} tag
+	 *
+	 * @param array $args array with attributes from parser
+	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 *
+	 * @return string compiled code
+	 * @throws \SmartyCompilerException
+	 */
+	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+		$compiler->loopNesting--;
+		// must endblock be nocache?
+		if ($compiler->nocache) {
+			$compiler->tag_nocache = true;
+		}
+		[
+			$openTag, $compiler->nocache, $local, $itemVar, $restore,
+		] = $this->closeTag($compiler, ['foreach', 'foreachelse']);
+		$output = "<?php\n";
+		if ($restore === 2) {
+			$output .= "{$itemVar} = {$local}saved;\n";
+		}
+		$output .= "}\n";
+		/* @var \Smarty\Compile\Smarty_Internal_Compile_Foreach $foreachCompiler */
+		$foreachCompiler = $compiler->getTagCompiler('foreach');
+		$output .= $foreachCompiler->compileRestore(1);
+		$output .= "?>";
+		return $output;
+	}
+}

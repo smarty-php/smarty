@@ -25,5 +25,5 @@ class ContinueTag extends BreakTag {
 	 *
 	 * @var string
 	 */
-	public $tag = 'continue';
+	protected $tag = 'continue';
 }

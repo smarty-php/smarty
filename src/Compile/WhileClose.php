@@ -18,7 +18,7 @@ use Smarty_Internal_TemplateCompilerBase;
  * @package    Smarty
  * @subpackage Compiler
  */
-class Whileclose extends Base {
+class WhileClose extends Base {
 
 	/**
 	 * Compiles code for the {/while} tag
