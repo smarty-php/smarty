@@ -70,7 +70,7 @@ class Smarty_Internal_Configfilelexer
     /**
      * compiler object
      *
-     * @var Smarty_Internal_Config_File_Compiler
+     * @var Smarty\Compiler\ConfigFile
      */
     private $compiler = null;
     /**
@@ -122,9 +122,9 @@ class Smarty_Internal_Configfilelexer
      * constructor
      *
      * @param   string                             $data template source
-     * @param Smarty_Internal_Config_File_Compiler $compiler
+     * @param Smarty\Compiler\ConfigFile $compiler
      */
-    public function __construct($data, Smarty_Internal_Config_File_Compiler $compiler)
+    public function __construct($data, Smarty\Compiler\ConfigFile $compiler)
     {
         $this->data = $data . "\n"; //now all lines are \n-terminated
         $this->dataLength = strlen($data);

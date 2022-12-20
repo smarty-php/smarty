@@ -2,7 +2,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile For Class
@@ -28,7 +28,7 @@ class ForTag extends Base {
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$compiler->loopNesting++;
 		if ($parameter === 0) {
 			$this->required_attributes = ['start', 'to'];

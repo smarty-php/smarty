@@ -16,7 +16,7 @@
  *
  * @property Smarty_Template_Compiled             $compiled
  * @property Smarty_Template_Cached               $cached
- * @property Smarty_Internal_TemplateCompilerBase $compiler
+ * @property \Smarty\Compiler\Template $compiler
  * @property mixed|\Smarty_Template_Cached        registered_plugins
  *
  * The following methods will be dynamically loaded by the extension handler when they are called.
@@ -624,11 +624,11 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
 	 * @param string                                $content   optional template content
 	 * @param string                                $functions compiled template function and block code
 	 * @param bool                                  $cache     flag for cache file
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler
+	 * @param \Smarty\Compiler\Template $compiler
 	 *
 	 * @return string
 	 */
-	public function createCodeFrame($content = '', $functions = '', $cache = false, Smarty_Internal_TemplateCompilerBase $compiler = null) {
+	public function createCodeFrame($content = '', $functions = '', $cache = false, \Smarty\Compiler\Template $compiler = null) {
 		return \Smarty\Template\CodeFrame::create($this, $content, $functions, $cache, $compiler);
 	}
 

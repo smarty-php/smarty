@@ -15,12 +15,12 @@
  * @author Rodney Rehm
  *
  * @param array                                $params parameters
- * @param Smarty_Internal_TemplateCompilerBase $compiler
+ * @param \Smarty\Compiler\Template $compiler
  *
  * @return string with compiled code
  * @throws SmartyException
  */
-function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompilerBase $compiler)
+function smarty_modifiercompiler_escape($params, \Smarty\Compiler\Template $compiler)
 {
     try {
         $esc_type = smarty_literal_compiler_param($params, 1, 'html');

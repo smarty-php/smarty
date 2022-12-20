@@ -202,11 +202,11 @@ abstract class Base {
 	 * Compiles code for the tag
 	 *
 	 * @param array                                 $args      array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+	 * @param \Smarty\Compiler\Template $compiler  compiler object
 	 * @param array                                 $parameter array with compilation parameter
 	 *
 	 * @return string compiled code
 	 * @throws \SmartyCompilerException
 	 */
-	abstract public function compile($args, \Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null);
+	abstract public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null);
 }

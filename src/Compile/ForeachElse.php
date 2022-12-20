@@ -2,7 +2,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Foreachelse Class
@@ -16,11 +16,11 @@ class ForeachElse extends Base {
 	 * Compiles code for the {foreachelse} tag
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes
 		$this->getAttributes($compiler, $args);
 		[$openTag, $nocache, $local, $itemVar, $restore] = $this->closeTag($compiler, ['foreach']);

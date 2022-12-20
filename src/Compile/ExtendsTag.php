@@ -11,7 +11,7 @@
 namespace Smarty\Compile;
 
 use Smarty_Internal_Template;
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile extend Class
@@ -49,13 +49,13 @@ class ExtendsTag extends Inheritance {
 	 * Compiles code for the {extends} tag extends: resource
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return string compiled code
 	 * @throws \SmartyCompilerException
 	 * @throws \SmartyException
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		if ($_attr['nocache'] === true) {
@@ -96,13 +96,13 @@ class ExtendsTag extends Inheritance {
 	/**
 	 * Add code for inheritance endChild() method to end of template
 	 *
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler
+	 * @param \Smarty\Compiler\Template $compiler
 	 * @param null|string $template optional inheritance parent template
 	 *
 	 * @throws \SmartyCompilerException
 	 * @throws \SmartyException
 	 */
-	private function compileEndChild(Smarty_Internal_TemplateCompilerBase $compiler, $template = null) {
+	private function compileEndChild(\Smarty\Compiler\Template $compiler, $template = null) {
 		$inlineUids = '';
 		if (isset($template) && $compiler->smarty->merge_compiled_includes) {
 			$code = $compiler->compileTag('include', [$template, ['scope' => 'parent']]);
@@ -122,13 +122,13 @@ class ExtendsTag extends Inheritance {
 	/**
 	 * Add code for including subtemplate to end of template
 	 *
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler
+	 * @param \Smarty\Compiler\Template $compiler
 	 * @param string $template subtemplate name
 	 *
 	 * @throws \SmartyCompilerException
 	 * @throws \SmartyException
 	 */
-	private function compileInclude(Smarty_Internal_TemplateCompilerBase $compiler, $template) {
+	private function compileInclude(\Smarty\Compiler\Template $compiler, $template) {
 		$compiler->parser->template_postfix[] = new \Smarty\ParseTree\Tag(
 			$compiler->parser,
 			$compiler->compileTag(

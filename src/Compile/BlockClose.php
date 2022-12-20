@@ -3,7 +3,7 @@
 namespace Smarty\Compile;
 
 use Smarty\ParseTree\Template;
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile BlockClose Class
@@ -14,12 +14,12 @@ class BlockClose extends Inheritance {
 	 * Compiles code for the {/block} tag
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 * @param array $parameter array with compilation parameter
 	 *
 	 * @return bool true
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
 	{
 		[$_attr, $_nocache, $_buffer, $_has_nocache_code, $_caching] = $this->closeTag($compiler, ['block']);
 		// init block parameter

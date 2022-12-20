@@ -10,9 +10,6 @@
 
 namespace Smarty\Compile;
 
-use Smarty\Compile\ForeachTag;
-use Smarty_Internal_TemplateCompilerBase;
-
 /**
  * Smarty Internal Plugin Compile Break Class
  *
@@ -48,12 +45,12 @@ class BreakTag extends Base {
 	 * Compiles code for the {break} tag
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return string compiled code
 	 * @throws \SmartyCompilerException
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
 	{
 		[$levels, $foreachLevels] = $this->checkLevels($args, $compiler);
 		$output = "<?php ";
@@ -73,12 +70,12 @@ class BreakTag extends Base {
 	 * check attributes and return array of break and foreach levels
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return array
 	 * @throws \SmartyCompilerException
 	 */
-	public function checkLevels($args, Smarty_Internal_TemplateCompilerBase $compiler) {
+	public function checkLevels($args, \Smarty\Compiler\Template $compiler) {
 		static $_is_loopy = ['for' => true, 'foreach' => true, 'while' => true, 'section' => true];
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);

@@ -10,7 +10,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Child Class
@@ -45,13 +45,13 @@ class Child extends Base {
 	 * Compiles code for the {child} tag
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 * @param array $parameter array with compilation parameter
 	 *
 	 * @return string compiled code
 	 * @throws \SmartyCompilerException
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		$tag = isset($parameter[0]) ? "'{$parameter[0]}'" : "'{{$this->tag}}'";

@@ -2,7 +2,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Nocache Class
@@ -17,18 +17,18 @@ class Nocache extends Base {
 	 *
 	 * @var array
 	 */
-	public $option_flags = [];
+	protected $option_flags = [];
 
 	/**
 	 * Compiles code for the {nocache} tag
 	 * This tag does not generate compiled output. It only sets a compiler flag.
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return bool
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$this->getAttributes($compiler, $args);
 		$this->openTag($compiler, 'nocache', [$compiler->nocache]);
 		// enter nocache mode

@@ -11,7 +11,7 @@
 namespace Smarty\Compile;
 
 use Smarty\Compile\Base;
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Print Expression Class
@@ -35,19 +35,19 @@ class PrivatePrintExpression extends Base {
 	 * @var array
 	 * @see Base
 	 */
-	public $option_flags = ['nocache', 'nofilter'];
+	protected $option_flags = ['nocache', 'nofilter'];
 
 	/**
 	 * Compiles code for generating output from any expression
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 * @param array $parameter array with compilation parameter
 	 *
 	 * @return string
 	 * @throws \SmartyException
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		$output = $parameter['value'];
@@ -133,14 +133,14 @@ class PrivatePrintExpression extends Base {
 	}
 
 	/**
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 * @param string $name name of variable filter
 	 * @param string $output embedded output
 	 *
 	 * @return string
 	 * @throws \SmartyException
 	 */
-	private function compile_variable_filter(Smarty_Internal_TemplateCompilerBase $compiler, $name, $output) {
+	private function compile_variable_filter(\Smarty\Compiler\Template $compiler, $name, $output) {
 		$function = $compiler->getPlugin($name, 'variablefilter');
 		if ($function) {
 			return "{$function}({$output},\$_smarty_tpl)";

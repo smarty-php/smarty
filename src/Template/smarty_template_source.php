@@ -106,7 +106,7 @@ class Smarty_Template_Source
      *
      * @var string
      */
-    public $compiler_class = 'Smarty_Internal_SmartyTemplateCompiler';
+    public $compiler_class = 'Smarty\Compiler\Template';
 
     /**
      * Name of the Class to tokenize this resource's contents with

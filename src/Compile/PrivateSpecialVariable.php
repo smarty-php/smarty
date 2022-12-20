@@ -14,7 +14,7 @@ use Smarty\Compile\Capture;
 use Smarty\Compile\Base;
 use Smarty\Compile\ForeachTag;
 use Smarty\Compile\Section;
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile special Smarty Variable Class
@@ -28,13 +28,13 @@ class PrivateSpecialVariable extends Base {
 	 * Compiles code for the special $smarty variables
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 * @param                                       $parameter
 	 *
 	 * @return string compiled code
 	 * @throws \SmartyCompilerException
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$_index = preg_split("/\]\[/", substr($parameter, 1, strlen($parameter) - 2));
 		$variable = smarty_strtolower_ascii($compiler->getId($_index[0]));
 		if ($variable === false) {

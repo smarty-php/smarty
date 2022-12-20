@@ -10,7 +10,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Block Plugin Class
@@ -39,7 +39,7 @@ class PrivateBlockPlugin extends Base {
 	 * Compiles code for the execution of block plugin
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 * @param array $parameter array with compilation parameter
 	 * @param string $tag name of block plugin
 	 * @param string $function PHP function name
@@ -48,7 +48,7 @@ class PrivateBlockPlugin extends Base {
 	 * @throws \SmartyCompilerException
 	 * @throws \SmartyException
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		if (!isset($tag[5]) || substr($tag, -5) !== 'close') {
 			// opening tag of block plugin
 			// check and get attributes
@@ -104,14 +104,14 @@ class PrivateBlockPlugin extends Base {
 	/**
 	 * Setup callback and parameter array
 	 *
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler
+	 * @param \Smarty\Compiler\Template $compiler
 	 * @param array $_attr attributes
 	 * @param string $tag
 	 * @param string $function
 	 *
 	 * @return array
 	 */
-	protected function setup(Smarty_Internal_TemplateCompilerBase $compiler, $_attr, $tag, $function) {
+	protected function setup(\Smarty\Compiler\Template $compiler, $_attr, $tag, $function) {
 		$_paramsArray = [];
 		foreach ($_attr as $_key => $_value) {
 			if (is_int($_key)) {

@@ -59,7 +59,7 @@ class Configfile
     /**
      * compiler object
      *
-     * @var Smarty_Internal_Config_File_Compiler
+     * @var Smarty\Compiler\ConfigFile
      */
     public $compiler = null;
     /**
@@ -92,9 +92,9 @@ class Configfile
      * constructor
      *
      * @param Lexer      $lex
-     * @param Smarty_Internal_Config_File_Compiler $compiler
+     * @param Smarty\Compiler\ConfigFile $compiler
      */
-    public function __construct(Lexer $lex, Smarty_Internal_Config_File_Compiler $compiler)
+    public function __construct(Lexer $lex, Smarty\Compiler\ConfigFile $compiler)
     {
         $this->lex = $lex;
         $this->smarty = $compiler->smarty;

@@ -10,7 +10,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Forclose Class
@@ -29,7 +29,7 @@ class ForClose extends Base {
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$compiler->loopNesting--;
 		// check and get attributes
 		$this->getAttributes($compiler, $args);

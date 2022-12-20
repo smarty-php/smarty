@@ -11,7 +11,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Debug Class
@@ -29,7 +29,7 @@ class Debug extends Base {
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes, may trigger errors
 		$this->getAttributes($compiler, $args);
 

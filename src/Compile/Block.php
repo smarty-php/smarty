@@ -11,7 +11,6 @@
 namespace Smarty\Compile;
 
 use Smarty\ParseTree\Template;
-use Smarty_Internal_TemplateCompilerBase;
 
 /**
  * Smarty Internal Plugin Compile Block Class
@@ -42,7 +41,7 @@ class Block extends Inheritance {
 	 * @var array
 	 * @see Base
 	 */
-	public $option_flags = ['hide', 'nocache'];
+	protected $option_flags = ['hide', 'nocache'];
 
 	/**
 	 * Attribute definition: Overwrites base class.
@@ -56,10 +55,10 @@ class Block extends Inheritance {
 	 * Compiles code for the {block} tag
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 * @param array $parameter array with compilation parameter
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
 	{
 		if (!isset($compiler->_cache['blockNesting'])) {
 			$compiler->_cache['blockNesting'] = 0;

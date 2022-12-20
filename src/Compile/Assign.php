@@ -28,14 +28,14 @@ class Assign extends CompileBase
      * @var array
      * @see Base
      */
-    public $option_flags = array('nocache', 'noscope');
+    protected $option_flags = array('nocache', 'noscope');
 
     /**
      * Valid scope names
      *
      * @var array
      */
-    public $valid_scopes = array(
+    protected $valid_scopes = array(
         'local'    => Smarty::SCOPE_LOCAL, 'parent' => Smarty::SCOPE_PARENT,
         'root'     => Smarty::SCOPE_ROOT, 'global' => Smarty::SCOPE_GLOBAL,
         'tpl_root' => Smarty::SCOPE_TPL_ROOT, 'smarty' => Smarty::SCOPE_SMARTY
@@ -45,13 +45,13 @@ class Assign extends CompileBase
      * Compiles code for the {assign} tag
      *
      * @param array                                 $args      array with attributes from parser
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler  compiler object
+     * @param \Smarty\Compiler\Template $compiler  compiler object
      * @param array                                 $parameter array with compilation parameter
      *
      * @return string compiled code
      * @throws \SmartyCompilerException
      */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // the following must be assigned at runtime because it will be overwritten in Append
         $this->required_attributes = array('var', 'value');

@@ -10,8 +10,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty\Compile\PrivateBlockPlugin;
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Object Block Function Class
@@ -24,14 +23,14 @@ class PrivateObjectBlockFunction extends PrivateBlockPlugin {
 	/**
 	 * Setup callback and parameter array
 	 *
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler
+	 * @param Template $compiler
 	 * @param array $_attr attributes
 	 * @param string $tag
 	 * @param string $function
 	 *
 	 * @return array
 	 */
-	protected function setup(Smarty_Internal_TemplateCompilerBase $compiler, $_attr, $tag, $function) {
+	protected function setup(Template $compiler, $_attr, $tag, $function) {
 		$_paramsArray = [];
 		foreach ($_attr as $_key => $_value) {
 			if (is_int($_key)) {

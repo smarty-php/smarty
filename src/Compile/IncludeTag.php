@@ -10,10 +10,10 @@
 
 namespace Smarty\Compile;
 
+use Smarty\Compiler\Template;
 use Smarty\Smarty;
-use Smarty_Internal_SmartyTemplateCompiler;
 use Smarty_Internal_Template;
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 use Smarty_Resource;
 use Smarty_Template_Compiled;
 
@@ -77,14 +77,14 @@ class IncludeTag extends Base {
 	 * Compiles code for the {include} tag
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param Smarty_Internal_SmartyTemplateCompiler $compiler compiler object
+	 * @param Template $compiler compiler object
 	 *
 	 * @return string
 	 * @throws \Exception
 	 * @throws \SmartyCompilerException
 	 * @throws \SmartyException
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$uid = $t_hash = null;
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
@@ -288,7 +288,7 @@ class IncludeTag extends Base {
 	/**
 	 * Compile inline sub template
 	 *
-	 * @param \Smarty_Internal_SmartyTemplateCompiler $compiler
+	 * @param \Smarty\Compiler\Template $compiler
 	 * @param \Smarty_Internal_Template $tpl
 	 * @param string $t_hash
 	 *
@@ -297,9 +297,9 @@ class IncludeTag extends Base {
 	 * @throws \SmartyException
 	 */
 	private function compileInlineTemplate(
-		Smarty_Internal_SmartyTemplateCompiler $compiler,
-		Smarty_Internal_Template               $tpl,
-		                                       $t_hash
+		Template                 $compiler,
+		Smarty_Internal_Template $tpl,
+		                         $t_hash
 	) {
 		$uid = $tpl->source->type . $tpl->source->uid;
 		if (!($tpl->source->handler->uncompiled) && $tpl->source->exists) {

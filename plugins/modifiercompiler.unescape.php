@@ -14,11 +14,11 @@
  * @author Rodney Rehm
  *
  * @param array $params parameters
- * @param Smarty_Internal_TemplateCompilerBase $compiler
+ * @param \Smarty\Compiler\Template $compiler
  *
  * @return string with compiled code
  */
-function smarty_modifiercompiler_unescape($params, Smarty_Internal_TemplateCompilerBase $compiler)
+function smarty_modifiercompiler_unescape($params, \Smarty\Compiler\Template $compiler)
 {
     $esc_type = smarty_literal_compiler_param($params, 1, 'html');
 

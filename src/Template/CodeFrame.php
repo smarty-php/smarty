@@ -24,7 +24,7 @@ class CodeFrame
      * @param string                                $content   optional template content
      * @param string                                $functions compiled template function and block code
      * @param bool                                  $cache     flag for cache file
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler
+     * @param \Smarty\Compiler\Template $compiler
      *
      * @return string
      */
@@ -33,7 +33,7 @@ class CodeFrame
         $content = '',
         $functions = '',
         $cache = false,
-        \Smarty_Internal_TemplateCompilerBase $compiler = null
+        \Smarty\Compiler\Template $compiler = null
     ) {
         // build property code
         $properties[ 'version' ] = \Smarty::SMARTY_VERSION;

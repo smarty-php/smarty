@@ -84,7 +84,7 @@ class Smarty_Internal_Templatelexer
     /**
      * compiler object
      *
-     * @var Smarty_Internal_TemplateCompilerBase
+     * @var \Smarty\Compiler\Template
      */
     public $compiler = null;
 
@@ -219,9 +219,9 @@ class Smarty_Internal_Templatelexer
      * constructor
      *
      * @param   string                             $source template source
-     * @param Smarty_Internal_TemplateCompilerBase $compiler
+     * @param \Smarty\Compiler\Template $compiler
      */
-    public function __construct($source, Smarty_Internal_TemplateCompilerBase $compiler)
+    public function __construct($source, \Smarty\Compiler\Template $compiler)
     {
         $this->data = $source;
         $this->dataLength = strlen($this->data);

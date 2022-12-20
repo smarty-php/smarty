@@ -10,7 +10,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Functionclose Class
@@ -31,11 +31,11 @@ class FunctionClose extends Base {
 	 * Compiles code for the {/function} tag
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param object|\Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param object|\Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return bool true
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$this->compiler = $compiler;
 		$saved_data = $this->closeTag($compiler, ['function']);
 		$_attr = $saved_data[0];

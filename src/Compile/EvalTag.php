@@ -11,7 +11,7 @@
 namespace Smarty\Compile;
 
 use Smarty\Compile\Base;
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Eval Class
@@ -53,7 +53,7 @@ class EvalTag extends Base {
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		if (isset($_attr['assign'])) {

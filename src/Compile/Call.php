@@ -50,7 +50,7 @@ class Call extends Base
      *
      * @return string compiled code
      */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = array(), $tag = null, $function = null)
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
     {
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);

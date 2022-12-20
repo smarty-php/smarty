@@ -10,7 +10,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile Object Function Class
@@ -32,7 +32,7 @@ class PrivateObjectFunction extends Base {
 	 * Compiles code for the execution of function plugin
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 * @param array $parameter array with compilation parameter
 	 * @param string $tag name of function
 	 * @param string $function name of method to call
@@ -41,7 +41,7 @@ class PrivateObjectFunction extends Base {
 	 * @throws \SmartyCompilerException
 	 * @throws \SmartyException
 	 */
-	public function compile($args, Smarty_Internal_TemplateCompilerBase $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		unset($_attr['nocache']);

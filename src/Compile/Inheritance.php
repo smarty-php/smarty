@@ -22,10 +22,10 @@ abstract class Inheritance extends \Smarty\Compile\Base
     /**
      * Compile inheritance initialization code as prefix
      *
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler
+     * @param \Smarty\Compiler\Template $compiler
      * @param bool|false                            $initChildSequence if true force child template
      */
-    public static function postCompile(\Smarty_Internal_TemplateCompilerBase $compiler, $initChildSequence = false)
+    public static function postCompile(\Smarty\Compiler\Template $compiler, $initChildSequence = false)
     {
         $compiler->prefixCompiledCode .= "<?php \$_smarty_tpl->_loadInheritance();\n\$_smarty_tpl->inheritance->init(\$_smarty_tpl, " .
                                          var_export($initChildSequence, true) . ");\n?>\n";
@@ -34,10 +34,10 @@ abstract class Inheritance extends \Smarty\Compile\Base
     /**
      * Register post compile callback to compile inheritance initialization code
      *
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler
+     * @param \Smarty\Compiler\Template $compiler
      * @param bool|false                            $initChildSequence if true force child template
      */
-    public function registerInit(\Smarty_Internal_TemplateCompilerBase $compiler, $initChildSequence = false)
+    public function registerInit(\Smarty\Compiler\Template $compiler, $initChildSequence = false)
     {
         if ($initChildSequence || !isset($compiler->_cache[ 'inheritanceInit' ])) {
             $compiler->registerPostCompileCallback(

@@ -10,7 +10,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_TemplateCompilerBase;
+use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile ForeachSection Class
@@ -78,11 +78,11 @@ abstract class ForeachSection extends Base {
 	 * Scan sources for used tag attributes
 	 *
 	 * @param array $attributes
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler
+	 * @param \Smarty\Compiler\Template $compiler
 	 *
 	 * @throws \SmartyException
 	 */
-	protected function scanForProperties($attributes, Smarty_Internal_TemplateCompilerBase $compiler) {
+	protected function scanForProperties($attributes, \Smarty\Compiler\Template $compiler) {
 		$this->propertyPreg = '~(';
 		$this->startOffset = 1;
 		$this->resultOffsets = [];
@@ -151,20 +151,20 @@ abstract class ForeachSection extends Base {
 	/**
 	 * Find matches in template source
 	 *
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler
+	 * @param \Smarty\Compiler\Template $compiler
 	 */
-	private function matchTemplateSource(Smarty_Internal_TemplateCompilerBase $compiler) {
+	private function matchTemplateSource(\Smarty\Compiler\Template $compiler) {
 		$this->matchProperty($compiler->parser->lex->data);
 	}
 
 	/**
 	 * Find matches in all parent template source
 	 *
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler
+	 * @param \Smarty\Compiler\Template $compiler
 	 *
 	 * @throws \SmartyException
 	 */
-	private function matchParentTemplateSource(Smarty_Internal_TemplateCompilerBase $compiler) {
+	private function matchParentTemplateSource(\Smarty\Compiler\Template $compiler) {
 		// search parent compiler template source
 		$nextCompiler = $compiler;
 		while ($nextCompiler !== $nextCompiler->parent_compiler) {
@@ -190,13 +190,13 @@ abstract class ForeachSection extends Base {
 	/**
 	 * Compiles code for the {$smarty.foreach.xxx} or {$smarty.section.xxx}tag
 	 *
-	 * @param \Smarty_Internal_TemplateCompilerBase $compiler compiler object
+	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 * @param array $parameter array with compilation parameter
 	 *
 	 * @return string compiled code
 	 * @throws \SmartyCompilerException
 	 */
-	public function compileSpecialVariable(Smarty_Internal_TemplateCompilerBase $compiler, $parameter) {
+	public function compileSpecialVariable(\Smarty\Compiler\Template $compiler, $parameter) {
 		$tag = smarty_strtolower_ascii(trim($parameter[0], '"\''));
 		$name = isset($parameter[1]) ? $compiler->getId($parameter[1]) : false;
 		if (!$name) {
