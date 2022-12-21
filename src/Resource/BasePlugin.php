@@ -21,7 +21,7 @@ namespace Smarty\Resource;
  * @method populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)
  * @method process(Smarty_Internal_Template $_smarty_tpl)
  */
-abstract class Base
+abstract class BasePlugin
 {
     /**
      * resource types provided by the core
@@ -31,7 +31,7 @@ abstract class Base
     public static $sysplugins = array(
         'file'    => File::class,
         'string'  => String::class,
-        'extends' => Extending::class,
+        'extends' => ExtendsPlugin::class,
         'stream'  => Stream::class,
         'eval'    => StringEval::class,
         'php'     => Php::class,
@@ -65,7 +65,7 @@ abstract class Base
      * @param string $type   name of the resource
      *
      * @throws \SmartyException
-     * @return Base Resource Handler
+     * @return BasePlugin Resource Handler
      */
     public static function load(\Smarty $smarty, $type)
     {
@@ -148,9 +148,9 @@ abstract class Base
     public static function getUniqueTemplateName($obj, $template_resource)
     {
         $smarty = $obj->_getSmartyObj();
-        list($name, $type) = self::parseResourceName($template_resource, $smarty->default_resource_type);
+        [$name, $type] = self::parseResourceName($template_resource, $smarty->default_resource_type);
         // TODO: optimize for Smarty's internal resource types
-        $resource = Base::load($smarty, $type);
+        $resource = BasePlugin::load($smarty, $type);
         // go relative to a given template?
         $_file_is_dotted = $name[ 0 ] === '.' && ($name[ 1 ] === '.' || $name[ 1 ] === '/');
         if ($obj->_isTplObj() && $_file_is_dotted

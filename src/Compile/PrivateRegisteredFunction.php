@@ -25,7 +25,7 @@ class PrivateRegisteredFunction extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	public $optional_attributes = ['_any'];
 

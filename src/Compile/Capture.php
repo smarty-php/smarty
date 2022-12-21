@@ -14,7 +14,7 @@ class Capture extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	public $shorttag_order = ['name'];
 
@@ -22,7 +22,7 @@ class Capture extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	public $optional_attributes = ['name', 'assign', 'append'];
 

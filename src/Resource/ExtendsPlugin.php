@@ -18,7 +18,7 @@ namespace Smarty\Resource;
  * @package    Smarty
  * @subpackage TemplateResources
  */
-class Extending extends Base
+class ExtendsPlugin extends BasePlugin
 {
 
     /**

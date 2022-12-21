@@ -25,7 +25,7 @@ class ExtendsTag extends Inheritance {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $required_attributes = ['file'];
 
@@ -41,7 +41,7 @@ class ExtendsTag extends Inheritance {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $shorttag_order = ['file'];
 

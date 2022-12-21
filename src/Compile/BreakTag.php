@@ -22,7 +22,7 @@ class BreakTag extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $optional_attributes = ['levels'];
 
@@ -30,7 +30,7 @@ class BreakTag extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $shorttag_order = ['levels'];
 

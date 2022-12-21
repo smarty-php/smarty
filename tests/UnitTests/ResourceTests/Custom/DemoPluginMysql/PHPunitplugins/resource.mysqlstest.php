@@ -1,7 +1,7 @@
 <?php
 require_once SMARTY_DIR . '../demo/plugins/resource.mysqls.php';
 
-class Smarty_Resource_Mysqlstest extends Smarty_Resource_Mysqls
+class Smarty_Resource_Mysqlstest extends _MysqlsPlugin
 {
     public function __construct()
     {

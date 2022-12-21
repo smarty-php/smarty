@@ -1,5 +1,7 @@
 <?php
 
+use Smarty\Resource\CustomPlugin;
+
 /**
  * MySQL Resource
  * Resource Implementation based on the Custom API to use
@@ -19,7 +21,7 @@
  * @package Resource-examples
  * @author  Rodney Rehm
  */
-class Smarty_Resource_Mysql extends Smarty_Resource_Custom
+class _MysqlPlugin extends CustomPlugin
 {
     /**
      * PDO instance

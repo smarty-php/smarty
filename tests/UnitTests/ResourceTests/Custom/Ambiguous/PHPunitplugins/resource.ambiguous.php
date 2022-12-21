@@ -1,12 +1,14 @@
 <?php
 
+use Smarty\Resource\FilePlugin;
+
 /**
  * Ambiguous Filename Custom Resource Example
  *
  * @package Resource-examples
  * @author  Rodney Rehm
  */
-class Smarty_Resource_Ambiguous extends Smarty_Internal_Resource_File
+class Smarty_Resource_AmbiguousPlugin extends FilePlugin
 {
     protected $directory;
     protected $segment;

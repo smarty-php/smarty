@@ -26,7 +26,7 @@ class Assign extends CompileBase
      * Attribute definition: Overwrites base class.
      *
      * @var array
-     * @see Base
+     * @see BasePlugin
      */
     protected $option_flags = array('nocache', 'noscope');
 

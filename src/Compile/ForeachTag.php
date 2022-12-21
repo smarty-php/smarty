@@ -16,7 +16,7 @@ class ForeachTag extends ForeachSection {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $required_attributes = ['from', 'item'];
 
@@ -24,7 +24,7 @@ class ForeachTag extends ForeachSection {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $optional_attributes = ['name', 'key', 'properties'];
 
@@ -32,7 +32,7 @@ class ForeachTag extends ForeachSection {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $shorttag_order = ['from', 'item', 'key', 'name'];
 

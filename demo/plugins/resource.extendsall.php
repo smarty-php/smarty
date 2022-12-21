@@ -8,7 +8,7 @@
  * @package Resource-examples
  * @author  Rodney Rehm
  */
-class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
+class Smarty_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
 {
     /**
      * populate Source Object with meta data from Resource
@@ -25,7 +25,7 @@ class Smarty_Resource_Extendsall extends Smarty_Internal_Resource_Extends
         $timestamp = 0;
         foreach ($source->smarty->getTemplateDir() as $key => $directory) {
             try {
-                $s = Smarty_Resource::source(null, $source->smarty, 'file:' . '[' . $key . ']' . $source->name);
+                $s = Smarty\Resource\BasePlugin::source(null, $source->smarty, 'file:' . '[' . $key . ']' . $source->name);
                 if (!$s->exists) {
                     continue;
                 }

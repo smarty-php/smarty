@@ -25,7 +25,7 @@ class ConfigLoad extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $required_attributes = ['file'];
 
@@ -33,7 +33,7 @@ class ConfigLoad extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $shorttag_order = ['file', 'section'];
 
@@ -41,7 +41,7 @@ class ConfigLoad extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $optional_attributes = ['section', 'scope'];
 
@@ -49,7 +49,7 @@ class ConfigLoad extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $option_flags = ['nocache', 'noscope'];
 

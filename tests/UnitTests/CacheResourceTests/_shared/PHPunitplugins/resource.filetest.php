@@ -1,6 +1,8 @@
 <?php
 
-class Smarty_Resource_Filetest extends Smarty_Internal_Resource_File
+use Smarty\Resource\FilePlugin;
+
+class Smarty_Resource_FiletestPlugin extends FilePlugin
 {
     /**
      * populate Source Object with meta data from Resource

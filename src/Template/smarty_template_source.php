@@ -76,7 +76,7 @@ class Smarty_Template_Source
     /**
      * Resource Handler
      *
-     * @var \Smarty_Resource
+     * @var \Smarty\Resource\BasePlugin
      */
     public $handler = null;
 
@@ -131,11 +131,11 @@ class Smarty_Template_Source
      * @param string $name     resource name
      *
      * @throws   \SmartyException
-     * @internal param \Smarty_Resource $handler Resource Handler this source object communicates with
+     * @internal param \Smarty\Resource\Base $handler Resource Handler this source object communicates with
      */
     public function __construct(Smarty $smarty, $resource, $type, $name)
     {
-        $this->handler = Smarty_Resource::load($smarty, $type);
+        $this->handler = Smarty\Resource\BasePlugin::load($smarty, $type);
 
         $this->smarty = $smarty;
         $this->resource = $resource;
@@ -239,7 +239,7 @@ class Smarty_Template_Source
 			$this->content = $_content;
 			$this->exists = true;
 			$this->uid = $this->name = sha1($_content);
-			$this->handler = Smarty_Resource::load($this->smarty, 'eval');
+			$this->handler = Smarty\Resource\BasePlugin::load($this->smarty, 'eval');
 		} else {
 			$this->exists = false;
 			throw new SmartyException(

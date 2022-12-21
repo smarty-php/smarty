@@ -23,7 +23,7 @@ class Child extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $optional_attributes = ['assign'];
 

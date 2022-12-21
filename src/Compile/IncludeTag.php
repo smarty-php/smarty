@@ -13,8 +13,7 @@ namespace Smarty\Compile;
 use Smarty\Compiler\Template;
 use Smarty\Smarty;
 use Smarty_Internal_Template;
-use Smarty\Compiler\Template;
-use Smarty_Resource;
+use Smarty\Compile\Base;
 use Smarty_Template_Compiled;
 
 /**
@@ -95,7 +94,7 @@ class IncludeTag extends Base {
 		if (preg_match('/^([\'"])(([A-Za-z0-9_\-]{2,})[:])?(([^$()]+)|(.+))\1$/', $source_resource, $match)) {
 			$type = !empty($match[3]) ? $match[3] : $compiler->template->smarty->default_resource_type;
 			$name = !empty($match[5]) ? $match[5] : $match[6];
-			$handler = Smarty_Resource::load($compiler->smarty, $type);
+			$handler = \Smarty\Resource\BasePlugin::load($compiler->smarty, $type);
 			if ($handler->recompiled || $handler->uncompiled) {
 				$variable_template = true;
 			}

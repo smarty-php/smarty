@@ -463,7 +463,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                         $mtime = is_file($_file_to_check[ 0 ]) ? filemtime($_file_to_check[ 0 ]) : false;
                     }
                 } else {
-                    $handler = Smarty_Resource::load($tpl->smarty, $_file_to_check[ 2 ]);
+                    $handler = Smarty\Resource\BasePlugin::load($tpl->smarty, $_file_to_check[ 2 ]);
                     if ($handler->checkTimestamps()) {
                         $source = Smarty_Template_Source::load($tpl, $tpl->smarty, $_file_to_check[ 0 ]);
                         $mtime = $source->getTimeStamp();

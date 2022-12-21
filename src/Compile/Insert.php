@@ -25,7 +25,7 @@ class Insert extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $required_attributes = ['name'];
 
@@ -33,7 +33,7 @@ class Insert extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $shorttag_order = ['name'];
 
@@ -41,7 +41,7 @@ class Insert extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $optional_attributes = ['_any'];
 

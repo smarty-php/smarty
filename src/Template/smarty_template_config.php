@@ -84,7 +84,7 @@ class Smarty_Template_Config extends Smarty_Template_Source
             throw new SmartyException('Source: Missing  name');
         }
         // parse resource_name, load resource handler
-        list($name, $type) = Smarty_Resource::parseResourceName($template_resource, $smarty->default_config_type);
+        list($name, $type) = Smarty\Resource\BasePlugin::parseResourceName($template_resource, $smarty->default_config_type);
         // make sure configs are not loaded via anything smarty can't handle
         if (isset($_incompatible_resources[ $type ])) {
             throw new SmartyException("Unable to use resource '{$type}' for config");

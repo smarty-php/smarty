@@ -10,7 +10,9 @@
  * -------------------------------------------------------------
  */
 
-class Smarty_Resource_Db extends Smarty_Resource_Recompiled {
+use Smarty\Resource\RecompiledPlugin;
+
+class _DbPlugin extends RecompiledPlugin {
 
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null) {
         $source->filepath = 'db:';

@@ -23,7 +23,7 @@ class Block extends Inheritance {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	public $required_attributes = ['name'];
 
@@ -31,7 +31,7 @@ class Block extends Inheritance {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	public $shorttag_order = ['name'];
 
@@ -39,7 +39,7 @@ class Block extends Inheritance {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $option_flags = ['hide', 'nocache'];
 
@@ -47,7 +47,7 @@ class Block extends Inheritance {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	public $optional_attributes = ['assign'];
 

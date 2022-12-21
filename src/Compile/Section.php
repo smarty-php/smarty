@@ -16,7 +16,7 @@ class Section extends ForeachSection {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $required_attributes = ['name', 'loop'];
 
@@ -24,7 +24,7 @@ class Section extends ForeachSection {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $shorttag_order = ['name', 'loop'];
 
@@ -32,7 +32,7 @@ class Section extends ForeachSection {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $optional_attributes = ['start', 'step', 'max', 'show', 'properties'];
 

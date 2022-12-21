@@ -24,7 +24,7 @@ class PrivateBlockPlugin extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BasePlugin
 	 */
 	protected $optional_attributes = ['_any'];
 

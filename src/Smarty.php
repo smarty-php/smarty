@@ -919,7 +919,7 @@ class Smarty extends \Smarty_Internal_TemplateBase
         $caching = (int)($caching === null ? $this->caching : $caching);
         if ((isset($template) && strpos($template_name, ':.') !== false) || $this->allow_ambiguous_resources) {
             $_templateId =
-                \Smarty_Resource::getUniqueTemplateName((isset($template) ? $template : $this), $template_name) .
+                \Smarty\Resource\BasePlugin::getUniqueTemplateName((isset($template) ? $template : $this), $template_name) .
                 "#{$cache_id}#{$compile_id}#{$caching}";
         } else {
             $_templateId = $this->_joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}#{$caching}";

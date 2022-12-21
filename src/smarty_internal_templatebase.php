@@ -857,11 +857,11 @@ abstract class Smarty_Internal_TemplateBase extends Data
 	 * @link https://www.smarty.net/docs/en/api.register.resource.tpl
 	 *
 	 * @param string                                                          $name             name of resource type
-	 * @param Smarty_Resource                                           $resource_handler instance of Smarty_Resource
+	 * @param Smarty\Resource\Base                                           $resource_handler instance of Smarty\Resource\Base
 	 *
 	 * @return \Smarty|\Smarty_Internal_Template
 	 */
-	public function registerResource($name, Smarty_Resource $resource_handler)
+	public function registerResource($name, Smarty\Resource\Base $resource_handler)
 	{
 		$smarty = $this->_getSmartyObj();
 		$smarty->registered_resources[ $name ] = $resource_handler;

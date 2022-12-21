@@ -46,7 +46,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
     public function testNone()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(__DIR__ . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
         $this->smarty->setAllowAmbiguousResources(true);
@@ -63,7 +63,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
      */
     public function testCase1()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(__DIR__ . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
         $this->smarty->setAllowAmbiguousResources(true);
@@ -83,7 +83,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
      */
     public function testCase2()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(__DIR__ . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
         $this->smarty->setAllowAmbiguousResources(true);
@@ -103,7 +103,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
      */
     public function testCaseSwitching()
     {
-        $resource_handler = new Smarty_Resource_Ambiguous(__DIR__ . '/templates/ambiguous/');
+        $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
         $this->smarty->setAllowAmbiguousResources(true);

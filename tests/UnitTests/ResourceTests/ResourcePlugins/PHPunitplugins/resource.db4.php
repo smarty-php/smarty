@@ -10,7 +10,7 @@
  * -------------------------------------------------------------
  */
 
-class Smarty_Resource_Db4 extends Smarty_Resource
+class Smarty_Resource_Db4 extends Smarty\Resource\BasePlugin
 {
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
     {
