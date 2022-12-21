@@ -8,24 +8,17 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Data;
+use Smarty\Smarty;
+
 /**
  * Class with shared smarty/template methods
- *
- * @package    Smarty
- * @subpackage Template
  *
  * @property int $_objType
  *
  * The following methods will be dynamically loaded by the extension handler when they are called.
  * They are located in a corresponding Smarty_Internal_Method_xxxx class
  *
- * @method Smarty_Internal_TemplateBase addDefaultModifiers(mixed $modifiers)
- * @method Smarty_Internal_TemplateBase addLiterals(mixed $literals)
- * @method Smarty_Internal_TemplateBase createData(\Smarty\Data $parent = null, string $name = null)
- * @method string getDebugTemplate()
- * @method array getDefaultModifier()
- * @method array getLiterals()
- * @method object getRegisteredObject(string $object_name)
  * @method Smarty_Internal_TemplateBase registerCacheResource(string $name, \Smarty\Cacheresource\Base $resource_handler)
  * @method Smarty_Internal_TemplateBase registerClass(string $class_name, string $class_impl)
  * @method Smarty_Internal_TemplateBase registerDefaultConfigHandler(callback $callback)
@@ -34,15 +27,12 @@
  * @method Smarty_Internal_TemplateBase registerResource(string $name, mixed $resource_handler)
  * @method Smarty_Internal_TemplateBase setDebugTemplate(string $tpl_name)
  * @method Smarty_Internal_TemplateBase setDefaultModifiers(mixed $modifiers)
- * @method Smarty_Internal_TemplateBase setLiterals(mixed $literals)
- * @method Smarty_Internal_TemplateBase unloadFilter(string $type, string $name)
  * @method Smarty_Internal_TemplateBase unregisterCacheResource(string $name)
  * @method Smarty_Internal_TemplateBase unregisterObject(string $object_name)
  * @method Smarty_Internal_TemplateBase unregisterPlugin(string $type, string $name)
- * @method Smarty_Internal_TemplateBase unregisterFilter(string $type, mixed $callback)
  * @method Smarty_Internal_TemplateBase unregisterResource(string $name)
  */
-abstract class Smarty_Internal_TemplateBase extends \Smarty\Data
+abstract class Smarty_Internal_TemplateBase extends Data
 {
     /**
      * Set this if you want different sets of cache files for the same
@@ -95,7 +85,15 @@ abstract class Smarty_Internal_TemplateBase extends \Smarty\Data
      */
     public $_var_stack = null;
 
-    /**
+	/**
+	 * Valid filter types
+	 *
+	 * @var array
+	 */
+	private $filterTypes = array('pre' => true, 'post' => true, 'output' => true, 'variable' => true);
+
+
+	/**
      * fetches a rendered Smarty template
      *
      * @param string $template   the resource handle of the template file or template object
@@ -302,26 +300,106 @@ abstract class Smarty_Internal_TemplateBase extends \Smarty\Data
      */
     public function loadFilter($type, $name)
     {
-        return $this->ext->loadFilter->loadFilter($this, $type, $name);
+	    $smarty = $this->_getSmartyObj();
+	    $this->_checkFilterType($type);
+	    $_plugin = "smarty_{$type}filter_{$name}";
+	    $_filter_name = $_plugin;
+	    if (is_callable($_plugin)) {
+		    $smarty->registered_filters[ $type ][ $_filter_name ] = $_plugin;
+		    return true;
+	    }
+	    if (class_exists($_plugin, false)) {
+		    $_plugin = array($_plugin, 'execute');
+	    }
+	    if (is_callable($_plugin)) {
+		    $smarty->registered_filters[ $type ][ $_filter_name ] = $_plugin;
+		    return true;
+	    }
+	    throw new SmartyException("{$type}filter '{$name}' not found or callable");
     }
+
+	/**
+	 * load a filter of specified type and name
+	 *
+	 * @api  Smarty::unloadFilter()
+	 *
+	 * @link https://www.smarty.net/docs/en/api.unload.filter.tpl
+	 *
+	 * @param string                                                          $type filter type
+	 * @param string                                                          $name filter name
+	 *
+	 * @return Smarty_Internal_TemplateBase
+	 * @throws \SmartyException
+	 */
+	public function unloadFilter($type, $name)
+	{
+		$smarty = $this->_getSmartyObj();
+		$this->_checkFilterType($type);
+		if (isset($smarty->registered_filters[ $type ])) {
+			$_filter_name = "smarty_{$type}filter_{$name}";
+			if (isset($smarty->registered_filters[ $type ][ $_filter_name ])) {
+				unset($smarty->registered_filters[ $type ][ $_filter_name ]);
+				if (empty($smarty->registered_filters[ $type ])) {
+					unset($smarty->registered_filters[ $type ]);
+				}
+			}
+		}
+		return $this;
+	}
 
     /**
      * Registers a filter function
-     *
-     * @api  Smarty::registerFilter()
-     * @link https://www.smarty.net/docs/en/api.register.filter.tpl
      *
      * @param string      $type filter type
      * @param callable    $callback
      * @param string|null $name optional filter name
      *
-     * @return \Smarty|\Smarty_Internal_Template
+     * @return Smarty_Internal_TemplateBase
      * @throws \SmartyException
+     *@link https://www.smarty.net/docs/en/api.register.filter.tpl
+     *
+     * @api  Smarty::registerFilter()
      */
     public function registerFilter($type, $callback, $name = null)
     {
-        return $this->ext->registerFilter->registerFilter($this, $type, $callback, $name);
+	    $smarty = $this->_getSmartyObj();
+	    $this->_checkFilterType($type);
+	    $name = isset($name) ? $name : $this->_getFilterName($callback);
+	    if (!is_callable($callback)) {
+		    throw new SmartyException("{$type}filter '{$name}' not callable");
+	    }
+	    $smarty->registered_filters[ $type ][ $name ] = $callback;
+	    return $this;
     }
+
+	/**
+	 * Unregisters a filter function
+	 *
+	 * @param string                                                          $type filter type
+	 * @param callback|string                                                 $callback
+	 *
+	 * @return Smarty_Internal_TemplateBase
+	 * @throws \SmartyException
+	 *@api  Smarty::unregisterFilter()
+	 *
+	 * @link https://www.smarty.net/docs/en/api.unregister.filter.tpl
+	 *
+	 */
+	public function unregisterFilter($type, $callback)
+	{
+		$smarty = $this->_getSmartyObj();
+		$this->_checkFilterType($type);
+		if (isset($smarty->registered_filters[ $type ])) {
+			$name = is_string($callback) ? $callback : $this->_getFilterName($callback);
+			if (isset($smarty->registered_filters[ $type ][ $name ])) {
+				unset($smarty->registered_filters[ $type ][ $name ]);
+				if (empty($smarty->registered_filters[ $type ])) {
+					unset($smarty->registered_filters[ $type ]);
+				}
+			}
+		}
+		return $this;
+	}
 
     /**
      * Registers object to be used in templates
@@ -394,4 +472,209 @@ abstract class Smarty_Internal_TemplateBase extends \Smarty\Data
     {
         $this->cache_id = $cache_id;
     }
+
+	/**
+	 * Add default modifiers
+	 *
+	 * @api Smarty::addDefaultModifiers()
+	 *
+	 * @param array|string                                                    $modifiers modifier or list of modifiers
+	 *                                                                                   to add
+	 *
+	 * @return \Smarty|\Smarty_Internal_Template
+	 */
+	public function addDefaultModifiers($modifiers)
+	{
+		$smarty = $this->_getSmartyObj();
+		if (is_array($modifiers)) {
+			$smarty->default_modifiers = array_merge($smarty->default_modifiers, $modifiers);
+		} else {
+			$smarty->default_modifiers[] = $modifiers;
+		}
+		return $this;
+	}
+
+	/**
+	 * creates a data object
+	 *
+	 * @param Data|null $parent next higher level of Smarty
+	 *                                                                                     variables
+	 * @param null $name optional data block name
+	 *
+	 * @return Smarty_Data data object
+	 * @throws SmartyException
+	 * @api  Smarty::createData()
+	 * @link https://www.smarty.net/docs/en/api.create.data.tpl
+	 *
+	 */
+	public function createData(Data $parent = null, $name = null)
+	{
+		/* @var Smarty $smarty */
+		$smarty = $this->_getSmartyObj();
+		$dataObj = new Smarty_Data($parent, $smarty, $name);
+		if ($smarty->debugging) {
+			\Smarty\Debug::register_data($dataObj);
+		}
+		return $dataObj;
+	}
+
+	/**
+	 * return name of debugging template
+	 *
+	 * @api Smarty::getDebugTemplate()
+	 *
+	 * @return string
+	 */
+	public function getDebugTemplate()
+	{
+		$smarty = $this->_getSmartyObj();
+		return $smarty->debug_tpl;
+	}
+
+	/**
+	 * Get default modifiers
+	 *
+	 * @api Smarty::getDefaultModifiers()
+	 *
+	 * @return array list of default modifiers
+	 */
+	public function getDefaultModifiers()
+	{
+		$smarty = $this->_getSmartyObj();
+		return $smarty->default_modifiers;
+	}
+
+	/**
+	 * return a reference to a registered object
+	 *
+	 * @api  Smarty::getRegisteredObject()
+	 * @link https://www.smarty.net/docs/en/api.get.registered.object.tpl
+	 *
+	 * @param string                                                          $object_name object name
+	 *
+	 * @return object
+	 * @throws \SmartyException if no such object is found
+	 */
+	public function getRegisteredObject($object_name)
+	{
+		$smarty = $this->_getSmartyObj();
+		if (!isset($smarty->registered_objects[ $object_name ])) {
+			throw new SmartyException("'$object_name' is not a registered object");
+		}
+		if (!is_object($smarty->registered_objects[ $object_name ][ 0 ])) {
+			throw new SmartyException("registered '$object_name' is not an object");
+		}
+		return $smarty->registered_objects[ $object_name ][ 0 ];
+	}
+
+
+	/**
+	 * Get literals
+	 *
+	 * @api Smarty::getLiterals()
+	 *
+	 * @return array list of literals
+	 */
+	public function getLiterals()
+	{
+		$smarty = $this->_getSmartyObj();
+		return (array)$smarty->literals;
+	}
+
+	/**
+	 * Add literals
+	 *
+	 * @param array|string                                                    $literals literal or list of literals
+	 *                                                                                  to addto add
+	 *
+	 * @return Smarty_Internal_TemplateBase
+	 * @throws \SmartyException
+	 * @api Smarty::addLiterals()
+	 *
+	 */
+	public function addLiterals($literals = null)
+	{
+		if (isset($literals)) {
+			$this->_setLiterals($this->_getSmartyObj(), (array)$literals);
+		}
+		return $this;
+	}
+
+	/**
+	 * Set literals
+	 *
+	 * @param array|string                                                    $literals literal or list of literals
+	 *                                                                                  to setto set
+	 *
+	 * @return Smarty_Internal_TemplateBase
+	 * @throws \SmartyException
+	 * @api Smarty::setLiterals()
+	 *
+	 */
+	public function setLiterals($literals = null)
+	{
+		$smarty = $this->_getSmartyObj();
+		$smarty->literals = array();
+		if (!empty($literals)) {
+			$this->_setLiterals($smarty, (array)$literals);
+		}
+		return $this;
+	}
+
+	/**
+	 * common setter for literals for easier handling of duplicates the
+	 * Smarty::$literals array gets filled with identical key values
+	 *
+	 * @param Smarty $smarty
+	 * @param array   $literals
+	 *
+	 * @throws \SmartyException
+	 */
+	private function _setLiterals(Smarty $smarty, $literals)
+	{
+		$literals = array_combine($literals, $literals);
+		$error = isset($literals[ $smarty->left_delimiter ]) ? array($smarty->left_delimiter) : array();
+		$error = isset($literals[ $smarty->right_delimiter ]) ? $error[] = $smarty->right_delimiter : $error;
+		if (!empty($error)) {
+			throw new SmartyException(
+				'User defined literal(s) "' . $error .
+				'" may not be identical with left or right delimiter'
+			);
+		}
+		$smarty->literals = array_merge((array)$smarty->literals, (array)$literals);
+	}
+
+	/**
+	 * Check if filter type is valid
+	 *
+	 * @param string $type
+	 *
+	 * @throws \SmartyException
+	 */
+	private function _checkFilterType($type)
+	{
+		if (!isset($this->filterTypes[ $type ])) {
+			throw new SmartyException("Illegal filter type '{$type}'");
+		}
+	}
+
+	/**
+	 * Return internal filter name
+	 *
+	 * @param callback $function_name
+	 *
+	 * @return string   internal filter name
+	 */
+	private function _getFilterName($function_name)
+	{
+		if (is_array($function_name)) {
+			$_class_name = (is_object($function_name[ 0 ]) ? get_class($function_name[ 0 ]) : $function_name[ 0 ]);
+			return $_class_name . '_' . $function_name[ 1 ];
+		} elseif (is_string($function_name)) {
+			return $function_name;
+		} else {
+			return 'closure';
+		}
+	}
+
 }

@@ -102,9 +102,9 @@ class PrivateSpecialVariable extends Base {
 				// no break
 				case 'config':
 					if (isset($_index[2])) {
-						return "(is_array(\$tmp = \$_smarty_tpl->smarty->ext->configload->_getConfigVariable(\$_smarty_tpl, $_index[1])) ? \$tmp[$_index[2]] : null)";
+						return "(is_array(\$tmp = \$_smarty_tpl->getConfigVariable($_index[1])) ? \$tmp[$_index[2]] : null)";
 					} else {
-						return "\$_smarty_tpl->smarty->ext->configload->_getConfigVariable(\$_smarty_tpl, $_index[1])";
+						return "\$_smarty_tpl->getConfigVariable($_index[1])";
 					}
 				// no break
 				case 'ldelim':

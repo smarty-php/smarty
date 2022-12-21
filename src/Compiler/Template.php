@@ -533,14 +533,12 @@ class Template {
 			// not a variable variable
 			$var = trim($variable, '\'');
 			$this->tag_nocache = $this->tag_nocache |
-				$this->template->ext->getTemplateVars->_getVariable(
-					$this->template,
+				$this->template->_getVariable(
 					$var,
 					null,
 					true,
 					false
 				)->nocache;
-			// todo $this->template->compiled->properties['variables'][$var] = $this->tag_nocache | $this->nocache;
 		}
 		return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';
 	}
@@ -554,7 +552,7 @@ class Template {
 	 */
 	public function compileConfigVariable($variable) {
 		// return '$_smarty_tpl->config_vars[' . $variable . ']';
-		return '$_smarty_tpl->smarty->ext->configLoad->_getConfigVariable($_smarty_tpl, ' . $variable . ')';
+		return '$_smarty_tpl->getConfigVariable(' . $variable . ')';
 	}
 
 	/**

@@ -1,0 +1,2 @@
+- [ ] find ->ext-> calls, rewrite and remove first function call param
+- [ ] review usages of ->_getSmartyObj and ->smarty: maybe change this so we can hide more

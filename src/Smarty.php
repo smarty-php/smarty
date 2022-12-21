@@ -34,17 +34,6 @@ namespace Smarty;
 
 /**
  * This is the main Smarty class
- *
- * @package Smarty
- *
- * The following methods will be dynamically loaded by the extension handler when they are called.
- * They are located in a corresponding Smarty_Internal_Method_xxxx class
- *
- * @method int clearAllCache(int $exp_time = null, string $type = null)
- * @method int clearCache(string $template_name, string $cache_id = null, string $compile_id = null, int $exp_time = null, string $type = null)
- * @method int compileAllTemplates(string $extension = '.tpl', bool $force_compile = false, int $time_limit = 0, $max_errors = null)
- * @method int compileAllConfig(string $extension = '.conf', bool $force_compile = false, int $time_limit = 0, $max_errors = null)
- * @method int clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
  */
 class Smarty extends \Smarty_Internal_TemplateBase
 {
@@ -1225,5 +1214,289 @@ class Smarty extends \Smarty_Internal_TemplateBase
     public function isMutingUndefinedOrNullWarnings(): bool {
         return $this->isMutingUndefinedOrNullWarnings;
     }
+
+	/**
+	 * Empty cache for a specific template
+	 *
+	 * @api  Smarty::clearCache()
+	 * @link https://www.smarty.net/docs/en/api.clear.cache.tpl
+	 *
+	 * @param string  $template_name template name
+	 * @param string  $cache_id      cache id
+	 * @param string  $compile_id    compile id
+	 * @param integer $exp_time      expiration time
+	 * @param string  $type          resource type
+	 *
+	 * @return int number of cache files deleted
+	 * @throws \SmartyException
+	 */
+	public function clearCache(
+		       $template_name,
+		       $cache_id = null,
+		       $compile_id = null,
+		       $exp_time = null,
+		       $type = null
+	) {
+		$this->_clearTemplateCache();
+		// load cache resource and call clear
+		$_cache_resource = \Smarty\Cacheresource\Base::load($this, $type);
+		return $_cache_resource->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
+	}
+
+	/**
+	 * Empty cache folder
+	 *
+	 * @api  Smarty::clearAllCache()
+	 * @link https://www.smarty.net/docs/en/api.clear.all.cache.tpl
+	 *
+	 * @param integer $exp_time expiration time
+	 * @param string  $type     resource type
+	 *
+	 * @return int number of cache files deleted
+	 */
+	public function clearAllCache($exp_time = null, $type = null)
+	{
+		$this->_clearTemplateCache();
+		// load cache resource and call clearAll
+		$_cache_resource = \Smarty\Cacheresource\Base::load($this, $type);
+		return $_cache_resource->clearAll($this, $exp_time);
+	}
+
+	/**
+	 * Delete compiled template file
+	 *
+	 * @api  Smarty::clearCompiledTemplate()
+	 * @link https://www.smarty.net/docs/en/api.clear.compiled.template.tpl
+	 *
+	 * @param string  $resource_name template name
+	 * @param string  $compile_id    compile id
+	 * @param integer $exp_time      expiration time
+	 *
+	 * @return int number of template files deleted
+	 * @throws \SmartyException
+	 */
+	public function clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
+	{
+		// clear template objects cache
+		$this->_clearTemplateCache();
+		$_compile_dir = $this->getCompileDir();
+		if ($_compile_dir === '/') { //We should never want to delete this!
+			return 0;
+		}
+		$_compile_id = isset($compile_id) ? preg_replace('![^\w]+!', '_', $compile_id) : null;
+		$_dir_sep = $this->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
+		if (isset($resource_name)) {
+			$_save_stat = $this->caching;
+			$this->caching = \Smarty\Smarty::CACHING_OFF;
+			/* @var Smarty_Internal_Template $tpl */
+			$tpl = $this->createTemplate($resource_name);
+			$this->caching = $_save_stat;
+			if (!$tpl->source->handler->uncompiled && !$tpl->source->handler->recompiled && $tpl->source->exists) {
+				$_resource_part_1 = basename(str_replace('^', DIRECTORY_SEPARATOR, $tpl->compiled->filepath));
+				$_resource_part_1_length = strlen($_resource_part_1);
+			} else {
+				return 0;
+			}
+			$_resource_part_2 = str_replace('.php', '.cache.php', $_resource_part_1);
+			$_resource_part_2_length = strlen($_resource_part_2);
+		}
+		$_dir = $_compile_dir;
+		if ($this->use_sub_dirs && isset($_compile_id)) {
+			$_dir .= $_compile_id . $_dir_sep;
+		}
+		if (isset($_compile_id)) {
+			$_compile_id_part = $_compile_dir . $_compile_id . $_dir_sep;
+			$_compile_id_part_length = strlen($_compile_id_part);
+		}
+		$_count = 0;
+		try {
+			$_compileDirs = new RecursiveDirectoryIterator($_dir);
+			// NOTE: UnexpectedValueException thrown for PHP >= 5.3
+		} catch (Exception $e) {
+			return 0;
+		}
+		$_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
+		foreach ($_compile as $_file) {
+			if (substr(basename($_file->getPathname()), 0, 1) === '.') {
+				continue;
+			}
+			$_filepath = (string)$_file;
+			if ($_file->isDir()) {
+				if (!$_compile->isDot()) {
+					// delete folder if empty
+					@rmdir($_file->getPathname());
+				}
+			} else {
+				// delete only php files
+				if (substr($_filepath, -4) !== '.php') {
+					continue;
+				}
+				$unlink = false;
+				if ((!isset($_compile_id) ||
+						(isset($_filepath[ $_compile_id_part_length ]) &&
+							$a = !strncmp($_filepath, $_compile_id_part, $_compile_id_part_length)))
+					&& (!isset($resource_name) || (isset($_filepath[ $_resource_part_1_length ])
+							&& substr_compare(
+								$_filepath,
+								$_resource_part_1,
+								-$_resource_part_1_length,
+								$_resource_part_1_length
+							) === 0) || (isset($_filepath[ $_resource_part_2_length ])
+							&& substr_compare(
+								$_filepath,
+								$_resource_part_2,
+								-$_resource_part_2_length,
+								$_resource_part_2_length
+							) === 0))
+				) {
+					if (isset($exp_time)) {
+						if (is_file($_filepath) && time() - filemtime($_filepath) >= $exp_time) {
+							$unlink = true;
+						}
+					} else {
+						$unlink = true;
+					}
+				}
+				if ($unlink && is_file($_filepath) && @unlink($_filepath)) {
+					$_count++;
+					if (function_exists('opcache_invalidate')
+						&& (!function_exists('ini_get') || strlen(ini_get('opcache.restrict_api')) < 1)
+					) {
+						opcache_invalidate($_filepath, true);
+					} elseif (function_exists('apc_delete_file')) {
+						apc_delete_file($_filepath);
+					}
+				}
+			}
+		}
+		return $_count;
+	}
+
+	/**
+	 * Compile all template files
+	 *
+	 * @api Smarty::compileAllTemplates()
+	 *
+	 * @param string  $extension     file extension
+	 * @param bool    $force_compile force all to recompile
+	 * @param int     $time_limit
+	 * @param int     $max_errors
+	 *
+	 * @return integer number of template files recompiled
+	 */
+	public function compileAllTemplates(
+		       $extension = '.tpl',
+		       $force_compile = false,
+		       $time_limit = 0,
+		       $max_errors = null
+	) {
+		return $this->compileAll($extension, $force_compile, $time_limit, $max_errors);
+	}
+
+	/**
+	 * Compile all config files
+	 *
+	 * @api Smarty::compileAllConfig()
+	 *
+	 * @param string  $extension     file extension
+	 * @param bool    $force_compile force all to recompile
+	 * @param int     $time_limit
+	 * @param int     $max_errors
+	 *
+	 * @return int number of template files recompiled
+	 */
+	public function compileAllConfig(
+		       $extension = '.conf',
+		       $force_compile = false,
+		       $time_limit = 0,
+		       $max_errors = null
+	) {
+		return $this->compileAll($extension, $force_compile, $time_limit, $max_errors, true);
+	}
+
+	/**
+	 * Compile all template or config files
+	 *
+	 * @param string  $extension     template file name extension
+	 * @param bool    $force_compile force all to recompile
+	 * @param int     $time_limit    set maximum execution time
+	 * @param int     $max_errors    set maximum allowed errors
+	 * @param bool    $isConfig      flag true if called for config files
+	 *
+	 * @return int number of template files compiled
+	 */
+	protected function compileAll(
+		       $extension,
+		       $force_compile,
+		       $time_limit,
+		       $max_errors,
+		       $isConfig = false
+	) {
+		// switch off time limit
+		if (function_exists('set_time_limit')) {
+			@set_time_limit($time_limit);
+		}
+		$_count = 0;
+		$_error_count = 0;
+		$sourceDir = $isConfig ? $this->getConfigDir() : $this->getTemplateDir();
+		// loop over array of source directories
+		foreach ($sourceDir as $_dir) {
+			$_dir_1 = new RecursiveDirectoryIterator(
+				$_dir,
+				defined('FilesystemIterator::FOLLOW_SYMLINKS') ?
+					FilesystemIterator::FOLLOW_SYMLINKS : 0
+			);
+			$_dir_2 = new RecursiveIteratorIterator($_dir_1);
+			foreach ($_dir_2 as $_fileinfo) {
+				$_file = $_fileinfo->getFilename();
+				if (substr(basename($_fileinfo->getPathname()), 0, 1) === '.' || strpos($_file, '.svn') !== false) {
+					continue;
+				}
+				if (substr_compare($_file, $extension, -strlen($extension)) !== 0) {
+					continue;
+				}
+				if ($_fileinfo->getPath() !== substr($_dir, 0, -1)) {
+					$_file = substr($_fileinfo->getPath(), strlen($_dir)) . DIRECTORY_SEPARATOR . $_file;
+				}
+				echo "\n<br>", $_dir, '---', $_file;
+				flush();
+				$_start_time = microtime(true);
+				$_smarty = clone $this;
+				//
+				$_smarty->_cache = array();
+				$_smarty->ext = new Smarty_Internal_Extension_Handler();
+				$_smarty->ext->objType = $_smarty->_objType;
+				$_smarty->force_compile = $force_compile;
+				try {
+					/* @var Smarty_Internal_Template $_tpl */
+					$_tpl = new $this->template_class($_file, $_smarty);
+					$_tpl->caching = self::CACHING_OFF;
+					$_tpl->source =
+						$isConfig ? Smarty_Template_Config::load($_tpl) : Smarty_Template_Source::load($_tpl);
+					if ($_tpl->mustCompile()) {
+						$_tpl->compileTemplateSource();
+						$_count++;
+						echo ' compiled in  ', microtime(true) - $_start_time, ' seconds';
+						flush();
+					} else {
+						echo ' is up to date';
+						flush();
+					}
+				} catch (Exception $e) {
+					echo "\n<br>        ------>Error: ", $e->getMessage(), "<br><br>\n";
+					$_error_count++;
+				}
+				// free memory
+				unset($_tpl);
+				$_smarty->_clearTemplateCache();
+				if ($max_errors !== null && $_error_count === $max_errors) {
+					echo "\n<br><br>too many errors\n";
+					exit(1);
+				}
+			}
+		}
+		echo "\n<br>";
+		return $_count;
+	}
 
 }

@@ -8,21 +8,15 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Data;
+
 /**
  * Main class with template data structures and methods
- *
- * @package    Smarty
- * @subpackage Template
  *
  * @property Smarty_Template_Compiled             $compiled
  * @property Smarty_Template_Cached               $cached
  * @property \Smarty\Compiler\Template $compiler
  * @property mixed|\Smarty_Template_Cached        registered_plugins
- *
- * The following methods will be dynamically loaded by the extension handler when they are called.
- * They are located in a corresponding Smarty_Internal_Method_xxxx class
- *
- * @method bool mustCompile()
  */
 #[\AllowDynamicProperties]
 class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
@@ -56,13 +50,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @var int
      */
     public $_objType = 2;
-
-    /**
-     * Global smarty instance
-     *
-     * @var Smarty
-     */
-    public $smarty = null;
 
     /**
      * Source instance
@@ -319,7 +306,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 $tpl->compile_id = $compile_id;
                 if (isset($uid)) {
                     // for inline templates we can get all resource information from file dependency
-                    list($filepath, $timestamp, $type) = $tpl->compiled->file_dependency[ $uid ];
+                    [$filepath, $timestamp, $type] = $tpl->compiled->file_dependency[ $uid ];
                     $tpl->source = new Smarty_Template_Source($smarty, $filepath, $type, $filepath);
                     $tpl->source->filepath = $filepath;
                     $tpl->source->timestamp = $timestamp;
@@ -508,7 +495,6 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if ($is_valid) {
             $resource->unifunc = $properties[ 'unifunc' ];
             $resource->has_nocache_code = $properties[ 'has_nocache_code' ];
-            //            $tpl->compiled->nocache_hash = $properties['nocache_hash'];
             $resource->file_dependency = $properties[ 'file_dependency' ];
         }
         return $is_valid && !function_exists($properties[ 'unifunc' ]);
@@ -714,4 +700,115 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             $this->cached->handler->releaseLock($this->smarty, $this->cached);
         }
     }
+
+
+	/**
+	 * load config variables into template object
+	 *
+	 * @param \Smarty_Internal_Template $tpl
+	 * @param array                     $new_config_vars
+	 */
+	public function _loadConfigVars($new_config_vars)
+	{
+		$this->_assignConfigVars($this->parent->config_vars, $new_config_vars);
+		$tagScope = $this->source->scope;
+		if ($tagScope >= 0) {
+			if ($tagScope === \Smarty\Smarty::SCOPE_LOCAL) {
+				$this->_updateConfigVarStack($new_config_vars);
+				$tagScope = 0;
+				if (!$this->scope) {
+					return;
+				}
+			}
+			if ($this->parent->_isTplObj() && ($tagScope || $this->parent->scope)) {
+				$mergedScope = $tagScope | $this->scope;
+				if ($mergedScope) {
+					// update scopes
+					/* @var \Smarty_Internal_Template|\Smarty|Data $ptr */
+					foreach ($this->smarty->ext->_updateScope->_getAffectedScopes($this->parent, $mergedScope) as $ptr) {
+						$this->_assignConfigVars($ptr->config_vars, $new_config_vars);
+						if ($tagScope && $ptr->_isTplObj() && isset($this->_var_stack)) {
+							$this->_updateConfigVarStack($new_config_vars);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Assign all config variables in given scope
+	 *
+	 * @param array                     $config_vars     config variables in scope
+	 * @param array                     $new_config_vars loaded config variables
+	 */
+	private function _assignConfigVars(&$config_vars, $new_config_vars)
+	{
+		// copy global config vars
+		foreach ($new_config_vars[ 'vars' ] as $variable => $value) {
+			if ($this->smarty->config_overwrite || !isset($config_vars[ $variable ])) {
+				$config_vars[ $variable ] = $value;
+			} else {
+				$config_vars[ $variable ] = array_merge((array)$config_vars[ $variable ], (array)$value);
+			}
+		}
+		// scan sections
+		$sections = $this->source->config_sections;
+		if (!empty($sections)) {
+			foreach ((array)$sections as $tpl_section) {
+				if (isset($new_config_vars[ 'sections' ][ $tpl_section ])) {
+					foreach ($new_config_vars[ 'sections' ][ $tpl_section ][ 'vars' ] as $variable => $value) {
+						if ($this->smarty->config_overwrite || !isset($config_vars[ $variable ])) {
+							$config_vars[ $variable ] = $value;
+						} else {
+							$config_vars[ $variable ] = array_merge((array)$config_vars[ $variable ], (array)$value);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Update config variables in template local variable stack
+	 *
+	 * @param array                     $config_vars
+	 */
+	private function _updateConfigVarStack($config_vars)
+	{
+		$i = 0;
+		while (isset($this->_var_stack[ $i ])) {
+			$this->_assignConfigVars($this->_var_stack[ $i ][ 'config' ], $config_vars);
+			$i++;
+		}
+	}
+
+	/**
+	 * Returns if the current template must be compiled by the Smarty compiler
+	 * It does compare the timestamps of template source and the compiled templates and checks the force compile
+	 * configuration
+	 *
+	 * @return bool
+	 * @throws \SmartyException
+	 */
+	public function mustCompile()
+	{
+		if (!$this->source->exists) {
+			if ($this->_isSubTpl()) {
+				$parent_resource = " in '{$this->parent->template_resource}'";
+			} else {
+				$parent_resource = '';
+			}
+			throw new SmartyException("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
+		}
+		if ($this->mustCompile === null) {
+			$this->mustCompile = (!$this->source->handler->uncompiled &&
+				($this->smarty->force_compile || $this->source->handler->recompiled ||
+					!$this->compiled->exists || ($this->compile_check &&
+						$this->compiled->getTimeStamp() <
+						$this->source->getTimeStamp())));
+		}
+		return $this->mustCompile;
+	}
+
 }
