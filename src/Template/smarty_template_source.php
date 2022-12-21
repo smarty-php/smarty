@@ -180,7 +180,7 @@ class Smarty_Template_Source
         $source = new Smarty_Template_Source($smarty, $template_resource, $type, $name);
         $source->handler->populate($source, $_template);
         if (!$source->exists && isset($_template->smarty->default_template_handler_func)) {
-            Smarty_Internal_Method_RegisterDefaultTemplateHandler::_getDefaultTemplate($source);
+	        $source->_getDefaultTemplate($_template->smarty->default_template_handler_func);
             $source->handler->populate($source, $_template);
         }
         return $source;
@@ -209,4 +209,43 @@ class Smarty_Template_Source
     {
         return isset($this->content) ? $this->content : $this->handler->getContent($this);
     }
+
+	/**
+	 * get default content from template or config resource handler
+	 *
+	 * @throws \SmartyException
+	 */
+	public function _getDefaultTemplate($default_handler)
+	{
+		$_content = $_timestamp = null;
+		$_return = call_user_func_array(
+			$default_handler,
+			array($this->type, $this->name, &$_content, &$_timestamp, $this->smarty)
+		);
+		if (is_string($_return)) {
+			$this->exists = is_file($_return);
+			if ($this->exists) {
+				$this->timestamp = filemtime($_return);
+			} else {
+				throw new SmartyException(
+					'Default handler: Unable to load ' .
+					($this->isConfig ? 'config' : 'template') .
+					" default file '{$_return}' for '{$this->type}:{$this->name}'"
+				);
+			}
+			$this->name = $this->filepath = $_return;
+			$this->uid = sha1($this->filepath);
+		} elseif ($_return === true) {
+			$this->content = $_content;
+			$this->exists = true;
+			$this->uid = $this->name = sha1($_content);
+			$this->handler = Smarty_Resource::load($this->smarty, 'eval');
+		} else {
+			$this->exists = false;
+			throw new SmartyException(
+				'Default handler: No ' . ($this->isConfig ? 'config' : 'template') .
+				" default content for '{$this->type}:{$this->name}'"
+			);
+		}
+	}
 }

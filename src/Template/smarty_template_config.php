@@ -92,7 +92,7 @@ class Smarty_Template_Config extends Smarty_Template_Source
         $source = new Smarty_Template_Config($smarty, $template_resource, $type, $name);
         $source->handler->populate($source, $_template);
         if (!$source->exists && isset($smarty->default_config_handler_func)) {
-            Smarty_Internal_Method_RegisterDefaultTemplateHandler::_getDefaultTemplate($source);
+            $source->_getDefaultTemplate($smarty->default_config_handler_func);
             $source->handler->populate($source, $_template);
         }
         return $source;
