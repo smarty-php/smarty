@@ -5,6 +5,9 @@
  * @package    Smarty
  * @subpackage PluginsBlock
  */
+
+use Smarty\Template;
+
 /**
  * Smarty {textformat}{/textformat} block plugin
  * Type:     block function
@@ -25,14 +28,14 @@
  *
  * @param array                    $params   parameters
  * @param string                   $content  contents of the block
- * @param Smarty_Internal_Template $template template object
+ * @param Template $template template object
  * @param boolean                  &$repeat  repeat flag
  *
  * @return string content re-formatted
  * @author Monte Ohrt <monte at ohrt dot com>
  * @throws \SmartyException
  */
-function smarty_block_textformat($params, $content, Smarty_Internal_Template $template, &$repeat)
+function smarty_block_textformat($params, $content, Template $template, &$repeat)
 {
     if (is_null($content)) {
         return;

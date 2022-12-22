@@ -3,8 +3,8 @@
 namespace Smarty\Cacheresource;
 
 use Smarty\Smarty;
-use Smarty_Internal_Template;
-use Smarty_Template_Cached;
+use Smarty\Template;
+use Smarty\Template\Cached;
 
 /**
  * Smarty Internal Plugin
@@ -32,64 +32,64 @@ abstract class Base
     /**
      * populate Cached Object with meta data from Resource
      *
-     * @param Smarty_Template_Cached  $cached    cached object
-     * @param Smarty_Internal_Template $_template template object
+     * @param Cached  $cached    cached object
+     * @param Template $_template template object
      *
      * @return void
      */
-    abstract public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template);
+    abstract public function populate(Cached $cached, Template $_template);
 
     /**
      * populate Cached Object with timestamp and exists from Resource
      *
-     * @param Smarty_Template_Cached $cached
+     * @param Cached $cached
      *
      * @return void
      */
-    abstract public function populateTimestamp(Smarty_Template_Cached $cached);
+    abstract public function populateTimestamp(Cached $cached);
 
     /**
      * Read the cached template and process header
      *
-     * @param Smarty_Internal_Template $_template template object
-     * @param Smarty_Template_Cached   $cached    cached object
+     * @param Template $_template template object
+     * @param Cached   $cached    cached object
      * @param boolean                  $update    flag if called because cache update
      *
      * @return boolean true or false if the cached content does not exist
      */
     abstract public function process(
-        Smarty_Internal_Template $_template,
-        Smarty_Template_Cached $cached = null,
-        $update = false
+	    Template $_template,
+	    Cached   $cached = null,
+	             $update = false
     );
 
     /**
      * Write the rendered template output to cache
      *
-     * @param Smarty_Internal_Template $_template template object
+     * @param Template $_template template object
      * @param string                   $content   content to cache
      *
      * @return boolean success
      */
-    abstract public function storeCachedContent(Smarty_Internal_Template $_template, $content);
+    abstract public function storeCachedContent(Template $_template, $content);
 
     /**
      * Read cached template from cache
      *
-     * @param Smarty_Internal_Template $_template template object
+     * @param Template $_template template object
      *
      * @return string  content
      */
-    abstract public function retrieveCachedContent(Smarty_Internal_Template $_template);
+    abstract public function retrieveCachedContent(Template $_template);
 
     /**
      * Return cached content
      *
-     * @param Smarty_Internal_Template $_template template object
+     * @param Template $_template template object
      *
      * @return null|string
      */
-    public function getCachedContent(Smarty_Internal_Template $_template)
+    public function getCachedContent(Template $_template)
     {
         if ($_template->cached->handler->process($_template)) {
             ob_start();
@@ -125,11 +125,11 @@ abstract class Base
 
     /**
      * @param Smarty                 $smarty
-     * @param Smarty_Template_Cached $cached
+     * @param Cached $cached
      *
      * @return bool|null
      */
-    public function locked(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function locked(Smarty $smarty, Cached $cached)
     {
         // theoretically locking_timeout should be checked against time_limit (max_execution_time)
         $start = microtime(true);
@@ -149,11 +149,11 @@ abstract class Base
      * Check is cache is locked for this template
      *
      * @param Smarty                 $smarty
-     * @param Smarty_Template_Cached $cached
+     * @param Cached $cached
      *
      * @return bool
      */
-    public function hasLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function hasLock(Smarty $smarty, Cached $cached)
     {
         // check if lock exists
         return false;
@@ -163,11 +163,11 @@ abstract class Base
      * Lock cache for this template
      *
      * @param Smarty                 $smarty
-     * @param Smarty_Template_Cached $cached
+     * @param Cached $cached
      *
      * @return bool
      */
-    public function acquireLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function acquireLock(Smarty $smarty, Cached $cached)
     {
         // create lock
         return true;
@@ -177,11 +177,11 @@ abstract class Base
      * Unlock cache for this template
      *
      * @param Smarty                 $smarty
-     * @param Smarty_Template_Cached $cached
+     * @param Cached $cached
      *
      * @return bool
      */
-    public function releaseLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function releaseLock(Smarty $smarty, Cached $cached)
     {
         // release lock
         return true;

@@ -1,5 +1,7 @@
 <?php
 
+use Smarty\Template\Cached;
+
 require_once SMARTY_DIR . '../demo/plugins/cacheresource.mysql.php';
 
 class Smarty_CacheResource_Mysqltest extends Smarty_CacheResource_Mysql
@@ -18,7 +20,7 @@ class Smarty_CacheResource_Mysqltest extends Smarty_CacheResource_Mysql
             VALUES  (:id, :name, :cache_id, :compile_id, :content)');
     }
 
-    public function hasLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function hasLock(Smarty $smarty, Cached $cached)
     {
         if ($this->lockTime) {
             $this->lockTime--;

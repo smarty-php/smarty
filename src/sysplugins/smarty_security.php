@@ -16,6 +16,8 @@
  *        as this would lead to (severe) performance penalty! how should this be handled?
  */
 
+use Smarty\Template;
+
 /**
  * This class does contain the security settings
  */
@@ -670,9 +672,9 @@ class Smarty_Security
     /**
      * Register callback functions call at start/end of template rendering
      *
-     * @param \Smarty_Internal_Template $template
+     * @param \Smarty\Template $template
      */
-    public function registerCallBacks(Smarty_Internal_Template $template)
+    public function registerCallBacks(Template $template)
     {
         $template->startRenderCallbacks[] = array($this, 'startTemplate');
         $template->endRenderCallbacks[] = array($this, 'endTemplate');

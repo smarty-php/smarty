@@ -1,7 +1,7 @@
 <?php
 
 namespace Smarty\Runtime;
-use Smarty_Internal_Template;
+use Smarty\Template;
 
 /**
  * Foreach Runtime Methods count(), init(), restore()
@@ -25,7 +25,7 @@ class ForeachRuntime {
 	 *  - init item and key variables, named foreach property data if required
 	 *  - count total if required
 	 *
-	 * @param \Smarty_Internal_Template $tpl
+	 * @param \Smarty\Template $tpl
 	 * @param mixed $from values to loop over
 	 * @param string $item variable name
 	 * @param bool $needTotal flag if we need to count values
@@ -36,13 +36,13 @@ class ForeachRuntime {
 	 * @return mixed $from
 	 */
 	public function init(
-		Smarty_Internal_Template $tpl,
-		                         $from,
-		                         $item,
-		                         $needTotal = false,
-		                         $key = null,
-		                         $name = null,
-		                         $properties = []
+		Template $tpl,
+		         $from,
+		         $item,
+		         $needTotal = false,
+		         $key = null,
+		         $name = null,
+		         $properties = []
 	) {
 		$needTotal = $needTotal || isset($properties['total']);
 		$saveVars = [];
@@ -139,10 +139,10 @@ class ForeachRuntime {
 	 *
 	 * will be called by {break n} or {continue n} for the required number of levels
 	 *
-	 * @param \Smarty_Internal_Template $tpl
+	 * @param \Smarty\Template $tpl
 	 * @param int $levels number of levels
 	 */
-	public function restore(Smarty_Internal_Template $tpl, $levels = 1) {
+	public function restore(Template $tpl, $levels = 1) {
 		while ($levels) {
 			$saveVars = array_pop($this->stack);
 			if (!empty($saveVars)) {

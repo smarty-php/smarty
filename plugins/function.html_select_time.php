@@ -5,6 +5,9 @@
  * @package    Smarty
  * @subpackage PluginsFunction
  */
+
+use Smarty\Template;
+
 /**
  * Smarty {html_select_time} function plugin
  * Type:     function
@@ -18,13 +21,13 @@
  *
  * @param array                     $params parameters
  *
- * @param \Smarty_Internal_Template $template
+ * @param \Smarty\Template $template
  *
  * @return string
  * @uses   smarty_make_timestamp()
  * @throws \SmartyException
  */
-function smarty_function_html_select_time($params, Smarty_Internal_Template $template)
+function smarty_function_html_select_time($params, Template $template)
 {
     $prefix = 'Time_';
     $field_array = null;
@@ -139,7 +142,7 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
                 isset($params[ 'time' ][ $prefix . 'Meridian' ]) ? (' ' . $params[ 'time' ][ $prefix . 'Meridian' ]) :
                     '';
             $time = strtotime($_hour . ':' . $_minute . ':' . $_second . $_meridian);
-            list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s', $time));
+            [$_hour, $_minute, $_second] = $time = explode('-', date('H-i-s', $time));
         } elseif (isset($params[ 'time' ][ $field_array ][ $prefix . 'Hour' ])) {
             // $_REQUEST given
             foreach (array(
@@ -154,19 +157,19 @@ function smarty_function_html_select_time($params, Smarty_Internal_Template $tem
             $_meridian = isset($params[ 'time' ][ $field_array ][ $prefix . 'Meridian' ]) ?
                 (' ' . $params[ 'time' ][ $field_array ][ $prefix . 'Meridian' ]) : '';
             $time = strtotime($_hour . ':' . $_minute . ':' . $_second . $_meridian);
-            list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s', $time));
+            [$_hour, $_minute, $_second] = $time = explode('-', date('H-i-s', $time));
         } else {
             // no date found, use NOW
-            list($_year, $_month, $_day) = $time = explode('-', date('Y-m-d'));
+            [$_year, $_month, $_day] = $time = explode('-', date('Y-m-d'));
         }
     } elseif ($time === null) {
         if (array_key_exists('time', $params)) {
             $_hour = $_minute = $_second = $time = null;
         } else {
-            list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s'));
+            [$_hour, $_minute, $_second] = $time = explode('-', date('H-i-s'));
         }
     } else {
-        list($_hour, $_minute, $_second) = $time = explode('-', date('H-i-s', $time));
+        [$_hour, $_minute, $_second] = $time = explode('-', date('H-i-s', $time));
     }
     // generate hour <select>
     if ($display_hours) {

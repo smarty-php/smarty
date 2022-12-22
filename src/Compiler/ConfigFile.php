@@ -13,7 +13,7 @@ namespace Smarty\Compiler;
 use Smarty;
 use Smarty_Internal_ConfigFileLexer;
 use Smarty_Internal_ConfigFileParser;
-use Smarty_Internal_Template;
+use Smarty\Template;
 use SmartyCompilerException;
 
 /**
@@ -62,7 +62,7 @@ class ConfigFile {
 	/**
 	 * Smarty object
 	 *
-	 * @var Smarty_Internal_Template object
+	 * @var Template object
 	 */
 	public $template;
 
@@ -93,12 +93,12 @@ class ConfigFile {
 	/**
 	 * Method to compile Smarty config source.
 	 *
-	 * @param Smarty_Internal_Template $template
+	 * @param Template $template
 	 *
 	 * @return bool true if compiling succeeded, false if it failed
 	 * @throws \SmartyException
 	 */
-	public function compileTemplate(Smarty_Internal_Template $template) {
+	public function compileTemplate(Template $template) {
 		$this->template = $template;
 		$this->template->compiled->file_dependency[$this->template->source->uid] =
 			[
@@ -161,9 +161,9 @@ class ConfigFile {
 			date("Y-m-d H:i:s"),
 			str_replace('*/', '* /', $this->template->source->filepath)
 		);
-		$code = '<?php $_smarty_tpl->smarty->ext->configLoad->_loadConfigVars($_smarty_tpl, ' .
+		$code = '<?php $_smarty_tpl->_loadConfigVars(' .
 			var_export($this->config_data, true) . '); ?>';
-		return $template_header . $this->createCodeFrame($code);
+		return $template_header . $this->template->createCodeFrame($code);
 	}
 
 	/**

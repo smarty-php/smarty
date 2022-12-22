@@ -1,6 +1,6 @@
 <?php
 
-namespace Smarty\Template;
+namespace Smarty\Compiler;
 
 /**
  * Smarty Internal Extension
@@ -13,10 +13,19 @@ namespace Smarty\Template;
  */
 class CodeFrame
 {
-    /**
+
+	/**
+	 * @var \Smarty\Template
+	 */
+	private $_template;
+
+	public function __construct(\Smarty\Template $_template) {
+		$this->_template = $_template;
+	}
+
+	/**
      * Create code frame for compiled and cached templates
      *
-     * @param \Smarty_Internal_Template              $_template
      * @param string                                $content   optional template content
      * @param string                                $functions compiled template function and block code
      * @param bool                                  $cache     flag for cache file
@@ -25,7 +34,6 @@ class CodeFrame
      * @return string
      */
     public function create(
-        \Smarty_Internal_Template $_template,
         $content = '',
         $functions = '',
         $cache = false,
@@ -35,19 +43,19 @@ class CodeFrame
         $properties[ 'version' ] = \Smarty::SMARTY_VERSION;
         $properties[ 'unifunc' ] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
         if (!$cache) {
-            $properties[ 'has_nocache_code' ] = $_template->compiled->has_nocache_code;
-            $properties[ 'file_dependency' ] = $_template->compiled->file_dependency;
-            $properties[ 'includes' ] = $_template->compiled->includes;
+            $properties[ 'has_nocache_code' ] = $this->_template->compiled->has_nocache_code;
+            $properties[ 'file_dependency' ] = $this->_template->compiled->file_dependency;
+            $properties[ 'includes' ] = $this->_template->compiled->includes;
         } else {
-            $properties[ 'has_nocache_code' ] = $_template->cached->has_nocache_code;
-            $properties[ 'file_dependency' ] = $_template->cached->file_dependency;
-            $properties[ 'cache_lifetime' ] = $_template->cache_lifetime;
+            $properties[ 'has_nocache_code' ] = $this->_template->cached->has_nocache_code;
+            $properties[ 'file_dependency' ] = $this->_template->cached->file_dependency;
+            $properties[ 'cache_lifetime' ] = $this->_template->cache_lifetime;
         }
         $output = sprintf(
 			"<?php\n/* Smarty version %s, created on %s\n  from '%s' */\n\n",
             $properties[ 'version' ],
 	        date("Y-m-d H:i:s"),
-	        str_replace('*/', '* /', $_template->source->filepath)
+	        str_replace('*/', '* /', $this->_template->source->filepath)
         );
         $output .= "/* @var Smarty_Internal_Template \$_smarty_tpl */\n";
         $dec = "\$_smarty_tpl->_decodeProperties(\$_smarty_tpl, " . var_export($properties, true) . ',' .
@@ -55,13 +63,13 @@ class CodeFrame
         $output .= "if ({$dec}) {\n";
         $output .= "function {$properties['unifunc']} (Smarty_Internal_Template \$_smarty_tpl) {\n";
         if (!$cache && !empty($compiler->tpl_function)) {
-            $output .= '$_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, ';
+            $output .= '$_smarty_tpl->smarty->getRuntime(\'TplFunction\')->registerTplFunctions($_smarty_tpl, ';
             $output .= var_export($compiler->tpl_function, true);
             $output .= ");\n";
         }
-        if ($cache && isset($_template->smarty->ext->_tplFunction)) {
-            $output .= "\$_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions(\$_smarty_tpl, " .
-                       var_export($_template->smarty->ext->_tplFunction->getTplFunction($_template), true) . ");\n";
+        if ($cache && $this->_template->smarty->hasRuntime('TplFunction')) {
+            $output .= "\$_smarty_tpl->smarty->getRuntime('TplFunction')->registerTplFunctions(\$_smarty_tpl, " .
+                       var_export($this->_template->smarty->getRuntime('TplFunction')->getTplFunction($this->_template), true) . ");\n";
         }
         $output .= "?>";
         $output .= $content;

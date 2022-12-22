@@ -10,7 +10,6 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_Template;
 use Smarty\Compiler\Template;
 
 /**
@@ -144,11 +143,11 @@ class ExtendsTag extends Inheritance {
 	/**
 	 * Create source code for {extends} from source components array
 	 *
-	 * @param \Smarty_Internal_Template $template
+	 * @param \Smarty\Template $template
 	 *
 	 * @return string
 	 */
-	public static function extendsSourceArrayCode(Smarty_Internal_Template $template) {
+	public static function extendsSourceArrayCode(\Smarty\Template $template) {
 		$resources = [];
 		foreach ($template->source->components as $source) {
 			$resources[] = $source->resource;

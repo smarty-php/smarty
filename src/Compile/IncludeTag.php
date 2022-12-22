@@ -12,9 +12,8 @@ namespace Smarty\Compile;
 
 use Smarty\Compiler\Template;
 use Smarty\Smarty;
-use Smarty_Internal_Template;
 use Smarty\Compile\Base;
-use Smarty_Template_Compiled;
+use Smarty\Template\Compiled;
 
 /**
  * Smarty Internal Plugin Compile Include Class
@@ -207,7 +206,7 @@ class IncludeTag extends Base {
 			// we must observe different compile_id and caching
 			$t_hash = sha1($c_id . ($_caching ? '--caching' : '--nocaching'));
 			$compiler->smarty->allow_ambiguous_resources = true;
-			/* @var Smarty_Internal_Template $tpl */
+			/* @var \Smarty\Template $tpl */
 			$tpl = new $compiler->smarty->template_class(
 				trim($fullResourceName, '"\''),
 				$compiler->smarty,
@@ -288,7 +287,7 @@ class IncludeTag extends Base {
 	 * Compile inline sub template
 	 *
 	 * @param \Smarty\Compiler\Template $compiler
-	 * @param \Smarty_Internal_Template $tpl
+	 * @param \Smarty\Template $tpl
 	 * @param string $t_hash
 	 *
 	 * @return bool
@@ -296,9 +295,9 @@ class IncludeTag extends Base {
 	 * @throws \SmartyException
 	 */
 	private function compileInlineTemplate(
-		Template                 $compiler,
-		Smarty_Internal_Template $tpl,
-		                         $t_hash
+		Template $compiler,
+		\Smarty\Template $tpl,
+		         $t_hash
 	) {
 		$uid = $tpl->source->type . $tpl->source->uid;
 		if (!($tpl->source->handler->uncompiled) && $tpl->source->exists) {
@@ -306,7 +305,7 @@ class IncludeTag extends Base {
 			if (isset($compiler->template->inheritance)) {
 				$tpl->inheritance = clone $compiler->template->inheritance;
 			}
-			$tpl->compiled = new Smarty_Template_Compiled();
+			$tpl->compiled = new Compiled();
 			$tpl->compiled->nocache_hash = $compiler->parent_compiler->template->compiled->nocache_hash;
 			$tpl->loadCompiler();
 			// save unique function name

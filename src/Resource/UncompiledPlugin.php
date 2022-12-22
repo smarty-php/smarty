@@ -10,8 +10,8 @@
 namespace Smarty\Resource;
 
 use Smarty;
-use Smarty_Internal_Template;
-use Smarty_Template_Compiled;
+use Smarty\Template;
+use Smarty\Template\Compiled;
 
 /**
  * Smarty Resource Plugin
@@ -20,7 +20,7 @@ use Smarty_Template_Compiled;
  * @package    Smarty
  * @subpackage TemplateResources
  */
-abstract class UncompiledPlugin extends asePlugin {
+abstract class UncompiledPlugin extends BasePlugin {
 
 	/**
 	 * Flag that it's an uncompiled resource
@@ -39,10 +39,10 @@ abstract class UncompiledPlugin extends asePlugin {
 	/**
 	 * populate compiled object with compiled filepath
 	 *
-	 * @param Smarty_Template_Compiled $compiled compiled object
-	 * @param Smarty_Internal_Template $_template template object
+	 * @param Compiled $compiled compiled object
+	 * @param Template $_template template object
 	 */
-	public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template) {
+	public function populateCompiledFilepath(Compiled $compiled, Template $_template) {
 		$compiled->filepath = $_template->source->filepath;
 		$compiled->timestamp = $_template->source->timestamp;
 		$compiled->exists = $_template->source->exists;

@@ -138,7 +138,7 @@ abstract class BasePlugin
     /**
      * modify template_resource according to resource handlers specifications
      *
-     * @param \Smarty_Internal_Template|\Smarty $obj               Smarty instance
+     * @param \Smarty\Template|\Smarty $obj               Smarty instance
      * @param string                            $template_resource template_resource to extract resource handler and
      *                                                             name of
      *
@@ -166,45 +166,45 @@ abstract class BasePlugin
      * wrapper for backward compatibility to versions < 3.1.22
      * Either [$_template] or [$smarty, $template_resource] must be specified
      *
-     * @param \Smarty_Internal_Template $_template         template object
+     * @param \Smarty\Template $_template         template object
      * @param \Smarty                   $smarty            smarty object
      * @param string                   $template_resource resource identifier
      *
-     * @return \Smarty_Template_Source Source Object
+     * @return \Smarty\Template\Source Source Object
      * @throws \SmartyException
      */
     public static function source(
-        \Smarty_Internal_Template $_template = null,
-        \Smarty $smarty = null,
-        $template_resource = null
+	    \Smarty\Template $_template = null,
+	    \Smarty          $smarty = null,
+	                     $template_resource = null
     ) {
-        return \Smarty_Template_Source::load($_template, $smarty, $template_resource);
+        return \Smarty\Template\Source::load($_template, $smarty, $template_resource);
     }
 
     /**
      * Load template's source into current template object
      *
-     * @param \Smarty_Template_Source $source source object
+     * @param \Smarty\Template\Source $source source object
      *
      * @return string                 template source
      * @throws \SmartyException        if source cannot be loaded
      */
-    abstract public function getContent(\Smarty_Template_Source $source);
+    abstract public function getContent(\Smarty\Template\Source $source);
 
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param \Smarty_Template_Source   $source    source object
-     * @param \Smarty_Internal_Template $_template template object
+     * @param \Smarty\Template\Source   $source    source object
+     * @param \Smarty\Template $_template template object
      */
-    abstract public function populate(\Smarty_Template_Source $source, \Smarty_Internal_Template $_template = null);
+    abstract public function populate(\Smarty\Template\Source $source, \Smarty\Template $_template = null);
 
     /**
      * populate Source Object with timestamp and exists from Resource
      *
-     * @param \Smarty_Template_Source $source source object
+     * @param \Smarty\Template\Source $source source object
      */
-    public function populateTimestamp(\Smarty_Template_Source $source)
+    public function populateTimestamp(\Smarty\Template\Source $source)
     {
         // intentionally left blank
     }
@@ -242,11 +242,11 @@ abstract class BasePlugin
     /**
      * Determine basename for compiled filename
      *
-     * @param \Smarty_Template_Source $source source object
+     * @param \Smarty\Template\Source $source source object
      *
      * @return string                 resource's basename
      */
-    public function getBasename(\Smarty_Template_Source $source)
+    public function getBasename(\Smarty\Template\Source $source)
     {
         return basename(preg_replace('![^\w]+!', '_', $source->name));
     }

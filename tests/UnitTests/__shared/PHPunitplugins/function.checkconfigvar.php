@@ -6,6 +6,8 @@
  * @subpackage PHPunitPlugin
  */
 
+use Smarty\Template;
+
 /**
  * Smarty {checkconfigvar}
  *
@@ -24,7 +26,7 @@ function smarty_function_checkconfigvar($params, $template)
     $var = $params['var'];
     $ptr = $template;
     while ($ptr) {
-        if (in_array('template', $types) && $ptr instanceof Smarty_Internal_Template) {
+        if (in_array('template', $types) && $ptr instanceof Template) {
             $output .= "#{$ptr->source->name}:\${$var} =";
             $output .= isset($ptr->config_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->config_vars[$var], true)) : 'null';
             $ptr = $ptr->parent;

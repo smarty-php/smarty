@@ -5,6 +5,9 @@
  * @package    Smarty
  * @subpackage PluginsFunction
  */
+
+use Smarty\Template;
+
 /**
  * Smarty {html_options} function plugin
  * Type:     function
@@ -28,13 +31,13 @@
  *
  * @param array                     $params parameters
  *
- * @param \Smarty_Internal_Template $template
+ * @param \Smarty\Template $template
  *
  * @return string
  * @uses   smarty_function_escape_special_chars()
  * @throws \SmartyException
  */
-function smarty_function_html_options($params, Smarty_Internal_Template $template)
+function smarty_function_html_options($params, Template $template)
 {
     $name = null;
     $values = null;

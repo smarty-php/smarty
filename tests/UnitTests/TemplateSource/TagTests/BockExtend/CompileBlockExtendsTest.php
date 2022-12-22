@@ -6,6 +6,8 @@
  * @author  Uwe Tews
  */
 
+use Smarty\Template;
+
 /**
  * class for block extends compiler tests
  *
@@ -21,7 +23,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         //$this->smarty->setMergeCompiledIncludes(true);
     }
 
-    public function compiledPrefilter($text, Smarty_Internal_Template $tpl)
+    public function compiledPrefilter($text, Template $tpl)
     {
         return str_replace('#', $tpl->getTemplateVars('test'), $text);
     }
@@ -1096,7 +1098,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      */
     public function testPostFilter_031()
     {
-        function smarty_postfilter_test031($compiled, Smarty_Internal_Template $template)
+        function smarty_postfilter_test031($compiled, Template $template)
         {
             return str_replace("'foo'", "'bar'", $compiled);
         }

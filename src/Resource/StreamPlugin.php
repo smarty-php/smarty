@@ -12,8 +12,8 @@
 namespace Smarty\Resource;
 
 use Smarty;
-use Smarty_Internal_Template;
-use Smarty_Template_Source;
+use Smarty\Template;
+use Smarty\Template\Source;
 
 /**
  * Smarty Internal Plugin Resource Stream
@@ -28,12 +28,12 @@ class StreamPlugin extends RecompiledPlugin {
 	/**
 	 * populate Source Object with meta data from Resource
 	 *
-	 * @param Smarty_Template_Source $source source object
-	 * @param Smarty_Internal_Template $_template template object
+	 * @param Source $source source object
+	 * @param Template $_template template object
 	 *
 	 * @return void
 	 */
-	public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null) {
+	public function populate(Source $source, Template $_template = null) {
 		if (strpos($source->resource, '://') !== false) {
 			$source->filepath = $source->resource;
 		} else {
@@ -47,11 +47,11 @@ class StreamPlugin extends RecompiledPlugin {
 	/**
 	 * Load template's source from stream into current template object
 	 *
-	 * @param Smarty_Template_Source $source source object
+	 * @param Source $source source object
 	 *
 	 * @return string template source
 	 */
-	public function getContent(Smarty_Template_Source $source) {
+	public function getContent(Source $source) {
 		$t = '';
 		// the availability of the stream has already been checked in Smarty\Resource\Base::fetch()
 		$fp = fopen($source->filepath, 'r+');

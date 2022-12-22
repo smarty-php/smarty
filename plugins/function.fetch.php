@@ -5,6 +5,9 @@
  * @package    Smarty
  * @subpackage PluginsFunction
  */
+
+use Smarty\Template;
+
 /**
  * Smarty {fetch} plugin
  * Type:     function
@@ -16,7 +19,7 @@
  * @author Monte Ohrt <monte at ohrt dot com>
  *
  * @param array                    $params   parameters
- * @param Smarty_Internal_Template $template template object
+ * @param Template $template template object
  *
  * @throws SmartyException
  * @return string|null if the assign parameter is passed, Smarty assigns the result to a template variable

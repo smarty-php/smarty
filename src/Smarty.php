@@ -41,7 +41,7 @@ use Smarty\Smarty\Runtime\TplFunctionRuntime;
 /**
  * This is the main Smarty class
  */
-class Smarty extends \Smarty_Internal_TemplateBase
+class Smarty extends \Smarty\TemplateBase
 {
     /**
      * smarty version
@@ -597,7 +597,7 @@ class Smarty extends \Smarty_Internal_TemplateBase
     public function templateExists($resource_name)
     {
         // create source object
-        $source = \Smarty_Template_Source::load(null, $this, $resource_name);
+        $source = Template\Source::load(null, $this, $resource_name);
         return $source->exists;
     }
 
@@ -844,7 +844,7 @@ class Smarty extends \Smarty_Internal_TemplateBase
      * @param object  $parent     next higher level of Smarty variables
      * @param boolean $do_clone   flag is Smarty object shall be cloned
      *
-     * @return \Smarty_Internal_Template template object
+     * @return \Smarty\Template template object
      * @throws \SmartyException
      */
     public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null, $do_clone = true)
@@ -864,17 +864,17 @@ class Smarty extends \Smarty_Internal_TemplateBase
         }
         $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
         $tpl = null;
-        if ($this->caching && isset(\Smarty_Internal_Template::$isCacheTplObj[ $_templateId ])) {
-            $tpl = $do_clone ? clone \Smarty_Internal_Template::$isCacheTplObj[ $_templateId ] :
-                \Smarty_Internal_Template::$isCacheTplObj[ $_templateId ];
+        if ($this->caching && isset(\Smarty\Template::$isCacheTplObj[ $_templateId ])) {
+            $tpl = $do_clone ? clone \Smarty\Template::$isCacheTplObj[ $_templateId ] :
+                \Smarty\Template::$isCacheTplObj[ $_templateId ];
             $tpl->inheritance = null;
             $tpl->tpl_vars = $tpl->config_vars = array();
-        } elseif (!$do_clone && isset(\Smarty_Internal_Template::$tplObjCache[ $_templateId ])) {
-            $tpl = clone \Smarty_Internal_Template::$tplObjCache[ $_templateId ];
+        } elseif (!$do_clone && isset(\Smarty\Template::$tplObjCache[ $_templateId ])) {
+            $tpl = clone \Smarty\Template::$tplObjCache[ $_templateId ];
             $tpl->inheritance = null;
             $tpl->tpl_vars = $tpl->config_vars = array();
         } else {
-            /* @var \Smarty_Internal_Template $tpl */
+            /* @var \Smarty\Template $tpl */
             $tpl = new $this->template_class($template, $this, null, $cache_id, $compile_id, null, null);
             $tpl->templateId = $_templateId;
         }
@@ -906,17 +906,17 @@ class Smarty extends \Smarty_Internal_TemplateBase
      * @param null|mixed                $cache_id
      * @param null|mixed                $compile_id
      * @param null                      $caching
-     * @param \Smarty_Internal_Template $template
+     * @param \Smarty\Template $template
      *
      * @return string
      * @throws \SmartyException
      */
     public function _getTemplateId(
-        $template_name,
-        $cache_id = null,
-        $compile_id = null,
-        $caching = null,
-        \Smarty_Internal_Template $template = null
+	    $template_name,
+	    $cache_id = null,
+	    $compile_id = null,
+	    $caching = null,
+	    \Smarty\Template $template = null
     ) {
         $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
             $template_name;
@@ -985,8 +985,8 @@ class Smarty extends \Smarty_Internal_TemplateBase
      */
     public function _clearTemplateCache()
     {
-        \Smarty_Internal_Template::$isCacheTplObj = array();
-        \Smarty_Internal_Template::$tplObjCache = array();
+        \Smarty\Template::$isCacheTplObj = array();
+        \Smarty\Template::$tplObjCache = array();
     }
 
     /**
@@ -1294,7 +1294,7 @@ class Smarty extends \Smarty_Internal_TemplateBase
 		if (isset($resource_name)) {
 			$_save_stat = $this->caching;
 			$this->caching = \Smarty\Smarty::CACHING_OFF;
-			/* @var Smarty_Internal_Template $tpl */
+			/* @var Template $tpl */
 			$tpl = $this->createTemplate($resource_name);
 			$this->caching = $_save_stat;
 			if (!$tpl->source->handler->uncompiled && !$tpl->source->handler->recompiled && $tpl->source->exists) {
@@ -1472,7 +1472,7 @@ class Smarty extends \Smarty_Internal_TemplateBase
 				$_smarty->_cache = array();
 				$_smarty->force_compile = $force_compile;
 				try {
-					/* @var Smarty_Internal_Template $_tpl */
+					/* @var Template $_tpl */
 					$_tpl = new $this->template_class($_file, $_smarty);
 					$_tpl->caching = self::CACHING_OFF;
 					$_tpl->source =
@@ -1506,14 +1506,14 @@ class Smarty extends \Smarty_Internal_TemplateBase
 	/**
 	 * check client side cache
 	 *
-	 * @param \Smarty_Template_Cached   $cached
-	 * @param \Smarty_Internal_Template $_template
+	 * @param \Smarty\Template\Cached   $cached
+	 * @param \Smarty\Template $_template
 	 * @param string                    $content
 	 *
 	 * @throws \Exception
 	 * @throws \SmartyException
 	 */
-	public function cacheModifiedCheck(\Smarty_Template_Cached $cached, \Smarty_Internal_Template $_template, $content)
+	public function cacheModifiedCheck(Template\Cached $cached, \Smarty\Template $_template, $content)
 	{
 		$_isCached = $_template->isCached() && !$_template->compiled->has_nocache_code;
 		$_last_modified_date =
@@ -1569,12 +1569,12 @@ class Smarty extends \Smarty_Internal_TemplateBase
 	 *
 	 * @param string                   $type     the type of filter ('pre','post','output') which shall run
 	 * @param string                   $content  the content which shall be processed by the filters
-	 * @param Smarty_Internal_Template $template template object
+	 * @param Template $template template object
 	 *
-	 * @throws SmartyException
 	 * @return string                   the filtered content
+	 *@throws SmartyException
 	 */
-	public function runFilter($type, $content, Smarty_Internal_Template $template)
+	public function runFilter($type, $content, Template $template)
 	{
 		// loop over registered filters of specified type
 		if (!empty($this->registered_filters[ $type ])) {

@@ -24,12 +24,12 @@ class ExtendsPlugin extends BasePlugin
     /**
      * populate Source Object with metadata from Resource
      *
-     * @param \Smarty_Template_Source   $source    source object
-     * @param \Smarty_Internal_Template $_template template object
+     * @param \Smarty\Template\Source   $source    source object
+     * @param \Smarty\Template $_template template object
      *
      * @throws \SmartyException
      */
-    public function populate(\Smarty_Template_Source $source, \Smarty_Internal_Template $_template = null)
+    public function populate(\Smarty\Template\Source $source, \Smarty\Template $_template = null)
     {
         $uid = '';
         $sources = array();
@@ -37,8 +37,8 @@ class ExtendsPlugin extends BasePlugin
         $smarty = &$source->smarty;
         $exists = true;
         foreach ($components as $component) {
-            /* @var \Smarty_Template_Source $_s */
-            $_s = \Smarty_Template_Source::load(null, $smarty, $component);
+            /* @var \Smarty\Template\Source $_s */
+            $_s = \Smarty\Template\Source::load(null, $smarty, $component);
             if ($_s->type === 'php') {
                 throw new \SmartyException("Resource type {$_s->type} cannot be used with the extends resource type");
             }
@@ -60,12 +60,12 @@ class ExtendsPlugin extends BasePlugin
     /**
      * populate Source Object with timestamp and exists from Resource
      *
-     * @param \Smarty_Template_Source $source source object
+     * @param \Smarty\Template\Source $source source object
      */
-    public function populateTimestamp(\Smarty_Template_Source $source)
+    public function populateTimestamp(\Smarty\Template\Source $source)
     {
         $source->exists = true;
-        /* @var \Smarty_Template_Source $_s */
+        /* @var \Smarty\Template\Source $_s */
         foreach ($source->components as $_s) {
             $source->exists = $source->exists && $_s->exists;
         }
@@ -75,19 +75,19 @@ class ExtendsPlugin extends BasePlugin
     /**
      * Load template's source from files into current template object
      *
-     * @param \Smarty_Template_Source $source source object
+     * @param \Smarty\Template\Source $source source object
      *
      * @return string template source
      * @throws \SmartyException if source cannot be loaded
      */
-    public function getContent(\Smarty_Template_Source $source)
+    public function getContent(\Smarty\Template\Source $source)
     {
         if (!$source->exists) {
             throw new \SmartyException("Unable to load template '{$source->type}:{$source->name}'");
         }
         $_components = array_reverse($source->components);
         $_content = '';
-        /* @var \Smarty_Template_Source $_s */
+        /* @var \Smarty\Template\Source $_s */
         foreach ($_components as $_s) {
             // read content
             $_content .= $_s->getContent();
@@ -98,11 +98,11 @@ class ExtendsPlugin extends BasePlugin
     /**
      * Determine basename for compiled filename
      *
-     * @param \Smarty_Template_Source $source source object
+     * @param \Smarty\Template\Source $source source object
      *
      * @return string resource's basename
      */
-    public function getBasename(\Smarty_Template_Source $source)
+    public function getBasename(\Smarty\Template\Source $source)
     {
         return str_replace(':', '.', basename($source->filepath));
     }

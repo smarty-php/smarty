@@ -1,12 +1,15 @@
 <?php
 
+use Smarty\Template;
+use Smarty\Template\Cached;
+
 require_once SMARTY_DIR . '../demo/plugins/cacheresource.apc.php';
 
 class Smarty_CacheResource_Apctest extends Smarty_CacheResource_Apc
 {
     public $lockTime = 0;
 
-    public function hasLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function hasLock(Smarty $smarty, Cached $cached)
     {
         if ($this->lockTime) {
             $this->lockTime--;
@@ -17,7 +20,7 @@ class Smarty_CacheResource_Apctest extends Smarty_CacheResource_Apc
         return parent::hasLock($smarty, $cached);
     }
 
-    public function get(Smarty_Internal_Template $_template)
+    public function get(Template $_template)
     {
         $this->contents = array();
         $this->timestamps = array();

@@ -8,6 +8,8 @@
  * @author     Uwe Tews
  */
 
+use Smarty\Template;
+
 /**
  * class for the Smarty data object
  * The Smarty data object will hold Smarty variables in the current scope
@@ -42,7 +44,7 @@ class Smarty_Data extends \Smarty\Data
      * create Smarty data object
      *
      * @param Smarty|array                    $_parent parent template
-     * @param Smarty|Smarty_Internal_Template $smarty  global smarty instance
+     * @param Smarty|Template $smarty  global smarty instance
      * @param string                          $name    optional data block name
      *
      * @throws SmartyException

@@ -10,9 +10,6 @@
 
 namespace Smarty\Compile;
 
-use Smarty_Internal_Compile_Foreach;
-use Smarty\Compiler\Template;
-
 /**
  * Smarty Internal Plugin Compile Foreachclose Class
  *
@@ -44,7 +41,7 @@ class ForeachClose extends Base {
 			$output .= "{$itemVar} = {$local}saved;\n";
 		}
 		$output .= "}\n";
-		/* @var \Smarty\Compile\Smarty_Internal_Compile_Foreach $foreachCompiler */
+		/* @var \Smarty\Compile\ForeachTag $foreachCompiler */
 		$foreachCompiler = $compiler->getTagCompiler('foreach');
 		$output .= $foreachCompiler->compileRestore(1);
 		$output .= "?>";

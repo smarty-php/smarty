@@ -24,12 +24,12 @@ class StringEval extends Recompiled
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param \Smarty_Template_Source   $source    source object
-     * @param \Smarty_Internal_Template $_template template object
+     * @param \Smarty\Template\Source   $source    source object
+     * @param \Smarty\Template $_template template object
      *
      * @return void
      */
-    public function populate(\Smarty_Template_Source $source, \Smarty_Internal_Template $_template = null)
+    public function populate(\Smarty\Template\Source $source, \Smarty\Template $_template = null)
     {
         $source->uid = $source->filepath = sha1($source->name);
         $source->timestamp = $source->exists = true;
@@ -38,13 +38,13 @@ class StringEval extends Recompiled
     /**
      * Load template's source from $resource_name into current template object
      *
-     * @uses decode() to decode base64 and urlencoded template_resources
-     *
-     * @param \Smarty_Template_Source $source source object
+     * @param \Smarty\Template\Source $source source object
      *
      * @return string                 template source
+     *@uses decode() to decode base64 and urlencoded template_resources
+     *
      */
-    public function getContent(\Smarty_Template_Source $source)
+    public function getContent(\Smarty\Template\Source $source)
     {
         return $this->decode($source->name);
     }
@@ -86,11 +86,11 @@ class StringEval extends Recompiled
     /**
      * Determine basename for compiled filename
      *
-     * @param \Smarty_Template_Source $source source object
+     * @param \Smarty\Template\Source $source source object
      *
      * @return string                 resource's basename
      */
-    public function getBasename(\Smarty_Template_Source $source)
+    public function getBasename(\Smarty\Template\Source $source)
     {
         return '';
     }

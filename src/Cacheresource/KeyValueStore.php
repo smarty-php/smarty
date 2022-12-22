@@ -3,8 +3,8 @@
 namespace Smarty\Cacheresource;
 
 use Smarty\Smarty;
-use Smarty_Internal_Template;
-use Smarty_Template_Cached;
+use Smarty\Template;
+use Smarty\Template\Cached;
 
 /**
  * Smarty Internal Plugin
@@ -54,12 +54,12 @@ abstract class KeyValueStore extends Base
     /**
      * populate Cached Object with meta data from Resource
      *
-     * @param Smarty_Template_Cached   $cached    cached object
-     * @param Smarty_Internal_Template $_template template object
+     * @param Cached   $cached    cached object
+     * @param Template $_template template object
      *
      * @return void
      */
-    public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template)
+    public function populate(Cached $cached, Template $_template)
     {
         $cached->filepath = $_template->source->uid . '#' . $this->sanitize($cached->source->resource) . '#' .
                             $this->sanitize($cached->cache_id) . '#' . $this->sanitize($cached->compile_id);
@@ -69,11 +69,11 @@ abstract class KeyValueStore extends Base
     /**
      * populate Cached Object with timestamp and exists from Resource
      *
-     * @param Smarty_Template_Cached $cached cached object
+     * @param Cached $cached cached object
      *
      * @return void
      */
-    public function populateTimestamp(Smarty_Template_Cached $cached)
+    public function populateTimestamp(Cached $cached)
     {
         if (!$this->fetch(
             $cached->filepath,
@@ -95,16 +95,16 @@ abstract class KeyValueStore extends Base
 	/**
 	 * Read the cached template and process the header
 	 *
-	 * @param Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
-	 * @param Smarty_Template_Cached|null $cached cached object
+	 * @param Template $_smarty_tpl do not change variable name, is used by compiled template
+	 * @param Cached|null $cached cached object
 	 * @param boolean $update flag if called because cache update
 	 *
 	 * @return boolean                 true or false if the cached content does not exist
 	 */
     public function process(
-        Smarty_Internal_Template $_smarty_tpl,
-        Smarty_Template_Cached $cached = null,
-        $update = false
+	    Template $_smarty_tpl,
+	    Cached   $cached = null,
+	             $update = false
     ) {
         if (!$cached) {
             $cached = $_smarty_tpl->cached;
@@ -135,12 +135,12 @@ abstract class KeyValueStore extends Base
     /**
      * Write the rendered template output to cache
      *
-     * @param Smarty_Internal_Template $_template template object
+     * @param Template $_template template object
      * @param string                   $content   content to cache
      *
      * @return boolean                  success
      */
-    public function storeCachedContent(Smarty_Internal_Template $_template, $content)
+    public function storeCachedContent(Template $_template, $content)
     {
         $this->addMetaTimestamp($content);
         return $this->write(array($_template->cached->filepath => $content), $_template->cache_lifetime);
@@ -149,11 +149,11 @@ abstract class KeyValueStore extends Base
     /**
      * Read cached template from cache
      *
-     * @param Smarty_Internal_Template $_template template object
+     * @param Template $_template template object
      *
      * @return string|false  content
      */
-    public function retrieveCachedContent(Smarty_Internal_Template $_template)
+    public function retrieveCachedContent(Template $_template)
     {
         $content = $_template->cached->content ? $_template->cached->content : null;
         $timestamp = null;
@@ -460,11 +460,11 @@ abstract class KeyValueStore extends Base
      * Check is cache is locked for this template
      *
      * @param Smarty                 $smarty Smarty object
-     * @param Smarty_Template_Cached $cached cached object
+     * @param Cached $cached cached object
      *
      * @return boolean               true or false if cache is locked
      */
-    public function hasLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function hasLock(Smarty $smarty, Cached $cached)
     {
         $key = 'LOCK#' . $cached->filepath;
         $data = $this->read(array($key));
@@ -475,11 +475,11 @@ abstract class KeyValueStore extends Base
      * Lock cache for this template
      *
      * @param Smarty                 $smarty Smarty object
-     * @param Smarty_Template_Cached $cached cached object
+     * @param Cached $cached cached object
      *
      * @return bool|void
      */
-    public function acquireLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function acquireLock(Smarty $smarty, Cached $cached)
     {
         $cached->is_locked = true;
         $key = 'LOCK#' . $cached->filepath;
@@ -490,11 +490,11 @@ abstract class KeyValueStore extends Base
      * Unlock cache for this template
      *
      * @param Smarty                 $smarty Smarty object
-     * @param Smarty_Template_Cached $cached cached object
+     * @param Cached $cached cached object
      *
      * @return void
      */
-    public function releaseLock(Smarty $smarty, Smarty_Template_Cached $cached)
+    public function releaseLock(Smarty $smarty, Cached $cached)
     {
         $cached->is_locked = false;
         $key = 'LOCK#' . $cached->filepath;

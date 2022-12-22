@@ -10,8 +10,8 @@
 namespace Smarty\Resource;
 
 use Smarty;
-use Smarty_Internal_Template;
-use Smarty_Template_Compiled;
+use Smarty\Template;
+use Smarty\Template\Compiled;
 
 /**
  * Smarty Resource Plugin
@@ -39,11 +39,11 @@ abstract class RecompiledPlugin extends BasePlugin {
 	/**
 	 * compile template from source
 	 *
-	 * @param Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
+	 * @param Template $_smarty_tpl do not change variable name, is used by compiled template
 	 *
 	 * @throws Exception
 	 */
-	public function process(Smarty_Internal_Template $_smarty_tpl) {
+	public function process(Template $_smarty_tpl) {
 		$compiled = &$_smarty_tpl->compiled;
 		$compiled->file_dependency = [];
 		$compiled->includes = [];
@@ -72,12 +72,12 @@ abstract class RecompiledPlugin extends BasePlugin {
 	/**
 	 * populate Compiled Object with compiled filepath
 	 *
-	 * @param Smarty_Template_Compiled $compiled compiled object
-	 * @param Smarty_Internal_Template $_template template object
+	 * @param Compiled $compiled compiled object
+	 * @param Template $_template template object
 	 *
 	 * @return void
 	 */
-	public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template) {
+	public function populateCompiledFilepath(Compiled $compiled, Template $_template) {
 		$compiled->filepath = false;
 		$compiled->timestamp = false;
 		$compiled->exists = false;

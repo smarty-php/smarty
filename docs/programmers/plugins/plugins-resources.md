@@ -14,18 +14,18 @@ template you\'re addressing: `foobarxyz:yourtemplate.tpl`.
 If a Resource\'s templates should not be run through the Smarty
 compiler, the Custom Resource may extend `Smarty_Resource_Uncompiled`.
 The Resource Handler must then implement the function
-`renderUncompiled(Smarty_Internal_Template $_template)`. `$_template` is
+`renderUncompiled(\Smarty\Template $_template)`. `$_template` is
 a reference to the current template and contains all assigned variables
 which the implementor can access via
 `$_template->smarty->getTemplateVars()`. These Resources simply echo
 their rendered content to the output stream. The rendered output will be
 output-cached if the Smarty instance was configured accordingly. See
-`libs/sysplugins/smarty_internal_resource_php.php` for an example.
+`src/Resource/PhpPlugin.php` for an example.
 
 If the Resource\'s compiled templates should not be cached on disk, the
 Custom Resource may extend `Smarty_Resource_Recompiled`. These Resources
 are compiled every time they are accessed. This may be an expensive
-overhead. See `libs/sysplugins/smarty_internal_resource_eval.php` for an
+overhead. See `src/Resource/StringEval.php` for an
 example.
 
 

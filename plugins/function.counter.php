@@ -5,20 +5,23 @@
  * @package    Smarty
  * @subpackage PluginsFunction
  */
+
+use Smarty\Template;
+
 /**
  * Smarty {counter} function plugin
  * Type:     function
  * Name:     counter
  * Purpose:  print out a counter value
  *
- * @author Monte Ohrt <monte at ohrt dot com>
- * @link   https://www.smarty.net/manual/en/language.function.counter.php {counter}
- *         (Smarty online manual)
- *
  * @param array                    $params   parameters
- * @param Smarty_Internal_Template $template template object
+ * @param Template $template template object
  *
  * @return string|null
+ *@link   https://www.smarty.net/manual/en/language.function.counter.php {counter}
+ *         (Smarty online manual)
+ *
+ * @author Monte Ohrt <monte at ohrt dot com>
  */
 function smarty_function_counter($params, $template)
 {

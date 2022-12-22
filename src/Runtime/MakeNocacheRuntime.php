@@ -1,7 +1,7 @@
 <?php
 
 namespace Smarty\Runtime;
-use Smarty_Internal_Template;
+use Smarty\Template;
 
 /**
  * {make_nocache} Runtime Methods save(), store()
@@ -16,12 +16,12 @@ class MakeNocacheRuntime {
 	 * Save current variable value while rendering compiled template and inject nocache code to
 	 * assign variable value in cached template
 	 *
-	 * @param \Smarty_Internal_Template $tpl
+	 * @param \Smarty\Template $tpl
 	 * @param string $var variable name
 	 *
 	 * @throws \SmartyException
 	 */
-	public function save(Smarty_Internal_Template $tpl, $var) {
+	public function save(Template $tpl, $var) {
 		if (isset($tpl->tpl_vars[$var])) {
 			$export =
 				preg_replace('/^\\\\Smarty\\\\Variable::__set_state[(]|[)]$/', '', var_export($tpl->tpl_vars[$var], true));
@@ -37,11 +37,11 @@ class MakeNocacheRuntime {
 	/**
 	 * Store variable value saved while rendering compiled template in cached template context
 	 *
-	 * @param \Smarty_Internal_Template $tpl
+	 * @param \Smarty\Template $tpl
 	 * @param string $var variable name
 	 * @param array $properties
 	 */
-	public function store(Smarty_Internal_Template $tpl, $var, $properties) {
+	public function store(Template $tpl, $var, $properties) {
 		// do not overwrite existing nocache variables
 		if (!isset($tpl->tpl_vars[$var]) || !$tpl->tpl_vars[$var]->nocache) {
 			$newVar = new \Smarty\Variable();

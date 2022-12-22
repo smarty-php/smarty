@@ -10,8 +10,8 @@
 
 namespace Smarty\Resource;
 use Smarty;
-use Smarty_Internal_Template;
-use Smarty_Template_Source;
+use Smarty\Template;
+use Smarty\Template\Source;
 
 /**
  * Smarty Internal Plugin Resource String
@@ -21,17 +21,17 @@ use Smarty_Template_Source;
  * @package    Smarty
  * @subpackage TemplateResources
  */
-class StringPlugin extends Smarty\Resource\BasePlugin {
+class StringPlugin extends BasePlugin {
 
 	/**
 	 * populate Source Object with meta data from Resource
 	 *
-	 * @param Smarty_Template_Source $source source object
-	 * @param Smarty_Internal_Template $_template template object
+	 * @param Source $source source object
+	 * @param Template $_template template object
 	 *
 	 * @return void
 	 */
-	public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null) {
+	public function populate(Source $source, Template $_template = null) {
 		$source->uid = $source->filepath = sha1($source->name . $source->smarty->_joined_template_dir);
 		$source->timestamp = $source->exists = true;
 	}
@@ -39,13 +39,13 @@ class StringPlugin extends Smarty\Resource\BasePlugin {
 	/**
 	 * Load template's source from $resource_name into current template object
 	 *
-	 * @param Smarty_Template_Source $source source object
+	 * @param Source $source source object
 	 *
 	 * @return string                 template source
 	 * @uses decode() to decode base64 and urlencoded template_resources
 	 *
 	 */
-	public function getContent(Smarty_Template_Source $source) {
+	public function getContent(Source $source) {
 		return $this->decode($source->name);
 	}
 
@@ -85,11 +85,11 @@ class StringPlugin extends Smarty\Resource\BasePlugin {
 	 * Determine basename for compiled filename
 	 * Always returns an empty string.
 	 *
-	 * @param Smarty_Template_Source $source source object
+	 * @param Source $source source object
 	 *
 	 * @return string                 resource's basename
 	 */
-	public function getBasename(Smarty_Template_Source $source) {
+	public function getBasename(Source $source) {
 		return '';
 	}
 

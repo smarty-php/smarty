@@ -5,6 +5,9 @@
  * @package    Smarty
  * @subpackage PluginsFunction
  */
+
+use Smarty\Template;
+
 /**
  * Smarty {html_select_date} plugin
  * Type:     function
@@ -37,12 +40,12 @@
  *
  * @param array                     $params parameters
  *
- * @param \Smarty_Internal_Template $template
+ * @param \Smarty\Template $template
  *
  * @return string
  * @throws \SmartyException
  */
-function smarty_function_html_select_date($params, Smarty_Internal_Template $template)
+function smarty_function_html_select_date($params, Template $template)
 {
     // generate timestamps used for month names only
     static $_month_timestamps = null;

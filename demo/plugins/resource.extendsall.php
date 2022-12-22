@@ -1,5 +1,8 @@
 <?php
 
+use Smarty\Template;
+use Smarty\Template\Source;
+
 /**
  * Extends All Resource
  * Resource Implementation modifying the extends-Resource to walk
@@ -13,12 +16,12 @@ class Smarty_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty_Template_Source   $source    source object
-     * @param Smarty_Internal_Template $_template template object
+     * @param Source   $source    source object
+     * @param Template $_template template object
      *
      * @return void
      */
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    public function populate(Source $source, Template $_template = null)
     {
         $uid = '';
         $sources = array();

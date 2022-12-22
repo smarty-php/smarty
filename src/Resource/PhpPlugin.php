@@ -2,9 +2,9 @@
 
 namespace Smarty\Resource;
 
-use Smarty_Internal_Template;
-use Smarty_Template_Compiled;
-use Smarty_Template_Source;
+use Smarty\Template;
+use Smarty\Template\Source;
+use Smarty\Template\Compiled;
 use SmartyException;
 
 /**
@@ -49,12 +49,12 @@ class PhpPlugin extends FilePlugin {
 	/**
 	 * Load template's source from file into current template object
 	 *
-	 * @param Smarty_Template_Source $source source object
+	 * @param Source $source source object
 	 *
 	 * @return string                 template source
 	 * @throws SmartyException        if source cannot be loaded
 	 */
-	public function getContent(Smarty_Template_Source $source) {
+	public function getContent(Source $source) {
 		if ($source->exists) {
 			return '';
 		}
@@ -64,10 +64,10 @@ class PhpPlugin extends FilePlugin {
 	/**
 	 * populate compiled object with compiled filepath
 	 *
-	 * @param Smarty_Template_Compiled $compiled compiled object
-	 * @param Smarty_Internal_Template $_template template object (is ignored)
+	 * @param Compiled $compiled compiled object
+	 * @param Template $_template template object (is ignored)
 	 */
-	public function populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template) {
+	public function populateCompiledFilepath(Compiled $compiled, Template $_template) {
 		$compiled->filepath = $_template->source->filepath;
 		$compiled->timestamp = $_template->source->timestamp;
 		$compiled->exists = $_template->source->exists;
@@ -82,13 +82,13 @@ class PhpPlugin extends FilePlugin {
 	/**
 	 * Render and output the template (without using the compiler)
 	 *
-	 * @param Smarty_Template_Source $source source object
-	 * @param Smarty_Internal_Template $_template template object
+	 * @param Source $source source object
+	 * @param Template $_template template object
 	 *
 	 * @return void
 	 * @throws SmartyException          if template cannot be loaded or allow_php_templates is disabled
 	 */
-	public function renderUncompiled(Smarty_Template_Source $source, Smarty_Internal_Template $_template) {
+	public function renderUncompiled(Source $source, Template $_template) {
 		if (!$source->smarty->allow_php_templates) {
 			throw new SmartyException('PHP templates are disabled');
 		}
@@ -107,7 +107,7 @@ class PhpPlugin extends FilePlugin {
 		/**
 		 *
 		 *
-		 * @var Smarty_Internal_Template $_smarty_template
+		 * @var Template $_smarty_template
 		 * used in included file
 		 */
 		$_smarty_template = $_template;

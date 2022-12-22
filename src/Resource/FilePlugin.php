@@ -10,8 +10,8 @@
 
 namespace Smarty\Resource;
 use Smarty;
-use Smarty_Internal_Template;
-use Smarty_Template_Source;
+use Smarty\Template;
+use Smarty\Template\Source;
 use SmartyException;
 
 /**
@@ -21,17 +21,17 @@ use SmartyException;
  * @package    Smarty
  * @subpackage TemplateResources
  */
-class FilePlugin extends Smarty\Resource\BasePlugin {
+class FilePlugin extends BasePlugin {
 
 	/**
 	 * populate Source Object with meta data from Resource
 	 *
-	 * @param Smarty_Template_Source $source source object
-	 * @param Smarty_Internal_Template $_template template object
+	 * @param Source $source source object
+	 * @param Template $_template template object
 	 *
 	 * @throws \SmartyException
 	 */
-	public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null) {
+	public function populate(Source $source, Template $_template = null) {
 		$source->filepath = $this->buildFilepath($source, $_template);
 		if ($source->filepath !== false) {
 			if (isset($source->smarty->security_policy) && is_object($source->smarty->security_policy)) {
@@ -51,9 +51,9 @@ class FilePlugin extends Smarty\Resource\BasePlugin {
 	/**
 	 * populate Source Object with timestamp and exists from Resource
 	 *
-	 * @param Smarty_Template_Source $source source object
+	 * @param Source $source source object
 	 */
-	public function populateTimestamp(Smarty_Template_Source $source) {
+	public function populateTimestamp(Source $source) {
 		if (!$source->exists) {
 			$source->timestamp = $source->exists = is_file($source->filepath);
 		}
@@ -65,12 +65,12 @@ class FilePlugin extends Smarty\Resource\BasePlugin {
 	/**
 	 * Load template's source from file into current template object
 	 *
-	 * @param Smarty_Template_Source $source source object
+	 * @param Source $source source object
 	 *
 	 * @return string                 template source
 	 * @throws SmartyException        if source cannot be loaded
 	 */
-	public function getContent(Smarty_Template_Source $source) {
+	public function getContent(Source $source) {
 		if ($source->exists) {
 			return file_get_contents($source->filepath);
 		}
@@ -83,24 +83,24 @@ class FilePlugin extends Smarty\Resource\BasePlugin {
 	/**
 	 * Determine basename for compiled filename
 	 *
-	 * @param Smarty_Template_Source $source source object
+	 * @param Source $source source object
 	 *
 	 * @return string                 resource's basename
 	 */
-	public function getBasename(Smarty_Template_Source $source) {
+	public function getBasename(Source $source) {
 		return basename($source->filepath);
 	}
 
 	/**
 	 * build template filepath by traversing the template_dir array
 	 *
-	 * @param Smarty_Template_Source $source source object
-	 * @param Smarty_Internal_Template $_template template object
+	 * @param Source $source source object
+	 * @param Template $_template template object
 	 *
 	 * @return string fully qualified filepath
 	 * @throws SmartyException
 	 */
-	protected function buildFilepath(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null) {
+	protected function buildFilepath(Source $source, Template $_template = null) {
 		$file = $source->name;
 		// absolute file ?
 		if ($file[0] === '/' || $file[1] === ':') {

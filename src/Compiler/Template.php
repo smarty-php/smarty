@@ -386,7 +386,7 @@ class Template {
 	/**
 	 * Compile template source and run optional post filter
 	 *
-	 * @param \Smarty_Internal_Template $template
+	 * @param \Smarty\Template $template
 	 * @param null|bool $nocache flag if template must be compiled in nocache mode
 	 * @param \Smarty\Compiler\Template $parent_compiler
 	 *
@@ -473,7 +473,7 @@ class Template {
 	public function postFilter($code) {
 		// run post filter if on code
 		if (!empty($code) && isset($this->smarty->registered_filters['post'])) {
-			return $this->smarty->ext->_filterHandler->runFilter('post', $code, $this->template);
+			return $this->smarty->runFilter('post', $code, $this->template);
 		} else {
 			return $code;
 		}
@@ -490,7 +490,7 @@ class Template {
 	public function preFilter($_content) {
 		// run pre filter if required
 		if ($_content !== '' && isset($this->smarty->registered_filters['pre'])) {
-			return $this->smarty->ext->_filterHandler->runFilter('pre', $_content, $this->template);
+			return $this->smarty->runFilter('pre', $_content, $this->template);
 		} else {
 			return $_content;
 		}
@@ -1375,8 +1375,8 @@ class Template {
 		// compile the smarty tag (required compile classes to compile the tag are auto loaded)
 		if (($_output = $this->callTagCompiler($tag, $args, $parameter)) === false) {
 			if (isset($this->parent_compiler->tpl_function[$tag])
-				|| (isset($this->template->smarty->ext->_tplFunction)
-					&& $this->template->smarty->ext->_tplFunction->getTplFunction($this->template, $tag) !== false)
+				|| ($this->template->smarty->hasRuntime('TplFunction')
+					&& $this->template->smarty->getRuntime('TplFunction')->getTplFunction($this->template, $tag) !== false)
 			) {
 				// template defined by {template} tag
 				$args['_attr']['name'] = "'{$tag}'";

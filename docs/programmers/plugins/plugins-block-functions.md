@@ -70,7 +70,7 @@ cannot have both custom function `{func}` and block function
      * Purpose:  translate a block of text
      * -------------------------------------------------------------
      */
-    function smarty_block_translate($params, $content, Smarty_Internal_Template $template, &$repeat)
+    function smarty_block_translate($params, $content, \Smarty\Template $template, &$repeat)
     {
         // only output on the closing tag
         if(!$repeat){

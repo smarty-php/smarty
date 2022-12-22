@@ -6,6 +6,8 @@
  * @author  Uwe Tews
  */
 
+use Smarty\Template;
+
 /**
  * class for extends resource tests
  *
@@ -27,7 +29,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->cleanDirs();
     }
 
-    public function compiledPrefilter($text, Smarty_Internal_Template $tpl)
+    public function compiledPrefilter($text, Template $tpl)
     {
         return str_replace('#', $tpl->getTemplateVars('test'), $text);
     }

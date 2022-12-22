@@ -5,6 +5,9 @@
  * @package    Smarty
  * @subpackage PluginsFunction
  */
+
+use Smarty\Template;
+
 /**
  * Smarty {html_image} function plugin
  * Type:     function
@@ -28,13 +31,13 @@
  * @version 1.0
  *
  * @param array                    $params   parameters
- * @param Smarty_Internal_Template $template template object
+ * @param Template $template template object
  *
  * @throws SmartyException
  * @return string
  * @uses    smarty_function_escape_special_chars()
  */
-function smarty_function_html_image($params, Smarty_Internal_Template $template)
+function smarty_function_html_image($params, Template $template)
 {
     $alt = '';
     $file = '';

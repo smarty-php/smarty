@@ -36,7 +36,7 @@ abstract class Data
      *
      * @var string
      */
-    public $template_class = 'Smarty_Internal_Template';
+    public $template_class = 'Smarty\Template';
 
     /**
      * template variables
@@ -48,7 +48,7 @@ abstract class Data
     /**
      * parent template (if any)
      *
-     * @var Smarty|Smarty_Internal_Template|Smarty_Data
+     * @var Smarty|Template|Smarty_Data
      */
     public $parent = null;
 
@@ -88,7 +88,7 @@ abstract class Data
                     /**
                      *
                      *
-                     * @var Smarty_Internal_Template $this
+                     * @var Template $this
                      */
                     $this->_assignInScope($tpl_var, $value, $nocache);
                 } else {
@@ -461,8 +461,8 @@ abstract class Data
 	{
 		/* @var \Smarty $smarty */
 		$smarty = $this->_getSmartyObj();
-		/* @var \Smarty_Internal_Template $confObj */
-		$confObj = new Smarty_Internal_Template($config_file, $smarty, $this, null, null, null, null, true);
+		/* @var \Smarty\Template $confObj */
+		$confObj = new Template($config_file, $smarty, $this, null, null, null, null, true);
 		$confObj->caching = Smarty::CACHING_OFF;
 		$confObj->source->config_sections = $sections;
 		$confObj->source->scope = $scope;

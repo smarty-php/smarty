@@ -9,8 +9,8 @@
 
 namespace Smarty\Resource;
 use Smarty;
-use Smarty_Internal_Template;
-use Smarty_Template_Source;
+use Smarty\Template;
+use Smarty\Template\Source;
 use SmartyException;
 
 /**
@@ -20,7 +20,7 @@ use SmartyException;
  * @package    Smarty
  * @subpackage TemplateResources
  */
-abstract class CustomPlugin extends Smarty\Resource\BasePlugin {
+abstract class CustomPlugin extends BasePlugin {
 
 	/**
 	 * fetch template and its modification time from data source
@@ -47,10 +47,10 @@ abstract class CustomPlugin extends Smarty\Resource\BasePlugin {
 	/**
 	 * populate Source Object with meta data from Resource
 	 *
-	 * @param Smarty_Template_Source $source source object
-	 * @param Smarty_Internal_Template $_template template object
+	 * @param Source $source source object
+	 * @param Template $_template template object
 	 */
-	public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null) {
+	public function populate(Source $source, Template $_template = null) {
 		$source->filepath = $source->type . ':' . $this->generateSafeName($source->name);
 		$source->uid = sha1($source->type . ':' . $source->name);
 		$mtime = $this->fetchTimestamp($source->name);
@@ -69,12 +69,12 @@ abstract class CustomPlugin extends Smarty\Resource\BasePlugin {
 	/**
 	 * Load template's source into current template object
 	 *
-	 * @param Smarty_Template_Source $source source object
+	 * @param Source $source source object
 	 *
 	 * @return string                 template source
 	 * @throws SmartyException        if source cannot be loaded
 	 */
-	public function getContent(Smarty_Template_Source $source) {
+	public function getContent(Source $source) {
 		$this->fetch($source->name, $content, $timestamp);
 		if (isset($content)) {
 			return $content;
@@ -85,11 +85,11 @@ abstract class CustomPlugin extends Smarty\Resource\BasePlugin {
 	/**
 	 * Determine basename for compiled filename
 	 *
-	 * @param Smarty_Template_Source $source source object
+	 * @param Source $source source object
 	 *
 	 * @return string                 resource's basename
 	 */
-	public function getBasename(Smarty_Template_Source $source) {
+	public function getBasename(Source $source) {
 		return basename($this->generateSafeName($source->name));
 	}
 

@@ -9,7 +9,7 @@ namespace Smarty\Cacheresource;
  * @subpackage Cacher
  */
 
-use Smarty_Internal_Template;
+use Smarty\Template;
 
 /**
  * Cache Handler API
@@ -80,12 +80,12 @@ abstract class Custom extends Base
     /**
      * populate Cached Object with metadata from Resource
      *
-     * @param Smarty_Template_Cached   $cached    cached object
-     * @param Smarty_Internal_Template $_template template object
+     * @param \Smarty\Template\Cached   $cached    cached object
+     * @param Template $_template template object
      *
      * @return void
      */
-    public function populate(Smarty_Template_Cached $cached, Smarty_Internal_Template $_template)
+    public function populate(\Smarty\Template\Cached $cached, Template $_template)
     {
         $_cache_id = isset($cached->cache_id) ? preg_replace('![^\w\|]+!', '_', $cached->cache_id) : null;
         $_compile_id = isset($cached->compile_id) ? preg_replace('![^\w]+!', '_', $cached->compile_id) : null;
@@ -100,11 +100,11 @@ abstract class Custom extends Base
     /**
      * populate Cached Object with timestamp and exists from Resource
      *
-     * @param Smarty_Template_Cached $cached
+     * @param \Smarty\Template\Cached $cached
      *
      * @return void
      */
-    public function populateTimestamp(Smarty_Template_Cached $cached)
+    public function populateTimestamp(\Smarty\Template\Cached $cached)
     {
         $mtime =
             $this->fetchTimestamp($cached->filepath, $cached->source->name, $cached->cache_id, $cached->compile_id);
@@ -129,16 +129,16 @@ abstract class Custom extends Base
     /**
      * Read the cached template and process the header
      *
-     * @param \Smarty_Internal_Template $_smarty_tpl do not change variable name, is used by compiled template
+     * @param \Smarty\Template $_smarty_tpl do not change variable name, is used by compiled template
      * @param Smarty_Template_Cached    $cached      cached object
      * @param boolean                   $update      flag if called because cache update
      *
      * @return boolean                 true or false if the cached content does not exist
      */
     public function process(
-        Smarty_Internal_Template $_smarty_tpl,
-        Smarty_Template_Cached $cached = null,
-        $update = false
+	    Template               $_smarty_tpl,
+	    Smarty_Template_Cached $cached = null,
+	                           $update = false
     ) {
         if (!$cached) {
             $cached = $_smarty_tpl->cached;
@@ -166,12 +166,12 @@ abstract class Custom extends Base
     /**
      * Write the rendered template output to cache
      *
-     * @param Smarty_Internal_Template $_template template object
+     * @param Template $_template template object
      * @param string                   $content   content to cache
      *
      * @return boolean                  success
      */
-    public function storeCachedContent(Smarty_Internal_Template $_template, $content)
+    public function storeCachedContent(Template $_template, $content)
     {
         return $this->save(
             $_template->cached->filepath,
@@ -186,11 +186,11 @@ abstract class Custom extends Base
     /**
      * Read cached template from cache
      *
-     * @param Smarty_Internal_Template $_template template object
+     * @param Template $_template template object
      *
      * @return string|boolean  content
      */
-    public function retrieveCachedContent(Smarty_Internal_Template $_template)
+    public function retrieveCachedContent(Template $_template)
     {
         $content = $_template->cached->content ?: null;
 	    if ($content === null) {

@@ -6,6 +6,8 @@
  * @author  Uwe Tews
  */
 
+use Smarty\Template;
+
 /**
  * class for cache resource file tests
  *
@@ -28,7 +30,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
         $this->assertEquals($a, $b);
     }
 
-    public function compiledPrefilter($text, Smarty_Internal_Template $tpl)
+    public function compiledPrefilter($text, Template $tpl)
     {
         $replace = $tpl->getTemplateVars('test');
         return str_replace('#', $replace ?? '', $text);
