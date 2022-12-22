@@ -45,7 +45,7 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
 */
   public function testFetchInvalidUri()
   {
-      $this->expectException('SmartyException');
+      $this->expectException(\Smarty\Exception::class);
       $this->expectExceptionMessage('{fetch} cannot read resource \'https://foo.smarty.net/foo.dat\'');
       $this->smarty->fetch('string:{fetch file="https://foo.smarty.net/foo.dat"}');
   }
@@ -58,7 +58,7 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
   */
   public function testFetchSecurity()
   {
-      $this->expectException('SmartyException');
+      $this->expectException(\Smarty\Exception::class);
       $this->expectExceptionMessage('not trusted file path');
       $this->cleanDirs();
       $dir=$this->smarty->getTemplateDir();
@@ -73,7 +73,7 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
   */
   public function testFetchSecurity2()
   {
-      $this->expectException('SmartyException');
+      $this->expectException(\Smarty\Exception::class);
       $this->expectExceptionMessage('not trusted file path');
       $this->cleanDirs();
       $this->smarty->getTemplateDir();

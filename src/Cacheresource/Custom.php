@@ -233,7 +233,7 @@ abstract class Custom extends Base
      * @param integer $exp_time      expiration time (number of seconds, not timestamp)
      *
      * @return int number of cache files deleted
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function clear(\Smarty\Smarty $smarty, $resource_name, $cache_id, $compile_id, $exp_time)
     {

@@ -101,7 +101,7 @@ class CaptureRuntime {
 	 *
 	 * @param \Smarty\Template $_template
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function close(Template $_template) {
 		if ($this->captureCount) {
@@ -124,10 +124,10 @@ class CaptureRuntime {
 	 *
 	 * @param \Smarty\Template $_template
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function error(Template $_template) {
-		throw new SmartyException("Not matching {capture}{/capture} in '{$_template->template_resource}'");
+		throw new \Smarty\Exception("Not matching {capture}{/capture} in '{$_template->template_resource}'");
 	}
 
 	/**
@@ -151,7 +151,7 @@ class CaptureRuntime {
 	 *
 	 * @param \Smarty\Template $_template
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function endRender(Template $_template) {
 		if ($this->captureCount) {

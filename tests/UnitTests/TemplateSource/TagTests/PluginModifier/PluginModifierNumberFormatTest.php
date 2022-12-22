@@ -18,7 +18,7 @@ class PluginModifierNumberFormatTest extends \PHPUnit_Smarty
 
     /**
      * @return void
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      *
      * @dataProvider numberFormatDataProvider
      */

@@ -52,8 +52,8 @@ class Insert extends Base {
 	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return string compiled code
-	 * @throws \SmartyCompilerException
-	 * @throws \SmartyException
+	 * @throws \Smarty\CompilerException
+	 * @throws \Smarty\Exception
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes

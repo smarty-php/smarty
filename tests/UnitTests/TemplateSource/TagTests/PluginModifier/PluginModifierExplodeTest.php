@@ -19,7 +19,7 @@ class PluginModifierExplodeTest extends \PHPUnit_Smarty
 
     /**
      * @return void
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      *
      * @dataProvider explodeDataProvider
      */

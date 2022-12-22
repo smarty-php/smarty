@@ -27,7 +27,7 @@ class Append extends Assign
      * @param array                                 $parameter array with compilation parameter
      *
      * @return string compiled code
-     * @throws \SmartyCompilerException
+     * @throws \Smarty\CompilerException
      */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
     {

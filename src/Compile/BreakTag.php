@@ -48,7 +48,7 @@ class BreakTag extends Base {
 	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return string compiled code
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
 	{
@@ -73,7 +73,7 @@ class BreakTag extends Base {
 	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return array
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	public function checkLevels($args, \Smarty\Compiler\Template $compiler) {
 		static $_is_loopy = ['for' => true, 'foreach' => true, 'while' => true, 'section' => true];

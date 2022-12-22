@@ -18,7 +18,7 @@
  * @param \Smarty\Compiler\Template $compiler
  *
  * @return string with compiled code
- * @throws \SmartyException
+ * @throws \Smarty\Exception
  */
 function smarty_modifiercompiler_wordwrap($params, \Smarty\Compiler\Template $compiler)
 {

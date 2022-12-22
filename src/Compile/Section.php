@@ -81,8 +81,8 @@ class Section extends ForeachSection {
 	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return string compiled code
-	 * @throws \SmartyCompilerException
-	 * @throws \SmartyException
+	 * @throws \Smarty\CompilerException
+	 * @throws \Smarty\Exception
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$compiler->loopNesting++;

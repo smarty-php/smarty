@@ -80,7 +80,7 @@ abstract class ForeachSection extends Base {
 	 * @param array $attributes
 	 * @param \Smarty\Compiler\Template $compiler
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	protected function scanForProperties($attributes, \Smarty\Compiler\Template $compiler) {
 		$this->propertyPreg = '~(';
@@ -162,7 +162,7 @@ abstract class ForeachSection extends Base {
 	 *
 	 * @param \Smarty\Compiler\Template $compiler
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	private function matchParentTemplateSource(\Smarty\Compiler\Template $compiler) {
 		// search parent compiler template source
@@ -194,7 +194,7 @@ abstract class ForeachSection extends Base {
 	 * @param array $parameter array with compilation parameter
 	 *
 	 * @return string compiled code
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	public function compileSpecialVariable(\Smarty\Compiler\Template $compiler, $parameter) {
 		$tag = smarty_strtolower_ascii(trim($parameter[0], '"\''));

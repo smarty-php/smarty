@@ -48,7 +48,7 @@ abstract class Data
     /**
      * parent template (if any)
      *
-     * @var Smarty|Template|Smarty_Data
+     * @var Smarty|Template|DataObject
      */
     public $parent = null;
 
@@ -126,7 +126,7 @@ abstract class Data
 			if ($tpl_var !== '' && isset($value)) {
 				if (!isset($this->tpl_vars[ $tpl_var ])) {
 					$tpl_var_inst = $this->_getVariable($tpl_var, null, true, false);
-					if ($tpl_var_inst instanceof Smarty_Undefined_Variable) {
+					if ($tpl_var_inst instanceof UndefinedVariable) {
 						$this->tpl_vars[ $tpl_var ] = new \Smarty\Variable(null, $nocache);
 					} else {
 						$this->tpl_vars[ $tpl_var ] = clone $tpl_var_inst;
@@ -313,7 +313,7 @@ abstract class Data
 			// force a notice
 			$x = $$varName;
 		}
-		return new Smarty_Undefined_Variable;
+		return new UndefinedVariable;
 	}
 
     /**
@@ -566,12 +566,12 @@ abstract class Data
 	/**
 	 * gets  a stream variable
 	 *
-	 * @api Smarty::getStreamVariable()
-	 *
 	 * @param string                                                  $variable the stream of the variable
 	 *
 	 * @return mixed
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
+	 *@api Smarty::getStreamVariable()
+	 *
 	 */
 	public function getStreamVariable($variable)
 	{
@@ -586,7 +586,7 @@ abstract class Data
 		}
 		$smarty = $this->smarty ?? $this;
 		if ($smarty->error_unassigned) {
-			throw new SmartyException('Undefined stream variable "' . $variable . '"');
+			throw new Exception('Undefined stream variable "' . $variable . '"');
 		} else {
 			return null;
 		}

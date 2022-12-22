@@ -1,5 +1,6 @@
 <?php
 
+use Smarty\Exception;
 use Smarty\Template;
 use Smarty\Template\Source;
 
@@ -35,7 +36,7 @@ class Smarty_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
                 $sources[ $s->uid ] = $s;
                 $uid .= $s->filepath;
                 $timestamp = $s->timestamp > $timestamp ? $s->timestamp : $timestamp;
-            } catch (SmartyException $e) {
+            } catch (Exception $e) {
             }
         }
         if (!$sources) {

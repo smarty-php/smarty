@@ -14,7 +14,7 @@ use Smarty;
 use Smarty_Internal_ConfigFileLexer;
 use Smarty_Internal_ConfigFileParser;
 use Smarty\Template;
-use SmartyCompilerException;
+use Smarty\CompilerException;
 
 /**
  * Main config file compiler class
@@ -96,7 +96,7 @@ class ConfigFile {
 	 * @param Template $template
 	 *
 	 * @return bool true if compiling succeeded, false if it failed
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function compileTemplate(Template $template) {
 		$this->template = $template;
@@ -174,7 +174,7 @@ class ConfigFile {
 	 *
 	 * @param string $args individual error message or null
 	 *
-	 * @throws SmartyCompilerException
+	 * @throws CompilerException
 	 */
 	public function trigger_config_file_error($args = null) {
 		// get config source line which has error
@@ -203,6 +203,6 @@ class ConfigFile {
 			// output parser error message
 			$error_text .= ' - Unexpected "' . $this->lex->value . '", expected one of: ' . implode(' , ', $expect);
 		}
-		throw new SmartyCompilerException($error_text);
+		throw new CompilerException($error_text);
 	}
 }

@@ -18,7 +18,7 @@ class PluginModifierReplaceTest extends \PHPUnit_Smarty
 
     /**
      * @return void
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      *
      * @dataProvider replaceDataProvider
      */

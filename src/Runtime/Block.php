@@ -1,6 +1,6 @@
 <?php
 
-namespace Smarty;
+namespace Smarty\Runtime;
 
 /**
  * Smarty {block} tag class

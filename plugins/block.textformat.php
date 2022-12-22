@@ -33,7 +33,7 @@ use Smarty\Template;
  *
  * @return string content re-formatted
  * @author Monte Ohrt <monte at ohrt dot com>
- * @throws \SmartyException
+ * @throws \Smarty\Exception
  */
 function smarty_block_textformat($params, $content, Template $template, &$repeat)
 {

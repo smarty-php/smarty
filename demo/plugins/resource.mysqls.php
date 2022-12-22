@@ -1,6 +1,7 @@
 <?php
 
 use Smarty\Resource\CustomPlugin;
+use Smarty\Exception;
 
 /**
  * MySQL Resource
@@ -42,14 +43,14 @@ class _MysqlsPlugin extends CustomPlugin
     /**
      * Smarty_Resource_Mysqls constructor.
      *
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function __construct()
     {
         try {
             $this->db = new PDO("mysql:dbname=test;host=127.0.0.1", "smarty");
         } catch (PDOException $e) {
-            throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
+            throw new Exception('Mysql Resource failed: ' . $e->getMessage());
         }
         $this->fetch = $this->db->prepare('SELECT modified, source FROM templates WHERE name = :name');
     }

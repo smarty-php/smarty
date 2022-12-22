@@ -188,7 +188,7 @@ class Debug extends Data
      * @param bool                            $full
      *
      * @throws \Exception
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function display_debug($obj, $full = false)
     {
@@ -254,7 +254,7 @@ class Debug extends Data
     /**
      * Recursively gets variables from all template/data scopes
      *
-     * @param \Smarty\Template|\Smarty_Data $obj object to debug
+     * @param \Smarty\Template|\Smarty\DataObject $obj object to debug
      *
      * @return \StdClass
      */

@@ -38,8 +38,8 @@ class PrivateObjectFunction extends Base {
 	 * @param string $function name of method to call
 	 *
 	 * @return string compiled code
-	 * @throws \SmartyCompilerException
-	 * @throws \SmartyException
+	 * @throws \Smarty\CompilerException
+	 * @throws \Smarty\Exception
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes

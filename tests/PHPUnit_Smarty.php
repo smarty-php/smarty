@@ -4,6 +4,7 @@
  *
  */
 
+use Smarty\Exception;
 use Smarty\TemplateBase;
 use Smarty\Template;
 
@@ -166,7 +167,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
                 PHPUnit_Smarty::$pdo = new PDO(DB_DSN, DB_USER, DB_PASSWD);
             }
             catch (PDOException $e) {
-                throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
+                throw new Exception('Mysql Resource failed: ' . $e->getMessage());
             }
             $timezone = date_default_timezone_get();
             $j = PHPUnit_Smarty::$pdo->exec("SET time_zone = '{$timezone}';");

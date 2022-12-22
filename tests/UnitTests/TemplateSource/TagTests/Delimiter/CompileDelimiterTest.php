@@ -43,7 +43,7 @@ class CompileDelimiterTest extends PHPUnit_Smarty
 
     public function testLeftDelimiterError()
     {
-        $this->expectException('SmartyCompilerException');
+        $this->expectException(\Smarty\CompilerException::class);
         $this->expectExceptionMessage('nocache option not allowed');
         $tpl = $this->smarty->createTemplate('string:x{ldelim nocache}x');
         $this->assertEquals('x{x', $this->smarty->fetch($tpl));

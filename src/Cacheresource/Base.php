@@ -193,7 +193,6 @@ abstract class Base
      * @param Smarty $smarty Smarty object
      * @param string $type   name of the cache resource
      *
-     * @throws SmartyException
      * @return Base Cache Resource Handler
      */
     public static function load(Smarty $smarty, $type = null)

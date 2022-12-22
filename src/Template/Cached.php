@@ -84,7 +84,7 @@ class Cached extends ResourceBase {
 	 *
 	 * @param Template $_template template object
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function __construct(Template $_template) {
 		$this->compile_id = $_template->compile_id;
@@ -282,7 +282,7 @@ class Cached extends ResourceBase {
 	 * @param Template $_template
 	 * @param bool $no_output_filter
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function updateCache(Template $_template, $no_output_filter) {
 		ob_start();
@@ -315,7 +315,7 @@ class Cached extends ResourceBase {
 	 * @param Template $_template
 	 * @param bool $no_output_filter
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	private function removeNoCacheHash(Template $_template, $no_output_filter) {
 		$php_pattern = '/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/';

@@ -6,6 +6,8 @@
  * @author  Uwe Tews
  */
 
+use Smarty\Exception;
+
 /**
  * class for file resource tests
  *
@@ -69,7 +71,7 @@ class FileResourceTest extends PHPUnit_Smarty
      */
     public function testTemplateFileNotExists3()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('Unable to');
         $this->expectExceptionMessage('notthere.tpl');
         $this->smarty->fetch('notthere.tpl');
@@ -222,7 +224,7 @@ class FileResourceTest extends PHPUnit_Smarty
      */
     public function testRelativeIncludeFail()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('Unable to');
         $this->smarty->fetch('relative_sub.tpl');
     }
@@ -234,7 +236,7 @@ class FileResourceTest extends PHPUnit_Smarty
      */
     public function testRelativeIncludeFailOtherDir()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('./hello.tpl');
         $this->smarty->addTemplateDir('./templates_2');
         $this->smarty->fetch('relative_notexist.tpl');
@@ -331,7 +333,7 @@ class FileResourceTest extends PHPUnit_Smarty
 
                     return;
                 }
-                catch (SmartyException $e) {
+                catch (Exception $e) {
                     // this was expected to fail
                 }
             } else {

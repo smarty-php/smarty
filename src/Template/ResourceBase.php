@@ -116,7 +116,7 @@ abstract class ResourceBase {
 				$unifunc = $this->unifunc;
 			}
 			if (empty($unifunc) || !function_exists($unifunc)) {
-				throw new \SmartyException("Invalid compiled template for '{$_template->template_resource}'");
+				throw new \Smarty\Exception("Invalid compiled template for '{$_template->template_resource}'");
 			}
 			if ($_template->startRenderCallbacks) {
 				foreach ($_template->startRenderCallbacks as $callback) {

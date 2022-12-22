@@ -6,6 +6,8 @@
  * @author  Uwe Tews
  */
 
+use Smarty\CompilerException;
+
 /**
  * class for {function} tag tests
  *
@@ -437,7 +439,7 @@ class CompileFunctionTest extends PHPUnit_Smarty
      * Test handling of function names that are a security risk
      */
     public function testIllegalFunctionName() {
-        $this->expectException(SmartyCompilerException::class);
+        $this->expectException(CompilerException::class);
 	    $this->smarty->fetch('string:{function name=\'rce(){};echo "hi";function \'}{/function}');
     }
 

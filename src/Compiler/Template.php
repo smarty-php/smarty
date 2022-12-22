@@ -14,8 +14,8 @@ use Smarty;
 use Smarty\Compile\Base;
 use Smarty\Compile\ExtendsTag;
 use Smarty_Internal_Templateparser;
-use SmartyCompilerException;
-use SmartyException;
+use Smarty\CompilerException;
+use Smarty\Exception;
 
 /**
  * Class SmartyTemplateCompiler
@@ -468,7 +468,7 @@ class Template {
 	 * @param string $code compiled code
 	 *
 	 * @return string
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function postFilter($code) {
 		// run post filter if on code
@@ -485,7 +485,7 @@ class Template {
 	 * @param string $_content template source
 	 *
 	 * @return string
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function preFilter($_content) {
 		// run pre filter if required
@@ -510,8 +510,8 @@ class Template {
 	 * @param array $parameter array with compilation parameter
 	 *
 	 * @return string compiled code
-	 * @throws SmartyException
-	 * @throws SmartyCompilerException
+	 * @throws Exception
+	 * @throws CompilerException
 	 */
 	public function compileTag($tag, $args, $parameter = []) {
 		$this->prefixCodeStack[] = $this->prefix_code;
@@ -562,7 +562,7 @@ class Template {
 	 * @param array $parameter
 	 *
 	 * @return string
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	public function compilePHPFunctionCall($name, $parameter) {
 		if (!$this->smarty->security_policy || $this->smarty->security_policy->isTrustedPhpFunction($name, $this)) {
@@ -704,7 +704,7 @@ class Template {
 	 * @param mixed $param3 optional parameter
 	 *
 	 * @return bool|string compiled code or false
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	private function callTagCompiler($tag, $args, $param1 = null, $param2 = null, $param3 = null) {
 		/* @var Base $tagCompiler */
@@ -860,7 +860,7 @@ class Template {
 	 * @param string $plugin_type type of plugin
 	 *
 	 * @return bool true if found
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	public function getPluginFromDefaultHandler($tag, $plugin_type) {
 		$callback = null;
@@ -1003,7 +1003,7 @@ class Template {
 	 * @param array $validScopes
 	 *
 	 * @return int|string
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	public function convertScope($_attr, $validScopes) {
 		$_scope = 0;
@@ -1048,7 +1048,7 @@ class Template {
 	 * @param string $line line-number
 	 * @param null|bool $tagline if true the line number of last tag
 	 *
-	 * @throws \SmartyCompilerException when an unexpected token is found
+	 * @throws \Smarty\CompilerException when an unexpected token is found
 	 */
 	public function trigger_template_error($args = null, $line = null, $tagline = null) {
 		$lex = $this->parser->lex;
@@ -1113,7 +1113,7 @@ class Template {
 			echo ob_get_clean();
 			flush();
 		}
-		$e = new SmartyCompilerException(
+		$e = new CompilerException(
 			$error_text,
 			0,
 			$this->template->source->filepath,
@@ -1205,7 +1205,7 @@ class Template {
 	 *  leave double quoted string
 	 *  - throw exception if block in string was not closed
 	 *
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	public function leaveDoubleQuote() {
 		if (array_pop($this->_tag_stack_count) !== $this->getTagStackCount()) {
@@ -1349,8 +1349,8 @@ class Template {
 	 * @param array $parameter array with compilation parameter
 	 *
 	 * @return string compiled code
-	 * @throws SmartyException
-	 * @throws SmartyCompilerException
+	 * @throws Exception
+	 * @throws CompilerException
 	 */
 	private function compileTag2($tag, $args, $parameter) {
 		$plugin_type = '';
@@ -1494,7 +1494,7 @@ class Template {
 								return $plugin_object->compile($args, $this);
 							}
 						}
-						throw new SmartyException("Plugin '{$tag}' not callable");
+						throw new Exception("Plugin '{$tag}' not callable");
 					} else {
 						if ($function = $this->getPlugin($tag, $plugin_type)) {
 							if (!isset($this->smarty->security_policy)
@@ -1628,7 +1628,7 @@ class Template {
 						return $plugin_object->compile($args, $this);
 					}
 				}
-				throw new SmartyException("Plugin '{$tag}' not callable");
+				throw new Exception("Plugin '{$tag}' not callable");
 			}
 			$this->trigger_template_error("unknown tag '{$tag}'", null, true);
 		}
@@ -1641,7 +1641,7 @@ class Template {
 	 * @param bool $isTemplateSource
 	 *
 	 * @return bool true if compiling succeeded, false if it failed
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	protected function doCompile($_content, $isTemplateSource = false) {
 		/* here is where the compiling takes place. Smarty

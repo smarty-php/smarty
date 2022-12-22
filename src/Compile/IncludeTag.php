@@ -79,8 +79,8 @@ class IncludeTag extends Base {
 	 *
 	 * @return string
 	 * @throws \Exception
-	 * @throws \SmartyCompilerException
-	 * @throws \SmartyException
+	 * @throws \Smarty\CompilerException
+	 * @throws \Smarty\Exception
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$uid = $t_hash = null;
@@ -292,7 +292,7 @@ class IncludeTag extends Base {
 	 *
 	 * @return bool
 	 * @throws \Exception
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	private function compileInlineTemplate(
 		Template $compiler,

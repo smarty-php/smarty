@@ -64,8 +64,8 @@ abstract class BasePlugin
      * @param \Smarty $smarty smarty object
      * @param string $type   name of the resource
      *
-     * @throws \SmartyException
      * @return BasePlugin Resource Handler
+     *@throws \Smarty\Exception
      */
     public static function load(\Smarty $smarty, $type)
     {
@@ -108,7 +108,7 @@ abstract class BasePlugin
         }
         // TODO: try default_(template|config)_handler
         // give up
-        throw new \SmartyException("Unknown resource type '{$type}'");
+        throw new \Smarty\Exception("Unknown resource type '{$type}'");
     }
 
     /**
@@ -143,7 +143,7 @@ abstract class BasePlugin
      *                                                             name of
      *
      * @return string unique resource name
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public static function getUniqueTemplateName($obj, $template_resource)
     {
@@ -171,7 +171,7 @@ abstract class BasePlugin
      * @param string                   $template_resource resource identifier
      *
      * @return \Smarty\Template\Source Source Object
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public static function source(
 	    \Smarty\Template $_template = null,
@@ -187,7 +187,7 @@ abstract class BasePlugin
      * @param \Smarty\Template\Source $source source object
      *
      * @return string                 template source
-     * @throws \SmartyException        if source cannot be loaded
+     * @throws \Smarty\Exception        if source cannot be loaded
      */
     abstract public function getContent(\Smarty\Template\Source $source);
 

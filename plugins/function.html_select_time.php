@@ -25,7 +25,7 @@ use Smarty\Template;
  *
  * @return string
  * @uses   smarty_make_timestamp()
- * @throws \SmartyException
+ * @throws \Smarty\Exception
  */
 function smarty_function_html_select_time($params, Template $template)
 {

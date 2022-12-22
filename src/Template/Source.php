@@ -4,7 +4,7 @@ namespace Smarty\Template;
 
 use Smarty;
 use Smarty\Template;
-use SmartyException;
+use Smarty\Exception;
 
 /**
  * Smarty Resource Data Object
@@ -136,7 +136,7 @@ class Source {
 	 * @param string $type type of resource
 	 * @param string $name resource name
 	 *
-	 * @throws   \SmartyException
+	 * @throws   \Smarty\Exception
 	 * @internal param \Smarty\Resource\Base $handler Resource Handler this source object communicates with
 	 */
 	public function __construct(Smarty $smarty, $resource, $type, $name) {
@@ -157,7 +157,7 @@ class Source {
 	 * @param string $template_resource resource identifier
 	 *
 	 * @return Source Source Object
-	 * @throws SmartyException
+	 * @throws Exception
 	 */
 	public static function load(
 		Template $_template = null,
@@ -169,7 +169,7 @@ class Source {
 			$template_resource = $_template->template_resource;
 		}
 		if (empty($template_resource)) {
-			throw new SmartyException('Source: Missing  name');
+			throw new Exception('Source: Missing  name');
 		}
 		// parse resource_name, load resource handler, identify unique resource name
 		if (preg_match('/^([A-Za-z0-9_\-]{2,})[:]([\s\S]*)$/', $template_resource, $match)) {
@@ -207,7 +207,7 @@ class Source {
 	 * Get source content
 	 *
 	 * @return string
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function getContent() {
 		return isset($this->content) ? $this->content : $this->handler->getContent($this);
@@ -216,7 +216,7 @@ class Source {
 	/**
 	 * get default content from template or config resource handler
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function _getDefaultTemplate($default_handler) {
 		$_content = $_timestamp = null;
@@ -229,7 +229,7 @@ class Source {
 			if ($this->exists) {
 				$this->timestamp = filemtime($_return);
 			} else {
-				throw new SmartyException(
+				throw new Exception(
 					'Default handler: Unable to load ' .
 					($this->isConfig ? 'config' : 'template') .
 					" default file '{$_return}' for '{$this->type}:{$this->name}'"
@@ -244,7 +244,7 @@ class Source {
 			$this->handler = Smarty\Resource\BasePlugin::load($this->smarty, 'eval');
 		} else {
 			$this->exists = false;
-			throw new SmartyException(
+			throw new Exception(
 				'Default handler: No ' . ($this->isConfig ? 'config' : 'template') .
 				" default content for '{$this->type}:{$this->name}'"
 			);

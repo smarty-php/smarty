@@ -21,7 +21,7 @@ class TplFunctionRuntime {
 	 * @param array $params parameter array
 	 * @param bool $nocache true if called nocache
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function callTemplateFunction(Template $tpl, $name, $params, $nocache) {
 		$funcParam = $tpl->tplFunctions[$name] ?? ($tpl->smarty->tplFunctions[$name] ?? null);
@@ -49,7 +49,7 @@ class TplFunctionRuntime {
 				return;
 			}
 		}
-		throw new SmartyException("Unable to find template function '{$name}'");
+		throw new \Smarty\Exception("Unable to find template function '{$name}'");
 	}
 
 	/**

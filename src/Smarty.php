@@ -274,14 +274,14 @@ class Smarty extends \Smarty\TemplateBase
      * This should be instance of \Smarty_Security.
      *
      * @var string
-     * @see \Smarty_Security
+     * @see \Smarty\Security
      */
-    public $security_class = \Smarty_Security::class;
+    public $security_class = \Smarty\Security::class;
 
     /**
      * implementation of security class
      *
-     * @var \Smarty_Security
+     * @var \Smarty\Security
      */
     public $security_policy = null;
 
@@ -592,7 +592,7 @@ class Smarty extends \Smarty\TemplateBase
      * @param string $resource_name template name
      *
      * @return bool status
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function templateExists($resource_name)
     {
@@ -604,14 +604,14 @@ class Smarty extends \Smarty\TemplateBase
     /**
      * Loads security class and enables security
      *
-     * @param string|\Smarty_Security $security_class if a string is used, it must be class-name
+     * @param string|\Smarty\Security $security_class if a string is used, it must be class-name
      *
      * @return Smarty                 current Smarty instance for chaining
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function enableSecurity($security_class = null)
     {
-        \Smarty_Security::enableSecurity($this, $security_class);
+        \Smarty\Security::enableSecurity($this, $security_class);
         return $this;
     }
 
@@ -845,7 +845,7 @@ class Smarty extends \Smarty\TemplateBase
      * @param boolean $do_clone   flag is Smarty object shall be cloned
      *
      * @return \Smarty\Template template object
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null, $do_clone = true)
     {
@@ -909,7 +909,7 @@ class Smarty extends \Smarty\TemplateBase
      * @param \Smarty\Template $template
      *
      * @return string
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function _getTemplateId(
 	    $template_name,
@@ -1224,9 +1224,6 @@ class Smarty extends \Smarty\TemplateBase
 	/**
 	 * Empty cache for a specific template
 	 *
-	 * @api  Smarty::clearCache()
-	 * @link https://www.smarty.net/docs/en/api.clear.cache.tpl
-	 *
 	 * @param string  $template_name template name
 	 * @param string  $cache_id      cache id
 	 * @param string  $compile_id    compile id
@@ -1234,7 +1231,10 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param string  $type          resource type
 	 *
 	 * @return int number of cache files deleted
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
+	 *@link https://www.smarty.net/docs/en/api.clear.cache.tpl
+	 *
+	 * @api  Smarty::clearCache()
 	 */
 	public function clearCache(
 		       $template_name,
@@ -1271,15 +1271,15 @@ class Smarty extends \Smarty\TemplateBase
 	/**
 	 * Delete compiled template file
 	 *
-	 * @api  Smarty::clearCompiledTemplate()
-	 * @link https://www.smarty.net/docs/en/api.clear.compiled.template.tpl
-	 *
 	 * @param string  $resource_name template name
 	 * @param string  $compile_id    compile id
 	 * @param integer $exp_time      expiration time
 	 *
 	 * @return int number of template files deleted
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
+	 *@link https://www.smarty.net/docs/en/api.clear.compiled.template.tpl
+	 *
+	 * @api  Smarty::clearCompiledTemplate()
 	 */
 	public function clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
 	{
@@ -1511,7 +1511,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param string                    $content
 	 *
 	 * @throws \Exception
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function cacheModifiedCheck(Template\Cached $cached, \Smarty\Template $_template, $content)
 	{
@@ -1572,7 +1572,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param Template $template template object
 	 *
 	 * @return string                   the filtered content
-	 *@throws SmartyException
+	 *@throws Exception
 	 */
 	public function runFilter($type, $content, Template $template)
 	{
@@ -1748,8 +1748,8 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param string $_filepath complete filepath
 	 * @param string $_contents file content
 	 *
-	 * @throws SmartyException
 	 * @return boolean true
+	 *@throws Exception
 	 */
 	public function writeFile($_filepath, $_contents)
 	{
@@ -1768,7 +1768,7 @@ class Smarty extends \Smarty\TemplateBase
 				clearstatcache();
 				if (++$i === 3) {
 					error_reporting($_error_reporting);
-					throw new SmartyException("unable to create directory {$_dirpath}");
+					throw new Exception("unable to create directory {$_dirpath}");
 				}
 				sleep(1);
 			}
@@ -1777,7 +1777,7 @@ class Smarty extends \Smarty\TemplateBase
 		$_tmp_file = $_dirpath . DIRECTORY_SEPARATOR . str_replace(array('.', ','), '_', uniqid('wrt', true));
 		if (!file_put_contents($_tmp_file, $_contents)) {
 			error_reporting($_error_reporting);
-			throw new SmartyException("unable to write file {$_tmp_file}");
+			throw new Exception("unable to write file {$_tmp_file}");
 		}
 		/*
 		 * Windows' rename() fails if the destination exists,
@@ -1807,7 +1807,7 @@ class Smarty extends \Smarty\TemplateBase
 		}
 		if (!$success) {
 			error_reporting($_error_reporting);
-			throw new SmartyException("unable to write file {$_filepath}");
+			throw new Exception("unable to write file {$_filepath}");
 		}
 		// set file permissions
 		@chmod($_filepath, 0666 & ~umask());
@@ -1844,7 +1844,7 @@ class Smarty extends \Smarty\TemplateBase
 				return $this->runtimes[$type] = new Smarty\Runtime\TplFunctionRuntime();
 		}
 
-		throw new \SmartyException('Trying to load invalid runtime ' . $type);
+		throw new \Smarty\Exception('Trying to load invalid runtime ' . $type);
 	}
 
 	/**
@@ -1858,7 +1858,7 @@ class Smarty extends \Smarty\TemplateBase
 		try {
 			$this->getRuntime($type);
 			return true;
-		} catch (\SmartyException $e) {
+		} catch (\Smarty\Exception $e) {
 			return false;
 		}
 	}

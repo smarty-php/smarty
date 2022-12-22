@@ -5,6 +5,9 @@
  * @package    Smarty
  * @subpackage PluginsModifierCompiler
  */
+
+use Smarty\Exception;
+
 /**
  * Smarty escape modifier plugin
  * Type:     modifier
@@ -18,7 +21,7 @@
  * @param \Smarty\Compiler\Template $compiler
  *
  * @return string with compiled code
- * @throws SmartyException
+ * @throws Exception
  */
 function smarty_modifiercompiler_escape($params, \Smarty\Compiler\Template $compiler)
 {
@@ -53,7 +56,7 @@ function smarty_modifiercompiler_escape($params, \Smarty\Compiler\Template $comp
                        $params[ 0 ] .
                        ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", "\\n" => "\\\n", "</" => "<\/", "<!--" => "<\!--", "<s" => "<\s", "<S" => "<\S" ))';
         }
-    } catch (SmartyException $e) {
+    } catch (Exception $e) {
         // pass through to regular plugin fallback
     }
     return 'smarty_modifier_escape(' . join(', ', $params) . ')';

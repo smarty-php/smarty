@@ -3,7 +3,7 @@
 namespace Smarty\Runtime;
 use Smarty\Template;
 use Smarty\Template\Source;
-use SmartyException;
+use Smarty\Exception;
 
 /**
  * Inheritance Runtime Methods processBlock, endChild, init
@@ -29,7 +29,7 @@ class InheritanceRuntime {
 	/**
 	 * Array of root child {block} objects
 	 *
-	 * @var \Smarty\Block[]
+	 * @var \Smarty\Runtime\Block[]
 	 */
 	public $childRoot = [];
 
@@ -104,7 +104,7 @@ class InheritanceRuntime {
 	 * @param null|string $func function call name of inline template
 	 *
 	 * @throws \Exception
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function endChild(Template $tpl, $template = null, $uid = null, $func = null) {
 		--$this->inheritanceLevel;
@@ -140,7 +140,7 @@ class InheritanceRuntime {
 	 * @param string $name
 	 * @param int|null $tplIndex index of outer level {block} if nested
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function instanceBlock(Template $tpl, $className, $name, $tplIndex = null) {
 		$block = new $className($name, isset($tplIndex) ? $tplIndex : $this->tplIndex);
@@ -162,15 +162,15 @@ class InheritanceRuntime {
 	 * Goto child block or render this
 	 *
 	 * @param Template $tpl
-	 * @param \Smarty\Block $block
-	 * @param \Smarty\Block|null $parent
+	 * @param \Smarty\Runtime\Block $block
+	 * @param \Smarty\Runtime\Block|null $parent
 	 *
-	 * @throws SmartyException
+	 * @throws Exception
 	 */
 	public function process(
-		Template      $tpl,
-		\Smarty\Block $block,
-		\Smarty\Block $parent = null
+		Template              $tpl,
+		\Smarty\Runtime\Block $block,
+		\Smarty\Runtime\Block $parent = null
 	) {
 		if ($block->hide && !isset($block->child)) {
 			return;
@@ -206,12 +206,12 @@ class InheritanceRuntime {
 	 * Render child on \$smarty.block.child
 	 *
 	 * @param Template $tpl
-	 * @param \Smarty\Block $block
+	 * @param \Smarty\Runtime\Block $block
 	 *
 	 * @return null|string block content
-	 * @throws SmartyException
+	 * @throws Exception
 	 */
-	public function callChild(Template $tpl, \Smarty\Block $block) {
+	public function callChild(Template $tpl, \Smarty\Runtime\Block $block) {
 		if (isset($block->child)) {
 			$this->process($tpl, $block->child, $block);
 		}
@@ -221,27 +221,27 @@ class InheritanceRuntime {
 	 * Render parent block on \$smarty.block.parent or {block append/prepend}
 	 *
 	 * @param Template $tpl
-	 * @param \Smarty\Block $block
+	 * @param \Smarty\Runtime\Block $block
 	 * @param string $tag
 	 *
 	 * @return null|string  block content
-	 * @throws SmartyException
+	 * @throws Exception
 	 */
-	public function callParent(Template $tpl, \Smarty\Block $block, $tag) {
+	public function callParent(Template $tpl, \Smarty\Runtime\Block $block, $tag) {
 		if (isset($block->parent)) {
 			$this->callBlock($block->parent, $tpl);
 		} else {
-			throw new SmartyException("inheritance: illegal '{$tag}' used in child template '{$tpl->inheritance->sources[$block->tplIndex]->filepath}' block '{$block->name}'");
+			throw new Exception("inheritance: illegal '{$tag}' used in child template '{$tpl->inheritance->sources[$block->tplIndex]->filepath}' block '{$block->name}'");
 		}
 	}
 
 	/**
 	 * render block
 	 *
-	 * @param \Smarty\Block $block
+	 * @param \Smarty\Runtime\Block $block
 	 * @param Template $tpl
 	 */
-	public function callBlock(\Smarty\Block $block, Template $tpl) {
+	public function callBlock(\Smarty\Runtime\Block $block, Template $tpl) {
 		$this->sourceStack[] = $tpl->source;
 		$tpl->source = $this->sources[$block->tplIndex];
 		$block->callBlock($tpl);

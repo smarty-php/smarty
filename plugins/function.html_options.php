@@ -35,7 +35,7 @@ use Smarty\Template;
  *
  * @return string
  * @uses   smarty_function_escape_special_chars()
- * @throws \SmartyException
+ * @throws \Smarty\Exception
  */
 function smarty_function_html_options($params, Template $template)
 {

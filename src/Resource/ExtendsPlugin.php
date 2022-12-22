@@ -27,7 +27,7 @@ class ExtendsPlugin extends BasePlugin
      * @param \Smarty\Template\Source   $source    source object
      * @param \Smarty\Template $_template template object
      *
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function populate(\Smarty\Template\Source $source, \Smarty\Template $_template = null)
     {
@@ -40,7 +40,7 @@ class ExtendsPlugin extends BasePlugin
             /* @var \Smarty\Template\Source $_s */
             $_s = \Smarty\Template\Source::load(null, $smarty, $component);
             if ($_s->type === 'php') {
-                throw new \SmartyException("Resource type {$_s->type} cannot be used with the extends resource type");
+                throw new \Smarty\Exception("Resource type {$_s->type} cannot be used with the extends resource type");
             }
             $sources[ $_s->uid ] = $_s;
             $uid .= $_s->filepath;
@@ -78,12 +78,12 @@ class ExtendsPlugin extends BasePlugin
      * @param \Smarty\Template\Source $source source object
      *
      * @return string template source
-     * @throws \SmartyException if source cannot be loaded
+     * @throws \Smarty\Exception if source cannot be loaded
      */
     public function getContent(\Smarty\Template\Source $source)
     {
         if (!$source->exists) {
-            throw new \SmartyException("Unable to load template '{$source->type}:{$source->name}'");
+            throw new \Smarty\Exception("Unable to load template '{$source->type}:{$source->name}'");
         }
         $_components = array_reverse($source->components);
         $_content = '';

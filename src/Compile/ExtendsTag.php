@@ -51,8 +51,8 @@ class ExtendsTag extends Inheritance {
 	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return string compiled code
-	 * @throws \SmartyCompilerException
-	 * @throws \SmartyException
+	 * @throws \Smarty\CompilerException
+	 * @throws \Smarty\Exception
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes
@@ -98,8 +98,8 @@ class ExtendsTag extends Inheritance {
 	 * @param \Smarty\Compiler\Template $compiler
 	 * @param null|string $template optional inheritance parent template
 	 *
-	 * @throws \SmartyCompilerException
-	 * @throws \SmartyException
+	 * @throws \Smarty\CompilerException
+	 * @throws \Smarty\Exception
 	 */
 	private function compileEndChild(\Smarty\Compiler\Template $compiler, $template = null) {
 		$inlineUids = '';
@@ -124,8 +124,8 @@ class ExtendsTag extends Inheritance {
 	 * @param \Smarty\Compiler\Template $compiler
 	 * @param string $template subtemplate name
 	 *
-	 * @throws \SmartyCompilerException
-	 * @throws \SmartyException
+	 * @throws \Smarty\CompilerException
+	 * @throws \Smarty\Exception
 	 */
 	private function compileInclude(\Smarty\Compiler\Template $compiler, $template) {
 		$compiler->parser->template_postfix[] = new \Smarty\ParseTree\Tag(

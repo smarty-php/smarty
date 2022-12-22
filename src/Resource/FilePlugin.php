@@ -12,7 +12,7 @@ namespace Smarty\Resource;
 use Smarty;
 use Smarty\Template;
 use Smarty\Template\Source;
-use SmartyException;
+use Smarty\Exception;
 
 /**
  * Smarty Internal Plugin Resource File
@@ -29,7 +29,7 @@ class FilePlugin extends BasePlugin {
 	 * @param Source $source source object
 	 * @param Template $_template template object
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function populate(Source $source, Template $_template = null) {
 		$source->filepath = $this->buildFilepath($source, $_template);
@@ -68,13 +68,13 @@ class FilePlugin extends BasePlugin {
 	 * @param Source $source source object
 	 *
 	 * @return string                 template source
-	 * @throws SmartyException        if source cannot be loaded
+	 * @throws Exception        if source cannot be loaded
 	 */
 	public function getContent(Source $source) {
 		if ($source->exists) {
 			return file_get_contents($source->filepath);
 		}
-		throw new SmartyException(
+		throw new Exception(
 			'Unable to read ' . ($source->isConfig ? 'config' : 'template') .
 			" {$source->type} '{$source->name}'"
 		);
@@ -98,7 +98,7 @@ class FilePlugin extends BasePlugin {
 	 * @param Template $_template template object
 	 *
 	 * @return string fully qualified filepath
-	 * @throws SmartyException
+	 * @throws Exception
 	 */
 	protected function buildFilepath(Source $source, Template $_template = null) {
 		$file = $source->name;
@@ -112,7 +112,7 @@ class FilePlugin extends BasePlugin {
 			&& preg_match('#^[.]{1,2}[\\\/]#', $file)
 		) {
 			if ($_template->parent->source->type !== 'file' && $_template->parent->source->type !== 'extends') {
-				throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
+				throw new Exception("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
 			}
 			// normalize path
 			$path =

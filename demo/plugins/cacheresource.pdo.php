@@ -1,5 +1,7 @@
 <?php
 
+use Smarty\Exception;
+
 /**
  * PDO Cache Handler
  * Allows you to store Smarty Cache files into your db.
@@ -119,12 +121,12 @@ class Smarty_CacheResource_Pdo extends \Smarty\Cacheresource\Custom
      * @param string $table    : table (or view) name
      * @param string $database : optional - if table is located in another db
      *
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function __construct(PDO $pdo, $table, $database = null)
     {
         if (is_null($table)) {
-            throw new SmartyException("Table name for caching can't be null");
+            throw new Exception("Table name for caching can't be null");
         }
         $this->pdo = $pdo;
         $this->table = $table;

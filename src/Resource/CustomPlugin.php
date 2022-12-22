@@ -11,7 +11,7 @@ namespace Smarty\Resource;
 use Smarty;
 use Smarty\Template;
 use Smarty\Template\Source;
-use SmartyException;
+use Smarty\Exception;
 
 /**
  * Smarty Resource Plugin
@@ -72,14 +72,14 @@ abstract class CustomPlugin extends BasePlugin {
 	 * @param Source $source source object
 	 *
 	 * @return string                 template source
-	 * @throws SmartyException        if source cannot be loaded
+	 * @throws Exception        if source cannot be loaded
 	 */
 	public function getContent(Source $source) {
 		$this->fetch($source->name, $content, $timestamp);
 		if (isset($content)) {
 			return $content;
 		}
-		throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");
+		throw new Exception("Unable to read template {$source->type} '{$source->name}'");
 	}
 
 	/**

@@ -6,6 +6,7 @@
  * @subpackage PluginsFunction
  */
 
+use Smarty\Exception;
 use Smarty\Template;
 
 /**
@@ -33,7 +34,7 @@ use Smarty\Template;
  * @param array                    $params   parameters
  * @param Template $template template object
  *
- * @throws SmartyException
+ * @throws Exception
  * @return string
  * @uses    smarty_function_escape_special_chars()
  */
@@ -62,7 +63,7 @@ function smarty_function_html_image($params, Template $template)
                 if (!is_array($_val)) {
                     $$_key = smarty_function_escape_special_chars($_val);
                 } else {
-                    throw new SmartyException(
+                    throw new Exception(
                         "html_image: extra attribute '{$_key}' cannot be an array",
                         E_USER_NOTICE
                     );
@@ -77,7 +78,7 @@ function smarty_function_html_image($params, Template $template)
                 if (!is_array($_val)) {
                     $extra .= ' ' . $_key . '="' . smarty_function_escape_special_chars($_val) . '"';
                 } else {
-                    throw new SmartyException(
+                    throw new Exception(
                         "html_image: extra attribute '{$_key}' cannot be an array",
                         E_USER_NOTICE
                     );

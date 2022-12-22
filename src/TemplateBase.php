@@ -14,8 +14,8 @@ use Smarty\Cacheresource\Base;
 use Smarty\Data;
 use Smarty\Smarty;
 use Smarty\Template;
-use Smarty_Data;
-use SmartyException;
+use Smarty\DataObject;
+use Smarty\Exception;
 
 /**
  * Class with shared smarty/template methods
@@ -92,7 +92,7 @@ abstract class TemplateBase extends Data {
 	 * @param object $parent next higher level of Smarty variables
 	 *
 	 * @return string rendered template output
-	 * @throws SmartyException
+	 * @throws Exception
 	 * @throws Exception
 	 */
 	public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null) {
@@ -109,7 +109,7 @@ abstract class TemplateBase extends Data {
 	 * @param object $parent next higher level of Smarty variables
 	 *
 	 * @throws \Exception
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function display($template = null, $cache_id = null, $compile_id = null, $parent = null) {
 		// display template
@@ -127,7 +127,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @return bool cache status
 	 * @throws \Exception
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 * @link https://www.smarty.net/docs/en/api.is.cached.tpl
 	 *
 	 * @api  Smarty::isCached()
@@ -147,21 +147,21 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @return mixed
 	 * @throws \Exception
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	private function _execute($template, $cache_id, $compile_id, $parent, $function) {
 		$smarty = $this->_getSmartyObj();
 		$saveVars = true;
 		if ($template === null) {
 			if (!$this->_isTplObj()) {
-				throw new SmartyException($function . '():Missing \'$template\' parameter');
+				throw new Exception($function . '():Missing \'$template\' parameter');
 			} else {
 				$template = $this;
 			}
 		} elseif (is_object($template)) {
 			/* @var Template $template */
 			if (!isset($template->_objType) || !$template->_isTplObj()) {
-				throw new SmartyException($function . '():Template object expected');
+				throw new Exception($function . '():Template object expected');
 			}
 		} else {
 			// get template object
@@ -262,7 +262,7 @@ abstract class TemplateBase extends Data {
 	 * @param mixed $cache_attr caching attributes if any
 	 *
 	 * @return \Smarty|\Smarty\Template
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 * @link https://www.smarty.net/docs/en/api.register.plugin.tpl
 	 *
 	 * @api  Smarty::registerPlugin()
@@ -270,11 +270,11 @@ abstract class TemplateBase extends Data {
 	public function registerPlugin($type, $name, $callback, $cacheable = true, $cache_attr = null) {
 		$smarty = $this->_getSmartyObj();
 		if (isset($smarty->registered_plugins[$type][$name])) {
-			throw new SmartyException("Plugin tag '{$name}' already registered");
+			throw new Exception("Plugin tag '{$name}' already registered");
 		} elseif (!is_callable($callback)) {
-			throw new SmartyException("Plugin '{$name}' not callable");
+			throw new Exception("Plugin '{$name}' not callable");
 		} elseif ($cacheable && $cache_attr) {
-			throw new SmartyException("Cannot set caching attributes for plugin '{$name}' when it is cacheable.");
+			throw new Exception("Cannot set caching attributes for plugin '{$name}' when it is cacheable.");
 		} else {
 			$smarty->registered_plugins[$type][$name] = [$callback, (bool)$cacheable, (array)$cache_attr];
 		}
@@ -307,7 +307,7 @@ abstract class TemplateBase extends Data {
 	 * @param string $name filter name
 	 *
 	 * @return bool
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 * @api  Smarty::loadFilter()
 	 * @link https://www.smarty.net/docs/en/api.load.filter.tpl
 	 *
@@ -328,7 +328,7 @@ abstract class TemplateBase extends Data {
 			$smarty->registered_filters[$type][$_filter_name] = $_plugin;
 			return true;
 		}
-		throw new SmartyException("{$type}filter '{$name}' not found or callable");
+		throw new Exception("{$type}filter '{$name}' not found or callable");
 	}
 
 	/**
@@ -338,7 +338,7 @@ abstract class TemplateBase extends Data {
 	 * @param string $name filter name
 	 *
 	 * @return TemplateBase
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 * @api  Smarty::unloadFilter()
 	 *
 	 * @link https://www.smarty.net/docs/en/api.unload.filter.tpl
@@ -367,7 +367,7 @@ abstract class TemplateBase extends Data {
 	 * @param string|null $name optional filter name
 	 *
 	 * @return TemplateBase
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 * @link https://www.smarty.net/docs/en/api.register.filter.tpl
 	 *
 	 * @api  Smarty::registerFilter()
@@ -377,7 +377,7 @@ abstract class TemplateBase extends Data {
 		$this->_checkFilterType($type);
 		$name = isset($name) ? $name : $this->_getFilterName($callback);
 		if (!is_callable($callback)) {
-			throw new SmartyException("{$type}filter '{$name}' not callable");
+			throw new Exception("{$type}filter '{$name}' not callable");
 		}
 		$smarty->registered_filters[$type][$name] = $callback;
 		return $this;
@@ -390,7 +390,7 @@ abstract class TemplateBase extends Data {
 	 * @param callback|string $callback
 	 *
 	 * @return TemplateBase
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 * @api  Smarty::unregisterFilter()
 	 *
 	 * @link https://www.smarty.net/docs/en/api.unregister.filter.tpl
@@ -421,7 +421,7 @@ abstract class TemplateBase extends Data {
 	 * @param array $block_methods list of block-methods
 	 *
 	 * @return \Smarty|\Smarty\Template
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 * @link https://www.smarty.net/docs/en/api.register.object.tpl
 	 *
 	 * @api  Smarty::registerObject()
@@ -438,7 +438,7 @@ abstract class TemplateBase extends Data {
 		if (!empty($allowed_methods_properties)) {
 			foreach ((array)$allowed_methods_properties as $method) {
 				if (!is_callable([$object, $method]) && !property_exists($object, $method)) {
-					throw new SmartyException("Undefined method or property '$method' in registered object");
+					throw new Exception("Undefined method or property '$method' in registered object");
 				}
 			}
 		}
@@ -446,7 +446,7 @@ abstract class TemplateBase extends Data {
 		if (!empty($block_methods)) {
 			foreach ((array)$block_methods as $method) {
 				if (!is_callable([$object, $method])) {
-					throw new SmartyException("Undefined method '$method' in registered object");
+					throw new Exception("Undefined method '$method' in registered object");
 				}
 			}
 		}
@@ -536,8 +536,8 @@ abstract class TemplateBase extends Data {
 	 *                                                                                     variables
 	 * @param null $name optional data block name
 	 *
-	 * @return Smarty_Data data object
-	 * @throws SmartyException
+	 * @return DataObject data object
+	 * @throws Exception
 	 * @api  Smarty::createData()
 	 * @link https://www.smarty.net/docs/en/api.create.data.tpl
 	 *
@@ -545,7 +545,7 @@ abstract class TemplateBase extends Data {
 	public function createData(Data $parent = null, $name = null) {
 		/* @var Smarty $smarty */
 		$smarty = $this->_getSmartyObj();
-		$dataObj = new Smarty_Data($parent, $smarty, $name);
+		$dataObj = new DataObject($parent, $smarty, $name);
 		if ($smarty->debugging) {
 			\Smarty\Debug::register_data($dataObj);
 		}
@@ -582,7 +582,7 @@ abstract class TemplateBase extends Data {
 	 * @param string $object_name object name
 	 *
 	 * @return object
-	 * @throws \SmartyException if no such object is found
+	 * @throws \Smarty\Exception if no such object is found
 	 * @link https://www.smarty.net/docs/en/api.get.registered.object.tpl
 	 *
 	 * @api  Smarty::getRegisteredObject()
@@ -590,10 +590,10 @@ abstract class TemplateBase extends Data {
 	public function getRegisteredObject($object_name) {
 		$smarty = $this->_getSmartyObj();
 		if (!isset($smarty->registered_objects[$object_name])) {
-			throw new SmartyException("'$object_name' is not a registered object");
+			throw new Exception("'$object_name' is not a registered object");
 		}
 		if (!is_object($smarty->registered_objects[$object_name][0])) {
-			throw new SmartyException("registered '$object_name' is not an object");
+			throw new Exception("registered '$object_name' is not an object");
 		}
 		return $smarty->registered_objects[$object_name][0];
 	}
@@ -617,7 +617,7 @@ abstract class TemplateBase extends Data {
 	 *                                                                                  to addto add
 	 *
 	 * @return TemplateBase
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 * @api Smarty::addLiterals()
 	 *
 	 */
@@ -635,7 +635,7 @@ abstract class TemplateBase extends Data {
 	 *                                                                                  to setto set
 	 *
 	 * @return TemplateBase
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 * @api Smarty::setLiterals()
 	 *
 	 */
@@ -655,14 +655,14 @@ abstract class TemplateBase extends Data {
 	 * @param Smarty $smarty
 	 * @param array $literals
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	private function _setLiterals(Smarty $smarty, $literals) {
 		$literals = array_combine($literals, $literals);
 		$error = isset($literals[$smarty->left_delimiter]) ? [$smarty->left_delimiter] : [];
 		$error = isset($literals[$smarty->right_delimiter]) ? $error[] = $smarty->right_delimiter : $error;
 		if (!empty($error)) {
-			throw new SmartyException(
+			throw new Exception(
 				'User defined literal(s) "' . $error .
 				'" may not be identical with left or right delimiter'
 			);
@@ -675,11 +675,11 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @param string $type
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	private function _checkFilterType($type) {
 		if (!isset($this->filterTypes[$type])) {
-			throw new SmartyException("Illegal filter type '{$type}'");
+			throw new Exception("Illegal filter type '{$type}'");
 		}
 	}
 
@@ -709,7 +709,7 @@ abstract class TemplateBase extends Data {
 	 *                                                                                    register
 	 *
 	 * @return TemplateBase
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 * @api  Smarty::registerClass()
 	 * @link https://www.smarty.net/docs/en/api.register.class.tpl
 	 *
@@ -718,7 +718,7 @@ abstract class TemplateBase extends Data {
 		$smarty = $this->_getSmartyObj();
 		// test if exists
 		if (!class_exists($class_impl)) {
-			throw new SmartyException("Undefined class '$class_impl' in register template class");
+			throw new Exception("Undefined class '$class_impl' in register template class");
 		}
 		// register the class
 		$smarty->registered_classes[$class_name] = $class_impl;
@@ -766,7 +766,7 @@ abstract class TemplateBase extends Data {
 	 * @param callable $callback class/method name
 	 *
 	 * @return TemplateBase
-	 * @throws SmartyException              if $callback is not callable
+	 * @throws Exception              if $callback is not callable
 	 * @api Smarty::registerDefaultConfigHandler()
 	 *
 	 */
@@ -775,7 +775,7 @@ abstract class TemplateBase extends Data {
 		if (is_callable($callback)) {
 			$smarty->default_config_handler_func = $callback;
 		} else {
-			throw new SmartyException('Default config handler not callable');
+			throw new Exception('Default config handler not callable');
 		}
 		return $this;
 	}
@@ -786,7 +786,7 @@ abstract class TemplateBase extends Data {
 	 * @param callable $callback class/method name
 	 *
 	 * @return TemplateBase
-	 * @throws SmartyException              if $callback is not callable
+	 * @throws Exception              if $callback is not callable
 	 * @link https://www.smarty.net/docs/en/api.register.default.plugin.handler.tpl
 	 *
 	 * @api  Smarty::registerDefaultPluginHandler()
@@ -796,7 +796,7 @@ abstract class TemplateBase extends Data {
 		if (is_callable($callback)) {
 			$smarty->default_plugin_handler_func = $callback;
 		} else {
-			throw new SmartyException("Default plugin handler '$callback' not callable");
+			throw new Exception("Default plugin handler '$callback' not callable");
 		}
 		return $this;
 	}
@@ -807,7 +807,7 @@ abstract class TemplateBase extends Data {
 	 * @param callable $callback class/method name
 	 *
 	 * @return TemplateBase
-	 * @throws SmartyException              if $callback is not callable
+	 * @throws Exception              if $callback is not callable
 	 * @api Smarty::registerDefaultTemplateHandler()
 	 *
 	 */
@@ -816,7 +816,7 @@ abstract class TemplateBase extends Data {
 		if (is_callable($callback)) {
 			$smarty->default_template_handler_func = $callback;
 		} else {
-			throw new SmartyException('Default template handler not callable');
+			throw new Exception('Default template handler not callable');
 		}
 		return $this;
 	}
@@ -862,14 +862,14 @@ abstract class TemplateBase extends Data {
 	 * @param string $tpl_name
 	 *
 	 * @return TemplateBase
-	 * @throws SmartyException if file is not readable
+	 * @throws Exception if file is not readable
 	 * @api Smarty::setDebugTemplate()
 	 *
 	 */
 	public function setDebugTemplate($tpl_name) {
 		$smarty = $this->_getSmartyObj();
 		if (!is_readable($tpl_name)) {
-			throw new SmartyException("Unknown file '{$tpl_name}'");
+			throw new Exception("Unknown file '{$tpl_name}'");
 		}
 		$smarty->debug_tpl = $tpl_name;
 		return $this;

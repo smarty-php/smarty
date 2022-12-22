@@ -5,7 +5,7 @@ namespace Smarty\Resource;
 use Smarty\Template;
 use Smarty\Template\Source;
 use Smarty\Template\Compiled;
-use SmartyException;
+use Smarty\Exception;
 
 /**
  * Smarty Internal Plugin Resource PHP
@@ -52,13 +52,13 @@ class PhpPlugin extends FilePlugin {
 	 * @param Source $source source object
 	 *
 	 * @return string                 template source
-	 * @throws SmartyException        if source cannot be loaded
+	 * @throws Exception        if source cannot be loaded
 	 */
 	public function getContent(Source $source) {
 		if ($source->exists) {
 			return '';
 		}
-		throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");
+		throw new Exception("Unable to read template {$source->type} '{$source->name}'");
 	}
 
 	/**
@@ -86,14 +86,14 @@ class PhpPlugin extends FilePlugin {
 	 * @param Template $_template template object
 	 *
 	 * @return void
-	 * @throws SmartyException          if template cannot be loaded or allow_php_templates is disabled
+	 * @throws Exception          if template cannot be loaded or allow_php_templates is disabled
 	 */
 	public function renderUncompiled(Source $source, Template $_template) {
 		if (!$source->smarty->allow_php_templates) {
-			throw new SmartyException('PHP templates are disabled');
+			throw new Exception('PHP templates are disabled');
 		}
 		if (!$source->exists) {
-			throw new SmartyException(
+			throw new Exception(
 				"Unable to load template '{$source->type}:{$source->name}'" .
 				($_template->_isSubTpl() ? " in '{$_template->parent->template_resource}'" : '')
 			);

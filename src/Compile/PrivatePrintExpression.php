@@ -45,7 +45,7 @@ class PrivatePrintExpression extends Base {
 	 * @param array $parameter array with compilation parameter
 	 *
 	 * @return string
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes
@@ -138,7 +138,7 @@ class PrivatePrintExpression extends Base {
 	 * @param string $output embedded output
 	 *
 	 * @return string
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	private function compile_variable_filter(\Smarty\Compiler\Template $compiler, $name, $output) {
 		$function = $compiler->getPlugin($name, 'variablefilter');

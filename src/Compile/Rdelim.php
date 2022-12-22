@@ -28,7 +28,7 @@ class Rdelim extends Ldelim {
 	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
 	 * @return string compiled code
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		parent::compile($args, $compiler);

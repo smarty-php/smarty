@@ -47,8 +47,8 @@ class PrivateFunctionPlugin extends Base {
 	 * @param string $function PHP function name
 	 *
 	 * @return string compiled code
-	 * @throws \SmartyCompilerException
-	 * @throws \SmartyException
+	 * @throws \Smarty\CompilerException
+	 * @throws \Smarty\Exception
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes

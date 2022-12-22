@@ -122,7 +122,7 @@ class File extends Base
      * @param string                   $content   content to cache
      *
      * @return bool success
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function storeCachedContent(Template $_template, $content)
     {

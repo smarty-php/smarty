@@ -32,7 +32,7 @@ class PrivateSpecialVariable extends Base {
 	 * @param                                       $parameter
 	 *
 	 * @return string compiled code
-	 * @throws \SmartyCompilerException
+	 * @throws \Smarty\CompilerException
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$_index = preg_split("/\]\[/", substr($parameter, 1, strlen($parameter) - 2));

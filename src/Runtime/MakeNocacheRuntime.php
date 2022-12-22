@@ -19,14 +19,14 @@ class MakeNocacheRuntime {
 	 * @param \Smarty\Template $tpl
 	 * @param string $var variable name
 	 *
-	 * @throws \SmartyException
+	 * @throws \Smarty\Exception
 	 */
 	public function save(Template $tpl, $var) {
 		if (isset($tpl->tpl_vars[$var])) {
 			$export =
 				preg_replace('/^\\\\Smarty\\\\Variable::__set_state[(]|[)]$/', '', var_export($tpl->tpl_vars[$var], true));
 			if (preg_match('/(\w+)::__set_state/', $export, $match)) {
-				throw new SmartyException("{make_nocache \${$var}} in template '{$tpl->source->name}': variable does contain object '{$match[1]}' not implementing method '__set_state'");
+				throw new \Smarty\Exception("{make_nocache \${$var}} in template '{$tpl->source->name}': variable does contain object '{$match[1]}' not implementing method '__set_state'");
 			}
 			echo "/*%%SmartyNocache:{$tpl->compiled->nocache_hash}%%*/<?php " .
 				addcslashes("\$_smarty_tpl->smarty->getRuntime('MakeNocache')->store(\$_smarty_tpl, '{$var}', ", '\\') .

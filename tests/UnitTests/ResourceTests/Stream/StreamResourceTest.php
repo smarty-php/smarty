@@ -146,7 +146,7 @@ class StreamResourceTest extends PHPUnit_Smarty
 
     public function testTemplateStramNotExists3()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('\'global:notthere\'');
         $this->smarty->fetch('global:notthere');
     }

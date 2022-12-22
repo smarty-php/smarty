@@ -45,8 +45,8 @@ class PrivateBlockPlugin extends Base {
 	 * @param string $function PHP function name
 	 *
 	 * @return string compiled code
-	 * @throws \SmartyCompilerException
-	 * @throws \SmartyException
+	 * @throws \Smarty\CompilerException
+	 * @throws \Smarty\Exception
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		if (!isset($tag[5]) || substr($tag, -5) !== 'close') {
@@ -64,7 +64,7 @@ class PrivateBlockPlugin extends Base {
 				$callback = "\$_block_plugin{$this->nesting}{$callback[1]}";
 			}
 			if (isset($callable)) {
-				$output .= "if (!is_callable({$callable})) {\nthrow new SmartyException('block tag \'{$tag}\' not callable or registered');\n}\n";
+				$output .= "if (!is_callable({$callable})) {\nthrow new \\Smarty\\Exception('block tag \'{$tag}\' not callable or registered');\n}\n";
 			}
 			$output .= "\$_block_repeat=true;\necho {$callback}({$_params}, null, \$_smarty_tpl, \$_block_repeat);\nwhile (\$_block_repeat) {\nob_start();?>";
 			$this->openTag($compiler, $tag, [$_params, $compiler->nocache, $callback]);

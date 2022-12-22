@@ -4,7 +4,7 @@ namespace Smarty\Template;
 
 use Smarty;
 use Smarty\Template;
-use SmartyException;
+use Smarty\Exception;
 
 /**
  * Smarty Config Resource Data Object
@@ -65,7 +65,7 @@ class Config extends Source {
 	 * @param string $template_resource resource identifier
 	 *
 	 * @return Config Source Object
-	 * @throws SmartyException
+	 * @throws Exception
 	 */
 	public static function load(
 		Template $_template = null,
@@ -78,13 +78,13 @@ class Config extends Source {
 			$template_resource = $_template->template_resource;
 		}
 		if (empty($template_resource)) {
-			throw new SmartyException('Source: Missing  name');
+			throw new Exception('Source: Missing  name');
 		}
 		// parse resource_name, load resource handler
 		[$name, $type] = Smarty\Resource\BasePlugin::parseResourceName($template_resource, $smarty->default_config_type);
 		// make sure configs are not loaded via anything smarty can't handle
 		if (isset($_incompatible_resources[$type])) {
-			throw new SmartyException("Unable to use resource '{$type}' for config");
+			throw new Exception("Unable to use resource '{$type}' for config");
 		}
 		$source = new Config($smarty, $template_resource, $type, $name);
 		$source->handler->populate($source, $_template);

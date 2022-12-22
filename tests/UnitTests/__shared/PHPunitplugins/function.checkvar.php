@@ -6,6 +6,7 @@
  * @subpackage PHPunitPlugin
  */
 
+use Smarty\DataObject;
 use Smarty\Template;
 
 /**
@@ -36,7 +37,7 @@ function smarty_function_checkvar($params, $template)
                 $i ++;
             }
             $ptr = $ptr->parent;
-        } elseif (in_array('data', $types) && $ptr instanceof Smarty_Data) {
+        } elseif (in_array('data', $types) && $ptr instanceof DataObject) {
             $output .= "#data:\${$var} =";
             $output .= isset($ptr->tpl_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->tpl_vars[$var]->value, true)) : '>unassigned<';
             $ptr = $ptr->parent;
