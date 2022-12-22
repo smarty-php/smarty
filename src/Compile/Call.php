@@ -81,10 +81,10 @@ class Call extends Base
         // was there an assign attribute
         if (isset($_assign)) {
             $_output =
-                "<?php ob_start();\n\$_smarty_tpl->smarty->ext->_tplFunction->callTemplateFunction(\$_smarty_tpl, {$_name}, {$_params}, {$_nocache});\n\$_smarty_tpl->assign({$_assign}, ob_get_clean());?>\n";
+                "<?php ob_start();\n\$_smarty_tpl->smarty->getRuntime('TplFunction')->callTemplateFunction(\$_smarty_tpl, {$_name}, {$_params}, {$_nocache});\n\$_smarty_tpl->assign({$_assign}, ob_get_clean());?>\n";
         } else {
             $_output =
-                "<?php \$_smarty_tpl->smarty->ext->_tplFunction->callTemplateFunction(\$_smarty_tpl, {$_name}, {$_params}, {$_nocache});?>\n";
+                "<?php \$_smarty_tpl->smarty->getRuntime('TplFunction')->callTemplateFunction(\$_smarty_tpl, {$_name}, {$_params}, {$_nocache});?>\n";
         }
         return $_output;
     }

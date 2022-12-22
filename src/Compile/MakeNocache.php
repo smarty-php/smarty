@@ -55,7 +55,7 @@ class MakeNocache extends Base {
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		if ($compiler->template->caching) {
-			$output = "<?php \$_smarty_tpl->smarty->ext->_make_nocache->save(\$_smarty_tpl, {$_attr[ 'var' ]});\n?>\n";
+			$output = "<?php \$_smarty_tpl->smarty->getRuntime('MakeNocache')->save(\$_smarty_tpl, {$_attr[ 'var' ]});\n?>\n";
 			$compiler->template->compiled->has_nocache_code = true;
 			$compiler->suppressNocacheProcessing = true;
 			return $output;

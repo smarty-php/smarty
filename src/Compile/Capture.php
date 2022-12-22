@@ -38,7 +38,7 @@ class Capture extends Base {
 		\Smarty\Compiler\Template $compiler,
 		                                     $parameter = null
 	) {
-		return '$_smarty_tpl->smarty->ext->_capture->getBuffer($_smarty_tpl' .
+		return '$_smarty_tpl->smarty->getRuntime(\'Capture\')->getBuffer($_smarty_tpl' .
 			(isset($parameter[1]) ? ", {$parameter[ 1 ]})" : ')');
 	}
 
@@ -60,7 +60,7 @@ class Capture extends Base {
 		$compiler->_cache['capture_stack'][] = [$compiler->nocache];
 		// maybe nocache because of nocache variables
 		$compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
-		$_output = "<?php \$_smarty_tpl->smarty->ext->_capture->open(\$_smarty_tpl, $buffer, $assign, $append);?>";
+		$_output = "<?php \$_smarty_tpl->smarty->getRuntime('Capture')->open(\$_smarty_tpl, $buffer, $assign, $append);?>";
 		return $_output;
 	}
 }

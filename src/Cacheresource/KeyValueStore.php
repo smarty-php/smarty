@@ -140,7 +140,7 @@ abstract class KeyValueStore extends Base
      *
      * @return boolean                  success
      */
-    public function writeCachedContent(Smarty_Internal_Template $_template, $content)
+    public function storeCachedContent(Smarty_Internal_Template $_template, $content)
     {
         $this->addMetaTimestamp($content);
         return $this->write(array($_template->cached->filepath => $content), $_template->cache_lifetime);
@@ -153,7 +153,7 @@ abstract class KeyValueStore extends Base
      *
      * @return string|false  content
      */
-    public function readCachedContent(Smarty_Internal_Template $_template)
+    public function retrieveCachedContent(Smarty_Internal_Template $_template)
     {
         $content = $_template->cached->content ? $_template->cached->content : null;
         $timestamp = null;

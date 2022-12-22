@@ -172,7 +172,7 @@ class FilePlugin extends Smarty\Resource\BasePlugin {
 		}
 		// Use include path ?
 		if ($source->smarty->use_include_path) {
-			return $source->smarty->ext->_getIncludePath->getIncludePath($_directories, $file, $source->smarty);
+			return $source->smarty->getIncludePath($_directories, $file);
 		}
 		return false;
 	}

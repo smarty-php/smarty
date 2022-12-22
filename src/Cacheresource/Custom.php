@@ -9,7 +9,7 @@ namespace Smarty\Cacheresource;
  * @subpackage Cacher
  */
 
-use Smarty\Cacheresource\Base;
+use Smarty_Internal_Template;
 
 /**
  * Cache Handler API
@@ -171,7 +171,7 @@ abstract class Custom extends Base
      *
      * @return boolean                  success
      */
-    public function writeCachedContent(Smarty_Internal_Template $_template, $content)
+    public function storeCachedContent(Smarty_Internal_Template $_template, $content)
     {
         return $this->save(
             $_template->cached->filepath,
@@ -190,7 +190,7 @@ abstract class Custom extends Base
      *
      * @return string|boolean  content
      */
-    public function readCachedContent(Smarty_Internal_Template $_template)
+    public function retrieveCachedContent(Smarty_Internal_Template $_template)
     {
         $content = $_template->cached->content ?: null;
 	    if ($content === null) {

@@ -48,7 +48,7 @@ class TestInstall
                     if ($_stream_resolve_include_path) {
                         $template_dir = stream_resolve_include_path($_template_dir);
                     } else {
-                        $template_dir = $smarty->ext->_getIncludePath->getIncludePath($_template_dir, null, $smarty);
+                        $template_dir = $smarty->getIncludePath($_template_dir, null);
                     }
                     if ($template_dir !== false) {
                         if ($errors === null) {
@@ -201,7 +201,7 @@ class TestInstall
                     if ($_stream_resolve_include_path) {
                         $config_dir = stream_resolve_include_path($_config_dir);
                     } else {
-                        $config_dir = $smarty->ext->_getIncludePath->getIncludePath($_config_dir, null, $smarty);
+                        $config_dir = $smarty->getIncludePath($_config_dir, null);
                     }
                     if ($config_dir !== false) {
                         if ($errors === null) {

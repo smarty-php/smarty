@@ -3,7 +3,6 @@
 namespace Smarty\Compile;
 
 use Smarty\ParseTree\Template;
-use Smarty\Compiler\Template;
 
 /**
  * Smarty Internal Plugin Compile BlockClose Class

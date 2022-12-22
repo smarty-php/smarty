@@ -5,14 +5,10 @@ namespace Smarty\Template;
 /**
  * Smarty Internal Extension
  * This file contains the Smarty template extension to create a code frame
- *
- * @package    Smarty
- * @subpackage Template
  * @author     Uwe Tews
  */
 
 /**
- * Class Smarty_Internal_Extension_CodeFrame
  * Create code frame for compiled and cached templates
  */
 class CodeFrame

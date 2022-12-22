@@ -89,6 +89,6 @@ class ConfigLoad extends Base {
 			$_scope = $compiler->convertScope($_attr, $this->valid_scopes);
 		}
 		// create config object
-		return "<?php\n\$_smarty_tpl->smarty->ext->configLoad->_loadConfigFile(\$_smarty_tpl, {$conf_file}, {$section}, {$_scope});\n?>\n";
+		return "<?php\n\$_smarty_tpl->_loadConfigFile({$conf_file}, {$section}, {$_scope});\n?>\n";
 	}
 }

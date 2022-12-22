@@ -9,6 +9,7 @@
  */
 
 use Smarty\Data;
+use Smarty\Runtime\InheritanceRuntime;
 
 /**
  * Main class with template data structures and methods
@@ -61,7 +62,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     /**
      * Inheritance runtime extension
      *
-     * @var Smarty_Internal_Runtime_Inheritance
+     * @var InheritanceRuntime
      */
     public $inheritance = null;
 
@@ -113,8 +114,12 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      * @var callback[]
      */
     public $endRenderCallbacks = array();
+	/**
+	 * @var \Smarty\Compiler\CodeFrame
+	 */
+	private $codeFrameCompiler;
 
-    /**
+	/**
      * Create template data object
      * Some of the global Smarty settings copied to template scope
      * It load the required template resources and caching plugins
@@ -158,6 +163,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         if ($smarty->security_policy && method_exists($smarty->security_policy, 'registerCallBacks')) {
             $smarty->security_policy->registerCallBacks($this);
         }
+
+		$this->codeFrameCompiler = new Smarty\Compiler\CodeFrame($this);
     }
 
     /**
@@ -206,7 +213,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         // display or fetch
         if ($display) {
             if ($this->caching && $this->smarty->cache_modified_check) {
-                $this->smarty->ext->_cacheModify->cacheModifiedCheck(
+                $this->smarty->cacheModifiedCheck(
                     $this->cached,
                     $this,
                     isset($content) ? $content : ob_get_clean()
@@ -215,7 +222,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
                     && !$no_output_filter && isset($this->smarty->registered_filters[ 'output' ])
                 ) {
-                    echo $this->smarty->ext->_filterHandler->runFilter('output', ob_get_clean(), $this);
+                    echo $this->smarty->runFilter('output', ob_get_clean(), $this);
                 } else {
                     echo ob_get_clean();
                 }
@@ -238,7 +245,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
                 && (!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
                 && isset($this->smarty->registered_filters[ 'output' ])
             ) {
-                return $this->smarty->ext->_filterHandler->runFilter('output', ob_get_clean(), $this);
+                return $this->smarty->runFilter('output', ob_get_clean(), $this);
             }
             // return cache content
             return null;
@@ -419,7 +426,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
         }
         if ($scope >= 0) {
             if ($scope > 0 || $this->scope > 0) {
-                $this->smarty->ext->_updateScope->_updateScope($this, $varName, $scope);
+                $this->_updateScope($varName, $scope);
             }
         }
     }
@@ -520,7 +527,16 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function writeCachedContent($content)
     {
-        return $this->smarty->ext->_updateCache->writeCachedContent($this, $content);
+	    if ($this->source->handler->recompiled || !$this->caching
+	    ) {
+		    // don't write cache file
+		    return false;
+	    }
+	    if (!isset($this->cached)) {
+		    $this->loadCached();
+	    }
+	    $codeframe = $this->createCodeFrame($content, '', true);
+	    return $this->cached->writeCache($this, $codeframe);
     }
 
     /**
@@ -531,8 +547,8 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
      */
     public function _getTemplateId()
     {
-        return isset($this->templateId) ? $this->templateId : $this->templateId =
-            $this->smarty->_getTemplateId($this->template_resource, $this->cache_id, $this->compile_id);
+        return $this->templateId ?? $this->templateId =
+	        $this->smarty->_getTemplateId($this->template_resource, $this->cache_id, $this->compile_id);
     }
 
     /**
@@ -575,7 +591,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     public function _loadInheritance()
     {
         if (!isset($this->inheritance)) {
-            $this->inheritance = new Smarty_Internal_Runtime_Inheritance();
+            $this->inheritance = new InheritanceRuntime();
         }
     }
 
@@ -615,7 +631,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
 	 * @return string
 	 */
 	public function createCodeFrame($content = '', $functions = '', $cache = false, \Smarty\Compiler\Template $compiler = null) {
-		return \Smarty\Template\CodeFrame::create($this, $content, $functions, $cache, $compiler);
+		return $this->codeFrameCompiler->create($content, $functions, $cache, $compiler);
 	}
 
     /**
@@ -725,7 +741,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
 				if ($mergedScope) {
 					// update scopes
 					/* @var \Smarty_Internal_Template|\Smarty|Data $ptr */
-					foreach ($this->smarty->ext->_updateScope->_getAffectedScopes($this->parent, $mergedScope) as $ptr) {
+					foreach ($this->parent->_getAffectedScopes($mergedScope) as $ptr) {
 						$this->_assignConfigVars($ptr->config_vars, $new_config_vars);
 						if ($tagScope && $ptr->_isTplObj() && isset($this->_var_stack)) {
 							$this->_updateConfigVarStack($new_config_vars);
@@ -811,4 +827,104 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
 		return $this->mustCompile;
 	}
 
+	/**
+	 * Update new assigned template or config variable in other effected scopes
+	 *
+	 * @param string|null              $varName  variable name
+	 * @param int                      $tagScope tag scope to which bubble up variable value
+	 */
+	protected function _updateScope($varName, $tagScope = 0)
+	{
+		if ($tagScope) {
+			$this->_updateVarStack($this, $varName);
+			$tagScope = $tagScope & ~\Smarty\Smarty::SCOPE_LOCAL;
+			if (!$this->scope && !$tagScope) {
+				return;
+			}
+		}
+		$mergedScope = $tagScope | $this->scope;
+		if ($mergedScope) {
+			if ($mergedScope & \Smarty\Smarty::SCOPE_GLOBAL && $varName) {
+				\Smarty\Smarty::$global_tpl_vars[ $varName ] = $this->tpl_vars[ $varName ];
+			}
+			// update scopes
+			foreach ($this->_getAffectedScopes($mergedScope) as $ptr) {
+				$this->_updateVariableInOtherScope($ptr->tpl_vars, $varName);
+				if ($tagScope && $ptr->_isTplObj() && isset($this->_var_stack)) {
+					$this->_updateVarStack($ptr, $varName);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Get array of objects which needs to be updated  by given scope value
+	 *
+	 * @param int                      $mergedScope merged tag and template scope to which bubble up variable value
+	 *
+	 * @return array
+	 */
+	private function _getAffectedScopes($mergedScope)
+	{
+		$_stack = array();
+		$ptr = $this->parent;
+		if ($mergedScope && isset($ptr) && $ptr->_isTplObj()) {
+			$_stack[] = $ptr;
+			$mergedScope = $mergedScope & ~\Smarty\Smarty::SCOPE_PARENT;
+			if (!$mergedScope) {
+				// only parent was set, we are done
+				return $_stack;
+			}
+			$ptr = $ptr->parent;
+		}
+		while (isset($ptr) && $ptr->_isTplObj()) {
+			$_stack[] = $ptr;
+			$ptr = $ptr->parent;
+		}
+		if ($mergedScope & \Smarty\Smarty::SCOPE_SMARTY) {
+			if (isset($this->smarty)) {
+				$_stack[] = $this->smarty;
+			}
+		} elseif ($mergedScope & \Smarty\Smarty::SCOPE_ROOT) {
+			while (isset($ptr)) {
+				if (!$ptr->_isTplObj()) {
+					$_stack[] = $ptr;
+					break;
+				}
+				$ptr = $ptr->parent;
+			}
+		}
+		return $_stack;
+	}
+
+	/**
+	 * Update variable in other scope
+	 *
+	 * @param array                     $tpl_vars template variable array
+	 * @param string                    $varName  variable name
+	 */
+	private function _updateVariableInOtherScope(&$tpl_vars, $varName)
+	{
+		if (!isset($tpl_vars[ $varName ])) {
+			$tpl_vars[ $varName ] = clone $this->tpl_vars[ $varName ];
+		} else {
+			$tpl_vars[ $varName ] = clone $tpl_vars[ $varName ];
+			$tpl_vars[ $varName ]->value = $this->tpl_vars[ $varName ]->value;
+		}
+	}
+
+	/**
+	 * Update variable in template local variable stack
+	 *
+	 * @param \Smarty_Internal_Template $tpl
+	 * @param string|null               $varName variable name or null for config variables
+	 */
+	private function _updateVarStack(Smarty_Internal_Template $tpl, $varName)
+	{
+		$i = 0;
+		while (isset($tpl->_var_stack[ $i ])) {
+			$this->_updateVariableInOtherScope($tpl->_var_stack[ $i ][ 'tpl' ], $varName);
+			$i++;
+		}
+	}
 }

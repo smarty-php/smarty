@@ -60,21 +60,10 @@ abstract class Data
     public $config_vars = array();
 
     /**
-     * extension handler
-     *
-     * @var Smarty_Internal_Extension_Handler
-     */
-    public $ext = null;
-
-    /**
      * \Smarty\Data constructor.
-     *
-     * Install extension handler
      */
     public function __construct()
     {
-        $this->ext = new Smarty_Internal_Extension_Handler();
-        $this->ext->objType = $this->_objType;
     }
 
     /**
@@ -377,19 +366,6 @@ abstract class Data
     public function _getSmartyObj()
     {
         return $this->smarty;
-    }
-
-    /**
-     * Handle unknown class methods
-     *
-     * @param string $name unknown method-name
-     * @param array  $args argument array
-     *
-     * @return mixed
-     */
-    public function __call($name, $args)
-    {
-        return $this->ext->_callExternalMethod($this, $name, $args);
     }
 
 	/**

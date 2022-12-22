@@ -71,7 +71,7 @@ abstract class Base
      *
      * @return boolean success
      */
-    abstract public function writeCachedContent(Smarty_Internal_Template $_template, $content);
+    abstract public function storeCachedContent(Smarty_Internal_Template $_template, $content);
 
     /**
      * Read cached template from cache
@@ -80,7 +80,7 @@ abstract class Base
      *
      * @return string  content
      */
-    abstract public function readCachedContent(Smarty_Internal_Template $_template);
+    abstract public function retrieveCachedContent(Smarty_Internal_Template $_template);
 
     /**
      * Return cached content

@@ -206,7 +206,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     public function write(Smarty_Internal_Template $_template, $code)
     {
         if (!$_template->source->handler->recompiled) {
-            if ($_template->smarty->ext->_writeFile->writeFile($this->filepath, $code, $_template->smarty) === true) {
+            if ($_template->smarty->writeFile($this->filepath, $code) === true) {
                 $this->timestamp = $this->exists = is_file($this->filepath);
                 if ($this->exists) {
                     $this->timestamp = filemtime($this->filepath);

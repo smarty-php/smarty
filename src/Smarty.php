@@ -2,6 +2,12 @@
 
 namespace Smarty;
 
+use Smarty\Smarty\Runtime\CaptureRuntime;
+use Smarty\Smarty\Runtime\ForeachRuntime;
+use Smarty\Smarty\Runtime\InheritanceRuntime;
+use Smarty\Smarty\Runtime\MakeNocacheRuntime;
+use Smarty\Smarty\Runtime\TplFunctionRuntime;
+
 /**
  * Project:     Smarty: the PHP compiling template engine
  *
@@ -1464,8 +1470,6 @@ class Smarty extends \Smarty_Internal_TemplateBase
 				$_smarty = clone $this;
 				//
 				$_smarty->_cache = array();
-				$_smarty->ext = new Smarty_Internal_Extension_Handler();
-				$_smarty->ext->objType = $_smarty->_objType;
 				$_smarty->force_compile = $force_compile;
 				try {
 					/* @var Smarty_Internal_Template $_tpl */
@@ -1497,6 +1501,366 @@ class Smarty extends \Smarty_Internal_TemplateBase
 		}
 		echo "\n<br>";
 		return $_count;
+	}
+
+	/**
+	 * check client side cache
+	 *
+	 * @param \Smarty_Template_Cached   $cached
+	 * @param \Smarty_Internal_Template $_template
+	 * @param string                    $content
+	 *
+	 * @throws \Exception
+	 * @throws \SmartyException
+	 */
+	public function cacheModifiedCheck(\Smarty_Template_Cached $cached, \Smarty_Internal_Template $_template, $content)
+	{
+		$_isCached = $_template->isCached() && !$_template->compiled->has_nocache_code;
+		$_last_modified_date =
+			@substr($_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ], 0, strpos($_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ], 'GMT') + 3);
+		if ($_isCached && $cached->timestamp <= strtotime($_last_modified_date)) {
+			switch (PHP_SAPI) {
+				case 'cgi': // php-cgi < 5.3
+				case 'cgi-fcgi': // php-cgi >= 5.3
+				case 'fpm-fcgi': // php-fpm >= 5.3.3
+					header('Status: 304 Not Modified');
+					break;
+				case 'cli':
+					if (/* ^phpunit */
+					!empty($_SERVER[ 'SMARTY_PHPUNIT_DISABLE_HEADERS' ]) /* phpunit$ */
+					) {
+						$_SERVER[ 'SMARTY_PHPUNIT_HEADERS' ][] = '304 Not Modified';
+					}
+					break;
+				default:
+					if (/* ^phpunit */
+					!empty($_SERVER[ 'SMARTY_PHPUNIT_DISABLE_HEADERS' ]) /* phpunit$ */
+					) {
+						$_SERVER[ 'SMARTY_PHPUNIT_HEADERS' ][] = '304 Not Modified';
+					} else {
+						header($_SERVER[ 'SERVER_PROTOCOL' ] . ' 304 Not Modified');
+					}
+					break;
+			}
+		} else {
+			switch (PHP_SAPI) {
+				case 'cli':
+					if (/* ^phpunit */
+					!empty($_SERVER[ 'SMARTY_PHPUNIT_DISABLE_HEADERS' ]) /* phpunit$ */
+					) {
+						$_SERVER[ 'SMARTY_PHPUNIT_HEADERS' ][] =
+							'Last-Modified: ' . gmdate('D, d M Y H:i:s', $cached->timestamp) . ' GMT';
+					}
+					break;
+				default:
+					header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $cached->timestamp) . ' GMT');
+					break;
+			}
+			echo $content;
+		}
+	}
+
+	/**
+	 * Run filters over content
+	 * The filters will be lazy loaded if required
+	 * class name format: Smarty_FilterType_FilterName
+	 * plugin filename format: filtertype.filtername.php
+	 * Smarty2 filter plugins could be used
+	 *
+	 * @param string                   $type     the type of filter ('pre','post','output') which shall run
+	 * @param string                   $content  the content which shall be processed by the filters
+	 * @param Smarty_Internal_Template $template template object
+	 *
+	 * @throws SmartyException
+	 * @return string                   the filtered content
+	 */
+	public function runFilter($type, $content, Smarty_Internal_Template $template)
+	{
+		// loop over registered filters of specified type
+		if (!empty($this->registered_filters[ $type ])) {
+			foreach ($this->registered_filters[ $type ] as $key => $name) {
+				$content = call_user_func($this->registered_filters[ $type ][ $key ], $content, $template);
+			}
+		}
+		// return filtered output
+		return $content;
+	}
+
+	/**
+	 * include path cache
+	 *
+	 * @var string
+	 */
+	private $_include_path = '';
+
+	/**
+	 * include path directory cache
+	 *
+	 * @var array
+	 */
+	private $_include_dirs = array();
+
+	/**
+	 * include path directory cache
+	 *
+	 * @var array
+	 */
+	private $_user_dirs = array();
+
+	/**
+	 * stream cache
+	 *
+	 * @var string[][]
+	 */
+	private $isFile = array();
+
+	/**
+	 * stream cache
+	 *
+	 * @var string[]
+	 */
+	private $isPath = array();
+
+	/**
+	 * stream cache
+	 *
+	 * @var int[]
+	 */
+	private $number = array();
+
+	/**
+	 * status cache
+	 *
+	 * @var bool
+	 */
+	private $_has_stream_include = null;
+
+	/**
+	 * Number for array index
+	 *
+	 * @var int
+	 */
+	private $counter = 0;
+
+	/**
+	 * Check if include path was updated
+	 *
+	 * @return bool
+	 */
+	private function isNewIncludePath()
+	{
+		$_i_path = get_include_path();
+		if ($this->_include_path !== $_i_path) {
+			$this->_include_dirs = array();
+			$this->_include_path = $_i_path;
+			$_dirs = (array)explode(PATH_SEPARATOR, $_i_path);
+			foreach ($_dirs as $_path) {
+				if (is_dir($_path)) {
+					$this->_include_dirs[] = $this->_realpath($_path . DIRECTORY_SEPARATOR, true);
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * return array with include path directories
+	 *
+	 * @return array
+	 */
+	public function getIncludePathDirs()
+	{
+		$this->isNewIncludePath();
+		return $this->_include_dirs;
+	}
+
+	/**
+	 * Return full file path from PHP include_path
+	 *
+	 * @param string[] $dirs
+	 * @param string   $file
+	 *
+	 * @return bool|string full filepath or false
+	 */
+	public function getIncludePath($dirs, $file)
+	{
+		if (!($this->_has_stream_include ?? $this->_has_stream_include = function_exists('stream_resolve_include_path'))
+		) {
+			$this->isNewIncludePath();
+		}
+		// try PHP include_path
+		foreach ($dirs as $dir) {
+			$dir_n = $this->number[$dir] ?? $this->number[$dir] = $this->counter++;
+			if (isset($this->isFile[ $dir_n ][ $file ])) {
+				if ($this->isFile[ $dir_n ][ $file ]) {
+					return $this->isFile[ $dir_n ][ $file ];
+				} else {
+					continue;
+				}
+			}
+			if (isset($this->_user_dirs[ $dir_n ])) {
+				if (false === $this->_user_dirs[ $dir_n ]) {
+					continue;
+				} else {
+					$dir = $this->_user_dirs[ $dir_n ];
+				}
+			} else {
+				if ($dir[ 0 ] === '/' || $dir[ 1 ] === ':') {
+					$dir = str_ireplace(getcwd(), '.', $dir);
+					if ($dir[ 0 ] === '/' || $dir[ 1 ] === ':') {
+						$this->_user_dirs[ $dir_n ] = false;
+						continue;
+					}
+				}
+				$dir = substr($dir, 2);
+				$this->_user_dirs[ $dir_n ] = $dir;
+			}
+			if ($this->_has_stream_include) {
+				$path = stream_resolve_include_path($dir . ($file ?? ''));
+				if ($path) {
+					return $this->isFile[ $dir_n ][ $file ] = $path;
+				}
+			} else {
+				foreach ($this->_include_dirs as $key => $_i_path) {
+					$path = $this->isPath[$key][$dir_n] ?? $this->isPath[$key][$dir_n] = is_dir($_dir_path = $_i_path . $dir) ? $_dir_path : false;
+					if ($path === false) {
+						continue;
+					}
+					if (isset($file)) {
+						$_file = $this->isFile[ $dir_n ][ $file ] = (is_file($path . $file)) ? $path . $file : false;
+						if ($_file) {
+							return $_file;
+						}
+					} else {
+						// no file was given return directory path
+						return $path;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Writes file in a safe way to disk
+	 *
+	 * @param string $_filepath complete filepath
+	 * @param string $_contents file content
+	 *
+	 * @throws SmartyException
+	 * @return boolean true
+	 */
+	public function writeFile($_filepath, $_contents)
+	{
+		$_error_reporting = error_reporting();
+		error_reporting($_error_reporting & ~E_NOTICE & ~E_WARNING);
+		$_dirpath = dirname($_filepath);
+		// if subdirs, create dir structure
+		if ($_dirpath !== '.') {
+			$i = 0;
+			// loop if concurrency problem occurs
+			// see https://bugs.php.net/bug.php?id=35326
+			while (!is_dir($_dirpath)) {
+				if (@mkdir($_dirpath, 0777, true)) {
+					break;
+				}
+				clearstatcache();
+				if (++$i === 3) {
+					error_reporting($_error_reporting);
+					throw new SmartyException("unable to create directory {$_dirpath}");
+				}
+				sleep(1);
+			}
+		}
+		// write to tmp file, then move to overt file lock race condition
+		$_tmp_file = $_dirpath . DIRECTORY_SEPARATOR . str_replace(array('.', ','), '_', uniqid('wrt', true));
+		if (!file_put_contents($_tmp_file, $_contents)) {
+			error_reporting($_error_reporting);
+			throw new SmartyException("unable to write file {$_tmp_file}");
+		}
+		/*
+		 * Windows' rename() fails if the destination exists,
+		 * Linux' rename() properly handles the overwrite.
+		 * Simply unlink()ing a file might cause other processes
+		 * currently reading that file to fail, but linux' rename()
+		 * seems to be smart enough to handle that for us.
+		 */
+		if (\Smarty\Smarty::$_IS_WINDOWS) {
+			// remove original file
+			if (is_file($_filepath)) {
+				@unlink($_filepath);
+			}
+			// rename tmp file
+			$success = @rename($_tmp_file, $_filepath);
+		} else {
+			// rename tmp file
+			$success = @rename($_tmp_file, $_filepath);
+			if (!$success) {
+				// remove original file
+				if (is_file($_filepath)) {
+					@unlink($_filepath);
+				}
+				// rename tmp file
+				$success = @rename($_tmp_file, $_filepath);
+			}
+		}
+		if (!$success) {
+			error_reporting($_error_reporting);
+			throw new SmartyException("unable to write file {$_filepath}");
+		}
+		// set file permissions
+		@chmod($_filepath, 0666 & ~umask());
+		error_reporting($_error_reporting);
+		return true;
+	}
+
+
+	private $runtimes = [];
+
+	/**
+	 * Loads and returns a runtime extension or null if not found
+	 * @param string $type
+	 *
+	 * @return object|null
+	 */
+	public function getRuntime(string $type) {
+
+		if (isset($this->runtimes[$type])) {
+			return $this->runtimes[$type];
+		}
+
+		// Lazy load runtimes when/if needed
+		switch ($type) {
+			case 'Capture':
+				return $this->runtimes[$type] = new Smarty\Runtime\CaptureRuntime();
+			case 'Foreach':
+				return $this->runtimes[$type] = new Smarty\Runtime\ForeachRuntime();
+			case 'Inheritance':
+				return $this->runtimes[$type] = new Smarty\Runtime\InheritanceRuntime();
+			case 'MakeNocache':
+				return $this->runtimes[$type] = new Smarty\Runtime\MakeNocacheRuntime();
+			case 'TplFunction':
+				return $this->runtimes[$type] = new Smarty\Runtime\TplFunctionRuntime();
+		}
+
+		throw new \SmartyException('Trying to load invalid runtime ' . $type);
+	}
+
+	/**
+	 * Indicates if a runtime is available.
+	 *
+	 * @param string $type
+	 *
+	 * @return bool
+	 */
+	public function hasRuntime(string $type): bool {
+		try {
+			$this->getRuntime($type);
+			return true;
+		} catch (\SmartyException $e) {
+			return false;
+		}
 	}
 
 }

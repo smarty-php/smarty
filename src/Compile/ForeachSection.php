@@ -175,7 +175,7 @@ abstract class ForeachSection extends Base {
 				if ($_content !== '') {
 					// run pre filter if required
 					if (isset($nextCompiler->smarty->registered_filters['pre'])) {
-						$_content = $nextCompiler->smarty->ext->_filterHandler->runFilter(
+						$_content = $nextCompiler->smarty->runFilter(
 							'pre',
 							$_content,
 							$nextCompiler->template
