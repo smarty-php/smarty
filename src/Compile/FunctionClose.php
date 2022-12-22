@@ -70,7 +70,7 @@ class FunctionClose extends Base {
 			$output = "<?php\n";
 			$output .= $compiler->cStyleComment(" {$_funcNameCaching} ") . "\n";
 			$output .= "if (!function_exists('{$_funcNameCaching}')) {\n";
-			$output .= "function {$_funcNameCaching} (Smarty_Internal_Template \$_smarty_tpl,\$params) {\n";
+			$output .= "function {$_funcNameCaching} (\\Smarty\\Template \$_smarty_tpl,\$params) {\n";
 			$output .= "ob_start();\n";
 			$output .= "\$_smarty_tpl->compiled->has_nocache_code = true;\n";
 			$output .= $_paramsCode;
@@ -114,7 +114,7 @@ class FunctionClose extends Base {
 		$output = "<?php\n";
 		$output .= $compiler->cStyleComment(" {$_funcName} ") . "\n";
 		$output .= "if (!function_exists('{$_funcName}')) {\n";
-		$output .= "function {$_funcName}(Smarty_Internal_Template \$_smarty_tpl,\$params) {\n";
+		$output .= "function {$_funcName}(\\Smarty\\Template \$_smarty_tpl,\$params) {\n";
 		$output .= $_paramsCode;
 		$output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new \\Smarty\\Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}\n";
 		$output .= "?>\n";

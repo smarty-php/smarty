@@ -34,11 +34,11 @@ class Code extends Base
     /**
      * Return buffer content in parentheses
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      *
      * @return string content
      */
-    public function to_smarty_php(\Smarty_Internal_Templateparser $parser)
+    public function to_smarty_php(\Smarty\Parser\TemplateParser $parser)
     {
         return sprintf('(%s)', $this->data);
     }

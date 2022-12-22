@@ -9,7 +9,7 @@
  * @package CacheResource-examples
  * @author  Uwe Tews
  */
-class Smarty_CacheResource_Apc extends \Smarty\Cacheresource\KeyValueStore
+class My_CacheResource_Apc extends \Smarty\Cacheresource\KeyValueStore
 {
     /**
      * Smarty_CacheResource_Apc constructor.

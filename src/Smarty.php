@@ -271,7 +271,7 @@ class Smarty extends \Smarty\TemplateBase
 
     /**
      * class name
-     * This should be instance of \Smarty_Security.
+     * This should be instance of \Smarty\Security.
      *
      * @var string
      * @see \Smarty\Security
@@ -1476,7 +1476,7 @@ class Smarty extends \Smarty\TemplateBase
 					$_tpl = new $this->template_class($_file, $_smarty);
 					$_tpl->caching = self::CACHING_OFF;
 					$_tpl->source =
-						$isConfig ? Smarty_Template_Config::load($_tpl) : Smarty_Template_Source::load($_tpl);
+						$isConfig ? \Smarty\Template\Config::load($_tpl) : \Smarty\Template\Source::load($_tpl);
 					if ($_tpl->mustCompile()) {
 						$_tpl->compileTemplateSource();
 						$_count++;
@@ -1563,9 +1563,6 @@ class Smarty extends \Smarty\TemplateBase
 	/**
 	 * Run filters over content
 	 * The filters will be lazy loaded if required
-	 * class name format: Smarty_FilterType_FilterName
-	 * plugin filename format: filtertype.filtername.php
-	 * Smarty2 filter plugins could be used
 	 *
 	 * @param string                   $type     the type of filter ('pre','post','output') which shall run
 	 * @param string                   $content  the content which shall be processed by the filters

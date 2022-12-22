@@ -44,7 +44,7 @@ class BlockClose extends Inheritance {
 		foreach ($_block as $property => $value) {
 			$output .= "public \${$property} = " . var_export($value, true) . ";\n";
 		}
-		$output .= "public function callBlock(Smarty_Internal_Template \$_smarty_tpl) {\n";
+		$output .= "public function callBlock(\\Smarty\\Template \$_smarty_tpl) {\n";
 		if ($compiler->template->compiled->has_nocache_code) {
 			$output .= "\$_smarty_tpl->cached->hashes['{$compiler->template->compiled->nocache_hash}'] = true;\n";
 		}

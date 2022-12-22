@@ -24,7 +24,7 @@ use Smarty\Exception;
  * @package CacheResource-examples
  * @author  Rodney Rehm
  */
-class Smarty_CacheResource_Mysql extends \Smarty\Cacheresource\Custom
+class My_CacheResource_Mysql extends \Smarty\Cacheresource\Custom
 {
     /**
      * @var \PDO

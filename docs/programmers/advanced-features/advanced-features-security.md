@@ -103,9 +103,8 @@ Smarty\_Security class or create an instance of it.
 
 
     <?php
-    require 'Smarty.class.php';
 
-    class My_Security_Policy extends Smarty_Security {
+    class My_Security_Policy extends \Smarty\Security {
       // disable all PHP functions
       public $php_functions = null;
       // allow everthing as modifier
@@ -118,9 +117,8 @@ Smarty\_Security class or create an instance of it.
 
 
     <?php
-    require 'Smarty.class.php';
     $smarty = new Smarty();
-    $my_security_policy = new Smarty_Security($smarty);
+    $my_security_policy = new \Smarty\Security($smarty);
     // disable all PHP functions
     $my_security_policy->php_functions = null;
     // allow everthing as modifier

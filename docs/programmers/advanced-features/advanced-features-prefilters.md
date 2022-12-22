@@ -18,7 +18,7 @@ This will remove all the html comments in the template source.
 
     <?php
     // put this in your application
-    function remove_dw_comments($tpl_source, Smarty_Internal_Template $template)
+    function remove_dw_comments($tpl_source, \Smarty\Template\ $template)
     {
         return preg_replace("/<!--#.*-->/U",'',$tpl_source);
     }

@@ -31,10 +31,10 @@ class Tag extends Base
     /**
      * Create parse tree buffer for Smarty tag
      *
-     * @param \Smarty_Internal_Templateparser $parser parser object
+     * @param \Smarty\Parser\TemplateParser $parser parser object
      * @param string                          $data   content
      */
-    public function __construct(\Smarty_Internal_Templateparser $parser, $data)
+    public function __construct(\Smarty\Parser\TemplateParser $parser, $data)
     {
         $this->data = $data;
         $this->saved_block_nesting = $parser->block_nesting_level;
@@ -43,11 +43,11 @@ class Tag extends Base
     /**
      * Return buffer content
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      *
      * @return string content
      */
-    public function to_smarty_php(\Smarty_Internal_Templateparser $parser)
+    public function to_smarty_php(\Smarty\Parser\TemplateParser $parser)
     {
         return $this->data;
     }
@@ -55,11 +55,11 @@ class Tag extends Base
     /**
      * Return complied code that loads the evaluated output of buffer content into a temporary variable
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      *
      * @return string template code
      */
-    public function assign_to_var(\Smarty_Internal_Templateparser $parser)
+    public function assign_to_var(\Smarty\Parser\TemplateParser $parser)
     {
         $var = $parser->compiler->getNewPrefixVariable();
         $tmp = $parser->compiler->appendCode('<?php ob_start();?>', $this->data);

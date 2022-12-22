@@ -38,10 +38,10 @@ class Template extends Base
     /**
      * Append buffer to subtree
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      * @param Base $subtree
      */
-    public function append_subtree(\Smarty_Internal_Templateparser $parser, Base $subtree)
+    public function append_subtree(\Smarty\Parser\TemplateParser $parser, Base $subtree)
     {
         if (!empty($subtree->subtrees)) {
             $this->subtrees = array_merge($this->subtrees, $subtree->subtrees);
@@ -55,10 +55,10 @@ class Template extends Base
     /**
      * Append array to subtree
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      * @param Base[] $array
      */
-    public function append_array(\Smarty_Internal_Templateparser $parser, $array = array())
+    public function append_array(\Smarty\Parser\TemplateParser $parser, $array = array())
     {
         if (!empty($array)) {
             $this->subtrees = array_merge($this->subtrees, (array)$array);
@@ -68,10 +68,10 @@ class Template extends Base
     /**
      * Prepend array to subtree
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      * @param Base[] $array
      */
-    public function prepend_array(\Smarty_Internal_Templateparser $parser, $array = array())
+    public function prepend_array(\Smarty\Parser\TemplateParser $parser, $array = array())
     {
         if (!empty($array)) {
             $this->subtrees = array_merge((array)$array, $this->subtrees);
@@ -81,11 +81,11 @@ class Template extends Base
     /**
      * Sanitize and merge subtree buffers together
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      *
      * @return string template code content
      */
-    public function to_smarty_php(\Smarty_Internal_Templateparser $parser)
+    public function to_smarty_php(\Smarty\Parser\TemplateParser $parser)
     {
         $code = '';
 

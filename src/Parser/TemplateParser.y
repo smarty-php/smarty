@@ -1,3 +1,8 @@
+
+namespace Smarty\Parser;
+
+use \Smarty\Lexer\Configfile as Lexer;
+
 /*
  * This file is part of Smarty.
  *
@@ -13,11 +18,11 @@
 * Smarty Template Parser Class
 *
 * This is the template parser.
-* It is generated from the smarty_internal_templateparser.y file
+* It is generated from the TemplateParser.y file
 * 
 * @author Uwe Tews <uwe.tews@googlemail.com>
 */
-class Smarty_Internal_Templateparser
+class TemplateParser
 }
 %include_class
 {
@@ -74,7 +79,7 @@ class Smarty_Internal_Templateparser
     /**
      * lexer object
      *
-     * @var Smarty_Internal_Templatelexer
+     * @var Lexer
      */
     public $lex;
 
@@ -101,14 +106,14 @@ class Smarty_Internal_Templateparser
     /**
      * smarty object
      *
-     * @var Smarty
+     * @var \Smarty\Smarty
      */
     public $smarty = null;
 
     /**
      * template object
      *
-     * @var Smarty_Internal_Template
+     * @var \Smarty\Template
      */
     public $template = null;
 
@@ -122,7 +127,7 @@ class Smarty_Internal_Templateparser
     /**
      * security object
      *
-     * @var Smarty_Security
+     * @var \Smarty\Security
      */
     public $security = null;
 
@@ -143,10 +148,10 @@ class Smarty_Internal_Templateparser
     /**
      * constructor
      *
-     * @param Smarty_Internal_Templatelexer        $lex
+     * @param Lexer        $lex
      * @param \Smarty\Compiler\Template $compiler
      */
-    public function __construct(Smarty_Internal_Templatelexer $lex, \Smarty\Compiler\Template $compiler)
+    public function __construct(Lexer $lex, \Smarty\Compiler\Template $compiler)
     {
         $this->lex = $lex;
         $this->compiler = $compiler;

@@ -17,9 +17,9 @@ namespace Smarty\Resource;
  * @package    Smarty
  * @subpackage TemplateResources
  *
- * @method renderUncompiled(Smarty_Template_Source $source, Smarty_Internal_Template $_template)
- * @method populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)
- * @method process(Smarty_Internal_Template $_smarty_tpl)
+ * @method renderUncompiled(\Smarty\Template\Source $source, \Smarty\Template $_template)
+ * @method populateCompiledFilepath(\Smarty\Template\Compiled $compiled, \Smarty\Template $_template)
+ * @method process(\Smarty\Template $_smarty_tpl)
  */
 abstract class BasePlugin
 {

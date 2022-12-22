@@ -48,11 +48,11 @@ class Text extends Base
     /**
      * Return buffer content
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      *
      * @return string text
      */
-    public function to_smarty_php(\Smarty_Internal_Templateparser $parser)
+    public function to_smarty_php(\Smarty\Parser\TemplateParser $parser)
     {
         return $this->data;
     }

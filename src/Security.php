@@ -8,12 +8,12 @@
  */
 
 /**
- * FIXME: Smarty_Security API
+ * FIXME: \Smarty\Security API
  *      - getter and setter instead of public properties would allow cultivating an internal cache properly
  *      - current implementation of isTrustedResourceDir() assumes that Smarty::$template_dir and Smarty::$config_dir
  *      are immutable the cache is killed every time either of the variables change. That means that two distinct
  *      Smarty objects with differing
- *        $template_dir or $config_dir should NOT share the same Smarty_Security instance,
+ *        $template_dir or $config_dir should NOT share the same \Smarty\Security instance,
  *        as this would lead to (severe) performance penalty! how should this be handled?
  */
 
@@ -618,7 +618,7 @@ class Security {
 			$smarty->security_policy = $security_class;
 			return $smarty;
 		} elseif (is_object($security_class)) {
-			throw new Exception("Class '" . get_class($security_class) . "' must extend Smarty_Security.");
+			throw new Exception("Class '" . get_class($security_class) . "' must extend \\Smarty\\Security.");
 		}
 		if ($security_class === null) {
 			$security_class = $smarty->security_class;

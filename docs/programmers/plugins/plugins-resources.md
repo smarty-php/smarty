@@ -12,7 +12,7 @@ will be able to access that resource by prepending its name to the
 template you\'re addressing: `foobarxyz:yourtemplate.tpl`.
 
 If a Resource\'s templates should not be run through the Smarty
-compiler, the Custom Resource may extend `Smarty_Resource_Uncompiled`.
+compiler, the Custom Resource may extend `\Smarty\Resource\UncompiledPlugin`.
 The Resource Handler must then implement the function
 `renderUncompiled(\Smarty\Template $_template)`. `$_template` is
 a reference to the current template and contains all assigned variables
@@ -23,7 +23,7 @@ output-cached if the Smarty instance was configured accordingly. See
 `src/Resource/PhpPlugin.php` for an example.
 
 If the Resource\'s compiled templates should not be cached on disk, the
-Custom Resource may extend `Smarty_Resource_Recompiled`. These Resources
+Custom Resource may extend `\Smarty\Resource\RecompiledPlugin`. These Resources
 are compiled every time they are accessed. This may be an expensive
 overhead. See `src/Resource/StringEval.php` for an
 example.
@@ -51,7 +51,7 @@ example.
      * @package Resource-examples
      * @author Rodney Rehm
      */
-    class Smarty_Resource_Mysql extends Smarty_Resource_Custom {
+    class My_Resource_Mysql extends \Smarty\Resource\CustomPlugin {
         // PDO instance
         protected $db;
         // prepared fetch() statement
@@ -109,7 +109,7 @@ example.
 
     require_once 'libs/Smarty.class.php';
     $smarty = new Smarty();
-    $smarty->registerResource('mysql', new Smarty_Resource_Mysql());
+    $smarty->registerResource('mysql', new My_Resource_Mysql());
 
     // using resource from php script
     $smarty->display("mysql:index.tpl");

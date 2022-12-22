@@ -12,7 +12,7 @@ function to return the result of the processing.
 
     <?php
     // put this in your application
-    function add_header_comment($tpl_source, Smarty_Internal_Template $template)
+    function add_header_comment($tpl_source, \Smarty\Template\ $template)
     {
         return "<?php echo \"<!-- Created by Smarty! -->\n\"; ?>\n".$tpl_source;
     }

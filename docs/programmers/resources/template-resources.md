@@ -47,7 +47,7 @@ on the functions you are supposed to provide.
      * @package Resource-examples
      * @author Rodney Rehm
      */
-    class Smarty_Resource_Mysql extends Smarty_Resource_Custom {
+    class My_Resource_Mysql extends \Smarty\Resource\Custom {
         // PDO instance
         protected $db;
         // prepared fetch() statement
@@ -105,7 +105,7 @@ on the functions you are supposed to provide.
 
     require_once 'libs/Smarty.class.php';
     $smarty = new Smarty();
-    $smarty->registerResource('mysql', new Smarty_Resource_Mysql());
+    $smarty->registerResource('mysql', new My_Resource_Mysql());
 
     // using resource from php script
     $smarty->display("mysql:index.tpl");

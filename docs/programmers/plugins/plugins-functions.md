@@ -40,7 +40,7 @@ some other Smarty-provided functionality, it can use the supplied
      * Purpose:  outputs a random magic answer
      * -------------------------------------------------------------
      */
-    function smarty_function_eightball($params, Smarty_Internal_Template $template)
+    function smarty_function_eightball($params, \Smarty\Template\ $template)
     {
         $answers = array('Yes',
                          'No',
@@ -71,7 +71,7 @@ which can be used in the template as:
      * Purpose:  assign a value to a template variable
      * -------------------------------------------------------------
      */
-    function smarty_function_assign($params, Smarty_Internal_Template $template)
+    function smarty_function_assign($params, \Smarty\Template\ $template)
     {
         if (empty($params['var'])) {
             trigger_error("assign: missing 'var' parameter");

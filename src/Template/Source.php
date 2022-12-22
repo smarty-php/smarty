@@ -24,7 +24,7 @@ class Source {
 	public $uid = null;
 
 	/**
-	 * Template Resource (Smarty_Internal_Template::$template_resource)
+	 * Template Resource (\Smarty\Template::$template_resource)
 	 *
 	 * @var string
 	 */
@@ -75,7 +75,7 @@ class Source {
 	/**
 	 * The Components an extended template is made of
 	 *
-	 * @var \Smarty_Template_Source[]
+	 * @var \Smarty\Template\Source[]
 	 */
 	public $components = null;
 
@@ -112,21 +112,21 @@ class Source {
 	 *
 	 * @var string
 	 */
-	public $compiler_class = 'Smarty\Compiler\Template';
+	public $compiler_class = \Smarty\Compiler\Template::class;
 
 	/**
 	 * Name of the Class to tokenize this resource's contents with
 	 *
 	 * @var string
 	 */
-	public $template_lexer_class = 'Smarty_Internal_Templatelexer';
+	public $template_lexer_class = \Smarty\Lexer\TemplateLexer::class;
 
 	/**
 	 * Name of the Class to parse this resource's contents with
 	 *
 	 * @var string
 	 */
-	public $template_parser_class = 'Smarty_Internal_Templateparser';
+	public $template_parser_class = \Smarty\Parser\TemplateParser::class;
 
 	/**
 	 * create Source Object container

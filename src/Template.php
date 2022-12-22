@@ -10,13 +10,12 @@
 
 namespace Smarty;
 
-use Smarty;
+use Smarty\Smarty;
 use Smarty\Runtime\InheritanceRuntime;
 use Smarty\Template\Source;
 use Smarty\Template\Cached;
 use Smarty\Template\Compiled;
 use Smarty\Template\Config;
-use Smarty\Exception;
 
 /**
  * Main class with template data structures and methods
@@ -133,14 +132,11 @@ class Template extends TemplateBase {
 	 *
 	 * @param string $template_resource template resource string
 	 * @param Smarty $smarty Smarty instance
-	 * @param null|\Smarty_Internal_Template|\Smarty|\Smarty\Data $_parent back pointer to parent
-	 *                                                                                        object with variables or
-	 *                                                                                        null
+	 * @param \Smarty\Data|null $_parent back pointer to parent object with variables or null
 	 * @param mixed $_cache_id cache   id or null
 	 * @param mixed $_compile_id compile id or null
 	 * @param bool|int|null $_caching use caching?
-	 * @param int|null $_cache_lifetime cache life-time in
-	 *                                                                                        seconds
+	 * @param int|null $_cache_lifetime cache life-time in seconds
 	 * @param bool $_isConfig
 	 *
 	 * @throws \Smarty\Exception
@@ -439,7 +435,7 @@ class Template extends TemplateBase {
 	 * - Decode saved properties from compiled template and cache files
 	 * - Check if compiled or cache file is valid
 	 *
-	 * @param \Smarty_Internal_Template $tpl
+	 * @param \Smarty\Template $tpl
 	 * @param array $properties special template properties
 	 * @param bool $cache flag if called from cache file
 	 *
@@ -709,7 +705,6 @@ class Template extends TemplateBase {
 	/**
 	 * load config variables into template object
 	 *
-	 * @param \Smarty_Internal_Template $tpl
 	 * @param array $new_config_vars
 	 */
 	public function _loadConfigVars($new_config_vars) {
@@ -727,7 +722,7 @@ class Template extends TemplateBase {
 				$mergedScope = $tagScope | $this->scope;
 				if ($mergedScope) {
 					// update scopes
-					/* @var \Smarty_Internal_Template|\Smarty|Data $ptr */
+					/* @var \Smarty\Data $ptr */
 					foreach ($this->parent->_getAffectedScopes($mergedScope) as $ptr) {
 						$this->_assignConfigVars($ptr->config_vars, $new_config_vars);
 						if ($tagScope && $ptr->_isTplObj() && isset($this->_var_stack)) {
@@ -897,7 +892,7 @@ class Template extends TemplateBase {
 	/**
 	 * Update variable in template local variable stack
 	 *
-	 * @param \Smarty_Internal_Template $tpl
+	 * @param Template $tpl
 	 * @param string|null $varName variable name or null for config variables
 	 */
 	private function _updateVarStack(Template $tpl, $varName) {

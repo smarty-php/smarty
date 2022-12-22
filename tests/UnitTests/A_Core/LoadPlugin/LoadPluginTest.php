@@ -25,7 +25,7 @@ class LoadPluginTest extends PHPUnit_Smarty
      */
     public function testLoadPluginErrorReturn()
     {
-        $this->assertFalse($this->smarty->loadPlugin('Smarty_Not_Known'));
+        $this->assertFalse($this->smarty->loadPlugin('\\Smarty\\Not\\Known'));
     }
 
     /**
@@ -33,7 +33,7 @@ class LoadPluginTest extends PHPUnit_Smarty
      */
     public function testLoadPluginSmartyInternalDebug()
     {
-        $this->assertTrue($this->smarty->loadPlugin('\Smarty\Debug') == true);
+        $this->assertTrue($this->smarty->loadPlugin(\Smarty\Debug::class) == true);
     }
 
     /**
@@ -49,6 +49,6 @@ class LoadPluginTest extends PHPUnit_Smarty
      */
     public function testLoadPluginSmartyPluginCounter()
     {
-        $this->assertTrue($this->smarty->loadPlugin('Smarty_Function_Counter') == true);
+        $this->assertTrue($this->smarty->loadPlugin('smarty_function_counter') == true);
     }
 }

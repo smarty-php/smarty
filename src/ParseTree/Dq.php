@@ -35,10 +35,10 @@ class Dq extends Base
     /**
      * Append buffer to subtree
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      * @param Base $subtree parse tree buffer
      */
-    public function append_subtree(\Smarty_Internal_Templateparser $parser, Base $subtree)
+    public function append_subtree(\Smarty\Parser\TemplateParser $parser, Base $subtree)
     {
         $last_subtree = count($this->subtrees) - 1;
         if ($last_subtree >= 0 && $this->subtrees[ $last_subtree ] instanceof Tag
@@ -71,11 +71,11 @@ class Dq extends Base
     /**
      * Merge subtree buffer content together
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      *
      * @return string compiled template code
      */
-    public function to_smarty_php(\Smarty_Internal_Templateparser $parser)
+    public function to_smarty_php(\Smarty\Parser\TemplateParser $parser)
     {
         $code = '';
         foreach ($this->subtrees as $subtree) {

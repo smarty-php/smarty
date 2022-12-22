@@ -66,7 +66,7 @@ to invoke your custom CacheResource implementation.
      * @package CacheResource-examples
      * @author Rodney Rehm
      */
-    class Smarty_CacheResource_Mysql extends \Smarty\Cacheresource\Custom {
+    class My_CacheResource_Mysql extends \Smarty\Cacheresource\Custom {
         // PDO instance
         protected $db;
         protected $fetch;
@@ -214,7 +214,7 @@ to invoke your custom CacheResource implementation.
      * @package CacheResource-examples
      * @author Rodney Rehm
      */
-    class Smarty_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore {
+    class My_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore {
         /**
          * memcache instance
          * @var Memcache

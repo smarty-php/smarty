@@ -17,7 +17,7 @@ to return the result of the processing.
 
     <?php
     // put this in your application
-    function protect_email($tpl_output, Smarty_Internal_Template $template)
+    function protect_email($tpl_output, \Smarty\Template\ $template)
     {
         $tpl_output =
            preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',

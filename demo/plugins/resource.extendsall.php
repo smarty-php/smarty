@@ -12,7 +12,7 @@ use Smarty\Template\Source;
  * @package Resource-examples
  * @author  Rodney Rehm
  */
-class Smarty_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
+class My_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
 {
     /**
      * populate Source Object with meta data from Resource

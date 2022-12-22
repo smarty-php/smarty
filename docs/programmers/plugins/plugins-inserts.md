@@ -35,7 +35,7 @@ substituted in place of the `{insert}` tag in the template.
      * Purpose:  Inserts current date/time according to format
      * -------------------------------------------------------------
      */
-    function smarty_insert_time($params, Smarty_Internal_Template $template)
+    function smarty_insert_time($params, \Smarty\Template\ $template)
     {
         if (empty($params['format'])) {
             trigger_error("insert time: missing 'format' parameter");

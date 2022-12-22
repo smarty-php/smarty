@@ -144,13 +144,13 @@ class Insert extends Base {
 		// call insert
 		if (isset($_assign)) {
 			if ($_smarty_tpl->caching && !$nocacheParam) {
-				$_output .= "echo Smarty_Internal_Nocache_Insert::compile ('{$_function}',{$_params}, \$_smarty_tpl, '{$_filepath}',{$_assign});?>";
+				$_output .= "echo \\Smarty\\Compile\\Insert::compile ('{$_function}',{$_params}, \$_smarty_tpl, '{$_filepath}',{$_assign});?>";
 			} else {
 				$_output .= "\$_smarty_tpl->assign({$_assign} , {$_function} ({$_params},\$_smarty_tpl), true);?>";
 			}
 		} else {
 			if ($_smarty_tpl->caching && !$nocacheParam) {
-				$_output .= "echo Smarty_Internal_Nocache_Insert::compile ('{$_function}',{$_params}, \$_smarty_tpl, '{$_filepath}');?>";
+				$_output .= "echo \\Smarty\\Compile\\Insert::compile ('{$_function}',{$_params}, \$_smarty_tpl, '{$_filepath}');?>";
 			} else {
 				$_output .= "echo {$_function}({$_params},\$_smarty_tpl);?>";
 			}

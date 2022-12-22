@@ -1,3 +1,9 @@
+- [ ] \Smarty\Cacheresource\Base::load generates classnames that are now invalid
+- [ ] \Smarty\Resource\BasePlugin::load generates classnames that are now invalid
+- [ ] consistent ConfigFile Configfile
+
 - [ ] review usages of ->_getSmartyObj and ->smarty: maybe change this so we can hide more
 - [ ] ->_objType and ->objMap
 - [ ] refactor _isTplObj, _isDataObj
+- [ ] remove `require_once` calls from tests/*, especially where they load files from the demo dir
+- [ ] look for and remove @method  and @property phpdoc tags

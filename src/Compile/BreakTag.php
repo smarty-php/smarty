@@ -35,7 +35,7 @@ class BreakTag extends Base {
 	protected $shorttag_order = ['levels'];
 
 	/**
-	 * Tag name may be overloaded by Smarty_Internal_Compile_Continue
+	 * Tag name may be overloaded by ContinueTag
 	 *
 	 * @var string
 	 */

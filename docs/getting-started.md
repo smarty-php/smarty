@@ -143,7 +143,9 @@ the same vars, etc., we can do that in one place.
 ```php
 <?php
 
-class Smarty_GuestBook extends Smarty {
+use Smarty\Smarty;
+
+class My_GuestBook extends Smarty {
 
    public function __construct()
    {
@@ -161,9 +163,9 @@ class Smarty_GuestBook extends Smarty {
 }
 ```
 
-Now, we can use `Smarty_GuestBook` instead of `Smarty` in our scripts:
+Now, we can use `My_GuestBook` instead of `Smarty` in our scripts:
 ```php
-$smarty = new Smarty_GuestBook();
+$smarty = new My_GuestBook();
 $smarty->assign('name','Ned');
 $smarty->display('index.tpl');
 ```

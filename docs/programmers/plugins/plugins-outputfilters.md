@@ -35,7 +35,7 @@ and return the results.
      *           a simple protection against spambots
      * -------------------------------------------------------------
      */
-     function smarty_outputfilter_protect_email($output, Smarty_Internal_Template $template)
+     function smarty_outputfilter_protect_email($output, \Smarty\Template\ $template)
      {
          return preg_replace('!(\S+)@([a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,3}|[0-9]{1,3}))!',
                              '$1%40$2', $output);

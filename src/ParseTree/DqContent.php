@@ -33,11 +33,11 @@ class DqContent extends Base
     /**
      * Return content as double-quoted string
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      *
      * @return string doubled quoted string
      */
-    public function to_smarty_php(\Smarty_Internal_Templateparser $parser)
+    public function to_smarty_php(\Smarty\Parser\TemplateParser $parser)
     {
         return '"' . $this->data . '"';
     }

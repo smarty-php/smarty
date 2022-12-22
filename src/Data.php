@@ -73,7 +73,7 @@ abstract class Data
      * @param mixed        $value   the value to assign
      * @param boolean      $nocache if true any output of this variable will be not cached
      *
-     * @return Data current Data (or Smarty or Smarty_Internal_Template) instance for
+     * @return Data current Data (or Smarty or \Smarty\Template) instance for
      *                              chaining
      */
     public function assign($tpl_var, $value = null, $nocache = false)
@@ -222,7 +222,7 @@ abstract class Data
 	}
 
 	protected function _updateScope($varName, $tagScope = 0) {
-		// implemented in Smarty_Internal_Template only
+		// implemented in \Smarty\Template only
 	}
 
     /**
@@ -466,7 +466,7 @@ abstract class Data
 		$confObj->caching = Smarty::CACHING_OFF;
 		$confObj->source->config_sections = $sections;
 		$confObj->source->scope = $scope;
-		$confObj->compiled = Smarty_Template_Compiled::load($confObj);
+		$confObj->compiled = \Smarty\Template\Compiled::load($confObj);
 		$confObj->compiled->render($confObj);
 		if ($this->_isTplObj()) {
 			$this->compiled->file_dependency[ $confObj->source->uid ] =

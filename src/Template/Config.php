@@ -40,21 +40,21 @@ class Config extends Source {
 	 *
 	 * @var string
 	 */
-	public $compiler_class = 'Smarty\Compiler\ConfigFile';
+	public $compiler_class = \Smarty\Compiler\ConfigFile::class;
 
 	/**
 	 * Name of the Class to tokenize this resource's contents with
 	 *
 	 * @var string
 	 */
-	public $template_lexer_class = 'Smarty_Internal_Configfilelexer';
+	public $template_lexer_class = \Smarty\Lexer\ConfigfileLexer::class;
 
 	/**
 	 * Name of the Class to parse this resource's contents with
 	 *
 	 * @var string
 	 */
-	public $template_parser_class = 'Smarty_Internal_Configfileparser';
+	public $template_parser_class = \Smarty\Parser\ConfigfileParser::class;
 
 	/**
 	 * initialize Source Object for given resource

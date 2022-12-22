@@ -13,7 +13,7 @@ namespace Smarty\Compiler;
 use Smarty;
 use Smarty\Compile\Base;
 use Smarty\Compile\ExtendsTag;
-use Smarty_Internal_Templateparser;
+use Smarty\Parser\TemplateParser;
 use Smarty\CompilerException;
 use Smarty\Exception;
 
@@ -42,7 +42,7 @@ class Template {
 	/**
 	 * Parser object
 	 *
-	 * @var Smarty_Internal_Templateparser
+	 * @var \Smarty\Parser\TemplateParser
 	 */
 	public $parser = null;
 
@@ -84,7 +84,7 @@ class Template {
 	/**
 	 * current template
 	 *
-	 * @var Smarty_Internal_Template
+	 * @var \Smarty\Template
 	 */
 	public $template = null;
 
@@ -356,15 +356,15 @@ class Template {
 	/**
 	 * Method to compile a Smarty template
 	 *
-	 * @param Smarty_Internal_Template $template template object to compile
-	 * @param bool $nocache true is shall be compiled in nocache mode
-	 * @param null|\Smarty\Compiler\Template $parent_compiler
+	 * @param Smarty\Template $template template object to compile
+	 * @param null $nocache true is shall be compiled in nocache mode
+	 * @param null|Template $parent_compiler
 	 *
 	 * @return bool true if compiling succeeded, false if it failed
-	 * @throws \Exception
+	 * @throws Exception
 	 */
 	public function compileTemplate(
-		Smarty_Internal_Template         $template,
+		\Smarty\Template         $template,
 		                                 $nocache = null,
 		\Smarty\Compiler\Template $parent_compiler = null
 	) {
@@ -394,7 +394,7 @@ class Template {
 	 * @throws \Exception
 	 */
 	public function compileTemplateSource(
-		Smarty_Internal_Template         $template,
+		\Smarty\Template         $template,
 		                                 $nocache = null,
 		\Smarty\Compiler\Template $parent_compiler = null
 	) {
@@ -694,8 +694,7 @@ class Template {
 	/**
 	 * lazy loads internal compile plugin for tag and calls the compile method
 	 * compile objects cached for reuse.
-	 * class name format:  Smarty_Internal_Compile_TagName
-	 * plugin filename format: Smarty_Internal_TagName.php
+	 * class name format:  \Smarty\Compile\TagName
 	 *
 	 * @param string $tag tag name
 	 * @param array $args list of tag attributes

@@ -36,11 +36,11 @@ abstract class Base
     /**
      * Return buffer
      *
-     * @param \Smarty_Internal_Templateparser $parser
+     * @param \Smarty\Parser\TemplateParser $parser
      *
      * @return string buffer content
      */
-    abstract public function to_smarty_php(\Smarty_Internal_Templateparser $parser);
+    abstract public function to_smarty_php(\Smarty\Parser\TemplateParser $parser);
 
     /**
      * Template data object destructor

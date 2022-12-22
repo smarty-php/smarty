@@ -234,7 +234,7 @@ abstract class KeyValueStore extends Base
     protected function getTemplateUid(Smarty $smarty, $resource_name)
     {
         if (isset($resource_name)) {
-            $source = Smarty_Template_Source::load(null, $smarty, $resource_name);
+            $source = \Smarty\Template\Source::load(null, $smarty, $resource_name);
             if ($source->exists) {
                 return $source->uid;
             }

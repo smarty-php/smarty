@@ -11,8 +11,8 @@
 
 namespace Smarty\Compiler;
 use Smarty;
-use Smarty_Internal_ConfigFileLexer;
-use Smarty_Internal_ConfigFileParser;
+use Smarty\Lexer\ConfigFileLexer;
+use Smarty\Parser\ConfigFileParser;
 use Smarty\Template;
 use Smarty\CompilerException;
 
@@ -113,7 +113,7 @@ class ConfigFile {
 			$this->smarty->_debug->start_compile($this->template);
 		}
 		// init the lexer/parser to compile the config file
-		/* @var Smarty_Internal_ConfigFileLexer $this- >lex */
+		/* @var \Smarty\Lexer\ConfigfileLexer $this->lex */
 		$this->lex = new $this->lexer_class(
 			str_replace(
 				[
@@ -125,7 +125,7 @@ class ConfigFile {
 			) . "\n",
 			$this
 		);
-		/* @var Smarty_Internal_ConfigFileParser $this- >parser */
+		/* @var \Smarty\Parser\ConfigfileParser $this->parser */
 		$this->parser = new $this->parser_class($this->lex, $this);
 		if (function_exists('mb_internal_encoding')
 			&& function_exists('ini_get')

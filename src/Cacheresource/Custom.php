@@ -9,7 +9,9 @@ namespace Smarty\Cacheresource;
  * @subpackage Cacher
  */
 
+use Smarty\Smarty;
 use Smarty\Template;
+use Smarty\Template\Cached;
 
 /**
  * Cache Handler API
@@ -126,18 +128,18 @@ abstract class Custom extends Base
         $cached->exists = !!$cached->timestamp;
     }
 
-    /**
-     * Read the cached template and process the header
-     *
-     * @param \Smarty\Template $_smarty_tpl do not change variable name, is used by compiled template
-     * @param Smarty_Template_Cached    $cached      cached object
-     * @param boolean                   $update      flag if called because cache update
-     *
-     * @return boolean                 true or false if the cached content does not exist
-     */
+	/**
+	 * Read the cached template and process the header
+	 *
+	 * @param Template $_smarty_tpl do not change variable name, is used by compiled template
+	 * @param Cached|null $cached cached object
+	 * @param boolean $update flag if called because cache update
+	 *
+	 * @return boolean                 true or false if the cached content does not exist
+	 */
     public function process(
 	    Template               $_smarty_tpl,
-	    Smarty_Template_Cached $cached = null,
+	    \Smarty\Template\Cached $cached = null,
 	                           $update = false
     ) {
         if (!$cached) {
@@ -239,7 +241,7 @@ abstract class Custom extends Base
     {
         $cache_name = null;
         if (isset($resource_name)) {
-            $source = Smarty_Template_Source::load(null, $smarty, $resource_name);
+            $source = \Smarty\Template\Source::load(null, $smarty, $resource_name);
             if ($source->exists) {
                 $cache_name = $source->name;
             } else {
@@ -249,15 +251,15 @@ abstract class Custom extends Base
         return $this->delete($cache_name, $cache_id, $compile_id, $exp_time);
     }
 
-    /**
-     * Check is cache is locked for this template
-     *
-     * @param \Smarty\Smarty                 $smarty Smarty object
-     * @param Smarty_Template_Cached $cached cached object
-     *
-     * @return boolean               true or false if cache is locked
-     */
-    public function hasLock(\Smarty\Smarty $smarty, Smarty_Template_Cached $cached)
+	/**
+	 * Check is cache is locked for this template
+	 *
+	 * @param Smarty $smarty Smarty object
+	 * @param Cached $cached cached object
+	 *
+	 * @return boolean               true or false if cache is locked
+	 */
+    public function hasLock(\Smarty\Smarty $smarty, \Smarty\Template\Cached $cached)
     {
         $id = $cached->lock_id;
         $name = $cached->source->name . '.lock';
@@ -272,11 +274,11 @@ abstract class Custom extends Base
      * Lock cache for this template
      *
      * @param \Smarty\Smarty                 $smarty Smarty object
-     * @param Smarty_Template_Cached $cached cached object
+     * @param \Smarty\Template\Cached $cached cached object
      *
      * @return bool|void
      */
-    public function acquireLock(\Smarty\Smarty $smarty, Smarty_Template_Cached $cached)
+    public function acquireLock(\Smarty\Smarty $smarty, \Smarty\Template\Cached $cached)
     {
         $cached->is_locked = true;
         $id = $cached->lock_id;
@@ -288,11 +290,11 @@ abstract class Custom extends Base
      * Unlock cache for this template
      *
      * @param \Smarty\Smarty                 $smarty Smarty object
-     * @param Smarty_Template_Cached $cached cached object
+     * @param \Smarty\Template\Cached $cached cached object
      *
      * @return bool|void
      */
-    public function releaseLock(\Smarty\Smarty $smarty, Smarty_Template_Cached $cached)
+    public function releaseLock(\Smarty\Smarty $smarty, \Smarty\Template\Cached $cached)
     {
         $cached->is_locked = false;
         $name = $cached->source->name . '.lock';

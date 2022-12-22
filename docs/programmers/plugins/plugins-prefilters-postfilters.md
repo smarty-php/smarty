@@ -57,7 +57,7 @@ of this code.
      * Purpose:  Convert html tags to be lowercase.
      * -------------------------------------------------------------
      */
-     function smarty_prefilter_pre01($source, Smarty_Internal_Template $template)
+     function smarty_prefilter_pre01($source, \Smarty\Template\ $template)
      {
          return preg_replace('!<(\w+)[^>]+>!e', 'strtolower("$1")', $source);
      }
@@ -76,7 +76,7 @@ of this code.
      * Purpose:  Output code that lists all current template vars.
      * -------------------------------------------------------------
      */
-     function smarty_postfilter_post01($compiled, Smarty_Internal_Template $template)
+     function smarty_postfilter_post01($compiled, \Smarty\Template\ $template)
      {
          $compiled = "<pre>\n<?php print_r(\$template->getTemplateVars()); ?>\n</pre>" . $compiled;
          return $compiled;
