@@ -11,3 +11,7 @@ phpunit*
 .phpunit.result.cache
 vendor/*
 composer.lock
+/src/Lexer/ConfigfileLexer.php
+/src/Lexer/TemplateLexer.php
+/src/Parser/ConfigfileParser.php
+/src/Parser/TemplateParser.php

@@ -1,6 +1,7 @@
 <?php
 
 use Smarty\Resource\FilePlugin;
+use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Template\Source;
 

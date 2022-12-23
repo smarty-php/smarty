@@ -3,7 +3,7 @@
 namespace Smarty\Lexer;
 
 /**
-* Smarty Internal Plugin Configfilelexer
+* Smarty Internal Plugin ConfigfileLexer
 *
 * This is the lexer to break the config file source into tokens 
 * @package Smarty
@@ -11,7 +11,7 @@ namespace Smarty\Lexer;
 * @author Uwe Tews 
 */
 /**
-* Configfilelexer
+* ConfigfileLexer
 *
 * This is the config file lexer.
 * It is generated from the ConfigfileLexer.plex file
@@ -20,7 +20,7 @@ namespace Smarty\Lexer;
 * @subpackage Compiler
 * @author Uwe Tews
 */
-class Configfilelexer
+class ConfigfileLexer
 {
     /**
      * Source
@@ -73,7 +73,7 @@ class Configfilelexer
     /**
      * compiler object
      *
-     * @var \Smarty\Compiler\ConfigFile
+     * @var \Smarty\Compiler\Configfile
      */
     private $compiler = null;
     /**
@@ -125,9 +125,9 @@ class Configfilelexer
      * constructor
      *
      * @param   string                             $data template source
-     * @param \Smarty\Compiler\ConfigFile $compiler
+     * @param \Smarty\Compiler\Configfile $compiler
      */
-    public function __construct($data, \Smarty\Compiler\ConfigFile $compiler)
+    public function __construct($data, \Smarty\Compiler\Configfile $compiler)
     {
         $this->data = $data . "\n"; //now all lines are \n-terminated
         $this->dataLength = strlen($data);

@@ -1,8 +1,3 @@
-
-namespace Smarty\Parser;
-
-use \Smarty\Lexer\Configfile as Lexer;
-
 /**
 * ConfigfileParser
 *
@@ -15,6 +10,12 @@ use \Smarty\Lexer\Configfile as Lexer;
 */
 %name TPC_
 %declare_class {
+
+namespace Smarty\Parser;
+
+use \Smarty\Lexer\Configfile as Lexer;
+use \Smarty\Compiler\Configfile as Configfile;
+
 /**
 * Smarty Internal Plugin Configfileparse
 *
@@ -59,7 +60,7 @@ class ConfigfileParser
     /**
      * compiler object
      *
-     * @var \Smarty\Compiler\ConfigFile
+     * @var Configfile
      */
     public $compiler = null;
     /**
@@ -92,9 +93,9 @@ class ConfigfileParser
      * constructor
      *
      * @param Lexer      $lex
-     * @param \Smarty\Compiler\ConfigFile $compiler
+     * @param Configfile $compiler
      */
-    public function __construct(Lexer $lex, \Smarty\Compiler\ConfigFile $compiler)
+    public function __construct(Lexer $lex, Configfile $compiler)
     {
         $this->lex = $lex;
         $this->smarty = $compiler->smarty;
@@ -242,8 +243,8 @@ class ConfigfileParser
 
 %stack_overflow
 {
-    $this->internalError = true;
-    $this->compiler->trigger_config_file_error('Stack overflow in configfile parser');
+            $this->internalError = true;
+            $this->compiler->trigger_config_file_error('Stack overflow in configfile parser');
 }
 
 // Complete config file

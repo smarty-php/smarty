@@ -2,7 +2,7 @@
 
 namespace Smarty\Template;
 
-use Smarty;
+use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Exception;
 
@@ -140,7 +140,7 @@ class Source {
 	 * @internal param \Smarty\Resource\Base $handler Resource Handler this source object communicates with
 	 */
 	public function __construct(Smarty $smarty, $resource, $type, $name) {
-		$this->handler = Smarty\Resource\BasePlugin::load($smarty, $type);
+		$this->handler = \Smarty\Resource\BasePlugin::load($smarty, $type);
 
 		$this->smarty = $smarty;
 		$this->resource = $resource;

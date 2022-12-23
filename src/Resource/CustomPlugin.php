@@ -8,7 +8,7 @@
  */
 
 namespace Smarty\Resource;
-use Smarty;
+use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Template\Source;
 use Smarty\Exception;

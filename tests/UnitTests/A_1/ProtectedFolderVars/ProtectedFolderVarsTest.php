@@ -211,7 +211,7 @@ class ProtectedFolderVarsTest extends PHPUnit_Smarty
     }
 }
 
-class FolderT extends Smarty
+class FolderT extends \Smarty\Smarty
 {
     protected $template_dir = './foo';
 

@@ -2,6 +2,9 @@
 
 namespace Smarty;
 
+use Smarty\Extension\Base;
+use Smarty\Extension\Core;
+use Smarty\Extension\ExtensionInterface;
 use Smarty\Smarty\Runtime\CaptureRuntime;
 use Smarty\Smarty\Runtime\ForeachRuntime;
 use Smarty\Smarty\Runtime\InheritanceRuntime;
@@ -564,6 +567,12 @@ class Smarty extends \Smarty\TemplateBase
 	 */
 	public $_cacheresource_handlers = [];
 
+	/**
+	 * List of extensions
+	 * @var ExtensionInterface[]
+	 */
+	private $extensions = [];
+
     /**
      * Initialize new Smarty object
      */
@@ -584,7 +593,31 @@ class Smarty extends \Smarty\TemplateBase
         if (\Smarty\Smarty::$_CHARSET !== 'UTF-8') {
             \Smarty\Smarty::$_UTF8_MODIFIER = '';
         }
+
+		$this->extensions[] = new Core();
     }
+
+	/**
+	 * Load an additional extension.
+	 *
+	 * @param Base $extension
+	 *
+	 * @return void
+	 */
+	public function addExtension(ExtensionInterface $extension) {
+		$this->extensions[] = $extension;
+	}
+
+	/**
+	 * Returns all loaded extensions
+	 *
+	 * @return array|ExtensionInterface[]
+	 */
+	public function getExtensions(): array {
+		return $this->extensions;
+	}
+
+
 
     /**
      * Check if a template resource exists
@@ -766,7 +799,25 @@ class Smarty extends \Smarty\TemplateBase
         return $this;
     }
 
-    /**
+	/**
+	 * Get plugin directories
+	 *
+	 * @return array list of plugin directories
+	 */
+	public function getPluginsDir()
+	{
+		if (!$this->_pluginsDirNormalized) {
+			foreach ($this->plugins_dir as $k => $v) {
+				$this->plugins_dir[ $k ] = $this->_realpath(rtrim($v ?? '', '/\\') . DIRECTORY_SEPARATOR, true);
+			}
+			$this->_cache[ 'plugin_files' ] = array();
+			$this->_pluginsDirNormalized = true;
+		}
+		return $this->plugins_dir;
+	}
+
+
+	/**
      * Set plugins directory
      *
      * @param string|array $plugins_dir directory(s) of plugins
@@ -1830,15 +1881,15 @@ class Smarty extends \Smarty\TemplateBase
 		// Lazy load runtimes when/if needed
 		switch ($type) {
 			case 'Capture':
-				return $this->runtimes[$type] = new Smarty\Runtime\CaptureRuntime();
+				return $this->runtimes[$type] = new \Smarty\Runtime\CaptureRuntime();
 			case 'Foreach':
-				return $this->runtimes[$type] = new Smarty\Runtime\ForeachRuntime();
+				return $this->runtimes[$type] = new \Smarty\Runtime\ForeachRuntime();
 			case 'Inheritance':
-				return $this->runtimes[$type] = new Smarty\Runtime\InheritanceRuntime();
+				return $this->runtimes[$type] = new \Smarty\Runtime\InheritanceRuntime();
 			case 'MakeNocache':
-				return $this->runtimes[$type] = new Smarty\Runtime\MakeNocacheRuntime();
+				return $this->runtimes[$type] = new \Smarty\Runtime\MakeNocacheRuntime();
 			case 'TplFunction':
-				return $this->runtimes[$type] = new Smarty\Runtime\TplFunctionRuntime();
+				return $this->runtimes[$type] = new \Smarty\Runtime\TplFunctionRuntime();
 		}
 
 		throw new \Smarty\Exception('Trying to load invalid runtime ' . $type);

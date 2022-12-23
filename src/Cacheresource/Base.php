@@ -27,7 +27,7 @@ abstract class Base
      *
      * @var array
      */
-    protected static $sysplugins = array('file' => 'File.php',);
+    protected static $sysplugins = ['file' => \Smarty\Cacheresource\File::class];
 
     /**
      * populate Cached Object with meta data from Resource
@@ -211,7 +211,7 @@ abstract class Base
         }
         // try sysplugins dir
         if (isset(self::$sysplugins[ $type ])) {
-            $cache_resource_class = 'Smarty_Internal_CacheResource_' . \smarty_ucfirst_ascii($type);
+            $cache_resource_class = self::$sysplugins[ $type ];
             return $smarty->_cacheresource_handlers[ $type ] = new $cache_resource_class();
         }
         // try plugins dir

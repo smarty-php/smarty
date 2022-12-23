@@ -1,7 +1,7 @@
 <?php
 
 // compiler.test.php
-use Smarty\Compile\Base;
+use Smarty\Compile\Tag\Base;
 
 class smarty_compiler_test extends Base
 {

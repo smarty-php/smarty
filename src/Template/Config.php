@@ -2,7 +2,7 @@
 
 namespace Smarty\Template;
 
-use Smarty;
+use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Exception;
 
@@ -40,7 +40,7 @@ class Config extends Source {
 	 *
 	 * @var string
 	 */
-	public $compiler_class = \Smarty\Compiler\ConfigFile::class;
+	public $compiler_class = \Smarty\Compiler\Configfile::class;
 
 	/**
 	 * Name of the Class to tokenize this resource's contents with

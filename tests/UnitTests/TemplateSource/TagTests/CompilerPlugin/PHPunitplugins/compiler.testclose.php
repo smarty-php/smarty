@@ -1,7 +1,7 @@
 <?php
 
 // compiler.testclose.php
-use Smarty\Compile\Base;
+use Smarty\Compile\Tag\Base;
 
 class smarty_compiler_testclose extends Base
 {

@@ -439,7 +439,7 @@ abstract class Data
 	 */
 	public function configLoad($config_file, $sections = null)
 	{
-		$this->_loadConfigFile($this, $config_file, $sections, null);
+		$this->_loadConfigfile($this, $config_file, $sections, null);
 		return $this;
 	}
 
@@ -457,7 +457,7 @@ abstract class Data
 	 *
 	 * @api  Smarty::configLoad()
 	 */
-	public function _loadConfigFile($config_file, $sections = null, $scope = 0)
+	public function _loadConfigfile($config_file, $sections = null, $scope = 0)
 	{
 		/* @var \Smarty $smarty */
 		$smarty = $this->_getSmartyObj();

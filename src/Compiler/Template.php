@@ -10,9 +10,9 @@
 
 namespace Smarty\Compiler;
 
-use Smarty;
-use Smarty\Compile\Base;
-use Smarty\Compile\ExtendsTag;
+use Smarty\Smarty;
+use Smarty\Compile\Tag\Base;
+use Smarty\Compile\Tag\ExtendsTag;
 use Smarty\Parser\TemplateParser;
 use Smarty\CompilerException;
 use Smarty\Exception;
@@ -521,6 +521,12 @@ class Template {
 		return $result;
 	}
 
+	public function compileModifier($modifier, $args) {
+		if ($modifierCompiler = $this->getModifierCompiler($modifier)) {
+			return $modifierCompiler->compile($args, $this);
+		}
+	}
+
 	/**
 	 * compile variable
 	 *
@@ -719,7 +725,7 @@ class Template {
 	 *
 	 * @param string $tag tag name
 	 *
-	 * @return bool|Base tag compiler object or false if not found or untrusted by security policy
+	 * @return bool|\Smarty\Compile\Tag\Base tag compiler object or false if not found or untrusted by security policy
 	 */
 	public function getTagCompiler($tag) {
 
@@ -727,109 +733,32 @@ class Template {
 			return false;
 		}
 
-		switch ($tag) {
-			case 'append':
-				return new \Smarty\Compile\Append();
-			case 'assign':
-				return new \Smarty\Compile\Assign();
-			case 'block':
-				return new \Smarty\Compile\Block();
-			case 'blockclose':
-				return new \Smarty\Compile\BlockClose();
-			case 'break':
-				return new \Smarty\Compile\BreakTag();
-			case 'call':
-				return new \Smarty\Compile\Call();
-			case 'capture':
-				return new \Smarty\Compile\Capture();
-			case 'captureclose':
-				return new \Smarty\Compile\CaptureClose();
-			case 'child':
-				return new \Smarty\Compile\Child();
-			case 'block_child':
-				return new \Smarty\Compile\BlockChild();
-			case 'block_parent':
-				return new \Smarty\Compile\BlockParent();
-			case 'config_load':
-				return new \Smarty\Compile\ConfigLoad();
-			case 'continue':
-				return new \Smarty\Compile\ContinueTag();
-			case 'debug':
-				return new \Smarty\Compile\Debug();
-			case 'eval':
-				return new \Smarty\Compile\EvalTag();
-			case 'extends':
-				return new \Smarty\Compile\ExtendsTag();
-			case 'for':
-				return new \Smarty\Compile\ForTag();
-			case 'foreach':
-				return new \Smarty\Compile\ForeachTag();
-			case 'foreachelse':
-				return new \Smarty\Compile\ForeachElse();
-			case 'foreachclose':
-				return new \Smarty\Compile\ForeachClose();
-			case 'forelse':
-				return new \Smarty\Compile\ForElse();
-			case 'forclose':
-				return new \Smarty\Compile\ForClose();
-			case 'function':
-				return new \Smarty\Compile\FunctionTag();
-			case 'functionclose':
-				return new \Smarty\Compile\FunctionClose();
-			case 'if':
-				return new \Smarty\Compile\IfTag();
-			case 'else':
-				return new \Smarty\Compile\ElseTag();
-			case 'elseif':
-				return new \Smarty\Compile\ElseIfTag();
-			case 'ifclose':
-				return new \Smarty\Compile\IfClose();
-			case 'include':
-				return new \Smarty\Compile\IncludeTag();
-			case 'insert':
-				return new \Smarty\Compile\Inser();
-			case 'ldelim':
-				return new \Smarty\Compile\Ldelim();
-			case 'rdelim':
-				return new \Smarty\Compile\Rdelim();
-			case 'make_nocache':
-				return new \Smarty\Compile\MakeNocache();
-			case 'nocache':
-				return new \Smarty\Compile\Nocache();
-			case 'nocacheclose':
-				return new \Smarty\Compile\NocacheClose();
-			case 'parent':
-				return new \Smarty\Compile\ParentTag();
-			case 'private_block_plugin':
-				return new \Smarty\Compile\PrivateBlockPlugin();
-			case 'private_function_plugin':
-				return new \Smarty\Compile\PrivateFunctionPlugin();
-			case 'private_modifier':
-				return new \Smarty\Compile\PrivateModifier();
-			case 'private_object_function':
-				return new \Smarty\Compile\PrivateObjectFunction();
-			case 'private_object_block_function':
-				return new \Smarty\Compile\PrivateObjectBlockFunction();
-			case 'private_print_expression':
-				return new \Smarty\Compile\PrivatePrintExpression();
-			case 'private_registered_function':
-				return new \Smarty\Compile\PrivateRegisteredFunction();
-			case 'private_special_variable':
-				return new \Smarty\Compile\PrivateSpecialVariable();
-			case 'section':
-				return new \Smarty\Compile\Section();
-			case 'sectionelse':
-				return new \Smarty\Compile\SectionElse();
-			case 'sectionclose':
-				return new \Smarty\Compile\SectionClose();
-			case 'setfilter':
-				return new \Smarty\Compile\Setfilter();
-			case 'setfilterclose':
-				return new \Smarty\Compile\SetfilterClose();
-			case 'while':
-				return new \Smarty\Compile\WhileTag();
-			case 'whileclose':
-				return new \Smarty\Compile\WhileClose();
+		foreach ($this->smarty->getExtensions() as $extension) {
+			if ($tag = $extension->getTagCompiler($tag)) {
+				return $tag;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * lazy loads internal compile plugin for modifier compile objects cached for reuse.
+	 *
+	 * @param string $modifier tag name
+	 *
+	 * @return bool|\Smarty\Compile\Modifier\Base tag compiler object or false if not found or untrusted by security policy
+	 */
+	public function getModifierCompiler($modifier) {
+
+		if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->isTrustedModifier($modifier, $this)) {
+			return false;
+		}
+
+		foreach ($this->smarty->getExtensions() as $extension) {
+			if ($modifierCompiler = $extension->getModifierCompiler($modifier)) {
+				return $modifierCompiler;
+			}
 		}
 
 		return false;

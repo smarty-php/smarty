@@ -2,6 +2,8 @@
 
 namespace Smarty\Resource;
 
+use Smarty\Smarty;
+
 /**
  * Smarty Resource Plugin
  *
@@ -28,14 +30,14 @@ abstract class BasePlugin
      *
      * @var array
      */
-    public static $sysplugins = array(
-        'file'    => File::class,
-        'string'  => String::class,
+    public static $sysplugins = [
+        'file'    => FilePlugin::class,
+        'string'  => StringPlugin::class,
         'extends' => ExtendsPlugin::class,
-        'stream'  => Stream::class,
+        'stream'  => StreamPlugin::class,
         'eval'    => StringEval::class,
-        'php'     => Php::class,
-    );
+        'php'     => PhpPlugin::class,
+    ];
 
     /**
      * Source is bypassing compiler
@@ -67,7 +69,7 @@ abstract class BasePlugin
      * @return BasePlugin Resource Handler
      *@throws \Smarty\Exception
      */
-    public static function load(\Smarty $smarty, $type)
+    public static function load(Smarty $smarty, $type)
     {
         // try smarty's cache
         if (isset($smarty->_resource_handlers[ $type ])) {
@@ -79,7 +81,7 @@ abstract class BasePlugin
         }
         // try sysplugins dir
         if (isset(self::$sysplugins[ $type ])) {
-            $_resource_class = 'Smarty_Internal_Resource_' . \smarty_ucfirst_ascii($type);
+            $_resource_class = self::$sysplugins[ $type ];
             return $smarty->_resource_handlers[ $type ] = new $_resource_class();
         }
         // try plugins dir
@@ -212,13 +214,13 @@ abstract class BasePlugin
     /**
      * modify resource_name according to resource handlers specifications
      *
-     * @param \Smarty  $smarty        Smarty instance
+     * @param Smarty  $smarty        Smarty instance
      * @param string  $resource_name resource_name to make unique
      * @param boolean $isConfig      flag for config resource
      *
      * @return string unique resource name
      */
-    public function buildUniqueResourceName(\Smarty $smarty, $resource_name, $isConfig = false)
+    public function buildUniqueResourceName(Smarty $smarty, $resource_name, $isConfig = false)
     {
         if ($isConfig) {
             if (!isset($smarty->_joined_config_dir)) {

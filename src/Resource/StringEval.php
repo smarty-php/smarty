@@ -2,6 +2,8 @@
 
 namespace Smarty\Resource;
 
+use Smarty\Smarty;
+
 /**
  * Smarty Internal Plugin Resource Eval
  *
@@ -19,7 +21,7 @@ namespace Smarty\Resource;
  * @package    Smarty
  * @subpackage TemplateResources
  */
-class StringEval extends Recompiled
+class StringEval extends RecompiledPlugin
 {
     /**
      * populate Source Object with meta data from Resource
@@ -72,13 +74,13 @@ class StringEval extends Recompiled
     /**
      * modify resource_name according to resource handlers specifications
      *
-     * @param \Smarty  $smarty        Smarty instance
+     * @param Smarty  $smarty        Smarty instance
      * @param string  $resource_name resource_name to make unique
      * @param boolean $isConfig      flag for config resource
      *
      * @return string unique resource name
      */
-    public function buildUniqueResourceName(\Smarty $smarty, $resource_name, $isConfig = false)
+    public function buildUniqueResourceName(Smarty $smarty, $resource_name, $isConfig = false)
     {
         return get_class($this) . '#' . $this->decode($resource_name);
     }

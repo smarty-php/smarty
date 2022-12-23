@@ -167,7 +167,7 @@ class Template extends TemplateBase {
 			$smarty->security_policy->registerCallBacks($this);
 		}
 
-		$this->codeFrameCompiler = new Smarty\Compiler\CodeFrame($this);
+		$this->codeFrameCompiler = new \Smarty\Compiler\CodeFrame($this);
 	}
 
 	/**

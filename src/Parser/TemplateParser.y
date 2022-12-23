@@ -1,8 +1,3 @@
-
-namespace Smarty\Parser;
-
-use \Smarty\Lexer\Configfile as Lexer;
-
 /*
  * This file is part of Smarty.
  *
@@ -14,6 +9,18 @@ use \Smarty\Lexer\Configfile as Lexer;
 %stack_size 500
 %name TP_
 %declare_class {
+
+namespace Smarty\Parser;
+
+use \Smarty\Lexer\TemplateLexer as Lexer;
+use \Smarty\ParseTree\Template as TemplateParseTree;
+use \Smarty\Compiler\Template as TemplateCompiler;
+use \Smarty\ParseTree\Code;
+use \Smarty\ParseTree\Dq;
+use \Smarty\ParseTree\DqContent;
+use \Smarty\ParseTree\Tag;
+
+
 /**
 * Smarty Template Parser Class
 *
@@ -65,7 +72,7 @@ class TemplateParser
     /**
      * root parse tree buffer
      *
-     * @var \Smarty\ParseTree\Template
+     * @var TemplateParseTree
      */
     public $root_buffer;
 
@@ -99,7 +106,7 @@ class TemplateParser
     /**
      * compiler object
      *
-     * @var \Smarty\Compiler\Template
+     * @var TemplateCompiler
      */
     public $compiler = null;
 
@@ -149,16 +156,16 @@ class TemplateParser
      * constructor
      *
      * @param Lexer        $lex
-     * @param \Smarty\Compiler\Template $compiler
+     * @param TemplateCompiler $compiler
      */
-    public function __construct(Lexer $lex, \Smarty\Compiler\Template $compiler)
+    public function __construct(Lexer $lex, TemplateCompiler $compiler)
     {
         $this->lex = $lex;
         $this->compiler = $compiler;
         $this->template = $this->compiler->template;
         $this->smarty = $this->template->smarty;
-        $this->security = isset($this->smarty->security_policy) ? $this->smarty->security_policy : false;
-        $this->current_buffer = $this->root_buffer = new \Smarty\ParseTree\Template();
+        $this->security = $this->smarty->security_policy ?? false;
+        $this->current_buffer = $this->root_buffer = new TemplateParseTree();
     }
 
      /**
@@ -168,7 +175,7 @@ class TemplateParser
      */
     public function insertPhpCode($code)
     {
-        $this->current_buffer->append_subtree($this, new \Smarty\ParseTree\Tag($this, $code));
+        $this->current_buffer->append_subtree($this, new Tag($this, $code));
     }
 
     /**
@@ -190,7 +197,7 @@ class TemplateParser
      *
      * @param string $code
      *
-     * @return \Smarty\ParseTree\Tag
+     * @return Tag
      */
     public function mergePrefixCode($code)
     {
@@ -200,7 +207,7 @@ class TemplateParser
         }
         $this->compiler->prefix_code = array();
         $tmp .= $code;
-        return new \Smarty\ParseTree\Tag($this, $this->compiler->processNocacheCode($tmp, true));
+        return new Tag($this, $this->compiler->processNocacheCode($tmp, true));
     }
 
 }
@@ -1241,34 +1248,34 @@ doublequoted(res)          ::= doublequoted(o1) doublequotedcontent(o2). {
 }
 
 doublequoted(res)          ::= doublequotedcontent(o). {
-    res = new \Smarty\ParseTree\Dq($this, o);
+    res = new Dq($this, o);
 }
 
 doublequotedcontent(res)           ::=  BACKTICK variable(v) BACKTICK. {
-    res = new \Smarty\ParseTree\Code('(string)'.v);
+    res = new Code('(string)'.v);
 }
 
 doublequotedcontent(res)           ::=  BACKTICK expr(e) BACKTICK. {
-    res = new \Smarty\ParseTree\Code('(string)('.e.')');
+    res = new Code('(string)('.e.')');
 }
 
 doublequotedcontent(res)           ::=  DOLLARID(i). {
-    res = new \Smarty\ParseTree\Code('(string)$_smarty_tpl->tpl_vars[\''. substr(i,1) .'\']->value');
+    res = new Code('(string)$_smarty_tpl->tpl_vars[\''. substr(i,1) .'\']->value');
 }
 
 doublequotedcontent(res)           ::=  LDEL variable(v) RDEL. {
-    res = new \Smarty\ParseTree\Code('(string)'.v);
+    res = new Code('(string)'.v);
 }
 
 doublequotedcontent(res)           ::=  LDEL expr(e) RDEL. {
-    res = new \Smarty\ParseTree\Code('(string)('.e.')');
+    res = new Code('(string)('.e.')');
 }
 
 doublequotedcontent(res)     ::=  smartytag(st). {
-    res = new \Smarty\ParseTree\Tag($this, st);
+    res = new Tag($this, st);
 }
 
 doublequotedcontent(res)           ::=  TEXT(o). {
-    res = new \Smarty\ParseTree\DqContent(o);
+    res = new DqContent(o);
 }
 
