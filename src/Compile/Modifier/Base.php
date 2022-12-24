@@ -4,7 +4,7 @@ namespace Smarty\Compile\Modifier;
 
 use Smarty\Exception;
 
-abstract class Base {
+abstract class Base implements ModifierCompilerInterface {
 
 	/**
 	 * Compiles code for the modifier

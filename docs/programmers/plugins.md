@@ -13,7 +13,6 @@ Extending Smarty With Plugins {#plugins}
 - [Prefilters/Postfilters](./plugins/plugins-prefilters-postfilters.md)
 - [Output Filters](./plugins/plugins-outputfilters.md) 
 - [Resources](./plugins/plugins-resources.md)
-- [Inserts](./plugins/plugins-inserts.md)
 
 Version 2.0 introduced the plugin architecture that is used for almost
 all the customizable functionality of Smarty. This includes:

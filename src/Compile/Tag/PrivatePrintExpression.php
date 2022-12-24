@@ -111,39 +111,15 @@ class PrivatePrintExpression extends Base {
 					}
 				}
 				foreach ($compiler->variable_filters as $filter) {
-					if (count($filter) === 1
-						&& ($result = $this->compile_variable_filter($compiler, $filter[0], $output)) !== false
-					) {
-						$output = $result;
-					} else {
-						$output = $compiler->compileTag(
-							'private_modifier',
-							[],
-							['modifierlist' => [$filter], 'value' => $output]
-						);
-					}
+					$output = $compiler->compileTag(
+						'private_modifier',
+						[],
+						['modifierlist' => [$filter], 'value' => $output]
+					);
 				}
 			}
 			$output = "<?php echo {$output};?>\n";
 		}
 		return $output;
-	}
-
-	/**
-	 * @param \Smarty\Compiler\Template $compiler compiler object
-	 * @param string $name name of variable filter
-	 * @param string $output embedded output
-	 *
-	 * @return string
-	 * @throws \Smarty\Exception
-	 */
-	private function compile_variable_filter(\Smarty\Compiler\Template $compiler, $name, $output) {
-		$function = $compiler->getPlugin($name, 'variablefilter');
-		if ($function) {
-			return "{$function}({$output},\$_smarty_tpl)";
-		} else {
-			// not found
-			return false;
-		}
 	}
 }

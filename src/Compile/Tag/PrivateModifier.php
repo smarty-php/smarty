@@ -43,7 +43,7 @@ class PrivateModifier extends Base {
 			if (isset($compiler->known_modifier_type[$modifier])) {
 				$modifier_types = [$compiler->known_modifier_type[$modifier]];
 			} else {
-				$modifier_types = [1, 2, 3, 4, 5, 6];
+				$modifier_types = [1, 2, 3, 4, 6];
 			}
 			foreach ($modifier_types as $type) {
 				switch ($type) {
@@ -97,22 +97,8 @@ class PrivateModifier extends Base {
 							break 2;
 						}
 						break;
-					case 5:
-						// PHP function
-						if (is_callable($modifier)) {
-							// check if modifier allowed
-							if (!is_object($compiler->smarty->security_policy)
-								|| $compiler->smarty->security_policy->isTrustedPhpModifier($modifier, $compiler)
-							) {
-								trigger_error('Using php-function "' . $modifier . '" as a modifier is deprecated and will be ' .
-									'removed in a future release. Use Smarty::registerPlugin to explicitly register ' .
-									'a custom modifier.', E_USER_DEPRECATED);
-								$output = "{$modifier}({$params})";
-							}
-							$compiler->known_modifier_type[$modifier] = $type;
-							break 2;
-						}
-						break;
+					// Case 5 was a direct call to a callable (usually PHP function).
+					// This was removed in Smarty v5 after being deprecated in 4.3.
 					case 6:
 						// default plugin handler
 						if (isset($compiler->default_handler_plugins[\Smarty\Smarty::PLUGIN_MODIFIER][$modifier])

@@ -211,7 +211,7 @@ class FilterTest extends PHPUnit_Smarty
     {
         $var = new VarFilter();
 
-        $this->smarty->registerFilter(\Smarty\Smarty::FILTER_VARIABLE, array($var, 'variablefilter'));
+        $this->smarty->registerFilter(\Smarty\Smarty::FILTER_VARIABLE, array($var, 'my_filter'));
         $tpl = $this->smarty->createTemplate('string:{$foo}');
         $tpl->assign('foo', 'bar');
         $this->assertEquals('var{$foo}bar', $this->smarty->fetch($tpl));
@@ -220,7 +220,7 @@ class FilterTest extends PHPUnit_Smarty
 
 Class VarFilter
 {
-    function variablefilter($input, $smarty)
+    function my_filter($input, $smarty)
     {
         return 'var{$foo}' . $input;
     }

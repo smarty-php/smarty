@@ -725,7 +725,7 @@ class Template {
 	 *
 	 * @param string $tag tag name
 	 *
-	 * @return bool|\Smarty\Compile\Tag\Base tag compiler object or false if not found or untrusted by security policy
+	 * @return bool|\Smarty\Compile\Tag\TagCompilerInterface tag compiler object or false if not found or untrusted by security policy
 	 */
 	public function getTagCompiler($tag) {
 
@@ -747,7 +747,7 @@ class Template {
 	 *
 	 * @param string $modifier tag name
 	 *
-	 * @return bool|\Smarty\Compile\Modifier\Base tag compiler object or false if not found or untrusted by security policy
+	 * @return bool|\Smarty\Compile\Modifier\ModifierCompilerInterface tag compiler object or false if not found or untrusted by security policy
 	 */
 	public function getModifierCompiler($modifier) {
 

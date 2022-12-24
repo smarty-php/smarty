@@ -10,7 +10,7 @@ namespace Smarty\Compile\Tag;
  * @package    Smarty
  * @subpackage Compiler
  */
-abstract class Base {
+abstract class Base implements TagCompilerInterface {
 
 	/**
 	 * Array of names of required attribute required by tag
