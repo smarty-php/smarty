@@ -10,6 +10,10 @@ interface ExtensionInterface {
 
 	public function getFunctionHandler(string $functionName): ?\Smarty\FunctionHandler\FunctionHandlerInterface;
 
+	public function getBlockHandler(string $blockTagName): ?\Smarty\FunctionHandler\BlockHandlerInterface;
+
 	public function getModifierCallback(string $modifierName);
+
+	public function getOutputFilters(): array;
 
 }

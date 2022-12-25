@@ -22,8 +22,7 @@ class WordWrapModifierCompiler extends Base {
 		if (!isset($params[ 3 ])) {
 			$params[ 3 ] = 'false';
 		}
-		$function = $compiler->getPlugin('mb_wordwrap', 'modifier');
-		return $function . '(' . $params[ 0 ] . ',' . $params[ 1 ] . ',' . $params[ 2 ] . ',' . $params[ 3 ] . ')';
+		return 'smarty_mb_wordwrap(' . $params[ 0 ] . ',' . $params[ 1 ] . ',' . $params[ 2 ] . ',' . $params[ 3 ] . ')';
 	}
 
 }
