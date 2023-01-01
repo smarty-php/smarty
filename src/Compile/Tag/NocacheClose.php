@@ -33,6 +33,7 @@ class NocacheClose extends Base {
 		[$compiler->nocache] = $this->closeTag($compiler, ['nocache']);
 		// this tag does not return compiled code
 		$compiler->has_code = false;
+		echo "has_code set to false in " . __METHOD__ . "\n";
 		return true;
 	}
 }

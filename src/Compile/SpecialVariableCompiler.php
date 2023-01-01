@@ -8,7 +8,14 @@
  * @author     Uwe Tews
  */
 
-namespace Smarty\Compile\Tag;
+namespace Smarty\Compile;
+
+use Smarty\Compile\Tag\Base;
+use Smarty\Compile\Tag\Capture;
+use Smarty\Compile\Tag\ForeachTag;
+use Smarty\Compile\Tag\Section;
+use Smarty\Compiler\Template;
+use Smarty\CompilerException;
 
 /**
  * Smarty Internal Plugin Compile special Smarty Variable Class
@@ -16,19 +23,24 @@ namespace Smarty\Compile\Tag;
  * @package    Smarty
  * @subpackage Compiler
  */
-class PrivateSpecialVariable extends Base {
+class SpecialVariableCompiler extends Base {
 
 	/**
 	 * Compiles code for the special $smarty variables
 	 *
 	 * @param array $args array with attributes from parser
-	 * @param \Smarty\Compiler\Template $compiler compiler object
-	 * @param                                       $parameter
+	 * @param Template $compiler compiler object
+	 * @param array $parameter
+	 * @param null $tag
+	 * @param null $function
 	 *
 	 * @return string compiled code
-	 * @throws \Smarty\CompilerException
+	 * @throws CompilerException
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+
+		$compiler->has_code = true;
+
 		$_index = preg_split("/\]\[/", substr($parameter, 1, strlen($parameter) - 2));
 		$variable = smarty_strtolower_ascii($compiler->getId($_index[0]));
 		if ($variable === false) {

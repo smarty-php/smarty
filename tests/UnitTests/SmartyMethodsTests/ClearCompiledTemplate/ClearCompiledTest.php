@@ -71,9 +71,6 @@ class ClearCompiledTest extends PHPUnit_Smarty
                 $this->_files[$template . '#' . $compile_id] = substr($tpl->compiled->filepath, $directory_length);
             }
         }
-        // TODO
-        //Smarty::$_resource_cache = array();
-        //$this->getSmartyObj()->_cache['template_objects'] = array();
 
         return $this->_files;
     }

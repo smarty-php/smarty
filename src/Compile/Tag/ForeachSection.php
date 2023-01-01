@@ -172,13 +172,7 @@ abstract class ForeachSection extends Base {
 				$_content = $nextCompiler->template->source->getContent();
 				if ($_content !== '') {
 					// run pre filter if required
-					if (isset($nextCompiler->smarty->registered_filters['pre'])) {
-						$_content = $nextCompiler->smarty->runFilter(
-							'pre',
-							$_content,
-							$nextCompiler->template
-						);
-					}
+					$_content = $nextCompiler->smarty->runPreFilters($_content,	$nextCompiler->template);
 					$this->matchProperty($_content);
 				}
 			}

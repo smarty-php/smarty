@@ -22,7 +22,7 @@ class Call extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	public $required_attributes = ['name'];
 
@@ -30,7 +30,7 @@ class Call extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	public $shorttag_order = ['name'];
 
@@ -38,7 +38,7 @@ class Call extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	public $optional_attributes = ['_any'];
 

@@ -181,7 +181,7 @@ class Compiled extends ResourceBase {
 			// call compiler
 			$_template->loadCompiler();
 			$this->write($_template, $_template->compiler->compileTemplate($_template));
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			// restore old timestamp in case of error
 			if ($saved_timestamp && is_file($this->filepath)) {
 				touch($this->filepath, $saved_timestamp);

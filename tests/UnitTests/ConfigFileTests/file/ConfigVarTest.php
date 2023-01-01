@@ -387,7 +387,7 @@ class ConfigVarTest extends PHPUnit_Smarty
 
     public function testConfigResourceDb4()
     {
-        $this->smarty->addPluginsDir(__DIR__ . "/PHPunitplugins/");
+        $this->smarty->addPluginsDir(__DIR__ . "/../../ResourceTests/ResourcePlugins/PHPunitplugins/");
         $this->smarty->configLoad('db4:foo.conf');
         $this->assertEquals("bar", $this->smarty->fetch('foo.tpl'));
     }

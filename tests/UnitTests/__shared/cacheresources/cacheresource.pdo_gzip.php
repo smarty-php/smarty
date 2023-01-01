@@ -1,5 +1,6 @@
 <?php
-require_once 'cacheresource.pdo.php';
+
+require_once __DIR__ . '/cacheresource.pdo.php';
 
 /**
  * PDO Cache Handler with GZIP support

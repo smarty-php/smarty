@@ -40,6 +40,10 @@ abstract class Base implements TagCompilerInterface {
 	 * @var array
 	 */
 	protected $option_flags = ['nocache'];
+	/**
+	 * @var bool
+	 */
+	protected $cacheable = true;
 
 	/**
 	 * Mapping array for boolean option value
@@ -54,6 +58,10 @@ abstract class Base implements TagCompilerInterface {
 	 * @var array
 	 */
 	protected $mapCache = [];
+
+	public function isCacheable(): bool {
+		return $this->cacheable;
+	}
 
 	/**
 	 * This function checks if the attributes passed are valid
@@ -201,7 +209,7 @@ abstract class Base implements TagCompilerInterface {
 	 * @param \Smarty\Compiler\Template $compiler  compiler object
 	 * @param array                                 $parameter array with compilation parameter
 	 *
-	 * @return string compiled code
+	 * @return bool|string compiled code or true if no code has been compiled
 	 * @throws \Smarty\CompilerException
 	 */
 	abstract public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null);

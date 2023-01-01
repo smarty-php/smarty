@@ -36,7 +36,7 @@ class CommentsTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "testComments_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->template_dir = './templates_tmp';
+        $this->smarty->setTemplateDir('./templates_tmp');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
                             $file);

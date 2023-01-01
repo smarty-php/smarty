@@ -5,11 +5,11 @@ use Smarty\Compile\Tag\Base;
 
 class smarty_compiler_testclose extends Base
 {
-    public function execute($args, $compiler)
-    {
 
-        $this->closeTag($compiler, 'test');
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 
-        return '';
-    }
+		$this->closeTag($compiler, 'test');
+
+		return '';
+	}
 }

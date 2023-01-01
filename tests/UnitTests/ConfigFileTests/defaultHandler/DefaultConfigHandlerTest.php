@@ -6,6 +6,8 @@
  * @author  Uwe Tews
  */
 
+use Smarty\Smarty;
+
 /**
  * class for default config handler test
  *
@@ -117,7 +119,7 @@ class DefaultConfigHandlerTest extends PHPUnit_Smarty
  *
  * @return bool
  */
-function configHandlerData($resource_type, $resource_name, &$config_source, &$config_timestamp, Smarty $smarty)
+function configHandlerData($resource_type, $resource_name, &$config_source, &$config_timestamp, \Smarty\Smarty $smarty)
 {
     if ($resource_name !== 'foo.conf') {
         return false;
@@ -140,7 +142,7 @@ function configHandlerData($resource_type, $resource_name, &$config_source, &$co
  *
  * @return string
  */
-function configHandlerFile($resource_type, $resource_name, &$config_source, &$config_timestamp, Smarty $smarty)
+function configHandlerFile($resource_type, $resource_name, &$config_source, &$config_timestamp, \Smarty\Smarty $smarty)
 {
     if ($resource_name !== 'foo.conf') {
         return 'no.conf';
@@ -160,7 +162,7 @@ function configHandlerFile($resource_type, $resource_name, &$config_source, &$co
  *
  * @return bool
  */
-function configHandlerFalse($resource_type, $resource_name, &$config_source, &$config_timestamp, Smarty $smarty)
+function configHandlerFalse($resource_type, $resource_name, &$config_source, &$config_timestamp, \Smarty\Smarty $smarty)
 {
     return false;
 }

@@ -22,7 +22,7 @@ class MakeNocache extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	protected $option_flags = [];
 

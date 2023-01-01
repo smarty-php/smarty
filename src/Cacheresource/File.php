@@ -2,6 +2,8 @@
 
 namespace Smarty\Cacheresource;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Template\Cached;
@@ -206,7 +208,7 @@ class File extends Base
 	    if (isset($resource_name)) {
 		    $_save_stat = $smarty->caching;
 		    $smarty->caching = \Smarty\Smarty::CACHING_LIFETIME_CURRENT;
-		    $tpl = new $smarty->template_class($resource_name, $smarty);
+		    $tpl = new \Smarty\Template($resource_name, $smarty);
 		    $smarty->caching = $_save_stat;
 		    // remove from template cache
 		    $tpl->source; // have the template registered before unset()

@@ -6,8 +6,9 @@ class BCPluginWrapper extends Base {
 
 	private $callback;
 
-	public function __construct($callback) {
+	public function __construct($callback, bool $cacheable = true) {
 		$this->callback = $callback;
+		$this->cacheable = $cacheable;
 	}
 
 	/**

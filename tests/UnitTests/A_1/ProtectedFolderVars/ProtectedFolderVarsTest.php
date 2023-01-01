@@ -3,6 +3,8 @@
  * This file is part of the Smarty PHPUnit tests.
  */
 
+use Smarty\Smarty;
+
 /**
  * class for protected $template_dir, $compile_dir, $cache_dir, $config_dir, $plugins_dir property tests
  *
@@ -112,51 +114,6 @@ class ProtectedFolderVarsTest extends PHPUnit_Smarty
         $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR, $d[ 0 ]);
     }
 
-    /*
-    * plugins_dir
-    */
-
-    public function testPluginDirDirectRelative()
-    {
-        $s = new Smarty();
-        $s->setPluginsDir('./foo');
-        $d = $s->getPluginsDir();
-        $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR, $d[ 0 ]);
-    }
-
-    public function testPluginDirDirectRelativeArray()
-    {
-        $s = new Smarty();
-        $s->setPluginsDir(array('./foo', './bar/'));
-        $d = $s->getPluginsDir();
-        $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR, $d[ 0 ]);
-        $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR, $d[ 1 ]);
-    }
-
-    public function testPluginDirDirectRelativeArrayAdd()
-    {
-        $s = new Smarty();
-        $s->setPluginsDir('./foo');
-        $s->addPluginsDir('./bar/');
-        $d = $s->getPluginsDir();
-        $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR, $d[ 0 ]);
-        $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR, $d[ 1 ]);
-    }
-
-    public function testPluginDirDirectRelativeExtends()
-    {
-        $s = new FolderT();
-        $d = $s->getPluginsDir();
-        $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR . 'plug' . DIRECTORY_SEPARATOR, $d[ 0 ]);
-    }
-
-    public function testPluginDirDirectRelativeExtends2()
-    {
-        $s = new FolderT();
-        $s->setPluginsDir('./bar');
-        $d = $s->getPluginsDir();
-        $this->assertEquals(__DIR__ . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR, $d[ 0 ]);
-    }
     /*
      * compile_dir
      */

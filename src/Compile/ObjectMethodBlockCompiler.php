@@ -8,7 +8,7 @@
  * @author     Uwe Tews
  */
 
-namespace Smarty\Compile\Tag;
+namespace Smarty\Compile;
 
 use Smarty\Compiler\Template;
 
@@ -18,7 +18,7 @@ use Smarty\Compiler\Template;
  * @package    Smarty
  * @subpackage Compiler
  */
-class PrivateObjectBlockFunction extends PrivateBlockPlugin {
+class ObjectMethodBlockCompiler extends BlockCompiler {
 
 	/**
 	 * Setup callback and parameter array

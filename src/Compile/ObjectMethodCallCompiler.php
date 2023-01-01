@@ -8,7 +8,9 @@
  * @author     Uwe Tews
  */
 
-namespace Smarty\Compile\Tag;
+namespace Smarty\Compile;
+
+use Smarty\Compile\Tag\Base;
 
 /**
  * Smarty Internal Plugin Compile Object Function Class
@@ -16,7 +18,7 @@ namespace Smarty\Compile\Tag;
  * @package    Smarty
  * @subpackage Compiler
  */
-class PrivateObjectFunction extends Base {
+class ObjectMethodCallCompiler extends Base {
 
 	/**
 	 * Attribute definition: Overwrites base class.
@@ -71,11 +73,7 @@ class PrivateObjectFunction extends Base {
 			$output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$function}";
 		}
 		if (!empty($parameter['modifierlist'])) {
-			$output = $compiler->compileTag(
-				'private_modifier',
-				[],
-				['modifierlist' => $parameter['modifierlist'], 'value' => $output]
-			);
+			$output = $compiler->compileModifier($parameter['modifierlist'], $output);
 		}
 		if (empty($_assign)) {
 			return "<?php echo {$output};?>\n";

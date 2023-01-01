@@ -4,7 +4,7 @@ use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Template\Cached;
 
-require_once SMARTY_DIR . '../demo/plugins/cacheresource.apc.php';
+require_once __DIR__ . '/../../../__shared/cacheresources/cacheresource.apc.php';
 
 class Smarty_CacheResource_Apctest extends My_CacheResource_Apc
 {

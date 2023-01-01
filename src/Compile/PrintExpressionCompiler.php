@@ -8,7 +8,9 @@
  * @author     Uwe Tews
  */
 
-namespace Smarty\Compile\Tag;
+namespace Smarty\Compile;
+
+use Smarty\Compile\Tag\Base;
 
 /**
  * Smarty Internal Plugin Compile Print Expression Class
@@ -16,13 +18,13 @@ namespace Smarty\Compile\Tag;
  * @package    Smarty
  * @subpackage Compiler
  */
-class PrivatePrintExpression extends Base {
+class PrintExpressionCompiler extends Base {
 
 	/**
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	public $optional_attributes = ['assign'];
 
@@ -30,7 +32,7 @@ class PrivatePrintExpression extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	protected $option_flags = ['nocache', 'nofilter'];
 
@@ -45,19 +47,15 @@ class PrivatePrintExpression extends Base {
 	 * @throws \Smarty\Exception
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+
+		$compiler->has_code = true;
+
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		$output = $parameter['value'];
 		// tag modifier
 		if (!empty($parameter['modifierlist'])) {
-			$output = $compiler->compileTag(
-				'private_modifier',
-				[],
-				[
-					'modifierlist' => $parameter['modifierlist'],
-					'value' => $output,
-				]
-			);
+			$output = $compiler->compileModifier($parameter['modifierlist'], $output);
 		}
 		if (isset($_attr['assign'])) {
 			// assign output to variable
@@ -83,14 +81,7 @@ class PrivatePrintExpression extends Base {
 						}
 						$compiler->default_modifier_list = $modifierlist;
 					}
-					$output = $compiler->compileTag(
-						'private_modifier',
-						[],
-						[
-							'modifierlist' => $compiler->default_modifier_list,
-							'value' => $output,
-						]
-					);
+					$output = $compiler->compileModifier($compiler->default_modifier_list, $output);
 				}
 				// autoescape html
 				if ($compiler->template->smarty->escape_html) {
@@ -111,11 +102,13 @@ class PrivatePrintExpression extends Base {
 					}
 				}
 				foreach ($compiler->variable_filters as $filter) {
-					$output = $compiler->compileTag(
-						'private_modifier',
-						[],
-						['modifierlist' => [$filter], 'value' => $output]
-					);
+					if (count($filter) === 1
+						&& ($result = $this->compile_variable_filter($compiler, $filter[0], $output)) !== false
+					) {
+						$output = $result;
+					} else {
+						$output = $compiler->compileModifier([$filter], $output);
+					}
 				}
 			}
 			$output = "<?php echo {$output};?>\n";

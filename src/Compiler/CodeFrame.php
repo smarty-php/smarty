@@ -58,7 +58,7 @@ class CodeFrame
 	        str_replace('*/', '* /', $this->_template->source->filepath)
         );
         $output .= "/* @var \\Smarty\\Template \$_smarty_tpl */\n";
-        $dec = "\$_smarty_tpl->_decodeProperties(\$_smarty_tpl, " . var_export($properties, true) . ',' .
+        $dec = "\$_smarty_tpl->isFresh(\$_smarty_tpl, " . var_export($properties, true) . ',' .
                ($cache ? 'true' : 'false') . ')';
         $output .= "if ({$dec}) {\n";
         $output .= "function {$properties['unifunc']} (\\Smarty\\Template \$_smarty_tpl) {\n";

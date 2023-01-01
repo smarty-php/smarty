@@ -30,13 +30,13 @@ class MbSplitEncodingIssue549Test extends PHPUnit_Smarty
 
 	public function setUp(): void
     {
-        $this->charset = \Smarty::$_CHARSET;
+        $this->charset = \Smarty\Smarty::$_CHARSET;
         $this->setUpSmarty(__DIR__);
     }
 
     protected function tearDown(): void
     {
-        \Smarty::$_CHARSET = $this->charset ?: \Smarty::$_CHARSET;
+        \Smarty\Smarty::$_CHARSET = $this->charset ?: \Smarty\Smarty::$_CHARSET;
         $this->cleanDirs();
     }
 
@@ -65,7 +65,7 @@ class MbSplitEncodingIssue549Test extends PHPUnit_Smarty
         \extract($data, \EXTR_SKIP);
 
         \mb_regex_encoding($mb_regex_encoding);
-        \Smarty::$_CHARSET = $mb_int_encoding;
+        \Smarty\Smarty::$_CHARSET = $mb_int_encoding;
         $this->assertEquals($result, $this->smarty->fetch("string:{\"$subject\"|replace:\"$pattern\":\"$replacement\"}"));
     }
 

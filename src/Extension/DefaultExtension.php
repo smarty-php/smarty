@@ -2,64 +2,7 @@
 
 namespace Smarty\Extension;
 
-class Core extends Base {
-	public function getTagCompiler(string $tag): ?\Smarty\Compile\Tag\TagCompilerInterface {
-		switch ($tag) {
-			case 'append': return new \Smarty\Compile\Tag\Append();
-			case 'assign': return new \Smarty\Compile\Tag\Assign();
-			case 'block': return new \Smarty\Compile\Tag\Block();
-			case 'blockclose': return new \Smarty\Compile\Tag\BlockClose();
-			case 'break': return new \Smarty\Compile\Tag\BreakTag();
-			case 'call': return new \Smarty\Compile\Tag\Call();
-			case 'capture': return new \Smarty\Compile\Tag\Capture();
-			case 'captureclose': return new \Smarty\Compile\Tag\CaptureClose();
-			case 'child': return new \Smarty\Compile\Tag\Child();
-			case 'block_child': return new \Smarty\Compile\Tag\BlockChild();
-			case 'block_parent': return new \Smarty\Compile\Tag\BlockParent();
-			case 'config_load': return new \Smarty\Compile\Tag\ConfigLoad();
-			case 'continue': return new \Smarty\Compile\Tag\ContinueTag();
-			case 'debug': return new \Smarty\Compile\Tag\Debug();
-			case 'eval': return new \Smarty\Compile\Tag\EvalTag();
-			case 'extends': return new \Smarty\Compile\Tag\ExtendsTag();
-			case 'for': return new \Smarty\Compile\Tag\ForTag();
-			case 'foreach': return new \Smarty\Compile\Tag\ForeachTag();
-			case 'foreachelse': return new \Smarty\Compile\Tag\ForeachElse();
-			case 'foreachclose': return new \Smarty\Compile\Tag\ForeachClose();
-			case 'forelse': return new \Smarty\Compile\Tag\ForElse();
-			case 'forclose': return new \Smarty\Compile\Tag\ForClose();
-			case 'function': return new \Smarty\Compile\Tag\FunctionTag();
-			case 'functionclose': return new \Smarty\Compile\Tag\FunctionClose();
-			case 'if': return new \Smarty\Compile\Tag\IfTag();
-			case 'else': return new \Smarty\Compile\Tag\ElseTag();
-			case 'elseif': return new \Smarty\Compile\Tag\ElseIfTag();
-			case 'ifclose': return new \Smarty\Compile\Tag\IfClose();
-			case 'include': return new \Smarty\Compile\Tag\IncludeTag();
-			case 'insert': return new \Smarty\Compile\Inser();
-			case 'ldelim': return new \Smarty\Compile\Tag\Ldelim();
-			case 'rdelim': return new \Smarty\Compile\Tag\Rdelim();
-			case 'make_nocache': return new \Smarty\Compile\Tag\MakeNocache();
-			case 'nocache': return new \Smarty\Compile\Tag\Nocache();
-			case 'nocacheclose': return new \Smarty\Compile\Tag\NocacheClose();
-			case 'parent': return new \Smarty\Compile\Tag\ParentTag();
-			case 'private_block_plugin': return new \Smarty\Compile\Tag\PrivateBlockPlugin();
-			case 'private_function_plugin': return new \Smarty\Compile\Tag\PrivateFunctionPlugin();
-			case 'private_modifier': return new \Smarty\Compile\Tag\PrivateModifier();
-			case 'private_object_function': return new \Smarty\Compile\Tag\PrivateObjectFunction();
-			case 'private_object_block_function': return new \Smarty\Compile\Tag\PrivateObjectBlockFunction();
-			case 'private_print_expression': return new \Smarty\Compile\Tag\PrivatePrintExpression();
-			case 'private_registered_function': return new \Smarty\Compile\Tag\PrivateRegisteredFunction();
-			case 'private_special_variable': return new \Smarty\Compile\Tag\PrivateSpecialVariable();
-			case 'section': return new \Smarty\Compile\Tag\Section();
-			case 'sectionelse': return new \Smarty\Compile\Tag\SectionElse();
-			case 'sectionclose': return new \Smarty\Compile\Tag\SectionClose();
-			case 'setfilter': return new \Smarty\Compile\Tag\Setfilter();
-			case 'setfilterclose': return new \Smarty\Compile\Tag\SetfilterClose();
-			case 'while': return new \Smarty\Compile\Tag\WhileTag();
-			case 'whileclose': return new \Smarty\Compile\Tag\WhileClose();
-		}
-		return null;
-	}
-
+class DefaultExtension extends Base {
 	public function getModifierCompiler(string $modifier): ?\Smarty\Compile\Modifier\ModifierCompilerInterface {
 		switch ($modifier) {
 			case 'cat': return new \Smarty\Compile\Modifier\CatModifierCompiler();
@@ -67,7 +10,7 @@ class Core extends Base {
 			case 'count_paragraphs': return new \Smarty\Compile\Modifier\CountParagraphsModifierCompiler();
 			case 'count_sentences': return new \Smarty\Compile\Modifier\CountSentencesModifierCompiler();
 			case 'count_words': return new \Smarty\Compile\Modifier\CountWordsModifierCompiler();
-			case 'default': return new \Smarty\Compile\DefaultModifierCompiler();
+			case 'default': return new \Smarty\Compile\Modifier\DefaultModifierCompiler();
 			case 'escape': return new \Smarty\Compile\Modifier\EscapeModifierCompiler();
 			case 'from_charset': return new \Smarty\Compile\Modifier\FromCharsetModifierCompiler();
 			case 'indent': return new \Smarty\Compile\Modifier\IndentModifierCompiler();
@@ -90,7 +33,6 @@ class Core extends Base {
 
 	public function getModifierCallback(string $modifierName) {
 		switch ($modifierName) {
-			case 'spacify': return [$this, 'smarty_modifier_spacify'];
 			case 'capitalize': return [$this, 'smarty_modifier_capitalize'];
 			case 'count': return [$this, 'smarty_modifier_count'];
 			case 'date_format': return [$this, 'smarty_modifier_date_format'];
@@ -101,6 +43,7 @@ class Core extends Base {
 			case 'number_format': return [$this, 'smarty_modifier_number_format'];
 			case 'regex_replace': return [$this, 'smarty_modifier_regex_replace'];
 			case 'replace': return [$this, 'smarty_modifier_replace'];
+			case 'spacify': return [$this, 'smarty_modifier_spacify'];
 			case 'truncate': return [$this, 'smarty_modifier_truncate'];
 		}
 		return null;
@@ -124,7 +67,7 @@ class Core extends Base {
 		return null;
 	}
 
-	public function getBlockHandler(string $blockTagName): ?\Smarty\FunctionHandler\BlockHandlerInterface {
+	public function getBlockHandler(string $blockTagName): ?\Smarty\BlockHandler\BlockHandlerInterface {
 		switch ($blockTagName) {
 			case 'textformat': return new \Smarty\BlockHandler\TextFormat();
 		}
@@ -151,7 +94,7 @@ class Core extends Base {
 	 *
 	 * @return string
 	 */
-	private function smarty_modifier_spacify($string, $spacify_char = ' ')
+	public function smarty_modifier_spacify($string, $spacify_char = ' ')
 	{
 		// well… what about charsets besides latin and UTF-8?
 		return implode($spacify_char, preg_split('//' . \Smarty\Smarty::$_UTF8_MODIFIER, $string, -1, PREG_SPLIT_NO_EMPTY));
@@ -172,7 +115,7 @@ class Core extends Base {
 	 * @author Monte Ohrt <monte at ohrt dot com>
 	 * @author Rodney Rehm
 	 */
-	private function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = false)
+	public function smarty_modifier_capitalize($string, $uc_digits = false, $lc_rest = false)
 	{
 		$string = (string) $string;
 
@@ -239,7 +182,7 @@ class Core extends Base {
 	 *
 	 * @return int
 	 */
-	private function smarty_modifier_count($arrayOrObject, $mode = 0) {
+	public function smarty_modifier_count($arrayOrObject, $mode = 0) {
 		/*
 		 * @see https://www.php.net/count
 		 * > Prior to PHP 8.0.0, if the parameter was neither an array nor an object that implements the Countable interface,
@@ -275,7 +218,7 @@ class Core extends Base {
 	 * @return string |void
 	 * @uses   smarty_make_timestamp()
 	 */
-	private function smarty_modifier_date_format($string, $format = null, $default_date = '', $formatter = 'auto')
+	public function smarty_modifier_date_format($string, $format = null, $default_date = '', $formatter = 'auto')
 	{
 		if ($format === null) {
 			$format = \Smarty\Smarty::$_DATE_FORMAT;
@@ -341,7 +284,7 @@ class Core extends Base {
 	 *
 	 * @return string
 	 */
-	private function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth = 0, $objects = array())
+	public function smarty_modifier_debug_print_var($var, $max = 10, $length = 40, $depth = 0, $objects = array())
 	{
 		$_replace = array("\n" => '\n', "\r" => '\r', "\t" => '\t');
 		switch (gettype($var)) {
@@ -426,7 +369,7 @@ class Core extends Base {
 	 *
 	 * @return string escaped input string
 	 */
-	private function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $double_encode = true)
+	public function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $double_encode = true)
 	{
 		if (!$char_set) {
 			$char_set = \Smarty\Smarty::$_CHARSET;
@@ -549,7 +492,7 @@ class Core extends Base {
 	 *
 	 * @return array
 	 */
-	private function smarty_modifier_explode($separator, $string, ?int $limit = null)
+	public function smarty_modifier_explode($separator, $string, ?int $limit = null)
 	{
 		// provide $string default to prevent deprecation errors in PHP >=8.1
 		return explode($separator, $string ?? '', $limit ?? PHP_INT_MAX);
@@ -571,7 +514,7 @@ class Core extends Base {
 	 * @return string  wrapped string
 	 * @author Rodney Rehm
 	 */
-	private function smarty_modifier_mb_wordwrap($str, $width = 75, $break = "\n", $cut = false)
+	public function smarty_modifier_mb_wordwrap($str, $width = 75, $break = "\n", $cut = false)
 	{
 		return smarty_mb_wordwrap($str, $width, $break, $cut);
 	}
@@ -589,7 +532,7 @@ class Core extends Base {
 	 *
 	 * @return string
 	 */
-	private function smarty_modifier_number_format(?float $num, int $decimals = 0, ?string $decimal_separator = ".", ?string $thousands_separator = ",")
+	public function smarty_modifier_number_format(?float $num, int $decimals = 0, ?string $decimal_separator = ".", ?string $thousands_separator = ",")
 	{
 		// provide $num default to prevent deprecation errors in PHP >=8.1
 		return number_format($num ?? 0.0, $decimals, $decimal_separator, $thousands_separator);
@@ -612,7 +555,7 @@ class Core extends Base {
 	 *
 	 * @return string
 	 */
-	private function smarty_modifier_regex_replace($string, $search, $replace, $limit = -1)
+	public function smarty_modifier_regex_replace($string, $search, $replace, $limit = -1)
 	{
 		if (is_array($search)) {
 			foreach ($search as $idx => $s) {
@@ -660,7 +603,7 @@ class Core extends Base {
 	 *
 	 * @return string
 	 */
-	private function smarty_modifier_replace($string, $search, $replace)
+	public function smarty_modifier_replace($string, $search, $replace)
 	{
 		return smarty_mb_str_replace($search, $replace, $string);
 	}
@@ -684,7 +627,7 @@ class Core extends Base {
 	 *
 	 * @return string truncated string
 	 */
-	private function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_words = false, $middle = false)
+	public function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_words = false, $middle = false)
 	{
 		if ($length === 0) {
 			return '';

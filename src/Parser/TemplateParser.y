@@ -304,9 +304,9 @@ template       ::= .
 smartytag(A)   ::= SIMPELOUTPUT(B). {
     $var = trim(substr(B, $this->compiler->getLdelLength(), -$this->compiler->getRdelLength()), ' $');
     if (preg_match('/^(.*)(\s+nocache)$/', $var, $match)) {
-        A = $this->compiler->compileTag('private_print_expression',array('nocache'),array('value'=>$this->compiler->compileVariable('\''.$match[1].'\'')));
+        A = (new \Smarty\Compile\PrintExpressionCompiler())->compile(array('nocache'),$this->compiler,array('value'=>$this->compiler->compileVariable('\''.$match[1].'\'')));
     } else {
-        A = $this->compiler->compileTag('private_print_expression',array(),array('value'=>$this->compiler->compileVariable('\''.$var.'\'')));
+        A = (new \Smarty\Compile\PrintExpressionCompiler())->compile(array(),$this->compiler,array('value'=>$this->compiler->compileVariable('\''.$var.'\'')));
     }
 }
 
@@ -321,7 +321,7 @@ smartytag(A)::= SIMPLETAG(B). {
             if ($this->security) {
                $this->security->isTrustedConstant($tag, $this->compiler);
             }
-            A = $this->compiler->compileTag('private_print_expression',array(),array('value'=>$tag));
+            A = (new \Smarty\Compile\PrintExpressionCompiler())->compile(array(),$this->compiler,array('value'=>$tag));
         } else {
             if (preg_match('/^(.*)(\s+nocache)$/', $tag, $match)) {
                 A = $this->compiler->compileTag($match[1],array('\'nocache\''));
@@ -352,7 +352,7 @@ smartytag(A)   ::= LDEL tagbody(B) RDEL. {
  }
                   // output with optional attributes
 tagbody(A) ::= outattr(B). {
-    A = $this->compiler->compileTag('private_print_expression',B[1],array('value'=>B[0]));
+    A = (new \Smarty\Compile\PrintExpressionCompiler())->compile(B[1],$this->compiler,array('value'=>B[0]));
 }
 
 //
@@ -392,7 +392,7 @@ tag(res)   ::= LDEL ID(i) attributes(a). {
             if ($this->security) {
                 $this->security->isTrustedConstant(i, $this->compiler);
             }
-            res = $this->compiler->compileTag('private_print_expression',a,array('value'=>i));
+            res = (new \Smarty\Compile\PrintExpressionCompiler())->compile(a,$this->compiler,array('value'=>i));
         } else {
             res = $this->compiler->compileTag(i,a);
         }
@@ -402,7 +402,7 @@ tag(res)   ::= LDEL ID(i). {
             if ($this->security) {
                 $this->security->isTrustedConstant(i, $this->compiler);
             }
-            res = $this->compiler->compileTag('private_print_expression',array(),array('value'=>i));
+            res = (new \Smarty\Compile\PrintExpressionCompiler())->compile(array(),$this->compiler,array('value'=>i));
         } else {
             res = $this->compiler->compileTag(i,array());
         }
@@ -415,7 +415,7 @@ tag(res)   ::= LDEL ID(i) modifierlist(l)attributes(a). {
             if ($this->security) {
                 $this->security->isTrustedConstant(i, $this->compiler);
             }
-            res = $this->compiler->compileTag('private_print_expression',a,array('value'=>i, 'modifierlist'=>l));
+            res = (new \Smarty\Compile\PrintExpressionCompiler())->compile(a,$this->compiler,array('value'=>i, 'modifierlist'=>l));
         } else {
             res = $this->compiler->compileTag(i,a, array('modifierlist'=>l));
         }
@@ -764,7 +764,7 @@ value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
     }
     $prefixVar = $this->compiler->getNewPrefixVariable();
     if (vi['var'] === '\'smarty\'') {
-        $this->compiler->appendPrefixCode("<?php {$prefixVar} = ". $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).';?>');
+        $this->compiler->appendPrefixCode("<?php {$prefixVar} = ". (new \Smarty\Compile\SpecialVariableCompiler())->compile(array(),$this->compiler,vi['smarty_internal_index']).';?>');
      } else {
         $this->compiler->appendPrefixCode("<?php  {$prefixVar} = ". $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].';?>');
     }
@@ -780,7 +780,7 @@ value(res)       ::= smartytag(st). {
 }
 
 value(res)       ::= value(v) modifierlist(l). {
-    res = $this->compiler->compileTag('private_modifier',array(),array('value'=>v,'modifierlist'=>l));
+    res = $this->compiler->compileModifier(l, v);
 }
                   // name space constant
 value(res)       ::= NAMESPACE(c). {
@@ -827,7 +827,7 @@ variable(res)    ::= DOLLARID(i). {
 }
 variable(res)    ::= varindexed(vi). {
     if (vi['var'] === '\'smarty\'') {
-        $smarty_var = $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']);
+        $smarty_var = (new \Smarty\Compile\SpecialVariableCompiler())->compile(array(),$this->compiler,vi['smarty_internal_index']);
         res = $smarty_var;
     } else {
         // used for array reset,next,prev,end,current 
@@ -912,11 +912,11 @@ indexdef(res)   ::= DOT LDEL expr(e) RDEL. {
 
                     // section tag index
 indexdef(res)   ::= OPENB ID(i)CLOSEB. {
-    res = '['.$this->compiler->compileTag('private_special_variable',array(),'[\'section\'][\''.i.'\'][\'index\']').']';
+    res = '['.(new \Smarty\Compile\SpecialVariableCompiler())->compile(array(),$this->compiler,'[\'section\'][\''.i.'\'][\'index\']').']';
 }
 
 indexdef(res)   ::= OPENB ID(i) DOT ID(i2) CLOSEB. {
-    res = '['.$this->compiler->compileTag('private_special_variable',array(),'[\'section\'][\''.i.'\'][\''.i2.'\']').']';
+    res = '['.(new \Smarty\Compile\SpecialVariableCompiler())->compile(array(),$this->compiler,'[\'section\'][\''.i.'\'][\''.i2.'\']').']';
 }
 indexdef(res)   ::= OPENB SINGLEQUOTESTRING(s) CLOSEB. {
     res = '['.s.']';
@@ -982,7 +982,7 @@ varvarele(res)   ::= LDEL expr(e) RDEL. {
 //
 object(res)    ::= varindexed(vi) objectchain(oc). {
     if (vi['var'] === '\'smarty\'') {
-        res =  $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).oc;
+        res = (new \Smarty\Compile\SpecialVariableCompiler())->compile(array(),$this->compiler,vi['smarty_internal_index']).oc;
     } else {
         res = $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].oc;
     }

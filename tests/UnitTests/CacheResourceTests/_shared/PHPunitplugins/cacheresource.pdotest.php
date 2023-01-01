@@ -2,14 +2,14 @@
 
 use Smarty\Template\Cached;
 
-require_once SMARTY_DIR . '../demo/plugins/cacheresource.pdo.php';
+require_once __DIR__ . '/../../../__shared/cacheresources/cacheresource.pdo.php';
 
-class Smarty_CacheResource_Pdotest extends Smarty_CacheResource_Pdo
+class Smarty_CacheResource_Pdotest extends My_CacheResource_Pdo
 {
     public $lockTime = 0;
 
 
-    public function hasLock(Smarty $smarty, Cached $cached)
+    public function hasLock(\Smarty\Smarty $smarty, Cached $cached)
     {
         if ($this->lockTime) {
             $this->lockTime--;

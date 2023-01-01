@@ -39,7 +39,7 @@ class BlockClose extends Inheritance {
 		$compiler->parser->current_buffer = new Template();
 		$output = "<?php\n";
 		$output .= $compiler->cStyleComment(" {block {$_name}} ") . "\n";
-		$output .= "class {$_className} extends \\Smarty\\Block\n";
+		$output .= "class {$_className} extends \\Smarty\\Runtime\\Block\n";
 		$output .= "{\n";
 		foreach ($_block as $property => $value) {
 			$output .= "public \${$property} = " . var_export($value, true) . ";\n";

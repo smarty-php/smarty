@@ -41,7 +41,7 @@ class smarty_compiler_getparamsshort extends Base
      */
     public $shorttag_order = array('s1', 's2', 's3');
 
-    public function compile($args, $compiler)
+    public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null)
     {
         $_attr = $this->getAttributes($compiler, $args);
         $output = '<?php echo "array(';

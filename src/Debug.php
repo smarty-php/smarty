@@ -200,7 +200,7 @@ class Debug extends Data
         $smarty = $obj->_getSmartyObj();
         // create fresh instance of smarty for displaying the debug console
         // to avoid problems if the application did overload the Smarty class
-        $debObj = new \Smarty();
+        $debObj = new \Smarty\Smarty();
         // copy the working dirs from application
         $debObj->setCompileDir($smarty->getCompileDir());
         $debObj->force_compile = false;
@@ -211,9 +211,7 @@ class Debug extends Data
         $debObj->debugging = false;
         $debObj->debugging_ctrl = 'NONE';
         $debObj->error_reporting = E_ALL & ~E_NOTICE;
-        $debObj->debug_tpl =
-            isset($smarty->debug_tpl) ? $smarty->debug_tpl : 'file:' . __DIR__ . '/../debug.tpl';
-        $debObj->registered_plugins = array();
+        $debObj->debug_tpl = $smarty->debug_tpl ?? 'file:' . __DIR__ . '/../debug.tpl';
         $debObj->registered_resources = array();
         $debObj->registered_filters = array();
         $debObj->default_modifiers = array();

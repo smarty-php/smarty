@@ -8,7 +8,9 @@
  * @author     Uwe Tews
  */
 
-namespace Smarty\Compile\Tag;
+namespace Smarty\Compile;
+
+use Smarty\Compile\Tag\Base;
 
 /**
  * Smarty Internal Plugin Compile Block Plugin Class
@@ -16,7 +18,7 @@ namespace Smarty\Compile\Tag;
  * @package    Smarty
  * @subpackage Compiler
  */
-class PrivateBlockPlugin extends Base {
+class BlockCompiler extends Base {
 
 	/**
 	 * Attribute definition: Overwrites base class.
@@ -83,14 +85,8 @@ class PrivateBlockPlugin extends Base {
 				$mod_content2 = "\$_block_content{$this->nesting}";
 				$mod_content = "\$_block_content{$this->nesting} = ob_get_clean();\n";
 				$mod_pre = "ob_start();\n";
-				$mod_post = 'echo ' . $compiler->compileTag(
-						'private_modifier',
-						[],
-						[
-							'modifierlist' => $parameter['modifier_list'],
-							'value' => 'ob_get_clean()',
-						]
-					) . ";\n";
+				$mod_post = 'echo ' . $compiler->compileModifier($parameter['modifier_list'], 'ob_get_clean()')
+					. ";\n";
 			}
 			$output =
 				"<?php {$mod_content}\$_block_repeat=false;\n{$mod_pre}echo {$callback}({$_params}, {$mod_content2}, \$_smarty_tpl, \$_block_repeat);\n{$mod_post}}\n";

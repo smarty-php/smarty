@@ -177,7 +177,7 @@ abstract class BasePlugin
      */
     public static function source(
 	    \Smarty\Template $_template = null,
-	    \Smarty          $smarty = null,
+	    \Smarty\Smarty   $smarty = null,
 	                     $template_resource = null
     ) {
         return \Smarty\Template\Source::load($_template, $smarty, $template_resource);

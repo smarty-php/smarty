@@ -32,13 +32,6 @@ abstract class Data
     public $_objType = 4;
 
     /**
-     * name of class used for templates
-     *
-     * @var string
-     */
-    public $template_class = 'Smarty\Template';
-
-    /**
      * template variables
      *
      * @var Variable[]
@@ -119,7 +112,7 @@ abstract class Data
 			// $tpl_var is an array, ignore $value
 			foreach ($tpl_var as $_key => $_val) {
 				if ($_key !== '') {
-					$this->append($this, $_key, $_val, $merge, $nocache);
+					$this->append($_key, $_val, $merge, $nocache);
 				}
 			}
 		} else {
@@ -211,7 +204,7 @@ abstract class Data
      *
      * @return Data
      */
-	public function assignByRef($tpl_var, &$value, $nocache)
+	public function assignByRef($tpl_var, &$value, $nocache = false)
 	{
 		if ($tpl_var !== '') {
 			$this->tpl_vars[ $tpl_var ] = new \Smarty\Variable(null, $nocache);
@@ -439,7 +432,7 @@ abstract class Data
 	 */
 	public function configLoad($config_file, $sections = null)
 	{
-		$this->_loadConfigfile($this, $config_file, $sections, null);
+		$this->_loadConfigfile($config_file, $sections, null);
 		return $this;
 	}
 

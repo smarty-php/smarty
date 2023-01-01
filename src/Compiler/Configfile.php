@@ -10,9 +10,9 @@
  */
 
 namespace Smarty\Compiler;
-use Smarty\Smarty;
 use Smarty\Lexer\ConfigfileLexer;
 use Smarty\Parser\ConfigfileParser;
+use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\CompilerException;
 
@@ -22,33 +22,19 @@ use Smarty\CompilerException;
  * @package    Smarty
  * @subpackage Config
  */
-class Configfile {
-
-	/**
-	 * Lexer class name
-	 *
-	 * @var string
-	 */
-	public $lexer_class;
-
-	/**
-	 * Parser class name
-	 *
-	 * @var string
-	 */
-	public $parser_class;
+class Configfile extends BaseCompiler {
 
 	/**
 	 * Lexer object
 	 *
-	 * @var object
+	 * @var ConfigfileLexer
 	 */
 	public $lex;
 
 	/**
 	 * Parser object
 	 *
-	 * @var object
+	 * @var ConfigfileParser
 	 */
 	public $parser;
 
@@ -76,15 +62,11 @@ class Configfile {
 	/**
 	 * Initialize compiler
 	 *
-	 * @param string $lexer_class class name
-	 * @param string $parser_class class name
 	 * @param Smarty $smarty global instance
 	 */
-	public function __construct($lexer_class, $parser_class, Smarty $smarty) {
+	public function __construct(Smarty $smarty) {
 		$this->smarty = $smarty;
 		// get required plugins
-		$this->lexer_class = $lexer_class;
-		$this->parser_class = $parser_class;
 		$this->smarty = $smarty;
 		$this->config_data['sections'] = [];
 		$this->config_data['vars'] = [];
@@ -113,8 +95,8 @@ class Configfile {
 			$this->smarty->_debug->start_compile($this->template);
 		}
 		// init the lexer/parser to compile the config file
-		/* @var \Smarty\Lexer\ConfigfileLexer $this->lex */
-		$this->lex = new $this->lexer_class(
+		/* @var ConfigfileLexer $this->lex */
+		$this->lex = new ConfigfileLexer(
 			str_replace(
 				[
 					"\r\n",
@@ -125,8 +107,8 @@ class Configfile {
 			) . "\n",
 			$this
 		);
-		/* @var \Smarty\Parser\ConfigfileParser $this->parser */
-		$this->parser = new $this->parser_class($this->lex, $this);
+		/* @var ConfigfileParser $this->parser */
+		$this->parser = new ConfigfileParser($this->lex, $this);
 		if (function_exists('mb_internal_encoding')
 			&& function_exists('ini_get')
 			&& ((int)ini_get('mbstring.func_overload')) & 2
@@ -142,7 +124,7 @@ class Configfile {
 		// get tokens from lexer and parse them
 		while ($this->lex->yylex()) {
 			if ($this->smarty->_parserdebug) {
-				echo "<br>Parsing  {$this->parser->yyTokenName[$this->lex->token]} Token {$this->lex->value} Line {$this->lex->line} \n";
+				echo "Parsing  {$this->parser->yyTokenName[$this->lex->token]} Token {$this->lex->value} Line {$this->lex->line} \n";
 			}
 			$this->parser->doParse($this->lex->token, $this->lex->value);
 		}

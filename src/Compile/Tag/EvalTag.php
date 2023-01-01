@@ -22,7 +22,7 @@ class EvalTag extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	public $required_attributes = ['var'];
 
@@ -30,7 +30,7 @@ class EvalTag extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	public $optional_attributes = ['assign'];
 
@@ -38,7 +38,7 @@ class EvalTag extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	public $shorttag_order = ['var', 'assign'];
 
@@ -59,7 +59,7 @@ class EvalTag extends Base {
 		}
 		// create template object
 		$_output =
-			"\$_template = new {$compiler->smarty->template_class}('eval:'.{$_attr[ 'var' ]}, \$_smarty_tpl->smarty, \$_smarty_tpl);";
+			"\$_template = new \\Smarty\\Template('eval:'.{$_attr[ 'var' ]}, \$_smarty_tpl->smarty, \$_smarty_tpl);";
 		//was there an assign attribute?
 		if (isset($_assign)) {
 			$_output .= "\$_smarty_tpl->assign($_assign,\$_template->fetch());";

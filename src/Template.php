@@ -23,7 +23,6 @@ use Smarty\Template\Config;
  * @property Compiled $compiled
  * @property Cached $cached
  * @property \Smarty\Compiler\Template $compiler
- * @property mixed|\Smarty\Template\Cached registered_plugins
  */
 #[\AllowDynamicProperties]
 class Template extends TemplateBase {
@@ -224,7 +223,7 @@ class Template extends TemplateBase {
 				if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
 					&& !$no_output_filter && isset($this->smarty->registered_filters['output'])
 				) {
-					echo $this->smarty->runFilter('output', ob_get_clean(), $this);
+					echo $this->smarty->runOutputFilters(ob_get_clean(), $this);
 				} else {
 					echo ob_get_clean();
 				}
@@ -247,7 +246,7 @@ class Template extends TemplateBase {
 				&& (!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
 				&& isset($this->smarty->registered_filters['output'])
 			) {
-				return $this->smarty->runFilter('output', ob_get_clean(), $this);
+				return $this->smarty->runOutputFilters(ob_get_clean(), $this);
 			}
 			// return cache content
 			return null;
@@ -360,7 +359,6 @@ class Template extends TemplateBase {
 				$this->cached->hashes[$tpl->compiled->nocache_hash] = true;
 			}
 		}
-		$tpl->_cache = [];
 		if (isset($uid)) {
 			if ($smarty->debugging) {
 				if (!isset($smarty->_debug)) {
@@ -442,7 +440,7 @@ class Template extends TemplateBase {
 	 * @return bool flag if compiled or cache file is valid
 	 * @throws \Smarty\Exception
 	 */
-	public function _decodeProperties(Template $tpl, $properties, $cache = false) {
+	public function isFresh(Template $tpl, $properties, $cache = false) {
 		// on cache resources other than file check version stored in cache code
 		if (!isset($properties['version']) || \Smarty\Smarty::SMARTY_VERSION !== $properties['version']) {
 			if ($cache) {
@@ -468,7 +466,7 @@ class Template extends TemplateBase {
 						$mtime = is_file($_file_to_check[0]) ? filemtime($_file_to_check[0]) : false;
 					}
 				} else {
-					$handler = Smarty\Resource\BasePlugin::load($tpl->smarty, $_file_to_check[2]);
+					$handler = \Smarty\Resource\BasePlugin::load($tpl->smarty, $_file_to_check[2]);
 					if ($handler->checkTimestamps()) {
 						$source = Source::load($tpl, $tpl->smarty, $_file_to_check[0]);
 						$mtime = $source->getTimeStamp();
@@ -601,12 +599,7 @@ class Template extends TemplateBase {
 	 * @throws \Smarty\Exception
 	 */
 	public function loadCompiler() {
-		$this->compiler =
-			new $this->source->compiler_class(
-				$this->source->template_lexer_class,
-				$this->source->template_parser_class,
-				$this->smarty
-			);
+		$this->compiler = $this->source->createCompiler();
 	}
 
 	/**

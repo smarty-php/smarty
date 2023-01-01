@@ -18,12 +18,20 @@ class Base implements ExtensionInterface {
 		return null;
 	}
 
-	public function getBlockHandler(string $functionName): ?\Smarty\FunctionHandler\BlockHandlerInterface {
+	public function getBlockHandler(string $blockTagName): ?\Smarty\BlockHandler\BlockHandlerInterface {
 		return null;
 	}
 
 	public function getModifierCallback(string $modifierName) {
 		return null;
+	}
+
+	public function getPreFilters(): array {
+		return [];
+	}
+
+	public function getPostFilters(): array {
+		return [];
 	}
 
 	public function getOutputFilters(): array {

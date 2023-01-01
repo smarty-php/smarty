@@ -237,7 +237,7 @@ abstract class TemplateBase extends Data {
 				error_reporting($_smarty_old_error_level);
 			}
 			return $result;
-		} catch (Throwable $e) {
+		} catch (\Throwable $e) {
 			while (ob_get_level() > $level) {
 				ob_end_clean();
 			}
@@ -250,54 +250,6 @@ abstract class TemplateBase extends Data {
 			}
 			throw $e;
 		}
-	}
-
-	/**
-	 * Registers plugin to be used in templates
-	 *
-	 * @param string $type plugin type
-	 * @param string $name name of template tag
-	 * @param callable $callback PHP callback to register
-	 * @param bool $cacheable if true (default) this function is cache able
-	 * @param mixed $cache_attr caching attributes if any
-	 *
-	 * @return \Smarty|\Smarty\Template
-	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.register.plugin.tpl
-	 *
-	 * @api  Smarty::registerPlugin()
-	 */
-	public function registerPlugin($type, $name, $callback, $cacheable = true, $cache_attr = null) {
-		$smarty = $this->_getSmartyObj();
-		if (isset($smarty->registered_plugins[$type][$name])) {
-			throw new Exception("Plugin tag '{$name}' already registered");
-		} elseif (!is_callable($callback)) {
-			throw new Exception("Plugin '{$name}' not callable");
-		} elseif ($cacheable && $cache_attr) {
-			throw new Exception("Cannot set caching attributes for plugin '{$name}' when it is cacheable.");
-		} else {
-			$smarty->registered_plugins[$type][$name] = [$callback, (bool)$cacheable, (array)$cache_attr];
-		}
-		return $this;
-	}
-
-	/**
-	 * Registers plugin to be used in templates
-	 *
-	 * @param string $type plugin type
-	 * @param string $name name of template tag
-	 *
-	 * @return \Smarty|\Smarty\Template
-	 * @link https://www.smarty.net/docs/en/api.unregister.plugin.tpl
-	 *
-	 * @api  Smarty::unregisterPlugin()
-	 */
-	public function unregisterPlugin($type, $name) {
-		$smarty = $this->_getSmartyObj();
-		if (isset($smarty->registered_plugins[$type][$name])) {
-			unset($smarty->registered_plugins[$type][$name]);
-		}
-		return $this;
 	}
 
 	/**
@@ -781,27 +733,6 @@ abstract class TemplateBase extends Data {
 	}
 
 	/**
-	 * Registers a default plugin handler
-	 *
-	 * @param callable $callback class/method name
-	 *
-	 * @return TemplateBase
-	 * @throws Exception              if $callback is not callable
-	 * @link https://www.smarty.net/docs/en/api.register.default.plugin.handler.tpl
-	 *
-	 * @api  Smarty::registerDefaultPluginHandler()
-	 */
-	public function registerDefaultPluginHandler($callback) {
-		$smarty = $this->_getSmartyObj();
-		if (is_callable($callback)) {
-			$smarty->default_plugin_handler_func = $callback;
-		} else {
-			throw new Exception("Default plugin handler '$callback' not callable");
-		}
-		return $this;
-	}
-
-	/**
 	 * Register template default handler
 	 *
 	 * @param callable $callback class/method name
@@ -832,7 +763,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @api  Smarty::registerResource()
 	 */
-	public function registerResource($name, Smarty\Resource\Base $resource_handler) {
+	public function registerResource($name, \Smarty\Resource\BasePlugin $resource_handler) {
 		$smarty = $this->_getSmartyObj();
 		$smarty->registered_resources[$name] = $resource_handler;
 		return $this;

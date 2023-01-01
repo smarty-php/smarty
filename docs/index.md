@@ -37,7 +37,6 @@ and 480 for $height, the result is:
 
 ## Smarty for php developers
 - [Charset Encoding](./programmers/charset.md)
-- [Constants](./programmers/smarty-constants.md)
 - [Smarty Class Variables](./programmers/api-variables.md)
 - [Smarty Class Methods](./programmers/api-functions.md)
 - [Caching](./programmers/caching.md)

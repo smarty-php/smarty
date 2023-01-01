@@ -36,27 +36,6 @@ class Config extends Source {
 	public $isConfig = true;
 
 	/**
-	 * Name of the Class to compile this resource's contents with
-	 *
-	 * @var string
-	 */
-	public $compiler_class = \Smarty\Compiler\Configfile::class;
-
-	/**
-	 * Name of the Class to tokenize this resource's contents with
-	 *
-	 * @var string
-	 */
-	public $template_lexer_class = \Smarty\Lexer\ConfigfileLexer::class;
-
-	/**
-	 * Name of the Class to parse this resource's contents with
-	 *
-	 * @var string
-	 */
-	public $template_parser_class = \Smarty\Parser\ConfigfileParser::class;
-
-	/**
 	 * initialize Source Object for given resource
 	 * Either [$_template] or [$smarty, $template_resource] must be specified
 	 *
@@ -81,7 +60,7 @@ class Config extends Source {
 			throw new Exception('Source: Missing  name');
 		}
 		// parse resource_name, load resource handler
-		[$name, $type] = Smarty\Resource\BasePlugin::parseResourceName($template_resource, $smarty->default_config_type);
+		[$name, $type] = \Smarty\Resource\BasePlugin::parseResourceName($template_resource, $smarty->default_config_type);
 		// make sure configs are not loaded via anything smarty can't handle
 		if (isset($_incompatible_resources[$type])) {
 			throw new Exception("Unable to use resource '{$type}' for config");
@@ -93,5 +72,9 @@ class Config extends Source {
 			$source->handler->populate($source, $_template);
 		}
 		return $source;
+	}
+
+	public function createCompiler(): \Smarty\Compiler\BaseCompiler {
+		return new \Smarty\Compiler\Configfile($this->smarty);
 	}
 }

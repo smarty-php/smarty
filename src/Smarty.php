@@ -2,8 +2,12 @@
 
 namespace Smarty;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Smarty\Extension\Base;
-use Smarty\Extension\Core;
+use Smarty\Extension\BCPluginsAdapter;
+use Smarty\Extension\CoreExtension;
+use Smarty\Extension\DefaultExtension;
 use Smarty\Extension\ExtensionInterface;
 use Smarty\Smarty\Runtime\CaptureRuntime;
 use Smarty\Smarty\Runtime\ForeachRuntime;
@@ -49,7 +53,7 @@ class Smarty extends \Smarty\TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '4.3.0';
+    const SMARTY_VERSION = '5.0.0';
     /**
      * define variable scopes
      */
@@ -184,7 +188,7 @@ class Smarty extends \Smarty\TemplateBase
      *
      * @var callable
      */
-    public $default_plugin_handler_func = null;
+    private $default_plugin_handler_func = null;
 
     /**
      * flag if template_dir is normalized
@@ -192,13 +196,6 @@ class Smarty extends \Smarty\TemplateBase
      * @var bool
      */
     public $_compileDirNormalized = false;
-
-    /**
-     * flag if plugins_dir is normalized
-     *
-     * @var bool
-     */
-    public $_pluginsDirNormalized = false;
 
     /**
      * flag if template_dir is normalized
@@ -572,8 +569,12 @@ class Smarty extends \Smarty\TemplateBase
 	 * @var ExtensionInterface[]
 	 */
 	private $extensions = [];
+	/**
+	 * @var BCPluginsAdapter
+	 */
+	private $BCPluginsAdapter;
 
-    /**
+	/**
      * Initialize new Smarty object
      */
     public function __construct()
@@ -593,8 +594,12 @@ class Smarty extends \Smarty\TemplateBase
         if (\Smarty\Smarty::$_CHARSET !== 'UTF-8') {
             \Smarty\Smarty::$_UTF8_MODIFIER = '';
         }
+		
+		$this->BCPluginsAdapter = new BCPluginsAdapter($this);
 
-		$this->extensions[] = new Core();
+		$this->extensions[] = new CoreExtension();
+		$this->extensions[] = new DefaultExtension();
+		$this->extensions[] = $this->BCPluginsAdapter;
     }
 
 	/**
@@ -785,17 +790,95 @@ class Smarty extends \Smarty\TemplateBase
         return $this->setTemplateDir($config_dir, true);
     }
 
-    /**
+
+	/**
+	 * Registers plugin to be used in templates
+	 *
+	 * @param string $type plugin type
+	 * @param string $name name of template tag
+	 * @param callable $callback PHP callback to register
+	 * @param bool $cacheable if true (default) this function is cache able
+	 * @param mixed $cache_attr caching attributes if any
+	 *
+	 * @return $this
+	 * @throws \Smarty\Exception
+	 * @link https://www.smarty.net/docs/en/api.register.plugin.tpl
+	 *
+	 * @api  Smarty::registerPlugin()
+	 */
+	public function registerPlugin($type, $name, $callback, $cacheable = true, $cache_attr = null) {
+		if (isset($this->registered_plugins[$type][$name])) {
+			throw new Exception("Plugin tag '{$name}' already registered");
+		} elseif (!is_callable($callback)) {
+			throw new Exception("Plugin '{$name}' not callable");
+		} elseif ($cacheable && $cache_attr) {
+			throw new Exception("Cannot set caching attributes for plugin '{$name}' when it is cacheable.");
+		} else {
+			$this->registered_plugins[$type][$name] = [$callback, (bool)$cacheable, (array)$cache_attr];
+		}
+		return $this;
+	}
+
+	/**
+	 * Returns plugin previously registered using ::registerPlugin as a numerical array as follows or null if not found:
+	 * [
+	 *  0 => the callback
+	 *  1 => (bool) $cacheable
+	 *  2 => (array) $cache_attr
+	 * ]
+	 *
+	 * @param string $type plugin type
+	 * @param string $name name of template tag
+	 *
+	 * @return array|null
+	 * @link https://www.smarty.net/docs/en/api.unregister.plugin.tpl
+	 *
+	 * @api  Smarty::unregisterPlugin()
+	 */
+	public function getRegisteredPlugin($type, $name): ?array {
+		if (isset($this->registered_plugins[$type][$name])) {
+			return $this->registered_plugins[$type][$name];
+		}
+		return null;
+	}
+
+	/**
+	 * Unregisters plugin previously registered using ::registerPlugin
+	 *
+	 * @param string $type plugin type
+	 * @param string $name name of template tag
+	 *
+	 * @return $this
+	 * @link https://www.smarty.net/docs/en/api.unregister.plugin.tpl
+	 *
+	 * @api  Smarty::unregisterPlugin()
+	 */
+	public function unregisterPlugin($type, $name) {
+		if (isset($this->registered_plugins[$type][$name])) {
+			unset($this->registered_plugins[$type][$name]);
+		}
+		return $this;
+	}
+
+	/**
      * Adds directory of plugin files
      *
      * @param null|array|string $plugins_dir
      *
      * @return Smarty current Smarty instance for chaining
+     * @deprecated since 5.0
      */
     public function addPluginsDir($plugins_dir)
     {
-        $this->plugins_dir = array_merge($this->plugins_dir, (array)$plugins_dir);
-        $this->_pluginsDirNormalized = false;
+	    trigger_error('Using Smarty::addPluginsDir() to load plugins is deprecated and will be ' .
+		    'removed in a future release. Use Smarty::addExtension() to add an extension or Smarty::registerPlugin to ' .
+		    'quickly register a plugin using a callback function.', E_USER_DEPRECATED);
+
+		foreach ((array) $plugins_dir as $v) {
+			$path = $this->_realpath(rtrim($v ?? '', '/\\') . DIRECTORY_SEPARATOR, true);
+			$this->BCPluginsAdapter->loadPluginsFromDir($path);
+		}
+
         return $this;
     }
 
@@ -803,17 +886,13 @@ class Smarty extends \Smarty\TemplateBase
 	 * Get plugin directories
 	 *
 	 * @return array list of plugin directories
+	 * @deprecated since 5.0
 	 */
 	public function getPluginsDir()
 	{
-		if (!$this->_pluginsDirNormalized) {
-			foreach ($this->plugins_dir as $k => $v) {
-				$this->plugins_dir[ $k ] = $this->_realpath(rtrim($v ?? '', '/\\') . DIRECTORY_SEPARATOR, true);
-			}
-			$this->_cache[ 'plugin_files' ] = array();
-			$this->_pluginsDirNormalized = true;
-		}
-		return $this->plugins_dir;
+		trigger_error('Using Smarty::getPluginsDir() is deprecated and will be ' .
+			'removed in a future release. It will always return an empty array.', E_USER_DEPRECATED);
+		return [];
 	}
 
 
@@ -823,13 +902,51 @@ class Smarty extends \Smarty\TemplateBase
      * @param string|array $plugins_dir directory(s) of plugins
      *
      * @return Smarty       current Smarty instance for chaining
+	 * @deprecated since 5.0
      */
     public function setPluginsDir($plugins_dir)
     {
-        $this->plugins_dir = (array)$plugins_dir;
-        $this->_pluginsDirNormalized = false;
-        return $this;
+	    trigger_error('Using Smarty::getPluginsDir() is deprecated and will be ' .
+		    'removed in a future release. For now, it will remove the DefaultExtension from the extensions list and ' .
+		    'proceed to call Smartyy::addPluginsDir..', E_USER_DEPRECATED);
+
+		$this->extensions = array_filter(
+			$this->extensions,
+			function ($extension) {
+				return !($extension instanceof DefaultExtension);
+			}
+		);
+
+		return $this->addPluginsDir($plugins_dir);
     }
+
+	/**
+	 * Registers a default plugin handler
+	 *
+	 * @param callable $callback class/method name
+	 *
+	 * @return $this
+	 * @throws Exception              if $callback is not callable
+	 * @link https://www.smarty.net/docs/en/api.register.default.plugin.handler.tpl
+	 *
+	 * @api  Smarty::registerDefaultPluginHandler()
+	 *
+	 * @deprecated since 5.0
+	 */
+	public function registerDefaultPluginHandler($callback) {
+
+		trigger_error('Using Smarty::registerDefaultPluginHandler() is deprecated and will be ' .
+			'removed in a future release. Please rewrite your plugin handler as an extension.',
+			E_USER_DEPRECATED);
+
+		if (is_callable($callback)) {
+			$this->default_plugin_handler_func = $callback;
+		} else {
+			throw new Exception("Default plugin handler '$callback' not callable");
+		}
+		return $this;
+	}
+
 
     /**
      * Get compiled directory
@@ -925,8 +1042,7 @@ class Smarty extends \Smarty\TemplateBase
             $tpl->inheritance = null;
             $tpl->tpl_vars = $tpl->config_vars = array();
         } else {
-            /* @var \Smarty\Template $tpl */
-            $tpl = new $this->template_class($template, $this, null, $cache_id, $compile_id, null, null);
+            $tpl = new \Smarty\Template($template, $this, null, $cache_id, $compile_id, null, null);
             $tpl->templateId = $_templateId;
         }
         if ($do_clone) {
@@ -1368,8 +1484,8 @@ class Smarty extends \Smarty\TemplateBase
 		$_count = 0;
 		try {
 			$_compileDirs = new RecursiveDirectoryIterator($_dir);
-			// NOTE: UnexpectedValueException thrown for PHP >= 5.3
-		} catch (Exception $e) {
+		} catch (\UnexpectedValueException $e) {
+			// path not found / not a dir
 			return 0;
 		}
 		$_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
@@ -1515,16 +1631,14 @@ class Smarty extends \Smarty\TemplateBase
 				if ($_fileinfo->getPath() !== substr($_dir, 0, -1)) {
 					$_file = substr($_fileinfo->getPath(), strlen($_dir)) . DIRECTORY_SEPARATOR . $_file;
 				}
-				echo "\n<br>", $_dir, '---', $_file;
+				echo "\n", $_dir, '---', $_file;
 				flush();
 				$_start_time = microtime(true);
 				$_smarty = clone $this;
 				//
-				$_smarty->_cache = array();
 				$_smarty->force_compile = $force_compile;
 				try {
-					/* @var Template $_tpl */
-					$_tpl = new $this->template_class($_file, $_smarty);
+					$_tpl = new \Smarty\Template($_file, $_smarty);
 					$_tpl->caching = self::CACHING_OFF;
 					$_tpl->source =
 						$isConfig ? \Smarty\Template\Config::load($_tpl) : \Smarty\Template\Source::load($_tpl);
@@ -1537,20 +1651,20 @@ class Smarty extends \Smarty\TemplateBase
 						echo ' is up to date';
 						flush();
 					}
-				} catch (Exception $e) {
-					echo "\n<br>        ------>Error: ", $e->getMessage(), "<br><br>\n";
+				} catch (\Exception $e) {
+					echo "\n        ------>Error: ", $e->getMessage(), "\n";
 					$_error_count++;
 				}
 				// free memory
 				unset($_tpl);
 				$_smarty->_clearTemplateCache();
 				if ($max_errors !== null && $_error_count === $max_errors) {
-					echo "\n<br><br>too many errors\n";
+					echo "\ntoo many errors\n";
 					exit(1);
 				}
 			}
 		}
-		echo "\n<br>";
+		echo "\n";
 		return $_count;
 	}
 
@@ -1611,25 +1725,106 @@ class Smarty extends \Smarty\TemplateBase
 		}
 	}
 
+	public function getModifierCallback(string $modifierName) {
+		foreach ($this->getExtensions() as $extension) {
+			if ($callback = $extension->getModifierCallback($modifierName)) {
+				return $callback;
+			}
+		}
+		return null;
+	}
+
+	public function getFunctionHandler(string $functionName): ?\Smarty\FunctionHandler\FunctionHandlerInterface {
+		foreach ($this->getExtensions() as $extension) {
+			if ($handler = $extension->getFunctionHandler($functionName)) {
+				return $handler;
+			}
+		}
+		return null;
+	}
+
+	public function getBlockHandler(string $blockTagName): ?\Smarty\BlockHandler\BlockHandlerInterface {
+		foreach ($this->getExtensions() as $extension) {
+			if ($handler = $extension->getBlockHandler($blockTagName)) {
+				return $handler;
+			}
+		}
+		return null;
+	}
+
+	public function getModifierCompiler(string $modifier): ?\Smarty\Compile\Modifier\ModifierCompilerInterface {
+		foreach ($this->getExtensions() as $extension) {
+			if ($handler = $extension->getModifierCompiler($modifier)) {
+				return $handler;
+			}
+		}
+		return null;
+	}
+
 	/**
-	 * Run filters over content
-	 * The filters will be lazy loaded if required
+	 * Run pre-filters over template source
 	 *
-	 * @param string                   $type     the type of filter ('pre','post','output') which shall run
+	 * @param string                   $source  the content which shall be processed by the filters
+	 * @param Template $template template object
+	 *
+	 * @return string                   the filtered source
+	 */
+	public function runPreFilters($source, Template $template)
+	{
+
+		foreach ($this->getExtensions() as $extension) {
+			/** @var \Smarty\Filter\FilterInterface $filter */
+			foreach ($extension->getPreFilters() as $filter) {
+				$source = $filter->filter($source, $template);
+			}
+		}
+
+		// return filtered output
+		return $source;
+	}
+
+	/**
+	 * Run post-filters over template's compiled code
+	 *
+	 * @param string                   $code  the content which shall be processed by the filters
+	 * @param Template $template template object
+	 *
+	 * @return string                   the filtered code
+	 */
+	public function runPostFilters($code, Template $template)
+	{
+
+		foreach ($this->getExtensions() as $extension) {
+			/** @var \Smarty\Filter\FilterInterface $filter */
+			foreach ($extension->getPostFilters() as $filter) {
+				$code = $filter->filter($code, $template);
+			}
+		}
+
+		// return filtered output
+		return $code;
+	}
+
+
+
+	/**
+	 * Run filters over template output
+	 *
 	 * @param string                   $content  the content which shall be processed by the filters
 	 * @param Template $template template object
 	 *
-	 * @return string                   the filtered content
-	 *@throws Exception
+	 * @return string                   the filtered (modified) output
 	 */
-	public function runFilter($type, $content, Template $template)
+	public function runOutputFilters($content, Template $template)
 	{
-		// loop over registered filters of specified type
-		if (!empty($this->registered_filters[ $type ])) {
-			foreach ($this->registered_filters[ $type ] as $key => $name) {
-				$content = call_user_func($this->registered_filters[ $type ][ $key ], $content, $template);
+
+		foreach ($this->getExtensions() as $extension) {
+			/** @var \Smarty\Filter\FilterInterface $filter */
+			foreach ($extension->getOutputFilters() as $filter) {
+				$content = $filter->filter($content, $template);
 			}
 		}
+
 		// return filtered output
 		return $content;
 	}
@@ -1909,6 +2104,13 @@ class Smarty extends \Smarty\TemplateBase
 		} catch (\Smarty\Exception $e) {
 			return false;
 		}
+	}
+
+	/**
+	 * @return callable|null
+	 */
+	public function getDefaultPluginHandlerFunc(): ?callable {
+		return $this->default_plugin_handler_func;
 	}
 
 }

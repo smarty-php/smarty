@@ -55,7 +55,7 @@ abstract class RecompiledPlugin extends BasePlugin {
 		// call compiler
 		try {
 			eval('?>' . $_smarty_tpl->compiler->compileTemplate($_smarty_tpl));
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			unset($_smarty_tpl->compiler);
 			while (ob_get_level() > $level) {
 				ob_end_clean();

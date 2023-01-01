@@ -108,27 +108,6 @@ class Source {
 	public $content = null;
 
 	/**
-	 * Name of the Class to compile this resource's contents with
-	 *
-	 * @var string
-	 */
-	public $compiler_class = \Smarty\Compiler\Template::class;
-
-	/**
-	 * Name of the Class to tokenize this resource's contents with
-	 *
-	 * @var string
-	 */
-	public $template_lexer_class = \Smarty\Lexer\TemplateLexer::class;
-
-	/**
-	 * Name of the Class to parse this resource's contents with
-	 *
-	 * @var string
-	 */
-	public $template_parser_class = \Smarty\Parser\TemplateParser::class;
-
-	/**
 	 * create Source Object container
 	 *
 	 * @param Smarty $smarty Smarty instance this source object belongs to
@@ -152,9 +131,9 @@ class Source {
 	 * initialize Source Object for given resource
 	 * Either [$_template] or [$smarty, $template_resource] must be specified
 	 *
-	 * @param Template $_template template object
-	 * @param Smarty $smarty smarty object
-	 * @param string $template_resource resource identifier
+	 * @param Template|null $_template template object
+	 * @param Smarty|null $smarty smarty object
+	 * @param null $template_resource resource identifier
 	 *
 	 * @return Source Source Object
 	 * @throws Exception
@@ -210,7 +189,7 @@ class Source {
 	 * @throws \Smarty\Exception
 	 */
 	public function getContent() {
-		return isset($this->content) ? $this->content : $this->handler->getContent($this);
+		return $this->content ?? $this->handler->getContent($this);
 	}
 
 	/**
@@ -241,7 +220,7 @@ class Source {
 			$this->content = $_content;
 			$this->exists = true;
 			$this->uid = $this->name = sha1($_content);
-			$this->handler = Smarty\Resource\BasePlugin::load($this->smarty, 'eval');
+			$this->handler = \Smarty\Resource\BasePlugin::load($this->smarty, 'eval');
 		} else {
 			$this->exists = false;
 			throw new Exception(
@@ -250,4 +229,9 @@ class Source {
 			);
 		}
 	}
+
+	public function createCompiler(): \Smarty\Compiler\BaseCompiler {
+		return new \Smarty\Compiler\Template($this->smarty);
+	}
+
 }

@@ -604,8 +604,9 @@ KEY `name` (`name`)
                 $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
                 return sha1($uid . $_cache_id . $_compile_id);
+            case 'memcache':
             case 'memcachetest':
-            case 'acp':
+            case 'apc':
                 $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
                 $uid = $this->buildUid($tpl, $sp, $name, $type);
                 $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;

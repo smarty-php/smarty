@@ -37,11 +37,11 @@ class LoadPluginTest extends PHPUnit_Smarty
     }
 
     /**
-     * loadPlugin test $template_class exists
+     * loadPlugin test \Smarty\Template exists
      */
     public function testLoadPluginSmartyTemplateClass()
     {
-        $this->assertTrue($this->smarty->loadPlugin($this->smarty->template_class) == true);
+        $this->assertTrue($this->smarty->loadPlugin(\Smarty\Template) == true);
     }
 
     /**

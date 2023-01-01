@@ -31,7 +31,7 @@ class IncludeTag extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	protected $required_attributes = ['file'];
 
@@ -39,7 +39,7 @@ class IncludeTag extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	protected $shorttag_order = ['file'];
 
@@ -47,7 +47,7 @@ class IncludeTag extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	protected $option_flags = ['nocache', 'inline', 'caching'];
 
@@ -55,7 +55,7 @@ class IncludeTag extends Base {
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
-	 * @see Base
+	 * @see BaseCompiler
 	 */
 	protected $optional_attributes = ['_any'];
 
@@ -206,7 +206,7 @@ class IncludeTag extends Base {
 			$t_hash = sha1($c_id . ($_caching ? '--caching' : '--nocaching'));
 			$compiler->smarty->allow_ambiguous_resources = true;
 			/* @var \Smarty\Template $tpl */
-			$tpl = new $compiler->smarty->template_class(
+			$tpl = new \Smarty\Template(
 				trim($fullResourceName, '"\''),
 				$compiler->smarty,
 				$compiler->template,
@@ -328,7 +328,7 @@ class IncludeTag extends Base {
 			$compiled_code .= "?>\n" . $tpl->compiler->compileTemplateSource($tpl, null, $compiler->parent_compiler);
 			$compiled_code .= "<?php\n";
 			$compiled_code .= "}\n?>\n";
-			$compiled_code .= $tpl->compiler->postFilter($tpl->compiler->blockOrFunctionCode);
+			$compiled_code .= $tpl->smarty->runPostFilters($tpl->compiler->blockOrFunctionCode, $tpl);
 			$compiled_code .= "<?php\n\n";
 			$compiled_code .= $compiler->cStyleComment(" End inline template \"{$sourceInfo}\" =============================") . "\n";
 			$compiled_code .= '?>';
