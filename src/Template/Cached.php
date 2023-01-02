@@ -368,7 +368,6 @@ class Cached extends ResourceBase {
 		if (
 			!$no_output_filter
 			&& !$_template->cached->has_nocache_code
-			&& isset($_template->smarty->registered_filters['output'])
 		) {
 			$content = $_template->smarty->runOutputFilters($content, $_template);
 		}

@@ -5,6 +5,7 @@ namespace Smarty\Extension;
 use Smarty\BlockHandler\BlockPluginWrapper;
 use Smarty\Compile\Modifier\BCPluginWrapper as ModifierCompilerPluginWrapper;
 use Smarty\Compile\Tag\BCPluginWrapper as TagPluginWrapper;
+use Smarty\Filter\FilterPluginWrapper;
 use Smarty\FunctionHandler\BCPluginWrapper as FunctionPluginWrapper;
 
 class BCPluginsAdapter extends Base {
@@ -78,6 +79,82 @@ class BCPluginsAdapter extends Base {
 		$callback = $plugin[0];
 
 		return new ModifierCompilerPluginWrapper($callback);
+	}
+
+	/**
+	 * @var array
+	 */
+	private $preFilters = [];
+
+	public function getPreFilters(): array {
+		return $this->preFilters;
+	}
+
+	public function addPreFilter(\Smarty\Filter\FilterInterface $filter) {
+		$this->preFilters[] = $filter;
+	}
+
+	public function addCallableAsPreFilter(callable $callable, ?string $name = null) {
+		if ($name === null) {
+			$this->preFilters[] = new FilterPluginWrapper($callable);
+		} else {
+			$this->preFilters[$name] = new FilterPluginWrapper($callable);
+		}
+	}
+
+	public function removePrefilter(string $name) {
+		unset($this->preFilters[$name]);
+	}
+
+	/**
+	 * @var array
+	 */
+	private $postFilters = [];
+
+	public function getPostFilters(): array {
+		return $this->postFilters;
+	}
+
+	public function addPostFilter(\Smarty\Filter\FilterInterface $filter) {
+		$this->postFilters[] = $filter;
+	}
+
+	public function addCallableAsPostFilter(callable $callable, ?string $name = null) {
+		if ($name === null) {
+			$this->postFilters[] = new FilterPluginWrapper($callable);
+		} else {
+			$this->postFilters[$name] = new FilterPluginWrapper($callable);
+		}
+	}
+
+	public function removePostFilter(string $name) {
+		unset($this->postFilters[$name]);
+	}
+
+
+	/**
+	 * @var array
+	 */
+	private $outputFilters = [];
+
+	public function getOutputFilters(): array {
+		return $this->outputFilters;
+	}
+
+	public function addOutputFilter(\Smarty\Filter\FilterInterface $filter) {
+		$this->outputFilters[] = $filter;
+	}
+
+	public function addCallableAsOutputFilter(callable $callable, ?string $name = null) {
+		if ($name === null) {
+			$this->outputFilters[] = new FilterPluginWrapper($callable);
+		} else {
+			$this->outputFilters[$name] = new FilterPluginWrapper($callable);
+		}
+	}
+
+	public function removeOutputFilter(string $name) {
+		unset($this->outputFilters[$name]);
 	}
 
 	public function loadPluginsFromDir(string $path) {

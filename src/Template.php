@@ -244,8 +244,8 @@ class Template extends TemplateBase {
 			if (
 				!$no_output_filter
 				&& (!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
-				&& isset($this->smarty->registered_filters['output'])
 			) {
+
 				return $this->smarty->runOutputFilters(ob_get_clean(), $this);
 			}
 			// return cache content

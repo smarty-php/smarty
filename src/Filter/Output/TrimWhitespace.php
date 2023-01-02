@@ -11,7 +11,6 @@ namespace Smarty\Filter\Output;
  * @param string $source input string
  *
  * @return string filtered output
- * @todo   substr_replace() is not overloaded by mbstring.func_overload - so this function might fail!
  */
 class TrimWhitespace implements \Smarty\Filter\FilterInterface {
 

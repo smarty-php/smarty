@@ -47,8 +47,6 @@ class AppendByRefTest extends PHPUnit_Smarty
 
     /**
      * test appendByRef merge
-     *
-     * @todo fix testAppendByRefMerge
      */
     public function testAppendByRefMerge()
     {

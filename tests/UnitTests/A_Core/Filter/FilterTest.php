@@ -26,6 +26,15 @@ class FilterTest extends PHPUnit_Smarty
         $this->cleanDirs();
     }
 
+	/**
+	 * test loaded filter
+	 */
+	public function testNoOutputFilter()
+	{
+		$tpl = $this->smarty->createTemplate('string:{"    <br>hello world"}');
+		$this->assertEquals("    <br>hello world", $this->smarty->fetch($tpl));
+	}
+
     /**
      * test loaded filter
      */
@@ -87,6 +96,7 @@ class FilterTest extends PHPUnit_Smarty
         $this->smarty->assign('bar', 6);
         $this->smarty->registerFilter(\Smarty\Smarty::FILTER_OUTPUT, 'myoutputfilter2');
         $this->assertEquals('5 filter 6', $this->smarty->fetch('output_001.tpl'));
+
     }
 
     /**

@@ -77,13 +77,6 @@ abstract class TemplateBase extends Data {
 	public $_var_stack = null;
 
 	/**
-	 * Valid filter types
-	 *
-	 * @var array
-	 */
-	private $filterTypes = ['pre' => true, 'post' => true, 'output' => true, 'variable' => true];
-
-	/**
 	 * fetches a rendered Smarty template
 	 *
 	 * @param string $template the resource handle of the template file or template object
@@ -250,117 +243,6 @@ abstract class TemplateBase extends Data {
 			}
 			throw $e;
 		}
-	}
-
-	/**
-	 * load a filter of specified type and name
-	 *
-	 * @param string $type filter type
-	 * @param string $name filter name
-	 *
-	 * @return bool
-	 * @throws \Smarty\Exception
-	 * @api  Smarty::loadFilter()
-	 * @link https://www.smarty.net/docs/en/api.load.filter.tpl
-	 *
-	 */
-	public function loadFilter($type, $name) {
-		$smarty = $this->_getSmartyObj();
-		$this->_checkFilterType($type);
-		$_plugin = "smarty_{$type}filter_{$name}";
-		$_filter_name = $_plugin;
-		if (is_callable($_plugin)) {
-			$smarty->registered_filters[$type][$_filter_name] = $_plugin;
-			return true;
-		}
-		if (class_exists($_plugin, false)) {
-			$_plugin = [$_plugin, 'execute'];
-		}
-		if (is_callable($_plugin)) {
-			$smarty->registered_filters[$type][$_filter_name] = $_plugin;
-			return true;
-		}
-		throw new Exception("{$type}filter '{$name}' not found or callable");
-	}
-
-	/**
-	 * load a filter of specified type and name
-	 *
-	 * @param string $type filter type
-	 * @param string $name filter name
-	 *
-	 * @return TemplateBase
-	 * @throws \Smarty\Exception
-	 * @api  Smarty::unloadFilter()
-	 *
-	 * @link https://www.smarty.net/docs/en/api.unload.filter.tpl
-	 *
-	 */
-	public function unloadFilter($type, $name) {
-		$smarty = $this->_getSmartyObj();
-		$this->_checkFilterType($type);
-		if (isset($smarty->registered_filters[$type])) {
-			$_filter_name = "smarty_{$type}filter_{$name}";
-			if (isset($smarty->registered_filters[$type][$_filter_name])) {
-				unset($smarty->registered_filters[$type][$_filter_name]);
-				if (empty($smarty->registered_filters[$type])) {
-					unset($smarty->registered_filters[$type]);
-				}
-			}
-		}
-		return $this;
-	}
-
-	/**
-	 * Registers a filter function
-	 *
-	 * @param string $type filter type
-	 * @param callable $callback
-	 * @param string|null $name optional filter name
-	 *
-	 * @return TemplateBase
-	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.register.filter.tpl
-	 *
-	 * @api  Smarty::registerFilter()
-	 */
-	public function registerFilter($type, $callback, $name = null) {
-		$smarty = $this->_getSmartyObj();
-		$this->_checkFilterType($type);
-		$name = isset($name) ? $name : $this->_getFilterName($callback);
-		if (!is_callable($callback)) {
-			throw new Exception("{$type}filter '{$name}' not callable");
-		}
-		$smarty->registered_filters[$type][$name] = $callback;
-		return $this;
-	}
-
-	/**
-	 * Unregisters a filter function
-	 *
-	 * @param string $type filter type
-	 * @param callback|string $callback
-	 *
-	 * @return TemplateBase
-	 * @throws \Smarty\Exception
-	 * @api  Smarty::unregisterFilter()
-	 *
-	 * @link https://www.smarty.net/docs/en/api.unregister.filter.tpl
-	 *
-	 */
-	public function unregisterFilter($type, $callback) {
-		$smarty = $this->_getSmartyObj();
-		$this->_checkFilterType($type);
-		if (isset($smarty->registered_filters[$type])) {
-			$name = is_string($callback) ? $callback : $this->_getFilterName($callback);
-			if (isset($smarty->registered_filters[$type][$name])) {
-				unset($smarty->registered_filters[$type][$name]);
-				if (empty($smarty->registered_filters[$type])) {
-					unset($smarty->registered_filters[$type]);
-				}
-			}
-		}
-		return $this;
 	}
 
 	/**
@@ -620,37 +502,6 @@ abstract class TemplateBase extends Data {
 			);
 		}
 		$smarty->literals = array_merge((array)$smarty->literals, (array)$literals);
-	}
-
-	/**
-	 * Check if filter type is valid
-	 *
-	 * @param string $type
-	 *
-	 * @throws \Smarty\Exception
-	 */
-	private function _checkFilterType($type) {
-		if (!isset($this->filterTypes[$type])) {
-			throw new Exception("Illegal filter type '{$type}'");
-		}
-	}
-
-	/**
-	 * Return internal filter name
-	 *
-	 * @param callback $function_name
-	 *
-	 * @return string   internal filter name
-	 */
-	private function _getFilterName($function_name) {
-		if (is_array($function_name)) {
-			$_class_name = (is_object($function_name[0]) ? get_class($function_name[0]) : $function_name[0]);
-			return $_class_name . '_' . $function_name[1];
-		} elseif (is_string($function_name)) {
-			return $function_name;
-		} else {
-			return 'closure';
-		}
 	}
 
 	/**

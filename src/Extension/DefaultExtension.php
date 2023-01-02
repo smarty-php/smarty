@@ -74,12 +74,6 @@ class DefaultExtension extends Base {
 		return null;
 	}
 
-	public function getOutputFilters(): array {
-		return [
-			new \Smarty\Filter\Output\TrimWhitespace(),
-		];
-	}
-
 	/**
 	 * Smarty spacify modifier plugin
 	 * Type:     modifier

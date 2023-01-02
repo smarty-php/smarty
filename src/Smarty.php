@@ -9,6 +9,7 @@ use Smarty\Extension\BCPluginsAdapter;
 use Smarty\Extension\CoreExtension;
 use Smarty\Extension\DefaultExtension;
 use Smarty\Extension\ExtensionInterface;
+use Smarty\Filter\Output\TrimWhitespace;
 use Smarty\Smarty\Runtime\CaptureRuntime;
 use Smarty\Smarty\Runtime\ForeachRuntime;
 use Smarty\Smarty\Runtime\InheritanceRuntime;
@@ -2113,4 +2114,157 @@ class Smarty extends \Smarty\TemplateBase
 		return $this->default_plugin_handler_func;
 	}
 
+
+	/**
+	 * load a filter of specified type and name
+	 *
+	 * @param string $type filter type
+	 * @param string $name filter name
+	 *
+	 * @return bool
+	 * @throws \Smarty\Exception
+	 * @api  Smarty::loadFilter()
+	 * @link https://www.smarty.net/docs/en/api.load.filter.tpl
+	 *
+	 * @deprecated since 5.0
+	 */
+	public function loadFilter($type, $name) {
+
+		trigger_error('Using Smarty::loadFilter() to load filters is deprecated and will be ' .
+			'removed in a future release. Use Smarty::addExtension() to add an extension or Smarty::registerFilter to ' .
+			'quickly register a filter using a callback function.', E_USER_DEPRECATED);
+
+		if ($type == 'output' && $name == 'trimwhitespace') {
+			$this->BCPluginsAdapter->addOutputFilter(new TrimWhitespace());
+			return true;
+		} else {
+			$_plugin = "smarty_{$type}filter_{$name}";
+			if (!is_callable($_plugin) && class_exists($_plugin, false)) {
+				$_plugin = [$_plugin, 'execute'];
+			}
+		}
+
+		if (is_callable($_plugin)) {
+			$this->registerFilter($type, $_plugin, $name);
+			return true;
+		}
+
+		throw new Exception("{$type}filter '{$name}' not found or callable");
+	}
+
+	/**
+	 * load a filter of specified type and name
+	 *
+	 * @param string $type filter type
+	 * @param string $name filter name
+	 *
+	 * @return TemplateBase
+	 * @throws \Smarty\Exception
+	 * @api  Smarty::unloadFilter()
+	 *
+	 * @link https://www.smarty.net/docs/en/api.unload.filter.tpl
+	 *
+	 * @deprecated since 5.0
+	 */
+	public function unloadFilter($type, $name) {
+		trigger_error('Using Smarty::unloadFilter() to unload filters is deprecated and will be ' .
+			'removed in a future release. Use Smarty::addExtension() to add an extension or Smarty::(un)registerFilter to ' .
+			'quickly (un)register a filter using a callback function.', E_USER_DEPRECATED);
+
+		return $this->unregisterFilter($type, $name);
+	}
+
+	/**
+	 * Registers a filter function
+	 *
+	 * @param string $type filter type
+	 * @param callable $callback
+	 * @param string|null $name optional filter name
+	 *
+	 * @return TemplateBase
+	 * @throws \Smarty\Exception
+	 * @link https://www.smarty.net/docs/en/api.register.filter.tpl
+	 *
+	 * @api  Smarty::registerFilter()
+	 */
+	public function registerFilter($type, $callback, $name = null) {
+		$name = $name ?? $this->_getFilterName($callback);
+		if (!is_callable($callback)) {
+			throw new Exception("{$type}filter '{$name}' not callable");
+		}
+		switch ($type) {
+			case 'output':
+				$this->BCPluginsAdapter->addCallableAsOutputFilter($callback, $name);
+				break;
+			case 'pre':
+				$this->BCPluginsAdapter->addCallableAsPreFilter($callback, $name);
+				break;
+			case 'post':
+				$this->BCPluginsAdapter->addCallableAsPostFilter($callback, $name);
+				break;
+			default:
+				throw new Exception("Illegal filter type '{$type}'");
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Return internal filter name
+	 *
+	 * @param callback $callable
+	 *
+	 * @return string|null   internal filter name or null if callable cannot be serialized
+	 */
+	private function _getFilterName($callable)
+	{
+		if (is_array($callable)) {
+			$_class_name = is_object($callable[0]) ? get_class($callable[0]) : $callable[0];
+			return $_class_name . '_' . $callable[1];
+		} elseif (is_string($callable)) {
+			return $callable;
+		}
+		return null;
+	}
+
+	/**
+	 * Unregisters a filter function. Smarty cannot unregister closures/anonymous functions if
+	 * no name was given in ::registerFilter.
+	 *
+	 * @param string $type filter type
+	 * @param callback|string $name the name previously used in ::registerFilter
+	 *
+	 * @return TemplateBase
+	 * @throws \Smarty\Exception
+	 * @api  Smarty::unregisterFilter()
+	 *
+	 * @link https://www.smarty.net/docs/en/api.unregister.filter.tpl
+	 *
+	 */
+	public function unregisterFilter($type, $name) {
+
+		if (!is_string($name)) {
+			$name = $this->_getFilterName($name);
+		}
+
+		if ($name) {
+			switch ($type) {
+				case 'output':
+					$this->BCPluginsAdapter->removeOutputFilter($name);
+					break;
+				case 'pre':
+					$this->BCPluginsAdapter->removePreFilter($name);
+					break;
+				case 'post':
+					$this->BCPluginsAdapter->removePostFilter($name);
+					break;
+				default:
+					throw new Exception("Illegal filter type '{$type}'");
+			}
+		}
+
+		return $this;
+	}
+
 }
+
