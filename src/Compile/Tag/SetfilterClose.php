@@ -31,7 +31,7 @@ class SetfilterClose extends Base {
 		$this->getAttributes($compiler, $args);
 
 		// reset variable filter to previous state
-		$compiler->getSmarty()->setAutoModifiers(
+		$compiler->getSmarty()->setDefaultModifiers(
 			count($compiler->variable_filter_stack) ? array_pop($compiler->variable_filter_stack) : []
 		);
 

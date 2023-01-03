@@ -66,7 +66,6 @@ class PrintExpressionCompiler extends Base {
 			if (!$_attr['nofilter']) {
 				// default modifier
 				if ($compiler->smarty->getDefaultModifiers()) {
-
 					$modifierlist = [];
 					foreach ($compiler->smarty->getDefaultModifiers() as $key => $single_default_modifier) {
 						preg_match_all(

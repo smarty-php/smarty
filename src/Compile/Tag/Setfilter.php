@@ -20,8 +20,18 @@ class Setfilter extends Base {
 	 * @return string compiled code
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
-		$compiler->variable_filter_stack[] = $compiler->getSmarty()->getAutoModifiers();
-		$compiler->getSmarty()->setAutoModifiers((array) $parameter['modifier_list']);
+		$compiler->variable_filter_stack[] = $compiler->getSmarty()->getDefaultModifiers();
+
+		// The modifier_list is passed as an array of array's. The inner arrays have the modifier at index 0,
+		// and, possibly, parameters at subsequent indexes, e.g. [ ['escape','"mail"'] ]
+		// We will collapse them so the syntax is OK for ::setDefaultModifiers() as follows: [ 'escape:"mail"' ]
+		$newList = [];
+		foreach($parameter['modifier_list'] as $modifier) {
+			$newList[] = implode(':', $modifier);
+		}
+
+		$compiler->getSmarty()->setDefaultModifiers($newList);
+
 		// this tag does not return compiled code
 		$compiler->has_code = false;
 		return true;
