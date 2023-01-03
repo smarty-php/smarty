@@ -344,26 +344,6 @@ abstract class TemplateBase extends Data {
 	}
 
 	/**
-	 * Add default modifiers
-	 *
-	 * @param array|string $modifiers modifier or list of modifiers
-	 *                                                                                   to add
-	 *
-	 * @return \Smarty|\Smarty\Template
-	 * @api Smarty::addDefaultModifiers()
-	 *
-	 */
-	public function addDefaultModifiers($modifiers) {
-		$smarty = $this->_getSmartyObj();
-		if (is_array($modifiers)) {
-			$smarty->default_modifiers = array_merge($smarty->default_modifiers, $modifiers);
-		} else {
-			$smarty->default_modifiers[] = $modifiers;
-		}
-		return $this;
-	}
-
-	/**
 	 * creates a data object
 	 *
 	 * @param Data|null $parent next higher level of Smarty
@@ -398,17 +378,6 @@ abstract class TemplateBase extends Data {
 		return $smarty->debug_tpl;
 	}
 
-	/**
-	 * Get default modifiers
-	 *
-	 * @return array list of default modifiers
-	 * @api Smarty::getDefaultModifiers()
-	 *
-	 */
-	public function getDefaultModifiers() {
-		$smarty = $this->_getSmartyObj();
-		return $smarty->default_modifiers;
-	}
 
 	/**
 	 * return a reference to a registered object
@@ -654,22 +623,6 @@ abstract class TemplateBase extends Data {
 			throw new Exception("Unknown file '{$tpl_name}'");
 		}
 		$smarty->debug_tpl = $tpl_name;
-		return $this;
-	}
-
-	/**
-	 * Set default modifiers
-	 *
-	 * @param array|string $modifiers modifier or list of modifiers
-	 *                                                                                   to set
-	 *
-	 * @return TemplateBase
-	 * @api Smarty::setDefaultModifiers()
-	 *
-	 */
-	public function setDefaultModifiers($modifiers) {
-		$smarty = $this->_getSmartyObj();
-		$smarty->default_modifiers = (array)$modifiers;
 		return $this;
 	}
 

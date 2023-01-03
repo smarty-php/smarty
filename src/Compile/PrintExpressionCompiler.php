@@ -11,6 +11,7 @@
 namespace Smarty\Compile;
 
 use Smarty\Compile\Tag\Base;
+use Smarty\Compiler\BaseCompiler;
 
 /**
  * Smarty Internal Plugin Compile Print Expression Class
@@ -64,55 +65,33 @@ class PrintExpressionCompiler extends Base {
 			// display value
 			if (!$_attr['nofilter']) {
 				// default modifier
-				if (!empty($compiler->smarty->default_modifiers)) {
-					if (empty($compiler->default_modifier_list)) {
-						$modifierlist = [];
-						foreach ($compiler->smarty->default_modifiers as $key => $single_default_modifier) {
-							preg_match_all(
-								'/(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|:|[^:]+)/',
-								$single_default_modifier,
-								$mod_array
-							);
-							for ($i = 0, $count = count($mod_array[0]); $i < $count; $i++) {
-								if ($mod_array[0][$i] !== ':') {
-									$modifierlist[$key][] = $mod_array[0][$i];
-								}
+				if ($compiler->smarty->getDefaultModifiers()) {
+
+					$modifierlist = [];
+					foreach ($compiler->smarty->getDefaultModifiers() as $key => $single_default_modifier) {
+						preg_match_all(
+							'/(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|:|[^:]+)/',
+							$single_default_modifier,
+							$mod_array
+						);
+						for ($i = 0, $count = count($mod_array[0]); $i < $count; $i++) {
+							if ($mod_array[0][$i] !== ':') {
+								$modifierlist[$key][] = $mod_array[0][$i];
 							}
 						}
-						$compiler->default_modifier_list = $modifierlist;
 					}
-					$output = $compiler->compileModifier($compiler->default_modifier_list, $output);
+
+					$output = $compiler->compileModifier($modifierlist, $output);
 				}
-				// autoescape html
+
 				if ($compiler->template->smarty->escape_html) {
 					$output = "htmlspecialchars((string) {$output}, ENT_QUOTES, '" . addslashes(\Smarty\Smarty::$_CHARSET) . "')";
 				}
-				// loop over registered filters
-				if (!empty($compiler->template->smarty->registered_filters[\Smarty\Smarty::FILTER_VARIABLE])) {
-					foreach ($compiler->template->smarty->registered_filters[\Smarty\Smarty::FILTER_VARIABLE] as $key =>
-					         $function) {
-						if (!is_array($function)) {
-							$output = "{$function}({$output},\$_smarty_tpl)";
-						} elseif (is_object($function[0])) {
-							$output =
-								"\$_smarty_tpl->smarty->registered_filters[\Smarty\Smarty::FILTER_VARIABLE]['{$key}'][0]->{$function[1]}({$output},\$_smarty_tpl)";
-						} else {
-							$output = "{$function[0]}::{$function[1]}({$output},\$_smarty_tpl)";
-						}
-					}
-				}
-				foreach ($compiler->variable_filters as $filter) {
-					if (count($filter) === 1
-						&& ($result = $this->compile_variable_filter($compiler, $filter[0], $output)) !== false
-					) {
-						$output = $result;
-					} else {
-						$output = $compiler->compileModifier([$filter], $output);
-					}
-				}
+
 			}
 			$output = "<?php echo {$output};?>\n";
 		}
 		return $output;
 	}
+
 }

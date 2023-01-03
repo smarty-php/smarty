@@ -11,6 +11,7 @@
  */
 
 use Smarty\Template;
+use Smarty\Template\Config;
 use Smarty\Template\Source;
 
 class Smarty_Resource_Db4 extends Smarty\Resource\BasePlugin
@@ -25,7 +26,7 @@ class Smarty_Resource_Db4 extends Smarty\Resource\BasePlugin
 
     public function getContent(Source $source)
     {
-        if ($source->is_config) {
+        if ($source instanceof Config) {
             return "foo = 'bar'\n";
         }
 

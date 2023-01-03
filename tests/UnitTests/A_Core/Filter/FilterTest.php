@@ -55,6 +55,17 @@ class FilterTest extends PHPUnit_Smarty
         $this->assertEquals("hello world", $this->smarty->fetch($tpl));
     }
 
+	/**
+	 * test unregister output filter
+	 */
+	public function testUnRegisterOutputFilter()
+	{
+		$this->smarty->registerFilter(\Smarty\Smarty::FILTER_OUTPUT, 'myoutputfilter');
+		$this->smarty->unRegisterFilter(\Smarty\Smarty::FILTER_OUTPUT, 'myoutputfilter');
+		$tpl = $this->smarty->createTemplate('eval:{"hello   world"}');
+		$this->assertEquals("hello   world", $this->smarty->fetch($tpl));
+	}
+
     /**
      * test registered output filter not cached
      *
@@ -208,14 +219,14 @@ class FilterTest extends PHPUnit_Smarty
      */
     public function testLoadedVariableFilter()
     {
-        $this->smarty->loadFilter("variable", "htmlspecialchars");
+        $this->smarty->loadFilter(\Smarty\Smarty::FILTER_VARIABLE, "escape");
         $tpl = $this->smarty->createTemplate('eval:{$foo}');
         $tpl->assign('foo', '<?php ?>');
         $this->assertEquals('&lt;?php ?&gt;', $this->smarty->fetch($tpl));
     }
 
     /**
-     * test registered post filter
+     * test registered variable filter
      */
     public function testRegisteredVariableFilter2()
     {
@@ -230,7 +241,7 @@ class FilterTest extends PHPUnit_Smarty
 
 Class VarFilter
 {
-    function my_filter($input, $smarty)
+    function my_filter($input)
     {
         return 'var{$foo}' . $input;
     }

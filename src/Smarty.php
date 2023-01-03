@@ -1806,8 +1806,6 @@ class Smarty extends \Smarty\TemplateBase
 		return $code;
 	}
 
-
-
 	/**
 	 * Run filters over template output
 	 *
@@ -2130,18 +2128,34 @@ class Smarty extends \Smarty\TemplateBase
 	 */
 	public function loadFilter($type, $name) {
 
+
+
+		if ($type == \Smarty\Smarty::FILTER_VARIABLE) {
+			foreach ($this->getExtensions() as $extension) {
+				if ($extension->getModifierCallback($name)) {
+
+					trigger_error('Using Smarty::loadFilter() to load variable filters is deprecated and will ' .
+						'be removed in a future release. Use Smarty::addDefaultModifiers() to add a modifier.',
+						E_USER_DEPRECATED);
+
+					$this->addDefaultModifiers([$name]);
+					return true;
+				}
+			}
+		}
+
 		trigger_error('Using Smarty::loadFilter() to load filters is deprecated and will be ' .
 			'removed in a future release. Use Smarty::addExtension() to add an extension or Smarty::registerFilter to ' .
 			'quickly register a filter using a callback function.', E_USER_DEPRECATED);
 
-		if ($type == 'output' && $name == 'trimwhitespace') {
+		if ($type == \Smarty\Smarty::FILTER_OUTPUT && $name == 'trimwhitespace') {
 			$this->BCPluginsAdapter->addOutputFilter(new TrimWhitespace());
 			return true;
-		} else {
-			$_plugin = "smarty_{$type}filter_{$name}";
-			if (!is_callable($_plugin) && class_exists($_plugin, false)) {
-				$_plugin = [$_plugin, 'execute'];
-			}
+		}
+
+		$_plugin = "smarty_{$type}filter_{$name}";
+		if (!is_callable($_plugin) && class_exists($_plugin, false)) {
+			$_plugin = [$_plugin, 'execute'];
 		}
 
 		if (is_callable($_plugin)) {
@@ -2193,6 +2207,14 @@ class Smarty extends \Smarty\TemplateBase
 			throw new Exception("{$type}filter '{$name}' not callable");
 		}
 		switch ($type) {
+			case 'variable':
+				$this->registerPlugin(self::PLUGIN_MODIFIER, $name, $callback);
+				trigger_error('Using Smarty::registerFilter() to register variable filters is deprecated and ' .
+					'will be removed in a future release. Use Smarty::addDefaultModifiers() to add a modifier.',
+					E_USER_DEPRECATED);
+
+				$this->addDefaultModifiers([$name]);
+				break;
 			case 'output':
 				$this->BCPluginsAdapter->addCallableAsOutputFilter($callback, $name);
 				break;
@@ -2265,6 +2287,54 @@ class Smarty extends \Smarty\TemplateBase
 
 		return $this;
 	}
+
+
+	/**
+	 * Add default modifiers
+	 *
+	 * @param array|string $modifiers modifier or list of modifiers
+	 *                                                                                   to add
+	 *
+	 * @return \Smarty|\Smarty\Template
+	 * @api Smarty::addDefaultModifiers()
+	 *
+	 */
+	public function addDefaultModifiers($modifiers) {
+		if (is_array($modifiers)) {
+			$this->default_modifiers = array_merge($this->default_modifiers, $modifiers);
+		} else {
+			$this->default_modifiers[] = $modifiers;
+		}
+		return $this;
+	}
+
+
+	/**
+	 * Get default modifiers
+	 *
+	 * @return array list of default modifiers
+	 * @api Smarty::getDefaultModifiers()
+	 *
+	 */
+	public function getDefaultModifiers() {
+		return $this->default_modifiers;
+	}
+
+	/**
+	 * Set default modifiers
+	 *
+	 * @param array|string $modifiers modifier or list of modifiers
+	 *                                                                                   to set
+	 *
+	 * @return TemplateBase
+	 * @api Smarty::setDefaultModifiers()
+	 *
+	 */
+	public function setDefaultModifiers($modifiers) {
+		$this->default_modifiers = (array)$modifiers;
+		return $this;
+	}
+
 
 }
 

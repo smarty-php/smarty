@@ -214,7 +214,6 @@ class Debug extends Data
         $debObj->debug_tpl = $smarty->debug_tpl ?? 'file:' . __DIR__ . '/../debug.tpl';
         $debObj->registered_resources = array();
         $debObj->registered_filters = array();
-        $debObj->default_modifiers = array();
         $debObj->escape_html = true;
         $debObj->caching = \Smarty::CACHING_OFF;
         $debObj->compile_id = null;

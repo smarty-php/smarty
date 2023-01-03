@@ -110,7 +110,7 @@ class ModifierTest extends PHPUnit_Smarty
      */
     public function testDefaultModifier()
     {
-        $this->smarty->default_modifiers = array('escape');
+        $this->smarty->setDefaultModifiers(array('escape'));
         $this->smarty->assign('foo', '<bar>');
         $this->assertEquals('&lt;bar&gt;<bar>', $this->smarty->fetch('testModifier_Default.tpl'));
     }

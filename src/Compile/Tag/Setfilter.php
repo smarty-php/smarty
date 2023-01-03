@@ -20,8 +20,8 @@ class Setfilter extends Base {
 	 * @return string compiled code
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
-		$compiler->variable_filter_stack[] = $compiler->variable_filters;
-		$compiler->variable_filters = $parameter['modifier_list'];
+		$compiler->variable_filter_stack[] = $compiler->getSmarty()->getAutoModifiers();
+		$compiler->getSmarty()->setAutoModifiers((array) $parameter['modifier_list']);
 		// this tag does not return compiled code
 		$compiler->has_code = false;
 		return true;

@@ -126,13 +126,6 @@ class Template extends BaseCompiler {
 	public $trace_filepath = '';
 
 	/**
-	 * saved preprocessed modifier list
-	 *
-	 * @var mixed
-	 */
-	public $default_modifier_list = null;
-
-	/**
 	 * force compilation of complete template as nocache
 	 *
 	 * @var boolean
@@ -215,13 +208,6 @@ class Template extends BaseCompiler {
 	 * @var array
 	 */
 	public $variable_filter_stack = [];
-
-	/**
-	 * variable filters for {setfilter} {/setfilter}
-	 *
-	 * @var array
-	 */
-	public $variable_filters = [];
 
 	/**
 	 * Nesting count of looping tags like {foreach}, {for}, {section}, {while}
@@ -696,7 +682,7 @@ class Template extends BaseCompiler {
 	 * @return callback|null
 	 * @throws \Smarty\CompilerException
 	 */
-	public function getPluginFromDefaultHandler($tag, $plugin_type): ?callback {
+	public function getPluginFromDefaultHandler($tag, $plugin_type) {
 
 		$defaultPluginHandlerFunc = $this->smarty->getDefaultPluginHandlerFunc();
 
