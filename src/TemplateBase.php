@@ -309,6 +309,13 @@ abstract class TemplateBase extends Data {
 	}
 
 	/**
+	 * @return int
+	 */
+	public function getCompileCheck(): int {
+		return $this->compile_check;
+	}
+
+	/**
 	 * @param int $compile_check
 	 */
 	public function setCompileCheck($compile_check) {

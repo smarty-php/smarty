@@ -2335,6 +2335,9 @@ class Smarty extends \Smarty\TemplateBase
 		return $this;
 	}
 
+	public function setAllowAmbiguousResources(bool $allow) {
+		$this->allow_ambiguous_resources = $allow;
+	}
 
 }
 
