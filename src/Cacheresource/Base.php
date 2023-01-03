@@ -22,15 +22,9 @@ use Smarty\Template\Cached;
  */
 abstract class Base
 {
-    /**
-     * resource types provided by the core
-     *
-     * @var array
-     */
-    protected static $sysplugins = ['file' => \Smarty\Cacheresource\File::class];
 
     /**
-     * populate Cached Object with meta data from Resource
+     * populate Cached Object with metadata from Resource
      *
      * @param Cached  $cached    cached object
      * @param Template $_template template object
@@ -48,15 +42,15 @@ abstract class Base
      */
     abstract public function populateTimestamp(Cached $cached);
 
-    /**
-     * Read the cached template and process header
-     *
-     * @param Template $_template template object
-     * @param Cached   $cached    cached object
-     * @param boolean                  $update    flag if called because cache update
-     *
-     * @return boolean true or false if the cached content does not exist
-     */
+	/**
+	 * Read the cached template and process header
+	 *
+	 * @param Template $_template template object
+	 * @param Cached|null $cached cached object
+	 * @param boolean $update flag if called because cache update
+	 *
+	 * @return boolean true or false if the cached content does not exist
+	 */
     abstract public function process(
 	    Template $_template,
 	    Cached   $cached = null,
@@ -185,37 +179,5 @@ abstract class Base
     {
         // release lock
         return true;
-    }
-
-    /**
-     * Load Cache Resource Handler
-     *
-     * @param Smarty $smarty Smarty object
-     * @param string $type   name of the cache resource
-     *
-     * @return Base Cache Resource Handler
-     */
-    public static function load(Smarty $smarty, $type = null)
-    {
-        if (!isset($type)) {
-            $type = $smarty->caching_type;
-        }
-        // try smarty's cache
-        if (isset($smarty->_cacheresource_handlers[ $type ])) {
-            return $smarty->_cacheresource_handlers[ $type ];
-        }
-        // try registered resource
-        if (isset($smarty->registered_cache_resources[ $type ])) {
-            // do not cache these instances as they may vary from instance to instance
-            return $smarty->_cacheresource_handlers[ $type ] = $smarty->registered_cache_resources[ $type ];
-        }
-        // try sysplugins dir
-        if (isset(self::$sysplugins[ $type ])) {
-            $cache_resource_class = self::$sysplugins[ $type ];
-            return $smarty->_cacheresource_handlers[ $type ] = new $cache_resource_class();
-        }
-        // try plugins dir
-        $cache_resource_class = 'Smarty_CacheResource_' . \smarty_ucfirst_ascii($type);
-	    return $smarty->_cacheresource_handlers[ $type ] = new $cache_resource_class();
     }
 }

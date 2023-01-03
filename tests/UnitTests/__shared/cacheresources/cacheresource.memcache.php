@@ -10,7 +10,7 @@
  * @package CacheResource-examples
  * @author  Rodney Rehm
  */
-class My_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore
+class Smarty_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore
 {
     /**
      * memcache instance

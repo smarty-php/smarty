@@ -6,7 +6,7 @@ use Smarty\Template\Cached;
 
 require_once __DIR__ . '/../../../__shared/cacheresources/cacheresource.apc.php';
 
-class Smarty_CacheResource_Apctest extends My_CacheResource_Apc
+class Smarty_CacheResource_Apctest extends Smarty_CacheResource_Apc
 {
     public $lockTime = 0;
 

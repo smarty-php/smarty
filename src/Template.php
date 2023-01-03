@@ -571,7 +571,7 @@ class Template extends TemplateBase {
 	 */
 	public function loadCached($force = false) {
 		if ($force || !isset($this->cached)) {
-			$this->cached = Cached::load($this);
+			$this->cached = Cached::create($this);
 		}
 	}
 

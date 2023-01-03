@@ -9,19 +9,11 @@ class Smarty_CacheResource_Mysqltest extends Smarty_CacheResource_Mysql
 {
     public $lockTime = 0;
 
-    public function __construct() {
-        try {
-            $this->db = PHPUnit_Smarty::$pdo;
-        } catch (PDOException $e) {
-            throw new Exception('Mysql Resource failed: ' . $e->getMessage());
-        }
-        $this->fetch = $this->db->prepare('SELECT modified, content FROM output_cache WHERE id = :id');
-        $this->fetchTimestamp = $this->db->prepare('SELECT modified FROM output_cache WHERE id = :id');
-        $this->save = $this->db->prepare('REPLACE INTO output_cache (id, name, cache_id, compile_id, content)
-            VALUES  (:id, :name, :cache_id, :compile_id, :content)');
-    }
+	protected function db(): PDO {
+		return PHPUnit_Smarty::$pdo;
+	}
 
-    public function hasLock(Smarty $smarty, Cached $cached)
+	public function hasLock(\Smarty\Smarty $smarty, Cached $cached)
     {
         if ($this->lockTime) {
             $this->lockTime--;

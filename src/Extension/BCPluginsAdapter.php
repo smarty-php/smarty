@@ -181,6 +181,17 @@ class BCPluginsAdapter extends Base {
 			}
 		}
 
+		$type = 'cacheresource';
+		foreach (glob($path  . $type . '.?*.php') as $filename) {
+			$pluginName = $this->getPluginNameFromFilename($filename);
+			if ($pluginName !== null) {
+				require_once $filename;
+				if (class_exists($className = 'smarty_' . $type . '_' . $pluginName)) {
+					$this->smarty->registerCacheResource($pluginName, new $className());
+				}
+			}
+		}
+
 	}
 
 	/**

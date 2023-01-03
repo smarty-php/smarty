@@ -8,7 +8,7 @@
 
 
 include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
-include_once __DIR__ . '/../_shared/PHPunitplugins/cacheresource.pdo_gziptest.php';
+include_once __DIR__ . '/cacheresource.pdo_gziptest.php';
 
 /**
  * class for cache resource file tests

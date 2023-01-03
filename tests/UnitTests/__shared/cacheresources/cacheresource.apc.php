@@ -9,20 +9,8 @@
  * @package CacheResource-examples
  * @author  Uwe Tews
  */
-class My_CacheResource_Apc extends \Smarty\Cacheresource\KeyValueStore
+class Smarty_CacheResource_Apc extends \Smarty\Cacheresource\KeyValueStore
 {
-    /**
-     * Smarty_CacheResource_Apc constructor.
-     *
-     * @throws \Exception
-     */
-    public function __construct()
-    {
-        // test if APC is present
-        if (!function_exists('apc_cache_info')) {
-            throw new Exception('APC Template Caching Error: APC is not installed');
-        }
-    }
 
     /**
      * Read values for a set of keys from cache

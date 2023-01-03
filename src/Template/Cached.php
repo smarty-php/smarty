@@ -90,7 +90,7 @@ class Cached extends ResourceBase {
 		$this->compile_id = $_template->compile_id;
 		$this->cache_id = $_template->cache_id;
 		$this->source = $_template->source;
-		$this->handler = \Smarty\Cacheresource\Base::load($_template->smarty);
+		$this->handler = $_template->smarty->getCacheResource();
 	}
 
 	/**
@@ -98,8 +98,8 @@ class Cached extends ResourceBase {
 	 *
 	 * @return Cached
 	 */
-	public static function load(Template $_template) {
-		$_template->cached = new Cached($_template);
+	public static function create(Template $_template) {
+		$_template->cached = new self($_template);
 		$_template->cached->handler->populate($_template->cached, $_template);
 		// caching enabled ?
 		if (!$_template->caching || $_template->source->handler->recompiled

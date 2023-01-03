@@ -28,7 +28,7 @@ use Smarty\Exception;
  *
  * @author Beno!t POLASZEK - 2014
  */
-class My_CacheResource_Pdo extends \Smarty\Cacheresource\Custom
+class Smarty_CacheResource_Pdo extends \Smarty\Cacheresource\Custom
 {
     /**
      * @var string[]

@@ -4,6 +4,7 @@ namespace Smarty;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Smarty\Cacheresource\File;
 use Smarty\Extension\Base;
 use Smarty\Extension\BCPluginsAdapter;
 use Smarty\Extension\CoreExtension;
@@ -386,12 +387,12 @@ class Smarty extends \Smarty\TemplateBase
     public $default_resource_type = 'file';
 
     /**
-     * caching type
-     * Must be an element of $cache_resource_types.
+     * cache resource
+     * Must be a subclass of \Smarty\Cacheresource\Base
      *
-     * @var string
+     * @var \Smarty\Cacheresource\Base
      */
-    public $caching_type = 'file';
+    private $cacheResource;
 
     /**
      * config type
@@ -446,8 +447,9 @@ class Smarty extends \Smarty\TemplateBase
      * registered cache resources
      *
      * @var array
+     * @deprecated since 5.0
      */
-    public $registered_cache_resources = array();
+    private $registered_cache_resources = array();
 
     /**
      * default modifier
@@ -601,6 +603,8 @@ class Smarty extends \Smarty\TemplateBase
 		$this->extensions[] = new CoreExtension();
 		$this->extensions[] = new DefaultExtension();
 		$this->extensions[] = $this->BCPluginsAdapter;
+
+		$this->cacheResource = new File();
     }
 
 	/**
@@ -1306,14 +1310,6 @@ class Smarty extends \Smarty\TemplateBase
     }
 
     /**
-     * @param string $caching_type
-     */
-    public function setCachingType($caching_type)
-    {
-        $this->caching_type = $caching_type;
-    }
-
-    /**
      * Test install
      *
      * @param null $errors
@@ -1400,7 +1396,7 @@ class Smarty extends \Smarty\TemplateBase
 	 *
 	 * @return int number of cache files deleted
 	 * @throws \Smarty\Exception
-	 *@link https://www.smarty.net/docs/en/api.clear.cache.tpl
+	 * @link https://www.smarty.net/docs/en/api.clear.cache.tpl
 	 *
 	 * @api  Smarty::clearCache()
 	 */
@@ -1408,13 +1404,10 @@ class Smarty extends \Smarty\TemplateBase
 		       $template_name,
 		       $cache_id = null,
 		       $compile_id = null,
-		       $exp_time = null,
-		       $type = null
+		       $exp_time = null
 	) {
 		$this->_clearTemplateCache();
-		// load cache resource and call clear
-		$_cache_resource = \Smarty\Cacheresource\Base::load($this, $type);
-		return $_cache_resource->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
+		return $this->getCacheResource()->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
 	}
 
 	/**
@@ -1428,12 +1421,10 @@ class Smarty extends \Smarty\TemplateBase
 	 *
 	 * @return int number of cache files deleted
 	 */
-	public function clearAllCache($exp_time = null, $type = null)
+	public function clearAllCache($exp_time = null)
 	{
 		$this->_clearTemplateCache();
-		// load cache resource and call clearAll
-		$_cache_resource = \Smarty\Cacheresource\Base::load($this, $type);
-		return $_cache_resource->clearAll($this, $exp_time);
+		return $this->getCacheResource()->clearAll($this, $exp_time);
 	}
 
 	/**
@@ -2188,6 +2179,85 @@ class Smarty extends \Smarty\TemplateBase
 		return $this->unregisterFilter($type, $name);
 	}
 
+	private $_caching_type = 'file';
+
+	/**
+	 * @param $type
+	 *
+	 * @return void
+	 * @deprecated since 5.0
+	 */
+	public function setCachingType($type) {
+		trigger_error('Using Smarty::setCachingType() is deprecated and will be ' .
+			'removed in a future release. Use Smarty::setCacheResource() instead.', E_USER_DEPRECATED);
+		$this->_caching_type = $type;
+		$this->activateBCCacheResource();
+	}
+	/**
+	 * @return string
+	 * @deprecated since 5.0
+	 */
+	public function getCachingType(): string {
+		trigger_error('Using Smarty::getCachingType() is deprecated and will be ' .
+			'removed in a future release.', E_USER_DEPRECATED);
+		return $this->_caching_type;
+	}
+
+	/**
+	 * Registers a resource to fetch a template
+	 *
+	 * @param string $name name of resource type
+	 * @param Base $resource_handler
+	 *
+	 * @return Smarty
+	 * @link https://www.smarty.net/docs/en/api.register.cacheresource.tpl
+	 *
+	 * @api  Smarty::registerCacheResource()
+	 *
+	 * @deprecated since 5.0
+	 */
+	public function registerCacheResource($name, \Smarty\Cacheresource\Base $resource_handler) {
+
+		trigger_error('Using Smarty::registerCacheResource() is deprecated and will be ' .
+			'removed in a future release. Use Smarty::setCacheResource() instead.', E_USER_DEPRECATED);
+
+		$this->registered_cache_resources[$name] = $resource_handler;
+		$this->activateBCCacheResource();
+		return $this;
+	}
+
+	/**
+	 * Unregisters a resource to fetch a template
+	 *
+	 * @param                                                                 $name
+	 *
+	 * @return Smarty
+	 * @api  Smarty::unregisterCacheResource()
+	 * @link https://www.smarty.net/docs/en/api.unregister.cacheresource.tpl
+	 *
+	 * @deprecated since 5.0
+	 *
+	 */
+	public function unregisterCacheResource($name) {
+
+		trigger_error('Using Smarty::unregisterCacheResource() is deprecated and will be ' .
+			'removed in a future release.', E_USER_DEPRECATED);
+
+		if (isset($this->registered_cache_resources[$name])) {
+			unset($this->registered_cache_resources[$name]);
+		}
+		return $this;
+	}
+
+	private function activateBCCacheResource() {
+		if ($this->_caching_type == 'file') {
+			$this->setCacheResource(new File());
+		}
+		if (isset($this->registered_cache_resources[$this->_caching_type])) {
+			$this->setCacheResource($this->registered_cache_resources[$this->_caching_type]);
+		}
+	}
+
 	/**
 	 * Registers a filter function
 	 *
@@ -2337,6 +2407,20 @@ class Smarty extends \Smarty\TemplateBase
 
 	public function setAllowAmbiguousResources(bool $allow) {
 		$this->allow_ambiguous_resources = $allow;
+	}
+
+	/**
+	 * @return Cacheresource\Base
+	 */
+	public function getCacheResource(): Cacheresource\Base {
+		return $this->cacheResource;
+	}
+
+	/**
+	 * @param Cacheresource\Base $cacheResource
+	 */
+	public function setCacheResource(Cacheresource\Base $cacheResource): void {
+		$this->cacheResource = $cacheResource;
 	}
 
 }

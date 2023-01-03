@@ -505,41 +505,6 @@ abstract class TemplateBase extends Data {
 	}
 
 	/**
-	 * Registers a resource to fetch a template
-	 *
-	 * @param string $name name of resource type
-	 * @param Base $resource_handler
-	 *
-	 * @return TemplateBase
-	 * @link https://www.smarty.net/docs/en/api.register.cacheresource.tpl
-	 *
-	 * @api  Smarty::registerCacheResource()
-	 */
-	public function registerCacheResource($name, Base $resource_handler) {
-		$smarty = $this->_getSmartyObj();
-		$smarty->registered_cache_resources[$name] = $resource_handler;
-		return $this;
-	}
-
-	/**
-	 * Unregisters a resource to fetch a template
-	 *
-	 * @param                                                                 $name
-	 *
-	 * @return \Smarty|\Smarty\Template
-	 * @api  Smarty::unregisterCacheResource()
-	 * @link https://www.smarty.net/docs/en/api.unregister.cacheresource.tpl
-	 *
-	 */
-	public function unregisterCacheResource($name) {
-		$smarty = $this->_getSmartyObj();
-		if (isset($smarty->registered_cache_resources[$name])) {
-			unset($smarty->registered_cache_resources[$name]);
-		}
-		return $this;
-	}
-
-	/**
 	 * Register config default handler
 	 *
 	 * @param callable $callback class/method name

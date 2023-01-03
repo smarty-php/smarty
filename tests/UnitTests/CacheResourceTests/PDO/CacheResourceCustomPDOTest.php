@@ -7,7 +7,7 @@
  */
 
 include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
-include_once __DIR__ . '/../_shared/PHPunitplugins/cacheresource.pdotest.php';
+include_once __DIR__ . '/cacheresource.pdotest.php';
 
 /**
  * class for cache resource file tests
@@ -29,9 +29,6 @@ class CacheResourceCustomPDOTest extends CacheResourceTestCommon
         }
         $this->setUpSmarty(__DIR__);
         parent::setUp();
-        $this->smarty->setCachingType('pdo');
-        $this->assertTrue(false !== $this->smarty->loadPlugin('Smarty_CacheResource_Pdotest'),
-                          'loadPlugin() could not load PDO cache resource');
         $this->smarty->registerCacheResource('pdo',
                                              new Smarty_CacheResource_Pdotest($this->getPDO(), 'output_cache'));
     }

@@ -564,7 +564,7 @@ KEY `name` (`name`)
     public function buildCachedPath($tpl, $sub = true, $cache_id = null, $compile_id = null, $name = null, $type = null,
                                     $dir = null, $cacheType = null)
     {
-        $cacheType = isset($cacheType) ? $cacheType : $tpl->smarty->caching_type;
+        $cacheType = $cacheType ?? $tpl->smarty->getCachingType();
         switch ($cacheType) {
             case 'file':
             case 'filetest':
@@ -594,7 +594,6 @@ KEY `name` (`name`)
                 $smarty = isset($tpl->smarty) ? $tpl->smarty : $tpl;
                 $_cache_dir = $smarty->getCacheDir();
                 return $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($sp) . '.php';
-            case 'mysql':
             case 'mysqltest':
             case 'pdo':
             case 'foobar':
@@ -603,7 +602,6 @@ KEY `name` (`name`)
                 $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
                 return sha1($uid . $_cache_id . $_compile_id);
-            case 'memcache':
             case 'memcachetest':
             case 'apc':
                 $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
