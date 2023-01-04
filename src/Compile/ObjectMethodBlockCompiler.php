@@ -11,6 +11,8 @@
 namespace Smarty\Compile;
 
 use Smarty\Compiler\Template;
+use Smarty\CompilerException;
+use Smarty\Exception;
 
 /**
  * Smarty Internal Plugin Compile Object Block Function Class
@@ -21,18 +23,19 @@ use Smarty\Compiler\Template;
 class ObjectMethodBlockCompiler extends BlockCompiler {
 
 	/**
-	 * Setup callback and parameter array
-	 *
-	 * @param Template $compiler
-	 * @param array $_attr attributes
-	 * @param string $tag
-	 * @param string $function
-	 *
-	 * @return array
+	 * @inheritDoc
 	 */
-	protected function setup(Template $compiler, $_attr, $tag, $function) {
-		$_paramsArray = $this->formatParamsArray($_attr);
-		$callback = ["\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]", "->{$function}"];
-		return [$callback, $_paramsArray, "array(\$_block_plugin{$this->nesting}, '{$function}')"];
+	protected function getIsCallableCode($tag, $function): string {
+		$callbackObject = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]";
+		return "(isset({$callbackObject}) && is_callable(array({$callbackObject}, '{$function}')))";
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function getFullCallbackCode($tag, $function): string {
+		$callbackObject = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]";
+		return "{$callbackObject}->{$function}";
+	}
+
 }

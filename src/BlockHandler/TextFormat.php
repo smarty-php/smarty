@@ -2,6 +2,7 @@
 
 namespace Smarty\BlockHandler;
 
+use Smarty\Smarty;
 use Smarty\Template;
 
 /**
@@ -78,8 +79,8 @@ class TextFormat implements BlockHandlerInterface {
 			$_paragraph =
 				preg_replace(
 					array(
-						'!\s+!' . \Smarty::$_UTF8_MODIFIER,
-						'!(^\s+)|(\s+$)!' . \Smarty::$_UTF8_MODIFIER
+						'!\s+!' . Smarty::$_UTF8_MODIFIER,
+						'!(^\s+)|(\s+$)!' . Smarty::$_UTF8_MODIFIER
 					),
 					array(
 						' ',

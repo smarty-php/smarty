@@ -286,6 +286,10 @@ class Template extends BaseCompiler {
 	 * @var string
 	 */
 	public $postfixCompiledCode = '';
+	/**
+	 * @var ObjectMethodBlockCompiler
+	 */
+	private $objectMethodBlockCompiler;
 
 	/**
 	 * Initialize compiler
@@ -302,6 +306,8 @@ class Template extends BaseCompiler {
 			'_',
 			uniqid(mt_rand(), true)
 		);
+
+		$this->objectMethodBlockCompiler = new ObjectMethodBlockCompiler();
 	}
 
 	/**
@@ -1424,7 +1430,7 @@ class Template extends BaseCompiler {
 				|| in_array($method, $this->smarty->registered_objects[$base_tag][1]);
 
 			if ($allowedAsBlockFunction) {
-				return (new ObjectMethodBlockCompiler())->compile($args, $this, $parameter, $tag, $method);
+				return $this->objectMethodBlockCompiler->compile($args, $this, $parameter, $tag, $method);
 			} elseif ($allowedAsNormalFunction) {
 				return (new ObjectMethodCallCompiler())->compile($args, $this, $parameter, $tag, $method);
 			}
@@ -1439,7 +1445,7 @@ class Template extends BaseCompiler {
 
 		// closing tag
 		if ($allowedAsBlockFunction) {
-			return (new ObjectMethodBlockCompiler())->compile($args, $this, $parameter, $tag, $method);
+			return $this->objectMethodBlockCompiler->compile($args, $this, $parameter, $tag, $method);
 		}
 
 		$this->trigger_template_error(

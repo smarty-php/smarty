@@ -13,6 +13,6 @@ class BlockPluginWrapper implements BlockHandlerInterface {
 	}
 
 	public function handle($params, $content, Template $template, &$repeat) {
-		return call_user_func($this->callback, $params, $content, $template, $repeat);
+		return call_user_func_array($this->callback, [$params, $content, $template, &$repeat]);
 	}
 }
