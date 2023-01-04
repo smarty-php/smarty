@@ -54,14 +54,7 @@ class ObjectMethodCallCompiler extends Base {
 		if (is_callable([$compiler->smarty->registered_objects[$tag][0], $function])) {
 			// convert attributes into parameter array string
 			if ($compiler->smarty->registered_objects[$tag][2]) {
-				$_paramsArray = [];
-				foreach ($_attr as $_key => $_value) {
-					if (is_int($_key)) {
-						$_paramsArray[] = "$_key=>$_value";
-					} else {
-						$_paramsArray[] = "'$_key'=>$_value";
-					}
-				}
+				$_paramsArray = $this->formatParamsArray($_attr);
 				$_params = 'array(' . implode(',', $_paramsArray) . ')';
 				$output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$function}({$_params},\$_smarty_tpl)";
 			} else {

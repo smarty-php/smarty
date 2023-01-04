@@ -65,6 +65,27 @@ abstract class Base implements CompilerInterface {
 	}
 
 	/**
+	 * Converts attributes into parameter array string
+	 * @param array $_attr
+	 *
+	 * @return array
+	 */
+	protected function formatParamsArray($_attr, array $cacheAttributes = []) {
+		$_paramsArray = [];
+		foreach ($_attr as $_key => $_value) {
+			if (is_int($_key)) {
+				$_paramsArray[] = "$_key=>$_value";
+			} elseif (in_array($_key, $cacheAttributes)) {
+				$_value = str_replace('\'', "^#^", $_value);
+				$_paramsArray[] = "'$_key'=>^#^.var_export($_value,true).^#^";
+			} else {
+				$_paramsArray[] = "'$_key'=>$_value";
+			}
+		}
+		return $_paramsArray;
+	}
+
+	/**
 	 * This function checks if the attributes passed are valid
 	 * The attributes passed for the tag to compile are checked against the list of required and
 	 * optional attributes. Required attributes must be present. Optional attributes are check against

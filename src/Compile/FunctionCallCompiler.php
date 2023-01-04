@@ -51,18 +51,12 @@ class FunctionCallCompiler extends Base {
 
 		// not cacheable?
 		$compiler->tag_nocache = $compiler->tag_nocache || !$functionHandler->isCacheable();
-		// convert attributes into parameter array string
-		$_paramsArray = [];
-		foreach ($_attr as $_key => $_value) {
-			if (is_int($_key)) {
-				$_paramsArray[] = "$_key=>$_value";
-			} elseif ($compiler->template->caching && in_array($_key, $functionHandler->getCacheAttributes())) {
-				$_value = str_replace('\'', "^#^", $_value);
-				$_paramsArray[] = "'$_key'=>^#^.var_export($_value,true).^#^";
-			} else {
-				$_paramsArray[] = "'$_key'=>$_value";
-			}
-		}
+
+		$_paramsArray = $this->formatParamsArray(
+			$_attr,
+			$compiler->template->caching ? $functionHandler->getCacheAttributes() : []
+		);
+
 		$_params = 'array(' . implode(',', $_paramsArray) . ')';
 
 		$output = "\$_smarty_tpl->smarty->getFunctionHandler(" . var_export($function, true) . ")";

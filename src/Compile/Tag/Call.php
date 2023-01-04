@@ -69,14 +69,7 @@ class Call extends Base {
 		} else {
 			$_nocache = 'false';
 		}
-		$_paramsArray = [];
-		foreach ($_attr as $_key => $_value) {
-			if (is_int($_key)) {
-				$_paramsArray[] = "$_key=>$_value";
-			} else {
-				$_paramsArray[] = "'$_key'=>$_value";
-			}
-		}
+		$_paramsArray = $this->formatParamsArray($_attr);
 		$_params = 'array(' . implode(',', $_paramsArray) . ')';
 		//$compiler->suppressNocacheProcessing = true;
 		// was there an assign attribute

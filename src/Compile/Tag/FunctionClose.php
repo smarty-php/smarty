@@ -46,14 +46,7 @@ class FunctionClose extends Base {
 		$_parameter = $_attr;
 		unset($_parameter['name']);
 		// default parameter
-		$_paramsArray = [];
-		foreach ($_parameter as $_key => $_value) {
-			if (is_int($_key)) {
-				$_paramsArray[] = "$_key=>$_value";
-			} else {
-				$_paramsArray[] = "'$_key'=>$_value";
-			}
-		}
+		$_paramsArray = $this->formatParamsArray($_attr);
 		if (!empty($_paramsArray)) {
 			$_params = 'array(' . implode(',', $_paramsArray) . ')';
 			$_paramsCode = "\$params = array_merge($_params, \$params);\n";

@@ -31,14 +31,7 @@ class ObjectMethodBlockCompiler extends BlockCompiler {
 	 * @return array
 	 */
 	protected function setup(Template $compiler, $_attr, $tag, $function) {
-		$_paramsArray = [];
-		foreach ($_attr as $_key => $_value) {
-			if (is_int($_key)) {
-				$_paramsArray[] = "$_key=>$_value";
-			} else {
-				$_paramsArray[] = "'$_key'=>$_value";
-			}
-		}
+		$_paramsArray = $this->formatParamsArray($_attr);
 		$callback = ["\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]", "->{$function}"];
 		return [$callback, $_paramsArray, "array(\$_block_plugin{$this->nesting}, '{$function}')"];
 	}

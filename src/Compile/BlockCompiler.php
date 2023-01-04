@@ -10,8 +10,6 @@
 
 namespace Smarty\Compile;
 
-use Smarty\Compile\Base;
-
 /**
  * Smarty Internal Plugin Compile Block Plugin Class
  *
@@ -106,14 +104,7 @@ class BlockCompiler extends Base {
 	 * @return array
 	 */
 	protected function setup(\Smarty\Compiler\Template $compiler, $_attr, $tag, $function) {
-		$_paramsArray = [];
-		foreach ($_attr as $_key => $_value) {
-			if (is_int($_key)) {
-				$_paramsArray[] = "$_key=>$_value";
-			} else {
-				$_paramsArray[] = "'$_key'=>$_value";
-			}
-		}
+		$_paramsArray = $this->formatParamsArray($_attr);
 		return [$function, $_paramsArray, null];
 	}
 }

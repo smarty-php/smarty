@@ -32,16 +32,7 @@ class DefaultHandlerFunctionCallCompiler extends Base {
 		$_attr = $this->getAttributes($compiler, $args);
 		unset($_attr['nocache']);
 
-		// convert attributes into parameter array string
-
-		$_paramsArray = [];
-		foreach ($_attr as $_key => $_value) {
-			if (is_int($_key)) {
-				$_paramsArray[] = "$_key=>$_value";
-			} else {
-				$_paramsArray[] = "'$_key'=>$_value";
-			}
-		}
+		$_paramsArray = $this->formatParamsArray($_attr);
 		$_params = 'array(' . implode(',', $_paramsArray) . ')';
 
 		$output = "\$_smarty_tpl->smarty->getRuntime('DefaultPluginHandler')->runPlugin(" . var_export($function, true) .
