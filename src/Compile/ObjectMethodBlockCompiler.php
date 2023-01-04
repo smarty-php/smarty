@@ -10,10 +10,6 @@
 
 namespace Smarty\Compile;
 
-use Smarty\Compiler\Template;
-use Smarty\CompilerException;
-use Smarty\Exception;
-
 /**
  * Smarty Internal Plugin Compile Object Block Function Class
  *

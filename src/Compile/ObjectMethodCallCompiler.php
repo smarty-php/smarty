@@ -10,8 +10,6 @@
 
 namespace Smarty\Compile;
 
-use Smarty\Compile\Base;
-
 /**
  * Smarty Internal Plugin Compile Object Function Class
  *
