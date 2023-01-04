@@ -2,6 +2,8 @@
 
 namespace Smarty\Compile\Tag;
 
+use Smarty\Compile\Base;
+
 class BCPluginWrapper extends Base {
 
 	private $callback;

@@ -3,14 +3,15 @@
  * Smarty Internal Compile Plugin Base
  * @author     Uwe Tews
  */
-namespace Smarty\Compile\Tag;
+namespace Smarty\Compile;
+
 /**
  * This class does extend all internal compile plugins
  *
  * @package    Smarty
  * @subpackage Compiler
  */
-abstract class Base implements TagCompilerInterface {
+abstract class Base implements CompilerInterface {
 
 	/**
 	 * Array of names of required attribute required by tag

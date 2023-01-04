@@ -1,6 +1,6 @@
 <?php
 
-namespace Smarty\Compile\Tag;
+namespace Smarty\Compile;
 
 /**
  * This class does extend all internal compile plugins
@@ -8,7 +8,7 @@ namespace Smarty\Compile\Tag;
  * @package    Smarty
  * @subpackage Compiler
  */
-interface TagCompilerInterface {
+interface CompilerInterface {
 
 	/**
 	 * Compiles code for the tag

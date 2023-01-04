@@ -10,7 +10,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty\Compile\Tag\Base;
+use Smarty\Compile\Base;
 use Smarty\Compile\Tag\Capture;
 use Smarty\Compile\Tag\ForeachTag;
 use Smarty\Compile\Tag\Section;

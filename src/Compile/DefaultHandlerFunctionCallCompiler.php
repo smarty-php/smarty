@@ -1,24 +1,10 @@
 <?php
-/**
- * Smarty Internal Plugin Compile Registered Function
- * Compiles code for the execution of a registered function
- *
- * @package    Smarty
- * @subpackage Compiler
- * @author     Uwe Tews
- */
 
 namespace Smarty\Compile;
 
 use Smarty\Compiler\Template;
 
-/**
- * Smarty Internal Plugin Compile Registered Function Class
- *
- * @package    Smarty
- * @subpackage Compiler
- */
-class FunctionCallCompiler extends Base {
+class DefaultHandlerFunctionCallCompiler extends Base {
 
 	/**
 	 * Attribute definition: Overwrites base class.
@@ -46,27 +32,20 @@ class FunctionCallCompiler extends Base {
 		$_attr = $this->getAttributes($compiler, $args);
 		unset($_attr['nocache']);
 
-
-		$functionHandler = $compiler->smarty->getFunctionHandler($function);
-
-		// not cacheable?
-		$compiler->tag_nocache = $compiler->tag_nocache || !$functionHandler->isCacheable();
 		// convert attributes into parameter array string
+
 		$_paramsArray = [];
 		foreach ($_attr as $_key => $_value) {
 			if (is_int($_key)) {
 				$_paramsArray[] = "$_key=>$_value";
-			} elseif ($compiler->template->caching && in_array($_key, $functionHandler->getCacheAttributes())) {
-				$_value = str_replace('\'', "^#^", $_value);
-				$_paramsArray[] = "'$_key'=>^#^.var_export($_value,true).^#^";
 			} else {
 				$_paramsArray[] = "'$_key'=>$_value";
 			}
 		}
 		$_params = 'array(' . implode(',', $_paramsArray) . ')';
 
-		$output = "\$_smarty_tpl->smarty->getFunctionHandler(" . var_export($function, true) . ")";
-		$output .= "->handle($_params, \$_smarty_tpl)";
+		$output = "\$_smarty_tpl->smarty->runPluginFromDefaultHandler(" . var_export($function, true) .
+			",'function',$_params, \$_smarty_tpl)";
 
 		if (!empty($parameter['modifierlist'])) {
 			$output = $compiler->compileModifier($parameter['modifierlist'], $output);

@@ -10,7 +10,7 @@
 
 namespace Smarty\Compile;
 
-use Smarty\Compile\Tag\Base;
+use Smarty\Compile\Base;
 use Smarty\Compiler\BaseCompiler;
 
 /**

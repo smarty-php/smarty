@@ -27,7 +27,7 @@ class BCPluginsAdapter extends Base {
 		return null;
 	}
 
-	public function getTagCompiler(string $tag): ?\Smarty\Compile\Tag\TagCompilerInterface {
+	public function getTagCompiler(string $tag): ?\Smarty\Compile\CompilerInterface {
 
 		$plugin = $this->findPlugin(\Smarty\Smarty::PLUGIN_COMPILER, $tag);
 		if ($plugin === null) {

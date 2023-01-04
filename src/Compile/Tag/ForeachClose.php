@@ -10,6 +10,8 @@
 
 namespace Smarty\Compile\Tag;
 
+use Smarty\Compile\Base;
+
 /**
  * Smarty Internal Plugin Compile Foreachclose Class
  *

@@ -6,7 +6,7 @@ use Smarty\FunctionHandler\FunctionHandlerInterface;
 
 class Base implements ExtensionInterface {
 
-	public function getTagCompiler(string $tag): ?\Smarty\Compile\Tag\TagCompilerInterface {
+	public function getTagCompiler(string $tag): ?\Smarty\Compile\CompilerInterface {
 		return null;
 	}
 

@@ -11,6 +11,7 @@
 namespace Smarty\Compiler;
 
 use Smarty\Compile\BlockCompiler;
+use Smarty\Compile\DefaultHandlerFunctionCallCompiler;
 use Smarty\Compile\ModifierCompiler;
 use Smarty\Compile\ObjectMethodBlockCompiler;
 use Smarty\Compile\ObjectMethodCallCompiler;
@@ -634,9 +635,9 @@ class Template extends BaseCompiler {
 	 *
 	 * @param string $tag tag name
 	 *
-	 * @return ?\Smarty\Compile\Tag\TagCompilerInterface tag compiler object or null if not found or untrusted by security policy
+	 * @return ?\Smarty\Compile\CompilerInterface tag compiler object or null if not found or untrusted by security policy
 	 */
-	public function getTagCompiler($tag): ?\Smarty\Compile\Tag\TagCompilerInterface {
+	public function getTagCompiler($tag): ?\Smarty\Compile\CompilerInterface {
 
 		if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->isTrustedTag($tag, $this)) {
 			return null;
@@ -1268,7 +1269,7 @@ class Template extends BaseCompiler {
 		}
 
 		if ($this->getPluginFromDefaultHandler($tag, Smarty::PLUGIN_FUNCTION)) {
-			$compiler = new FunctionCallCompiler();
+			$compiler = new DefaultHandlerFunctionCallCompiler();
 			return $compiler->compile($args, $this, $parameter, $tag, $base_tag);
 		}
 

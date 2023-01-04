@@ -6,7 +6,7 @@
  * @subpackage PHPunitPlugin
  */
 
-use Smarty\Compile\Tag\Base;
+use Smarty\Compile\Base;
 
 /**
  * Smarty {getparams}

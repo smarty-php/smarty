@@ -3,7 +3,7 @@
 namespace Smarty\Extension;
 
 class CoreExtension extends Base {
-	public function getTagCompiler(string $tag): ?\Smarty\Compile\Tag\TagCompilerInterface {
+	public function getTagCompiler(string $tag): ?\Smarty\Compile\CompilerInterface {
 		switch ($tag) {
 			case 'append': return new \Smarty\Compile\Tag\Append();
 			case 'assign': return new \Smarty\Compile\Tag\Assign();

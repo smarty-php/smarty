@@ -10,6 +10,7 @@
 
 namespace Smarty\Compile\Tag;
 
+use Smarty\Compile\Base;
 use Smarty\Compiler\Template;
 use Smarty\Smarty;
 use Smarty\Template\Compiled;
