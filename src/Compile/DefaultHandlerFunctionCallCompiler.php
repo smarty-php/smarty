@@ -44,7 +44,7 @@ class DefaultHandlerFunctionCallCompiler extends Base {
 		}
 		$_params = 'array(' . implode(',', $_paramsArray) . ')';
 
-		$output = "\$_smarty_tpl->smarty->runPluginFromDefaultHandler(" . var_export($function, true) .
+		$output = "\$_smarty_tpl->smarty->getRuntime('DefaultPluginHandler')->runPlugin(" . var_export($function, true) .
 			",'function',$_params, \$_smarty_tpl)";
 
 		if (!empty($parameter['modifierlist'])) {

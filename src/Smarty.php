@@ -2075,6 +2075,10 @@ class Smarty extends \Smarty\TemplateBase
 				return $this->runtimes[$type] = new \Smarty\Runtime\MakeNocacheRuntime();
 			case 'TplFunction':
 				return $this->runtimes[$type] = new \Smarty\Runtime\TplFunctionRuntime();
+			case 'DefaultPluginHandler':
+				return $this->runtimes[$type] = new \Smarty\Runtime\DefaultPluginHandlerRuntime(
+					$this->getDefaultPluginHandlerFunc()
+				);
 		}
 
 		throw new \Smarty\Exception('Trying to load invalid runtime ' . $type);
@@ -2101,31 +2105,6 @@ class Smarty extends \Smarty\TemplateBase
 	 */
 	public function getDefaultPluginHandlerFunc(): ?callable {
 		return $this->default_plugin_handler_func;
-	}
-
-	public function runPluginFromDefaultHandler($tag, $plugin_type, $params, \Smarty\Template $template) {
-		$defaultPluginHandlerFunc = $this->getDefaultPluginHandlerFunc();
-
-		$callback = null;
-
-		// these are not used here
-		$script = null;
-		$cacheable = null;
-
-		if (call_user_func_array(
-			$defaultPluginHandlerFunc,
-			[
-				$tag,
-				$plugin_type,
-				null, // This used to pass $this->template, but this parameter has been removed in 5.0
-				&$callback,
-				&$script,
-				&$cacheable,
-			]
-		) && $callback) {
-			return $callback($params, $template);
-		}
-		throw new Exception("Default plugin handler: Returned callback for '{$tag}' not callable at runtime");
 	}
 
 	/**
