@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Capture
  * Compiles the {capture} tag
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Captureclose Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class CaptureClose extends Base {
 

@@ -7,8 +7,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Setfilter Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class Setfilter extends Base {
 

@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Setfilter
  * Compiles code for setfilter tag
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Setfilterclose Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class SetfilterClose extends Base {
 

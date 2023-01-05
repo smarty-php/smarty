@@ -4,16 +4,16 @@ namespace Smarty\ParseTree;
 /**
  * Double-quoted string inside a tag.
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @ignore
  */
 
 /**
  * Double quoted string inside a tag.
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @ignore
  */
 class Dq extends Base

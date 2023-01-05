@@ -5,8 +5,8 @@ namespace Smarty\ParseTree;
  * Smarty Internal Plugin Templateparser Parse Tree
  * These are classes to build parse tree  in the template parser
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Thue Kristensen
  * @author     Uwe Tews
  */
@@ -14,8 +14,8 @@ namespace Smarty\ParseTree;
 /**
  * Raw chars as part of a double-quoted string.
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @ignore
  */
 class DqContent extends Base

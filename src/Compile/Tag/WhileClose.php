@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile While
  * Compiles the {while} tag
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Whileclose Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class WhileClose extends Base {
 

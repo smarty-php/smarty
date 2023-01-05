@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Registered Function
  * Compiles code for the execution of a registered function
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compiler\Template;
 /**
  * Smarty Internal Plugin Compile Registered Function Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class FunctionCallCompiler extends Base {
 

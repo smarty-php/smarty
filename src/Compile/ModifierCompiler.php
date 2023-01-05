@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Modifier
  * Compiles code for modifier execution
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Modifier Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class ModifierCompiler extends Base {
 

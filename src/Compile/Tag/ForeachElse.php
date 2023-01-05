@@ -7,8 +7,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Foreachelse Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class ForeachElse extends Base {
 

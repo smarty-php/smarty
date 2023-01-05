@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Template
  * This file contains the Smarty template engine
  *
- * @package    Smarty
- * @subpackage Template
+
+
  * @author     Uwe Tews
  */
 

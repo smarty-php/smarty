@@ -6,16 +6,16 @@ namespace Smarty;
  * Smarty Internal TestInstall
  * Test Smarty installation
  *
- * @package    Smarty
- * @subpackage Utilities
+
+
  * @author     Uwe Tews
  */
 
 /**
  * TestInstall class
  *
- * @package    Smarty
- * @subpackage Utilities
+
+
  */
 class TestInstall
 {

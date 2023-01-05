@@ -2,8 +2,8 @@
 /**
  * Smarty Internal Plugin Resource File
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Uwe Tews
  * @author     Rodney Rehm
  */
@@ -18,8 +18,8 @@ use Smarty\Exception;
  * Smarty Internal Plugin Resource File
  * Implements the file system as resource for Smarty templates
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  */
 class FilePlugin extends BasePlugin {
 

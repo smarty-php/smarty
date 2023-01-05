@@ -7,8 +7,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Sectionelse Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class SectionElse extends Base {
 

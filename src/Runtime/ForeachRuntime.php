@@ -6,8 +6,8 @@ use Smarty\Template;
 /**
  * Foreach Runtime Methods count(), init(), restore()
  *
- * @package    Smarty
- * @subpackage PluginsInternal
+
+
  * @author     Uwe Tews
  */
 class ForeachRuntime {

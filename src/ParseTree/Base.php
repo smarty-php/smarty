@@ -6,15 +6,15 @@ namespace Smarty\ParseTree;
  * Smarty Internal Plugin Templateparser ParseTree
  * These are classes to build parsetree in the template parser
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Thue Kristensen
  * @author     Uwe Tews
  */
 
 /**
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @ignore
  */
 abstract class Base

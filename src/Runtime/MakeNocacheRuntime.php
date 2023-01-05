@@ -6,8 +6,8 @@ use Smarty\Template;
 /**
  * {make_nocache} Runtime Methods save(), store()
  *
- * @package    Smarty
- * @subpackage PluginsInternal
+
+
  * @author     Uwe Tews
  */
 class MakeNocacheRuntime {

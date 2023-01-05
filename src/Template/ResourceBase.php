@@ -7,8 +7,8 @@ use Smarty\Template;
 /**
  * Smarty Template Resource Base Object
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Rodney Rehm
  */
 abstract class ResourceBase {

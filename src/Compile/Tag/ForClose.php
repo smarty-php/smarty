@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile For
  * Compiles the {for} {forelse} {/for} tags
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Forclose Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class ForClose extends Base {
 

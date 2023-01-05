@@ -7,8 +7,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Else Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class ElseTag extends Base {
 

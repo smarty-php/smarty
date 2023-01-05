@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Block Plugin
  * Compiles code for the execution of block plugin
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -17,8 +17,8 @@ use Smarty\Exception;
 /**
  * Smarty Internal Plugin Compile Block Plugin Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class BlockCompiler extends Base {
 

@@ -2,8 +2,8 @@
 /**
  * Smarty Internal Plugin Resource String
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Uwe Tews
  * @author     Rodney Rehm
  */
@@ -18,8 +18,8 @@ use Smarty\Template\Source;
  * Implements the strings as resource for Smarty template
  * {@internal unlike eval-resources the compiled state of string-resources is saved for subsequent access}}
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  */
 class StringPlugin extends BasePlugin {
 

@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Function
  * Compiles the {function} {/function} tags
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Functionclose Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class FunctionClose extends Base {
 

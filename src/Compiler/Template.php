@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Smarty Template Compiler Base
  * This file contains the basic classes and methods for compiling Smarty templates with lexer/parser
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -31,8 +31,8 @@ use function substr;
 /**
  * Class SmartyTemplateCompiler
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class Template extends BaseCompiler {
 

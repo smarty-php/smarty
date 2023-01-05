@@ -6,16 +6,16 @@ namespace Smarty\Compile\Tag;
  * Smarty Internal Plugin Compile Append
  * Compiles the {append} tag
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Append Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class Append extends Assign
 {

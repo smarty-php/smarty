@@ -7,8 +7,8 @@ use Smarty\Smarty;
 /**
  * Smarty Resource Plugin
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Rodney Rehm
  */
 
@@ -16,8 +16,8 @@ use Smarty\Smarty;
  * Smarty Resource Plugin
  * Base implementation for resource plugins
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  *
  * @method renderUncompiled(\Smarty\Template\Source $source, \Smarty\Template $_template)
  * @method populateCompiledFilepath(\Smarty\Template\Compiled $compiled, \Smarty\Template $_template)

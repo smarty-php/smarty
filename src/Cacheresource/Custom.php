@@ -5,8 +5,8 @@ namespace Smarty\Cacheresource;
 /**
  * Smarty Internal Plugin
  *
- * @package    Smarty
- * @subpackage Cacher
+
+
  */
 
 use Smarty\Smarty;
@@ -16,8 +16,8 @@ use Smarty\Template\Cached;
 /**
  * Cache Handler API
  *
- * @package    Smarty
- * @subpackage Cacher
+
+
  * @author     Rodney Rehm
  */
 abstract class Custom extends Base

@@ -7,8 +7,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Function Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class FunctionTag extends Base {
 

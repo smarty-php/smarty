@@ -20,13 +20,14 @@ use Smarty\Template;
  */
 class Counter extends Base {
 
+	private $counters = [];
+
 	public function handle($params, Template $template) {
-		static $counters = [];
 		$name = (isset($params['name'])) ? $params['name'] : 'default';
-		if (!isset($counters[$name])) {
-			$counters[$name] = ['start' => 1, 'skip' => 1, 'direction' => 'up', 'count' => 1];
+		if (!isset($this->counters[$name])) {
+			$this->counters[$name] = ['start' => 1, 'skip' => 1, 'direction' => 'up', 'count' => 1];
 		}
-		$counter =& $counters[$name];
+		$counter =& $this->counters[$name];
 		if (isset($params['start'])) {
 			$counter['start'] = $counter['count'] = (int)$params['start'];
 		}

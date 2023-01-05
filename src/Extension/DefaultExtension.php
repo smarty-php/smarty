@@ -3,32 +3,58 @@
 namespace Smarty\Extension;
 
 class DefaultExtension extends Base {
+
+	private $modifiers = [];
+
+	private $functionHandlers = [];
+
+	private $blockHandlers = [];
+
+	public function __construct() {
+		// modifiers
+		$this->modifiers['cat'] = new \Smarty\Compile\Modifier\CatModifierCompiler();
+		$this->modifiers['count_characters'] = new \Smarty\Compile\Modifier\CountCharactersModifierCompiler();
+		$this->modifiers['count_paragraphs'] = new \Smarty\Compile\Modifier\CountParagraphsModifierCompiler();
+		$this->modifiers['count_sentences'] = new \Smarty\Compile\Modifier\CountSentencesModifierCompiler();
+		$this->modifiers['count_words'] = new \Smarty\Compile\Modifier\CountWordsModifierCompiler();
+		$this->modifiers['default'] = new \Smarty\Compile\Modifier\DefaultModifierCompiler();
+		$this->modifiers['escape'] = new \Smarty\Compile\Modifier\EscapeModifierCompiler();
+		$this->modifiers['from_charset'] = new \Smarty\Compile\Modifier\FromCharsetModifierCompiler();
+		$this->modifiers['indent'] = new \Smarty\Compile\Modifier\IndentModifierCompiler();
+		$this->modifiers['lower'] = new \Smarty\Compile\Modifier\LowerModifierCompiler();
+		$this->modifiers['nl2br'] = new \Smarty\Compile\Modifier\Nl2brModifierCompiler();
+		$this->modifiers['noprint'] = new \Smarty\Compile\Modifier\NoPrintModifierCompiler();
+		$this->modifiers['round'] = new \Smarty\Compile\Modifier\RoundModifierCompiler();
+		$this->modifiers['str_repeat'] = new \Smarty\Compile\Modifier\StrRepeatModifierCompiler();
+		$this->modifiers['string_format'] = new \Smarty\Compile\Modifier\StringFormatModifierCompiler();
+		$this->modifiers['strip'] = new \Smarty\Compile\Modifier\StripModifierCompiler();
+		$this->modifiers['strip_tags'] = new \Smarty\Compile\Modifier\StripTagsModifierCompiler();
+		$this->modifiers['strlen'] = new \Smarty\Compile\Modifier\StrlenModifierCompiler();
+		$this->modifiers['to_charset'] = new \Smarty\Compile\Modifier\ToCharsetModifierCompiler();
+		$this->modifiers['unescape'] = new \Smarty\Compile\Modifier\UnescapeModifierCompiler();
+		$this->modifiers['upper'] = new \Smarty\Compile\Modifier\UpperModifierCompiler();
+		$this->modifiers['wordwrap'] = new \Smarty\Compile\Modifier\WordWrapModifierCompiler();
+
+		// function handlers
+		$this->functionHandlers['counter'] = new \Smarty\FunctionHandler\Counter();
+		$this->functionHandlers['cycle'] = new \Smarty\FunctionHandler\Cycle();
+		$this->functionHandlers['fetch'] = new \Smarty\FunctionHandler\Fetch();
+		$this->functionHandlers['html_checkboxes'] = new \Smarty\FunctionHandler\HtmlCheckboxes();
+		$this->functionHandlers['html_image'] = new \Smarty\FunctionHandler\HtmlImage();
+		$this->functionHandlers['html_options'] = new \Smarty\FunctionHandler\HtmlOptions();
+		$this->functionHandlers['html_radios'] = new \Smarty\FunctionHandler\HtmlRadios();
+		$this->functionHandlers['html_select_date'] = new \Smarty\FunctionHandler\HtmlSelectDate();
+		$this->functionHandlers['html_select_time'] = new \Smarty\FunctionHandler\HtmlSelectTime();
+		$this->functionHandlers['html_table'] = new \Smarty\FunctionHandler\HtmlTable();
+		$this->functionHandlers['mailto'] = new \Smarty\FunctionHandler\Mailto();
+		$this->functionHandlers['math'] = new \Smarty\FunctionHandler\Math();
+
+		// blockhandlers
+		$this->blockHandlers['textformat'] = new \Smarty\BlockHandler\TextFormat();
+	}
+
 	public function getModifierCompiler(string $modifier): ?\Smarty\Compile\Modifier\ModifierCompilerInterface {
-		switch ($modifier) {
-			case 'cat': return new \Smarty\Compile\Modifier\CatModifierCompiler();
-			case 'count_characters': return new \Smarty\Compile\Modifier\CountCharactersModifierCompiler();
-			case 'count_paragraphs': return new \Smarty\Compile\Modifier\CountParagraphsModifierCompiler();
-			case 'count_sentences': return new \Smarty\Compile\Modifier\CountSentencesModifierCompiler();
-			case 'count_words': return new \Smarty\Compile\Modifier\CountWordsModifierCompiler();
-			case 'default': return new \Smarty\Compile\Modifier\DefaultModifierCompiler();
-			case 'escape': return new \Smarty\Compile\Modifier\EscapeModifierCompiler();
-			case 'from_charset': return new \Smarty\Compile\Modifier\FromCharsetModifierCompiler();
-			case 'indent': return new \Smarty\Compile\Modifier\IndentModifierCompiler();
-			case 'lower': return new \Smarty\Compile\Modifier\LowerModifierCompiler();
-			case 'nl2br': return new \Smarty\Compile\Modifier\Nl2brModifierCompiler();
-			case 'noprint': return new \Smarty\Compile\Modifier\NoPrintModifierCompiler();
-			case 'round': return new \Smarty\Compile\Modifier\RoundModifierCompiler();
-			case 'str_repeat': return new \Smarty\Compile\Modifier\StrRepeatModifierCompiler();
-			case 'string_format': return new \Smarty\Compile\Modifier\StringFormatModifierCompiler();
-			case 'strip': return new \Smarty\Compile\Modifier\StripModifierCompiler();
-			case 'strip_tags': return new \Smarty\Compile\Modifier\StripTagsModifierCompiler();
-			case 'strlen': return new \Smarty\Compile\Modifier\StrlenModifierCompiler();
-			case 'to_charset': return new \Smarty\Compile\Modifier\ToCharsetModifierCompiler();
-			case 'unescape': return new \Smarty\Compile\Modifier\UnescapeModifierCompiler();
-			case 'upper': return new \Smarty\Compile\Modifier\UpperModifierCompiler();
-			case 'wordwrap': return new \Smarty\Compile\Modifier\WordWrapModifierCompiler();
-		}
-		return null;
+		return $this->modifiers[$modifier] ?? null;
 	}
 
 	public function getModifierCallback(string $modifierName) {
@@ -50,28 +76,11 @@ class DefaultExtension extends Base {
 	}
 
 	public function getFunctionHandler(string $functionName): ?\Smarty\FunctionHandler\FunctionHandlerInterface {
-		switch ($functionName) {
-			case 'counter': return new \Smarty\FunctionHandler\Counter();
-			case 'cycle': return new \Smarty\FunctionHandler\Cycle();
-			case 'fetch': return new \Smarty\FunctionHandler\Fetch();
-			case 'html_checkboxes': return new \Smarty\FunctionHandler\HtmlCheckboxes();
-			case 'html_image': return new \Smarty\FunctionHandler\HtmlImage();
-			case 'html_options': return new \Smarty\FunctionHandler\HtmlOptions();
-			case 'html_radios': return new \Smarty\FunctionHandler\HtmlRadios();
-			case 'html_select_date': return new \Smarty\FunctionHandler\HtmlSelectDate();
-			case 'html_select_time': return new \Smarty\FunctionHandler\HtmlSelectTime();
-			case 'html_table': return new \Smarty\FunctionHandler\HtmlTable();
-			case 'mailto': return new \Smarty\FunctionHandler\Mailto();
-			case 'math': return new \Smarty\FunctionHandler\Math();
-		}
-		return null;
+		return $this->functionHandlers[$functionName] ?? null;
 	}
 
 	public function getBlockHandler(string $blockTagName): ?\Smarty\BlockHandler\BlockHandlerInterface {
-		switch ($blockTagName) {
-			case 'textformat': return new \Smarty\BlockHandler\TextFormat();
-		}
-		return null;
+		return $this->blockHandlers[$blockTagName] ?? null;
 	}
 
 	/**

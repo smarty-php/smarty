@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Nocache
  * Compiles the {nocache} {/nocache} tags.
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Nocacheclose Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class NocacheClose extends Base {
 

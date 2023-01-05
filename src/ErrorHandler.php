@@ -5,8 +5,8 @@ namespace Smarty;
 /**
  * Smarty error handler to fix new error levels in PHP8 for backwards compatibility
  *
- * @package    Smarty
- * @subpackage PluginsInternal
+
+
  * @author     Simon Wisselink
  *
  */

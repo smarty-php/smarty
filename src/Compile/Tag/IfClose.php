@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile If
  * Compiles the {if} {else} {elseif} {/if} tags
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Ifclose Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class IfClose extends Base {
 

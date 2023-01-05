@@ -2,8 +2,8 @@
 /**
  * Smarty Resource Plugin
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Rodney Rehm
  */
 
@@ -17,8 +17,8 @@ use Smarty\Template\Compiled;
  * Smarty Resource Plugin
  * Base implementation for resource plugins that don't compile cache
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  */
 abstract class RecompiledPlugin extends BasePlugin {
 

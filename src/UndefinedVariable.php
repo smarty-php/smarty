@@ -6,8 +6,8 @@ namespace Smarty;
  * class for undefined variable object
  * This class defines an object for undefined variable handling
  *
- * @package    Smarty
- * @subpackage Template
+
+
  */
 class UndefinedVariable extends Variable {
 

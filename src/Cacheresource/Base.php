@@ -9,15 +9,15 @@ use Smarty\Template\Cached;
 /**
  * Smarty Internal Plugin
  *
- * @package    Smarty
- * @subpackage Cacher
+
+
  */
 
 /**
  * Cache Handler API
  *
- * @package    Smarty
- * @subpackage Cacher
+
+
  * @author     Rodney Rehm
  */
 abstract class Base

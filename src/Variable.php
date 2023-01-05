@@ -6,8 +6,8 @@ namespace Smarty;
  * class for the Smarty variable object
  * This class defines the Smarty variable object
  *
- * @package    Smarty
- * @subpackage Template
+
+
  */
 #[\AllowDynamicProperties]
 class Variable

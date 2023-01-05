@@ -2,8 +2,8 @@
 /**
  * Smarty Resource Plugin
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Rodney Rehm
  */
 
@@ -17,8 +17,8 @@ use Smarty\Exception;
  * Smarty Resource Plugin
  * Wrapper Implementation for custom resource plugins
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  */
 abstract class CustomPlugin extends BasePlugin {
 

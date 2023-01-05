@@ -10,8 +10,8 @@ use Smarty\Template\Source;
  * Smarty Resource Data Object
  * Cache Data Container for Template Files
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Rodney Rehm
  */
 class Cached extends ResourceBase {

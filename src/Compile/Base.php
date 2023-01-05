@@ -8,8 +8,8 @@ namespace Smarty\Compile;
 /**
  * This class does extend all internal compile plugins
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 abstract class Base implements CompilerInterface {
 

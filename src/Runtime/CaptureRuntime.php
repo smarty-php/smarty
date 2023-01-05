@@ -6,8 +6,8 @@ use Smarty\Template;
 /**
  * Runtime Extension Capture
  *
- * @package    Smarty
- * @subpackage PluginsInternal
+
+
  * @author     Uwe Tews
  */
 class CaptureRuntime {

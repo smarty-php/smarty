@@ -5,8 +5,8 @@ namespace Smarty\Resource;
 /**
  * Smarty Internal Plugin Resource Extends
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Uwe Tews
  * @author     Rodney Rehm
  */
@@ -15,8 +15,8 @@ namespace Smarty\Resource;
  * Smarty Internal Plugin Resource Extends
  * Implements the file system as resource for Smarty which {extend}s a chain of template files templates
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  */
 class ExtendsPlugin extends BasePlugin
 {

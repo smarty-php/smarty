@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Special Smarty Variable
  * Compiles the special $smarty variables
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -20,8 +20,8 @@ use Smarty\CompilerException;
 /**
  * Smarty Internal Plugin Compile special Smarty Variable Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class SpecialVariableCompiler extends Base {
 

@@ -8,16 +8,16 @@ use Smarty\Compile\Base;
  * Smarty Internal Plugin Compile Shared Inheritance
  * Shared methods for {extends} and {block} tags
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Shared Inheritance Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 abstract class Inheritance extends Base
 {

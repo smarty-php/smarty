@@ -10,8 +10,8 @@ use Smarty\Exception;
  * Smarty Resource Data Object
  * Meta Data Container for Template Files
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Rodney Rehm
  */
 class Source {

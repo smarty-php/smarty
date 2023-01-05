@@ -7,8 +7,8 @@ use Smarty\TemplateBase;
 /**
  * TplFunction Runtime Methods callTemplateFunction
  *
- * @package    Smarty
- * @subpackage PluginsInternal
+
+
  * @author     Uwe Tews
  **/
 class TplFunctionRuntime {

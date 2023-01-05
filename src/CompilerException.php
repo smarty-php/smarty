@@ -5,7 +5,7 @@ namespace Smarty;
 /**
  * Smarty compiler exception class
  *
- * @package Smarty
+
  */
 class CompilerException extends Exception {
 

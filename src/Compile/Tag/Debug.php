@@ -4,8 +4,8 @@
  * Compiles the {debug} tag.
  * It opens a window the the Smarty Debugging Console.
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -16,8 +16,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Debug Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class Debug extends Base {
 

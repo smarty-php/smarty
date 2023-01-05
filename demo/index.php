@@ -2,7 +2,7 @@
 /**
  * Example Application
  *
- * @package Example-application
+
  */
 
 $smarty = new \Smarty\Smarty;

@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Ldelim
  * Compiles the {ldelim} tag
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Ldelim Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class Ldelim extends Base {
 

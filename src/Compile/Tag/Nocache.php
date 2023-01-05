@@ -7,8 +7,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Nocache Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class Nocache extends Base {
 

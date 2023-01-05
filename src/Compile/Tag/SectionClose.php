@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Section
  * Compiles the {section} {sectionelse} {/section} tags
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Sectionclose Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class SectionClose extends Base {
 

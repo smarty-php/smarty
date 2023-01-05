@@ -8,8 +8,8 @@ use Smarty\Template;
  * Smarty Resource Data Object
  * Meta Data Container for Template Files
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Rodney Rehm
  * @property   string $content compiled content
  */

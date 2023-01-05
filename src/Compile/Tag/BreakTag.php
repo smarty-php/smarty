@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Break
  * Compiles the {break} tag
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Break Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class BreakTag extends Base {
 

@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Print Expression
  * Compiles any tag which will output an expression or variable
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -16,8 +16,8 @@ use Smarty\Compiler\BaseCompiler;
 /**
  * Smarty Internal Plugin Compile Print Expression Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class PrintExpressionCompiler extends Base {
 

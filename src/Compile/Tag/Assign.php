@@ -9,16 +9,16 @@ use Smarty\Smarty;
  * Smarty Internal Plugin Compile Assign
  * Compiles the {assign} tag
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Compile Assign Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class Assign extends Base
 {

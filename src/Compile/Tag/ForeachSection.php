@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile ForeachSection
  * Shared methods for {foreach} {section} tags
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile ForeachSection Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 abstract class ForeachSection extends Base {
 

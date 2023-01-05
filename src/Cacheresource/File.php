@@ -11,8 +11,8 @@ use Smarty\Template\Cached;
 /**
  * Smarty Internal Plugin CacheResource File
  *
- * @package    Smarty
- * @subpackage Cacher
+
+
  * @author     Uwe Tews
  * @author     Rodney Rehm
  */
@@ -21,8 +21,8 @@ use Smarty\Template\Cached;
  * This class does contain all necessary methods for the HTML cache on file system
  * Implements the file system as resource for the HTML cache Version ussing nocache inserts.
  *
- * @package    Smarty
- * @subpackage Cacher
+
+
  */
 class File extends Base
 {

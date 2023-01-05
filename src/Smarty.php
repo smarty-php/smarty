@@ -38,13 +38,10 @@ use Smarty\Smarty\Runtime\TplFunctionRuntime;
  * smarty-discussion-subscribe@googlegroups.com
  *
  * @link      https://www.smarty.net/
- * @copyright 2018 New Digital Group, Inc.
- * @copyright 2018 Uwe Tews
  * @author    Monte Ohrt <monte at ohrt dot com>
  * @author    Uwe Tews   <uwe dot tews at gmail dot com>
  * @author    Rodney Rehm
  * @author    Simon Wisselink
- * @package   Smarty
  */
 
 /**
@@ -1372,7 +1369,7 @@ class Smarty extends \Smarty\TemplateBase
 
     /**
      * Indicates if Smarty will mute errors for "undefined index", "undefined array key" and "trying to read property of null".
-     * @bool
+     * @return bool
      */
     public function isMutingUndefinedOrNullWarnings(): bool {
         return $this->isMutingUndefinedOrNullWarnings;

@@ -6,16 +6,16 @@ namespace Smarty;
  * Smarty Internal Plugin Debug
  * Class to collect data for the Smarty Debugging Console
  *
- * @package    Smarty
- * @subpackage Debug
+
+
  * @author     Uwe Tews
  */
 
 /**
  * Smarty Internal Plugin Debug Class
  *
- * @package    Smarty
- * @subpackage Debug
+
+
  */
 class Debug extends Data
 {

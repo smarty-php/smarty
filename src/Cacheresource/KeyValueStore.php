@@ -9,8 +9,8 @@ use Smarty\Template\Cached;
 /**
  * Smarty Internal Plugin
  *
- * @package    Smarty
- * @subpackage Cacher
+
+
  */
 
 /**
@@ -31,8 +31,8 @@ use Smarty\Template\Cached;
  * cache groups: if your cache groups look somewhat like »a|b|$page|$items|$whatever«
  * consider using »a|b|c|$page-$items-$whatever« instead.
  *
- * @package    Smarty
- * @subpackage Cacher
+
+
  * @author     Rodney Rehm
  */
 abstract class KeyValueStore extends Base

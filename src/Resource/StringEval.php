@@ -7,8 +7,8 @@ use Smarty\Smarty;
 /**
  * Smarty Internal Plugin Resource Eval
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  * @author     Uwe Tews
  * @author     Rodney Rehm
  */
@@ -18,8 +18,8 @@ use Smarty\Smarty;
  * Implements the strings as resource for Smarty template
  * {@internal unlike string-resources the compiled state of eval-resources is NOT saved for subsequent access}}
  *
- * @package    Smarty
- * @subpackage TemplateResources
+
+
  */
 class StringEval extends RecompiledPlugin
 {

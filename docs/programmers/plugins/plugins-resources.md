@@ -48,7 +48,7 @@ example.
      * Demo data:
      * <pre>INSERT INTO `templates` (`name`, `modified`, `source`) VALUES ('test.tpl', "2010-12-25 22:00:00", '{$x="hello world"}{$x}');</pre>
      *
-     * @package Resource-examples
+    
      * @author Rodney Rehm
      */
     class My_Resource_Mysql extends \Smarty\Resource\CustomPlugin {

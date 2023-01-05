@@ -7,8 +7,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile For Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class ForTag extends Base {
 

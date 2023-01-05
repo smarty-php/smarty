@@ -8,8 +8,8 @@ use Smarty\Exception;
 /**
  * Inheritance Runtime Methods processBlock, endChild, init
  *
- * @package    Smarty
- * @subpackage PluginsInternal
+
+
  * @author     Uwe Tews
  **/
 class InheritanceRuntime {

@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Foreach
  * Compiles the {foreach} {foreachelse} {/foreach} tags
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -15,8 +15,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Foreachclose Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class ForeachClose extends Base {
 

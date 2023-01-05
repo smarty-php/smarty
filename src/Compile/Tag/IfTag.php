@@ -7,8 +7,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile If Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class IfTag extends Base {
 

@@ -5,8 +5,8 @@ namespace Smarty\Runtime;
 /**
  * Smarty {block} tag class
  *
- * @package    Smarty
- * @subpackage PluginsInternal
+
+
  * @author     Uwe Tews
  */
 class Block

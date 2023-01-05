@@ -3,8 +3,8 @@
  * Smarty Internal Plugin Compile Object Block Function
  * Compiles code for registered objects as block function
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  * @author     Uwe Tews
  */
 
@@ -13,8 +13,8 @@ namespace Smarty\Compile;
 /**
  * Smarty Internal Plugin Compile Object Block Function Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class ObjectMethodBlockCompiler extends BlockCompiler {
 

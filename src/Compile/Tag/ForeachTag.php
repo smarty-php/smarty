@@ -5,8 +5,8 @@ namespace Smarty\Compile\Tag;
 /**
  * Smarty Internal Plugin Compile Foreach Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class ForeachTag extends ForeachSection {
 

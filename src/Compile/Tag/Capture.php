@@ -7,8 +7,8 @@ use Smarty\Compile\Base;
 /**
  * Smarty Internal Plugin Compile Capture Class
  *
- * @package    Smarty
- * @subpackage Compiler
+
+
  */
 class Capture extends Base {
 
