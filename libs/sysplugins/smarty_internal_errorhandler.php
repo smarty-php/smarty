@@ -31,6 +31,12 @@ class Smarty_Internal_ErrorHandler
 
     private $previousErrorHandler = null;
 
+    private $smarty;
+
+    public function __construct(Smarty $smarty) {
+        $this->smarty = $smarty;
+    }
+
     /**
      * Enable error handler to intercept errors
      */
@@ -72,26 +78,29 @@ class Smarty_Internal_ErrorHandler
      */
     public function handleError($errno, $errstr, $errfile, $errline, $errcontext = [])
     {
+        if (strpos($errfile, $this->smarty->getCompileDir()) === 0) {
 
-        if ($this->allowUndefinedVars && preg_match(
-                '/^(Attempt to read property "value" on null|Trying to get property (\'value\' )?of non-object)/',
+            if ($this->allowUndefinedVars && preg_match(
+                    '/^(Attempt to read property "value" on null|Trying to get property (\'value\' )?of non-object)/',
+                    $errstr
+                )) {
+                return; // suppresses this error
+            }
+
+            if ($this->allowUndefinedArrayKeys && preg_match(
+                '/^(Undefined index|Undefined array key|Trying to access array offset on value of type)/',
                 $errstr
             )) {
-            return; // suppresses this error
-        }
+                return; // suppresses this error
+            }
 
-        if ($this->allowUndefinedArrayKeys && preg_match(
-            '/^(Undefined index|Undefined array key|Trying to access array offset on value of type)/',
-            $errstr
-        )) {
-            return; // suppresses this error
-        }
+            if ($this->allowDereferencingNonObjects && preg_match(
+                    '/^Attempt to read property ".+?" on/',
+                    $errstr
+                )) {
+                return; // suppresses this error
+            }
 
-        if ($this->allowDereferencingNonObjects && preg_match(
-                '/^Attempt to read property ".+?" on/',
-                $errstr
-            )) {
-            return; // suppresses this error
         }
 
         // pass all other errors through to the previous error handler or to the default PHP error handler
