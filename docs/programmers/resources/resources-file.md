@@ -11,12 +11,6 @@ If the file resource cannot find the requested template, the
 [`$default_template_handler_func`](#variable.default.template.handler.func)
 is invoked.
 
-> **Note**
->
-> As of Smarty 3.1 the file resource no longer walks through the
-> [include\_path](&url.php-manual;ini.core.php#ini.include-path) unless
-> [`$use_include_path` is activated](#variable.use.include.path)
-
 Templates from \$template\_dir {#templates.from.template.dir}
 ------------------------------
 

@@ -49,7 +49,6 @@ class ResourcePluginTest extends PHPUnit_Smarty
     public function testResourcePluginRegisteredInstance()
     {
         $this->smarty->addPluginsDir("./PHPunitplugins/");
-        $this->smarty->loadPlugin('_Db2Plugin');
         $this->smarty->registerResource('db2a', new _Db2Plugin('db2a'));
         $this->assertEquals('hello world', $this->smarty->fetch('db2a:test'));
     }

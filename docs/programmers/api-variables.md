@@ -41,7 +41,6 @@ them directly, or use the corresponding setter/getter methods.
 - [$smarty_debug_id](./api-variables/variable-smarty-debug-id.md)
 - [$template_dir](./api-variables/variable-template-dir.md)
 - [$trusted_dir](./api-variables/variable-trusted-dir.md)
-- [$use_include_path](./api-variables/variable-use-include-path.md)
 - [$use_sub_dirs](./api-variables/variable-use-sub-dirs.md)
 
 > **Note**

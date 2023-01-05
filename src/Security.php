@@ -231,13 +231,6 @@ class Security {
 	protected $_trusted_dir = null;
 
 	/**
-	 * Cache for include path status
-	 *
-	 * @var bool
-	 */
-	protected $_include_path_status = false;
-
-	/**
 	 * Cache for $_include_array lookup
 	 *
 	 * @var array
@@ -481,15 +474,6 @@ class Security {
 	 * @throws \Smarty\Exception if directory is not trusted
 	 */
 	public function isTrustedResourceDir($filepath, $isConfig = null) {
-		if ($this->_include_path_status !== $this->smarty->use_include_path) {
-			$_dir =
-				$this->smarty->use_include_path ? $this->smarty->getIncludePathDirs() : [];
-			if ($this->_include_dir !== $_dir) {
-				$this->_updateResourceDir($this->_include_dir, $_dir);
-				$this->_include_dir = $_dir;
-			}
-			$this->_include_path_status = $this->smarty->use_include_path;
-		}
 		$_dir = $this->smarty->getTemplateDir();
 		if ($this->_template_dir !== $_dir) {
 			$this->_updateResourceDir($this->_template_dir, $_dir);

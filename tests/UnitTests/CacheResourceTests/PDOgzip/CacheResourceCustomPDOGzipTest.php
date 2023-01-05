@@ -29,8 +29,6 @@ class CacheResourceCustomPDOGzipTest extends CacheResourceTestCommon
         $this->setUpSmarty(__DIR__);
         parent::setUp();
         $this->smarty->setCachingType('pdo');
-        $this->assertTrue(false !== $this->smarty->loadPlugin('Smarty_CacheResource_Pdo_Gziptest'),
-                          'loadPlugin() could not load PDOGzip cache resource');
         $this->smarty->registerCacheResource('pdo', new Smarty_CacheResource_Pdo_Gziptest($this->getPDO(),
                                                                                           'output_cache'));
     }

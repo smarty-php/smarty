@@ -170,10 +170,6 @@ class FilePlugin extends BasePlugin {
 				return $path;
 			}
 		}
-		// Use include path ?
-		if ($source->smarty->use_include_path) {
-			return $source->smarty->getIncludePath($_directories, $file);
-		}
 		return false;
 	}
 }

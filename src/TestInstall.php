@@ -43,39 +43,14 @@ class TestInstall
             $template_dir = realpath($template_dir);
             // resolve include_path or fail existence
             if (!$template_dir) {
-                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_template_dir)) {
-                    // try PHP include_path
-                    if ($_stream_resolve_include_path) {
-                        $template_dir = stream_resolve_include_path($_template_dir);
-                    } else {
-                        $template_dir = $smarty->getIncludePath($_template_dir, null);
-                    }
-                    if ($template_dir !== false) {
-                        if ($errors === null) {
-                            echo "$template_dir is OK.\n";
-                        }
-                        continue;
-                    } else {
-                        $status = false;
-                        $message =
-                            "FAILED: $_template_dir does not exist (and couldn't be found in include_path either)";
-                        if ($errors === null) {
-                            echo $message . ".\n";
-                        } else {
-                            $errors[ 'template_dir' ] = $message;
-                        }
-                        continue;
-                    }
+                $status = false;
+                $message = "FAILED: $_template_dir does not exist";
+                if ($errors === null) {
+                    echo $message . ".\n";
                 } else {
-                    $status = false;
-                    $message = "FAILED: $_template_dir does not exist";
-                    if ($errors === null) {
-                        echo $message . ".\n";
-                    } else {
-                        $errors[ 'template_dir' ] = $message;
-                    }
-                    continue;
+                    $errors[ 'template_dir' ] = $message;
                 }
+                continue;
             }
             if (!is_dir($template_dir)) {
                 $status = false;
@@ -196,38 +171,14 @@ class TestInstall
             $_config_dir = $config_dir;
             // resolve include_path or fail existence
             if (!$config_dir) {
-                if ($smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_config_dir)) {
-                    // try PHP include_path
-                    if ($_stream_resolve_include_path) {
-                        $config_dir = stream_resolve_include_path($_config_dir);
-                    } else {
-                        $config_dir = $smarty->getIncludePath($_config_dir, null);
-                    }
-                    if ($config_dir !== false) {
-                        if ($errors === null) {
-                            echo "$config_dir is OK.\n";
-                        }
-                        continue;
-                    } else {
-                        $status = false;
-                        $message = "FAILED: $_config_dir does not exist (and couldn't be found in include_path either)";
-                        if ($errors === null) {
-                            echo $message . ".\n";
-                        } else {
-                            $errors[ 'config_dir' ] = $message;
-                        }
-                        continue;
-                    }
+                $status = false;
+                $message = "FAILED: $_config_dir does not exist";
+                if ($errors === null) {
+                    echo $message . ".\n";
                 } else {
-                    $status = false;
-                    $message = "FAILED: $_config_dir does not exist";
-                    if ($errors === null) {
-                        echo $message . ".\n";
-                    } else {
-                        $errors[ 'config_dir' ] = $message;
-                    }
-                    continue;
+                    $errors[ 'config_dir' ] = $message;
                 }
+                continue;
             }
             if (!is_dir($config_dir)) {
                 $status = false;
