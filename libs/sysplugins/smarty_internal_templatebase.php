@@ -201,7 +201,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
                 isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) : null;
 
             if ($smarty->isMutingUndefinedOrNullWarnings()) {
-                $errorHandler = new Smarty_Internal_ErrorHandler();
+                $errorHandler = new Smarty_Internal_ErrorHandler($smarty);
                 $errorHandler->activate();
             }
 
