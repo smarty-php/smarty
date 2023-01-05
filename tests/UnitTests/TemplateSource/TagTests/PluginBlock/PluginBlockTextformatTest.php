@@ -22,6 +22,11 @@ class PluginBlockTextformatTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
+	public function testInit()
+	{
+		$this->cleanDirs();
+	}
+
     public function testDefault()
     {
         $result = "This is foo. This is foo. This is foo.\nThis is foo. This is foo. This is foo.\n\nThis is bar.\n\nbar foo bar foo foo. bar foo bar foo\nfoo. bar foo bar foo foo. bar foo bar\nfoo foo. bar foo bar foo foo. bar foo\nbar foo foo. bar foo bar foo foo.\n\n";

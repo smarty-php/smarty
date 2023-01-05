@@ -35,7 +35,7 @@ class BlockCompiler extends Base {
 	 *
 	 * @var int
 	 */
-	public $nesting = 0;
+	private $nesting = 0;
 
 
 	/**

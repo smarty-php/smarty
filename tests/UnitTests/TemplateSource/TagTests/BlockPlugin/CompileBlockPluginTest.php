@@ -429,8 +429,8 @@ function my_block_plugin_handler($tag, $type, $template, &$callback, &$script, &
         case \Smarty\Smarty::PLUGIN_BLOCK:
             switch ($tag) {
                 case 'scriptblock':
-                    $script = './scripts/script_block_tag.php';
-                    $callback = 'default_script_block_tag';
+                    $script = './scripts/script_block_tag2.php';
+                    $callback = 'default_script_block_tag2';
 
                     return true;
                 default:

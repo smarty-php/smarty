@@ -11,6 +11,7 @@
 namespace Smarty\Compiler;
 
 use Smarty\Compile\BlockCompiler;
+use Smarty\Compile\DefaultHandlerBlockCompiler;
 use Smarty\Compile\DefaultHandlerFunctionCallCompiler;
 use Smarty\Compile\ModifierCompiler;
 use Smarty\Compile\ObjectMethodBlockCompiler;
@@ -290,6 +291,30 @@ class Template extends BaseCompiler {
 	 * @var ObjectMethodBlockCompiler
 	 */
 	private $objectMethodBlockCompiler;
+	/**
+	 * @var DefaultHandlerBlockCompiler
+	 */
+	private $defaultHandlerBlockCompiler;
+	/**
+	 * @var BlockCompiler
+	 */
+	private $blockCompiler;
+	/**
+	 * @var DefaultHandlerFunctionCallCompiler
+	 */
+	private $defaultHandlerFunctionCallCompiler;
+	/**
+	 * @var FunctionCallCompiler
+	 */
+	private $functionCallCompiler;
+	/**
+	 * @var ObjectMethodCallCompiler
+	 */
+	private $objectMethodCallCompiler;
+	/**
+	 * @var ModifierCompiler
+	 */
+	private $modifierCompiler;
 
 	/**
 	 * Initialize compiler
@@ -307,7 +332,13 @@ class Template extends BaseCompiler {
 			uniqid(mt_rand(), true)
 		);
 
+		$this->modifierCompiler = new ModifierCompiler();
+		$this->functionCallCompiler = new FunctionCallCompiler();
+		$this->defaultHandlerFunctionCallCompiler = new DefaultHandlerFunctionCallCompiler();
+		$this->blockCompiler = new BlockCompiler();
+		$this->defaultHandlerBlockCompiler = new DefaultHandlerBlockCompiler();
 		$this->objectMethodBlockCompiler = new ObjectMethodBlockCompiler();
+		$this->objectMethodCallCompiler = new ObjectMethodCallCompiler();
 	}
 
 	/**
@@ -461,7 +492,7 @@ class Template extends BaseCompiler {
 	 * @throws Exception
 	 */
 	public function compileModifier($modifierlist, $value) {
-		return (new ModifierCompiler())->compile([], $this, ['modifierlist' => $modifierlist, 'value' => $value]);
+		return $this->modifierCompiler->compile([], $this, ['modifierlist' => $modifierlist, 'value' => $value]);
 	}
 
 	/**
@@ -1247,21 +1278,19 @@ class Template extends BaseCompiler {
 		// check if tag is a function
 		if ($this->smarty->getFunctionHandler($base_tag)) {
 			if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($base_tag, $this)) {
-				$compiler = new FunctionCallCompiler();
-				return $compiler->compile($args, $this, $parameter, $tag, $base_tag);
+				return $this->functionCallCompiler->compile($args, $this, $parameter, $tag, $base_tag);
 			}
 		}
 
 		// check if tag is a block
 		if ($this->smarty->getBlockHandler($base_tag)) {
 			if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($base_tag, $this)) {
-				$compiler = new BlockCompiler();
-				return $compiler->compile($args, $this, $parameter, $tag, $base_tag);
+				return $this->blockCompiler->compile($args, $this, $parameter, $tag, $base_tag);
 			}
 		}
 
 		// the default plugin handler is a handler of last resort, it may also handle not specifically registered tags.
-		if ($callback = $this->getPluginFromDefaultHandler($tag, Smarty::PLUGIN_COMPILER)) {
+		if ($callback = $this->getPluginFromDefaultHandler($base_tag, Smarty::PLUGIN_COMPILER)) {
 			$tagCompiler = new \Smarty\Compile\Tag\BCPluginWrapper($callback);
 			$new_args = [];
 			foreach ($args as $key => $mixed) {
@@ -1274,14 +1303,12 @@ class Template extends BaseCompiler {
 			return $tagCompiler->compile($new_args, $this, $parameter);
 		}
 
-		if ($this->getPluginFromDefaultHandler($tag, Smarty::PLUGIN_FUNCTION)) {
-			$compiler = new DefaultHandlerFunctionCallCompiler();
-			return $compiler->compile($args, $this, $parameter, $tag, $base_tag);
+		if ($this->getPluginFromDefaultHandler($base_tag, Smarty::PLUGIN_FUNCTION)) {
+			return $this->defaultHandlerFunctionCallCompiler->compile($args, $this, $parameter, $tag, $base_tag);
 		}
 
-		if ($this->getPluginFromDefaultHandler($tag, Smarty::PLUGIN_BLOCK)) {
-			$compiler = new BlockCompiler();
-			return $compiler->compile($args, $this, $parameter, $tag, $base_tag);
+		if ($this->getPluginFromDefaultHandler($base_tag, Smarty::PLUGIN_BLOCK)) {
+			return $this->defaultHandlerBlockCompiler->compile($args, $this, $parameter, $tag, $base_tag);
 		}
 
 		$this->trigger_template_error("unknown tag '{$tag}'", null, true);
@@ -1432,7 +1459,7 @@ class Template extends BaseCompiler {
 			if ($allowedAsBlockFunction) {
 				return $this->objectMethodBlockCompiler->compile($args, $this, $parameter, $tag, $method);
 			} elseif ($allowedAsNormalFunction) {
-				return (new ObjectMethodCallCompiler())->compile($args, $this, $parameter, $tag, $method);
+				return $this->objectMethodCallCompiler->compile($args, $this, $parameter, $tag, $method);
 			}
 
 			$this->trigger_template_error(
