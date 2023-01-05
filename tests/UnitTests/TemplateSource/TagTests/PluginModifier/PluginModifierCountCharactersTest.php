@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of modifier
  *
- * @package PHPunit
+
  * @author  Rodney Rehm
  */
 
 /**
  * class for modifier tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class PluginModifierCountCharactersTest extends PHPUnit_Smarty
 {

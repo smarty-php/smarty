@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of modifier
  *
- * @package PHPunit
+
  * @author  Rodney Rehm
  */
 
 /**
  * class for modifier tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class PluginFunctionFetchTest extends PHPUnit_Smarty
 {
@@ -29,8 +29,8 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
 /**
 * test {fetch} from UIR
 *
-* @runInSeparateProcess
-* @preserveGlobalState disabled
+* 
+* 
 */
    public function testFetchUri()
     {
@@ -40,8 +40,8 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
 /**
 * test {fetch} invalid uri
 *
-* @runInSeparateProcess
-* @preserveGlobalState disabled
+* 
+* 
 */
   public function testFetchInvalidUri()
   {
@@ -54,7 +54,7 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
   * test {fetch file=...} access to file from path not aloo/wed by security settings
   *
   * @run InSeparateProcess
-  * @preserveGlobalState disabled
+  * 
   */
   public function testFetchSecurity()
   {
@@ -69,7 +69,7 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
   * test {fetch file=...} access to file from path not aloo/wed by security settings
   *
   * @run InSeparateProcess
-  * @preserveGlobalState disabled
+  * 
   */
   public function testFetchSecurity2()
   {

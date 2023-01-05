@@ -2,7 +2,7 @@
 /**
  * Smarty PHPUnit tests demo resource plugin extendsall
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ require_once __DIR__ . '/../../../__shared/resources/resource.extendsall.php';
 /**
  * class for demo resource plugin extendsall tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
 {
@@ -29,9 +29,6 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
 
     /**
      * test  extendsall
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testResourcePluginExtendsall()
     {
@@ -46,9 +43,6 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
     /**
      * test  extendsall
      * changed tepmplate_setting
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
 
     public function testResourcePluginExtendsall2()
@@ -73,9 +67,6 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
 
     /**
      * test  extendsall special application
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testResourcePluginExtendsallSpecialApplication()
     {
@@ -88,9 +79,6 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
 
     /**
      * test  extendsall special application
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testResourcePluginExtendsallSpecialApplication2()
     {
@@ -103,9 +91,6 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
 
     /**
      * test  extendsall special application
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testResourcePluginExtendsallSpecialApplication3()
     {
@@ -119,9 +104,6 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
 
     /**
      * test  extendsall special application
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testResourcePluginExtendsallSpecialApplication4()
     {
@@ -135,9 +117,6 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
 
     /**
      * test  extendsall special application
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testResourcePluginExtendsallSpecialApplication5()
     {
@@ -151,9 +130,6 @@ class ResourceExtendsAllPluginTest extends PHPUnit_Smarty
 
     /**
      * test  extendsall special application
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testResourcePluginExtendsallSpecialApplication6()
     {

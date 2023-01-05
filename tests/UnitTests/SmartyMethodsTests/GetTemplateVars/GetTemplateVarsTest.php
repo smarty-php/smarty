@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests getTemplateVars method
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for getTemplateVars method test
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class GetTemplateVarsTest extends PHPUnit_Smarty
 {

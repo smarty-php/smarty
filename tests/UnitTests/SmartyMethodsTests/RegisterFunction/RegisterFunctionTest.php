@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests register/unregister function plugins
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ use Smarty\Smarty;
 /**
  * class for register/unregister function plugins methods tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  *
  */
 class RegisterFunctionTest extends PHPUnit_Smarty
@@ -61,8 +61,8 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     /**
      * test registerPlugin method for function cached
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      */
     public function testRegisterFunctionCaching1()
     {
@@ -78,8 +78,8 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     /**
      * test registerPlugin method for function cached
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterFunctionCaching2()
@@ -95,8 +95,8 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     /**
      * test registerPlugin method for function not cached
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterFunctionCaching3()
@@ -113,8 +113,8 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     /**
      * test registerPlugin method for function not cached
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterFunctionCaching4()

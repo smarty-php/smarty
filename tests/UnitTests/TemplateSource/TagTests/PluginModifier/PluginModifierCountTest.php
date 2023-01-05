@@ -6,9 +6,9 @@
 /**
  * class for modifier tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class PluginModifierCountTest extends PHPUnit_Smarty
 {

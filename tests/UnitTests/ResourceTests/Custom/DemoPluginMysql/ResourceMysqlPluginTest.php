@@ -2,20 +2,20 @@
 /**
  * Smarty PHPunit tests resource plugins
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 if (MysqlResourceEnable == true) {
     /**
      * class for resource plugins tests
      *
-     * @runTestsInSeparateProcess
-     * @preserveGlobalState disabled
-     * @backupStaticAttributes enabled
+     * 
+     * 
+     * 
      */
     class ResourceMysqlPluginTest extends PHPUnit_Smarty
     {
-        public function setUp()
+        public function setUp(): void
         {
             if (MysqlResourceEnable != true) {
                 $this->markTestSkipped('Msqlresource tests are disabled');
@@ -39,10 +39,6 @@ if (MysqlResourceEnable == true) {
 
         /**
         * test resource plugin rendering of a custom resource
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testResourcePluginMysql()
         {
@@ -51,10 +47,6 @@ if (MysqlResourceEnable == true) {
 
        /**
         * test must compile
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testMustCompile()
         {
@@ -64,10 +56,6 @@ if (MysqlResourceEnable == true) {
 
          /**
         * test must compile
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testMustCompile2()
         {
@@ -79,10 +67,6 @@ if (MysqlResourceEnable == true) {
 
         /**
         * test resource plugin rendering of a custom resource
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testResourcePluginMysql2()
         {
@@ -91,10 +75,6 @@ if (MysqlResourceEnable == true) {
 
          /**
         * test clear compiled
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testClearCompiled()
         {
@@ -103,10 +83,6 @@ if (MysqlResourceEnable == true) {
 
        /**
         * test must compile
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testMustCompile3()
         {
@@ -137,10 +113,6 @@ if (MysqlResourceEnable == true) {
 
         /**
         * test unknown template
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testUnknownTemplate() {
             $this->expectException(\Smarty\Exception::class);

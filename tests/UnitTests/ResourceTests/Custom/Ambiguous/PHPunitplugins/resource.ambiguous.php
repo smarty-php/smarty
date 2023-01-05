@@ -8,7 +8,7 @@ use Smarty\Template\Source;
 /**
  * Ambiguous Filename Custom Resource Example
  *
- * @package Resource-examples
+
  * @author  Rodney Rehm
  */
 class Smarty_Resource_AmbiguousPlugin extends FilePlugin

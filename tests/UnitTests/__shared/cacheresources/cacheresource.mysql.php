@@ -21,7 +21,7 @@ use Smarty\Exception;
  *   INDEX(`modified`)
  * ) ENGINE = InnoDB;</pre>
  *
- * @package CacheResource-examples
+
  * @author  Rodney Rehm
  */
 class Smarty_CacheResource_Mysql extends \Smarty\Cacheresource\Custom

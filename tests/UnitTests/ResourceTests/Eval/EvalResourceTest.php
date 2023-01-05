@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests for eval resources
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for eval resource tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class EvalResourceTest extends PHPUnit_Smarty
 {

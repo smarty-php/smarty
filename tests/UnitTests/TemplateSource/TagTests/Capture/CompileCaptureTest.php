@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of capture tags
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for capture tags tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class CompileCaptureTest extends PHPUnit_Smarty
 {
@@ -31,7 +31,7 @@ class CompileCaptureTest extends PHPUnit_Smarty
      * Test capture tags
      *
      * @not                 runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestCapture
      */
     public function testCapture($code, $result, $testName, $testNumber)
@@ -83,8 +83,8 @@ class CompileCaptureTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testCompileCaptureNocache2()
@@ -107,9 +107,9 @@ class CompileCaptureTest extends PHPUnit_Smarty
     /**
      * Test spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testSpacing($code, $result, $testName, $testNumber)
     {

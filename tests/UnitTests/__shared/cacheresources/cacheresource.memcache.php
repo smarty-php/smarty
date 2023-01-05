@@ -7,7 +7,7 @@
  * Note that memcache has a limitation of 256 characters per cache-key.
  * To avoid complications all cache-keys are translated to a sha1 hash.
  *
- * @package CacheResource-examples
+
  * @author  Rodney Rehm
  */
 class Smarty_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore

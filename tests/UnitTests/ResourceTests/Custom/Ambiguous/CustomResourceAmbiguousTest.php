@@ -2,16 +2,12 @@
 /**
  * Smarty PHPunit tests for File resources
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for file resource tests
- *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
  */
 class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 {
@@ -55,12 +51,6 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $this->assertFalse($tpl->source->exists);
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
     public function testCase1()
     {
         $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');
@@ -75,12 +65,6 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $this->assertEquals('case1', $tpl->source->getContent());
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
     public function testCase2()
     {
         $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');
@@ -95,12 +79,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $this->assertEquals('case2', $tpl->source->getContent());
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
+
     public function testCaseSwitching()
     {
         $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');

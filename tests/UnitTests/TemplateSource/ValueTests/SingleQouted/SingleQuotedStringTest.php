@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests single quoted strings
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for single quoted string tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class SingleQuotedStringTest extends PHPUnit_Smarty
 {

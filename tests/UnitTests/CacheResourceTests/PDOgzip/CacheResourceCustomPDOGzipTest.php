@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests for cache resource file
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -13,7 +13,7 @@ include_once __DIR__ . '/cacheresource.pdo_gziptest.php';
 /**
  * class for cache resource file tests
  *
- * @backupStaticAttributes enabled
+ * 
  */
 class CacheResourceCustomPDOGzipTest extends CacheResourceTestCommon
 {

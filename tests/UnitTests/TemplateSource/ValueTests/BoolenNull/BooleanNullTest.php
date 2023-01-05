@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests literals true false null
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {$smarty.ldelim} {$smarty.rdelim} tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class BooleanNullTest extends PHPUnit_Smarty
 {

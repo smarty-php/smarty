@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests resource plugins
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for resource plugins tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class ResourcePluginTest extends PHPUnit_Smarty
 {

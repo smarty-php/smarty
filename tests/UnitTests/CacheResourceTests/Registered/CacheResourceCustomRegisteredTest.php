@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests for cache resource registered
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 if (MysqlCacheEnable == true) {
@@ -11,9 +11,9 @@ if (MysqlCacheEnable == true) {
     /**
      * class for cache resource file tests
      *
-     * @runTestsInSeparateProcess
+     * 
      * @preserveGlobalState    disabled
-     * @backupStaticAttributes enabled
+     * 
      */
     class CacheResourceCustomRegisteredTest extends CacheResourceTestCommon
     {

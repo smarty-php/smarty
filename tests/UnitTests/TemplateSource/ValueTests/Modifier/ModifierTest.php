@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of modifier
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for modifier tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class ModifierTest extends PHPUnit_Smarty
 {
@@ -30,7 +30,7 @@ class ModifierTest extends PHPUnit_Smarty
      * Test modifier
      *
      * @not                 runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestModifier
      */
     public function testModifier($code, $result, $testName, $testNumber)

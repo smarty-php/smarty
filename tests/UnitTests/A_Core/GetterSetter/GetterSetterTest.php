@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of generic getter/setter
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for generic getter/setter tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ * 
  */
 class GetterSetterTest extends PHPUnit_Smarty
 {

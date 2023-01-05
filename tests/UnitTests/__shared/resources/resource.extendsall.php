@@ -9,7 +9,7 @@ use Smarty\Template\Source;
  * Resource Implementation modifying the extends-Resource to walk
  * through the template_dirs and inherit all templates of the same name
  *
- * @package Resource-examples
+
  * @author  Rodney Rehm
  */
 class My_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin

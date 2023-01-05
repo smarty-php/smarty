@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests appendByRef method
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for appendByRef tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ * 
  */
 class AppendByRefTest extends PHPUnit_Smarty
 {

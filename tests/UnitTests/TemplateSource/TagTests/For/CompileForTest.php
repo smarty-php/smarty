@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of {for} tag
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {for} tag tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ *
  */
 class CompileForTest extends PHPUnit_Smarty
 {
@@ -29,9 +29,9 @@ class CompileForTest extends PHPUnit_Smarty
     /**
      * Test For
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestFor
-     * @runInSeparateProcess
+     * 
      */
     public function testFor($code, $result, $testName, $testNumber)
     {
@@ -90,8 +90,8 @@ class CompileForTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testForNocacheVar2()
@@ -114,8 +114,8 @@ class CompileForTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testForNocacheTag2()
@@ -138,8 +138,8 @@ class CompileForTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testForCache2()
@@ -153,9 +153,9 @@ class CompileForTest extends PHPUnit_Smarty
     /**
      * Test spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testSpacing($code, $result, $testName, $testNumber)
     {

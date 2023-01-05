@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests assignGlobal method  and {assignGlobal} tag
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for assignGlobal method  and {assignGlobal} tag tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ *
+ * 
  */
 class AssignGlobalTest extends PHPUnit_Smarty
 {

@@ -2,8 +2,8 @@
 /**
  * Smarty plugin for testing scopes in config vars
  *
- * @package    Smarty
- * @subpackage PHPunitPlugin
+
+
  */
 
 use Smarty\DataObject;

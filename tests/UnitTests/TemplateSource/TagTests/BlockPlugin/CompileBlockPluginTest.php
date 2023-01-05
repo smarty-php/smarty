@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of block plugins
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for block plugin tests
  *
- * @runTestsInSeparateProcess
+ *
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ *
  */
 class CompileBlockPluginTest extends PHPUnit_Smarty
 {

@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests register->block / unregister->block methods
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ use Smarty\Smarty;
 /**
  * class for register->block / unregister->block methods tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class RegisterBlockTest extends PHPUnit_Smarty
 {
@@ -111,8 +111,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching2()
@@ -127,8 +127,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching3()
@@ -144,8 +144,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching4()
@@ -160,8 +160,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching1Wrapper()
@@ -177,8 +177,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching2Wrapper()
@@ -193,8 +193,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching3Wrapper()
@@ -210,8 +210,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching4Wrapper()

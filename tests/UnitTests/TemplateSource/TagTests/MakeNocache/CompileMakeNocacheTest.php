@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of {make_nocache} tags
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {make_nocache} tags tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class CompileMakeNocacheTest extends PHPUnit_Smarty
 {
@@ -32,7 +32,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
      * Test {make_nocache} tags caching disabled
      *
      * @not                 runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestMakeNocache001
      */
     public function testMakeNocache_001($foo, $result)
@@ -63,7 +63,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
      * Test {make_nocache} cached tags
      *
      * @not                 runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestMakeNocache001_1
      */
     public function testMakeNocache_001_1($foo, $result)
@@ -94,8 +94,8 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     /**
      * Test {make_nocache} cached tags existing nocahe variable
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider        dataTestMakeNocache001_2
      */
     public function testMakeNocache_001_2($foo, $result)
@@ -126,8 +126,8 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     /**
      * Test {make_nocache} cached tags reassign
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider        dataTestMakeNocache001_3
      */
     public function testMakeNocache_001_3($foo, $result)
@@ -159,8 +159,8 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     /**
      * Test {make_nocache} cached tags {if}
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider        dataTestMakeNocache001_4
      */
     public function testMakeNocache_001_4($foo, $bar, $result)
@@ -189,8 +189,8 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     /**
      * Test {make_nocache} cached tags {if} nocache
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider        dataTestMakeNocache001_5
      */
     public function testMakeNocache_001_5($foo, $bar, $result)
@@ -223,8 +223,8 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     /**
      * Test {make_nocache} cached tags {foreach}
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider        dataTestMakeNocache001_6
      */
     public function testMakeNocache_001_6($foo, $bar, $result)
@@ -254,8 +254,8 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     /**
      * Test {make_nocache} cached tags {foreach} nocache
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider        dataTestMakeNocache001_7
      */
     public function testMakeNocache_001_7($foo, $bar, $result)
@@ -285,7 +285,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     /**
      * Test {make_nocache} with values containing '\'
      *
-     * @preserveGlobalState disabled
+     * 
      */
     public function testMakeNocache_002()
     {
@@ -297,7 +297,7 @@ class CompileMakeNocacheTest extends PHPUnit_Smarty
     /**
      * Test {make_nocache} with values containing spaces
      *
-     * @preserveGlobalState disabled
+     * 
      */
     public function testMakeNocache_003()
     {

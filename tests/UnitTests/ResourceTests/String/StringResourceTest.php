@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests for string resources
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for string resource tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class StringResourceTest extends PHPUnit_Smarty
 {

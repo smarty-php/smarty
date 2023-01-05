@@ -2,8 +2,8 @@
 /**
  * Smarty plugin for assign
  *
- * @package    Smarty
- * @subpackage PHPunitPlugin
+
+
  */
 
 /**

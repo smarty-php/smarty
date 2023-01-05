@@ -6,7 +6,7 @@
 /**
  * class for protected $template_dir, $compile_dir, $cache_dir, $config_dir, $plugins_dir property tests
  *
- * @backupStaticAttributes enabled
+ * 
  */
 class UndefinedTemplateVarTest extends PHPUnit_Smarty
 {

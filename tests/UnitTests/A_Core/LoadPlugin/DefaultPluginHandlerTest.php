@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests deault plugin handler
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for plugin handler tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class DefaultPluginHandlerTest extends PHPUnit_Smarty
 {

@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of {section} tag
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {section} tag tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class CompileSectionTest extends PHPUnit_Smarty
 {
@@ -65,9 +65,9 @@ class CompileSectionTest extends PHPUnit_Smarty
     /**
      * Test spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testSpacing($code, $result, $testName, $testNumber)
     {
@@ -109,9 +109,9 @@ class CompileSectionTest extends PHPUnit_Smarty
     /**
      * Test spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestElseSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testElseSpacing($code, $result, $testName, $testNumber)
     {

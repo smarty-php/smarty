@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compiler errors
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for compiler tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class NewlineSpacing extends PHPUnit_Smarty
 {
@@ -28,9 +28,9 @@ class NewlineSpacing extends PHPUnit_Smarty
     /**
      * Test spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testSpacing($code, $result, $testName, $testNumber)
     {

@@ -3,11 +3,11 @@
 /**
  * Smarty PHPunit tests for File resources
  *
- * @package                PHPunit
+
  * @author                 Rodney Rehm
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class FileResourceIndexedTest extends PHPUnit_Smarty
 {

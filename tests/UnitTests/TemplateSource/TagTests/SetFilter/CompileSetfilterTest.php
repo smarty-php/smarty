@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of {setfilter} tag
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {setfilter} tag tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class CompileSetfilterTest extends PHPUnit_Smarty
 {
@@ -28,7 +28,7 @@ class CompileSetfilterTest extends PHPUnit_Smarty
     /**
      * @run
      * InSeparateProcess
-     * @preserveGlobalState disabled
+     * 
      */
     public function testNestedSetfilter()
     {
@@ -45,8 +45,8 @@ class CompileSetfilterTest extends PHPUnit_Smarty
         $this->assertEquals("<a@b.c> &lt;a@b.c&gt;&lt;e@f.d&gt; <a [AT] b [DOT] c><e [AT] f [DOT] d> &lt;a@b.c&gt; <a@b.c>", $this->smarty->fetch($tpl));
     }
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      */
     public function testNestedSetfilter2()
     {

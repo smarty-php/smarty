@@ -2,8 +2,8 @@
 /**
  * Smarty block plugin dummy for testing plugin functionallity
  *
- * @package    Smarty
- * @subpackage PHPunitPlugin
+
+
  */
 /**
  * Smarty {dummyblock} {/dummyblock}

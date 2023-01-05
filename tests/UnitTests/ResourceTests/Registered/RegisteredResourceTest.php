@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests register->resource
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ use Smarty\Resource\CustomPlugin;
 /**
  * class for register->resource tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ *
  */
 class RegisteredResourceTest extends PHPUnit_Smarty
 {

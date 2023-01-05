@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of the {include} tag
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {include} tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class CompileIncludeTest extends PHPUnit_Smarty
 {
@@ -31,8 +31,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * test spacing
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProviderCaching
      */
     public function testSpacing_001($merge, $caching, $text)
@@ -49,8 +49,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * test spacing
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProviderCaching
      */
     public function testSpacing_001V2($merge, $caching, $text)
@@ -67,8 +67,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * test spacing
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProviderCaching
      */
     public function testSpacing_001V3($merge, $caching, $text)
@@ -85,8 +85,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * test standard output
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProvider
      */
     public function testIncludeStandard_001($merge, $text)
@@ -100,8 +100,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * test standard output var
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProvider
      */
     public function testIncludeStandardNocacheVar($merge, $text)
@@ -117,8 +117,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test that assign attribute does not create standard output
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProvider
      */
     public function testIncludeAssign1($merge, $text)
@@ -131,8 +131,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test that assign attribute does load variable
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProvider
      */
     public function testIncludeAssign2($merge, $text)
@@ -145,8 +145,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test passing local vars eval
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProvider
      */
     public function testIncludePassVars($merge, $text)
@@ -160,8 +160,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test passing local vars include
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProvider
      */
     public function testIncludePassVars2($merge, $text)
@@ -177,8 +177,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test  recursive includes
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProvider
      */
     public function testRecursiveIncludes1($merge, $text)
@@ -193,8 +193,8 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test  recursive includes 2
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider includeProvider
      */
     public function testRecursiveIncludes2($merge, $text)
@@ -244,9 +244,9 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test Include spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testIncludeSpacing($code, $result, $testName, $testNumber)
     {
@@ -262,9 +262,9 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test Output spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testIncludeSpacingNocache($code, $result, $testName, $testNumber)
     {
@@ -281,9 +281,9 @@ class CompileIncludeTest extends PHPUnit_Smarty
     /**
      * Test Output spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testIncludeSpacingNocache2($code, $result, $testName, $testNumber)
     {

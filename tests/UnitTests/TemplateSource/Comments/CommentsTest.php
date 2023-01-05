@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests comments in templates
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for security test
  *
- * @runTestsInSeparateProcess
+ *
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class CommentsTest extends PHPUnit_Smarty
 {
@@ -28,7 +28,7 @@ class CommentsTest extends PHPUnit_Smarty
     /**
      * Test comments
      *
-     * @preserveGlobalState disabled
+     *
      * @dataProvider        dataTestComments
      */
     public function testComments($code, $result, $testName, $testNumber)

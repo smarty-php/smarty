@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of {foreach} tag
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {foreach} tag tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class CompileForeachTest extends PHPUnit_Smarty
 {
@@ -31,7 +31,7 @@ class CompileForeachTest extends PHPUnit_Smarty
      * Test foreach tags
      *
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestForeach
      */
     public function testForeach($code, $foo, $result, $testName, $testNumber)
@@ -105,7 +105,7 @@ class CompileForeachTest extends PHPUnit_Smarty
      * Test foreach tags caching
      *
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestForeachNocache
      */
     public function testForeachCaching($code, $new, $assignNocache, $foo, $result, $testName, $testNumber)
@@ -151,8 +151,8 @@ class CompileForeachTest extends PHPUnit_Smarty
     /*
     *  test foreach and nocache
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
 
     */
     public function testForeachNocacheVar1_024()
@@ -165,8 +165,8 @@ class CompileForeachTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testForeachNocacheVar2_024()
@@ -179,8 +179,8 @@ class CompileForeachTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testForeachNocacheTag1_025()
@@ -193,8 +193,8 @@ class CompileForeachTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testForeachNocacheTag2_25()
@@ -207,8 +207,8 @@ class CompileForeachTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testForeachCache1_26()
@@ -221,8 +221,8 @@ class CompileForeachTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testForeachCache2_26()
@@ -303,9 +303,9 @@ class CompileForeachTest extends PHPUnit_Smarty
     /**
      * Test spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testSpacing($code, $result, $testName, $testNumber)
     {
@@ -347,9 +347,9 @@ class CompileForeachTest extends PHPUnit_Smarty
     /**
      * Test spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestElseSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testElseSpacing($code, $result, $testName, $testNumber)
     {

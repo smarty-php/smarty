@@ -6,7 +6,7 @@
  * memcache as the storage resource for Smarty's output caching.
  * *
  *
- * @package CacheResource-examples
+
  * @author  Uwe Tews
  */
 class Smarty_CacheResource_Apc extends \Smarty\Cacheresource\KeyValueStore

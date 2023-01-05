@@ -2,15 +2,15 @@
 /**
  * Smarty PHPunit tests of delimiter
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for delimiter tests
  *
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
  */
 class AutoliteralTest extends PHPUnit_Smarty
 {
@@ -44,8 +44,6 @@ class AutoliteralTest extends PHPUnit_Smarty
     }
     /**
      * test '{ ' delimiter in double quotes auto_literal true
-     * @runInSeparateProcess
-     *
      */
     public function testSetAutoliteralDoublequote()
     {
@@ -54,8 +52,6 @@ class AutoliteralTest extends PHPUnit_Smarty
     }
     /**
      * test '{ ' delimiter in double quotes auto_literal false
-     * @runInSeparateProcess
-     *
      */
     public function testSetAutoliteralDoublequote2()
     {
@@ -66,8 +62,6 @@ class AutoliteralTest extends PHPUnit_Smarty
 
     /**
      * test '{{ ' delimiter in double quotes auto_literal true
-     * @runInSeparateProcess
-     *
      */
     public function testSetAutoliteralDoublequote3()
     {

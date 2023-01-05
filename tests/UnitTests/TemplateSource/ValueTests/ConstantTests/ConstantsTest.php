@@ -3,11 +3,11 @@
 /**
  * Smarty PHPunit tests of constants
  *
- * @package                PHPunit
+
  * @author                 Uwe Tews
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 Class TestConst
 {

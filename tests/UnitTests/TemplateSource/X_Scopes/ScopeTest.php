@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests for scopes
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class scope tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class ScopeTest extends PHPUnit_Smarty
 {
@@ -31,8 +31,8 @@ class ScopeTest extends PHPUnit_Smarty
     /**
      * Test scope
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider        dataTestAppendScope
      */
     public function testAppendScope($code, $useSmarty, $result, $testName, $testNumber)
@@ -80,7 +80,7 @@ class ScopeTest extends PHPUnit_Smarty
      * Test scope
      *
      * @not                 runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestAssignScope
      */
     public function testAssignScope($code, $useSmarty, $result, $testName, $testNumber)
@@ -139,8 +139,8 @@ class ScopeTest extends PHPUnit_Smarty
     /**
      * Test scope nocache
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider        dataTestScopeNocache
      */
     public function testScopeNocache($var, $file, $result)
@@ -175,8 +175,8 @@ class ScopeTest extends PHPUnit_Smarty
     /**
      * Test scope
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider        dataTestIncludeScope
      */
     public function testIncludeScope($code, $useSmarty, $result, $testName, $testNumber = null)
@@ -245,7 +245,7 @@ class ScopeTest extends PHPUnit_Smarty
      * Test scope
      *
      * @not                 runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestConfigScope
      */
     public function testConfigScope($code, $useSmarty, $result, $testName, $testNumber)

@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests compilation of {function} tag
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ use Smarty\CompilerException;
 /**
  * class for {function} tag tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class CompileFunctionTest extends PHPUnit_Smarty
 {
@@ -28,8 +28,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->cleanDirs();
     }
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProvider
      * test simple function call tag
      *
@@ -41,8 +41,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
         $this->assertEquals("default param default 1 2 1", $this->smarty->fetch('test_template_function_001.tpl'), $text);
     }
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProvider
      * test simple function call tag
      *
@@ -55,8 +55,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProvider
      * test simple function call tag cached
      */
@@ -69,8 +69,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
      /**
-      * @runInSeparateProcess
-      * @preserveGlobalState disabled
+      * 
+      * 
       * @dataProvider functionProvider
      * test simple function call tag cached
      */
@@ -84,8 +84,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProvider
      * test simple function call tag cached no cache default variable
      */
@@ -101,8 +101,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     /**
      * test simple function call tag cached no cache default variable 2
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      */
     public function testSimpleFunctionCachedNocacheDefault_002_2()
     {
@@ -114,8 +114,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProviderCachingValue
      * test simple function call tag plugin
      *
@@ -132,8 +132,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProvider
      * test simple function call tag 2
      *
@@ -145,8 +145,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProvider
      * test simple function call recursive
      */
@@ -156,8 +156,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProviderInline
      * test inherited function call tag
      *
@@ -169,8 +169,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProviderInline
      * test function definition in include
      *
@@ -184,8 +184,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
 
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProviderInline
      * test external function definition cached
      *
@@ -202,8 +202,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * test external function definition and called by fetch
      *
      */
@@ -216,8 +216,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProviderInline
      * test external function definition cached 2
      *
@@ -235,8 +235,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProviderInline
      * test external function definition nocache call
      *
@@ -253,8 +253,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProviderInline
      * test external function definition nocache call 2
      *
@@ -274,8 +274,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     /**
      * test external function definition nocache call 3
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProviderInline
      */
     public function testExternalDefinedFunctionNocachedCall3($merge, $text)
@@ -293,8 +293,8 @@ class CompileFunctionTest extends PHPUnit_Smarty
     /**
      * test external defined recursion
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider functionProvider
      */
     public function testExternalDefinedFunctionRecursion($text)
@@ -351,9 +351,9 @@ class CompileFunctionTest extends PHPUnit_Smarty
     /**
      * Test spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testSpacing($code, $result, $testName, $testNumber)
     {
@@ -369,9 +369,9 @@ class CompileFunctionTest extends PHPUnit_Smarty
     /**
      * Test Output nocache spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testSpacingNocache($code, $result, $testName, $testNumber)
     {
@@ -388,9 +388,9 @@ class CompileFunctionTest extends PHPUnit_Smarty
     /**
      * Test Output nocache spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testSpacingNocache2($code, $result, $testName, $testNumber)
     {

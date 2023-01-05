@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests for cache resource file
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
 /**
  * class for cache resource file tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class CacheResourceFileTest extends CacheResourceTestCommon
 {

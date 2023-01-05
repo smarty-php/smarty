@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests register->compilerFunction / unregister->compilerFunction methods
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ use Smarty\Smarty;
 /**
  * class for register->compilerFunction / unregister->compilerFunction methods tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ *
  */
 class RegisterCompilerFunctionTest extends PHPUnit_Smarty
 {

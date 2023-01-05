@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests - issue #549 regression tests
  *
- * @package PHPunit
+
  * @author  Andrey Repin <anrdaemon@yandex.ru>
  */
 
 /**
  * class for compiler tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  *
  * mb_split breaks if Smarty encoding is not the same as mbstring regex encoding.
  */

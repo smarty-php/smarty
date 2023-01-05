@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests {$smarty.version}
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {$smarty.version} tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class SmartyVersionTest extends PHPUnit_Smarty
 {

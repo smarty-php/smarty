@@ -59,14 +59,6 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     public static $pluginsdir = null;
 
     /**
-     * Default blacklist
-     *
-     * @var array
-     */
-    protected $backupStaticAttributesBlacklist = array('PHPUnit_Smarty' => array('config', 'pdo', 'init',
-                                                                                 'testNumver', 'pluginsdir'),);
-
-    /**
      * This method is called before the first test of this test class is run.
      *
      */
@@ -101,7 +93,6 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
             define('individualFolders', true);
         }
         parent::__construct($name, $data, $dataName);
-      $this->backupStaticAttributesBlacklist[ get_class($this) ] = array('init', 'config', 'pdo', 'testNumber');
     }
 
     /**

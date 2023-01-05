@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests for cache resource file
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ use Smarty\Template;
 /**
  * class for cache resource file tests
  *
- * @backupStaticAttributes enabled
+ * 
  */
-class CacheResourceTestCommon extends PHPUnit_Smarty
+abstract class CacheResourceTestCommon extends PHPUnit_Smarty
 {
     public static $touchResource = null;
 
@@ -403,8 +403,6 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
     }
     /**
      * Test caching
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      * @dataProvider data
      * @group slow
      */
@@ -507,12 +505,7 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
             array(10, 4, 6, null, false, 2, 10, false, false, false, 32, 32, 32, 'lock timeout - new compiled'),
         );
     }
-    /**
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
+
     public function testCachingDisabled1()
     {
         $this->smarty->assign('test', 50);
@@ -520,12 +513,6 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
         $this->assertFalse($tpl->isCached(), 'isCached() status');
         $this->assertEquals('cache resource test:50 compiled:50 rendered:50', $this->smarty->fetch($tpl), 'fetch()');
     }
-    /**
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
     public function testCachingDisabled2()
     {
         $this->smarty->assign('test', 51);
@@ -536,8 +523,6 @@ class CacheResourceTestCommon extends PHPUnit_Smarty
 
     /**
      * Test caching
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      * @dataProvider dataDir
      *
      */

@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of delimiter
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for delimiter tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ *
  */
 class DelimiterTest extends PHPUnit_Smarty
 {

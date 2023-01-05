@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests for security
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ use Smarty\CompilerException;
 /**
  * class for security test
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class SecurityTest extends PHPUnit_Smarty
 {
@@ -47,8 +47,8 @@ class SecurityTest extends PHPUnit_Smarty
 
 /**
  * test not trusted PHP function
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
   */
     public function testNotTrustedPHPFunction()
     {
@@ -79,8 +79,8 @@ class SecurityTest extends PHPUnit_Smarty
 
 /**
  * test not trusted modifier
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
  *  @deprecated
  */
     public function testNotTrustedModifier()
@@ -113,8 +113,8 @@ class SecurityTest extends PHPUnit_Smarty
 
 /**
  * test not allowed tag
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
  */
     public function testNotAllowedTags2()
     {
@@ -126,8 +126,8 @@ class SecurityTest extends PHPUnit_Smarty
 
 /**
  * test disabled tag
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
  */
     public function testDisabledTags()
     {
@@ -156,8 +156,8 @@ class SecurityTest extends PHPUnit_Smarty
 
 /**
  * test not allowed modifier
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
   */
     public function testNotAllowedModifier()
     {
@@ -169,8 +169,8 @@ class SecurityTest extends PHPUnit_Smarty
 
 /**
  * test disabled modifier
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
   */
     public function testDisabledModifier()
     {
@@ -220,8 +220,8 @@ class SecurityTest extends PHPUnit_Smarty
 /**
  * test not trusted directory
   *
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
   */
     public function testNotTrustedDirectory()
     {
@@ -252,8 +252,8 @@ class SecurityTest extends PHPUnit_Smarty
 
 	/**
 	 * test not trusted PHP function
-	 * @runInSeparateProcess
-	 * @preserveGlobalState disabled
+	 * 
+	 * 
 	 */
 	public function testNotTrustedStaticClass()
 	{
@@ -301,12 +301,12 @@ class SecurityTest extends PHPUnit_Smarty
 /**
  * test template file exits
  *
- * @runInSeparateProcess
- * @preserveGlobalState disabled
+ * 
+ * 
  */
     public function testTemplateTrustedStream()
     {
-         stream_wrapper_register("global", "ResourceStreamSecurity")
+        stream_wrapper_register("global", "ResourceStreamSecurity")
         or die("Failed to register protocol");
         $fp = fopen("global://mytest", "r+");
         fwrite($fp, 'hello world {$foo}');
@@ -314,10 +314,11 @@ class SecurityTest extends PHPUnit_Smarty
         $this->smarty->security_policy->streams= array('global');
         $tpl = $this->smarty->createTemplate('global:mytest');
         $this->assertTrue($tpl->source->exists);
+        stream_wrapper_unregister("global");
     }
 /**
- * @runInSeparateProcess
- * @preserveGlobalState disabled
+ * 
+ * 
  * test template file exits
  */
     public function testTemplateNotTrustedStream()
@@ -332,10 +333,11 @@ class SecurityTest extends PHPUnit_Smarty
         $this->smarty->security_policy->streams= array('notrusted');
         $tpl = $this->smarty->createTemplate('global:mytest');
         $this->assertTrue($tpl->source->exists);
+        stream_wrapper_unregister("global");
     }
 /**
- * @runInSeparateProcess
- * @preserveGlobalState disabled
+ * 
+ * 
 */
     public function testTrustedUri()
     {
@@ -346,8 +348,8 @@ class SecurityTest extends PHPUnit_Smarty
     }
 
 /**
- * @runInSeparateProcess
- * @preserveGlobalState disabled
+ * 
+ * 
 */
     public function testNotTrustedUri()
     {

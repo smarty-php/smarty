@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests register->modifier / unregister->modifier methods
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for register->modifier / unregister->modifier methods tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class RegisterModifierTest extends PHPUnit_Smarty
 {

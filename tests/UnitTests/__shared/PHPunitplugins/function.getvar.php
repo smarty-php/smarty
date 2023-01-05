@@ -2,8 +2,8 @@
 /**
  * Smarty plugin getvar
  *
- * @package    Smarty
- * @subpackage PHPunitPlugin
+
+
  */
 
 use Smarty\Template;

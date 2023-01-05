@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests compilation of delimiter tags
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -10,8 +10,8 @@
  * class for delimiter tags tests
  *
  * @run TestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
  */
 class CompileDelimiterTest extends PHPUnit_Smarty
 {

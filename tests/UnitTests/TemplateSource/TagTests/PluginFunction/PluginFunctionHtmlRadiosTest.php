@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests of modifier
  *
- * @package PHPunit
+
  * @author  Rodney Rehm
  */
 
@@ -10,9 +10,9 @@ require_once(__DIR__ . '/helpers/_object_tostring.php');
 
 /**
  * class for modifier tests
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class PluginFunctionHtmlRadiosTest extends PHPUnit_Smarty
 {

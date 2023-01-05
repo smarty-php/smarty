@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests for cache resource Pdo
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -12,9 +12,9 @@ include_once __DIR__ . '/cacheresource.pdotest.php';
 /**
  * class for cache resource file tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class CacheResourceCustomPDOTest extends CacheResourceTestCommon
 {

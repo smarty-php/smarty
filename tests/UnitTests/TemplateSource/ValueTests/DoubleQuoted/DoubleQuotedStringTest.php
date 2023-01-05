@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests double quoted strings
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for double quoted string tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
 */
 class DoubleQuotedStringTest extends PHPUnit_Smarty
 {
@@ -31,7 +31,7 @@ class DoubleQuotedStringTest extends PHPUnit_Smarty
     /**
      * Test double qouted strings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestDoubleQuoted
      */
     public function testDoubleQuoted($code, $result, $testName, $testNumber)

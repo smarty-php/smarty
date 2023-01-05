@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests for File resources
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ use Smarty\Exception;
 /**
  * class for file resource tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class FileResourceTest extends PHPUnit_Smarty
 {
@@ -208,7 +208,7 @@ class FileResourceTest extends PHPUnit_Smarty
     /**
      *
      * @run InSeparateProcess
-     * @preserveGlobalState disabled
+     * 
      *
      */
     public function testRelativeIncludeSub()
@@ -217,9 +217,6 @@ class FileResourceTest extends PHPUnit_Smarty
         $this->assertStringContainsString('hello world', $result);
     }
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
      * test relative include fail
      */
     public function testRelativeIncludeFail()
@@ -229,8 +226,8 @@ class FileResourceTest extends PHPUnit_Smarty
         $this->smarty->fetch('relative_sub.tpl');
     }
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      * test relative include fail other dir
      */
@@ -244,8 +241,8 @@ class FileResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRelativeFetch()
@@ -260,8 +257,8 @@ class FileResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRelativeFetch2()
@@ -276,8 +273,8 @@ class FileResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRelativeFetchCwd()
@@ -297,8 +294,8 @@ class FileResourceTest extends PHPUnit_Smarty
 
     /**
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRelativeFetchCwd2()

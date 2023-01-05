@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests for stream resources
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for stream resource tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class StreamResourceTest extends PHPUnit_Smarty
 {
@@ -26,7 +26,6 @@ class StreamResourceTest extends PHPUnit_Smarty
         fwrite($fp, 'hello world {$foo}');
         fclose($fp);
     }
-
 
     public function testInit()
     {
@@ -138,8 +137,8 @@ class StreamResourceTest extends PHPUnit_Smarty
         $this->assertFalse($this->smarty->templateExists('global:notthere'));
     }
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      * test not existing template
      */

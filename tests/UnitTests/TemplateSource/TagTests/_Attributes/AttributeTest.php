@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests for tag attributes
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for tag attribute tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class AttributeTest extends PHPUnit_Smarty
 {

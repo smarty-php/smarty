@@ -8,9 +8,9 @@ use Smarty\Smarty;
 /**
  * class for protected $template_dir, $compile_dir, $cache_dir, $config_dir, $plugins_dir property tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class ProtectedFolderVarsTest extends PHPUnit_Smarty
 {

@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests of modifier
  *
- * @package PHPunit
+
  * @author  Rodney Rehm
  */
 
@@ -11,9 +11,9 @@
  *
  *
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ *
+ * 
  */
 class PhpFunctionTest extends PHPUnit_Smarty
 {

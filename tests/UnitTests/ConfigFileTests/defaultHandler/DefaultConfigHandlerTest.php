@@ -2,7 +2,7 @@
 /**
  * Smarty PHPUnit tests default config handler
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -11,9 +11,9 @@ use Smarty\Smarty;
 /**
  * class for default config handler test
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class DefaultConfigHandlerTest extends PHPUnit_Smarty
 {

@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of function calls
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for function tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class FunctionTest extends PHPUnit_Smarty
 {

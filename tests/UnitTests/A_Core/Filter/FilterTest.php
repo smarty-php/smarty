@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of filter
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for filter tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class FilterTest extends PHPUnit_Smarty
 {
@@ -68,9 +68,6 @@ class FilterTest extends PHPUnit_Smarty
 
     /**
      * test registered output filter not cached
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testRegisteredOutputFilter_001()
     {
@@ -82,9 +79,6 @@ class FilterTest extends PHPUnit_Smarty
 
     /**
      * test registered output filter not cached 2"
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testRegisteredOutputFilter_001_2()
     {
@@ -96,9 +90,6 @@ class FilterTest extends PHPUnit_Smarty
 
     /**
      * test registered output filter cached 1"
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testRegisteredOutputFilter_001_3()
     {
@@ -112,9 +103,6 @@ class FilterTest extends PHPUnit_Smarty
 
     /**
      * test registered output filter cached 1"
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testRegisteredOutputFilter_001_4()
     {
@@ -127,9 +115,6 @@ class FilterTest extends PHPUnit_Smarty
 
     /**
      * test registered output filter cached nocache"
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testRegisteredOutputFilter_002_1()
     {
@@ -142,9 +127,6 @@ class FilterTest extends PHPUnit_Smarty
 
     /**
      * test registered output filter cached nocache"
-     *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
      */
     public function testRegisteredOutputFilter_002_2()
     {

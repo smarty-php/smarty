@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests deault template handler
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for block plugin tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class DefaultTemplateHandlerTest extends PHPUnit_Smarty
 {

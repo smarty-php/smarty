@@ -2,8 +2,8 @@
 /**
  * Smarty plugin params
  *
- * @package    Smarty
- * @subpackage PHPunitPlugin
+
+
  */
 
 use Smarty\Compile\Base;
