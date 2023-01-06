@@ -10,50 +10,37 @@ class DefaultExtension extends Base {
 
 	private $blockHandlers = [];
 
-	public function __construct() {
-		// modifiers
-		$this->modifiers['cat'] = new \Smarty\Compile\Modifier\CatModifierCompiler();
-		$this->modifiers['count_characters'] = new \Smarty\Compile\Modifier\CountCharactersModifierCompiler();
-		$this->modifiers['count_paragraphs'] = new \Smarty\Compile\Modifier\CountParagraphsModifierCompiler();
-		$this->modifiers['count_sentences'] = new \Smarty\Compile\Modifier\CountSentencesModifierCompiler();
-		$this->modifiers['count_words'] = new \Smarty\Compile\Modifier\CountWordsModifierCompiler();
-		$this->modifiers['default'] = new \Smarty\Compile\Modifier\DefaultModifierCompiler();
-		$this->modifiers['escape'] = new \Smarty\Compile\Modifier\EscapeModifierCompiler();
-		$this->modifiers['from_charset'] = new \Smarty\Compile\Modifier\FromCharsetModifierCompiler();
-		$this->modifiers['indent'] = new \Smarty\Compile\Modifier\IndentModifierCompiler();
-		$this->modifiers['lower'] = new \Smarty\Compile\Modifier\LowerModifierCompiler();
-		$this->modifiers['nl2br'] = new \Smarty\Compile\Modifier\Nl2brModifierCompiler();
-		$this->modifiers['noprint'] = new \Smarty\Compile\Modifier\NoPrintModifierCompiler();
-		$this->modifiers['round'] = new \Smarty\Compile\Modifier\RoundModifierCompiler();
-		$this->modifiers['str_repeat'] = new \Smarty\Compile\Modifier\StrRepeatModifierCompiler();
-		$this->modifiers['string_format'] = new \Smarty\Compile\Modifier\StringFormatModifierCompiler();
-		$this->modifiers['strip'] = new \Smarty\Compile\Modifier\StripModifierCompiler();
-		$this->modifiers['strip_tags'] = new \Smarty\Compile\Modifier\StripTagsModifierCompiler();
-		$this->modifiers['strlen'] = new \Smarty\Compile\Modifier\StrlenModifierCompiler();
-		$this->modifiers['to_charset'] = new \Smarty\Compile\Modifier\ToCharsetModifierCompiler();
-		$this->modifiers['unescape'] = new \Smarty\Compile\Modifier\UnescapeModifierCompiler();
-		$this->modifiers['upper'] = new \Smarty\Compile\Modifier\UpperModifierCompiler();
-		$this->modifiers['wordwrap'] = new \Smarty\Compile\Modifier\WordWrapModifierCompiler();
-
-		// function handlers
-		$this->functionHandlers['counter'] = new \Smarty\FunctionHandler\Counter();
-		$this->functionHandlers['cycle'] = new \Smarty\FunctionHandler\Cycle();
-		$this->functionHandlers['fetch'] = new \Smarty\FunctionHandler\Fetch();
-		$this->functionHandlers['html_checkboxes'] = new \Smarty\FunctionHandler\HtmlCheckboxes();
-		$this->functionHandlers['html_image'] = new \Smarty\FunctionHandler\HtmlImage();
-		$this->functionHandlers['html_options'] = new \Smarty\FunctionHandler\HtmlOptions();
-		$this->functionHandlers['html_radios'] = new \Smarty\FunctionHandler\HtmlRadios();
-		$this->functionHandlers['html_select_date'] = new \Smarty\FunctionHandler\HtmlSelectDate();
-		$this->functionHandlers['html_select_time'] = new \Smarty\FunctionHandler\HtmlSelectTime();
-		$this->functionHandlers['html_table'] = new \Smarty\FunctionHandler\HtmlTable();
-		$this->functionHandlers['mailto'] = new \Smarty\FunctionHandler\Mailto();
-		$this->functionHandlers['math'] = new \Smarty\FunctionHandler\Math();
-
-		// blockhandlers
-		$this->blockHandlers['textformat'] = new \Smarty\BlockHandler\TextFormat();
-	}
-
 	public function getModifierCompiler(string $modifier): ?\Smarty\Compile\Modifier\ModifierCompilerInterface {
+
+		if (isset($this->modifiers[$modifier])) {
+			return $this->modifiers[$modifier];
+		}
+
+		switch ($modifier) {
+			case 'cat': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\CatModifierCompiler(); break;
+			case 'count_characters': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\CountCharactersModifierCompiler(); break;
+			case 'count_paragraphs': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\CountParagraphsModifierCompiler(); break;
+			case 'count_sentences': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\CountSentencesModifierCompiler(); break;
+			case 'count_words': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\CountWordsModifierCompiler(); break;
+			case 'default': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\DefaultModifierCompiler(); break;
+			case 'escape': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\EscapeModifierCompiler(); break;
+			case 'from_charset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\FromCharsetModifierCompiler(); break;
+			case 'indent': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IndentModifierCompiler(); break;
+			case 'lower': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\LowerModifierCompiler(); break;
+			case 'nl2br': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\Nl2brModifierCompiler(); break;
+			case 'noprint': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\NoPrintModifierCompiler(); break;
+			case 'round': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\RoundModifierCompiler(); break;
+			case 'str_repeat': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\StrRepeatModifierCompiler(); break;
+			case 'string_format': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\StringFormatModifierCompiler(); break;
+			case 'strip': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\StripModifierCompiler(); break;
+			case 'strip_tags': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\StripTagsModifierCompiler(); break;
+			case 'strlen': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\StrlenModifierCompiler(); break;
+			case 'to_charset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\ToCharsetModifierCompiler(); break;
+			case 'unescape': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\UnescapeModifierCompiler(); break;
+			case 'upper': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\UpperModifierCompiler(); break;
+			case 'wordwrap': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\WordWrapModifierCompiler(); break;
+		}
+
 		return $this->modifiers[$modifier] ?? null;
 	}
 
@@ -76,10 +63,35 @@ class DefaultExtension extends Base {
 	}
 
 	public function getFunctionHandler(string $functionName): ?\Smarty\FunctionHandler\FunctionHandlerInterface {
+
+		if (isset($this->functionHandlers[$functionName])) {
+			return $this->functionHandlers[$functionName];
+		}
+
+		switch ($functionName) {
+			case 'counter': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Counter(); break;
+			case 'cycle': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Cycle(); break;
+			case 'fetch': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Fetch(); break;
+			case 'html_checkboxes': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlCheckboxes(); break;
+			case 'html_image': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlImage(); break;
+			case 'html_options': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlOptions(); break;
+			case 'html_radios': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlRadios(); break;
+			case 'html_select_date': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlSelectDate(); break;
+			case 'html_select_time': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlSelectTime(); break;
+			case 'html_table': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlTable(); break;
+			case 'mailto': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Mailto(); break;
+			case 'math': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Math(); break;
+		}
+
 		return $this->functionHandlers[$functionName] ?? null;
 	}
 
 	public function getBlockHandler(string $blockTagName): ?\Smarty\BlockHandler\BlockHandlerInterface {
+
+		switch ($blockTagName) {
+			case 'textformat': $this->blockHandlers[$blockTagName] = new \Smarty\BlockHandler\TextFormat(); break;
+		}
+
 		return $this->blockHandlers[$blockTagName] ?? null;
 	}
 
