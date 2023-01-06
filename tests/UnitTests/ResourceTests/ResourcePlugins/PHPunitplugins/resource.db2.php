@@ -14,7 +14,7 @@ use Smarty\Resource\RecompiledPlugin;
 use Smarty\Template;
 use Smarty\Template\Source;
 
-class _Db2Plugin extends RecompiledPlugin
+class Smarty_Resource_Db2 extends RecompiledPlugin
 {
     public function populate(Source $source, Template $_template = null)
     {

@@ -167,7 +167,6 @@ class BCPluginsAdapter extends Base {
 		    'prefilter',
 		    'postfilter',
 		    'outputfilter',
-		    'resource',
 		    'insert',
 		] as $type) {
 			foreach (glob($path  . $type . '.?*.php') as $filename) {
@@ -177,6 +176,17 @@ class BCPluginsAdapter extends Base {
 					if (function_exists($functionName = 'smarty_' . $type . '_' . $pluginName)) {
 						$this->smarty->registerPlugin($type, $pluginName, $functionName, true, []);
 					}
+				}
+			}
+		}
+
+		$type = 'resource';
+		foreach (glob($path  . $type . '.?*.php') as $filename) {
+			$pluginName = $this->getPluginNameFromFilename($filename);
+			if ($pluginName !== null) {
+				require_once $filename;
+				if (class_exists($className = 'smarty_' . $type . '_' . $pluginName)) {
+					$this->smarty->registerResource($pluginName, new $className());
 				}
 			}
 		}

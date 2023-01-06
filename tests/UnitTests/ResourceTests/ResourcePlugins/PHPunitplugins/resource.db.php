@@ -14,7 +14,7 @@ use Smarty\Resource\RecompiledPlugin;
 use Smarty\Template;
 use Smarty\Template\Source;
 
-class _DbPlugin extends RecompiledPlugin {
+class Smarty_Resource_Db extends RecompiledPlugin {
 
     public function populate(Source $source, Template $_template = null) {
         $source->filepath = 'db:';
