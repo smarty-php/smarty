@@ -112,9 +112,7 @@ class InheritanceRuntime {
 			ob_end_clean();
 			$this->state = 2;
 		}
-		if (isset($template) && (($tpl->parent->_isTplObj() && $tpl->parent->source->type !== 'extends')
-				|| $tpl->smarty->extends_recursion)
-		) {
+		if (isset($template)) {
 			$tpl->_subTemplateRender(
 				$template,
 				$tpl->cache_id,

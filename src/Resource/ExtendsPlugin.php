@@ -2,6 +2,10 @@
 
 namespace Smarty\Resource;
 
+use Smarty\Exception;
+use Smarty\Template;
+use Smarty\Template\Source;
+
 /**
  * Smarty Internal Plugin Resource Extends
  *
@@ -24,12 +28,12 @@ class ExtendsPlugin extends BasePlugin
     /**
      * populate Source Object with metadata from Resource
      *
-     * @param \Smarty\Template\Source   $source    source object
-     * @param \Smarty\Template $_template template object
+     * @param Source $source source object
+     * @param Template|null $_template template object
      *
-     * @throws \Smarty\Exception
+     * @throws Exception
      */
-    public function populate(\Smarty\Template\Source $source, \Smarty\Template $_template = null)
+    public function populate(Source $source, Template $_template = null)
     {
         $uid = '';
         $sources = array();
@@ -37,8 +41,7 @@ class ExtendsPlugin extends BasePlugin
         $smarty = &$source->smarty;
         $exists = true;
         foreach ($components as $component) {
-            /* @var \Smarty\Template\Source $_s */
-            $_s = \Smarty\Template\Source::load(null, $smarty, $component);
+            $_s = Source::load(null, $smarty, $component);
             if ($_s->type === 'php') {
                 throw new \Smarty\Exception("Resource type {$_s->type} cannot be used with the extends resource type");
             }
@@ -60,12 +63,12 @@ class ExtendsPlugin extends BasePlugin
     /**
      * populate Source Object with timestamp and exists from Resource
      *
-     * @param \Smarty\Template\Source $source source object
+     * @param Source $source source object
      */
-    public function populateTimestamp(\Smarty\Template\Source $source)
+    public function populateTimestamp(Source $source)
     {
         $source->exists = true;
-        /* @var \Smarty\Template\Source $_s */
+        /* @var Source $_s */
         foreach ($source->components as $_s) {
             $source->exists = $source->exists && $_s->exists;
         }
@@ -75,19 +78,19 @@ class ExtendsPlugin extends BasePlugin
     /**
      * Load template's source from files into current template object
      *
-     * @param \Smarty\Template\Source $source source object
+     * @param Source $source source object
      *
      * @return string template source
      * @throws \Smarty\Exception if source cannot be loaded
      */
-    public function getContent(\Smarty\Template\Source $source)
+    public function getContent(Source $source)
     {
         if (!$source->exists) {
             throw new \Smarty\Exception("Unable to load template '{$source->type}:{$source->name}'");
         }
         $_components = array_reverse($source->components);
         $_content = '';
-        /* @var \Smarty\Template\Source $_s */
+        /* @var Source $_s */
         foreach ($_components as $_s) {
             // read content
             $_content .= $_s->getContent();
@@ -98,11 +101,11 @@ class ExtendsPlugin extends BasePlugin
     /**
      * Determine basename for compiled filename
      *
-     * @param \Smarty\Template\Source $source source object
+     * @param Source $source source object
      *
      * @return string resource's basename
      */
-    public function getBasename(\Smarty\Template\Source $source)
+    public function getBasename(Source $source)
     {
         return str_replace(':', '.', basename($source->filepath));
     }

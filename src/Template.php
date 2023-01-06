@@ -119,10 +119,6 @@ class Template extends TemplateBase {
 	 * @var callback[]
 	 */
 	public $endRenderCallbacks = [];
-	/**
-	 * @var \Smarty\Compiler\CodeFrame
-	 */
-	private $codeFrameCompiler;
 
 	/**
 	 * Create template data object
@@ -165,8 +161,6 @@ class Template extends TemplateBase {
 		if ($smarty->security_policy && method_exists($smarty->security_policy, 'registerCallBacks')) {
 			$smarty->security_policy->registerCallBacks($this);
 		}
-
-		$this->codeFrameCompiler = new \Smarty\Compiler\CodeFrame($this);
 	}
 
 	/**
@@ -613,7 +607,7 @@ class Template extends TemplateBase {
 	 * @return string
 	 */
 	public function createCodeFrame($content = '', $functions = '', $cache = false, \Smarty\Compiler\Template $compiler = null) {
-		return $this->codeFrameCompiler->create($content, $functions, $cache, $compiler);
+		return $this->getFrameCompiler()->create($content, $functions, $cache, $compiler);
 	}
 
 	/**
@@ -894,5 +888,9 @@ class Template extends TemplateBase {
 			$this->_updateVariableInOtherScope($tpl->_var_stack[$i]['tpl'], $varName);
 			$i++;
 		}
+	}
+
+	private function getFrameCompiler(): Compiler\CodeFrame {
+		return new \Smarty\Compiler\CodeFrame($this);
 	}
 }

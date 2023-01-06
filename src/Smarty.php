@@ -224,15 +224,6 @@ class Smarty extends \Smarty\TemplateBase
      */
     public $merge_compiled_includes = false;
 
-    /*
-    * flag for behaviour when extends: resource  and {extends} tag are used simultaneous
-    *   if false disable execution of {extends} in templates called by extends resource.
-    *   (behaviour as versions < 3.1.28)
-    *
-    * @var boolean
-    */
-    public $extends_recursion = true;
-
     /**
      * force cache file creation
      *
@@ -1026,8 +1017,7 @@ class Smarty extends \Smarty\TemplateBase
             $this->_normalizeTemplateConfig(false);
         }
         $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
-        $tpl = null;
-        if ($this->caching && isset(\Smarty\Template::$isCacheTplObj[ $_templateId ])) {
+	    if ($this->caching && isset(\Smarty\Template::$isCacheTplObj[ $_templateId ])) {
             $tpl = $do_clone ? clone \Smarty\Template::$isCacheTplObj[ $_templateId ] :
                 \Smarty\Template::$isCacheTplObj[ $_templateId ];
             $tpl->inheritance = null;

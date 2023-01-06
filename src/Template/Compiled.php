@@ -64,8 +64,7 @@ class Compiled extends ResourceBase {
 				(int)$smarty->config_overwrite * 4;
 		} else {
 			$this->filepath .= (int)$smarty->merge_compiled_includes + (int)$smarty->escape_html * 2 +
-				(($smarty->merge_compiled_includes && $source->type === 'extends') ?
-					(int)$smarty->extends_recursion * 4 : 0);
+				(($smarty->merge_compiled_includes && $source->type === 'extends') ? 4 : 0);
 		}
 		$this->filepath .= '.' . $source->type;
 		$basename = $source->handler->getBasename($source);
