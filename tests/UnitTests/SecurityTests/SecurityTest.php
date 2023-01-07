@@ -62,9 +62,10 @@ class SecurityTest extends PHPUnit_Smarty
  */
     public function testNotTrustedModifier()
     {
+        $this->smarty->security_policy->disabled_modifiers[] = 'escape';
         $this->expectException(\Smarty\Exception::class);
-        $this->expectExceptionMessage('modifier \'sizeof\' not allowed by security setting');
-        @$this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|@sizeof}');
+        $this->expectExceptionMessage('modifier \'escape\' disabled by security setting');
+        @$this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|escape}');
     }
 
 /**
@@ -215,40 +216,40 @@ class SecurityTest extends PHPUnit_Smarty
         $this->assertEquals('25', $this->smarty->fetch($tpl));
     }
 
-	/**
-	 * test not trusted PHP function
-	 * 
-	 * 
-	 */
-	public function testNotTrustedStaticClass()
-	{
+    /**
+     * test not trusted PHP function
+     *
+     *
+     */
+    public function testNotTrustedStaticClass()
+    {
         $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('access to static class \'mysecuritystaticclass\' not allowed by security setting');
         $this->smarty->security_policy->static_classes = array('null');
         $this->smarty->fetch('string:{mysecuritystaticclass::square(5)}');
     }
 
-	/**
-	 * test not trusted PHP function
-	 */
-	public function testNotTrustedStaticClassEval()
-	{
-		$this->expectException(\Smarty\Exception::class);
-		$this->expectExceptionMessage('dynamic static class not allowed by security setting');
-		$this->smarty->security_policy->static_classes = array('null');
-		$this->smarty->fetch('string:{$test = "mysecuritystaticclass"}{$test::square(5)}');
-	}
+    /**
+     * test not trusted PHP function
+     */
+    public function testNotTrustedStaticClassEval()
+    {
+        $this->expectException(\Smarty\Exception::class);
+        $this->expectExceptionMessage('dynamic static class not allowed by security setting');
+        $this->smarty->security_policy->static_classes = array('null');
+        $this->smarty->fetch('string:{$test = "mysecuritystaticclass"}{$test::square(5)}');
+    }
 
-	/**
-	 * test not trusted PHP function
-	 */
-	public function testNotTrustedStaticClassSmartyVar()
-	{
-		$this->expectException(\Smarty\Exception::class);
-		$this->expectExceptionMessage('dynamic static class not allowed by security setting');
-		$this->smarty->security_policy->static_classes = array('null');
-		$this->smarty->fetch('string:{$smarty.template_object::square(5)}');
-	}
+    /**
+     * test not trusted PHP function
+     */
+    public function testNotTrustedStaticClassSmartyVar()
+    {
+        $this->expectException(\Smarty\Exception::class);
+        $this->expectExceptionMessage('dynamic static class not allowed by security setting');
+        $this->smarty->security_policy->static_classes = array('null');
+        $this->smarty->fetch('string:{$smarty.template_object::square(5)}');
+    }
 
     public function testChangedTrustedDirectory()
     {

@@ -31,14 +31,8 @@ class FunctionTest extends PHPUnit_Smarty
     public function testUnknownFunction()
     {
         $this->smarty->enableSecurity();
-        try {
-            $this->smarty->fetch('eval:{unknown()}');
-        }
-        catch (Exception $e) {
-            $this->assertStringContainsString("PHP function 'unknown' not allowed by security setting", $e->getMessage());
-
-            return;
-        }
-        $this->fail('Exception for unknown function has not been raised.');
+        $this->expectException(\Smarty\CompilerException::class);
+        $this->expectExceptionMessage('Cannot compile unknown function unknown');
+        $this->smarty->fetch('eval:{unknown()}');
     }
 }
