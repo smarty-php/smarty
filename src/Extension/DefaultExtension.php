@@ -69,8 +69,10 @@ class DefaultExtension extends Base {
 		}
 
 		switch ($functionName) {
+			case 'count': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Count(); break;
 			case 'counter': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Counter(); break;
 			case 'cycle': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Cycle(); break;
+			case 'empty': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\EmptyHandler(); break;
 			case 'fetch': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Fetch(); break;
 			case 'html_checkboxes': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlCheckboxes(); break;
 			case 'html_image': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlImage(); break;
@@ -79,8 +81,12 @@ class DefaultExtension extends Base {
 			case 'html_select_date': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlSelectDate(); break;
 			case 'html_select_time': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlSelectTime(); break;
 			case 'html_table': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlTable(); break;
+			case 'in_array': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\InArray(); break;
+			case 'is_array': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\IsArray(); break;
+			case 'isset': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\IssetHandler(); break;
 			case 'mailto': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Mailto(); break;
 			case 'math': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Math(); break;
+			case 'time': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Time(); break;
 		}
 
 		return $this->functionHandlers[$functionName] ?? null;

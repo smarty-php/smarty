@@ -95,24 +95,6 @@ class Security {
 	public $trusted_static_properties = [];
 
 	/**
-	 * This is an array of trusted PHP functions.
-	 * If empty all functions are allowed.
-	 * To disable all PHP functions set $php_functions = null.
-	 *
-	 * @var array
-	 */
-	public $php_functions = ['isset', 'empty', 'count', 'sizeof', 'in_array', 'is_array', 'time',];
-
-	/**
-	 * This is an array of trusted PHP modifiers.
-	 * If empty all modifiers are allowed.
-	 * To disable all modifier set $php_modifiers = null.
-	 *
-	 * @var array
-	 */
-	public $php_modifiers = ['escape', 'count', 'sizeof', 'nl2br',];
-
-	/**
 	 * This is an array of allowed tags.
 	 * If empty no restriction by allowed_tags.
 	 *
@@ -217,49 +199,10 @@ class Security {
 	protected $_secure_dir = [];
 
 	/**
-	 * Cache for $php_resource_dir lookup
-	 *
-	 * @var array
-	 */
-	protected $_php_resource_dir = null;
-
-	/**
-	 * Cache for $trusted_dir lookup
-	 *
-	 * @var array
-	 */
-	protected $_trusted_dir = null;
-
-	/**
-	 * Cache for $_include_array lookup
-	 *
-	 * @var array
-	 */
-	protected $_include_dir = [];
-
-	/**
 	 * @param Smarty $smarty
 	 */
 	public function __construct(Smarty $smarty) {
 		$this->smarty = $smarty;
-	}
-
-	/**
-	 * Check if PHP function is trusted.
-	 *
-	 * @param string $function_name
-	 * @param object $compiler compiler object
-	 *
-	 * @return boolean                 true if function is trusted
-	 */
-	public function isTrustedPhpFunction($function_name, $compiler) {
-		if (isset($this->php_functions)
-			&& (empty($this->php_functions) || in_array($function_name, $this->php_functions))
-		) {
-			return true;
-		}
-		$compiler->trigger_template_error("PHP function '{$function_name}' not allowed by security setting");
-		return false; // should not, but who knows what happens to the compiler in the future?
 	}
 
 	/**
@@ -314,25 +257,6 @@ class Security {
 			}
 		}
 		$compiler->trigger_template_error("access to static class '{$class_name}' {$params[2]} '{$name}' not allowed by security setting");
-		return false; // should not, but who knows what happens to the compiler in the future?
-	}
-
-	/**
-	 * Check if PHP modifier is trusted.
-	 *
-	 * @param string $modifier_name
-	 * @param object $compiler compiler object
-	 *
-	 * @return boolean                 true if modifier is trusted
-	 * @deprecated
-	 */
-	public function isTrustedPhpModifier($modifier_name, $compiler) {
-		if (isset($this->php_modifiers)
-			&& (empty($this->php_modifiers) || in_array($modifier_name, $this->php_modifiers))
-		) {
-			return true;
-		}
-		$compiler->trigger_template_error("modifier '{$modifier_name}' not allowed by security setting");
 		return false; // should not, but who knows what happens to the compiler in the future?
 	}
 

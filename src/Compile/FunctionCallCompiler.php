@@ -11,6 +11,7 @@
 namespace Smarty\Compile;
 
 use Smarty\Compiler\Template;
+use Smarty\CompilerException;
 
 /**
  * Smarty Internal Plugin Compile Registered Function Class
@@ -29,6 +30,13 @@ class FunctionCallCompiler extends Base {
 	public $optional_attributes = ['_any'];
 
 	/**
+	 * Shorttag attribute order defined by its names
+	 *
+	 * @var array
+	 */
+	protected $shorttag_order = ['var1', 'var2', 'var3'];
+
+	/**
 	 * Compiles code for the execution of a registered function
 	 *
 	 * @param array $args array with attributes from parser
@@ -42,12 +50,14 @@ class FunctionCallCompiler extends Base {
 	 * @throws \Smarty\Exception
 	 */
 	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null) {
+
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		unset($_attr['nocache']);
 
-
-		$functionHandler = $compiler->smarty->getFunctionHandler($function);
+		if (!$functionHandler = $compiler->smarty->getFunctionHandler($function)) {
+			throw new CompilerException("Cannot compile unknown function $function.");
+		}
 
 		// not cacheable?
 		$compiler->tag_nocache = $compiler->tag_nocache || !$functionHandler->isCacheable();
@@ -65,6 +75,6 @@ class FunctionCallCompiler extends Base {
 		if (!empty($parameter['modifierlist'])) {
 			$output = $compiler->compileModifier($parameter['modifierlist'], $output);
 		}
-		return "<?php echo {$output};?>\n";
+		return $output;
 	}
 }

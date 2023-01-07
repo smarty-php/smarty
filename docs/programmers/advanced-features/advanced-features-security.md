@@ -53,19 +53,6 @@ instance of the Smarty\_Security class. These are the possible settings:
     static classes. To disable access to all static classes set
     \$static\_classes = null.
 
--   `$php_functions` is an array of PHP functions that are considered
-    trusted and can be used from within template. To disable access to
-    all PHP functions set \$php\_functions = null. An empty array (
-    \$php\_functions = array() ) will allow all PHP functions. The
-    default is array(\'isset\', \'empty\', \'count\', \'sizeof\',
-    \'in\_array\', \'is\_array\',\'time\',\'nl2br\').
-
--   `$php_modifiers` is an array of PHP functions that are considered
-    trusted and can be used from within template as modifier. To disable
-    access to all PHP modifier set \$php\_modifier = null. An empty
-    array ( \$php\_modifier = array() ) will allow all PHP functions.
-    The default is array(\'escape\',\'count\').
-
 -   `$streams` is an array of streams that are considered trusted and
     can be used from within template. To disable access to all streams
     set \$streams = null. An empty array ( \$streams = array() ) will
@@ -105,10 +92,7 @@ Smarty\_Security class or create an instance of it.
     <?php
 
     class My_Security_Policy extends \Smarty\Security {
-      // disable all PHP functions
-      public $php_functions = null;
-      // allow everthing as modifier
-      public $php_modifiers = array();
+      public $allow_constants = false;
     }
     $smarty = new Smarty();
     // enable security
@@ -119,10 +103,7 @@ Smarty\_Security class or create an instance of it.
     <?php
     $smarty = new Smarty();
     $my_security_policy = new \Smarty\Security($smarty);
-    // disable all PHP functions
-    $my_security_policy->php_functions = null;
-    // allow everthing as modifier
-    $my_security_policy->php_modifiers = array();
+    $my_security_policy->allow_constants = false;
     // enable security
     $smarty->enableSecurity($my_security_policy);
     ?>

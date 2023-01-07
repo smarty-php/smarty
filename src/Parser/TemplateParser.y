@@ -1037,7 +1037,7 @@ objectelement(res)::= PTR method(f).  {
 // function
 //
 function(res)     ::= ns1(f) OPENP params(p) CLOSEP. {
-    res = $this->compiler->compilePHPFunctionCall(f, p);
+    res = $this->compiler->compileFunctionCall(f, p);
 }
 
 
@@ -1071,7 +1071,7 @@ params(res)       ::= expr(e). {
     res = array(e);
 }
 
-                    // kein parameter
+                    // no parameter
 params(res)       ::= . {
     res = array();
 }

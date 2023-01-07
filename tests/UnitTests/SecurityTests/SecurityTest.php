@@ -40,32 +40,9 @@ class SecurityTest extends PHPUnit_Smarty
 /**
  * test trusted PHP function
  */
-    public function testTrustedPHPFunction()
+    public function testTrustedFunction()
     {
-        $this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{sizeof($foo)}'));
-    }
-
-/**
- * test not trusted PHP function
-  * 
-  * 
-  */
-    public function testNotTrustedPHPFunction()
-    {
-        $this->expectException(\Smarty\Exception::class);
-        $this->expectExceptionMessage('PHP function \'sizeof\' not allowed by security setting');
-        $this->smarty->security_policy->php_functions = array('null');
-        $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{sizeof($foo)}');
-    }
-
-/**
- * test not trusted PHP function at disabled security
- */
-    public function testDisabledTrustedPHPFunction()
-    {
-        $this->smarty->security_policy->php_functions = array('null');
-        $this->smarty->disableSecurity();
-        $this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{sizeof($foo)}'));
+        $this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{count($foo)}'));
     }
 
 /**
@@ -74,7 +51,7 @@ class SecurityTest extends PHPUnit_Smarty
  */
     public function testTrustedModifier()
     {
-        $this->assertEquals("5", @$this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|@sizeof}'));
+        $this->assertEquals("5", @$this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|@count}'));
     }
 
 /**
@@ -87,19 +64,7 @@ class SecurityTest extends PHPUnit_Smarty
     {
         $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('modifier \'sizeof\' not allowed by security setting');
-        $this->smarty->security_policy->php_modifiers = array('null');
         @$this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|@sizeof}');
-    }
-
-/**
- * test not trusted modifier at disabled security
- * @deprecated
- */
-    public function testDisabledTrustedModifier()
-    {
-        $this->smarty->security_policy->php_modifiers = array('null');
-        $this->smarty->disableSecurity();
-        @$this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|@sizeof}'));
     }
 
 /**

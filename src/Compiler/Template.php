@@ -530,77 +530,6 @@ class Template extends BaseCompiler {
 	}
 
 	/**
-	 * compile PHP function call
-	 *
-	 * @param string $name
-	 * @param array $parameter
-	 *
-	 * @return string
-	 * @throws \Smarty\CompilerException
-	 */
-	public function compilePHPFunctionCall($name, $parameter) {
-		if (!$this->smarty->security_policy || $this->smarty->security_policy->isTrustedPhpFunction($name, $this)) {
-			if (strcasecmp($name, 'isset') === 0 || strcasecmp($name, 'empty') === 0
-				|| strcasecmp($name, 'array') === 0 || is_callable($name)
-			) {
-				$func_name = smarty_strtolower_ascii($name);
-
-				if ($func_name === 'isset') {
-					if (count($parameter) === 0) {
-						$this->trigger_template_error('Illegal number of parameter in "isset()"');
-					}
-
-					$pa = [];
-					foreach ($parameter as $p) {
-						$pa[] = $this->syntaxMatchesVariable($p) ? 'isset(' . $p . ')' : '(' . $p . ' !== null )';
-					}
-					return '(' . implode(' && ', $pa) . ')';
-
-				} elseif (in_array(
-					$func_name,
-					[
-						'empty',
-						'reset',
-						'current',
-						'end',
-						'prev',
-						'next',
-					]
-				)
-				) {
-					if (count($parameter) !== 1) {
-						$this->trigger_template_error("Illegal number of parameter in '{$func_name()}'");
-					}
-					if ($func_name === 'empty') {
-						return $func_name . '(' .
-							str_replace("')->value", "',null,true,false)->value", $parameter[0]) . ')';
-					} else {
-						return $func_name . '(' . $parameter[0] . ')';
-					}
-				} else {
-					return $name . '(' . implode(',', $parameter) . ')';
-				}
-			} else {
-				$this->trigger_template_error("unknown function '{$name}'");
-			}
-		}
-	}
-
-	/**
-	 * Determines whether the passed string represents a valid (PHP) variable.
-	 * This is important, because `isset()` only works on variables and `empty()` can only be passed
-	 * a variable prior to php5.5
-	 *
-	 * @param $string
-	 *
-	 * @return bool
-	 */
-	private function syntaxMatchesVariable($string) {
-		static $regex_pattern = '/^\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*((->)[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*|\[.*]*\])*$/';
-		return 1 === preg_match($regex_pattern, trim($string));
-	}
-
-	/**
 	 * This method is called from parser to process a text content section if strip is enabled
 	 * - remove text from inheritance child templates as they may generate output
 	 *
@@ -1278,7 +1207,11 @@ class Template extends BaseCompiler {
 		// check if tag is a function
 		if ($this->smarty->getFunctionHandler($base_tag)) {
 			if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($base_tag, $this)) {
-				return $this->functionCallCompiler->compile($args, $this, $parameter, $tag, $base_tag);
+				return (new \Smarty\Compile\PrintExpressionCompiler())->compile(
+					[],
+					$this,
+					['value' =>	$this->compileFunctionCall($base_tag, $args, $parameter)]
+				);
 			}
 		}
 
@@ -1481,6 +1414,10 @@ class Template extends BaseCompiler {
 			null,
 			true
 		);
+	}
+
+	public function compileFunctionCall(string $base_tag, array $args, array $parameter = []) {
+		return $this->functionCallCompiler->compile($args, $this, $parameter, $base_tag, $base_tag);
 	}
 
 }
