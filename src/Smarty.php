@@ -236,14 +236,14 @@ class Smarty extends \Smarty\TemplateBase
      *
      * @var string
      */
-    public $left_delimiter = "{";
+    private $left_delimiter = "{";
 
     /**
      * template right-delimiter
      *
      * @var string
      */
-    public $right_delimiter = "}";
+    private $right_delimiter = "}";
 
     /**
      * array of strings which shall be treated as literal by compiler

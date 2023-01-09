@@ -27,8 +27,8 @@ class ExtendsIssue419Test extends PHPUnit_Smarty
 
     public function testextends419()
     {
-        $this->smarty->left_delimiter = '{{';
-        $this->smarty->right_delimiter = '}}';
+        $this->smarty->setLeftDelimiter('{{');
+        $this->smarty->setRightDelimiter('}}');
         $this->assertEquals('child', $this->smarty->fetch('extends:001_parent.tpl|001_child.tpl'));
     }
 

@@ -150,7 +150,7 @@ class ExtendsTag extends Inheritance {
 		foreach ($template->source->components as $source) {
 			$resources[] = $source->resource;
 		}
-		return $template->smarty->left_delimiter . 'extends file=\'extends:' . join('|', $resources) .
-			'\' extends_resource=true' . $template->smarty->right_delimiter;
+		return $template->getLeftDelimiter() . 'extends file=\'extends:' . join('|', $resources) .
+			'\' extends_resource=true' . $template->getRightDelimiter();
 	}
 }

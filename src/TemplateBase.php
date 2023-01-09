@@ -462,8 +462,8 @@ abstract class TemplateBase extends Data {
 	 */
 	private function _setLiterals(Smarty $smarty, $literals) {
 		$literals = array_combine($literals, $literals);
-		$error = isset($literals[$smarty->left_delimiter]) ? [$smarty->left_delimiter] : [];
-		$error = isset($literals[$smarty->right_delimiter]) ? $error[] = $smarty->right_delimiter : $error;
+		$error = isset($literals[$smarty->getLeftDelimiter()]) ? [$smarty->getLeftDelimiter()] : [];
+		$error = isset($literals[$smarty->getRightDelimiter()]) ? $error[] = $smarty->getRightDelimiter() : $error;
 		if (!empty($error)) {
 			throw new Exception(
 				'User defined literal(s) "' . $error .

@@ -1317,8 +1317,8 @@ class Template extends BaseCompiler {
 			// get stacked info
 			[$openTag, $_data] = array_pop($this->_tag_stack);
 			$this->trigger_template_error(
-				"unclosed {$this->smarty->left_delimiter}" . $openTag .
-				"{$this->smarty->right_delimiter} tag"
+				"unclosed " . $this->smarty->getLeftDelimiter() . $openTag .
+				$this->smarty->getRightDelimiter() . " tag"
 			);
 		}
 		// call post compile callbacks

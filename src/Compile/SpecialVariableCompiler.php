@@ -114,9 +114,9 @@ class SpecialVariableCompiler extends Base {
 					}
 				// no break
 				case 'ldelim':
-					return "\$_smarty_tpl->smarty->left_delimiter";
+					return "\$_smarty_tpl->getLeftDelimiter()";
 				case 'rdelim':
-					return "\$_smarty_tpl->smarty->right_delimiter";
+					return "\$_smarty_tpl->getRightDelimiter()";
 				default:
 					$compiler->trigger_template_error('$smarty.' . trim($_index[0], "'") . ' is not defined');
 					break;

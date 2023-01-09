@@ -107,6 +107,20 @@ class Template extends TemplateBase {
 	public $endRenderCallbacks = [];
 
 	/**
+	 * Template left-delimiter. If null, defaults to $this->getSmarty()-getLeftDelimiter().
+	 *
+	 * @var string
+	 */
+	private $left_delimiter = null;
+
+	/**
+	 * Template right-delimiter. If null, defaults to $this->getSmarty()-getRightDelimiter().
+	 *
+	 * @var string
+	 */
+	private $right_delimiter = null;
+
+	/**
 	 * Create template data object
 	 * Some of the global Smarty settings copied to template scope
 	 * It load the required template resources and caching plugins
@@ -851,4 +865,45 @@ class Template extends TemplateBase {
 	private function getFrameCompiler(): Compiler\CodeFrame {
 		return new \Smarty\Compiler\CodeFrame($this);
 	}
+
+	/**
+	 * Get left delimiter
+	 *
+	 * @return string
+	 */
+	public function getLeftDelimiter()
+	{
+		return $this->left_delimiter ?? $this->_getSmartyObj()->getLeftDelimiter();
+	}
+
+	/**
+	 * Set left delimiter
+	 *
+	 * @param string $left_delimiter
+	 */
+	public function setLeftDelimiter($left_delimiter)
+	{
+		$this->left_delimiter = $left_delimiter;
+	}
+
+	/**
+	 * Get right delimiter
+	 *
+	 * @return string $right_delimiter
+	 */
+	public function getRightDelimiter()
+	{
+		return $this->right_delimiter ?? $this->_getSmartyObj()->getRightDelimiter();;
+	}
+
+	/**
+	 * Set right delimiter
+	 *
+	 * @param string
+	 */
+	public function setRightDelimiter($right_delimiter)
+	{
+		$this->right_delimiter = $right_delimiter;
+	}
+
 }

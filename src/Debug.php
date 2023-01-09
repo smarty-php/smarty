@@ -205,8 +205,6 @@ class Debug extends Data
         $debObj->setCompileDir($smarty->getCompileDir());
         $debObj->force_compile = false;
         $debObj->compile_check = \Smarty::COMPILECHECK_ON;
-        $debObj->left_delimiter = '{';
-        $debObj->right_delimiter = '}';
         $debObj->security_policy = null;
         $debObj->debugging = false;
         $debObj->debugging_ctrl = 'NONE';

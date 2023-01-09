@@ -35,6 +35,6 @@ class Ldelim extends Base {
 		if ($_attr['nocache'] === true) {
 			$compiler->trigger_template_error('nocache option not allowed', null, true);
 		}
-		return $compiler->smarty->left_delimiter;
+		return $compiler->template->getLeftDelimiter();
 	}
 }
