@@ -86,6 +86,7 @@ class DefaultExtension extends Base {
 			case 'isset': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\IssetHandler(); break;
 			case 'mailto': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Mailto(); break;
 			case 'math': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Math(); break;
+			case 'strlen': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Strlen(); break;
 			case 'time': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Time(); break;
 		}
 
