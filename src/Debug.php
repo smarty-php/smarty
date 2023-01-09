@@ -308,7 +308,7 @@ class Debug extends Data
             }
             $config_vars = array_merge($parent->config_vars, $config_vars);
         } else {
-            foreach (\Smarty\Smarty::$global_tpl_vars as $key => $var) {
+            foreach ($this->_getSmartyObj()->getAllGlobalTemplateVars() as $key => $var) {
                 if (!array_key_exists($key, $tpl_vars)) {
                     foreach ($var as $varkey => $varvalue) {
                         if ($varkey === 'value') {

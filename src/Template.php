@@ -28,20 +28,6 @@ use Smarty\Template\Config;
 class Template extends TemplateBase {
 
 	/**
-	 * Template object cache
-	 *
-	 * @var Template[]
-	 */
-	public static $tplObjCache = [];
-
-	/**
-	 * Template object cache for Smarty::isCached() === true
-	 *
-	 * @var Template[]
-	 */
-	public static $isCacheTplObj = [];
-
-	/**
 	 * Sub template Info Cache
 	 * - index name
 	 * - value use count
@@ -282,45 +268,25 @@ class Template extends TemplateBase {
 		$_templateId = $smarty->_getTemplateId($template, $cache_id, $compile_id, $caching, $tpl);
 		// recursive call ?
 		if ((isset($tpl->templateId) ? $tpl->templateId : $tpl->_getTemplateId()) !== $_templateId) {
-			// already in template cache?
-			if (isset(self::$tplObjCache[$_templateId])) {
-				// copy data from cached object
-				$cachedTpl = &self::$tplObjCache[$_templateId];
-				$tpl->templateId = $cachedTpl->templateId;
-				$tpl->template_resource = $cachedTpl->template_resource;
-				$tpl->cache_id = $cachedTpl->cache_id;
-				$tpl->compile_id = $cachedTpl->compile_id;
-				$tpl->source = $cachedTpl->source;
-				if (isset($cachedTpl->compiled)) {
-					$tpl->compiled = $cachedTpl->compiled;
-				} else {
-					unset($tpl->compiled);
-				}
-				if ($caching !== 9999 && isset($cachedTpl->cached)) {
-					$tpl->cached = $cachedTpl->cached;
-				} else {
-					unset($tpl->cached);
-				}
+
+			$tpl->templateId = $_templateId;
+			$tpl->template_resource = $template;
+			$tpl->cache_id = $cache_id;
+			$tpl->compile_id = $compile_id;
+			if (isset($uid)) {
+				// for inline templates we can get all resource information from file dependency
+				[$filepath, $timestamp, $type] = $tpl->compiled->file_dependency[$uid];
+				$tpl->source = new Source($smarty, $filepath, $type, $filepath);
+				$tpl->source->filepath = $filepath;
+				$tpl->source->timestamp = $timestamp;
+				$tpl->source->exists = true;
+				$tpl->source->uid = $uid;
 			} else {
-				$tpl->templateId = $_templateId;
-				$tpl->template_resource = $template;
-				$tpl->cache_id = $cache_id;
-				$tpl->compile_id = $compile_id;
-				if (isset($uid)) {
-					// for inline templates we can get all resource information from file dependency
-					[$filepath, $timestamp, $type] = $tpl->compiled->file_dependency[$uid];
-					$tpl->source = new Source($smarty, $filepath, $type, $filepath);
-					$tpl->source->filepath = $filepath;
-					$tpl->source->timestamp = $timestamp;
-					$tpl->source->exists = true;
-					$tpl->source->uid = $uid;
-				} else {
-					$tpl->source = Source::load($tpl);
-					unset($tpl->compiled);
-				}
-				if ($caching !== 9999) {
-					unset($tpl->cached);
-				}
+				$tpl->source = Source::load($tpl);
+				unset($tpl->compiled);
+			}
+			if ($caching !== 9999) {
+				unset($tpl->cached);
 			}
 		} else {
 			// on recursive calls force caching
@@ -330,15 +296,7 @@ class Template extends TemplateBase {
 		$tpl->cache_lifetime = $cache_lifetime;
 		// set template scope
 		$tpl->scope = $scope;
-		if (!isset(self::$tplObjCache[$tpl->templateId]) && !$tpl->source->handler->recompiled) {
-			// check if template object should be cached
-			if ($forceTplCache || (isset(self::$subTplInfo[$tpl->template_resource])
-					&& self::$subTplInfo[$tpl->template_resource] > 1)
-				|| ($tpl->_isSubTpl() && isset(self::$tplObjCache[$tpl->parent->templateId]))
-			) {
-				self::$tplObjCache[$tpl->templateId] = $tpl;
-			}
-		}
+
 		if (!empty($data)) {
 			// set up variable values
 			foreach ($data as $_key => $_val) {
@@ -810,7 +768,7 @@ class Template extends TemplateBase {
 		$mergedScope = $tagScope | $this->scope;
 		if ($mergedScope) {
 			if ($mergedScope & \Smarty\Smarty::SCOPE_GLOBAL && $varName) {
-				\Smarty\Smarty::$global_tpl_vars[$varName] = $this->tpl_vars[$varName];
+				$this->_getSmartyObj()->setGlobalVariable($varName, $this->tpl_vars[$varName]);
 			}
 			// update scopes
 			foreach ($this->_getAffectedScopes($mergedScope) as $ptr) {

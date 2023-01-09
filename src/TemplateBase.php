@@ -194,7 +194,6 @@ abstract class TemplateBase extends Data {
 						$template->loadCached();
 					}
 					$result = $template->cached->isCached($template);
-					Template::$isCacheTplObj[$template->_getTemplateId()] = $template;
 				} else {
 					return false;
 				}
@@ -204,21 +203,15 @@ abstract class TemplateBase extends Data {
 					$savedConfigVars = $template->config_vars;
 				}
 				ob_start();
+
 				$template->_mergeVars();
-				if (!empty(\Smarty\Smarty::$global_tpl_vars)) {
-					$template->tpl_vars = array_merge(\Smarty\Smarty::$global_tpl_vars, $template->tpl_vars);
-				}
+				$template->tpl_vars = array_merge($this->_getSmartyObj()->getAllGlobalTemplateVars(), $template->tpl_vars);
+
 				$result = $template->render(false, $function);
 				$template->_cleanUp();
 				if ($saveVars) {
 					$template->tpl_vars = $savedTplVars;
 					$template->config_vars = $savedConfigVars;
-				} else {
-					if (!$function && !isset(Template::$tplObjCache[$template->templateId])) {
-						$template->parent = null;
-						$template->tpl_vars = $template->config_vars = [];
-						Template::$tplObjCache[$template->templateId] = $template;
-					}
 				}
 			}
 

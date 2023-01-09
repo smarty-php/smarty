@@ -8,15 +8,11 @@
 
 /**
  * class for clearing all assigned variables tests
- *
- *
- * 
- *
  */
 class ClearAllAssignTest extends PHPUnit_Smarty
 {
-    protected $_data = null;
-    protected $_tpl = null;
+    private $_data = null;
+    private $_tpl = null;
 
     public function setUp(): void
     {

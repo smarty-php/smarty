@@ -575,7 +575,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $result = $this->smarty->fetch($tpl);
         $this->assertStringContainsString('(grand|b)content grand b(grand|/b)(child|b)content child b(child|/b)(parent|b)content parent b(parent|/b)',
                               $result);
-        $this->smarty->_clearTemplateCache();
         $this->smarty->assign('parent', 'parent2');
         $this->smarty->assign('child', 'child2', true);
         $this->smarty->assign('grand', 'grand2', true);
@@ -630,7 +629,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $result = $this->smarty->fetch($tpl);
         $this->assertStringContainsString('(grand|b)content grand4 b(grand|/b)(child|b)content child4 b(child|/b)(parent|b)content parent4 b(parent|/b)',
                               $result);
-        $this->smarty->_clearTemplateCache();
         $this->smarty->assign('parent', 'parent5');
         $this->smarty->assign('child', 'child5', true);
         $this->smarty->assign('grand', 'grand5', true);

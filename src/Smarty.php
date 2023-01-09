@@ -96,7 +96,7 @@ class Smarty extends \Smarty\TemplateBase
     /**
      * assigned global tpl vars
      */
-    public static $global_tpl_vars = array();
+    private $global_tpl_vars = [];
 
     /**
      * The character set to adhere to (defaults to "UTF-8")
@@ -563,15 +563,11 @@ class Smarty extends \Smarty\TemplateBase
      */
     public function __construct()
     {
-        $this->_clearTemplateCache();
         parent::__construct();
         if (is_callable('mb_internal_encoding')) {
             mb_internal_encoding(\Smarty\Smarty::$_CHARSET);
         }
         $this->start_time = microtime(true);
-        if (isset($_SERVER[ 'SCRIPT_NAME' ])) {
-	        \Smarty\Smarty::$global_tpl_vars[ 'SCRIPT_NAME' ] = new \Smarty\Variable($_SERVER[ 'SCRIPT_NAME' ]);
-        }
         // Check if we're running on Windows
         \Smarty\Smarty::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
         // let PCRE (preg_*) treat strings as ISO-8859-1 if we're not dealing with UTF-8
@@ -996,7 +992,7 @@ class Smarty extends \Smarty\TemplateBase
      * @param mixed   $cache_id   cache id to be used with this template
      * @param mixed   $compile_id compile id to be used with this template
      * @param object  $parent     next higher level of Smarty variables
-     * @param boolean $do_clone   flag is Smarty object shall be cloned
+     * @param boolean $do_clone   flag is template object shall be cloned
      *
      * @return \Smarty\Template template object
      * @throws \Smarty\Exception
@@ -1017,22 +1013,10 @@ class Smarty extends \Smarty\TemplateBase
             $this->_normalizeTemplateConfig(false);
         }
         $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
-	    if ($this->caching && isset(\Smarty\Template::$isCacheTplObj[ $_templateId ])) {
-            $tpl = $do_clone ? clone \Smarty\Template::$isCacheTplObj[ $_templateId ] :
-                \Smarty\Template::$isCacheTplObj[ $_templateId ];
-            $tpl->inheritance = null;
-            $tpl->tpl_vars = $tpl->config_vars = array();
-        } elseif (!$do_clone && isset(\Smarty\Template::$tplObjCache[ $_templateId ])) {
-            $tpl = clone \Smarty\Template::$tplObjCache[ $_templateId ];
-            $tpl->inheritance = null;
-            $tpl->tpl_vars = $tpl->config_vars = array();
-        } else {
-            $tpl = new \Smarty\Template($template, $this, null, $cache_id, $compile_id, null, null);
-            $tpl->templateId = $_templateId;
-        }
-        if ($do_clone) {
-            $tpl->smarty = clone $tpl->smarty;
-        }
+
+        $tpl = new \Smarty\Template($template, $this, null, $cache_id, $compile_id, null, null);
+        $tpl->templateId = $_templateId;
+
         $tpl->parent = $parent ? $parent : $this;
         // fill data if present
         if (!empty($data) && is_array($data)) {
@@ -1130,15 +1114,6 @@ class Smarty extends \Smarty\TemplateBase
             );
         } while ($count > 0);
         return $realpath !== false ? $parts[ 'root' ] . $path : str_ireplace(getcwd(), '.', $parts[ 'root' ] . $path);
-    }
-
-    /**
-     * Empty template objects cache
-     */
-    public function _clearTemplateCache()
-    {
-        \Smarty\Template::$isCacheTplObj = array();
-        \Smarty\Template::$tplObjCache = array();
     }
 
     /**
@@ -1386,7 +1361,6 @@ class Smarty extends \Smarty\TemplateBase
 		       $compile_id = null,
 		       $exp_time = null
 	) {
-		$this->_clearTemplateCache();
 		return $this->getCacheResource()->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
 	}
 
@@ -1403,7 +1377,6 @@ class Smarty extends \Smarty\TemplateBase
 	 */
 	public function clearAllCache($exp_time = null)
 	{
-		$this->_clearTemplateCache();
 		return $this->getCacheResource()->clearAll($this, $exp_time);
 	}
 
@@ -1422,8 +1395,6 @@ class Smarty extends \Smarty\TemplateBase
 	 */
 	public function clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
 	{
-		// clear template objects cache
-		$this->_clearTemplateCache();
 		$_compile_dir = $this->getCompileDir();
 		if ($_compile_dir === '/') { //We should never want to delete this!
 			return 0;
@@ -1629,7 +1600,6 @@ class Smarty extends \Smarty\TemplateBase
 				}
 				// free memory
 				unset($_tpl);
-				$_smarty->_clearTemplateCache();
 				if ($max_errors !== null && $_error_count === $max_errors) {
 					echo "\ntoo many errors\n";
 					exit(1);
@@ -2248,6 +2218,37 @@ class Smarty extends \Smarty\TemplateBase
 	 */
 	public function setCacheResource(Cacheresource\Base $cacheResource): void {
 		$this->cacheResource = $cacheResource;
+	}
+
+	/**
+	 * Sets a global variable, available in all templates
+	 *
+	 * @param string $varName
+	 * @param Variable $param
+	 *
+	 * @return void
+	 */
+	public function setGlobalVariable(string $varName, Variable $param) {
+		$this->global_tpl_vars[$varName] = $param;
+	}
+
+	/**
+	 * Returns all global variables
+	 *
+	 * @return array
+	 */
+	public function getAllGlobalTemplateVars() {
+		return $this->global_tpl_vars;
+	}
+
+	/**
+	 * Returns a single global variable, or null if not found.
+	 * @param string $varName
+	 *
+	 * @return Variable|null
+	 */
+	public function getGlobalVariable(string $varName): ?Variable {
+		return $this->global_tpl_vars[$varName] ?? null;
 	}
 
 }

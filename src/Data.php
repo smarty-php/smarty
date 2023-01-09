@@ -155,12 +155,7 @@ abstract class Data
     public function assignGlobal($varName, $value = null, $nocache = false)
     {
 	    if ($varName !== '') {
-		    Smarty::$global_tpl_vars[ $varName ] = new \Smarty\Variable($value, $nocache);
-		    $ptr = $this;
-		    while ($ptr->_isTplObj()) {
-			    $ptr->tpl_vars[ $varName ] = clone Smarty::$global_tpl_vars[ $varName ];
-			    $ptr = $ptr->parent;
-		    }
+			$this->_getSmartyObj()->setGlobalVariable($varName, new \Smarty\Variable($value, $nocache));
 	    }
 	    return $this;
     }
@@ -256,8 +251,8 @@ abstract class Data
 				    $_ptr = null;
 			    }
 		    }
-		    if ($searchParents && isset(Smarty::$global_tpl_vars)) {
-			    foreach (Smarty::$global_tpl_vars as $key => $var) {
+		    if ($searchParents) {
+			    foreach ($this->_getSmartyObj()->getAllGlobalTemplateVars() as $key => $var) {
 				    if (!array_key_exists($key, $_result)) {
 					    $_result[ $key ] = $var->value;
 				    }
@@ -298,9 +293,9 @@ abstract class Data
 				$_ptr = null;
 			}
 		}
-		if (isset(Smarty::$global_tpl_vars[ $varName ])) {
+		if ($this->_getSmartyObj()->getGlobalVariable($varName)) {
 			// found it, return it
-			return Smarty::$global_tpl_vars[ $varName ];
+			return $this->_getSmartyObj()->getGlobalVariable($varName);
 		}
 		if ($errorEnable && $this->_getSmartyObj()->error_unassigned) {
 			// force a notice
@@ -542,14 +537,14 @@ abstract class Data
 	public function getGlobal($varName = null)
 	{
 		if (isset($varName)) {
-			if (isset(Smarty::$global_tpl_vars[ $varName ])) {
-				return Smarty::$global_tpl_vars[ $varName ]->value;
+			if ($this->_getSmartyObj()->getGlobalVariable($varName)) {
+				return $this->_getSmartyObj()->getGlobalVariable($varName)->getValue();
 			} else {
 				return '';
 			}
 		} else {
-			$_result = array();
-			foreach (Smarty::$global_tpl_vars as $key => $var) {
+			$_result = [];
+			foreach ($this->_getSmartyObj()->getAllGlobalTemplateVars() as $key => $var) {
 				$_result[ $key ] = $var->value;
 			}
 			return $_result;

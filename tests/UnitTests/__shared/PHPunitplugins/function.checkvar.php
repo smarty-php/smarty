@@ -13,11 +13,11 @@ use Smarty\Template;
  * Smarty {checkvar}
  *
  * @param array $params parameter array
- * @param object $template template object
+ * @param Template $template template object
  *
  * @return string
  */
-function smarty_function_checkvar($params, $template)
+function smarty_function_checkvar($params, \Smarty\Template $template)
 {
     $output = '';
     $types = array('template', 'data', 'smarty', 'global');
@@ -52,8 +52,8 @@ function smarty_function_checkvar($params, $template)
     }
     if (in_array('global', $types)) {
         $output .= "#global:\${$var} =";
-        $output .= isset(\Smarty\Smarty::$global_tpl_vars[ $var ]) ?
-            preg_replace('/\s/', '', var_export(\Smarty\Smarty::$global_tpl_vars[ $var ]->value, true)) : '>unassigned<';
+        $output .= $template->_getSmartyObj()->getGlobalVariable($var) ?
+            preg_replace('/\s/', '', var_export($template->_getSmartyObj()->getGlobalVariable($var)->getValue(), true)) : '>unassigned<';
     }
     return $output;
 }

@@ -38,6 +38,10 @@ class Variable
         $this->nocache = $nocache;
     }
 
+	public function getValue() {
+		return $this->value;
+	}
+
     /**
      * <<magic>> String conversion
      *

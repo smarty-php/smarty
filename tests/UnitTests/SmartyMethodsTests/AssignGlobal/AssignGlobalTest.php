@@ -42,7 +42,6 @@ class AssignGlobalTest extends PHPUnit_Smarty
         $this->smarty->assignGlobal('foo', array('foo' => 'bar', 'foo2' => 'bar2'));
         $a1 = array('foo' => array('foo' => 'bar', 'foo2' => 'bar2'));
         $a2 = $this->smarty->getGlobal();
-        unset($a2['SCRIPT_NAME']);
         $this->assertTrue($a1 === $a2);
     }
 
