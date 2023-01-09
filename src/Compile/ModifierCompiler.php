@@ -50,29 +50,27 @@ class ModifierCompiler extends Base {
 			) {
 
 				if ($handler = $compiler->getModifierCompiler($modifier)) {
-					return $handler->compile($single_modifier, $compiler);
+					$output = $handler->compile($single_modifier, $compiler);
 
 				} elseif ($compiler->getSmarty()->getModifierCallback($modifier)) {
-					return sprintf(
+					$output = sprintf(
 							'$_smarty_tpl->smarty->getModifierCallback(%s)(%s)',
 							var_export($modifier, true),
 							$params
 						);
 				} elseif ($callback = $compiler->getPluginFromDefaultHandler($modifier, \Smarty\Smarty::PLUGIN_MODIFIERCOMPILER)) {
-					$wrapper = new \Smarty\Compile\Modifier\BCPluginWrapper($callback);
-					return $wrapper->compile($single_modifier, $compiler);
+					$output = (new \Smarty\Compile\Modifier\BCPluginWrapper($callback))->compile($single_modifier, $compiler);
 				} elseif ($function = $compiler->getPluginFromDefaultHandler($modifier, \Smarty\Smarty::PLUGIN_MODIFIER)) {
 					if (!is_array($function)) {
-						return "{$function}({$params})";
+						$output = "{$function}({$params})";
+					} else {
+						$operator = is_object($function[0]) ? '->' : '::';
+						$output =  $function[0] . $operator . $function[1] . '(' . $params . ')';
 					}
-					$operator = is_object($function[0]) ? '->' : '::';
-					return $function[0] . $operator . $function[1] . '(' . $params . ')';
 				}  else {
 					$compiler->trigger_template_error("unknown modifier '{$modifier}'", null, true);
 				}
-
 			}
-
 		}
 		return $output;
 	}
