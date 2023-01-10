@@ -130,25 +130,23 @@ abstract class BasePlugin
     /**
      * modify template_resource according to resource handlers specifications
      *
-     * @param \Smarty\Template|\Smarty $obj               Smarty instance
+     * @param \Smarty\Template|null $template               Smarty instance
      * @param string                            $template_resource template_resource to extract resource handler and
      *                                                             name of
      *
      * @return string unique resource name
      * @throws \Smarty\Exception
      */
-    public static function getUniqueTemplateName($obj, $template_resource)
+    public static function getUniqueTemplateName($smarty, $template, $template_resource)
     {
-        $smarty = $obj->_getSmartyObj();
         [$name, $type] = self::parseResourceName($template_resource, $smarty->default_resource_type);
         // TODO: optimize for Smarty's internal resource types
         $resource = BasePlugin::load($smarty, $type);
         // go relative to a given template?
         $_file_is_dotted = $name[ 0 ] === '.' && ($name[ 1 ] === '.' || $name[ 1 ] === '/');
-        if ($obj->_isTplObj() && $_file_is_dotted
-            && ($obj->source->type === 'file' || $obj->parent->source->type === 'extends')
+        if ($template && $_file_is_dotted && ($template->source->type === 'file' || $template->parent->source->type === 'extends')
         ) {
-            $name = $smarty->_realpath(dirname($obj->parent->source->filepath) . DIRECTORY_SEPARATOR . $name);
+            $name = $smarty->_realpath(dirname($template->parent->source->filepath) . DIRECTORY_SEPARATOR . $name);
         }
         return $resource->buildUniqueResourceName($smarty, $name);
     }

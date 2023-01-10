@@ -28,15 +28,6 @@ use Smarty\Template\Config;
 class Template extends TemplateBase {
 
 	/**
-	 * Sub template Info Cache
-	 * - index name
-	 * - value use count
-	 *
-	 * @var int[]
-	 */
-	public static $subTplInfo = [];
-
-	/**
 	 * This object type (Smarty = 1, template = 2, data = 4)
 	 *
 	 * @var int
@@ -175,10 +166,7 @@ class Template extends TemplateBase {
 	 */
 	public function render($no_output_filter = true, $display = null) {
 		if ($this->smarty->debugging) {
-			if (!isset($this->smarty->_debug)) {
-				$this->smarty->_debug = new \Smarty\Debug();
-			}
-			$this->smarty->_debug->start_template($this, $display);
+			$this->smarty->getDebug()->start_template($this, $display);
 		}
 		// checks if template exists
 		if (!$this->source->exists) {
@@ -223,16 +211,16 @@ class Template extends TemplateBase {
 				}
 			}
 			if ($this->smarty->debugging) {
-				$this->smarty->_debug->end_template($this);
+				$this->smarty->getDebug()->end_template($this);
 				// debug output
-				$this->smarty->_debug->display_debug($this, true);
+				$this->smarty->getDebug()->display_debug($this, true);
 			}
 			return '';
 		} else {
 			if ($this->smarty->debugging) {
-				$this->smarty->_debug->end_template($this);
+				$this->smarty->getDebug()->end_template($this);
 				if ($this->smarty->debugging === 2 && $display === false) {
-					$this->smarty->_debug->display_debug($this, true);
+					$this->smarty->getDebug()->display_debug($this, true);
 				}
 			}
 			if (
@@ -314,7 +302,7 @@ class Template extends TemplateBase {
 		if (!empty($data)) {
 			// set up variable values
 			foreach ($data as $_key => $_val) {
-				$tpl->tpl_vars[$_key] = new \Smarty\Variable($_val, $this->isRenderingCache);
+				$tpl->assign($_key, $_val);
 			}
 		}
 		if ($tpl->caching === 9999) {
@@ -327,16 +315,13 @@ class Template extends TemplateBase {
 		}
 		if (isset($uid)) {
 			if ($smarty->debugging) {
-				if (!isset($smarty->_debug)) {
-					$smarty->_debug = new \Smarty\Debug();
-				}
-				$smarty->_debug->start_template($tpl);
-				$smarty->_debug->start_render($tpl);
+				$smarty->getDebug()->start_template($tpl);
+				$smarty->getDebug()->start_render($tpl);
 			}
 			$tpl->compiled->getRenderedTemplateCode($tpl, $content_func);
 			if ($smarty->debugging) {
-				$smarty->_debug->end_template($tpl);
-				$smarty->_debug->end_render($tpl);
+				$smarty->getDebug()->end_template($tpl);
+				$smarty->getDebug()->end_render($tpl);
 			}
 		} else {
 			if (isset($tpl->compiled)) {
@@ -348,50 +333,16 @@ class Template extends TemplateBase {
 	}
 
 	/**
-	 * Get called sub-templates and save call count
-	 */
-	public function _subTemplateRegister() {
-		foreach ($this->compiled->includes as $name => $count) {
-			if (isset(self::$subTplInfo[$name])) {
-				self::$subTplInfo[$name] += $count;
-			} else {
-				self::$subTplInfo[$name] = $count;
-			}
-		}
-	}
-
-	/**
 	 * Check if this is a sub template
 	 *
 	 * @return bool true is sub template
 	 */
 	public function _isSubTpl() {
-		return isset($this->parent) && $this->parent->_isTplObj();
+		return isset($this->parent) && $this->parent instanceof Template;
 	}
 
-	/**
-	 * Assign variable in scope
-	 *
-	 * @param string $varName variable name
-	 * @param mixed $value value
-	 * @param bool $nocache nocache flag
-	 * @param int $scope scope into which variable shall be assigned
-	 */
-	public function _assignInScope($varName, $value, $nocache = false, $scope = 0) {
-		if (isset($this->tpl_vars[$varName])) {
-			$this->tpl_vars[$varName] = clone $this->tpl_vars[$varName];
-			$this->tpl_vars[$varName]->value = $value;
-			if ($nocache || $this->isRenderingCache) {
-				$this->tpl_vars[$varName]->nocache = true;
-			}
-		} else {
-			$this->tpl_vars[$varName] = new \Smarty\Variable($value, $nocache || $this->isRenderingCache);
-		}
-		if ($scope >= 0) {
-			if ($scope > 0 || $this->scope > 0) {
-				$this->_updateScope($varName, $scope);
-			}
-		}
+	public function assign($tpl_var, $value = null, $nocache = false) {
+		return parent::assign($tpl_var, $value, $nocache || $this->isRenderingCache);
 	}
 
 	/**
@@ -677,14 +628,14 @@ class Template extends TemplateBase {
 					return;
 				}
 			}
-			if ($this->parent->_isTplObj() && ($tagScope || $this->parent->scope)) {
+			if ($this->parent instanceof Template && ($tagScope || $this->parent->scope)) {
 				$mergedScope = $tagScope | $this->scope;
 				if ($mergedScope) {
 					// update scopes
 					/* @var \Smarty\Data $ptr */
 					foreach ($this->parent->_getAffectedScopes($mergedScope) as $ptr) {
 						$this->_assignConfigVars($ptr->config_vars, $new_config_vars);
-						if ($tagScope && $ptr->_isTplObj() && isset($this->_var_stack)) {
+						if ($tagScope && $ptr instanceof Template && isset($this->_var_stack)) {
 							$this->_updateConfigVarStack($new_config_vars);
 						}
 					}
@@ -787,7 +738,7 @@ class Template extends TemplateBase {
 			// update scopes
 			foreach ($this->_getAffectedScopes($mergedScope) as $ptr) {
 				$this->_updateVariableInOtherScope($ptr->tpl_vars, $varName);
-				if ($tagScope && $ptr->_isTplObj() && isset($this->_var_stack)) {
+				if ($tagScope && $ptr instanceof Template && isset($this->_var_stack)) {
 					$this->_updateVarStack($ptr, $varName);
 				}
 			}
@@ -804,7 +755,7 @@ class Template extends TemplateBase {
 	private function _getAffectedScopes($mergedScope) {
 		$_stack = [];
 		$ptr = $this->parent;
-		if ($mergedScope && isset($ptr) && $ptr->_isTplObj()) {
+		if ($mergedScope && isset($ptr) && $ptr instanceof Template) {
 			$_stack[] = $ptr;
 			$mergedScope = $mergedScope & ~\Smarty\Smarty::SCOPE_PARENT;
 			if (!$mergedScope) {
@@ -813,7 +764,7 @@ class Template extends TemplateBase {
 			}
 			$ptr = $ptr->parent;
 		}
-		while (isset($ptr) && $ptr->_isTplObj()) {
+		while (isset($ptr) && $ptr instanceof Template) {
 			$_stack[] = $ptr;
 			$ptr = $ptr->parent;
 		}
@@ -823,7 +774,7 @@ class Template extends TemplateBase {
 			}
 		} elseif ($mergedScope & \Smarty\Smarty::SCOPE_ROOT) {
 			while (isset($ptr)) {
-				if (!$ptr->_isTplObj()) {
+				if (!$ptr instanceof Template) {
 					$_stack[] = $ptr;
 					break;
 				}
@@ -831,35 +782,6 @@ class Template extends TemplateBase {
 			}
 		}
 		return $_stack;
-	}
-
-	/**
-	 * Update variable in other scope
-	 *
-	 * @param array $tpl_vars template variable array
-	 * @param string $varName variable name
-	 */
-	private function _updateVariableInOtherScope(&$tpl_vars, $varName) {
-		if (!isset($tpl_vars[$varName])) {
-			$tpl_vars[$varName] = clone $this->tpl_vars[$varName];
-		} else {
-			$tpl_vars[$varName] = clone $tpl_vars[$varName];
-			$tpl_vars[$varName]->value = $this->tpl_vars[$varName]->value;
-		}
-	}
-
-	/**
-	 * Update variable in template local variable stack
-	 *
-	 * @param Template $tpl
-	 * @param string|null $varName variable name or null for config variables
-	 */
-	private function _updateVarStack(Template $tpl, $varName) {
-		$i = 0;
-		while (isset($tpl->_var_stack[$i])) {
-			$this->_updateVariableInOtherScope($tpl->_var_stack[$i]['tpl'], $varName);
-			$i++;
-		}
 	}
 
 	private function getFrameCompiler(): Compiler\CodeFrame {
@@ -905,5 +827,148 @@ class Template extends TemplateBase {
 	{
 		$this->right_delimiter = $right_delimiter;
 	}
+
+	/**
+	 * gets  a stream variable
+	 *
+	 * @param string                                                  $variable the stream of the variable
+	 *
+	 * @return mixed
+	 * @throws \Smarty\Exception
+	 *
+	 */
+	public function getStreamVariable($variable)
+	{
+		$_result = '';
+		$fp = fopen($variable, 'r+');
+		if ($fp) {
+			while (!feof($fp) && ($current_line = fgets($fp)) !== false) {
+				$_result .= $current_line;
+			}
+			fclose($fp);
+			return $_result;
+		}
+		if ($this->_getSmartyObj()->error_unassigned) {
+			throw new Exception('Undefined stream variable "' . $variable . '"');
+		}
+		return null;
+	}
+	/**
+	 * @inheritdoc
+	 */
+	public function _loadConfigfile($config_file, $sections = null, $scope = 0)
+	{
+		$confObj = parent::_loadConfigfile($config_file, $sections, $scope);
+
+		$this->compiled->file_dependency[ $confObj->source->uid ] =
+			array($confObj->source->filepath, $confObj->source->getTimeStamp(), $confObj->source->type);
+
+		return $confObj;
+	}
+
+	public function fetch($cache_id = null, $compile_id = null, $parent = null) {
+		$result = $this->_execute($cache_id, $compile_id, $parent, 0);
+		return $result === null ? ob_get_clean() : $result;
+	}
+
+	public function display($cache_id = null, $compile_id = null, $parent = null) {
+		$this->_execute($cache_id, $compile_id, $parent, 1);
+	}
+
+	/**
+	 * test if cache is valid
+	 *
+	 * @param mixed $cache_id cache id to be used with this template
+	 * @param mixed $compile_id compile id to be used with this template
+	 * @param object $parent next higher level of Smarty variables
+	 *
+	 * @return bool cache status
+	 * @throws \Exception
+	 * @throws \Smarty\Exception
+	 * @link https://www.smarty.net/docs/en/api.is.cached.tpl
+	 *
+	 * @api  Smarty::isCached()
+	 */
+	public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null) {
+		return $this->_execute($template, $cache_id, $compile_id, $parent, 2);
+	}
+
+	/**
+	 * fetches a rendered Smarty template
+	 *
+	 * @param mixed $cache_id cache id to be used with this template
+	 * @param mixed $compile_id compile id to be used with this template
+	 * @param object $parent next higher level of Smarty variables
+	 * @param string $function function type 0 = fetch,  1 = display, 2 = isCache
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 * @throws \Smarty\Exception|\Throwable
+	 */
+	private function _execute($cache_id, $compile_id, $parent, $function) {
+
+		$smarty = $this->_getSmartyObj();
+
+		// make sure we have integer values
+		$this->caching = (int)$this->caching;
+		// fetch template content
+		$level = ob_get_level();
+		try {
+			$_smarty_old_error_level =
+				isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) : null;
+
+			if ($smarty->isMutingUndefinedOrNullWarnings()) {
+				$errorHandler = new \Smarty\ErrorHandler();
+				$errorHandler->activate();
+			}
+
+			/* @var Template $parent */
+			if (isset($parent->_objType) && ($parent->_objType === 2) && !empty($parent->tplFunctions)) {
+				$this->tplFunctions = array_merge($parent->tplFunctions, $this->tplFunctions);
+			}
+			if ($function === 2) {
+				if ($this->caching) {
+					// return cache status of template
+					if (!isset($this->cached)) {
+						$this->loadCached();
+					}
+					$result = $this->cached->isCached($this);
+				} else {
+					return false;
+				}
+			} else {
+				$savedTplVars = $this->tpl_vars;
+				$savedConfigVars = $this->config_vars;
+				ob_start();
+
+				$result = $this->render(false, $function);
+				$this->_cleanUp();
+				$this->tpl_vars = $savedTplVars;
+				$this->config_vars = $savedConfigVars;
+			}
+
+			if (isset($errorHandler)) {
+				$errorHandler->deactivate();
+			}
+
+			if (isset($_smarty_old_error_level)) {
+				error_reporting($_smarty_old_error_level);
+			}
+			return $result;
+		} catch (\Throwable $e) {
+			while (ob_get_level() > $level) {
+				ob_end_clean();
+			}
+			if (isset($errorHandler)) {
+				$errorHandler->deactivate();
+			}
+
+			if (isset($_smarty_old_error_level)) {
+				error_reporting($_smarty_old_error_level);
+			}
+			throw $e;
+		}
+	}
+
 
 }

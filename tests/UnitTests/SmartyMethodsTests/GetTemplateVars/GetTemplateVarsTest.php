@@ -57,7 +57,7 @@ class GetTemplateVarsTest extends PHPUnit_Smarty
         $data2 = $this->smarty->createData($data1);
         $this->smarty->assign('foo', 'bar');
         $this->smarty->assign('blar', 'buh');
-        $this->assertEquals("bar", $this->smarty->getTemplateVars('foo', $data2));
+        $this->assertEquals("bar", $data2->getTemplateVars('foo'));
     }
 
     /**
@@ -70,7 +70,7 @@ class GetTemplateVarsTest extends PHPUnit_Smarty
         $this->smarty->assign('foo', 'bar');
         $data1->assign('blar', 'buh');
         $data2->assign('foo2', 'bar2');
-        $vars = $this->smarty->getTemplateVars(null, $data2);
+        $vars = $data2->getTemplateVars(null);
         $this->assertTrue(is_array($vars));
         $this->assertEquals("bar", $vars['foo']);
         $this->assertEquals("bar2", $vars['foo2']);
@@ -87,7 +87,7 @@ class GetTemplateVarsTest extends PHPUnit_Smarty
         $this->smarty->assign('foo', 'bar');
         $data1->assign('blar', 'buh');
         $data2->assign('foo2', 'bar2');
-        $vars = $this->smarty->getTemplateVars(null, $data2, false);
+        $vars = $data2->getTemplateVars(null, false);
         $this->assertTrue(is_array($vars));
         $this->assertFalse(isset($vars['foo']));
         $this->assertEquals("bar2", $vars['foo2']);
@@ -105,8 +105,8 @@ class GetTemplateVarsTest extends PHPUnit_Smarty
         $this->smarty->assign('foo', 'bar');
         $data1->assign('blar', 'buh');
         $data2->assign('foo2', 'bar2');
-        $this->assertEquals("", $this->smarty->getTemplateVars('foo', $data2, false));
-        $this->assertEquals("bar2", $this->smarty->getTemplateVars('foo2', $data2, false));
-        $this->assertEquals("", $this->smarty->getTemplateVars('blar', $data2, false));
+        $this->assertEquals("", $data2->getTemplateVars('foo', false));
+        $this->assertEquals("bar2", $data2->getTemplateVars('foo2', false));
+        $this->assertEquals("", $data2->getTemplateVars('blar', false));
     }
 }

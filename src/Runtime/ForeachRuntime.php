@@ -59,35 +59,35 @@ class ForeachRuntime {
 		if (!isset($total)) {
 			$total = empty($from) ? 0 : ($needTotal ? count($from) : 1);
 		}
-		if (isset($tpl->tpl_vars[$item])) {
+		if ($tpl->hasVariable($item)) {
 			$saveVars['item'] = [
 				$item,
-				$tpl->tpl_vars[$item],
+				$tpl->getVariable($item),
 			];
 		}
-		$tpl->tpl_vars[$item] = new \Smarty\Variable(null, $tpl->isRenderingCache);
+		$tpl->assign($item,null);
 		if ($total === 0) {
 			$from = null;
 		} else {
 			if ($key) {
-				if (isset($tpl->tpl_vars[$key])) {
+				if ($tpl->hasVariable($key)) {
 					$saveVars['key'] = [
 						$key,
-						$tpl->tpl_vars[$key],
+						$tpl->getVariable($key),
 					];
 				}
-				$tpl->tpl_vars[$key] = new \Smarty\Variable(null, $tpl->isRenderingCache);
+				$tpl->assign($key, null);
 			}
 		}
 		if ($needTotal) {
-			$tpl->tpl_vars[$item]->total = $total;
+			$tpl->getVariable($item)->total = $total;
 		}
 		if ($name) {
 			$namedVar = "__smarty_foreach_{$name}";
-			if (isset($tpl->tpl_vars[$namedVar])) {
+			if ($tpl->hasVariable($namedVar)) {
 				$saveVars['named'] = [
 					$namedVar,
-					$tpl->tpl_vars[$namedVar],
+					$tpl->getVariable($namedVar),
 				];
 			}
 			$namedProp = [];
@@ -103,7 +103,7 @@ class ForeachRuntime {
 			if (isset($properties['show'])) {
 				$namedProp['show'] = ($total > 0);
 			}
-			$tpl->tpl_vars[$namedVar] = new \Smarty\Variable($namedProp);
+			$tpl->assign($namedVar, $namedProp);
 		}
 		$this->stack[] = $saveVars;
 		return $from;
@@ -148,7 +148,7 @@ class ForeachRuntime {
 			if (!empty($saveVars)) {
 				if (isset($saveVars['item'])) {
 					$item = &$saveVars['item'];
-					$tpl->tpl_vars[$item[0]]->value = $item[1]->value;
+					$tpl->assign($item[0], $item[1]->getValue());
 				}
 				if (isset($saveVars['key'])) {
 					$tpl->tpl_vars[$saveVars['key'][0]] = $saveVars['key'][1];

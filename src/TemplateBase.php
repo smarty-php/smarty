@@ -10,13 +10,6 @@
 
 namespace Smarty;
 
-use Smarty\Cacheresource\Base;
-use Smarty\Data;
-use Smarty\Smarty;
-use Smarty\Template;
-use Smarty\DataObject;
-use Smarty\Exception;
-
 /**
  * Class with shared smarty/template methods
  *
@@ -77,166 +70,9 @@ abstract class TemplateBase extends Data {
 	public $_var_stack = null;
 
 	/**
-	 * fetches a rendered Smarty template
-	 *
-	 * @param string $template the resource handle of the template file or template object
-	 * @param mixed $cache_id cache id to be used with this template
-	 * @param mixed $compile_id compile id to be used with this template
-	 * @param object $parent next higher level of Smarty variables
-	 *
-	 * @return string rendered template output
-	 * @throws Exception
-	 * @throws Exception
+	 * @var Debug
 	 */
-	public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null) {
-		$result = $this->_execute($template, $cache_id, $compile_id, $parent, 0);
-		return $result === null ? ob_get_clean() : $result;
-	}
-
-	/**
-	 * displays a Smarty template
-	 *
-	 * @param string $template the resource handle of the template file or template object
-	 * @param mixed $cache_id cache id to be used with this template
-	 * @param mixed $compile_id compile id to be used with this template
-	 * @param object $parent next higher level of Smarty variables
-	 *
-	 * @throws \Exception
-	 * @throws \Smarty\Exception
-	 */
-	public function display($template = null, $cache_id = null, $compile_id = null, $parent = null) {
-		// display template
-		$this->_execute($template, $cache_id, $compile_id, $parent, 1);
-	}
-
-	/**
-	 * test if cache is valid
-	 *
-	 * @param null|string|\Smarty\Template $template the resource handle of the template file or template
-	 *                                                          object
-	 * @param mixed $cache_id cache id to be used with this template
-	 * @param mixed $compile_id compile id to be used with this template
-	 * @param object $parent next higher level of Smarty variables
-	 *
-	 * @return bool cache status
-	 * @throws \Exception
-	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.is.cached.tpl
-	 *
-	 * @api  Smarty::isCached()
-	 */
-	public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null) {
-		return $this->_execute($template, $cache_id, $compile_id, $parent, 2);
-	}
-
-	/**
-	 * fetches a rendered Smarty template
-	 *
-	 * @param string $template the resource handle of the template file or template object
-	 * @param mixed $cache_id cache id to be used with this template
-	 * @param mixed $compile_id compile id to be used with this template
-	 * @param object $parent next higher level of Smarty variables
-	 * @param string $function function type 0 = fetch,  1 = display, 2 = isCache
-	 *
-	 * @return mixed
-	 * @throws \Exception
-	 * @throws \Smarty\Exception
-	 */
-	private function _execute($template, $cache_id, $compile_id, $parent, $function) {
-		$smarty = $this->_getSmartyObj();
-		$saveVars = true;
-		if ($template === null) {
-			if (!$this->_isTplObj()) {
-				throw new Exception($function . '():Missing \'$template\' parameter');
-			} else {
-				$template = $this;
-			}
-		} elseif (is_object($template)) {
-			/* @var Template $template */
-			if (!isset($template->_objType) || !$template->_isTplObj()) {
-				throw new Exception($function . '():Template object expected');
-			}
-		} else {
-			// get template object
-			$saveVars = false;
-			$template = $smarty->createTemplate($template, $cache_id, $compile_id, $parent ?: $this, false);
-			if ($this->_objType === 1) {
-				// set caching in template object
-				$template->caching = $this->caching;
-			}
-		}
-		// make sure we have integer values
-		$template->caching = (int)$template->caching;
-		// fetch template content
-		$level = ob_get_level();
-		try {
-			$_smarty_old_error_level =
-				isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) : null;
-
-			if ($smarty->isMutingUndefinedOrNullWarnings()) {
-				$errorHandler = new \Smarty\ErrorHandler();
-				$errorHandler->activate();
-			}
-
-			if ($this->_objType === 2) {
-				/* @var Template $this */
-				$template->tplFunctions = $this->tplFunctions;
-				$template->inheritance = $this->inheritance;
-			}
-			/* @var Template $parent */
-			if (isset($parent->_objType) && ($parent->_objType === 2) && !empty($parent->tplFunctions)) {
-				$template->tplFunctions = array_merge($parent->tplFunctions, $template->tplFunctions);
-			}
-			if ($function === 2) {
-				if ($template->caching) {
-					// return cache status of template
-					if (!isset($template->cached)) {
-						$template->loadCached();
-					}
-					$result = $template->cached->isCached($template);
-				} else {
-					return false;
-				}
-			} else {
-				if ($saveVars) {
-					$savedTplVars = $template->tpl_vars;
-					$savedConfigVars = $template->config_vars;
-				}
-				ob_start();
-
-				$template->_mergeVars();
-				$template->tpl_vars = array_merge($this->_getSmartyObj()->getAllGlobalTemplateVars(), $template->tpl_vars);
-
-				$result = $template->render(false, $function);
-				$template->_cleanUp();
-				if ($saveVars) {
-					$template->tpl_vars = $savedTplVars;
-					$template->config_vars = $savedConfigVars;
-				}
-			}
-
-			if (isset($errorHandler)) {
-				$errorHandler->deactivate();
-			}
-
-			if (isset($_smarty_old_error_level)) {
-				error_reporting($_smarty_old_error_level);
-			}
-			return $result;
-		} catch (\Throwable $e) {
-			while (ob_get_level() > $level) {
-				ob_end_clean();
-			}
-			if (isset($errorHandler)) {
-				$errorHandler->deactivate();
-			}
-
-			if (isset($_smarty_old_error_level)) {
-				error_reporting($_smarty_old_error_level);
-			}
-			throw $e;
-		}
-	}
+	private $debug;
 
 	/**
 	 * Registers object to be used in templates
@@ -361,7 +197,7 @@ abstract class TemplateBase extends Data {
 		$smarty = $this->_getSmartyObj();
 		$dataObj = new DataObject($parent, $smarty, $name);
 		if ($smarty->debugging) {
-			\Smarty\Debug::register_data($dataObj);
+			$smarty->getDebug()->register_data($dataObj);
 		}
 		return $dataObj;
 	}
@@ -376,6 +212,16 @@ abstract class TemplateBase extends Data {
 	public function getDebugTemplate() {
 		$smarty = $this->_getSmartyObj();
 		return $smarty->debug_tpl;
+	}
+
+	/**
+	 * @return Debug
+	 */
+	public function getDebug(): Debug {
+		if (!isset($this->debug)) {
+			$this->debug = new \Smarty\Debug();
+		}
+		return $this->debug;
 	}
 
 
@@ -589,6 +435,52 @@ abstract class TemplateBase extends Data {
 		}
 		$smarty->debug_tpl = $tpl_name;
 		return $this;
+	}
+
+	/**
+	 * load a config file, optionally load just selected sections
+	 *
+	 * @param string                                                  $config_file filename
+	 * @param mixed                                                   $sections    array of section names, single
+	 *                                                                             section or null
+	 *
+	 * @return $this
+	 * @throws \Exception
+	 *@api  Smarty::configLoad()
+	 * @link https://www.smarty.net/docs/en/api.config.load.tpl
+	 *
+	 */
+	public function configLoad($config_file, $sections = null)
+	{
+		$this->_loadConfigfile($config_file, $sections, null);
+		return $this;
+	}
+
+	/**
+	 * load a config file, optionally load just selected sections
+	 *
+	 * @param string $config_file filename
+	 * @param mixed                                                   $sections    array of section names, single
+	 *                                                                             section or null
+	 * @param int                                                     $scope       scope into which config variables
+	 *                                                                             shall be loaded
+	 * @returns Template
+	 * @throws \Exception
+	 * @link https://www.smarty.net/docs/en/api.config.load.tpl
+	 *
+	 * @api  Smarty::configLoad()
+	 */
+	public function _loadConfigfile($config_file, $sections = null, $scope = 0)
+	{
+		$smarty = $this->_getSmartyObj();
+
+		$confObj = new Template($config_file, $smarty, $this, null, null, null, null, true);
+		$confObj->caching = Smarty::CACHING_OFF;
+		$confObj->source->config_sections = $sections;
+		$confObj->source->scope = $scope;
+		$confObj->compiled = \Smarty\Template\Compiled::load($confObj);
+		$confObj->compiled->render($confObj);
+		return $confObj;
 	}
 
 }

@@ -224,7 +224,7 @@ class Debug extends Data
         ksort($_config_vars);
         $debugging = $smarty->debugging;
         $_template = new \Smarty\Template($debObj->debug_tpl, $debObj);
-        if ($obj->_isTplObj()) {
+        if ($obj instanceof \Smarty\Template) {
             $_template->assign('template_name', $obj->source->type . ':' . $obj->source->name);
         }
         if ($obj->_objType === 1 || $full) {
@@ -253,18 +253,12 @@ class Debug extends Data
      *
      * @return \StdClass
      */
-    public function get_debug_vars($obj)
+    private function get_debug_vars($obj)
     {
         $config_vars = array();
         foreach ($obj->config_vars as $key => $var) {
-            $config_vars[ $key ][ 'value' ] = $var;
-            if ($obj->_isTplObj()) {
-                $config_vars[ $key ][ 'scope' ] = $obj->source->type . ':' . $obj->source->name;
-            } elseif ($obj->_isDataObj()) {
-                $tpl_vars[ $key ][ 'scope' ] = $obj->dataObjectName;
-            } else {
-                $config_vars[ $key ][ 'scope' ] = 'Smarty object';
-            }
+            $config_vars[$key]['value'] = $var;
+	        $config_vars[$key]['scope'] = get_class($obj) . ':' . spl_object_id($obj);
         }
         $tpl_vars = array();
         foreach ($obj->tpl_vars as $key => $var) {
@@ -283,13 +277,7 @@ class Debug extends Data
                     }
                 }
             }
-            if ($obj->_isTplObj()) {
-                $tpl_vars[ $key ][ 'scope' ] = $obj->source->type . ':' . $obj->source->name;
-            } elseif ($obj->_isDataObj()) {
-                $tpl_vars[ $key ][ 'scope' ] = $obj->dataObjectName;
-            } else {
-                $tpl_vars[ $key ][ 'scope' ] = 'Smarty object';
-            }
+	        $tpl_vars[$key]['scope'] = get_class($obj) . ':' . spl_object_id($obj);
         }
         if (isset($obj->parent)) {
             $parent = $this->get_debug_vars($obj->parent);

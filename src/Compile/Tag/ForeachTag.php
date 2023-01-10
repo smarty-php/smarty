@@ -216,7 +216,7 @@ class ForeachTag extends ForeachSection {
 		$output .= "if (\$_from !== null) foreach (\$_from as {$keyTerm}{$itemVar}->value) {\n";
 		$output .= "{$itemVar}->do_else = false;\n";
 		if (isset($attributes['key']) && isset($itemAttr['key'])) {
-			$output .= "\$_smarty_tpl->tpl_vars['{$key}']->value = {$itemVar}->key;\n";
+			$output .= "\$_smarty_tpl->assign('{$key}', {$itemVar}->key);\n";
 		}
 		if (isset($itemAttr['iteration'])) {
 			$output .= "{$itemVar}->iteration++;\n";
@@ -257,11 +257,9 @@ class ForeachTag extends ForeachSection {
 	 * @param string $input
 	 *
 	 * @return bool|string
-	 *
-	 * @TODO: this may no longer work if we add a getter for tpl_vars, recheck this!
 	 */
 	private function getVariableName($input) {
-		if (preg_match('~^[$]_smarty_tpl->tpl_vars\[[\'"]*([0-9]*[a-zA-Z_]\w*)[\'"]*\]->value$~', $input, $match)) {
+		if (preg_match('~^[$]_smarty_tpl->getValue\([\'"]*([0-9]*[a-zA-Z_]\w*)[\'"]*\]\)$~', $input, $match)) {
 			return $match[1];
 		}
 		return false;

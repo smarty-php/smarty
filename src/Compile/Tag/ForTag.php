@@ -50,7 +50,7 @@ class ForTag extends Base {
 					$var = $_statement['var'];
 					$index = '';
 				}
-				$output .= "\$_smarty_tpl->tpl_vars[$var] = new \\Smarty\\Variable(null, \$_smarty_tpl->isRenderingCache);\n";
+				$output .= "\$_smarty_tpl->assign($var, null);\n";
 				$output .= "\$_smarty_tpl->tpl_vars[$var]->value{$index} = {$_statement['value']};\n";
 			}
 			if (is_array($_attr['var'])) {
@@ -70,7 +70,7 @@ class ForTag extends Base {
 				$var = $_statement['var'];
 				$index = '';
 			}
-			$output .= "\$_smarty_tpl->tpl_vars[$var] = new \\Smarty\\Variable(null, \$_smarty_tpl->isRenderingCache);";
+			$output .= "\$_smarty_tpl->assign($var, null);";
 			if (isset($_attr['step'])) {
 				$output .= "\$_smarty_tpl->tpl_vars[$var]->step = $_attr[step];";
 			} else {

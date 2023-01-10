@@ -89,10 +89,7 @@ class Configfile extends BaseCompiler {
 				$this->template->source->type,
 			];
 		if ($this->smarty->debugging) {
-			if (!isset($this->smarty->_debug)) {
-				$this->smarty->_debug = new \Smarty\Debug();
-			}
-			$this->smarty->_debug->start_compile($this->template);
+			$this->smarty->getDebug()->start_compile($this->template);
 		}
 		// init the lexer/parser to compile the config file
 		/* @var ConfigfileLexer $this->lex */
@@ -134,7 +131,7 @@ class Configfile extends BaseCompiler {
 			mb_internal_encoding($mbEncoding);
 		}
 		if ($this->smarty->debugging) {
-			$this->smarty->_debug->end_compile($this->template);
+			$this->smarty->getDebug()->end_compile($this->template);
 		}
 		// template header code
 		$template_header = sprintf(

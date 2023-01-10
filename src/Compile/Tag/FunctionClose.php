@@ -67,10 +67,10 @@ class FunctionClose extends Base {
 			$output .= "ob_start();\n";
 			$output .= "\$_smarty_tpl->compiled->has_nocache_code = true;\n";
 			$output .= $_paramsCode;
-			$output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new \\Smarty\\Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}\n";
+			$output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->assign(\$key, \$value);\n}\n";
 			$output .= "\$params = var_export(\$params, true);\n";
 			$output .= "echo \"/*%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/<?php ";
-			$output .= "\\\$_smarty_tpl->smarty->getRuntime('TplFunction')->saveTemplateVariables(\\\$_smarty_tpl, '{$_name}');\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->tpl_vars[\\\$key] = new \\Smarty\\Variable(\\\$value, \\\$_smarty_tpl->isRenderingCache);\n}\n?>";
+			$output .= "\\\$_smarty_tpl->smarty->getRuntime('TplFunction')->saveTemplateVariables(\\\$_smarty_tpl, '{$_name}');\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->assign(\\\$key, \\\$value);\n}\n?>";
 			$output .= "/*/%%SmartyNocache:{$compiler->template->compiled->nocache_hash}%%*/\";?>";
 			$compiler->parser->current_buffer->append_subtree(
 				$compiler->parser,
@@ -109,7 +109,7 @@ class FunctionClose extends Base {
 		$output .= "if (!function_exists('{$_funcName}')) {\n";
 		$output .= "function {$_funcName}(\\Smarty\\Template \$_smarty_tpl,\$params) {\n";
 		$output .= $_paramsCode;
-		$output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->tpl_vars[\$key] = new \\Smarty\\Variable(\$value, \$_smarty_tpl->isRenderingCache);\n}\n";
+		$output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->assign(\$key, \$value);\n}\n";
 		$output .= "?>\n";
 		$compiler->parser->current_buffer->append_subtree(
 			$compiler->parser,

@@ -96,10 +96,7 @@ class Compiled extends ResourceBase {
 			throw new \Smarty\Exception("Unable to load {$type} '{$_template->source->type}:{$_template->source->name}'");
 		}
 		if ($_template->smarty->debugging) {
-			if (!isset($_template->smarty->_debug)) {
-				$_template->smarty->_debug = new \Smarty\Debug();
-			}
-			$_template->smarty->_debug->start_render($_template);
+			$_template->smarty->getDebug()->start_render($_template);
 		}
 		if (!$this->processed) {
 			$this->process($_template);
@@ -117,7 +114,7 @@ class Compiled extends ResourceBase {
 			$_template->cached->hashes[$this->nocache_hash] = true;
 		}
 		if ($_template->smarty->debugging) {
-			$_template->smarty->_debug->end_render($_template);
+			$_template->smarty->getDebug()->end_render($_template);
 		}
 	}
 
@@ -153,7 +150,6 @@ class Compiled extends ResourceBase {
 					$_smarty_tpl->compile_check = $compileCheck;
 				}
 			}
-			$_smarty_tpl->_subTemplateRegister();
 			$this->processed = true;
 		}
 	}

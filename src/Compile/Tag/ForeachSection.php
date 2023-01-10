@@ -201,6 +201,6 @@ abstract class ForeachSection extends Base {
 			$compiler->trigger_template_error("missing or illegal \$smarty.{$tag} property attribute", null, true);
 		}
 		$tagVar = "'__smarty_{$tag}_{$name}'";
-		return "(isset(\$_smarty_tpl->tpl_vars[{$tagVar}]->value['{$property}']) ? \$_smarty_tpl->tpl_vars[{$tagVar}]->value['{$property}'] : null)";
+		return "(\$_smarty_tpl->getValue({$tagVar})['{$property}'] ?? null)";
 	}
 }

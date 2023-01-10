@@ -120,17 +120,14 @@ class Cached extends ResourceBase {
 	public function render(Template $_template, $no_output_filter = true) {
 		if ($this->isCached($_template)) {
 			if ($_template->smarty->debugging) {
-				if (!isset($_template->smarty->_debug)) {
-					$_template->smarty->_debug = new \Smarty\Debug();
-				}
-				$_template->smarty->_debug->start_cache($_template);
+				$_template->smarty->getDebug()->start_cache($_template);
 			}
 			if (!$this->processed) {
 				$this->process($_template);
 			}
 			$this->getRenderedTemplateCode($_template);
 			if ($_template->smarty->debugging) {
-				$_template->smarty->_debug->end_cache($_template);
+				$_template->smarty->getDebug()->end_cache($_template);
 			}
 			return;
 		} else {
@@ -180,7 +177,7 @@ class Cached extends ResourceBase {
 				if (!$_template->smarty->cache_locking || $this->handler->locked($_template->smarty, $this) === null) {
 					// load cache file for the following checks
 					if ($_template->smarty->debugging) {
-						$_template->smarty->_debug->start_cache($_template);
+						$_template->smarty->getDebug()->start_cache($_template);
 					}
 					if ($this->handler->process($_template, $this) === false) {
 						$this->valid = false;
@@ -188,7 +185,7 @@ class Cached extends ResourceBase {
 						$this->processed = true;
 					}
 					if ($_template->smarty->debugging) {
-						$_template->smarty->_debug->end_cache($_template);
+						$_template->smarty->getDebug()->end_cache($_template);
 					}
 				} else {
 					$this->is_locked = true;
@@ -291,7 +288,7 @@ class Cached extends ResourceBase {
 		}
 		$_template->compiled->render($_template);
 		if ($_template->smarty->debugging) {
-			$_template->smarty->_debug->start_cache($_template);
+			$_template->smarty->getDebug()->start_cache($_template);
 		}
 		$this->removeNoCacheHash($_template, $no_output_filter);
 		$compile_check = (int)$_template->compile_check;
@@ -305,7 +302,7 @@ class Cached extends ResourceBase {
 		$_template->compile_check = $compile_check;
 		$this->getRenderedTemplateCode($_template);
 		if ($_template->smarty->debugging) {
-			$_template->smarty->_debug->end_cache($_template);
+			$_template->smarty->getDebug()->end_cache($_template);
 		}
 	}
 

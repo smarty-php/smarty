@@ -390,10 +390,7 @@ class Template extends BaseCompiler {
 			// save template object in compiler class
 			$this->template = $template;
 			if ($this->smarty->debugging) {
-				if (!isset($this->smarty->_debug)) {
-					$this->smarty->_debug = new \Smarty\Debug();
-				}
-				$this->smarty->_debug->start_compile($this->template);
+				$this->smarty->getDebug()->start_compile($this->template);
 			}
 			$this->parent_compiler = $parent_compiler ? $parent_compiler : $this;
 			$nocache = isset($nocache) ? $nocache : false;
@@ -439,7 +436,7 @@ class Template extends BaseCompiler {
 			);
 		} catch (\Exception $e) {
 			if ($this->smarty->debugging) {
-				$this->smarty->_debug->end_compile($this->template);
+				$this->smarty->getDebug()->end_compile($this->template);
 			}
 			$this->_tag_stack = [];
 			// free memory
@@ -449,7 +446,7 @@ class Template extends BaseCompiler {
 			throw $e;
 		}
 		if ($this->smarty->debugging) {
-			$this->smarty->_debug->end_compile($this->template);
+			$this->smarty->getDebug()->end_compile($this->template);
 		}
 		$this->parent_compiler = null;
 		$this->parser = null;
@@ -507,9 +504,8 @@ class Template extends BaseCompiler {
 			// not a variable variable
 			$var = trim($variable, '\'');
 			$this->tag_nocache = $this->tag_nocache |
-				$this->template->_getVariable(
+				$this->template->getVariable(
 					$var,
-					null,
 					true,
 					false
 				)->isNocache();
@@ -766,11 +762,10 @@ class Template extends BaseCompiler {
 	public function setNocacheInVariable($varName) {
 		// create nocache var to make it know for further compiling
 		if ($_var = $this->getId($varName)) {
-			if (isset($this->template->tpl_vars[$_var])) {
-				$this->template->tpl_vars[$_var] = clone $this->template->tpl_vars[$_var];
-				$this->template->tpl_vars[$_var]->nocache = true;
+			if ($this->template->hasVariable($_var)) {
+				$this->template->getVariable($_var)->setNocache(true);
 			} else {
-				$this->template->tpl_vars[$_var] = new \Smarty\Variable(null, true);
+				$this->template->assign($_var, null, true);
 			}
 		}
 	}

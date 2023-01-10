@@ -10,8 +10,6 @@
 
 namespace Smarty;
 
-use Smarty\Exception;
-
 /**
  * class for the Smarty data object
  * The Smarty data object will hold Smarty variables in the current scope
@@ -20,20 +18,6 @@ use Smarty\Exception;
 
  */
 class DataObject extends Data {
-
-	/**
-	 * Counter
-	 *
-	 * @var int
-	 */
-	public static $count = 0;
-
-	/**
-	 * Data block name
-	 *
-	 * @var string
-	 */
-	public $dataObjectName = '';
 
 	/**
 	 * Smarty object
@@ -53,8 +37,7 @@ class DataObject extends Data {
 	 */
 	public function __construct($_parent = null, $smarty = null, $name = null) {
 		parent::__construct();
-		self::$count++;
-		$this->dataObjectName = 'Data_object ' . (isset($name) ? "'{$name}'" : self::$count);
+
 		$this->smarty = $smarty;
 		if (is_object($_parent)) {
 			// when object set up back pointer
@@ -62,7 +45,7 @@ class DataObject extends Data {
 		} elseif (is_array($_parent)) {
 			// set up variable values
 			foreach ($_parent as $_key => $_val) {
-				$this->tpl_vars[$_key] = new Variable($_val);
+				$this->assign($_key, $_val);
 			}
 		} elseif ($_parent !== null) {
 			throw new Exception('Wrong type for template variables');

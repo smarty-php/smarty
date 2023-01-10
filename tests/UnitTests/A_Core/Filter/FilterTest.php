@@ -236,7 +236,7 @@ function myoutputfilter($input)
 
 function myoutputfilter2($input, $tpl)
 {
-    return $input . ' filter ' . $tpl->tpl_vars[ 'bar' ];
+    return $input . ' filter ' . $tpl->getValue('bar');
 }
 
 class myprefilterclass

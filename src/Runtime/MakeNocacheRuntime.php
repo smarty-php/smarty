@@ -22,9 +22,9 @@ class MakeNocacheRuntime {
 	 * @throws \Smarty\Exception
 	 */
 	public function save(Template $tpl, $var) {
-		if (isset($tpl->tpl_vars[$var])) {
+		if ($tpl->hasVariable($var)) {
 			$export =
-				preg_replace('/^\\\\Smarty\\\\Variable::__set_state[(]|[)]$/', '', var_export($tpl->tpl_vars[$var], true));
+				preg_replace('/^\\\\Smarty\\\\Variable::__set_state[(]|[)]$/', '', var_export($tpl->getVariable($var), true));
 			if (preg_match('/(\w+)::__set_state/', $export, $match)) {
 				throw new \Smarty\Exception("{make_nocache \${$var}} in template '{$tpl->source->name}': variable does contain object '{$match[1]}' not implementing method '__set_state'");
 			}
@@ -43,7 +43,7 @@ class MakeNocacheRuntime {
 	 */
 	public function store(Template $tpl, $var, $properties) {
 		// do not overwrite existing nocache variables
-		if (!isset($tpl->tpl_vars[$var]) || !$tpl->tpl_vars[$var]->nocache) {
+		if (!$tpl->getVariable($var)->isNocache()) {
 			$newVar = new \Smarty\Variable();
 			unset($properties['nocache']);
 			foreach ($properties as $k => $v) {

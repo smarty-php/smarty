@@ -53,15 +53,7 @@ class Smarty extends \Smarty\TemplateBase
      * smarty version
      */
     const SMARTY_VERSION = '5.0.0';
-    /**
-     * define variable scopes
-     */
-    const SCOPE_LOCAL    = 1;
-    const SCOPE_PARENT   = 2;
-    const SCOPE_TPL_ROOT = 4;
-    const SCOPE_ROOT     = 8;
-    const SCOPE_SMARTY   = 16;
-    const SCOPE_GLOBAL   = 32;
+
     /**
      * define caching modes
      */
@@ -92,11 +84,6 @@ class Smarty extends \Smarty\TemplateBase
     const PLUGIN_COMPILER         = 'compiler';
     const PLUGIN_MODIFIER         = 'modifier';
     const PLUGIN_MODIFIERCOMPILER = 'modifiercompiler';
-
-    /**
-     * assigned global tpl vars
-     */
-    private $global_tpl_vars = [];
 
     /**
      * The character set to adhere to (defaults to "UTF-8")
@@ -1022,17 +1009,13 @@ class Smarty extends \Smarty\TemplateBase
         if (!empty($data) && is_array($data)) {
             // set up variable values
             foreach ($data as $_key => $_val) {
-                $tpl->tpl_vars[ $_key ] = new \Smarty\Variable($_val);
+                $tpl->assign($_key, $_val);
             }
         }
-        if ($this->debugging || $this->debugging_ctrl === 'URL') {
-            $tpl->smarty->_debug = new \Smarty\Debug();
-            // check URL debugging control
-            if (!$this->debugging && $this->debugging_ctrl === 'URL') {
-                $tpl->smarty->_debug->debugUrl($tpl->smarty);
-            }
-        }
-        return $tpl;
+	    if (!$this->debugging && $this->debugging_ctrl === 'URL') {
+	        $tpl->smarty->getDebug()->debugUrl($tpl->smarty);
+	    }
+	    return $tpl;
     }
 
     /**
@@ -1061,7 +1044,7 @@ class Smarty extends \Smarty\TemplateBase
         $caching = (int)($caching === null ? $this->caching : $caching);
         if ((isset($template) && strpos($template_name, ':.') !== false) || $this->allow_ambiguous_resources) {
             $_templateId =
-                \Smarty\Resource\BasePlugin::getUniqueTemplateName((isset($template) ? $template : $this), $template_name) .
+                \Smarty\Resource\BasePlugin::getUniqueTemplateName($this, $template ?? null, $template_name) .
                 "#{$cache_id}#{$compile_id}#{$caching}";
         } else {
             $_templateId = $this->_joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}#{$caching}";
@@ -2249,6 +2232,74 @@ class Smarty extends \Smarty\TemplateBase
 	 */
 	public function getGlobalVariable(string $varName): ?Variable {
 		return $this->global_tpl_vars[$varName] ?? null;
+	}
+
+	/**
+	 * fetches a rendered Smarty template
+	 *
+	 * @param string $template the resource handle of the template file or template object
+	 * @param mixed $cache_id cache id to be used with this template
+	 * @param mixed $compile_id compile id to be used with this template
+	 * @param object $parent next higher level of Smarty variables
+	 *
+	 * @return string rendered template output
+	 * @throws Exception
+	 * @throws Exception
+	 */
+	public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null) {
+		return $this->returnOrCreateTemplate($template)->fetch($cache_id, $compile_id, $parent);
+	}
+
+	/**
+	 * displays a Smarty template
+	 *
+	 * @param string $template the resource handle of the template file or template object
+	 * @param mixed $cache_id cache id to be used with this template
+	 * @param mixed $compile_id compile id to be used with this template
+	 * @param object $parent next higher level of Smarty variables
+	 *
+	 * @throws \Exception
+	 * @throws \Smarty\Exception
+	 */
+	public function display($template = null, $cache_id = null, $compile_id = null, $parent = null) {
+		return $this->returnOrCreateTemplate($template)->display($cache_id, $compile_id, $parent);
+	}
+
+	/**
+	 * test if cache is valid
+	 *
+	 * @param null|string|\Smarty\Template $template the resource handle of the template file or template
+	 *                                                          object
+	 * @param mixed $cache_id cache id to be used with this template
+	 * @param mixed $compile_id compile id to be used with this template
+	 * @param object $parent next higher level of Smarty variables
+	 *
+	 * @return bool cache status
+	 * @throws \Exception
+	 * @throws \Smarty\Exception
+	 * @link https://www.smarty.net/docs/en/api.is.cached.tpl
+	 *
+	 * @api  Smarty::isCached()
+	 */
+	public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null) {
+		return $this->returnOrCreateTemplate($template)->isCached($cache_id, $compile_id, $parent);
+	}
+
+	/**
+	 * @param $template
+	 * @param $cache_id
+	 * @param $compile_id
+	 * @param $parent
+	 *
+	 * @return Template
+	 * @throws Exception
+	 */
+	private function returnOrCreateTemplate($template, $cache_id, $compile_id, $parent) {
+		if (!($template instanceof Template)) {
+			$template = $this->createTemplate($template, $cache_id, $compile_id, $parent ?: $this, false);
+			$template->caching = $this->caching;
+		}
+		return $template;
 	}
 
 }
