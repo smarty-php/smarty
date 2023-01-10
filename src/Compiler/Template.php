@@ -771,33 +771,6 @@ class Template extends BaseCompiler {
 	}
 
 	/**
-	 * @param array $_attr tag attributes
-	 * @param array $validScopes
-	 *
-	 * @return int|string
-	 * @throws \Smarty\CompilerException
-	 */
-	public function convertScope($_attr, $validScopes) {
-		$_scope = 0;
-		if (isset($_attr['scope'])) {
-			$_scopeName = trim($_attr['scope'], '\'"');
-			if (is_numeric($_scopeName) && in_array($_scopeName, $validScopes)) {
-				$_scope = $_scopeName;
-			} elseif (is_string($_scopeName)) {
-				$_scopeName = trim($_scopeName, '\'"');
-				$_scope = isset($validScopes[$_scopeName]) ? $validScopes[$_scopeName] : false;
-			} else {
-				$_scope = false;
-			}
-			if ($_scope === false) {
-				$err = var_export($_scopeName, true);
-				$this->trigger_template_error("illegal value '{$err}' for \"scope\" attribute", null, true);
-			}
-		}
-		return $_scope;
-	}
-
-	/**
 	 * Generate nocache code string
 	 *
 	 * @param string $code PHP code

@@ -22,13 +22,6 @@ class Config extends Source {
 	public $config_sections = null;
 
 	/**
-	 * scope into which the config variables shall be loaded
-	 *
-	 * @var int
-	 */
-	public $scope = 0;
-
-	/**
 	 * Flag that source is a config file
 	 *
 	 * @var bool

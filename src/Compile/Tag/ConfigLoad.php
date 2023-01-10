@@ -54,17 +54,6 @@ class ConfigLoad extends Base {
 	protected $option_flags = ['nocache', 'noscope'];
 
 	/**
-	 * Valid scope names
-	 *
-	 * @var array
-	 */
-	protected $valid_scopes = [
-		'local' => Smarty::SCOPE_LOCAL, 'parent' => Smarty::SCOPE_PARENT,
-		'root' => Smarty::SCOPE_ROOT, 'tpl_root' => Smarty::SCOPE_TPL_ROOT,
-		'smarty' => Smarty::SCOPE_SMARTY, 'global' => Smarty::SCOPE_SMARTY,
-	];
-
-	/**
 	 * Compiles code for the {config_load} tag
 	 *
 	 * @param array $args array with attributes from parser
@@ -86,9 +75,9 @@ class ConfigLoad extends Base {
 		if ($_attr['noscope']) {
 			$_scope = -1;
 		} else {
-			$_scope = $compiler->convertScope($_attr, $this->valid_scopes);
+			$_scope = $this->convertScope($_attr);
 		}
 		// create config object
-		return "<?php\n\$_smarty_tpl->_loadConfigfile({$conf_file}, {$section}, {$_scope});\n?>\n";
+		return "<?php\n\$_smarty_tpl->_loadConfigfile({$conf_file}, {$section});\n?>\n";
 	}
 }

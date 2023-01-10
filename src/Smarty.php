@@ -455,13 +455,6 @@ class Smarty extends \Smarty\TemplateBase
     public $_parserdebug = false;
 
     /**
-     * This object type (Smarty = 1, template = 2, data = 4)
-     *
-     * @var int
-     */
-    public $_objType = 1;
-
-    /**
      * Debug object
      *
      * @var \Smarty\Debug
@@ -550,7 +543,7 @@ class Smarty extends \Smarty\TemplateBase
      */
     public function __construct()
     {
-        parent::__construct();
+
         if (is_callable('mb_internal_encoding')) {
             mb_internal_encoding(\Smarty\Smarty::$_CHARSET);
         }
@@ -2294,7 +2287,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @return Template
 	 * @throws Exception
 	 */
-	private function returnOrCreateTemplate($template, $cache_id, $compile_id, $parent) {
+	private function returnOrCreateTemplate($template, $cache_id = null, $compile_id = null, $parent = null) {
 		if (!($template instanceof Template)) {
 			$template = $this->createTemplate($template, $cache_id, $compile_id, $parent ?: $this, false);
 			$template->caching = $this->caching;

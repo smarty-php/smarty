@@ -36,7 +36,6 @@ class DataObject extends Data {
 	 * @throws Exception
 	 */
 	public function __construct($_parent = null, $smarty = null, $name = null) {
-		parent::__construct();
 
 		$this->smarty = $smarty;
 		if (is_object($_parent)) {

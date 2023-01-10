@@ -31,8 +31,6 @@ class ScopeTest extends PHPUnit_Smarty
     /**
      * Test scope
      *
-     * 
-     * 
      * @dataProvider        dataTestAppendScope
      */
     public function testAppendScope($code, $useSmarty, $result, $testName, $testNumber)
@@ -50,8 +48,8 @@ class ScopeTest extends PHPUnit_Smarty
                             "test - {$code} - {$testName}");
     }
 
-    /*
-     * Data provider für testAppendScope
+    /**
+     * Data provider for testAppendScope
      */
     public function dataTestAppendScope()
     {
@@ -78,9 +76,6 @@ class ScopeTest extends PHPUnit_Smarty
 
     /**
      * Test scope
-     *
-     * @not                 runInSeparateProcess
-     * 
      * @dataProvider        dataTestAssignScope
      */
     public function testAssignScope($code, $useSmarty, $result, $testName, $testNumber)

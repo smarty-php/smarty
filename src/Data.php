@@ -4,15 +4,7 @@ namespace Smarty;
 
 /**
  * Smarty Internal Plugin Data
- * This file contains the basic classes and methods for template and variable creation
- *
-
-
- * @author     Uwe Tews
- */
-
-/**
- * Base class with template and variable methods
+ * This file contains the basic properties and methods for holding config and template variables
  */
 abstract class Data
 {
@@ -55,25 +47,47 @@ abstract class Data
      */
     public $config_vars = array();
 
-    /**
-     * assigns a Smarty variable
-     *
-     * @param array|string $tpl_var the template variable name(s)
-     * @param mixed        $value   the value to assign
-     * @param boolean      $nocache if true any output of this variable will be not cached
-     *
-     * @return Data current Data (or Smarty or \Smarty\Template) instance for
-     *                              chaining
-     */
-    public function assign($tpl_var, $value = null, $nocache = false)
+	/**
+	 * assigns a Smarty variable
+	 *
+	 * @param array|string $tpl_var the template variable name(s)
+	 * @param mixed $value the value to assign
+	 * @param boolean $nocache if true any output of this variable will be not cached
+	 * @param int $scope one of self::SCOPE_* constants
+	 *
+	 * @return Data current Data (or Smarty or \Smarty\Template) instance for
+	 *                              chaining
+	 */
+    public function assign($tpl_var, $value = null, $nocache = false, $scope = 0)
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $_key => $_val) {
-                $this->assign($_key, $_val, $nocache);
+                $this->assign($_key, $_val, $nocache, $scope);
             }
-        } else {
-	        $this->tpl_vars[ $tpl_var ] = new Variable($value, $nocache);
         }
+
+		switch ($scope) {
+			case self::SCOPE_GLOBAL:
+			case self::SCOPE_SMARTY:
+				$this->_getSmartyObj()->assign($tpl_var, $value);
+				break;
+			case self::SCOPE_TPL_ROOT:
+			case self::SCOPE_ROOT:
+				$ptr = $this;
+				while (isset($ptr->parent) && !($ptr->parent instanceof Smarty)) {
+					$ptr = $ptr->parent;
+				}
+				$ptr->assign($tpl_var, $value);
+				break;
+			case self::SCOPE_PARENT:
+				if ($this->parent) {
+					$this->parent->assign($tpl_var, $value);
+				}
+				break;
+			default:
+				$this->tpl_vars[ $tpl_var ] = new Variable($value, $nocache);
+		}
+
         return $this;
     }
 
@@ -125,9 +139,12 @@ abstract class Data
      * @param boolean $nocache if true any output of this variable will be not cached
      *
      * @return Data
+     * @deprecated since 5.0
      */
     public function assignGlobal($varName, $value = null, $nocache = false)
     {
+		trigger_error(__METHOD__ . " is deprecated. Use \\Smarty\\Smarty::assign() to assign a variable " .
+		" at the Smarty level.", E_USER_DEPRECATED);
 	    return $this->_getSmartyObj()->assign($varName, $value, $nocache);
     }
 
@@ -146,39 +163,9 @@ abstract class Data
     {
 	    if (isset($varName)) {
 			return $this->getValue($varName, $searchParents);
-		    $_var = $_ptr->getVariable($varName, $searchParents, false);
-		    if (is_object($_var)) {
-			    return $_var->value;
-		    } else {
-			    return null;
-		    }
-	    } else {
-		    $_result = array();
-		    if ($_ptr === null) {
-			    $_ptr = $this;
-		    }
-		    while ($_ptr !== null) {
-			    foreach ($_ptr->tpl_vars as $key => $var) {
-				    if (!array_key_exists($key, $_result)) {
-					    $_result[ $key ] = $var->value;
-				    }
-			    }
-			    // not found, try at parent
-			    if ($searchParents && isset($_ptr->parent)) {
-				    $_ptr = $_ptr->parent;
-			    } else {
-				    $_ptr = null;
-			    }
-		    }
-		    if ($searchParents) {
-			    foreach ($this->_getSmartyObj()->getAllGlobalTemplateVars() as $key => $var) {
-				    if (!array_key_exists($key, $_result)) {
-					    $_result[ $key ] = $var->value;
-				    }
-			    }
-		    }
-		    return $_result;
 	    }
+
+		return array_merge($this->parent && $searchParents ? $this->parent->getTemplateVars() : [], $this->tpl_vars);
     }
 
 	/**
@@ -244,6 +231,38 @@ abstract class Data
 	public function getValue($varName, $searchParents = true) {
 		$variable = $this->getVariable($varName, $searchParents);
 		return isset($variable) ? $variable->getValue() : null;
+	}
+
+	/**
+	 * load config variables into template object
+	 *
+	 * @param array $new_config_vars
+	 */
+	public function assignConfigVars($new_config_vars) {
+
+		// copy global config vars
+		foreach ($new_config_vars['vars'] as $variable => $value) {
+			if ($this->smarty->config_overwrite || !isset($this->config_vars[$variable])) {
+				$this->config_vars[$variable] = $value;
+			} else {
+				$this->config_vars[$variable] = array_merge((array)$this->config_vars[$variable], (array)$value);
+			}
+		}
+		// scan sections
+		$sections = $this->source->config_sections;
+		if (!empty($sections)) {
+			foreach ((array)$sections as $tpl_section) {
+				if (isset($new_config_vars['sections'][$tpl_section])) {
+					foreach ($new_config_vars['sections'][$tpl_section]['vars'] as $variable => $value) {
+						if ($this->smarty->config_overwrite || !isset($this->config_vars[$variable])) {
+							$this->config_vars[$variable] = $value;
+						} else {
+							$this->config_vars[$variable] = array_merge((array)$this->config_vars[$variable], (array)$value);
+						}
+					}
+				}
+			}
+		}
 	}
 
     /**
@@ -312,19 +331,15 @@ abstract class Data
 		return $this;
 	}
 
-
-
-
-
 	/**
 	 * Gets a config variable value
 	 *
-	 * @param null $varName the name of the config variable
+	 * @param string $varName the name of the config variable
 	 *
 	 * @return mixed  the value of the config variable
 	 * @throws Exception
 	 */
-	public function getConfigVariable($varName = null)
+	public function getConfigVariable($varName)
 	{
 
 		if (isset($this->config_vars[$varName])) {
@@ -343,12 +358,13 @@ abstract class Data
 	/**
 	 * Returns a single or all config variables
 	 *
-	 * @api  Smarty::getConfigVars()
-	 * @link https://www.smarty.net/docs/en/api.get.config.vars.tpl
-	 *
-	 * @param string                                                  $varname        variable name or null
+	 * @param string $varname variable name or null
 	 *
 	 * @return mixed variable value or or array of variables
+	 * @throws Exception
+	 * @link https://www.smarty.net/docs/en/api.get.config.vars.tpl
+	 *
+	 * @api  Smarty::getConfigVars()
 	 */
 	public function getConfigVars($varname = null)
 	{
@@ -367,24 +383,14 @@ abstract class Data
 	 * @param string                $varName variable name or null
 	 *
 	 * @return string|array variable value or or array of variables
+	 *
+	 * @deprecated since 5.0
 	 */
 	public function getGlobal($varName = null)
 	{
-		if (isset($varName)) {
-			if ($this->_getSmartyObj()->getGlobalVariable($varName)) {
-				return $this->_getSmartyObj()->getGlobalVariable($varName)->getValue();
-			} else {
-				return '';
-			}
-		} else {
-			$_result = [];
-			foreach ($this->_getSmartyObj()->getAllGlobalTemplateVars() as $key => $var) {
-				$_result[ $key ] = $var->value;
-			}
-			return $_result;
-		}
+		trigger_error(__METHOD__ . " is deprecated. Use \\Smarty\\Smarty::getValue() to retrieve a variable " .
+			" at the Smarty level.", E_USER_DEPRECATED);
+		return $this->_getSmartyObj()->getValue($varName);
 	}
-
-
 
 }

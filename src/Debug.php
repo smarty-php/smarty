@@ -226,9 +226,8 @@ class Debug extends Data
         $_template = new \Smarty\Template($debObj->debug_tpl, $debObj);
         if ($obj instanceof \Smarty\Template) {
             $_template->assign('template_name', $obj->source->type . ':' . $obj->source->name);
-        }
-        if ($obj->_objType === 1 || $full) {
-            $_template->assign('template_data', $this->template_data[ $this->index ]);
+        } elseif ($obj instanceof Smarty || $full) {
+            $_template->assign('template_data', $this->template_data[$this->index]);
         } else {
             $_template->assign('template_data', null);
         }

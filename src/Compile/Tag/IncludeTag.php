@@ -12,6 +12,7 @@ namespace Smarty\Compile\Tag;
 
 use Smarty\Compile\Base;
 use Smarty\Compiler\Template;
+use Smarty\Data;
 use Smarty\Smarty;
 use Smarty\Template\Compiled;
 
@@ -59,17 +60,6 @@ class IncludeTag extends Base {
 	 * @see BaseCompiler
 	 */
 	protected $optional_attributes = ['_any'];
-
-	/**
-	 * Valid scope names
-	 *
-	 * @var array
-	 */
-	protected $valid_scopes = [
-		'parent' => Smarty::SCOPE_PARENT, 'root' => Smarty::SCOPE_ROOT,
-		'global' => Smarty::SCOPE_GLOBAL, 'tpl_root' => Smarty::SCOPE_TPL_ROOT,
-		'smarty' => Smarty::SCOPE_SMARTY,
-	];
 
 	/**
 	 * Compiles code for the {include} tag
@@ -125,13 +115,8 @@ class IncludeTag extends Base {
 			$variable_template = true;
 		}
 		// scope setup
-		$_scope = $compiler->convertScope($_attr, $this->valid_scopes);
-		// set flag to cache subtemplate object when called within loop or template name is variable.
-		if ($cache_tpl || $variable_template || $compiler->loopNesting > 0) {
-			$_cache_tpl = 'true';
-		} else {
-			$_cache_tpl = 'false';
-		}
+		$_scope = $this->convertScope($_attr, [Data::SCOPE_LOCAL]);
+
 		// assume caching is off
 		$_caching = Smarty::CACHING_OFF;
 		$call_nocache = $compiler->tag_nocache || $compiler->nocache;
@@ -244,16 +229,16 @@ class IncludeTag extends Base {
 			}
 			if (!empty($_attr) && $_caching === 9999 && $compiler->template->caching) {
 				$_vars_nc = "foreach ($_vars as \$ik => \$iv) {\n";
-				$_vars_nc .= "\$_smarty_tpl->tpl_vars[\$ik] =  new \\Smarty\\Variable(\$iv);\n";
+				$_vars_nc .= "\$_smarty_tpl->assign(\$ik, \$iv);\n";
 				$_vars_nc .= "}\n";
 				$_output .= substr($compiler->processNocacheCode('<?php ' . $_vars_nc . "?>\n", true), 6, -3);
 			}
 			if (isset($_assign)) {
 				$_output .= "ob_start();\n";
 			}
-			$_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, {$_scope}, {$_cache_tpl}, '{$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['func']}');\n";
+			$_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, '{$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['func']}');\n";
 			if (isset($_assign)) {
-				$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean());\n";
+				$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean(), false, {$_scope});\n";
 			}
 			if ($update_compile_id) {
 				$_output .= $compiler->makeNocacheCode("\$_smarty_tpl->compile_id = array_pop(\$_compile_id_save);\n");
@@ -272,9 +257,9 @@ class IncludeTag extends Base {
 		if (isset($_assign)) {
 			$_output .= "ob_start();\n";
 		}
-		$_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars, $_scope, {$_cache_tpl});\n";
+		$_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars);\n";
 		if (isset($_assign)) {
-			$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean());\n";
+			$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean(), false, {$_scope});\n";
 		}
 		if ($update_compile_id) {
 			$_output .= "\$_smarty_tpl->compile_id = array_pop(\$_compile_id_save);\n";

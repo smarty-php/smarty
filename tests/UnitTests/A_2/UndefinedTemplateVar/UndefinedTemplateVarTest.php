@@ -65,26 +65,12 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
      */
     public function testError()
     {
-        $exceptionThrown = false;
-
-        try {
-            $e1 = error_reporting();
-            $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
-            $e2 = error_reporting();
-            $this->assertEquals($e1, $e2);
-        } catch (Exception $e) {
-
-            $exceptionThrown = true;
-            $this->assertStringStartsWith('Undefined ', $e->getMessage());
-            $this->assertTrue(in_array(
-                get_class($e),
-                [
-                    'PHPUnit\Framework\Error\Warning',
-                    'PHPUnit\Framework\Error\Notice',
-                ]
-            ));
-        }
-        $this->assertTrue($exceptionThrown);
+        $this->expectException(PHPUnit\Framework\Error\Error::class);
+		$this->expectExceptionMessage('Undefined ');
+        $e1 = error_reporting();
+        $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
+        $e2 = error_reporting();
+        $this->assertEquals($e1, $e2);
     }
 
     public function testUndefinedSimpleVar() {

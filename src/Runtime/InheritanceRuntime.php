@@ -120,7 +120,6 @@ class InheritanceRuntime {
 				$tpl->caching ? 9999 : 0,
 				$tpl->cache_lifetime,
 				[],
-				2,
 				false,
 				$uid,
 				$func

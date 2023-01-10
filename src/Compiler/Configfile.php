@@ -140,7 +140,7 @@ class Configfile extends BaseCompiler {
 			date("Y-m-d H:i:s"),
 			str_replace('*/', '* /', $this->template->source->filepath)
 		);
-		$code = '<?php $_smarty_tpl->_loadConfigVars(' .
+		$code = '<?php $_smarty_tpl->assignConfigVars(' .
 			var_export($this->config_data, true) . '); ?>';
 		return $template_header . $this->template->createCodeFrame($code);
 	}

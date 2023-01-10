@@ -31,17 +31,6 @@ class Assign extends Base
     protected $option_flags = array('nocache', 'noscope');
 
     /**
-     * Valid scope names
-     *
-     * @var array
-     */
-    protected $valid_scopes = array(
-        'local'    => Smarty::SCOPE_LOCAL, 'parent' => Smarty::SCOPE_PARENT,
-        'root'     => Smarty::SCOPE_ROOT, 'global' => Smarty::SCOPE_GLOBAL,
-        'tpl_root' => Smarty::SCOPE_TPL_ROOT, 'smarty' => Smarty::SCOPE_SMARTY
-    );
-
-    /**
      * Compiles code for the {assign} tag
      *
      * @param array                                 $args      array with attributes from parser
@@ -76,16 +65,14 @@ class Assign extends Base
         if ($_attr[ 'noscope' ]) {
             $_scope = -1;
         } else {
-            $_scope = $compiler->convertScope($_attr, $this->valid_scopes);
+            $_scope = $this->convertScope($_attr);
         }
         // optional parameter
         $_params = '';
-        if ($_nocache || $_scope) {
+        if ($_nocache) {
             $_params .= ' ,' . var_export($_nocache, true);
         }
-        if ($_scope) {
-            $_params .= ' ,' . $_scope;
-        }
+
         if (isset($parameter[ 'smarty_internal_index' ])) {
             $output =
                 "<?php \$_tmp_array = \$_smarty_tpl->getValue({$_var}) ?? [];\n";
@@ -93,9 +80,9 @@ class Assign extends Base
             $output .= "settype(\$_tmp_array, 'array');\n";
             $output .= "}\n";
             $output .= "\$_tmp_array{$parameter['smarty_internal_index']} = {$_attr['value']};\n";
-            $output .= "\$_smarty_tpl->_assignInScope({$_var}, \$_tmp_array{$_params});?>";
+            $output .= "\$_smarty_tpl->assign({$_var}, \$_tmp_array{$_params}, false, {$_scope});?>";
         } else {
-            $output = "<?php \$_smarty_tpl->_assignInScope({$_var}, {$_attr['value']}{$_params});?>";
+            $output = "<?php \$_smarty_tpl->assign({$_var}, {$_attr['value']}{$_params}, false, {$_scope});?>";
         }
         return $output;
     }

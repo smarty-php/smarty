@@ -12,9 +12,6 @@ namespace Smarty;
 
 /**
  * Class with shared smarty/template methods
- *
- * @property int $_objType
- *
  */
 abstract class TemplateBase extends Data {
 
@@ -452,7 +449,7 @@ abstract class TemplateBase extends Data {
 	 */
 	public function configLoad($config_file, $sections = null)
 	{
-		$this->_loadConfigfile($config_file, $sections, null);
+		$this->_loadConfigfile($config_file, $sections);
 		return $this;
 	}
 
@@ -462,22 +459,20 @@ abstract class TemplateBase extends Data {
 	 * @param string $config_file filename
 	 * @param mixed                                                   $sections    array of section names, single
 	 *                                                                             section or null
-	 * @param int                                                     $scope       scope into which config variables
-	 *                                                                             shall be loaded
+
 	 * @returns Template
 	 * @throws \Exception
 	 * @link https://www.smarty.net/docs/en/api.config.load.tpl
 	 *
 	 * @api  Smarty::configLoad()
 	 */
-	public function _loadConfigfile($config_file, $sections = null, $scope = 0)
+	public function _loadConfigfile($config_file, $sections = null)
 	{
 		$smarty = $this->_getSmartyObj();
 
 		$confObj = new Template($config_file, $smarty, $this, null, null, null, null, true);
 		$confObj->caching = Smarty::CACHING_OFF;
 		$confObj->source->config_sections = $sections;
-		$confObj->source->scope = $scope;
 		$confObj->compiled = \Smarty\Template\Compiled::load($confObj);
 		$confObj->compiled->render($confObj);
 		return $confObj;

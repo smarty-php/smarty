@@ -5,6 +5,9 @@
  */
 namespace Smarty\Compile;
 
+use Smarty\Data;
+use Smarty\Exception;
+
 /**
  * This class does extend all internal compile plugins
  *
@@ -223,6 +226,39 @@ abstract class Base implements CompilerInterface {
 		}
 		// wrong nesting of tags
 		$compiler->trigger_template_error('unexpected closing tag', null, true);
+	}
+
+	/**
+	 * @param array $_attr tag attributes
+	 * @param array $invalidScopes
+	 *
+	 * @return int
+	 * @throws Exception
+	 */
+	protected function convertScope($_attr, $invalidScopes = []): int {
+
+		static $scopes = [
+			'local'    => Data::SCOPE_LOCAL, 'parent' => Data::SCOPE_PARENT,
+			'root'     => Data::SCOPE_ROOT, 'global' => Data::SCOPE_GLOBAL,
+			'tpl_root' => Data::SCOPE_TPL_ROOT, 'smarty' => Data::SCOPE_SMARTY
+		];
+
+		if (!isset($_attr['scope'])) {
+			return 0;
+		}
+
+		$_scopeName = trim($_attr['scope'], '\'"');
+		if (is_numeric($_scopeName) && in_array($_scopeName, $scopes)) {
+			return (int) $_scopeName;
+		}
+
+		$_scopeName = trim($_scopeName, '\'"');
+		if (isset($scopes[$_scopeName])) {
+			return $scopes[$_scopeName];
+		}
+
+		$err = var_export($_scopeName, true);
+		throw new Exception("illegal value '{$err}' for \"scope\" attribute");
 	}
 
 	/**

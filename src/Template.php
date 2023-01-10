@@ -28,13 +28,6 @@ use Smarty\Template\Config;
 class Template extends TemplateBase {
 
 	/**
-	 * This object type (Smarty = 1, template = 2, data = 4)
-	 *
-	 * @var int
-	 */
-	public $_objType = 2;
-
-	/**
 	 * Source instance
 	 *
 	 * @var Source|Config
@@ -68,13 +61,6 @@ class Template extends TemplateBase {
 	 * @var null|string
 	 */
 	public $templateId = null;
-
-	/**
-	 * Scope in which variables shall be assigned
-	 *
-	 * @var int
-	 */
-	public $scope = 0;
 
 	/**
 	 * Flag which is set while rending a cache file
@@ -148,7 +134,7 @@ class Template extends TemplateBase {
 		// Template resource
 		$this->template_resource = $template_resource;
 		$this->source = $_isConfig ? Config::load($this) : Source::load($this);
-		parent::__construct();
+
 		if ($smarty->security_policy && method_exists($smarty->security_policy, 'registerCallBacks')) {
 			$smarty->security_policy->registerCallBacks($this);
 		}
@@ -244,8 +230,6 @@ class Template extends TemplateBase {
 	 * @param integer $caching cache mode
 	 * @param integer $cache_lifetime life time of cache data
 	 * @param array $data passed parameter template variables
-	 * @param int $scope scope in which {include} should execute
-	 * @param bool $forceTplCache cache template object
 	 * @param string $uid file dependency uid
 	 * @param string $content_func function name
 	 *
@@ -259,8 +243,6 @@ class Template extends TemplateBase {
 		$caching,
 		$cache_lifetime,
 		$data,
-		$scope,
-		$forceTplCache,
 		$uid = null,
 		$content_func = null
 	) {
@@ -296,8 +278,6 @@ class Template extends TemplateBase {
 		}
 		$tpl->caching = $caching;
 		$tpl->cache_lifetime = $cache_lifetime;
-		// set template scope
-		$tpl->scope = $scope;
 
 		if (!empty($data)) {
 			// set up variable values
@@ -341,8 +321,8 @@ class Template extends TemplateBase {
 		return isset($this->parent) && $this->parent instanceof Template;
 	}
 
-	public function assign($tpl_var, $value = null, $nocache = false) {
-		return parent::assign($tpl_var, $value, $nocache || $this->isRenderingCache);
+	public function assign($tpl_var, $value = null, $nocache = false, $scope = 0) {
+		return parent::assign($tpl_var, $value, $nocache || $this->isRenderingCache, $scope);
 	}
 
 	/**
@@ -612,82 +592,7 @@ class Template extends TemplateBase {
 		}
 	}
 
-	/**
-	 * load config variables into template object
-	 *
-	 * @param array $new_config_vars
-	 */
-	public function _loadConfigVars($new_config_vars) {
-		$this->_assignConfigVars($this->parent->config_vars, $new_config_vars);
-		$tagScope = $this->source->scope;
-		if ($tagScope >= 0) {
-			if ($tagScope === \Smarty\Smarty::SCOPE_LOCAL) {
-				$this->_updateConfigVarStack($new_config_vars);
-				$tagScope = 0;
-				if (!$this->scope) {
-					return;
-				}
-			}
-			if ($this->parent instanceof Template && ($tagScope || $this->parent->scope)) {
-				$mergedScope = $tagScope | $this->scope;
-				if ($mergedScope) {
-					// update scopes
-					/* @var \Smarty\Data $ptr */
-					foreach ($this->parent->_getAffectedScopes($mergedScope) as $ptr) {
-						$this->_assignConfigVars($ptr->config_vars, $new_config_vars);
-						if ($tagScope && $ptr instanceof Template && isset($this->_var_stack)) {
-							$this->_updateConfigVarStack($new_config_vars);
-						}
-					}
-				}
-			}
-		}
-	}
 
-	/**
-	 * Assign all config variables in given scope
-	 *
-	 * @param array $config_vars config variables in scope
-	 * @param array $new_config_vars loaded config variables
-	 */
-	private function _assignConfigVars(&$config_vars, $new_config_vars) {
-		// copy global config vars
-		foreach ($new_config_vars['vars'] as $variable => $value) {
-			if ($this->smarty->config_overwrite || !isset($config_vars[$variable])) {
-				$config_vars[$variable] = $value;
-			} else {
-				$config_vars[$variable] = array_merge((array)$config_vars[$variable], (array)$value);
-			}
-		}
-		// scan sections
-		$sections = $this->source->config_sections;
-		if (!empty($sections)) {
-			foreach ((array)$sections as $tpl_section) {
-				if (isset($new_config_vars['sections'][$tpl_section])) {
-					foreach ($new_config_vars['sections'][$tpl_section]['vars'] as $variable => $value) {
-						if ($this->smarty->config_overwrite || !isset($config_vars[$variable])) {
-							$config_vars[$variable] = $value;
-						} else {
-							$config_vars[$variable] = array_merge((array)$config_vars[$variable], (array)$value);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Update config variables in template local variable stack
-	 *
-	 * @param array $config_vars
-	 */
-	private function _updateConfigVarStack($config_vars) {
-		$i = 0;
-		while (isset($this->_var_stack[$i])) {
-			$this->_assignConfigVars($this->_var_stack[$i]['config'], $config_vars);
-			$i++;
-		}
-	}
 
 	/**
 	 * Returns if the current template must be compiled by the Smarty compiler
@@ -714,74 +619,6 @@ class Template extends TemplateBase {
 						$this->source->getTimeStamp())));
 		}
 		return $this->mustCompile;
-	}
-
-	/**
-	 * Update new assigned template or config variable in other effected scopes
-	 *
-	 * @param string|null $varName variable name
-	 * @param int $tagScope tag scope to which bubble up variable value
-	 */
-	protected function _updateScope($varName, $tagScope = 0) {
-		if ($tagScope) {
-			$this->_updateVarStack($this, $varName);
-			$tagScope = $tagScope & ~\Smarty\Smarty::SCOPE_LOCAL;
-			if (!$this->scope && !$tagScope) {
-				return;
-			}
-		}
-		$mergedScope = $tagScope | $this->scope;
-		if ($mergedScope) {
-			if ($mergedScope & \Smarty\Smarty::SCOPE_GLOBAL && $varName) {
-				$this->_getSmartyObj()->setGlobalVariable($varName, $this->tpl_vars[$varName]);
-			}
-			// update scopes
-			foreach ($this->_getAffectedScopes($mergedScope) as $ptr) {
-				$this->_updateVariableInOtherScope($ptr->tpl_vars, $varName);
-				if ($tagScope && $ptr instanceof Template && isset($this->_var_stack)) {
-					$this->_updateVarStack($ptr, $varName);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Get array of objects which needs to be updated  by given scope value
-	 *
-	 * @param int $mergedScope merged tag and template scope to which bubble up variable value
-	 *
-	 * @return array
-	 */
-	private function _getAffectedScopes($mergedScope) {
-		$_stack = [];
-		$ptr = $this->parent;
-		if ($mergedScope && isset($ptr) && $ptr instanceof Template) {
-			$_stack[] = $ptr;
-			$mergedScope = $mergedScope & ~\Smarty\Smarty::SCOPE_PARENT;
-			if (!$mergedScope) {
-				// only parent was set, we are done
-				return $_stack;
-			}
-			$ptr = $ptr->parent;
-		}
-		while (isset($ptr) && $ptr instanceof Template) {
-			$_stack[] = $ptr;
-			$ptr = $ptr->parent;
-		}
-		if ($mergedScope & \Smarty\Smarty::SCOPE_SMARTY) {
-			if (isset($this->smarty)) {
-				$_stack[] = $this->smarty;
-			}
-		} elseif ($mergedScope & \Smarty\Smarty::SCOPE_ROOT) {
-			while (isset($ptr)) {
-				if (!$ptr instanceof Template) {
-					$_stack[] = $ptr;
-					break;
-				}
-				$ptr = $ptr->parent;
-			}
-		}
-		return $_stack;
 	}
 
 	private function getFrameCompiler(): Compiler\CodeFrame {
@@ -856,9 +693,9 @@ class Template extends TemplateBase {
 	/**
 	 * @inheritdoc
 	 */
-	public function _loadConfigfile($config_file, $sections = null, $scope = 0)
+	public function _loadConfigfile($config_file, $sections = null)
 	{
-		$confObj = parent::_loadConfigfile($config_file, $sections, $scope);
+		$confObj = parent::_loadConfigfile($config_file, $sections);
 
 		$this->compiled->file_dependency[ $confObj->source->uid ] =
 			array($confObj->source->filepath, $confObj->source->getTimeStamp(), $confObj->source->type);
@@ -922,10 +759,8 @@ class Template extends TemplateBase {
 				$errorHandler->activate();
 			}
 
-			/* @var Template $parent */
-			if (isset($parent->_objType) && ($parent->_objType === 2) && !empty($parent->tplFunctions)) {
-				$this->tplFunctions = array_merge($parent->tplFunctions, $this->tplFunctions);
-			}
+			$this->tplFunctions = array_merge($parent->tplFunctions ?? [], $this->tplFunctions ?? []);
+
 			if ($function === 2) {
 				if ($this->caching) {
 					// return cache status of template
