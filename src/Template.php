@@ -726,8 +726,8 @@ class Template extends TemplateBase {
 	 *
 	 * @api  Smarty::isCached()
 	 */
-	public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null) {
-		return $this->_execute($template, $cache_id, $compile_id, $parent, 2);
+	public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null): bool {
+		return (bool) $this->_execute($template, $cache_id, $compile_id, $parent, 2);
 	}
 
 	/**

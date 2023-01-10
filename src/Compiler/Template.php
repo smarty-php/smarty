@@ -473,7 +473,7 @@ class Template extends BaseCompiler {
 	public function compileTag($tag, $args, $parameter = []) {
 		$this->prefixCodeStack[] = $this->prefix_code;
 		$this->prefix_code = [];
-		$result = $this->compileTag2($tag, $args, $parameter);
+		$result = $this->compileTag2(strtolower($tag), $args, $parameter);
 		$this->prefix_code = array_merge($this->prefix_code, array_pop($this->prefixCodeStack));
 		return $result;
 	}
