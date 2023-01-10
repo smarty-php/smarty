@@ -16,7 +16,7 @@ class BCPluginWrapper extends Base {
 
 	public function handle($params, Template $template) {
 		$func = $this->callback;
-		return $func($params, $template->smarty);
+		return $func($params, $template);
 	}
 
 }
