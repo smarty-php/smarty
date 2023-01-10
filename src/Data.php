@@ -304,6 +304,15 @@ abstract class Data
 		return new UndefinedVariable;
 	}
 
+	/**
+	 * Returns the value of the Smarty\Variable given by $varName, or null if the variable does not exist.
+	 * @return mixed|null
+	 */
+	public function getValue($varName) {
+		$variable = $this->_getVariable($varName);
+		return isset($variable) ? $variable->getValue() : null;
+	}
+
     /**
      * Follow the parent chain an merge template and config variables
      *

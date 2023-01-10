@@ -199,7 +199,7 @@ class TemplateParser
      *
      * @return Tag
      */
-    public function mergePrefixCode($code)
+    private function mergePrefixCode($code)
     {
         $tmp = '';
         foreach ($this->compiler->prefix_code as $preCode) {
@@ -626,6 +626,16 @@ expr(res)        ::= ternary(v). {
     res = v;
 }
 
+		// ++$a / --$a
+expr(res)	::= INCDEC(i2) DOLLARID(i). {
+	res = '$_smarty_tpl->_getVariable(\''. substr(i,1) .'\')->preIncDec(\'' . i2 . '\')';
+}
+
+		// $a++ / $a--
+expr(res)	::= DOLLARID(i) INCDEC(i2). {
+	res = '$_smarty_tpl->_getVariable(\''. substr(i,1) .'\')->postIncDec(\'' . i2 . '\')';
+}
+
                  // resources/streams
 expr(res)        ::= DOLLARID(i) COLON ID(i2). {
     res = '$_smarty_tpl->getStreamVariable(\''.substr(i,1).'://' . i2 . '\')';
@@ -839,7 +849,7 @@ variable(res)    ::= varindexed(vi). {
 
                   // variable with property
 variable(res)    ::= varvar(v) AT ID(p). {
-    res = '$_smarty_tpl->tpl_vars['. v .']->'.p;
+    res = '$_smarty_tpl->_getVariable('. v .')->'.p;
 }
 
                   // object
@@ -1260,7 +1270,7 @@ doublequotedcontent(res)           ::=  BACKTICK expr(e) BACKTICK. {
 }
 
 doublequotedcontent(res)           ::=  DOLLARID(i). {
-    res = new Code('(string)$_smarty_tpl->tpl_vars[\''. substr(i,1) .'\']->value');
+    res = new Code('(string)$_smarty_tpl->getValue(\''. substr(i,1) .'\')');
 }
 
 doublequotedcontent(res)           ::=  LDEL variable(v) RDEL. {

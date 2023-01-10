@@ -514,7 +514,7 @@ class Template extends BaseCompiler {
 					false
 				)->nocache;
 		}
-		return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';
+		return '$_smarty_tpl->getValue(' . $variable . ')';
 	}
 
 	/**
@@ -754,20 +754,6 @@ class Template extends BaseCompiler {
 	public function getId($input) {
 		if (preg_match('~^([\'"]*)([0-9]*[a-zA-Z_]\w*)\1$~', $input, $match)) {
 			return $match[2];
-		}
-		return false;
-	}
-
-	/**
-	 * Get variable name from string
-	 *
-	 * @param string $input
-	 *
-	 * @return bool|string
-	 */
-	public function getVariableName($input) {
-		if (preg_match('~^[$]_smarty_tpl->tpl_vars\[[\'"]*([0-9]*[a-zA-Z_]\w*)[\'"]*\]->value$~', $input, $match)) {
-			return $match[1];
 		}
 		return false;
 	}

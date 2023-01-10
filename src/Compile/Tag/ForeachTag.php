@@ -88,14 +88,14 @@ class ForeachTag extends ForeachSection {
 		$from = $_attr['from'];
 		$item = $compiler->getId($_attr['item']);
 		if ($item === false) {
-			$item = $compiler->getVariableName($_attr['item']);
+			$item = $this->getVariableName($_attr['item']);
 		}
 		$key = $name = null;
 		$attributes = ['item' => $item];
 		if (isset($_attr['key'])) {
 			$key = $compiler->getId($_attr['key']);
 			if ($key === false) {
-				$key = $compiler->getVariableName($_attr['key']);
+				$key = $this->getVariableName($_attr['key']);
 			}
 			$attributes['key'] = $key;
 		}
@@ -108,7 +108,7 @@ class ForeachTag extends ForeachSection {
 				$compiler->trigger_template_error("'{$a}' attribute/variable has illegal value", null, true);
 			}
 		}
-		$fromName = $compiler->getVariableName($_attr['from']);
+		$fromName = $this->getVariableName($_attr['from']);
 		if ($fromName) {
 			foreach (['item', 'key'] as $a) {
 				if (isset($attributes[$a]) && $attributes[$a] === $fromName) {
@@ -249,6 +249,22 @@ class ForeachTag extends ForeachSection {
 		}
 		$output .= '?>';
 		return $output;
+	}
+
+	/**
+	 * Get variable name from string
+	 *
+	 * @param string $input
+	 *
+	 * @return bool|string
+	 *
+	 * @TODO: this may no longer work if we add a getter for tpl_vars, recheck this!
+	 */
+	private function getVariableName($input) {
+		if (preg_match('~^[$]_smarty_tpl->tpl_vars\[[\'"]*([0-9]*[a-zA-Z_]\w*)[\'"]*\]->value$~', $input, $match)) {
+			return $match[1];
+		}
+		return false;
 	}
 
 	/**

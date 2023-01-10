@@ -165,7 +165,7 @@ class CompileIfTest extends PHPUnit_Smarty
         $this->smarty->assign($var, $value, true);
         $this->smarty->assign($var . '2', $value);
         $this->assertEquals($result, $this->strip($this->smarty->fetch('run_code_caching.tpl')),
-                            "testIfNocahe - {$code} - {$testName}");
+                            "testIfNocache - {$code} - {$testName}");
     }
 
     /*

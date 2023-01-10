@@ -1017,7 +1017,7 @@ class Smarty extends \Smarty\TemplateBase
         $tpl = new \Smarty\Template($template, $this, null, $cache_id, $compile_id, null, null);
         $tpl->templateId = $_templateId;
 
-        $tpl->parent = $parent ? $parent : $this;
+        $tpl->parent = $parent ?: $this;
         // fill data if present
         if (!empty($data) && is_array($data)) {
             // set up variable values
