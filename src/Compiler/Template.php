@@ -512,7 +512,7 @@ class Template extends BaseCompiler {
 					null,
 					true,
 					false
-				)->nocache;
+				)->isNocache();
 		}
 		return '$_smarty_tpl->getValue(' . $variable . ')';
 	}
