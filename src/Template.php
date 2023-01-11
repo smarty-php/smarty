@@ -693,9 +693,9 @@ class Template extends TemplateBase {
 	/**
 	 * @inheritdoc
 	 */
-	protected function _loadConfigfile($config_file, $sections = null)
+	public function configLoad($config_file, $sections = null)
 	{
-		$confObj = parent::_loadConfigfile($config_file, $sections);
+		$confObj = parent::configLoad($config_file, $sections);
 
 		$this->compiled->file_dependency[ $confObj->source->uid ] =
 			array($confObj->source->filepath, $confObj->source->getTimeStamp(), $confObj->source->type);

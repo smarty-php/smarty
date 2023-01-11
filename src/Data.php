@@ -2,6 +2,8 @@
 
 namespace Smarty;
 
+use Smarty\Template\Config;
+
 /**
  * Smarty Internal Plugin Data
  * This file contains the basic properties and methods for holding config and template variables
@@ -247,27 +249,24 @@ abstract class Data
 	 *
 	 * @param array $new_config_vars
 	 */
-	public function assignConfigVars($new_config_vars) {
+	public function assignConfigVars($new_config_vars, array $sections = []) {
 
 		// copy global config vars
 		foreach ($new_config_vars['vars'] as $variable => $value) {
-			if ($this->smarty->config_overwrite || !isset($this->config_vars[$variable])) {
+			if ($this->_getSmartyObj()->config_overwrite || !isset($this->config_vars[$variable])) {
 				$this->config_vars[$variable] = $value;
 			} else {
 				$this->config_vars[$variable] = array_merge((array)$this->config_vars[$variable], (array)$value);
 			}
 		}
-		// scan sections
-		$sections = $this->source->config_sections;
-		if (!empty($sections)) {
-			foreach ((array)$sections as $tpl_section) {
-				if (isset($new_config_vars['sections'][$tpl_section])) {
-					foreach ($new_config_vars['sections'][$tpl_section]['vars'] as $variable => $value) {
-						if ($this->smarty->config_overwrite || !isset($this->config_vars[$variable])) {
-							$this->config_vars[$variable] = $value;
-						} else {
-							$this->config_vars[$variable] = array_merge((array)$this->config_vars[$variable], (array)$value);
-						}
+
+		foreach ($sections as $tpl_section) {
+			if (isset($new_config_vars['sections'][$tpl_section])) {
+				foreach ($new_config_vars['sections'][$tpl_section]['vars'] as $variable => $value) {
+					if ($this->_getSmartyObj()->config_overwrite || !isset($this->config_vars[$variable])) {
+						$this->config_vars[$variable] = $value;
+					} else {
+						$this->config_vars[$variable] = array_merge((array)$this->config_vars[$variable], (array)$value);
 					}
 				}
 			}
@@ -387,46 +386,26 @@ abstract class Data
 	/**
 	 * load a config file, optionally load just selected sections
 	 *
-	 * @param string                                                  $config_file filename
-	 * @param mixed                                                   $sections    array of section names, single
-	 *                                                                             section or null
-	 *
-	 * @return $this
-	 * @throws \Exception
-	 *@api  Smarty::configLoad()
-	 * @link https://www.smarty.net/docs/en/api.config.load.tpl
-	 *
-	 */
-	public function configLoad($config_file, $sections = null)
-	{
-		$this->_loadConfigfile($config_file, $sections);
-		return $this;
-	}
-
-	/**
-	 * load a config file, optionally load just selected sections
-	 *
 	 * @param string $config_file filename
 	 * @param mixed                                                   $sections    array of section names, single
 	 *                                                                             section or null
 
-	 * @returns Template
+	 * @returns $this
 	 * @throws \Exception
 	 * @link https://www.smarty.net/docs/en/api.config.load.tpl
 	 *
 	 * @api  Smarty::configLoad()
 	 */
-	protected function _loadConfigfile($config_file, $sections = null)
+	public function configLoad($config_file, $sections = null)
 	{
 		$smarty = $this->_getSmartyObj();
-
-		$confObj = new Template($config_file, $smarty, $this, null, null, null, null, true);
-		$confObj->caching = Smarty::CACHING_OFF;
-		$confObj->source->config_sections = $sections;
-		$confObj->compiled = \Smarty\Template\Compiled::load($confObj);
-		$confObj->compiled->render($confObj);
-		return $confObj;
+		$template = new Template($config_file, $smarty, $this, null, null, null, null, true);
+		$template->caching = Smarty::CACHING_OFF;
+		$template->assign('sections', (array) $sections ?? []);
+		// trigger a call to $this->assignConfigVars
+		$template->compiled = \Smarty\Template\Compiled::load($template);
+		$template->compiled->render($template);
+		return $this;
 	}
-
 
 }

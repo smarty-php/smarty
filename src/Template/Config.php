@@ -15,13 +15,6 @@ use Smarty\Exception;
 class Config extends Source {
 
 	/**
-	 * array of section names, single section or null
-	 *
-	 * @var null|string|array
-	 */
-	public $config_sections = null;
-
-	/**
 	 * Flag that source is a config file
 	 *
 	 * @var bool
