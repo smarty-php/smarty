@@ -17,7 +17,7 @@
         var         string     Yes       *n/a*   The name of the variable being assigned
        value        string     Yes       *n/a*   The value being assigned
        index        string      No       *n/a*   The index for the new array element. If not specified the value is append to the end of the array.
-       scope        string      No       *n/a*   The scope of the assigned variable: \'parent\',\'root\' or \'global\'
+       scope        string      No       *n/a*   The scope of the assigned variable: \'parent\',\'root\' or \'smarty\'
 
 **Option Flags:**
 

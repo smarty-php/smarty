@@ -20,7 +20,7 @@ use Smarty\Template;
 function smarty_function_checkvar($params, \Smarty\Template $template)
 {
     $output = '';
-    $types = array('template', 'data', 'smarty', 'global');
+    $types = ['template', 'data', 'global'];
     if (isset($params['types'])) {
         $types = (array)$params['types'];
     }
@@ -45,15 +45,10 @@ function smarty_function_checkvar($params, \Smarty\Template $template)
             $ptr = null;
         }
     }
-    if (in_array('smarty', $types)) {
-        $output .= "#Smarty:\${$var} =";
-        $output .= $template->smarty->hasVariable($var) ?
-            preg_replace('/\s/', '', var_export($template->smarty->getValue($var), true)) : '>unassigned<';
-    }
     if (in_array('global', $types)) {
         $output .= "#global:\${$var} =";
-        $output .= $template->_getSmartyObj()->getGlobalVariable($var) ?
-            preg_replace('/\s/', '', var_export($template->_getSmartyObj()->getGlobalVariable($var)->getValue(), true)) : '>unassigned<';
+        $output .= $template->smarty->hasVariable($var) ?
+            preg_replace('/\s/', '', var_export($template->smarty->getValue($var), true)) : '>unassigned<';
     }
     return $output;
 }

@@ -125,7 +125,7 @@ class Compiled extends ResourceBase {
 	 *
 	 * @throws Exception
 	 */
-	public function process(Template $_smarty_tpl) {
+	private function process(Template $_smarty_tpl) {
 		$source = &$_smarty_tpl->source;
 		$smarty = &$_smarty_tpl->smarty;
 		if ($source->handler->recompiled) {

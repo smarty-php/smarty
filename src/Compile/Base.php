@@ -238,9 +238,13 @@ abstract class Base implements CompilerInterface {
 	protected function convertScope($_attr, $invalidScopes = []): int {
 
 		static $scopes = [
-			'local'    => Data::SCOPE_LOCAL, 'parent' => Data::SCOPE_PARENT,
-			'root'     => Data::SCOPE_ROOT, 'global' => Data::SCOPE_GLOBAL,
-			'tpl_root' => Data::SCOPE_TPL_ROOT, 'smarty' => Data::SCOPE_SMARTY
+			'local'    => Data::SCOPE_LOCAL,    // current scope
+			'parent' => Data::SCOPE_PARENT,     // parent scope (definition unclear)
+			'tpl_root' => Data::SCOPE_TPL_ROOT, // highest template (keep going up until parent is not a template)
+			'root'     => Data::SCOPE_ROOT,     // highest scope (definition unclear)
+			'global' => Data::SCOPE_GLOBAL,     // smarty object
+
+			'smarty' => Data::SCOPE_SMARTY,     // @deprecated alias of 'global'
 		];
 
 		if (!isset($_attr['scope'])) {

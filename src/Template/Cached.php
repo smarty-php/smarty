@@ -218,7 +218,7 @@ class Cached extends ResourceBase {
 	 * @param Template $_template template object
 	 * @param bool $update flag if called because cache update
 	 */
-	public function process(Template $_template, $update = false) {
+	private function process(Template $_template, $update = false) {
 		if ($this->handler->process($_template, $this, $update) === false) {
 			$this->valid = false;
 		}
@@ -281,7 +281,7 @@ class Cached extends ResourceBase {
 	 *
 	 * @throws \Smarty\Exception
 	 */
-	public function updateCache(Template $_template, $no_output_filter) {
+	private function updateCache(Template $_template, $no_output_filter) {
 		ob_start();
 		if (!isset($_template->compiled)) {
 			$_template->loadCompiled();

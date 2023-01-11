@@ -93,13 +93,6 @@ abstract class ResourceBase {
 	public $isCache = false;
 
 	/**
-	 * Process resource
-	 *
-	 * @param Template $_template template object
-	 */
-	abstract public function process(Template $_template);
-
-	/**
 	 * get rendered template content by calling compiled or cached template code
 	 *
 	 * @param \Smarty\Template $_template

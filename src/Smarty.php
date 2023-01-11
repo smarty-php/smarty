@@ -972,23 +972,23 @@ class Smarty extends \Smarty\TemplateBase
      * @param mixed   $cache_id   cache id to be used with this template
      * @param mixed   $compile_id compile id to be used with this template
      * @param object  $parent     next higher level of Smarty variables
-     * @param boolean $do_clone   flag is template object shall be cloned
      *
      * @return \Smarty\Template template object
      * @throws \Smarty\Exception
      */
-    public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null, $do_clone = true)
+    public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
     {
-        if ($cache_id !== null && (is_object($cache_id) || is_array($cache_id))) {
+        if ((is_object($cache_id) || is_array($cache_id))) {
             $parent = $cache_id;
             $cache_id = null;
         }
-        if ($parent !== null && is_array($parent)) {
+        if (is_array($parent)) {
             $data = $parent;
             $parent = null;
         } else {
             $data = null;
         }
+
         if (!$this->_templateDirNormalized) {
             $this->_normalizeTemplateConfig(false);
         }
@@ -1005,6 +1005,9 @@ class Smarty extends \Smarty\TemplateBase
                 $tpl->assign($_key, $_val);
             }
         }
+
+	    $tpl->tplFunctions = array_merge($parent->tplFunctions ?? [], $tpl->tplFunctions ?? []);
+
 	    if (!$this->debugging && $this->debugging_ctrl === 'URL') {
 	        $tpl->smarty->getDebug()->debugUrl($tpl->smarty);
 	    }
@@ -2197,50 +2200,18 @@ class Smarty extends \Smarty\TemplateBase
 	}
 
 	/**
-	 * Sets a global variable, available in all templates
-	 *
-	 * @param string $varName
-	 * @param Variable $param
-	 *
-	 * @return void
-	 */
-	public function setGlobalVariable(string $varName, Variable $param) {
-		$this->global_tpl_vars[$varName] = $param;
-	}
-
-	/**
-	 * Returns all global variables
-	 *
-	 * @return array
-	 */
-	public function getAllGlobalTemplateVars() {
-		return $this->global_tpl_vars;
-	}
-
-	/**
-	 * Returns a single global variable, or null if not found.
-	 * @param string $varName
-	 *
-	 * @return Variable|null
-	 */
-	public function getGlobalVariable(string $varName): ?Variable {
-		return $this->global_tpl_vars[$varName] ?? null;
-	}
-
-	/**
 	 * fetches a rendered Smarty template
 	 *
 	 * @param string $template the resource handle of the template file or template object
 	 * @param mixed $cache_id cache id to be used with this template
 	 * @param mixed $compile_id compile id to be used with this template
-	 * @param object $parent next higher level of Smarty variables
 	 *
 	 * @return string rendered template output
 	 * @throws Exception
 	 * @throws Exception
 	 */
-	public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null) {
-		return $this->returnOrCreateTemplate($template)->fetch($cache_id, $compile_id, $parent);
+	public function fetch($template = null, $cache_id = null, $compile_id = null) {
+		return $this->returnOrCreateTemplate($template, $cache_id, $compile_id)->fetch();
 	}
 
 	/**
@@ -2249,13 +2220,12 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param string $template the resource handle of the template file or template object
 	 * @param mixed $cache_id cache id to be used with this template
 	 * @param mixed $compile_id compile id to be used with this template
-	 * @param object $parent next higher level of Smarty variables
 	 *
 	 * @throws \Exception
 	 * @throws \Smarty\Exception
 	 */
-	public function display($template = null, $cache_id = null, $compile_id = null, $parent = null) {
-		return $this->returnOrCreateTemplate($template)->display($cache_id, $compile_id, $parent);
+	public function display($template = null, $cache_id = null, $compile_id = null) {
+		return $this->returnOrCreateTemplate($template, $cache_id, $compile_id)->display();
 	}
 
 	/**
@@ -2265,7 +2235,6 @@ class Smarty extends \Smarty\TemplateBase
 	 *                                                          object
 	 * @param mixed $cache_id cache id to be used with this template
 	 * @param mixed $compile_id compile id to be used with this template
-	 * @param object $parent next higher level of Smarty variables
 	 *
 	 * @return bool cache status
 	 * @throws \Exception
@@ -2274,8 +2243,8 @@ class Smarty extends \Smarty\TemplateBase
 	 *
 	 * @api  Smarty::isCached()
 	 */
-	public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null) {
-		return $this->returnOrCreateTemplate($template)->isCached($cache_id, $compile_id, $parent);
+	public function isCached($template = null, $cache_id = null, $compile_id = null) {
+		return $this->returnOrCreateTemplate($template, $cache_id, $compile_id)->isCached();
 	}
 
 	/**
@@ -2287,9 +2256,9 @@ class Smarty extends \Smarty\TemplateBase
 	 * @return Template
 	 * @throws Exception
 	 */
-	private function returnOrCreateTemplate($template, $cache_id = null, $compile_id = null, $parent = null) {
+	private function returnOrCreateTemplate($template, $cache_id = null, $compile_id = null) {
 		if (!($template instanceof Template)) {
-			$template = $this->createTemplate($template, $cache_id, $compile_id, $parent ?: $this, false);
+			$template = $this->createTemplate($template, $cache_id, $compile_id, $this);
 			$template->caching = $this->caching;
 		}
 		return $template;

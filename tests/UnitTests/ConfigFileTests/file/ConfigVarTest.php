@@ -181,7 +181,8 @@ class ConfigVarTest extends PHPUnit_Smarty
     {
         $data = $this->smarty->createData();
         $data->configLoad('test.conf');
-        $this->assertEquals("123bvc", $this->smarty->fetch('text.tpl', $data));
+        $tpl = $this->smarty->createTemplate('text.tpl', $data);
+        $this->assertEquals("123bvc", $this->smarty->fetch($tpl));
     }
 
     /**

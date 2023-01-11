@@ -164,7 +164,7 @@ class InheritanceRuntime {
 	 *
 	 * @throws Exception
 	 */
-	public function process(
+	private function process(
 		Template              $tpl,
 		\Smarty\Runtime\Block $block,
 		\Smarty\Runtime\Block $parent = null

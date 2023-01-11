@@ -292,27 +292,6 @@ class Debug extends Data
                 }
             }
             $config_vars = array_merge($parent->config_vars, $config_vars);
-        } else {
-            foreach ($this->_getSmartyObj()->getAllGlobalTemplateVars() as $key => $var) {
-                if (!array_key_exists($key, $tpl_vars)) {
-                    foreach ($var as $varkey => $varvalue) {
-                        if ($varkey === 'value') {
-                            $tpl_vars[ $key ][ $varkey ] = $varvalue;
-                        } else {
-                            if ($varkey === 'nocache') {
-                                if ($varvalue === true) {
-                                    $tpl_vars[ $key ][ $varkey ] = $varvalue;
-                                }
-                            } else {
-                                if ($varkey !== 'scope' || $varvalue !== 0) {
-                                    $tpl_vars[ $key ][ 'attributes' ][ $varkey ] = $varvalue;
-                                }
-                            }
-                        }
-                    }
-                    $tpl_vars[ $key ][ 'scope' ] = 'Global';
-                }
-            }
         }
         return (object)array('tpl_vars' => $tpl_vars, 'config_vars' => $config_vars);
     }

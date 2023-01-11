@@ -693,7 +693,7 @@ class Template extends TemplateBase {
 	/**
 	 * @inheritdoc
 	 */
-	public function _loadConfigfile($config_file, $sections = null)
+	protected function _loadConfigfile($config_file, $sections = null)
 	{
 		$confObj = parent::_loadConfigfile($config_file, $sections);
 
@@ -703,13 +703,13 @@ class Template extends TemplateBase {
 		return $confObj;
 	}
 
-	public function fetch($cache_id = null, $compile_id = null, $parent = null) {
-		$result = $this->_execute($cache_id, $compile_id, $parent, 0);
+	public function fetch() {
+		$result = $this->_execute(0);
 		return $result === null ? ob_get_clean() : $result;
 	}
 
-	public function display($cache_id = null, $compile_id = null, $parent = null) {
-		$this->_execute($cache_id, $compile_id, $parent, 1);
+	public function display() {
+		$this->_execute(1);
 	}
 
 	/**
@@ -726,23 +726,20 @@ class Template extends TemplateBase {
 	 *
 	 * @api  Smarty::isCached()
 	 */
-	public function isCached($template = null, $cache_id = null, $compile_id = null, $parent = null): bool {
-		return (bool) $this->_execute($template, $cache_id, $compile_id, $parent, 2);
+	public function isCached(): bool {
+		return (bool) $this->_execute(2);
 	}
 
 	/**
 	 * fetches a rendered Smarty template
 	 *
-	 * @param mixed $cache_id cache id to be used with this template
-	 * @param mixed $compile_id compile id to be used with this template
-	 * @param object $parent next higher level of Smarty variables
 	 * @param string $function function type 0 = fetch,  1 = display, 2 = isCache
 	 *
 	 * @return mixed
-	 * @throws \Exception
-	 * @throws \Smarty\Exception|\Throwable
+	 * @throws Exception
+	 * @throws \Throwable
 	 */
-	private function _execute($cache_id, $compile_id, $parent, $function) {
+	private function _execute($function) {
 
 		$smarty = $this->_getSmartyObj();
 
@@ -758,8 +755,6 @@ class Template extends TemplateBase {
 				$errorHandler = new \Smarty\ErrorHandler();
 				$errorHandler->activate();
 			}
-
-			$this->tplFunctions = array_merge($parent->tplFunctions ?? [], $this->tplFunctions ?? []);
 
 			if ($function === 2) {
 				if ($this->caching) {

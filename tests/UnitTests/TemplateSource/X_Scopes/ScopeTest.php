@@ -37,15 +37,16 @@ class ScopeTest extends PHPUnit_Smarty
     {
         $file = "testAppendScope_{$testNumber}.tpl";
         $this->makeTemplateFile($file, $code . '{checkvar var=foo}');
-        $this->smarty->assignGlobal('file', $file);
-        $this->smarty->assign('foo', 'smarty');
-        $this->smarty->assignGlobal('foo', 'global');
+        $this->smarty->assign('file', $file);
+        $this->smarty->assign('foo', 'global');
         $data1 = $this->smarty->createData($useSmarty ? $this->smarty : null);
         $data = $this->smarty->createData($data1);
         $data1->assign('foo', 'data1');
         $data->assign('foo', 'data');
-        $this->assertEquals($result, $this->smarty->fetch('scope_tag.tpl', $data),
-                            "test - {$code} - {$testName}");
+
+        $tpl = $this->smarty->createTemplate('scope_tag.tpl', $data);
+
+        $this->assertEquals($result, $this->smarty->fetch($tpl),"test - {$code} - {$testName}");
     }
 
     /**
@@ -60,18 +61,53 @@ class ScopeTest extends PHPUnit_Smarty
          * result
          * test name
          */
-        return array(array('{$foo[] = \'newvar\' scope=tpl_root}', true,
-                           '#testAppendScope_0.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#scope_include.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#scope_tag.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#data:$foo =\'data\'#data:$foo =\'data1\'#Smarty:$foo =\'smarty\'#global:$foo =\'global\'',
-                           '', $i ++,),
-                     array('{append var=foo value=\'newvar\' scope=tpl_root}', true,
-                                              '#testAppendScope_1.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#scope_include.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#scope_tag.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#data:$foo =\'data\'#data:$foo =\'data1\'#Smarty:$foo =\'smarty\'#global:$foo =\'global\'',
-                                              '', $i ++,),
-                     array('{append var=foo value=\'newvar\' scope=global}', true,
-                                                                 '#testAppendScope_2.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#scope_include.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#scope_tag.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#data:$foo =\'data\'#data:$foo =\'data1\'#Smarty:$foo =\'smarty\'#global:$foo =array(0=>\'data\',1=>\'newvar\',)',
-                                                                 '', $i ++,),
-                     array('{append var=foo value=\'newvar\' scope=smarty}', true,
-                           '#testAppendScope_3.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#scope_include.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#scope_tag.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)#data:$foo =\'data\'#data:$foo =\'data1\'#Smarty:$foo =array(0=>\'data\',1=>\'newvar\',)#global:$foo =\'global\'',
-                           '', $i ++,),);
+        return [
+            [
+                '{$foo[] = \'newvar\' scope=tpl_root}',
+                true,
+                '#testAppendScope_0.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)' .
+                '#scope_include.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)' .
+                '#scope_tag.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)' .
+                '#data:$foo =\'data\'' .
+                '#data:$foo =\'data1\'' .
+                '#global:$foo =\'global\'',
+                '',
+                $i++,
+            ],
+            [
+                '{append var=foo value=\'newvar\' scope=tpl_root}', true,
+                '#testAppendScope_1.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)' .
+                '#scope_include.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)' .
+                '#scope_tag.tpl:$foo =array(0=>\'data\',1=>\'newvar\',)' .
+                '#data:$foo =\'data\'' .
+                '#data:$foo =\'data1\'' .
+                '#global:$foo =\'global\'',
+                '',
+                $i++,
+            ],
+            [
+                '{append var=foo value=\'newvar\' scope=global}', true,
+                '#testAppendScope_2.tpl:$foo =\'data\'' .
+                '#scope_include.tpl:$foo =\'data\'' .
+                '#scope_tag.tpl:$foo =\'data\'' .
+                '#data:$foo =\'data\'' .
+                '#data:$foo =\'data1\'' .
+                '#global:$foo =array(0=>\'data\',1=>\'newvar\',)',
+                '',
+                $i++,
+            ],
+            [
+                '{append var=foo value=\'newvar\' scope=smarty}', true,
+                '#testAppendScope_3.tpl:$foo =\'data\'' .
+                '#scope_include.tpl:$foo =\'data\'' .
+                '#scope_tag.tpl:$foo =\'data\'' .
+                '#data:$foo =\'data\'' .
+                '#data:$foo =\'data1\'' .
+                '#global:$foo =array(0=>\'data\',1=>\'newvar\',)',
+                '',
+                $i++,
+            ],
+        ];
     }
 
     /**
@@ -87,8 +123,10 @@ class ScopeTest extends PHPUnit_Smarty
         $this->smarty->assignGlobal('foo', 'global');
         $data = $this->smarty->createData($useSmarty ? $this->smarty : null);
         $data->assign('foo', 'data');
-        $this->assertEquals('#' . $file . $result,
-                            $this->smarty->fetch('scope_tag.tpl', $data), "test - {$code} - {$testName}");
+
+        $tpl = $this->smarty->createTemplate('scope_tag.tpl', $data);
+
+        $this->assertEquals('#' . $file . $result, $this->smarty->fetch($tpl), "test - {$code} - {$testName}");
     }
 
     /*
@@ -186,8 +224,8 @@ class ScopeTest extends PHPUnit_Smarty
         if (!$useSmarty) {
             $testName .= 'no smarty';
         }
-        $this->assertEquals($result, $this->smarty->fetch('test_scope.tpl', $data),
-                            "test - {$code} - {$testName}");
+        $tpl = $this->smarty->createTemplate('test_scope.tpl', $data);
+        $this->assertEquals($result, $this->smarty->fetch($tpl), "test - {$code} - {$testName}");
     }
 
     /*
@@ -251,8 +289,12 @@ class ScopeTest extends PHPUnit_Smarty
         $this->smarty->configLoad('smarty.conf');
         $data = $this->smarty->createData($useSmarty ? $this->smarty : null);
         $data->configLoad('data.conf');
-        $this->assertEquals('#' . $file . $result,
-                            $this->smarty->fetch('scope_tag.tpl', $data), "test - {$code} - {$testName}");
+        $tpl = $this->smarty->createTemplate('scope_tag.tpl', $data);
+        $this->assertEquals(
+            '#' . $file . $result,
+            $this->smarty->fetch($tpl),
+            "test - {$code} - {$testName}
+        ");
     }
 
     /*

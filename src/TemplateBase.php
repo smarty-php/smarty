@@ -434,48 +434,6 @@ abstract class TemplateBase extends Data {
 		return $this;
 	}
 
-	/**
-	 * load a config file, optionally load just selected sections
-	 *
-	 * @param string                                                  $config_file filename
-	 * @param mixed                                                   $sections    array of section names, single
-	 *                                                                             section or null
-	 *
-	 * @return $this
-	 * @throws \Exception
-	 *@api  Smarty::configLoad()
-	 * @link https://www.smarty.net/docs/en/api.config.load.tpl
-	 *
-	 */
-	public function configLoad($config_file, $sections = null)
-	{
-		$this->_loadConfigfile($config_file, $sections);
-		return $this;
-	}
 
-	/**
-	 * load a config file, optionally load just selected sections
-	 *
-	 * @param string $config_file filename
-	 * @param mixed                                                   $sections    array of section names, single
-	 *                                                                             section or null
-
-	 * @returns Template
-	 * @throws \Exception
-	 * @link https://www.smarty.net/docs/en/api.config.load.tpl
-	 *
-	 * @api  Smarty::configLoad()
-	 */
-	public function _loadConfigfile($config_file, $sections = null)
-	{
-		$smarty = $this->_getSmartyObj();
-
-		$confObj = new Template($config_file, $smarty, $this, null, null, null, null, true);
-		$confObj->caching = Smarty::CACHING_OFF;
-		$confObj->source->config_sections = $sections;
-		$confObj->compiled = \Smarty\Template\Compiled::load($confObj);
-		$confObj->compiled->render($confObj);
-		return $confObj;
-	}
 
 }

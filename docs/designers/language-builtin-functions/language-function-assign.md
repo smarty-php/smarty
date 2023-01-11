@@ -21,7 +21,7 @@ execution of a template**.
   ---------------- -------- ---------- --------- -----------------------------------------------------------------------
         var         string     Yes       *n/a*   The name of the variable being assigned
        value        string     Yes       *n/a*   The value being assigned
-       scope        string      No       *n/a*   The scope of the assigned variable: \'parent\',\'root\' or \'global\'
+       scope        string      No       *n/a*   The scope of the assigned variable: \'parent\',\'root\' or \'smarty\'
 
 **Option Flags:**
 

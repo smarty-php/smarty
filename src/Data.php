@@ -72,6 +72,12 @@ abstract class Data
 				$this->_getSmartyObj()->assign($tpl_var, $value);
 				break;
 			case self::SCOPE_TPL_ROOT:
+				$ptr = $this;
+				while (isset($ptr->parent) && ($ptr->parent instanceof Template)) {
+					$ptr = $ptr->parent;
+				}
+				$ptr->assign($tpl_var, $value);
+				break;
 			case self::SCOPE_ROOT:
 				$ptr = $this;
 				while (isset($ptr->parent) && !($ptr->parent instanceof Smarty)) {
@@ -82,6 +88,9 @@ abstract class Data
 			case self::SCOPE_PARENT:
 				if ($this->parent) {
 					$this->parent->assign($tpl_var, $value);
+				} else {
+					// assign local as fallback
+					$this->assign($tpl_var, $value);
 				}
 				break;
 			default:
@@ -376,21 +385,48 @@ abstract class Data
 	}
 
 	/**
-	 * Returns a single or all global  variables
+	 * load a config file, optionally load just selected sections
 	 *
-	 * @api Smarty::getGlobal()
+	 * @param string                                                  $config_file filename
+	 * @param mixed                                                   $sections    array of section names, single
+	 *                                                                             section or null
 	 *
-	 * @param string                $varName variable name or null
+	 * @return $this
+	 * @throws \Exception
+	 *@api  Smarty::configLoad()
+	 * @link https://www.smarty.net/docs/en/api.config.load.tpl
 	 *
-	 * @return string|array variable value or or array of variables
-	 *
-	 * @deprecated since 5.0
 	 */
-	public function getGlobal($varName = null)
+	public function configLoad($config_file, $sections = null)
 	{
-		trigger_error(__METHOD__ . " is deprecated. Use \\Smarty\\Smarty::getValue() to retrieve a variable " .
-			" at the Smarty level.", E_USER_DEPRECATED);
-		return $this->_getSmartyObj()->getValue($varName);
+		$this->_loadConfigfile($config_file, $sections);
+		return $this;
 	}
+
+	/**
+	 * load a config file, optionally load just selected sections
+	 *
+	 * @param string $config_file filename
+	 * @param mixed                                                   $sections    array of section names, single
+	 *                                                                             section or null
+
+	 * @returns Template
+	 * @throws \Exception
+	 * @link https://www.smarty.net/docs/en/api.config.load.tpl
+	 *
+	 * @api  Smarty::configLoad()
+	 */
+	protected function _loadConfigfile($config_file, $sections = null)
+	{
+		$smarty = $this->_getSmartyObj();
+
+		$confObj = new Template($config_file, $smarty, $this, null, null, null, null, true);
+		$confObj->caching = Smarty::CACHING_OFF;
+		$confObj->source->config_sections = $sections;
+		$confObj->compiled = \Smarty\Template\Compiled::load($confObj);
+		$confObj->compiled->render($confObj);
+		return $confObj;
+	}
+
 
 }
