@@ -70,7 +70,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testUsesCompiler()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->source->handler->uncompiled);
+	    $this->markTestIncomplete();
     }
 
     /**

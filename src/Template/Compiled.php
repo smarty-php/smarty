@@ -5,15 +5,10 @@ namespace Smarty\Template;
 use Smarty\Template;
 
 /**
- * Smarty Resource Data Object
- * Meta Data Container for Template Files
- *
-
-
+ * Represents a compiled version of a template or config file.
  * @author     Rodney Rehm
- * @property   string $content compiled content
  */
-class Compiled extends ResourceBase {
+class Compiled extends GeneratedPhpFile {
 
 	/**
 	 * nocache hash
@@ -21,6 +16,15 @@ class Compiled extends ResourceBase {
 	 * @var string|null
 	 */
 	public $nocache_hash = null;
+
+	/**
+	 * Included sub templates
+	 * - index name
+	 * - value use count
+	 *
+	 * @var int[]
+	 */
+	public $includes = [];
 
 	/**
 	 * get a Compiled Object of this source
@@ -105,11 +109,9 @@ class Compiled extends ResourceBase {
 			$_template->cached->file_dependency =
 				array_merge($_template->cached->file_dependency, $this->file_dependency);
 		}
-		if ($_template->source->handler->uncompiled) {
-			$_template->source->handler->renderUncompiled($_template->source, $_template);
-		} else {
-			$this->getRenderedTemplateCode($_template);
-		}
+
+		$_template->getRenderedTemplateCode($this->unifunc);
+
 		if ($_template->caching && $this->has_nocache_code) {
 			$_template->cached->hashes[$this->nocache_hash] = true;
 		}
@@ -130,7 +132,7 @@ class Compiled extends ResourceBase {
 		$smarty = &$_smarty_tpl->smarty;
 		if ($source->handler->recompiled) {
 			$source->handler->process($_smarty_tpl);
-		} elseif (!$source->handler->uncompiled) {
+		} else {
 			if (!$this->exists || $smarty->force_compile
 				|| ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
 			) {
@@ -222,12 +224,12 @@ class Compiled extends ResourceBase {
 		if (!$_template->source->handler->recompiled) {
 			return file_get_contents($this->filepath);
 		}
-		return isset($this->content) ? $this->content : false;
+		return false;
 	}
 
 	/**
 	 * Load fresh compiled template by including the PHP file
-	 * HHVM requires a work around because of a PHP incompatibility
+	 * HHVM requires a workaround because of a PHP incompatibility
 	 *
 	 * @param \Smarty\Template $_smarty_tpl do not change variable name, is used by compiled template
 	 */
@@ -245,4 +247,5 @@ class Compiled extends ResourceBase {
 			include $this->filepath;
 		}
 	}
+
 }

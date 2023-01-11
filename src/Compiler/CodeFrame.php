@@ -2,9 +2,12 @@
 
 namespace Smarty\Compiler;
 
+use Smarty\Exception;
+
 /**
  * Smarty Internal Extension
  * This file contains the Smarty template extension to create a code frame
+ *
  * @author     Uwe Tews
  */
 
@@ -24,15 +27,16 @@ class CodeFrame
 	}
 
 	/**
-     * Create code frame for compiled and cached templates
-     *
-     * @param string                                $content   optional template content
-     * @param string                                $functions compiled template function and block code
-     * @param bool                                  $cache     flag for cache file
-     * @param \Smarty\Compiler\Template $compiler
-     *
-     * @return string
-     */
+	 * Create code frame for compiled and cached templates
+	 *
+	 * @param string $content optional template content
+	 * @param string $functions compiled template function and block code
+	 * @param bool $cache flag for cache file
+	 * @param Template|null $compiler
+	 *
+	 * @return string
+	 * @throws Exception
+*/
     public function create(
         $content = '',
         $functions = '',

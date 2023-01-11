@@ -10,7 +10,6 @@
 
 namespace Smarty;
 
-use Smarty\Smarty;
 use Smarty\Runtime\InheritanceRuntime;
 use Smarty\Template\Source;
 use Smarty\Template\Cached;
@@ -298,7 +297,7 @@ class Template extends TemplateBase {
 				$smarty->getDebug()->start_template($tpl);
 				$smarty->getDebug()->start_render($tpl);
 			}
-			$tpl->compiled->getRenderedTemplateCode($tpl, $content_func);
+			$tpl->getRenderedTemplateCode($content_func);
 			if ($smarty->debugging) {
 				$smarty->getDebug()->end_template($tpl);
 				$smarty->getDebug()->end_render($tpl);
@@ -386,16 +385,16 @@ class Template extends TemplateBase {
 			}
 			$tpl->cached->cache_lifetime = $properties['cache_lifetime'];
 			$tpl->cached->valid = $is_valid;
-			$resource = $tpl->cached;
+			$generatedFile = $tpl->cached;
 		} else {
 			$tpl->mustCompile = !$is_valid;
-			$resource = $tpl->compiled;
-			$resource->includes = isset($properties['includes']) ? $properties['includes'] : [];
+			$generatedFile = $tpl->compiled;
+			$generatedFile->includes = $properties['includes'] ?? [];
 		}
 		if ($is_valid) {
-			$resource->unifunc = $properties['unifunc'];
-			$resource->has_nocache_code = $properties['has_nocache_code'];
-			$resource->file_dependency = $properties['file_dependency'];
+			$generatedFile->unifunc = $properties['unifunc'];
+			$generatedFile->has_nocache_code = $properties['has_nocache_code'];
+			$generatedFile->file_dependency = $properties['file_dependency'];
 		}
 		return $is_valid && !function_exists($properties['unifunc']);
 	}
@@ -465,10 +464,17 @@ class Template extends TemplateBase {
 	 * Load cached object
 	 *
 	 * @param bool $force force new cached object
+	 *
+	 * @throws Exception
 	 */
 	public function loadCached($force = false) {
 		if ($force || !isset($this->cached)) {
-			$this->cached = Cached::create($this);
+			$this->cached = new Cached($this);
+			$this->cached->handler->populate($this->cached, $this);
+			// caching enabled ?
+			if (!$this->caching || $this->source->handler->recompiled) {
+				$this->cached->valid = false;
+			}
 		}
 	}
 
@@ -484,7 +490,7 @@ class Template extends TemplateBase {
 	/**
 	 * Unload inheritance object
 	 */
-	public function _cleanUp() {
+	private function _cleanUp() {
 		$this->startRenderCallbacks = [];
 		$this->endRenderCallbacks = [];
 		$this->inheritance = null;
@@ -496,7 +502,9 @@ class Template extends TemplateBase {
 	 * @throws \Smarty\Exception
 	 */
 	public function loadCompiler() {
-		$this->compiler = $this->source->createCompiler();
+		if (!isset($this->compiler)) {
+			$this->compiler = $this->source->createCompiler();
+		}
 	}
 
 	/**
@@ -510,7 +518,7 @@ class Template extends TemplateBase {
 	 * @return string
 	 */
 	public function createCodeFrame($content = '', $functions = '', $cache = false, \Smarty\Compiler\Template $compiler = null) {
-		return $this->getFrameCompiler()->create($content, $functions, $cache, $compiler);
+		return $this->getCodeFrameCompiler()->create($content, $functions, $cache, $compiler);
 	}
 
 	/**
@@ -537,6 +545,9 @@ class Template extends TemplateBase {
 	 *
 	 * @return mixed|Cached
 	 * @throws Exception
+	 *
+	 * @deprecated
+	 * @TODO remove
 	 */
 	public function __get($property_name) {
 		switch ($property_name) {
@@ -565,6 +576,10 @@ class Template extends TemplateBase {
 	 * @param mixed $value value
 	 *
 	 * @throws Exception
+	 *
+	 *
+	 * @deprecated
+	 * @TODO remove
 	 */
 	public function __set($property_name, $value) {
 		switch ($property_name) {
@@ -612,16 +627,15 @@ class Template extends TemplateBase {
 			throw new Exception("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
 		}
 		if ($this->mustCompile === null) {
-			$this->mustCompile = (!$this->source->handler->uncompiled &&
-				($this->smarty->force_compile || $this->source->handler->recompiled ||
-					!$this->compiled->exists || ($this->compile_check &&
-						$this->compiled->getTimeStamp() <
-						$this->source->getTimeStamp())));
+			$this->mustCompile = $this->smarty->force_compile
+				|| $this->source->handler->recompiled
+				|| !$this->compiled->exists
+				|| ($this->compile_check &&	$this->compiled->getTimeStamp() < $this->source->getTimeStamp());
 		}
 		return $this->mustCompile;
 	}
 
-	private function getFrameCompiler(): Compiler\CodeFrame {
+	private function getCodeFrameCompiler(): Compiler\CodeFrame {
 		return new \Smarty\Compiler\CodeFrame($this);
 	}
 
@@ -800,5 +814,39 @@ class Template extends TemplateBase {
 		}
 	}
 
+	/**
+	 * get rendered template content by calling compiled or cached template code
+	 *
+	 * @param string $unifunc function with template code
+	 *
+	 * @throws \Exception
+	 */
+	public function getRenderedTemplateCode($unifunc) {
+		$level = ob_get_level();
+		try {
+			if (empty($unifunc) || !function_exists($unifunc)) {
+				throw new \Smarty\Exception("Invalid compiled template for '{$this->template_resource}'");
+			}
+			if ($this->startRenderCallbacks) {
+				foreach ($this->startRenderCallbacks as $callback) {
+					call_user_func($callback, $this);
+				}
+			}
+			$unifunc($this);
+			foreach ($this->endRenderCallbacks as $callback) {
+				call_user_func($callback, $this);
+			}
+			$this->isRenderingCache = false;
+		} catch (\Exception $e) {
+			$this->isRenderingCache = false;
+			while (ob_get_level() > $level) {
+				ob_end_clean();
+			}
+			if (isset($this->_getSmartyObj()->security_policy)) {
+				$this->_getSmartyObj()->security_policy->endTemplate();
+			}
+			throw $e;
+		}
+	}
 
 }

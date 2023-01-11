@@ -36,15 +36,7 @@ abstract class BasePlugin
         'extends' => ExtendsPlugin::class,
         'stream'  => StreamPlugin::class,
         'eval'    => StringEval::class,
-        'php'     => PhpPlugin::class,
     ];
-
-    /**
-     * Source is bypassing compiler
-     *
-     * @var boolean
-     */
-    public $uncompiled = false;
 
     /**
      * Source must be recompiled on every occasion

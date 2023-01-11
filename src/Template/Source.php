@@ -7,11 +7,7 @@ use Smarty\Template;
 use Smarty\Exception;
 
 /**
- * Smarty Resource Data Object
- * Meta Data Container for Template Files
- *
-
-
+ * Meta-data Container for Template source files
  * @author     Rodney Rehm
  */
 class Source {

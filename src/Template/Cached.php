@@ -3,18 +3,12 @@
 namespace Smarty\Template;
 
 use Smarty\Template;
-use Smarty\Template\ResourceBase;
-use Smarty\Template\Source;
 
 /**
- * Smarty Resource Data Object
- * Cache Data Container for Template Files
- *
-
-
+ * Represents a cached version of a template or config file.
  * @author     Rodney Rehm
  */
-class Cached extends ResourceBase {
+class Cached extends GeneratedPhpFile {
 
 	/**
 	 * Cache Is Valid
@@ -73,11 +67,16 @@ class Cached extends ResourceBase {
 	public $hashes = [];
 
 	/**
-	 * Flag if this is a cache resource
+	 * Content buffer
 	 *
-	 * @var bool
+	 * @var string
 	 */
-	public $isCache = true;
+	public $content = null;
+
+	private function renderTemplateCode(Template $_template) {
+		$_template->isRenderingCache = true;
+		$_template->getRenderedTemplateCode($this->unifunc);
+	}
 
 	/**
 	 * create Cached Object container
@@ -91,22 +90,6 @@ class Cached extends ResourceBase {
 		$this->cache_id = $_template->cache_id;
 		$this->source = $_template->source;
 		$this->handler = $_template->smarty->getCacheResource();
-	}
-
-	/**
-	 * @param Template $_template
-	 *
-	 * @return Cached
-	 */
-	public static function create(Template $_template) {
-		$_template->cached = new self($_template);
-		$_template->cached->handler->populate($_template->cached, $_template);
-		// caching enabled ?
-		if (!$_template->caching || $_template->source->handler->recompiled
-		) {
-			$_template->cached->valid = false;
-		}
-		return $_template->cached;
 	}
 
 	/**
@@ -125,7 +108,7 @@ class Cached extends ResourceBase {
 			if (!$this->processed) {
 				$this->process($_template);
 			}
-			$this->getRenderedTemplateCode($_template);
+			$this->renderTemplateCode($_template);
 			if ($_template->smarty->debugging) {
 				$_template->smarty->getDebug()->end_cache($_template);
 			}
@@ -300,7 +283,7 @@ class Cached extends ResourceBase {
 			$_template->cached->process($_template, true);
 		}
 		$_template->compile_check = $compile_check;
-		$this->getRenderedTemplateCode($_template);
+		$this->renderTemplateCode($_template);
 		if ($_template->smarty->debugging) {
 			$_template->smarty->getDebug()->end_cache($_template);
 		}

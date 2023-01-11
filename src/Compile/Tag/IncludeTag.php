@@ -84,7 +84,7 @@ class IncludeTag extends Base {
 			$type = !empty($match[3]) ? $match[3] : $compiler->template->smarty->default_resource_type;
 			$name = !empty($match[5]) ? $match[5] : $match[6];
 			$handler = \Smarty\Resource\BasePlugin::load($compiler->smarty, $type);
-			if ($handler->recompiled || $handler->uncompiled) {
+			if ($handler->recompiled) {
 				$variable_template = true;
 			}
 			if (!$variable_template) {
@@ -285,7 +285,7 @@ class IncludeTag extends Base {
 		         $t_hash
 	) {
 		$uid = $tpl->source->type . $tpl->source->uid;
-		if (!($tpl->source->handler->uncompiled) && $tpl->source->exists) {
+		if ($tpl->source->exists) {
 			$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['uid'] = $tpl->source->uid;
 			if (isset($compiler->template->inheritance)) {
 				$tpl->inheritance = clone $compiler->template->inheritance;

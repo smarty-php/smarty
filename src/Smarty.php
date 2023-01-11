@@ -1386,7 +1386,7 @@ class Smarty extends \Smarty\TemplateBase
 			/* @var Template $tpl */
 			$tpl = $this->createTemplate($resource_name);
 			$this->caching = $_save_stat;
-			if (!$tpl->source->handler->uncompiled && !$tpl->source->handler->recompiled && $tpl->source->exists) {
+			if (!$tpl->source->handler->recompiled && $tpl->source->exists) {
 				$_resource_part_1 = basename(str_replace('^', DIRECTORY_SEPARATOR, $tpl->compiled->filepath));
 				$_resource_part_1_length = strlen($_resource_part_1);
 			} else {
