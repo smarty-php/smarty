@@ -68,7 +68,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
             foreach ($compile_ids as $compile_id) {
                 $tpl = $this->getSmartyObj()->createTemplate($template, null, $compile_id);
                 $tpl->fetch();
-                $this->_files[$template . '#' . $compile_id] = substr($tpl->compiled->filepath, $directory_length);
+                $this->_files[$template . '#' . $compile_id] = substr($tpl->getCompiled()->filepath, $directory_length);
             }
         }
 

@@ -108,7 +108,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testGetCompiledFilepath()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertFalse($tpl->compiled->filepath);
+        $this->assertNull($tpl->getCompiled()->filepath);
     }
 
     /**
@@ -117,7 +117,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testGetCompiledTimestamp()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertFalse($tpl->compiled->getTimeStamp());
+        $this->assertFalse($tpl->getCompiled()->getTimeStamp());
     }
 
     /**

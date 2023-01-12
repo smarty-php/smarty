@@ -69,19 +69,6 @@ class StringPlugin extends BasePlugin {
 	}
 
 	/**
-	 * modify resource_name according to resource handlers specifications
-	 *
-	 * @param Smarty $smarty Smarty instance
-	 * @param string $resource_name resource_name to make unique
-	 * @param boolean $isConfig flag for config resource
-	 *
-	 * @return string unique resource name
-	 */
-	public function buildUniqueResourceName(Smarty $smarty, $resource_name, $isConfig = false) {
-		return get_class($this) . '#' . $this->decode($resource_name);
-	}
-
-	/**
 	 * Determine basename for compiled filename
 	 * Always returns an empty string.
 	 *

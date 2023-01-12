@@ -2,13 +2,11 @@
 
 namespace Smarty;
 
-use Smarty\Template\Config;
-
 /**
  * Smarty Internal Plugin Data
  * This file contains the basic properties and methods for holding config and template variables
  */
-abstract class Data
+class Data
 {
 
 	/**
@@ -50,6 +48,31 @@ abstract class Data
     public $config_vars = array();
 
 	/**
+	 * create Smarty data object
+	 *
+	 * @param Smarty|array $_parent parent template
+	 * @param Smarty|Template $smarty global smarty instance
+	 * @param string $name optional data block name
+	 *
+	 * @throws Exception
+	 */
+	public function __construct($_parent = null, $smarty = null, $name = null) {
+
+		$this->smarty = $smarty;
+		if (is_object($_parent)) {
+			// when object set up back pointer
+			$this->parent = $_parent;
+		} elseif (is_array($_parent)) {
+			// set up variable values
+			foreach ($_parent as $_key => $_val) {
+				$this->assign($_key, $_val);
+			}
+		} elseif ($_parent !== null) {
+			throw new Exception('Wrong type for template variables');
+		}
+	}
+
+	/**
 	 * assigns a Smarty variable
 	 *
 	 * @param array|string $tpl_var the template variable name(s)
@@ -66,6 +89,7 @@ abstract class Data
             foreach ($tpl_var as $_key => $_val) {
                 $this->assign($_key, $_val, $nocache, $scope);
             }
+			return;
         }
 
 		switch ($scope) {
@@ -363,6 +387,14 @@ abstract class Data
 		return $returnValue;
 	}
 
+	public function hasConfigVariable($varName): bool {
+		try {
+			return $this->getConfigVariable($varName) !== null;
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 	/**
 	 * Returns a single or all config variables
 	 *
@@ -399,12 +431,11 @@ abstract class Data
 	public function configLoad($config_file, $sections = null)
 	{
 		$smarty = $this->_getSmartyObj();
-		$template = new Template($config_file, $smarty, $this, null, null, null, null, true);
+		$template = new Template($config_file, $smarty, $this, null, null, null, true);
 		$template->caching = Smarty::CACHING_OFF;
 		$template->assign('sections', (array) $sections ?? []);
 		// trigger a call to $this->assignConfigVars
-		$template->compiled = \Smarty\Template\Compiled::load($template);
-		$template->compiled->render($template);
+		$template->getCompiled(true)->render($template);
 		return $this;
 	}
 

@@ -84,8 +84,8 @@ class Debug extends Data
     public function start_compile(\Smarty\Template $template)
     {
         static $_is_stringy = array('string' => true, 'eval' => true);
-        if (!empty($template->compiler->trace_uid)) {
-            $key = $template->compiler->trace_uid;
+        if (!empty($template->getCompiler()->trace_uid)) {
+            $key = $template->getCompiler()->trace_uid;
             if (!isset($this->template_data[ $this->index ][ $key ])) {
 	            $this->saveTemplateData($_is_stringy, $template, $key);
             }
@@ -105,8 +105,8 @@ class Debug extends Data
      */
     public function end_compile(\Smarty\Template $template)
     {
-        if (!empty($template->compiler->trace_uid)) {
-            $key = $template->compiler->trace_uid;
+        if (!empty($template->getCompiler()->trace_uid)) {
+            $key = $template->getCompiler()->trace_uid;
         } else {
             if (isset($this->ignore_uid[ $template->source->uid ])) {
                 return;
@@ -223,7 +223,7 @@ class Debug extends Data
         $_config_vars = $ptr->config_vars;
         ksort($_config_vars);
         $debugging = $smarty->debugging;
-        $_template = new \Smarty\Template($debObj->debug_tpl, $debObj);
+        $_template = $debObj->createTemplate($debObj->debug_tpl);
         if ($obj instanceof \Smarty\Template) {
             $_template->assign('template_name', $obj->source->type . ':' . $obj->source->name);
         } elseif ($obj instanceof Smarty || $full) {
@@ -248,7 +248,7 @@ class Debug extends Data
     /**
      * Recursively gets variables from all template/data scopes
      *
-     * @param \Smarty\Template|\Smarty\DataObject $obj object to debug
+     * @param \Smarty\Data $obj object to debug
      *
      * @return \StdClass
      */

@@ -60,13 +60,13 @@ class FunctionTag extends Base {
 
 		$compiler->parent_compiler->tpl_function[$_name] = [];
 		$save = [
-			$_attr, $compiler->parser->current_buffer, $compiler->template->compiled->has_nocache_code,
+			$_attr, $compiler->parser->current_buffer, $compiler->template->getCompiled()->getNocacheCode(),
 			$compiler->template->caching,
 		];
 		$this->openTag($compiler, 'function', $save);
 		// Init temporary context
 		$compiler->parser->current_buffer = new \Smarty\ParseTree\Template();
-		$compiler->template->compiled->has_nocache_code = false;
+		$compiler->template->getCompiled()->setNocacheCode(false);
 		return true;
 	}
 }

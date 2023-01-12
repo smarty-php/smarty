@@ -608,9 +608,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent dependency test2
-     *
-     * 
-     * 
      * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_2()
@@ -642,9 +639,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent dependency test3
-     *
-     * 
-     * 
      * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_3()
@@ -689,9 +683,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent dependency test4
-     *
-     * 
-     * 
      * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_4()

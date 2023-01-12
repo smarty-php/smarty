@@ -183,7 +183,7 @@ abstract class TemplateBase extends Data {
 	 *                                                                                     variables
 	 * @param null $name optional data block name
 	 *
-	 * @return DataObject data object
+	 * @return Data data object
 	 * @throws Exception
 	 * @api  Smarty::createData()
 	 * @link https://www.smarty.net/docs/en/api.create.data.tpl
@@ -192,7 +192,7 @@ abstract class TemplateBase extends Data {
 	public function createData(Data $parent = null, $name = null) {
 		/* @var Smarty $smarty */
 		$smarty = $this->_getSmartyObj();
-		$dataObj = new DataObject($parent, $smarty, $name);
+		$dataObj = new Data($parent, $smarty, $name);
 		if ($smarty->debugging) {
 			$smarty->getDebug()->register_data($dataObj);
 		}

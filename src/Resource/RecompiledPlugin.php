@@ -30,11 +30,13 @@ abstract class RecompiledPlugin extends BasePlugin {
 	public $recompiled = true;
 
 	/**
-	 * Resource does implement populateCompiledFilepath() method
+	 * Flag if resource does allow compilation
 	 *
-	 * @var bool
+	 * @return bool
 	 */
-	public $hasCompiledHandler = true;
+	public function supportsCompiledTemplates(): bool {
+		return false;
+	}
 
 	/**
 	 * compile template from source
@@ -44,43 +46,25 @@ abstract class RecompiledPlugin extends BasePlugin {
 	 * @throws Exception
 	 */
 	public function process(Template $_smarty_tpl) {
-		$compiled = &$_smarty_tpl->compiled;
+		$compiled = $_smarty_tpl->getCompiled();
 		$compiled->file_dependency = [];
 		$compiled->includes = [];
 		$compiled->nocache_hash = null;
 		$compiled->unifunc = null;
 		$level = ob_get_level();
 		ob_start();
-		$_smarty_tpl->loadCompiler();
 		// call compiler
 		try {
-			eval('?>' . $_smarty_tpl->compiler->compileTemplate($_smarty_tpl));
+			eval('?>' . $_smarty_tpl->getCompiler()->compileTemplate($_smarty_tpl));
 		} catch (\Exception $e) {
-			unset($_smarty_tpl->compiler);
 			while (ob_get_level() > $level) {
 				ob_end_clean();
 			}
 			throw $e;
 		}
-		// release compiler object to free memory
-		unset($_smarty_tpl->compiler);
 		ob_get_clean();
 		$compiled->timestamp = time();
 		$compiled->exists = true;
-	}
-
-	/**
-	 * populate Compiled Object with compiled filepath
-	 *
-	 * @param Compiled $compiled compiled object
-	 * @param Template $_template template object
-	 *
-	 * @return void
-	 */
-	public function populateCompiledFilepath(Compiled $compiled, Template $_template) {
-		$compiled->filepath = false;
-		$compiled->timestamp = false;
-		$compiled->exists = false;
 	}
 
 	/*

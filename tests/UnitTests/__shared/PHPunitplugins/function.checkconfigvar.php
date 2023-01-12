@@ -6,7 +6,6 @@
 
  */
 
-use Smarty\DataObject;
 use Smarty\Template;
 
 /**
@@ -20,7 +19,7 @@ use Smarty\Template;
 function smarty_function_checkconfigvar($params, $template)
 {
     $output = '';
-    $types = array('template', 'data', 'smarty');
+    $types = array('template', 'data', 'global');
     if (isset($params['types'])) {
         $types = (array)$params['types'];
     }
@@ -29,20 +28,20 @@ function smarty_function_checkconfigvar($params, $template)
     while ($ptr) {
         if (in_array('template', $types) && $ptr instanceof Template) {
             $output .= "#{$ptr->source->name}:\${$var} =";
-            $output .= isset($ptr->config_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->config_vars[$var], true)) : 'null';
+            $output .= $ptr->hasConfigVariable($var) ? preg_replace('/\s/', '', var_export($ptr->getConfigVariable($var), true)) : 'null';
             $ptr = $ptr->parent;
-        } elseif (in_array('data', $types) && $ptr instanceof DataObject) {
+        } elseif (in_array('data', $types) && !($ptr instanceof Template || $ptr instanceof Smarty)) {
             $output .= "#data:\${$var} =";
-            $output .= isset($ptr->config_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->config_vars[$var], true)) : 'null';
+            $output .= $ptr->hasConfigVariable($var) ? preg_replace('/\s/', '', var_export($ptr->getConfigVariable($var), true)) : 'null';
             $ptr = $ptr->parent;
         } else {
             $ptr = null;
         }
     }
-    if (in_array('smarty', $types)) {
-        $output .= "#Smarty:\${$var} =";
-        $output .= isset($template->smarty->config_vars[ $var ]) ?
-            preg_replace('/\s/', '', var_export($template->smarty->config_vars[ $var ], true)) : 'null';
+    if (in_array('global', $types)) {
+        $output .= "#global:\${$var} =";
+        $output .= $template->smarty->hasConfigVariable($var) ?
+            preg_replace('/\s/', '', var_export($template->smarty->getConfigVariable($var), true)) : 'null';
     }
     return $output;
 }

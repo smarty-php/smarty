@@ -18,13 +18,29 @@ use Smarty\Template\Config;
 
 /**
  * Main class with template data structures and methods
- *
- * @property Compiled $compiled
- * @property Cached $cached
- * @property \Smarty\Compiler\Template $compiler
  */
 #[\AllowDynamicProperties]
 class Template extends TemplateBase {
+
+	/**
+	 * caching mode to create nocache code but no cache file
+	 */
+	public const CACHING_NOCACHE_CODE = 9999;
+
+	/**
+	 * @var Compiled
+	 */
+	private $compiled = null;
+
+	/**
+	 * @var Cached
+	 */
+	private $cached = null;
+
+	/**
+	 * @var \Smarty\Compiler\Template
+	 */
+	private $compiler = null;
 
 	/**
 	 * Source instance
@@ -48,7 +64,7 @@ class Template extends TemplateBase {
 	public $mustCompile = null;
 
 	/**
-	 * Template Id
+	 * Template ID
 	 *
 	 * @var null|string
 	 */
@@ -100,7 +116,6 @@ class Template extends TemplateBase {
 	 * @param mixed $_cache_id cache   id or null
 	 * @param mixed $_compile_id compile id or null
 	 * @param bool|int|null $_caching use caching?
-	 * @param int|null $_cache_lifetime cache life-time in seconds
 	 * @param bool $_isConfig
 	 *
 	 * @throws \Smarty\Exception
@@ -112,7 +127,6 @@ class Template extends TemplateBase {
 		$_cache_id = null,
 		$_compile_id = null,
 		$_caching = null,
-		$_cache_lifetime = null,
 		$_isConfig = false
 	) {
 		$this->smarty = $smarty;
@@ -120,14 +134,14 @@ class Template extends TemplateBase {
 		$this->cache_id = $_cache_id === null ? $this->smarty->cache_id : $_cache_id;
 		$this->compile_id = $_compile_id === null ? $this->smarty->compile_id : $_compile_id;
 		$this->caching = (int)($_caching === null ? $this->smarty->caching : $_caching);
-		$this->cache_lifetime = $_cache_lifetime === null ? $this->smarty->cache_lifetime : $_cache_lifetime;
+		$this->cache_lifetime = $this->smarty->cache_lifetime;
 		$this->compile_check = (int)$smarty->compile_check;
 		$this->parent = $_parent;
 		// Template resource
 		$this->template_resource = $template_resource;
 		$this->source = $_isConfig ? Config::load($this) : Source::load($this);
 
-		if ($smarty->security_policy && method_exists($smarty->security_policy, 'registerCallBacks')) {
+		if ($smarty->security_policy) {
 			$smarty->security_policy->registerCallBacks($this);
 		}
 	}
@@ -159,28 +173,27 @@ class Template extends TemplateBase {
 		}
 		// read from cache or render
 		if ($this->caching === \Smarty\Smarty::CACHING_LIFETIME_CURRENT || $this->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED) {
-			if (!isset($this->cached) || $this->cached->cache_id !== $this->cache_id
-				|| $this->cached->compile_id !== $this->compile_id
-			) {
-				$this->loadCached(true);
+			if ($this->getCached()->cache_id !== $this->cache_id || $this->getCached()->compile_id !== $this->compile_id) {
+				$this->getCached(true);
 			}
-			$this->cached->render($this, $no_output_filter);
+			$this->getCached()->render($this, $no_output_filter);
 		} else {
-			if (!isset($this->compiled) || $this->compiled->compile_id !== $this->compile_id) {
-				$this->loadCompiled(true);
+			$compiled = $this->getCompiled();
+			if ($compiled->compile_id !== $this->compile_id) {
+				$compiled = $this->getCompiled(true);
 			}
-			$this->compiled->render($this);
+			$compiled->render($this);
 		}
 		// display or fetch
 		if ($display) {
 			if ($this->caching && $this->smarty->cache_modified_check) {
 				$this->smarty->cacheModifiedCheck(
-					$this->cached,
+					$this->getCached(),
 					$this,
 					isset($content) ? $content : ob_get_clean()
 				);
 			} else {
-				if ((!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
+				if ((!$this->caching || $this->getCached()->getNocacheCode() || $this->source->handler->recompiled)
 					&& !$no_output_filter && isset($this->smarty->registered_filters['output'])
 				) {
 					echo $this->smarty->runOutputFilters(ob_get_clean(), $this);
@@ -203,7 +216,7 @@ class Template extends TemplateBase {
 			}
 			if (
 				!$no_output_filter
-				&& (!$this->caching || $this->cached->has_nocache_code || $this->source->handler->recompiled)
+				&& (!$this->caching || $this->getCached()->getNocacheCode() || $this->source->handler->recompiled)
 			) {
 
 				return $this->smarty->runOutputFilters(ob_get_clean(), $this);
@@ -216,12 +229,12 @@ class Template extends TemplateBase {
 	/**
 	 * Runtime function to render sub-template
 	 *
-	 * @param string $template template name
+	 * @param string $template_name template name
 	 * @param mixed $cache_id cache id
 	 * @param mixed $compile_id compile id
 	 * @param integer $caching cache mode
 	 * @param integer $cache_lifetime life time of cache data
-	 * @param array $data passed parameter template variables
+	 * @param array $extra_vars passed parameter template variables
 	 * @param string $uid file dependency uid
 	 * @param string $content_func function name
 	 *
@@ -229,63 +242,57 @@ class Template extends TemplateBase {
 	 * @throws \Smarty\Exception
 	 */
 	public function _subTemplateRender(
-		$template,
+		$template_name,
 		$cache_id,
 		$compile_id,
 		$caching,
 		$cache_lifetime,
-		$data,
+		array $extra_vars,
 		$uid = null,
 		$content_func = null
 	) {
-		$tpl = clone $this;
-		$tpl->parent = $this;
-		$smarty = &$this->smarty;
-		$_templateId = $smarty->_getTemplateId($template, $cache_id, $compile_id, $caching, $tpl);
-		// recursive call ?
-		if ((isset($tpl->templateId) ? $tpl->templateId : $tpl->_getTemplateId()) !== $_templateId) {
 
-			$tpl->templateId = $_templateId;
-			$tpl->template_resource = $template;
-			$tpl->cache_id = $cache_id;
-			$tpl->compile_id = $compile_id;
-			if (isset($uid)) {
+		$baseFilePath = $this->source && $this->source->filepath ? dirname($this->source->filepath) : null;
+
+		$tpl = $this->_getSmartyObj()->createTemplate($template_name, $cache_id, $compile_id, $this, $caching, $cache_lifetime, $baseFilePath);
+
+		// copy variables
+		$tpl->tpl_vars = $this->tpl_vars;
+		$tpl->config_vars = $this->config_vars;
+
+		// recursive call ?
+		if ($tpl->getTemplateId() == $this->getTemplateId()) {
+
+			if (isset($uid) && $this->getCompiled()->file_dependency) {
 				// for inline templates we can get all resource information from file dependency
-				[$filepath, $timestamp, $type] = $tpl->compiled->file_dependency[$uid];
-				$tpl->source = new Source($smarty, $filepath, $type, $filepath);
+				[$filepath, $timestamp, $type] = $this->getCompiled()->file_dependency[$uid];
+				$tpl->source = new Source($this->_getSmartyObj(), $filepath, $type, $filepath);
 				$tpl->source->filepath = $filepath;
 				$tpl->source->timestamp = $timestamp;
 				$tpl->source->exists = true;
 				$tpl->source->uid = $uid;
 			} else {
 				$tpl->source = Source::load($tpl);
-				unset($tpl->compiled);
+				$tpl->getCompiled(true); // @TODO this unset($tpl->compiled), there might be a bug here
 			}
-			if ($caching !== 9999) {
-				unset($tpl->cached);
+			if ($caching !== \Smarty\Template::CACHING_NOCACHE_CODE) {
+				$tpl->getCached(true); // @TODO this unset($tpl->cached), there might be a bug here
 			}
-		} else {
-			// on recursive calls force caching
-			$forceTplCache = true;
 		}
-		$tpl->caching = $caching;
-		$tpl->cache_lifetime = $cache_lifetime;
 
-		if (!empty($data)) {
+		if (!empty($extra_vars)) {
 			// set up variable values
-			foreach ($data as $_key => $_val) {
+			foreach ($extra_vars as $_key => $_val) {
 				$tpl->assign($_key, $_val);
 			}
 		}
-		if ($tpl->caching === 9999) {
-			if (!isset($tpl->compiled)) {
-				$tpl->loadCompiled(true);
-			}
-			if ($tpl->compiled->has_nocache_code) {
-				$this->cached->hashes[$tpl->compiled->nocache_hash] = true;
+		if ($tpl->caching === \Smarty\Template::CACHING_NOCACHE_CODE) {
+			if ($tpl->getCompiled()->getNocacheCode()) {
+				$this->getCached()->hashes[$tpl->getCompiled()->nocache_hash] = true;
 			}
 		}
 		if (isset($uid)) {
+			$smarty = $this->_getSmartyObj();
 			if ($smarty->debugging) {
 				$smarty->getDebug()->start_template($tpl);
 				$smarty->getDebug()->start_render($tpl);
@@ -296,11 +303,14 @@ class Template extends TemplateBase {
 				$smarty->getDebug()->end_render($tpl);
 			}
 		} else {
-			if (isset($tpl->compiled)) {
-				$tpl->compiled->render($tpl);
-			} else {
-				$tpl->render();
-			}
+			$tpl->getCompiled()->render($tpl);
+
+			// @TODO: this used to be like this. Might cause a bug.
+//			if (isset($tpl->compiled)) {
+//				$tpl->getCompiled()->render($tpl);
+//			} else {
+//				$tpl->render();
+//			}
 		}
 	}
 
@@ -372,21 +382,21 @@ class Template extends TemplateBase {
 		if ($cache) {
 			// CACHING_LIFETIME_SAVED cache expiry has to be validated here since otherwise we'd define the unifunc
 			if ($tpl->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED && $properties['cache_lifetime'] >= 0
-				&& (time() > ($tpl->cached->timestamp + $properties['cache_lifetime']))
+				&& (time() > ($tpl->getCached()->timestamp + $properties['cache_lifetime']))
 			) {
 				$is_valid = false;
 			}
-			$tpl->cached->cache_lifetime = $properties['cache_lifetime'];
-			$tpl->cached->valid = $is_valid;
-			$generatedFile = $tpl->cached;
+			$tpl->getCached()->cache_lifetime = $properties['cache_lifetime'];
+			$tpl->getCached()->valid = $is_valid;
+			$generatedFile = $tpl->getCached();
 		} else {
 			$tpl->mustCompile = !$is_valid;
-			$generatedFile = $tpl->compiled;
+			$generatedFile = $tpl->getCompiled();
 			$generatedFile->includes = $properties['includes'] ?? [];
 		}
 		if ($is_valid) {
 			$generatedFile->unifunc = $properties['unifunc'];
-			$generatedFile->has_nocache_code = $properties['has_nocache_code'];
+			$generatedFile->setNocacheCode($properties['has_nocache_code']);
 			$generatedFile->file_dependency = $properties['file_dependency'];
 		}
 		return $is_valid && !function_exists($properties['unifunc']);
@@ -399,7 +409,7 @@ class Template extends TemplateBase {
 	 * @throws \Exception
 	 */
 	public function compileTemplateSource() {
-		return $this->compiled->compileTemplateSource($this);
+		return $this->getCompiled()->compileTemplateSource($this);
 	}
 
 	/**
@@ -415,22 +425,18 @@ class Template extends TemplateBase {
 			// don't write cache file
 			return false;
 		}
-		if (!isset($this->cached)) {
-			$this->loadCached();
-		}
 		$codeframe = $this->createCodeFrame($content, '', true);
-		return $this->cached->writeCache($this, $codeframe);
+		return $this->getCached()->writeCache($this, $codeframe);
 	}
 
 	/**
 	 * Get unique template id
 	 *
 	 * @return string
-	 * @throws \Smarty\Exception
 	 */
-	public function _getTemplateId() {
+	public function getTemplateId() {
 		return $this->templateId ?? $this->templateId =
-			$this->smarty->_getTemplateId($this->template_resource, $this->cache_id, $this->compile_id);
+			$this->smarty->generateUniqueTemplateId($this->template_resource, $this->cache_id, $this->compile_id);
 	}
 
 	/**
@@ -443,32 +449,37 @@ class Template extends TemplateBase {
 	}
 
 	/**
-	 * Load compiled object
+	 * Return Compiled object
 	 *
-	 * @param bool $force force new compiled object
+	 * @param bool $forceNew force new compiled object
 	 */
-	public function loadCompiled($force = false) {
-		if ($force || !isset($this->compiled)) {
+	public function getCompiled($forceNew = false) {
+		if ($forceNew || !isset($this->compiled)) {
 			$this->compiled = Compiled::load($this);
 		}
+		return $this->compiled;
 	}
 
 	/**
-	 * Load cached object
+	 * Return Cached object
 	 *
-	 * @param bool $force force new cached object
+	 * @param bool $forceNew force new cached object
 	 *
 	 * @throws Exception
 	 */
-	public function loadCached($force = false) {
-		if ($force || !isset($this->cached)) {
+	public function getCached($forceNew = false) {
+		if ($forceNew || !isset($this->cached)) {
 			$this->cached = new Cached($this);
 			$this->cached->handler->populate($this->cached, $this);
-			// caching enabled ?
-			if (!$this->caching || $this->source->handler->recompiled) {
+			if (!$this->isCachingEnabled()) {
 				$this->cached->valid = false;
 			}
 		}
+		return $this->cached;
+	}
+
+	public function isCachingEnabled(): bool {
+		return $this->caching && !$this->source->handler->recompiled;
 	}
 
 	/**
@@ -490,14 +501,13 @@ class Template extends TemplateBase {
 	}
 
 	/**
-	 * Load compiler object
-	 *
-	 * @throws \Smarty\Exception
+	 * Return Compiler object
 	 */
-	public function loadCompiler() {
+	public function getCompiler() {
 		if (!isset($this->compiler)) {
 			$this->compiler = $this->source->createCompiler();
 		}
+		return $this->compiler;
 	}
 
 	/**
@@ -506,101 +516,23 @@ class Template extends TemplateBase {
 	 * @param string $content optional template content
 	 * @param string $functions compiled template function and block code
 	 * @param bool $cache flag for cache file
-	 * @param \Smarty\Compiler\Template $compiler
+	 * @param Compiler\Template|null $compiler
 	 *
 	 * @return string
+	 * @throws Exception
 	 */
 	public function createCodeFrame($content = '', $functions = '', $cache = false, \Smarty\Compiler\Template $compiler = null) {
 		return $this->getCodeFrameCompiler()->create($content, $functions, $cache, $compiler);
 	}
 
 	/**
-	 * Handle unknown class methods
-	 *
-	 * @param string $name unknown method-name
-	 * @param array $args argument array
-	 *
-	 * @return mixed
-	 */
-	public function __call($name, $args) {
-		// method of Smarty object?
-		if (method_exists($this->smarty, $name)) {
-			return call_user_func_array([$this->smarty, $name], $args);
-		}
-		// parent
-		return parent::__call($name, $args);
-	}
-
-	/**
-	 * get Smarty property in template context
-	 *
-	 * @param string $property_name property name
-	 *
-	 * @return mixed|Cached
-	 * @throws Exception
-	 *
-	 * @deprecated
-	 * @TODO remove
-	 */
-	public function __get($property_name) {
-		switch ($property_name) {
-			case 'compiled':
-				$this->loadCompiled();
-				return $this->compiled;
-			case 'cached':
-				$this->loadCached();
-				return $this->cached;
-			case 'compiler':
-				$this->loadCompiler();
-				return $this->compiler;
-			default:
-				// Smarty property ?
-				if (property_exists($this->smarty, $property_name)) {
-					return $this->smarty->$property_name;
-				}
-		}
-		throw new Exception("template property '$property_name' does not exist.");
-	}
-
-	/**
-	 * set Smarty property in template context
-	 *
-	 * @param string $property_name property name
-	 * @param mixed $value value
-	 *
-	 * @throws Exception
-	 *
-	 *
-	 * @deprecated
-	 * @TODO remove
-	 */
-	public function __set($property_name, $value) {
-		switch ($property_name) {
-			case 'compiled':
-			case 'cached':
-			case 'compiler':
-				$this->$property_name = $value;
-				return;
-			default:
-				// Smarty property ?
-				if (property_exists($this->smarty, $property_name)) {
-					$this->smarty->$property_name = $value;
-					return;
-				}
-		}
-		throw new Exception("invalid template property '$property_name'.");
-	}
-
-	/**
 	 * Template data object destructor
 	 */
 	public function __destruct() {
-		if ($this->smarty->cache_locking && isset($this->cached) && $this->cached->is_locked) {
-			$this->cached->handler->releaseLock($this->smarty, $this->cached);
+		if ($this->smarty->cache_locking && $this->getCached()->is_locked) {
+			$this->getCached()->handler->releaseLock($this->smarty, $this->getCached());
 		}
 	}
-
-
 
 	/**
 	 * Returns if the current template must be compiled by the Smarty compiler
@@ -622,8 +554,8 @@ class Template extends TemplateBase {
 		if ($this->mustCompile === null) {
 			$this->mustCompile = $this->smarty->force_compile
 				|| $this->source->handler->recompiled
-				|| !$this->compiled->exists
-				|| ($this->compile_check &&	$this->compiled->getTimeStamp() < $this->source->getTimeStamp());
+				|| !$this->getCompiled()->exists
+				|| ($this->compile_check &&	$this->getCompiled()->getTimeStamp() < $this->source->getTimeStamp());
 		}
 		return $this->mustCompile;
 	}
@@ -704,7 +636,7 @@ class Template extends TemplateBase {
 	{
 		$confObj = parent::configLoad($config_file, $sections);
 
-		$this->compiled->file_dependency[ $confObj->source->uid ] =
+		$this->getCompiled()->file_dependency[ $confObj->source->uid ] =
 			array($confObj->source->filepath, $confObj->source->getTimeStamp(), $confObj->source->type);
 
 		return $confObj;
@@ -766,19 +698,22 @@ class Template extends TemplateBase {
 			if ($function === 2) {
 				if ($this->caching) {
 					// return cache status of template
-					if (!isset($this->cached)) {
-						$this->loadCached();
-					}
-					$result = $this->cached->isCached($this);
+					$result = $this->getCached()->isCached($this);
 				} else {
 					return false;
 				}
 			} else {
+
+				// After rendering a template, the tpl/config variables are reset, so the template can be re-used.
 				$savedTplVars = $this->tpl_vars;
 				$savedConfigVars = $this->config_vars;
+
+				// Start output-buffering. @TODO keep all ob_* calls together
 				ob_start();
 
 				$result = $this->render(false, $function);
+
+				// Restore the template to its previous state
 				$this->_cleanUp();
 				$this->tpl_vars = $savedTplVars;
 				$this->config_vars = $savedConfigVars;

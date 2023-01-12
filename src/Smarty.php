@@ -11,6 +11,7 @@ use Smarty\Extension\CoreExtension;
 use Smarty\Extension\DefaultExtension;
 use Smarty\Extension\ExtensionInterface;
 use Smarty\Filter\Output\TrimWhitespace;
+use Smarty\Resource\BasePlugin;
 use Smarty\Smarty\Runtime\CaptureRuntime;
 use Smarty\Smarty\Runtime\ForeachRuntime;
 use Smarty\Smarty\Runtime\InheritanceRuntime;
@@ -202,7 +203,7 @@ class Smarty extends \Smarty\TemplateBase
      *
      * @var boolean
      */
-    public $allow_ambiguous_resources = false;
+    private $allow_ambiguous_resources = false;
 
     /**
      * merge compiled includes
@@ -254,13 +255,6 @@ class Smarty extends \Smarty\TemplateBase
      * @var \Smarty\Security
      */
     public $security_policy = null;
-
-    /**
-     * controls if the php template file resource is allowed
-     *
-     * @var bool
-     */
-    public $allow_php_templates = false;
 
     /**
      * debug mode
@@ -537,6 +531,12 @@ class Smarty extends \Smarty\TemplateBase
 	 * @var BCPluginsAdapter
 	 */
 	private $BCPluginsAdapter;
+
+	/**
+	 * Cache of templates created
+	 * @var array
+	 */
+	private $templates;
 
 	/**
      * Initialize new Smarty object
@@ -965,39 +965,58 @@ class Smarty extends \Smarty\TemplateBase
         return $this;
     }
 
-    /**
-     * creates a template object
-     *
-     * @param string  $template   the resource handle of the template file
-     * @param mixed   $cache_id   cache id to be used with this template
-     * @param mixed   $compile_id compile id to be used with this template
-     * @param object  $parent     next higher level of Smarty variables
-     *
-     * @return \Smarty\Template template object
-     * @throws \Smarty\Exception
-     */
-    public function createTemplate($template, $cache_id = null, $compile_id = null, $parent = null)
+	/**
+	 * creates a template object
+	 *
+	 * @param Template|null $template_name
+	 *
+	 * @param mixed $cache_id cache id to be used with this template
+	 * @param mixed $compile_id compile id to be used with this template
+	 * @param null $parent next higher level of Smarty variables
+	 * $cache_lifetime
+	 * @param null $caching
+	 * @param null $cache_lifetime
+	 * @param string|null $baseFilePath
+	 *
+	 * @return Template template object
+	 * @throws Exception
+	 */
+    public function createTemplate($template_name, $cache_id = null, $compile_id = null, $parent = null, $caching = null,
+                                   $cache_lifetime = null, string $baseFilePath = null)
     {
-        if ((is_object($cache_id) || is_array($cache_id))) {
+
+	    $data = null;
+
+		// Shuffle params for backward compatibility: if 2nd param is an object, it's the parent
+		if (is_object($cache_id)) {
             $parent = $cache_id;
             $cache_id = null;
         }
-        if (is_array($parent)) {
-            $data = $parent;
-            $parent = null;
-        } else {
-            $data = null;
+
+	    // Shuffle params for backward compatibility: if 2nd param is an array, it's data
+        if (is_array($cache_id)) {
+            $data = $cache_id;
+	        $cache_id = null;
         }
 
         if (!$this->_templateDirNormalized) {
             $this->_normalizeTemplateConfig(false);
         }
-        $_templateId = $this->_getTemplateId($template, $cache_id, $compile_id);
+        $_templateId = $this->generateUniqueTemplateId($template_name, $cache_id, $compile_id, $caching, $baseFilePath);
 
-        $tpl = new \Smarty\Template($template, $this, null, $cache_id, $compile_id, null, null);
-        $tpl->templateId = $_templateId;
+//		if (true || !isset($this->templates[$_templateId])) {
+//			$this->templates[$_templateId] = new Template($template_name, $this, null, $cache_id, $compile_id, $caching);
+//			$this->templates[$_templateId]->templateId = $_templateId;
+//		}
+//	    $tpl = $this->templates[$_templateId];
 
-        $tpl->parent = $parent ?: $this;
+	    $tpl = new Template($template_name, $this, $parent ?: $this, $cache_id, $compile_id, $caching);
+		$tpl->templateId = $_templateId;
+
+		if ($cache_lifetime) {
+			$tpl->setCacheLifetime($cache_lifetime);
+		}
+
         // fill data if present
         if (!empty($data) && is_array($data)) {
             // set up variable values
@@ -1014,38 +1033,57 @@ class Smarty extends \Smarty\TemplateBase
 	    return $tpl;
     }
 
-    /**
-     * Get unique template id
-     *
-     * @param string                    $template_name
-     * @param null|mixed                $cache_id
-     * @param null|mixed                $compile_id
-     * @param null                      $caching
-     * @param \Smarty\Template $template
-     *
-     * @return string
-     * @throws \Smarty\Exception
-     */
-    public function _getTemplateId(
+	/**
+	 * Get unique template id
+	 *
+	 * @param string $template_name
+	 * @param null|mixed $cache_id
+	 * @param null|mixed $compile_id
+	 * @param null $caching
+	 * @param string|null $baseFilePath
+	 *
+	 * @return string
+	 */
+    public function generateUniqueTemplateId(
 	    $template_name,
 	    $cache_id = null,
 	    $compile_id = null,
 	    $caching = null,
-	    \Smarty\Template $template = null
-    ) {
-        $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
-            $template_name;
-        $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
-        $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
-        $caching = (int)($caching === null ? $this->caching : $caching);
-        if ((isset($template) && strpos($template_name, ':.') !== false) || $this->allow_ambiguous_resources) {
-            $_templateId =
-                \Smarty\Resource\BasePlugin::getUniqueTemplateName($this, $template ?? null, $template_name) .
-                "#{$cache_id}#{$compile_id}#{$caching}";
-        } else {
-            $_templateId = $this->_joined_template_dir . "#{$template_name}#{$cache_id}#{$compile_id}#{$caching}";
+	    string $baseFilePath = null
+    ): string {
+		// defaults for optional params
+	    $cache_id = $cache_id ?? $this->cache_id;
+	    $compile_id = $compile_id ?? $this->compile_id;
+	    $caching = (int) $caching ?? $this->caching;
+
+	    if (strpos($template_name, ':') === false) {
+		    $template_name = "{$this->default_resource_type}:{$template_name}";
+	    }
+
+		$id_parts = [];
+
+	    [$name, $type] = BasePlugin::parseResourceName($template_name, $this->default_resource_type);
+	    $nameIsDotted = !empty($name) && $name[0] === '.' && ($name[1] === '.' || $name[1] === '/');
+
+	    $id_parts[] = $type;
+	    $id_parts[] = $this->_getSmartyObj()->_joined_template_dir;
+
+		// handle relative template names
+        if ($baseFilePath && $nameIsDotted) {
+	        // go relative to a given template?
+	        $id_parts[] = $this->_realpath($baseFilePath);
         }
-        if (isset($_templateId[ 150 ])) {
+
+	    $id_parts[] = $name;
+	    $id_parts[] = (string) $cache_id;
+	    $id_parts[] = (string) $compile_id;
+	    $id_parts[] = (string) $caching;
+
+	    $_templateId = implode('#', $id_parts);
+
+		// hash very long IDs to prevent problems with filename length
+	    // do not hash shorter IDs so they remain recognizable
+        if (strlen($_templateId) > 150) {
             $_templateId = sha1($_templateId);
         }
         return $_templateId;
@@ -1387,7 +1425,7 @@ class Smarty extends \Smarty\TemplateBase
 			$tpl = $this->createTemplate($resource_name);
 			$this->caching = $_save_stat;
 			if (!$tpl->source->handler->recompiled && $tpl->source->exists) {
-				$_resource_part_1 = basename(str_replace('^', DIRECTORY_SEPARATOR, $tpl->compiled->filepath));
+				$_resource_part_1 = basename(str_replace('^', DIRECTORY_SEPARATOR, $tpl->getCompiled()->filepath));
 				$_resource_part_1_length = strlen($_resource_part_1);
 			} else {
 				return 0;
@@ -1593,15 +1631,15 @@ class Smarty extends \Smarty\TemplateBase
 	 * check client side cache
 	 *
 	 * @param \Smarty\Template\Cached   $cached
-	 * @param \Smarty\Template $_template
+	 * @param Template $_template
 	 * @param string                    $content
 	 *
 	 * @throws \Exception
 	 * @throws \Smarty\Exception
 	 */
-	public function cacheModifiedCheck(Template\Cached $cached, \Smarty\Template $_template, $content)
+	public function cacheModifiedCheck(Template\Cached $cached, Template $_template, $content)
 	{
-		$_isCached = $_template->isCached() && !$_template->compiled->has_nocache_code;
+		$_isCached = $_template->isCached() && !$_template->getCompiled()->getNocacheCode();
 		$_last_modified_date =
 			@substr($_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ], 0, strpos($_SERVER[ 'HTTP_IF_MODIFIED_SINCE' ], 'GMT') + 3);
 		if ($_isCached && $cached->timestamp <= strtotime($_last_modified_date)) {
@@ -2141,7 +2179,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param array|string $modifiers modifier or list of modifiers
 	 *                                                                                   to add
 	 *
-	 * @return \Smarty|\Smarty\Template
+	 * @return \Smarty|Template
 	 * @api Smarty::addDefaultModifiers()
 	 *
 	 */
@@ -2231,7 +2269,7 @@ class Smarty extends \Smarty\TemplateBase
 	/**
 	 * test if cache is valid
 	 *
-	 * @param null|string|\Smarty\Template $template the resource handle of the template file or template
+	 * @param null|string|Template $template the resource handle of the template file or template
 	 *                                                          object
 	 * @param mixed $cache_id cache id to be used with this template
 	 * @param mixed $compile_id compile id to be used with this template

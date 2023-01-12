@@ -28,9 +28,9 @@ class MakeNocacheRuntime {
 			if (preg_match('/(\w+)::__set_state/', $export, $match)) {
 				throw new \Smarty\Exception("{make_nocache \${$var}} in template '{$tpl->source->name}': variable does contain object '{$match[1]}' not implementing method '__set_state'");
 			}
-			echo "/*%%SmartyNocache:{$tpl->compiled->nocache_hash}%%*/<?php " .
+			echo "/*%%SmartyNocache:{$tpl->getCompiled()->nocache_hash}%%*/<?php " .
 				addcslashes("\$_smarty_tpl->smarty->getRuntime('MakeNocache')->store(\$_smarty_tpl, '{$var}', ", '\\') .
-				$export . ");?>\n/*/%%SmartyNocache:{$tpl->compiled->nocache_hash}%%*/";
+				$export . ");?>\n/*/%%SmartyNocache:{$tpl->getCompiled()->nocache_hash}%%*/";
 		}
 	}
 

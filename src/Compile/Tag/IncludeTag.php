@@ -25,11 +25,6 @@ use Smarty\Template\Compiled;
 class IncludeTag extends Base {
 
 	/**
-	 * caching mode to create nocache code but no cache file
-	 */
-	private const CACHING_NOCACHE_CODE = 9999;
-
-	/**
 	 * Attribute definition: Overwrites base class.
 	 *
 	 * @var array
@@ -90,7 +85,7 @@ class IncludeTag extends Base {
 			if (!$variable_template) {
 				if ($type !== 'string') {
 					$fullResourceName = "{$type}:{$name}";
-					$compiled = $compiler->parent_compiler->template->compiled;
+					$compiled = $compiler->parent_compiler->template->getCompiled();
 					if (isset($compiled->includes[$fullResourceName])) {
 						$compiled->includes[$fullResourceName]++;
 						$cache_tpl = true;
@@ -122,7 +117,7 @@ class IncludeTag extends Base {
 		$call_nocache = $compiler->tag_nocache || $compiler->nocache;
 		// caching was on and {include} is not in nocache mode
 		if ($compiler->template->caching && !$compiler->nocache && !$compiler->tag_nocache) {
-			$_caching = self::CACHING_NOCACHE_CODE;
+			$_caching = \Smarty\Template::CACHING_NOCACHE_CODE;
 		}
 		// flag if included template code should be merged into caller
 		$merge_compiled_includes = ($compiler->smarty->merge_compiled_includes || $_attr['inline'] === true) &&
@@ -187,26 +182,28 @@ class IncludeTag extends Base {
 		}
 		$has_compiled_template = false;
 		if ($merge_compiled_includes) {
-			$c_id = isset($_attr['compile_id']) ? $_attr['compile_id'] : $compiler->template->compile_id;
+			$c_id = $_attr['compile_id'] ?? $compiler->template->compile_id;
 			// we must observe different compile_id and caching
 			$t_hash = sha1($c_id . ($_caching ? '--caching' : '--nocaching'));
-			$compiler->smarty->allow_ambiguous_resources = true;
-			/* @var \Smarty\Template $tpl */
-			$tpl = new \Smarty\Template(
+
+			$compiler->smarty->setAllowAmbiguousResources(true);
+			$tpl = $compiler->smarty->createTemplate(
 				trim($fullResourceName, '"\''),
-				$compiler->smarty,
-				$compiler->template,
 				$compiler->template->cache_id,
 				$c_id,
+				$compiler->template,
 				$_caching
 			);
+
 			$uid = $tpl->source->type . $tpl->source->uid;
 			if (!isset($compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash])) {
 				$has_compiled_template = $this->compileInlineTemplate($compiler, $tpl, $t_hash);
 			} else {
 				$has_compiled_template = true;
 			}
-			unset($tpl);
+
+			$compiler->smarty->setAllowAmbiguousResources(false);
+
 		}
 		// delete {include} standard attributes
 		unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['compile_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']);
@@ -227,7 +224,7 @@ class IncludeTag extends Base {
 			if ($update_compile_id) {
 				$_output .= $compiler->makeNocacheCode("\$_compile_id_save[] = \$_smarty_tpl->compile_id;\n\$_smarty_tpl->compile_id = {$_compile_id};\n");
 			}
-			if (!empty($_attr) && $_caching === 9999 && $compiler->template->caching) {
+			if (!empty($_attr) && $_caching === \Smarty\Template::CACHING_NOCACHE_CODE && $compiler->template->caching) {
 				$_vars_nc = "foreach ($_vars as \$ik => \$iv) {\n";
 				$_vars_nc .= "\$_smarty_tpl->assign(\$ik, \$iv);\n";
 				$_vars_nc .= "}\n";
@@ -287,16 +284,14 @@ class IncludeTag extends Base {
 		$uid = $tpl->source->type . $tpl->source->uid;
 		if ($tpl->source->exists) {
 			$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['uid'] = $tpl->source->uid;
-			$tpl->compiled = new Compiled();
-			$tpl->compiled->nocache_hash = $compiler->parent_compiler->template->compiled->nocache_hash;
-			$tpl->loadCompiler();
+			$tpl->getCompiled(true)->nocache_hash = $compiler->parent_compiler->template->getCompiled()->nocache_hash;
 			// save unique function name
 			$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['func'] =
-			$tpl->compiled->unifunc = 'content_' . str_replace(['.', ','], '_', uniqid('', true));
+			$tpl->getCompiled()->unifunc = 'content_' . str_replace(['.', ','], '_', uniqid('', true));
 			// make sure whole chain gets compiled
 			$tpl->mustCompile = true;
 			$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['nocache_hash'] =
-				$tpl->compiled->nocache_hash;
+				$tpl->getCompiled()->nocache_hash;
 			if ($tpl->source->type === 'file') {
 				$sourceInfo = $tpl->source->filepath;
 			} else {
@@ -307,26 +302,28 @@ class IncludeTag extends Base {
 			// get compiled code
 			$compiled_code = "<?php\n\n";
 			$compiled_code .= $compiler->cStyleComment(" Start inline template \"{$sourceInfo}\" =============================") . "\n";
-			$compiled_code .= "function {$tpl->compiled->unifunc} (\\Smarty\\Template \$_smarty_tpl) {\n";
-			$compiled_code .= "?>\n" . $tpl->compiler->compileTemplateSource($tpl, null, $compiler->parent_compiler);
+			$compiled_code .= "function {$tpl->getCompiled()->unifunc} (\\Smarty\\Template \$_smarty_tpl) {\n";
+			$compiled_code .= "?>\n" . $tpl->getCompiler()->compileTemplateSource($tpl, null, $compiler->parent_compiler);
 			$compiled_code .= "<?php\n";
 			$compiled_code .= "}\n?>\n";
-			$compiled_code .= $tpl->smarty->runPostFilters($tpl->compiler->blockOrFunctionCode, $tpl);
+			$compiled_code .= $tpl->smarty->runPostFilters($tpl->getCompiler()->blockOrFunctionCode, $tpl);
 			$compiled_code .= "<?php\n\n";
 			$compiled_code .= $compiler->cStyleComment(" End inline template \"{$sourceInfo}\" =============================") . "\n";
 			$compiled_code .= '?>';
-			unset($tpl->compiler);
-			if ($tpl->compiled->has_nocache_code) {
+
+//			unset($tpl->compiler); // @TODO removed this.
+
+			if ($tpl->getCompiled()->getNocacheCode()) {
 				// replace nocache_hash
 				$compiled_code =
 					str_replace(
-						"{$tpl->compiled->nocache_hash}",
-						$compiler->template->compiled->nocache_hash,
+						"{$tpl->getCompiled()->nocache_hash}",
+						$compiler->template->getCompiled()->nocache_hash,
 						$compiled_code
 					);
-				$compiler->template->compiled->has_nocache_code = true;
+				$compiler->template->getCompiled()->setNocacheCode(true);
 			}
-			$compiler->parent_compiler->mergedSubTemplatesCode[$tpl->compiled->unifunc] = $compiled_code;
+			$compiler->parent_compiler->mergedSubTemplatesCode[$tpl->getCompiled()->unifunc] = $compiled_code;
 			return true;
 		} else {
 			return false;

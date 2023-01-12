@@ -35,9 +35,7 @@ class Compiled extends GeneratedPhpFile {
 	 */
 	public static function load($_template) {
 		$compiled = new Compiled();
-		if ($_template->source->handler->hasCompiledHandler) {
-			$_template->source->handler->populateCompiledFilepath($compiled, $_template);
-		} else {
+		if ($_template->source->handler->supportsCompiledTemplates()) {
 			$compiled->populateCompiledFilepath($_template);
 		}
 		return $compiled;
@@ -48,7 +46,7 @@ class Compiled extends GeneratedPhpFile {
 	 *
 	 * @param Template $_template template object
 	 **/
-	public function populateCompiledFilepath(Template $_template) {
+	private function populateCompiledFilepath(Template $_template) {
 		$source = &$_template->source;
 		$smarty = &$_template->smarty;
 		$this->filepath = $smarty->getCompileDir();
@@ -105,15 +103,14 @@ class Compiled extends GeneratedPhpFile {
 		if (!$this->processed) {
 			$this->process($_template);
 		}
-		if (isset($_template->cached)) {
-			$_template->cached->file_dependency =
-				array_merge($_template->cached->file_dependency, $this->file_dependency);
-		}
+
+		$_template->getCached()->file_dependency =
+			array_merge($_template->getCached()->file_dependency, $this->file_dependency);
 
 		$_template->getRenderedTemplateCode($this->unifunc);
 
-		if ($_template->caching && $this->has_nocache_code) {
-			$_template->cached->hashes[$this->nocache_hash] = true;
+		if ($_template->caching && $this->getNocacheCode()) {
+			$_template->getCached()->hashes[$this->nocache_hash] = true;
 		}
 		if ($_template->smarty->debugging) {
 			$_template->smarty->getDebug()->end_render($_template);
@@ -176,18 +173,14 @@ class Compiled extends GeneratedPhpFile {
 		// compile locking
 		try {
 			// call compiler
-			$_template->loadCompiler();
-			$this->write($_template, $_template->compiler->compileTemplate($_template));
+			$this->write($_template, $_template->getCompiler()->compileTemplate($_template));
 		} catch (\Exception $e) {
 			// restore old timestamp in case of error
 			if ($saved_timestamp && is_file($this->filepath)) {
 				touch($this->filepath, $saved_timestamp);
 			}
-			unset($_template->compiler);
 			throw $e;
 		}
-		// release compiler object to free memory
-		unset($_template->compiler);
 	}
 
 	/**

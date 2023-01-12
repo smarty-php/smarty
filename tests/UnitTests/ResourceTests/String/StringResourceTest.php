@@ -110,7 +110,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testGetCompiledFilepath()
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertEquals($this->buildCompiledPath($tpl, false, false, null, 'hello world', 'string', $this->smarty->getTemplateDir(0)), $tpl->compiled->filepath);
+        $this->assertEquals($this->buildCompiledPath($tpl, false, false, null, 'hello world', 'string', $this->smarty->getTemplateDir(0)), $tpl->getCompiled()->filepath);
     }
 
     /**
@@ -119,7 +119,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testGetCompiledTimestamp()
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertFalse($tpl->compiled->getTimeStamp());
+        $this->assertFalse($tpl->getCompiled()->getTimeStamp());
     }
 
     /**
@@ -137,7 +137,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testGetCachedTimestamp()
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertFalse($tpl->cached->timestamp);
+        $this->assertFalse($tpl->getCached()->timestamp);
     }
 
     /**

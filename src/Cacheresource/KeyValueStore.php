@@ -107,13 +107,13 @@ abstract class KeyValueStore extends Base
 	             $update = false
     ) {
         if (!$cached) {
-            $cached = $_smarty_tpl->cached;
+            $cached = $_smarty_tpl->getCached();
         }
         $content = $cached->content ?: null;
         $timestamp = $cached->timestamp ?: null;
         if ($content === null || !$timestamp) {
             if (!$this->fetch(
-                $_smarty_tpl->cached->filepath,
+                $_smarty_tpl->getCached()->filepath,
                 $_smarty_tpl->source->name,
                 $_smarty_tpl->cache_id,
                 $_smarty_tpl->compile_id,
@@ -143,7 +143,7 @@ abstract class KeyValueStore extends Base
     public function storeCachedContent(Template $_template, $content)
     {
         $this->addMetaTimestamp($content);
-        return $this->write(array($_template->cached->filepath => $content), $_template->cache_lifetime);
+        return $this->write(array($_template->getCached()->filepath => $content), $_template->cache_lifetime);
     }
 
     /**
@@ -155,11 +155,11 @@ abstract class KeyValueStore extends Base
      */
     public function retrieveCachedContent(Template $_template)
     {
-        $content = $_template->cached->content ? $_template->cached->content : null;
+        $content = $_template->getCached()->content ?: null;
         $timestamp = null;
         if ($content === null) {
             if (!$this->fetch(
-                $_template->cached->filepath,
+                $_template->getCached()->filepath,
                 $_template->source->name,
                 $_template->cache_id,
                 $_template->compile_id,

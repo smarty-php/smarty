@@ -47,12 +47,12 @@ class CodeFrame
         $properties[ 'version' ] = \Smarty\Smarty::SMARTY_VERSION;
         $properties[ 'unifunc' ] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
         if (!$cache) {
-            $properties[ 'has_nocache_code' ] = $this->_template->compiled->has_nocache_code;
-            $properties[ 'file_dependency' ] = $this->_template->compiled->file_dependency;
-            $properties[ 'includes' ] = $this->_template->compiled->includes;
+            $properties[ 'has_nocache_code' ] = $this->_template->getCompiled()->getNocacheCode();
+            $properties[ 'file_dependency' ] = $this->_template->getCompiled()->file_dependency;
+            $properties[ 'includes' ] = $this->_template->getCompiled()->includes;
         } else {
-            $properties[ 'has_nocache_code' ] = $this->_template->cached->has_nocache_code;
-            $properties[ 'file_dependency' ] = $this->_template->cached->file_dependency;
+            $properties[ 'has_nocache_code' ] = $this->_template->getCached()->getNocacheCode();
+            $properties[ 'file_dependency' ] = $this->_template->getCached()->file_dependency;
             $properties[ 'cache_lifetime' ] = $this->_template->cache_lifetime;
         }
         $output = sprintf(

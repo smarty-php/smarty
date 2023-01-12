@@ -6,22 +6,9 @@ use Smarty\Smarty;
 
 /**
  * Smarty Resource Plugin
- *
-
-
- * @author     Rodney Rehm
- */
-
-/**
- * Smarty Resource Plugin
  * Base implementation for resource plugins
- *
-
-
- *
- * @method renderUncompiled(\Smarty\Template\Source $source, \Smarty\Template $_template)
- * @method populateCompiledFilepath(\Smarty\Template\Compiled $compiled, \Smarty\Template $_template)
  * @method process(\Smarty\Template $_smarty_tpl)
+ * @author     Rodney Rehm
  */
 abstract class BasePlugin
 {
@@ -46,11 +33,13 @@ abstract class BasePlugin
     public $recompiled = false;
 
     /**
-     * Flag if resource does implement populateCompiledFilepath() method
+     * Flag if resource does allow compilation
      *
-     * @var bool
+     * @return bool
      */
-    public $hasCompiledHandler = false;
+    public function supportsCompiledTemplates(): bool {
+		return true;
+    }
 
     /**
      * Load Resource Handler
@@ -120,30 +109,6 @@ abstract class BasePlugin
     }
 
     /**
-     * modify template_resource according to resource handlers specifications
-     *
-     * @param \Smarty\Template|null $template               Smarty instance
-     * @param string                            $template_resource template_resource to extract resource handler and
-     *                                                             name of
-     *
-     * @return string unique resource name
-     * @throws \Smarty\Exception
-     */
-    public static function getUniqueTemplateName($smarty, $template, $template_resource)
-    {
-        [$name, $type] = self::parseResourceName($template_resource, $smarty->default_resource_type);
-        // TODO: optimize for Smarty's internal resource types
-        $resource = BasePlugin::load($smarty, $type);
-        // go relative to a given template?
-        $_file_is_dotted = $name[ 0 ] === '.' && ($name[ 1 ] === '.' || $name[ 1 ] === '/');
-        if ($template && $_file_is_dotted && ($template->source->type === 'file' || $template->parent->source->type === 'extends')
-        ) {
-            $name = $smarty->_realpath(dirname($template->parent->source->filepath) . DIRECTORY_SEPARATOR . $name);
-        }
-        return $resource->buildUniqueResourceName($smarty, $name);
-    }
-
-    /**
      * initialize Source Object for given resource
      * wrapper for backward compatibility to versions < 3.1.22
      * Either [$_template] or [$smarty, $template_resource] must be specified
@@ -189,30 +154,6 @@ abstract class BasePlugin
     public function populateTimestamp(\Smarty\Template\Source $source)
     {
         // intentionally left blank
-    }
-
-    /**
-     * modify resource_name according to resource handlers specifications
-     *
-     * @param Smarty  $smarty        Smarty instance
-     * @param string  $resource_name resource_name to make unique
-     * @param boolean $isConfig      flag for config resource
-     *
-     * @return string unique resource name
-     */
-    public function buildUniqueResourceName(Smarty $smarty, $resource_name, $isConfig = false)
-    {
-        if ($isConfig) {
-            if (!isset($smarty->_joined_config_dir)) {
-                $smarty->getTemplateDir(null, true);
-            }
-            return get_class($this) . '#' . $smarty->_joined_config_dir . '#' . $resource_name;
-        } else {
-            if (!isset($smarty->_joined_template_dir)) {
-                $smarty->getTemplateDir();
-            }
-            return get_class($this) . '#' . $smarty->_joined_template_dir . '#' . $resource_name;
-        }
     }
 
     /*

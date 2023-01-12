@@ -146,6 +146,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
 
     /**
      * test  grandchild/child/parent dependency test3
+     * @group slow
      */
     public function testCompileBlockGrandChildMustCompile_021_3()
     {

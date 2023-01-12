@@ -178,8 +178,8 @@ class Cached extends GeneratedPhpFile {
 				return $this->valid;
 			}
 			if ($this->valid && $_template->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED
-				&& $_template->cached->cache_lifetime >= 0
-				&& (time() > ($_template->cached->timestamp + $_template->cached->cache_lifetime))
+				&& $_template->getCached()->cache_lifetime >= 0
+				&& (time() > ($_template->getCached()->timestamp + $_template->getCached()->cache_lifetime))
 			) {
 				$this->valid = false;
 			}
@@ -266,10 +266,8 @@ class Cached extends GeneratedPhpFile {
 	 */
 	private function updateCache(Template $_template, $no_output_filter) {
 		ob_start();
-		if (!isset($_template->compiled)) {
-			$_template->loadCompiled();
-		}
-		$_template->compiled->render($_template);
+
+		$_template->getCompiled()->render($_template);
 		if ($_template->smarty->debugging) {
 			$_template->smarty->getDebug()->start_cache($_template);
 		}
@@ -277,10 +275,10 @@ class Cached extends GeneratedPhpFile {
 		$compile_check = (int)$_template->compile_check;
 		$_template->compile_check = \Smarty\Smarty::COMPILECHECK_OFF;
 		if ($_template->_isSubTpl()) {
-			$_template->compiled->unifunc = $_template->parent->compiled->unifunc;
+			$_template->getCompiled()->unifunc = $_template->parent->getCompiled()->unifunc;
 		}
-		if (!$_template->cached->processed) {
-			$_template->cached->process($_template, true);
+		if (!$_template->getCached()->processed) {
+			$_template->getCached()->process($_template, true);
 		}
 		$_template->compile_check = $compile_check;
 		$this->renderTemplateCode($_template);
@@ -301,10 +299,10 @@ class Cached extends GeneratedPhpFile {
 		$php_pattern = '/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/';
 		$content = ob_get_clean();
 		$hash_array = $this->hashes;
-		$hash_array[$_template->compiled->nocache_hash] = true;
+		$hash_array[$_template->getCompiled()->nocache_hash] = true;
 		$hash_array = array_keys($hash_array);
 		$nocache_hash = '(' . implode('|', $hash_array) . ')';
-		$_template->cached->has_nocache_code = false;
+		$_template->getCached()->setNocacheCode(false);
 		// get text between non-cached items
 		$cache_split =
 			preg_split(
@@ -341,13 +339,13 @@ class Cached extends GeneratedPhpFile {
 				$content .= $curr_split;
 			}
 			if (isset($cache_parts[0][$curr_idx])) {
-				$_template->cached->has_nocache_code = true;
+				$_template->getCached()->setNocacheCode(true);
 				$content .= $cache_parts[2][$curr_idx];
 			}
 		}
 		if (
 			!$no_output_filter
-			&& !$_template->cached->has_nocache_code
+			&& !$_template->getCached()->getNocacheCode()
 		) {
 			$content = $_template->smarty->runOutputFilters($content, $_template);
 		}

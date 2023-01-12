@@ -85,9 +85,9 @@ abstract class Base
      */
     public function getCachedContent(Template $_template)
     {
-        if ($_template->cached->handler->process($_template)) {
+        if ($_template->getCached()->handler->process($_template)) {
             ob_start();
-            $unifunc = $_template->cached->unifunc;
+            $unifunc = $_template->getCached()->unifunc;
             $unifunc($_template);
             return ob_get_clean();
         }

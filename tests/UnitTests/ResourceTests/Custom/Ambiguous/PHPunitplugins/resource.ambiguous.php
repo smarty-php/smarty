@@ -28,19 +28,6 @@ class Smarty_Resource_AmbiguousPlugin extends FilePlugin
     }
 
     /**
-     * modify resource_name according to resource handlers specifications
-     *
-     * @param  Smarty $smarty        Smarty instance
-     * @param  string $resource_name resource_name to make unique
-     *
-     * @return string unique resource name
-     */
-    public function buildUniqueResourceName(Smarty $smarty, $resource_name, $isConfig = false)
-    {
-        return get_class($this) . '#' . $this->segment . '#' . $resource_name;
-    }
-
-    /**
      * populate Source Object with meta data from Resource
      *
      * @param Source   $source    source object

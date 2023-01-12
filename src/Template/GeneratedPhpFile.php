@@ -55,7 +55,7 @@ abstract class GeneratedPhpFile {
 	 *
 	 * @var bool
 	 */
-	public $has_nocache_code = false;
+	private $has_nocache_code = false;
 
 	/**
 	 * resource file dependency
@@ -74,6 +74,20 @@ abstract class GeneratedPhpFile {
 			$this->timestamp = filemtime($this->filepath);
 		}
 		return $this->timestamp;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getNocacheCode(): bool {
+		return $this->has_nocache_code;
+	}
+
+	/**
+	 * @param bool $has_nocache_code
+	 */
+	public function setNocacheCode(bool $has_nocache_code): void {
+		$this->has_nocache_code = $has_nocache_code;
 	}
 
 }

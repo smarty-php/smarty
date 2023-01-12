@@ -45,8 +45,8 @@ class BlockClose extends Inheritance {
 			$output .= "public \${$property} = " . var_export($value, true) . ";\n";
 		}
 		$output .= "public function callBlock(\\Smarty\\Template \$_smarty_tpl) {\n";
-		if ($compiler->template->compiled->has_nocache_code) {
-			$output .= "\$_smarty_tpl->cached->hashes['{$compiler->template->compiled->nocache_hash}'] = true;\n";
+		if ($compiler->template->getCompiled()->getNocacheCode()) {
+			$output .= "\$_smarty_tpl->getCached()->hashes['{$compiler->template->getCompiled()->nocache_hash}'] = true;\n";
 		}
 		if (isset($_assign)) {
 			$output .= "ob_start();\n";
@@ -78,7 +78,7 @@ class BlockClose extends Inheritance {
 		$compiler->blockOrFunctionCode .= $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
 		$compiler->parser->current_buffer = new Template();
 		// restore old status
-		$compiler->template->compiled->has_nocache_code = $_has_nocache_code;
+		$compiler->template->getCompiled()->setNocacheCode($_has_nocache_code);
 		$compiler->tag_nocache = $compiler->nocache;
 		$compiler->nocache = $_nocache;
 		$compiler->parser->current_buffer = $_buffer;

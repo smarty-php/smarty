@@ -143,13 +143,13 @@ abstract class Custom extends Base
 	                           $update = false
     ) {
         if (!$cached) {
-            $cached = $_smarty_tpl->cached;
+            $cached = $_smarty_tpl->getCached();
         }
         $content = $cached->content ? $cached->content : null;
         $timestamp = $cached->timestamp ? $cached->timestamp : null;
         if ($content === null || !$timestamp) {
             $this->fetch(
-                $_smarty_tpl->cached->filepath,
+                $_smarty_tpl->getCached()->filepath,
                 $_smarty_tpl->source->name,
                 $_smarty_tpl->cache_id,
                 $_smarty_tpl->compile_id,
@@ -176,7 +176,7 @@ abstract class Custom extends Base
     public function storeCachedContent(Template $_template, $content)
     {
         return $this->save(
-            $_template->cached->filepath,
+            $_template->getCached()->filepath,
             $_template->source->name,
             $_template->cache_id,
             $_template->compile_id,
@@ -194,11 +194,11 @@ abstract class Custom extends Base
      */
     public function retrieveCachedContent(Template $_template)
     {
-        $content = $_template->cached->content ?: null;
+        $content = $_template->getCached()->content ?: null;
 	    if ($content === null) {
             $timestamp = null;
             $this->fetch(
-                $_template->cached->filepath,
+                $_template->getCached()->filepath,
                 $_template->source->name,
                 $_template->cache_id,
                 $_template->compile_id,

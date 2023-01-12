@@ -82,7 +82,7 @@ class Configfile extends BaseCompiler {
 	 */
 	public function compileTemplate(Template $template) {
 		$this->template = $template;
-		$this->template->compiled->file_dependency[$this->template->source->uid] =
+		$this->template->getCompiled()->file_dependency[$this->template->source->uid] =
 			[
 				$this->template->source->filepath,
 				$this->template->source->getTimeStamp(),

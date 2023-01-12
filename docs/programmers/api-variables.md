@@ -4,7 +4,6 @@ Smarty Class Variables {#api.variables}
 These are all of the available Smarty class variables. You can access
 them directly, or use the corresponding setter/getter methods.
 
-- [$allow_php_templates](./api-variables/variable-allow-php-templates.md)
 - [$auto_literal](./api-variables/variable-auto-literal.md)
 - [$cache_dir](./api-variables/variable-cache-dir.md)
 - [$cache_id](./api-variables/variable-cache-id.md)

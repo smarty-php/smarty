@@ -62,7 +62,7 @@ class ResourcePluginTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('db2:test.tpl');
         $expected = realpath('./templates_c/' . sha1('db2:test.tpl') . '.db2.test.tpl.php');
         $this->assertFalse(!!$expected);
-        $this->assertFalse($tpl->compiled->filepath);
+        $this->assertNull($tpl->getCompiled()->filepath);
     }
 
     /**

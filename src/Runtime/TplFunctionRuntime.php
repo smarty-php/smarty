@@ -1,6 +1,7 @@
 <?php
 
 namespace Smarty\Runtime;
+use Smarty\Exception;
 use Smarty\Template;
 use Smarty\TemplateBase;
 
@@ -98,8 +99,9 @@ class TplFunctionRuntime {
 	 * @param string $_function PHP function name
 	 *
 	 * @return bool
+	 * @throws Exception
 	 */
-	public function addTplFuncToCache(Template $tpl, $_name, $_function) {
+	private function addTplFuncToCache(Template $tpl, $_name, $_function) {
 		$funcParam = $tpl->tplFunctions[$_name];
 		if (is_file($funcParam['compiled_filepath'])) {
 			// read compiled file
@@ -112,32 +114,30 @@ class TplFunctionRuntime {
 				// make PHP function known
 				eval($match[0]);
 				if (function_exists($_function)) {
-					// search cache file template
-					$tplPtr = $tpl;
-					while (!isset($tplPtr->cached) && isset($tplPtr->parent)) {
-						$tplPtr = $tplPtr->parent;
-					}
+
+					// Some magic code existed here, testing if the cached property had been set
+					// and then bubbling up until it found a parent template that had the cached property.
+					// This is no longer possible, so somehow this might break.
+
 					// add template function code to cache file
-					if (isset($tplPtr->cached)) {
-						$content = $tplPtr->cached->readCache($tplPtr);
-						if ($content) {
-							// check if we must update file dependency
-							if (!preg_match("/'{$funcParam['uid']}'(.*?)'nocache_hash'/", $content, $match2)) {
-								$content = preg_replace("/('file_dependency'(.*?)\()/", "\\1{$match1[0]}", $content);
-							}
-							$tplPtr->cached->writeCache(
-								$tplPtr,
-								preg_replace('/\s*\?>\s*$/', "\n", $content) .
-								"\n" . preg_replace(
-									[
-										'/^\s*<\?php\s+/',
-										'/\s*\?>\s*$/',
-									],
-									"\n",
-									$match[0]
-								)
-							);
+					$content = $tpl->getCached()->readCache($tpl);
+					if ($content) {
+						// check if we must update file dependency
+						if (!preg_match("/'{$funcParam['uid']}'(.*?)'nocache_hash'/", $content, $match2)) {
+							$content = preg_replace("/('file_dependency'(.*?)\()/", "\\1{$match1[0]}", $content);
 						}
+						$tpl->getCached()->writeCache(
+							$tpl,
+							preg_replace('/\s*\?>\s*$/', "\n", $content) .
+							"\n" . preg_replace(
+								[
+									'/^\s*<\?php\s+/',
+									'/\s*\?>\s*$/',
+								],
+								"\n",
+								$match[0]
+							)
+						);
 					}
 					return true;
 				}

@@ -116,7 +116,7 @@ class InheritanceRuntime {
 				$template,
 				$tpl->cache_id,
 				$tpl->compile_id,
-				$tpl->caching ? 9999 : 0,
+				$tpl->caching ? \Smarty\Template::CACHING_NOCACHE_CODE : 0,
 				$tpl->cache_lifetime,
 				[],
 				$uid,

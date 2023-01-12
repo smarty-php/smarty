@@ -394,22 +394,22 @@ class Template extends BaseCompiler {
 			}
 			$this->parent_compiler = $parent_compiler ? $parent_compiler : $this;
 			$nocache = isset($nocache) ? $nocache : false;
-			if (empty($template->compiled->nocache_hash)) {
-				$template->compiled->nocache_hash = $this->nocache_hash;
+			if (empty($template->getCompiled()->nocache_hash)) {
+				$template->getCompiled()->nocache_hash = $this->nocache_hash;
 			} else {
-				$this->nocache_hash = $template->compiled->nocache_hash;
+				$this->nocache_hash = $template->getCompiled()->nocache_hash;
 			}
 			$this->caching = $template->caching;
 			// flag for nocache sections
 			$this->nocache = $nocache;
 			$this->tag_nocache = false;
 			// reset has nocache code flag
-			$this->template->compiled->has_nocache_code = false;
+			$this->template->getCompiled()->setNocacheCode(false);
 			$this->has_variable_string = false;
 			$this->prefix_code = [];
 			// add file dependency
 			if ($this->smarty->merge_compiled_includes || $this->template->source->handler->checkTimestamps()) {
-				$this->parent_compiler->template->compiled->file_dependency[$this->template->source->uid] =
+				$this->parent_compiler->template->getCompiled()->file_dependency[$this->template->source->uid] =
 					[
 						$this->template->source->filepath,
 						$this->template->source->getTimeStamp(),
@@ -723,7 +723,7 @@ class Template extends BaseCompiler {
 			if ((!($this->template->source->handler->recompiled) || $this->forceNocache) && $this->caching
 				&& !$this->suppressNocacheProcessing && ($this->nocache || $this->tag_nocache)
 			) {
-				$this->template->compiled->has_nocache_code = true;
+				$this->template->getCompiled()->setNocacheCode(true);
 				$_output = addcslashes($content, '\'\\');
 				$_output = str_replace('^#^', '\'', $_output);
 				$_output =
@@ -1238,7 +1238,7 @@ class Template extends BaseCompiler {
 				$this
 			);
 		if ($isTemplateSource && $this->template->caching) {
-			$this->parser->insertPhpCode("<?php\n\$_smarty_tpl->compiled->nocache_hash = '{$this->nocache_hash}';\n?>\n");
+			$this->parser->insertPhpCode("<?php\n\$_smarty_tpl->getCompiled()->nocache_hash = '{$this->nocache_hash}';\n?>\n");
 		}
 		if (function_exists('mb_internal_encoding')
 			&& function_exists('ini_get')

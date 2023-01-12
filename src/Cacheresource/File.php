@@ -108,12 +108,12 @@ class File extends Base
 	    Cached   $cached = null,
 	             $update = false
     ) {
-        $_smarty_tpl->cached->valid = false;
+        $_smarty_tpl->getCached()->valid = false;
         if ($update && defined('HHVM_VERSION')) {
-            eval('?>' . file_get_contents($_smarty_tpl->cached->filepath));
+            eval('?>' . file_get_contents($_smarty_tpl->getCached()->filepath));
             return true;
         } else {
-            return @include $_smarty_tpl->cached->filepath;
+            return @include $_smarty_tpl->getCached()->filepath;
         }
     }
 
@@ -128,15 +128,15 @@ class File extends Base
      */
     public function storeCachedContent(Template $_template, $content)
     {
-        if ($_template->smarty->writeFile($_template->cached->filepath, $content) === true) {
+        if ($_template->smarty->writeFile($_template->getCached()->filepath, $content) === true) {
             if (function_exists('opcache_invalidate')
                 && (!function_exists('ini_get') || strlen(ini_get('opcache.restrict_api'))) < 1
             ) {
-                opcache_invalidate($_template->cached->filepath, true);
+                opcache_invalidate($_template->getCached()->filepath, true);
             } elseif (function_exists('apc_compile_file')) {
-                apc_compile_file($_template->cached->filepath);
+                apc_compile_file($_template->getCached()->filepath);
             }
-            $cached = $_template->cached;
+            $cached = $_template->getCached();
             $cached->timestamp = $cached->exists = is_file($cached->filepath);
             if ($cached->exists) {
                 $cached->timestamp = filemtime($cached->filepath);
@@ -155,8 +155,8 @@ class File extends Base
      */
     public function retrieveCachedContent(Template $_template)
     {
-        if (is_file($_template->cached->filepath)) {
-            return file_get_contents($_template->cached->filepath);
+        if (is_file($_template->getCached()->filepath)) {
+            return file_get_contents($_template->getCached()->filepath);
         }
         return false;
     }
@@ -213,7 +213,7 @@ class File extends Base
 		    // remove from template cache
 		    $tpl->source; // have the template registered before unset()
 		    if ($tpl->source->exists) {
-			    $_resourcename_parts = basename(str_replace('^', '/', $tpl->cached->filepath));
+			    $_resourcename_parts = basename(str_replace('^', '/', $tpl->getCached()->filepath));
 		    } else {
 			    return 0;
 		    }
