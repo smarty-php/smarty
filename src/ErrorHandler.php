@@ -4,21 +4,10 @@ namespace Smarty;
 
 /**
  * Smarty error handler to fix new error levels in PHP8 for backwards compatibility
- *
-
-
  * @author     Simon Wisselink
- *
  */
 class ErrorHandler
 {
-
-    /**
-     * Allows {$foo} where foo is unset.
-     * @var bool
-     */
-    public $allowUndefinedVars = true;
-
     /**
      * Allows {$foo.bar} where bar is unset and {$foo.bar1.bar2} where either bar1 or bar2 is unset.
      * @var bool
@@ -74,14 +63,6 @@ class ErrorHandler
      */
     public function handleError($errno, $errstr, $errfile, $errline, $errcontext = [])
     {
-
-        if ($this->allowUndefinedVars && preg_match(
-                '/^(Attempt to read property "value" on null|Trying to get property (\'value\' )?of non-object)/',
-                $errstr
-            )) {
-            return; // suppresses this error
-        }
-
         if ($this->allowUndefinedArrayKeys && preg_match(
             '/^(Undefined index|Undefined array key|Trying to access array offset on value of type)/',
             $errstr

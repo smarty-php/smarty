@@ -65,6 +65,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
      */
     public function testError()
     {
+		$this->smarty->error_unassigned = true;
         $this->expectException(PHPUnit\Framework\Error\Error::class);
 		$this->expectExceptionMessage('Undefined ');
         $e1 = error_reporting();
@@ -131,9 +132,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->assertEquals("ab", $this->smarty->fetch($tpl));
     }
 
-	/**
-	 * @group 20221124
-	 */
+
 	public function testDereferenceOnNull() {
 		$this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 		$this->smarty->muteUndefinedOrNullWarnings();
@@ -142,9 +141,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
 		$this->assertEquals("ab", $this->smarty->fetch($tpl));
 	}
 
-	/**
-	 * @group 20221124
-	 */
+
 	public function testDereferenceOnBool() {
 		$this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
 		$this->smarty->muteUndefinedOrNullWarnings();
@@ -153,9 +150,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
 		$this->assertEquals("ab", $this->smarty->fetch($tpl));
 	}
 
-	/**
-	 * @group 20221124
-	 */
+
 	public function testDereferenceOnString() {
 		$this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
 		$this->smarty->muteUndefinedOrNullWarnings();
