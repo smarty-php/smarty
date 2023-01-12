@@ -287,9 +287,6 @@ class IncludeTag extends Base {
 		$uid = $tpl->source->type . $tpl->source->uid;
 		if ($tpl->source->exists) {
 			$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['uid'] = $tpl->source->uid;
-			if (isset($compiler->template->inheritance)) {
-				$tpl->inheritance = clone $compiler->template->inheritance;
-			}
 			$tpl->compiled = new Compiled();
 			$tpl->compiled->nocache_hash = $compiler->parent_compiler->template->compiled->nocache_hash;
 			$tpl->loadCompiler();

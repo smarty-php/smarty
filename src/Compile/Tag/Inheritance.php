@@ -29,7 +29,7 @@ abstract class Inheritance extends Base
      */
     public static function postCompile(\Smarty\Compiler\Template $compiler, $initChildSequence = false)
     {
-        $compiler->prefixCompiledCode .= "<?php \$_smarty_tpl->_loadInheritance();\n\$_smarty_tpl->inheritance->init(\$_smarty_tpl, " .
+        $compiler->prefixCompiledCode .= "<?php \$_smarty_tpl->getInheritance()->init(\$_smarty_tpl, " .
                                          var_export($initChildSequence, true) . ");\n?>\n";
     }
 

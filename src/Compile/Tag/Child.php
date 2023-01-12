@@ -71,7 +71,7 @@ class Child extends Base {
 		if (isset($_assign)) {
 			$output .= "ob_start();\n";
 		}
-		$output .= '$_smarty_tpl->inheritance->call' . $this->blockType . '($_smarty_tpl, $this' .
+		$output .= '$_smarty_tpl->getInheritance()->call' . $this->blockType . '($_smarty_tpl, $this' .
 			($this->blockType === 'Child' ? '' : ", {$tag}") . ");\n";
 		if (isset($_assign)) {
 			$output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean());\n";

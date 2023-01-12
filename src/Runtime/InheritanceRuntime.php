@@ -71,8 +71,7 @@ class InheritanceRuntime {
 	public function init(Template $tpl, $initChild, $blockNames = []) {
 		// if called while executing parent template it must be a sub-template with new inheritance root
 		if ($initChild && $this->state === 3 && (strpos($tpl->template_resource, 'extendsall') === false)) {
-			$tpl->inheritance = new InheritanceRuntime();
-			$tpl->inheritance->init($tpl, $initChild, $blockNames);
+			$tpl->getInheritance()->init($tpl, $initChild, $blockNames);
 			return;
 		}
 		++$this->tplIndex;
@@ -227,7 +226,8 @@ class InheritanceRuntime {
 		if (isset($block->parent)) {
 			$this->callBlock($block->parent, $tpl);
 		} else {
-			throw new Exception("inheritance: illegal '{$tag}' used in child template '{$tpl->inheritance->sources[$block->tplIndex]->filepath}' block '{$block->name}'");
+			throw new Exception("inheritance: illegal '{$tag}' used in child template '" .
+				"{$tpl->getInheritance()->sources[$block->tplIndex]->filepath}' block '{$block->name}'");
 		}
 	}
 

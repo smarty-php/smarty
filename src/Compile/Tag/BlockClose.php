@@ -84,9 +84,9 @@ class BlockClose extends Inheritance {
 		$compiler->parser->current_buffer = $_buffer;
 		$output = "<?php \n";
 		if ($compiler->_cache['blockNesting'] === 1) {
-			$output .= "\$_smarty_tpl->inheritance->instanceBlock(\$_smarty_tpl, '$_className', $_name);\n";
+			$output .= "\$_smarty_tpl->getInheritance()->instanceBlock(\$_smarty_tpl, '$_className', $_name);\n";
 		} else {
-			$output .= "\$_smarty_tpl->inheritance->instanceBlock(\$_smarty_tpl, '$_className', $_name, \$this->tplIndex);\n";
+			$output .= "\$_smarty_tpl->getInheritance()->instanceBlock(\$_smarty_tpl, '$_className', $_name, \$this->tplIndex);\n";
 		}
 		$output .= "?>\n";
 		--$compiler->_cache['blockNesting'];

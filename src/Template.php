@@ -34,13 +34,6 @@ class Template extends TemplateBase {
 	public $source = null;
 
 	/**
-	 * Inheritance runtime extension
-	 *
-	 * @var InheritanceRuntime
-	 */
-	public $inheritance = null;
-
-	/**
 	 * Template resource
 	 *
 	 * @var string
@@ -479,21 +472,21 @@ class Template extends TemplateBase {
 	}
 
 	/**
-	 * Load inheritance object
+	 * Helper function for InheritanceRuntime object
+	 *
+	 * @return InheritanceRuntime
+	 * @throws Exception
 	 */
-	public function _loadInheritance() {
-		if (!isset($this->inheritance)) {
-			$this->inheritance = new InheritanceRuntime();
-		}
+	public function getInheritance(): InheritanceRuntime {
+		return $this->_getSmartyObj()->getRuntime('Inheritance');
 	}
 
 	/**
-	 * Unload inheritance object
+	 * Unload event callbacks
 	 */
 	private function _cleanUp() {
 		$this->startRenderCallbacks = [];
 		$this->endRenderCallbacks = [];
-		$this->inheritance = null;
 	}
 
 	/**
