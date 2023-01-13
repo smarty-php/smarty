@@ -71,12 +71,7 @@ class ConfigLoad extends Base {
 		// save possible attributes
 		$conf_file = $_attr['file'];
 		$section = $_attr['section'] ?? 'null';
-		// scope setup
-		if ($_attr['noscope']) {
-			$_scope = -1;
-		} else {
-			$_scope = $this->convertScope($_attr);
-		}
+
 		// create config object
 		return "<?php\n\$_smarty_tpl->configLoad({$conf_file}, {$section});\n?>\n";
 	}

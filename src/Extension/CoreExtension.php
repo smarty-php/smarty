@@ -34,10 +34,8 @@ class CoreExtension extends Base {
 			case 'elseif': return new \Smarty\Compile\Tag\ElseIfTag();
 			case 'ifclose': return new \Smarty\Compile\Tag\IfClose();
 			case 'include': return new \Smarty\Compile\Tag\IncludeTag();
-			case 'insert': return new \Smarty\Compile\Inser();
 			case 'ldelim': return new \Smarty\Compile\Tag\Ldelim();
 			case 'rdelim': return new \Smarty\Compile\Tag\Rdelim();
-			case 'make_nocache': return new \Smarty\Compile\Tag\MakeNocache();
 			case 'nocache': return new \Smarty\Compile\Tag\Nocache();
 			case 'nocacheclose': return new \Smarty\Compile\Tag\NocacheClose();
 			case 'parent': return new \Smarty\Compile\Tag\ParentTag();

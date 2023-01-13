@@ -128,13 +128,6 @@ class Template extends BaseCompiler {
 	public $trace_filepath = '';
 
 	/**
-	 * force compilation of complete template as nocache
-	 *
-	 * @var boolean
-	 */
-	public $forceNocache = false;
-
-	/**
 	 * Template functions
 	 *
 	 * @var array
@@ -708,37 +701,46 @@ class Template extends BaseCompiler {
 	/**
 	 * Inject inline code for nocache template sections
 	 * This method gets the content of each template element from the parser.
-	 * If the content is compiled code and it should be not cached the code is injected
+	 * If the content is compiled code, and it should be not be cached the code is injected
 	 * into the rendered output.
 	 *
 	 * @param string $content content of template element
-	 * @param boolean $is_code true if content is compiled code
 	 *
 	 * @return string  content
 	 */
-	public function processNocacheCode($content, $is_code) {
-		// If the template is not evaluated and we have a nocache section and or a nocache tag
-		if ($is_code && !empty($content)) {
-			// generate replacement code
-			if ((!($this->template->source->handler->recompiled) || $this->forceNocache) && $this->caching
-				&& !$this->suppressNocacheProcessing && ($this->nocache || $this->tag_nocache)
-			) {
-				$this->template->getCompiled()->setNocacheCode(true);
-				$_output = addcslashes($content, '\'\\');
-				$_output = str_replace('^#^', '\'', $_output);
-				$_output =
-					"<?php echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/{$_output}/*/%%SmartyNocache:{$this->nocache_hash}%%*/';?>\n";
-			} else {
-				$_output = $content;
-			}
+	public function processNocacheCode($content) {
+
+		// If the template is not evaluated, and we have a nocache section and/or a nocache tag
+		// generate replacement code
+		if (!empty($content)
+			&& !($this->template->source->handler->recompiled)
+			&& $this->caching
+			&& !$this->suppressNocacheProcessing
+			&& ($this->nocache || $this->tag_nocache)
+		) {
+			$this->template->getCompiled()->setNocacheCode(true);
+			$_output = addcslashes($content, '\'\\');
+			$_output =
+				"<?php echo '" . $this->getNocacheBlockStartMarker() . $_output . $this->getNocacheBlockEndMarker() . "';?>\n";
 		} else {
 			$_output = $content;
 		}
+
 		$this->modifier_plugins = [];
 		$this->suppressNocacheProcessing = false;
 		$this->tag_nocache = false;
 		return $_output;
 	}
+
+
+	private function getNocacheBlockStartMarker(): string {
+		return "/*%%SmartyNocache:{$this->nocache_hash}%%*/";
+	}
+
+	private function getNocacheBlockEndMarker(): string {
+		return "/*/%%SmartyNocache:{$this->nocache_hash}%%*/";
+	}
+
 
 	/**
 	 * Get Id
@@ -768,19 +770,6 @@ class Template extends BaseCompiler {
 				$this->template->assign($_var, null, true);
 			}
 		}
-	}
-
-	/**
-	 * Generate nocache code string
-	 *
-	 * @param string $code PHP code
-	 *
-	 * @return string
-	 */
-	public function makeNocacheCode($code) {
-		return "echo '/*%%SmartyNocache:{$this->nocache_hash}%%*/<?php " .
-			str_replace('^#^', '\'', addcslashes($code, '\'\\')) .
-			"?>/*/%%SmartyNocache:{$this->nocache_hash}%%*/';\n";
 	}
 
 	/**

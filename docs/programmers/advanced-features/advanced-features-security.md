@@ -11,14 +11,8 @@ instance of the Smarty\_Security class. These are the possible settings:
 -   `$secure_dir` is an array of template directories that are
     considered secure. [`$template_dir`](#variable.template.dir)
     considered secure implicitly. The default is an empty array.
-
--   `$trusted_dir` is an array of all directories that are considered
-    trusted. Trusted directories are where you keep php scripts that are
-    executed directly from the templates with
-    [`{insert}`](#language.function.insert.php). The default is an
-    empty array.
-
--   `$trusted_uri` is an array of regular expressions matching URIs that
+   
+- `$trusted_uri` is an array of regular expressions matching URIs that
     are considered trusted. This security directive used by
     [`{fetch}`](#language.function.fetch) and
     [`{html_image}`](#language.function.html.image). URIs passed to

@@ -76,62 +76,14 @@ third parameter to [`registerPlugin()`](#api.register.plugin) is called
 
 When registering a plugin with `$cacheable=false` the plugin is called
 everytime the page is displayed, even if the page comes from the cache.
-The plugin function behaves a little like an
-[`{insert}`](#plugins.inserts) function.
 
 > **Note**
 >
-> The `$cacheable` status will effect the compiled template code. If you
+> The `$cacheable` status will affect the compiled template code. If you
 > change the status you must manually delete existing compiled and
 > cached template files to force a recompile.
 
-In contrast to [`{insert}`](#plugins.inserts) the attributes to the
-plugins are not cached by default. They can be declared to be cached
-with the fourth parameter `$cache_attrs`. `$cache_attrs` is an array of
-attribute-names that should be cached, so the plugin-function get value
-as it was the time the page was written to cache everytime it is fetched
-from the cache.
-
-
-    <?php
-    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-
-    function remaining_seconds($params, $smarty) {
-        $remain = $params['endtime'] - time();
-        if($remain >= 0){
-            return $remain . ' second(s)';
-        }else{
-            return 'done';
-        }
-    }
-
-    $smarty->registerPlugin('function','remaining', 'remaining_seconds', false, array('endtime'));
-
-    if (!$smarty->isCached('index.tpl')) {
-        // fetch $obj from db and assign...
-        $smarty->assignByRef('obj', $obj);
-    }
-
-    $smarty->display('index.tpl');
-    ?>
-
-       
-
-where `index.tpl` is:
-
-
-    Time Remaining: {remaining endtime=$obj->endtime}
-
-       
-
-The number of seconds till the endtime of `$obj` is reached changes on
-each display of the page, even if the page is cached. Since the endtime
-attribute is cached the object only has to be pulled from the database
-when page is written to the cache but not on subsequent requests of the
-page.
-
-
-    index.php:
+Example `index.php`:
 
     <?php
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);

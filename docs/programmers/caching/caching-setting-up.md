@@ -118,16 +118,13 @@ process.
         
 
 You can keep parts of a page dynamic (disable caching) with the
-[`{nocache}{/nocache}`](#language.function.nocache) block function, the
-[`{insert}`](#language.function.insert) function, or by using the
+[`{nocache}{/nocache}`](#language.function.nocache) block function, or by using the
 `nocache` parameter for most template functions.
 
 Let\'s say the whole page can be cached except for a banner that is
-displayed down the side of the page. By using the
-[`{insert}`](#language.function.insert) function for the banner, you can
-keep this element dynamic within the cached content. See the
-documentation on [`{insert}`](#language.function.insert) for more
-details and examples.
+displayed down the side of the page. By using a [`{nocache}{/nocache}`](#language.function.nocache)
+block for the banner, you can
+keep this element dynamic within the cached content.
 
 You can clear all the cache files with the
 [`clearAllCache()`](#api.clear.all.cache) function, or individual cache

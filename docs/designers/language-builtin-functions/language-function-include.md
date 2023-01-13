@@ -188,5 +188,5 @@ current template.
 
       
 
-See also [`{insert}`](#language.function.insert), [template resources](#resources) and
+See also [template resources](#resources) and
 [componentized templates](#tips.componentized.templates).

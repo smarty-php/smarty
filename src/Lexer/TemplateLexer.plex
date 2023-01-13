@@ -330,7 +330,6 @@ class TemplateLexer
      step = ~\s+step\s+~
      if = ~(if|elseif|else if|while)\s+~
      for = ~for\s+~
-     makenocache = ~make_nocache\s+~
      array = ~array~
      foreach = ~foreach(?![^\s])~
      setfilter = ~setfilter\s+~
@@ -402,11 +401,6 @@ class TemplateLexer
      }
      ldel setfilter {
         $this->token = \Smarty\Parser\TemplateParser::TP_LDELSETFILTER;
-        $this->yybegin(self::TAGBODY);
-        $this->taglineno = $this->line;
-     }
-     ldel makenocache {
-        $this->token = \Smarty\Parser\TemplateParser::TP_LDELMAKENOCACHE;
         $this->yybegin(self::TAGBODY);
         $this->taglineno = $this->line;
      }

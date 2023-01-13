@@ -62,10 +62,7 @@ class FunctionCallCompiler extends Base {
 		// not cacheable?
 		$compiler->tag_nocache = $compiler->tag_nocache || !$functionHandler->isCacheable();
 
-		$_paramsArray = $this->formatParamsArray(
-			$_attr,
-			$compiler->template->caching ? $functionHandler->getCacheAttributes() : []
-		);
+		$_paramsArray = $this->formatParamsArray($_attr);
 
 		$_params = 'array(' . implode(',', $_paramsArray) . ')';
 

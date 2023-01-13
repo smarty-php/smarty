@@ -16,7 +16,6 @@ Built-in Functions {#language.builtin.functions}
 - [{function}](./language-builtin-functions/language-function-function.md)
 - [{if},{elseif},{else}](./language-builtin-functions/language-function-if.md)
 - [{include}](./language-builtin-functions/language-function-include.md)
-- [{insert}](./language-builtin-functions/language-function-insert.md)
 - [{ldelim},{rdelim}](./language-builtin-functions/language-function-ldelim.md)
 - [{literal}](./language-builtin-functions/language-function-literal.md)
 - [{nocache}](./language-builtin-functions/language-function-nocache.md)

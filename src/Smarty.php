@@ -15,7 +15,6 @@ use Smarty\Resource\BasePlugin;
 use Smarty\Smarty\Runtime\CaptureRuntime;
 use Smarty\Smarty\Runtime\ForeachRuntime;
 use Smarty\Smarty\Runtime\InheritanceRuntime;
-use Smarty\Smarty\Runtime\MakeNocacheRuntime;
 use Smarty\Smarty\Runtime\TplFunctionRuntime;
 
 /**
@@ -760,7 +759,6 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param string $name name of template tag
 	 * @param callable $callback PHP callback to register
 	 * @param bool $cacheable if true (default) this function is cache able
-	 * @param mixed $cache_attr caching attributes if any
 	 *
 	 * @return $this
 	 * @throws \Smarty\Exception
@@ -768,15 +766,13 @@ class Smarty extends \Smarty\TemplateBase
 	 *
 	 * @api  Smarty::registerPlugin()
 	 */
-	public function registerPlugin($type, $name, $callback, $cacheable = true, $cache_attr = null) {
+	public function registerPlugin($type, $name, $callback, $cacheable = true) {
 		if (isset($this->registered_plugins[$type][$name])) {
 			throw new Exception("Plugin tag '{$name}' already registered");
 		} elseif (!is_callable($callback)) {
 			throw new Exception("Plugin '{$name}' not callable");
-		} elseif ($cacheable && $cache_attr) {
-			throw new Exception("Cannot set caching attributes for plugin '{$name}' when it is cacheable.");
 		} else {
-			$this->registered_plugins[$type][$name] = [$callback, (bool)$cacheable, (array)$cache_attr];
+			$this->registered_plugins[$type][$name] = [$callback, (bool)$cacheable];
 		}
 		return $this;
 	}
@@ -1882,8 +1878,6 @@ class Smarty extends \Smarty\TemplateBase
 				return $this->runtimes[$type] = new \Smarty\Runtime\ForeachRuntime();
 			case 'Inheritance':
 				return $this->runtimes[$type] = new \Smarty\Runtime\InheritanceRuntime();
-			case 'MakeNocache':
-				return $this->runtimes[$type] = new \Smarty\Runtime\MakeNocacheRuntime();
 			case 'TplFunction':
 				return $this->runtimes[$type] = new \Smarty\Runtime\TplFunctionRuntime();
 			case 'DefaultPluginHandler':

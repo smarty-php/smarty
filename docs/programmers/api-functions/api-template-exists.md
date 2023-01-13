@@ -55,5 +55,4 @@ And the php script
       
 
 See also [`display()`](#api.display), [`fetch()`](#api.fetch),
-[`{include}`](#language.function.include) and
-[`{insert}`](#language.function.insert)
+and [`{include}`](#language.function.include)

@@ -431,11 +431,6 @@ tag(res)   ::= LDEL ID(i) PTR ID(me) modifierlist(l) attributes(a). {
     res = $this->compiler->compileTag(i,a,array('modifierlist'=>l, 'object_method'=>me));
 }
 
-                  // nocache tag
-tag(res)   ::= LDELMAKENOCACHE DOLLARID(i). {
-    res = $this->compiler->compileTag('make_nocache',array(array('var'=>'\''.substr(i,1).'\'')));
-}
-
                   // {if}, {elseif} and {while} tag
 tag(res)   ::= LDELIF(i) expr(ie). {
     $tag = trim(substr(i,$this->compiler->getLdelLength())); 

@@ -11,17 +11,8 @@ class Base implements FunctionHandlerInterface {
 	 */
 	protected $cacheable = true;
 
-	/**
-	 * @var array
-	 */
-	protected $cache_attributes = [];
-
 	public function isCacheable(): bool {
 		return $this->cacheable;
-	}
-
-	public function getCacheAttributes(): array {
-		return $this->cache_attributes;
 	}
 
 	public function handle($params, Template $template) {

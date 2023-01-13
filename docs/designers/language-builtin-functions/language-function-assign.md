@@ -135,7 +135,6 @@ The following functions can also *optionally* assign template variables.
 
 [`{capture}`](#language.function.capture),
 [`{include}`](#language.function.include),
-[`{insert}`](#language.function.insert),
 [`{counter}`](#language.function.counter),
 [`{cycle}`](#language.function.cycle),
 [`{eval}`](#language.function.eval),

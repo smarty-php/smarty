@@ -36,14 +36,6 @@ class Security {
 	public $secure_dir = [];
 
 	/**
-	 * This is an array of directories where trusted php scripts reside.
-	 * {@link $security} is disabled during their inclusion/execution.
-	 *
-	 * @var array
-	 */
-	public $trusted_dir = [];
-
-	/**
 	 * List of regular expressions (PCRE) that include trusted URIs
 	 *
 	 * @var array

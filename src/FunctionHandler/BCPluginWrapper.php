@@ -8,10 +8,9 @@ class BCPluginWrapper extends Base {
 
 	private $callback;
 
-	public function __construct($callback, bool $cacheable = true, array $cache_attributes = []) {
+	public function __construct($callback, bool $cacheable = true) {
 		$this->callback = $callback;
 		$this->cacheable = $cacheable;
-		$this->cache_attributes = $cache_attributes;
 	}
 
 	public function handle($params, Template $template) {

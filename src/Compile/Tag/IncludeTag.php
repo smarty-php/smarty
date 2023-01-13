@@ -73,7 +73,6 @@ class IncludeTag extends Base {
 		$_attr = $this->getAttributes($compiler, $args);
 		$fullResourceName = $source_resource = $_attr['file'];
 		$variable_template = false;
-		$cache_tpl = false;
 		// parse resource_name
 		if (preg_match('/^([\'"])(([A-Za-z0-9_\-]{2,})[:])?(([^$()]+)|(.+))\1$/', $source_resource, $match)) {
 			$type = !empty($match[3]) ? $match[3] : $compiler->template->smarty->default_resource_type;
@@ -88,14 +87,12 @@ class IncludeTag extends Base {
 					$compiled = $compiler->parent_compiler->template->getCompiled();
 					if (isset($compiled->includes[$fullResourceName])) {
 						$compiled->includes[$fullResourceName]++;
-						$cache_tpl = true;
 					} else {
 						if ("{$compiler->template->source->type}:{$compiler->template->source->name}" ==
 							$fullResourceName
 						) {
 							// recursive call of current template
 							$compiled->includes[$fullResourceName] = 2;
-							$cache_tpl = true;
 						} else {
 							$compiled->includes[$fullResourceName] = 1;
 						}
@@ -110,7 +107,7 @@ class IncludeTag extends Base {
 			$variable_template = true;
 		}
 		// scope setup
-		$_scope = $this->convertScope($_attr, [Data::SCOPE_LOCAL]);
+		$_scope = isset($_attr['scope']) ? $this->convertScope($_attr['scope'], [Data::SCOPE_LOCAL]) : 0;
 
 		// assume caching is off
 		$_caching = Smarty::CACHING_OFF;
@@ -125,10 +122,6 @@ class IncludeTag extends Base {
 		if ($merge_compiled_includes) {
 			// variable template name ?
 			if ($variable_template) {
-				$merge_compiled_includes = false;
-			}
-			// variable compile_id?
-			if (isset($_attr['compile_id']) && $compiler->isVariable($_attr['compile_id'])) {
 				$merge_compiled_includes = false;
 			}
 		}
@@ -158,11 +151,7 @@ class IncludeTag extends Base {
 		} else {
 			$_cache_id = '$_smarty_tpl->cache_id';
 		}
-		if (isset($_attr['compile_id'])) {
-			$_compile_id = $_attr['compile_id'];
-		} else {
-			$_compile_id = '$_smarty_tpl->compile_id';
-		}
+
 		// if subtemplate will be called in nocache mode do not merge
 		if ($compiler->template->caching && $call_nocache) {
 			$merge_compiled_includes = false;
@@ -182,7 +171,7 @@ class IncludeTag extends Base {
 		}
 		$has_compiled_template = false;
 		if ($merge_compiled_includes) {
-			$c_id = $_attr['compile_id'] ?? $compiler->template->compile_id;
+			$c_id = $compiler->template->compile_id;
 			// we must observe different compile_id and caching
 			$t_hash = sha1($c_id . ($_caching ? '--caching' : '--nocaching'));
 
@@ -206,7 +195,7 @@ class IncludeTag extends Base {
 
 		}
 		// delete {include} standard attributes
-		unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['compile_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']);
+		unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']);
 		// remaining attributes must be assigned as smarty variable
 		$_vars = 'array()';
 		if (!empty($_attr)) {
@@ -217,28 +206,20 @@ class IncludeTag extends Base {
 			}
 			$_vars = 'array(' . join(',', $_pairs) . ')';
 		}
-		$update_compile_id = $compiler->template->caching && !$compiler->tag_nocache && !$compiler->nocache &&
-			$_compile_id !== '$_smarty_tpl->compile_id';
 		if ($has_compiled_template && !$call_nocache) {
 			$_output = "<?php\n";
-			if ($update_compile_id) {
-				$_output .= $compiler->makeNocacheCode("\$_compile_id_save[] = \$_smarty_tpl->compile_id;\n\$_smarty_tpl->compile_id = {$_compile_id};\n");
-			}
 			if (!empty($_attr) && $_caching === \Smarty\Template::CACHING_NOCACHE_CODE && $compiler->template->caching) {
 				$_vars_nc = "foreach ($_vars as \$ik => \$iv) {\n";
 				$_vars_nc .= "\$_smarty_tpl->assign(\$ik, \$iv);\n";
 				$_vars_nc .= "}\n";
-				$_output .= substr($compiler->processNocacheCode('<?php ' . $_vars_nc . "?>\n", true), 6, -3);
+				$_output .= substr($compiler->processNocacheCode('<?php ' . $_vars_nc . "?>\n"), 6, -3);
 			}
 			if (isset($_assign)) {
 				$_output .= "ob_start();\n";
 			}
-			$_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, {$_cache_id}, {$_compile_id}, {$_caching}, {$_cache_lifetime}, {$_vars}, '{$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['func']}');\n";
+			$_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, {$_cache_id}, \$_smarty_tpl->compile_id, {$_caching}, {$_cache_lifetime}, {$_vars}, '{$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['uid']}', '{$compiler->parent_compiler->mergedSubTemplatesData[$uid][$t_hash]['func']}');\n";
 			if (isset($_assign)) {
 				$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean(), false, {$_scope});\n";
-			}
-			if ($update_compile_id) {
-				$_output .= $compiler->makeNocacheCode("\$_smarty_tpl->compile_id = array_pop(\$_compile_id_save);\n");
 			}
 			$_output .= "?>";
 			return $_output;
@@ -247,19 +228,13 @@ class IncludeTag extends Base {
 			$compiler->tag_nocache = true;
 		}
 		$_output = "<?php ";
-		if ($update_compile_id) {
-			$_output .= "\$_compile_id_save[] = \$_smarty_tpl->compile_id;\n\$_smarty_tpl->compile_id = {$_compile_id};\n";
-		}
 		// was there an assign attribute
 		if (isset($_assign)) {
 			$_output .= "ob_start();\n";
 		}
-		$_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, $_cache_id, $_compile_id, $_caching, $_cache_lifetime, $_vars);\n";
+		$_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, $_cache_id, \$_smarty_tpl->compile_id, $_caching, $_cache_lifetime, $_vars);\n";
 		if (isset($_assign)) {
 			$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean(), false, {$_scope});\n";
-		}
-		if ($update_compile_id) {
-			$_output .= "\$_smarty_tpl->compile_id = array_pop(\$_compile_id_save);\n";
 		}
 		$_output .= "?>";
 		return $_output;

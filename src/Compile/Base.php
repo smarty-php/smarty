@@ -68,22 +68,16 @@ abstract class Base implements CompilerInterface {
 	}
 
 	/**
-	 * Converts attributes into parameter array string
+	 * Converts attributes into parameter array strings
+	 *
 	 * @param array $_attr
 	 *
 	 * @return array
 	 */
-	protected function formatParamsArray($_attr, array $cacheAttributes = []) {
+	protected function formatParamsArray(array $_attr): array {
 		$_paramsArray = [];
 		foreach ($_attr as $_key => $_value) {
-			if (is_int($_key)) {
-				$_paramsArray[] = "$_key=>$_value";
-			} elseif (in_array($_key, $cacheAttributes)) {
-				$_value = str_replace('\'', "^#^", $_value);
-				$_paramsArray[] = "'$_key'=>^#^.var_export($_value,true).^#^";
-			} else {
-				$_paramsArray[] = "'$_key'=>$_value";
-			}
+			$_paramsArray[] = var_export($_key, true) . "=>" . $_value;
 		}
 		return $_paramsArray;
 	}
@@ -229,13 +223,13 @@ abstract class Base implements CompilerInterface {
 	}
 
 	/**
-	 * @param array $_attr tag attributes
+	 * @param mixed $scope
 	 * @param array $invalidScopes
 	 *
 	 * @return int
 	 * @throws Exception
 	 */
-	protected function convertScope($_attr, $invalidScopes = []): int {
+	protected function convertScope($scope, $invalidScopes = []): int {
 
 		static $scopes = [
 			'local'    => Data::SCOPE_LOCAL,    // current scope
@@ -247,11 +241,7 @@ abstract class Base implements CompilerInterface {
 			'smarty' => Data::SCOPE_SMARTY,     // @deprecated alias of 'global'
 		];
 
-		if (!isset($_attr['scope'])) {
-			return 0;
-		}
-
-		$_scopeName = trim($_attr['scope'], '\'"');
+		$_scopeName = trim($scope, '\'"');
 		if (is_numeric($_scopeName) && in_array($_scopeName, $scopes)) {
 			return (int) $_scopeName;
 		}

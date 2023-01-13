@@ -1,1 +1,0 @@
-{make_nocache $foo}{checkvar var=foo types='template' nocache}

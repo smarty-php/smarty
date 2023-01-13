@@ -1,1 +1,0 @@
-{make_nocache $foo}{$foo nocache}

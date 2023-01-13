@@ -10,7 +10,6 @@ within delimiters like so: `{funcname attr1="val1" attr2="val2"}`.
     {config_load file="colors.conf"}
 
     {include file="header.tpl"}
-    {insert file="banner_ads.tpl" title="My Site"}
 
     {if $logged_in}
         Welcome, <span style="color:{#fontColor#}">{$name}!</span>

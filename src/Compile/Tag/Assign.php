@@ -65,7 +65,7 @@ class Assign extends Base
         if ($_attr[ 'noscope' ]) {
             $_scope = -1;
         } else {
-            $_scope = $this->convertScope($_attr);
+            $_scope = isset($_attr['scope']) ? $this->convertScope($_attr['scope']) : 0;
         }
         // optional parameter
         $_params = '';

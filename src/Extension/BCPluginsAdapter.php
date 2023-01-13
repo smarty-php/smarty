@@ -46,9 +46,8 @@ class BCPluginsAdapter extends Base {
 		}
 		$callback = $plugin[0];
 		$cacheable = (bool) $plugin[1] ?? true;
-		$cache_attributes = (array) $plugin[2] ?? [];
 
-		return new FunctionPluginWrapper($callback, $cacheable, $cache_attributes);
+		return new FunctionPluginWrapper($callback, $cacheable);
 
 	}
 
@@ -167,7 +166,6 @@ class BCPluginsAdapter extends Base {
 		    'prefilter',
 		    'postfilter',
 		    'outputfilter',
-		    'insert',
 		] as $type) {
 			foreach (glob($path  . $type . '.?*.php') as $filename) {
 				$pluginName = $this->getPluginNameFromFilename($filename);

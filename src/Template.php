@@ -312,6 +312,9 @@ class Template extends TemplateBase {
 //				$tpl->render();
 //			}
 		}
+
+		// Merge the hashes... @TODO refactor this?
+		$this->getCached()->hashes = array_merge($this->getCached()->hashes, $tpl->getCached()->hashes);
 	}
 
 	/**
@@ -467,7 +470,7 @@ class Template extends TemplateBase {
 	 *
 	 * @throws Exception
 	 */
-	public function getCached($forceNew = false) {
+	public function getCached($forceNew = false): Cached {
 		if ($forceNew || !isset($this->cached)) {
 			$this->cached = new Cached($this);
 			$this->cached->handler->populate($this->cached, $this);
@@ -776,5 +779,4 @@ class Template extends TemplateBase {
 			throw $e;
 		}
 	}
-
 }

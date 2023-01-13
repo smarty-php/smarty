@@ -28,8 +28,6 @@ in order to be located by Smarty.
 
     -   resource
 
-    -   insert
-
 -   And `name` should be a valid identifier; letters, numbers, and
     underscores only, see [php
     variables](&url.php-manual;language.variables).
