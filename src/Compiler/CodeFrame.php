@@ -72,8 +72,10 @@ class CodeFrame
             $output .= ");\n";
         }
         if ($cache && $this->_template->getSmarty()->hasRuntime('TplFunction')) {
-            $output .= "\$_smarty_tpl->getSmarty()->getRuntime('TplFunction')->registerTplFunctions(\$_smarty_tpl, " .
-                       var_export($this->_template->getSmarty()->getRuntime('TplFunction')->getTplFunction($this->_template), true) . ");\n";
+			if ($tplfunctions = $this->_template->getSmarty()->getRuntime('TplFunction')->getTplFunction($this->_template)) {
+				$output .= "\$_smarty_tpl->getSmarty()->getRuntime('TplFunction')->registerTplFunctions(\$_smarty_tpl, " .
+					var_export($tplfunctions, true) . ");\n";
+			}
         }
         $output .= "?>";
         $output .= $content;

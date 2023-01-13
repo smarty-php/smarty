@@ -65,7 +65,7 @@ class Assign extends Base
         if ($_attr[ 'noscope' ]) {
             $_scope = -1;
         } else {
-            $_scope = isset($_attr['scope']) ? $this->convertScope($_attr['scope']) : 0;
+            $_scope = isset($_attr['scope']) ? $this->convertScope($_attr['scope']) : null;
         }
         // optional parameter
         $_params = '';
@@ -80,9 +80,9 @@ class Assign extends Base
             $output .= "settype(\$_tmp_array, 'array');\n";
             $output .= "}\n";
             $output .= "\$_tmp_array{$parameter['smarty_internal_index']} = {$_attr['value']};\n";
-            $output .= "\$_smarty_tpl->assign({$_var}, \$_tmp_array{$_params}, false, {$_scope});?>";
+            $output .= "\$_smarty_tpl->assign({$_var}, \$_tmp_array{$_params}, false, " . var_export($_scope, true) . ");?>";
         } else {
-            $output = "<?php \$_smarty_tpl->assign({$_var}, {$_attr['value']}{$_params}, false, {$_scope});?>";
+            $output = "<?php \$_smarty_tpl->assign({$_var}, {$_attr['value']}{$_params}, false, " . var_export($_scope, true) . ");?>";
         }
         return $output;
     }

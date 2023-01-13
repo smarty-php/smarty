@@ -89,6 +89,23 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
     }
 
+	/**
+	 * @dataProvider data
+	 */
+	public function testCompileBlockIncreaseInChild_050($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber, $testName)
+	{
+		$this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
+		$this->smarty->assign('test', $testNumber);
+		$this->smarty->caching = $caching;
+		$this->smarty->merge_compiled_includes = $merge;
+		if ($merge) {
+			$this->smarty->compile_id = 1;
+		}
+		$result = $this->smarty->fetch('extends:050_parent.tpl|050_child.tpl|050_grandchild.tpl');
+		$this->assertStringContainsString("var-bar-var", $result, $testName . ' - content');
+		$this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result, $testName . ' - fetch() failure');
+	}
+
     /**
      * test  grandchild/child/parent dependency test1
      */

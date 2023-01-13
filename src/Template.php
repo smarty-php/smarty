@@ -105,6 +105,7 @@ class Template extends TemplateBase {
 	 */
 	private $right_delimiter = null;
 
+
 	/**
 	 * Create template data object
 	 * Some of the global Smarty settings copied to template scope
@@ -233,13 +234,13 @@ class Template extends TemplateBase {
 	 * @param mixed $cache_id cache id
 	 * @param mixed $compile_id compile id
 	 * @param integer $caching cache mode
-	 * @param integer $cache_lifetime life time of cache data
+	 * @param integer $cache_lifetime lifetime of cache data
 	 * @param array $extra_vars passed parameter template variables
-	 * @param string $uid file dependency uid
-	 * @param string $content_func function name
+	 * @param null $uid file dependency uid
+	 * @param null $content_func function name
+	 * @param int|null $scope
 	 *
-	 * @throws \Exception
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 */
 	public function _subTemplateRender(
 		$template_name,
@@ -249,12 +250,18 @@ class Template extends TemplateBase {
 		$cache_lifetime,
 		array $extra_vars,
 		$uid = null,
-		$content_func = null
+		$content_func = null,
+		int $scope = null
 	) {
 
 		$baseFilePath = $this->source && $this->getSource()->filepath ? dirname($this->getSource()->filepath) : null;
 
 		$tpl = $this->getSmarty()->createTemplate($template_name, $cache_id, $compile_id, $this, $caching, $cache_lifetime, $baseFilePath);
+		$tpl->setCached($this->getCached()); // re-use the same Cache object across subtemplates to gather hashes and file dependencies.
+
+		if ($scope) {
+			$tpl->setDefaultScope($scope);
+		}
 
 		// copy variables
 		$tpl->tpl_vars = $this->tpl_vars;
@@ -313,9 +320,6 @@ class Template extends TemplateBase {
 //				$tpl->render();
 //			}
 		}
-
-		// Merge the hashes... @TODO refactor this?
-		$this->getCached()->hashes = array_merge($this->getCached()->hashes, $tpl->getCached()->hashes);
 	}
 
 	/**
@@ -327,7 +331,7 @@ class Template extends TemplateBase {
 		return isset($this->parent) && $this->parent instanceof Template;
 	}
 
-	public function assign($tpl_var, $value = null, $nocache = false, $scope = 0) {
+	public function assign($tpl_var, $value = null, $nocache = false, $scope = null) {
 		return parent::assign($tpl_var, $value, $nocache || $this->isRenderingCache, $scope);
 	}
 
@@ -810,4 +814,16 @@ class Template extends TemplateBase {
 	public function setSource($source): void {
 		$this->source = $source;
 	}
+
+	/**
+	 * Sets the Cached object, so subtemplates can share one Cached object to gather meta-data.
+	 *
+	 * @param Cached $cached
+	 *
+	 * @return void
+	 */
+	private function setCached(Cached $cached) {
+		$this->cached = $cached;
+	}
+
 }

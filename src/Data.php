@@ -48,6 +48,12 @@ class Data
     public $config_vars = array();
 
 	/**
+	 * Default scope for new variables
+	 * @var int
+	 */
+	private $defaultScope = self::SCOPE_LOCAL;
+
+	/**
 	 * create Smarty data object
 	 *
 	 * @param Smarty|array $_parent parent template
@@ -83,7 +89,7 @@ class Data
 	 * @return Data current Data (or Smarty or \Smarty\Template) instance for
 	 *                              chaining
 	 */
-    public function assign($tpl_var, $value = null, $nocache = false, $scope = 0)
+    public function assign($tpl_var, $value = null, $nocache = false, $scope = null)
     {
         if (is_array($tpl_var)) {
             foreach ($tpl_var as $_key => $_val) {
@@ -91,8 +97,7 @@ class Data
             }
 			return;
         }
-
-		switch ($scope) {
+		switch ($scope ?? $this->getDefaultScope()) {
 			case self::SCOPE_GLOBAL:
 			case self::SCOPE_SMARTY:
 				$this->getSmarty()->assign($tpl_var, $value);
@@ -119,6 +124,7 @@ class Data
 					$this->assign($tpl_var, $value);
 				}
 				break;
+			case self::SCOPE_LOCAL:
 			default:
 				$this->tpl_vars[ $tpl_var ] = new Variable($value, $nocache);
 		}
@@ -439,4 +445,21 @@ class Data
 		return $this;
 	}
 
+	/**
+	 * Sets the default scope for new variables assigned in this template.
+	 * @param int $scope
+	 *
+	 * @return void
+	 */
+	protected function setDefaultScope(int $scope) {
+		$this->defaultScope = $scope;
+	}
+
+	/**
+	 * Returns the default scope for new variables assigned in this template.
+	 * @return int
+	 */
+	public function getDefaultScope(): int {
+		return $this->defaultScope;
+	}
 }

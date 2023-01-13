@@ -36,7 +36,7 @@ function smarty_function_checkvar($params, \Smarty\Template $template)
                 $i ++;
             }
             $ptr = $ptr->parent;
-        } elseif (in_array('data', $types) && !($ptr instanceof Template || $ptr instanceof Smarty)) {
+        } elseif (in_array('data', $types) && !($ptr instanceof Template || $ptr instanceof \Smarty\Smarty)) {
             $output .= "#data:\${$var} =";
             $output .= $ptr->hasVariable($var) ? preg_replace('/\s/', '', var_export($ptr->getValue($var), true)) : '>unassigned<';
             $ptr = $ptr->parent;
