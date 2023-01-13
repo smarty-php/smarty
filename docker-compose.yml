@@ -3,15 +3,10 @@ services:
   base:
     build:
       context: .
-      dockerfile: ./utilities/testrunners/php71/Dockerfile
+      dockerfile: ./utilities/testrunners/php72/Dockerfile
     volumes:
       - .:/app
     working_dir: /app
-  php71:
-    extends:
-      service: base
-    build:
-      dockerfile: ./utilities/testrunners/php71/Dockerfile
   php72:
     extends:
       service: base
