@@ -401,7 +401,7 @@ class PluginFunctionHtmlSelectDateTest extends PHPUnit_Smarty
         $result = '<select name="Date_Month">' . $n . $this->months['default'] . $n . '</select>'
             . $n . '<select name="Date_Day">' . $n . '<option value="">day</option>' . $n . $this->days['none'] . $n . '</select>'
             . $n . '<select name="Date_Year">' . $n . $this->years['start_2005'] . $n . '</select>';
-        $tpl = $this->smarty->createTemplate('eval:{html_select_date time="2022-02-" day_empty="day" start_year=2005}');
+        $tpl = $this->smarty->createTemplate('eval:{html_select_date time="' . date('Y', $this->now) . '-02-" day_empty="day" start_year=2005}');
         $this->assertEquals($result, $tpl->fetch());
     }
 
@@ -410,7 +410,7 @@ class PluginFunctionHtmlSelectDateTest extends PHPUnit_Smarty
         $result = '<select name="Date_Month">' . $n . '<option value="">month</option>' . $n . $this->months['none'] . $n . '</select>'
             . $n . '<select name="Date_Day">' . $n . $this->days['default'] . $n . '</select>'
             . $n . '<select name="Date_Year">' . $n . $this->years['start_2005'] . $n . '</select>';
-        $tpl = $this->smarty->createTemplate('eval:{html_select_date time="2022--20" month_empty="month" start_year=2005}');
+        $tpl = $this->smarty->createTemplate('eval:{html_select_date time="' . date('Y', $this->now) . '--20" month_empty="month" start_year=2005}');
         $this->assertEquals($result, $tpl->fetch());
     }
 
