@@ -30,13 +30,4 @@ class Smarty_CacheResource_Apctest extends Smarty_CacheResource_Apc
         return $t ? $t : null;
     }
 
-    public function __sleep()
-    {
-        return array();
-    }
-
-    public function __wakeup()
-    {
-        $this->__construct();
-    }
 }

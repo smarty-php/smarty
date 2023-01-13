@@ -29,13 +29,4 @@ class Smarty_CacheResource_Memcachetest extends Smarty_CacheResource_Memcache
         return $t ? $t : null;
     }
 
-    public function __sleep()
-    {
-        return array();
-    }
-
-    public function __wakeup()
-    {
-        $this->__construct();
-    }
 }

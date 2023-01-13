@@ -42,12 +42,4 @@ abstract class Base
      */
     abstract public function to_smarty_php(\Smarty\Parser\TemplateParser $parser);
 
-    /**
-     * Template data object destructor
-     */
-    public function __destruct()
-    {
-        $this->data = null;
-        $this->subtrees = null;
-    }
 }
