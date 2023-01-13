@@ -59,7 +59,7 @@ class Call extends Base {
 		$_name = $_attr['name'];
 		unset($_attr['name'], $_attr['assign'], $_attr['nocache']);
 		// set flag (compiled code of {function} must be included in cache file
-		if (!$compiler->template->caching || $compiler->nocache || $compiler->tag_nocache) {
+		if (!$compiler->getTemplate()->caching || $compiler->nocache || $compiler->tag_nocache) {
 			$_nocache = 'true';
 		} else {
 			$_nocache = 'false';
@@ -70,10 +70,10 @@ class Call extends Base {
 		// was there an assign attribute
 		if (isset($_assign)) {
 			$_output =
-				"<?php ob_start();\n\$_smarty_tpl->smarty->getRuntime('TplFunction')->callTemplateFunction(\$_smarty_tpl, {$_name}, {$_params}, {$_nocache});\n\$_smarty_tpl->assign({$_assign}, ob_get_clean());?>\n";
+				"<?php ob_start();\n\$_smarty_tpl->getSmarty()->getRuntime('TplFunction')->callTemplateFunction(\$_smarty_tpl, {$_name}, {$_params}, {$_nocache});\n\$_smarty_tpl->assign({$_assign}, ob_get_clean());?>\n";
 		} else {
 			$_output =
-				"<?php \$_smarty_tpl->smarty->getRuntime('TplFunction')->callTemplateFunction(\$_smarty_tpl, {$_name}, {$_params}, {$_nocache});?>\n";
+				"<?php \$_smarty_tpl->getSmarty()->getRuntime('TplFunction')->callTemplateFunction(\$_smarty_tpl, {$_name}, {$_params}, {$_nocache});?>\n";
 		}
 		return $_output;
 	}

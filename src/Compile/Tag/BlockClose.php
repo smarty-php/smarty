@@ -34,9 +34,9 @@ class BlockClose extends Inheritance {
 		}
 		$_className = $compiler->_cache['blockClass'][$compiler->_cache['blockNesting']];
 		// get compiled block code
-		$_functionCode = $compiler->parser->current_buffer;
+		$_functionCode = $compiler->getParser()->current_buffer;
 		// setup buffer for template function code
-		$compiler->parser->current_buffer = new Template();
+		$compiler->getParser()->current_buffer = new Template();
 		$output = "<?php\n";
 		$output .= $compiler->cStyleComment(" {block {$_name}} ") . "\n";
 		$output .= "class {$_className} extends \\Smarty\\Runtime\\Block\n";
@@ -45,21 +45,21 @@ class BlockClose extends Inheritance {
 			$output .= "public \${$property} = " . var_export($value, true) . ";\n";
 		}
 		$output .= "public function callBlock(\\Smarty\\Template \$_smarty_tpl) {\n";
-		if ($compiler->template->getCompiled()->getNocacheCode()) {
-			$output .= "\$_smarty_tpl->getCached()->hashes['{$compiler->template->getCompiled()->nocache_hash}'] = true;\n";
+		if ($compiler->getTemplate()->getCompiled()->getNocacheCode()) {
+			$output .= "\$_smarty_tpl->getCached()->hashes['{$compiler->getTemplate()->getCompiled()->nocache_hash}'] = true;\n";
 		}
 		if (isset($_assign)) {
 			$output .= "ob_start();\n";
 		}
 		$output .= "?>\n";
-		$compiler->parser->current_buffer->append_subtree(
-			$compiler->parser,
+		$compiler->getParser()->current_buffer->append_subtree(
+			$compiler->getParser(),
 			new \Smarty\ParseTree\Tag(
-				$compiler->parser,
+				$compiler->getParser(),
 				$output
 			)
 		);
-		$compiler->parser->current_buffer->append_subtree($compiler->parser, $_functionCode);
+		$compiler->getParser()->current_buffer->append_subtree($compiler->getParser(), $_functionCode);
 		$output = "<?php\n";
 		if (isset($_assign)) {
 			$output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean());\n";
@@ -68,20 +68,20 @@ class BlockClose extends Inheritance {
 		$output .= "}\n";
 		$output .= $compiler->cStyleComment(" {/block {$_name}} ") . "\n\n";
 		$output .= "?>\n";
-		$compiler->parser->current_buffer->append_subtree(
-			$compiler->parser,
+		$compiler->getParser()->current_buffer->append_subtree(
+			$compiler->getParser(),
 			new \Smarty\ParseTree\Tag(
-				$compiler->parser,
+				$compiler->getParser(),
 				$output
 			)
 		);
-		$compiler->blockOrFunctionCode .= $compiler->parser->current_buffer->to_smarty_php($compiler->parser);
-		$compiler->parser->current_buffer = new Template();
+		$compiler->blockOrFunctionCode .= $compiler->getParser()->current_buffer->to_smarty_php($compiler->getParser());
+		$compiler->getParser()->current_buffer = new Template();
 		// restore old status
-		$compiler->template->getCompiled()->setNocacheCode($_has_nocache_code);
+		$compiler->getTemplate()->getCompiled()->setNocacheCode($_has_nocache_code);
 		$compiler->tag_nocache = $compiler->nocache;
 		$compiler->nocache = $_nocache;
-		$compiler->parser->current_buffer = $_buffer;
+		$compiler->getParser()->current_buffer = $_buffer;
 		$output = "<?php \n";
 		if ($compiler->_cache['blockNesting'] === 1) {
 			$output .= "\$_smarty_tpl->getInheritance()->instanceBlock(\$_smarty_tpl, '$_className', $_name);\n";

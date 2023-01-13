@@ -27,9 +27,9 @@ class My_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
         $uid = '';
         $sources = array();
         $timestamp = 0;
-        foreach ($source->smarty->getTemplateDir() as $key => $directory) {
+        foreach ($source->getSmarty()->getTemplateDir() as $key => $directory) {
             try {
-                $s = Smarty\Resource\BasePlugin::source(null, $source->smarty, 'file:' . '[' . $key . ']' . $source->name);
+                $s = Smarty\Resource\BasePlugin::source(null, $source->getSmarty(), 'file:' . '[' . $key . ']' . $source->name);
                 if (!$s->exists) {
                     continue;
                 }
@@ -48,7 +48,7 @@ class My_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
         $s = current($sources);
         $source->components = $sources;
         $source->filepath = $s->filepath;
-        $source->uid = sha1($uid . $source->smarty->_joined_template_dir);
+        $source->uid = sha1($uid . $source->getSmarty()->_joined_template_dir);
         $source->exists = true;
         $source->timestamp = $timestamp;
     }

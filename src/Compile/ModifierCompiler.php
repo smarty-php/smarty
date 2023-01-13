@@ -45,8 +45,8 @@ class ModifierCompiler extends Base {
 			$single_modifier[0] = $output;
 			$params = implode(',', $single_modifier);
 
-			if (!is_object($compiler->smarty->security_policy)
-				|| $compiler->smarty->security_policy->isTrustedModifier($modifier, $compiler)
+			if (!is_object($compiler->getSmarty()->security_policy)
+				|| $compiler->getSmarty()->security_policy->isTrustedModifier($modifier, $compiler)
 			) {
 
 				if ($handler = $compiler->getModifierCompiler($modifier)) {
@@ -54,7 +54,7 @@ class ModifierCompiler extends Base {
 
 				} elseif ($compiler->getSmarty()->getModifierCallback($modifier)) {
 					$output = sprintf(
-							'$_smarty_tpl->smarty->getModifierCallback(%s)(%s)',
+							'$_smarty_tpl->getSmarty()->getModifierCallback(%s)(%s)',
 							var_export($modifier, true),
 							$params
 						);

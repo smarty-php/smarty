@@ -61,7 +61,7 @@ abstract class KeyValueStore extends Base
      */
     public function populate(Cached $cached, Template $_template)
     {
-        $cached->filepath = $_template->source->uid . '#' . $this->sanitize($cached->source->resource) . '#' .
+        $cached->filepath = $_template->getSource()->uid . '#' . $this->sanitize($cached->getSource()->resource) . '#' .
                             $this->sanitize($cached->cache_id) . '#' . $this->sanitize($cached->compile_id);
         $this->populateTimestamp($cached);
     }
@@ -77,12 +77,12 @@ abstract class KeyValueStore extends Base
     {
         if (!$this->fetch(
             $cached->filepath,
-            $cached->source->name,
+            $cached->getSource()->name,
             $cached->cache_id,
             $cached->compile_id,
             $content,
             $timestamp,
-            $cached->source->uid
+            $cached->getSource()->uid
         )
         ) {
             return;
@@ -114,12 +114,12 @@ abstract class KeyValueStore extends Base
         if ($content === null || !$timestamp) {
             if (!$this->fetch(
                 $_smarty_tpl->getCached()->filepath,
-                $_smarty_tpl->source->name,
+                $_smarty_tpl->getSource()->name,
                 $_smarty_tpl->cache_id,
                 $_smarty_tpl->compile_id,
                 $content,
                 $timestamp,
-                $_smarty_tpl->source->uid
+                $_smarty_tpl->getSource()->uid
             )
             ) {
                 return false;
@@ -160,12 +160,12 @@ abstract class KeyValueStore extends Base
         if ($content === null) {
             if (!$this->fetch(
                 $_template->getCached()->filepath,
-                $_template->source->name,
+                $_template->getSource()->name,
                 $_template->cache_id,
                 $_template->compile_id,
                 $content,
                 $timestamp,
-                $_template->source->uid
+                $_template->getSource()->uid
             )
             ) {
                 return false;

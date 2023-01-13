@@ -58,15 +58,15 @@ class FunctionTag extends Base {
 			$compiler->trigger_template_error("Function name contains invalid characters: {$_name}", null, true);
 		}
 
-		$compiler->parent_compiler->tpl_function[$_name] = [];
+		$compiler->getParentCompiler()->tpl_function[$_name] = [];
 		$save = [
-			$_attr, $compiler->parser->current_buffer, $compiler->template->getCompiled()->getNocacheCode(),
-			$compiler->template->caching,
+			$_attr, $compiler->getParser()->current_buffer, $compiler->getTemplate()->getCompiled()->getNocacheCode(),
+			$compiler->getTemplate()->caching,
 		];
 		$this->openTag($compiler, 'function', $save);
 		// Init temporary context
-		$compiler->parser->current_buffer = new \Smarty\ParseTree\Template();
-		$compiler->template->getCompiled()->setNocacheCode(false);
+		$compiler->getParser()->current_buffer = new \Smarty\ParseTree\Template();
+		$compiler->getTemplate()->getCompiled()->setNocacheCode(false);
 		return true;
 	}
 }

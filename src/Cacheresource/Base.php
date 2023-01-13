@@ -2,6 +2,7 @@
 
 namespace Smarty\Cacheresource;
 
+use Smarty\Exception;
 use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Template\Cached;
@@ -76,16 +77,17 @@ abstract class Base
      */
     abstract public function retrieveCachedContent(Template $_template);
 
-    /**
-     * Return cached content
-     *
-     * @param Template $_template template object
-     *
-     * @return null|string
-     */
+	/**
+	 * Return cached content
+	 *
+	 * @param Template $_template template object
+	 *
+	 * @return null|string
+	 * @throws Exception
+	 */
     public function getCachedContent(Template $_template)
     {
-        if ($_template->getCached()->handler->process($_template)) {
+        if ($this->process($_template)) {
             ob_start();
             $unifunc = $_template->getCached()->unifunc;
             $unifunc($_template);

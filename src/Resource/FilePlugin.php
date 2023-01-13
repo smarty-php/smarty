@@ -34,13 +34,13 @@ class FilePlugin extends BasePlugin {
 	public function populate(Source $source, Template $_template = null) {
 		$source->filepath = $this->buildFilepath($source, $_template);
 		if ($source->filepath !== false) {
-			if (isset($source->smarty->security_policy) && is_object($source->smarty->security_policy)) {
-				$source->smarty->security_policy->isTrustedResourceDir($source->filepath, $source->isConfig);
+			if (isset($source->getSmarty()->security_policy) && is_object($source->getSmarty()->security_policy)) {
+				$source->getSmarty()->security_policy->isTrustedResourceDir($source->filepath, $source->isConfig);
 			}
 			$source->exists = true;
 			$source->uid = sha1(
-				$source->filepath . ($source->isConfig ? $source->smarty->_joined_config_dir :
-					$source->smarty->_joined_template_dir)
+				$source->filepath . ($source->isConfig ? $source->getSmarty()->_joined_config_dir :
+					$source->getSmarty()->_joined_template_dir)
 			);
 			$source->timestamp = filemtime($source->filepath);
 		} else {
@@ -104,19 +104,19 @@ class FilePlugin extends BasePlugin {
 		$file = $source->name;
 		// absolute file ?
 		if ($file[0] === '/' || $file[1] === ':') {
-			$file = $source->smarty->_realpath($file, true);
+			$file = $source->getSmarty()->_realpath($file, true);
 			return is_file($file) ? $file : false;
 		}
 		// go relative to a given template?
 		if ($file[0] === '.' && $_template && $_template->_isSubTpl()
 			&& preg_match('#^[.]{1,2}[\\\/]#', $file)
 		) {
-			if ($_template->parent->source->type !== 'file' && $_template->parent->source->type !== 'extends') {
-				throw new Exception("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
+			if ($_template->parent->getSource()->type !== 'file' && $_template->parent->getSource()->type !== 'extends') {
+				throw new Exception("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->getSource()->type}'");
 			}
 			// normalize path
 			$path =
-				$source->smarty->_realpath(dirname($_template->parent->source->filepath) . DIRECTORY_SEPARATOR . $file);
+				$source->getSmarty()->_realpath(dirname($_template->parent->getSource()->filepath) . DIRECTORY_SEPARATOR . $file);
 			// files relative to a template only get one shot
 			return is_file($path) ? $path : false;
 		}
@@ -124,7 +124,7 @@ class FilePlugin extends BasePlugin {
 		if (strpos($file, DIRECTORY_SEPARATOR === '/' ? '\\' : '/') !== false) {
 			$file = str_replace(DIRECTORY_SEPARATOR === '/' ? '\\' : '/', DIRECTORY_SEPARATOR, $file);
 		}
-		$_directories = $source->smarty->getTemplateDir(null, $source->isConfig);
+		$_directories = $source->getSmarty()->getTemplateDir(null, $source->isConfig);
 		// template_dir index?
 		if ($file[0] === '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
 			$file = $fileMatch[2];
@@ -160,12 +160,12 @@ class FilePlugin extends BasePlugin {
 		foreach ($_directories as $_directory) {
 			$path = $_directory . $file;
 			if (is_file($path)) {
-				return (strpos($path, '.' . DIRECTORY_SEPARATOR) !== false) ? $source->smarty->_realpath($path) : $path;
+				return (strpos($path, '.' . DIRECTORY_SEPARATOR) !== false) ? $source->getSmarty()->_realpath($path) : $path;
 			}
 		}
 		if (!isset($_index_dirs)) {
 			// Could be relative to cwd
-			$path = $source->smarty->_realpath($file, true);
+			$path = $source->getSmarty()->_realpath($file, true);
 			if (is_file($path)) {
 				return $path;
 			}

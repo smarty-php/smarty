@@ -42,7 +42,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testTemplateStringExists1()
     {
         $tpl = $this->smarty->createTemplate('string:{$foo}');
-        $this->assertTrue($tpl->source->exists);
+        $this->assertTrue($tpl->getSource()->exists);
     }
 
     public function testTemplateStringExists2()
@@ -56,7 +56,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testGetTemplateFilepath()
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertEquals($this->buildSourcePath($tpl), $tpl->source->filepath);
+        $this->assertEquals($this->buildSourcePath($tpl), $tpl->getSource()->filepath);
     }
 
     /**
@@ -65,7 +65,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertTrue($tpl->source->getTimeStamp());
+        $this->assertTrue($tpl->getSource()->getTimeStamp());
     }
 
     /**
@@ -74,7 +74,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testGetTemplateSource()
     {
         $tpl = $this->smarty->createTemplate('string:hello world{$foo}');
-        $this->assertEquals('hello world{$foo}', $tpl->source->getContent());
+        $this->assertEquals('hello world{$foo}', $tpl->getSource()->getContent());
     }
 
     /**
@@ -92,7 +92,7 @@ class StringResourceTest extends PHPUnit_Smarty
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('string:hello world');
-        $this->assertFalse($tpl->source->handler->recompiled);
+        $this->assertFalse($tpl->getSource()->handler->recompiled);
     }
 
     /**

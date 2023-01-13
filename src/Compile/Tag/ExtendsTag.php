@@ -56,10 +56,10 @@ class ExtendsTag extends Inheritance {
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		if ($_attr['nocache'] === true) {
-			$compiler->trigger_template_error('nocache option not allowed', $compiler->parser->lex->line - 1);
+			$compiler->trigger_template_error('nocache option not allowed', $compiler->getParser()->lex->line - 1);
 		}
 		if (strpos($_attr['file'], '$_tmp') !== false) {
-			$compiler->trigger_template_error('illegal value for file attribute', $compiler->parser->lex->line - 1);
+			$compiler->trigger_template_error('illegal value for file attribute', $compiler->getParser()->lex->line - 1);
 		}
 		// add code to initialize inheritance
 		$this->registerInit($compiler, true);
@@ -101,14 +101,14 @@ class ExtendsTag extends Inheritance {
 	 */
 	private function compileEndChild(\Smarty\Compiler\Template $compiler, $template = null) {
 		$inlineUids = '';
-		if (isset($template) && $compiler->smarty->merge_compiled_includes) {
+		if (isset($template) && $compiler->getSmarty()->merge_compiled_includes) {
 			$code = $compiler->compileTag('include', [$template, ['scope' => 'parent']]);
 			if (preg_match('/([,][\s]*[\'][a-z0-9]+[\'][,][\s]*[\']content.*[\'])[)]/', $code, $match)) {
 				$inlineUids = $match[1];
 			}
 		}
-		$compiler->parser->template_postfix[] = new \Smarty\ParseTree\Tag(
-			$compiler->parser,
+		$compiler->getParser()->template_postfix[] = new \Smarty\ParseTree\Tag(
+			$compiler->getParser(),
 			'<?php $_smarty_tpl->getInheritance()->endChild($_smarty_tpl' .
 			(isset($template) ?
 				", {$template}{$inlineUids}" :
@@ -126,8 +126,8 @@ class ExtendsTag extends Inheritance {
 	 * @throws \Smarty\Exception
 	 */
 	private function compileInclude(\Smarty\Compiler\Template $compiler, $template) {
-		$compiler->parser->template_postfix[] = new \Smarty\ParseTree\Tag(
-			$compiler->parser,
+		$compiler->getParser()->template_postfix[] = new \Smarty\ParseTree\Tag(
+			$compiler->getParser(),
 			$compiler->compileTag(
 				'include',
 				[
@@ -147,7 +147,7 @@ class ExtendsTag extends Inheritance {
 	 */
 	public static function extendsSourceArrayCode(\Smarty\Template $template) {
 		$resources = [];
-		foreach ($template->source->components as $source) {
+		foreach ($template->getSource()->components as $source) {
 			$resources[] = $source->resource;
 		}
 		return $template->getLeftDelimiter() . 'extends file=\'extends:' . join('|', $resources) .

@@ -24,7 +24,7 @@ class Data
 	 *
 	 * @var Smarty
 	 */
-	public $smarty = null;
+	protected $smarty = null;
 
     /**
      * template variables
@@ -95,7 +95,7 @@ class Data
 		switch ($scope) {
 			case self::SCOPE_GLOBAL:
 			case self::SCOPE_SMARTY:
-				$this->_getSmartyObj()->assign($tpl_var, $value);
+				$this->getSmarty()->assign($tpl_var, $value);
 				break;
 			case self::SCOPE_TPL_ROOT:
 				$ptr = $this;
@@ -180,7 +180,7 @@ class Data
     {
 		trigger_error(__METHOD__ . " is deprecated. Use \\Smarty\\Smarty::assign() to assign a variable " .
 		" at the Smarty level.", E_USER_DEPRECATED);
-	    return $this->_getSmartyObj()->assign($varName, $value, $nocache);
+	    return $this->getSmarty()->assign($varName, $value, $nocache);
     }
 
     /**
@@ -238,7 +238,7 @@ class Data
 			return $this->parent->getVariable($varName, $searchParents, $errorEnable);
 		}
 
-		if ($errorEnable && $this->_getSmartyObj()->error_unassigned) {
+		if ($errorEnable && $this->getSmarty()->error_unassigned) {
 			// force a notice
 			$x = $$varName;
 		}
@@ -277,7 +277,7 @@ class Data
 
 		// copy global config vars
 		foreach ($new_config_vars['vars'] as $variable => $value) {
-			if ($this->_getSmartyObj()->config_overwrite || !isset($this->config_vars[$variable])) {
+			if ($this->getSmarty()->config_overwrite || !isset($this->config_vars[$variable])) {
 				$this->config_vars[$variable] = $value;
 			} else {
 				$this->config_vars[$variable] = array_merge((array)$this->config_vars[$variable], (array)$value);
@@ -287,7 +287,7 @@ class Data
 		foreach ($sections as $tpl_section) {
 			if (isset($new_config_vars['sections'][$tpl_section])) {
 				foreach ($new_config_vars['sections'][$tpl_section]['vars'] as $variable => $value) {
-					if ($this->_getSmartyObj()->config_overwrite || !isset($this->config_vars[$variable])) {
+					if ($this->getSmarty()->config_overwrite || !isset($this->config_vars[$variable])) {
 						$this->config_vars[$variable] = $value;
 					} else {
 						$this->config_vars[$variable] = array_merge((array)$this->config_vars[$variable], (array)$value);
@@ -302,7 +302,7 @@ class Data
      *
      * @return Smarty
      */
-    public function _getSmartyObj()
+    public function getSmarty()
     {
         return $this->smarty;
     }
@@ -380,7 +380,7 @@ class Data
 
 		$returnValue = $this->parent ? $this->parent->getConfigVariable($varName) : null;
 
-		if ($returnValue === null && $this->_getSmartyObj()->error_unassigned) {
+		if ($returnValue === null && $this->getSmarty()->error_unassigned) {
 			throw new Exception("Undefined variable $varName");
 		}
 
@@ -430,7 +430,7 @@ class Data
 	 */
 	public function configLoad($config_file, $sections = null)
 	{
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		$template = new Template($config_file, $smarty, $this, null, null, null, true);
 		$template->caching = Smarty::CACHING_OFF;
 		$template->assign('sections', (array) $sections ?? []);

@@ -46,8 +46,8 @@ class SpecialVariableCompiler extends Base {
 		if ($variable === false) {
 			$compiler->trigger_template_error("special \$Smarty variable name index can not be variable", null, true);
 		}
-		if (!isset($compiler->smarty->security_policy)
-			|| $compiler->smarty->security_policy->isTrustedSpecialSmartyVar($variable, $compiler)
+		if (!isset($compiler->getSmarty()->security_policy)
+			|| $compiler->getSmarty()->security_policy->isTrustedSpecialSmartyVar($variable, $compiler)
 		) {
 			switch ($variable) {
 				case 'foreach':
@@ -59,8 +59,8 @@ class SpecialVariableCompiler extends Base {
 				case 'now':
 					return 'time()';
 				case 'cookies':
-					if (isset($compiler->smarty->security_policy)
-						&& !$compiler->smarty->security_policy->allow_super_globals
+					if (isset($compiler->getSmarty()->security_policy)
+						&& !$compiler->getSmarty()->security_policy->allow_super_globals
 					) {
 						$compiler->trigger_template_error("(secure mode) super globals not permitted");
 						break;
@@ -73,8 +73,8 @@ class SpecialVariableCompiler extends Base {
 				case 'server':
 				case 'session':
 				case 'request':
-					if (isset($compiler->smarty->security_policy)
-						&& !$compiler->smarty->security_policy->allow_super_globals
+					if (isset($compiler->getSmarty()->security_policy)
+						&& !$compiler->getSmarty()->security_policy->allow_super_globals
 					) {
 						$compiler->trigger_template_error("(secure mode) super globals not permitted");
 						break;
@@ -82,20 +82,20 @@ class SpecialVariableCompiler extends Base {
 					$compiled_ref = '$_' . smarty_strtoupper_ascii($variable);
 					break;
 				case 'template':
-					return 'basename($_smarty_tpl->source->filepath)';
+					return 'basename($_smarty_tpl->getSource()->filepath)';
 				case 'template_object':
-					if (isset($compiler->smarty->security_policy)) {
+					if (isset($compiler->getSmarty()->security_policy)) {
 						$compiler->trigger_template_error("(secure mode) template_object not permitted");
 						break;
 					}
 					return '$_smarty_tpl';
 				case 'current_dir':
-					return 'dirname($_smarty_tpl->source->filepath)';
+					return 'dirname($_smarty_tpl->getSource()->filepath)';
 				case 'version':
 					return "\\Smarty\\Smarty::SMARTY_VERSION";
 				case 'const':
-					if (isset($compiler->smarty->security_policy)
-						&& !$compiler->smarty->security_policy->allow_constants
+					if (isset($compiler->getSmarty()->security_policy)
+						&& !$compiler->getSmarty()->security_policy->allow_constants
 					) {
 						$compiler->trigger_template_error("(secure mode) constants not permitted");
 						break;

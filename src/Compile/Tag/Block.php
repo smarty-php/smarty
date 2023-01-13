@@ -82,14 +82,14 @@ class Block extends Inheritance {
 			$compiler,
 			'block',
 			[
-				$_attr, $compiler->nocache, $compiler->parser->current_buffer,
-				$compiler->template->getCompiled()->getNocacheCode(),
-				$compiler->template->caching,
+				$_attr, $compiler->nocache, $compiler->getParser()->current_buffer,
+				$compiler->getTemplate()->getCompiled()->getNocacheCode(),
+				$compiler->getTemplate()->caching,
 			]
 		);
 		$compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
-		$compiler->parser->current_buffer = new Template();
-		$compiler->template->getCompiled()->setNocacheCode(false);
+		$compiler->getParser()->current_buffer = new Template();
+		$compiler->getTemplate()->getCompiled()->setNocacheCode(false);
 		$compiler->suppressNocacheProcessing = true;
 	}
 }

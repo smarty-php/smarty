@@ -48,7 +48,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $this->smarty->setAllowAmbiguousResources(true);
 
         $tpl = $this->smarty->createTemplate('foobar.tpl');
-        $this->assertFalse($tpl->source->exists);
+        $this->assertFalse($tpl->getSource()->exists);
     }
 
     public function testCase1()
@@ -61,8 +61,8 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $resource_handler->setSegment('case1');
 
         $tpl = $this->smarty->createTemplate('foobar.tpl');
-        $this->assertTrue($tpl->source->exists);
-        $this->assertEquals('case1', $tpl->source->getContent());
+        $this->assertTrue($tpl->getSource()->exists);
+        $this->assertEquals('case1', $tpl->getSource()->getContent());
     }
 
     public function testCase2()
@@ -75,8 +75,8 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $resource_handler->setSegment('case2');
 
         $tpl = $this->smarty->createTemplate('foobar.tpl');
-        $this->assertTrue($tpl->source->exists);
-        $this->assertEquals('case2', $tpl->source->getContent());
+        $this->assertTrue($tpl->getSource()->exists);
+        $this->assertEquals('case2', $tpl->getSource()->getContent());
     }
 
 
@@ -89,12 +89,12 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
 
         $resource_handler->setSegment('case1');
         $tpl = $this->smarty->createTemplate('foobar.tpl');
-        $this->assertTrue($tpl->source->exists);
-        $this->assertEquals('case1', $tpl->source->getContent());
+        $this->assertTrue($tpl->getSource()->exists);
+        $this->assertEquals('case1', $tpl->getSource()->getContent());
 
         $resource_handler->setSegment('case2');
         $tpl = $this->smarty->createTemplate('foobar.tpl');
-        $this->assertTrue($tpl->source->exists);
-        $this->assertEquals('case2', $tpl->source->getContent());
+        $this->assertTrue($tpl->getSource()->exists);
+        $this->assertEquals('case2', $tpl->getSource()->getContent());
     }
 }

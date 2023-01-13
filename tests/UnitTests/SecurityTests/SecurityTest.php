@@ -279,7 +279,7 @@ class SecurityTest extends PHPUnit_Smarty
         fclose($fp);
         $this->smarty->security_policy->streams= array('global');
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->source->exists);
+        $this->assertTrue($tpl->getSource()->exists);
         stream_wrapper_unregister("global");
     }
 /**
@@ -298,7 +298,7 @@ class SecurityTest extends PHPUnit_Smarty
         fclose($fp);
         $this->smarty->security_policy->streams= array('notrusted');
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->source->exists);
+        $this->assertTrue($tpl->getSource()->exists);
         stream_wrapper_unregister("global");
     }
 /**

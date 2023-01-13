@@ -39,7 +39,7 @@ class Config extends Source {
 	) {
 		static $_incompatible_resources = ['extends' => true, 'php' => true];
 		if ($_template) {
-			$smarty = $_template->smarty;
+			$smarty = $_template->getSmarty();
 			$template_resource = $_template->template_resource;
 		}
 		if (empty($template_resource)) {

@@ -35,15 +35,15 @@ class Fetch extends Base {
 		if ($protocol !== false) {
 			$protocol = strtolower(substr($params['file'], 0, $protocol));
 		}
-		if (isset($template->smarty->security_policy)) {
+		if (isset($template->getSmarty()->security_policy)) {
 			if ($protocol) {
 				// remote resource (or php stream, …)
-				if (!$template->smarty->security_policy->isTrustedUri($params['file'])) {
+				if (!$template->getSmarty()->security_policy->isTrustedUri($params['file'])) {
 					return;
 				}
 			} else {
 				// local file
-				if (!$template->smarty->security_policy->isTrustedResourceDir($params['file'])) {
+				if (!$template->getSmarty()->security_policy->isTrustedResourceDir($params['file'])) {
 					return;
 				}
 			}

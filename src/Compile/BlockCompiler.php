@@ -70,7 +70,7 @@ class BlockCompiler extends Base {
 	 * @return string
 	 */
 	protected function getIsCallableCode($tag, $function): string {
-		return "\$_smarty_tpl->smarty->getBlockHandler(" . var_export($function, true) . ")";
+		return "\$_smarty_tpl->getSmarty()->getBlockHandler(" . var_export($function, true) . ")";
 	}
 
 	/**
@@ -82,7 +82,7 @@ class BlockCompiler extends Base {
 	 * @return string
 	 */
 	protected function getFullCallbackCode($tag, $function): string {
-		return "\$_smarty_tpl->smarty->getBlockHandler(" . var_export($function, true) . ")->handle";
+		return "\$_smarty_tpl->getSmarty()->getBlockHandler(" . var_export($function, true) . ")->handle";
 	}
 
 	/**

@@ -93,7 +93,7 @@ abstract class TemplateBase extends Data {
 		$format = true,
 		$block_methods = []
 	) {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		// test if allowed methods callable
 		if (!empty($allowed_methods_properties)) {
 			foreach ((array)$allowed_methods_properties as $method) {
@@ -127,7 +127,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 */
 	public function unregisterObject($object_name) {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		if (isset($smarty->registered_objects[$object_name])) {
 			unset($smarty->registered_objects[$object_name]);
 		}
@@ -191,7 +191,7 @@ abstract class TemplateBase extends Data {
 	 */
 	public function createData(Data $parent = null, $name = null) {
 		/* @var Smarty $smarty */
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		$dataObj = new Data($parent, $smarty, $name);
 		if ($smarty->debugging) {
 			$smarty->getDebug()->register_data($dataObj);
@@ -207,7 +207,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 */
 	public function getDebugTemplate() {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		return $smarty->debug_tpl;
 	}
 
@@ -234,7 +234,7 @@ abstract class TemplateBase extends Data {
 	 * @api  Smarty::getRegisteredObject()
 	 */
 	public function getRegisteredObject($object_name) {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		if (!isset($smarty->registered_objects[$object_name])) {
 			throw new Exception("'$object_name' is not a registered object");
 		}
@@ -252,7 +252,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 */
 	public function getLiterals() {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		return (array)$smarty->literals;
 	}
 
@@ -269,7 +269,7 @@ abstract class TemplateBase extends Data {
 	 */
 	public function addLiterals($literals = null) {
 		if (isset($literals)) {
-			$this->_setLiterals($this->_getSmartyObj(), (array)$literals);
+			$this->_setLiterals($this->getSmarty(), (array)$literals);
 		}
 		return $this;
 	}
@@ -286,7 +286,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 */
 	public function setLiterals($literals = null) {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		$smarty->literals = [];
 		if (!empty($literals)) {
 			$this->_setLiterals($smarty, (array)$literals);
@@ -330,7 +330,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 */
 	public function registerClass($class_name, $class_impl) {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		// test if exists
 		if (!class_exists($class_impl)) {
 			throw new Exception("Undefined class '$class_impl' in register template class");
@@ -351,7 +351,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 */
 	public function registerDefaultConfigHandler($callback) {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		if (is_callable($callback)) {
 			$smarty->default_config_handler_func = $callback;
 		} else {
@@ -371,7 +371,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 */
 	public function registerDefaultTemplateHandler($callback) {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		if (is_callable($callback)) {
 			$smarty->default_template_handler_func = $callback;
 		} else {
@@ -392,7 +392,7 @@ abstract class TemplateBase extends Data {
 	 * @api  Smarty::registerResource()
 	 */
 	public function registerResource($name, \Smarty\Resource\BasePlugin $resource_handler) {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		$smarty->registered_resources[$name] = $resource_handler;
 		return $this;
 	}
@@ -408,7 +408,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 */
 	public function unregisterResource($type) {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		if (isset($smarty->registered_resources[$type])) {
 			unset($smarty->registered_resources[$type]);
 		}
@@ -426,7 +426,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 */
 	public function setDebugTemplate($tpl_name) {
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 		if (!is_readable($tpl_name)) {
 			throw new Exception("Unknown file '{$tpl_name}'");
 		}

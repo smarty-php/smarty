@@ -41,13 +41,13 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testGetTemplateFilepath()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals($this->normalizePath("./templates/helloworld.tpl"), $tpl->source->filepath);
+        $this->assertEquals($this->normalizePath("./templates/helloworld.tpl"), $tpl->getSource()->filepath);
     }
 
     public function testTemplateFileExists1()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue($tpl->source->exists);
+        $this->assertTrue($tpl->getSource()->exists);
     }
 
     public function testTemplateFileExists2()
@@ -58,7 +58,7 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testTemplateFileNotExists1()
     {
         $tpl = $this->smarty->createTemplate('notthere.tpl');
-        $this->assertFalse($tpl->source->exists);
+        $this->assertFalse($tpl->getSource()->exists);
     }
 
     public function testTemplateFileNotExists2()
@@ -80,14 +80,14 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue(is_integer($tpl->source->getTimeStamp()));
-        $this->assertEquals(10, strlen($tpl->source->getTimeStamp()));
+        $this->assertTrue(is_integer($tpl->getSource()->getTimeStamp()));
+        $this->assertEquals(10, strlen($tpl->getSource()->getTimeStamp()));
     }
 
     public function testGetTemplateSource()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals('hello world', $tpl->source->getContent());
+        $this->assertEquals('hello world', $tpl->getSource()->getContent());
     }
 
     public function testUsesCompiler()
@@ -99,7 +99,7 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertFalse($tpl->source->handler->recompiled);
+        $this->assertFalse($tpl->getSource()->handler->recompiled);
     }
 
     public function testGetCompiledFilepath()
@@ -118,7 +118,7 @@ class FileResourceTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         // create dummy compiled file
         file_put_contents($tpl->getCompiled()->filepath, '<?php ?>');
-        touch($tpl->getCompiled()->filepath, $tpl->source->getTimeStamp());
+        touch($tpl->getCompiled()->filepath, $tpl->getSource()->getTimeStamp());
     }
 
     /**
@@ -129,7 +129,7 @@ class FileResourceTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->assertTrue(is_integer($tpl->getCompiled()->getTimeStamp()));
         $this->assertEquals(10, strlen($tpl->getCompiled()->getTimeStamp()));
-        $this->assertEquals($tpl->getCompiled()->getTimeStamp(), $tpl->source->getTimeStamp());
+        $this->assertEquals($tpl->getCompiled()->getTimeStamp(), $tpl->getSource()->getTimeStamp());
     }
 
     public function testMustCompileExisting()
@@ -153,7 +153,7 @@ class FileResourceTest extends PHPUnit_Smarty
 	    // touch to prepare next test
 	    sleep(2);
 	    $tpl = $this->smarty->createTemplate('helloworld.tpl');
-	    touch($tpl->source->filepath);
+	    touch($tpl->getSource()->filepath);
 
 		$this->setUp();
 

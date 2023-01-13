@@ -47,7 +47,7 @@ class Template extends TemplateBase {
 	 *
 	 * @var Source|Config
 	 */
-	public $source = null;
+	private $source = null;
 
 	/**
 	 * Template resource
@@ -161,14 +161,14 @@ class Template extends TemplateBase {
 			$this->smarty->getDebug()->start_template($this, $display);
 		}
 		// checks if template exists
-		if (!$this->source->exists) {
+		if (!$this->getSource()->exists) {
 			throw new Exception(
-				"Unable to load template '{$this->source->type}:{$this->source->name}'" .
+				"Unable to load template '{$this->getSource()->type}:{$this->getSource()->name}'" .
 				($this->_isSubTpl() ? " in '{$this->parent->template_resource}'" : '')
 			);
 		}
 		// disable caching for evaluated code
-		if ($this->source->handler->recompiled) {
+		if ($this->getSource()->handler->recompiled) {
 			$this->caching = \Smarty\Smarty::CACHING_OFF;
 		}
 		// read from cache or render
@@ -193,7 +193,7 @@ class Template extends TemplateBase {
 					isset($content) ? $content : ob_get_clean()
 				);
 			} else {
-				if ((!$this->caching || $this->getCached()->getNocacheCode() || $this->source->handler->recompiled)
+				if ((!$this->caching || $this->getCached()->getNocacheCode() || $this->getSource()->handler->recompiled)
 					&& !$no_output_filter && isset($this->smarty->registered_filters['output'])
 				) {
 					echo $this->smarty->runOutputFilters(ob_get_clean(), $this);
@@ -216,7 +216,7 @@ class Template extends TemplateBase {
 			}
 			if (
 				!$no_output_filter
-				&& (!$this->caching || $this->getCached()->getNocacheCode() || $this->source->handler->recompiled)
+				&& (!$this->caching || $this->getCached()->getNocacheCode() || $this->getSource()->handler->recompiled)
 			) {
 
 				return $this->smarty->runOutputFilters(ob_get_clean(), $this);
@@ -252,9 +252,9 @@ class Template extends TemplateBase {
 		$content_func = null
 	) {
 
-		$baseFilePath = $this->source && $this->source->filepath ? dirname($this->source->filepath) : null;
+		$baseFilePath = $this->source && $this->getSource()->filepath ? dirname($this->getSource()->filepath) : null;
 
-		$tpl = $this->_getSmartyObj()->createTemplate($template_name, $cache_id, $compile_id, $this, $caching, $cache_lifetime, $baseFilePath);
+		$tpl = $this->getSmarty()->createTemplate($template_name, $cache_id, $compile_id, $this, $caching, $cache_lifetime, $baseFilePath);
 
 		// copy variables
 		$tpl->tpl_vars = $this->tpl_vars;
@@ -266,13 +266,14 @@ class Template extends TemplateBase {
 			if (isset($uid) && $this->getCompiled()->file_dependency) {
 				// for inline templates we can get all resource information from file dependency
 				[$filepath, $timestamp, $type] = $this->getCompiled()->file_dependency[$uid];
-				$tpl->source = new Source($this->_getSmartyObj(), $filepath, $type, $filepath);
-				$tpl->source->filepath = $filepath;
-				$tpl->source->timestamp = $timestamp;
-				$tpl->source->exists = true;
-				$tpl->source->uid = $uid;
+				$source = new Source($this->getSmarty(), $filepath, $type, $filepath);
+				$source->filepath = $filepath;
+				$source->timestamp = $timestamp;
+				$source->exists = true;
+				$source->uid = $uid;
+				$tpl->setSource($source);
 			} else {
-				$tpl->source = Source::load($tpl);
+				$tpl->setSource(Source::load($tpl));
 				$tpl->getCompiled(true); // @TODO this unset($tpl->compiled), there might be a bug here
 			}
 			if ($caching !== \Smarty\Template::CACHING_NOCACHE_CODE) {
@@ -292,7 +293,7 @@ class Template extends TemplateBase {
 			}
 		}
 		if (isset($uid)) {
-			$smarty = $this->_getSmartyObj();
+			$smarty = $this->getSmarty();
 			if ($smarty->debugging) {
 				$smarty->getDebug()->start_template($tpl);
 				$smarty->getDebug()->start_render($tpl);
@@ -346,9 +347,9 @@ class Template extends TemplateBase {
 		// on cache resources other than file check version stored in cache code
 		if (!isset($properties['version']) || \Smarty\Smarty::SMARTY_VERSION !== $properties['version']) {
 			if ($cache) {
-				$tpl->smarty->clearAllCache();
+				$tpl->getSmarty()->clearAllCache();
 			} else {
-				$tpl->smarty->clearCompiledTemplate();
+				$tpl->getSmarty()->clearCompiledTemplate();
 			}
 			return false;
 		}
@@ -359,18 +360,18 @@ class Template extends TemplateBase {
 			// check file dependencies at compiled code
 			foreach ($properties['file_dependency'] as $_file_to_check) {
 				if ($_file_to_check[2] === 'file' || $_file_to_check[2] === 'php') {
-					if ($tpl->source->filepath === $_file_to_check[0]) {
+					if ($tpl->getSource()->filepath === $_file_to_check[0]) {
 						// do not recheck current template
 						continue;
-						//$mtime = $tpl->source->getTimeStamp();
+						//$mtime = $tpl->getSource()->getTimeStamp();
 					} else {
 						// file and php types can be checked without loading the respective resource handlers
 						$mtime = is_file($_file_to_check[0]) ? filemtime($_file_to_check[0]) : false;
 					}
 				} else {
-					$handler = \Smarty\Resource\BasePlugin::load($tpl->smarty, $_file_to_check[2]);
+					$handler = \Smarty\Resource\BasePlugin::load($tpl->getSmarty(), $_file_to_check[2]);
 					if ($handler->checkTimestamps()) {
-						$source = Source::load($tpl, $tpl->smarty, $_file_to_check[0]);
+						$source = Source::load($tpl, $tpl->getSmarty(), $_file_to_check[0]);
 						$mtime = $source->getTimeStamp();
 					} else {
 						continue;
@@ -416,6 +417,16 @@ class Template extends TemplateBase {
 	}
 
 	/**
+	 * Return cached content
+	 *
+	 * @return null|string
+	 * @throws Exception
+	 */
+	public function getCachedContent() {
+		return $this->getCachedContent($this);
+	}
+
+	/**
 	 * Writes the content to cache resource
 	 *
 	 * @param string $content
@@ -423,7 +434,7 @@ class Template extends TemplateBase {
 	 * @return bool
 	 */
 	public function writeCachedContent($content) {
-		if ($this->source->handler->recompiled || !$this->caching
+		if ($this->getSource()->handler->recompiled || !$this->caching
 		) {
 			// don't write cache file
 			return false;
@@ -472,17 +483,23 @@ class Template extends TemplateBase {
 	 */
 	public function getCached($forceNew = false): Cached {
 		if ($forceNew || !isset($this->cached)) {
-			$this->cached = new Cached($this);
-			$this->cached->handler->populate($this->cached, $this);
+			$cacheResource = $this->smarty->getCacheResource();
+			$this->cached = new Cached(
+				$this->source,
+				$cacheResource,
+				$this->compile_id,
+				$this->cache_id
+			);
+			$cacheResource->populate($this->cached, $this);
 			if (!$this->isCachingEnabled()) {
-				$this->cached->valid = false;
+				$this->cached->setValid(false);
 			}
 		}
 		return $this->cached;
 	}
 
 	public function isCachingEnabled(): bool {
-		return $this->caching && !$this->source->handler->recompiled;
+		return $this->caching && !$this->getSource()->handler->recompiled;
 	}
 
 	/**
@@ -492,7 +509,7 @@ class Template extends TemplateBase {
 	 * @throws Exception
 	 */
 	public function getInheritance(): InheritanceRuntime {
-		return $this->_getSmartyObj()->getRuntime('Inheritance');
+		return $this->getSmarty()->getRuntime('Inheritance');
 	}
 
 	/**
@@ -508,7 +525,7 @@ class Template extends TemplateBase {
 	 */
 	public function getCompiler() {
 		if (!isset($this->compiler)) {
-			$this->compiler = $this->source->createCompiler();
+			$this->compiler = $this->getSource()->createCompiler();
 		}
 		return $this->compiler;
 	}
@@ -546,19 +563,19 @@ class Template extends TemplateBase {
 	 * @throws \Smarty\Exception
 	 */
 	public function mustCompile() {
-		if (!$this->source->exists) {
+		if (!$this->getSource()->exists) {
 			if ($this->_isSubTpl()) {
 				$parent_resource = " in '{$this->parent->template_resource}'";
 			} else {
 				$parent_resource = '';
 			}
-			throw new Exception("Unable to load template {$this->source->type} '{$this->source->name}'{$parent_resource}");
+			throw new Exception("Unable to load template {$this->getSource()->type} '{$this->getSource()->name}'{$parent_resource}");
 		}
 		if ($this->mustCompile === null) {
 			$this->mustCompile = $this->smarty->force_compile
-				|| $this->source->handler->recompiled
+				|| $this->getSource()->handler->recompiled
 				|| !$this->getCompiled()->exists
-				|| ($this->compile_check &&	$this->getCompiled()->getTimeStamp() < $this->source->getTimeStamp());
+				|| ($this->compile_check &&	$this->getCompiled()->getTimeStamp() < $this->getSource()->getTimeStamp());
 		}
 		return $this->mustCompile;
 	}
@@ -574,7 +591,7 @@ class Template extends TemplateBase {
 	 */
 	public function getLeftDelimiter()
 	{
-		return $this->left_delimiter ?? $this->_getSmartyObj()->getLeftDelimiter();
+		return $this->left_delimiter ?? $this->getSmarty()->getLeftDelimiter();
 	}
 
 	/**
@@ -594,7 +611,7 @@ class Template extends TemplateBase {
 	 */
 	public function getRightDelimiter()
 	{
-		return $this->right_delimiter ?? $this->_getSmartyObj()->getRightDelimiter();;
+		return $this->right_delimiter ?? $this->getSmarty()->getRightDelimiter();;
 	}
 
 	/**
@@ -627,7 +644,7 @@ class Template extends TemplateBase {
 			fclose($fp);
 			return $_result;
 		}
-		if ($this->_getSmartyObj()->error_unassigned) {
+		if ($this->getSmarty()->error_unassigned) {
 			throw new Exception('Undefined stream variable "' . $variable . '"');
 		}
 		return null;
@@ -639,8 +656,8 @@ class Template extends TemplateBase {
 	{
 		$confObj = parent::configLoad($config_file, $sections);
 
-		$this->getCompiled()->file_dependency[ $confObj->source->uid ] =
-			array($confObj->source->filepath, $confObj->source->getTimeStamp(), $confObj->source->type);
+		$this->getCompiled()->file_dependency[ $confObj->getSource()->uid ] =
+			array($confObj->getSource()->filepath, $confObj->getSource()->getTimeStamp(), $confObj->getSource()->type);
 
 		return $confObj;
 	}
@@ -683,7 +700,7 @@ class Template extends TemplateBase {
 	 */
 	private function _execute($function) {
 
-		$smarty = $this->_getSmartyObj();
+		$smarty = $this->getSmarty();
 
 		// make sure we have integer values
 		$this->caching = (int)$this->caching;
@@ -773,10 +790,24 @@ class Template extends TemplateBase {
 			while (ob_get_level() > $level) {
 				ob_end_clean();
 			}
-			if (isset($this->_getSmartyObj()->security_policy)) {
-				$this->_getSmartyObj()->security_policy->endTemplate();
+			if (isset($this->getSmarty()->security_policy)) {
+				$this->getSmarty()->security_policy->endTemplate();
 			}
 			throw $e;
 		}
+	}
+
+	/**
+	 * @return Config|Source|null
+	 */
+	public function getSource() {
+		return $this->source;
+	}
+
+	/**
+	 * @param Config|Source|null $source
+	 */
+	public function setSource($source): void {
+		$this->source = $source;
 	}
 }

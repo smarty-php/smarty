@@ -49,19 +49,19 @@ class ObjectMethodCallCompiler extends Base {
 			unset($_attr['assign']);
 		}
 		// method or property ?
-		if (is_callable([$compiler->smarty->registered_objects[$tag][0], $function])) {
+		if (is_callable([$compiler->getSmarty()->registered_objects[$tag][0], $function])) {
 			// convert attributes into parameter array string
-			if ($compiler->smarty->registered_objects[$tag][2]) {
+			if ($compiler->getSmarty()->registered_objects[$tag][2]) {
 				$_paramsArray = $this->formatParamsArray($_attr);
 				$_params = 'array(' . implode(',', $_paramsArray) . ')';
-				$output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$function}({$_params},\$_smarty_tpl)";
+				$output = "\$_smarty_tpl->getSmarty()->registered_objects['{$tag}'][0]->{$function}({$_params},\$_smarty_tpl)";
 			} else {
 				$_params = implode(',', $_attr);
-				$output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$function}({$_params})";
+				$output = "\$_smarty_tpl->getSmarty()->registered_objects['{$tag}'][0]->{$function}({$_params})";
 			}
 		} else {
 			// object property
-			$output = "\$_smarty_tpl->smarty->registered_objects['{$tag}'][0]->{$function}";
+			$output = "\$_smarty_tpl->getSmarty()->registered_objects['{$tag}'][0]->{$function}";
 		}
 		if (!empty($parameter['modifierlist'])) {
 			$output = $compiler->compileModifier($parameter['modifierlist'], $output);

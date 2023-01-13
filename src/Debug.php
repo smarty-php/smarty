@@ -90,7 +90,7 @@ class Debug extends Data
 	            $this->saveTemplateData($_is_stringy, $template, $key);
             }
         } else {
-            if (isset($this->ignore_uid[ $template->source->uid ])) {
+            if (isset($this->ignore_uid[ $template->getSource()->uid ])) {
                 return;
             }
             $key = $this->get_key($template);
@@ -108,7 +108,7 @@ class Debug extends Data
         if (!empty($template->getCompiler()->trace_uid)) {
             $key = $template->getCompiler()->trace_uid;
         } else {
-            if (isset($this->ignore_uid[ $template->source->uid ])) {
+            if (isset($this->ignore_uid[ $template->getSource()->uid ])) {
                 return;
             }
             $key = $this->get_key($template);
@@ -197,7 +197,7 @@ class Debug extends Data
             $savedIndex = $this->index;
             $this->index = 9999;
         }
-        $smarty = $obj->_getSmartyObj();
+        $smarty = $obj->getSmarty();
         // create fresh instance of smarty for displaying the debug console
         // to avoid problems if the application did overload the Smarty class
         $debObj = new \Smarty\Smarty();
@@ -225,7 +225,7 @@ class Debug extends Data
         $debugging = $smarty->debugging;
         $_template = $debObj->createTemplate($debObj->debug_tpl);
         if ($obj instanceof \Smarty\Template) {
-            $_template->assign('template_name', $obj->source->type . ':' . $obj->source->name);
+            $_template->assign('template_name', $obj->getSource()->type . ':' . $obj->getSource()->name);
         } elseif ($obj instanceof Smarty || $full) {
             $_template->assign('template_data', $this->template_data[$this->index]);
         } else {
@@ -307,10 +307,10 @@ class Debug extends Data
     {
         static $_is_stringy = array('string' => true, 'eval' => true);
         // calculate Uid if not already done
-        if ($template->source->uid === '') {
-            $template->source->filepath;
+        if ($template->getSource()->uid === '') {
+            $template->getSource()->filepath;
         }
-        $key = $template->source->uid;
+        $key = $template->getSource()->uid;
         if (isset($this->template_data[ $this->index ][ $key ])) {
             return $key;
         } else {
@@ -328,10 +328,10 @@ class Debug extends Data
     public function ignore(\Smarty\Template $template)
     {
         // calculate Uid if not already done
-        if ($template->source->uid === '') {
-            $template->source->filepath;
+        if ($template->getSource()->uid === '') {
+            $template->getSource()->filepath;
         }
-        $this->ignore_uid[ $template->source->uid ] = true;
+        $this->ignore_uid[ $template->getSource()->uid ] = true;
     }
 
     /**
@@ -374,11 +374,11 @@ class Debug extends Data
 	 * @return void
 	 */
 	private function saveTemplateData(array $_is_stringy, \Smarty\Template $template, string $key): void {
-		if (isset($_is_stringy[$template->source->type])) {
+		if (isset($_is_stringy[$template->getSource()->type])) {
 			$this->template_data[$this->index][$key]['name'] =
-				'\'' . substr($template->source->name, 0, 25) . '...\'';
+				'\'' . substr($template->getSource()->name, 0, 25) . '...\'';
 		} else {
-			$this->template_data[$this->index][$key]['name'] = $template->source->filepath;
+			$this->template_data[$this->index][$key]['name'] = $template->getSource()->filepath;
 		}
 		$this->template_data[$this->index][$key]['compile_time'] = 0;
 		$this->template_data[$this->index][$key]['render_time'] = 0;

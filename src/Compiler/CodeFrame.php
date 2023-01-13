@@ -59,7 +59,7 @@ class CodeFrame
 			"<?php\n/* Smarty version %s, created on %s\n  from '%s' */\n\n",
             $properties[ 'version' ],
 	        date("Y-m-d H:i:s"),
-	        str_replace('*/', '* /', $this->_template->source->filepath)
+	        str_replace('*/', '* /', $this->_template->getSource()->filepath)
         );
         $output .= "/* @var \\Smarty\\Template \$_smarty_tpl */\n";
         $dec = "\$_smarty_tpl->isFresh(\$_smarty_tpl, " . var_export($properties, true) . ',' .
@@ -67,13 +67,13 @@ class CodeFrame
         $output .= "if ({$dec}) {\n";
         $output .= "function {$properties['unifunc']} (\\Smarty\\Template \$_smarty_tpl) {\n";
         if (!$cache && !empty($compiler->tpl_function)) {
-            $output .= '$_smarty_tpl->smarty->getRuntime(\'TplFunction\')->registerTplFunctions($_smarty_tpl, ';
+            $output .= '$_smarty_tpl->getSmarty()->getRuntime(\'TplFunction\')->registerTplFunctions($_smarty_tpl, ';
             $output .= var_export($compiler->tpl_function, true);
             $output .= ");\n";
         }
-        if ($cache && $this->_template->smarty->hasRuntime('TplFunction')) {
-            $output .= "\$_smarty_tpl->smarty->getRuntime('TplFunction')->registerTplFunctions(\$_smarty_tpl, " .
-                       var_export($this->_template->smarty->getRuntime('TplFunction')->getTplFunction($this->_template), true) . ");\n";
+        if ($cache && $this->_template->getSmarty()->hasRuntime('TplFunction')) {
+            $output .= "\$_smarty_tpl->getSmarty()->getRuntime('TplFunction')->registerTplFunctions(\$_smarty_tpl, " .
+                       var_export($this->_template->getSmarty()->getRuntime('TplFunction')->getTplFunction($this->_template), true) . ");\n";
         }
         $output .= "?>";
         $output .= $content;

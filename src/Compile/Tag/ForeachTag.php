@@ -191,7 +191,7 @@ class ForeachTag extends ForeachSection {
 		$compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
 		// generate output code
 		$output = "<?php\n";
-		$output .= "\$_from = \$_smarty_tpl->smarty->getRuntime('Foreach')->init(\$_smarty_tpl, $from, " .
+		$output .= "\$_from = \$_smarty_tpl->getSmarty()->getRuntime('Foreach')->init(\$_smarty_tpl, $from, " .
 			var_export($item, true);
 		if ($name || $needTotal || $key) {
 			$output .= ', ' . var_export($needTotal, true);
@@ -273,6 +273,6 @@ class ForeachTag extends ForeachSection {
 	 * @return string compiled code
 	 */
 	public function compileRestore($levels) {
-		return "\$_smarty_tpl->smarty->getRuntime('Foreach')->restore(\$_smarty_tpl, {$levels});";
+		return "\$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore(\$_smarty_tpl, {$levels});";
 	}
 }

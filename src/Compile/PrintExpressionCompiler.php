@@ -65,9 +65,9 @@ class PrintExpressionCompiler extends Base {
 			// display value
 			if (!$_attr['nofilter']) {
 				// default modifier
-				if ($compiler->smarty->getDefaultModifiers()) {
+				if ($compiler->getSmarty()->getDefaultModifiers()) {
 					$modifierlist = [];
-					foreach ($compiler->smarty->getDefaultModifiers() as $key => $single_default_modifier) {
+					foreach ($compiler->getSmarty()->getDefaultModifiers() as $key => $single_default_modifier) {
 						preg_match_all(
 							'/(\'[^\'\\\\]*(?:\\\\.[^\'\\\\]*)*\'|"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"|:|[^:]+)/',
 							$single_default_modifier,
@@ -83,7 +83,7 @@ class PrintExpressionCompiler extends Base {
 					$output = $compiler->compileModifier($modifierlist, $output);
 				}
 
-				if ($compiler->template->smarty->escape_html) {
+				if ($compiler->getTemplate()->getSmarty()->escape_html) {
 					$output = "htmlspecialchars((string) {$output}, ENT_QUOTES, '" . addslashes(\Smarty\Smarty::$_CHARSET) . "')";
 				}
 

@@ -27,7 +27,7 @@ function smarty_function_checkvar($params, \Smarty\Template $template)
     $ptr = $template;
     while ($ptr) {
         if (in_array('template', $types) && $ptr instanceof Template) {
-            $output .= "#{$ptr->source->name}:\${$var} =";
+            $output .= "#{$ptr->getSource()->name}:\${$var} =";
             $output .= $ptr->hasVariable($var) ? preg_replace('/\s/', '', var_export($ptr->getValue($var), true)) : '>unassigned<';
             $i = 0;
             while (isset($ptr->_var_stack[ $i ])) {
@@ -46,8 +46,8 @@ function smarty_function_checkvar($params, \Smarty\Template $template)
     }
     if (in_array('global', $types)) {
         $output .= "#global:\${$var} =";
-        $output .= $template->smarty->hasVariable($var) ?
-            preg_replace('/\s/', '', var_export($template->smarty->getValue($var), true)) : '>unassigned<';
+        $output .= $template->getSmarty()->hasVariable($var) ?
+            preg_replace('/\s/', '', var_export($template->getSmarty()->getValue($var), true)) : '>unassigned<';
     }
     return $output;
 }

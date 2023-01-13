@@ -50,6 +50,6 @@ class EscapeModifierCompiler extends Base {
 		} catch (Exception $e) {
 			// pass through to regular plugin fallback
 		}
-		return '$_smarty_tpl->smarty->getModifierCallback(\'escape\')(' . join(', ', $params) . ')';
+		return '$_smarty_tpl->getSmarty()->getModifierCallback(\'escape\')(' . join(', ', $params) . ')';
 	}
 }

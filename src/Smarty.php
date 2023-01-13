@@ -1024,7 +1024,7 @@ class Smarty extends \Smarty\TemplateBase
 	    $tpl->tplFunctions = array_merge($parent->tplFunctions ?? [], $tpl->tplFunctions ?? []);
 
 	    if (!$this->debugging && $this->debugging_ctrl === 'URL') {
-	        $tpl->smarty->getDebug()->debugUrl($tpl->smarty);
+	        $tpl->getSmarty()->getDebug()->debugUrl($tpl->getSmarty());
 	    }
 	    return $tpl;
     }
@@ -1062,7 +1062,7 @@ class Smarty extends \Smarty\TemplateBase
 	    $nameIsDotted = !empty($name) && $name[0] === '.' && ($name[1] === '.' || $name[1] === '/');
 
 	    $id_parts[] = $type;
-	    $id_parts[] = $this->_getSmartyObj()->_joined_template_dir;
+	    $id_parts[] = $this->getSmarty()->_joined_template_dir;
 
 		// handle relative template names
         if ($baseFilePath && $nameIsDotted) {
@@ -1289,10 +1289,10 @@ class Smarty extends \Smarty\TemplateBase
 
     /**
      * Get Smarty object
-     *
+     * // @TODO this is silly, remove?
      * @return Smarty
      */
-    public function _getSmartyObj()
+    public function getSmarty()
     {
         return $this;
     }
@@ -1420,7 +1420,7 @@ class Smarty extends \Smarty\TemplateBase
 			/* @var Template $tpl */
 			$tpl = $this->createTemplate($resource_name);
 			$this->caching = $_save_stat;
-			if (!$tpl->source->handler->recompiled && $tpl->source->exists) {
+			if (!$tpl->getSource()->handler->recompiled && $tpl->getSource()->exists) {
 				$_resource_part_1 = basename(str_replace('^', DIRECTORY_SEPARATOR, $tpl->getCompiled()->filepath));
 				$_resource_part_1_length = strlen($_resource_part_1);
 			} else {
@@ -1596,8 +1596,9 @@ class Smarty extends \Smarty\TemplateBase
 				try {
 					$_tpl = new \Smarty\Template($_file, $_smarty);
 					$_tpl->caching = self::CACHING_OFF;
-					$_tpl->source =
-						$isConfig ? \Smarty\Template\Config::load($_tpl) : \Smarty\Template\Source::load($_tpl);
+					$_tpl->setSource(
+						$isConfig ? \Smarty\Template\Config::load($_tpl) : \Smarty\Template\Source::load($_tpl)
+					);
 					if ($_tpl->mustCompile()) {
 						$_tpl->compileTemplateSource();
 						$_count++;

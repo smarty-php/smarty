@@ -2,7 +2,9 @@
 
 namespace Smarty\Template;
 
+use Smarty\Exception;
 use Smarty\Template;
+use Smarty\Template\Cacheresource\Base;
 
 /**
  * Represents a cached version of a template or config file.
@@ -16,6 +18,20 @@ class Cached extends GeneratedPhpFile {
 	 * @var boolean
 	 */
 	public $valid = null;
+
+	/**
+	 * @return bool|null
+	 */
+	public function getValid(): ?bool {
+		return $this->valid;
+	}
+
+	/**
+	 * @param bool|null $valid
+	 */
+	public function setValid(?bool $valid): void {
+		$this->valid = $valid;
+	}
 
 	/**
 	 * CacheResource Handler
@@ -81,15 +97,16 @@ class Cached extends GeneratedPhpFile {
 	/**
 	 * create Cached Object container
 	 *
-	 * @param Template $_template template object
-	 *
-	 * @throws \Smarty\Exception
+	 * @param Source $source
+	 * @param \Smarty\Cacheresource\Base $handler
+	 * @param $compile_id
+	 * @param $cache_id
 	 */
-	public function __construct(Template $_template) {
-		$this->compile_id = $_template->compile_id;
-		$this->cache_id = $_template->cache_id;
-		$this->source = $_template->source;
-		$this->handler = $_template->smarty->getCacheResource();
+	public function __construct(Source $source, \Smarty\Cacheresource\Base $handler, $compile_id, $cache_id) {
+		$this->compile_id = $compile_id;
+		$this->cache_id = $cache_id;
+		$this->source = $source;
+		$this->handler = $handler;
 	}
 
 	/**
@@ -102,15 +119,15 @@ class Cached extends GeneratedPhpFile {
 	 */
 	public function render(Template $_template, $no_output_filter = true) {
 		if ($this->isCached($_template)) {
-			if ($_template->smarty->debugging) {
-				$_template->smarty->getDebug()->start_cache($_template);
+			if ($_template->getSmarty()->debugging) {
+				$_template->getSmarty()->getDebug()->start_cache($_template);
 			}
 			if (!$this->processed) {
 				$this->process($_template);
 			}
 			$this->renderTemplateCode($_template);
-			if ($_template->smarty->debugging) {
-				$_template->smarty->getDebug()->end_cache($_template);
+			if ($_template->getSmarty()->debugging) {
+				$_template->getSmarty()->getDebug()->end_cache($_template);
 			}
 			return;
 		} else {
@@ -121,9 +138,10 @@ class Cached extends GeneratedPhpFile {
 	/**
 	 * Check if cache is valid, lock cache if required
 	 *
-	 * @param \Smarty\Template $_template
+	 * @param Template $_template
 	 *
 	 * @return bool flag true if cache is valid
+	 * @throws Exception
 	 */
 	public function isCached(Template $_template) {
 		if ($this->valid !== null) {
@@ -131,7 +149,7 @@ class Cached extends GeneratedPhpFile {
 		}
 		while (true) {
 			while (true) {
-				if ($this->exists === false || $_template->smarty->force_compile || $_template->smarty->force_cache) {
+				if ($this->exists === false || $_template->getSmarty()->force_compile || $_template->getSmarty()->force_cache) {
 					$this->valid = false;
 				} else {
 					$this->valid = true;
@@ -143,32 +161,32 @@ class Cached extends GeneratedPhpFile {
 					$this->valid = false;
 				}
 				if ($this->valid && $_template->compile_check === \Smarty\Smarty::COMPILECHECK_ON
-					&& $_template->source->getTimeStamp() > $this->timestamp
+					&& $_template->getSource()->getTimeStamp() > $this->timestamp
 				) {
 					$this->valid = false;
 				}
-				if ($this->valid || !$_template->smarty->cache_locking) {
+				if ($this->valid || !$_template->getSmarty()->cache_locking) {
 					break;
 				}
-				if (!$this->handler->locked($_template->smarty, $this)) {
-					$this->handler->acquireLock($_template->smarty, $this);
+				if (!$this->handler->locked($_template->getSmarty(), $this)) {
+					$this->handler->acquireLock($_template->getSmarty(), $this);
 					break 2;
 				}
 				$this->handler->populate($this, $_template);
 			}
 			if ($this->valid) {
-				if (!$_template->smarty->cache_locking || $this->handler->locked($_template->smarty, $this) === null) {
+				if (!$_template->getSmarty()->cache_locking || $this->handler->locked($_template->getSmarty(), $this) === null) {
 					// load cache file for the following checks
-					if ($_template->smarty->debugging) {
-						$_template->smarty->getDebug()->start_cache($_template);
+					if ($_template->getSmarty()->debugging) {
+						$_template->getSmarty()->getDebug()->start_cache($_template);
 					}
 					if ($this->handler->process($_template, $this) === false) {
 						$this->valid = false;
 					} else {
 						$this->processed = true;
 					}
-					if ($_template->smarty->debugging) {
-						$_template->smarty->getDebug()->end_cache($_template);
+					if ($_template->getSmarty()->debugging) {
+						$_template->getSmarty()->getDebug()->end_cache($_template);
 					}
 				} else {
 					$this->is_locked = true;
@@ -183,11 +201,11 @@ class Cached extends GeneratedPhpFile {
 			) {
 				$this->valid = false;
 			}
-			if ($_template->smarty->cache_locking) {
+			if ($_template->getSmarty()->cache_locking) {
 				if (!$this->valid) {
-					$this->handler->acquireLock($_template->smarty, $this);
+					$this->handler->acquireLock($_template->getSmarty(), $this);
 				} elseif ($this->is_locked) {
-					$this->handler->releaseLock($_template->smarty, $this);
+					$this->handler->releaseLock($_template->getSmarty(), $this);
 				}
 			}
 			return $this->valid;
@@ -220,7 +238,7 @@ class Cached extends GeneratedPhpFile {
 	 * @return string|false content
 	 */
 	public function readCache(Template $_template) {
-		if (!$_template->source->handler->recompiled) {
+		if (!$_template->getSource()->handler->recompiled) {
 			return $this->handler->retrieveCachedContent($_template);
 		}
 		return false;
@@ -234,7 +252,7 @@ class Cached extends GeneratedPhpFile {
 	 * @return bool success
 	 */
 	public function writeCache(Template $_template, $content) {
-		if (!$_template->source->handler->recompiled) {
+		if (!$_template->getSource()->handler->recompiled) {
 			if ($this->handler->storeCachedContent($_template, $content)) {
 				$this->content = null;
 				$this->timestamp = time();
@@ -242,8 +260,8 @@ class Cached extends GeneratedPhpFile {
 				$this->valid = true;
 				$this->cache_lifetime = $_template->cache_lifetime;
 				$this->processed = false;
-				if ($_template->smarty->cache_locking) {
-					$this->handler->releaseLock($_template->smarty, $this);
+				if ($_template->getSmarty()->cache_locking) {
+					$this->handler->releaseLock($_template->getSmarty(), $this);
 				}
 				return true;
 			}
@@ -268,8 +286,8 @@ class Cached extends GeneratedPhpFile {
 		ob_start();
 
 		$_template->getCompiled()->render($_template);
-		if ($_template->smarty->debugging) {
-			$_template->smarty->getDebug()->start_cache($_template);
+		if ($_template->getSmarty()->debugging) {
+			$_template->getSmarty()->getDebug()->start_cache($_template);
 		}
 		$this->removeNoCacheHash($_template, $no_output_filter);
 		$compile_check = (int)$_template->compile_check;
@@ -282,8 +300,8 @@ class Cached extends GeneratedPhpFile {
 		}
 		$_template->compile_check = $compile_check;
 		$this->renderTemplateCode($_template);
-		if ($_template->smarty->debugging) {
-			$_template->smarty->getDebug()->end_cache($_template);
+		if ($_template->getSmarty()->debugging) {
+			$_template->getSmarty()->getDebug()->end_cache($_template);
 		}
 	}
 
@@ -347,10 +365,24 @@ class Cached extends GeneratedPhpFile {
 			!$no_output_filter
 			&& !$_template->getCached()->getNocacheCode()
 		) {
-			$content = $_template->smarty->runOutputFilters($content, $_template);
+			$content = $_template->getSmarty()->runOutputFilters($content, $_template);
 		}
 		// write cache file content
 		$_template->writeCachedContent($content);
+	}
+
+	/**
+	 * @return Source|null
+	 */
+	public function getSource(): ?Source {
+		return $this->source;
+	}
+
+	/**
+	 * @param Source|null $source
+	 */
+	public function setSource(?Source $source): void {
+		$this->source = $source;
 	}
 
 }

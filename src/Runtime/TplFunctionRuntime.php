@@ -25,7 +25,7 @@ class TplFunctionRuntime {
 	 * @throws \Smarty\Exception
 	 */
 	public function callTemplateFunction(Template $tpl, $name, $params, $nocache) {
-		$funcParam = $tpl->tplFunctions[$name] ?? ($tpl->smarty->tplFunctions[$name] ?? null);
+		$funcParam = $tpl->tplFunctions[$name] ?? ($tpl->getSmarty()->tplFunctions[$name] ?? null);
 		if (isset($funcParam)) {
 			if (!$tpl->caching || ($tpl->caching && $nocache)) {
 				$function = $funcParam['call_name'];
@@ -70,8 +70,8 @@ class TplFunctionRuntime {
 		if ($obj->_isSubTpl()) {
 			$this->registerTplFunctions($obj->parent, $tplFunctions, false);
 		} else {
-			$obj->smarty->tplFunctions = $override ? array_merge($obj->smarty->tplFunctions, $tplFunctions) :
-				array_merge($tplFunctions, $obj->smarty->tplFunctions);
+			$obj->getSmarty()->tplFunctions = $override ? array_merge($obj->getSmarty()->tplFunctions, $tplFunctions) :
+				array_merge($tplFunctions, $obj->getSmarty()->tplFunctions);
 		}
 	}
 
@@ -85,9 +85,9 @@ class TplFunctionRuntime {
 	 */
 	public function getTplFunction(Template $tpl, $name = null) {
 		if (isset($name)) {
-			return $tpl->tplFunctions[$name] ?? ($tpl->smarty->tplFunctions[$name] ?? false);
+			return $tpl->tplFunctions[$name] ?? ($tpl->getSmarty()->tplFunctions[$name] ?? false);
 		} else {
-			return empty($tpl->tplFunctions) ? $tpl->smarty->tplFunctions : $tpl->tplFunctions;
+			return empty($tpl->tplFunctions) ? $tpl->getSmarty()->tplFunctions : $tpl->tplFunctions;
 		}
 	}
 

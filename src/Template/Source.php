@@ -87,7 +87,7 @@ class Source {
 	 *
 	 * @var Smarty
 	 */
-	public $smarty = null;
+	protected $smarty = null;
 
 	/**
 	 * Resource is source
@@ -140,7 +140,7 @@ class Source {
 		         $template_resource = null
 	) {
 		if ($_template) {
-			$smarty = $_template->smarty;
+			$smarty = $_template->getSmarty();
 			$template_resource = $_template->template_resource;
 		}
 		if (empty($template_resource)) {
@@ -159,8 +159,8 @@ class Source {
 		// create new source  object
 		$source = new Source($smarty, $template_resource, $type, $name);
 		$source->handler->populate($source, $_template);
-		if (!$source->exists && isset($_template->smarty->default_template_handler_func)) {
-			$source->_getDefaultTemplate($_template->smarty->default_template_handler_func);
+		if (!$source->exists && $_template && isset($_template->getSmarty()->default_template_handler_func)) {
+			$source->_getDefaultTemplate($_template->getSmarty()->default_template_handler_func);
 			$source->handler->populate($source, $_template);
 		}
 		return $source;
@@ -228,6 +228,10 @@ class Source {
 
 	public function createCompiler(): \Smarty\Compiler\BaseCompiler {
 		return new \Smarty\Compiler\Template($this->smarty);
+	}
+
+	public function getSmarty() {
+		return $this->smarty;
 	}
 
 }

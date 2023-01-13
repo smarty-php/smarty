@@ -55,7 +55,7 @@ class FunctionCallCompiler extends Base {
 		$_attr = $this->getAttributes($compiler, $args);
 		unset($_attr['nocache']);
 
-		if (!$functionHandler = $compiler->smarty->getFunctionHandler($function)) {
+		if (!$functionHandler = $compiler->getSmarty()->getFunctionHandler($function)) {
 			throw new CompilerException("Cannot compile unknown function $function.");
 		}
 
@@ -66,7 +66,7 @@ class FunctionCallCompiler extends Base {
 
 		$_params = 'array(' . implode(',', $_paramsArray) . ')';
 
-		$output = "\$_smarty_tpl->smarty->getFunctionHandler(" . var_export($function, true) . ")";
+		$output = "\$_smarty_tpl->getSmarty()->getFunctionHandler(" . var_export($function, true) . ")";
 		$output .= "->handle($_params, \$_smarty_tpl)";
 
 		if (!empty($parameter['modifierlist'])) {

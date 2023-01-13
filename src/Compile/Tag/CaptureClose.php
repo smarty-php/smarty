@@ -37,6 +37,6 @@ class CaptureClose extends Base {
 			$compiler->tag_nocache = true;
 		}
 		[$compiler->nocache] = array_pop($compiler->_cache['capture_stack']);
-		return "<?php \$_smarty_tpl->smarty->getRuntime('Capture')->close(\$_smarty_tpl);?>";
+		return "<?php \$_smarty_tpl->getSmarty()->getRuntime('Capture')->close(\$_smarty_tpl);?>";
 	}
 }

@@ -42,7 +42,7 @@ class Smarty_Resource_AmbiguousPlugin extends FilePlugin
 
         $source->filepath = $this->directory . $segment . $source->name;
         $source->uid = sha1($source->filepath);
-        if ($_template->smarty->getCompileCheck() && !isset($source->timestamp)) {
+        if ($_template->getSmarty()->getCompileCheck() && !isset($source->timestamp)) {
             $source->timestamp = @filemtime($source->filepath);
             $source->exists = !!$source->timestamp;
         }

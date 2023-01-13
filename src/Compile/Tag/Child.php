@@ -58,7 +58,7 @@ class Child extends Base {
 		if (!isset($compiler->_cache['blockNesting'])) {
 			$compiler->trigger_template_error(
 				"{$tag} used outside {block} tags ",
-				$compiler->parser->lex->taglineno
+				$compiler->getParser()->lex->taglineno
 			);
 		}
 		$compiler->has_code = true;

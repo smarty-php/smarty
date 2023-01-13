@@ -48,7 +48,7 @@ class Template extends BaseCompiler {
 	 *
 	 * @var \Smarty\Parser\TemplateParser
 	 */
-	public $parser = null;
+	private $parser = null;
 
 	/**
 	 * hash for nocache sections
@@ -90,7 +90,7 @@ class Template extends BaseCompiler {
 	 *
 	 * @var \Smarty\Template
 	 */
-	public $template = null;
+	private $template = null;
 
 	/**
 	 * merged included sub template data
@@ -153,7 +153,7 @@ class Template extends BaseCompiler {
 	 *
 	 * @var \Smarty\Compiler\Template
 	 */
-	public $parent_compiler = null;
+	private $parent_compiler = null;
 
 	/**
 	 * Flag true when compiling nocache section
@@ -401,24 +401,24 @@ class Template extends BaseCompiler {
 			$this->has_variable_string = false;
 			$this->prefix_code = [];
 			// add file dependency
-			if ($this->smarty->merge_compiled_includes || $this->template->source->handler->checkTimestamps()) {
-				$this->parent_compiler->template->getCompiled()->file_dependency[$this->template->source->uid] =
+			if ($this->smarty->merge_compiled_includes || $this->template->getSource()->handler->checkTimestamps()) {
+				$this->parent_compiler->getTemplate()->getCompiled()->file_dependency[$this->template->getSource()->uid] =
 					[
-						$this->template->source->filepath,
-						$this->template->source->getTimeStamp(),
-						$this->template->source->type,
+						$this->template->getSource()->filepath,
+						$this->template->getSource()->getTimeStamp(),
+						$this->template->getSource()->type,
 					];
 			}
-			$this->smarty->_current_file = $this->template->source->filepath;
+			$this->smarty->_current_file = $this->template->getSource()->filepath;
 			// get template source
-			if (!empty($this->template->source->components)) {
+			if (!empty($this->template->getSource()->components)) {
 				// we have array of inheritance templates by extends: resource
 				// generate corresponding source code sequence
 				$_content =
 					ExtendsTag::extendsSourceArrayCode($this->template);
 			} else {
 				// get template source
-				$_content = $this->template->source->getContent();
+				$_content = $this->template->getSource()->getContent();
 			}
 			$_compiled_code = $this->smarty->runPostFilters(
 				$this->doCompile(
@@ -713,7 +713,7 @@ class Template extends BaseCompiler {
 		// If the template is not evaluated, and we have a nocache section and/or a nocache tag
 		// generate replacement code
 		if (!empty($content)
-			&& !($this->template->source->handler->recompiled)
+			&& !($this->template->getSource()->handler->recompiled)
 			&& $this->caching
 			&& !$this->suppressNocacheProcessing
 			&& ($this->nocache || $this->tag_nocache)
@@ -796,14 +796,14 @@ class Template extends BaseCompiler {
 			$line = (int)$line;
 		}
 		if (in_array(
-			$this->template->source->type,
+			$this->template->getSource()->type,
 			[
 				'eval',
 				'string',
 			]
 		)
 		) {
-			$templateName = $this->template->source->type . ':' . trim(
+			$templateName = $this->template->getSource()->type . ':' . trim(
 					preg_replace(
 						'![\t\r\n]+!',
 						' ',
@@ -813,7 +813,7 @@ class Template extends BaseCompiler {
 					)
 				);
 		} else {
-			$templateName = $this->template->source->type . ':' . $this->template->source->filepath;
+			$templateName = $this->template->getSource()->type . ':' . $this->template->getSource()->filepath;
 		}
 		//        $line += $this->trace_line_offset;
 		$match = preg_split("/\n/", $lex->data);
@@ -850,12 +850,12 @@ class Template extends BaseCompiler {
 		$e = new CompilerException(
 			$error_text,
 			0,
-			$this->template->source->filepath,
+			$this->template->getSource()->filepath,
 			$line
 		);
 		$e->source = trim(preg_replace('![\t\r\n]+!', ' ', $match[$line - 1]));
 		$e->desc = $args;
-		$e->template = $this->template->source->filepath;
+		$e->template = $this->template->getSource()->filepath;
 		throw $e;
 	}
 
@@ -1313,8 +1313,8 @@ class Template extends BaseCompiler {
 		return
 			isset($this->parent_compiler->tpl_function[$tag])
 			|| (
-				$this->template->smarty->hasRuntime('TplFunction')
-				&& ($this->template->smarty->getRuntime('TplFunction')->getTplFunction($this->template, $tag) !== false)
+				$this->template->getSmarty()->hasRuntime('TplFunction')
+				&& ($this->template->getSmarty()->getRuntime('TplFunction')->getTplFunction($this->template, $tag) !== false)
 			);
 	}
 
@@ -1361,6 +1361,48 @@ class Template extends BaseCompiler {
 
 	public function compileFunctionCall(string $base_tag, array $args, array $parameter = []) {
 		return $this->functionCallCompiler->compile($args, $this, $parameter, $base_tag, $base_tag);
+	}
+
+	/**
+	 * @return TemplateParser|null
+	 */
+	public function getParser(): ?TemplateParser {
+		return $this->parser;
+	}
+
+	/**
+	 * @param TemplateParser|null $parser
+	 */
+	public function setParser(?TemplateParser $parser): void {
+		$this->parser = $parser;
+	}
+
+	/**
+	 * @return \Smarty\Template|null
+	 */
+	public function getTemplate(): ?\Smarty\Template {
+		return $this->template;
+	}
+
+	/**
+	 * @param \Smarty\Template|null $template
+	 */
+	public function setTemplate(?\Smarty\Template $template): void {
+		$this->template = $template;
+	}
+
+	/**
+	 * @return Template|null
+	 */
+	public function getParentCompiler(): ?Template {
+		return $this->parent_compiler;
+	}
+
+	/**
+	 * @param Template|null $parent_compiler
+	 */
+	public function setParentCompiler(?Template $parent_compiler): void {
+		$this->parent_compiler = $parent_compiler;
 	}
 
 }

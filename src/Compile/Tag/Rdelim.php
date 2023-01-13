@@ -30,6 +30,6 @@ class Rdelim extends Ldelim {
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		parent::compile($args, $compiler);
-		return $compiler->template->getRightDelimiter();
+		return $compiler->getTemplate()->getRightDelimiter();
 	}
 }

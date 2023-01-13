@@ -11,7 +11,7 @@ abstract class BaseCompiler {
 	 *
 	 * @var Smarty
 	 */
-	public $smarty = null;
+	protected $smarty = null;
 
 	/**
 	 * @return Smarty|null

@@ -27,7 +27,7 @@ function smarty_function_checkconfigvar($params, $template)
     $ptr = $template;
     while ($ptr) {
         if (in_array('template', $types) && $ptr instanceof Template) {
-            $output .= "#{$ptr->source->name}:\${$var} =";
+            $output .= "#{$ptr->getSource()->name}:\${$var} =";
             $output .= $ptr->hasConfigVariable($var) ? preg_replace('/\s/', '', var_export($ptr->getConfigVariable($var), true)) : 'null';
             $ptr = $ptr->parent;
         } elseif (in_array('data', $types) && !($ptr instanceof Template || $ptr instanceof Smarty)) {
@@ -40,8 +40,8 @@ function smarty_function_checkconfigvar($params, $template)
     }
     if (in_array('global', $types)) {
         $output .= "#global:\${$var} =";
-        $output .= $template->smarty->hasConfigVariable($var) ?
-            preg_replace('/\s/', '', var_export($template->smarty->getConfigVariable($var), true)) : 'null';
+        $output .= $template->getSmarty()->hasConfigVariable($var) ?
+            preg_replace('/\s/', '', var_export($template->getSmarty()->getConfigVariable($var), true)) : 'null';
     }
     return $output;
 }

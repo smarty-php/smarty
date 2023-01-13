@@ -7,7 +7,7 @@ class DefaultHandlerBlockCompiler extends BlockCompiler {
 	 * @inheritDoc
 	 */
 	protected function getIsCallableCode($tag, $function): string {
-		return "\$_smarty_tpl->smarty->getRuntime('DefaultPluginHandler')->hasPlugin(" .
+		return "\$_smarty_tpl->getSmarty()->getRuntime('DefaultPluginHandler')->hasPlugin(" .
 			var_export($function, true) . ", 'block')";
 	}
 
@@ -15,7 +15,7 @@ class DefaultHandlerBlockCompiler extends BlockCompiler {
 	 * @inheritDoc
 	 */
 	protected function getFullCallbackCode($tag, $function): string {
-		return "\$_smarty_tpl->smarty->getRuntime('DefaultPluginHandler')->getCallback(" .
+		return "\$_smarty_tpl->getSmarty()->getRuntime('DefaultPluginHandler')->getCallback(" .
 			var_export($function, true) . ", 'block')";
 	}
 }

@@ -32,7 +32,7 @@ class StringPlugin extends BasePlugin {
 	 * @return void
 	 */
 	public function populate(Source $source, Template $_template = null) {
-		$source->uid = $source->filepath = sha1($source->name . $source->smarty->_joined_template_dir);
+		$source->uid = $source->filepath = sha1($source->name . $source->getSmarty()->_joined_template_dir);
 		$source->timestamp = $source->exists = true;
 	}
 

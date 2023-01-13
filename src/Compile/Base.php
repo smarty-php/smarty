@@ -214,8 +214,8 @@ abstract class Base implements CompilerInterface {
 				}
 			}
 			// wrong nesting of tags
-			$compiler->trigger_template_error("unclosed '" . $compiler->template->getLeftDelimiter() . "{$_openTag}" .
-				$compiler->template->getRightDelimiter() . "' tag");
+			$compiler->trigger_template_error("unclosed '" . $compiler->getTemplate()->getLeftDelimiter() . "{$_openTag}" .
+				$compiler->getTemplate()->getRightDelimiter() . "' tag");
 			return;
 		}
 		// wrong nesting of tags

@@ -47,7 +47,7 @@ class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $sha1 = $tpl->source->uid . '#helloworld_tpl##';
+        $sha1 = $tpl->getSource()->uid . '#helloworld_tpl##';
         $this->assertEquals($sha1, $tpl->getCached()->filepath);
     }
 
@@ -59,7 +59,7 @@ class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar');
-        $sha1 = $tpl->source->uid . '#helloworld_tpl#foo|bar#';
+        $sha1 = $tpl->getSource()->uid . '#helloworld_tpl#foo|bar#';
         $this->assertEquals($sha1, $tpl->getCached()->filepath);
     }
 
@@ -71,7 +71,7 @@ class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl', null, 'blar');
-        $sha1 = $tpl->source->uid . '#helloworld_tpl##blar';
+        $sha1 = $tpl->getSource()->uid . '#helloworld_tpl##blar';
         $this->assertEquals($sha1, $tpl->getCached()->filepath);
     }
 
@@ -83,7 +83,7 @@ class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
-        $sha1 = $tpl->source->uid . '#helloworld_tpl#foo|bar#blar';
+        $sha1 = $tpl->getSource()->uid . '#helloworld_tpl#foo|bar#blar';
         $this->assertEquals($sha1, $tpl->getCached()->filepath);
     }
 }

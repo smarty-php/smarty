@@ -28,25 +28,25 @@ class FileResourceIndexedTest extends PHPUnit_Smarty
     public function testGetTemplateFilepath()
     {
         $tpl = $this->smarty->createTemplate('dirname.tpl');
-        $this->assertEquals($this->normalizePath("./templates/dirname.tpl"), $tpl->source->filepath);
+        $this->assertEquals($this->normalizePath("./templates/dirname.tpl"), $tpl->getSource()->filepath);
     }
 
     public function testGetTemplateFilepathNumber()
     {
         $tpl = $this->smarty->createTemplate('[1]dirname.tpl');
-        $this->assertEquals($this->normalizePath('./templates_2/dirname.tpl'), $tpl->source->filepath);
+        $this->assertEquals($this->normalizePath('./templates_2/dirname.tpl'), $tpl->getSource()->filepath);
     }
 
     public function testGetTemplateFilepathNumeric()
     {
         $tpl = $this->smarty->createTemplate('[10]dirname.tpl');
-        $this->assertEquals($this->normalizePath('./templates_3/dirname.tpl'), $tpl->source->filepath);
+        $this->assertEquals($this->normalizePath('./templates_3/dirname.tpl'), $tpl->getSource()->filepath);
     }
 
     public function testGetTemplateFilepathName()
     {
         $tpl = $this->smarty->createTemplate('[foo]dirname.tpl');
-        $this->assertEquals($this->normalizePath('./templates_4/dirname.tpl'), $tpl->source->filepath);
+        $this->assertEquals($this->normalizePath('./templates_4/dirname.tpl'), $tpl->getSource()->filepath);
     }
 
     public function testFetch()

@@ -91,9 +91,9 @@ abstract class Custom extends Base
     {
         $_cache_id = isset($cached->cache_id) ? preg_replace('![^\w\|]+!', '_', $cached->cache_id) : null;
         $_compile_id = isset($cached->compile_id) ? preg_replace('![^\w]+!', '_', $cached->compile_id) : null;
-        $path = $cached->source->uid . $_cache_id . $_compile_id;
+        $path = $cached->getSource()->uid . $_cache_id . $_compile_id;
         $cached->filepath = sha1($path);
-        if ($_template->smarty->cache_locking) {
+        if ($_template->getSmarty()->cache_locking) {
             $cached->lock_id = sha1('lock.' . $path);
         }
         $this->populateTimestamp($cached);
@@ -109,7 +109,7 @@ abstract class Custom extends Base
     public function populateTimestamp(\Smarty\Template\Cached $cached)
     {
         $mtime =
-            $this->fetchTimestamp($cached->filepath, $cached->source->name, $cached->cache_id, $cached->compile_id);
+            $this->fetchTimestamp($cached->filepath, $cached->getSource()->name, $cached->cache_id, $cached->compile_id);
         if ($mtime !== null) {
             $cached->timestamp = $mtime;
             $cached->exists = !!$cached->timestamp;
@@ -118,7 +118,7 @@ abstract class Custom extends Base
         $timestamp = null;
         $this->fetch(
             $cached->filepath,
-            $cached->source->name,
+            $cached->getSource()->name,
             $cached->cache_id,
             $cached->compile_id,
             $cached->content,
@@ -150,7 +150,7 @@ abstract class Custom extends Base
         if ($content === null || !$timestamp) {
             $this->fetch(
                 $_smarty_tpl->getCached()->filepath,
-                $_smarty_tpl->source->name,
+                $_smarty_tpl->getSource()->name,
                 $_smarty_tpl->cache_id,
                 $_smarty_tpl->compile_id,
                 $content,
@@ -177,7 +177,7 @@ abstract class Custom extends Base
     {
         return $this->save(
             $_template->getCached()->filepath,
-            $_template->source->name,
+            $_template->getSource()->name,
             $_template->cache_id,
             $_template->compile_id,
             $_template->cache_lifetime,
@@ -199,7 +199,7 @@ abstract class Custom extends Base
             $timestamp = null;
             $this->fetch(
                 $_template->getCached()->filepath,
-                $_template->source->name,
+                $_template->getSource()->name,
                 $_template->cache_id,
                 $_template->compile_id,
                 $content,
@@ -262,7 +262,7 @@ abstract class Custom extends Base
     public function hasLock(\Smarty\Smarty $smarty, \Smarty\Template\Cached $cached)
     {
         $id = $cached->lock_id;
-        $name = $cached->source->name . '.lock';
+        $name = $cached->getSource()->name . '.lock';
         $mtime = $this->fetchTimestamp($id, $name, $cached->cache_id, $cached->compile_id);
         if ($mtime === null) {
             $this->fetch($id, $name, $cached->cache_id, $cached->compile_id, $content, $mtime);
@@ -282,7 +282,7 @@ abstract class Custom extends Base
     {
         $cached->is_locked = true;
         $id = $cached->lock_id;
-        $name = $cached->source->name . '.lock';
+        $name = $cached->getSource()->name . '.lock';
         $this->save($id, $name, $cached->cache_id, $cached->compile_id, $smarty->locking_timeout, '');
     }
 
@@ -297,7 +297,7 @@ abstract class Custom extends Base
     public function releaseLock(\Smarty\Smarty $smarty, \Smarty\Template\Cached $cached)
     {
         $cached->is_locked = false;
-        $name = $cached->source->name . '.lock';
+        $name = $cached->getSource()->name . '.lock';
         $this->delete($name, $cached->cache_id, $cached->compile_id, null);
     }
 }

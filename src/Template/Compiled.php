@@ -35,7 +35,7 @@ class Compiled extends GeneratedPhpFile {
 	 */
 	public static function load($_template) {
 		$compiled = new Compiled();
-		if ($_template->source->handler->supportsCompiledTemplates()) {
+		if ($_template->getSource()->handler->supportsCompiledTemplates()) {
 			$compiled->populateCompiledFilepath($_template);
 		}
 		return $compiled;
@@ -47,8 +47,8 @@ class Compiled extends GeneratedPhpFile {
 	 * @param Template $_template template object
 	 **/
 	private function populateCompiledFilepath(Template $_template) {
-		$source = &$_template->source;
-		$smarty = &$_template->smarty;
+		$source = $_template->getSource();
+		$smarty = $_template->getSmarty();
 		$this->filepath = $smarty->getCompileDir();
 		if (isset($_template->compile_id)) {
 			$this->filepath .= preg_replace('![^\w]+!', '_', $_template->compile_id) .
@@ -93,12 +93,12 @@ class Compiled extends GeneratedPhpFile {
 	 */
 	public function render(Template $_template) {
 		// checks if template exists
-		if (!$_template->source->exists) {
-			$type = $_template->source->isConfig ? 'config' : 'template';
-			throw new \Smarty\Exception("Unable to load {$type} '{$_template->source->type}:{$_template->source->name}'");
+		if (!$_template->getSource()->exists) {
+			$type = $_template->getSource()->isConfig ? 'config' : 'template';
+			throw new \Smarty\Exception("Unable to load {$type} '{$_template->getSource()->type}:{$_template->getSource()->name}'");
 		}
-		if ($_template->smarty->debugging) {
-			$_template->smarty->getDebug()->start_render($_template);
+		if ($_template->getSmarty()->debugging) {
+			$_template->getSmarty()->getDebug()->start_render($_template);
 		}
 		if (!$this->processed) {
 			$this->process($_template);
@@ -112,8 +112,8 @@ class Compiled extends GeneratedPhpFile {
 		if ($_template->caching && $this->getNocacheCode()) {
 			$_template->getCached()->hashes[$this->nocache_hash] = true;
 		}
-		if ($_template->smarty->debugging) {
-			$_template->smarty->getDebug()->end_render($_template);
+		if ($_template->getSmarty()->debugging) {
+			$_template->getSmarty()->getDebug()->end_render($_template);
 		}
 	}
 
@@ -125,8 +125,8 @@ class Compiled extends GeneratedPhpFile {
 	 * @throws Exception
 	 */
 	private function process(Template $_smarty_tpl) {
-		$source = &$_smarty_tpl->source;
-		$smarty = &$_smarty_tpl->smarty;
+		$source = $_smarty_tpl->getSource();
+		$smarty = $_smarty_tpl->getSmarty();
 		if ($source->handler->recompiled) {
 			$source->handler->process($_smarty_tpl);
 		} else {
@@ -166,7 +166,7 @@ class Compiled extends GeneratedPhpFile {
 		$this->nocache_hash = null;
 		$this->unifunc = null;
 		// compile locking
-		if ($saved_timestamp = (!$_template->source->handler->recompiled && is_file($this->filepath))) {
+		if ($saved_timestamp = (!$_template->getSource()->handler->recompiled && is_file($this->filepath))) {
 			$saved_timestamp = $this->getTimeStamp();
 			touch($this->filepath);
 		}
@@ -193,8 +193,8 @@ class Compiled extends GeneratedPhpFile {
 	 * @throws \Smarty\Exception
 	 */
 	public function write(Template $_template, $code) {
-		if (!$_template->source->handler->recompiled) {
-			if ($_template->smarty->writeFile($this->filepath, $code) === true) {
+		if (!$_template->getSource()->handler->recompiled) {
+			if ($_template->getSmarty()->writeFile($this->filepath, $code) === true) {
 				$this->timestamp = $this->exists = is_file($this->filepath);
 				if ($this->exists) {
 					$this->timestamp = filemtime($this->filepath);
@@ -214,7 +214,7 @@ class Compiled extends GeneratedPhpFile {
 	 * @return string content
 	 */
 	public function read(Template $_template) {
-		if (!$_template->source->handler->recompiled) {
+		if (!$_template->getSource()->handler->recompiled) {
 			return file_get_contents($this->filepath);
 		}
 		return false;

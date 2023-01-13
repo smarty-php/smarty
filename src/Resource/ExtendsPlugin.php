@@ -38,7 +38,7 @@ class ExtendsPlugin extends BasePlugin
         $uid = '';
         $sources = array();
         $components = explode('|', $source->name);
-        $smarty = &$source->smarty;
+        $smarty = $source->getSmarty();
         $exists = true;
         foreach ($components as $component) {
             $_s = Source::load(null, $smarty, $component);
@@ -53,7 +53,7 @@ class ExtendsPlugin extends BasePlugin
         }
         $source->components = $sources;
         $source->filepath = $_s->filepath;
-        $source->uid = sha1($uid . $source->smarty->_joined_template_dir);
+        $source->uid = sha1($uid . $source->getSmarty()->_joined_template_dir);
         $source->exists = $exists;
         if ($_template) {
             $source->timestamp = $_s->timestamp;

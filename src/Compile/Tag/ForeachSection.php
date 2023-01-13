@@ -154,7 +154,7 @@ abstract class ForeachSection extends Base {
 	 * @param \Smarty\Compiler\Template $compiler
 	 */
 	private function matchTemplateSource(\Smarty\Compiler\Template $compiler) {
-		$this->matchProperty($compiler->parser->lex->data);
+		$this->matchProperty($compiler->getParser()->lex->data);
 	}
 
 	/**
@@ -167,14 +167,14 @@ abstract class ForeachSection extends Base {
 	private function matchParentTemplateSource(\Smarty\Compiler\Template $compiler) {
 		// search parent compiler template source
 		$nextCompiler = $compiler;
-		while ($nextCompiler !== $nextCompiler->parent_compiler) {
-			$nextCompiler = $nextCompiler->parent_compiler;
+		while ($nextCompiler !== $nextCompiler->getParentCompiler()) {
+			$nextCompiler = $nextCompiler->getParentCompiler();
 			if ($compiler !== $nextCompiler) {
 				// get template source
-				$_content = $nextCompiler->template->source->getContent();
+				$_content = $nextCompiler->getTemplate()->getSource()->getContent();
 				if ($_content !== '') {
 					// run pre filter if required
-					$_content = $nextCompiler->smarty->runPreFilters($_content,	$nextCompiler->template);
+					$_content = $nextCompiler->getSmarty()->runPreFilters($_content,	$nextCompiler->getTemplate());
 					$this->matchProperty($_content);
 				}
 			}

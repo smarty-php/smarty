@@ -33,8 +33,8 @@ class File extends Base
      */
     public function populate(Cached $cached, Template $_template)
     {
-        $source = &$_template->source;
-        $smarty = &$_template->smarty;
+        $source = $_template->getSource();
+        $smarty = $_template->getSmarty();
         $_compile_dir_sep = $smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
         $_filepath = sha1($source->uid . $smarty->_joined_template_dir);
         $cached->filepath = $smarty->getCacheDir();
@@ -125,7 +125,7 @@ class File extends Base
      */
     public function storeCachedContent(Template $_template, $content)
     {
-        if ($_template->smarty->writeFile($_template->getCached()->filepath, $content) === true) {
+        if ($_template->getSmarty()->writeFile($_template->getCached()->filepath, $content) === true) {
             if (function_exists('opcache_invalidate')
                 && (!function_exists('ini_get') || strlen(ini_get('opcache.restrict_api'))) < 1
             ) {
@@ -208,8 +208,7 @@ class File extends Base
 		    $tpl = new \Smarty\Template($resource_name, $smarty);
 		    $smarty->caching = $_save_stat;
 		    // remove from template cache
-		    $tpl->source; // have the template registered before unset()
-		    if ($tpl->source->exists) {
+		    if ($tpl->getSource()->exists) {
 			    $_resourcename_parts = basename(str_replace('^', '/', $tpl->getCached()->filepath));
 		    } else {
 			    return 0;

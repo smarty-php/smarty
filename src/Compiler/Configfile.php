@@ -82,11 +82,11 @@ class Configfile extends BaseCompiler {
 	 */
 	public function compileTemplate(Template $template) {
 		$this->template = $template;
-		$this->template->getCompiled()->file_dependency[$this->template->source->uid] =
+		$this->template->getCompiled()->file_dependency[$this->template->getSource()->uid] =
 			[
-				$this->template->source->filepath,
-				$this->template->source->getTimeStamp(),
-				$this->template->source->type,
+				$this->template->getSource()->filepath,
+				$this->template->getSource()->getTimeStamp(),
+				$this->template->getSource()->type,
 			];
 		if ($this->smarty->debugging) {
 			$this->smarty->getDebug()->start_compile($this->template);
@@ -100,7 +100,7 @@ class Configfile extends BaseCompiler {
 					"\r",
 				],
 				"\n",
-				$template->source->getContent()
+				$template->getSource()->getContent()
 			) . "\n",
 			$this
 		);
@@ -138,7 +138,7 @@ class Configfile extends BaseCompiler {
 			"<?php /* Smarty version %s, created on %s\n         compiled from '%s' */ ?>\n",
 			\Smarty\Smarty::SMARTY_VERSION,
 			date("Y-m-d H:i:s"),
-			str_replace('*/', '* /', $this->template->source->filepath)
+			str_replace('*/', '* /', $this->template->getSource()->filepath)
 		);
 		$code = '<?php $_smarty_tpl->parent->assignConfigVars(' .
 			var_export($this->config_data, true) . ', $_smarty_tpl->getValue("sections")); ?>';
@@ -163,7 +163,7 @@ class Configfile extends BaseCompiler {
 		}
 		$match = preg_split("/\n/", $this->lex->data);
 		$error_text =
-			"Syntax error in config file '{$this->template->source->filepath}' on line {$line} '{$match[$line - 1]}' ";
+			"Syntax error in config file '{$this->template->getSource()->filepath}' on line {$line} '{$match[$line - 1]}' ";
 		if (isset($args)) {
 			// individual error message
 			$error_text .= $args;

@@ -75,7 +75,7 @@ class InheritanceRuntime {
 			return;
 		}
 		++$this->tplIndex;
-		$this->sources[$this->tplIndex] = $tpl->source;
+		$this->sources[$this->tplIndex] = $tpl->getSource();
 		// start of child sub template(s)
 		if ($initChild) {
 			$this->state = 1;
@@ -238,9 +238,9 @@ class InheritanceRuntime {
 	 * @param Template $tpl
 	 */
 	public function callBlock(\Smarty\Runtime\Block $block, Template $tpl) {
-		$this->sourceStack[] = $tpl->source;
-		$tpl->source = $this->sources[$block->tplIndex];
+		$this->sourceStack[] = $tpl->getSource();
+		$tpl->setSource($this->sources[$block->tplIndex]);
 		$block->callBlock($tpl);
-		$tpl->source = array_pop($this->sourceStack);
+		$tpl->setSource(array_pop($this->sourceStack));
 	}
 }

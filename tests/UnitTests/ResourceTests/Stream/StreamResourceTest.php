@@ -43,7 +43,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testGetTemplateFilepath()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertEquals('global://mytest', $tpl->source->filepath);
+        $this->assertEquals('global://mytest', $tpl->getSource()->filepath);
     }
 
     /**
@@ -52,7 +52,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->source->getTimeStamp());
+        $this->assertTrue($tpl->getSource()->getTimeStamp());
     }
 
     /**
@@ -61,7 +61,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testGetTemplateSource()
     {
         $tpl = $this->smarty->createTemplate('global:mytest', null, null, $this->smarty);
-        $this->assertEquals('hello world {$foo}', $tpl->source->getContent());
+        $this->assertEquals('hello world {$foo}', $tpl->getSource()->getContent());
     }
 
     /**
@@ -79,7 +79,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->source->handler->recompiled);
+        $this->assertTrue($tpl->getSource()->handler->recompiled);
     }
 
     /**
@@ -115,7 +115,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testTemplateStreamExists1()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->source->exists);
+        $this->assertTrue($tpl->getSource()->exists);
     }
 
     public function testTemplateStreamExists2()
@@ -129,7 +129,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testTemplateStreamNotExists1()
     {
         $tpl = $this->smarty->createTemplate('global:notthere');
-        $this->assertFalse($tpl->source->exists);
+        $this->assertFalse($tpl->getSource()->exists);
     }
 
     public function testTemplateStramNotExists2()
