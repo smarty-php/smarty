@@ -240,7 +240,7 @@ class Data
 			return $this->tpl_vars[$varName];
 		}
 
-		if ($this->parent) {
+		if ($searchParents && $this->parent) {
 			return $this->parent->getVariable($varName, $searchParents, $errorEnable);
 		}
 
