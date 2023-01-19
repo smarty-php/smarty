@@ -107,4 +107,7 @@ class TextFormat implements BlockHandlerInterface {
 		}
 	}
 
+	public function isCacheable(): bool {
+		return true;
+	}
 }

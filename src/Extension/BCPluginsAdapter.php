@@ -57,8 +57,9 @@ class BCPluginsAdapter extends Base {
 			return null;
 		}
 		$callback = $plugin[0];
+		$cacheable = (bool) $plugin[1] ?? true;
 
-		return new BlockPluginWrapper($callback);
+		return new BlockPluginWrapper($callback, $cacheable);
 	}
 
 	public function getModifierCallback(string $modifierName) {

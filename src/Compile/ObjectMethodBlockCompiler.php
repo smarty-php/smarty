@@ -34,4 +34,11 @@ class ObjectMethodBlockCompiler extends BlockCompiler {
 		return "{$callbackObject}->{$function}";
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	protected function blockIsCacheable(\Smarty\Smarty $smarty, $function): bool {
+		return true;
+	}
+
 }

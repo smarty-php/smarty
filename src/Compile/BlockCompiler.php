@@ -13,6 +13,7 @@ namespace Smarty\Compile;
 use Smarty\Compiler\Template;
 use Smarty\CompilerException;
 use Smarty\Exception;
+use Smarty\Smarty;
 
 /**
  * Smarty Internal Plugin Compile Block Plugin Class
@@ -62,6 +63,18 @@ class BlockCompiler extends Base {
 	}
 
 	/**
+	 * Returns true if this block is cacheable.
+	 *
+	 * @param Smarty $smarty
+	 * @param $function
+	 *
+	 * @return bool
+	 */
+	protected function blockIsCacheable(\Smarty\Smarty $smarty, $function): bool {
+		return $smarty->getBlockHandler($function)->isCacheable();
+	}
+
+	/**
 	 * Returns the code used for the isset check
 	 *
 	 * @param string $tag tag name
@@ -100,6 +113,10 @@ class BlockCompiler extends Base {
 		$this->nesting++;
 		unset($_attr['nocache']);
 		$_params = 'array(' . implode(',', $this->formatParamsArray($_attr)) . ')';
+
+		if (!$this->blockIsCacheable($compiler->getSmarty(), $function)) {
+			$compiler->tag_nocache = true;
+		}
 
 		// compile code
 		$output = "<?php \$_block_repeat=true;

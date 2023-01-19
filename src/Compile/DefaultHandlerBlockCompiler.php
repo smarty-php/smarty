@@ -18,4 +18,12 @@ class DefaultHandlerBlockCompiler extends BlockCompiler {
 		return "\$_smarty_tpl->getSmarty()->getRuntime('DefaultPluginHandler')->getCallback(" .
 			var_export($function, true) . ", 'block')";
 	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function blockIsCacheable(\Smarty\Smarty $smarty, $function): bool {
+		return true;
+	}
+
 }

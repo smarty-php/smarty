@@ -152,10 +152,16 @@ class RegisterBlockTest extends PHPUnit_Smarty
     {
         $this->smarty->caching = 1;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('x', 4);
-        $this->smarty->assign('y', 40);
-        $this->smarty->assign('z', 400);
-        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testblock', 'myblockcache', false);
+	    $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testblock', 'myblockcache', false);
+
+	    $this->smarty->assign('x', 3);
+	    $this->smarty->assign('y', 30);
+	    $this->smarty->assign('z', 300);
+	    $this->assertEquals('3 30 300', $this->smarty->fetch('test_register_block.tpl'));
+
+	    $this->smarty->assign('x', 4);
+	    $this->smarty->assign('y', 40);
+	    $this->smarty->assign('z', 400);
         $this->assertEquals('3 40 300', $this->smarty->fetch('test_register_block.tpl'));
     }
 
@@ -209,20 +215,23 @@ class RegisterBlockTest extends PHPUnit_Smarty
         $this->assertEquals('3 30 300', $this->smarty->fetch('test_register_block.tpl'));
     }
 
-    /**
-     * 
-     * 
-     *
-     */
     public function testRegisterBlockCaching4Wrapper()
     {
+		$this->cleanDirs();
+
         $this->smarty->caching = 1;
         $this->smarty->cache_lifetime = 1000;
+	    $this->smarty->registerPlugin('block', 'testblock', 'myblockcache');
+
+	    $this->smarty->assign('x', 3);
+	    $this->smarty->assign('y', 30);
+	    $this->smarty->assign('z', 300);
+	    $this->assertEquals('3 30 300', $this->smarty->fetch('test_register_block.tpl'));
+
         $this->smarty->assign('x', 4);
         $this->smarty->assign('y', 40);
         $this->smarty->assign('z', 400);
-        $this->smarty->registerPlugin('block', 'testblock', 'myblockcache', false);
-        $this->assertEquals('3 40 300', $this->smarty->fetch('test_register_block.tpl'));
+        $this->assertEquals('3 30 300', $this->smarty->fetch('test_register_block.tpl'));
     }
 
     /**

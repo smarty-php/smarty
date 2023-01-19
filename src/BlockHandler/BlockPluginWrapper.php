@@ -4,12 +4,13 @@ namespace Smarty\BlockHandler;
 
 use Smarty\Template;
 
-class BlockPluginWrapper implements BlockHandlerInterface {
+class BlockPluginWrapper extends Base {
 
 	private $callback;
 
-	public function __construct($callback) {
+	public function __construct($callback, bool $cacheable = true) {
 		$this->callback = $callback;
+		$this->cacheable = $cacheable;
 	}
 
 	public function handle($params, $content, Template $template, &$repeat) {
