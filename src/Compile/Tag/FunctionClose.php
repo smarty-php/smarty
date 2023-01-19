@@ -57,8 +57,10 @@ class FunctionClose extends Base {
 		$_functionCode = $compiler->getParser()->current_buffer;
 		// setup buffer for template function code
 		$compiler->getParser()->current_buffer = new \Smarty\ParseTree\Template();
+
 		$_funcName = "smarty_template_function_{$_name}_{$compiler->getTemplate()->getCompiled()->nocache_hash}";
-		$_funcNameCaching = $_funcName . 'Smarty\Compile\Tag\Nocache';
+		$_funcNameCaching = $_funcName . '_nocache';
+
 		if ($compiler->getTemplate()->getCompiled()->getNocacheCode()) {
 			$parentCompiler->tpl_function[$_name]['call_name_caching'] = $_funcNameCaching;
 			$output = "<?php\n";
@@ -155,7 +157,6 @@ class FunctionClose extends Base {
 				'',
 				$match[0]
 			);
-		$code = str_replace(['\\\'', '\\\\\''], ['\'', '\\\''], $code);
-		return $code;
+		return str_replace(['\\\'', '\\\\\''], ['\'', '\\\''], $code);
 	}
 }
