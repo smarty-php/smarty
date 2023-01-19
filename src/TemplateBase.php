@@ -48,7 +48,7 @@ abstract class TemplateBase extends Data {
 	/**
 	 * cache lifetime in seconds
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	public $cache_lifetime = 3600;
 

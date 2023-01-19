@@ -50,7 +50,7 @@ class Cached extends GeneratedPhpFile {
 	/**
 	 * saved cache lifetime in seconds
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	public $cache_lifetime = 0;
 

@@ -18,7 +18,7 @@ abstract class GeneratedPhpFile {
 	/**
 	 * Compiled Timestamp
 	 *
-	 * @var integer|bool
+	 * @var int|bool
 	 */
 	public $timestamp = false;
 

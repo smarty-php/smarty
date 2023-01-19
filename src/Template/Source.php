@@ -50,7 +50,7 @@ class Source {
 	/**
 	 * Source Timestamp
 	 *
-	 * @var integer
+	 * @var int
 	 */
 	public $timestamp = null;
 
