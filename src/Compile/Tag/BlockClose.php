@@ -24,6 +24,15 @@ class BlockClose extends Inheritance {
 
 		$_name = $_attr['name'];
 		$_assign = $_attr['assign'] ?? null;
+		unset($_attr[ 'assign' ], $_attr[ 'name' ]);
+
+		$_block = [];
+
+		foreach ($_attr as $name => $stat) {
+			if ((is_bool($stat) && $stat !== false) || (!is_bool($stat) && $stat !== 'false')) {
+				$_block[ $name ] = 'true';
+			}
+		}
 
 		// get compiled block code
 		$_functionCode = $compiler->getParser()->current_buffer;
@@ -33,6 +42,9 @@ class BlockClose extends Inheritance {
 		$output .= $compiler->cStyleComment(" {block {$_name}} ") . "\n";
 		$output .= "class {$_className} extends \\Smarty\\Runtime\\Block\n";
 		$output .= "{\n";
+		foreach ($_block as $property => $value) {
+			$output .= "public \${$property} = " . var_export($value, true) . ";\n";
+		}
 		$output .= "public function callBlock(\\Smarty\\Template \$_smarty_tpl) {\n";
 		if ($compiler->getTemplate()->getCompiled()->getNocacheCode()) {
 			$output .= "\$_smarty_tpl->getCached()->hashes['{$compiler->getTemplate()->getCompiled()->nocache_hash}'] = true;\n";
