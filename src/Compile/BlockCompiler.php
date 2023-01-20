@@ -72,7 +72,7 @@ class BlockCompiler extends Base {
 
 		if (!isset($compiler->_cache['blockNesting'])) {
 			$compiler->trigger_template_error(
-				"{\$smarty.block.child} used outside {block} tags ",
+				"'{\$smarty.block.child}' used outside {block} tags ",
 				$compiler->getParser()->lex->taglineno
 			);
 		}
@@ -97,7 +97,7 @@ class BlockCompiler extends Base {
 
 		if (!isset($compiler->_cache['blockNesting'])) {
 			$compiler->trigger_template_error(
-				"{\$smarty.block.parent} used outside {block} tags ",
+				"'{\$smarty.block.parent}' used outside {block} tags ",
 				$compiler->getParser()->lex->taglineno
 			);
 		}
