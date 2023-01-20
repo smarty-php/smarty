@@ -1158,15 +1158,7 @@ class Template extends BaseCompiler {
 		// the default plugin handler is a handler of last resort, it may also handle not specifically registered tags.
 		if ($callback = $this->getPluginFromDefaultHandler($base_tag, Smarty::PLUGIN_COMPILER)) {
 			$tagCompiler = new \Smarty\Compile\Tag\BCPluginWrapper($callback);
-			$new_args = [];
-			foreach ($args as $key => $mixed) {
-				if (is_array($mixed)) {
-					$new_args = array_merge($new_args, $mixed);
-				} else {
-					$new_args[$key] = $mixed;
-				}
-			}
-			return $tagCompiler->compile($new_args, $this, $parameter);
+			return $tagCompiler->compile($args, $this, $parameter);
 		}
 
 		if ($this->getPluginFromDefaultHandler($base_tag, Smarty::PLUGIN_FUNCTION)) {
