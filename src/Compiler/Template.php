@@ -17,6 +17,7 @@ use Smarty\Compile\ModifierCompiler;
 use Smarty\Compile\ObjectMethodBlockCompiler;
 use Smarty\Compile\ObjectMethodCallCompiler;
 use Smarty\Compile\FunctionCallCompiler;
+use Smarty\Compile\PrintExpressionCompiler;
 use Smarty\Lexer\TemplateLexer;
 use Smarty\Parser\TemplateParser;
 use Smarty\Smarty;
@@ -76,14 +77,14 @@ class Template extends BaseCompiler {
 	 *
 	 * @var array
 	 */
-	public $_tag_stack = [];
+	private $_tag_stack = [];
 
 	/**
 	 * tag stack count
 	 *
 	 * @var array
 	 */
-	public $_tag_stack_count = [];
+	private $_tag_stack_count = [];
 
 	/**
 	 * current template
@@ -308,6 +309,17 @@ class Template extends BaseCompiler {
 	 * @var ModifierCompiler
 	 */
 	private $modifierCompiler;
+	/**
+	 * @var PrintExpressionCompiler
+	 */
+	private $printExpressionCompiler;
+
+	/**
+	 * Depth of nested {nocache}{/nocache} blocks. If outside, this is 0. If inside, this is 1 or higher (if nested).
+	 * @var int
+	 */
+	private $noCacheStackDepth = 0;
+
 
 	/**
 	 * Initialize compiler
@@ -332,53 +344,38 @@ class Template extends BaseCompiler {
 		$this->defaultHandlerBlockCompiler = new DefaultHandlerBlockCompiler();
 		$this->objectMethodBlockCompiler = new ObjectMethodBlockCompiler();
 		$this->objectMethodCallCompiler = new ObjectMethodCallCompiler();
+		$this->printExpressionCompiler = new PrintExpressionCompiler();
 	}
 
 	/**
 	 * Method to compile a Smarty template
 	 *
-	 * @param Smarty\Template $template template object to compile
-	 * @param null $nocache true is shall be compiled in nocache mode
-	 * @param null|Template $parent_compiler
+	 * @param \Smarty\Template $template template object to compile
 	 *
 	 * @return bool true if compiling succeeded, false if it failed
 	 * @throws Exception
 	 */
-	public function compileTemplate(
-		\Smarty\Template         $template,
-		                                 $nocache = null,
-		\Smarty\Compiler\Template $parent_compiler = null
-	) {
-		// get code frame of compiled template
-		$_compiled_code = $template->createCodeFrame(
-			$this->compileTemplateSource(
-				$template,
-				$nocache,
-				$parent_compiler
-			),
+	public function compileTemplate(\Smarty\Template $template) {
+		return $template->createCodeFrame(
+			$this->compileTemplateSource($template),
 			$this->smarty->runPostFilters($this->blockOrFunctionCode, $this->template) .
 			join('', $this->mergedSubTemplatesCode),
 			false,
 			$this
 		);
-		return $_compiled_code;
 	}
 
 	/**
 	 * Compile template source and run optional post filter
 	 *
 	 * @param \Smarty\Template $template
-	 * @param null|bool $nocache flag if template must be compiled in nocache mode
-	 * @param \Smarty\Compiler\Template $parent_compiler
+	 * @param Template|null $parent_compiler
 	 *
 	 * @return string
-	 * @throws \Exception
+	 * @throws CompilerException
+	 * @throws Exception
 	 */
-	public function compileTemplateSource(
-		\Smarty\Template         $template,
-		                                 $nocache = null,
-		\Smarty\Compiler\Template $parent_compiler = null
-	) {
+	public function compileTemplateSource(\Smarty\Template $template, \Smarty\Compiler\Template $parent_compiler = null) {
 		try {
 			// save template object in compiler class
 			$this->template = $template;
@@ -386,18 +383,20 @@ class Template extends BaseCompiler {
 				$this->smarty->getDebug()->start_compile($this->template);
 			}
 			$this->parent_compiler = $parent_compiler ? $parent_compiler : $this;
-			$nocache = isset($nocache) ? $nocache : false;
+
 			if (empty($template->getCompiled()->nocache_hash)) {
 				$template->getCompiled()->nocache_hash = $this->nocache_hash;
 			} else {
 				$this->nocache_hash = $template->getCompiled()->nocache_hash;
 			}
 			$this->caching = $template->caching;
+
 			// flag for nocache sections
-			$this->nocache = $nocache;
+			$this->nocache = false;
 			$this->tag_nocache = false;
 			// reset has nocache code flag
 			$this->template->getCompiled()->setNocacheCode(false);
+
 			$this->has_variable_string = false;
 			$this->prefix_code = [];
 			// add file dependency
@@ -645,8 +644,8 @@ class Template extends BaseCompiler {
 		if (!is_callable($defaultPluginHandlerFunc)) {
 			return null;
 		}
-		
-		
+
+
 		$callback = null;
 		$script = null;
 		$cacheable = true;
@@ -715,8 +714,7 @@ class Template extends BaseCompiler {
 		if (!empty($content)
 			&& !($this->template->getSource()->handler->recompiled)
 			&& $this->caching
-			&& !$this->suppressNocacheProcessing
-			&& ($this->nocache || $this->tag_nocache)
+			&& $this->isNocacheActive()
 		) {
 			$this->template->getCompiled()->setNocacheCode(true);
 			$_output = addcslashes($content, '\'\\');
@@ -1075,21 +1073,14 @@ class Template extends BaseCompiler {
 		return '/*' . str_replace('*/', '* /', $string) . '*/';
 	}
 
-	private function argsContainNocache(array $args): bool {
-		foreach ($args as $arg) {
-			if (!is_array($arg)) {
-				if ($arg === "'nocache'" || $arg === 'nocache') {
-					return true;
-				}
-			} else {
-				foreach ($arg as $k => $v) {
-					if (($k === "'nocache'" || $k === 'nocache') && (trim($v, "'\" ") === 'true')) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
+	public function compileChildBlock() {
+		$this->has_code = true;
+		return $this->blockCompiler->compileChild($this);
+	}
+
+	public function compileParentBlock() {
+		$this->has_code = true;
+		return $this->blockCompiler->compileParent($this);
 	}
 
 	/**
@@ -1108,17 +1099,16 @@ class Template extends BaseCompiler {
 		// assume that tag does compile into code, but creates no HTML output
 		$this->has_code = true;
 
-		// check nocache option flag
-		if ($this->argsContainNocache($args)) {
-			$this->tag_nocache = true;
-		}
+		$this->handleNocacheFlag($args);
 
 		// compile built-in tags
 		if ($tagCompiler = $this->getTagCompiler($tag)) {
 			if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this)) {
 				$this->tag_nocache = !$tagCompiler->isCacheable();
 				$_output = $tagCompiler->compile($args, $this, $parameter);
-				return $this->has_code ? $_output : null;
+				if ($_output !== false) {
+					return $this->has_code && $_output !== true ? $_output : null;
+				}
 			}
 		}
 
@@ -1190,12 +1180,45 @@ class Template extends BaseCompiler {
 		$this->trigger_template_error("unknown tag '{$tag}'", null, true);
 	}
 
+	/**
+	 * Sets $this->tag_nocache if attributes contain the 'nocache' flag.
+	 *
+	 * @param array $attributes
+	 *
+	 * @return void
+	 */
+	private function handleNocacheFlag(array $attributes) {
+		foreach ($attributes as $value) {
+			if (is_string($value) && trim($value, '\'" ') == 'nocache') {
+				$this->tag_nocache = true;
+			}
+		}
+	}
+
 	private function getBaseTag($tag) {
 		if (strlen($tag) < 6 || substr($tag, -5) !== 'close') {
 			return $tag;
 		} else {
 			return substr($tag, 0, -5);
 		}
+	}
+
+	/**
+	 * Compiles the output of a variable or expression.
+	 *
+	 * @param $value
+	 * @param $attributes
+	 * @param $modifiers
+	 *
+	 * @return string
+	 * @throws Exception
+	 */
+	public function compilePrintExpression($value, $attributes = [], $modifiers = null) {
+		$this->handleNocacheFlag($attributes);
+		return $this->printExpressionCompiler->compile($attributes, $this, [
+			'value'=> $value,
+			'modifierlist' => $modifiers,
+		]);
 	}
 
 	/**
@@ -1256,7 +1279,7 @@ class Template extends BaseCompiler {
 			mb_internal_encoding($mbEncoding);
 		}
 		// check for unclosed tags
-		if (count($this->_tag_stack) > 0) {
+		if ($this->getTagStackCount() > 0) {
 			// get stacked info
 			[$openTag, $_data] = array_pop($this->_tag_stack);
 			$this->trigger_template_error(
@@ -1403,6 +1426,74 @@ class Template extends BaseCompiler {
 	 */
 	public function setParentCompiler(?Template $parent_compiler): void {
 		$this->parent_compiler = $parent_compiler;
+	}
+
+
+	/**
+	 * Push opening tag name on stack
+	 * Optionally additional data can be saved on stack
+	 *
+	 * @param string $openTag the opening tag's name
+	 * @param mixed $data optional data saved
+	 */
+	public function openTag($openTag, $data = null) {
+		$this->_tag_stack[] = [$openTag, $data];
+		if ($openTag == 'nocache') {
+			$this->noCacheStackDepth++;
+		}
+	}
+
+	/**
+	 * Pop closing tag
+	 * Raise an error if this stack-top doesn't match with expected opening tags
+	 *
+	 * @param array|string $expectedTag the expected opening tag names
+	 *
+	 * @return mixed        any type the opening tag's name or saved data
+	 * @throws CompilerException
+	 */
+	public function closeTag($expectedTag) {
+		if ($this->getTagStackCount() > 0) {
+			// get stacked info
+			[$_openTag, $_data] = array_pop($this->_tag_stack);
+			// open tag must match with the expected ones
+			if (in_array($_openTag, (array)$expectedTag)) {
+
+				if ($_openTag == 'nocache') {
+					$this->noCacheStackDepth--;
+				}
+
+				if (is_null($_data)) {
+					// return opening tag
+					return $_openTag;
+				} else {
+					// return restored data
+					return $_data;
+				}
+			}
+			// wrong nesting of tags
+			$this->trigger_template_error("unclosed '" . $this->getTemplate()->getLeftDelimiter() . "{$_openTag}" .
+				$this->getTemplate()->getRightDelimiter() . "' tag");
+			return;
+		}
+		// wrong nesting of tags
+		$this->trigger_template_error('unexpected closing tag', null, true);
+	}
+
+	/**
+	 * Returns true if we are in a {nocache}...{/nocache} block, but false if inside {block} tag inside a {nocache} block...
+	 * @return bool
+	 */
+	public function isNocacheActive(): bool {
+		return !$this->suppressNocacheProcessing && ($this->noCacheStackDepth > 0 || $this->tag_nocache);
+	}
+
+	/**
+	 * Returns the full tag stack, used in the compiler for {break}
+	 * @return array
+	 */
+	public function getTagStack(): array {
+		return $this->_tag_stack;
 	}
 
 }

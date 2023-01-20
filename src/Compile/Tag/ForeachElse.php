@@ -21,10 +21,9 @@ class ForeachElse extends Base {
 	 * @return string compiled code
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
-		// check and get attributes
-		$this->getAttributes($compiler, $args);
-		[$openTag, $nocache, $local, $itemVar, $restore] = $this->closeTag($compiler, ['foreach']);
-		$this->openTag($compiler, 'foreachelse', ['foreachelse', $nocache, $local, $itemVar, 0]);
+
+		[$openTag, $nocache_pushed, $local, $itemVar, $restore] = $this->closeTag($compiler, ['foreach']);
+		$this->openTag($compiler, 'foreachelse', ['foreachelse', $nocache_pushed, $local, $itemVar, 0]);
 		$output = "<?php\n";
 		if ($restore === 2) {
 			$output .= "{$itemVar} = {$local}saved;\n";

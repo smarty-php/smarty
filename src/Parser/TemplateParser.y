@@ -162,8 +162,8 @@ class TemplateParser
     {
         $this->lex = $lex;
         $this->compiler = $compiler;
-        $this->template = $this->compiler->template;
-        $this->smarty = $this->template->smarty;
+        $this->template = $this->compiler->getTemplate();
+        $this->smarty = $this->template->getSmarty();
         $this->security = $this->smarty->security_policy ?? false;
         $this->current_buffer = $this->root_buffer = new TemplateParseTree();
     }
@@ -207,7 +207,7 @@ class TemplateParser
         }
         $this->compiler->prefix_code = array();
         $tmp .= $code;
-        return new Tag($this, $this->compiler->processNocacheCode($tmp, true));
+        return new Tag($this, $this->compiler->processNocacheCode($tmp));
     }
 
 }
@@ -294,7 +294,7 @@ template       ::= template smartytag(B). {
           $this->current_buffer->append_subtree($this, $this->mergePrefixCode(B));
       }
      $this->compiler->has_variable_string = false;
-     $this->block_nesting_level = count($this->compiler->_tag_stack);
+     $this->block_nesting_level = $this->compiler->getTagStackCount();
 }
 
 
@@ -303,11 +303,12 @@ template       ::= .
 
 smartytag(A)   ::= SIMPELOUTPUT(B). {
     $var = trim(substr(B, $this->compiler->getLdelLength(), -$this->compiler->getRdelLength()), ' $');
+    $attributes = [];
     if (preg_match('/^(.*)(\s+nocache)$/', $var, $match)) {
-        A = (new \Smarty\Compile\PrintExpressionCompiler())->compile(array('nocache'),$this->compiler,array('value'=>$this->compiler->compileVariable('\''.$match[1].'\'')));
-    } else {
-        A = (new \Smarty\Compile\PrintExpressionCompiler())->compile(array(),$this->compiler,array('value'=>$this->compiler->compileVariable('\''.$var.'\'')));
+        $attributes[] = 'nocache';
+        $var = $match[1];
     }
+    A = $this->compiler->compilePrintExpression($this->compiler->compileVariable('\''.$var.'\''), $attributes);
 }
 
 // simple tag like {name}
@@ -321,7 +322,7 @@ smartytag(A)::= SIMPLETAG(B). {
             if ($this->security) {
                $this->security->isTrustedConstant($tag, $this->compiler);
             }
-            A = (new \Smarty\Compile\PrintExpressionCompiler())->compile(array(),$this->compiler,array('value'=>$tag));
+            A = $this->compiler->compilePrintExpression($tag);
         } else {
             if (preg_match('/^(.*)(\s+nocache)$/', $tag, $match)) {
                 A = $this->compiler->compileTag($match[1],array('\'nocache\''));
@@ -336,10 +337,10 @@ smartytag(A)   ::= SMARTYBLOCKCHILDPARENT(i). {
     $j = strrpos(i,'.');
     if (i[$j+1] == 'c') {
         // {$smarty.block.child}
-        A = $this->compiler->compileTag('child',array(),array(i));
+        A = $this->compiler->compileChildBlock();
     } else {
         // {$smarty.block.parent}
-       A = $this->compiler->compileTag('parent',array(),array(i));
+       A = $this->compiler->compileParentBlock();
      }
 }
 
@@ -352,7 +353,7 @@ smartytag(A)   ::= LDEL tagbody(B) RDEL. {
  }
                   // output with optional attributes
 tagbody(A) ::= outattr(B). {
-    A = (new \Smarty\Compile\PrintExpressionCompiler())->compile(B[1],$this->compiler,array('value'=>B[0]));
+    A = $this->compiler->compilePrintExpression(B[0], B[1]);
 }
 
 //
@@ -392,7 +393,7 @@ tag(res)   ::= LDEL ID(i) attributes(a). {
             if ($this->security) {
                 $this->security->isTrustedConstant(i, $this->compiler);
             }
-            res = (new \Smarty\Compile\PrintExpressionCompiler())->compile(a,$this->compiler,array('value'=>i));
+            res = $this->compiler->compilePrintExpression(i, a);
         } else {
             res = $this->compiler->compileTag(i,a);
         }
@@ -402,7 +403,7 @@ tag(res)   ::= LDEL ID(i). {
             if ($this->security) {
                 $this->security->isTrustedConstant(i, $this->compiler);
             }
-            res = (new \Smarty\Compile\PrintExpressionCompiler())->compile(array(),$this->compiler,array('value'=>i));
+            res = $this->compiler->compilePrintExpression(i);
         } else {
             res = $this->compiler->compileTag(i,array());
         }
@@ -415,7 +416,7 @@ tag(res)   ::= LDEL ID(i) modifierlist(l)attributes(a). {
             if ($this->security) {
                 $this->security->isTrustedConstant(i, $this->compiler);
             }
-            res = (new \Smarty\Compile\PrintExpressionCompiler())->compile(a,$this->compiler,array('value'=>i, 'modifierlist'=>l));
+            res = $this->compiler->compilePrintExpression(i, a, l);
         } else {
             res = $this->compiler->compileTag(i,a, array('modifierlist'=>l));
         }

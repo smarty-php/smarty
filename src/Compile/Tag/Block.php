@@ -74,20 +74,17 @@ class Block extends Inheritance {
 		$_attr = $this->getAttributes($compiler, $args);
 		++$compiler->_cache['blockNesting'];
 		$_className = 'Block_' . preg_replace('![^\w]+!', '_', uniqid(mt_rand(), true));
-		$compiler->_cache['blockName'][$compiler->_cache['blockNesting']] = $_attr['name'];
-		$compiler->_cache['blockClass'][$compiler->_cache['blockNesting']] = $_className;
-		$compiler->_cache['blockParams'][$compiler->_cache['blockNesting']] = [];
-		$compiler->_cache['blockParams'][1]['subBlocks'][trim($_attr['name'], '"\'')][] = $_className;
+
 		$this->openTag(
 			$compiler,
 			'block',
 			[
-				$_attr, $compiler->nocache, $compiler->getParser()->current_buffer,
-				$compiler->getTemplate()->getCompiled()->getNocacheCode(),
-				$compiler->getTemplate()->caching,
+				$_attr, $compiler->tag_nocache, $compiler->getParser()->current_buffer,
+				$compiler->getTemplate()->getCompiled()->getNocacheCode(), $_className
 			]
 		);
-		$compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
+
+		// @TODO what is this for?
 		$compiler->getParser()->current_buffer = new Template();
 		$compiler->getTemplate()->getCompiled()->setNocacheCode(false);
 		$compiler->suppressNocacheProcessing = true;

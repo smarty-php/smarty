@@ -23,9 +23,9 @@ class ElseIfTag extends Base {
 	 * @throws \Smarty\CompilerException
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
-		// check and get attributes
-		$_attr = $this->getAttributes($compiler, $args);
-		[$nesting, $compiler->tag_nocache] = $this->closeTag($compiler, ['if', 'elseif']);
+
+		[$nesting, $nocache_pushed] = $this->closeTag($compiler, ['if', 'elseif']);
+
 		if (!isset($parameter['if condition'])) {
 			$compiler->trigger_template_error('missing elseif condition', null, true);
 		}
@@ -38,7 +38,7 @@ class ElseIfTag extends Base {
 			} else {
 				$var = $parameter['if condition']['var'];
 			}
-			if ($compiler->nocache) {
+			if ($compiler->isNocacheActive()) {
 				// create nocache var to make it know for further compiling
 				$compiler->setNocacheInVariable($var);
 			}
@@ -68,12 +68,12 @@ class ElseIfTag extends Base {
 				$_output = $compiler->appendCode("<?php } else {\n?>", $assignCode);
 				return $compiler->appendCode($_output, "<?php if ({$prefixVar}) {?>");
 			} else {
-				$this->openTag($compiler, 'elseif', [$nesting, $compiler->tag_nocache]);
+				$this->openTag($compiler, 'elseif', [$nesting, $nocache_pushed]);
 				return "<?php } elseif ({$parameter['if condition']}) {?>";
 			}
 		} else {
 			$_output = $compiler->appendCode("<?php } else {\n?>", $prefixCode);
-			$this->openTag($compiler, 'elseif', [$nesting + 1, $compiler->tag_nocache]);
+			$this->openTag($compiler, 'elseif', [$nesting + 1, $nocache_pushed]);
 			if ($condition_by_assign) {
 				$_output = $compiler->appendCode($_output, $assignCode);
 				return $compiler->appendCode($_output, "<?php if ({$prefixVar}) {?>");

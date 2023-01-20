@@ -93,17 +93,20 @@ class BreakTag extends Base {
 			$levels = 1;
 		}
 		$level_count = $levels;
-		$stack_count = count($compiler->_tag_stack) - 1;
+
+		$tagStack = $compiler->getTagStack();
+		$stack_count = count($tagStack) - 1;
+
 		$foreachLevels = 0;
 		$lastTag = '';
 		while ($level_count > 0 && $stack_count >= 0) {
-			if (isset($_is_loopy[$compiler->_tag_stack[$stack_count][0]])) {
-				$lastTag = $compiler->_tag_stack[$stack_count][0];
+			if (isset($_is_loopy[$tagStack[$stack_count][0]])) {
+				$lastTag = $tagStack[$stack_count][0];
 				if ($level_count === 0) {
 					break;
 				}
 				$level_count--;
-				if ($compiler->_tag_stack[$stack_count][0] === 'foreach') {
+				if ($tagStack[$stack_count][0] === 'foreach') {
 					$foreachLevels++;
 				}
 			}

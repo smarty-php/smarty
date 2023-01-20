@@ -95,9 +95,14 @@ class Section extends ForeachSection {
 		}
 		$local = "\$__section_{$attributes['name']}_" . $this->counter++ . '_';
 		$sectionVar = "\$_smarty_tpl->tpl_vars['__smarty_section_{$attributes['name']}']";
-		$this->openTag($compiler, 'section', ['section', $compiler->nocache, $local, $sectionVar]);
-		// maybe nocache because of nocache variables
-		$compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
+
+		if ($compiler->tag_nocache) {
+			// push a {nocache} tag onto the stack to prevent caching of this block
+			$this->openTag('nocache');
+		}
+
+		$this->openTag($compiler, 'section', ['section', $compiler->tag_nocache]);
+
 		$initLocal = [];
 		$initNamedProperty = [];
 		$initFor = [];

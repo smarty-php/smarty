@@ -1343,7 +1343,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
                             "blockNocache - {$file}");
     }
     /*
-      * Data provider für TestBlockNocache
+      * Data provider for TestBlockNocache
       */
     public function dataTestBlockNocache()
     {

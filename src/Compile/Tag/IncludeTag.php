@@ -111,11 +111,13 @@ class IncludeTag extends Base {
 
 		// assume caching is off
 		$_caching = Smarty::CACHING_OFF;
-		$call_nocache = $compiler->tag_nocache || $compiler->nocache;
+
 		// caching was on and {include} is not in nocache mode
-		if ($compiler->getTemplate()->caching && !$compiler->nocache && !$compiler->tag_nocache) {
+		// @TODO see if we can do without this
+		if ($compiler->getTemplate()->caching && !$compiler->isNocacheActive()) {
 			$_caching = \Smarty\Template::CACHING_NOCACHE_CODE;
 		}
+
 		// flag if included template code should be merged into caller
 		$merge_compiled_includes = ($compiler->getSmarty()->merge_compiled_includes || $_attr['inline'] === true) &&
 			!$compiler->getTemplate()->getSource()->handler->recompiled;
@@ -125,12 +127,15 @@ class IncludeTag extends Base {
 				$merge_compiled_includes = false;
 			}
 		}
+
 		/*
 		* if the {include} tag provides individual parameter for caching or compile_id
 		* the subtemplate must not be included into the common cache file and is treated like
 		* a call in nocache mode.
 		*
 		*/
+
+		$call_nocache = $compiler->isNocacheActive();
 		if ($_attr['nocache'] !== true && $_attr['caching']) {
 			$_caching = $_new_caching = (int)$_attr['caching'];
 			$call_nocache = true;
@@ -161,7 +166,7 @@ class IncludeTag extends Base {
 			// output will be stored in a smarty variable instead of being displayed
 			if ($_assign = $compiler->getId($_attr['assign'])) {
 				$_assign = "'{$_assign}'";
-				if ($compiler->tag_nocache || $compiler->nocache || $call_nocache) {
+				if ($call_nocache) {
 					// create nocache var to make it know for further compiling
 					$compiler->setNocacheInVariable($_attr['assign']);
 				}
@@ -281,7 +286,7 @@ class IncludeTag extends Base {
 			$compiled_code = "<?php\n\n";
 			$compiled_code .= $compiler->cStyleComment(" Start inline template \"{$sourceInfo}\" =============================") . "\n";
 			$compiled_code .= "function {$tpl->getCompiled()->unifunc} (\\Smarty\\Template \$_smarty_tpl) {\n";
-			$compiled_code .= "?>\n" . $tpl->getCompiler()->compileTemplateSource($tpl, null, $compiler->getParentCompiler());
+			$compiled_code .= "?>\n" . $tpl->getCompiler()->compileTemplateSource($tpl, $compiler->getParentCompiler());
 			$compiled_code .= "<?php\n";
 			$compiled_code .= "}\n?>\n";
 			$compiled_code .= $tpl->getSmarty()->runPostFilters($tpl->getCompiler()->blockOrFunctionCode, $tpl);

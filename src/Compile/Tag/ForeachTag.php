@@ -181,14 +181,19 @@ class ForeachTag extends ForeachSection {
 			$foreachVar = "\$_smarty_tpl->tpl_vars['__smarty_foreach_{$attributes['name']}']";
 		}
 		$needTotal = isset($itemAttr['total']);
+
+		if ($compiler->tag_nocache) {
+			// push a {nocache} tag onto the stack to prevent caching of this block
+			$this->openTag('nocache');
+		}
+
 		// Register tag
 		$this->openTag(
 			$compiler,
 			'foreach',
-			['foreach', $compiler->nocache, $local, $itemVar, empty($itemAttr) ? 1 : 2]
+			['foreach', $compiler->tag_nocache, $local, $itemVar, empty($itemAttr) ? 1 : 2]
 		);
-		// maybe nocache because of nocache variables
-		$compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
+
 		// generate output code
 		$output = "<?php\n";
 		$output .= "\$_from = \$_smarty_tpl->getSmarty()->getRuntime('Foreach')->init(\$_smarty_tpl, $from, " .

@@ -55,13 +55,17 @@ class Capture extends Base {
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		// check and get attributes
-		$_attr = $this->getAttributes($compiler, $args, $parameter, 'capture');
+		$_attr = $this->getAttributes($compiler, $args);
 		$buffer = $_attr['name'] ?? "'default'";
 		$assign = $_attr['assign'] ?? 'null';
 		$append = $_attr['append'] ?? 'null';
-		$compiler->_cache['capture_stack'][] = [$compiler->nocache];
-		// maybe nocache because of nocache variables
-		$compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
+
+		$compiler->_cache['capture_stack'][] = $compiler->tag_nocache;
+		if ($compiler->tag_nocache) {
+			// push a virtual {nocache} tag onto the stack.
+			$compiler->openTag('nocache');
+		}
+
 		$_output = "<?php \$_smarty_tpl->getSmarty()->getRuntime('Capture')->open(\$_smarty_tpl, $buffer, $assign, $append);?>";
 		return $_output;
 	}

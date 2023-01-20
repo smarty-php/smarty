@@ -5,6 +5,7 @@
  */
 namespace Smarty\Compile;
 
+use Smarty\Compiler\Template;
 use Smarty\Data;
 use Smarty\Exception;
 
@@ -49,20 +50,6 @@ abstract class Base implements CompilerInterface {
 	 */
 	protected $cacheable = true;
 
-	/**
-	 * Mapping array for boolean option value
-	 *
-	 * @var array
-	 */
-	private $optionMap = [1 => true, 0 => false, 'true' => true, 'false' => false];
-
-	/**
-	 * Mapping array with attributes as key
-	 *
-	 * @var array
-	 */
-	protected $mapCache = [];
-
 	public function isCacheable(): bool {
 		return $this->cacheable;
 	}
@@ -96,14 +83,12 @@ abstract class Base implements CompilerInterface {
 	 */
 	protected function getAttributes($compiler, $attributes) {
 		$_indexed_attr = [];
-		if (!isset($this->mapCache['option'])) {
-			$this->mapCache['option'] = array_fill_keys($this->option_flags, true);
-		}
+		$options = array_fill_keys($this->option_flags, true);
 		foreach ($attributes as $key => $mixed) {
 			// shorthand ?
 			if (!is_array($mixed)) {
-				// option flag ?
-				if (isset($this->mapCache['option'][trim($mixed, '\'"')])) {
+				// options flag ?
+				if (isset($options[trim($mixed, '\'"')])) {
 					$_indexed_attr[trim($mixed, '\'"')] = true;
 					// shorthand attribute ?
 				} elseif (isset($this->shorttag_order[$key])) {
@@ -115,20 +100,24 @@ abstract class Base implements CompilerInterface {
 				// named attribute
 			} else {
 				foreach ($mixed as $k => $v) {
-					// option flag?
-					if (isset($this->mapCache['option'][$k])) {
+					// options flag?
+					if (isset($options[$k])) {
 						if (is_bool($v)) {
 							$_indexed_attr[$k] = $v;
 						} else {
 							if (is_string($v)) {
 								$v = trim($v, '\'" ');
 							}
-							if (isset($this->optionMap[$v])) {
-								$_indexed_attr[$k] = $this->optionMap[$v];
+
+							// Mapping array for boolean option value
+							static $optionMap = [1 => true, 0 => false, 'true' => true, 'false' => false];
+
+							if (isset($optionMap[$v])) {
+								$_indexed_attr[$k] = $optionMap[$v];
 							} else {
 								$compiler->trigger_template_error(
 									"illegal value '" . var_export($v, true) .
-									"' for option flag '{$k}'",
+									"' for options flag '{$k}'",
 									null,
 									true
 								);
@@ -149,32 +138,27 @@ abstract class Base implements CompilerInterface {
 		}
 		// check for not allowed attributes
 		if ($this->optional_attributes !== ['_any']) {
-			if (!isset($this->mapCache['all'])) {
-				$this->mapCache['all'] =
-					array_fill_keys(
-						array_merge(
-							$this->required_attributes,
-							$this->optional_attributes,
-							$this->option_flags
-						),
-						true
-					);
-			}
+			$allowedAttributes = array_fill_keys(
+				array_merge(
+					$this->required_attributes,
+					$this->optional_attributes,
+					$this->option_flags
+				),
+				true
+			);
 			foreach ($_indexed_attr as $key => $dummy) {
-				if (!isset($this->mapCache['all'][$key]) && $key !== 0) {
+				if (!isset($allowedAttributes[$key]) && $key !== 0) {
 					$compiler->trigger_template_error("unexpected '{$key}' attribute", null, true);
 				}
 			}
 		}
-		// default 'false' for all option flags not set
+		// default 'false' for all options flags not set
 		foreach ($this->option_flags as $flag) {
 			if (!isset($_indexed_attr[$flag])) {
 				$_indexed_attr[$flag] = false;
 			}
 		}
-		if (isset($_indexed_attr['nocache']) && $_indexed_attr['nocache']) {
-			$compiler->tag_nocache = true;
-		}
+
 		return $_indexed_attr;
 	}
 
@@ -182,44 +166,25 @@ abstract class Base implements CompilerInterface {
 	 * Push opening tag name on stack
 	 * Optionally additional data can be saved on stack
 	 *
-	 * @param object $compiler compiler object
+	 * @param Template $compiler compiler object
 	 * @param string $openTag the opening tag's name
 	 * @param mixed $data optional data saved
 	 */
-	protected function openTag($compiler, $openTag, $data = null) {
-		array_push($compiler->_tag_stack, [$openTag, $data]);
+	protected function openTag(Template $compiler, $openTag, $data = null) {
+		$compiler->openTag($openTag, $data);
 	}
 
 	/**
 	 * Pop closing tag
 	 * Raise an error if this stack-top doesn't match with expected opening tags
 	 *
-	 * @param object $compiler compiler object
+	 * @param Template $compiler compiler object
 	 * @param array|string $expectedTag the expected opening tag names
 	 *
 	 * @return mixed        any type the opening tag's name or saved data
 	 */
-	protected function closeTag($compiler, $expectedTag) {
-		if (count($compiler->_tag_stack) > 0) {
-			// get stacked info
-			[$_openTag, $_data] = array_pop($compiler->_tag_stack);
-			// open tag must match with the expected ones
-			if (in_array($_openTag, (array)$expectedTag)) {
-				if (is_null($_data)) {
-					// return opening tag
-					return $_openTag;
-				} else {
-					// return restored data
-					return $_data;
-				}
-			}
-			// wrong nesting of tags
-			$compiler->trigger_template_error("unclosed '" . $compiler->getTemplate()->getLeftDelimiter() . "{$_openTag}" .
-				$compiler->getTemplate()->getRightDelimiter() . "' tag");
-			return;
-		}
-		// wrong nesting of tags
-		$compiler->trigger_template_error('unexpected closing tag', null, true);
+	protected function closeTag(Template $compiler, $expectedTag) {
+		return $compiler->closeTag($expectedTag);
 	}
 
 	/**
@@ -259,11 +224,11 @@ abstract class Base implements CompilerInterface {
 	 * Compiles code for the tag
 	 *
 	 * @param array                                 $args      array with attributes from parser
-	 * @param \Smarty\Compiler\Template $compiler  compiler object
+	 * @param Template $compiler  compiler object
 	 * @param array                                 $parameter array with compilation parameter
 	 *
 	 * @return bool|string compiled code or true if no code has been compiled
 	 * @throws \Smarty\CompilerException
 	 */
-	abstract public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null);
+	abstract public function compile($args, Template $compiler, $parameter = array(), $tag = null, $function = null);
 }

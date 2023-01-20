@@ -29,11 +29,15 @@ class IfClose extends Base {
 	 * @return string compiled code
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
-		// must endblock be nocache?
-		if ($compiler->nocache) {
+
+		[$nesting, $nocache_pushed] = $this->closeTag($compiler, ['if', 'else', 'elseif']);
+
+		if ($nocache_pushed) {
+			// pop the pushed virtual nocache tag
+			$this->closeTag('nocache');
 			$compiler->tag_nocache = true;
 		}
-		[$nesting, $compiler->nocache] = $this->closeTag($compiler, ['if', 'else', 'elseif']);
+
 		$tmp = '';
 		for ($i = 0; $i < $nesting; $i++) {
 			$tmp .= '}';

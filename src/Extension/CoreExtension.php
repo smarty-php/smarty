@@ -13,9 +13,6 @@ class CoreExtension extends Base {
 			case 'call': return new \Smarty\Compile\Tag\Call();
 			case 'capture': return new \Smarty\Compile\Tag\Capture();
 			case 'captureclose': return new \Smarty\Compile\Tag\CaptureClose();
-			case 'child': return new \Smarty\Compile\Tag\Child();
-			case 'block_child': return new \Smarty\Compile\Tag\BlockChild();
-			case 'block_parent': return new \Smarty\Compile\Tag\BlockParent();
 			case 'config_load': return new \Smarty\Compile\Tag\ConfigLoad();
 			case 'continue': return new \Smarty\Compile\Tag\ContinueTag();
 			case 'debug': return new \Smarty\Compile\Tag\Debug();
@@ -38,7 +35,6 @@ class CoreExtension extends Base {
 			case 'rdelim': return new \Smarty\Compile\Tag\Rdelim();
 			case 'nocache': return new \Smarty\Compile\Tag\Nocache();
 			case 'nocacheclose': return new \Smarty\Compile\Tag\NocacheClose();
-			case 'parent': return new \Smarty\Compile\Tag\ParentTag();
 			case 'section': return new \Smarty\Compile\Tag\Section();
 			case 'sectionelse': return new \Smarty\Compile\Tag\SectionElse();
 			case 'sectionclose': return new \Smarty\Compile\Tag\SectionClose();

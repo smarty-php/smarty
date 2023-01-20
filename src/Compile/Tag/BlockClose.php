@@ -20,19 +20,11 @@ class BlockClose extends Inheritance {
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
 	{
-		[$_attr, $_nocache, $_buffer, $_has_nocache_code, $_caching] = $this->closeTag($compiler, ['block']);
-		// init block parameter
-		$_block = $compiler->_cache['blockParams'][$compiler->_cache['blockNesting']];
-		unset($compiler->_cache['blockParams'][$compiler->_cache['blockNesting']]);
+		[$_attr, $_nocache, $_buffer, $_has_nocache_code, $_className] = $this->closeTag($compiler, ['block']);
+
 		$_name = $_attr['name'];
-		$_assign = isset($_attr['assign']) ? $_attr['assign'] : null;
-		unset($_attr['assign'], $_attr['name']);
-		foreach ($_attr as $name => $stat) {
-			if ((is_bool($stat) && $stat !== false) || (!is_bool($stat) && $stat !== 'false')) {
-				$_block[$name] = 'true';
-			}
-		}
-		$_className = $compiler->_cache['blockClass'][$compiler->_cache['blockNesting']];
+		$_assign = $_attr['assign'] ?? null;
+
 		// get compiled block code
 		$_functionCode = $compiler->getParser()->current_buffer;
 		// setup buffer for template function code
@@ -41,9 +33,6 @@ class BlockClose extends Inheritance {
 		$output .= $compiler->cStyleComment(" {block {$_name}} ") . "\n";
 		$output .= "class {$_className} extends \\Smarty\\Runtime\\Block\n";
 		$output .= "{\n";
-		foreach ($_block as $property => $value) {
-			$output .= "public \${$property} = " . var_export($value, true) . ";\n";
-		}
 		$output .= "public function callBlock(\\Smarty\\Template \$_smarty_tpl) {\n";
 		if ($compiler->getTemplate()->getCompiled()->getNocacheCode()) {
 			$output .= "\$_smarty_tpl->getCached()->hashes['{$compiler->getTemplate()->getCompiled()->nocache_hash}'] = true;\n";
@@ -76,11 +65,13 @@ class BlockClose extends Inheritance {
 			)
 		);
 		$compiler->blockOrFunctionCode .= $compiler->getParser()->current_buffer->to_smarty_php($compiler->getParser());
+
 		$compiler->getParser()->current_buffer = new Template();
+
 		// restore old status
 		$compiler->getTemplate()->getCompiled()->setNocacheCode($_has_nocache_code);
-		$compiler->tag_nocache = $compiler->nocache;
-		$compiler->nocache = $_nocache;
+		$compiler->tag_nocache = $_nocache;
+
 		$compiler->getParser()->current_buffer = $_buffer;
 		$output = "<?php \n";
 		if ($compiler->_cache['blockNesting'] === 1) {

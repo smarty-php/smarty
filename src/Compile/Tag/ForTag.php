@@ -37,7 +37,7 @@ class ForTag extends Base {
 			$this->required_attributes = ['start', 'ifexp', 'var', 'step'];
 			$this->optional_attributes = [];
 		}
-		$this->mapCache = [];
+
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		$output = "<?php\n";
@@ -87,10 +87,14 @@ class ForTag extends Base {
 			$output .= "\$_smarty_tpl->tpl_vars[$var]->last = \$_smarty_tpl->tpl_vars[$var]->iteration === \$_smarty_tpl->tpl_vars[$var]->total;";
 		}
 		$output .= '?>';
-		$this->openTag($compiler, 'for', ['for', $compiler->nocache]);
-		// maybe nocache because of nocache variables
-		$compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
-		// return compiled code
+
+		if ($compiler->tag_nocache) {
+			// push a {nocache} tag onto the stack to prevent caching of this for loop
+			$this->openTag('nocache');
+		}
+
+		$this->openTag($compiler, 'for', ['for', $compiler->tag_nocache]);
+
 		return $output;
 	}
 }

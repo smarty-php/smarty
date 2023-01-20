@@ -30,9 +30,7 @@ class NocacheClose extends Base {
 	 * @return bool
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
-		$_attr = $this->getAttributes($compiler, $args);
-		// leave nocache mode
-		[$compiler->nocache] = $this->closeTag($compiler, ['nocache']);
+		$this->closeTag($compiler, ['nocache']);
 		// this tag does not return compiled code
 		$compiler->has_code = false;
 		return true;

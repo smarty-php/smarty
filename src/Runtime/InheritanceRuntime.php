@@ -222,11 +222,11 @@ class InheritanceRuntime {
 	 * @return null|string  block content
 	 * @throws Exception
 	 */
-	public function callParent(Template $tpl, \Smarty\Runtime\Block $block, $tag) {
+	public function callParent(Template $tpl, \Smarty\Runtime\Block $block) {
 		if (isset($block->parent)) {
 			$this->callBlock($block->parent, $tpl);
 		} else {
-			throw new Exception("inheritance: illegal '{$tag}' used in child template '" .
+			throw new Exception("inheritance: illegal '{\$smarty.block.parent}' used in child template '" .
 				"{$tpl->getInheritance()->sources[$block->tplIndex]->filepath}' block '{$block->name}'");
 		}
 	}

@@ -28,7 +28,7 @@ class Dq extends Base
     {
         $this->subtrees[] = $subtree;
         if ($subtree instanceof Tag) {
-            $parser->block_nesting_level = count($parser->compiler->_tag_stack);
+            $parser->block_nesting_level = $parser->compiler->getTagStackCount();
         }
     }
 
@@ -64,7 +64,7 @@ class Dq extends Base
             $this->subtrees[] = $subtree;
         }
         if ($subtree instanceof Tag) {
-            $parser->block_nesting_level = count($parser->compiler->_tag_stack);
+            $parser->block_nesting_level = $parser->compiler->getTagStackCount();
         }
     }
 

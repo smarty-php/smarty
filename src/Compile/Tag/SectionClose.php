@@ -14,9 +14,6 @@ use Smarty\Compile\Base;
 
 /**
  * Smarty Internal Plugin Compile Sectionclose Class
- *
-
-
  */
 class SectionClose extends Base {
 
@@ -30,12 +27,14 @@ class SectionClose extends Base {
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$compiler->loopNesting--;
-		// must endblock be nocache?
-		if ($compiler->nocache) {
-			$compiler->tag_nocache = true;
+
+		[$openTag, $nocache_pushed] = $this->closeTag($compiler, ['section', 'sectionelse']);
+
+		if ($nocache_pushed) {
+			// pop the pushed virtual nocache tag
+			$this->closeTag('nocache');
 		}
-		[$openTag, $compiler->nocache, $local, $sectionVar] =
-			$this->closeTag($compiler, ['section', 'sectionelse']);
+
 		$output = "<?php\n";
 		if ($openTag === 'sectionelse') {
 			$output .= "}\n";

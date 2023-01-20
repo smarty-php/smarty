@@ -31,13 +31,15 @@ class ForeachClose extends Base {
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$compiler->loopNesting--;
-		// must endblock be nocache?
-		if ($compiler->nocache) {
+
+		[$openTag, $nocache_pushed, $local, $itemVar, $restore] = $this->closeTag($compiler, ['foreach', 'foreachelse']);
+
+		if ($nocache_pushed) {
+			// pop the pushed virtual nocache tag
+			$this->closeTag('nocache');
 			$compiler->tag_nocache = true;
 		}
-		[
-			$openTag, $compiler->nocache, $local, $itemVar, $restore,
-		] = $this->closeTag($compiler, ['foreach', 'foreachelse']);
+
 		$output = "<?php\n";
 		if ($restore === 2) {
 			$output .= "{$itemVar} = {$local}saved;\n";

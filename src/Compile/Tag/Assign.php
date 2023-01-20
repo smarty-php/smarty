@@ -22,6 +22,21 @@ use Smarty\Smarty;
  */
 class Assign extends Base
 {
+	/**
+	 * @inheritdoc
+	 */
+	protected $required_attributes = ['var', 'value'];
+
+	/**
+	 * @inheritdoc
+	 */
+	protected $optional_attributes = ['scope'];
+
+	/**
+	 * @inheritdoc
+	 */
+	protected $shorttag_order = ['var', 'value'];
+
     /**
      * Attribute definition: Overwrites base class.
      *
@@ -42,21 +57,17 @@ class Assign extends Base
      */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
     {
-        // the following must be assigned at runtime because it will be overwritten in Append
-        $this->required_attributes = array('var', 'value');
-        $this->shorttag_order = array('var', 'value');
-        $this->optional_attributes = array('scope');
-        $this->mapCache = array();
+
         $_nocache = false;
         // check and get attributes
         $_attr = $this->getAttributes($compiler, $args);
-        // nocache ?
+
         if ($_var = $compiler->getId($_attr[ 'var' ])) {
             $_var = "'{$_var}'";
         } else {
             $_var = $_attr[ 'var' ];
         }
-        if ($compiler->tag_nocache || $compiler->nocache) {
+        if ($compiler->tag_nocache || $compiler->isNocacheActive()) {
             $_nocache = true;
             // create nocache var to make it know for further compiling
             $compiler->setNocacheInVariable($_attr[ 'var' ]);

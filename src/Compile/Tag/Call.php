@@ -59,7 +59,7 @@ class Call extends Base {
 		$_name = $_attr['name'];
 		unset($_attr['name'], $_attr['assign'], $_attr['nocache']);
 		// set flag (compiled code of {function} must be included in cache file
-		if (!$compiler->getTemplate()->caching || $compiler->nocache || $compiler->tag_nocache) {
+		if (!$compiler->getTemplate()->caching || $compiler->isNocacheActive() || $compiler->tag_nocache) {
 			$_nocache = 'true';
 		} else {
 			$_nocache = 'false';

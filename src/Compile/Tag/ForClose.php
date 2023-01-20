@@ -31,18 +31,20 @@ class ForClose extends Base {
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$compiler->loopNesting--;
-		// check and get attributes
-		$this->getAttributes($compiler, $args);
-		// must endblock be nocache?
-		if ($compiler->nocache) {
-			$compiler->tag_nocache = true;
-		}
-		[$openTag, $compiler->nocache] = $this->closeTag($compiler, ['for', 'forelse']);
+
+		[$openTag, $nocache_pushed] = $this->closeTag($compiler, ['for', 'forelse']);
 		$output = "<?php }\n";
 		if ($openTag !== 'forelse') {
 			$output .= "}\n";
 		}
 		$output .= "?>";
+
+		if ($nocache_pushed) {
+			// pop the pushed virtual nocache tag
+			$this->closeTag('nocache');
+			$compiler->tag_nocache = true;
+		}
+
 		return $output;
 	}
 }

@@ -30,13 +30,13 @@ class CaptureClose extends Base {
 	 * @return string compiled code
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
-		// check and get attributes
-		$_attr = $this->getAttributes($compiler, $args, $parameter, '/capture');
-		// must endblock be nocache?
-		if ($compiler->nocache) {
+
+		if (array_pop($compiler->_cache['capture_stack'])) {
+			// pop the virtual {nocache} tag from the stack.
+			$compiler->closeTag('nocache');
 			$compiler->tag_nocache = true;
 		}
-		[$compiler->nocache] = array_pop($compiler->_cache['capture_stack']);
+
 		return "<?php \$_smarty_tpl->getSmarty()->getRuntime('Capture')->close(\$_smarty_tpl);?>";
 	}
 }

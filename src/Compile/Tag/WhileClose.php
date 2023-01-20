@@ -30,11 +30,15 @@ class WhileClose extends Base {
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$compiler->loopNesting--;
-		// must endblock be nocache?
-		if ($compiler->nocache) {
+
+		$nocache_pushed = $this->closeTag($compiler, ['while']);
+
+		if ($nocache_pushed) {
+			// pop the pushed virtual nocache tag
+			$this->closeTag('nocache');
 			$compiler->tag_nocache = true;
 		}
-		$compiler->nocache = $this->closeTag($compiler, ['while']);
+
 		return "<?php }?>\n";
 	}
 }

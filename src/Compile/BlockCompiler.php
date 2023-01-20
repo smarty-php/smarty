@@ -18,8 +18,6 @@ use Smarty\Smarty;
 /**
  * Smarty Internal Plugin Compile Block Plugin Class
  *
-
-
  */
 class BlockCompiler extends Base {
 
@@ -59,6 +57,56 @@ class BlockCompiler extends Base {
 		} else {
 			$output = $this->compileClosingTag($compiler, $tag, $parameter, $function);
 		}
+		return $output;
+	}
+
+	/**
+	 * Compiles code for the {$smarty.block.child} property
+	 *
+	 * @param Template $compiler compiler object
+	 *
+	 * @return string compiled code
+	 * @throws CompilerException
+	 */
+	public function compileChild(\Smarty\Compiler\Template $compiler) {
+
+		if (!isset($compiler->_cache['blockNesting'])) {
+			$compiler->trigger_template_error(
+				"{\$smarty.block.child} used outside {block} tags ",
+				$compiler->getParser()->lex->taglineno
+			);
+		}
+		$compiler->has_code = true;
+		$compiler->suppressNocacheProcessing = true;
+
+		$output = "<?php \n";
+		$output .= '$_smarty_tpl->getInheritance()->callChild($_smarty_tpl, $this' . ");\n";
+		$output .= "?>\n";
+		return $output;
+	}
+
+	/**
+	 * Compiles code for the {$smarty.block.parent} property
+	 *
+	 * @param Template $compiler compiler object
+	 *
+	 * @return string compiled code
+	 * @throws CompilerException
+	 */
+	public function compileParent(\Smarty\Compiler\Template $compiler) {
+
+		if (!isset($compiler->_cache['blockNesting'])) {
+			$compiler->trigger_template_error(
+				"{\$smarty.block.parent} used outside {block} tags ",
+				$compiler->getParser()->lex->taglineno
+			);
+		}
+		$compiler->has_code = true;
+		$compiler->suppressNocacheProcessing = true;
+
+		$output = "<?php \n";
+		$output .= '$_smarty_tpl->getInheritance()->callParent($_smarty_tpl, $this' . ");\n";
+		$output .= "?>\n";
 		return $output;
 	}
 
@@ -118,6 +166,13 @@ class BlockCompiler extends Base {
 			$compiler->tag_nocache = true;
 		}
 
+		if ($compiler->tag_nocache) {
+			// push a {nocache} tag onto the stack to prevent caching of this block
+			$this->openTag($compiler, 'nocache');
+		}
+
+		$this->openTag($compiler, $tag, [$_params, $compiler->tag_nocache]);
+
 		// compile code
 		$output = "<?php \$_block_repeat=true;
 if (!" . $this->getIsCallableCode($tag, $function) .") {\nthrow new \\Smarty\\Exception('block tag \'{$tag}\' not callable or registered');\n}\n
@@ -125,9 +180,7 @@ echo " . $this->getFullCallbackCode($tag, $function) . "({$_params}, null, \$_sm
 while (\$_block_repeat) {
   ob_start();
 ?>";
-		$this->openTag($compiler, $tag, [$_params, $compiler->nocache]);
-		// maybe nocache because of nocache variables or nocache plugin
-		$compiler->nocache = $compiler->nocache | $compiler->tag_nocache;
+
 		return $output;
 	}
 
@@ -142,13 +195,11 @@ while (\$_block_repeat) {
 	 * @throws Exception
 	 */
 	private function compileClosingTag(Template $compiler, string $tag, array $parameter, ?string $function): string {
-		// must endblock be nocache?
-		if ($compiler->nocache) {
-			$compiler->tag_nocache = true;
-		}
+
 		// closing tag of block plugin, restore nocache
 		$base_tag = substr($tag, 0, -5);
-		[$_params, $compiler->nocache] = $this->closeTag($compiler, $base_tag);
+		[$_params, $nocache_pushed] = $this->closeTag($compiler, $base_tag);
+
 		// compile code
 		if (!isset($parameter['modifier_list'])) {
 			$mod_pre = $mod_post = $mod_content = '';
@@ -164,6 +215,13 @@ while (\$_block_repeat) {
 		$callback = $this->getFullCallbackCode($base_tag, $function);
 		$output .= "echo {$callback}({$_params}, {$mod_content2}, \$_smarty_tpl, \$_block_repeat);\n";
 		$output .= "{$mod_post}}\n?>";
+
+		if ($nocache_pushed) {
+			// pop the pushed virtual nocache tag
+			$this->closeTag($compiler, 'nocache');
+			$compiler->tag_nocache = true;
+		}
+
 		return $output;
 	}
 

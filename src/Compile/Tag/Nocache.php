@@ -29,10 +29,7 @@ class Nocache extends Base {
 	 * @return bool
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
-		$this->getAttributes($compiler, $args);
-		$this->openTag($compiler, 'nocache', [$compiler->nocache]);
-		// enter nocache mode
-		$compiler->nocache = true;
+		$this->openTag($compiler, 'nocache');
 		// this tag does not return compiled code
 		$compiler->has_code = false;
 		return true;
