@@ -292,10 +292,10 @@ class ScopeTest extends PHPUnit_Smarty
     {
         $file = "testConfigScope_{$testNumber}.tpl";
         $this->makeTemplateFile($file, $code . '{checkconfigvar var=foo}');
-        $this->smarty->assignGlobal('file', $file);
-        $this->smarty->configLoad('smarty.conf');
-        $data = $this->smarty->createData($useSmarty ? $this->smarty : null);
-        $data->configLoad('data.conf');
+	    $this->smarty->configLoad('smarty.conf');
+	    $data = $this->smarty->createData($useSmarty ? $this->smarty : null);
+	    $this->smarty->assign('file', $file);
+	    $data->configLoad('data.conf');
         $tpl = $this->smarty->createTemplate('scope_tag.tpl', $data);
         $this->assertEquals(
             '#' . $file . $result,
@@ -309,30 +309,36 @@ class ScopeTest extends PHPUnit_Smarty
      */
     public function dataTestConfigScope()
     {
-        $i = 0;
-        /*
-         * Code
-         * use Smarty object
-         * result
-         * test name
-         */
-        return array(array('{config_load \'template.conf\'}', true,
-                           ':$foo =\'newvar\'#scope_include.tpl:$foo =\'data\'#scope_tag.tpl:$foo =\'data\'#data:$foo =\'data\'',
-                           '', $i ++,), array('{config_load \'template.conf\' scope=local}', true,
-                                              ':$foo =\'newvar\'#scope_include.tpl:$foo =\'data\'#scope_tag.tpl:$foo =\'data\'#data:$foo =\'data\'',
-                                              '', $i ++,), array('{config_load \'template.conf\' scope=parent}', true,
-                                                                 ':$foo =\'newvar\'#scope_include.tpl:$foo =\'newvar\'#scope_tag.tpl:$foo =\'data\'#data:$foo =\'data\'',
-                                                                 '', $i ++,),
-                     array('{config_load \'template.conf\' scope=tpl_root}', true,
-                           ':$foo =\'newvar\'#scope_include.tpl:$foo =\'newvar\'#scope_tag.tpl:$foo =\'newvar\'#data:$foo =\'data\'',
-                           '', $i ++,), array('{config_load \'template.conf\' scope=root}', true,
-                                              ':$foo =\'newvar\'#scope_include.tpl:$foo =\'newvar\'#scope_tag.tpl:$foo =\'newvar\'#data:$foo =\'newvar\'',
-                                              '', $i ++,), array('{config_load \'template.conf\' scope=root}', false,
-                                                                 ':$foo =\'newvar\'#scope_include.tpl:$foo =\'newvar\'#scope_tag.tpl:$foo =\'newvar\'#data:$foo =\'newvar\'',
-                                                                 'no  smarty', $i ++,),
-                     array('{config_load \'template.conf\' scope=global}', false,
-                           ':$foo =\'newvar\'#scope_include.tpl:$foo =\'newvar\'#scope_tag.tpl:$foo =\'newvar\'#data:$foo =\'data\'#global:$foo =\'newvar\'',
-                           'no  smarty', $i ++,),);
+	    $i = 0;
+	    /*
+		 * Code
+		 * use Smarty object
+		 * result
+		 * test name
+		 */
+	    return [
+			['{config_load \'template.conf\'}', true,
+		    ':$foo =\'newvar\'#scope_include.tpl:$foo =\'data\'#scope_tag.tpl:$foo =\'data\'#data:$foo =\'data\'',
+		    '', $i++,],
+		    ['{config_load \'template.conf\' scope=local}', true,
+		    ':$foo =\'newvar\'#scope_include.tpl:$foo =\'data\'#scope_tag.tpl:$foo =\'data\'#data:$foo =\'data\'',
+		    '', $i++,],
+		    ['{config_load \'template.conf\' scope=parent}', true,
+		    ':$foo =\'newvar\'#scope_include.tpl:$foo =\'newvar\'#scope_tag.tpl:$foo =\'data\'#data:$foo =\'data\'',
+		    '', $i++,],
+		    ['{config_load \'template.conf\' scope=tpl_root}', true,
+			    ':$foo =\'newvar\'#scope_include.tpl:$foo =\'newvar\'#scope_tag.tpl:$foo =\'newvar\'#data:$foo =\'data\'',
+			    '', $i++,],
+		    ['{config_load \'template.conf\' scope=root}', true,
+			    ':$foo =\'newvar\'#scope_include.tpl:$foo =\'newvar\'#scope_tag.tpl:$foo =\'newvar\'#data:$foo =\'newvar\'',
+			    '', $i++,],
+		    ['{config_load \'template.conf\' scope=root}', false,
+			    ':$foo =\'newvar\'#scope_include.tpl:$foo =\'newvar\'#scope_tag.tpl:$foo =\'newvar\'#data:$foo =\'newvar\'',
+			    'no  smarty', $i++,],
+		    ['{config_load \'template.conf\' scope=global}', false,
+			    ':$foo =\'newvar\'#scope_include.tpl:$foo =\'newvar\'#scope_tag.tpl:$foo =\'newvar\'#data:$foo =\'data\'#global:$foo =\'newvar\'',
+			    'no  smarty', $i++,],
+	    ];
     }
 
     /**

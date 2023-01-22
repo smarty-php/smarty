@@ -340,42 +340,41 @@ class Template extends TemplateBase {
 	 * - Decode saved properties from compiled template and cache files
 	 * - Check if compiled or cache file is valid
 	 *
-	 * @param \Smarty\Template $tpl
 	 * @param array $properties special template properties
 	 * @param bool $cache flag if called from cache file
 	 *
 	 * @return bool flag if compiled or cache file is valid
 	 * @throws \Smarty\Exception
 	 */
-	public function isFresh(Template $tpl, $properties, $cache = false) {
+	public function isFresh($properties, $cache = false) {
 		// on cache resources other than file check version stored in cache code
 		if (!isset($properties['version']) || \Smarty\Smarty::SMARTY_VERSION !== $properties['version']) {
 			if ($cache) {
-				$tpl->getSmarty()->clearAllCache();
+				$this->getSmarty()->clearAllCache();
 			} else {
-				$tpl->getSmarty()->clearCompiledTemplate();
+				$this->getSmarty()->clearCompiledTemplate();
 			}
 			return false;
 		}
 		$is_valid = true;
 		if (!empty($properties['file_dependency'])
-			&& ((!$cache && $tpl->compile_check) || $tpl->compile_check === \Smarty\Smarty::COMPILECHECK_ON)
+			&& ((!$cache && $this->compile_check) || $this->compile_check === \Smarty\Smarty::COMPILECHECK_ON)
 		) {
 			// check file dependencies at compiled code
 			foreach ($properties['file_dependency'] as $_file_to_check) {
 				if ($_file_to_check[2] === 'file' || $_file_to_check[2] === 'php') {
-					if ($tpl->getSource()->filepath === $_file_to_check[0]) {
+					if ($this->getSource()->filepath === $_file_to_check[0]) {
 						// do not recheck current template
 						continue;
-						//$mtime = $tpl->getSource()->getTimeStamp();
+						//$mtime = $this->getSource()->getTimeStamp();
 					} else {
 						// file and php types can be checked without loading the respective resource handlers
 						$mtime = is_file($_file_to_check[0]) ? filemtime($_file_to_check[0]) : false;
 					}
 				} else {
-					$handler = \Smarty\Resource\BasePlugin::load($tpl->getSmarty(), $_file_to_check[2]);
+					$handler = \Smarty\Resource\BasePlugin::load($this->getSmarty(), $_file_to_check[2]);
 					if ($handler->checkTimestamps()) {
-						$source = Source::load($tpl, $tpl->getSmarty(), $_file_to_check[0]);
+						$source = Source::load($this, $this->getSmarty(), $_file_to_check[0]);
 						$mtime = $source->getTimeStamp();
 					} else {
 						continue;
@@ -389,17 +388,17 @@ class Template extends TemplateBase {
 		}
 		if ($cache) {
 			// CACHING_LIFETIME_SAVED cache expiry has to be validated here since otherwise we'd define the unifunc
-			if ($tpl->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED && $properties['cache_lifetime'] >= 0
-				&& (time() > ($tpl->getCached()->timestamp + $properties['cache_lifetime']))
+			if ($this->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED && $properties['cache_lifetime'] >= 0
+				&& (time() > ($this->getCached()->timestamp + $properties['cache_lifetime']))
 			) {
 				$is_valid = false;
 			}
-			$tpl->getCached()->cache_lifetime = $properties['cache_lifetime'];
-			$tpl->getCached()->valid = $is_valid;
-			$generatedFile = $tpl->getCached();
+			$this->getCached()->cache_lifetime = $properties['cache_lifetime'];
+			$this->getCached()->valid = $is_valid;
+			$generatedFile = $this->getCached();
 		} else {
-			$tpl->mustCompile = !$is_valid;
-			$generatedFile = $tpl->getCompiled();
+			$this->mustCompile = !$is_valid;
+			$generatedFile = $this->getCompiled();
 			$generatedFile->includes = $properties['includes'] ?? [];
 		}
 		if ($is_valid) {

@@ -1104,7 +1104,7 @@ class Template extends BaseCompiler {
 		// compile built-in tags
 		if ($tagCompiler = $this->getTagCompiler($tag)) {
 			if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this)) {
-				$this->tag_nocache = !$tagCompiler->isCacheable();
+				$this->tag_nocache = $this->tag_nocache | !$tagCompiler->isCacheable();
 				$_output = $tagCompiler->compile($args, $this, $parameter);
 				if ($_output !== false) {
 					return $this->has_code && $_output !== true ? $_output : null;
