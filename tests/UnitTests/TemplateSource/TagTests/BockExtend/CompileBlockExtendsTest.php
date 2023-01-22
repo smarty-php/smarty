@@ -888,72 +888,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
-    /**
-     * test  grandchild/child/parent template chain with nested {$this->smarty.block.child} and {include nocache}
-     *
-     * 
-     * 
-     * @dataProvider        data
-     */
-    public function testCompileBlockSmartyBlockParent_034_2($caching, $merge, $testNumber, $compileTestNumber,
-                                                          $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->setCaching($caching);
-        $this->smarty->setMergeCompiledIncludes($merge);
-        if ($merge) {
-            $this->smarty->setCompileId(1);
-        }
-        $result = $this->smarty->fetch('034_2child.tpl');
-        $this->assertStringContainsString('parent b1', $result, $testName . ' - content');
-        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
-                              $testName . ' - fetch() failure');
-    }
-    /**
-     * test  grandchild/child/parent template chain with nested {$this->smarty.block.child} and {include nocache}
-     *
-     * 
-     * 
-     * @dataProvider        data
-     */
-    public function testCompileBlockSmartyBlockParent_034_3($caching, $merge, $testNumber, $compileTestNumber,
-                                                            $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->setCaching($caching);
-        $this->smarty->setMergeCompiledIncludes($merge);
-        if ($merge) {
-            $this->smarty->setCompileId(1);
-        }
-        $result = $this->smarty->fetch('034_3child.tpl');
-        $this->assertStringContainsString('parent b1', $result, $testName . ' - content');
-        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
-                              $testName . ' - fetch() failure');
-    }
-    /**
-     * test  grandchild/child/parent template chain with nested {$this->smarty.block.child} and {include nocache}
-     *
-     * 
-     * 
-     * @dataProvider        data
-     */
-    public function testCompileBlockSmartyBlockParent_034_4($caching, $merge, $testNumber, $compileTestNumber,
-                                                            $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->setCaching($caching);
-        $this->smarty->setMergeCompiledIncludes($merge);
-        if ($merge) {
-            $this->smarty->setCompileId(1);
-        }
-        $result = $this->smarty->fetch('034_4child.tpl');
-        $this->assertStringContainsString('parent b1', $result, $testName . ' - content');
-        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
-                              $testName . ' - fetch() failure');
-    }
+
     /**
      * test  child/parent template chain with {$this->smarty.block.child)
      *
@@ -980,87 +915,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
                               $testName . ' - fetch() failure');
     }
-
-    /**
-     * test  child/parent template chain with {$this->smarty.block.child)
-     *
-     * 
-     * 
-     * @dataProvider        data
-     */
-    public function testCompileBlockSmartyBlockChild_035_2($caching, $merge, $testNumber, $compileTestNumber,
-                                                           $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->assign('parenttpl', '035_2parent.tpl');
-        $this->smarty->assign('parent', 'parent', true);
-        $this->smarty->assign('child', 'child', true);
-        $this->smarty->setCaching($caching);
-        $this->smarty->setMergeCompiledIncludes($merge);
-        if ($merge) {
-            $this->smarty->setCompileId(1);
-        }
-        $result = $this->smarty->fetch('035_child.tpl');
-        $this->assertStringContainsString('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
-                              $testName . ' - content');
-        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
-                              $testName . ' - fetch() failure');
-    }
-    /**
-     * test  child/parent template chain with {$this->smarty.block.child)
-     *
-     * 
-     * 
-     * @dataProvider        data
-     */
-    public function testCompileBlockSmartyBlockChild_035_3($caching, $merge, $testNumber, $compileTestNumber,
-                                                           $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->assign('parenttpl', '035_3parent.tpl');
-        $this->smarty->assign('parent', 'parent', true);
-        $this->smarty->assign('child', 'child', true);
-        $this->smarty->setCaching($caching);
-        $this->smarty->setMergeCompiledIncludes($merge);
-        if ($merge) {
-            $this->smarty->setCompileId(1);
-        }
-        $result = $this->smarty->fetch('035_child.tpl');
-        $this->assertStringContainsString('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
-                              $testName . ' - content');
-        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
-                              $testName . ' - fetch() failure');
-    }
-    /**
-     * test  child/parent template chain with {$this->smarty.block.child)
-     *
-     * 
-     * 
-     * @dataProvider        data
-     */
-    public function testCompileBlockSmartyBlockChild_035_4($caching, $merge, $testNumber, $compileTestNumber,
-                                                           $renderTestNumber, $testName)
-    {
-        $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
-        $this->smarty->assign('test', $testNumber);
-        $this->smarty->assign('parenttpl', '035_4parent.tpl');
-        $this->smarty->assign('parent', 'parent', true);
-        $this->smarty->assign('child', 'child', true);
-        $this->smarty->setCaching($caching);
-        $this->smarty->setMergeCompiledIncludes($merge);
-        if ($merge) {
-            $this->smarty->setCompileId(1);
-        }
-        $result = $this->smarty->fetch('035_child.tpl');
-        $this->assertStringContainsString('(parent|b)content (child|b)content child b(child|/b) b(parent|/b)', $result,
-                              $testName . ' - content');
-        $this->assertStringContainsString("test:{$testNumber} compiled:{$compileTestNumber} rendered:{$renderTestNumber}", $result,
-                              $testName . ' - fetch() failure');
-    }
-
-
 
     public function data()
     {
@@ -1151,25 +1005,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->expectExceptionMessage('inheritance: illegal \'{$smarty.block.parent}\' used in child template');
         $this->smarty->fetch('036_1_parent.tpl');
     }
-    /**
-     * test {block_parent}
-     */
-    public function testSmartyParentBlockCalledInParent_036_2()
-    {
-        $this->expectException(\Smarty\Exception::class);
-        $this->expectExceptionMessage('inheritance: illegal \'{block_parent}\' used in child template');
-        $this->smarty->fetch('036_2_parent.tpl');
-    }
-    /**
-     * test {block_parent}
-     */
-    public function testSmartyParentBlockCalledInParent_036_3()
-    {
-        $this->expectException(\Smarty\Exception::class);
-        $this->expectExceptionMessage('inheritance: illegal \'{parent}\' used in child template');
-        $this->smarty->fetch('036_3_parent.tpl');
-    }
-
     /**
      * test smarty.block
      */

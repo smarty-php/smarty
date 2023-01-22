@@ -8,10 +8,6 @@
 
 /**
  * class for compiler plugin tests
- *
- * 
- * 
- * 
  */
 class CompilerPluginTest extends PHPUnit_Smarty
 {
