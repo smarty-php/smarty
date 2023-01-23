@@ -273,7 +273,7 @@ class Template extends TemplateBase {
 		$tpl->config_vars = $this->config_vars;
 
 		// recursive call ?
-		if ($tpl->getTemplateId() == $this->getTemplateId()) {
+		if ($tpl->getTemplateId() !== $this->getTemplateId()) {
 
 			if (isset($uid) && $this->getCompiled()->file_dependency) {
 				// for inline templates we can get all resource information from file dependency
