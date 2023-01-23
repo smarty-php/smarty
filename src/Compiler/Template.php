@@ -1112,10 +1112,10 @@ class Template extends BaseCompiler {
 			}
 		}
 
-		// template defined by {template} tag
-		if ($this->canCompileTemplateCall($tag)) {
+		// call to function previousely defined by {function} tag
+		if ($this->canCompileTemplateFunctionCall($tag)) {
 			$args['_attr']['name'] = "'{$tag}'";
-			$tagCompiler = $this->getTagCompiler($tag);
+			$tagCompiler = $this->getTagCompiler('call');
 			// compile this tag
 			$_output = $tagCompiler === null ? false : $tagCompiler->compile($args, $this, $parameter);
 			return $this->has_code ? $_output : null;
@@ -1324,7 +1324,7 @@ class Template extends BaseCompiler {
 	 * @return bool
 	 * @throws Exception
 	 */
-	private function canCompileTemplateCall(string $tag): bool {
+	private function canCompileTemplateFunctionCall(string $tag): bool {
 		return
 			isset($this->parent_compiler->tpl_function[$tag])
 			|| (
