@@ -238,7 +238,16 @@ class ScopeTest extends PHPUnit_Smarty
                            '', $i ++), array('{include \'test_scope_assign_noscope.tpl\' scope=root}', true,
                                              '#test_scope_assign_noscope.tpl:$foo =\'newvar\'#testIncludeScope_' . $i .
                                              '.tpl:$foo =\'data\'#test_scope.tpl:$foo =\'data\'#data:$foo =\'data\'#Smarty:$foo =\'smarty\'#global:$foo =\'global\'',
-                                             '', $i ++),);
+                                             '', $i ++),
+                     array('{include \'test_scope_inheritance_include.tpl\'}', true,
+                           '#test_scope_inheritance_include.tpl:$foo =\'data\'#testIncludeScope_'. $i .
+                           '.tpl:$foo =\'data\'#test_scope.tpl:$foo =\'data\'#data:$foo =\'data\'#Smarty:$foo =\'smarty\'#global:$foo =\'global\'',
+                           '', $i ++),
+                     array('{include \'test_scope_inheritance_include_assign_parent.tpl\'}', true,
+                           '#test_scope_inheritance_include_assign_parent.tpl:$foo =\'parent\'#testIncludeScope_'. $i .
+                           '.tpl:$foo =\'data\'#test_scope.tpl:$foo =\'data\'#data:$foo =\'data\'#Smarty:$foo =\'smarty\'#global:$foo =\'global\'',
+                           '', $i ++)
+        );
     }
 
     /**

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- Updating variable in parent scope (when the `scope=parent` is explicitly used on a tag like `assign`) now bubbles up (to the including template) even when the included template is part of an inheritance chain as it did pre `v3.1.28`.
 - `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP7 notices for undefined array indexes [#736](https://github.com/smarty-php/smarty/issues/736)
 - `$smarty->muteUndefinedOrNullWarnings()` now treats undefined vars and array access of a null or false variables 
   equivalent across all supported PHP versions

@@ -1,0 +1,1 @@
+{extends './test_scope_inheritance_parent_assign_parent.tpl'}

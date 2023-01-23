@@ -89,11 +89,10 @@ class Smarty_Internal_Method_ConfigLoad
                 }
             }
             if ($tpl->parent->_isTplObj() && ($tagScope || $tpl->parent->scope)) {
-                $mergedScope = $tagScope | $tpl->scope;
-                if ($mergedScope) {
+                if ($tagScope | $tpl->scope) {
                     // update scopes
                     /* @var \Smarty_Internal_Template|\Smarty|\Smarty_Internal_Data $ptr */
-                    foreach ($tpl->smarty->ext->_updateScope->_getAffectedScopes($tpl->parent, $mergedScope) as $ptr) {
+                    foreach ($tpl->smarty->ext->_updateScope->_getAffectedScopes($tpl->parent, $tagScope) as $ptr) {
                         $this->_assignConfigVars($ptr->config_vars, $tpl, $new_config_vars);
                         if ($tagScope && $ptr->_isTplObj() && isset($tpl->_cache[ 'varStack' ])) {
                             $this->_updateVarStack($tpl, $new_config_vars);

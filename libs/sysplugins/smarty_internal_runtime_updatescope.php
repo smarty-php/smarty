@@ -31,7 +31,7 @@ class Smarty_Internal_Runtime_UpdateScope
                 Smarty::$global_tpl_vars[ $varName ] = $tpl->tpl_vars[ $varName ];
             }
             // update scopes
-            foreach ($this->_getAffectedScopes($tpl, $mergedScope) as $ptr) {
+            foreach ($this->_getAffectedScopes($tpl, $tagScope) as $ptr) {
                 $this->_updateVariableInOtherScope($ptr->tpl_vars, $tpl, $varName);
                 if ($tagScope && $ptr->_isTplObj() && isset($tpl->_cache[ 'varStack' ])) {
                     $this->_updateVarStack($ptr, $varName);
@@ -44,16 +44,29 @@ class Smarty_Internal_Runtime_UpdateScope
      * Get array of objects which needs to be updated  by given scope value
      *
      * @param Smarty_Internal_Template $tpl
-     * @param int                      $mergedScope merged tag and template scope to which bubble up variable value
+     * @param int                      $tagScope tag scope to which bubble up variable value
      *
      * @return array
      */
-    public function _getAffectedScopes(Smarty_Internal_Template $tpl, $mergedScope)
+    public function _getAffectedScopes(Smarty_Internal_Template $tpl, $tagScope)
     {
+        $mergedScope = $tagScope | $tpl->scope;
         $_stack = array();
         $ptr = $tpl->parent;
         if ($mergedScope && isset($ptr) && $ptr->_isTplObj()) {
             $_stack[] = $ptr;
+            if ($tpl->inheritance && $tagScope & Smarty::SCOPE_PARENT) {
+                $inheritanceRoot = $tpl;
+                while ($inheritanceRoot->inheritance && $inheritanceRoot->parent
+                    && $inheritanceRoot->parent->_isTplObj()
+                    && $inheritanceRoot->parent->inheritance === $inheritanceRoot->inheritance
+                ) {
+                    $inheritanceRoot = $inheritanceRoot->parent;
+                }
+                if ($inheritanceRoot->parent && $inheritanceRoot->parent !== $ptr) {
+                    $_stack[] = $inheritanceRoot->parent;
+                }
+            }
             $mergedScope = $mergedScope & ~Smarty::SCOPE_PARENT;
             if (!$mergedScope) {
                 // only parent was set, we are done
