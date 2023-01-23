@@ -22,13 +22,13 @@ class ForeachElse extends Base {
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 
-		[$openTag, $nocache_pushed, $local, $itemVar, $restore] = $this->closeTag($compiler, ['foreach']);
-		$this->openTag($compiler, 'foreachelse', ['foreachelse', $nocache_pushed, $local, $itemVar, 0]);
+		[$openTag, $nocache_pushed, $localVariablePrefix, $item, $restore] = $this->closeTag($compiler, ['foreach']);
+		$this->openTag($compiler, 'foreachelse', ['foreachelse', $nocache_pushed, $localVariablePrefix, $item, false]);
 		$output = "<?php\n";
-		if ($restore === 2) {
-			$output .= "{$itemVar} = {$local}saved;\n";
+		if ($restore) {
+			$output .= "\$_smarty_tpl->setVariable('{$item}', {$localVariablePrefix}Backup);\n";
 		}
-		$output .= "}\nif ({$itemVar}->do_else) {\n?>";
+		$output .= "}\nif ({$localVariablePrefix}DoElse) {\n?>";
 		return $output;
 	}
 }

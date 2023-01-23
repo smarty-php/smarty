@@ -624,12 +624,12 @@ expr(res)        ::= ternary(v). {
 
 		// ++$a / --$a
 expr(res)	::= INCDEC(i2) DOLLARID(i). {
-	res = '$_smarty_tpl->_getVariable(\''. substr(i,1) .'\')->preIncDec(\'' . i2 . '\')';
+	res = '$_smarty_tpl->getVariable(\''. substr(i,1) .'\')->preIncDec(\'' . i2 . '\')';
 }
 
 		// $a++ / $a--
 expr(res)	::= DOLLARID(i) INCDEC(i2). {
-	res = '$_smarty_tpl->_getVariable(\''. substr(i,1) .'\')->postIncDec(\'' . i2 . '\')';
+	res = '$_smarty_tpl->getVariable(\''. substr(i,1) .'\')->postIncDec(\'' . i2 . '\')';
 }
 
                  // resources/streams
@@ -845,7 +845,7 @@ variable(res)    ::= varindexed(vi). {
 
                   // variable with property
 variable(res)    ::= varvar(v) AT ID(p). {
-    res = '$_smarty_tpl->_getVariable('. v .')->'.p;
+    res = '$_smarty_tpl->getVariable('. v .')->'.p;
 }
 
                   // object

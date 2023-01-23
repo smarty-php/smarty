@@ -126,7 +126,14 @@ class Data
 				break;
 			case self::SCOPE_LOCAL:
 			default:
-				$this->tpl_vars[ $tpl_var ] = new Variable($value, $nocache);
+				if ($this->hasVariable($tpl_var)) {
+					$this->getVariable($tpl_var)->setValue($value);
+					if ($nocache) {
+						$this->getVariable($tpl_var)->setNocache(true);
+					}
+				} else {
+					$this->tpl_vars[ $tpl_var ] = new Variable($value, $nocache);
+				}
 		}
 
         return $this;
@@ -249,6 +256,17 @@ class Data
 			$x = $$varName;
 		}
 		return new UndefinedVariable();
+	}
+
+	/**
+	 * Directly sets a complete Variable object in the variable with the given name.
+	 * @param $varName
+	 * @param Variable $variableObject
+	 *
+	 * @return void
+	 */
+	public function setVariable($varName, Variable $variableObject) {
+		$this->tpl_vars[$varName] = $variableObject;
 	}
 
 	/**

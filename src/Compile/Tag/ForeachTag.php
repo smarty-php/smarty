@@ -39,7 +39,7 @@ class ForeachTag extends ForeachSection {
 	 *
 	 * @var int
 	 */
-	protected $counter = 0;
+	private static $counter = 0;
 
 	/**
 	 * Name of this tag
@@ -120,8 +120,10 @@ class ForeachTag extends ForeachSection {
 				}
 			}
 		}
-		$itemVar = "\$_smarty_tpl->tpl_vars['{$item}']";
-		$local = '$__foreach_' . $attributes['item'] . '_' . $this->counter++ . '_';
+
+		$itemVar = "\$_smarty_tpl->getVariable('{$item}')";
+		$localVariablePrefix = '$foreach' . self::$counter++;
+
 		// search for used tag attributes
 		$itemAttr = [];
 		$namedAttr = [];
@@ -172,7 +174,7 @@ class ForeachTag extends ForeachSection {
 		}
 		$keyTerm = '';
 		if (isset($attributes['key'])) {
-			$keyTerm = "\$_smarty_tpl->tpl_vars['{$key}']->value => ";
+			$keyTerm = "\$_smarty_tpl->getVariable('{$key}')->value => ";
 		}
 		if (isset($itemAttr['key'])) {
 			$keyTerm = "{$itemVar}->key => ";
@@ -191,7 +193,7 @@ class ForeachTag extends ForeachSection {
 		$this->openTag(
 			$compiler,
 			'foreach',
-			['foreach', $compiler->tag_nocache, $local, $itemVar, empty($itemAttr) ? 1 : 2]
+			['foreach', $compiler->tag_nocache, $localVariablePrefix, $item, !empty($itemAttr)]
 		);
 
 		// generate output code
@@ -217,9 +219,9 @@ class ForeachTag extends ForeachSection {
 		if (isset($itemAttr['index'])) {
 			$output .= "{$itemVar}->index = -1;\n";
 		}
-		$output .= "{$itemVar}->do_else = true;\n";
-		$output .= "if (\$_from !== null) foreach (\$_from as {$keyTerm}{$itemVar}->value) {\n";
-		$output .= "{$itemVar}->do_else = false;\n";
+		$output .= "{$localVariablePrefix}DoElse = true;\n";
+		$output .= "foreach (\$_from ?? [] as {$keyTerm}{$itemVar}->value) {\n";
+		$output .= "{$localVariablePrefix}DoElse = false;\n";
 		if (isset($attributes['key']) && isset($itemAttr['key'])) {
 			$output .= "\$_smarty_tpl->assign('{$key}', {$itemVar}->key);\n";
 		}
@@ -250,7 +252,7 @@ class ForeachTag extends ForeachSection {
 			}
 		}
 		if (!empty($itemAttr)) {
-			$output .= "{$local}saved = {$itemVar};\n";
+			$output .= "{$localVariablePrefix}Backup = clone \$_smarty_tpl->getVariable('{$item}');\n";
 		}
 		$output .= '?>';
 		return $output;

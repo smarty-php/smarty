@@ -32,7 +32,7 @@ class ForeachClose extends Base {
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 		$compiler->loopNesting--;
 
-		[$openTag, $nocache_pushed, $local, $itemVar, $restore] = $this->closeTag($compiler, ['foreach', 'foreachelse']);
+		[$openTag, $nocache_pushed, $localVariablePrefix, $item, $restore] = $this->closeTag($compiler, ['foreach', 'foreachelse']);
 
 		if ($nocache_pushed) {
 			// pop the pushed virtual nocache tag
@@ -41,8 +41,8 @@ class ForeachClose extends Base {
 		}
 
 		$output = "<?php\n";
-		if ($restore === 2) {
-			$output .= "{$itemVar} = {$local}saved;\n";
+		if ($restore) {
+			$output .= "\$_smarty_tpl->setVariable('{$item}', {$localVariablePrefix}Backup);\n";
 		}
 		$output .= "}\n";
 		/* @var \Smarty\Compile\Tag\ForeachTag $foreachCompiler */

@@ -62,7 +62,7 @@ class ForeachRuntime {
 		if ($tpl->hasVariable($item)) {
 			$saveVars['item'] = [
 				$item,
-				$tpl->getVariable($item),
+				$tpl->getVariable($item)->getValue(),
 			];
 		}
 		$tpl->assign($item,null);
@@ -73,7 +73,7 @@ class ForeachRuntime {
 				if ($tpl->hasVariable($key)) {
 					$saveVars['key'] = [
 						$key,
-						$tpl->getVariable($key),
+						clone $tpl->getVariable($key),
 					];
 				}
 				$tpl->assign($key, null);
@@ -87,7 +87,7 @@ class ForeachRuntime {
 			if ($tpl->hasVariable($namedVar)) {
 				$saveVars['named'] = [
 					$namedVar,
-					$tpl->getVariable($namedVar),
+					clone $tpl->getVariable($namedVar),
 				];
 			}
 			$namedProp = [];
@@ -147,14 +147,13 @@ class ForeachRuntime {
 			$saveVars = array_pop($this->stack);
 			if (!empty($saveVars)) {
 				if (isset($saveVars['item'])) {
-					$item = &$saveVars['item'];
-					$tpl->assign($item[0], $item[1]->getValue());
+					$tpl->getVariable($saveVars['item'][0])->setValue($saveVars['item'][1]);
 				}
 				if (isset($saveVars['key'])) {
-					$tpl->tpl_vars[$saveVars['key'][0]] = $saveVars['key'][1];
+					$tpl->setVariable($saveVars['key'][0], $saveVars['key'][1]);
 				}
 				if (isset($saveVars['named'])) {
-					$tpl->tpl_vars[$saveVars['named'][0]] = $saveVars['named'][1];
+					$tpl->setVariable($saveVars['named'][0], $saveVars['named'][1]);
 				}
 			}
 			$levels--;

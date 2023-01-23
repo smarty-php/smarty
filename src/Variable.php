@@ -20,6 +20,11 @@ class Variable
     public $value = null;
 
 	/**
+	 * Other r/w properties for foreach, for, while, etc.
+	 */
+	public $step, $total, $first, $last, $key, $show, $iteration, $index = null;
+
+	/**
 	 * @param mixed|null $value
 	 */
 	public function setValue($value): void {
@@ -31,7 +36,7 @@ class Variable
      *
      * @var boolean
      */
-    public $nocache = false;
+    private $nocache = false;
 
 	/**
 	 * @param bool $nocache
