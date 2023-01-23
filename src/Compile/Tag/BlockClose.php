@@ -22,11 +22,15 @@ class BlockClose extends Inheritance {
 	{
 		[$_attr, $_nocache, $_buffer, $_has_nocache_code, $_className] = $this->closeTag($compiler, ['block']);
 
+		$_block = [];
+		if (isset($compiler->_cache['blockParams'])) {
+			$_block = $compiler->_cache['blockParams'][$compiler->_cache['blockNesting']] ?? [];
+			unset($compiler->_cache['blockParams'][$compiler->_cache['blockNesting']]);
+		}
+
 		$_name = $_attr['name'];
 		$_assign = $_attr['assign'] ?? null;
 		unset($_attr[ 'assign' ], $_attr[ 'name' ]);
-
-		$_block = [];
 
 		foreach ($_attr as $name => $stat) {
 			if ((is_bool($stat) && $stat !== false) || (!is_bool($stat) && $stat !== 'false')) {
