@@ -69,14 +69,6 @@ class MathTest extends PHPUnit_Smarty
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
     }
 
-    public function testSyntaxSin()
-    {
-        $this->smarty->disableSecurity();
-        $expected = sin(4) . ' -- ' . sin(4);
-        $tpl = $this->smarty->createTemplate('eval:{$x = 4}{$x|sin} -- {$y = sin($x)}{$y}');
-        $this->assertEquals($expected, $this->smarty->fetch($tpl));
-    }
-
     public function testFunctionSin()
     {
         $this->smarty->disableSecurity();
