@@ -268,10 +268,6 @@ class Template extends TemplateBase {
 			$tpl->setDefaultScope($scope);
 		}
 
-		// copy variables
-		$tpl->tpl_vars = $this->tpl_vars;
-		$tpl->config_vars = $this->config_vars;
-
 		// recursive call ?
 		if ($tpl->getTemplateId() !== $this->getTemplateId()) {
 

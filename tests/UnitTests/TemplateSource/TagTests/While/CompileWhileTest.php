@@ -120,7 +120,7 @@ class CompileWhileTest extends PHPUnit_Smarty
     }
 
     /*
-      * Data provider für testNocache
+      * Data provider for testNocache
       */
     public function dataTestNocache()
     {

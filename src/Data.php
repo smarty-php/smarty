@@ -126,13 +126,13 @@ class Data
 				break;
 			case self::SCOPE_LOCAL:
 			default:
-				if ($this->hasVariable($tpl_var)) {
-					$this->getVariable($tpl_var)->setValue($value);
+				if (isset($this->tpl_vars[$tpl_var])) {
+					$this->tpl_vars[$tpl_var]->setValue($value);
 					if ($nocache) {
-						$this->getVariable($tpl_var)->setNocache(true);
+						$this->tpl_vars[$tpl_var]->setNocache(true);
 					}
 				} else {
-					$this->tpl_vars[ $tpl_var ] = new Variable($value, $nocache);
+					$this->tpl_vars[$tpl_var] = new Variable($value, $nocache);
 				}
 		}
 

@@ -532,12 +532,6 @@ class Smarty extends \Smarty\TemplateBase
 	private $BCPluginsAdapter;
 
 	/**
-	 * Cache of templates created
-	 * @var array
-	 */
-	private $templates;
-
-	/**
      * Initialize new Smarty object
      */
     public function __construct()
@@ -999,12 +993,6 @@ class Smarty extends \Smarty\TemplateBase
             $this->_normalizeTemplateConfig(false);
         }
         $_templateId = $this->generateUniqueTemplateId($template_name, $cache_id, $compile_id, $caching, $baseFilePath);
-
-//		if (true || !isset($this->templates[$_templateId])) {
-//			$this->templates[$_templateId] = new Template($template_name, $this, null, $cache_id, $compile_id, $caching);
-//			$this->templates[$_templateId]->templateId = $_templateId;
-//		}
-//	    $tpl = $this->templates[$_templateId];
 
 	    $tpl = new Template($template_name, $this, $parent ?: $this, $cache_id, $compile_id, $caching);
 		$tpl->templateId = $_templateId;
