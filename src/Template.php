@@ -316,14 +316,7 @@ class Template extends TemplateBase {
 				$smarty->getDebug()->end_render($tpl);
 			}
 		} else {
-			$tpl->getCompiled()->render($tpl);
-
-			// @TODO: this used to be like this. Might cause a bug.
-//			if (isset($tpl->compiled)) {
-//				$tpl->getCompiled()->render($tpl);
-//			} else {
-//				$tpl->render();
-//			}
+			$tpl->render();
 		}
 	}
 
