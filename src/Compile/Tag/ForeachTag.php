@@ -184,7 +184,7 @@ class ForeachTag extends ForeachSection {
 
 		if ($compiler->tag_nocache) {
 			// push a {nocache} tag onto the stack to prevent caching of this block
-			$this->openTag('nocache');
+			$this->openTag($compiler, 'nocache');
 		}
 
 		// Register tag

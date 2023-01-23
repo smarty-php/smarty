@@ -26,7 +26,7 @@ class IfTag extends Base {
 
 		if ($compiler->tag_nocache) {
 			// push a {nocache} tag onto the stack to prevent caching of this block
-			$this->openTag('nocache');
+			$this->openTag($compiler, 'nocache');
 		}
 
 		$this->openTag($compiler, 'if', [1, $compiler->tag_nocache]);

@@ -3,6 +3,7 @@
 namespace Smarty\Extension;
 
 use Smarty\BlockHandler\BlockPluginWrapper;
+use Smarty\Compile\CompilerInterface;
 use Smarty\Compile\Modifier\BCPluginWrapper as ModifierCompilerPluginWrapper;
 use Smarty\Compile\Tag\BCPluginWrapper as TagPluginWrapper;
 use Smarty\Filter\FilterPluginWrapper;
@@ -34,9 +35,18 @@ class BCPluginsAdapter extends Base {
 			return null;
 		}
 
-		$callback = $plugin[0];
-		$cacheable = (bool) $plugin[1] ?? true;
-		return new TagPluginWrapper($callback, $cacheable);
+		if (is_callable($plugin[0])) {
+			$callback = $plugin[0];
+			$cacheable = (bool) $plugin[1] ?? true;
+			return new TagPluginWrapper($callback, $cacheable);
+		} elseif (class_exists($plugin[0])) {
+			$compiler = new $plugin[0];
+			if ($compiler instanceof CompilerInterface) {
+				return $compiler;
+			}
+		}
+
+		return null;
 	}
 
 	public function getFunctionHandler(string $functionName): ?\Smarty\FunctionHandler\FunctionHandlerInterface {
@@ -172,8 +182,9 @@ class BCPluginsAdapter extends Base {
 				$pluginName = $this->getPluginNameFromFilename($filename);
 				if ($pluginName !== null) {
 					require_once $filename;
-					if (function_exists($functionName = 'smarty_' . $type . '_' . $pluginName)) {
-						$this->smarty->registerPlugin($type, $pluginName, $functionName, true, []);
+					$functionOrClassName = 'smarty_' . $type . '_' . $pluginName;
+					if (function_exists($functionOrClassName) || class_exists($functionOrClassName)) {
+						$this->smarty->registerPlugin($type, $pluginName, $functionOrClassName, true, []);
 					}
 				}
 			}

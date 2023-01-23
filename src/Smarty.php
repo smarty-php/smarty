@@ -769,7 +769,7 @@ class Smarty extends \Smarty\TemplateBase
 	public function registerPlugin($type, $name, $callback, $cacheable = true) {
 		if (isset($this->registered_plugins[$type][$name])) {
 			throw new Exception("Plugin tag '{$name}' already registered");
-		} elseif (!is_callable($callback)) {
+		} elseif (!is_callable($callback) && !class_exists($callback)) {
 			throw new Exception("Plugin '{$name}' not callable");
 		} else {
 			$this->registered_plugins[$type][$name] = [$callback, (bool)$cacheable];

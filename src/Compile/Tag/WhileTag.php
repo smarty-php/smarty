@@ -27,7 +27,7 @@ class WhileTag extends Base {
 
 		if ($compiler->tag_nocache) {
 			// push a {nocache} tag onto the stack to prevent caching of this block
-			$this->openTag('nocache');
+			$this->openTag($compiler, 'nocache');
 		}
 
 		$this->openTag($compiler, 'while', $compiler->tag_nocache);

@@ -41,7 +41,7 @@ class ForClose extends Base {
 
 		if ($nocache_pushed) {
 			// pop the pushed virtual nocache tag
-			$this->closeTag('nocache');
+			$this->closeTag($compiler, 'nocache');
 			$compiler->tag_nocache = true;
 		}
 
