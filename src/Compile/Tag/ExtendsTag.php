@@ -103,7 +103,9 @@ class ExtendsTag extends Inheritance {
 		$inlineUids = '';
 		if (isset($template) && $compiler->getSmarty()->merge_compiled_includes) {
 			$code = $compiler->compileTag('include', [$template, ['scope' => 'parent']]);
-			if (preg_match('/([,][\s]*[\'][a-z0-9]+[\'][,][\s]*[\']content.*[\'])[)]/', $code, $match)) {
+
+			// @TODO this relies on the generated code to have a certain format and is sure to break someday
+			if (preg_match('/(,\s*\'[a-z0-9]+\',\s*\'content.*\')/', $code, $match)) {
 				$inlineUids = $match[1];
 			}
 		}

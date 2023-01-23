@@ -222,9 +222,10 @@ class IncludeTag extends Base {
 			if (isset($_assign)) {
 				$_output .= "ob_start();\n";
 			}
-			$_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, {$_cache_id}, \$_smarty_tpl->compile_id, 
-			{$_caching}, {$_cache_lifetime}, {$_vars}, '{$compiler->getParentCompiler()->mergedSubTemplatesData[$uid][$t_hash]['uid']}', 
-			'{$compiler->getParentCompiler()->mergedSubTemplatesData[$uid][$t_hash]['func']}', (int) {$_scope});\n";
+			$_output .= "\$_smarty_tpl->renderSubTemplate({$fullResourceName}, {$_cache_id}, \$_smarty_tpl->compile_id, " .
+				"{$_caching}, {$_cache_lifetime}, {$_vars}, " .
+				"'{$compiler->getParentCompiler()->mergedSubTemplatesData[$uid][$t_hash]['uid']}', " .
+				"'{$compiler->getParentCompiler()->mergedSubTemplatesData[$uid][$t_hash]['func']}', (int) {$_scope});\n";
 			if (isset($_assign)) {
 				$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean(), false, {$_scope});\n";
 			}
@@ -239,7 +240,8 @@ class IncludeTag extends Base {
 		if (isset($_assign)) {
 			$_output .= "ob_start();\n";
 		}
-		$_output .= "\$_smarty_tpl->_subTemplateRender({$fullResourceName}, $_cache_id, \$_smarty_tpl->compile_id, $_caching, $_cache_lifetime, $_vars, null, null, (int) {$_scope});\n";
+		$_output .= "\$_smarty_tpl->renderSubTemplate({$fullResourceName}, $_cache_id, \$_smarty_tpl->compile_id, " .
+			"$_caching, $_cache_lifetime, $_vars, null, null, (int) {$_scope});\n";
 		if (isset($_assign)) {
 			$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean(), false, {$_scope});\n";
 		}

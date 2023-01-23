@@ -24,42 +24,42 @@ class InheritanceRuntime {
 	 *
 	 * @var int
 	 */
-	public $state = 0;
+	private $state = 0;
 
 	/**
 	 * Array of root child {block} objects
 	 *
 	 * @var \Smarty\Runtime\Block[]
 	 */
-	public $childRoot = [];
+	private $childRoot = [];
 
 	/**
 	 * inheritance template nesting level
 	 *
 	 * @var int
 	 */
-	public $inheritanceLevel = 0;
+	private $inheritanceLevel = 0;
 
 	/**
 	 * inheritance template index
 	 *
 	 * @var int
 	 */
-	public $tplIndex = -1;
+	private $tplIndex = -1;
 
 	/**
 	 * Array of template source objects
 	 *
 	 * @var Source[]
 	 */
-	public $sources = [];
+	private $sources = [];
 
 	/**
 	 * Stack of source objects while executing block code
 	 *
 	 * @var Source[]
 	 */
-	public $sourceStack = [];
+	private $sourceStack = [];
 
 	/**
 	 * Initialize inheritance
@@ -71,6 +71,7 @@ class InheritanceRuntime {
 	public function init(Template $tpl, $initChild, $blockNames = []) {
 		// if called while executing parent template it must be a sub-template with new inheritance root
 		if ($initChild && $this->state === 3 && (strpos($tpl->template_resource, 'extendsall') === false)) {
+			$tpl->setInheritance(clone $tpl->getSmarty()->getRuntime('Inheritance'));
 			$tpl->getInheritance()->init($tpl, $initChild, $blockNames);
 			return;
 		}
@@ -112,7 +113,7 @@ class InheritanceRuntime {
 			$this->state = 2;
 		}
 		if (isset($template)) {
-			$tpl->_subTemplateRender(
+			$tpl->renderSubTemplate(
 				$template,
 				$tpl->cache_id,
 				$tpl->compile_id,

@@ -105,6 +105,10 @@ class Template extends TemplateBase {
 	 */
 	private $right_delimiter = null;
 
+	/**
+	 * @var InheritanceRuntime|null
+	 */
+	private $inheritance;
 
 	/**
 	 * Create template data object
@@ -242,7 +246,7 @@ class Template extends TemplateBase {
 	 *
 	 * @throws Exception
 	 */
-	public function _subTemplateRender(
+	public function renderSubTemplate(
 		$template_name,
 		$cache_id,
 		$compile_id,
@@ -258,6 +262,7 @@ class Template extends TemplateBase {
 
 		$tpl = $this->getSmarty()->createTemplate($template_name, $cache_id, $compile_id, $this, $caching, $cache_lifetime, $baseFilePath);
 		$tpl->setCached($this->getCached()); // re-use the same Cache object across subtemplates to gather hashes and file dependencies.
+		$tpl->setInheritance($this->getInheritance()); // re-use the same Inheritance object inside the inheritance tree
 
 		if ($scope) {
 			$tpl->setDefaultScope($scope);
@@ -512,7 +517,21 @@ class Template extends TemplateBase {
 	 * @throws Exception
 	 */
 	public function getInheritance(): InheritanceRuntime {
-		return $this->getSmarty()->getRuntime('Inheritance');
+		if (is_null($this->inheritance)) {
+			$this->inheritance = clone $this->getSmarty()->getRuntime('Inheritance');
+		}
+		return $this->inheritance;
+	}
+
+	/**
+	 * Sets a new InheritanceRuntime object.
+	 *
+	 * @param InheritanceRuntime $inheritanceRuntime
+	 *
+	 * @return void
+	 */
+	public function setInheritance(InheritanceRuntime $inheritanceRuntime) {
+		$this->inheritance = $inheritanceRuntime;
 	}
 
 	/**

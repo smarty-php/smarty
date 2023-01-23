@@ -10,10 +10,6 @@ use Smarty\Template;
 
 /**
  * class for block extends compiler tests
- *
- *
- * @preserveGlobalState    disabled
- *
  */
 class CompileBlockExtendsTest extends PHPUnit_Smarty
 {
