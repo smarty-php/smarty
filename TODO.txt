@@ -5,6 +5,9 @@
 - review ->(step|total|first|last|do_else|key|show|iteration|index)
 - review ->tpl_vars, ->config_vars, ->value
 
+## Build
+- add compiled lexers and parsers to Release assets automatically
+
 ## Block / inheritance
 - Consider phasing out $smarty.block.child as this reverses the inheritance hierarchy and might cause infinite loops
   when combined with $smarty.block.parent

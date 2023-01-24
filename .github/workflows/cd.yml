@@ -1,0 +1,60 @@
+on:
+  push:
+    tags:
+      - '*'
+
+name: CD
+
+jobs:
+  release:
+    if: ${{ startsWith(github.ref_name, '5.') }}
+    runs-on: ubuntu-latest
+
+    env:
+      PHP_EXTENSIONS: dom, json, libxml, mbstring, pdo_sqlite, soap, xml, xmlwriter
+
+    steps:
+        - name: checkout code
+          uses: actions/checkout@v3
+
+        - name: Install PHP with extensions
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: 8.1
+            extensions: ${{ env.PHP_EXTENSIONS }}
+
+        - name: Install dependencies
+          uses: php-actions/composer@v6
+
+        - name: Run make
+          run: make
+
+        - name: create release assets
+          run: |
+            mkdir release
+            git archive release
+            cd release
+            make
+            cd ..
+            tar -cvzf release.tar.gz release
+
+        - name: create release
+          uses: actions/create-release@v1
+          id: create_release
+          with:
+            draft: false
+            prerelease: false
+            release_name: ${{ steps.version.outputs.version }}
+            tag_name: ${{ github.ref }}
+          env:
+            GITHUB_TOKEN: ${{ github.token }}
+
+        - name: upload artifacts
+          uses: actions/upload-release-asset@v1
+          env:
+            GITHUB_TOKEN: ${{ github.token }}
+          with:
+            upload_url: ${{ steps.create_release.outputs.upload_url }}
+            asset_path: ./release.tar.gz
+            asset_name: release.tar.gz
+            asset_content_type: application/gzip
