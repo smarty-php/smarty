@@ -233,7 +233,7 @@ class TemplateLexer
             $this->counter += strlen($match[0]);
         }
         $this->line = 1;
-        $this->smarty = $compiler->template->smarty;
+        $this->smarty = $compiler->getTemplate()->getSmarty();
         $this->compiler = $compiler;
         $this->compiler->initDelimiterPreg();
         $this->smarty_token_names['LDEL'] = $this->smarty->getLeftDelimiter();

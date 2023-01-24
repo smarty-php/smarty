@@ -13,7 +13,7 @@
 
 namespace Smarty\Parser;
 
-use \Smarty\Lexer\Configfile as Lexer;
+use \Smarty\Lexer\ConfigfileLexer as Lexer;
 use \Smarty\Compiler\Configfile as Configfile;
 
 /**
@@ -98,7 +98,7 @@ class ConfigfileParser
     public function __construct(Lexer $lex, Configfile $compiler)
     {
         $this->lex = $lex;
-        $this->smarty = $compiler->smarty;
+        $this->smarty = $compiler->getSmarty();
         $this->compiler = $compiler;
         $this->configOverwrite = $this->smarty->config_overwrite;
         $this->configReadHidden = $this->smarty->config_read_hidden;
