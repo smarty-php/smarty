@@ -73,9 +73,7 @@ jobs:
 
     - name: Install dependencies
       uses: php-actions/composer@v6
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-            
+
     - name: Run make
       run: make
 
