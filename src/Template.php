@@ -420,7 +420,7 @@ class Template extends TemplateBase {
 	 * @throws Exception
 	 */
 	public function getCachedContent() {
-		return $this->getCachedContent($this);
+		return $this->getCached()->handler->getCachedContent($this);
 	}
 
 	/**
@@ -739,7 +739,7 @@ class Template extends TemplateBase {
 				$savedTplVars = $this->tpl_vars;
 				$savedConfigVars = $this->config_vars;
 
-				// Start output-buffering. @TODO keep all ob_* calls together
+				// Start output-buffering.
 				ob_start();
 
 				$result = $this->render(false, $function);
