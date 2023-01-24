@@ -13,7 +13,7 @@ namespace Smarty\Compile\Modifier;
 class UpperModifierCompiler extends Base {
 
 	public function compile($params, \Smarty\Compiler\Template $compiler) {
-		return 'mb_strtoupper(' . $params[ 0 ] . ' ?? \'\', \'' . addslashes(\Smarty\Smarty::$_CHARSET) . '\')';
+		return 'mb_strtoupper((string) ' . $params[ 0 ] . ' ?? \'\', \'' . addslashes(\Smarty\Smarty::$_CHARSET) . '\')';
 	}
 
 }

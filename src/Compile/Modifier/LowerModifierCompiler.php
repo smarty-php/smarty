@@ -14,7 +14,7 @@ namespace Smarty\Compile\Modifier;
 class LowerModifierCompiler extends Base {
 
 	public function compile($params, \Smarty\Compiler\Template $compiler) {
-		return 'mb_strtolower(' . $params[ 0 ] . ', \'' . addslashes(\Smarty\Smarty::$_CHARSET) . '\')';
+		return 'mb_strtolower((string) ' . $params[ 0 ] . ', \'' . addslashes(\Smarty\Smarty::$_CHARSET) . '\')';
 	}
 
 }

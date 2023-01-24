@@ -651,7 +651,7 @@ class DefaultExtension extends Base {
 	 */
 	public function smarty_modifier_truncate($string, $length = 80, $etc = '...', $break_words = false, $middle = false)
 	{
-		if ($length === 0) {
+		if ($length === 0 || $string === null) {
 			return '';
 		}
 		if (mb_strlen($string, \Smarty\Smarty::$_CHARSET) > $length) {
