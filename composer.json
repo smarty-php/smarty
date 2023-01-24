@@ -52,15 +52,8 @@
     },
     "repositories": [
         {
-            "type": "package",
-            "package": {
-                "name": "smarty/smarty-lexer",
-                "version": "4.0.1",
-                "dist": {
-                    "url": "https://github.com/smarty-php/smarty-lexer/archive/refs/tags/v4.0.1.zip",
-                    "type": "zip"
-                }
-            }
+            "type": "vcs",
+            "url": "https://github.com/smarty-php/smarty-lexer"
         }
     ]
 }
