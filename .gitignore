@@ -1,16 +1,10 @@
 
 .idea/
 
-# Smarty
-lexer/*.php
-lexer/*.php.bak
-lexer/*.out
-
-# Dev
 phpunit*
 .phpunit.result.cache
-vendor/*
-composer.lock
+/vendor/*
+/composer.lock
 /src/Lexer/ConfigfileLexer.php
 /src/Lexer/TemplateLexer.php
 /src/Parser/ConfigfileParser.php

@@ -43,17 +43,11 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.0.x-dev"
+            "dev-master": "5.0.x-dev"
         }
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5 || ^7.5",
-        "smarty/smarty-lexer": "@dev"
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../smarty-lexer/"
-        }
-    ]
+        "smarty/smarty-lexer": "^4.0"
+    }
 }

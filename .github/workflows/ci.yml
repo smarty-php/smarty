@@ -77,5 +77,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-${{ matrix.php-version }}-
 
+    - name: Run make
+      run: make
+
     - name: Run tests with phpunit
       run: ./run-tests.sh
