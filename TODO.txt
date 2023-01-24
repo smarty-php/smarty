@@ -1,12 +1,44 @@
+# @TODO
+
+## Review direct variable property access
+- review ->value{$index} in ForTag
+- review ->(step|total|first|last|do_else|key|show|iteration|index)
+- review ->tpl_vars, ->config_vars, ->value
+
+## Block / inheritance
+- Consider phasing out $smarty.block.child as this reverses the inheritance hierarchy and might cause infinite loops
+  when combined with $smarty.block.parent
+
+## Output buffering
+- Fix ob_ output buffering commands being scattered around the codebase
+
+## Event handlers
+- startRenderCallbacks/endRenderCallbacks should be moved to a central eventdispatcher instead of being (un)registered on templates
+
 ## Plugin system
-- [ ] rewrite everything that uses ->registered_plugins
-- [ ] rewrite everything that uses compiler->getPlugin
-- [ ] rewrite everything that uses ->default_handler_plugins
+- fix template security checks in one place in compiler
 
-## Data, TemplateBase, Smarty, Template, Debug, DataObject mess:
-- [ ] review usages of ->_getSmartyObj and ->smarty: maybe change this so we can hide more
-- [ ] ->_objType and ->objMap
-- [ ] refactor _isTplObj, _isDataObj
-- [ ] look for and remove @method  and @property phpdoc tags
+## Data, TemplateBase, Smarty, Template, Debug, Data hierarchy:
+- review usages of ->_getSmartyObj and ->smarty: maybe change this, so we can hide more internals
 
-- [ ] remove `require_once` calls from tests/*, especially where they load files from the demo dir
+## Beatify output
+- compiled templates could be proper classes, possibly using [nette/php-generator](https://packagist.org/packages/nette/php-generator)
+
+## Documentation
+- beautify and review docs, possibly using [
+Material for MkDocs ](https://squidfunk.github.io/mkdocs-material/publishing-your-site/)
+
+## Resources
+- Fix circular deps between resources and sources
+```
+	$smarty = $this->_getSmartyObj();
+		[$name, $type] = \Smarty\Resource\BasePlugin::parseResourceName($config_file, $smarty->default_config_type);
+		$source = new Config($smarty, $config_file, $type, $name);
+
+		$source->handler->getContent($source);
+```
+
+## Unrelated / other
+- review (and avoid) use of 'clone' keyword
+- compiler->has_code seems silly. Why not have proper return values?
+- what is 'user literal support', why are unit tests skipped?
