@@ -107,7 +107,7 @@ class IncludeTag extends Base {
 			$variable_template = true;
 		}
 		// scope setup
-		$_scope = isset($_attr['scope']) ? $this->convertScope($_attr['scope'], [Data::SCOPE_LOCAL]) : 0;
+		$_scope = isset($_attr['scope']) ? $this->convertScope($_attr['scope']) : 0;
 
 		// assume caching is off
 		$_caching = Smarty::CACHING_OFF;

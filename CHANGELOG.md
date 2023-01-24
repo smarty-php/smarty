@@ -6,12 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Template variable scope bubbling has been simplified and made more consistent 
+
 ### Removed
 - Removed support for $cache_attrs for registered plugins
 - Removed support for undocumented {make_nocache} tag
 - Removed support for deprecated {insert} tag, the 'insert' plugin type and the associated $smarty->trusted_dir variable
 - Removed the undocumented {block_parent} and {parent} alternatives to {$smarty.block.parent}
 - Removed the undocumented {block_child} and {child} alternatives to {$smarty.block.child}
+- Removed support for loading config files into a non-local scope using {config_load} from a template 
 
 ### Fixed
 - `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP7 notices for undefined array indexes [#736](https://github.com/smarty-php/smarty/issues/736)

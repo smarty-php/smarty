@@ -78,11 +78,6 @@ class Assign extends Base
         } else {
             $_scope = isset($_attr['scope']) ? $this->convertScope($_attr['scope']) : null;
         }
-        // optional parameter
-        $_params = '';
-        if ($_nocache) {
-            $_params .= ' ,' . var_export($_nocache, true);
-        }
 
         if (isset($parameter[ 'smarty_internal_index' ])) {
             $output =
@@ -91,9 +86,9 @@ class Assign extends Base
             $output .= "settype(\$_tmp_array, 'array');\n";
             $output .= "}\n";
             $output .= "\$_tmp_array{$parameter['smarty_internal_index']} = {$_attr['value']};\n";
-            $output .= "\$_smarty_tpl->assign({$_var}, \$_tmp_array{$_params}, false, " . var_export($_scope, true) . ");?>";
+            $output .= "\$_smarty_tpl->assign({$_var}, \$_tmp_array, " . var_export($_nocache, true) . ", " . var_export($_scope, true) . ");?>";
         } else {
-            $output = "<?php \$_smarty_tpl->assign({$_var}, {$_attr['value']}{$_params}, false, " . var_export($_scope, true) . ");?>";
+            $output = "<?php \$_smarty_tpl->assign({$_var}, {$_attr['value']}, " . var_export($_nocache, true) . ", " . var_export($_scope, true) . ");?>";
         }
         return $output;
     }

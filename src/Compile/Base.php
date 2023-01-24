@@ -194,7 +194,7 @@ abstract class Base implements CompilerInterface {
 	 * @return int
 	 * @throws Exception
 	 */
-	protected function convertScope($scope, $invalidScopes = []): int {
+	protected function convertScope($scope): int {
 
 		static $scopes = [
 			'local'    => Data::SCOPE_LOCAL,    // current scope
@@ -211,7 +211,6 @@ abstract class Base implements CompilerInterface {
 			return (int) $_scopeName;
 		}
 
-		$_scopeName = trim($_scopeName, '\'"');
 		if (isset($scopes[$_scopeName])) {
 			return $scopes[$_scopeName];
 		}
