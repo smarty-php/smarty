@@ -6,16 +6,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added support for PHP8.2
+
 ### Changed
-- Template variable scope bubbling has been simplified and made more consistent 
+- All Smarty code is now in the \Smarty namespace. For simple use-cases, you only need to add
+  `use \Smarty\Smarty;` to your script and everything will work. If you extend Smarty or use
+  Smarty plug-ins, please review your code to see if they assume specific class or method names.
+  E.g.: `Smarty_Internal_Template` is now `\Smarty\Template\`, `SmartyException` is now `\Smarty\Exception`.
+- Template variable scope bubbling has been simplified and made more consistent. 
+  The global scope now equals the Smarty scope in order to avoid global state side effects. Please read
+  the documentation for more details.
+- Lexers and Parsers PHP files are no longer under version control, but generated from sources (.y and .plex) 
+- Smarty now always runs in multibyte mode, using `symfony/polyfill-mbstring` if required. Please use the
+  multibyte extension for optimal performance.
+
+### Deprecated
+- `$smarty->getPluginsDir()`
+- `$smarty->loadFilter()`
+- `$smarty->setPluginsDir()`
+- `$smarty->assignGlobal()`
+- Using `$smarty->registerFilter()` for registering variable filters will trigger a notice.
+- 
 
 ### Removed
-- Removed support for $cache_attrs for registered plugins
-- Removed support for undocumented {make_nocache} tag
-- Removed support for deprecated {insert} tag, the 'insert' plugin type and the associated $smarty->trusted_dir variable
-- Removed the undocumented {block_parent} and {parent} alternatives to {$smarty.block.parent}
-- Removed the undocumented {block_child} and {child} alternatives to {$smarty.block.child}
-- Removed support for loading config files into a non-local scope using {config_load} from a template 
+- Dropped support for PHP7.1
+- Removed `$smarty->left_delimiter` and `$smarty->right_delimiter`, use `$smarty->getLeftDelimiter()`/`$smarty->setLeftDelimiter()` and `$smarty->getRightDelimiter()`/`$smarty->setRightDelimiter()`
+- Removed support for the `$cache_attrs` parameter for registered plugins
+- Removed support for undocumented `{make_nocache}` tag
+- Removed support for deprecated `{insert}` tag, the 'insert' plugin type and the associated $smarty->trusted_dir variable
+- Removed the undocumented `{block_parent}` and `{parent}` alternatives to `{$smarty.block.parent}`
+- Removed the undocumented `{block_child}` and `{child}` alternatives to `{$smarty.block.child}`
+- Removed support for loading config files into a non-local scope using `{config_load}` from a template 
+- Removed `$smarty->autoload_filters` in favor of `$smarty->registerFilter()`
+- Removed `$smarty->trusted_dir` and `$smarty->allow_php_templates` since support for executing php scripts from templates has been dropped  
+- Removed `$smarty->php_functions` and `$smarty->php_modifiers`. If you need a PHP-function in your templates,
+  register it as a modifier.
+- Removed support for `$smarty->getTags()`
+- Removed the abandoned `$smarty->direct_access_security` setting
+- Dropped support for `$smarty->plugins_dir` and `$smarty->use_include_path`. If you must, use `$smarty->addPluginsDir()` instead,
+  but it's better to use Smarty::addExtension() to add an extension or Smarty::registerPlugin to
+  quickly register a plugin using a callback function.
+- Removed constants such as SMARTY_DIR to prevent global side effects.
+- Removed direct access to `$smarty->template_dir`. Use `$smarty->setTemplateDir()`.
+- Removed direct access to `$smarty->cache_dir`. Use `$smarty->setCacheDir()`.
+- Removed `$smarty->loadPlugin()`, use `$smarty->registerPlugin()` instead.
+- Removed `$smarty->appendByRef()` and `$smarty->assignByRef()`.
 
 ### Fixed
 - `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP7 notices for undefined array indexes [#736](https://github.com/smarty-php/smarty/issues/736)

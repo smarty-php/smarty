@@ -17,7 +17,7 @@ The Resource Handler must then implement the function
 `renderUncompiled(\Smarty\Template $_template)`. `$_template` is
 a reference to the current template and contains all assigned variables
 which the implementor can access via
-`$_template->smarty->getTemplateVars()`. These Resources simply echo
+`$_template->getSmarty()->getTemplateVars()`. These Resources simply echo
 their rendered content to the output stream. The rendered output will be
 output-cached if the Smarty instance was configured accordingly. See
 `src/Resource/PhpPlugin.php` for an example.

@@ -5,8 +5,14 @@
 - review ->(step|total|first|last|do_else|key|show|iteration|index)
 - review ->tpl_vars, ->config_vars, ->value
 
+## Review public static vars
+- such as _CHARSET and _IS_WINDOWS
+
 ## Build
 - add compiled lexers and parsers to Release assets automatically
+
+## Benchmark
+- benchmark to see that performance hasn't degraded
 
 ## Block / inheritance
 - Consider phasing out $smarty.block.child as this reverses the inheritance hierarchy and might cause infinite loops
@@ -20,9 +26,6 @@
 
 ## Plugin system
 - fix template security checks in one place in compiler
-
-## Data, TemplateBase, Smarty, Template, Debug, Data hierarchy:
-- review usages of ->_getSmartyObj and ->smarty: maybe change this, so we can hide more internals
 
 ## Beatify output
 - compiled templates could be proper classes, possibly using [nette/php-generator](https://packagist.org/packages/nette/php-generator)
