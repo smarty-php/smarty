@@ -36,7 +36,7 @@ class EmptyTest extends \PHPUnit_Smarty {
 	}
 
 	public function testInvalidParameters() {
-		$this->expectException(\Smarty\Exception::class);
+		$this->expectException(\Smarty\CompilerException::class);
 		$this->expectExceptionMessage('Invalid number of arguments');
 		$this->assertEquals("", $this->smarty->fetch("string:{empty(3, 'foo')}"));
 	}

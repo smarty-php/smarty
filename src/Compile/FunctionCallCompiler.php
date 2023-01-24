@@ -55,23 +55,28 @@ class FunctionCallCompiler extends Base {
 		$_attr = $this->getAttributes($compiler, $args);
 		unset($_attr['nocache']);
 
-		if (!$functionHandler = $compiler->getSmarty()->getFunctionHandler($function)) {
-			throw new CompilerException("Cannot compile unknown function $function.");
-		}
-
-		// not cacheable?
-		$compiler->tag_nocache = $compiler->tag_nocache || !$functionHandler->isCacheable();
-
 		$_paramsArray = $this->formatParamsArray($_attr);
-
 		$_params = 'array(' . implode(',', $_paramsArray) . ')';
 
-		$output = "\$_smarty_tpl->getSmarty()->getFunctionHandler(" . var_export($function, true) . ")";
-		$output .= "->handle($_params, \$_smarty_tpl)";
+		try {
+			$value = array_shift($_attr);
+			$output = $compiler->compileModifier([array_merge([$function], $_attr)], $value);
+		} catch (\Smarty\CompilerException $e) {
+			if ($functionHandler = $compiler->getSmarty()->getFunctionHandler($function)) {
+
+				// not cacheable?
+				$compiler->tag_nocache = $compiler->tag_nocache || !$functionHandler->isCacheable();
+				$output = "\$_smarty_tpl->getSmarty()->getFunctionHandler(" . var_export($function, true) . ")";
+				$output .= "->handle($_params, \$_smarty_tpl)";
+			} else {
+				throw $e;
+			}
+		}
 
 		if (!empty($parameter['modifierlist'])) {
 			$output = $compiler->compileModifier($parameter['modifierlist'], $output);
 		}
+
 		return $output;
 	}
 }

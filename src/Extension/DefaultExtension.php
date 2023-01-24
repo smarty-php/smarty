@@ -23,9 +23,11 @@ class DefaultExtension extends Base {
 			case 'count_sentences': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\CountSentencesModifierCompiler(); break;
 			case 'count_words': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\CountWordsModifierCompiler(); break;
 			case 'default': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\DefaultModifierCompiler(); break;
+			case 'empty': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\EmptyModifierCompiler(); break;
 			case 'escape': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\EscapeModifierCompiler(); break;
 			case 'from_charset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\FromCharsetModifierCompiler(); break;
 			case 'indent': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IndentModifierCompiler(); break;
+			case 'isset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IssetModifierCompiler(); break;
 			case 'lower': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\LowerModifierCompiler(); break;
 			case 'nl2br': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\Nl2brModifierCompiler(); break;
 			case 'noprint': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\NoPrintModifierCompiler(); break;
@@ -72,7 +74,6 @@ class DefaultExtension extends Base {
 			case 'count': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Count(); break;
 			case 'counter': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Counter(); break;
 			case 'cycle': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Cycle(); break;
-			case 'empty': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\EmptyHandler(); break;
 			case 'fetch': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Fetch(); break;
 			case 'html_checkboxes': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlCheckboxes(); break;
 			case 'html_image': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlImage(); break;
@@ -83,7 +84,6 @@ class DefaultExtension extends Base {
 			case 'html_table': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlTable(); break;
 			case 'in_array': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\InArray(); break;
 			case 'is_array': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\IsArray(); break;
-			case 'isset': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\IssetHandler(); break;
 			case 'mailto': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Mailto(); break;
 			case 'math': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Math(); break;
 			case 'strlen': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Strlen(); break;

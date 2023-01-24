@@ -20,7 +20,7 @@ class Count extends Base {
 		$params = array_values($params ?? []);
 
 		if (count($params) < 1 || count($params) > 2) {
-			throw new Exception("Invalid number of arguments for count. count expects 2 or 3 parameters.");
+			throw new Exception("Invalid number of arguments for count. count expects 1 or 2 parameters.");
 		}
 
 		$value = $params[0];

@@ -11,6 +11,8 @@
 namespace Smarty\Compile;
 
 use Smarty\Compile\Base;
+use Smarty\Compiler\Template;
+use Smarty\CompilerException;
 
 /**
  * Smarty Internal Plugin Compile Modifier Class
@@ -35,9 +37,8 @@ class ModifierCompiler extends Base {
 
 		$compiler->has_code = true;
 
-		// check and get attributes
-		$_attr = $this->getAttributes($compiler, $args);
 		$output = $parameter['value'];
+
 		// loop over list of modifiers
 		foreach ($parameter['modifierlist'] as $single_modifier) {
 			/* @var string $modifier */
@@ -73,5 +74,20 @@ class ModifierCompiler extends Base {
 			}
 		}
 		return $output;
+	}
+
+	/**
+	 * Wether this class will be able to compile the given modifier.
+	 * @param string $modifier
+	 * @param Template $compiler
+	 *
+	 * @return bool
+	 * @throws CompilerException
+	 */
+	public function canCompileForModifier(string $modifier, \Smarty\Compiler\Template $compiler): bool {
+		return $compiler->getModifierCompiler($modifier)
+			|| $compiler->getSmarty()->getModifierCallback($modifier)
+			|| $compiler->getPluginFromDefaultHandler($modifier, \Smarty\Smarty::PLUGIN_MODIFIERCOMPILER)
+			|| $compiler->getPluginFromDefaultHandler($modifier, \Smarty\Smarty::PLUGIN_MODIFIER);
 	}
 }

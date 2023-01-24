@@ -7,6 +7,7 @@ use RecursiveIteratorIterator;
 use Smarty\Cacheresource\File;
 use Smarty\Extension\Base;
 use Smarty\Extension\BCPluginsAdapter;
+use Smarty\Extension\CallbackWrapper;
 use Smarty\Extension\CoreExtension;
 use Smarty\Extension\DefaultExtension;
 use Smarty\Extension\ExtensionInterface;
@@ -1672,7 +1673,7 @@ class Smarty extends \Smarty\TemplateBase
 	public function getModifierCallback(string $modifierName) {
 		foreach ($this->getExtensions() as $extension) {
 			if ($callback = $extension->getModifierCallback($modifierName)) {
-				return $callback;
+				return [new CallbackWrapper($modifierName, $callback), 'handle'];
 			}
 		}
 		return null;

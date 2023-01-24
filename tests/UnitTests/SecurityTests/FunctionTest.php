@@ -32,7 +32,7 @@ class FunctionTest extends PHPUnit_Smarty
     {
         $this->smarty->enableSecurity();
         $this->expectException(\Smarty\CompilerException::class);
-        $this->expectExceptionMessage('Cannot compile unknown function unknown');
+        $this->expectExceptionMessage('unknown modifier');
         $this->smarty->fetch('eval:{unknown()}');
     }
 }
