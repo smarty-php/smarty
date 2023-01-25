@@ -5,6 +5,12 @@
 - review ->(step|total|first|last|do_else|key|show|iteration|index)
 - review ->tpl_vars, ->config_vars, ->value
 
+- Re-introduce merge_compiled_includes and the {include inline} attribute?
+
+## Output buffering
+- Fix ob_ output buffering commands being scattered around the codebase
+
+
 ## Review public static vars
 - such as _CHARSET and _IS_WINDOWS
 
@@ -18,11 +24,6 @@
 - Consider phasing out $smarty.block.child as this reverses the inheritance hierarchy and might cause infinite loops
   when combined with $smarty.block.parent
 
-## Output buffering
-- Fix ob_ output buffering commands being scattered around the codebase
-
-## Event handlers
-- startRenderCallbacks/endRenderCallbacks should be moved to a central eventdispatcher instead of being (un)registered on templates
 
 ## Plugin system
 - fix template security checks in one place in compiler
