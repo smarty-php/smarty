@@ -65,11 +65,10 @@ class Compiled extends GeneratedPhpFile {
 			$this->filepath .= (int)$smarty->config_read_hidden + (int)$smarty->config_booleanize * 2 +
 				(int)$smarty->config_overwrite * 4;
 		} else {
-			$this->filepath .= (int)$smarty->merge_compiled_includes + (int)$smarty->escape_html * 2 +
-				(($smarty->merge_compiled_includes && $source->type === 'extends') ? 4 : 0);
+			$this->filepath .= (int)$smarty->escape_html * 2;
 		}
 		$this->filepath .= '.' . $source->type;
-		$basename = $source->handler->getBasename($source);
+		$basename = $source->getBasename();
 		if (!empty($basename)) {
 			$this->filepath .= '.' . $basename;
 		}
@@ -101,13 +100,13 @@ class Compiled extends GeneratedPhpFile {
 			$_template->getSmarty()->getDebug()->start_render($_template);
 		}
 		if (!$this->processed) {
-			$this->process($_template);
+			$this->compileAndLoad($_template);
 		}
 
 		$_template->getCached()->file_dependency =
 			array_merge($_template->getCached()->file_dependency, $this->file_dependency);
 
-		$_template->getRenderedTemplateCode($this->unifunc);
+		$this->getRenderedTemplateCode($_template, $this->unifunc);
 
 		if ($_template->caching && $this->getNocacheCode()) {
 			$_template->getCached()->hashes[$this->nocache_hash] = true;
@@ -124,29 +123,23 @@ class Compiled extends GeneratedPhpFile {
 	 *
 	 * @throws Exception
 	 */
-	private function process(Template $_smarty_tpl) {
+	private function compileAndLoad(Template $_smarty_tpl) {
 		$source = $_smarty_tpl->getSource();
 		$smarty = $_smarty_tpl->getSmarty();
 		if ($source->handler->recompiled) {
-			$source->handler->process($_smarty_tpl);
+			$source->handler->recompile($_smarty_tpl); // @TODO who is compiling here?
 		} else {
 			if (!$this->exists || $smarty->force_compile
 				|| ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
 			) {
 				$this->compileTemplateSource($_smarty_tpl);
-				$compileCheck = $_smarty_tpl->compile_check;
-				$_smarty_tpl->compile_check = \Smarty\Smarty::COMPILECHECK_OFF;
 				$this->loadCompiledTemplate($_smarty_tpl);
-				$_smarty_tpl->compile_check = $compileCheck;
 			} else {
 				$_smarty_tpl->mustCompile = true;
 				@include $this->filepath;
 				if ($_smarty_tpl->mustCompile) {
 					$this->compileTemplateSource($_smarty_tpl);
-					$compileCheck = $_smarty_tpl->compile_check;
-					$_smarty_tpl->compile_check = \Smarty\Smarty::COMPILECHECK_OFF;
 					$this->loadCompiledTemplate($_smarty_tpl);
-					$_smarty_tpl->compile_check = $compileCheck;
 				}
 			}
 			$this->processed = true;
@@ -192,7 +185,7 @@ class Compiled extends GeneratedPhpFile {
 	 * @return bool success
 	 * @throws \Smarty\Exception
 	 */
-	public function write(Template $_template, $code) {
+	private function write(Template $_template, $code) {
 		if (!$_template->getSource()->handler->recompiled) {
 			if ($_template->getSmarty()->writeFile($this->filepath, $code) === true) {
 				$this->timestamp = $this->exists = is_file($this->filepath);
@@ -207,26 +200,14 @@ class Compiled extends GeneratedPhpFile {
 	}
 
 	/**
-	 * Read compiled content from handler
-	 *
-	 * @param Template $_template template object
-	 *
-	 * @return string content
-	 */
-	public function read(Template $_template) {
-		if (!$_template->getSource()->handler->recompiled) {
-			return file_get_contents($this->filepath);
-		}
-		return false;
-	}
-
-	/**
 	 * Load fresh compiled template by including the PHP file
 	 * HHVM requires a workaround because of a PHP incompatibility
 	 *
 	 * @param \Smarty\Template $_smarty_tpl do not change variable name, is used by compiled template
 	 */
 	private function loadCompiledTemplate(Template $_smarty_tpl) {
+		$compileCheck = $_smarty_tpl->compile_check;
+		$_smarty_tpl->compile_check = \Smarty\Smarty::COMPILECHECK_OFF;
 		if (function_exists('opcache_invalidate')
 			&& (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
 		) {
@@ -239,6 +220,7 @@ class Compiled extends GeneratedPhpFile {
 		} else {
 			include $this->filepath;
 		}
+		$_smarty_tpl->compile_check = $compileCheck;
 	}
 
 }

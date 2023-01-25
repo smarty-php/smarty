@@ -234,4 +234,14 @@ class Source {
 		return $this->smarty;
 	}
 
+	/**
+	 * Determine basename for compiled filename
+	 *
+	 * @return string                 resource's basename
+	 */
+	public function getBasename()
+	{
+		return $this->handler->getBasename($this);
+	}
+
 }

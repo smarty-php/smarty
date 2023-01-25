@@ -8,17 +8,7 @@ use Smarty\Template;
 use Smarty\Template\Cached;
 
 /**
- * Smarty Internal Plugin
- *
-
-
- */
-
-/**
  * Cache Handler API
- *
-
-
  * @author     Rodney Rehm
  */
 abstract class Base

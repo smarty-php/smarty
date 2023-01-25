@@ -400,7 +400,7 @@ class Template extends BaseCompiler {
 			$this->has_variable_string = false;
 			$this->prefix_code = [];
 			// add file dependency
-			if ($this->smarty->merge_compiled_includes || $this->template->getSource()->handler->checkTimestamps()) {
+			if ($this->template->getSource()->handler->checkTimestamps()) {
 				$this->parent_compiler->getTemplate()->getCompiled()->file_dependency[$this->template->getSource()->uid] =
 					[
 						$this->template->getSource()->filepath,

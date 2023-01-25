@@ -8,19 +8,9 @@ use Smarty\Template\Source;
 
 /**
  * Smarty Internal Plugin Resource Extends
- *
-
-
+ * Implements the file system as resource for Smarty which {extend}s a chain of template files templates
  * @author     Uwe Tews
  * @author     Rodney Rehm
- */
-
-/**
- * Smarty Internal Plugin Resource Extends
- * Implements the file system as resource for Smarty which {extend}s a chain of template files templates
- *
-
-
  */
 class ExtendsPlugin extends BasePlugin
 {

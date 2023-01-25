@@ -29,7 +29,8 @@ class My_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
         $timestamp = 0;
         foreach ($source->getSmarty()->getTemplateDir() as $key => $directory) {
             try {
-                $s = Smarty\Resource\BasePlugin::source(null, $source->getSmarty(), 'file:' . '[' . $key . ']' . $source->name);
+                $s = \Smarty\Template\Source::load(null, $source->getSmarty(),
+	                'file:' . '[' . $key . ']' . $source->name);
                 if (!$s->exists) {
                     continue;
                 }

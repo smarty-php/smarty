@@ -41,7 +41,7 @@ abstract class GeneratedPhpFile {
 	 *
 	 * @var boolean
 	 */
-	public $processed = false;
+	protected $processed = false;
 
 	/**
 	 * unique function name for compiled template code
@@ -88,6 +88,29 @@ abstract class GeneratedPhpFile {
 	 */
 	public function setNocacheCode(bool $has_nocache_code): void {
 		$this->has_nocache_code = $has_nocache_code;
+	}
+
+	/**
+	 * get rendered template content by calling compiled or cached template code
+	 *
+	 * @param string $unifunc function with template code
+	 *
+	 * @throws \Exception
+	 */
+	protected function getRenderedTemplateCode(\Smarty\Template $_template, $unifunc) {
+		$level = ob_get_level();
+		try {
+			if (empty($unifunc) || !function_exists($unifunc)) {
+				throw new \Smarty\Exception("Invalid compiled template for '{$this->filepath}'");
+			}
+			$unifunc($_template);
+		} catch (\Exception $e) {
+			while (ob_get_level() > $level) {
+				ob_end_clean();
+			}
+
+			throw $e;
+		}
 	}
 
 }

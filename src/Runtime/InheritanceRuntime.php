@@ -85,8 +85,6 @@ class InheritanceRuntime {
 				ob_start();
 			}
 			++$this->inheritanceLevel;
-			//           $tpl->startRenderCallbacks[ 'inheritance' ] = array($this, 'subTemplateStart');
-			//           $tpl->endRenderCallbacks[ 'inheritance' ] = array($this, 'subTemplateEnd');
 		}
 		// if state was waiting for parent change state to parent
 		if ($this->state === 2) {
@@ -100,13 +98,11 @@ class InheritanceRuntime {
 	 *
 	 * @param \Smarty\Template $tpl
 	 * @param null|string $template optional name of inheritance parent template
-	 * @param null|string $uid uid of inline template
-	 * @param null|string $func function call name of inline template
 	 *
 	 * @throws \Exception
 	 * @throws \Smarty\Exception
 	 */
-	public function endChild(Template $tpl, $template = null, $uid = null, $func = null) {
+	public function endChild(Template $tpl, $template = null) {
 		--$this->inheritanceLevel;
 		if (!$this->inheritanceLevel) {
 			ob_end_clean();
@@ -118,10 +114,7 @@ class InheritanceRuntime {
 				$tpl->cache_id,
 				$tpl->compile_id,
 				$tpl->caching ? \Smarty\Template::CACHING_NOCACHE_CODE : 0,
-				$tpl->cache_lifetime,
-				[],
-				$uid,
-				$func
+				$tpl->cache_lifetime
 			);
 		}
 	}
@@ -151,7 +144,7 @@ class InheritanceRuntime {
 		while ($block->child && $block->child->child && $block->tplIndex <= $block->child->tplIndex) {
 			$block->child = $block->child->child;
 		}
-		$this->process($tpl, $block);
+		$this->processBlock($tpl, $block);
 	}
 
 	/**
@@ -163,7 +156,7 @@ class InheritanceRuntime {
 	 *
 	 * @throws Exception
 	 */
-	private function process(
+	private function processBlock(
 		Template              $tpl,
 		\Smarty\Runtime\Block $block,
 		\Smarty\Runtime\Block $parent = null
@@ -181,7 +174,7 @@ class InheritanceRuntime {
 		if ($block->callsChild || !isset($block->child) || ($block->child->hide && !isset($block->child->child))) {
 			$this->callBlock($block, $tpl);
 		} else {
-			$this->process($tpl, $block->child, $block);
+			$this->processBlock($tpl, $block->child, $block);
 		}
 		if ($block->prepend && isset($parent)) {
 			$this->callParent($tpl, $block, '{block prepend}');
@@ -191,7 +184,7 @@ class InheritanceRuntime {
 				) {
 					$this->callBlock($block, $tpl);
 				} else {
-					$this->process($tpl, $block->child, $block);
+					$this->processBlock($tpl, $block->child, $block);
 				}
 			}
 		}
@@ -209,7 +202,7 @@ class InheritanceRuntime {
 	 */
 	public function callChild(Template $tpl, \Smarty\Runtime\Block $block) {
 		if (isset($block->child)) {
-			$this->process($tpl, $block->child, $block);
+			$this->processBlock($tpl, $block->child, $block);
 		}
 	}
 

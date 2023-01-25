@@ -62,7 +62,7 @@ class File extends Base
                                  $_filepath[ 4 ] . $_filepath[ 5 ] . DIRECTORY_SEPARATOR;
         }
         $cached->filepath .= $_filepath;
-        $basename = $source->handler->getBasename($source);
+        $basename = $source->getBasename();
         if (!empty($basename)) {
             $cached->filepath .= '.' . $basename;
         }
@@ -105,7 +105,7 @@ class File extends Base
 	    Cached   $cached = null,
 	             $update = false
     ) {
-        $_smarty_tpl->getCached()->valid = false;
+        $_smarty_tpl->getCached()->setValid(false);
         if ($update && defined('HHVM_VERSION')) {
             eval('?>' . file_get_contents($_smarty_tpl->getCached()->filepath));
             return true;

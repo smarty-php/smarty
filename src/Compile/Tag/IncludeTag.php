@@ -100,11 +100,6 @@ class IncludeTag extends Base {
 					$fullResourceName = $match[1] . $fullResourceName . $match[1];
 				}
 			}
-			if (empty($match[5])) {
-				$variable_template = true;
-			}
-		} else {
-			$variable_template = true;
 		}
 		// scope setup
 		$_scope = isset($_attr['scope']) ? $this->convertScope($_attr['scope']) : 0;
@@ -116,16 +111,6 @@ class IncludeTag extends Base {
 		// @TODO see if we can do without this
 		if ($compiler->getTemplate()->caching && !$compiler->isNocacheActive()) {
 			$_caching = \Smarty\Template::CACHING_NOCACHE_CODE;
-		}
-
-		// flag if included template code should be merged into caller
-		$merge_compiled_includes = ($compiler->getSmarty()->merge_compiled_includes || $_attr['inline'] === true) &&
-			!$compiler->getTemplate()->getSource()->handler->recompiled;
-		if ($merge_compiled_includes) {
-			// variable template name ?
-			if ($variable_template) {
-				$merge_compiled_includes = false;
-			}
 		}
 
 		/*
@@ -157,10 +142,6 @@ class IncludeTag extends Base {
 			$_cache_id = '$_smarty_tpl->cache_id';
 		}
 
-		// if subtemplate will be called in nocache mode do not merge
-		if ($compiler->getTemplate()->caching && $call_nocache) {
-			$merge_compiled_includes = false;
-		}
 		// assign attribute
 		if (isset($_attr['assign'])) {
 			// output will be stored in a smarty variable instead of being displayed
@@ -175,30 +156,7 @@ class IncludeTag extends Base {
 			}
 		}
 		$has_compiled_template = false;
-		if ($merge_compiled_includes) {
-			$c_id = $compiler->getTemplate()->compile_id;
-			// we must observe different compile_id and caching
-			$t_hash = sha1($c_id . ($_caching ? '--caching' : '--nocaching'));
 
-			$compiler->getSmarty()->setAllowAmbiguousResources(true);
-			$tpl = $compiler->getSmarty()->createTemplate(
-				trim($fullResourceName, '"\''),
-				$compiler->getTemplate()->cache_id,
-				$c_id,
-				$compiler->getTemplate(),
-				$_caching
-			);
-
-			$uid = $tpl->getSource()->type . $tpl->getSource()->uid;
-			if (!isset($compiler->getParentCompiler()->mergedSubTemplatesData[$uid][$t_hash])) {
-				$has_compiled_template = $this->compileInlineTemplate($compiler, $tpl, $t_hash);
-			} else {
-				$has_compiled_template = true;
-			}
-
-			$compiler->getSmarty()->setAllowAmbiguousResources(false);
-
-		}
 		// delete {include} standard attributes
 		unset($_attr['file'], $_attr['assign'], $_attr['cache_id'], $_attr['cache_lifetime'], $_attr['nocache'], $_attr['caching'], $_attr['scope'], $_attr['inline']);
 		// remaining attributes must be assigned as smarty variable
@@ -211,27 +169,6 @@ class IncludeTag extends Base {
 			}
 			$_vars = 'array(' . join(',', $_pairs) . ')';
 		}
-		if ($has_compiled_template && !$call_nocache) {
-			$_output = "<?php\n";
-			if (!empty($_attr) && $_caching === \Smarty\Template::CACHING_NOCACHE_CODE && $compiler->getTemplate()->caching) {
-				$_vars_nc = "foreach ($_vars as \$ik => \$iv) {\n";
-				$_vars_nc .= "\$_smarty_tpl->assign(\$ik, \$iv);\n";
-				$_vars_nc .= "}\n";
-				$_output .= substr($compiler->processNocacheCode('<?php ' . $_vars_nc . "?>\n"), 6, -3);
-			}
-			if (isset($_assign)) {
-				$_output .= "ob_start();\n";
-			}
-			$_output .= "\$_smarty_tpl->renderSubTemplate({$fullResourceName}, {$_cache_id}, \$_smarty_tpl->compile_id, " .
-				"{$_caching}, {$_cache_lifetime}, {$_vars}, " .
-				"'{$compiler->getParentCompiler()->mergedSubTemplatesData[$uid][$t_hash]['uid']}', " .
-				"'{$compiler->getParentCompiler()->mergedSubTemplatesData[$uid][$t_hash]['func']}', (int) {$_scope});\n";
-			if (isset($_assign)) {
-				$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean(), false, {$_scope});\n";
-			}
-			$_output .= "?>";
-			return $_output;
-		}
 		if ($call_nocache) {
 			$compiler->tag_nocache = true;
 		}
@@ -241,7 +178,7 @@ class IncludeTag extends Base {
 			$_output .= "ob_start();\n";
 		}
 		$_output .= "\$_smarty_tpl->renderSubTemplate({$fullResourceName}, $_cache_id, \$_smarty_tpl->compile_id, " .
-			"$_caching, $_cache_lifetime, $_vars, null, null, (int) {$_scope});\n";
+			"$_caching, $_cache_lifetime, $_vars, (int) {$_scope});\n";
 		if (isset($_assign)) {
 			$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean(), false, {$_scope});\n";
 		}
@@ -280,7 +217,7 @@ class IncludeTag extends Base {
 			if ($tplSource->type === 'file') {
 				$sourceInfo = $tplSource->filepath;
 			} else {
-				$basename = $tplSource->handler->getBasename($tplSource);
+				$basename = $tplSource->getBasename();
 				$sourceInfo = $tplSource->type . ':' .
 					($basename ? $basename : $tplSource->name);
 			}

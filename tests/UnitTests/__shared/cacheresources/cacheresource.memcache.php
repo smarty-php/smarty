@@ -17,20 +17,22 @@ class Smarty_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore
      *
      * @var Memcache
      */
-    protected $memcache = null;
+    private $memcache = null;
 
-    /**
-     * Smarty_CacheResource_Memcache constructor.
-     */
-    public function __construct()
-    {
-        if (class_exists('Memcached')) {
-            $this->memcache = new Memcached();
-        } else {
-            $this->memcache = new Memcache();
-        }
-        $this->memcache->addServer('127.0.0.1', 11211);
-    }
+	/**
+	 * @return Memcache|Memcached
+	 */
+	public function getMemcache() {
+		if ($this->memcache ===  null) {
+			if (class_exists('Memcached')) {
+				$this->memcache = new Memcached();
+			} else {
+				$this->memcache = new Memcache();
+			}
+			$this->memcache->addServer('127.0.0.1', 11211);
+		}
+		return $this->memcache;
+	}
 
     /**
      * Read values for a set of keys from cache
@@ -45,7 +47,7 @@ class Smarty_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore
         $res = array();
         foreach ($keys as $key) {
             $k = sha1($key);
-            $res[$key] = $this->memcache->get($k);
+            $res[$key] = $this->getMemcache()->get($k);
         }
         return $res;
     }
@@ -63,9 +65,9 @@ class Smarty_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore
         foreach ($keys as $k => $v) {
             $k = sha1($k);
             if (class_exists('Memcached')) {
-                $this->memcache->set($k, $v, $expire);
+                $this->getMemcache()->set($k, $v, $expire);
             } else {
-                $this->memcache->set($k, $v, 0, $expire);
+                $this->getMemcache()->set($k, $v, 0, $expire);
             }
         }
         return true;
@@ -82,7 +84,7 @@ class Smarty_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore
     {
         foreach ($keys as $k) {
             $k = sha1($k);
-            $this->memcache->delete($k);
+            $this->getMemcache()->delete($k);
         }
         return true;
     }
@@ -94,6 +96,6 @@ class Smarty_CacheResource_Memcache extends \Smarty\Cacheresource\KeyValueStore
      */
     protected function purge()
     {
-        return $this->memcache->flush();
+        return $this->getMemcache()->flush();
     }
 }

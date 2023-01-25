@@ -9,9 +9,7 @@
 
 namespace Smarty\Resource;
 
-use Smarty\Smarty;
 use Smarty\Template;
-use Smarty\Template\Compiled;
 
 /**
  * Smarty Resource Plugin
@@ -45,7 +43,7 @@ abstract class RecompiledPlugin extends BasePlugin {
 	 *
 	 * @throws Exception
 	 */
-	public function process(Template $_smarty_tpl) {
+	public function recompile(Template $_smarty_tpl) {
 		$compiled = $_smarty_tpl->getCompiled();
 		$compiled->file_dependency = [];
 		$compiled->includes = [];

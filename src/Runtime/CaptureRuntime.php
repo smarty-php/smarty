@@ -41,13 +41,6 @@ class CaptureRuntime {
 	private $namedBuffer = [];
 
 	/**
-	 * Flag if callbacks are registered
-	 *
-	 * @var bool
-	 */
-	private $isRegistered = false;
-
-	/**
 	 * Open capture section
 	 *
 	 * @param \Smarty\Template $_template
@@ -56,9 +49,9 @@ class CaptureRuntime {
 	 * @param string $append variable name
 	 */
 	public function open(Template $_template, $buffer, $assign, $append) {
-		if (!$this->isRegistered) {
-			$this->register($_template);
-		}
+
+		$this->registerCallbacks($_template);
+
 		$this->captureStack[] = [
 			$buffer,
 			$assign,
@@ -73,7 +66,15 @@ class CaptureRuntime {
 	 *
 	 * @param \Smarty\Template $_template
 	 */
-	private function register(Template $_template) {
+	private function registerCallbacks(Template $_template) {
+
+		foreach ($_template->startRenderCallbacks as $callback) {
+			if (is_array($callback) && get_class($callback[0]) == self::class) {
+				// already registered
+				return;
+			}
+		}
+
 		$_template->startRenderCallbacks[] = [
 			$this,
 			'startRender',
@@ -83,7 +84,6 @@ class CaptureRuntime {
 			'endRender',
 		];
 		$this->startRender($_template);
-		$this->isRegistered = true;
 	}
 
 	/**

@@ -7,7 +7,7 @@ use Smarty\Template\Source;
 class Smarty_Resource_FiletestPlugin extends FilePlugin
 {
     /**
-     * populate Source Object with meta data from Resource
+     * populate Source Object with metadata from Resource
      *
      * @param Source   $source    source object
      * @param Template $_template template object

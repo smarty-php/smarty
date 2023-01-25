@@ -2,12 +2,14 @@
 
 namespace Smarty\Resource;
 
+use Smarty\Exception;
 use Smarty\Smarty;
+use Smarty\Template;
+use Smarty\Template\Source;
 
 /**
  * Smarty Resource Plugin
  * Base implementation for resource plugins
- * @method process(\Smarty\Template $_smarty_tpl)
  * @author     Rodney Rehm
  */
 abstract class BasePlugin
@@ -41,15 +43,25 @@ abstract class BasePlugin
 		return true;
     }
 
-    /**
-     * Load Resource Handler
-     *
-     * @param \Smarty $smarty smarty object
-     * @param string $type   name of the resource
-     *
-     * @return BasePlugin Resource Handler
-     *@throws \Smarty\Exception
-     */
+	/**
+	 * Check if resource must check time stamps when loading compiled or cached templates.
+	 * Resources like 'extends' which use source components my disable timestamp checks on own resource.
+	 * @return bool
+	 */
+	public function checkTimestamps()
+	{
+		return true;
+	}
+
+	/**
+	 * Load Resource Handler
+	 *
+	 * @param Smarty $smarty smarty object
+	 * @param string $type name of the resource
+	 *
+	 * @return BasePlugin Resource Handler
+	 * @throws Exception
+	 */
     public static function load(Smarty $smarty, $type)
     {
         // try smarty's cache
@@ -109,76 +121,49 @@ abstract class BasePlugin
     }
 
     /**
-     * initialize Source Object for given resource
-     * wrapper for backward compatibility to versions < 3.1.22
-     * Either [$_template] or [$smarty, $template_resource] must be specified
-     *
-     * @param \Smarty\Template $_template         template object
-     * @param \Smarty                   $smarty            smarty object
-     * @param string                   $template_resource resource identifier
-     *
-     * @return \Smarty\Template\Source Source Object
-     * @throws \Smarty\Exception
-     */
-    public static function source(
-	    \Smarty\Template $_template = null,
-	    \Smarty\Smarty   $smarty = null,
-	                     $template_resource = null
-    ) {
-        return \Smarty\Template\Source::load($_template, $smarty, $template_resource);
-    }
-
-    /**
      * Load template's source into current template object
      *
-     * @param \Smarty\Template\Source $source source object
+     * @param Source $source source object
      *
      * @return string                 template source
      * @throws \Smarty\Exception        if source cannot be loaded
      */
-    abstract public function getContent(\Smarty\Template\Source $source);
+    abstract public function getContent(Source $source);
 
-    /**
-     * populate Source Object with meta data from Resource
-     *
-     * @param \Smarty\Template\Source   $source    source object
-     * @param \Smarty\Template $_template template object
-     */
-    abstract public function populate(\Smarty\Template\Source $source, \Smarty\Template $_template = null);
+	/**
+	 * populate Source Object with metadata from Resource
+	 *
+	 * @param Source $source source object
+	 * @param Template|null $_template template object
+	 */
+    abstract public function populate(Source $source, \Smarty\Template $_template = null);
 
     /**
      * populate Source Object with timestamp and exists from Resource
      *
-     * @param \Smarty\Template\Source $source source object
+     * @param Source $source source object
      */
-    public function populateTimestamp(\Smarty\Template\Source $source)
+    public function populateTimestamp(Source $source)
     {
         // intentionally left blank
     }
 
-    /*
-     * Check if resource must check time stamps when when loading complied or cached templates.
-     * Resources like 'extends' which use source components my disable timestamp checks on own resource.
-     *
-     * @return bool
-     */
-    /**
-     * Determine basename for compiled filename
-     *
-     * @param \Smarty\Template\Source $source source object
-     *
-     * @return string                 resource's basename
-     */
-    public function getBasename(\Smarty\Template\Source $source)
-    {
-        return basename(preg_replace('![^\w]+!', '_', $source->name));
-    }
+	/*
+ * Check if resource must check time stamps when when loading complied or cached templates.
+ * Resources like 'extends' which use source components my disable timestamp checks on own resource.
+ *
+ * @return bool
+ */
+	/**
+	 * Determine basename for compiled filename
+	 *
+	 * @param \Smarty\Template\Source $source source object
+	 *
+	 * @return string                 resource's basename
+	 */
+	public function getBasename(\Smarty\Template\Source $source)
+	{
+		return basename(preg_replace('![^\w]+!', '_', $source->name));
+	}
 
-    /**
-     * @return bool
-     */
-    public function checkTimestamps()
-    {
-        return true;
-    }
 }

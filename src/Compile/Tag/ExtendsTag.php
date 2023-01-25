@@ -100,21 +100,10 @@ class ExtendsTag extends Inheritance {
 	 * @throws \Smarty\Exception
 	 */
 	private function compileEndChild(\Smarty\Compiler\Template $compiler, $template = null) {
-		$inlineUids = '';
-		if (isset($template) && $compiler->getSmarty()->merge_compiled_includes) {
-			$code = $compiler->compileTag('include', [$template, ['scope' => 'parent']]);
-
-			// @TODO this relies on the generated code to have a certain format and is sure to break someday
-			if (preg_match('/(,\s*\'[a-z0-9]+\',\s*\'content.*\')/', $code, $match)) {
-				$inlineUids = $match[1];
-			}
-		}
 		$compiler->getParser()->template_postfix[] = new \Smarty\ParseTree\Tag(
 			$compiler->getParser(),
 			'<?php $_smarty_tpl->getInheritance()->endChild($_smarty_tpl' .
-			(isset($template) ?
-				", {$template}{$inlineUids}" :
-				'') . ");\n?>"
+			(isset($template) ?	", {$template}" : '') . ");\n?>"
 		);
 	}
 
