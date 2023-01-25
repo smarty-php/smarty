@@ -43,8 +43,29 @@ class CodeFrame
         $cache = false,
         \Smarty\Compiler\Template $compiler = null
     ) {
+
+		$className = ($cache ? 'Cached' : 'Compiled') . str_replace(array('.', ','), '_', uniqid('', true));
+	    $properties = [];
+
+	    $properties['version'] = \Smarty\Smarty::SMARTY_VERSION;
+
+	    $file = new \Nette\PhpGenerator\PhpFile;
+	    $file->addComment('This file is auto-generated.');
+	    $class = $file->addClass($className);
+
+		$class
+			->setFinal()
+			->setExtends($cache ? \Smarty\CodeFrame\Cached::class : \Smarty\CodeFrame\Base::class)
+			->addComment(sprintf(
+				"Created on %s from '%s'",
+				$properties[ 'version' ],
+				date("Y-m-d H:i:s"),
+				str_replace('*/', '* /', $this->_template->getSource()->filepath)
+			));
+
+	    $dumper = new \Nette\PhpGenerator\Dumper;
+
         // build property code
-        $properties[ 'version' ] = \Smarty\Smarty::SMARTY_VERSION;
         $properties[ 'unifunc' ] = 'content_' . str_replace(array('.', ','), '_', uniqid('', true));
         if (!$cache) {
             $properties[ 'has_nocache_code' ] = $this->_template->getCompiled()->getNocacheCode();
@@ -55,8 +76,16 @@ class CodeFrame
             $properties[ 'file_dependency' ] = $this->_template->getCached()->file_dependency;
             $properties[ 'cache_lifetime' ] = $this->_template->cache_lifetime;
         }
-        $output = sprintf(
-			"<?php\n/* Smarty version %s, created on %s\n  from '%s' */\n\n",
+
+	    $class->addMethod('getProperties')
+		    ->setProtected()
+		    ->setReturnType('array') // method return type
+		    ->setBody('return ' . $dumper->dump($properties) . ';');
+
+	    $output = (string) $file;
+
+        $output .= sprintf(
+			"\n/* Created on %s\n  from '%s' */\n\n",
             $properties[ 'version' ],
 	        date("Y-m-d H:i:s"),
 	        str_replace('*/', '* /', $this->_template->getSource()->filepath)
