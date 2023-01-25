@@ -31,7 +31,8 @@
     },
     "require": {
         "php": "^7.2 || ^8.0",
-        "symfony/polyfill-mbstring": "^1.27"
+        "symfony/polyfill-mbstring": "^1.27",
+        "nette/php-generator": "^3.6"
     },
     "autoload": {
         "psr-4" : {
