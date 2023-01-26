@@ -216,11 +216,7 @@ class Cached extends GeneratedPhpFile {
 		if ($this->handler->process($_template, $this, $update) === false) {
 			$this->valid = false;
 		}
-		if ($this->valid) {
-			$this->processed = true;
-		} else {
-			$this->processed = false;
-		}
+		$this->processed = $this->valid;
 	}
 
 	/**
@@ -287,18 +283,14 @@ class Cached extends GeneratedPhpFile {
 
 		$this->removeNoCacheHash($_template, $no_output_filter);
 
-		$compile_check = (int)$_template->compile_check;
-		$_template->compile_check = \Smarty\Smarty::COMPILECHECK_OFF;
-
 		if ($_template->_isSubTpl()) {
+			// @TODO why is this needed?
 			$_template->getCompiled()->unifunc = $_template->parent->getCompiled()->unifunc;
 		}
 
 		if (!$this->processed) {
 			$this->process($_template, true);
 		}
-
-		$_template->compile_check = $compile_check;
 
 		if ($_template->getSmarty()->debugging) {
 			$_template->getSmarty()->getDebug()->end_cache($_template);
@@ -384,6 +376,62 @@ class Cached extends GeneratedPhpFile {
 	 */
 	public function setSource(?Source $source): void {
 		$this->source = $source;
+	}
+
+	/**
+	 * Returns the generated content
+	 *
+	 * @param Template $template
+	 *
+	 * @return string|null
+	 * @throws \Exception
+	 */
+	public function getContent(Template $template) {
+		ob_start();
+		$this->render($template);
+		return ob_get_clean();
+	}
+
+	/**
+	 * This function is executed automatically when a generated file is included
+	 * - Decode saved properties
+	 * - Check if file is valid
+	 *
+	 * @param Template $_template
+	 * @param array $properties special template properties
+	 *
+	 * @return bool flag if compiled or cache file is valid
+	 * @throws Exception
+	 */
+	public function isFresh(Template $_template, array $properties): bool {
+
+		// on cache resources other than file check version stored in cache code
+		if (\Smarty\Smarty::SMARTY_VERSION !== $properties['version']) {
+			return false;
+		}
+
+		$is_valid = true;
+
+		if (!empty($properties['file_dependency']) && ($_template->compile_check === \Smarty\Smarty::COMPILECHECK_ON)) {
+			$is_valid = $this->checkFileDependencies($properties['file_dependency'], $_template);
+		}
+
+		// CACHING_LIFETIME_SAVED cache expiry has to be validated here since otherwise we'd define the unifunc
+		if ($_template->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED && $properties['cache_lifetime'] >= 0
+			&& (time() > ($this->timestamp + $properties['cache_lifetime']))
+		) {
+			$is_valid = false;
+		}
+
+		$this->cache_lifetime = $properties['cache_lifetime'];
+		$this->setValid($is_valid);
+
+		if ($is_valid) {
+			$this->unifunc = $properties['unifunc'];
+			$this->setNocacheCode($properties['has_nocache_code']);
+			$this->file_dependency = $properties['file_dependency'];
+		}
+		return $is_valid && !function_exists($properties['unifunc']);
 	}
 
 }

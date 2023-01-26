@@ -2,8 +2,12 @@
 
 namespace Smarty\Template;
 
+use Smarty\Exception;
+use Smarty\Template;
+
 /**
  * Base class for generated PHP files, such as compiled and cached versions of templates and config files.
+ *
  * @author     Rodney Rehm
  */
 abstract class GeneratedPhpFile {
@@ -111,6 +115,39 @@ abstract class GeneratedPhpFile {
 
 			throw $e;
 		}
+	}
+
+	/**
+	 * @param $file_dependency
+	 * @param Template $_template
+	 *
+	 * @return bool
+	 * @throws Exception
+	 */
+	protected function checkFileDependencies($file_dependency, Template $_template): bool {
+			// check file dependencies at compiled code
+		foreach ($file_dependency as $_file_to_check) {
+			if ($_file_to_check[2] === 'file') {
+				if ($_template->getSource()->filepath === $_file_to_check[0]) {
+					// do not recheck current template
+					continue;
+				}
+				// file and php types can be checked without loading the respective resource handlers
+				$mtime = is_file($_file_to_check[0]) ? filemtime($_file_to_check[0]) : false;
+			} else {
+				$handler = \Smarty\Resource\BasePlugin::load($_template->getSmarty(), $_file_to_check[2]);
+				if ($handler->checkTimestamps()) {
+					$source = Source::load($_template, $_template->getSmarty(), $_file_to_check[0]);
+					$mtime = $source->getTimeStamp();
+				} else {
+					continue;
+				}
+			}
+			if ($mtime === false || $mtime > $_file_to_check[1]) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

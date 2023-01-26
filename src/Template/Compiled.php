@@ -2,6 +2,7 @@
 
 namespace Smarty\Template;
 
+use Smarty\Exception;
 use Smarty\Template;
 
 /**
@@ -25,6 +26,10 @@ class Compiled extends GeneratedPhpFile {
 	 * @var int[]
 	 */
 	public $includes = [];
+	/**
+	 * @var bool
+	 */
+	private $isValid = false;
 
 	/**
 	 * get a Compiled Object of this source
@@ -103,14 +108,17 @@ class Compiled extends GeneratedPhpFile {
 			$this->compileAndLoad($_template);
 		}
 
+		// @TODO Can't Cached handle this? Maybe introduce an event to decouple.
 		$_template->getCached()->file_dependency =
 			array_merge($_template->getCached()->file_dependency, $this->file_dependency);
 
 		$this->getRenderedTemplateCode($_template, $this->unifunc);
 
+		// @TODO Can't Cached handle this? Maybe introduce an event to decouple and remove the $_template->caching property.
 		if ($_template->caching && $this->getNocacheCode()) {
 			$_template->getCached()->hashes[$this->nocache_hash] = true;
 		}
+
 		if ($_template->getSmarty()->debugging) {
 			$_template->getSmarty()->getDebug()->end_render($_template);
 		}
@@ -124,26 +132,48 @@ class Compiled extends GeneratedPhpFile {
 	 * @throws Exception
 	 */
 	private function compileAndLoad(Template $_smarty_tpl) {
-		$source = $_smarty_tpl->getSource();
-		$smarty = $_smarty_tpl->getSmarty();
-		if ($source->handler->recompiled) {
-			$source->handler->recompile($_smarty_tpl); // @TODO who is compiling here?
-		} else {
-			if (!$this->exists || $smarty->force_compile
-				|| ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
-			) {
-				$this->compileTemplateSource($_smarty_tpl);
-				$this->loadCompiledTemplate($_smarty_tpl);
-			} else {
-				$_smarty_tpl->mustCompile = true;
-				@include $this->filepath;
-				if ($_smarty_tpl->mustCompile) {
-					$this->compileTemplateSource($_smarty_tpl);
-					$this->loadCompiledTemplate($_smarty_tpl);
-				}
-			}
-			$this->processed = true;
+
+		if ($_smarty_tpl->getSource()->handler->recompiled) {
+			$this->recompile($_smarty_tpl);
+			return;
 		}
+
+		if ($this->exists && !$_smarty_tpl->getSmarty()->force_compile
+			&& !($_smarty_tpl->compile_check && $_smarty_tpl->getSource()->getTimeStamp() > $this->getTimeStamp())
+		) {
+			$this->loadCompiledTemplate($_smarty_tpl);
+		}
+
+		if (!$this->isValid) {
+			$this->compileAndWrite($_smarty_tpl);
+			$this->loadCompiledTemplate($_smarty_tpl);
+		}
+
+		$this->processed = true;
+	}
+
+	/**
+	 * compile template from source
+	 *
+	 * @param Template $_smarty_tpl do not change variable name, is used by compiled template
+	 *
+	 * @throws Exception
+	 */
+	private function recompile(Template $_smarty_tpl) {
+		$level = ob_get_level();
+		ob_start();
+		// call compiler
+		try {
+			eval('?>' . $this->doCompile($_smarty_tpl));
+		} catch (\Exception $e) {
+			while (ob_get_level() > $level) {
+				ob_end_clean();
+			}
+			throw $e;
+		}
+		ob_get_clean();
+		$this->timestamp = time();
+		$this->exists = true;
 	}
 
 	/**
@@ -153,11 +183,7 @@ class Compiled extends GeneratedPhpFile {
 	 *
 	 * @throws Exception
 	 */
-	public function compileTemplateSource(Template $_template) {
-		$this->file_dependency = [];
-		$this->includes = [];
-		$this->nocache_hash = null;
-		$this->unifunc = null;
+	public function compileAndWrite(Template $_template) {
 		// compile locking
 		if ($saved_timestamp = (!$_template->getSource()->handler->recompiled && is_file($this->filepath))) {
 			$saved_timestamp = $this->getTimeStamp();
@@ -166,7 +192,7 @@ class Compiled extends GeneratedPhpFile {
 		// compile locking
 		try {
 			// call compiler
-			$this->write($_template, $_template->getCompiler()->compileTemplate($_template));
+			$this->write($_template, $this->doCompile($_template));
 		} catch (\Exception $e) {
 			// restore old timestamp in case of error
 			if ($saved_timestamp && is_file($this->filepath)) {
@@ -174,6 +200,22 @@ class Compiled extends GeneratedPhpFile {
 			}
 			throw $e;
 		}
+	}
+
+	/**
+	 * Do the actual compiling.
+	 *
+	 * @param Template $_smarty_tpl
+	 *
+	 * @return string
+	 * @throws Exception
+	 */
+	private function doCompile(Template $_smarty_tpl): string {
+		$this->file_dependency = [];
+		$this->includes = [];
+		$this->nocache_hash = null;
+		$this->unifunc = null;
+		return $_smarty_tpl->getCompiler()->compileTemplate($_smarty_tpl);
 	}
 
 	/**
@@ -203,11 +245,11 @@ class Compiled extends GeneratedPhpFile {
 	 * Load fresh compiled template by including the PHP file
 	 * HHVM requires a workaround because of a PHP incompatibility
 	 *
-	 * @param \Smarty\Template $_smarty_tpl do not change variable name, is used by compiled template
+	 * @param Template $_smarty_tpl do not change/remove variable name, is used by compiled template
+	 *
 	 */
 	private function loadCompiledTemplate(Template $_smarty_tpl) {
-		$compileCheck = $_smarty_tpl->compile_check;
-		$_smarty_tpl->compile_check = \Smarty\Smarty::COMPILECHECK_OFF;
+
 		if (function_exists('opcache_invalidate')
 			&& (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
 		) {
@@ -220,7 +262,41 @@ class Compiled extends GeneratedPhpFile {
 		} else {
 			include $this->filepath;
 		}
-		$_smarty_tpl->compile_check = $compileCheck;
+
+	}
+
+	/**
+	 * This function is executed automatically when a compiled or cached template file is included
+	 * - Decode saved properties from compiled template and cache files
+	 * - Check if compiled or cache file is valid
+	 *
+	 * @param Template $_template
+	 * @param array $properties special template properties
+	 *
+	 * @return bool flag if compiled or cache file is valid
+	 * @throws Exception
+	 */
+	public function isFresh(Template $_template, array $properties): bool {
+
+		// on cache resources other than file check version stored in cache code
+		if (\Smarty\Smarty::SMARTY_VERSION !== $properties['version']) {
+			return false;
+		}
+
+		$is_valid = true;
+		if (!empty($properties['file_dependency']) && $_template->compile_check) {
+			$is_valid = $this->checkFileDependencies($properties['file_dependency'], $_template);
+		}
+
+		$this->isValid = $is_valid;
+		$this->includes = $properties['includes'] ?? [];
+
+		if ($is_valid) {
+			$this->unifunc = $properties['unifunc'];
+			$this->setNocacheCode($properties['has_nocache_code']);
+			$this->file_dependency = $properties['file_dependency'];
+		}
+		return $is_valid && !function_exists($properties['unifunc']);
 	}
 
 }

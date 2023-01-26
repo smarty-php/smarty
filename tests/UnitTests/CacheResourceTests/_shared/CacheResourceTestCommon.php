@@ -353,25 +353,32 @@ abstract class CacheResourceTestCommon extends PHPUnit_Smarty
         $this->smarty->clearAllCache();
         // create and cache templates
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $tpl->writeCachedContent('hello world');
+        $tpl->writeCachedContent('something else 1');
         $tpl2 = $this->smarty->createTemplate('helloworld.tpl', null, 'bar');
-        $tpl2->writeCachedContent('hello world');
+        $tpl2->writeCachedContent('something else 2');
         $tpl3 = $this->smarty->createTemplate('helloworld.tpl', 'buh|blar');
-        $tpl3->writeCachedContent('hello world');
+        $tpl3->writeCachedContent('something else 3');
         // test cached content
+        $this->assertEquals('something else 1', $tpl->getCachedContent());
+        $this->assertEquals('something else 2', $tpl2->getCachedContent());
+        $this->assertEquals('something else 3', $tpl3->getCachedContent());
+        sleep(10);
+        $tpl4 = $this->smarty->createTemplate('helloworld2.tpl');
+        $tpl4->writeCachedContent('something else 4');
+
+        // test number of deleted caches
+        $this->doClearCacheAssertion(3,$this->smarty->clearAllCache(5));
+
+	    $tpl = $this->smarty->createTemplate('helloworld.tpl');
+	    $tpl2 = $this->smarty->createTemplate('helloworld.tpl', null, 'bar');
+	    $tpl3 = $this->smarty->createTemplate('helloworld.tpl', 'buh|blar');
+	    $tpl4 = $this->smarty->createTemplate('helloworld2.tpl');
+
+        // test that caches are deleted properly
         $this->assertEquals('hello world', $tpl->getCachedContent());
         $this->assertEquals('hello world', $tpl2->getCachedContent());
         $this->assertEquals('hello world', $tpl3->getCachedContent());
-        sleep(10);
-        $tpl4 = $this->smarty->createTemplate('helloworld2.tpl');
-        $tpl4->writeCachedContent('hello world');
-        // test number of deleted caches
-        $this->doClearCacheAssertion(3,$this->smarty->clearAllCache(5));
-        // test that caches are deleted properly
-        $this->assertNull($tpl->getCachedContent());
-        $this->assertNull($tpl2->getCachedContent());
-        $this->assertNull($tpl3->getCachedContent());
-        $this->assertEquals('hello world', $tpl4->getCachedContent());
+        $this->assertEquals('something else 4', $tpl4->getCachedContent());
     }
 
     public function testClearCacheCacheFileSub()

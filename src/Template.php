@@ -57,13 +57,6 @@ class Template extends TemplateBase {
 	public $template_resource = null;
 
 	/**
-	 * flag if compiled template is invalid and must be (re)compiled
-	 *
-	 * @var bool
-	 */
-	public $mustCompile = null;
-
-	/**
 	 * Template ID
 	 *
 	 * @var null|string
@@ -310,87 +303,15 @@ class Template extends TemplateBase {
 	}
 
 	/**
-	 * This function is executed automatically when a compiled or cached template file is included
-	 * - Decode saved properties from compiled template and cache files
-	 * - Check if compiled or cache file is valid
-	 *
-	 * @param array $properties special template properties
-	 * @param bool $cache flag if called from cache file
-	 *
-	 * @return bool flag if compiled or cache file is valid
-	 * @throws \Smarty\Exception
-	 */
-	public function isFresh($properties, $cache = false) {
-		// on cache resources other than file check version stored in cache code
-		if (!isset($properties['version']) || \Smarty\Smarty::SMARTY_VERSION !== $properties['version']) {
-			if ($cache) {
-				$this->getSmarty()->clearAllCache();
-			} else {
-				$this->getSmarty()->clearCompiledTemplate();
-			}
-			return false;
-		}
-		$is_valid = true;
-		if (!empty($properties['file_dependency'])
-			&& ((!$cache && $this->compile_check) || $this->compile_check === \Smarty\Smarty::COMPILECHECK_ON)
-		) {
-			// check file dependencies at compiled code
-			foreach ($properties['file_dependency'] as $_file_to_check) {
-				if ($_file_to_check[2] === 'file' || $_file_to_check[2] === 'php') {
-					if ($this->getSource()->filepath === $_file_to_check[0]) {
-						// do not recheck current template
-						continue;
-						//$mtime = $this->getSource()->getTimeStamp();
-					} else {
-						// file and php types can be checked without loading the respective resource handlers
-						$mtime = is_file($_file_to_check[0]) ? filemtime($_file_to_check[0]) : false;
-					}
-				} else {
-					$handler = \Smarty\Resource\BasePlugin::load($this->getSmarty(), $_file_to_check[2]);
-					if ($handler->checkTimestamps()) {
-						$source = Source::load($this, $this->getSmarty(), $_file_to_check[0]);
-						$mtime = $source->getTimeStamp();
-					} else {
-						continue;
-					}
-				}
-				if ($mtime === false || $mtime > $_file_to_check[1]) {
-					$is_valid = false;
-					break;
-				}
-			}
-		}
-		if ($cache) {
-			// CACHING_LIFETIME_SAVED cache expiry has to be validated here since otherwise we'd define the unifunc
-			if ($this->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED && $properties['cache_lifetime'] >= 0
-				&& (time() > ($this->getCached()->timestamp + $properties['cache_lifetime']))
-			) {
-				$is_valid = false;
-			}
-			$this->getCached()->cache_lifetime = $properties['cache_lifetime'];
-			$this->getCached()->setValid($is_valid);
-			$generatedFile = $this->getCached();
-		} else {
-			$this->mustCompile = !$is_valid;
-			$generatedFile = $this->getCompiled();
-			$generatedFile->includes = $properties['includes'] ?? [];
-		}
-		if ($is_valid) {
-			$generatedFile->unifunc = $properties['unifunc'];
-			$generatedFile->setNocacheCode($properties['has_nocache_code']);
-			$generatedFile->file_dependency = $properties['file_dependency'];
-		}
-		return $is_valid && !function_exists($properties['unifunc']);
-	}
-
-	/**
 	 * Compiles the template
 	 * If the template is not evaluated the compiled template is saved on disk
+	 *
+	 * @TODO only used in compileAll and 1 unit test: can we move this and make compileAndWrite private?
 	 *
 	 * @throws \Exception
 	 */
 	public function compileTemplateSource() {
-		return $this->getCompiled()->compileTemplateSource($this);
+		return $this->getCompiled()->compileAndWrite($this);
 	}
 
 	/**
@@ -400,7 +321,7 @@ class Template extends TemplateBase {
 	 * @throws Exception
 	 */
 	public function getCachedContent() {
-		return $this->getCached()->handler->getCachedContent($this);
+		return $this->getCached()->getContent($this);
 	}
 
 	/**
@@ -547,7 +468,7 @@ class Template extends TemplateBase {
 	 * @return bool
 	 * @throws \Smarty\Exception
 	 */
-	public function mustCompile() {
+	public function mustCompile(): bool {
 		if (!$this->getSource()->exists) {
 			if ($this->_isSubTpl()) {
 				$parent_resource = " in '{$this->parent->template_resource}'";
@@ -556,13 +477,12 @@ class Template extends TemplateBase {
 			}
 			throw new Exception("Unable to load template {$this->getSource()->type} '{$this->getSource()->name}'{$parent_resource}");
 		}
-		if ($this->mustCompile === null) {
-			$this->mustCompile = $this->smarty->force_compile
-				|| $this->getSource()->handler->recompiled
-				|| !$this->getCompiled()->exists
-				|| ($this->compile_check &&	$this->getCompiled()->getTimeStamp() < $this->getSource()->getTimeStamp());
-		}
-		return $this->mustCompile;
+
+		// @TODO move this logic to Compiled
+		return $this->smarty->force_compile
+			|| $this->getSource()->handler->recompiled
+			|| !$this->getCompiled()->exists
+			|| ($this->compile_check &&	$this->getCompiled()->getTimeStamp() < $this->getSource()->getTimeStamp());
 	}
 
 	private function getCodeFrameCompiler(): Compiler\CodeFrame {

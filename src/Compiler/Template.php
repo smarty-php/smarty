@@ -352,7 +352,7 @@ class Template extends BaseCompiler {
 	 *
 	 * @param \Smarty\Template $template template object to compile
 	 *
-	 * @return bool true if compiling succeeded, false if it failed
+	 * @return string code
 	 * @throws Exception
 	 */
 	public function compileTemplate(\Smarty\Template $template) {
