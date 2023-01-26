@@ -75,7 +75,7 @@ jobs:
       uses: php-actions/composer@v6
 
     - name: Run make
-      run: make
+      run: make -B
 
     - name: Run tests with phpunit
       run: php ./vendor/phpunit/phpunit/phpunit
