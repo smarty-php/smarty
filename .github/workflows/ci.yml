@@ -48,7 +48,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Override PHP ini values for JIT compiler
       if: matrix.compiler == 'jit'
@@ -62,20 +62,14 @@ jobs:
         extensions: ${{ env.PHP_EXTENSIONS }}
         ini-values: ${{ env.PHP_INI_VALUES }}
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: v5r2-${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          v5r1-${{ runner.os }}-php-${{ matrix.php-version }}-
-
     - name: Install dependencies
       uses: php-actions/composer@v6
 
     - name: Run make
       run: make -B
+      
+    - name: diff
+      run: git diff
 
     - name: Run tests with phpunit
       run: php ./vendor/phpunit/phpunit/phpunit
