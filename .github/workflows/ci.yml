@@ -67,9 +67,9 @@ jobs:
       uses: actions/cache@v3
       with:
         path: vendor
-        key: smartyv5-${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+        key: v5r2-${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          smartyv5-${{ runner.os }}-php-${{ matrix.php-version }}-
+          v5r1-${{ runner.os }}-php-${{ matrix.php-version }}-
 
     - name: Install dependencies
       uses: php-actions/composer@v6
