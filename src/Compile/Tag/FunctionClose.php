@@ -41,8 +41,6 @@ class FunctionClose extends Base {
 		$_attr = $saved_data[0];
 		$_name = trim($_attr['name'], '\'"');
 		$parentCompiler = $compiler->getParentCompiler();
-		$parentCompiler->tpl_function[$_name]['compiled_filepath'] =
-			$parentCompiler->getTemplate()->getCompiled()->filepath;
 		$parentCompiler->tpl_function[$_name]['uid'] = $compiler->getTemplate()->getSource()->uid;
 		$_parameter = $_attr;
 		unset($_parameter['name']);

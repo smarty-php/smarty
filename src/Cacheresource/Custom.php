@@ -9,6 +9,7 @@ namespace Smarty\Cacheresource;
 
  */
 
+use Smarty\Exception;
 use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Template\Cached;
@@ -124,23 +125,13 @@ abstract class Custom extends Base
             $cached->content,
             $timestamp
         );
-        $cached->timestamp = isset($timestamp) ? $timestamp : false;
+        $cached->timestamp = $timestamp ?? false;
         $cached->exists = !!$cached->timestamp;
     }
 
-	/**
-	 * Read the cached template and process the header
-	 *
-	 * @param Template $_smarty_tpl do not change variable name, is used by compiled template
-	 * @param Cached|null $cached cached object
-	 * @param boolean $update flag if called because cache update
-	 *
-	 * @return boolean                 true or false if the cached content does not exist
-	 */
     public function process(
 	    Template               $_smarty_tpl,
-	    \Smarty\Template\Cached $cached = null,
-	                           $update = false
+	    \Smarty\Template\Cached $cached = null
     ) {
         if (!$cached) {
             $cached = $_smarty_tpl->getCached();

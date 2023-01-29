@@ -459,7 +459,7 @@ class Data
 		$template->caching = Smarty::CACHING_OFF;
 		$template->assign('sections', (array) $sections ?? []);
 		// trigger a call to $this->assignConfigVars
-		$template->getCompiled(true)->render($template);
+		$template->getCompiled()->fetch();
 		return $this;
 	}
 

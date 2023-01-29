@@ -101,7 +101,7 @@ class FileResourceIndexedTest extends PHPUnit_Smarty
     public function testGetCompiledFilepath()
     {
         $tpl = $this->smarty->createTemplate('[foo]dirname.tpl');
-        $this->assertEquals($this->buildCompiledPath($tpl, false, false, null, 'dirname.tpl', 'file', $this->smarty->getTemplateDir('foo')), $tpl->getCompiled()->filepath);
+        $this->assertEquals($this->buildCompiledPath($tpl, false, null, 'dirname.tpl', 'file', $this->smarty->getTemplateDir('foo')), $tpl->getCompiled()->filepath);
     }
 
     public function testGetCachedFilepath()
@@ -109,7 +109,7 @@ class FileResourceIndexedTest extends PHPUnit_Smarty
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('[foo]dirname.tpl');
-        $this->assertEquals($this->buildCachedPath($tpl, false, null, null, 'dirname.tpl', 'file', $this->smarty->getTemplateDir('foo'))
+        $this->assertEquals($this->buildCachedPath($tpl, null, null, 'dirname.tpl', 'file', $this->smarty->getTemplateDir('foo'))
             , $tpl->getCached()->filepath);
     }
 }

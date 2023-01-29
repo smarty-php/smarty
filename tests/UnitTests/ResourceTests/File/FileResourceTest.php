@@ -105,7 +105,7 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testGetCompiledFilepath()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals($this->buildCompiledPath($tpl, false, false, null, 'helloworld.tpl', 'file', $this->smarty->getTemplateDir(0))
+        $this->assertEquals($this->buildCompiledPath($tpl, false, null, 'helloworld.tpl', 'file', $this->smarty->getTemplateDir(0))
             , $tpl->getCompiled()->filepath
         );
     }
@@ -175,7 +175,7 @@ class FileResourceTest extends PHPUnit_Smarty
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals($this->buildCachedPath($tpl, false, null, null, 'helloworld.tpl', 'file', $this->smarty->getTemplateDir(0), 'file')
+        $this->assertEquals($this->buildCachedPath($tpl, null, null, 'helloworld.tpl', 'file', $this->smarty->getTemplateDir(0), 'file')
             , $tpl->getCached()->filepath
         );
     }
@@ -183,7 +183,7 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testGetCachedTimestamp()
     {
         // create dummy cache file for the following test
-        file_put_contents($this->buildCachedPath($this->smarty, false, null, null, 'helloworld.tpl', 'file', $this->smarty->getTemplateDir(0), 'file')
+        file_put_contents($this->buildCachedPath($this->smarty, null, null, 'helloworld.tpl', 'file', $this->smarty->getTemplateDir(0), 'file')
             , '<?php ?>');
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;

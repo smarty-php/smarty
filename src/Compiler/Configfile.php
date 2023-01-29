@@ -10,6 +10,7 @@
  */
 
 namespace Smarty\Compiler;
+use Smarty\Exception;
 use Smarty\Lexer\ConfigfileLexer;
 use Smarty\Parser\ConfigfileParser;
 use Smarty\Smarty;
@@ -73,6 +74,22 @@ class Configfile extends BaseCompiler {
 	}
 
 	/**
+	 * Method to compile a Smarty template
+	 *
+	 * @param \Smarty\Template $template template object to compile
+	 *
+	 * @return string code
+	 * @throws Exception
+	 */
+	public function compileTemplate(\Smarty\Template $template) {
+		return $template->createCodeFrame(
+			$this->compileTemplateSource($template),
+			'',
+			false
+		);
+	}
+
+	/**
 	 * Method to compile Smarty config source.
 	 *
 	 * @param Template $template
@@ -80,7 +97,7 @@ class Configfile extends BaseCompiler {
 	 * @return bool true if compiling succeeded, false if it failed
 	 * @throws \Smarty\Exception
 	 */
-	public function compileTemplate(Template $template) {
+	private function compileTemplateSource(Template $template) {
 		$this->template = $template;
 		$this->template->getCompiled()->file_dependency[$this->template->getSource()->uid] =
 			[
@@ -133,16 +150,10 @@ class Configfile extends BaseCompiler {
 		if ($this->smarty->debugging) {
 			$this->smarty->getDebug()->end_compile($this->template);
 		}
-		// template header code
-		$template_header = sprintf(
-			"<?php /* Smarty version %s, created on %s\n         compiled from '%s' */ ?>\n",
-			\Smarty\Smarty::SMARTY_VERSION,
-			date("Y-m-d H:i:s"),
-			str_replace('*/', '* /', $this->template->getSource()->filepath)
-		);
+
 		$code = '<?php $_smarty_tpl->parent->assignConfigVars(' .
 			var_export($this->config_data, true) . ', $_smarty_tpl->getValue("sections")); ?>';
-		return $template_header . $this->template->createCodeFrame($code);
+		return $code;
 	}
 
 	/**

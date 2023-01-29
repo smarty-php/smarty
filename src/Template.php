@@ -126,7 +126,6 @@ class Template extends TemplateBase {
 		$this->compile_id = $_compile_id === null ? $this->smarty->compile_id : $_compile_id;
 		$this->caching = (int)($_caching === null ? $this->smarty->caching : $_caching);
 		$this->cache_lifetime = $this->smarty->cache_lifetime;
-		$this->compile_check = (int)$smarty->compile_check;
 		$this->parent = $_parent;
 		// Template resource
 		$this->template_resource = $template_resource;
@@ -138,20 +137,18 @@ class Template extends TemplateBase {
 	}
 
 	/**
-	 * render template
-	 *
-	 * @param bool $no_output_filter if true do not run output filter
-	 * @param null|bool $display true: display, false: fetch null: sub-template
+	 * render template and return result
 	 *
 	 * @return string
 	 * @throws \Exception
 	 * @throws \Smarty\Exception
 	 */
-	private function render($no_output_filter = true, $display = null) {
+	private function getResult(): string {
+
 		if ($this->smarty->debugging) {
-			$this->smarty->getDebug()->start_template($this, $display);
+			$this->smarty->getDebug()->start_template($this, 0);
 		}
-		// checks if template exists
+
 		if (!$this->getSource()->exists) {
 			throw new Exception(
 				"Unable to load template '{$this->getSource()->type}:{$this->getSource()->name}'" .
@@ -168,68 +165,28 @@ class Template extends TemplateBase {
 			call_user_func($callback, $this);
 		}
 
-		try {
-
-			// read from cache or render
-			if ($this->caching === \Smarty\Smarty::CACHING_LIFETIME_CURRENT || $this->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED) {
-				if ($this->getCached()->cache_id !== $this->cache_id || $this->getCached()->compile_id !== $this->compile_id) {
-					$this->getCached(true);
-				}
-				$this->getCached()->render($this, $no_output_filter);
-			} else {
-				$compiled = $this->getCompiled();
-				if ($compiled->compile_id !== $this->compile_id) {
-					$compiled = $this->getCompiled(true);
-				}
-				$compiled->render($this);
+		// read from cache or render
+		if ($this->isCachingEnabled()) {
+			// @TODO why would cache_id or compile_id differ. Is this because of re-using of Cached objects over subtemplates?
+			// If so, it seems error-prone to just throw that away here.
+			if ($this->getCached()->cache_id !== $this->cache_id || $this->getCached()->compile_id !== $this->compile_id) {
+				$this->getCached(true);
 			}
-
-		} finally {
-			foreach ($this->endRenderCallbacks as $callback) {
-				call_user_func($callback, $this);
-			}
-		}
-
-		// display or fetch
-		if ($display) {
-			if ($this->caching && $this->smarty->cache_modified_check) {
-				$this->smarty->cacheModifiedCheck(
-					$this->getCached(),
-					$this,
-					isset($content) ? $content : ob_get_clean()
-				);
-			} else {
-				if ((!$this->caching || $this->getCached()->getNocacheCode() || $this->getSource()->handler->recompiled)
-					&& !$no_output_filter && isset($this->smarty->registered_filters['output'])
-				) {
-					echo $this->smarty->runOutputFilters(ob_get_clean(), $this);
-				} else {
-					echo ob_get_clean();
-				}
-			}
-			if ($this->smarty->debugging) {
-				$this->smarty->getDebug()->end_template($this);
-				// debug output
-				$this->smarty->getDebug()->display_debug($this, true);
-			}
-			return '';
+			$result = $this->getCached()->fetch($this);
 		} else {
-			if ($this->smarty->debugging) {
-				$this->smarty->getDebug()->end_template($this);
-				if ($this->smarty->debugging === 2 && $display === false) {
-					$this->smarty->getDebug()->display_debug($this, true);
-				}
-			}
-			if (
-				!$no_output_filter
-				&& (!$this->caching || $this->getCached()->getNocacheCode() || $this->getSource()->handler->recompiled)
-			) {
-
-				return $this->smarty->runOutputFilters(ob_get_clean(), $this);
-			}
-			// return cache content
-			return null;
+			$compiled = $this->getCompiled();
+			$result = $compiled->fetch();
 		}
+
+		foreach ($this->endRenderCallbacks as $callback) {
+			call_user_func($callback, $this);
+		}
+
+		if ($this->smarty->debugging) {
+			$this->smarty->getDebug()->end_template($this);
+		}
+
+		return $result;
 	}
 
 	/**
@@ -286,7 +243,7 @@ class Template extends TemplateBase {
 			}
 		}
 
-		$tpl->render();
+		$tpl->getResult();
 	}
 
 	/**
@@ -311,36 +268,7 @@ class Template extends TemplateBase {
 	 * @throws \Exception
 	 */
 	public function compileTemplateSource() {
-		return $this->getCompiled()->compileAndWrite($this);
-	}
-
-	/**
-	 * Return cached content
-	 *
-	 * @return null|string
-	 * @throws Exception
-	 */
-	public function getCachedContent() {
-		return $this->getCached()->getContent($this);
-	}
-
-	/**
-	 * Writes the content to cache resource
-	 *
-	 * @param string $content
-	 *
-	 * @return bool
-	 *
-	 * @TODO this method is only used in unit tests that (mostly) try to test CacheResources.
-	 */
-	public function writeCachedContent($content) {
-		if ($this->getSource()->handler->recompiled || !$this->caching
-		) {
-			// don't write cache file
-			return false;
-		}
-		$codeframe = $this->createCodeFrame($content, '', true);
-		return $this->getCached()->writeCache($this, $codeframe);
+		return $this->getCompiled()->compileAndWrite();
 	}
 
 	/**
@@ -369,7 +297,7 @@ class Template extends TemplateBase {
 	 */
 	public function getCompiled($forceNew = false) {
 		if ($forceNew || !isset($this->compiled)) {
-			$this->compiled = Compiled::load($this);
+			$this->compiled = new Compiled($this);
 		}
 		return $this->compiled;
 	}
@@ -378,8 +306,7 @@ class Template extends TemplateBase {
 	 * Return Cached object
 	 *
 	 * @param bool $forceNew force new cached object
-	 *
-	 * @throws Exception
+	 * @return Cached
 	 */
 	public function getCached($forceNew = false): Cached {
 		if ($forceNew || !isset($this->cached)) {
@@ -391,9 +318,6 @@ class Template extends TemplateBase {
 				$this->cache_id
 			);
 			$cacheResource->populate($this->cached, $this);
-			if (!$this->isCachingEnabled()) {
-				$this->cached->setValid(false);
-			}
 		}
 		return $this->cached;
 	}
@@ -442,13 +366,12 @@ class Template extends TemplateBase {
 	 * @param string $content optional template content
 	 * @param string $functions compiled template function and block code
 	 * @param bool $cache flag for cache file
-	 * @param Compiler\Template|null $compiler
 	 *
 	 * @return string
 	 * @throws Exception
 	 */
-	public function createCodeFrame($content = '', $functions = '', $cache = false, \Smarty\Compiler\Template $compiler = null) {
-		return $this->getCodeFrameCompiler()->create($content, $functions, $cache, $compiler);
+	public function createCodeFrame($content = '', $functions = '', $cache = false) {
+		return $this->getCodeFrameCompiler()->create($content, $functions, $cache);
 	}
 
 	/**
@@ -482,7 +405,7 @@ class Template extends TemplateBase {
 		return $this->smarty->force_compile
 			|| $this->getSource()->handler->recompiled
 			|| !$this->getCompiled()->exists
-			|| ($this->compile_check &&	$this->getCompiled()->getTimeStamp() < $this->getSource()->getTimeStamp());
+			|| ($this->getSmarty()->getCompileCheck() && $this->getCompiled()->getTimeStamp() < $this->getSource()->getTimeStamp());
 	}
 
 	private function getCodeFrameCompiler(): Compiler\CodeFrame {
@@ -567,50 +490,12 @@ class Template extends TemplateBase {
 		return $confObj;
 	}
 
-	public function fetch() {
-		$result = $this->_execute(0);
-		return $result === null ? ob_get_clean() : $result;
-	}
-
-	public function display() {
-		$this->_execute(1);
-	}
-
-	/**
-	 * test if cache is valid
-	 *
-	 * @param mixed $cache_id cache id to be used with this template
-	 * @param mixed $compile_id compile id to be used with this template
-	 * @param object $parent next higher level of Smarty variables
-	 *
-	 * @return bool cache status
-	 * @throws \Exception
-	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.is.cached.tpl
-	 *
-	 * @api  Smarty::isCached()
-	 */
-	public function isCached(): bool {
-		return (bool) $this->_execute(2);
-	}
-
-	/**
-	 * fetches a rendered Smarty template
-	 *
-	 * @param string $function function type 0 = fetch,  1 = display, 2 = isCache
-	 *
-	 * @return mixed
-	 * @throws Exception
-	 * @throws \Throwable
-	 */
-	private function _execute($function) {
-
+	public function fetch(): ?string {
 		$smarty = $this->getSmarty();
 
 		// make sure we have integer values
 		$this->caching = (int)$this->caching;
-		// fetch template content
-		$level = ob_get_level();
+
 		try {
 			$_smarty_old_error_level =
 				isset($smarty->error_reporting) ? error_reporting($smarty->error_reporting) : null;
@@ -620,28 +505,15 @@ class Template extends TemplateBase {
 				$errorHandler->activate();
 			}
 
-			if ($function === 2) {
-				if ($this->caching) {
-					// return cache status of template
-					$result = $this->getCached()->isCached($this);
-				} else {
-					return false;
-				}
-			} else {
+			// After rendering a template, the tpl/config variables are reset, so the template can be re-used.
+			$savedTplVars = $this->tpl_vars;
+			$savedConfigVars = $this->config_vars;
 
-				// After rendering a template, the tpl/config variables are reset, so the template can be re-used.
-				$savedTplVars = $this->tpl_vars;
-				$savedConfigVars = $this->config_vars;
+			$result = $this->getResult();
 
-				// Start output-buffering.
-				ob_start();
-
-				$result = $this->render(false, $function);
-
-				// Restore the template to its previous state
-				$this->tpl_vars = $savedTplVars;
-				$this->config_vars = $savedConfigVars;
-			}
+			// Restore the template to its previous state
+			$this->tpl_vars = $savedTplVars;
+			$this->config_vars = $savedConfigVars;
 
 			if (isset($errorHandler)) {
 				$errorHandler->deactivate();
@@ -650,11 +522,9 @@ class Template extends TemplateBase {
 			if (isset($_smarty_old_error_level)) {
 				error_reporting($_smarty_old_error_level);
 			}
-			return $result;
+
 		} catch (\Throwable $e) {
-			while (ob_get_level() > $level) {
-				ob_end_clean();
-			}
+
 			if (isset($errorHandler)) {
 				$errorHandler->deactivate();
 			}
@@ -664,6 +534,25 @@ class Template extends TemplateBase {
 			}
 			throw $e;
 		}
+
+		return $result;
+	}
+
+	public function display() {
+		echo $this->fetch();
+	}
+
+	/**
+	 * test if caching is enabled, a cache exists and it is still fresh
+	 *
+	 * @return bool cache status
+	 * @throws Exception
+	 * @link https://www.smarty.net/docs/en/api.is.cached.tpl
+	 *
+	 * @api  Smarty::isCached()
+	 */
+	public function isCached(): bool {
+		return $this->isCachingEnabled() && $this->getCached()->isCached($this);
 	}
 
 	/**

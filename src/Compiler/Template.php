@@ -94,20 +94,6 @@ class Template extends BaseCompiler {
 	private $template = null;
 
 	/**
-	 * merged included sub template data
-	 *
-	 * @var array
-	 */
-	public $mergedSubTemplatesData = [];
-
-	/**
-	 * merged sub template code
-	 *
-	 * @var array
-	 */
-	public $mergedSubTemplatesCode = [];
-
-	/**
 	 * source line offset for error messages
 	 *
 	 * @var int
@@ -358,10 +344,8 @@ class Template extends BaseCompiler {
 	public function compileTemplate(\Smarty\Template $template) {
 		return $template->createCodeFrame(
 			$this->compileTemplateSource($template),
-			$this->smarty->runPostFilters($this->blockOrFunctionCode, $this->template) .
-			join('', $this->mergedSubTemplatesCode),
-			false,
-			$this
+			$this->smarty->runPostFilters($this->blockOrFunctionCode, $this->template),
+			false
 		);
 	}
 

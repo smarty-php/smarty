@@ -2,6 +2,7 @@
 
 namespace Smarty\Cacheresource;
 
+use Smarty\Exception;
 use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Template\Cached;
@@ -92,19 +93,9 @@ abstract class KeyValueStore extends Base
         $cached->exists = !!$cached->timestamp;
     }
 
-	/**
-	 * Read the cached template and process the header
-	 *
-	 * @param Template $_smarty_tpl do not change variable name, is used by compiled template
-	 * @param Cached|null $cached cached object
-	 * @param boolean $update flag if called because cache update
-	 *
-	 * @return boolean                 true or false if the cached content does not exist
-	 */
     public function process(
 	    Template $_smarty_tpl,
-	    Cached   $cached = null,
-	             $update = false
+	    Cached   $cached = null
     ) {
         if (!$cached) {
             $cached = $_smarty_tpl->getCached();

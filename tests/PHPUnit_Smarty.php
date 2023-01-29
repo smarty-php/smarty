@@ -482,7 +482,6 @@ KEY `name` (`name`)
      * Return compiled file path
      *
      * @param \Smarty\Template|\Smarty\TemplateBase $tpl        template object
-     * @param bool                                                    $sub        use sub directory flag
      * @param bool                                                    $caching    caching flag
      * @param null|string                                             $compile_id optional compile id
      * @param null|string                                             $name       optional template name
@@ -492,7 +491,7 @@ KEY `name` (`name`)
      * @return string
      * @throws \Exception
      */
-    public function buildCompiledPath(Template $tpl, $sub = true, $caching = false, $compile_id = null,
+    public function buildCompiledPath(Template $tpl, $caching = false, $compile_id = null,
                                                $name = null, $type = null, $dir = null)
     {
         $sep = DIRECTORY_SEPARATOR;
@@ -507,15 +506,12 @@ KEY `name` (`name`)
             $_flag = '_' . ((int) $tpl->getSmarty()->merge_compiled_includes + (int) $tpl->getSmarty()->escape_html * 2);
         }
         $_filepath = $uid . $_flag;
-        // if use_sub_dirs, break file into directories
-        if ($sub) {
-            $_filepath =
-                substr($_filepath, 0, 2) . $sep . substr($_filepath, 2, 2) . $sep . substr($_filepath, 4, 2) . $sep .
-                $_filepath;
-        }
-        $_compile_dir_sep = $sub ? $sep : '^';
+        // break file into directories
+        $_filepath =
+            substr($_filepath, 0, 2) . $sep . $_filepath;
+
         if (isset($_compile_id)) {
-            $_filepath = $_compile_id . $_compile_dir_sep . $_filepath;
+            $_filepath = $_compile_id . $sep . $_filepath;
         }
         // caching token
         if ($caching) {
@@ -541,7 +537,6 @@ KEY `name` (`name`)
      * Return cache file path
      *
      * @param TemplateBase $tpl        template object
-     * @param bool                         $sub        use sub directory flag
      * @param null|string                  $cache_id   optional cache id
      * @param null|string                  $compile_id optional compile id
      * @param null|string                  $name       optional template name
@@ -552,7 +547,7 @@ KEY `name` (`name`)
      * @return string
      * @throws \Exception
      */
-    public function buildCachedPath(TemplateBase $tpl, $sub = true, $cache_id = null, $compile_id = null, $name = null, $type = null,
+    public function buildCachedPath(TemplateBase $tpl, $cache_id = null, $compile_id = null, $name = null, $type = null,
                                     $dir = null, $cacheType = null)
     {
         $cacheType = $cacheType ?? $tpl->getSmarty()->getCachingType();
@@ -565,13 +560,12 @@ KEY `name` (`name`)
                 $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
                 $uid = $this->buildUid($tpl, $sp, $name, $type);
                 $_filepath = sha1($uid . $this->smarty->_joined_template_dir);
-                // if use_sub_dirs, break file into directories
-                if ($sub) {
-                    $_filepath =
-                        substr($_filepath, 0, 2) . $sep . substr($_filepath, 2, 2) . $sep . substr($_filepath, 4, 2) .
-                        $sep . $_filepath;
-                }
-                $_compile_dir_sep = $sub ? $sep : '^';
+                // break file into directories
+
+                $_filepath =
+                    substr($_filepath, 0, 2) . $sep . $_filepath;
+
+                $_compile_dir_sep = $sep;
                 if (isset($_cache_id)) {
                     $_cache_id = str_replace('|', $_compile_dir_sep, $_cache_id) . $_compile_dir_sep;
                 } else {

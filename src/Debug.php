@@ -203,7 +203,6 @@ class Debug extends Data
         $debObj = new \Smarty\Smarty();
         // copy the working dirs from application
         $debObj->setCompileDir($smarty->getCompileDir());
-        $debObj->compile_check = \Smarty::COMPILECHECK_ON;
         $debObj->security_policy = null;
         $debObj->debugging = false;
         $debObj->debugging_ctrl = 'NONE';
@@ -213,8 +212,7 @@ class Debug extends Data
         $debObj->registered_filters = array();
         $debObj->escape_html = true;
         $debObj->caching = \Smarty::CACHING_OFF;
-        $debObj->compile_id = null;
-        $debObj->cache_id = null;
+
         // prepare information of assigned variables
         $ptr = $this->get_debug_vars($obj);
         $_assigned_vars = $ptr->tpl_vars;

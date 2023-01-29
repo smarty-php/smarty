@@ -39,9 +39,9 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(true);
+
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals($this->buildCachedPath($tpl, true, null, null, 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
+        $this->assertEquals($this->buildCachedPath($tpl, null, null, 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
             , $tpl->getCached()->filepath);
     }
 
@@ -52,9 +52,9 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(true);
+
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar');
-        $this->assertEquals($this->buildCachedPath($tpl, true, 'foo|bar', null, 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
+        $this->assertEquals($this->buildCachedPath($tpl, 'foo|bar', null, 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
             , $tpl->getCached()->filepath);
     }
 
@@ -65,9 +65,9 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(true);
+
         $tpl = $this->smarty->createTemplate('helloworld.tpl', null, 'blar');
-        $this->assertEquals($this->buildCachedPath($tpl, true, null, 'blar', 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
+        $this->assertEquals($this->buildCachedPath($tpl, null, 'blar', 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
             , $tpl->getCached()->filepath);
     }
 
@@ -78,9 +78,9 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(true);
+
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
-        $this->assertEquals($this->buildCachedPath($tpl, true, 'foo|bar', 'blar', 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
+        $this->assertEquals($this->buildCachedPath($tpl, 'foo|bar', 'blar', 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
             , $tpl->getCached()->filepath);
     }
 
@@ -92,7 +92,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->cleanCacheDir();
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(true);
+
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
         $this->assertTrue(file_exists($tpl->getCached()->filepath));
@@ -100,14 +100,14 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     }
 
     /**
-     * test cache->clear with cache_id and compile_id
+     * test cache->clear with cache_id
      */
-    public function testClearCacheCacheIdCompileId()
+    public function testClearCacheCacheId()
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $this->cleanCacheDir();
-        $this->smarty->setUseSubDirs(false);
+
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
         $tpl2 = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar2', 'blar');
@@ -127,7 +127,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(false);
+
         $this->cleanCacheDir();
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
@@ -148,7 +148,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(true);
+
         $this->cleanCacheDir();
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
@@ -170,7 +170,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $this->cleanCacheDir();
-        $this->smarty->setUseSubDirs(false);
+
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
         $tpl2 = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar2');
@@ -191,7 +191,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $this->cleanCacheDir();
-        $this->smarty->setUseSubDirs(true);
+
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
         $tpl2 = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar2');
@@ -211,7 +211,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(false);
+
         $this->cleanCacheDir();
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
@@ -232,7 +232,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(true);
+
         $this->cleanCacheDir();
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
@@ -253,7 +253,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(false);
+
         $this->cleanCacheDir();
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
@@ -274,7 +274,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(true);
+
         $this->cleanCacheDir();
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
@@ -295,7 +295,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(false);
+
         $this->cleanCacheDir();
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->writeCachedContent($tpl);
@@ -320,7 +320,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->setUseSubDirs(true);
+
         $this->cleanCacheDir();
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->writeCachedContent($tpl);
@@ -376,8 +376,8 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     }
 
 
-    private function writeCachedContent($tpl)
+    protected function writeCachedContent($tpl, string $string = "echo 'hello world';\n")
     {
-        $tpl->writeCachedContent("echo 'hello world';\n");
+	    $this->smarty->getCacheResource()->storeCachedContent($tpl, $string);
     }
 }

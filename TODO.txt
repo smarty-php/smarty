@@ -7,9 +7,8 @@
 
 - Re-introduce merge_compiled_includes and the {include inline} attribute?
 
-## Output buffering
-- Fix ob_ output buffering commands being scattered around the codebase
-
+## Beatify output
+- strip <?php and ?> tags from generated output
 
 ## Review public static vars
 - such as _CHARSET and _IS_WINDOWS
@@ -28,8 +27,6 @@
 ## Plugin system
 - fix template security checks in one place in compiler
 
-## Beatify output
-- compiled templates could be proper classes, possibly using [nette/php-generator](https://packagist.org/packages/nette/php-generator)
 
 ## Documentation
 - beautify and review docs, possibly using [

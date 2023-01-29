@@ -38,14 +38,12 @@ abstract class Base
 	 *
 	 * @param Template $_template template object
 	 * @param Cached|null $cached cached object
-	 * @param boolean $update flag if called because cache update
 	 *
 	 * @return boolean true or false if the cached content does not exist
 	 */
     abstract public function process(
 	    Template $_template,
-	    Cached   $cached = null,
-	             $update = false
+	    Cached   $cached = null
     );
 
     /**

@@ -4,6 +4,7 @@ namespace Smarty\Cacheresource;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Smarty\Exception;
 use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Template\Cached;
@@ -35,7 +36,7 @@ class File extends Base
     {
         $source = $_template->getSource();
         $smarty = $_template->getSmarty();
-        $_compile_dir_sep = $smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
+
         $_filepath = sha1($source->uid . $smarty->_joined_template_dir);
         $cached->filepath = $smarty->getCacheDir();
         if (isset($_template->cache_id)) {
@@ -46,21 +47,17 @@ class File extends Base
                                      ),
                                      array(
                                          '_',
-                                         $_compile_dir_sep
+                                         DIRECTORY_SEPARATOR
                                      ),
-                                     $_template->cache_id
-                                 ) . $_compile_dir_sep;
+		                            $_template->cache_id
+                                 ) . DIRECTORY_SEPARATOR;
         }
         if (isset($_template->compile_id)) {
-            $cached->filepath .= preg_replace('![^\w]+!', '_', $_template->compile_id) . $_compile_dir_sep;
+            $cached->filepath .= preg_replace('![^\w]+!', '_', $_template->compile_id) . DIRECTORY_SEPARATOR;
         }
-        // if use_sub_dirs, break file into directories
-        if ($smarty->use_sub_dirs) {
-            $cached->filepath .= $_filepath[ 0 ] . $_filepath[ 1 ] . DIRECTORY_SEPARATOR . $_filepath[ 2 ] .
-                                 $_filepath[ 3 ] .
-                                 DIRECTORY_SEPARATOR .
-                                 $_filepath[ 4 ] . $_filepath[ 5 ] . DIRECTORY_SEPARATOR;
-        }
+        // break file into directories
+        $cached->filepath .= $_filepath[0] . $_filepath[1] . DIRECTORY_SEPARATOR;
+
         $cached->filepath .= $_filepath;
         $basename = $source->getBasename();
         if (!empty($basename)) {
@@ -91,27 +88,11 @@ class File extends Base
         }
     }
 
-	/**
-	 * Read the cached template and process its header
-	 *
-	 * @param Template $_smarty_tpl do not change variable name, is used by compiled template
-	 * @param Cached|null $cached cached object
-	 * @param bool $update flag if called because cache update
-	 *
-	 * @return boolean true or false if the cached content does not exist
-	 */
     public function process(
 	    Template $_smarty_tpl,
-	    Cached   $cached = null,
-	             $update = false
+	    Cached   $cached = null
     ) {
-        $_smarty_tpl->getCached()->setValid(false);
-        if ($update && defined('HHVM_VERSION')) {
-            eval('?>' . file_get_contents($_smarty_tpl->getCached()->filepath));
-            return true;
-        } else {
-            return @include $_smarty_tpl->getCached()->filepath;
-        }
+	    return @include $_smarty_tpl->getCached()->filepath;
     }
 
     /**
@@ -186,8 +167,7 @@ class File extends Base
     {
 	    $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
 	    $_compile_id = isset($compile_id) ? preg_replace('![^\w]+!', '_', $compile_id) : null;
-	    $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
-	    $_compile_id_offset = $smarty->use_sub_dirs ? 3 : 0;
+	    $_compile_id_offset = 1;
 	    $_dir = $smarty->getCacheDir();
 	    if ($_dir === '/') { //We should never want to delete this!
 		    return 0;
@@ -196,10 +176,8 @@ class File extends Base
 	    if (isset($_cache_id)) {
 		    $_cache_id_parts = explode('|', $_cache_id);
 		    $_cache_id_parts_count = count($_cache_id_parts);
-		    if ($smarty->use_sub_dirs) {
-			    foreach ($_cache_id_parts as $id_part) {
-				    $_dir .= $id_part . '/';
-			    }
+		    foreach ($_cache_id_parts as $id_part) {
+			    $_dir .= $id_part . DIRECTORY_SEPARATOR;
 		    }
 	    }
 	    if (isset($resource_name)) {
@@ -235,7 +213,7 @@ class File extends Base
 				    if (substr($_filepath, -4) !== '.php') {
 					    continue;
 				    }
-				    $_parts = explode($_dir_sep, str_replace('\\', '/', substr($_filepath, $_dir_length)));
+				    $_parts = explode(DIRECTORY_SEPARATOR, str_replace('\\', '/', substr($_filepath, $_dir_length)));
 				    $_parts_count = count($_parts);
 				    // check name
 				    if (isset($resource_name)) {

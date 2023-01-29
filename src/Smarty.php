@@ -191,12 +191,12 @@ class Smarty extends \Smarty\TemplateBase
      */
     public $force_compile = false;
 
-    /**
-     * use sub dirs for compiled/cached files?
-     *
-     * @var boolean
-     */
-    public $use_sub_dirs = false;
+	/**
+	 * Check template for modifications?
+	 * Set to Smarty::COMPILECHECK_OFF when templates won't change in production.
+	 * @var int
+	 */
+	public $compile_check = self::COMPILECHECK_ON;
 
     /**
      * allow ambiguous resources (that are made unique by the resource handler)
@@ -238,11 +238,11 @@ class Smarty extends \Smarty\TemplateBase
      *
      * @var array string
      */
-    public $literals = array();
+    private $literals = array();
 
     /**
      * class name
-     * This should be instance of \Smarty\Security.
+     * This should be an instance of \Smarty\Security.
      *
      * @var string
      * @see \Smarty\Security
@@ -579,7 +579,7 @@ class Smarty extends \Smarty\TemplateBase
      * @param string $resource_name template name
      *
      * @return bool status
-     * @throws \Smarty\Exception
+     * @throws Exception
      */
     public function templateExists($resource_name)
     {
@@ -594,7 +594,7 @@ class Smarty extends \Smarty\TemplateBase
      * @param string|\Smarty\Security $security_class if a string is used, it must be class-name
      *
      * @return Smarty                 current Smarty instance for chaining
-     * @throws \Smarty\Exception
+     * @throws Exception
      */
     public function enableSecurity($security_class = null)
     {
@@ -749,7 +749,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param bool $cacheable if true (default) this function is cache able
 	 *
 	 * @return $this
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 * @link https://www.smarty.net/docs/en/api.register.plugin.tpl
 	 *
 	 * @api  Smarty::registerPlugin()
@@ -854,7 +854,7 @@ class Smarty extends \Smarty\TemplateBase
     {
 	    trigger_error('Using Smarty::getPluginsDir() is deprecated and will be ' .
 		    'removed in a future release. For now, it will remove the DefaultExtension from the extensions list and ' .
-		    'proceed to call Smartyy::addPluginsDir..', E_USER_DEPRECATED);
+		    'proceed to call Smarty::addPluginsDir..', E_USER_DEPRECATED);
 
 		$this->extensions = array_filter(
 			$this->extensions,
@@ -1044,7 +1044,7 @@ class Smarty extends \Smarty\TemplateBase
 	    $nameIsDotted = !empty($name) && $name[0] === '.' && ($name[1] === '.' || $name[1] === '/');
 
 	    $id_parts[] = $type;
-	    $id_parts[] = $this->getSmarty()->_joined_template_dir;
+	    $id_parts[] = $this->_joined_template_dir;
 
 		// handle relative template names
         if ($baseFilePath && $nameIsDotted) {
@@ -1109,14 +1109,6 @@ class Smarty extends \Smarty\TemplateBase
             );
         } while ($count > 0);
         return $realpath !== false ? $parts[ 'root' ] . $path : str_ireplace(getcwd(), '.', $parts[ 'root' ] . $path);
-    }
-
-    /**
-     * @param boolean $use_sub_dirs
-     */
-    public function setUseSubDirs($use_sub_dirs)
-    {
-        $this->use_sub_dirs = $use_sub_dirs;
     }
 
     /**
@@ -1271,7 +1263,7 @@ class Smarty extends \Smarty\TemplateBase
 
     /**
      * Get Smarty object
-     * // @TODO this is silly, remove?
+     * This is required for methods defined in base class Data trying to find Smarty
      * @return Smarty
      */
     public function getSmarty()
@@ -1345,7 +1337,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param string  $type          resource type
 	 *
 	 * @return int number of cache files deleted
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 * @link https://www.smarty.net/docs/en/api.clear.cache.tpl
 	 *
 	 * @api  Smarty::clearCache()
@@ -1383,10 +1375,12 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param integer $exp_time      expiration time
 	 *
 	 * @return int number of template files deleted
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 *@link https://www.smarty.net/docs/en/api.clear.compiled.template.tpl
 	 *
 	 * @api  Smarty::clearCompiledTemplate()
+	 *
+	 * @TODO can we remove this? It probably won't work anymore for specific files anyway
 	 */
 	public function clearCompiledTemplate($resource_name = null, $compile_id = null, $exp_time = null)
 	{
@@ -1395,7 +1389,6 @@ class Smarty extends \Smarty\TemplateBase
 			return 0;
 		}
 		$_compile_id = isset($compile_id) ? preg_replace('![^\w]+!', '_', $compile_id) : null;
-		$_dir_sep = $this->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
 		if (isset($resource_name)) {
 			$_save_stat = $this->caching;
 			$this->caching = \Smarty\Smarty::CACHING_OFF;
@@ -1412,11 +1405,11 @@ class Smarty extends \Smarty\TemplateBase
 			$_resource_part_2_length = strlen($_resource_part_2);
 		}
 		$_dir = $_compile_dir;
-		if ($this->use_sub_dirs && isset($_compile_id)) {
-			$_dir .= $_compile_id . $_dir_sep;
+		if (isset($_compile_id)) {
+			$_dir .= $_compile_id . DIRECTORY_SEPARATOR;
 		}
 		if (isset($_compile_id)) {
-			$_compile_id_part = $_compile_dir . $_compile_id . $_dir_sep;
+			$_compile_id_part = $_compile_dir . $_compile_id . DIRECTORY_SEPARATOR;
 			$_compile_id_part_length = strlen($_compile_id_part);
 		}
 		$_count = 0;
@@ -1614,7 +1607,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param string                    $content
 	 *
 	 * @throws \Exception
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 */
 	public function cacheModifiedCheck(Template\Cached $cached, Template $_template, $content)
 	{
@@ -1832,8 +1825,18 @@ class Smarty extends \Smarty\TemplateBase
 			error_reporting($_error_reporting);
 			throw new Exception("unable to write file {$_filepath}");
 		}
+
 		// set file permissions
 		@chmod($_filepath, 0666 & ~umask());
+
+		if (function_exists('opcache_invalidate')
+			&& (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
+		) {
+			opcache_invalidate($_filepath, true);
+		} elseif (function_exists('apc_compile_file')) {
+			apc_compile_file($_filepath);
+		}
+
 		error_reporting($_error_reporting);
 		return true;
 	}
@@ -1869,7 +1872,7 @@ class Smarty extends \Smarty\TemplateBase
 				);
 		}
 
-		throw new \Smarty\Exception('Trying to load invalid runtime ' . $type);
+		throw new Exception('Trying to load invalid runtime ' . $type);
 	}
 
 	/**
@@ -1883,7 +1886,7 @@ class Smarty extends \Smarty\TemplateBase
 		try {
 			$this->getRuntime($type);
 			return true;
-		} catch (\Smarty\Exception $e) {
+		} catch (Exception $e) {
 			return false;
 		}
 	}
@@ -1902,7 +1905,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param string $name filter name
 	 *
 	 * @return bool
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 * @api  Smarty::loadFilter()
 	 * @link https://www.smarty.net/docs/en/api.load.filter.tpl
 	 *
@@ -1955,7 +1958,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param string $name filter name
 	 *
 	 * @return TemplateBase
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 * @api  Smarty::unloadFilter()
 	 *
 	 * @link https://www.smarty.net/docs/en/api.unload.filter.tpl
@@ -2057,7 +2060,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param string|null $name optional filter name
 	 *
 	 * @return TemplateBase
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 * @link https://www.smarty.net/docs/en/api.register.filter.tpl
 	 *
 	 * @api  Smarty::registerFilter()
@@ -2118,7 +2121,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param callback|string $name the name previously used in ::registerFilter
 	 *
 	 * @return TemplateBase
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 * @api  Smarty::unregisterFilter()
 	 *
 	 * @link https://www.smarty.net/docs/en/api.unregister.filter.tpl
@@ -2237,7 +2240,7 @@ class Smarty extends \Smarty\TemplateBase
 	 * @param mixed $compile_id compile id to be used with this template
 	 *
 	 * @throws \Exception
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 */
 	public function display($template = null, $cache_id = null, $compile_id = null) {
 		return $this->returnOrCreateTemplate($template, $cache_id, $compile_id)->display();
@@ -2253,7 +2256,7 @@ class Smarty extends \Smarty\TemplateBase
 	 *
 	 * @return bool cache status
 	 * @throws \Exception
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 * @link https://www.smarty.net/docs/en/api.is.cached.tpl
 	 *
 	 * @api  Smarty::isCached()
@@ -2277,6 +2280,327 @@ class Smarty extends \Smarty\TemplateBase
 			$template->caching = $this->caching;
 		}
 		return $template;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getCompileCheck(): int {
+		return $this->compile_check;
+	}
+
+	/**
+	 * @param int $compile_check
+	 */
+	public function setCompileCheck($compile_check) {
+		$this->compile_check = (int)$compile_check;
+	}
+
+	/**
+	 * @var Debug
+	 */
+	private $debug;
+
+	/**
+	 * Registers object to be used in templates
+	 *
+	 * @param string $object_name
+	 * @param object $object the referenced PHP object to register
+	 * @param array $allowed_methods_properties list of allowed methods (empty = all)
+	 * @param bool $format smarty argument format, else traditional
+	 * @param array $block_methods list of block-methods
+	 *
+	 * @return Smarty
+	 * @throws Exception
+	 * @link https://www.smarty.net/docs/en/api.register.object.tpl
+	 *
+	 * @api  Smarty::registerObject()
+	 */
+	public function registerObject(
+		$object_name,
+		$object,
+		$allowed_methods_properties = [],
+		$format = true,
+		$block_methods = []
+	): Smarty {
+		// test if allowed methods callable
+		if (!empty($allowed_methods_properties)) {
+			foreach ((array)$allowed_methods_properties as $method) {
+				if (!is_callable([$object, $method]) && !property_exists($object, $method)) {
+					throw new Exception("Undefined method or property '$method' in registered object");
+				}
+			}
+		}
+		// test if block methods callable
+		if (!empty($block_methods)) {
+			foreach ((array)$block_methods as $method) {
+				if (!is_callable([$object, $method])) {
+					throw new Exception("Undefined method '$method' in registered object");
+				}
+			}
+		}
+		// register the object
+		$this->registered_objects[$object_name] =
+			[$object, (array)$allowed_methods_properties, (boolean)$format, (array)$block_methods];
+		return $this;
+	}
+
+	/**
+	 * Registers plugin to be used in templates
+	 *
+	 * @param string $object_name name of object
+	 *
+	 * @return Smarty
+	 * @api  Smarty::unregisterObject()
+	 * @link https://www.smarty.net/docs/en/api.unregister.object.tpl
+	 */
+	public function unregisterObject($object_name): Smarty {
+		if (isset($this->registered_objects[$object_name])) {
+			unset($this->registered_objects[$object_name]);
+		}
+		return $this;
+	}
+
+
+	/**
+	 * creates a data object
+	 *
+	 * @param Data|null $parent next higher level of Smarty variables
+	 * @param null $name optional data block name
+	 *
+	 * @return Data data object
+	 * @throws Exception
+	 * @api  Smarty::createData()
+	 * @link https://www.smarty.net/docs/en/api.create.data.tpl
+	 *
+	 */
+	public function createData(Data $parent = null, $name = null): Data {
+		$dataObj = new Data($this, $this, $name);
+		if ($this->debugging) {
+			$this->getDebug()->register_data($dataObj);
+		}
+		return $dataObj;
+	}
+
+	/**
+	 * return name of debugging template
+	 *
+	 * @return string|null
+	 * @api Smarty::getDebugTemplate()
+	 */
+	public function getDebugTemplate(): ?string {
+		return $this->debug_tpl;
+	}
+
+	/**
+	 * @return Debug
+	 */
+	public function getDebug(): Debug {
+		if (!isset($this->debug)) {
+			$this->debug = new \Smarty\Debug();
+		}
+		return $this->debug;
+	}
+
+
+	/**
+	 * return a reference to a registered object
+	 *
+	 * @param string $object_name object name
+	 *
+	 * @return object
+	 * @throws Exception if no such object is found
+	 * @link https://www.smarty.net/docs/en/api.get.registered.object.tpl
+	 *
+	 * @api  Smarty::getRegisteredObject()
+	 */
+	public function getRegisteredObject($object_name): object {
+		if (!isset($this->registered_objects[$object_name])) {
+			throw new Exception("'$object_name' is not a registered object");
+		}
+		if (!is_object($this->registered_objects[$object_name][0])) {
+			throw new Exception("registered '$object_name' is not an object");
+		}
+		return $this->registered_objects[$object_name][0];
+	}
+
+	/**
+	 * Get literals
+	 *
+	 * @return array list of literals
+	 * @api Smarty::getLiterals()
+	 *
+	 */
+	public function getLiterals(): array {
+		return $this->literals;
+	}
+
+	/**
+	 * Add literals
+	 *
+	 * @param array|string $literals literal or list of literals
+	 *                                                                                  to addto add
+	 *
+	 * @return Smarty
+	 * @throws Exception
+	 * @api Smarty::addLiterals()
+	 *
+	 */
+	public function addLiterals($literals = null): Smarty {
+		if (isset($literals)) {
+			$this->_setLiterals((array)$literals);
+		}
+		return $this;
+	}
+
+	/**
+	 * Set literals
+	 *
+	 * @param array|string $literals literal or list of literals to set
+	 *
+	 * @return Smarty
+	 * @throws Exception
+	 * @api Smarty::setLiterals()
+	 */
+	public function setLiterals($literals = null): Smarty {
+		$this->literals = [];
+		if (!empty($literals)) {
+			$this->_setLiterals((array)$literals);
+		}
+		return $this;
+	}
+
+	/**
+	 * common setter for literals for easier handling of duplicates the
+	 * Smarty::$literals array gets filled with identical key values
+	 *
+	 * @param array $literals
+	 *
+	 * @throws Exception
+	 */
+	private function _setLiterals(array $literals) {
+		$literals = array_combine($literals, $literals);
+		$error = isset($literals[$this->getLeftDelimiter()]) ? [$this->getLeftDelimiter()] : [];
+		$error = isset($literals[$this->getRightDelimiter()]) ? $error[] = $this->getRightDelimiter() : $error;
+		if (!empty($error)) {
+			throw new Exception(
+				'User defined literal(s) "' . $error .
+				'" may not be identical with left or right delimiter'
+			);
+		}
+		$this->literals = array_merge($this->literals, (array)$literals);
+	}
+
+	/**
+	 * Registers static classes to be used in templates
+	 *
+	 * @param string $class_name
+	 * @param string $class_impl the referenced PHP class to
+	 *                                                                                    register
+	 *
+	 * @return Smarty
+	 * @throws Exception
+	 * @api  Smarty::registerClass()
+	 * @link https://www.smarty.net/docs/en/api.register.class.tpl
+	 *
+	 */
+	public function registerClass($class_name, $class_impl): Smarty {
+		// test if exists
+		if (!class_exists($class_impl)) {
+			throw new Exception("Undefined class '$class_impl' in register template class");
+		}
+		// register the class
+		$this->registered_classes[$class_name] = $class_impl;
+		return $this;
+	}
+
+	/**
+	 * Register config default handler
+	 *
+	 * @param callable $callback class/method name
+	 *
+	 * @return Smarty
+	 * @throws Exception              if $callback is not callable
+	 * @api Smarty::registerDefaultConfigHandler()
+	 *
+	 */
+	public function registerDefaultConfigHandler($callback): Smarty {
+		if (is_callable($callback)) {
+			$this->default_config_handler_func = $callback;
+		} else {
+			throw new Exception('Default config handler not callable');
+		}
+		return $this;
+	}
+
+	/**
+	 * Register template default handler
+	 *
+	 * @param callable $callback class/method name
+	 *
+	 * @return Smarty
+	 * @throws Exception              if $callback is not callable
+	 * @api Smarty::registerDefaultTemplateHandler()
+	 *
+	 */
+	public function registerDefaultTemplateHandler($callback): Smarty {
+		if (is_callable($callback)) {
+			$this->default_template_handler_func = $callback;
+		} else {
+			throw new Exception('Default template handler not callable');
+		}
+		return $this;
+	}
+
+	/**
+	 * Registers a resource to fetch a template
+	 *
+	 * @param string $name name of resource type
+	 * @param BasePlugin $resource_handler instance of Smarty\Resource\Base
+	 *
+	 * @return Smarty
+	 * @link https://www.smarty.net/docs/en/api.register.resource.tpl
+	 *
+	 * @api  Smarty::registerResource()
+	 */
+	public function registerResource($name, \Smarty\Resource\BasePlugin $resource_handler): Smarty {
+		$this->registered_resources[$name] = $resource_handler;
+		return $this;
+	}
+
+	/**
+	 * Unregisters a resource to fetch a template
+	 *
+	 * @param string $type name of resource type
+	 *
+	 * @return Smarty
+	 * @api  Smarty::unregisterResource()
+	 * @link https://www.smarty.net/docs/en/api.unregister.resource.tpl
+	 *
+	 */
+	public function unregisterResource($type): Smarty {
+		if (isset($this->registered_resources[$type])) {
+			unset($this->registered_resources[$type]);
+		}
+		return $this;
+	}
+
+	/**
+	 * set the debug template
+	 *
+	 * @param string $tpl_name
+	 *
+	 * @return Smarty
+	 * @throws Exception if file is not readable
+	 * @api Smarty::setDebugTemplate()
+	 *
+	 */
+	public function setDebugTemplate($tpl_name): Smarty {
+		if (!is_readable($tpl_name)) {
+			throw new Exception("Unknown file '{$tpl_name}'");
+		}
+		$this->debug_tpl = $tpl_name;
+		return $this;
 	}
 
 }

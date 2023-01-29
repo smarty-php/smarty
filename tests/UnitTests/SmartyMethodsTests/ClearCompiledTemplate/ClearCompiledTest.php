@@ -160,7 +160,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearAll($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 
@@ -194,7 +194,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearTemplate($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 
@@ -211,7 +211,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearOtherTemplate($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 
@@ -245,7 +245,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearCompileid($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 
@@ -264,7 +264,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearOtherCompileid($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 
@@ -288,7 +288,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearExpired($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 
@@ -313,7 +313,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearTemplateExpired($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 
@@ -343,7 +343,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearTemplateCacheidExpired($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 
@@ -373,7 +373,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearCacheidExpired($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 
@@ -403,7 +403,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearTemplateCacheid($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 
@@ -431,7 +431,7 @@ class ClearCompiledTest extends PHPUnit_Smarty
 
     public function runClearAmbiguousTemplate($useSubDirs)
     {
-        $this->getSmarty()->setUseSubDirs($useSubDirs);
+
         $this->clearFiles();
         $this->makeFiles();
 

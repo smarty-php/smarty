@@ -11,7 +11,14 @@ use Smarty\Template\Compiler\CodeFrame;
  * Represents a cached version of a template or config file.
  * @author     Rodney Rehm
  */
-class Cached extends GeneratedPhpFile {
+class Cached {
+
+	/**
+	 * Filepath of cached file
+	 *
+	 * @var string
+	 */
+	public $filepath = null;
 
 	/**
 	 * Cache Is Valid
@@ -21,11 +28,25 @@ class Cached extends GeneratedPhpFile {
 	private $valid = null;
 
 	/**
-	 * @param bool|null $valid
+	 * Indicates existence of cache in cacheresource
+	 *
+	 * @var boolean
 	 */
-	public function setValid(?bool $valid): void {
-		$this->valid = $valid;
-	}
+	public $exists = false;
+
+	/**
+	 * Template Compile Id (\Smarty\Template::$compile_id)
+	 *
+	 * @var string
+	 */
+	public $compile_id = null;
+
+	/**
+	 * Compiled Timestamp
+	 *
+	 * @var int|bool
+	 */
+	public $timestamp = false;
 
 	/**
 	 * CacheResource Handler
@@ -67,7 +88,7 @@ class Cached extends GeneratedPhpFile {
 	 *
 	 * @var Source
 	 */
-	public $source = null;
+	private $source = null;
 
 	/**
 	 * Nocache hash codes of processed compiled templates
@@ -84,6 +105,13 @@ class Cached extends GeneratedPhpFile {
 	public $content = null;
 
 	/**
+	 * resource file dependency
+	 *
+	 * @var array
+	 */
+	public $file_dependency = [];
+
+	/**
 	 * create Cached Object container
 	 *
 	 * @param Source $source
@@ -96,36 +124,69 @@ class Cached extends GeneratedPhpFile {
 		$this->cache_id = $cache_id;
 		$this->source = $source;
 		$this->handler = $handler;
+		//@TODO we need $template here too.
 	}
 
 	/**
-	 * Render cache template
+	 * Return cached template contents
 	 *
-	 * @param \Smarty\Template $_template
-	 * @param bool $no_output_filter
+	 * @param Template $_template
 	 *
-	 * @throws \Exception
+	 * @return string
+	 * @throws Exception
 	 */
-	public function render(Template $_template, $no_output_filter = true) {
+	public function fetch(Template $_template): string {
 
 		if (!$this->isCached($_template)) {
-			$this->updateCache($_template, $no_output_filter);
-		} else {
-			if (!$this->processed) {
-				$this->process($_template);
-			}
+			$this->saveCache($_template);
 		}
 
 		if ($_template->getSmarty()->debugging) {
 			$_template->getSmarty()->getDebug()->start_cache($_template);
 		}
 
-		$this->getRenderedTemplateCode($_template, $this->unifunc);
+		$codeFrameClassname = $this->getCodeFrameClassname();
+		if ($this->getCodeFrameClassname() && !class_exists($codeFrameClassname)) {
+			$this->runCodeFrame($_template, $this->readCache($_template));
+		}
+
+		/** @var \Smarty\CodeFrame\Cached $codeFrameClassname */
+		$cachedTemplate = new $codeFrameClassname();
+		ob_start();
+
+		$cachedTemplate->renderContent($_template);
+
+		$result = ob_get_clean();
 
 		if ($_template->getSmarty()->debugging) {
 			$_template->getSmarty()->getDebug()->end_cache($_template);
 		}
 
+		return $result;
+	}
+
+	/**
+	 * Render cache template
+	 *
+	 * @param \Smarty\Template $_template
+	 *
+	 * @throws \Exception
+	 */
+	public function render(Template $_template): void {
+		echo $this->fetch($_template);
+	}
+
+	/**
+	 * Returns the codeframe for this cache, but only if it is loaded already. Will not load any data from
+	 * the cacheresource.
+	 *
+	 * @return \Smarty\CodeFrame\Cached|null
+	 */
+	private function getCodeFrame(): ?\Smarty\CodeFrame\Cached {
+		if (!$this->getCodeFrameClassname() || !class_exists($classname = $this->getCodeFrameClassname())) {
+			return null;
+		}
+		return new $classname;
 	}
 
 	/**
@@ -137,86 +198,7 @@ class Cached extends GeneratedPhpFile {
 	 * @throws Exception
 	 */
 	public function isCached(Template $_template) {
-		if ($this->valid !== null) {
-			return $this->valid;
-		}
-		while (true) {
-			while (true) {
-				if ($this->exists === false || $_template->getSmarty()->force_compile || $_template->getSmarty()->force_cache) {
-					$this->valid = false;
-				} else {
-					$this->valid = true;
-				}
-				if ($this->valid && $_template->caching === \Smarty\Smarty::CACHING_LIFETIME_CURRENT
-					&& $_template->cache_lifetime >= 0 && time() > ($this->timestamp + $_template->cache_lifetime)
-				) {
-					// lifetime expired
-					$this->valid = false;
-				}
-				if ($this->valid && $_template->compile_check === \Smarty\Smarty::COMPILECHECK_ON
-					&& $_template->getSource()->getTimeStamp() > $this->timestamp
-				) {
-					$this->valid = false;
-				}
-				if ($this->valid || !$_template->getSmarty()->cache_locking) {
-					break;
-				}
-				if (!$this->handler->locked($_template->getSmarty(), $this)) {
-					$this->handler->acquireLock($_template->getSmarty(), $this);
-					break 2;
-				}
-				$this->handler->populate($this, $_template);
-			}
-			if ($this->valid) {
-				if (!$_template->getSmarty()->cache_locking || $this->handler->locked($_template->getSmarty(), $this) === null) {
-					// load cache file for the following checks
-					if ($_template->getSmarty()->debugging) {
-						$_template->getSmarty()->getDebug()->start_cache($_template);
-					}
-					if ($this->handler->process($_template, $this) === false) {
-						$this->valid = false;
-					} else {
-						$this->processed = true;
-					}
-					if ($_template->getSmarty()->debugging) {
-						$_template->getSmarty()->getDebug()->end_cache($_template);
-					}
-				} else {
-					$this->is_locked = true;
-					continue;
-				}
-			} else {
-				return $this->valid;
-			}
-			if ($this->valid && $_template->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED
-				&& $_template->getCached()->cache_lifetime >= 0
-				&& (time() > ($_template->getCached()->timestamp + $_template->getCached()->cache_lifetime))
-			) {
-				$this->valid = false;
-			}
-			if ($_template->getSmarty()->cache_locking) {
-				if (!$this->valid) {
-					$this->handler->acquireLock($_template->getSmarty(), $this);
-				} elseif ($this->is_locked) {
-					$this->handler->releaseLock($_template->getSmarty(), $this);
-				}
-			}
-			return $this->valid;
-		}
-		return $this->valid;
-	}
-
-	/**
-	 * Process cached template
-	 *
-	 * @param Template $_template template object
-	 * @param bool $update flag if called because cache update
-	 */
-	private function process(Template $_template, $update = false) {
-		if ($this->handler->process($_template, $this, $update) === false) {
-			$this->valid = false;
-		}
-		$this->processed = $this->valid;
+		return $this->getCodeFrame() && $this->getCodeFrame()->isFresh($_template);
 	}
 
 	/**
@@ -224,13 +206,13 @@ class Cached extends GeneratedPhpFile {
 	 *
 	 * @param Template $_template template object
 	 *
-	 * @return string|false content
-	 */
-	public function readCache(Template $_template) {
+	 * @return string content
+s	 */
+	private function readCache(Template $_template) {
 		if (!$_template->getSource()->handler->recompiled) {
 			return $this->handler->retrieveCachedContent($_template);
 		}
-		return false;
+		return '';
 	}
 
 	/**
@@ -240,7 +222,7 @@ class Cached extends GeneratedPhpFile {
 	 *
 	 * @return bool success
 	 */
-	public function writeCache(Template $_template, $content) {
+	private function writeCache(Template $_template, $content) {
 		if (!$_template->getSource()->handler->recompiled) {
 			if ($this->handler->storeCachedContent($_template, $content)) {
 				$this->content = null;
@@ -248,7 +230,6 @@ class Cached extends GeneratedPhpFile {
 				$this->exists = true;
 				$this->valid = true;
 				$this->cache_lifetime = $_template->cache_lifetime;
-				$this->processed = false;
 				if ($_template->getSmarty()->cache_locking) {
 					$this->handler->releaseLock($_template->getSmarty(), $this);
 				}
@@ -258,7 +239,6 @@ class Cached extends GeneratedPhpFile {
 			$this->timestamp = false;
 			$this->exists = false;
 			$this->valid = false;
-			$this->processed = false;
 		}
 		return false;
 	}
@@ -267,29 +247,29 @@ class Cached extends GeneratedPhpFile {
 	 * Cache was invalid , so render from compiled and write to cache
 	 *
 	 * @param Template $_template
-	 * @param bool $no_output_filter
 	 *
 	 * @throws \Smarty\Exception
 	 */
-	private function updateCache(Template $_template, $no_output_filter) {
+	private function saveCache(Template $_template) {
 
-		ob_start();
-
-		$_template->getCompiled()->render($_template);
+		$content = $_template->getCompiled()->fetch();
 
 		if ($_template->getSmarty()->debugging) {
 			$_template->getSmarty()->getDebug()->start_cache($_template);
 		}
 
-		$this->removeNoCacheHash($_template, $no_output_filter);
+		$content = $this->removeNoCacheHash($content, $_template);
+
+		$codeframe = (new \Smarty\Compiler\CodeFrame($_template))->create(
+			$content,
+			'',
+			true
+		);
+		$this->writeCache($_template, $codeframe);
 
 		if ($_template->_isSubTpl()) {
-			// @TODO why is this needed?
-			$_template->getCompiled()->unifunc = $_template->parent->getCompiled()->unifunc;
-		}
-
-		if (!$this->processed) {
-			$this->process($_template, true);
+			// @TODO why was this needed? unifunc is no longer used, so this won't work anymore.
+//			$_template->getCompiled()->unifunc = $_template->parent->getCompiled()->unifunc;
 		}
 
 		if ($_template->getSmarty()->debugging) {
@@ -297,22 +277,41 @@ class Cached extends GeneratedPhpFile {
 		}
 	}
 
+	private function getCompiledUid(): string {
+		return hash(
+			\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128',
+			join('_', [
+				$this->getSource()->uid,
+//				$this->template->compile_id, //@TODO
+				$this->getSource()->getSmarty()->config_overwrite ? '1' : '0',
+				$this->getSource()->getSmarty()->config_booleanize ? '1' : '0',
+				$this->getSource()->getSmarty()->config_read_hidden ? '1' : '0',
+				$this->getSource()->getSmarty()->caching ? '1' : '0',
+			])
+		);
+	}
+
+	private function getCodeFrameClassname() {
+		return '__Cache_' . $this->getCompiledUid(); //@TODO use value from properties
+	}
+
 	/**
 	 * Sanitize content and write it to cache resource
 	 *
+	 * @param string $content
 	 * @param Template $_template
-	 * @param bool $no_output_filter
 	 *
-	 * @throws \Smarty\Exception
+	 * @return string
 	 */
-	private function removeNoCacheHash(Template $_template, $no_output_filter) {
+	private function removeNoCacheHash(string $content, Template $_template): string {
+
 		$php_pattern = '/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/';
-		$content = ob_get_clean();
+
 		$hash_array = $this->hashes;
 		$hash_array[$_template->getCompiled()->nocache_hash] = true;
 		$hash_array = array_keys($hash_array);
 		$nocache_hash = '(' . implode('|', $hash_array) . ')';
-		$_template->getCached()->setNocacheCode(false);
+
 		// get text between non-cached items
 		$cache_split =
 			preg_split(
@@ -349,19 +348,11 @@ class Cached extends GeneratedPhpFile {
 				$content .= $curr_split;
 			}
 			if (isset($cache_parts[0][$curr_idx])) {
-				$_template->getCached()->setNocacheCode(true);
 				$content .= $cache_parts[2][$curr_idx];
 			}
 		}
-		if (
-			!$no_output_filter
-			&& !$_template->getCached()->getNocacheCode()
-		) {
-			$content = $_template->getSmarty()->runOutputFilters($content, $_template);
-		}
 
-		$codeframe = (new \Smarty\Compiler\CodeFrame($_template))->create($content, '', true);
-		$this->writeCache($_template, $codeframe);
+		return $content;
 	}
 
 	/**
@@ -371,67 +362,12 @@ class Cached extends GeneratedPhpFile {
 		return $this->source;
 	}
 
-	/**
-	 * @param Source|null $source
-	 */
-	public function setSource(?Source $source): void {
-		$this->source = $source;
-	}
+	private function runCodeFrame(Template $_smarty_tpl, string $code) {
 
-	/**
-	 * Returns the generated content
-	 *
-	 * @param Template $template
-	 *
-	 * @return string|null
-	 * @throws \Exception
-	 */
-	public function getContent(Template $template) {
+
 		ob_start();
-		$this->render($template);
+		eval('?>' . $code);
 		return ob_get_clean();
-	}
-
-	/**
-	 * This function is executed automatically when a generated file is included
-	 * - Decode saved properties
-	 * - Check if file is valid
-	 *
-	 * @param Template $_template
-	 * @param array $properties special template properties
-	 *
-	 * @return bool flag if compiled or cache file is valid
-	 * @throws Exception
-	 */
-	public function isFresh(Template $_template, array $properties): bool {
-
-		// on cache resources other than file check version stored in cache code
-		if (\Smarty\Smarty::SMARTY_VERSION !== $properties['version']) {
-			return false;
-		}
-
-		$is_valid = true;
-
-		if (!empty($properties['file_dependency']) && ($_template->compile_check === \Smarty\Smarty::COMPILECHECK_ON)) {
-			$is_valid = $this->checkFileDependencies($properties['file_dependency'], $_template);
-		}
-
-		// CACHING_LIFETIME_SAVED cache expiry has to be validated here since otherwise we'd define the unifunc
-		if ($_template->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED && $properties['cache_lifetime'] >= 0
-			&& (time() > ($this->timestamp + $properties['cache_lifetime']))
-		) {
-			$is_valid = false;
-		}
-
-		$this->cache_lifetime = $properties['cache_lifetime'];
-		$this->setValid($is_valid);
-
-		if ($is_valid) {
-			$this->unifunc = $properties['unifunc'];
-			$this->setNocacheCode($properties['has_nocache_code']);
-			$this->file_dependency = $properties['file_dependency'];
-		}
-		return $is_valid && !function_exists($properties['unifunc']);
 	}
 
 }

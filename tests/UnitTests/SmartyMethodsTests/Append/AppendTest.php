@@ -8,10 +8,6 @@
 
 /**
  * class for append tests
- *
- * 
- * 
- *
  */
 class AppendTest extends PHPUnit_Smarty
 {

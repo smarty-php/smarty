@@ -8,10 +8,6 @@
 
 /**
  * class for stream resource tests
- *
- * 
- * 
- * 
  */
 class StreamResourceTest extends PHPUnit_Smarty
 {
@@ -156,7 +152,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testWriteCachedContent()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->writeCachedContent('dummy'));
+        $this->assertFalse($tpl->getCached()->handler->storeCachedContent($tpl, 'dummy'));
     }
 
     /**

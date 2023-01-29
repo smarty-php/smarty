@@ -3,13 +3,14 @@
 namespace Smarty\Template;
 
 use Smarty\Exception;
+use Smarty\Resource\BasePlugin;
+use Smarty\Smarty;
 use Smarty\Template;
 
 /**
  * Represents a compiled version of a template or config file.
- * @author     Rodney Rehm
  */
-class Compiled extends GeneratedPhpFile {
+class Compiled {
 
 	/**
 	 * nocache hash
@@ -26,277 +27,305 @@ class Compiled extends GeneratedPhpFile {
 	 * @var int[]
 	 */
 	public $includes = [];
+
 	/**
+	 * @var Template
+	 */
+	private $template;
+
+	/**
+	 * flag if template does contain nocache code sections
+	 *
 	 * @var bool
 	 */
-	private $isValid = false;
+	private $has_nocache_code = false;
 
 	/**
-	 * get a Compiled Object of this source
-	 *
-	 * @param Template $_template template object
-	 *
-	 * @return Compiled compiled object
+	 * @var false|int
 	 */
-	public static function load($_template) {
-		$compiled = new Compiled();
-		if ($_template->getSource()->handler->supportsCompiledTemplates()) {
-			$compiled->populateCompiledFilepath($_template);
-		}
-		return $compiled;
+	private $timestamp = null;
+
+	/**
+	 * resource file dependency
+	 *
+	 * @var array
+	 */
+	public $file_dependency = [];
+
+	/**
+	 * @var null|\Smarty\CodeFrame\Compiled
+	 */
+	private $codeFrame = null;
+
+	/**
+	 * @return bool
+	 */
+	public function getNocacheCode(): bool {
+		return $this->has_nocache_code;
 	}
 
 	/**
-	 * populate Compiled Object with compiled filepath
-	 *
-	 * @param Template $_template template object
-	 **/
-	private function populateCompiledFilepath(Template $_template) {
-		$source = $_template->getSource();
-		$smarty = $_template->getSmarty();
-		$this->filepath = $smarty->getCompileDir();
-		if (isset($_template->compile_id)) {
-			$this->filepath .= preg_replace('![^\w]+!', '_', $_template->compile_id) .
-				($smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^');
-		}
-		// if use_sub_dirs, break file into directories
-		if ($smarty->use_sub_dirs) {
-			$this->filepath .= $source->uid[0] . $source->uid[1] . DIRECTORY_SEPARATOR . $source->uid[2] .
-				$source->uid[3] . DIRECTORY_SEPARATOR . $source->uid[4] . $source->uid[5] .
-				DIRECTORY_SEPARATOR;
-		}
-		$this->filepath .= $source->uid . '_';
-		if ($source->isConfig) {
-			$this->filepath .= (int)$smarty->config_read_hidden + (int)$smarty->config_booleanize * 2 +
-				(int)$smarty->config_overwrite * 4;
-		} else {
-			$this->filepath .= (int)$smarty->escape_html * 2;
-		}
-		$this->filepath .= '.' . $source->type;
-		$basename = $source->getBasename();
-		if (!empty($basename)) {
-			$this->filepath .= '.' . $basename;
-		}
-		if ($_template->caching) {
-			$this->filepath .= '.cache';
-		}
-		$this->filepath .= '.php';
-		$this->timestamp = $this->exists = is_file($this->filepath);
-		if ($this->exists) {
-			$this->timestamp = filemtime($this->filepath);
-		}
+	 * @param bool $has_nocache_code
+	 */
+	public function setNocacheCode(bool $has_nocache_code): void {
+		$this->has_nocache_code = $has_nocache_code;
 	}
 
 	/**
-	 * render compiled template code
-	 *
-	 * @param Template $_template
+	 * @param Template $template
+	 */
+	public function __construct(Template $template) {
+		$this->template = $template;
+	}
+
+	/**
+	 * Return compiled template code
 	 *
 	 * @return string
-	 * @throws \Smarty\Exception
+	 * @throws Exception
+	 * @throws \Exception
 	 */
-	public function render(Template $_template) {
+	public function fetch(): string {
 		// checks if template exists
-		if (!$_template->getSource()->exists) {
-			$type = $_template->getSource()->isConfig ? 'config' : 'template';
-			throw new \Smarty\Exception("Unable to load {$type} '{$_template->getSource()->type}:{$_template->getSource()->name}'");
+		$source = $this->template->getSource();
+		if (!$source->exists) {
+			$type = $source->isConfig ? 'config' : 'template';
+			throw new Exception("Unable to load $type '$source->type:$source->name'");
 		}
-		if ($_template->getSmarty()->debugging) {
-			$_template->getSmarty()->getDebug()->start_render($_template);
+		if ($this->template->getSmarty()->debugging) {
+			$this->template->getSmarty()->getDebug()->start_render($this->template);
 		}
-		if (!$this->processed) {
-			$this->compileAndLoad($_template);
-		}
+
+		$codeFrame = $this->getCodeFrame();
 
 		// @TODO Can't Cached handle this? Maybe introduce an event to decouple.
-		$_template->getCached()->file_dependency =
-			array_merge($_template->getCached()->file_dependency, $this->file_dependency);
+		$this->template->getCached()->file_dependency =
+			array_merge($this->template->getCached()->file_dependency, $this->file_dependency);
 
-		$this->getRenderedTemplateCode($_template, $this->unifunc);
-
-		// @TODO Can't Cached handle this? Maybe introduce an event to decouple and remove the $_template->caching property.
-		if ($_template->caching && $this->getNocacheCode()) {
-			$_template->getCached()->hashes[$this->nocache_hash] = true;
-		}
-
-		if ($_template->getSmarty()->debugging) {
-			$_template->getSmarty()->getDebug()->end_render($_template);
-		}
-	}
-
-	/**
-	 * load compiled template or compile from source
-	 *
-	 * @param Template $_smarty_tpl do not change variable name, is used by compiled template
-	 *
-	 * @throws Exception
-	 */
-	private function compileAndLoad(Template $_smarty_tpl) {
-
-		if ($_smarty_tpl->getSource()->handler->recompiled) {
-			$this->recompile($_smarty_tpl);
-			return;
-		}
-
-		if ($this->exists && !$_smarty_tpl->getSmarty()->force_compile
-			&& !($_smarty_tpl->compile_check && $_smarty_tpl->getSource()->getTimeStamp() > $this->getTimeStamp())
-		) {
-			$this->loadCompiledTemplate($_smarty_tpl);
-		}
-
-		if (!$this->isValid) {
-			$this->compileAndWrite($_smarty_tpl);
-			$this->loadCompiledTemplate($_smarty_tpl);
-		}
-
-		$this->processed = true;
-	}
-
-	/**
-	 * compile template from source
-	 *
-	 * @param Template $_smarty_tpl do not change variable name, is used by compiled template
-	 *
-	 * @throws Exception
-	 */
-	private function recompile(Template $_smarty_tpl) {
 		$level = ob_get_level();
-		ob_start();
-		// call compiler
+
 		try {
-			eval('?>' . $this->doCompile($_smarty_tpl));
+
+			ob_start();
+
+			$codeFrame->renderContent($this->template);
+
+			// @TODO Can't Cached handle this? Maybe introduce an event to decouple and remove the $this->caching property.
+			if ($this->template->caching && $this->getNocacheCode()) {
+				$this->template->getCached()->hashes[$this->nocache_hash] = true;
+			}
+
+			if ($this->template->getSmarty()->debugging) {
+				$this->template->getSmarty()->getDebug()->end_render($this->template);
+			}
+			return $this->template->getSmarty()->runOutputFilters(ob_get_clean(), $this->template);
+
 		} catch (\Exception $e) {
 			while (ob_get_level() > $level) {
 				ob_end_clean();
 			}
 			throw $e;
 		}
-		ob_get_clean();
-		$this->timestamp = time();
-		$this->exists = true;
 	}
 
 	/**
-	 * compile template from source
-	 *
-	 * @param Template $_template
+	 * Loads compiled template (or compile from source and (usually) store the compiled version).
+	 * Should only be called when code frame class doest NOT exist yet.
 	 *
 	 * @throws Exception
 	 */
-	public function compileAndWrite(Template $_template) {
-		// compile locking
-		if ($saved_timestamp = (!$_template->getSource()->handler->recompiled && is_file($this->filepath))) {
-			$saved_timestamp = $this->getTimeStamp();
-			touch($this->filepath);
+	private function getCodeFrame(): \Smarty\CodeFrame\Compiled {
+
+		if ($this->codeFrame !== null) {
+			return $this->codeFrame;
 		}
-		// compile locking
-		try {
-			// call compiler
-			$this->write($_template, $this->doCompile($_template));
-		} catch (\Exception $e) {
-			// restore old timestamp in case of error
-			if ($saved_timestamp && is_file($this->filepath)) {
-				touch($this->filepath, $saved_timestamp);
+
+		$properties = [];
+
+		if ($this->template->getSource()->handler->recompiled) {
+			$properties = eval('?>' . $this->doCompile());
+		} elseif (file_exists($this->getFilePath())) {
+			$properties = @include $this->getFilePath();
+		}
+
+		if (empty($properties) || !$this->isFresh($properties)) {
+			$content = $this->doCompile();
+			$this->write($content);
+			return $this->getCodeFrame(); // recursion
+		}
+
+		return new $properties['codeFrameClass']();
+	}
+
+	/**
+	 * This function is executed automatically when a generated file is included
+	 * - Decode saved properties
+	 * - Check if file is valid
+	 *
+	 * @param array $properties
+	 *
+	 * @return bool flag if compiled or cache file is valid
+	 * @throws Exception
+	 */
+	public function isFresh(array $properties): bool {
+
+		if (Smarty::SMARTY_VERSION !== $properties['version']) {
+			return false;
+		}
+
+		if ($this->template->getSmarty()->getCompileCheck()) {
+			if (!$this->checkFileDependencies($properties['file_dependency'])) {
+				return false;
 			}
-			throw $e;
 		}
+
+		return true;
 	}
 
 	/**
-	 * Do the actual compiling.
+	 * @param array $file_dependency
 	 *
-	 * @param Template $_smarty_tpl
-	 *
-	 * @return string
+	 * @return bool
 	 * @throws Exception
 	 */
-	private function doCompile(Template $_smarty_tpl): string {
-		$this->file_dependency = [];
-		$this->includes = [];
-		$this->nocache_hash = null;
-		$this->unifunc = null;
-		return $_smarty_tpl->getCompiler()->compileTemplate($_smarty_tpl);
-	}
-
-	/**
-	 * Write compiled code by handler
-	 *
-	 * @param Template $_template template object
-	 * @param string $code compiled code
-	 *
-	 * @return bool success
-	 * @throws \Smarty\Exception
-	 */
-	private function write(Template $_template, $code) {
-		if (!$_template->getSource()->handler->recompiled) {
-			if ($_template->getSmarty()->writeFile($this->filepath, $code) === true) {
-				$this->timestamp = $this->exists = is_file($this->filepath);
-				if ($this->exists) {
-					$this->timestamp = filemtime($this->filepath);
-					return true;
+	protected function checkFileDependencies(array $file_dependency): bool {
+		// check file dependencies at compiled code
+		foreach ($file_dependency as $_file_to_check) {
+			if ($_file_to_check[2] === 'file') {
+				if ($this->template->getSource()->filepath === $_file_to_check[0]) {
+					// do not recheck current template
+					continue;
+				}
+				// file and php types can be checked without loading the respective resource handlers
+				$mtime = is_file($_file_to_check[0]) ? filemtime($_file_to_check[0]) : false;
+			} else {
+				$handler = BasePlugin::load($this->template->getSmarty(), $_file_to_check[2]);
+				if ($handler->checkTimestamps()) {
+					$source = Source::load($this->template, $this->template->getSmarty(), $_file_to_check[0]);
+					$mtime = $source->getTimeStamp();
+				} else {
+					continue;
 				}
 			}
-			return false;
+			if ($mtime === false || $mtime > $_file_to_check[1]) {
+				return false;
+			}
 		}
 		return true;
 	}
 
 	/**
-	 * Load fresh compiled template by including the PHP file
-	 * HHVM requires a workaround because of a PHP incompatibility
+	 * compile template from source
 	 *
-	 * @param Template $_smarty_tpl do not change/remove variable name, is used by compiled template
-	 *
+	 * @throws Exception
 	 */
-	private function loadCompiledTemplate(Template $_smarty_tpl) {
+	public function compileAndWrite(): string {
 
-		if (function_exists('opcache_invalidate')
-			&& (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
-		) {
-			opcache_invalidate($this->filepath, true);
-		} elseif (function_exists('apc_compile_file')) {
-			apc_compile_file($this->filepath);
+		$_template = $this->template;
+
+		$filepath = $this->getFilePath();
+
+		// compile locking
+		if ($saved_timestamp = (!$_template->getSource()->handler->recompiled && is_file($filepath))) {
+			$saved_timestamp = $this->getTimeStamp();
+			touch($filepath);
 		}
-		if (defined('HHVM_VERSION')) {
-			eval('?>' . file_get_contents($this->filepath));
-		} else {
-			include $this->filepath;
+		// compile locking
+		try {
+			// call compiler
+			$this->write($content = $this->doCompile());
+
+		} catch (\Exception $e) {
+			// restore old timestamp in case of error
+			if ($saved_timestamp && is_file($filepath)) {
+				touch($filepath, $saved_timestamp);
+			}
+			throw $e;
 		}
 
+		return $content;
 	}
 
 	/**
-	 * This function is executed automatically when a compiled or cached template file is included
-	 * - Decode saved properties from compiled template and cache files
-	 * - Check if compiled or cache file is valid
+	 * Do the actual compiling.
 	 *
-	 * @param Template $_template
-	 * @param array $properties special template properties
-	 *
-	 * @return bool flag if compiled or cache file is valid
+	 * @return string
 	 * @throws Exception
 	 */
-	public function isFresh(Template $_template, array $properties): bool {
+	private function doCompile(): string {
+		$this->file_dependency = [];
+		$this->includes = [];
+		$this->nocache_hash = null;
 
-		// on cache resources other than file check version stored in cache code
-		if (\Smarty\Smarty::SMARTY_VERSION !== $properties['version']) {
-			return false;
+		$level = ob_get_level();
+
+		try {
+			$result = $this->template->getCompiler()->compileTemplate($this->template);
+		} catch (\Exception $e) {
+			// close output buffers that were left open because of the exception
+			while (ob_get_level() > $level) {
+				ob_end_clean();
+			}
+			throw $e;
 		}
 
-		$is_valid = true;
-		if (!empty($properties['file_dependency']) && $_template->compile_check) {
-			$is_valid = $this->checkFileDependencies($properties['file_dependency'], $_template);
-		}
+		$this->timestamp = time();
+		return $result;
+	}
 
-		$this->isValid = $is_valid;
-		$this->includes = $properties['includes'] ?? [];
-
-		if ($is_valid) {
-			$this->unifunc = $properties['unifunc'];
-			$this->setNocacheCode($properties['has_nocache_code']);
-			$this->file_dependency = $properties['file_dependency'];
+	/**
+	 * Write compiled code by handler
+	 *
+	 * @param string $code compiled code
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
+	private function write(string $code) {
+		if (!$this->template->getSource()->handler->recompiled) {
+			$filePath = $this->getFilePath();
+			if ($this->template->getSmarty()->writeFile($filePath, $code) === true) {
+				$this->timestamp = is_file($filePath) ? filemtime($filePath) : false;
+			}
 		}
-		return $is_valid && !function_exists($properties['unifunc']);
+	}
+
+	private function getFilePath(): string {
+
+		$source = $this->template->getSource();
+		$smarty = $this->template->getSmarty();
+
+		$prefix = $smarty->getCompileDir() . $source->uid[0] . $source->uid[1];
+
+		return $prefix . DIRECTORY_SEPARATOR . join('_', [
+			$source->type,
+			$source->getBasename(),
+			$this->getCompiledUid()
+		]) . '.php';
+	}
+
+	private function getCompiledUid(): string {
+		return hash(
+			PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128',
+			join('_', [
+				$this->template->getSource()->uid,
+				$this->template->compile_id,
+				$this->template->getSmarty()->escape_html ? '1' : '0',
+				$this->template->caching ? '1' : '0',
+			])
+		);
+	}
+
+	/**
+	 * Get compiled time stamp or null if there is no compiled file
+	 *
+	 * @return int|null
+	 */
+	public function getTimeStamp(): ?int {
+		if ($this->timestamp === null && file_exists($this->getFilePath())) {
+			$this->timestamp = filemtime($this->getFilePath());
+		}
+		return $this->timestamp;
 	}
 
 }
