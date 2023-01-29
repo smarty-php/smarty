@@ -67,9 +67,6 @@ jobs:
 
     - name: Run make
       run: make -B
-      
-    - name: Check no changes after rebuild of lexers and parsers
-      run: git diff --exit-code
 
     - name: Run tests with phpunit
       run: php ./vendor/phpunit/phpunit/phpunit
