@@ -109,12 +109,12 @@ class Mailto extends Base {
 			for ($x = 0, $_length = strlen($string); $x < $_length; $x++) {
 				$js_encode .= '%' . bin2hex($string[$x]);
 			}
-			return '<script type="text/javascript">document.write(unescape(\'' . $js_encode . '\'))</script>';
+			return '<script>document.write(unescape(\'' . $js_encode . '\'))</script>';
 		} elseif ($encode === 'javascript_charcode') {
 			for ($x = 0, $_length = strlen($string); $x < $_length; $x++) {
 				$ord[] = ord($string[$x]);
 			}
-			return '<script type="text/javascript">document.write(String.fromCharCode(' . implode(',', $ord) . '))</script>';
+			return '<script>document.write(String.fromCharCode(' . implode(',', $ord) . '))</script>';
 		} elseif ($encode === 'hex') {
 			preg_match('!^(.*)(\?.*)$!', $address, $match);
 			if (!empty($match[2])) {

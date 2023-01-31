@@ -24,7 +24,7 @@ The above example will output:
 Another example with some Javascript
 
 
-    <script language="JavaScript">
+    <script>
     function foo() {ldelim}
         ... code ...
     {rdelim}
@@ -35,7 +35,7 @@ Another example with some Javascript
 will output
 
 
-    <script language="JavaScript">
+    <script>
     function foo() {
         .... code ...
     }
@@ -44,7 +44,7 @@ will output
        
 
 
-    <script language="JavaScript" type="text/javascript">
+    <script>
         function myJsFunction(){ldelim}
             alert("The server name\n{$smarty.server.SERVER_NAME}\n{$smarty.server.SERVER_ADDR}");
         {rdelim}

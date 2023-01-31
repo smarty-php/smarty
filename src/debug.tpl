@@ -166,7 +166,7 @@
     </body>
     </html>
 {/capture}
-<script type="text/javascript">
+<script>
     {$id = '__Smarty__'}
     {if $display_mode}{$id = "$offset$template_name"|md5}{/if}
     _smarty_console = window.open("", "console{$id}", "width=1024,height=600,left={$offset},top={$offset},resizable,scrollbars=yes");
