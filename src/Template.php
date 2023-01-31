@@ -131,7 +131,8 @@ class Template extends TemplateBase {
 		// Template resource
 		$this->template_resource = $template_resource;
 
-		$this->setSource($_isConfig ? Config::load($this) : Source::load($this));
+		$this->source = $_isConfig ? Config::load($this) : Source::load($this);
+		$this->compiled = Compiled::load($this);
 
 		if ($smarty->security_policy) {
 			$smarty->security_policy->registerCallBacks($this);
