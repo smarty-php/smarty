@@ -1107,6 +1107,9 @@ class Template extends BaseCompiler {
 				$this->tag_nocache = $this->tag_nocache | !$tagCompiler->isCacheable();
 				$_output = $tagCompiler->compile($args, $this, $parameter);
 				if ($_output !== false) {
+					if (!empty($parameter['modifierlist'])) {
+						throw new CompilerException('No modifiers allowed on ' . $tag);
+					}
 					return $this->has_code && $_output !== true ? $_output : null;
 				}
 			}
@@ -1114,9 +1117,13 @@ class Template extends BaseCompiler {
 
 		// call to function previousely defined by {function} tag
 		if ($this->canCompileTemplateFunctionCall($tag)) {
+
+			if (!empty($parameter['modifierlist'])) {
+				throw new CompilerException('No modifiers allowed on ' . $tag);
+			}
+
 			$args['_attr']['name'] = "'{$tag}'";
 			$tagCompiler = $this->getTagCompiler('call');
-			// compile this tag
 			$_output = $tagCompiler === null ? false : $tagCompiler->compile($args, $this, $parameter);
 			return $this->has_code ? $_output : null;
 		}
@@ -1157,6 +1164,9 @@ class Template extends BaseCompiler {
 
 		// the default plugin handler is a handler of last resort, it may also handle not specifically registered tags.
 		if ($callback = $this->getPluginFromDefaultHandler($base_tag, Smarty::PLUGIN_COMPILER)) {
+			if (!empty($parameter['modifierlist'])) {
+				throw new CompilerException('No modifiers allowed on ' . $base_tag);
+			}
 			$tagCompiler = new \Smarty\Compile\Tag\BCPluginWrapper($callback);
 			return $tagCompiler->compile($args, $this, $parameter);
 		}

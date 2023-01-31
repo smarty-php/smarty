@@ -324,4 +324,11 @@ class CompileIncludeTest extends PHPUnit_Smarty
                      array("A{include file='include_spacing3.tpl'}B\nC", "AbarB\nC", '3_Newline3', $i++),
         );
     }
+
+	public function testModifierWrongPlace() {
+		$this->smarty->debugging = true;
+		$this->expectException(\Smarty\CompilerException::class);
+		$this->expectExceptionMessage('No modifiers allowed');
+		$this->smarty->fetch('include_with_modifier.tpl');
+	}
 }
