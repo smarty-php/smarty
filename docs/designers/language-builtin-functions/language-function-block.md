@@ -79,7 +79,7 @@ child.tpl
 
 
     {extends file="parent.tpl"} 
-    {block name="title" prepend}
+    {block name="title" append}
     Page Title
     {/block}
 
@@ -109,7 +109,7 @@ child.tpl
 
 
     {extends file="parent.tpl"} 
-    {block name="title" append}
+    {block name="title" prepend}
     Page Title
     {/block}
 
