@@ -6,6 +6,7 @@
  * @author  Uwe Tews
  */
 
+use Smarty\Compiler\Template;
 use Smarty\Smarty;
 
 /**
@@ -109,6 +110,22 @@ class RegisterBlockTest extends PHPUnit_Smarty
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testblock', 'myblockcache');
         $this->assertEquals('1 10 100', $this->smarty->fetch('test_register_block.tpl'));
     }
+
+
+	/**
+	 * test register block with handler that supports positional params
+	 */
+	public function testRegisterBlockWithPositionalParams()
+	{
+		$this->cleanDirs();
+		$this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testblock', blockparamsCompiler::class);
+		$this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testblockclose', blockparamsCompiler::class);
+		$result = $this->smarty->fetch('string:{testblock "foo" "bar"} block 
+		contents
+		{/testblock}');
+		$this->assertStringContainsString('first', $result);
+		$this->assertStringContainsString('second', $result);
+	}
 
     /**
      * 
@@ -281,6 +298,28 @@ function myblock($params, $content, &$smarty_tpl, &$repeat)
 function myblockcache($params, $content, &$smarty_tpl, &$repeat)
 {
     return $content;
+}
+
+class blockparamsCompiler extends \Smarty\Compile\Base {
+
+	protected $shorttag_order = ["first", "second"];
+	protected $optional_attributes = ["first", "second"];
+
+	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null) {
+		$_attr = $this->getAttributes($compiler, $args);
+
+		$output = '';
+		if (isset($_attr['first'])) {
+			$output .= 'first';
+		}
+
+		if (isset($_attr['second'])) {
+			$output .= 'second';
+		}
+
+		return $output;
+	}
+
 }
 
 class myblockclass
