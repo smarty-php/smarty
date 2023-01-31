@@ -111,22 +111,6 @@ class RegisterBlockTest extends PHPUnit_Smarty
         $this->assertEquals('1 10 100', $this->smarty->fetch('test_register_block.tpl'));
     }
 
-
-	/**
-	 * test register block with handler that supports positional params
-	 */
-	public function testRegisterBlockWithPositionalParams()
-	{
-		$this->cleanDirs();
-		$this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testblock', blockparamsCompiler::class);
-		$this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testblockclose', blockparamsCompiler::class);
-		$result = $this->smarty->fetch('string:{testblock "foo" "bar"} block 
-		contents
-		{/testblock}');
-		$this->assertStringContainsString('first', $result);
-		$this->assertStringContainsString('second', $result);
-	}
-
     /**
      * 
      * 
@@ -250,6 +234,21 @@ class RegisterBlockTest extends PHPUnit_Smarty
         $this->smarty->assign('z', 400);
         $this->assertEquals('3 30 300', $this->smarty->fetch('test_register_block.tpl'));
     }
+
+	/**
+	 * test register block with handler that supports positional params
+	 */
+	public function testRegisterBlockWithPositionalParams()
+	{
+		$this->cleanDirs();
+		$this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testblock', blockparamsCompiler::class);
+		$this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testblockclose', blockparamsCompiler::class);
+		$result = $this->smarty->fetch('string:{testblock "foo" "bar"} block 
+		contents
+		{/testblock}');
+		$this->assertStringContainsString('first', $result);
+		$this->assertStringContainsString('second', $result);
+	}
 
     /**
      * test unregister->block method
