@@ -88,6 +88,49 @@ class RegisterModifierTest extends PHPUnit_Smarty
         $this->smarty->unregisterPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'testmodifier');
 	    $this->assertIsArray($this->smarty->getRegisteredPlugin(\Smarty\Smarty::PLUGIN_BLOCK, 'testmodifier'));
     }
+
+	/**
+	 * test cannot call native PHP fuctions by default
+	 * @dataProvider dataUnknownModifiers
+	 */
+	public function testNativePHPModifiers($template, $expectedValue)
+	{
+		$this->cleanDirs();
+		$this->expectException(\Smarty\CompilerException::class);
+		$this->expectExceptionMessage('unknown modifier');
+		$this->smarty->fetch('string:' . $template);
+	}
+
+	public function dataUnknownModifiers(): array {
+		return [
+			['{"blah"|substr:1:2}', 'la'],
+			['{"blah"|ucfirst}', 'Blah'],
+			['{"blah"|md5}', md5('blah')],
+		];
+	}
+
+	/**
+	 * test register wildcard modifier using extension
+	 * @dataProvider dataUnknownModifiers
+	 */
+	public function testUnregisterModifiers($template, $expectedValue)
+	{
+		$this->cleanDirs();
+		$this->smarty->addExtension(new WildcardExtension());
+		$this->assertEquals($expectedValue, $this->smarty->fetch('string:' . $template));
+	}
+
+}
+
+class WildcardExtension extends \Smarty\Extension\Base {
+
+	public function getModifierCallback(string $modifierName) {
+		if (is_callable($modifierName)) {
+			return $modifierName;
+		}
+		return null;
+	}
+
 }
 
 function mymodifier($a, $b, $c)
