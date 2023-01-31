@@ -1254,15 +1254,6 @@ class Template extends BaseCompiler {
 		if ($isTemplateSource && $this->template->caching) {
 			$this->parser->insertPhpCode("<?php\n\$_smarty_tpl->getCompiled()->nocache_hash = '{$this->nocache_hash}';\n?>\n");
 		}
-		if (function_exists('mb_internal_encoding')
-			&& function_exists('ini_get')
-			&& ((int)ini_get('mbstring.func_overload')) & 2
-		) {
-			$mbEncoding = mb_internal_encoding();
-			mb_internal_encoding('ASCII');
-		} else {
-			$mbEncoding = null;
-		}
 		if ($this->smarty->_parserdebug) {
 			$this->parser->PrintTrace();
 			$this->parser->lex->PrintTrace();
@@ -1277,9 +1268,6 @@ class Template extends BaseCompiler {
 		}
 		// finish parsing process
 		$this->parser->doParse(0, 0);
-		if ($mbEncoding) {
-			mb_internal_encoding($mbEncoding);
-		}
 		// check for unclosed tags
 		if ($this->getTagStackCount() > 0) {
 			// get stacked info

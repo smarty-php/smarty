@@ -106,15 +106,6 @@ class Configfile extends BaseCompiler {
 		);
 		/* @var ConfigfileParser $this->parser */
 		$this->parser = new ConfigfileParser($this->lex, $this);
-		if (function_exists('mb_internal_encoding')
-			&& function_exists('ini_get')
-			&& ((int)ini_get('mbstring.func_overload')) & 2
-		) {
-			$mbEncoding = mb_internal_encoding();
-			mb_internal_encoding('ASCII');
-		} else {
-			$mbEncoding = null;
-		}
 		if ($this->smarty->_parserdebug) {
 			$this->parser->PrintTrace();
 		}
@@ -127,9 +118,6 @@ class Configfile extends BaseCompiler {
 		}
 		// finish parsing process
 		$this->parser->doParse(0, 0);
-		if ($mbEncoding) {
-			mb_internal_encoding($mbEncoding);
-		}
 		if ($this->smarty->debugging) {
 			$this->smarty->getDebug()->end_compile($this->template);
 		}

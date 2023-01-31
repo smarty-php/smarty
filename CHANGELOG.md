@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Lexers and Parsers PHP files are no longer under version control, but generated from sources (.y and .plex) 
 - Smarty now always runs in multibyte mode, using `symfony/polyfill-mbstring` if required. Please use the
   multibyte extension for optimal performance.
+- Smarty no longer calls `mb_internal_encoding()` and doesn't check for deprecated `mbstring.func_overload` ini directive [#480](https://github.com/smarty-php/smarty/issues/480)
 
 ### Deprecated
 - `$smarty->getPluginsDir()`

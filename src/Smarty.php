@@ -531,9 +531,6 @@ class Smarty extends \Smarty\TemplateBase
     public function __construct()
     {
 
-        if (is_callable('mb_internal_encoding')) {
-            mb_internal_encoding(\Smarty\Smarty::$_CHARSET);
-        }
         $this->start_time = microtime(true);
         // Check if we're running on Windows
         \Smarty\Smarty::$_IS_WINDOWS = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';

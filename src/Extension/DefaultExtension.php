@@ -488,7 +488,7 @@ class DefaultExtension extends Base {
 	 * @link   http://www.ibm.com/developerworks/library/os-php-unicode/index.html#listing3 for inspiration
 	 *
 	 * @param string $string   characters to calculate unicode of
-	 * @param string $encoding encoding of $string, if null mb_internal_encoding() is used
+	 * @param string $encoding encoding of $string
 	 *
 	 * @return array sequence of unicodes
 	 * @author Rodney Rehm
