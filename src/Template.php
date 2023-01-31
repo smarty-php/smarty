@@ -130,7 +130,8 @@ class Template extends TemplateBase {
 		$this->parent = $_parent;
 		// Template resource
 		$this->template_resource = $template_resource;
-		$this->source = $_isConfig ? Config::load($this) : Source::load($this);
+
+		$this->setSource($_isConfig ? Config::load($this) : Source::load($this));
 
 		if ($smarty->security_policy) {
 			$smarty->security_policy->registerCallBacks($this);
@@ -266,12 +267,8 @@ class Template extends TemplateBase {
 		}
 
 		// recursive call ?
-		if ($tpl->getTemplateId() !== $this->getTemplateId()) {
-			$tpl->setSource(Source::load($tpl));
-			$tpl->getCompiled(true);
-			if ($caching !== \Smarty\Template::CACHING_NOCACHE_CODE) {
-				$tpl->getCached(true);
-			}
+		if ($tpl->getTemplateId() !== $this->getTemplateId() && $caching !== \Smarty\Template::CACHING_NOCACHE_CODE) {
+			$tpl->getCached(true);
 		}
 
 		if (!empty($extra_vars)) {
@@ -287,6 +284,11 @@ class Template extends TemplateBase {
 		}
 
 		$tpl->render();
+	}
+
+	public function setParent($parent): void {
+		parent::setParent($parent);
+		$this->setSource($this->source->isConfig ? Config::load($this) : Source::load($this));
 	}
 
 	/**
@@ -349,8 +351,7 @@ class Template extends TemplateBase {
 	 * @return string
 	 */
 	public function getTemplateId() {
-		return $this->templateId ?? $this->templateId =
-			$this->smarty->generateUniqueTemplateId($this->template_resource, $this->cache_id, $this->compile_id);
+		return $this->templateId;
 	}
 
 	/**

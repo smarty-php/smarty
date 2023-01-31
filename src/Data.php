@@ -454,8 +454,7 @@ class Data
 	 */
 	public function configLoad($config_file, $sections = null)
 	{
-		$smarty = $this->getSmarty();
-		$template = new Template($config_file, $smarty, $this, null, null, null, true);
+		$template = $this->getSmarty()->createTemplate($config_file, null, null, $this, null, null, null, true);
 		$template->caching = Smarty::CACHING_OFF;
 		$template->assign('sections', (array) $sections ?? []);
 		// trigger a call to $this->assignConfigVars
@@ -479,5 +478,19 @@ class Data
 	 */
 	public function getDefaultScope(): int {
 		return $this->defaultScope;
+	}
+
+	/**
+	 * @return Data|Smarty|null
+	 */
+	public function getParent() {
+		return $this->parent;
+	}
+
+	/**
+	 * @param Data|Smarty|null $parent
+	 */
+	public function setParent($parent): void {
+		$this->parent = $parent;
 	}
 }

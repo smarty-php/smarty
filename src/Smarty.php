@@ -946,24 +946,25 @@ class Smarty extends \Smarty\TemplateBase
         return $this;
     }
 
+	private $templates = [];
+
 	/**
-	 * creates a template object
+	 * Creates a template object
 	 *
 	 * @param Template|null $template_name
-	 *
 	 * @param mixed $cache_id cache id to be used with this template
 	 * @param mixed $compile_id compile id to be used with this template
 	 * @param null $parent next higher level of Smarty variables
-	 * $cache_lifetime
 	 * @param null $caching
 	 * @param null $cache_lifetime
 	 * @param string|null $baseFilePath
+	 * @param bool $isConfig
 	 *
 	 * @return Template template object
 	 * @throws Exception
 	 */
     public function createTemplate($template_name, $cache_id = null, $compile_id = null, $parent = null, $caching = null,
-                                   $cache_lifetime = null, string $baseFilePath = null)
+                                   $cache_lifetime = null, string $baseFilePath = null, bool $isConfig = false)
     {
 
 	    $data = null;
@@ -983,10 +984,21 @@ class Smarty extends \Smarty\TemplateBase
         if (!$this->_templateDirNormalized) {
             $this->_normalizeTemplateConfig(false);
         }
+
         $_templateId = $this->generateUniqueTemplateId($template_name, $cache_id, $compile_id, $caching, $baseFilePath);
 
-	    $tpl = new Template($template_name, $this, $parent ?: $this, $cache_id, $compile_id, $caching);
-		$tpl->templateId = $_templateId;
+	    if (!isset($this->templates[$_templateId])) {
+		    $newTemplate = new Template($template_name, $this, $parent ?: $this, $cache_id, $compile_id, $caching, $isConfig);
+		    $newTemplate->templateId = $_templateId; // @TODO this could go in constructor ^?
+		    $this->templates[$_templateId] = $newTemplate;
+	    }
+
+	    $tpl = clone $this->templates[$_templateId];
+
+		// If $this->allow_ambiguous_resources, the context of the section is different each time
+		if ($this->allow_ambiguous_resources || $tpl->getParent() !== ($parent ?: $this)) {
+			$tpl->setParent($parent ?: $this);
+		}
 
 		if ($cache_lifetime) {
 			$tpl->setCacheLifetime($cache_lifetime);
@@ -1019,7 +1031,7 @@ class Smarty extends \Smarty\TemplateBase
 	 *
 	 * @return string
 	 */
-    public function generateUniqueTemplateId(
+    private function generateUniqueTemplateId(
 	    $template_name,
 	    $cache_id = null,
 	    $compile_id = null,
@@ -1573,7 +1585,7 @@ class Smarty extends \Smarty\TemplateBase
 				//
 				$_smarty->force_compile = $force_compile;
 				try {
-					$_tpl = new \Smarty\Template($_file, $_smarty);
+					$_tpl = $this->createTemplate($_file);
 					$_tpl->caching = self::CACHING_OFF;
 					$_tpl->setSource(
 						$isConfig ? \Smarty\Template\Config::load($_tpl) : \Smarty\Template\Source::load($_tpl)

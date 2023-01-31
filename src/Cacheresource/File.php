@@ -205,7 +205,7 @@ class File extends Base
 	    if (isset($resource_name)) {
 		    $_save_stat = $smarty->caching;
 		    $smarty->caching = \Smarty\Smarty::CACHING_LIFETIME_CURRENT;
-		    $tpl = new \Smarty\Template($resource_name, $smarty);
+		    $tpl = $smarty->createTemplate($resource_name);
 		    $smarty->caching = $_save_stat;
 		    // remove from template cache
 		    if ($tpl->getSource()->exists) {
