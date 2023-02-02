@@ -574,7 +574,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
                                  )->nocache;
             // todo $this->template->compiled->properties['variables'][$var] = $this->tag_nocache | $this->nocache;
         }
-        return '$_smarty_tpl->tpl_vars[' . $variable . ']->value';
+        return '($_smarty_tpl->tpl_vars[' . $variable . ']->value ?? NULL)';
     }
 
     /**
