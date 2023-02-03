@@ -7,7 +7,7 @@ the next line, the default is a carriage return `"\n"`. By default,
 `wordwrap` will attempt to wrap at a word boundary. If you want to cut
 off at the exact character length, pass the optional third parameter as
 TRUE. This is equivalent to the PHP
-[`wordwrap()`](&url.php-manual;wordwrap) function.
+[`wordwrap()`](https://www.php.net/wordwrap) function.
 
    Parameter Position    Type     Required   Default  Description
   -------------------- --------- ---------- --------- ------------------------------------------------------------------------------------------------------

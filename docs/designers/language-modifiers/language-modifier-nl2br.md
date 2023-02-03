@@ -3,7 +3,7 @@ nl2br {#language.modifier.nl2br}
 
 All `"\n"` line breaks will be converted to html `<br />` tags in the
 given variable. This is equivalent to the PHP\'s
-[`nl2br()`](&url.php-manual;nl2br) function.
+[`nl2br()`](https://www.php.net/nl2br) function.
 
 
     <?php

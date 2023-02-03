@@ -2,7 +2,7 @@ replace {#language.modifier.replace}
 =======
 
 A simple search and replace on a variable. This is equivalent to the
-PHP\'s [`str_replace()`](&url.php-manual;str_replace) function.
+PHP\'s [`str_replace()`](https://www.php.net/str_replace) function.
 
    Parameter Position    Type    Required   Default  Description
   -------------------- -------- ---------- --------- ---------------------------------------------

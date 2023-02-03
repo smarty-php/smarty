@@ -7,7 +7,7 @@ modifier](#language.modifier.to_charset).
 
    Parameter Position    Type    Required                                                       Possible Values                                                          Default     Description
   -------------------- -------- ---------- -------------------------------------------------------------------------------------------------------------------------- -------------- ---------------------------------------------------------------
-           1            string      No      `ISO-8859-1`, `UTF-8`, and any character set supported by [`mb_convert_encoding()`](&url.php-manual;mb_convert_encoding)   `ISO-8859-1`  The charset encoding the value is supposed to be decoded from
+           1            string      No      `ISO-8859-1`, `UTF-8`, and any character set supported by [`mb_convert_encoding()`](https://www.php.net/mb_convert_encoding)   `ISO-8859-1`  The charset encoding the value is supposed to be decoded from
 
 > **Note**
 >

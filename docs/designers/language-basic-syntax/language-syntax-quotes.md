@@ -4,7 +4,7 @@ Embedding Vars in Double Quotes {#language.syntax.quotes}
 -   Smarty will recognize [assigned](#api.assign)
     [variables](#language.syntax.variables) embedded in \"double
     quotes\" so long as the variable name contains only numbers, letters
-    and under\_scores. See [naming](&url.php-manual;language.variables)
+    and under\_scores. See [naming](https://www.php.net/language.variables)
     for more detail.
 
 -   With any other characters, for example a period(.) or

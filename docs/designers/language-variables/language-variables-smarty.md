@@ -7,7 +7,7 @@ environment and request variables. The full list of them follows.
 Request variables {#language.variables.smarty.request}
 -----------------
 
-The [request variables](&url.php-manual;reserved.variables) such as
+The [request variables](https://www.php.net/reserved.variables) such as
 `$_GET`, `$_POST`, `$_COOKIE`, `$_SERVER`, `$_ENV` and `$_SESSION` can
 be accessed as demonstrated in the examples below:
 
@@ -54,11 +54,11 @@ be accessed as demonstrated in the examples below:
 {\$smarty.now} {#language.variables.smarty.now}
 --------------
 
-The current [timestamp](&url.php-manual;function.time) can be accessed
+The current [timestamp](https://www.php.net/function.time) can be accessed
 with `{$smarty.now}`. The value reflects the number of seconds passed
 since the so-called Epoch on January 1, 1970, and can be passed directly
 to the [`date_format`](#language.modifier.date.format) modifier for
-display. Note that [`time()`](&url.php-manual;function.time) is called
+display. Note that [`time()`](https://www.php.net/function.time) is called
 on each invocation; eg a script that takes three seconds to execute with
 a call to `$smarty.now` at start and end will show the three second
 difference.

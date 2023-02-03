@@ -8,7 +8,7 @@ its `html`.
    Parameter Position    Type     Required                                                Possible Values                                                 Default  Description
   -------------------- --------- ---------- ------------------------------------------------------------------------------------------------------------ --------- -------------------------------------------------------------------------------------
            1            string       No             `html`, `htmlall`, `url`, `urlpathinfo`, `quotes`, `hex`, `hexentity`, `javascript`, `mail`           `html`   This is the escape format to use.
-           2            string       No      `ISO-8859-1`, `UTF-8`, and any character set supported by [`htmlentities()`](&url.php-manual;htmlentities)   `UTF-8`  The character set encoding passed to htmlentities() et. al.
+           2            string       No      `ISO-8859-1`, `UTF-8`, and any character set supported by [`htmlentities()`](https://www.php.net/htmlentities)   `UTF-8`  The character set encoding passed to htmlentities() et. al.
            3            boolean      No                                                        FALSE                                                       TRUE    Double encode entites from &amp; to &amp;amp; (applys to `html` and `htmlall` only)
 
 

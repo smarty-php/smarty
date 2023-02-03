@@ -2,7 +2,7 @@
 =======
 
 `{while}` loops in Smarty have much the same flexibility as PHP
-[while](&url.php-manual;while) statements, with a few added features for
+[while](https://www.php.net/while) statements, with a few added features for
 the template engine. Every `{while}` must be paired with a matching
 `{/while}`. All PHP conditionals and functions are recognized, such as
 *\|\|*, *or*, *&&*, *and*, *is\_array()*, etc.

@@ -2,7 +2,7 @@ lower {#language.modifier.lower}
 =====
 
 This is used to lowercase a variable. This is equivalent to the PHP
-[`strtolower()`](&url.php-manual;strtolower) function.
+[`strtolower()`](https://www.php.net/strtolower) function.
 
 
     <?php

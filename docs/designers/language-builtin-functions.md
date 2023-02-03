@@ -8,7 +8,7 @@ Built-in Functions {#language.builtin.functions}
 - [{block}](./language-builtin-functions/language-function-block.md)
 - [{call}](./language-builtin-functions/language-function-call.md)
 - [{capture}](./language-builtin-functions/language-function-capture.md)
-- [{config_load}](./language-builtin-functions/language-function-config.load)
+- [{config_load}](./language-builtin-functions/language-function-config-load.md)
 - [{debug}](./language-builtin-functions/language-function-debug.md)
 - [{extends}](./language-builtin-functions/language-function-extends.md)
 - [{for}](./language-builtin-functions/language-function-for.md)

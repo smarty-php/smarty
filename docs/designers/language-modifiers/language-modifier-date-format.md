@@ -2,11 +2,11 @@ date\_format {#language.modifier.date.format}
 ============
 
 This formats a date and time into the given
-[`strftime()`](&url.php-manual;strftime) format. Dates can be passed to
-Smarty as unix [timestamps](&url.php-manual;function.time), [DateTime
-objects](&url.php-manual;class.DateTime), mysql timestamps or any string
+[`strftime()`](https://www.php.net/strftime) format. Dates can be passed to
+Smarty as unix [timestamps](https://www.php.net/function.time), [DateTime
+objects](https://www.php.net/class.DateTime), mysql timestamps or any string
 made up of month day year, parsable by php\'s
-[`strtotime()`](&url.php-manual;strtotime). Designers can then use
+[`strtotime()`](https://www.php.net/strtotime). Designers can then use
 `date_format` to have complete control of the formatting of the date. If
 the date passed to `date_format` is empty and a second parameter is
 passed, that will be used as the date to format.
@@ -34,9 +34,9 @@ passed, that will be used as the date to format.
 > **Note**
 >
 > `date_format` is essentially a wrapper to PHP\'s
-> [`strftime()`](&url.php-manual;strftime) function. You may have more
+> [`strftime()`](https://www.php.net/strftime) function. You may have more
 > or less conversion specifiers available depending on your system\'s
-> [`strftime()`](&url.php-manual;strftime) function where PHP was
+> [`strftime()`](https://www.php.net/strftime) function where PHP was
 > compiled. Check your system\'s manpage for a full list of valid
 > specifiers. However, a few of the specifiers are emulated on Windows.
 > These are: %D, %e, %h, %l, %n, %r, %R, %t, %T.
@@ -170,6 +170,6 @@ This above will output:
 -   \%% - a literal \`%\' character
 
 See also [`$smarty.now`](#language.variables.smarty.now),
-[`strftime()`](&url.php-manual;strftime),
+[`strftime()`](https://www.php.net/strftime),
 [`{html_select_date}`](#language.function.html.select.date) and the
 [date tips](#tips.dates) page.

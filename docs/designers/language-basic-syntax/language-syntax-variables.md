@@ -3,7 +3,7 @@ Variables {#language.syntax.variables}
 
 Template variables start with the \$dollar sign. They can contain
 numbers, letters and underscores, much like a [PHP
-variable](&url.php-manual;language.variables). You can reference arrays
+variable](https://www.php.net/language.variables). You can reference arrays
 by index numerically or non-numerically. Also reference object
 properties and methods.
 

@@ -2,7 +2,7 @@ regex\_replace {#language.modifier.regex.replace}
 ==============
 
 A regular expression search and replace on a variable. Use the
-[`preg_replace()`](&url.php-manual;preg_replace) syntax from the PHP
+[`preg_replace()`](https://www.php.net/preg_replace) syntax from the PHP
 manual.
 
 > **Note**
