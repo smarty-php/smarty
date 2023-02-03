@@ -1,9 +1,5 @@
 # @TODO
 
-## Performance improvements
-- context: pass template variables in an array
-- why do we do 300k assign() calls? (answer: foreach?)
-
 ## Review direct variable property access
 - review ->value{$index} in ForTag
 
@@ -27,8 +23,7 @@
 - compiled templates could be proper classes, possibly using [nette/php-generator](https://packagist.org/packages/nette/php-generator)
 
 ## Documentation
-- beautify and review docs, possibly using [
-Material for MkDocs ](https://squidfunk.github.io/mkdocs-material/publishing-your-site/)
+- beautify and review docs, possibly using [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/publishing-your-site/)
 
 ## Unrelated / other
 - review (and avoid) use of 'clone' keyword
