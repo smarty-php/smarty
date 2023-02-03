@@ -79,17 +79,3 @@ jobs:
 
     - name: Run tests with phpunit
       run: php ./vendor/phpunit/phpunit/phpunit
-  deploy:
-    runs-on: ubuntu-lastest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-      - uses: actions/cache@v2
-        with:
-          key: ${{ github.ref }}
-          path: .cache
-      - run: pip install mkdocs-material
-      - run: mkdocs gh-deploy --force
-        
