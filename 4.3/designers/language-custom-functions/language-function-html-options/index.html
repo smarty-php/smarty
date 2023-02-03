@@ -3862,7 +3862,7 @@ $smarty-&gt;assign(&#39;customer_id&#39;, 92);
 ?&gt;
 </code></pre></div>
 <p>The above arrays would be output with the following template (note the
-use of the php <a href="&amp;url.php-manual;function.count"><code>count()</code></a> function as a
+use of the php <a href="https://www.php.net/function.count"><code>count()</code></a> function as a
 modifier to set the select size).</p>
 <div class="highlight"><pre><span></span><code>&lt;select name=&quot;customer_id&quot; size=&quot;{$cust_names|@count}&quot;&gt;
    {html_options values=$cust_ids output=$cust_names selected=$customer_id}

@@ -3809,7 +3809,7 @@ template.</p>
 <p>+, -, /, *, abs, ceil, cos, exp, floor, log, log10, max, min, pi,
     pow, rand, round, sin, sqrt, srans and tan are all valid operators.
     Check the PHP documentation for further information on these
-    <a href="&amp;url.php-manual;eval">math</a> functions.</p>
+    <a href="https://www.php.net/eval">math</a> functions.</p>
 </li>
 <li>
 <p>If you supply the <code>assign</code> attribute, the output of the <code>{math}</code>
@@ -3820,7 +3820,7 @@ template.</p>
 <blockquote>
 <p><strong>Note</strong></p>
 <p><code>{math}</code> is an expensive function in performance due to its use of the
-php <a href="&amp;url.php-manual;eval"><code>eval()</code></a> function. Doing the math in PHP
+php <a href="https://www.php.net/eval"><code>eval()</code></a> function. Doing the math in PHP
 is much more efficient, so whenever possible do the math calculations
 in the script and <a href="#api.assign"><code>assign()</code></a> the results to the
 template. Definitely avoid repetitive <code>{math}</code> function calls, eg

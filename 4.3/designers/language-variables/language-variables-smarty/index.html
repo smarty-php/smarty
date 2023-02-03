@@ -4011,7 +4011,7 @@
 <p>The PHP reserved <code>{$smarty}</code> variable can be used to access several
 environment and request variables. The full list of them follows.</p>
 <h2 id="request-variables-languagevariablessmartyrequest">Request variables {#language.variables.smarty.request}</h2>
-<p>The <a href="&amp;url.php-manual;reserved.variables">request variables</a> such as
+<p>The <a href="https://www.php.net/reserved.variables">request variables</a> such as
 <code>$_GET</code>, <code>$_POST</code>, <code>$_COOKIE</code>, <code>$_SERVER</code>, <code>$_ENV</code> and <code>$_SESSION</code> can
 be accessed as demonstrated in the examples below:</p>
 <div class="highlight"><pre><span></span><code>{* display value of page from URL ($_GET) http://www.example.com/index.php?page=foo *}
@@ -4049,11 +4049,11 @@ globals mixes underlying application code structure with templates. A
 good practice is to assign specific needed values to template vars.</p>
 </blockquote>
 <h2 id="smartynow-languagevariablessmartynow">{\$smarty.now} {#language.variables.smarty.now}</h2>
-<p>The current <a href="&amp;url.php-manual;function.time">timestamp</a> can be accessed
+<p>The current <a href="https://www.php.net/function.time">timestamp</a> can be accessed
 with <code>{$smarty.now}</code>. The value reflects the number of seconds passed
 since the so-called Epoch on January 1, 1970, and can be passed directly
 to the <a href="#language.modifier.date.format"><code>date_format</code></a> modifier for
-display. Note that <a href="&amp;url.php-manual;function.time"><code>time()</code></a> is called
+display. Note that <a href="https://www.php.net/function.time"><code>time()</code></a> is called
 on each invocation; eg a script that takes three seconds to execute with
 a call to <code>$smarty.now</code> at start and end will show the three second
 difference.</p>

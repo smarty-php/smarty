@@ -3795,11 +3795,11 @@
 
 <h1 id="date_format-languagemodifierdateformat">date_format {#language.modifier.date.format}</h1>
 <p>This formats a date and time into the given
-<a href="&amp;url.php-manual;strftime"><code>strftime()</code></a> format. Dates can be passed to
-Smarty as unix <a href="&amp;url.php-manual;function.time">timestamps</a>, <a href="&amp;url.php-manual;class.DateTime">DateTime
+<a href="https://www.php.net/strftime"><code>strftime()</code></a> format. Dates can be passed to
+Smarty as unix <a href="https://www.php.net/function.time">timestamps</a>, <a href="https://www.php.net/class.DateTime">DateTime
 objects</a>, mysql timestamps or any string
 made up of month day year, parsable by php\'s
-<a href="&amp;url.php-manual;strtotime"><code>strtotime()</code></a>. Designers can then use
+<a href="https://www.php.net/strtotime"><code>strtotime()</code></a>. Designers can then use
 <code>date_format</code> to have complete control of the formatting of the date. If
 the date passed to <code>date_format</code> is empty and a second parameter is
 passed, that will be used as the date to format.</p>
@@ -3822,9 +3822,9 @@ and 14 characters long (<code>YYYYMMDDHHMMSS</code>), mysql timestamps have
 precedence over unix timestamps.</p>
 <p><strong>Note</strong></p>
 <p><code>date_format</code> is essentially a wrapper to PHP\'s
-<a href="&amp;url.php-manual;strftime"><code>strftime()</code></a> function. You may have more
+<a href="https://www.php.net/strftime"><code>strftime()</code></a> function. You may have more
 or less conversion specifiers available depending on your system\'s
-<a href="&amp;url.php-manual;strftime"><code>strftime()</code></a> function where PHP was
+<a href="https://www.php.net/strftime"><code>strftime()</code></a> function where PHP was
 compiled. Check your system\'s manpage for a full list of valid
 specifiers. However, a few of the specifiers are emulated on Windows.
 These are: %D, %e, %h, %l, %n, %r, %R, %t, %T.</p>
@@ -3985,7 +3985,7 @@ Monday, December 1, 2021
 </li>
 </ul>
 <p>See also <a href="#language.variables.smarty.now"><code>$smarty.now</code></a>,
-<a href="&amp;url.php-manual;strftime"><code>strftime()</code></a>,
+<a href="https://www.php.net/strftime"><code>strftime()</code></a>,
 <a href="#language.function.html.select.date"><code>{html_select_date}</code></a> and the
 <a href="#tips.dates">date tips</a> page.</p>
 
