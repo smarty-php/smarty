@@ -2,7 +2,7 @@ capitalize {#language.modifier.capitalize}
 ==========
 
 This is used to capitalize the first letter of all words in a variable.
-This is similar to the PHP [`ucwords()`](&url.php-manual;ucwords)
+This is similar to the PHP [`ucwords()`](https://www.php.net/ucwords)
 function.
 
    Parameter Position    Type     Required   Default  Description

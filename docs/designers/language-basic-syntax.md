@@ -2,7 +2,8 @@ Basic Syntax
 ============
 
 A simple Smarty template could look like this:
-```html
+
+```smarty
 <h1>{$title|escape}</h1>
 <ul>
     {foreach $cities as $city}

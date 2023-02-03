@@ -74,7 +74,7 @@ Output of the above example would be:
       
 
 The above arrays would be output with the following template (note the
-use of the php [`count()`](&url.php-manual;function.count) function as a
+use of the php [`count()`](https://www.php.net/function.count) function as a
 modifier to set the select size).
 
 

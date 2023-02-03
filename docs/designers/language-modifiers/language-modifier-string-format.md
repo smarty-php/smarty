@@ -2,7 +2,7 @@ string\_format {#language.modifier.string.format}
 ==============
 
 This is a way to format strings, such as decimal numbers and such. Use
-the syntax for [`sprintf()`](&url.php-manual;sprintf) for the
+the syntax for [`sprintf()`](https://www.php.net/sprintf) for the
 formatting.
 
    Parameter Position    Type    Required   Default  Description

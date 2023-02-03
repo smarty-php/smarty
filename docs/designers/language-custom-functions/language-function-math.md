@@ -13,7 +13,7 @@ template.
 -   +, -, /, \*, abs, ceil, cos, exp, floor, log, log10, max, min, pi,
     pow, rand, round, sin, sqrt, srans and tan are all valid operators.
     Check the PHP documentation for further information on these
-    [math](&url.php-manual;eval) functions.
+    [math](https://www.php.net/eval) functions.
 
 -   If you supply the `assign` attribute, the output of the `{math}`
     function will be assigned to this template variable instead of being
@@ -22,7 +22,7 @@ template.
 > **Note**
 >
 > `{math}` is an expensive function in performance due to its use of the
-> php [`eval()`](&url.php-manual;eval) function. Doing the math in PHP
+> php [`eval()`](https://www.php.net/eval) function. Doing the math in PHP
 > is much more efficient, so whenever possible do the math calculations
 > in the script and [`assign()`](#api.assign) the results to the
 > template. Definitely avoid repetitive `{math}` function calls, eg

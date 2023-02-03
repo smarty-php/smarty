@@ -10,7 +10,7 @@ string
 muteExpectedErrors
 
 muteExpectedErrors() registers a custom error handler using
-[set\_error\_handler()](&url.php-manual;set_error_handler). The error
+[set\_error\_handler()](https://www.php.net/set_error_handler). The error
 handler merely inspects `$errno` and `$errfile` to determine if the
 given error was produced deliberately and must be ignored, or should be
 passed on to the next error handler.

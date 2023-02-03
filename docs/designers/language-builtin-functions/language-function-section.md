@@ -37,7 +37,7 @@ be paired with a closing `{/section}` tag.
 
 -   The `name` of the `{section}` can be anything you like, made up of
     letters, numbers and underscores, like [PHP
-    variables](&url.php-manual;language.variables).
+    variables](https://www.php.net/language.variables).
 
 -   {section}\'s can be nested, and the nested `{section}` names must be
     unique from each other.
@@ -124,7 +124,7 @@ The above example will output:
       
 
 The `name` of the `{section}` can be anything you like, see [PHP
-variables](&url.php-manual;language.variables). It is used to reference
+variables](https://www.php.net/language.variables). It is used to reference
 the data within the `{section}`.
 
 

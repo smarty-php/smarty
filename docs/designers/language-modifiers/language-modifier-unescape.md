@@ -8,7 +8,7 @@ given types.
    Parameter Position    Type    Required                                                Possible Values                                                 Default  Description
   -------------------- -------- ---------- ------------------------------------------------------------------------------------------------------------ --------- ------------------------------------------------------------------------------------------------------------------------------
            1            string      No                                             `html`, `htmlall`, `entity`,                                          `html`   This is the escape format to use.
-           2            string      No      `ISO-8859-1`, `UTF-8`, and any character set supported by [`htmlentities()`](&url.php-manual;htmlentities)   `UTF-8`  The character set encoding passed to html\_entity\_decode() or htmlspecialchars\_decode() or mb\_convert\_encoding() et. al.
+           2            string      No      `ISO-8859-1`, `UTF-8`, and any character set supported by [`htmlentities()`](https://www.php.net/htmlentities)   `UTF-8`  The character set encoding passed to html\_entity\_decode() or htmlspecialchars\_decode() or mb\_convert\_encoding() et. al.
 
 
     <?php

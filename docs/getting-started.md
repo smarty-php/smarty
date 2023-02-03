@@ -2,25 +2,25 @@ What is Smarty?
 ==============
 
 ## Requirements
-Smarty can be run with PHP 7.1 to PHP 8.2.
+Smarty can be run with PHP 7.2 to PHP 8.2.
 
 ## Installation
 Smarty versions 3.1.11 or later can be installed with [Composer](https://getcomposer.org/).
 
 To get the latest stable version of Smarty use:
-```bash
+```sh
 composer require smarty/smarty
-````
+```
 
 To get the latest, unreleased version, use:
-```bash
+```sh
 composer require smarty/smarty:dev-master
-````
+```
 
 To get the previous stable version of Smarty, Smarty 3, use:
-```bash
+```sh
 composer require smarty/smarty:^3
-````
+```
 
 Here's how you create an instance of Smarty in your PHP scripts:
 ```php
@@ -42,7 +42,10 @@ Smarty requires four directories which are by default named
     relative to the current working directory.
 
 The defaults can be changed as follows:
+
 ```php
+<?php
+
 $smarty = new Smarty();
 $smarty->setTemplateDir('/some/template/dir');
 $smarty->setConfigDir('/some/config/dir');
@@ -82,7 +85,7 @@ $smarty->testInstall();
 Now, let's create the `index.tpl` file that Smarty will display. This
 needs to be located in the [`$template_dir`](./programmers/api-variables/variable-template-dir.md).
 
-```html
+```smarty
 {* Smarty *}
 Hello {$name}, welcome to Smarty!
 ```

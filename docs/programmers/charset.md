@@ -1,8 +1,4 @@
-Charset Encoding {#charset}
-================
-
-Charset Encoding {#charset.encoding}
-================
+# Charset Encoding
 
 There are a variety of encodings for textual data, ISO-8859-1 (Latin1)
 and UTF-8 being the most popular. Unless you change `\Smarty\Smarty::$_CHARSET`, 
@@ -26,14 +22,14 @@ Smarty recognizes `UTF-8` as the internal charset.
 > Smarty\'s internals and core plugins are truly UTF-8 compatible since
 > Smarty 3.1.
 
+```php
+<?php
+    
+// use japanese character encoding
+mb_internal_charset('EUC-JP');
 
-    // use japanese character encoding
-    if (function_exists('mb_internal_charset')) {
-      mb_internal_charset('EUC-JP');
-    }
+\Smarty\Smarty::$_CHARSET = 'EUC-JP';
+$smarty = new \Smarty\Smarty();
 
-    require_once 'libs/Smarty.class.php';
-    Smarty::$_CHARSET = 'EUC-JP';
-    $smarty = new Smarty();
-      
+```
      

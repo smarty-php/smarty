@@ -14,7 +14,7 @@ shorthand way with Smarty, using the
 > **Note**
 >
 > "Undefined variable" errors will show an E\_NOTICE if not disabled in
-> PHP\'s [`error_reporting()`](&url.php-manual;error_reporting) level or
+> PHP\'s [`error_reporting()`](https://www.php.net/error_reporting) level or
 > Smarty\'s [`$error_reporting`](#variable.error.reporting) property and
 > a variable had not been assigned to Smarty.
 
@@ -114,7 +114,7 @@ Dates {#tips.dates}
 =====
 
 As a rule of thumb, always pass dates to Smarty as
-[timestamps](&url.php-manual;time). This allows template designers to
+[timestamps](https://www.php.net/time). This allows template designers to
 use the [`date_format`](#language.modifier.date.format) modifier for
 full control over date formatting, and also makes it easy to compare
 dates if necessary.

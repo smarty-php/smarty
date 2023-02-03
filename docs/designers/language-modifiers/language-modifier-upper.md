@@ -2,7 +2,7 @@ upper {#language.modifier.upper}
 =====
 
 This is used to uppercase a variable. This is equivalent to the PHP
-[`strtoupper()`](&url.php-manual;strtoupper) function.
+[`strtoupper()`](https://www.php.net/strtoupper) function.
 
 
     <?php

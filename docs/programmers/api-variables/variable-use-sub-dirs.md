@@ -19,7 +19,7 @@ almost nothing.
 > **Note**
 >
 > -   `$use_sub_dirs=true` doesn\'t work with
->     [safe\_mode=On](&url.php-manual;features.safe-mode), that\'s why
+>     [safe\_mode=On](https://www.php.net/features.safe-mode), that\'s why
 >     it\'s switchable and why it\'s off by default.
 >
 > -   `$use_sub_dirs=true` on Windows can cause problems.

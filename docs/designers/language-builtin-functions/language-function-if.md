@@ -2,7 +2,7 @@
 ====================
 
 `{if}` statements in Smarty have much the same flexibility as PHP
-[if](&url.php-manual;if) statements, with a few added features for the
+[if](https://www.php.net/if) statements, with a few added features for the
 template engine. Every `{if}` must be paired with a matching `{/if}`.
 `{else}` and `{elseif}` are also permitted. All PHP conditionals and
 functions are recognized, such as *\|\|*, *or*, *&&*, *and*,
