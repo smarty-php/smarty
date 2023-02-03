@@ -50,6 +50,9 @@ class BlockClose extends Inheritance {
 			$output .= "public \${$property} = " . var_export($value, true) . ";\n";
 		}
 		$output .= "public function callBlock(\\Smarty\\Template \$_smarty_tpl) {\n";
+
+		$output .= (new \Smarty\Compiler\CodeFrame($compiler->getTemplate()))->insertLocalVariables();
+
 		if ($compiler->getTemplate()->getCompiled()->getNocacheCode()) {
 			$output .= "\$_smarty_tpl->getCached()->hashes['{$compiler->getTemplate()->getCompiled()->nocache_hash}'] = true;\n";
 		}
@@ -104,4 +107,5 @@ class BlockClose extends Inheritance {
 		$compiler->suppressNocacheProcessing = true;
 		return $output;
 	}
+
 }

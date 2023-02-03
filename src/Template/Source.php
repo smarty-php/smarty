@@ -2,6 +2,7 @@
 
 namespace Smarty\Template;
 
+use Smarty\Resource\FilePlugin;
 use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Exception;
@@ -15,7 +16,7 @@ class Source {
 	/**
 	 * Unique Template ID
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	public $uid = null;
 
@@ -39,13 +40,6 @@ class Source {
 	 * @var string
 	 */
 	public $name = null;
-
-	/**
-	 * Source Filepath
-	 *
-	 * @var string
-	 */
-	public $filepath = null;
 
 	/**
 	 * Source Timestamp
@@ -104,6 +98,11 @@ class Source {
 	public $content = null;
 
 	/**
+	 * @var array
+	 */
+	static protected $_incompatible_resources = [];
+
+	/**
 	 * create Source Object container
 	 *
 	 * @param Smarty $smarty Smarty instance this source object belongs to
@@ -114,11 +113,11 @@ class Source {
 	 * @throws   \Smarty\Exception
 	 * @internal param \Smarty\Resource\Base $handler Resource Handler this source object communicates with
 	 */
-	public function __construct(Smarty $smarty, $resource, $type, $name) {
+	public function __construct(Smarty $smarty, $type, $name) {
 		$this->handler = \Smarty\Resource\BasePlugin::load($smarty, $type);
 
 		$this->smarty = $smarty;
-		$this->resource = $resource;
+		$this->resource = $type . ':' . $name;
 		$this->type = $type;
 		$this->name = $name;
 	}
@@ -147,7 +146,7 @@ class Source {
 			throw new Exception('Source: Missing  name');
 		}
 		// parse resource_name, load resource handler, identify unique resource name
-		if (preg_match('/^([A-Za-z0-9_\-]{2,})[:]([\s\S]*)$/', $template_resource, $match)) {
+		if (preg_match('/^([A-Za-z0-9_\-]{2,}):([\s\S]*)$/', $template_resource, $match)) {
 			$type = $match[1];
 			$name = $match[2];
 		} else {
@@ -156,14 +155,23 @@ class Source {
 			$type = $smarty->default_resource_type;
 			$name = $template_resource;
 		}
-		// create new source  object
-		$source = new Source($smarty, $template_resource, $type, $name);
+
+		if (isset(self::$_incompatible_resources[$type])) {
+			throw new Exception("Unable to use resource '{$type}' for " . __METHOD__);
+		}
+
+		// create new source object
+		$source = new static($smarty, $type, $name);
 		$source->handler->populate($source, $_template);
-		if (!$source->exists && $_template && isset($_template->getSmarty()->default_template_handler_func)) {
-			$source->_getDefaultTemplate($_template->getSmarty()->default_template_handler_func);
+		if (!$source->exists && static::getDefaultHandlerFunc($smarty)) {
+			$source->_getDefaultTemplate(static::getDefaultHandlerFunc($smarty));
 			$source->handler->populate($source, $_template);
 		}
 		return $source;
+	}
+
+	protected static function getDefaultHandlerFunc(Smarty $smarty) {
+		return $smarty->default_template_handler_func;
 	}
 
 	/**
@@ -206,12 +214,11 @@ class Source {
 			} else {
 				throw new Exception(
 					'Default handler: Unable to load ' .
-					($this->isConfig ? 'config' : 'template') .
-					" default file '{$_return}' for '{$this->type}:{$this->name}'"
+					"default file '{$_return}' for '{$this->type}:{$this->name}'"
 				);
 			}
-			$this->name = $this->filepath = $_return;
-			$this->uid = sha1($this->filepath);
+			$this->name = $_return;
+			$this->uid = sha1($_return);
 		} elseif ($_return === true) {
 			$this->content = $_content;
 			$this->exists = true;
@@ -242,6 +249,37 @@ class Source {
 	public function getBasename()
 	{
 		return $this->handler->getBasename($this);
+	}
+
+	/**
+	 * Return source name
+	 * e.g.: 'sub/index.tpl'
+	 *
+	 * @return string
+	 */
+	public function getResourceName(): string {
+		return (string) $this->name;
+	}
+
+	/**
+	 * Return source name, including the type prefix.
+	 * e.g.: 'file:sub/index.tpl'
+	 *
+	 * @return string
+	 */
+	public function getFullResourceName(): string {
+		return $this->type . ':' . $this->name;
+	}
+
+	public function getFilepath(): string {
+		if ($this->handler instanceof FilePlugin) {
+			return $this->handler->getFilePath($this->name, $this->smarty, $this->isConfig);
+		}
+		return '.';
+	}
+
+	public function isConfig(): bool {
+		return $this->isConfig;
 	}
 
 }

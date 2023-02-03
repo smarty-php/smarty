@@ -1,5 +1,6 @@
 <?php
 
+use Smarty\Exception;
 use Smarty\Resource\FilePlugin;
 use Smarty\Smarty;
 use Smarty\Template;
@@ -40,11 +41,26 @@ class Smarty_Resource_AmbiguousPlugin extends FilePlugin
             $segment = rtrim($this->segment, "/\\") . DIRECTORY_SEPARATOR;
         }
 
-        $source->filepath = $this->directory . $segment . $source->name;
-        $source->uid = sha1($source->filepath);
+        $source->uid = sha1($segment . '#' . $source->getResourceName());
         if ($_template->getSmarty()->getCompileCheck() && !isset($source->timestamp)) {
-            $source->timestamp = @filemtime($source->filepath);
+            $source->timestamp = @filemtime($this->directory . $segment . $source->name);
             $source->exists = !!$source->timestamp;
         }
     }
+
+	public function getContent(Source $source) {
+
+		$segment = '';
+		if ($this->segment) {
+			$segment = rtrim($this->segment, "/\\") . DIRECTORY_SEPARATOR;
+		}
+
+		if ($source->exists) {
+			return file_get_contents($this->directory . $segment . $source->name);
+		}
+		throw new Exception(
+			'Unable to read ' . ($source->isConfig ? 'config' : 'template') .
+			" {$source->type} '{$source->name}'"
+		);
+	}
 }

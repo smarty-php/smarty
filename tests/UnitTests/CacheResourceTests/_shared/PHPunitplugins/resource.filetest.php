@@ -16,8 +16,8 @@ class Smarty_Resource_FiletestPlugin extends FilePlugin
     {
         parent::populate($source, $_template);
         if ($source->exists) {
-            if (isset(CacheResourceTestCommon::$touchResource[$source->filepath])) {
-                $source->timestamp = CacheResourceTestCommon::$touchResource[$source->filepath];
+            if (isset(CacheResourceTestCommon::$touchResource[$source->getResourceName()])) {
+                $source->timestamp = CacheResourceTestCommon::$touchResource[$source->getResourceName()];
             }
         }
     }

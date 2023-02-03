@@ -45,7 +45,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
-        $this->smarty->setAllowAmbiguousResources(true);
+//        $this->smarty->setAllowAmbiguousResources(true);
 
         $tpl = $this->smarty->createTemplate('foobar.tpl');
         $this->assertFalse($tpl->getSource()->exists);
@@ -56,7 +56,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
-        $this->smarty->setAllowAmbiguousResources(true);
+//        $this->smarty->setAllowAmbiguousResources(true);
 
         $resource_handler->setSegment('case1');
 
@@ -70,7 +70,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
-        $this->smarty->setAllowAmbiguousResources(true);
+//        $this->smarty->setAllowAmbiguousResources(true);
 
         $resource_handler->setSegment('case2');
 
@@ -85,7 +85,7 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         $resource_handler = new Smarty_Resource_AmbiguousPlugin(__DIR__ . '/templates/ambiguous/');
         $this->smarty->registerResource('ambiguous', $resource_handler);
         $this->smarty->setDefaultResourceType('ambiguous');
-        $this->smarty->setAllowAmbiguousResources(true);
+//        $this->smarty->setAllowAmbiguousResources(true);
 
         $resource_handler->setSegment('case1');
         $tpl = $this->smarty->createTemplate('foobar.tpl');

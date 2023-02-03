@@ -40,10 +40,10 @@ class StreamResourceTest extends PHPUnit_Smarty
     /**
      * test getTemplateFilepath
      */
-    public function testGetTemplateFilepath()
+    public function testGetFullResourceName()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertEquals('global://mytest', $tpl->getSource()->filepath);
+        $this->assertEquals('global:mytest', $tpl->getSource()->getFullResourceName());
     }
 
     /**

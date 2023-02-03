@@ -209,7 +209,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
     {
         $this->smarty->registerFilter('pre', array($this, 'prefilterTest'));
         $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_BLOCK, 'cachetest', 'myblockplugintest2', $cachable);
-        $this->smarty->compile_id = $compileid;
+        $this->smarty->setCompileId($compileid);
         $this->smarty->caching = $caching;
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->assign('test', $testNumber);
@@ -292,7 +292,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $this->makeTemplateFile($file, $code);
         $this->smarty->setTemplateDir('./templates_tmp');
         $this->smarty->registerDefaultPluginHandler('my_block_plugin_handler');
-        $this->smarty->compile_id='default';
+        $this->smarty->setCompileId('default');
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),

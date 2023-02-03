@@ -45,20 +45,19 @@ abstract class CustomPlugin extends BasePlugin {
 	}
 
 	/**
-	 * populate Source Object with meta data from Resource
+	 * populate Source Object with metadata from Resource
 	 *
 	 * @param Source $source source object
-	 * @param Template $_template template object
+	 * @param Template|null $_template template object
 	 */
 	public function populate(Source $source, Template $_template = null) {
-		$source->filepath = $source->type . ':' . $this->generateSafeName($source->name);
 		$source->uid = sha1($source->type . ':' . $source->name);
 		$mtime = $this->fetchTimestamp($source->name);
 		if ($mtime !== null) {
 			$source->timestamp = $mtime;
 		} else {
 			$this->fetch($source->name, $content, $timestamp);
-			$source->timestamp = isset($timestamp) ? $timestamp : false;
+			$source->timestamp = $timestamp ?? false;
 			if (isset($content)) {
 				$source->content = $content;
 			}

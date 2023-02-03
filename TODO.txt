@@ -1,5 +1,10 @@
 # @TODO
 
+## Performance improvements
+- context: pass template variables in an array
+- why do we do 300k assign() calls? (answer: foreach?)
+- debugging: see if removing debugging code speeds up
+
 ## Review direct variable property access
 - review ->value{$index} in ForTag
 
@@ -11,9 +16,6 @@
 
 ## Review public static vars
 - such as _CHARSET and _IS_WINDOWS
-
-## Benchmark
-- benchmark to see that performance hasn't degraded
 
 ## Block / inheritance
 - Consider phasing out $smarty.block.child as this reverses the inheritance hierarchy and might cause infinite loops

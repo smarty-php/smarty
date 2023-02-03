@@ -72,11 +72,8 @@ class Compiled extends GeneratedPhpFile {
 		} else {
 			$this->filepath .= (int)$smarty->escape_html * 2;
 		}
-		$this->filepath .= '.' . $source->type;
-		$basename = $source->getBasename();
-		if (!empty($basename)) {
-			$this->filepath .= '.' . $basename;
-		}
+		$this->filepath .= '.' . $source->type . '_' . $source->getBasename();
+
 		if ($_template->caching) {
 			$this->filepath .= '.cache';
 		}
@@ -96,11 +93,7 @@ class Compiled extends GeneratedPhpFile {
 	 * @throws \Smarty\Exception
 	 */
 	public function render(Template $_template) {
-		// checks if template exists
-		if (!$_template->getSource()->exists) {
-			$type = $_template->getSource()->isConfig ? 'config' : 'template';
-			throw new \Smarty\Exception("Unable to load {$type} '{$_template->getSource()->type}:{$_template->getSource()->name}'");
-		}
+
 		if ($_template->getSmarty()->debugging) {
 			$_template->getSmarty()->getDebug()->start_render($_template);
 		}
@@ -109,8 +102,10 @@ class Compiled extends GeneratedPhpFile {
 		}
 
 		// @TODO Can't Cached handle this? Maybe introduce an event to decouple.
-		$_template->getCached()->file_dependency =
-			array_merge($_template->getCached()->file_dependency, $this->file_dependency);
+		if ($_template->caching) {
+			$_template->getCached()->file_dependency =
+				array_merge($_template->getCached()->file_dependency, $this->file_dependency);
+		}
 
 		$this->getRenderedTemplateCode($_template, $this->unifunc);
 

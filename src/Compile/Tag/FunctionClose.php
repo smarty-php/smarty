@@ -48,11 +48,12 @@ class FunctionClose extends Base {
 		unset($_parameter['name']);
 		// default parameter
 		$_paramsArray = $this->formatParamsArray($_attr);
+
+		$_paramsCode = (new \Smarty\Compiler\CodeFrame($compiler->getTemplate()))->insertLocalVariables();
+
 		if (!empty($_paramsArray)) {
 			$_params = 'array(' . implode(',', $_paramsArray) . ')';
-			$_paramsCode = "\$params = array_merge($_params, \$params);\n";
-		} else {
-			$_paramsCode = '';
+			$_paramsCode .= "\$params = array_merge($_params, \$params);\n";
 		}
 		$_functionCode = $compiler->getParser()->current_buffer;
 		// setup buffer for template function code
@@ -67,6 +68,7 @@ class FunctionClose extends Base {
 			$output .= $compiler->cStyleComment(" {$_funcNameCaching} ") . "\n";
 			$output .= "if (!function_exists('{$_funcNameCaching}')) {\n";
 			$output .= "function {$_funcNameCaching} (\\Smarty\\Template \$_smarty_tpl,\$params) {\n";
+
 			$output .= "ob_start();\n";
 			$output .= "\$_smarty_tpl->getCompiled()->setNocacheCode(true);\n";
 			$output .= $_paramsCode;
@@ -149,7 +151,6 @@ class FunctionClose extends Base {
 	 * @return string
 	 */
 	public function removeNocache($match) {
-		// @TODO why is this here, and will the $this->compiler property survive long enough for the callback?
 		$hash = $this->compiler->getTemplate()->getCompiled()->nocache_hash;
 		$code =
 			preg_replace(

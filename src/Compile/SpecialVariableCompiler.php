@@ -82,7 +82,7 @@ class SpecialVariableCompiler extends Base {
 					$compiled_ref = '$_' . smarty_strtoupper_ascii($variable);
 					break;
 				case 'template':
-					return 'basename($_smarty_tpl->getSource()->filepath)';
+					return '$_smarty_tpl->template_resource';
 				case 'template_object':
 					if (isset($compiler->getSmarty()->security_policy)) {
 						$compiler->trigger_template_error("(secure mode) template_object not permitted");
@@ -90,7 +90,7 @@ class SpecialVariableCompiler extends Base {
 					}
 					return '$_smarty_tpl';
 				case 'current_dir':
-					return 'dirname($_smarty_tpl->getSource()->filepath)';
+					return '$_smarty_current_dir';
 				case 'version':
 					return "\\Smarty\\Smarty::SMARTY_VERSION";
 				case 'const':

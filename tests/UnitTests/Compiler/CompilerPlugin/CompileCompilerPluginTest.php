@@ -31,7 +31,7 @@ class CompileCompilerPluginTest extends PHPUnit_Smarty
     public function testCompilerPluginFunction()
     {
         $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_COMPILER, 'compilerplugin', 'mycompilerplugin');
-        $this->smarty->compile_id = 'function';
+        $this->smarty->setCompileId('function');
         $this->assertEquals("Hello World", $this->smarty->fetch('compilerplugintest.tpl'));
     }
     /**
@@ -40,7 +40,7 @@ class CompileCompilerPluginTest extends PHPUnit_Smarty
     public function testCompilerPluginClassStatic()
     {
         $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_COMPILER, 'compilerplugin', array('CompilerPluginClass', 'statCompile'));
-        $this->smarty->compile_id = 'static';
+        $this->smarty->setCompileId('static');
         $this->assertEquals("Static World", $this->smarty->fetch('compilerplugintest.tpl'));
     }
     /**
@@ -50,7 +50,7 @@ class CompileCompilerPluginTest extends PHPUnit_Smarty
     {
         $plugin = new CompilerPluginClass;
         $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_COMPILER, 'compilerplugin', array($plugin, 'compile'));
-        $this->smarty->compile_id = 'object';
+        $this->smarty->setCompileId('object');
         $this->assertEquals("Public World", $this->smarty->fetch('compilerplugintest.tpl'));
     }
 }

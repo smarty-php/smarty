@@ -36,7 +36,7 @@ class File extends Base
         $source = $_template->getSource();
         $smarty = $_template->getSmarty();
         $_compile_dir_sep = $smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^';
-        $_filepath = sha1($source->uid . $smarty->_joined_template_dir);
+        $_filepath = $source->uid;
         $cached->filepath = $smarty->getCacheDir();
         if (isset($_template->cache_id)) {
             $cached->filepath .= preg_replace(
@@ -61,11 +61,8 @@ class File extends Base
                                  DIRECTORY_SEPARATOR .
                                  $_filepath[ 4 ] . $_filepath[ 5 ] . DIRECTORY_SEPARATOR;
         }
-        $cached->filepath .= $_filepath;
-        $basename = $source->getBasename();
-        if (!empty($basename)) {
-            $cached->filepath .= '.' . $basename;
-        }
+        $cached->filepath .= $_filepath . '_' . $source->getBasename();
+
         if ($smarty->cache_locking) {
             $cached->lock_id = $cached->filepath . '.lock';
         }
@@ -205,7 +202,7 @@ class File extends Base
 	    if (isset($resource_name)) {
 		    $_save_stat = $smarty->caching;
 		    $smarty->caching = \Smarty\Smarty::CACHING_LIFETIME_CURRENT;
-		    $tpl = $smarty->createTemplate($resource_name);
+		    $tpl = $smarty->doCreateTemplate($resource_name);
 		    $smarty->caching = $_save_stat;
 		    // remove from template cache
 		    if ($tpl->getSource()->exists) {

@@ -272,7 +272,7 @@ class SecurityTest extends PHPUnit_Smarty
  */
     public function testTemplateTrustedStream()
     {
-        stream_wrapper_register("global", "ResourceStreamSecurity")
+        stream_wrapper_register("global", ResourceStreamSecurity::class)
         or die("Failed to register protocol");
         $fp = fopen("global://mytest", "r+");
         fwrite($fp, 'hello world {$foo}');
@@ -291,7 +291,7 @@ class SecurityTest extends PHPUnit_Smarty
     {
         $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('stream \'global\' not allowed by security setting');
-        stream_wrapper_register("global", "ResourceStreamSecurity")
+        stream_wrapper_register("global", ResourceStreamSecurity::class)
         or die("Failed to register protocol");
         $fp = fopen("global://mytest", "r+");
         fwrite($fp, 'hello world {$foo}');

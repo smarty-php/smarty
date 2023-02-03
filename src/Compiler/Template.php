@@ -403,12 +403,11 @@ class Template extends BaseCompiler {
 			if ($this->template->getSource()->handler->checkTimestamps()) {
 				$this->parent_compiler->getTemplate()->getCompiled()->file_dependency[$this->template->getSource()->uid] =
 					[
-						$this->template->getSource()->filepath,
+						$this->template->getSource()->getResourceName(),
 						$this->template->getSource()->getTimeStamp(),
 						$this->template->getSource()->type,
 					];
 			}
-			$this->smarty->_current_file = $this->template->getSource()->filepath;
 			// get template source
 			if (!empty($this->template->getSource()->components)) {
 				// we have array of inheritance templates by extends: resource
@@ -811,7 +810,7 @@ class Template extends BaseCompiler {
 					)
 				);
 		} else {
-			$templateName = $this->template->getSource()->type . ':' . $this->template->getSource()->filepath;
+			$templateName = $this->template->getSource()->getFullResourceName();
 		}
 		//        $line += $this->trace_line_offset;
 		$match = preg_split("/\n/", $lex->data);
@@ -848,12 +847,12 @@ class Template extends BaseCompiler {
 		$e = new CompilerException(
 			$error_text,
 			0,
-			$this->template->getSource()->filepath,
+			$this->template->getSource()->getFullResourceName(),
 			$line
 		);
 		$e->source = trim(preg_replace('![\t\r\n]+!', ' ', $match[$line - 1]));
 		$e->desc = $args;
-		$e->template = $this->template->getSource()->filepath;
+		$e->template = $this->template->getSource()->getFullResourceName();
 		throw $e;
 	}
 
@@ -1127,13 +1126,6 @@ class Template extends BaseCompiler {
 			$_output = $tagCompiler === null ? false : $tagCompiler->compile($args, $this, $parameter);
 			return $this->has_code ? $_output : null;
 		}
-
-//      @TODO: This code was in here in v4, but it might not do anything (anymore)
-//		foreach ($args['_attr'] ?? [] as $attribute) {
-//			if (is_array($attribute)) {
-//				$args = array_merge($args, $attribute);
-//			}
-//		}
 
 		// remaining tastes: (object-)function, (object-function-)block, custom-compiler
 		// opening and closing tags for these are handled with the same handler
@@ -1485,5 +1477,4 @@ class Template extends BaseCompiler {
 	public function getTagStack(): array {
 		return $this->_tag_stack;
 	}
-
 }

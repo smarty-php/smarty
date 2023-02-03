@@ -117,7 +117,7 @@ if (MysqlResourceEnable == true) {
         */
         public function testUnknownTemplate() {
             $this->expectException(\Smarty\Exception::class);
-            $this->expectExceptionMessage('Unable to load template \'mysqlstest:foo.tpl\'');
+            $this->expectExceptionMessage('Unable to load \'mysqlstest:foo.tpl\'');
             $this->assertEquals('foo', $this->smarty->fetch('mysqlstest:foo.tpl'));
         }
     }

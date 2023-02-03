@@ -51,7 +51,7 @@ class Data
 	 * Default scope for new variables
 	 * @var int
 	 */
-	private $defaultScope = self::SCOPE_LOCAL;
+	protected $defaultScope = self::SCOPE_LOCAL;
 
 	/**
 	 * create Smarty data object
@@ -454,11 +454,11 @@ class Data
 	 */
 	public function configLoad($config_file, $sections = null)
 	{
-		$template = $this->getSmarty()->createTemplate($config_file, null, null, $this, null, null, null, true);
+		$template = $this->getSmarty()->doCreateTemplate($config_file, null, null, $this, null, null, true);
 		$template->caching = Smarty::CACHING_OFF;
 		$template->assign('sections', (array) $sections ?? []);
 		// trigger a call to $this->assignConfigVars
-		$template->getCompiled(true)->render($template);
+		$template->fetch();
 		return $this;
 	}
 

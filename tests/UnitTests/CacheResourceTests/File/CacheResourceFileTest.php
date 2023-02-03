@@ -10,10 +10,6 @@ include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
 
 /**
  * class for cache resource file tests
- *
- * 
- * 
- * 
  */
 class CacheResourceFileTest extends CacheResourceTestCommon
 {
@@ -41,8 +37,8 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals($this->buildCachedPath($tpl, true, null, null, 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
-            , $tpl->getCached()->filepath);
+
+		$this->assertRegExp('/.*\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
     }
 
     /**
@@ -54,8 +50,8 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar');
-        $this->assertEquals($this->buildCachedPath($tpl, true, 'foo|bar', null, 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
-            , $tpl->getCached()->filepath);
+
+	    $this->assertRegExp('/.*\/foo\/bar\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
     }
 
     /**
@@ -67,8 +63,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', null, 'blar');
-        $this->assertEquals($this->buildCachedPath($tpl, true, null, 'blar', 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
-            , $tpl->getCached()->filepath);
+	    $this->assertRegExp('/.*\/blar\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
     }
 
     /**
@@ -80,8 +75,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
-        $this->assertEquals($this->buildCachedPath($tpl, true, 'foo|bar', 'blar', 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
-            , $tpl->getCached()->filepath);
+	    $this->assertRegExp('/.*\/foo\/bar\/blar\\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
     }
 
     /**

@@ -18,7 +18,6 @@ class Smarty_Resource_Db4 extends Smarty\Resource\BasePlugin
 {
     public function populate(Source $source, Template $_template = null)
     {
-        $source->filepath = 'db4:';
         $source->uid = sha1($source->resource);
         $source->timestamp = 0;
         $source->exists = true;

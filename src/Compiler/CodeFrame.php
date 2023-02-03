@@ -59,13 +59,16 @@ class CodeFrame
 			"<?php\n/* Smarty version %s, created on %s\n  from '%s' */\n\n",
             $properties[ 'version' ],
 	        date("Y-m-d H:i:s"),
-	        str_replace('*/', '* /', $this->_template->getSource()->filepath)
+	        str_replace('*/', '* /', $this->_template->getSource()->getFullResourceName())
         );
         $output .= "/* @var \\Smarty\\Template \$_smarty_tpl */\n";
         $dec = "\$_smarty_tpl->" . ($cache ? "getCached()" : "getCompiled()");
 		$dec .= "->isFresh(\$_smarty_tpl, " . var_export($properties, true) . ')';
         $output .= "if ({$dec}) {\n";
         $output .= "function {$properties['unifunc']} (\\Smarty\\Template \$_smarty_tpl) {\n";
+
+		$output .= $this->insertLocalVariables();
+
         if (!$cache && !empty($compiler->tpl_function)) {
             $output .= '$_smarty_tpl->getSmarty()->getRuntime(\'TplFunction\')->registerTplFunctions($_smarty_tpl, ';
             $output .= var_export($compiler->tpl_function, true);
@@ -113,4 +116,11 @@ class CodeFrame
         }
         return $output;
     }
+
+	/**
+	 * @return string
+	 */
+	public function insertLocalVariables(): string {
+		return '$_smarty_current_dir = ' . var_export(dirname($this->_template->getSource()->getFilepath()), true) . ";\n";
+	}
 }

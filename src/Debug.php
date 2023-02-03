@@ -213,8 +213,6 @@ class Debug extends Data
         $debObj->registered_filters = array();
         $debObj->escape_html = true;
         $debObj->caching = \Smarty::CACHING_OFF;
-        $debObj->compile_id = null;
-        $debObj->cache_id = null;
         // prepare information of assigned variables
         $ptr = $this->get_debug_vars($obj);
         $_assigned_vars = $ptr->tpl_vars;
@@ -222,7 +220,7 @@ class Debug extends Data
         $_config_vars = $ptr->config_vars;
         ksort($_config_vars);
         $debugging = $smarty->debugging;
-        $_template = $debObj->createTemplate($debObj->debug_tpl);
+        $_template = $debObj->doCreateTemplate($debObj->debug_tpl);
         if ($obj instanceof \Smarty\Template) {
             $_template->assign('template_name', $obj->getSource()->type . ':' . $obj->getSource()->name);
         } elseif ($obj instanceof Smarty || $full) {
@@ -305,10 +303,7 @@ class Debug extends Data
     private function get_key(\Smarty\Template $template)
     {
         static $_is_stringy = array('string' => true, 'eval' => true);
-        // calculate Uid if not already done
-        if ($template->getSource()->uid === '') {
-            $template->getSource()->filepath;
-        }
+
         $key = $template->getSource()->uid;
         if (isset($this->template_data[ $this->index ][ $key ])) {
             return $key;
@@ -326,11 +321,7 @@ class Debug extends Data
      */
     public function ignore(\Smarty\Template $template)
     {
-        // calculate Uid if not already done
-        if ($template->getSource()->uid === '') {
-            $template->getSource()->filepath;
-        }
-        $this->ignore_uid[ $template->getSource()->uid ] = true;
+        $this->ignore_uid[$template->getSource()->uid] = true;
     }
 
     /**
@@ -377,7 +368,7 @@ class Debug extends Data
 			$this->template_data[$this->index][$key]['name'] =
 				'\'' . substr($template->getSource()->name, 0, 25) . '...\'';
 		} else {
-			$this->template_data[$this->index][$key]['name'] = $template->getSource()->filepath;
+			$this->template_data[$this->index][$key]['name'] = $template->getSource()->getResourceName();
 		}
 		$this->template_data[$this->index][$key]['compile_time'] = 0;
 		$this->template_data[$this->index][$key]['render_time'] = 0;

@@ -108,7 +108,6 @@ class IncludeTag extends Base {
 		$_caching = Smarty::CACHING_OFF;
 
 		// caching was on and {include} is not in nocache mode
-		// @TODO see if we can do without this
 		if ($compiler->getTemplate()->caching && !$compiler->isNocacheActive()) {
 			$_caching = \Smarty\Template::CACHING_NOCACHE_CODE;
 		}
@@ -178,7 +177,7 @@ class IncludeTag extends Base {
 			$_output .= "ob_start();\n";
 		}
 		$_output .= "\$_smarty_tpl->renderSubTemplate({$fullResourceName}, $_cache_id, \$_smarty_tpl->compile_id, " .
-			"$_caching, $_cache_lifetime, $_vars, (int) {$_scope});\n";
+			"$_caching, $_cache_lifetime, $_vars, (int) {$_scope}, \$_smarty_current_dir);\n";
 		if (isset($_assign)) {
 			$_output .= "\$_smarty_tpl->assign({$_assign}, ob_get_clean(), false, {$_scope});\n";
 		}

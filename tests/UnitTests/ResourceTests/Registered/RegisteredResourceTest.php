@@ -59,10 +59,10 @@ class RegisteredResourceTest extends PHPUnit_Smarty
     public function testResourceCompileIdChange()
     {
         $this->smarty->registerResource('myresource', new RegisteredResourceTest_Resource2Plugin());
-        $this->smarty->compile_id = 'a';
+        $this->smarty->setCompileId('a');
         $this->assertEquals('this is template 1', $this->smarty->fetch('myresource:some'));
         $this->assertEquals('this is template 1', $this->smarty->fetch('myresource:some'));
-        $this->smarty->compile_id = 'b';
+        $this->smarty->setCompileId('b');
         $this->assertEquals('this is template 2', $this->smarty->fetch('myresource:some'));
         $this->assertEquals('this is template 2', $this->smarty->fetch('myresource:some'));
     }

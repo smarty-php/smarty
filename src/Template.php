@@ -10,6 +10,7 @@
 
 namespace Smarty;
 
+use Smarty\Resource\BasePlugin;
 use Smarty\Runtime\InheritanceRuntime;
 use Smarty\Template\Source;
 use Smarty\Template\Cached;
@@ -154,9 +155,9 @@ class Template extends TemplateBase {
 			$this->smarty->getDebug()->start_template($this, $display);
 		}
 		// checks if template exists
-		if (!$this->getSource()->exists) {
+		if ($this->compile_check && !$this->getSource()->exists) {
 			throw new Exception(
-				"Unable to load template '{$this->getSource()->type}:{$this->getSource()->name}'" .
+				"Unable to load '{$this->getSource()->type}:{$this->getSource()->name}'" .
 				($this->_isSubTpl() ? " in '{$this->parent->template_resource}'" : '')
 			);
 		}
@@ -174,16 +175,9 @@ class Template extends TemplateBase {
 
 			// read from cache or render
 			if ($this->caching === \Smarty\Smarty::CACHING_LIFETIME_CURRENT || $this->caching === \Smarty\Smarty::CACHING_LIFETIME_SAVED) {
-				if ($this->getCached()->cache_id !== $this->cache_id || $this->getCached()->compile_id !== $this->compile_id) {
-					$this->getCached(true);
-				}
 				$this->getCached()->render($this, $no_output_filter);
 			} else {
-				$compiled = $this->getCompiled();
-				if ($compiled->compile_id !== $this->compile_id) {
-					$compiled = $this->getCompiled(true);
-				}
-				$compiled->render($this);
+				$this->getCompiled()->render($this);
 			}
 
 		} finally {
@@ -254,29 +248,34 @@ class Template extends TemplateBase {
 		$caching,
 		$cache_lifetime,
 		array $extra_vars = [],
-		int $scope = null
+		int $scope = null,
+		?string $currentDir = null
 	) {
 
-		$baseFilePath = $this->source && $this->getSource()->filepath ? dirname($this->getSource()->filepath) : null;
+		$name = $this->parseResourceName($template_name);
+		if ($currentDir && preg_match('/^\.{1,2}\//', $name)) {
+			// relative template resource name, append it to current template name
+			$template_name = $currentDir . DIRECTORY_SEPARATOR . $name;
+		}
 
-		$tpl = $this->getSmarty()->createTemplate($template_name, $cache_id, $compile_id, $this, $caching, $cache_lifetime, $baseFilePath);
-		$tpl->setCached($this->getCached()); // re-use the same Cache object across subtemplates to gather hashes and file dependencies.
-		$tpl->setInheritance($this->getInheritance()); // re-use the same Inheritance object inside the inheritance tree
+		$tpl = $this->smarty->doCreateTemplate($template_name, $cache_id, $compile_id, $this, $caching, $cache_lifetime);
+
+		$tpl->inheritance = $this->getInheritance(); // re-use the same Inheritance object inside the inheritance tree
 
 		if ($scope) {
-			$tpl->setDefaultScope($scope);
+			$tpl->defaultScope = $scope;
 		}
 
 		// recursive call ?
-		if ($tpl->getTemplateId() !== $this->getTemplateId() && $caching !== \Smarty\Template::CACHING_NOCACHE_CODE) {
+		if ($tpl->templateId !== $this->templateId && $caching !== \Smarty\Template::CACHING_NOCACHE_CODE) {
 			$tpl->getCached(true);
+		} else {
+			// re-use the same Cache object across subtemplates to gather hashes and file dependencies.
+			$tpl->setCached($this->getCached());
 		}
 
-		if (!empty($extra_vars)) {
-			// set up variable values
-			foreach ($extra_vars as $_key => $_val) {
-				$tpl->assign($_key, $_val);
-			}
+		foreach ($extra_vars as $_key => $_val) {
+			$tpl->assign($_key, $_val);
 		}
 		if ($tpl->caching === \Smarty\Template::CACHING_NOCACHE_CODE) {
 			if ($tpl->getCompiled()->getNocacheCode()) {
@@ -287,9 +286,21 @@ class Template extends TemplateBase {
 		$tpl->render();
 	}
 
-	public function setParent($parent): void {
-		parent::setParent($parent);
-		$this->setSource($this->source->isConfig ? Config::load($this) : Source::load($this));
+	/**
+	 * Remove type indicator from resource name if present.
+	 * E.g. $this->parseResourceName('file:template.tpl') returns 'template.tpl'
+	 *
+	 * @note "C:/foo.tpl" was forced to file resource up till Smarty 3.1.3 (including).
+	 *
+	 * @param string $resource_name    template_resource or config_resource to parse
+	 *
+	 * @return string
+	 */
+	private function parseResourceName($resource_name): string {
+		if (preg_match('/^([A-Za-z0-9_\-]{2,}):/', $resource_name, $match)) {
+			return substr($resource_name, strlen($match[0]));
+		}
+		return $resource_name;
 	}
 
 	/**
@@ -392,8 +403,9 @@ class Template extends TemplateBase {
 				$this->compile_id,
 				$this->cache_id
 			);
-			$cacheResource->populate($this->cached, $this);
-			if (!$this->isCachingEnabled()) {
+			if ($this->isCachingEnabled()) {
+				$cacheResource->populate($this->cached, $this);
+			} else {
 				$this->cached->setValid(false);
 			}
 		}
@@ -477,7 +489,7 @@ class Template extends TemplateBase {
 			} else {
 				$parent_resource = '';
 			}
-			throw new Exception("Unable to load template {$this->getSource()->type} '{$this->getSource()->name}'{$parent_resource}");
+			throw new Exception("Unable to load {$this->getSource()->type} '{$this->getSource()->name}'{$parent_resource}");
 		}
 
 		// @TODO move this logic to Compiled
@@ -564,7 +576,7 @@ class Template extends TemplateBase {
 		$confObj = parent::configLoad($config_file, $sections);
 
 		$this->getCompiled()->file_dependency[ $confObj->getSource()->uid ] =
-			array($confObj->getSource()->filepath, $confObj->getSource()->getTimeStamp(), $confObj->getSource()->type);
+			array($confObj->getSource()->getResourceName(), $confObj->getSource()->getTimeStamp(), $confObj->getSource()->type);
 
 		return $confObj;
 	}
@@ -691,6 +703,27 @@ class Template extends TemplateBase {
 	 */
 	private function setCached(Cached $cached) {
 		$this->cached = $cached;
+	}
+
+	/**
+	 * @param string $compile_id
+	 *
+	 * @throws Exception
+	 */
+	public function setCompileId($compile_id) {
+		parent::setCompileId($compile_id);
+		$this->getCompiled(true);
+		$this->getCached(true);
+	}
+
+	/**
+	 * @param string $cache_id
+	 *
+	 * @throws Exception
+	 */
+	public function setCacheId($cache_id) {
+		parent::setCacheId($cache_id);
+		$this->getCached(true);
 	}
 
 }

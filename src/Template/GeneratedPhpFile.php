@@ -3,6 +3,7 @@
 namespace Smarty\Template;
 
 use Smarty\Exception;
+use Smarty\Resource\FilePlugin;
 use Smarty\Template;
 
 /**
@@ -127,22 +128,27 @@ abstract class GeneratedPhpFile {
 	protected function checkFileDependencies($file_dependency, Template $_template): bool {
 			// check file dependencies at compiled code
 		foreach ($file_dependency as $_file_to_check) {
-			if ($_file_to_check[2] === 'file') {
-				if ($_template->getSource()->filepath === $_file_to_check[0]) {
+
+			$handler = \Smarty\Resource\BasePlugin::load($_template->getSmarty(), $_file_to_check[2]);
+
+			if ($handler instanceof FilePlugin) {
+				if ($_template->getSource()->getResourceName() === $_file_to_check[0]) {
 					// do not recheck current template
 					continue;
 				}
-				// file and php types can be checked without loading the respective resource handlers
-				$mtime = is_file($_file_to_check[0]) ? filemtime($_file_to_check[0]) : false;
+				$mtime = $handler->getResourceNameTimestamp($_file_to_check[0], $_template->getSmarty(), $_template->getSource()->isConfig);
 			} else {
-				$handler = \Smarty\Resource\BasePlugin::load($_template->getSmarty(), $_file_to_check[2]);
+
 				if ($handler->checkTimestamps()) {
-					$source = Source::load($_template, $_template->getSmarty(), $_file_to_check[0]);
+					// @TODO this doesn't actually check any dependencies, but only the main source file
+					// and that might to be irrelevant, as the comment "do not recheck current template" above suggests
+					$source = Source::load($_template, $_template->getSmarty());
 					$mtime = $source->getTimeStamp();
 				} else {
 					continue;
 				}
 			}
+
 			if ($mtime === false || $mtime > $_file_to_check[1]) {
 				return false;
 			}

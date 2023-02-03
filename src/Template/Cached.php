@@ -210,10 +210,9 @@ class Cached extends GeneratedPhpFile {
 	 * Process cached template
 	 *
 	 * @param Template $_template template object
-	 * @param bool $update flag if called because cache update
 	 */
-	private function process(Template $_template, $update = false) {
-		if ($this->handler->process($_template, $this, $update) === false) {
+	private function process(Template $_template) {
+		if ($this->handler->process($_template, $this) === false) {
 			$this->valid = false;
 		}
 		$this->processed = $this->valid;
@@ -282,15 +281,7 @@ class Cached extends GeneratedPhpFile {
 		}
 
 		$this->removeNoCacheHash($_template, $no_output_filter);
-
-		if ($_template->_isSubTpl()) {
-			// @TODO why is this needed?
-			$_template->getCompiled()->unifunc = $_template->parent->getCompiled()->unifunc;
-		}
-
-		if (!$this->processed) {
-			$this->process($_template, true);
-		}
+		$this->process($_template);
 
 		if ($_template->getSmarty()->debugging) {
 			$_template->getSmarty()->getDebug()->end_cache($_template);

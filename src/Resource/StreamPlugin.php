@@ -34,11 +34,6 @@ class StreamPlugin extends RecompiledPlugin {
 	 * @return void
 	 */
 	public function populate(Source $source, Template $_template = null) {
-		if (strpos($source->resource, '://') !== false) {
-			$source->filepath = $source->resource;
-		} else {
-			$source->filepath = str_replace(':', '://', $source->resource);
-		}
 		$source->uid = false;
 		$source->content = $this->getContent($source);
 		$source->timestamp = $source->exists = !!$source->content;
@@ -52,9 +47,16 @@ class StreamPlugin extends RecompiledPlugin {
 	 * @return string template source
 	 */
 	public function getContent(Source $source) {
+
+		if (strpos($source->getResourceName(), '://') !== false) {
+			$filepath = $source->getResourceName();
+		} else {
+			$filepath = str_replace(':', '://', $source->getFullResourceName());
+		}
+
 		$t = '';
 		// the availability of the stream has already been checked in Smarty\Resource\Base::fetch()
-		$fp = fopen($source->filepath, 'r+');
+		$fp = fopen($filepath, 'r+');
 		if ($fp) {
 			while (!feof($fp) && ($current_line = fgets($fp)) !== false) {
 				$t .= $current_line;

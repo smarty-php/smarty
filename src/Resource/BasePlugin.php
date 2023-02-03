@@ -97,30 +97,6 @@ abstract class BasePlugin
     }
 
     /**
-     * extract resource_type and resource_name from template_resource and config_resource
-     *
-     * @note "C:/foo.tpl" was forced to file resource up till Smarty 3.1.3 (including).
-     *
-     * @param string $resource_name    template_resource or config_resource to parse
-     * @param string $default_resource the default resource_type defined in $smarty
-     *
-     * @return array with parsed resource name and type
-     */
-    public static function parseResourceName($resource_name, $default_resource)
-    {
-        if (preg_match('/^([A-Za-z0-9_\-]{2,})[:]/', $resource_name, $match)) {
-            $type = $match[ 1 ];
-            $name = substr($resource_name, strlen($match[ 0 ]));
-        } else {
-            // no resource given, use default
-            // or single character before the colon is not a resource type, but part of the filepath
-            $type = $default_resource;
-            $name = $resource_name;
-        }
-        return array($name, $type);
-    }
-
-    /**
      * Load template's source into current template object
      *
      * @param Source $source source object

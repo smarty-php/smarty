@@ -102,7 +102,7 @@ class InheritanceRuntime {
 	 * @throws \Exception
 	 * @throws \Smarty\Exception
 	 */
-	public function endChild(Template $tpl, $template = null) {
+	public function endChild(Template $tpl, $template = null, ?string $currentDir = null) {
 		--$this->inheritanceLevel;
 		if (!$this->inheritanceLevel) {
 			ob_end_clean();
@@ -114,7 +114,10 @@ class InheritanceRuntime {
 				$tpl->cache_id,
 				$tpl->compile_id,
 				$tpl->caching ? \Smarty\Template::CACHING_NOCACHE_CODE : 0,
-				$tpl->cache_lifetime
+				$tpl->cache_lifetime,
+				[],
+				null,
+				$currentDir
 			);
 		}
 	}
@@ -221,7 +224,7 @@ class InheritanceRuntime {
 			$this->callBlock($block->parent, $tpl);
 		} else {
 			throw new Exception("inheritance: illegal '{\$smarty.block.parent}' used in child template '" .
-				"{$tpl->getInheritance()->sources[$block->tplIndex]->filepath}' block '{$block->name}'");
+				"{$tpl->getInheritance()->sources[$block->tplIndex]->getResourceName()}' block '{$block->name}'");
 		}
 	}
 

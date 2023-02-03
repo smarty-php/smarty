@@ -84,7 +84,6 @@ class Block extends Inheritance {
 			]
 		);
 
-		// @TODO what is this for?
 		$compiler->getParser()->current_buffer = new Template();
 		$compiler->getTemplate()->getCompiled()->setNocacheCode(false);
 		$compiler->suppressNocacheProcessing = true;

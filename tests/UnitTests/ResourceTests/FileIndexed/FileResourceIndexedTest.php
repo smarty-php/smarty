@@ -25,30 +25,6 @@ class FileResourceIndexedTest extends PHPUnit_Smarty
         $this->cleanDirs();
     }
 
-    public function testGetTemplateFilepath()
-    {
-        $tpl = $this->smarty->createTemplate('dirname.tpl');
-        $this->assertEquals($this->normalizePath("./templates/dirname.tpl"), $tpl->getSource()->filepath);
-    }
-
-    public function testGetTemplateFilepathNumber()
-    {
-        $tpl = $this->smarty->createTemplate('[1]dirname.tpl');
-        $this->assertEquals($this->normalizePath('./templates_2/dirname.tpl'), $tpl->getSource()->filepath);
-    }
-
-    public function testGetTemplateFilepathNumeric()
-    {
-        $tpl = $this->smarty->createTemplate('[10]dirname.tpl');
-        $this->assertEquals($this->normalizePath('./templates_3/dirname.tpl'), $tpl->getSource()->filepath);
-    }
-
-    public function testGetTemplateFilepathName()
-    {
-        $tpl = $this->smarty->createTemplate('[foo]dirname.tpl');
-        $this->assertEquals($this->normalizePath('./templates_4/dirname.tpl'), $tpl->getSource()->filepath);
-    }
-
     public function testFetch()
     {
         $tpl = $this->smarty->createTemplate('dirname.tpl');
@@ -101,15 +77,18 @@ class FileResourceIndexedTest extends PHPUnit_Smarty
     public function testGetCompiledFilepath()
     {
         $tpl = $this->smarty->createTemplate('[foo]dirname.tpl');
-        $this->assertEquals($this->buildCompiledPath($tpl, false, false, null, 'dirname.tpl', 'file', $this->smarty->getTemplateDir('foo')), $tpl->getCompiled()->filepath);
+        $tpl2 = $this->smarty->createTemplate('dirname.tpl');
+
+		$this->assertNotEquals($tpl->getCompiled()->filepath, $tpl2->getCompiled()->filepath);
     }
 
     public function testGetCachedFilepath()
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
-        $tpl = $this->smarty->createTemplate('[foo]dirname.tpl');
-        $this->assertEquals($this->buildCachedPath($tpl, false, null, null, 'dirname.tpl', 'file', $this->smarty->getTemplateDir('foo'))
-            , $tpl->getCached()->filepath);
+	    $tpl = $this->smarty->createTemplate('[foo]dirname.tpl');
+	    $tpl2 = $this->smarty->createTemplate('dirname.tpl');
+
+	    $this->assertNotEquals($tpl->getCached()->filepath, $tpl2->getCached()->filepath);
     }
 }

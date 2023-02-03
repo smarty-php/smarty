@@ -398,7 +398,7 @@ KEY `name` (`name`)
                     return sha1($this->normalizePath($this->smarty->getTemplateDir(0) . $name) .
                                 $this->smarty->_joined_template_dir);
                 }
-                return sha1($tpl->getSource()->filepath . $this->smarty->_joined_template_dir);
+                return sha1($tpl->getSource()->uid . $this->smarty->_joined_template_dir);
             case 'mysqltest':
             case 'mysql':
                 return sha1($type . ':' . $name);
@@ -564,7 +564,7 @@ KEY `name` (`name`)
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
                 $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
                 $uid = $this->buildUid($tpl, $sp, $name, $type);
-                $_filepath = sha1($uid . $this->smarty->_joined_template_dir);
+                $_filepath = $uid;
                 // if use_sub_dirs, break file into directories
                 if ($sub) {
                     $_filepath =

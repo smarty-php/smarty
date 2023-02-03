@@ -10,6 +10,7 @@
 
 namespace Smarty\Resource;
 
+use Smarty\Smarty;
 use Smarty\Template;
 use Smarty\Template\Source;
 use Smarty\Exception;
@@ -24,25 +25,26 @@ use Smarty\Exception;
 class FilePlugin extends BasePlugin {
 
 	/**
-	 * populate Source Object with meta data from Resource
+	 * populate Source Object with metadata from Resource
 	 *
 	 * @param Source $source source object
-	 * @param Template $_template template object
+	 * @param Template|null $_template template object
 	 *
-	 * @throws \Smarty\Exception
+	 * @throws Exception
 	 */
 	public function populate(Source $source, Template $_template = null) {
-		$source->filepath = $this->buildFilepath($source, $_template);
-		if ($source->filepath !== false) {
+
+		$source->uid = sha1(
+			$source->name . ($source->isConfig ? $source->getSmarty()->_joined_config_dir :
+				$source->getSmarty()->_joined_template_dir)
+		);
+
+		if ($path = $this->getFilePath($source->name, $source->getSmarty(), $source->isConfig)) {
 			if (isset($source->getSmarty()->security_policy) && is_object($source->getSmarty()->security_policy)) {
-				$source->getSmarty()->security_policy->isTrustedResourceDir($source->filepath, $source->isConfig);
+				$source->getSmarty()->security_policy->isTrustedResourceDir($path, $source->isConfig);
 			}
 			$source->exists = true;
-			$source->uid = sha1(
-				$source->filepath . ($source->isConfig ? $source->getSmarty()->_joined_config_dir :
-					$source->getSmarty()->_joined_template_dir)
-			);
-			$source->timestamp = filemtime($source->filepath);
+			$source->timestamp = filemtime($path);
 		} else {
 			$source->timestamp = $source->exists = false;
 		}
@@ -54,11 +56,11 @@ class FilePlugin extends BasePlugin {
 	 * @param Source $source source object
 	 */
 	public function populateTimestamp(Source $source) {
-		if (!$source->exists) {
-			$source->timestamp = $source->exists = is_file($source->filepath);
+		if (!$source->exists && $path = $this->getFilePath($source->name, $source->getSmarty(), $source->isConfig)) {
+			$source->timestamp = $source->exists = is_file($path);
 		}
-		if ($source->exists) {
-			$source->timestamp = filemtime($source->filepath);
+		if ($source->exists && $path) {
+			$source->timestamp = filemtime($path);
 		}
 	}
 
@@ -72,7 +74,7 @@ class FilePlugin extends BasePlugin {
 	 */
 	public function getContent(Source $source) {
 		if ($source->exists) {
-			return file_get_contents($source->filepath);
+			return file_get_contents($this->getFilePath($source->getResourceName(), $source->getSmarty(), $source->isConfig()));
 		}
 		throw new Exception(
 			'Unable to read ' . ($source->isConfig ? 'config' : 'template') .
@@ -88,43 +90,30 @@ class FilePlugin extends BasePlugin {
 	 * @return string                 resource's basename
 	 */
 	public function getBasename(Source $source) {
-		return basename($source->filepath);
+		return basename($source->getResourceName());
 	}
 
 	/**
 	 * build template filepath by traversing the template_dir array
 	 *
-	 * @param Source $source source object
-	 * @param Template $_template template object
+	 * @param $file
+	 * @param Smarty $smarty
+	 * @param bool $isConfig
 	 *
 	 * @return string fully qualified filepath
-	 * @throws Exception
 	 */
-	protected function buildFilepath(Source $source, Template $_template = null) {
-		$file = $source->name;
+	public function getFilePath($file, \Smarty\Smarty $smarty, bool $isConfig = false) {
 		// absolute file ?
 		if ($file[0] === '/' || $file[1] === ':') {
-			$file = $source->getSmarty()->_realpath($file, true);
+			$file = $smarty->_realpath($file, true);
 			return is_file($file) ? $file : false;
 		}
-		// go relative to a given template?
-		if ($file[0] === '.' && $_template && $_template->_isSubTpl()
-			&& preg_match('#^[.]{1,2}[\\\/]#', $file)
-		) {
-			if ($_template->parent->getSource()->type !== 'file' && $_template->parent->getSource()->type !== 'extends') {
-				throw new Exception("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->getSource()->type}'");
-			}
-			// normalize path
-			$path =
-				$source->getSmarty()->_realpath(dirname($_template->parent->getSource()->filepath) . DIRECTORY_SEPARATOR . $file);
-			// files relative to a template only get one shot
-			return is_file($path) ? $path : false;
-		}
+
 		// normalize DIRECTORY_SEPARATOR
 		if (strpos($file, DIRECTORY_SEPARATOR === '/' ? '\\' : '/') !== false) {
 			$file = str_replace(DIRECTORY_SEPARATOR === '/' ? '\\' : '/', DIRECTORY_SEPARATOR, $file);
 		}
-		$_directories = $source->getSmarty()->getTemplateDir(null, $source->isConfig);
+		$_directories = $smarty->getTemplateDir(null, $isConfig);
 		// template_dir index?
 		if ($file[0] === '[' && preg_match('#^\[([^\]]+)\](.+)$#', $file, $fileMatch)) {
 			$file = $fileMatch[2];
@@ -160,15 +149,31 @@ class FilePlugin extends BasePlugin {
 		foreach ($_directories as $_directory) {
 			$path = $_directory . $file;
 			if (is_file($path)) {
-				return (strpos($path, '.' . DIRECTORY_SEPARATOR) !== false) ? $source->getSmarty()->_realpath($path) : $path;
+				return (strpos($path, '.' . DIRECTORY_SEPARATOR) !== false) ? $smarty->_realpath($path) : $path;
 			}
 		}
 		if (!isset($_index_dirs)) {
 			// Could be relative to cwd
-			$path = $source->getSmarty()->_realpath($file, true);
+			$path = $smarty->_realpath($file, true);
 			if (is_file($path)) {
 				return $path;
 			}
+		}
+		return false;
+	}
+
+	/**
+	 * Returns the timestamp of the resource indicated by $resourceName, or false if it doesn't exist.
+	 *
+	 * @param string $resourceName
+	 * @param Smarty $smarty
+	 * @param bool $isConfig
+	 *
+	 * @return false|int
+	 */
+	public function getResourceNameTimestamp(string $resourceName, \Smarty\Smarty $smarty, bool $isConfig = false) {
+		if ($path = $this->getFilePath($resourceName, $smarty, $isConfig)) {
+			return filemtime($path);
 		}
 		return false;
 	}

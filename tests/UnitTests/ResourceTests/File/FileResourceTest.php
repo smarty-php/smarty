@@ -38,10 +38,10 @@ class FileResourceTest extends PHPUnit_Smarty
     /**
      *
      */
-    public function testGetTemplateFilepath()
+    public function testGetTemplateResourceName()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals($this->normalizePath("./templates/helloworld.tpl"), $tpl->getSource()->filepath);
+        $this->assertEquals('helloworld.tpl', $tpl->getSource()->getResourceName());
     }
 
     public function testTemplateFileExists1()
@@ -102,14 +102,6 @@ class FileResourceTest extends PHPUnit_Smarty
         $this->assertFalse($tpl->getSource()->handler->recompiled);
     }
 
-    public function testGetCompiledFilepath()
-    {
-        $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals($this->buildCompiledPath($tpl, false, false, null, 'helloworld.tpl', 'file', $this->smarty->getTemplateDir(0))
-            , $tpl->getCompiled()->filepath
-        );
-    }
-
     /**
      * @doesNotPerformAssertions
      */
@@ -152,8 +144,8 @@ class FileResourceTest extends PHPUnit_Smarty
     {
 	    // touch to prepare next test
 	    sleep(2);
-	    $tpl = $this->smarty->createTemplate('helloworld.tpl');
-	    touch($tpl->getSource()->filepath);
+	    $this->smarty->createTemplate('helloworld.tpl');
+	    touch(__DIR__ . '/templates/helloworld.tpl');
 
 		$this->setUp();
 
@@ -170,26 +162,23 @@ class FileResourceTest extends PHPUnit_Smarty
         $this->assertTrue(file_exists($tpl->getCompiled()->filepath));
     }
 
-    public function testGetCachedFilepath()
-    {
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
-        $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals($this->buildCachedPath($tpl, false, null, null, 'helloworld.tpl', 'file', $this->smarty->getTemplateDir(0), 'file')
-            , $tpl->getCached()->filepath
-        );
-    }
-
     public function testGetCachedTimestamp()
     {
         // create dummy cache file for the following test
-        file_put_contents($this->buildCachedPath($this->smarty, false, null, null, 'helloworld.tpl', 'file', $this->smarty->getTemplateDir(0), 'file')
-            , '<?php ?>');
-        $this->smarty->caching = true;
-        $this->smarty->cache_lifetime = 1000;
+	    $this->smarty->caching = true;
+	    $this->smarty->cache_lifetime = 1000;
+	    $tpl = $this->smarty->createTemplate('helloworld.tpl');
+		$tpl->fetch();
+		$timestamp = $tpl->getCached()->timestamp;
+
+
+		$this->smarty = new \Smarty\Smarty();
+	    $this->smarty->caching = true;
+	    $this->smarty->cache_lifetime = 1000;
+
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
         $this->assertTrue(is_integer($tpl->getCached()->timestamp));
-        $this->assertEquals(10, strlen($tpl->getCached()->timestamp));
+        $this->assertEquals($timestamp, $tpl->getCached()->timestamp);
     }
 
 

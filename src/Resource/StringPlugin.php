@@ -24,7 +24,7 @@ use Smarty\Template\Source;
 class StringPlugin extends BasePlugin {
 
 	/**
-	 * populate Source Object with meta data from Resource
+	 * populate Source Object with metadata from Resource
 	 *
 	 * @param Source $source source object
 	 * @param Template $_template template object
@@ -32,7 +32,7 @@ class StringPlugin extends BasePlugin {
 	 * @return void
 	 */
 	public function populate(Source $source, Template $_template = null) {
-		$source->uid = $source->filepath = sha1($source->name . $source->getSmarty()->_joined_template_dir);
+		$source->uid = sha1($source->name);
 		$source->timestamp = $source->exists = true;
 	}
 

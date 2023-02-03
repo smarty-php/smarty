@@ -362,12 +362,12 @@ abstract class CacheResourceTestCommon extends PHPUnit_Smarty
         $this->assertEquals('something else 1', $tpl->getCachedContent());
         $this->assertEquals('something else 2', $tpl2->getCachedContent());
         $this->assertEquals('something else 3', $tpl3->getCachedContent());
-        sleep(10);
+        sleep(4);
         $tpl4 = $this->smarty->createTemplate('helloworld2.tpl');
         $tpl4->writeCachedContent('something else 4');
 
         // test number of deleted caches
-        $this->doClearCacheAssertion(3,$this->smarty->clearAllCache(5));
+        $this->doClearCacheAssertion(3,$this->smarty->clearAllCache(2));
 
 	    $tpl = $this->smarty->createTemplate('helloworld.tpl');
 	    $tpl2 = $this->smarty->createTemplate('helloworld.tpl', null, 'bar');
@@ -422,7 +422,7 @@ abstract class CacheResourceTestCommon extends PHPUnit_Smarty
             $this->smarty->cache_locking = true;
             $this->smarty->locking_timeout = $lockTimeout;
         }
-        $this->smarty->compile_id = $compile_id;
+        $this->smarty->setCompileId($compile_id);
         $this->smarty->cache_id = $cache_id;
         $this->smarty->force_compile = $forceCompile;
         $this->smarty->force_cache = $forceCache;

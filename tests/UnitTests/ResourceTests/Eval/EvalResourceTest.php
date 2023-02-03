@@ -39,18 +39,12 @@ class EvalResourceTest extends PHPUnit_Smarty
         $this->assertTrue($this->smarty->templateExists('eval:{$foo}'));
     }
 
-    /**
-     * test getTemplateFilepath
-     */
-    public function testGetTemplateFilepath()
+    public function testGetTemplateResourceName()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertEquals('2aae6c35c94fcfb415dbe95f408b9ce91ee846ed', $tpl->getSource()->filepath);
+        $this->assertEquals('hello world', $tpl->getSource()->getResourceName());
     }
 
-    /**
-     * test getTemplateTimestamp
-     */
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');

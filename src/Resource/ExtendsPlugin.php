@@ -32,17 +32,13 @@ class ExtendsPlugin extends BasePlugin
         $exists = true;
         foreach ($components as $component) {
             $_s = Source::load(null, $smarty, $component);
-            if ($_s->type === 'php') {
-                throw new \Smarty\Exception("Resource type {$_s->type} cannot be used with the extends resource type");
-            }
             $sources[ $_s->uid ] = $_s;
-            $uid .= $_s->filepath;
+            $uid .= $_s->uid;
             if ($_template) {
                 $exists = $exists && $_s->exists;
             }
         }
         $source->components = $sources;
-        $source->filepath = $_s->filepath;
         $source->uid = sha1($uid . $source->getSmarty()->_joined_template_dir);
         $source->exists = $exists;
         if ($_template) {
@@ -76,7 +72,7 @@ class ExtendsPlugin extends BasePlugin
     public function getContent(Source $source)
     {
         if (!$source->exists) {
-            throw new \Smarty\Exception("Unable to load template '{$source->type}:{$source->name}'");
+            throw new \Smarty\Exception("Unable to load  '{$source->type}:{$source->name}'");
         }
         $_components = array_reverse($source->components);
         $_content = '';
@@ -97,7 +93,7 @@ class ExtendsPlugin extends BasePlugin
      */
     public function getBasename(Source $source)
     {
-        return str_replace(':', '.', basename($source->filepath));
+        return str_replace(':', '.', basename($source->getResourceName()));
     }
 
     /*

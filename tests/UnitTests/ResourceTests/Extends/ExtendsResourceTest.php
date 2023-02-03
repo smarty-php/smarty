@@ -41,7 +41,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->smarty->caching = $caching;
         $this->smarty->merge_compiled_includes = $merge;
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('extends:003_parent.tpl|003_child_prepend.tpl');
         $this->assertStringContainsString(
@@ -64,7 +64,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->smarty->caching = $caching;
         $this->smarty->merge_compiled_includes = $merge;
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('extends:004_parent.tpl|004_child_append.tpl');
         $this->assertStringContainsString("Default Title - append", $result, $testName . ' - content');
@@ -82,7 +82,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
         $this->smarty->caching = $caching;
         $this->smarty->merge_compiled_includes = $merge;
         if ($merge) {
-            $this->smarty->compile_id = 1;
+            $this->smarty->setCompileId(1);
         }
         $result = $this->smarty->fetch('extends:040_parent.tpl|040_child.tpl');
         $this->assertStringContainsString("var-bar-var", $result, $testName . ' - content');
@@ -99,7 +99,7 @@ class ExtendsResourceTest extends PHPUnit_Smarty
 		$this->smarty->caching = $caching;
 		$this->smarty->merge_compiled_includes = $merge;
 		if ($merge) {
-			$this->smarty->compile_id = 1;
+			$this->smarty->setCompileId(1);
 		}
 		$result = $this->smarty->fetch('extends:050_parent.tpl|050_child.tpl|050_grandchild.tpl');
 		$this->assertStringContainsString("var-bar-var", $result, $testName . ' - content');

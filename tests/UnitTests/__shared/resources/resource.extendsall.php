@@ -35,7 +35,7 @@ class My_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
                     continue;
                 }
                 $sources[ $s->uid ] = $s;
-                $uid .= $s->filepath;
+                $uid .= $s->uid;
                 $timestamp = $s->timestamp > $timestamp ? $s->timestamp : $timestamp;
             } catch (Exception $e) {
             }
@@ -48,7 +48,6 @@ class My_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
         reset($sources);
         $s = current($sources);
         $source->components = $sources;
-        $source->filepath = $s->filepath;
         $source->uid = sha1($uid . $source->getSmarty()->_joined_template_dir);
         $source->exists = true;
         $source->timestamp = $timestamp;

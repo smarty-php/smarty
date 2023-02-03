@@ -103,7 +103,7 @@ class ExtendsTag extends Inheritance {
 		$compiler->getParser()->template_postfix[] = new \Smarty\ParseTree\Tag(
 			$compiler->getParser(),
 			'<?php $_smarty_tpl->getInheritance()->endChild($_smarty_tpl' .
-			(isset($template) ?	", {$template}" : '') . ");\n?>"
+			(isset($template) ?	", {$template}, \$_smarty_current_dir" : '') . ");\n?>"
 		);
 	}
 
