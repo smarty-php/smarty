@@ -3,7 +3,6 @@
 ## Performance improvements
 - context: pass template variables in an array
 - why do we do 300k assign() calls? (answer: foreach?)
-- debugging: see if removing debugging code speeds up
 
 ## Review direct variable property access
 - review ->value{$index} in ForTag

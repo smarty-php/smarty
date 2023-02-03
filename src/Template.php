@@ -266,12 +266,13 @@ class Template extends TemplateBase {
 			$tpl->defaultScope = $scope;
 		}
 
-		// recursive call ?
-		if ($tpl->templateId !== $this->templateId && $caching !== \Smarty\Template::CACHING_NOCACHE_CODE) {
-			$tpl->getCached(true);
-		} else {
-			// re-use the same Cache object across subtemplates to gather hashes and file dependencies.
-			$tpl->setCached($this->getCached());
+		if ($caching) {
+			if ($tpl->templateId !== $this->templateId && $caching !== \Smarty\Template::CACHING_NOCACHE_CODE) {
+				$tpl->getCached(true);
+			} else {
+				// re-use the same Cache object across subtemplates to gather hashes and file dependencies.
+				$tpl->setCached($this->getCached());
+			}
 		}
 
 		foreach ($extra_vars as $_key => $_val) {
@@ -713,7 +714,9 @@ class Template extends TemplateBase {
 	public function setCompileId($compile_id) {
 		parent::setCompileId($compile_id);
 		$this->getCompiled(true);
-		$this->getCached(true);
+		if ($this->caching) {
+			$this->getCached(true);
+		}
 	}
 
 	/**
