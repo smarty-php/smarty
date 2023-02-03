@@ -9,6 +9,10 @@ theme:
     logo: material/lightbulb-on
   favicon: images/favicon.ico
 
+extra:
+  version:
+    provider: mike
+
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
