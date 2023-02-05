@@ -1,7 +1,15 @@
-Variable Modifiers {#language.modifiers}
-==================
+# Variable Modifiers
 
-## Table of contents
+Variable modifiers can be applied to
+[variables](./language-variables.md), [custom functions](./language-custom-functions.md)
+or strings. To apply a modifier,
+specify the value followed by a `|` (pipe) and the modifier name. A
+modifier may accept additional parameters that affect its behavior.
+These parameters follow the modifier name and are separated by a `:`
+(colon). Also, *all php-functions can be used as modifiers implicitly*
+(more below) and modifiers can be
+[combined](./language-combining-modifiers.md).
+
 - [capitalize](./language-modifiers/language-modifier-capitalize.md)
 - [cat](./language-modifiers/language-modifier-cat.md)
 - [count_characters](./language-modifiers/language-modifier-count-characters.md)
@@ -27,58 +35,50 @@ Variable Modifiers {#language.modifiers}
 - [upper](./language-modifiers/language-modifier-upper.md)
 - [wordwrap](./language-modifiers/language-modifier-wordwrap.md)
 
-Variable modifiers can be applied to
-[variables](./language-variables.md), [custom
-functions](./language-custom-functions.md) or strings. To apply a modifier,
-specify the value followed by a `|` (pipe) and the modifier name. A
-modifier may accept additional parameters that affect its behavior.
-These parameters follow the modifier name and are separated by a `:`
-(colon). Also, *all php-functions can be used as modifiers implicitly*
-(more below) and modifiers can be
-[combined](./language-combining-modifiers.md).
+## Examples
 
 ```smarty
-    {* apply modifier to a variable *}
-    {$title|upper}
+{* apply modifier to a variable *}
+{$title|upper}
 
-    {* modifier with parameters *}
-    {$title|truncate:40:"..."}
+{* modifier with parameters *}
+{$title|truncate:40:"..."}
 
-    {* apply modifier to a function parameter *}
-    {html_table loop=$myvar|upper}
+{* apply modifier to a function parameter *}
+{html_table loop=$myvar|upper}
 
-    {* with parameters *}
-    {html_table loop=$myvar|truncate:40:"..."}
+{* with parameters *}
+{html_table loop=$myvar|truncate:40:"..."}
 
-    {* apply modifier to literal string *}
-    {"foobar"|upper}
+{* apply modifier to literal string *}
+{"foobar"|upper}
 
-    {* using date_format to format the current date *}
-    {$smarty.now|date_format:"%Y/%m/%d"}
+{* using date_format to format the current date *}
+{$smarty.now|date_format:"%Y/%m/%d"}
 
-    {* apply modifier to a custom function *}
-    {mailto|upper address="smarty@example.com"}
+{* apply modifier to a custom function *}
+{mailto|upper address="smarty@example.com"}
 
-    {* using  php's str_repeat *}
-    {"="|str_repeat:80}
+{* using  php's str_repeat *}
+{"="|str_repeat:80}
 
-    {* php's count *}
-    {$myArray|@count}
+{* php's count *}
+{$myArray|@count}
 
-    {* this will uppercase and truncate the whole array *}
-    <select name="name_id">
-    {html_options output=$my_array|upper|truncate:20}
-    </select>
+{* this will uppercase and truncate the whole array *}
+<select name="name_id">
+{html_options output=$my_array|upper|truncate:20}
+</select>
 ```  
-
+      
 - Modifiers can be applied to any type of variables, including arrays
     and objects.
 
     > **Note**
     >
     > The default behavior was changed with Smarty 3. In Smarty 2.x, you
-    > had to use an \"`@`\" symbol to apply a modifier to an array, such
-    > as `{$articleTitle|@count}`. With Smarty 3, the \"`@`\" is no
+    > had to use an "`@`" symbol to apply a modifier to an array, such
+    > as `{$articleTitle|@count}`. With Smarty 3, the "`@`" is no
     > longer necessary, and is ignored.
     >
     > If you want a modifier to apply to each individual item of an

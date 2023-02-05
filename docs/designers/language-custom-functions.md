@@ -1,10 +1,8 @@
-Custom Functions {#language.custom.functions}
-================
+# Custom Functions
 
 Smarty comes with several custom plugin functions that you can use in
 the templates.
 
-## Table of contents
 - [{counter}](./language-custom-functions/language-function-counter.md)
 - [{cycle}](./language-custom-functions/language-function-cycle.md)
 - [{eval}](./language-custom-functions/language-function-eval.md)

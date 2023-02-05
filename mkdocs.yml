@@ -5,6 +5,10 @@ theme:
     primary: amber
   features:
     - content.code.copy
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.instant
+    - navigation.tracking
   icon:
     logo: material/lightbulb-on
   favicon: images/favicon.ico
@@ -19,3 +23,55 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+
+nav:
+  - Home: 'index.md'
+  - 'Getting started': 'getting-started.md'
+  - 'Designers':
+    - 'Basic Syntax':
+        - Introduction: 'designers/language-basic-syntax/index.md'
+        - Comments: 'designers/language-basic-syntax/language-syntax-comments.md'
+        - Variables: 'designers/language-basic-syntax/language-syntax-variables.md'
+        - Functions: 'designers/language-basic-syntax/language-syntax-functions.md'
+        - Attributes: 'designers/language-basic-syntax/language-syntax-attributes.md'
+        - Quotes: 'designers/language-basic-syntax/language-syntax-quotes.md'
+        - Math: 'designers/language-basic-syntax/language-math.md'
+        - Escaping: 'designers/language-basic-syntax/language-escaping.md'
+    - 'designers/language-variables.md'
+    - 'designers/language-modifiers.md'
+    - 'designers/language-combining-modifiers.md'
+    - 'Builtin Functions':
+        - 'Introduction': 'designers/language-builtin-functions/index.md'
+        - '{append}': 'designers/language-builtin-functions/language-function-append.md'
+        - '{assign}': 'designers/language-builtin-functions/language-function-assign.md'
+        - '{block}': 'designers/language-builtin-functions/language-function-block.md'
+        - '{call}': 'designers/language-builtin-functions/language-function-call.md'
+        - '{capture}': 'designers/language-builtin-functions/language-function-capture.md'
+        - '{config_load}': 'designers/language-builtin-functions/language-function-config-load.md'
+        - '{debug}': 'designers/language-builtin-functions/language-function-debug.md'
+        - '{extends}': 'designers/language-builtin-functions/language-function-extends.md'
+        - '{for}': 'designers/language-builtin-functions/language-function-for.md'
+        - '{foreach}': 'designers/language-builtin-functions/language-function-foreach.md'
+        - '{function}': 'designers/language-builtin-functions/language-function-function.md'
+        - '{if},{elseif},{else}': 'designers/language-builtin-functions/language-function-if.md'
+        - '{include}': 'designers/language-builtin-functions/language-function-include.md'
+        - '{insert}': 'designers/language-builtin-functions/language-function-insert.md'
+        - '{ldelim},{rdelim}': 'designers/language-builtin-functions/language-function-ldelim.md'
+        - '{literal}': 'designers/language-builtin-functions/language-function-literal.md'
+        - '{nocache}': 'designers/language-builtin-functions/language-function-nocache.md'
+        - '{section}': 'designers/language-builtin-functions/language-function-section.md'
+        - '{setfilter}': 'designers/language-builtin-functions/language-function-setfilter.md'
+        - '{strip}': 'designers/language-builtin-functions/language-function-strip.md'
+        - '{while}': 'designers/language-builtin-functions/language-function-while.md'
+    - 'designers/language-custom-functions.md'
+    - 'designers/config-files.md'
+    - 'designers/chapter-debugging-console.md'
+  - 'Programmers':
+      - 'programmers/charset.md'
+      - 'programmers/smarty-constants.md'
+      - 'programmers/api-variables.md'
+      - 'programmers/api-functions.md'
+      - 'programmers/caching.md'
+      - 'programmers/resources.md'
+      - 'programmers/advanced-features.md'
+      - 'programmers/plugins.md'

@@ -26,11 +26,11 @@ and 480 for $height, the result is:
 - [Getting Started](./getting-started.md)
 
 ## Smarty for template designers
-- [Basic Syntax](./designers/language-basic-syntax.md)
+- [Basic Syntax](designers/language-basic-syntax/language-basic-syntax.md)
 - [Variables](./designers/language-variables.md)
 - [Variable Modifiers](./designers/language-modifiers.md)
 - [Combining Modifiers](./designers/language-combining-modifiers.md)
-- [Built-in Functions](./designers/language-builtin-functions.md)
+- [Built-in Functions](designers/language-builtin-functions/language-builtin-functions.md)
 - [Custom Functions](./designers/language-custom-functions.md)
 - [Config Files](./designers/config-files.md)
 - [Debugging Console](./designers/chapter-debugging-console.md)
