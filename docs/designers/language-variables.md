@@ -1,15 +1,12 @@
-Variables
-=========
+# Variables
 
-## Table of contents
+Smarty has several types of variables. The type of the
+variable depends on what symbol it is prefixed or enclosed within.
+
 - [Variables assigned from PHP](./language-variables/language-assigned-variables.md)
 - [Variable scopes](./language-variables/language-variable-scopes.md)
 - [Variables loaded from config files](./language-variables/language-config-variables.md)
 - [{$smarty} reserved variable](./language-variables/language-variables-smarty.md)
-
-
-Smarty has several different types of variables. The type of the
-variable depends on what symbol it is prefixed or enclosed within.
 
 Variables in Smarty can be either displayed directly or used as
 arguments for [functions](./language-basic-syntax/language-syntax-functions.md),
@@ -19,17 +16,16 @@ To print a variable, simply enclose it in the
 [delimiters](../programmers/api-variables/variable-left-delimiter.md) so that it is the only thing
 contained between them.
 
+```smarty
+{$Name}
 
-    {$Name}
+{$product.part_no} <b>{$product.description}</b>
 
-    {$product.part_no} <b>{$product.description}</b>
+{$Contacts[row].Phone}
 
-    {$Contacts[row].Phone}
-
-    <body bgcolor="{#bgcolor#}">
-
+<body bgcolor="{#bgcolor#}">
+```
       
-
 > **Note**
 >
 > An easy way to examine assigned Smarty variables is with the
