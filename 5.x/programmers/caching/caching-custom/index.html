@@ -1809,7 +1809,7 @@ In either case you need to set <a href="#variable.caching.type"><code>$caching_t
 to invoke your custom CacheResource implementation.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
 
-require_once &#39;libs/Smarty.class.php&#39;;
+use Smarty\Smarty;
 $smarty = new Smarty();
 $smarty-&gt;caching_type = &#39;mysql&#39;;
 
@@ -1969,7 +1969,7 @@ class My_CacheResource_Mysql extends \Smarty\Cacheresource\Custom {
 
 &lt;?php
 
-require_once &#39;libs/Smarty.class.php&#39;;
+use Smarty\Smarty;
 $smarty = new Smarty();
 $smarty-&gt;caching_type = &#39;memcache&#39;;
 

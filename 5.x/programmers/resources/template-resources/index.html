@@ -1818,6 +1818,8 @@ can provide a resource that fetches templates from the file system in
 some other way by registering under another resource name.</p>
 </blockquote>
 <div class="highlight"><pre><span></span><code>&lt;?php
+use Smarty\Smarty;
+
 
 /**
  * MySQL Resource
@@ -1895,7 +1897,7 @@ class My_Resource_Mysql extends \Smarty\Resource\Custom {
 }
 
 
-require_once &#39;libs/Smarty.class.php&#39;;
+
 $smarty = new Smarty();
 $smarty-&gt;registerResource(&#39;mysql&#39;, new My_Resource_Mysql());
 

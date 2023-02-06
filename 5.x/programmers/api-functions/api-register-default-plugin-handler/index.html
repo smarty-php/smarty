@@ -1792,7 +1792,7 @@ resolve it by calling the registered default plugin handler. The handler
 may be called several times for same undefined tag looping over valid
 plugin types.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-
+use Smarty\Smarty;
 $smarty = new Smarty();
 $smarty-&gt;registerDefaultPluginHandler(&#39;my_plugin_handler&#39;);
 

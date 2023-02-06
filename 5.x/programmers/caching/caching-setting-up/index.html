@@ -1781,7 +1781,7 @@
 <a href="#variable.caching"><code>$caching</code></a> to one of
 <code>\Smarty\Smarty::CACHING_LIFETIME_CURRENT</code> or <code>Smarty::CACHING_LIFETIME_SAVED</code>.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-require(&#39;Smarty.class.php&#39;);
+use Smarty\Smarty;
 $smarty = new Smarty;
 
 // uses the value of $smarty-&gt;cacheLifetime() to determine
@@ -1810,7 +1810,7 @@ setting <a href="#variable.caching"><code>$caching</code></a> to
 <code>\Smarty\Smarty::CACHING_LIFETIME_SAVED</code>. See
 <a href="#variable.cache.lifetime"><code>$cache_lifetime</code></a> for more details.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-require(&#39;Smarty.class.php&#39;);
+use Smarty\Smarty;
 $smarty = new Smarty;
 
 // retain current cache lifetime for each specific display call
@@ -1840,7 +1840,7 @@ since the cache was generated, the cache is immediately regenerated.
 This is a computational overhead, so for optimum performance set
 <a href="#variable.compile.check"><code>$compile_check</code></a> to FALSE.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-require(&#39;Smarty.class.php&#39;);
+use Smarty\Smarty;
 $smarty = new Smarty;
 
 $smarty-&gt;setCaching(Smarty::CACHING_LIFETIME_CURRENT);
@@ -1861,7 +1861,7 @@ template has a valid cache or not. If you have a cached template that
 requires something like a database fetch, you can use this to skip that
 process.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-require(&#39;Smarty.class.php&#39;);
+use Smarty\Smarty;
 $smarty = new Smarty;
 
 $smarty-&gt;setCaching(Smarty::CACHING_LIFETIME_CURRENT);
@@ -1887,7 +1887,7 @@ keep this element dynamic within the cached content.</p>
 files <a href="#caching.groups">and groups</a> with the
 <a href="#api.clear.cache"><code>clearCache()</code></a> function.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-require(&#39;Smarty.class.php&#39;);
+use Smarty\Smarty;
 $smarty = new Smarty;
 
 $smarty-&gt;setCaching(Smarty::CACHING_LIFETIME_CURRENT);

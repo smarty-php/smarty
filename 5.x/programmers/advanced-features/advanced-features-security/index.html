@@ -1878,6 +1878,8 @@ static classes or assigned objects can be accessed (beginning with
 Smarty_Security class or create an instance of it.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
 
+use Smarty\Smarty;
+
 class My_Security_Policy extends \Smarty\Security {
   public $allow_constants = false;
 }
@@ -1888,6 +1890,7 @@ $smarty-&gt;enableSecurity(&#39;My_Security_Policy&#39;);
 
 
 &lt;?php
+use Smarty\Smarty;
 $smarty = new Smarty();
 $my_security_policy = new \Smarty\Security($smarty);
 $my_security_policy-&gt;allow_constants = false;
@@ -1897,7 +1900,7 @@ $smarty-&gt;enableSecurity($my_security_policy);
 
 
 &lt;?php
-require &#39;Smarty.class.php&#39;;
+use Smarty\Smarty;
 $smarty = new Smarty();
 // enable default security
 $smarty-&gt;enableSecurity();

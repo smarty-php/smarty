@@ -1884,7 +1884,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Smarty</span><span class="p">();</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">use</span> <span class="nx">Smarty\Smarty</span><span class="p">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Smarty</span><span class="p">();</span>
 </code></pre></div></p>
 <p>Now that the library files are in place, it's time to set up the Smarty
 directories for your application.</p>
@@ -1897,7 +1898,7 @@ directories for your application.</p>
     relative to the current working directory.</p>
 <p>The defaults can be changed as follows:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">&lt;?php</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">use</span> <span class="nx">Smarty\Smarty</span><span class="p">;</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Smarty</span><span class="p">();</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">(</span><span class="s1">&#39;/some/template/dir&#39;</span><span class="p">);</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setConfigDir</span><span class="p">(</span><span class="s1">&#39;/some/config/dir&#39;</span><span class="p">);</span>
@@ -1920,12 +1921,14 @@ being used.</p>
 </code></pre></div>
 <p>You can verify if your system has the correct access rights for
     these directories with <a href="../programmers/api-functions/api-test-install/"><code>testInstall()</code></a>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="x">$smarty = new Smarty();</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="x">$smarty-&gt;setTemplateDir(&#39;/some/template/dir&#39;);</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="x">$smarty-&gt;setConfigDir(&#39;/some/config/dir&#39;);</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="x">$smarty-&gt;setCompileDir(&#39;/some/compile/dir&#39;);</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="x">$smarty-&gt;setCacheDir(&#39;/some/cache/dir&#39;);</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="x">$smarty-&gt;testInstall();</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">use</span> <span class="nx">Smarty\Smarty</span><span class="p">;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Smarty</span><span class="p">();</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">(</span><span class="s1">&#39;/some/template/dir&#39;</span><span class="p">);</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setConfigDir</span><span class="p">(</span><span class="s1">&#39;/some/config/dir&#39;</span><span class="p">);</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setCompileDir</span><span class="p">(</span><span class="s1">&#39;/some/compile/dir&#39;</span><span class="p">);</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setCacheDir</span><span class="p">(</span><span class="s1">&#39;/some/cache/dir&#39;</span><span class="p">);</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">testInstall</span><span class="p">();</span>
 </code></pre></div>
 <p>Now, let's create the <code>index.tpl</code> file that Smarty will display. This
 needs to be located in the <a href="../programmers/api-variables/variable-template-dir/"><code>$template_dir</code></a>.</p>
@@ -1947,15 +1950,16 @@ recognize the file and turn on special syntax highlighting.</p>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Smarty</span><span class="p">();</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/templates/&#39;</span><span class="p">);</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setCompileDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/templates_c/&#39;</span><span class="p">);</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setConfigDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/configs/&#39;</span><span class="p">);</span>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setCacheDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/cache/&#39;</span><span class="p">);</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;Ned&#39;</span><span class="p">);</span>
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;index.tpl&#39;</span><span class="p">);</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">use</span> <span class="nx">Smarty\Smarty</span><span class="p">;</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Smarty</span><span class="p">();</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/templates/&#39;</span><span class="p">);</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setCompileDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/templates_c/&#39;</span><span class="p">);</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setConfigDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/configs/&#39;</span><span class="p">);</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setCacheDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/cache/&#39;</span><span class="p">);</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;Ned&#39;</span><span class="p">);</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;index.tpl&#39;</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p><strong>Note</strong></p>

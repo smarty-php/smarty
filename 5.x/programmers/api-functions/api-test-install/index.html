@@ -1784,7 +1784,7 @@
 <p>This function verifies that all required working folders of the Smarty
 installation can be accessed. It does output a corresponding protocol.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-require_once(&#39;Smarty.class.php&#39;);
+use Smarty\Smarty;
 $smarty  = new Smarty();
 $smarty-&gt;testInstall();
 ?&gt;

@@ -1784,7 +1784,7 @@ contents depending on some condition, and you want separate caches for
 each one. You can do this by passing a <code>$cache_id</code> as the second
 parameter to the function call.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-require(&#39;Smarty.class.php&#39;);
+use Smarty\Smarty;
 $smarty = new Smarty;
 
 $smarty-&gt;setCaching(Smarty::CACHING_LIFETIME_CURRENT);
@@ -1816,7 +1816,7 @@ database. Check for this!</p>
 <p>Be sure to pass the same <code>$cache_id</code> as the second parameter to
 <a href="#api.is.cached"><code>isCached()</code></a> and <a href="#api.clear.cache"><code>clearCache()</code></a>.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-require(&#39;Smarty.class.php&#39;);
+use Smarty\Smarty;
 $smarty = new Smarty;
 
 $smarty-&gt;setCaching(Smarty::CACHING_LIFETIME_CURRENT);
@@ -1835,7 +1835,7 @@ $smarty-&gt;display(&#39;index.tpl&#39;,$my_cache_id);
 <p>You can clear all caches for a particular <code>$cache_id</code> by passing NULL as
 the first parameter to <a href="#api.clear.cache"><code>clearCache()</code></a>.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-require(&#39;Smarty.class.php&#39;);
+use Smarty\Smarty;
 $smarty = new Smarty;
 
 $smarty-&gt;setCaching(Smarty::CACHING_LIFETIME_CURRENT);

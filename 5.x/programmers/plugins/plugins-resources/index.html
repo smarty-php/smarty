@@ -1802,6 +1802,8 @@ overhead. See <code>src/Resource/StringEval.php</code> for an
 example.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
 
+use Smarty\Smarty;
+
 /**
  * MySQL Resource
  *
@@ -1878,7 +1880,7 @@ class My_Resource_Mysql extends \Smarty\Resource\CustomPlugin {
 }
 
 
-require_once &#39;libs/Smarty.class.php&#39;;
+
 $smarty = new Smarty();
 $smarty-&gt;registerResource(&#39;mysql&#39;, new My_Resource_Mysql());
 

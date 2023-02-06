@@ -1790,6 +1790,7 @@
 otherwise. If security is enabled, classes registered with
 <code>registerClass()</code> are accessible to templates.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
+use Smarty\Smarty;
 
 class Bar {
   $property = &quot;hello world&quot;;
@@ -1810,6 +1811,8 @@ $smarty-&gt;registerClass(&quot;Foo&quot;, &quot;Bar&quot;);
 
 
 &lt;?php
+use Smarty\Smarty;
+
 namespace my\php\application {
   class Bar {
     $property = &quot;hello world&quot;;

@@ -1818,7 +1818,7 @@ structure that mimics your template file structure, such as
 <code>display('themes/blue/index.tpl','themes|blue')</code>, then clear them with
 <code>clearCache(null,'themes|blue')</code>.</p>
 <div class="highlight"><pre><span></span><code>&lt;?php
-require(&#39;Smarty.class.php&#39;);
+use Smarty\Smarty;
 $smarty = new Smarty;
 
 $smarty-&gt;setCaching(Smarty::CACHING_LIFETIME_CURRENT);
