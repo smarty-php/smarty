@@ -4,7 +4,7 @@ Smarty comes with several built-in functions. These built-in functions
 are the integral part of the smarty template engine. They are compiled
 into corresponding inline PHP code for maximum performance.
 
-You cannot create your own [custom functions](../language-custom-functions.md) with the same name; and you
+You cannot create your own [custom functions](../language-custom-functions/index.md) with the same name; and you
 should not need to modify the built-in functions.
 
 A few of these functions have an `assign` attribute which collects the
@@ -12,7 +12,7 @@ result the function to a named template variable instead of being
 output; much like the [`{assign}`](language-function-assign.md) function.
 
 - [{append}](language-function-append.md)
-- [{assign}](language-function-assign.md) or [{$var=...}](language-function-shortform-assign.md)
+- [{assign} or {$var=...}](language-function-assign.md)
 - [{block}](language-function-block.md)
 - [{call}](language-function-call.md)
 - [{capture}](language-function-capture.md)

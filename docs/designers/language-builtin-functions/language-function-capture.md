@@ -76,6 +76,6 @@ I say just hello world
       
 
 See also [`$smarty.capture`](../language-variables/language-variables-smarty.md#smartycapture-languagevariablessmartycapture),
-[`{eval}`](./language-function-eval.md),
-[`{fetch}`](./language-function-fetch.md), [`fetch()`](../../programmers/api-functions/api-fetch.md) and
+[`{eval}`](../language-custom-functions/language-function-eval.md),
+[`{fetch}`](../language-custom-functions/language-function-fetch.md), [`fetch()`](../../programmers/api-functions/api-fetch.md) and
 [`{assign}`](./language-function-assign.md).

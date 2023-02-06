@@ -23,7 +23,7 @@ within delimiters like so: `{funcname attr1="val1" attr2="val2"}`.
 ```
       
 -   Both [built-in functions](../language-builtin-functions/index.md) and [custom
-    functions](../language-custom-functions.md) have the same syntax within
+    functions](../language-custom-functions/index.md) have the same syntax within
     templates.
 
 -   Built-in functions are the **inner** workings of Smarty, such as

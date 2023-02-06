@@ -1,39 +1,39 @@
 # Variable Modifiers
 
 Variable modifiers can be applied to
-[variables](./language-variables.md), [custom functions](./language-custom-functions.md)
+[variables](../language-variables/index.md), [custom functions](../language-custom-functions/index.md)
 or strings. To apply a modifier,
 specify the value followed by a `|` (pipe) and the modifier name. A
 modifier may accept additional parameters that affect its behavior.
 These parameters follow the modifier name and are separated by a `:`
 (colon). Also, *all php-functions can be used as modifiers implicitly*
 (more below) and modifiers can be
-[combined](./language-combining-modifiers.md).
+[combined](../language-combining-modifiers.md).
 
-- [capitalize](./language-modifiers/language-modifier-capitalize.md)
-- [cat](./language-modifiers/language-modifier-cat.md)
-- [count_characters](./language-modifiers/language-modifier-count-characters.md)
-- [count_paragraphs](./language-modifiers/language-modifier-count-paragraphs.md)
-- [count_sentences](./language-modifiers/language-modifier-count-sentences.md)
-- [count_words](./language-modifiers/language-modifier-count-words.md)
-- [date_format](./language-modifiers/language-modifier-date-format.md)
-- [default](./language-modifiers/language-modifier-default.md)
-- [escape](./language-modifiers/language-modifier-escape.md)
-- [from_charset](./language-modifiers/language-modifier-from-charset.md)
-- [indent](./language-modifiers/language-modifier-indent.md)
-- [lower](./language-modifiers/language-modifier-lower.md)
-- [nl2br](./language-modifiers/language-modifier-nl2br.md)
-- [regex_replace](./language-modifiers/language-modifier-regex-replace.md)
-- [replace](./language-modifiers/language-modifier-replace.md)
-- [spacify](./language-modifiers/language-modifier-spacify.md)
-- [string_format](./language-modifiers/language-modifier-string-format.md)
-- [strip](./language-modifiers/language-modifier-strip.md)
-- [strip_tags](./language-modifiers/language-modifier-strip-tags.md)
-- [to_charset](./language-modifiers/language-modifier-to-charset.md)
-- [truncate](./language-modifiers/language-modifier-truncate.md)
-- [unescape](./language-modifiers/language-modifier-unescape.md)
-- [upper](./language-modifiers/language-modifier-upper.md)
-- [wordwrap](./language-modifiers/language-modifier-wordwrap.md)
+- [capitalize](language-modifier-capitalize.md)
+- [cat](language-modifier-cat.md)
+- [count_characters](language-modifier-count-characters.md)
+- [count_paragraphs](language-modifier-count-paragraphs.md)
+- [count_sentences](language-modifier-count-sentences.md)
+- [count_words](language-modifier-count-words.md)
+- [date_format](language-modifier-date-format.md)
+- [default](language-modifier-default.md)
+- [escape](language-modifier-escape.md)
+- [from_charset](language-modifier-from-charset.md)
+- [indent](language-modifier-indent.md)
+- [lower](language-modifier-lower.md)
+- [nl2br](language-modifier-nl2br.md)
+- [regex_replace](language-modifier-regex-replace.md)
+- [replace](language-modifier-replace.md)
+- [spacify](language-modifier-spacify.md)
+- [string_format](language-modifier-string-format.md)
+- [strip](language-modifier-strip.md)
+- [strip_tags](language-modifier-strip-tags.md)
+- [to_charset](language-modifier-to-charset.md)
+- [truncate](language-modifier-truncate.md)
+- [unescape](language-modifier-unescape.md)
+- [upper](language-modifier-upper.md)
+- [wordwrap](language-modifier-wordwrap.md)
 
 ## Examples
 
@@ -97,8 +97,8 @@ These parameters follow the modifier name and are separated by a `:`
     > `{(8+2)|count_characters}`.
 
 - Modifiers are autoloaded from the
-    [`$plugins_dir`](../programmers/api-variables/variable-plugins-dir.md) or can be registered
-    explicitly with the [`registerPlugin()`](../programmers/api-functions/api-register-plugin.md)
+    [`$plugins_dir`](../../programmers/api-variables/variable-plugins-dir.md) or can be registered
+    explicitly with the [`registerPlugin()`](../../programmers/api-functions/api-register-plugin.md)
     function. The later is useful for sharing a function between php
     scripts and smarty templates.
 
@@ -115,8 +115,8 @@ These parameters follow the modifier name and are separated by a `:`
     -   Secondly - if security is enabled, all php-functions that are to
         be used as modifiers have to be declared trusted in the
         `$modifiers` property of the security policy. See the
-        [Security](../programmers/advanced-features/advanced-features-security.md) section for details.
+        [Security](../../programmers/advanced-features/advanced-features-security.md) section for details.
 
-See also [`registerPlugin()`](../programmers/api-functions/api-register-plugin.md), [combining
-modifiers](./language-combining-modifiers.md). and [extending smarty with
-plugins](../programmers/plugins.md)
+See also [`registerPlugin()`](../../programmers/api-functions/api-register-plugin.md), [combining
+modifiers](../language-combining-modifiers.md). and [extending smarty with
+plugins](../../programmers/plugins.md)
