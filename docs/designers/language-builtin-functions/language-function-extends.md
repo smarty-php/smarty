@@ -26,6 +26,8 @@ Inheritance](../../programmers/advanced-features/advanced-features-template-inhe
 > [`$compile_id`](../../programmers/api-variables/variable-compile-id.md). Otherwise, Smarty cannot
 > distinguish between different `$parent_file`s.
 
+## Examples
+
 ```smarty
 {extends file='parent.tpl'}
 {extends 'parent.tpl'}  {* short-hand *}

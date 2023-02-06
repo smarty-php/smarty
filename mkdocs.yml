@@ -36,7 +36,7 @@ nav:
         - Attributes: 'designers/language-basic-syntax/language-syntax-attributes.md'
         - Quotes: 'designers/language-basic-syntax/language-syntax-quotes.md'
         - Math: 'designers/language-basic-syntax/language-math.md'
-        - Escaping: 'designers/language-basic-syntax/language-escaping.md'
+        - 'Escaping Smarty Parsing': 'designers/language-basic-syntax/language-escaping.md'
     - 'designers/language-variables.md'
     - 'designers/language-modifiers.md'
     - 'designers/language-combining-modifiers.md'
