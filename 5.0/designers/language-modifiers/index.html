@@ -9,17 +9,17 @@
       
       
       
-        <link rel="prev" href="../language-custom-functions/">
+        <link rel="prev" href="../language-variables/language-variables-smarty/">
       
       
-        <link rel="next" href="../language-variables/">
+        <link rel="next" href="language-modifier-capitalize/">
       
       <link rel="icon" href="../../images/favicon.ico">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
     
     
       
-        <title>Language modifiers - Smarty Documentation</title>
+        <title>Introduction - Smarty Documentation</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#variable-modifiers-languagemodifiers" class="md-skip">
+        <a href="#variable-modifiers" class="md-skip">
           Skip to content
         </a>
       
@@ -83,7 +83,9 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="Smarty Documentation" class="md-header__button md-logo" aria-label="Smarty Documentation" data-md-component="logo">
       
@@ -104,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Language modifiers
+              Introduction
             
           </span>
         </div>
@@ -149,13 +151,87 @@
     
   </nav>
   
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../getting-started/" class="md-tabs__link">
+      Getting started
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../language-basic-syntax/" class="md-tabs__link md-tabs__link--active">
+        Designers
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../programmers/charset/" class="md-tabs__link">
+        Programmers
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
-        
-          
         
       
       <main class="md-main" data-md-component="main">
@@ -168,8 +244,10 @@
                   <div class="md-sidebar__inner">
                     
 
+  
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="Smarty Documentation" class="md-nav__button md-logo" aria-label="Smarty Documentation" data-md-component="logo">
       
@@ -191,22 +269,7 @@
   
     <li class="md-nav__item">
       <a href="../.." class="md-nav__link">
-        Smarty Documentation
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../features/" class="md-nav__link">
-        Features
+        Home
       </a>
     </li>
   
@@ -233,19 +296,33 @@
 
   
   
-  
-    <li class="md-nav__item">
-      <a href="../../philosophy/" class="md-nav__link">
-        Philosophy
-      </a>
-    </li>
-  
-
     
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
-
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Designers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Designers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
   
   
   
@@ -255,19 +332,19 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
       
       
       
-        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-          Appendixes
+        <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+          Basic Syntax
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_5">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_1">
           <span class="md-nav__icon md-icon"></span>
-          Appendixes
+          Basic Syntax
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -277,8 +354,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../appendixes/tips/" class="md-nav__link">
-        Tips
+      <a href="../language-basic-syntax/" class="md-nav__link">
+        Introduction
       </a>
     </li>
   
@@ -291,8 +368,92 @@
   
   
     <li class="md-nav__item">
-      <a href="../../appendixes/troubleshooting/" class="md-nav__link">
-        Troubleshooting
+      <a href="../language-basic-syntax/language-syntax-comments/" class="md-nav__link">
+        Comments
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-basic-syntax/language-syntax-variables/" class="md-nav__link">
+        Variables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-basic-syntax/language-syntax-functions/" class="md-nav__link">
+        Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-basic-syntax/language-syntax-attributes/" class="md-nav__link">
+        Attributes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-basic-syntax/language-syntax-quotes/" class="md-nav__link">
+        Quotes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-basic-syntax/language-math/" class="md-nav__link">
+        Math
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-basic-syntax/language-escaping/" class="md-nav__link">
+        Escaping Smarty parsing
       </a>
     </li>
   
@@ -304,11 +465,114 @@
     </li>
   
 
+            
+          
+            
+              
+  
+  
+  
     
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          Variables
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Variables
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-variables/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
 
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-variables/language-assigned-variables/" class="md-nav__link">
+        Assigned from PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-variables/language-variable-scopes/" class="md-nav__link">
+        Variable scopes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-variables/language-config-variables/" class="md-nav__link">
+        From config files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-variables/language-variables-smarty/" class="md-nav__link">
+        {$smarty}
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
   
   
     
@@ -320,105 +584,21 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
       
       
       
-        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-          Designers
+        <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+          Modifiers
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_6">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3_3">
           <span class="md-nav__icon md-icon"></span>
-          Designers
+          Modifiers
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-debugging-console/" class="md-nav__link">
-        Chapter debugging console
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../config-files/" class="md-nav__link">
-        Config files
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-basic-syntax/" class="md-nav__link">
-        Language basic syntax
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/" class="md-nav__link">
-        Language builtin functions
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-combining-modifiers/" class="md-nav__link">
-        Language combining modifiers
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/" class="md-nav__link">
-        Language custom functions
-      </a>
-    </li>
-  
-
-            
           
             
               
@@ -436,12 +616,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Language modifiers
+          Introduction
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Language modifiers
+        Introduction
       </a>
       
         
@@ -460,8 +640,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    Table of contents
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
   
 </li>
@@ -481,753 +661,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../language-variables/" class="md-nav__link">
-        Language variables
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_9" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6_9" id="__nav_6_9_label" tabindex="0">
-          Language basic syntax
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_9_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6_9">
-          <span class="md-nav__icon md-icon"></span>
-          Language basic syntax
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-basic-syntax/language-escaping/" class="md-nav__link">
-        Language escaping
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-basic-syntax/language-math/" class="md-nav__link">
-        Language math
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-basic-syntax/language-syntax-attributes/" class="md-nav__link">
-        Language syntax attributes
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-basic-syntax/language-syntax-comments/" class="md-nav__link">
-        Language syntax comments
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-basic-syntax/language-syntax-functions/" class="md-nav__link">
-        Language syntax functions
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-basic-syntax/language-syntax-quotes/" class="md-nav__link">
-        Language syntax quotes
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-basic-syntax/language-syntax-variables/" class="md-nav__link">
-        Language syntax variables
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6_10" id="__nav_6_10_label" tabindex="0">
-          Language builtin functions
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6_10">
-          <span class="md-nav__icon md-icon"></span>
-          Language builtin functions
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-append/" class="md-nav__link">
-        Language function append
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-assign/" class="md-nav__link">
-        Language function assign
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-block/" class="md-nav__link">
-        Language function block
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-call/" class="md-nav__link">
-        Language function call
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-capture/" class="md-nav__link">
-        Language function capture
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-config-load/" class="md-nav__link">
-        Language function config load
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-debug/" class="md-nav__link">
-        Language function debug
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-extends/" class="md-nav__link">
-        Language function extends
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-for/" class="md-nav__link">
-        Language function for
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-foreach/" class="md-nav__link">
-        Language function foreach
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-function/" class="md-nav__link">
-        Language function function
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-if/" class="md-nav__link">
-        Language function if
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-include/" class="md-nav__link">
-        Language function include
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-ldelim/" class="md-nav__link">
-        Language function ldelim
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-literal/" class="md-nav__link">
-        Language function literal
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-nocache/" class="md-nav__link">
-        Language function nocache
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-section/" class="md-nav__link">
-        Language function section
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-setfilter/" class="md-nav__link">
-        Language function setfilter
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-shortform-assign/" class="md-nav__link">
-        Language function shortform assign
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-strip/" class="md-nav__link">
-        Language function strip
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-builtin-functions/language-function-while/" class="md-nav__link">
-        Language function while
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_11" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6_11" id="__nav_6_11_label" tabindex="0">
-          Language custom functions
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_11_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6_11">
-          <span class="md-nav__icon md-icon"></span>
-          Language custom functions
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-counter/" class="md-nav__link">
-        Language function counter
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-cycle/" class="md-nav__link">
-        Language function cycle
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-debug/" class="md-nav__link">
-        Language function debug
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-eval/" class="md-nav__link">
-        Language function eval
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-fetch/" class="md-nav__link">
-        Language function fetch
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-html-checkboxes/" class="md-nav__link">
-        Language function html checkboxes
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-html-image/" class="md-nav__link">
-        Language function html image
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-html-options/" class="md-nav__link">
-        Language function html options
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-html-radios/" class="md-nav__link">
-        Language function html radios
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-html-select-date/" class="md-nav__link">
-        Language function html select date
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-html-select-time/" class="md-nav__link">
-        Language function html select time
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-html-table/" class="md-nav__link">
-        Language function html table
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-mailto/" class="md-nav__link">
-        Language function mailto
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-math/" class="md-nav__link">
-        Language function math
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../language-custom-functions/language-function-textformat/" class="md-nav__link">
-        Language function textformat
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_12" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6_12" id="__nav_6_12_label" tabindex="0">
-          Language modifiers
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6_12">
-          <span class="md-nav__icon md-icon"></span>
-          Language modifiers
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="language-modifier-capitalize/" class="md-nav__link">
-        Language modifier capitalize
+        capitalize
       </a>
     </li>
   
@@ -1241,7 +676,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-cat/" class="md-nav__link">
-        Language modifier cat
+        cat
       </a>
     </li>
   
@@ -1255,7 +690,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-count-characters/" class="md-nav__link">
-        Language modifier count characters
+        count_characters
       </a>
     </li>
   
@@ -1269,7 +704,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-count-paragraphs/" class="md-nav__link">
-        Language modifier count paragraphs
+        count_paragraphs
       </a>
     </li>
   
@@ -1283,7 +718,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-count-sentences/" class="md-nav__link">
-        Language modifier count sentences
+        count_sentences
       </a>
     </li>
   
@@ -1297,7 +732,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-count-words/" class="md-nav__link">
-        Language modifier count words
+        count_words
       </a>
     </li>
   
@@ -1311,7 +746,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-date-format/" class="md-nav__link">
-        Language modifier date format
+        date_format
       </a>
     </li>
   
@@ -1325,7 +760,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-default/" class="md-nav__link">
-        Language modifier default
+        default
       </a>
     </li>
   
@@ -1339,7 +774,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-escape/" class="md-nav__link">
-        Language modifier escape
+        escape
       </a>
     </li>
   
@@ -1353,7 +788,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-from-charset/" class="md-nav__link">
-        Language modifier from charset
+        from_charset
       </a>
     </li>
   
@@ -1367,7 +802,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-indent/" class="md-nav__link">
-        Language modifier indent
+        indent
       </a>
     </li>
   
@@ -1381,7 +816,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-lower/" class="md-nav__link">
-        Language modifier lower
+        lower
       </a>
     </li>
   
@@ -1395,7 +830,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-nl2br/" class="md-nav__link">
-        Language modifier nl2br
+        nl2br
       </a>
     </li>
   
@@ -1409,7 +844,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-regex-replace/" class="md-nav__link">
-        Language modifier regex replace
+        regex_replace
       </a>
     </li>
   
@@ -1423,7 +858,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-replace/" class="md-nav__link">
-        Language modifier replace
+        replace
       </a>
     </li>
   
@@ -1437,7 +872,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-spacify/" class="md-nav__link">
-        Language modifier spacify
+        spacify
       </a>
     </li>
   
@@ -1451,21 +886,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-string-format/" class="md-nav__link">
-        Language modifier string format
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="language-modifier-strip-tags/" class="md-nav__link">
-        Language modifier strip tags
+        string_format
       </a>
     </li>
   
@@ -1479,7 +900,21 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-strip/" class="md-nav__link">
-        Language modifier strip
+        strip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="language-modifier-strip-tags/" class="md-nav__link">
+        strip_tags
       </a>
     </li>
   
@@ -1493,7 +928,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-to-charset/" class="md-nav__link">
-        Language modifier to charset
+        to_charset
       </a>
     </li>
   
@@ -1507,7 +942,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-truncate/" class="md-nav__link">
-        Language modifier truncate
+        truncate
       </a>
     </li>
   
@@ -1521,7 +956,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-unescape/" class="md-nav__link">
-        Language modifier unescape
+        unescape
       </a>
     </li>
   
@@ -1535,7 +970,7 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-upper/" class="md-nav__link">
-        Language modifier upper
+        upper
       </a>
     </li>
   
@@ -1549,7 +984,363 @@
   
     <li class="md-nav__item">
       <a href="language-modifier-wordwrap/" class="md-nav__link">
-        Language modifier wordwrap
+        wordwrap
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-combining-modifiers/" class="md-nav__link">
+        Combining Modifiers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+          Builtin Functions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Builtin Functions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-append/" class="md-nav__link">
+        {append}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-assign/" class="md-nav__link">
+        {assign}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-block/" class="md-nav__link">
+        {block}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-call/" class="md-nav__link">
+        {call}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-capture/" class="md-nav__link">
+        {capture}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-config-load/" class="md-nav__link">
+        {config_load}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-debug/" class="md-nav__link">
+        {debug}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-extends/" class="md-nav__link">
+        {extends}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-for/" class="md-nav__link">
+        {for}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-foreach/" class="md-nav__link">
+        {foreach}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-function/" class="md-nav__link">
+        {function}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-if/" class="md-nav__link">
+        {if},{elseif},{else}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-include/" class="md-nav__link">
+        {include}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-insert/" class="md-nav__link">
+        {insert}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-ldelim/" class="md-nav__link">
+        {ldelim},{rdelim}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-literal/" class="md-nav__link">
+        {literal}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-nocache/" class="md-nav__link">
+        {nocache}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-section/" class="md-nav__link">
+        {section}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-setfilter/" class="md-nav__link">
+        {setfilter}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-strip/" class="md-nav__link">
+        {strip}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-builtin-functions/language-function-while/" class="md-nav__link">
+        {while}
       </a>
     </li>
   
@@ -1574,19 +1365,19 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_13" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
       
       
       
-        <label class="md-nav__link" for="__nav_6_13" id="__nav_6_13_label" tabindex="0">
-          Language variables
+        <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+          Custom Functions
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_13_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6_13">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_6">
           <span class="md-nav__icon md-icon"></span>
-          Language variables
+          Custom Functions
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1596,8 +1387,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../language-variables/language-assigned-variables/" class="md-nav__link">
-        Language assigned variables
+      <a href="../language-custom-functions/" class="md-nav__link">
+        Introduction
       </a>
     </li>
   
@@ -1610,8 +1401,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../language-variables/language-config-variables/" class="md-nav__link">
-        Language config variables
+      <a href="../language-custom-functions/language-function-counter/" class="md-nav__link">
+        {counter}
       </a>
     </li>
   
@@ -1624,8 +1415,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../language-variables/language-variable-scopes/" class="md-nav__link">
-        Language variable scopes
+      <a href="../language-custom-functions/language-function-cycle/" class="md-nav__link">
+        {cycle}
       </a>
     </li>
   
@@ -1638,8 +1429,176 @@
   
   
     <li class="md-nav__item">
-      <a href="../language-variables/language-variables-smarty/" class="md-nav__link">
-        Language variables smarty
+      <a href="../language-custom-functions/language-function-debug/" class="md-nav__link">
+        {debug}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-eval/" class="md-nav__link">
+        {eval}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-fetch/" class="md-nav__link">
+        {fetch}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-html-checkboxes/" class="md-nav__link">
+        {html_checkboxes}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-html-image/" class="md-nav__link">
+        {html_image}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-html-options/" class="md-nav__link">
+        {html_options}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-html-radios/" class="md-nav__link">
+        {html_radios}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-html-select-date/" class="md-nav__link">
+        {html_select_date}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-html-select-time/" class="md-nav__link">
+        {html_select_time}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-html-table/" class="md-nav__link">
+        {html_table}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-mailto/" class="md-nav__link">
+        {mailto}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-math/" class="md-nav__link">
+        {math}
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../language-custom-functions/language-function-textformat/" class="md-nav__link">
+        {textformat}
       </a>
     </li>
   
@@ -1648,6 +1607,34 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config-files/" class="md-nav__link">
+        Config Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-debugging-console/" class="md-nav__link">
+        Debugging Console
+      </a>
     </li>
   
 
@@ -1672,17 +1659,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
       
-        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Programmers
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_7">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Programmers
         </label>
@@ -1694,8 +1681,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../programmers/advanced-features/" class="md-nav__link">
-        Advanced features
+      <a href="../../programmers/charset/" class="md-nav__link">
+        Charset Encoding
       </a>
     </li>
   
@@ -1708,8 +1695,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../programmers/api-functions/" class="md-nav__link">
-        Api functions
+      <a href="../../programmers/smarty-constants.md" class="md-nav__link">
+        None
       </a>
     </li>
   
@@ -1736,36 +1723,22 @@
   
   
     <li class="md-nav__item">
+      <a href="../../programmers/api-functions/" class="md-nav__link">
+        Api functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../programmers/caching/" class="md-nav__link">
         Caching
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/charset/" class="md-nav__link">
-        Charset Encoding
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/" class="md-nav__link">
-        Plugins
       </a>
     </li>
   
@@ -1791,1816 +1764,9 @@
   
   
   
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="0">
-          Advanced features
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_7_8">
-          <span class="md-nav__icon md-icon"></span>
-          Advanced features
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/advanced-features/advanced-features-objects/" class="md-nav__link">
-        Advanced features objects
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/advanced-features/advanced-features-outputfilters/" class="md-nav__link">
-        Advanced features outputfilters
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/advanced-features/advanced-features-postfilters/" class="md-nav__link">
-        Advanced features postfilters
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/advanced-features/advanced-features-prefilters/" class="md-nav__link">
-        Advanced features prefilters
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/advanced-features/advanced-features-security/" class="md-nav__link">
-        Advanced features security
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/advanced-features/advanced-features-static-classes/" class="md-nav__link">
-        Advanced features static classes
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/advanced-features/advanced-features-streams/" class="md-nav__link">
-        Advanced features streams
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/advanced-features/advanced-features-template-inheritance/" class="md-nav__link">
-        Advanced features template inheritance
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/advanced-features/advanced-features-template-settings/" class="md-nav__link">
-        Advanced features template settings
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="0">
-          Api functions
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_7_9">
-          <span class="md-nav__icon md-icon"></span>
-          Api functions
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-add-config-dir/" class="md-nav__link">
-        Api add config dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-add-plugins-dir/" class="md-nav__link">
-        Api add plugins dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-add-template-dir/" class="md-nav__link">
-        Api add template dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-append-by-ref/" class="md-nav__link">
-        Api append by ref
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-append/" class="md-nav__link">
-        Api append
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-assign-by-ref/" class="md-nav__link">
-        Api assign by ref
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-assign/" class="md-nav__link">
-        Api assign
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-clear-all-assign/" class="md-nav__link">
-        Api clear all assign
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-clear-all-cache/" class="md-nav__link">
-        Api clear all cache
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-clear-assign/" class="md-nav__link">
-        Api clear assign
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-clear-cache/" class="md-nav__link">
-        Api clear cache
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-clear-compiled-tpl/" class="md-nav__link">
-        Api clear compiled tpl
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-clear-config/" class="md-nav__link">
-        Api clear config
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-compile-all-config/" class="md-nav__link">
-        Api compile all config
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-compile-all-templates/" class="md-nav__link">
-        Api compile all templates
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-config-load/" class="md-nav__link">
-        Api config load
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-create-data/" class="md-nav__link">
-        Api create data
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-create-template/" class="md-nav__link">
-        Api create template
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-disable-security/" class="md-nav__link">
-        Api disable security
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-display/" class="md-nav__link">
-        Api display
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-enable-security/" class="md-nav__link">
-        Api enable security
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-fetch/" class="md-nav__link">
-        Api fetch
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-get-cache-dir/" class="md-nav__link">
-        Api get cache dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-get-compile-dir/" class="md-nav__link">
-        Api get compile dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-get-config-dir/" class="md-nav__link">
-        Api get config dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-get-config-vars/" class="md-nav__link">
-        Api get config vars
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-get-plugins-dir/" class="md-nav__link">
-        Api get plugins dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-get-registered-object/" class="md-nav__link">
-        Api get registered object
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-get-template-dir/" class="md-nav__link">
-        Api get template dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-get-template-vars/" class="md-nav__link">
-        Api get template vars
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-is-cached/" class="md-nav__link">
-        Api is cached
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-load-filter/" class="md-nav__link">
-        Api load filter
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-mute-expected-errors/" class="md-nav__link">
-        Api mute expected errors
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-register-cacheresource/" class="md-nav__link">
-        Api register cacheresource
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-register-class/" class="md-nav__link">
-        Api register class
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-register-default-plugin-handler/" class="md-nav__link">
-        Api register default plugin handler
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-register-filter/" class="md-nav__link">
-        Api register filter
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-register-object/" class="md-nav__link">
-        Api register object
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-register-plugin/" class="md-nav__link">
-        Api register plugin
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-register-resource/" class="md-nav__link">
-        Api register resource
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-set-cache-dir/" class="md-nav__link">
-        Api set cache dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-set-compile-dir/" class="md-nav__link">
-        Api set compile dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-set-config-dir/" class="md-nav__link">
-        Api set config dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-set-plugins-dir/" class="md-nav__link">
-        Api set plugins dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-set-template-dir/" class="md-nav__link">
-        Api set template dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-template-exists/" class="md-nav__link">
-        Api template exists
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-test-install/" class="md-nav__link">
-        Api test install
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-unregister-cacheresource/" class="md-nav__link">
-        Api unregister cacheresource
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-unregister-filter/" class="md-nav__link">
-        Api unregister filter
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-unregister-object/" class="md-nav__link">
-        Api unregister object
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-unregister-plugin/" class="md-nav__link">
-        Api unregister plugin
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-functions/api-unregister-resource/" class="md-nav__link">
-        Api unregister resource
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="0">
-          Api variables
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_7_10">
-          <span class="md-nav__icon md-icon"></span>
-          Api variables
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-auto-literal/" class="md-nav__link">
-        Variable auto literal
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-cache-dir/" class="md-nav__link">
-        Variable cache dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-cache-id/" class="md-nav__link">
-        Variable cache id
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-cache-lifetime/" class="md-nav__link">
-        Variable cache lifetime
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-cache-locking/" class="md-nav__link">
-        Variable cache locking
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-cache-modified-check/" class="md-nav__link">
-        Variable cache modified check
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-caching-type/" class="md-nav__link">
-        Variable caching type
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-caching/" class="md-nav__link">
-        Variable caching
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-compile-check/" class="md-nav__link">
-        Variable compile check
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-compile-dir/" class="md-nav__link">
-        Variable compile dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-compile-id/" class="md-nav__link">
-        Variable compile id
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-compile-locking/" class="md-nav__link">
-        Variable compile locking
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-compiler-class/" class="md-nav__link">
-        Variable compiler class
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-config-booleanize/" class="md-nav__link">
-        Variable config booleanize
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-config-dir/" class="md-nav__link">
-        Variable config dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-config-overwrite/" class="md-nav__link">
-        Variable config overwrite
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-config-read-hidden/" class="md-nav__link">
-        Variable config read hidden
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-debug-template/" class="md-nav__link">
-        Variable debug template
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-debugging-ctrl/" class="md-nav__link">
-        Variable debugging ctrl
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-debugging/" class="md-nav__link">
-        Variable debugging
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-default-config-handler-func/" class="md-nav__link">
-        Variable default config handler func
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-default-config-type/" class="md-nav__link">
-        Variable default config type
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-default-modifiers/" class="md-nav__link">
-        Variable default modifiers
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-default-resource-type/" class="md-nav__link">
-        Variable default resource type
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-default-template-handler-func/" class="md-nav__link">
-        Variable default template handler func
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-error-reporting/" class="md-nav__link">
-        Variable error reporting
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-escape-html/" class="md-nav__link">
-        Variable escape html
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-force-cache/" class="md-nav__link">
-        Variable force cache
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-force-compile/" class="md-nav__link">
-        Variable force compile
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-left-delimiter/" class="md-nav__link">
-        Variable left delimiter
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-locking-timeout/" class="md-nav__link">
-        Variable locking timeout
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-merge-compiled-includes/" class="md-nav__link">
-        Variable merge compiled includes
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-right-delimiter/" class="md-nav__link">
-        Variable right delimiter
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-smarty-debug-id/" class="md-nav__link">
-        Variable smarty debug id
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-template-dir/" class="md-nav__link">
-        Variable template dir
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/api-variables/variable-use-sub-dirs/" class="md-nav__link">
-        Variable use sub dirs
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_11" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_7_11" id="__nav_7_11_label" tabindex="0">
-          Caching
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_11_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_7_11">
-          <span class="md-nav__icon md-icon"></span>
-          Caching
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/caching/caching-cacheable/" class="md-nav__link">
-        Caching cacheable
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/caching/caching-custom/" class="md-nav__link">
-        Caching custom
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/caching/caching-groups/" class="md-nav__link">
-        Caching groups
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/caching/caching-multiple-caches/" class="md-nav__link">
-        Caching multiple caches
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/caching/caching-setting-up/" class="md-nav__link">
-        Caching setting up
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_12" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_7_12" id="__nav_7_12_label" tabindex="0">
-          Plugins
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_7_12">
-          <span class="md-nav__icon md-icon"></span>
-          Plugins
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/plugins-block-functions/" class="md-nav__link">
-        Plugins block functions
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/plugins-compiler-functions/" class="md-nav__link">
-        Plugins compiler functions
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/plugins-functions/" class="md-nav__link">
-        Plugins functions
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/plugins-howto/" class="md-nav__link">
-        Plugins howto
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/plugins-modifiers/" class="md-nav__link">
-        Plugins modifiers
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/plugins-naming-conventions/" class="md-nav__link">
-        Plugins naming conventions
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/plugins-outputfilters/" class="md-nav__link">
-        Plugins outputfilters
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/plugins-prefilters-postfilters/" class="md-nav__link">
-        Plugins prefilters postfilters
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/plugins-resources/" class="md-nav__link">
-        Plugins resources
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/plugins/plugins-writing/" class="md-nav__link">
-        Plugins writing
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_13" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_7_13" id="__nav_7_13_label" tabindex="0">
-          Resources
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_13_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_7_13">
-          <span class="md-nav__icon md-icon"></span>
-          Resources
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/resources/resources-custom/" class="md-nav__link">
-        Resources custom
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/resources/resources-extends/" class="md-nav__link">
-        Resources extends
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/resources/resources-file/" class="md-nav__link">
-        Resources file
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
     <li class="md-nav__item">
-      <a href="../../programmers/resources/resources-streams/" class="md-nav__link">
-        Resources streams
+      <a href="../../programmers/advanced-features/" class="md-nav__link">
+        Advanced features
       </a>
     </li>
   
@@ -3613,30 +1779,9 @@
   
   
     <li class="md-nav__item">
-      <a href="../../programmers/resources/resources-string/" class="md-nav__link">
-        Resources string
+      <a href="../../programmers/plugins/" class="md-nav__link">
+        Plugins
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../programmers/resources/template-resources/" class="md-nav__link">
-        Template resources
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -3675,8 +1820,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    Table of contents
+  <a href="#examples" class="md-nav__link">
+    Examples
   </a>
   
 </li>
@@ -3697,8 +1842,16 @@
 
 
 
-<h1 id="variable-modifiers-languagemodifiers">Variable Modifiers {#language.modifiers}</h1>
-<h2 id="table-of-contents">Table of contents</h2>
+<h1 id="variable-modifiers">Variable Modifiers</h1>
+<p>Variable modifiers can be applied to
+<a href="../language-variables/">variables</a>, <a href="../language-custom-functions/">custom functions</a>
+or strings. To apply a modifier,
+specify the value followed by a <code>|</code> (pipe) and the modifier name. A
+modifier may accept additional parameters that affect its behavior.
+These parameters follow the modifier name and are separated by a <code>:</code>
+(colon). Also, <em>all php-functions can be used as modifiers implicitly</em>
+(more below) and modifiers can be
+<a href="../language-combining-modifiers/">combined</a>.</p>
 <ul>
 <li><a href="language-modifier-capitalize/">capitalize</a></li>
 <li><a href="language-modifier-cat/">cat</a></li>
@@ -3725,46 +1878,38 @@
 <li><a href="language-modifier-upper/">upper</a></li>
 <li><a href="language-modifier-wordwrap/">wordwrap</a></li>
 </ul>
-<p>Variable modifiers can be applied to
-<a href="../language-variables/">variables</a>, <a href="../language-custom-functions/">custom
-functions</a> or strings. To apply a modifier,
-specify the value followed by a <code>|</code> (pipe) and the modifier name. A
-modifier may accept additional parameters that affect its behavior.
-These parameters follow the modifier name and are separated by a <code>:</code>
-(colon). Also, <em>all php-functions can be used as modifiers implicitly</em>
-(more below) and modifiers can be
-<a href="../language-combining-modifiers/">combined</a>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="x">    </span><span class="cp">{</span><span class="c">* apply modifier to a variable *</span><span class="cp">}</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="x">    </span><span class="cp">{</span><span class="nv">$title</span><span class="o">|</span><span class="na">upper</span><span class="cp">}</span>
+<h2 id="examples">Examples</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="c">* apply modifier to a variable *</span><span class="cp">}</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">{</span><span class="nv">$title</span><span class="o">|</span><span class="na">upper</span><span class="cp">}</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="x">    </span><span class="cp">{</span><span class="c">* modifier with parameters *</span><span class="cp">}</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="x">    </span><span class="cp">{</span><span class="nv">$title</span><span class="o">|</span><span class="na">truncate</span><span class="o">:</span><span class="m">40</span><span class="o">:</span><span class="s2">&quot;...&quot;</span><span class="cp">}</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cp">{</span><span class="c">* modifier with parameters *</span><span class="cp">}</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="cp">{</span><span class="nv">$title</span><span class="o">|</span><span class="na">truncate</span><span class="o">:</span><span class="m">40</span><span class="o">:</span><span class="s2">&quot;...&quot;</span><span class="cp">}</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="x">    </span><span class="cp">{</span><span class="c">* apply modifier to a function parameter *</span><span class="cp">}</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="x">    </span><span class="cp">{</span><span class="nf">html_table</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$myvar</span><span class="o">|</span><span class="na">upper</span><span class="cp">}</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="cp">{</span><span class="c">* apply modifier to a function parameter *</span><span class="cp">}</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="cp">{</span><span class="nf">html_table</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$myvar</span><span class="o">|</span><span class="na">upper</span><span class="cp">}</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="x">    </span><span class="cp">{</span><span class="c">* with parameters *</span><span class="cp">}</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="x">    </span><span class="cp">{</span><span class="nf">html_table</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$myvar</span><span class="o">|</span><span class="na">truncate</span><span class="o">:</span><span class="m">40</span><span class="o">:</span><span class="s2">&quot;...&quot;</span><span class="cp">}</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="cp">{</span><span class="c">* with parameters *</span><span class="cp">}</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="cp">{</span><span class="nf">html_table</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$myvar</span><span class="o">|</span><span class="na">truncate</span><span class="o">:</span><span class="m">40</span><span class="o">:</span><span class="s2">&quot;...&quot;</span><span class="cp">}</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="x">    </span><span class="cp">{</span><span class="c">* apply modifier to literal string *</span><span class="cp">}</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="x">    </span><span class="cp">{</span><span class="s2">&quot;foobar&quot;</span><span class="o">|</span><span class="na">upper</span><span class="cp">}</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="cp">{</span><span class="c">* apply modifier to literal string *</span><span class="cp">}</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="cp">{</span><span class="s2">&quot;foobar&quot;</span><span class="o">|</span><span class="na">upper</span><span class="cp">}</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="x">    </span><span class="cp">{</span><span class="c">* using date_format to format the current date *</span><span class="cp">}</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="x">    </span><span class="cp">{</span><span class="nv">$smarty.now</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="s2">&quot;%Y/%m/%d&quot;</span><span class="cp">}</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="cp">{</span><span class="c">* using date_format to format the current date *</span><span class="cp">}</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="cp">{</span><span class="nv">$smarty.now</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="s2">&quot;%Y/%m/%d&quot;</span><span class="cp">}</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="x">    </span><span class="cp">{</span><span class="c">* apply modifier to a custom function *</span><span class="cp">}</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="x">    </span><span class="cp">{</span><span class="nf">mailto</span><span class="o">|</span><span class="na">upper</span> <span class="na">address</span><span class="o">=</span><span class="s2">&quot;smarty@example.com&quot;</span><span class="cp">}</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="cp">{</span><span class="c">* apply modifier to a custom function *</span><span class="cp">}</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="cp">{</span><span class="nf">mailto</span><span class="o">|</span><span class="na">upper</span> <span class="na">address</span><span class="o">=</span><span class="s2">&quot;smarty@example.com&quot;</span><span class="cp">}</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="x">    </span><span class="cp">{</span><span class="c">* using  php&#39;s str_repeat *</span><span class="cp">}</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="x">    </span><span class="cp">{</span><span class="s2">&quot;=&quot;</span><span class="o">|</span><span class="na">str_repeat</span><span class="o">:</span><span class="m">80</span><span class="cp">}</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="cp">{</span><span class="c">* using  php&#39;s str_repeat *</span><span class="cp">}</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="cp">{</span><span class="s2">&quot;=&quot;</span><span class="o">|</span><span class="na">str_repeat</span><span class="o">:</span><span class="m">80</span><span class="cp">}</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="x">    </span><span class="cp">{</span><span class="c">* php&#39;s count *</span><span class="cp">}</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="x">    </span><span class="cp">{</span><span class="nv">$myArray</span><span class="o">|@</span><span class="na">count</span><span class="cp">}</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="cp">{</span><span class="c">* php&#39;s count *</span><span class="cp">}</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="cp">{</span><span class="nv">$myArray</span><span class="o">|@</span><span class="na">count</span><span class="cp">}</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="x">    </span><span class="cp">{</span><span class="c">* this will uppercase and truncate the whole array *</span><span class="cp">}</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="x">    &lt;select name=&quot;name_id&quot;&gt;</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="x">    </span><span class="cp">{</span><span class="nf">html_options</span> <span class="na">output</span><span class="o">=</span><span class="nv">$my_array</span><span class="o">|</span><span class="na">upper</span><span class="o">|</span><span class="na">truncate</span><span class="o">:</span><span class="m">20</span><span class="cp">}</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="x">    &lt;/select&gt;</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="cp">{</span><span class="c">* this will uppercase and truncate the whole array *</span><span class="cp">}</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="x">&lt;select name=&quot;name_id&quot;&gt;</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="cp">{</span><span class="nf">html_options</span> <span class="na">output</span><span class="o">=</span><span class="nv">$my_array</span><span class="o">|</span><span class="na">upper</span><span class="o">|</span><span class="na">truncate</span><span class="o">:</span><span class="m">20</span><span class="cp">}</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="x">&lt;/select&gt;</span>
 </code></pre></div>
 <ul>
 <li>
@@ -3773,8 +1918,8 @@ These parameters follow the modifier name and are separated by a <code>:</code>
 <blockquote>
 <p><strong>Note</strong></p>
 <p>The default behavior was changed with Smarty 3. In Smarty 2.x, you
-had to use an \"<code>@</code>\" symbol to apply a modifier to an array, such
-as <code>{$articleTitle|@count}</code>. With Smarty 3, the \"<code>@</code>\" is no
+had to use an "<code>@</code>" symbol to apply a modifier to an array, such
+as <code>{$articleTitle|@count}</code>. With Smarty 3, the "<code>@</code>" is no
 longer necessary, and is ignored.</p>
 <p>If you want a modifier to apply to each individual item of an
 array, you will either need to loop the array in the template, or
@@ -3792,7 +1937,7 @@ gives 9. To get the old result use parentheses like
 </li>
 <li>
 <p>Custom modifiers can be registered
-    with the <a href="../../programmers/api-functions/api-register-plugin/"><code>registerPlugin()</code></a>
+    with the <a href="../programmers/api-functions/api-register-plugin.md"><code>registerPlugin()</code></a>
     function.</p>
 </li>
 </ul>
@@ -3836,7 +1981,7 @@ plugins</a></p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking"], "search": "../../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.6df46069.min.js"></script>
