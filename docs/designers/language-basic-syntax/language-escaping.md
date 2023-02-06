@@ -1,4 +1,4 @@
-# Escaping Smarty Parsing
+# Escaping Smarty parsing
 
 It is sometimes desirable or even necessary to have Smarty ignore
 sections it would otherwise parse. A classic example is embedding
