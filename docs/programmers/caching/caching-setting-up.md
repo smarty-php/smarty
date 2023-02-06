@@ -7,7 +7,7 @@ The first thing to do is enable caching by setting
 
 
     <?php
-    require('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty = new Smarty;
 
     // uses the value of $smarty->cacheLifetime() to determine
@@ -41,7 +41,7 @@ setting [`$caching`](#variable.caching) to
 
 
     <?php
-    require('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty = new Smarty;
 
     // retain current cache lifetime for each specific display call
@@ -75,7 +75,7 @@ This is a computational overhead, so for optimum performance set
 
 
     <?php
-    require('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty = new Smarty;
 
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
@@ -101,7 +101,7 @@ process.
 
 
     <?php
-    require('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty = new Smarty;
 
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
@@ -133,7 +133,7 @@ files [and groups](#caching.groups) with the
 
 
     <?php
-    require('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty = new Smarty;
 
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);

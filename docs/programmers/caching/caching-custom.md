@@ -38,7 +38,7 @@ to invoke your custom CacheResource implementation.
 
     <?php
 
-    require_once 'libs/Smarty.class.php';
+    use Smarty\Smarty;
     $smarty = new Smarty();
     $smarty->caching_type = 'mysql';
 
@@ -198,7 +198,7 @@ to invoke your custom CacheResource implementation.
 
     <?php
 
-    require_once 'libs/Smarty.class.php';
+    use Smarty\Smarty;
     $smarty = new Smarty();
     $smarty->caching_type = 'memcache';
 

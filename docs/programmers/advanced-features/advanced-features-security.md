@@ -85,6 +85,8 @@ Smarty\_Security class or create an instance of it.
 
     <?php
 
+    use Smarty\Smarty;
+
     class My_Security_Policy extends \Smarty\Security {
       public $allow_constants = false;
     }
@@ -95,6 +97,7 @@ Smarty\_Security class or create an instance of it.
 
 
     <?php
+    use Smarty\Smarty;
     $smarty = new Smarty();
     $my_security_policy = new \Smarty\Security($smarty);
     $my_security_policy->allow_constants = false;
@@ -104,7 +107,7 @@ Smarty\_Security class or create an instance of it.
 
 
     <?php
-    require 'Smarty.class.php';
+    use Smarty\Smarty;
     $smarty = new Smarty();
     // enable default security
     $smarty->enableSecurity();

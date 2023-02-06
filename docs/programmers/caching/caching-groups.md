@@ -38,7 +38,7 @@ structure that mimics your template file structure, such as
 
 
     <?php
-    require('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty = new Smarty;
 
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);

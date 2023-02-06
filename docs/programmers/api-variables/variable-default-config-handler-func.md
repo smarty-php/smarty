@@ -12,7 +12,7 @@ resource.
 
 
     <?php
-
+    use Smarty\Smarty;
     $smarty = new Smarty();
     $smarty->default_config_handler_func = 'my_default_config_handler_func';
 

@@ -60,7 +60,7 @@ parameters:
 
 
     <?php
-    include('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty = new Smarty;
 
     // force compilation of all template files

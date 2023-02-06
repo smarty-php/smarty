@@ -26,6 +26,7 @@ Here's how you create an instance of Smarty in your PHP scripts:
 <?php
 
 require 'vendor/autoload.php';
+use Smarty\Smarty;
 $smarty = new Smarty();
 ```
 
@@ -44,7 +45,7 @@ The defaults can be changed as follows:
 
 ```php
 <?php
-
+use Smarty\Smarty;
 $smarty = new Smarty();
 $smarty->setTemplateDir('/some/template/dir');
 $smarty->setConfigDir('/some/config/dir');
@@ -73,6 +74,8 @@ You can verify if your system has the correct access rights for
     these directories with [`testInstall()`](./programmers/api-functions/api-test-install.md):
 
 ```php
+<?php
+use Smarty\Smarty;
 $smarty = new Smarty();
 $smarty->setTemplateDir('/some/template/dir');
 $smarty->setConfigDir('/some/config/dir');
@@ -106,6 +109,7 @@ Now lets edit our php file. We'll create an instance of Smarty,
 
 require 'vendor/autoload.php';
 
+use Smarty\Smarty;
 $smarty = new Smarty();
 
 $smarty->setTemplateDir('/web/www.example.com/guestbook/templates/');

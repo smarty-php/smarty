@@ -31,6 +31,8 @@ example.
 
     <?php
 
+    use Smarty\Smarty;
+
     /**
      * MySQL Resource
      *
@@ -107,7 +109,7 @@ example.
     }
 
 
-    require_once 'libs/Smarty.class.php';
+    
     $smarty = new Smarty();
     $smarty->registerResource('mysql', new My_Resource_Mysql());
 

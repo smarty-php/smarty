@@ -17,6 +17,8 @@ on the functions you are supposed to provide.
 
     <?php
 
+    use Smarty\Smarty;
+
     /**
     * MySQL Resource
     *
@@ -93,7 +95,7 @@ on the functions you are supposed to provide.
     }
 
 
-    require_once 'libs/Smarty.class.php';
+    
     $smarty = new Smarty();
     $smarty->registerResource('mysql', new My_Resource_Mysql());
 

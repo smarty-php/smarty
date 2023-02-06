@@ -24,6 +24,7 @@ otherwise. If security is enabled, classes registered with
 
 
     <?php
+    use Smarty\Smarty;
 
     class Bar {
       $property = "hello world";
@@ -44,12 +45,14 @@ otherwise. If security is enabled, classes registered with
 
 
     <?php
+    use Smarty\Smarty;
+
     namespace my\php\application {
       class Bar {
         $property = "hello world";
       }
     }
-
+   
     $smarty = new Smarty();
     $smarty->registerClass("Foo", "\my\php\application\Bar");
 

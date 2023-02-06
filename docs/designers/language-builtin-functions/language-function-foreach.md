@@ -166,7 +166,7 @@ looping over a PHP iterator instead of an array().
 
 ```php
 <?php 
-  include('Smarty.class.php'); 
+  use Smarty\Smarty;
 
   $smarty = new Smarty; 
 

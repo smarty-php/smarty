@@ -7,7 +7,7 @@ Variables assigned from PHP are referenced by preceding them with a dollar
 
 ```php
 <?php
-
+use Smarty\Smarty;
 $smarty = new Smarty();
 
 $smarty->assign('firstname', 'Doug');

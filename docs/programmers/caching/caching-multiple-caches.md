@@ -10,7 +10,7 @@ parameter to the function call.
 
 
     <?php
-    require('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty = new Smarty;
 
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
@@ -47,7 +47,7 @@ Be sure to pass the same `$cache_id` as the second parameter to
 
 
     <?php
-    require('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty = new Smarty;
 
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
@@ -70,7 +70,7 @@ the first parameter to [`clearCache()`](#api.clear.cache).
 
 
     <?php
-    require('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty = new Smarty;
 
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);

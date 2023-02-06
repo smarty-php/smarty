@@ -25,7 +25,7 @@ plugin types.
 
 
     <?php
-
+    use Smarty\Smarty;
     $smarty = new Smarty();
     $smarty->registerDefaultPluginHandler('my_plugin_handler');
 
