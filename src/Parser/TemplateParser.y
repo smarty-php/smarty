@@ -432,6 +432,16 @@ tag(res)   ::= LDEL ID(i) PTR ID(me) modifierlist(l) attributes(a). {
     res = $this->compiler->compileTag(i,a,array('modifierlist'=>l, 'object_method'=>me));
 }
 
+                  // registered ns object tag
+tag(res)   ::= LDEL ID(i) NSPTR ID(m) attributes(a). {
+    res = $this->compiler->compileTag(i,a,array('object_method'=>m));
+}
+
+                  // registered ns object tag with modifiers
+tag(res)   ::= LDEL ID(i) NSPTR ID(me) modifierlist(l) attributes(a). {
+    res = $this->compiler->compileTag(i,a,array('modifierlist'=>l, 'object_method'=>me));
+}
+
                   // {if}, {elseif} and {while} tag
 tag(res)   ::= LDELIF(i) expr(ie). {
     $tag = trim(substr(i,$this->compiler->getLdelLength())); 
@@ -1038,6 +1048,39 @@ objectelement(res)::= PTR method(f).  {
     res = '->'.f;
 }
 
+                    // variable
+objectelement(res)::= NSPTR ID(i) arrayindex(a). {
+    if ($this->security && substr(i,0,1) === '_') {
+        $this->compiler->trigger_template_error (self::ERR1);
+    }
+    res = '?->'.i.a;
+}
+
+objectelement(res)::= NSPTR varvar(v) arrayindex(a). {
+    if ($this->security) {
+        $this->compiler->trigger_template_error (self::ERR2);
+    }
+    res = '?->{'.$this->compiler->compileVariable(v).a.'}';
+}
+
+objectelement(res)::= NSPTR LDEL expr(e) RDEL arrayindex(a). {
+    if ($this->security) {
+        $this->compiler->trigger_template_error (self::ERR2);
+    }
+    res = '?->{'.e.a.'}';
+}
+
+objectelement(res)::= NSPTR ID(ii) LDEL expr(e) RDEL arrayindex(a). {
+    if ($this->security) {
+        $this->compiler->trigger_template_error (self::ERR2);
+    }
+    res = '?->{\''.ii.'\'.'.e.a.'}';
+}
+
+                    // method
+objectelement(res)::= NSPTR method(f).  {
+    res = '?->'.f;
+}
 
 //
 // function
