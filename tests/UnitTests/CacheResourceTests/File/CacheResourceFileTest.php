@@ -107,7 +107,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $this->cleanCacheDir();
-        $this->smarty->setUseSubDirs(false);
+        $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
         $tpl2 = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar2', 'blar');

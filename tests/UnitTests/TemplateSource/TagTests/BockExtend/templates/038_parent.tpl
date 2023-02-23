@@ -1,0 +1,1 @@
+{block name=content}{/block}Captured content is: {$content}
