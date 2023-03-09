@@ -1,7 +1,6 @@
-Static Classes {#advanced.features.static.classes}
-==============
+# Static Classes
 
-You can directly access static classes. The syntax is the same as in
+You can directly access static classes. The syntax is roughly the same as in
 PHP.
 
 > **Note**
@@ -12,16 +11,29 @@ PHP.
 > plugins which insulate templates from PHP classes/objects. Use at your
 > own discretion. See the Best Practices section of the Smarty website.
 
+## Examples
 
-    {assign var=foo value=myclass::BAR}  <--- class constant BAR
+**class constant BAR** 
+```smarty
+{assign var=foo value=myclass::BAR}
+```
 
-    {assign var=foo value=myclass::method()}  <--- method result
+**method result**
+```smarty
+{assign var=foo value=myclass::method()} 
+```
 
-    {assign var=foo value=myclass::method1()->method2}  <--- method chaining
+**method chaining**
+```smarty
+{assign var=foo value=myclass::method1()->method2}
+```
 
-    {assign var=foo value=myclass::$bar}  <--- property bar of class myclass
+**property bar of class myclass**
+```smarty
+{assign var=foo value=myclass::$bar} 
+```
 
-    {assign var=foo value=$bar::method}  <--- using Smarty variable bar as class name
-
-
-      
+**using Smarty variable bar as class name**
+```smarty
+{assign var=foo value=$bar::method}
+```

@@ -1,21 +1,20 @@
-Security {#advanced.features.security}
-========
+# Security
 
 Security is good for situations when you have untrusted parties editing
 the templates e.g. via ftp, and you want to reduce the risk of system
 security compromises through the template language.
 
 The settings of the security policy are defined by properties of an
-instance of the Smarty\_Security class. These are the possible settings:
+instance of the \Smarty\Security class. These are the possible settings:
 
 -   `$secure_dir` is an array of template directories that are
-    considered secure. [`$template_dir`](#variable.template.dir)
+    considered secure. A [template dir](../../api/configuring.md#setting-the-template-path--s-) is
     considered secure implicitly. The default is an empty array.
    
 - `$trusted_uri` is an array of regular expressions matching URIs that
     are considered trusted. This security directive used by
-    [`{fetch}`](#language.function.fetch) and
-    [`{html_image}`](#language.function.html.image). URIs passed to
+    [`{fetch}`](../../designers/language-custom-functions/language-function-fetch.md) and
+    [`{html_image}`](../../designers/language-custom-functions/language-function-html-image.md). URIs passed to
     these functions are reduced to `{$PROTOCOL}://{$HOSTNAME}` to allow
     simple regular expressions (without having to deal with edge cases
     like authentication-tokens).
@@ -24,33 +23,27 @@ instance of the Smarty\_Security class. These are the possible settings:
     the following URIs:
 
     -   `http://smarty.net/foo`
-
     -   `http://smarty.net/foo`
-
     -   `http://www.smarty.net/foo`
-
     -   `http://smarty.net/foo`
-
     -   `https://foo.bar.www.smarty.net/foo/bla?blubb=1`
 
     but deny access to these URIs:
 
     -   `http://smarty.com/foo` (not matching top-level domain \"com\")
-
     -   `ftp://www.smarty.net/foo` (not matching protocol \"ftp\")
-
     -   `http://www.smarty.net.otherdomain.com/foo` (not matching end of
         domain \"smarty.net\")
 
 -   `$static_classes` is an array of classes that are considered
     trusted. The default is an empty array which allows access to all
     static classes. To disable access to all static classes set
-    \$static\_classes = null.
+    $static_classes = null.
 
 -   `$streams` is an array of streams that are considered trusted and
     can be used from within template. To disable access to all streams
-    set \$streams = null. An empty array ( \$streams = array() ) will
-    allow all streams. The default is array(\'file\').
+    set $streams = null. An empty array ( $streams = [] ) will
+    allow all streams. The default is array('file').
 
 -   `$allowed_modifiers` is an array of (registered / autoloaded)
     modifiers that should be accessible to the template. If this array
@@ -69,49 +62,49 @@ instance of the Smarty\_Security class. These are the possible settings:
     block and filter plugins that may not be accessible to the template.
 
 -   `$allow_constants` is a boolean flag which controls if constants can
-    be accessed by the template. The default is \"true\".
+    be accessed by the template. The default is "true".
 
 -   `$allow_super_globals` is a boolean flag which controls if the PHP
     super globals can be accessed by the template. The default is
-    \"true\".
+    "true".
 
 If security is enabled, no private methods, functions or properties of
 static classes or assigned objects can be accessed (beginning with
-\'\_\') by the template.
+'_') by the template.
 
 To customize the security policy settings you can extend the
-Smarty\_Security class or create an instance of it.
+\Smarty\Security class or create an instance of it.
 
+```php
+<?php
 
-    <?php
+use Smarty\Smarty;
 
-    use Smarty\Smarty;
+class My_Security_Policy extends \Smarty\Security {
+  public $allow_constants = false;
+}
+$smarty = new Smarty();
+// enable security
+$smarty->enableSecurity('My_Security_Policy');
+```
 
-    class My_Security_Policy extends \Smarty\Security {
-      public $allow_constants = false;
-    }
-    $smarty = new Smarty();
-    // enable security
-    $smarty->enableSecurity('My_Security_Policy');
-    ?>
+```php
+<?php
+use Smarty\Smarty;
+$smarty = new Smarty();
+$my_security_policy = new \Smarty\Security($smarty);
+$my_security_policy->allow_constants = false;
+// enable security
+$smarty->enableSecurity($my_security_policy);
+```
 
-
-    <?php
-    use Smarty\Smarty;
-    $smarty = new Smarty();
-    $my_security_policy = new \Smarty\Security($smarty);
-    $my_security_policy->allow_constants = false;
-    // enable security
-    $smarty->enableSecurity($my_security_policy);
-    ?>
-
-
-    <?php
-    use Smarty\Smarty;
-    $smarty = new Smarty();
-    // enable default security
-    $smarty->enableSecurity();
-    ?>
+```php
+<?php
+use Smarty\Smarty;
+$smarty = new Smarty();
+// enable default security
+$smarty->enableSecurity();
+```
 
 > **Note**
 >

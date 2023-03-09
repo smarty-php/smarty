@@ -1,5 +1,4 @@
-Template Inheritance {#advanced.features.template.inheritance}
-====================
+# Template Inheritance
 
 Inheritance brings the concept of Object Oriented Programming to
 templates, allowing you to define one (or more) base templates that can
@@ -10,26 +9,26 @@ can override all or some of the parent named block areas.
     extend a file that extends another one that extends another one and
     so on.
 
--   The child templates can not define any content besides what\'s
-    inside [`{block}`](#language.function.block) tags they override.
-    Anything outside of [`{block}`](#language.function.block) tags will
+-   The child templates can not define any content besides what's
+    inside [`{block}`](../../designers/language-builtin-functions/language-function-block.md) tags they override.
+    Anything outside of [`{block}`](../../designers/language-builtin-functions/language-function-block.md) tags will
     be removed.
 
--   The content of [`{block}`](#language.function.block) tags from child
+-   The content of [`{block}`](../../designers/language-builtin-functions/language-function-block.md) tags from child
     and parent templates can be merged by the `append` or `prepend`
-    [`{block}`](#language.function.block) tag option flags and
+    [`{block}`](../../designers/language-builtin-functions/language-function-block.md) tag option flags and
     `{$smarty.block.parent}` or `{$smarty.block.child}` placeholders.
 
 -   Template inheritance is a compile time process which creates a
     single compiled template file. Compared to corresponding solutions
     based on subtemplates included with the
-    [`{include}`](#language.function.include) tag it does have much
+    [`{include}`](../../designers/language-builtin-functions/language-function-include.md) tag it does have much
     better performance when rendering.
 
 -   The child template extends its parent defined with the
-    [`{extends}`](#language.function.extends) tag, which must be the
+    [`{extends}`](../../designers/language-builtin-functions/language-function-extends.md) tag, which must be the
     first line in the child template. Instead of using the
-    [`{extends}`](#language.function.extends) tags in the template files
+    [`{extends}`](../../designers/language-builtin-functions/language-function-extends.md) tags in the template files
     you can define the whole template inheritance tree in the PHP script
     when you are calling [`fetch()`](#api.fetch) or
     [`display()`](#api.display) with the `extends:` template resource
@@ -44,85 +43,86 @@ can override all or some of the parent named block areas.
 > **Note**
 >
 > If you have a subtemplate which is included with
-> [`{include}`](#language.function.include) and it contains
-> [`{block}`](#language.function.block) areas it works only if the
-> [`{include}`](#language.function.include) itself is called from within
-> a surrounding [`{block}`](#language.function.block). In the final
+> [`{include}`](../../designers/language-builtin-functions/language-function-include.md) and it contains
+> [`{block}`](../../designers/language-builtin-functions/language-function-block.md) areas it works only if the
+> [`{include}`](../../designers/language-builtin-functions/language-function-include.md) itself is called from within
+> a surrounding [`{block}`](../../designers/language-builtin-functions/language-function-block.md). In the final
 > parent template you may need a dummy
-> [`{block}`](#language.function.block) for it.
+> [`{block}`](../../designers/language-builtin-functions/language-function-block.md) for it.
 
 layout.tpl (parent)
 
-
-    <html>
+```smarty
+<html>
     <head>
       <title>{block name=title}Default Page Title{/block}</title>
       {block name=head}{/block}
     </head>
     <body>
-    {block name=body}{/block}
+        {block name=body}{/block}
     </body>
-    </html>
-
+</html>
+```
       
 
 myproject.tpl (child)
 
-
-    {extends file='layout.tpl'}
-    {block name=head}
-      <link href="/css/mypage.css" rel="stylesheet" type="text/css"/>
-      <script src="/js/mypage.js"></script>
-    {/block}
-
+```smarty
+{extends file='layout.tpl'}
+{block name=head}
+  <link href="/css/mypage.css" rel="stylesheet" type="text/css"/>
+  <script src="/js/mypage.js"></script>
+{/block}
+```
 
       
 
 mypage.tpl (grandchild)
 
-
-    {extends file='myproject.tpl'}
-    {block name=title}My Page Title{/block}
-    {block name=head}
-      <link href="/css/mypage.css" rel="stylesheet" type="text/css"/>
-      <script src="/js/mypage.js"></script>
-    {/block}
-    {block name=body}My HTML Page Body goes here{/block}
-
+```smarty
+{extends file='myproject.tpl'}
+{block name=title}My Page Title{/block}
+{block name=head}
+  <link href="/css/mypage.css" rel="stylesheet" type="text/css"/>
+  <script src="/js/mypage.js"></script>
+{/block}
+{block name=body}My HTML Page Body goes here{/block}
+```
       
 
 To render the above use
 
-
-     $smarty->display('mypage.tpl');
+```php
+<?php
+$smarty->display('mypage.tpl');
+```
 
 The resulting output is
 
-
-    <html>
+```smarty
+<html>
     <head>
       <title>My Page Title</title>
       <link href="/css/mypage.css" rel="stylesheet" type="text/css"/>
       <script src="/js/mypage.js"></script>
     </head>
     <body>
-    My HTML Page Body goes here
+     My HTML Page Body goes here
     </body>
-    </html>
+</html>
+```
 
-Instead of using [`{extends}`](#language.function.extends) tags in the
+Instead of using [`{extends}`](../../designers/language-builtin-functions/language-function-extends.md) tags in the
 template files you can define the inheritance tree in your PHP script by
-using the [`extends:` resource](#resources.extends) type.
+using the [`extends:` resource](../resources/resources-extends.md) type.
 
 The code below will return same result as the example above.
 
+```php
+<?php
+$smarty->display('extends:layout.tpl|myproject.tpl|mypage.tpl'); 
+```
 
-    <?php
-    $smarty->display('extends:layout.tpl|myproject.tpl|mypage.tpl'); 
-    ?>
-
-       
-
-See also [`{block}`](#language.function.block),
-[`{extends}`](#language.function.extends) and [`extends:`
-resource](#resources.extends)
+See also [`{block}`](../../designers/language-builtin-functions/language-function-block.md),
+[`{extends}`](../../designers/language-builtin-functions/language-function-extends.md) and [`extends:`
+resource](../resources/resources-extends.md)

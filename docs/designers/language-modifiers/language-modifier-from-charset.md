@@ -16,5 +16,5 @@ modifier](language-modifier-to-charset.md).
 > modifier should only be used in cases where the application cannot
 > anticipate that a certain string is required in another encoding.
 
-See also [Charset Encoding](../../programmers/charset.md), [to_charset
+See also [Configuring Smarty](../../api/configuring.md), [to_charset
 modifier](language-modifier-to-charset.md).

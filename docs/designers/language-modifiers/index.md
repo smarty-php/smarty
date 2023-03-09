@@ -97,7 +97,7 @@ These parameters follow the modifier name and are separated by a `:`
     > `{(8+2)|count_characters}`.
 
 - Custom modifiers can be registered
-    with the [`registerPlugin()`](../programmers/api-functions/api-register-plugin.md)
+    with the [`registerPlugin()`](../../programmers/api-functions/api-register-plugin.md)
     function.
 
 See also [`registerPlugin()`](../../programmers/api-functions/api-register-plugin.md), [combining

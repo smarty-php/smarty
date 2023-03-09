@@ -20,30 +20,11 @@ and 480 for $height, the result is:
 </p>
 ```
 
-## Introduction
+## Getting Started
+- [Getting Started](./getting-started.md)
 - [Philosophy](./philosophy.md) - or "Why do I need a template engine?"
 - [Features](./features.md) - or "Why do I want Smarty?"
-- [Getting Started](./getting-started.md)
 
-## Smarty for template designers
-- [Basic Syntax](designers/language-basic-syntax/index.md)
-- [Variables](designers/language-variables/index.md)
-- [Variable Modifiers](designers/language-modifiers/index.md)
-- [Combining Modifiers](./designers/language-combining-modifiers.md)
-- [Built-in Functions](designers/language-builtin-functions/index.md)
-- [Custom Functions](designers/language-custom-functions/index.md)
-- [Config Files](./designers/config-files.md)
-- [Debugging Console](./designers/chapter-debugging-console.md)
-
-## Smarty for php developers
-- [Charset Encoding](./programmers/charset.md)
-- [Smarty Class Variables](./programmers/api-variables.md)
-- [Smarty Class Methods](./programmers/api-functions.md)
-- [Caching](./programmers/caching.md)
-- [Resources](./programmers/resources.md)
-- [Advanced Features](./programmers/advanced-features.md)
-- [Extending Smarty With Plugins](./programmers/plugins.md)
-
-## Other
+## Help
 - [Some random tips & tricks](./appendixes/tips.md)
 - [Troubleshooting](./appendixes/troubleshooting.md)
