@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added support for PHP8.2
+- Added a new way to extend Smarty functionality using `Smarty::addExtension()`
 
 ### Changed
 - All Smarty code is now in the \Smarty namespace. For simple use-cases, you only need to add
@@ -29,7 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `$smarty->setPluginsDir()`
 - `$smarty->assignGlobal()`
 - Using `$smarty->registerFilter()` for registering variable filters will trigger a notice.
-- 
 
 ### Removed
 - Dropped support for PHP7.1
@@ -55,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed `$smarty->loadPlugin()`, use `$smarty->registerPlugin()` instead.
 - Removed `$smarty->appendByRef()` and `$smarty->assignByRef()`.
 - Removed `$smarty->_current_file`
-- Removed `$smarty->allow_ambiguous_resources`, but ambiguous resources handlers should still work
+- Removed `$smarty->allow_ambiguous_resources` (ambiguous resources handlers should still work)
 
 ### Fixed
 - `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP7 notices for undefined array indexes [#736](https://github.com/smarty-php/smarty/issues/736)

@@ -1,5 +1,16 @@
 # @TODO
 
+## 5.0
+- fix template invalidation when migrating to 5.0
+- document addExtension
+- review docs
+- maybe add nullsafe operator ?? as launching feature?
+
+## CI-building optimization
+- compiled & cached templates should not contain references to local filesystem paths. Add an optional rootpath param
+  to `(add|set)TemplateDir` or as a separate method. Make it default to `getcwd()`. If a relative path is passed to
+  `(add|set)TemplateDir`, prefix it with the rootpath at runtime, but do not store the path.
+
 ## Review direct variable property access
 - review ->value{$index} in ForTag
 
@@ -21,9 +32,6 @@
 
 ## Beatify output
 - compiled templates could be proper classes, possibly using [nette/php-generator](https://packagist.org/packages/nette/php-generator)
-
-## Documentation
-- beautify and review docs, possibly using [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/publishing-your-site/)
 
 ## Unrelated / other
 - review (and avoid) use of 'clone' keyword
