@@ -118,7 +118,7 @@ nav:
       - 'Rendering a template': 'api/rendering.md'
       - 'Using data in templates':
           - 'Assigning variables': 'api/variables/assigning.md'
-          - 'Loading from config files': 'api/variables/config-files.md'
+          - 'Config files': 'api/variables/config-files.md'
           - 'Using streams': 'api/variables/streams.md'
           - 'Objects': 'api/variables/objects.md'
           - 'Static class methods': 'api/variables/static-class-methods.md'
