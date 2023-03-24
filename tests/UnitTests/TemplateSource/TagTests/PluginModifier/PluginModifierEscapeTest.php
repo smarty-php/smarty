@@ -237,4 +237,25 @@ class PluginModifierEscapeTest extends PHPUnit_Smarty
         $this->assertEquals("sma'rty@&#187;example&#171;.com", $this->smarty->fetch($tpl));
         Smarty::$_MBSTRING = true;
     }
+
+	public function testTemplateLiteralBackticks()
+	{
+		$tpl = $this->smarty->createTemplate('string:{"`Hello, World!`"|escape:"javascript"}');
+		$this->assertEquals("\\`Hello, World!\\`", $this->smarty->fetch($tpl));
+	}
+
+	public function testTemplateLiteralInterpolation()
+	{
+		$tpl = $this->smarty->createTemplate('string:{$vector|escape:"javascript"}');
+		$this->smarty->assign('vector', "`Hello, \${name}!`");
+		$this->assertEquals("\\`Hello, \\\$\\{name}!\\`", $this->smarty->fetch($tpl));
+	}
+
+	public function testTemplateLiteralBackticksAndInterpolation()
+	{
+		$this->smarty->assign('vector', '`${alert(`Hello, ${name}!`)}${`\n`}`');
+		$tpl = $this->smarty->createTemplate('string:{$vector|escape:"javascript"}');
+		$this->assertEquals("\\`\\\$\\{alert(\\`Hello, \\\$\\{name}!\\`)}\\\$\\{\\`\\\\n\\`}\\`", $this->smarty->fetch($tpl));
+	}
+
 }
