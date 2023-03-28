@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.48] - 2023-03-28
+
 ### Security
 - Fixed Cross site scripting vulnerability in Javascript escaping.  This addresses CVE-2023-28447.
 
