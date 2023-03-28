@@ -64,7 +64,9 @@ function smarty_modifiercompiler_escape($params, Smarty_Internal_TemplateCompile
                 // see https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
                 return 'strtr((string)' .
                        $params[ 0 ] .
-                       ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", "\\n" => "\\\n", "</" => "<\/", "<!--" => "<\!--", "<s" => "<\s", "<S" => "<\S" ))';
+                       ', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", 
+                       "\\n" => "\\\n", "</" => "<\/", "<!--" => "<\!--", "<s" => "<\s", "<S" => "<\S",
+                       "`" => "\\\\`", "\${" => "\\\\\\$\\{"))';
         }
     } catch (SmartyException $e) {
         // pass through to regular plugin fallback
