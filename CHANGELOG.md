@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- Fixed Cross site scripting vulnerability in Javascript escaping.  This addresses CVE-2023-28447.
+
 ### Fixed
 - Output buffer is now cleaned for internal PHP errors as well, not just for Exceptions [#514](https://github.com/smarty-php/smarty/issues/514)
 
