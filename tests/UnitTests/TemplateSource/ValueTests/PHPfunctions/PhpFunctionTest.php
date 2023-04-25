@@ -223,6 +223,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
 			array('{$a = date("Y", $value)}{$a}', strtotime("01-01-2030"), 2030),
 			array('{$a = PhpFunctionTest::sayHi($value)}{$a}', 'mario', 'hi mario'),
 			array('{$a = pass($value)}{$a}', 'mario', 'mario'),
+			array('{$a = 1}{$b = Closure::fromCallable($value)}{$a}', 'strlen', 1),
 		);
 	}
 

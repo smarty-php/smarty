@@ -785,6 +785,9 @@ value(res)       ::= ns1(c)DOUBLECOLON static_class_access(s). {
         if (isset($this->smarty->registered_classes[c])) {
             res = $this->smarty->registered_classes[c].'::'.s[0].s[1];
         } else {
+            trigger_error('Using unregistered static method "' . c.'::'.s[0] . '" in a template is deprecated and will be ' .
+                    'removed in a future release. Use Smarty::registerClass to explicitly register ' .
+                    'a class for access.', E_USER_DEPRECATED);
             res = c.'::'.s[0].s[1];
         } 
     } else {
