@@ -109,7 +109,7 @@ class Smarty_Internal_Compile_Private_Modifier extends Smarty_Internal_CompileBa
                             if (!is_object($compiler->smarty->security_policy)
                                 || $compiler->smarty->security_policy->isTrustedPhpModifier($modifier, $compiler)
                             ) {
-                                trigger_error('Using php-function "' . $modifier . '" as a modifier is deprecated and will be ' .
+                                trigger_error('Using unregistered function "' . $modifier . '" in a template is deprecated and will be ' .
                                     'removed in a future release. Use Smarty::registerPlugin to explicitly register ' .
                                     'a custom modifier.', E_USER_DEPRECATED);
                                 $output = "{$modifier}({$params})";

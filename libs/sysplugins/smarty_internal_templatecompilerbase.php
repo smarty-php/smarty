@@ -640,7 +640,17 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         return $func_name . '(' . $parameter[ 0 ] . ')';
                     }
                 } else {
-                    return $name . '(' . implode(',', $parameter) . ')';
+					$first_param = array_shift($parameter);
+					$modifier = array_merge(array($name), $parameter);
+					// Now, compile the function call as a modifier
+					return $this->compileTag(
+						'private_modifier',
+						array(),
+						array(
+							'modifierlist' => array($modifier),
+							'value'        => $first_param
+						)
+					);
                 }
             } else {
                 $this->trigger_template_error("unknown function '{$name}'");

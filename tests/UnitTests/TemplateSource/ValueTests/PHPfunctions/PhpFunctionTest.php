@@ -57,6 +57,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty2()
     {
         $this->smarty->disableSecurity();
+	    $this->smarty->registerPlugin('modifier', 'pass', 'pass');
         $this->smarty->assign('var', array(null,
                                            false,
                                            (int) 0,
@@ -78,6 +79,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty3()
     {
         $this->smarty->disableSecurity();
+	    $this->smarty->registerPlugin('modifier', 'pass', 'pass');
         $this->smarty->assign('var', array(true,
                                            (int) 1,
                                            (float) 0.1,
@@ -114,6 +116,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testIsset1()
     {
         $this->smarty->disableSecurity();
+	    $this->smarty->registerPlugin('modifier', 'pass', 'pass');
         $this->smarty->assign('isNull', null);
         $this->smarty->assign('isSet', 1);
         $this->smarty->assign('arr', array('isNull' => null, 'isSet' => 1));
@@ -155,7 +158,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testIsset3($strTemplate, $result)
     {
         $this->smarty->disableSecurity();
-
+	    $this->smarty->registerPlugin('modifier', 'intval', 'intval');
         $this->smarty->assign('varobject', new TestIsset());
         $this->smarty->assign('vararray', $vararray = array(
             'keythatexists' => false,
@@ -196,6 +199,38 @@ class PhpFunctionTest extends PHPUnit_Smarty
             array('{if isset($_varsimple{$key})}true{else}false{/if}', 'true'),
         );
     }
+
+	/**
+	 * Tests various PHP functions (deprecated)
+	 * @dataProvider        dataVariousPHPFunctions
+	 */
+	public function testVariousPHPFunctions($strTemplate, $value, $expected) {
+		$this->smarty->disableSecurity();
+		$this->cleanDirs();
+		$this->smarty->assign('value', $value);
+		$this->assertEquals($expected, $this->smarty->fetch('string:' . $strTemplate));
+	}
+
+	/**
+	 * Data provider for testIsset3
+	 */
+	public function dataVariousPHPFunctions()
+	{
+		return array(
+			array('{$a = count($value)}{$a}', array(1,2,3), '3'),
+			array('{$a = in_array("b", $value)}{$a}', array(1,'b',3), true),
+			array('{$a = strlen(uniqid())}{$a}', '', 13),
+			array('{$a = date("Y", $value)}{$a}', strtotime("01-01-2030"), 2030),
+			array('{$a = PhpFunctionTest::sayHi($value)}{$a}', 'mario', 'hi mario'),
+			array('{$a = pass($value)}{$a}', 'mario', 'mario'),
+		);
+	}
+
+	public static function sayHi($value) {
+		return 'hi ' . $value;
+	}
+
+
 }
 
 /**
