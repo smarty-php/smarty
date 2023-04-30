@@ -8,7 +8,7 @@ presentation. This is best described in a situation where the
 application programmer and the template designer play different roles,
 or in most cases are not the same person.
 
-For example, let\'s say you are creating a web page that is displaying a
+For example, let's say you are creating a web page that is displaying a
 newspaper article.
 
 -   The article `$headline`, `$tagline`, `$author` and `$body` are
