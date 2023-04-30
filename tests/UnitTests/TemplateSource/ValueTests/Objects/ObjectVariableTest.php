@@ -93,6 +93,32 @@ class ObjectVariableTest extends PHPUnit_Smarty
         $tpl->assign('object', $object);
         $this->assertEquals('hello world', $this->smarty->fetch($tpl));
     }
+
+    public function testNullSafeOperatorSimple()
+    {
+        $object = new VariableObject;
+        $tpl = $this->smarty->createTemplate('string:{$object?->hello}');
+        $tpl->assign('object', $object);
+        $this->assertEquals('hello_world', $this->smarty->fetch($tpl));
+
+        $object = null;
+        $tpl = $this->smarty->createTemplate('string:{$object?->hello}');
+        $tpl->assign('object', $object);
+        $this->assertEquals((string)null, $this->smarty->fetch($tpl));
+    }
+
+    public function testNullSafeOperatorChaining()
+    {
+        $object = new VariableObject;
+        $tpl = $this->smarty->createTemplate('string:{$object?->returnSelf()?->myhello()}');
+        $tpl->assign('object', $object);
+        $this->assertEquals('hello world', $this->smarty->fetch($tpl));
+
+        $tpl = $this->smarty->createTemplate('string:{$object?->returnNull()?->myhello()}');
+        $tpl->assign('object', $object);
+        $this->assertEquals((string)null, $this->smarty->fetch($tpl));
+    }
+
 }
 
 Class VariableObject
@@ -102,5 +128,15 @@ Class VariableObject
     public function myhello()
     {
         return 'hello world';
+    }
+
+    public function returnSelf()
+    {
+        return $this;
+    }
+
+    public function returnNull()
+    {
+        return null;
     }
 }
