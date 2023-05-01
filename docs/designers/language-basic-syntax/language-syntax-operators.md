@@ -29,7 +29,7 @@ Various basic operators can be applied directly to variable values.
 
 ## Ternary
 You can use the `?:` (or ternary) operator to test one expression and present the value
-of the second or third expression, based on the result of te test.
+of the second or third expression, based on the result of the test.
 
 In other words:
 ```smarty
@@ -47,4 +47,18 @@ return 'hello':
 ```smarty
 {$myVar="hello"}
 {$myVar ?: "empty"}
+```
+
+## Testing for null
+If "something that evaluates to false" is to broad a test for you, you can use the `??` (or null coalescing) operator 
+to trigger only if the tested value is undefined or set to null.
+```smarty
+{$myVar ?? "empty"}
+```
+will result in 'empty' if `$myVar` is not set or set to null.
+If `$myVar` is set to something that evaluates to anything else, the value of `$myVar` is returned. So, the following will
+return an empty string (''):
+```smarty
+{$myVar=""}
+{$myVar ?: "this is not shown"}
 ```
