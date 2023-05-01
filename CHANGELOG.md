@@ -8,8 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added support for PHP8.2
-- Added a new way to extend Smarty functionality using `Smarty::addExtension()`
-- Full support for ternary `{$test ? $a : $b}` and `{$var ?: $alternative}` [#881](https://github.com/smarty-php/smarty/issues/881)
+- Added a new way to extend Smarty functionality using `Smarty::addExtension()`. Please see the docs for more information.
+- Custom tags can accept positional parameters, so you can write a block compiler that support this: `{trans "Jack" "dull boy"}All work and no play makes %s a %s.{/trans}` [#164](https://github.com/smarty-php/smarty/issues/164)
+- Full support for ternary operator: `{$test ? $a : $b}` and `{$var ?: $alternative}` [#881](https://github.com/smarty-php/smarty/issues/881)
 
 ### Changed
 - All Smarty code is now in the \Smarty namespace. For simple use-cases, you only need to add
@@ -19,11 +20,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Template variable scope bubbling has been simplified and made more consistent. 
   The global scope now equals the Smarty scope in order to avoid global state side effects. Please read
   the documentation for more details.
-- Lexers and Parsers PHP files are no longer under version control, but generated from sources (.y and .plex) 
+- Lexers and Parsers PHP files are reliably generated from sources (.y and .plex) using the make file 
 - Smarty now always runs in multibyte mode, using `symfony/polyfill-mbstring` if required. Please use the
   multibyte extension for optimal performance.
 - Smarty no longer calls `mb_internal_encoding()` and doesn't check for deprecated `mbstring.func_overload` ini directive [#480](https://github.com/smarty-php/smarty/issues/480)
 - Generated `<script>` tags lo longer have deprecated `type="text/javascript"` or `language="Javascript"` attributes [#815](https://github.com/smarty-php/smarty/issues/815)
+- Smarty will throw a compiler exception insteadd of silently ignoring a modifier on a function call, like this: `{include|dot:"x-template-id" file="included.dot.tpl"}` [#526](https://github.com/smarty-php/smarty/issues/526) 
+- The documentation was largely rewritten
 
 ### Deprecated
 - `$smarty->getPluginsDir()`
@@ -43,8 +46,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed support for loading config files into a non-local scope using `{config_load}` from a template 
 - Removed `$smarty->autoload_filters` in favor of `$smarty->registerFilter()`
 - Removed `$smarty->trusted_dir` and `$smarty->allow_php_templates` since support for executing php scripts from templates has been dropped  
-- Removed `$smarty->php_functions` and `$smarty->php_modifiers`. If you need a PHP-function in your templates,
-  register it as a modifier.
+- Removed `$smarty->php_functions` and `$smarty->php_modifiers`. 
+- You can no longer use native PHP-functions or userland functions in your templates without registering them. If you need a function in your templates,
+  register it first.
 - Removed support for `$smarty->getTags()`
 - Removed the abandoned `$smarty->direct_access_security` setting
 - Dropped support for `$smarty->plugins_dir` and `$smarty->use_include_path`. If you must, use `$smarty->addPluginsDir()` instead,
