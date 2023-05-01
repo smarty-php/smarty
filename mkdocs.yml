@@ -32,10 +32,10 @@ nav:
         - Introduction: 'designers/language-basic-syntax/index.md'
         - Comments: 'designers/language-basic-syntax/language-syntax-comments.md'
         - Variables: 'designers/language-basic-syntax/language-syntax-variables.md'
+        - Operators: 'designers/language-basic-syntax/language-syntax-operators.md'
         - Functions: 'designers/language-basic-syntax/language-syntax-functions.md'
         - Attributes: 'designers/language-basic-syntax/language-syntax-attributes.md'
         - Quotes: 'designers/language-basic-syntax/language-syntax-quotes.md'
-        - Math: 'designers/language-basic-syntax/language-math.md'
         - 'Escaping Smarty parsing': 'designers/language-basic-syntax/language-escaping.md'
     - 'Variables':
         - 'Introduction': 'designers/language-variables/index.md'
