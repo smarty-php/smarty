@@ -617,6 +617,11 @@ expr(res)        ::= value(v). {
     res = v;
 }
 
+                 // nullcoalescing
+expr(res)        ::= nullcoalescing(v). {
+    res = v;
+}
+
                  // ternary
 expr(res)        ::= ternary(v). {
     res = v;
@@ -668,6 +673,10 @@ expr(res)        ::= expr(e1) ISIN value(v).  {
     res = 'in_array('.e1.',(array)'.v.')';
 }
 
+// null coalescing
+nullcoalescing(res)        ::= expr(v) QMARK QMARK expr(e2). {
+    res = v.' ?? '.e2;
+}
 
 //
 // ternary
