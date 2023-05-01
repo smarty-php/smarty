@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added support for PHP8.2
 - Added a new way to extend Smarty functionality using `Smarty::addExtension()`
+- Full support for ternary `{$test ? $a : $b}` and `{$var ?: $alternative}` [#881](https://github.com/smarty-php/smarty/issues/881)
 
 ### Changed
 - All Smarty code is now in the \Smarty namespace. For simple use-cases, you only need to add

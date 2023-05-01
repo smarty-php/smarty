@@ -100,7 +100,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
      *
      * @param null $dir working directory
      */
-    public function setUpSmarty($dir = null)
+    public function setUpSmarty($dir)
     {
         static $s_dir;
         // set up current working directory
