@@ -122,6 +122,23 @@ $smarty->setCacheDir('/data/caches');
 $cacheDir = $smarty->getCacheDir();
 ```
 
+## Disabling compile check
+By default, Smarty tests to see if the
+current template has changed since the last time
+it was compiled. If it has changed, it recompiles that template. 
+
+Once an application is put into production, this compile-check step 
+is usually no longer needed and the extra checks can significantly hurt performance. 
+Be sure to disable compile checking on production for maximum performance. 
+```php
+<?php
+$smarty->setCompileCheck(\Smarty\Smarty::COMPILECHECK_OFF);
+```
+
+If [`caching`](./caching/basics.md) is enabled and compile-check is
+enabled, then the cache files will get regenerated if an involved
+template file or config file was updated.
+
 ## Charset encoding
 
 There are a variety of encodings for textual data, ISO-8859-1 (Latin1)
