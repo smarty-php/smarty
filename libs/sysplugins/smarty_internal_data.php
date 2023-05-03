@@ -91,7 +91,7 @@ abstract class Smarty_Internal_Data
      * @param mixed        $value   the value to assign
      * @param boolean      $nocache if true any output of this variable will be not cached
      *
-     * @return Smarty_Internal_Data current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
+     * @return static      current Smarty_Internal_Data (or Smarty or Smarty_Internal_Template) instance for
      *                              chaining
      */
     public function assign($tpl_var, $value = null, $nocache = false)
@@ -129,7 +129,7 @@ abstract class Smarty_Internal_Data
      * @param bool         $nocache if true any output of this variable will
      *                              be not cached
      *
-     * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
+     * @return static
      */
     public function append($tpl_var, $value = null, $merge = false, $nocache = false)
     {
@@ -143,7 +143,7 @@ abstract class Smarty_Internal_Data
      * @param mixed   $value   the value to assign
      * @param boolean $nocache if true any output of this variable will be not cached
      *
-     * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
+     * @return static
      */
     public function assignGlobal($varName, $value = null, $nocache = false)
     {
@@ -157,7 +157,7 @@ abstract class Smarty_Internal_Data
      * @param mixed   &$value  the referenced value to append
      * @param boolean $merge   flag if array elements shall be merged
      *
-     * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
+     * @return static
      */
     public function appendByRef($tpl_var, &$value, $merge = false)
     {
@@ -171,7 +171,7 @@ abstract class Smarty_Internal_Data
      * @param         $value
      * @param boolean $nocache if true any output of this variable will be not cached
      *
-     * @return \Smarty_Internal_Data|\Smarty_Internal_Template|\Smarty
+     * @return static
      */
     public function assignByRef($tpl_var, &$value, $nocache = false)
     {
