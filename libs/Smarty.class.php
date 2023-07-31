@@ -621,6 +621,13 @@ class Smarty extends Smarty_Internal_TemplateBase
     protected $plugins_dir = array();
 
     /**
+     * plugins namespace
+     *
+     * @var array
+     */
+    protected $plugins_namespaces = array();
+
+    /**
      * cache directory
      *
      * @var string
@@ -899,6 +906,42 @@ class Smarty extends Smarty_Internal_TemplateBase
     }
 
     /**
+     * Adds namespace for plugin files
+     *
+     * @param null|array|string $plugins_namespaces
+     *
+     * @return Smarty current Smarty instance for chaining
+     */
+    public function addPluginsNamespace($plugins_namespaces)
+    {
+        $this->plugins_namespaces = array_merge($this->plugins_namespaces, (array)$plugins_namespaces);
+        return $this;
+    }
+
+    /**
+     * Get plugin namespace(s)
+     *
+     * @return array list of plugin namespace(s)
+     */
+    public function getPluginsNamespaces() : Array
+    {
+        return $this->plugins_namespaces;
+    }
+
+    /**
+     * Set plugin namepaces
+     *
+     * @param string|array $plugins_namespaces namespace(s) of plugins
+     *
+     * @return Smarty       current Smarty instance for chaining
+     */
+    public function setPluginsNamespaces($plugins_namespaces)
+    {
+        $this->plugins_namespaces = (array)$plugins_namespaces;
+        return $this;
+    }
+
+    /**
      * Get compiled directory
      *
      * @return string path to compiled templates
@@ -1030,7 +1073,10 @@ class Smarty extends Smarty_Internal_TemplateBase
      */
     public function loadPlugin($plugin_name, $check = true)
     {
-        return $this->ext->loadPlugin->loadPlugin($this, $plugin_name, $check);
+        $result = $this->ext->autoLoadPlugin->autoLoadPlugin($this, $plugin_name, $check);
+	if ($result === false) $result = $this->ext->loadPlugin->loadPlugin($this, $plugin_name, $check);
+
+	return $result;
     }
 
     /**

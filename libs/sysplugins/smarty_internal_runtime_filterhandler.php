@@ -41,7 +41,10 @@ class Smarty_Internal_Runtime_FilterHandler
                 } elseif (class_exists($plugin_name, false) && is_callable(array($plugin_name, 'execute'))) {
                     $callback = array($plugin_name, 'execute');
                 } elseif ($template->smarty->loadPlugin($plugin_name, false)) {
-                    if (function_exists($plugin_name)) {
+		    if (class_exists($name, true) && is_callable(array($name, "{$type}filter"))) {
+		        // use autoloader style plugin
+			$callback = array($name, "{$type}filter");
+		    } elseif (function_exists($plugin_name)) {
                         // use loaded Smarty2 style plugin
                         $callback = $plugin_name;
                     } elseif (class_exists($plugin_name, false) && is_callable(array($plugin_name, 'execute'))) {

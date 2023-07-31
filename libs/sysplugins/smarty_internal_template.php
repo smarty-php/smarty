@@ -449,19 +449,38 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
     {
         static $checked = array();
         foreach ($plugins as $plugin) {
-            $name = join('::', (array)$plugin[ 'function' ]);
-            if (!isset($checked[ $name ])) {
-                if (!is_callable($plugin[ 'function' ])) {
-                    if (is_file($plugin[ 'file' ])) {
-                        include_once $plugin[ 'file' ];
-                        if (is_callable($plugin[ 'function' ])) {
-                            $checked[ $name ] = true;
-                        }
-                    }
-                } else {
+            if (array_key_exists('method', $plugin)) {
+                // autoloader plugins
+                $name = join('::', $plugin[ 'method' ]);
+                if (is_callable($name)) {
                     $checked[ $name ] = true;
                 }
+                 else {
+                     throw new SmartyException("Plugin '{$name}' not callable");
+                 }
             }
+            elseif (array_key_exists('function', $plugin)) {
+                 // legacy plugins
+                 $name = join('::', (array)$plugin[ 'function' ]);
+                 if (!isset($checked[ $name ])) {
+                     if (!is_callable($plugin[ 'function' ])) {
+                         if (is_file($plugin[ 'file' ])) {
+                             include_once $plugin[ 'file' ];
+                             if (is_callable($plugin[ 'function' ])) {
+                                 $checked[ $name ] = true;
+                             }
+                        }
+                    } else {
+                        $checked[ $name ] = true;
+                    }
+                }
+            }
+	    else {
+	        // plugin must either set "method" (auto-load plugins)
+		// or "function" (procedural plugins)
+                throw new SmartyException("Plugin '{$name}' not defined");
+	    }
+
             if (!isset($checked[ $name ])) {
                 if (false !== $this->smarty->loadPlugin($name)) {
                     $checked[ $name ] = true;

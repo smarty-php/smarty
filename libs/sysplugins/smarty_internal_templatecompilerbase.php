@@ -820,7 +820,20 @@ abstract class Smarty_Internal_TemplateCompilerBase
         // loop through plugin dirs and find the plugin
         $function = 'smarty_' . $plugin_type . '_' . $plugin_name;
         $file = $this->smarty->loadPlugin($function, false);
-        if (is_string($file)) {
+        if (is_array($file)) {
+            // plugin is implemented by a static method of an auto-loaded class
+            if ($this->caching && ($this->nocache || $this->tag_nocache)) {
+                $this->required_plugins[ 'nocache' ][ $plugin_name ][ $plugin_type ][ 'method' ] =
+                    $file;
+            } else {
+                $this->required_plugins[ 'compiled' ][ $plugin_name ][ $plugin_type ][ 'method' ] =
+                    $file;
+            }
+            if ($plugin_type === 'modifier') {
+                $this->modifier_plugins[ $plugin_name ] = true;
+            }
+            return join('::', $file);
+        } elseif (is_string($file)) {
             if ($this->caching && ($this->nocache || $this->tag_nocache)) {
                 $this->required_plugins[ 'nocache' ][ $plugin_name ][ $plugin_type ][ 'file' ] =
                     $file;
