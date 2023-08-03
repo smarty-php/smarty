@@ -1,0 +1,1 @@
+{include './test_scope_inheritance_child.tpl'}{checkvar var=foo}
