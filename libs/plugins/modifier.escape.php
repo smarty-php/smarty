@@ -21,6 +21,11 @@
  */
 function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-8859-1')
 {
+    // Early return for null, '', or '0', none of which need to be escaped and null will cause e-notices.
+    if (empty($string)) {
+        return (string) $string;
+    }
+
     switch ($esc_type) {
         case 'html':
             return htmlspecialchars($string, ENT_QUOTES, $char_set);
