@@ -1,7 +1,13 @@
-all: lexers parsers
+all: lexers parsers docs
 
 lexers: src/Lexer/ConfigfileLexer.php src/Lexer/TemplateLexer.php
 parsers: src/Parser/ConfigfileParser.php src/Parser/TemplateParser.php
+
+docs:
+	mike deploy 5.0
+
+test-docs:
+	mkdocs serve
 
 src/Lexer/ConfigfileLexer.php: src/Lexer/ConfigfileLexer.plex
 	php ./utilities/make-lexer.php src/Lexer/ConfigfileLexer.plex src/Lexer/ConfigfileLexer.php
