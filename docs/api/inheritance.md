@@ -120,7 +120,7 @@ and parent templates can be merged by the `append` or `prepend`
 ## Extends resource type
 Instead of using [`{extends}`](../designers/language-builtin-functions/language-function-extends.md) tags in the
 template files you can define the inheritance tree in your PHP script by
-using the [`extends:` resource](../resources/resources-extends.md) type.
+using the [`extends:` resource](resources.md#the-extends-resource) type.
 
 The code below will return same result as the example above.
 

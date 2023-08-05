@@ -123,19 +123,20 @@ nav:
           - 'Objects': 'api/variables/objects.md'
           - 'Static class methods': 'api/variables/static-class-methods.md'
       - 'Template inheritance': 'api/inheritance.md'
+      - 'Filters':
+          - 'Output filters': 'api/filters/output-filters.md'
+          - 'Prefilters': 'api/filters/prefilters.md'
+          - 'Postfilters': 'api/filters/postfilters.md'
+      - 'Template resources': 'api/resources.md'
       - 'Caching':
         - 'Basics': 'api/caching/basics.md'
         - 'Multiple caches per page': 'api/caching/multiple-caches-per-pages.md'
         - 'Custom cache storage layers': 'api/caching/custom-storage-layers.md'
-      - 'Security': 'api/security.md'
       - 'Extending Smarty':
           - 'Introduction': 'api/extending/introduction.md'
           - 'Creating an Extension': 'api/extending/extensions.md'
           - 'Custom tags': 'api/extending/tags.md'
           - 'Custom block tags': 'api/extending/block-tags.md'
           - 'Custom modifiers': 'api/extending/modifiers.md'
-      - 'Filters':
-          - 'Prefilters': 'api/filters/prefilters.md'
-          - 'Postfilters': 'api/filters/postfilters.md'
-          - 'Output filters': 'api/filters/output-filters.md'
-      - 'Loading templates from resources': 'api/resources.md'
+      - 'Security': 'api/security.md'
+

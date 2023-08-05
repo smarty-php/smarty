@@ -1,3 +1,0 @@
-# Extending Smarty
-
-@TODO
