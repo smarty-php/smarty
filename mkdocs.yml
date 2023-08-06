@@ -134,9 +134,9 @@ nav:
         - 'Custom cache storage layers': 'api/caching/custom-storage-layers.md'
       - 'Extending Smarty':
           - 'Introduction': 'api/extending/introduction.md'
-          - 'Creating an Extension': 'api/extending/extensions.md'
           - 'Custom tags': 'api/extending/tags.md'
           - 'Custom block tags': 'api/extending/block-tags.md'
           - 'Custom modifiers': 'api/extending/modifiers.md'
+          - 'Creating an extension': 'api/extending/extensions.md'
       - 'Security': 'api/security.md'
 

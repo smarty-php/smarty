@@ -295,6 +295,23 @@ class HelloWorldResource extends Smarty\Resource\CustomPlugin {
 $smarty->registerResource('helloworld', new HelloWorldResource());
 ```
 
+If a Resource's templates should not be run through the Smarty
+compiler, the Custom Resource may extend `\Smarty\Resource\UncompiledPlugin`.
+The Resource Handler must then implement the function
+`renderUncompiled(\Smarty\Template $_template)`. `$_template` is
+a reference to the current template and contains all assigned variables
+which the implementor can access via
+`$_template->getSmarty()->getTemplateVars()`. These Resources simply echo
+their rendered content to the output stream. The rendered output will be
+output-cached if the Smarty instance was configured accordingly. See
+`src/Resource/PhpPlugin.php` for an example.
+
+If the Resource's compiled templates should not be cached on disk, the
+Custom Resource may extend `\Smarty\Resource\RecompiledPlugin`. These Resources
+are compiled every time they are accessed. This may be an expensive
+overhead. See `src/Resource/StringEval.php` for an
+example.
+
 ## Changing the default resource type
 The default resource type is `file`. If you want to change it, use `Smarty::setDefaultResourceType`.
 
