@@ -33,13 +33,8 @@ $smarty = new Smarty();
 Now that the library files are in place, it's time to set up the Smarty
 directories for your application.
 
-Smarty requires four directories which are by default named
-    [`templates`](./programmers/api-variables/variable-template-dir.md),
-    [`configs`](./programmers/api-variables/variable-config-dir.md),
-    [`templates_c`](./programmers/api-variables/variable-compile-dir.md)
-     and 
-    [`cache`](./programmers/api-variables/variable-cache-dir.md) 
-    relative to the current working directory.
+Smarty requires four directories which are by default named `templates`, `configs`, `templates_c` and `cache` 
+relative to the current working directory.
 
 The defaults can be changed as follows:
 
