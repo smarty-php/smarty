@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of {break} tag
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {break} tag tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ *
+ *
  */
 class CompileBreakTest extends PHPUnit_Smarty
 {

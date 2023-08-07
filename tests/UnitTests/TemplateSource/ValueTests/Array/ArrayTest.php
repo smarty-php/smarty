@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests array definitions and access
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for array tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ *
  */
 class ArrayTest extends PHPUnit_Smarty
 {
@@ -27,9 +27,9 @@ class ArrayTest extends PHPUnit_Smarty
     /**
      * Test array access
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestArray
-     * @runInSeparateProcess
+     * 
      */
     public function testArray($code, $result, $testName, $testNumber)
     {

@@ -10,19 +10,22 @@
  * -------------------------------------------------------------
  */
 
-class Smarty_Resource_Db4 extends Smarty_Resource
+use Smarty\Template;
+use Smarty\Template\Config;
+use Smarty\Template\Source;
+
+class Smarty_Resource_Db4 extends Smarty\Resource\BasePlugin
 {
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    public function populate(Source $source, Template $_template = null)
     {
-        $source->filepath = 'db4:';
         $source->uid = sha1($source->resource);
         $source->timestamp = 0;
         $source->exists = true;
     }
 
-    public function getContent(Smarty_Template_Source $source)
+    public function getContent(Source $source)
     {
-        if ($source->is_config) {
+        if ($source instanceof Config) {
             return "foo = 'bar'\n";
         }
 

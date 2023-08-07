@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests of modifier
  *
- * @package PHPunit
+
  * @author  Rodney Rehm
  */
 
@@ -11,9 +11,9 @@
  *
  *
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ *
+ * 
  */
 class PhpFunctionTest extends PHPUnit_Smarty
 {
@@ -57,6 +57,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty2()
     {
         $this->smarty->disableSecurity();
+        $this->getSmarty()->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'pass', function ($v) { return $v; });
         $this->smarty->assign('var', array(null,
                                            false,
                                            (int) 0,
@@ -78,6 +79,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty3()
     {
         $this->smarty->disableSecurity();
+        $this->getSmarty()->registerPlugin(\Smarty\Smarty::PLUGIN_FUNCTION, 'pass', function ($v) { return $v; });
         $this->smarty->assign('var', array(true,
                                            (int) 1,
                                            (float) 0.1,
@@ -97,6 +99,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty4()
     {
         $this->smarty->disableSecurity();
+        $this->getSmarty()->registerPlugin(\Smarty\Smarty::PLUGIN_FUNCTION, 'pass', function ($v) { return $v; });
         $this->smarty->assign('var', new TestIsset());
         $expected = ' true , false , false , true , true , true , false ';
         $this->assertEquals($expected, $this->smarty->fetch('string:{strip}{if empty($var->isNull)} true {else} false {/IF}
@@ -114,6 +117,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testIsset1()
     {
         $this->smarty->disableSecurity();
+        $this->getSmarty()->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'pass', function ($v) { return $v; });
         $this->smarty->assign('isNull', null);
         $this->smarty->assign('isSet', 1);
         $this->smarty->assign('arr', array('isNull' => null, 'isSet' => 1));
@@ -135,6 +139,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     {
         $this->smarty->disableSecurity();
         $this->smarty->assign('var', new TestIsset());
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'pass', function ($v) { return $v; });
         $expected = ' false , true , true , false , false , false , true ';
         $this->assertEquals($expected, $this->smarty->fetch('string:{strip}{if isset($var->isNull)} true {else} false {/IF}
         ,{if isset($var->isSet)} true {else} false {/IF}
@@ -155,6 +160,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testIsset3($strTemplate, $result)
     {
         $this->smarty->disableSecurity();
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'intval', 'intval');
 
         $this->smarty->assign('varobject', new TestIsset());
         $this->smarty->assign('vararray', $vararray = array(
@@ -196,15 +202,6 @@ class PhpFunctionTest extends PHPUnit_Smarty
             array('{if isset($_varsimple{$key})}true{else}false{/if}', 'true'),
         );
     }
-}
-
-/**
- * @param mixed $v
- *
- * @return mixed
- */
-function pass($v) {
-    return $v;
 }
 
 /**

@@ -2,16 +2,18 @@
 /**
  * Smarty PHPunit tests register->resource
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
+
+use Smarty\Resource\CustomPlugin;
 
 /**
  * class for register->resource tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ *
  */
 class RegisteredResourceTest extends PHPUnit_Smarty
 {
@@ -20,7 +22,7 @@ class RegisteredResourceTest extends PHPUnit_Smarty
     {
         $this->setUpSmarty(__DIR__);
 
-        $this->smarty->registerResource("rr", new RegisteredResourceTest_Resource1());
+        $this->smarty->registerResource("rr", new RegisteredResourceTest_Resource1Plugin());
     }
 
 
@@ -47,8 +49,8 @@ class RegisteredResourceTest extends PHPUnit_Smarty
     public function testResourcePluginTimestamp()
     {
         $tpl = $this->smarty->createTemplate('rr:test');
-        $this->assertTrue(is_integer($tpl->source->getTimeStamp()));
-        $this->assertEquals(10, strlen($tpl->source->getTimeStamp()));
+        $this->assertTrue(is_integer($tpl->getSource()->getTimeStamp()));
+        $this->assertEquals(10, strlen($tpl->getSource()->getTimeStamp()));
     }
 
     /**
@@ -56,11 +58,11 @@ class RegisteredResourceTest extends PHPUnit_Smarty
      */
     public function testResourceCompileIdChange()
     {
-        $this->smarty->registerResource('myresource', new RegisteredResourceTest_Resource2());
-        $this->smarty->compile_id = 'a';
+        $this->smarty->registerResource('myresource', new RegisteredResourceTest_Resource2Plugin());
+        $this->smarty->setCompileId('a');
         $this->assertEquals('this is template 1', $this->smarty->fetch('myresource:some'));
         $this->assertEquals('this is template 1', $this->smarty->fetch('myresource:some'));
-        $this->smarty->compile_id = 'b';
+        $this->smarty->setCompileId('b');
         $this->assertEquals('this is template 2', $this->smarty->fetch('myresource:some'));
         $this->assertEquals('this is template 2', $this->smarty->fetch('myresource:some'));
     }
@@ -69,7 +71,7 @@ class RegisteredResourceTest extends PHPUnit_Smarty
      *
      */
     public function testSmartyTemplate() {
-        $this->smarty->registerResource('mytpl', new RegisteredResourceTest_Resource3());
+        $this->smarty->registerResource('mytpl', new RegisteredResourceTest_Resource3Plugin());
         $this->assertEquals('template = mytpl:foo', $this->smarty->fetch('mytpl:foo'));
     }
     /**
@@ -77,12 +79,12 @@ class RegisteredResourceTest extends PHPUnit_Smarty
      *
      */
     public function testSmartyCurrentDir() {
-        $this->smarty->registerResource('mytpl', new RegisteredResourceTest_Resource4());
+        $this->smarty->registerResource('mytpl', new RegisteredResourceTest_Resource4Plugin());
         $this->assertEquals('current_dir = .', $this->smarty->fetch('mytpl:bar'));
     }
 }
 
-class RegisteredResourceTest_Resource1 extends Smarty_Resource_Custom {
+class RegisteredResourceTest_Resource1Plugin extends CustomPlugin {
 
     protected function fetch($name, &$source, &$mtime) {
         $source = '{$x="hello world"}{$x}';
@@ -91,7 +93,7 @@ class RegisteredResourceTest_Resource1 extends Smarty_Resource_Custom {
 
 }
 
-class RegisteredResourceTest_Resource2 extends Smarty_Resource_Custom {
+class RegisteredResourceTest_Resource2Plugin extends CustomPlugin {
 
     protected function fetch($name, &$source, &$mtime) {
 
@@ -112,7 +114,7 @@ class RegisteredResourceTest_Resource2 extends Smarty_Resource_Custom {
 
 }
 
-class RegisteredResourceTest_Resource3 extends Smarty_Resource_Custom {
+class RegisteredResourceTest_Resource3Plugin extends CustomPlugin {
 
     protected function fetch($name, &$source, &$mtime) {
         $source = 'template = {$smarty.template}';
@@ -121,7 +123,7 @@ class RegisteredResourceTest_Resource3 extends Smarty_Resource_Custom {
 
 }
 
-class RegisteredResourceTest_Resource4 extends Smarty_Resource_Custom {
+class RegisteredResourceTest_Resource4Plugin extends CustomPlugin {
 
     protected function fetch($name, &$source, &$mtime) {
         $source = 'current_dir = {$smarty.current_dir}';

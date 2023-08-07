@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests compilation of {while} tag
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -10,8 +10,8 @@
  * class for {while} tag tests
  *
  * @not runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
  */
 class CompileWhileTest extends PHPUnit_Smarty
 {
@@ -46,9 +46,9 @@ class CompileWhileTest extends PHPUnit_Smarty
     /**
      * Test spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testSpacing($code, $result, $testName, $testNumber)
     {
@@ -101,8 +101,8 @@ class CompileWhileTest extends PHPUnit_Smarty
     /**
      * Test  nocache
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      * @dataProvider        dataTestNocache
      */
     public function testNocache($value, $nocache, $code, $result, $testName, $testNumber)
@@ -120,7 +120,7 @@ class CompileWhileTest extends PHPUnit_Smarty
     }
 
     /*
-      * Data provider für testNocache
+      * Data provider for testNocache
       */
     public function dataTestNocache()
     {

@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests deault template handler
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for block plugin tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class DefaultTemplateHandlerTest extends PHPUnit_Smarty
 {
@@ -36,7 +36,7 @@ class DefaultTemplateHandlerTest extends PHPUnit_Smarty
             $this->smarty->fetch('foo.tpl');
         }
         catch (Exception $e) {
-            $this->assertStringContainsString('Unable to load template', $e->getMessage());
+            $this->assertStringContainsString('Unable to load', $e->getMessage());
 
             return;
         }
@@ -93,7 +93,7 @@ class DefaultTemplateHandlerTest extends PHPUnit_Smarty
     }
 }
 
-function my_template_handler($resource_type, $resource_name, &$template_source, &$template_timestamp, Smarty $smarty)
+function my_template_handler($resource_type, $resource_name, &$template_source, &$template_timestamp, \Smarty\Smarty $smarty)
 {
     $output = "Recsource $resource_name of type $resource_type not found";
     $template_source = $output;
@@ -102,12 +102,12 @@ function my_template_handler($resource_type, $resource_name, &$template_source, 
     return true;
 }
 
-function my_template_handler_file($resource_type, $resource_name, &$template_source, &$template_timestamp, Smarty $smarty)
+function my_template_handler_file($resource_type, $resource_name, &$template_source, &$template_timestamp, \Smarty\Smarty $smarty)
 {
     return $smarty->getTemplateDir(0) . 'helloworld.tpl';
 }
 
-function my_false($resource_type, $resource_name, &$template_source, &$template_timestamp, Smarty $smarty)
+function my_false($resource_type, $resource_name, &$template_source, &$template_timestamp, \Smarty\Smarty $smarty)
 {
     return false;
 }

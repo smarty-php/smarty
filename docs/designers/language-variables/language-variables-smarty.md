@@ -66,8 +66,7 @@ difference.
 
 ## {$smarty.const}
 
-You can access PHP constant values directly. See also [smarty
-constants](../../programmers/smarty-constants.md).
+You can access PHP constant values directly.
 
 ```php
 <?php

@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests static class access to constants, variables and methods
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for static class access to constants, variables and methods tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class StaticClassAccessTest extends PHPUnit_Smarty
 {

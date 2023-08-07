@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of assign tags
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for assign tags tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ *
  */
 class CompileAssignTest extends PHPUnit_Smarty
 {
@@ -33,7 +33,7 @@ class CompileAssignTest extends PHPUnit_Smarty
      * Test assign tags
      *
      * @not                 runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestAssign
      */
     public function testAssign($code, $result, $testName, $testNumber)
@@ -93,9 +93,9 @@ class CompileAssignTest extends PHPUnit_Smarty
     /**
      * Test Assign spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testAssignSpacing($code, $result, $testName, $testNumber)
     {
@@ -111,9 +111,9 @@ class CompileAssignTest extends PHPUnit_Smarty
     /**
      * Test Output nocache spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testAssignSpacingNocache($code, $result, $testName, $testNumber)
     {
@@ -130,9 +130,9 @@ class CompileAssignTest extends PHPUnit_Smarty
     /**
      * Test Output nocache spacings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testAssignSpacingNocache2($code, $result, $testName, $testNumber)
     {

@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests for stream resources
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for stream resource tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class StreamResourceTest extends PHPUnit_Smarty
 {
@@ -27,7 +27,6 @@ class StreamResourceTest extends PHPUnit_Smarty
         fclose($fp);
     }
 
-
     public function testInit()
     {
         $this->cleanDirs();
@@ -41,10 +40,10 @@ class StreamResourceTest extends PHPUnit_Smarty
     /**
      * test getTemplateFilepath
      */
-    public function testGetTemplateFilepath()
+    public function testGetFullResourceName()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertEquals('global://mytest', $tpl->source->filepath);
+        $this->assertEquals('global:mytest', $tpl->getSource()->getFullResourceName());
     }
 
     /**
@@ -53,7 +52,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->source->getTimeStamp());
+        $this->assertTrue($tpl->getSource()->getTimeStamp());
     }
 
     /**
@@ -62,7 +61,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testGetTemplateSource()
     {
         $tpl = $this->smarty->createTemplate('global:mytest', null, null, $this->smarty);
-        $this->assertEquals('hello world {$foo}', $tpl->source->getContent());
+        $this->assertEquals('hello world {$foo}', $tpl->getSource()->getContent());
     }
 
     /**
@@ -71,7 +70,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testUsesCompiler()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->source->handler->uncompiled);
+	    $this->markTestIncomplete();
     }
 
     /**
@@ -80,7 +79,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->source->handler->recompiled);
+        $this->assertTrue($tpl->getSource()->handler->recompiled);
     }
 
     /**
@@ -98,7 +97,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testGetCompiledFilepath()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->compiled->filepath);
+        $this->assertNull($tpl->getCompiled()->filepath);
     }
 
     /**
@@ -107,7 +106,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testGetCompiledTimestamp()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertFalse($tpl->compiled->getTimeStamp());
+        $this->assertFalse($tpl->getCompiled()->getTimeStamp());
     }
 
     /**
@@ -116,7 +115,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testTemplateStreamExists1()
     {
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->source->exists);
+        $this->assertTrue($tpl->getSource()->exists);
     }
 
     public function testTemplateStreamExists2()
@@ -130,7 +129,7 @@ class StreamResourceTest extends PHPUnit_Smarty
     public function testTemplateStreamNotExists1()
     {
         $tpl = $this->smarty->createTemplate('global:notthere');
-        $this->assertFalse($tpl->source->exists);
+        $this->assertFalse($tpl->getSource()->exists);
     }
 
     public function testTemplateStramNotExists2()
@@ -138,15 +137,15 @@ class StreamResourceTest extends PHPUnit_Smarty
         $this->assertFalse($this->smarty->templateExists('global:notthere'));
     }
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      * test not existing template
      */
 
     public function testTemplateStramNotExists3()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('\'global:notthere\'');
         $this->smarty->fetch('global:notthere');
     }

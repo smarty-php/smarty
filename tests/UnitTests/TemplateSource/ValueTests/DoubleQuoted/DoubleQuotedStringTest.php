@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests double quoted strings
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for double quoted string tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
 */
 class DoubleQuotedStringTest extends PHPUnit_Smarty
 {
@@ -31,7 +31,7 @@ class DoubleQuotedStringTest extends PHPUnit_Smarty
     /**
      * Test double qouted strings
      *
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestDoubleQuoted
      */
     public function testDoubleQuoted($code, $result, $testName, $testNumber)
@@ -84,7 +84,7 @@ class DoubleQuotedStringTest extends PHPUnit_Smarty
      */
     public function testDoubleQuotedUnclosedBlock_001()
     {
-        $this->expectException('SmartyCompilerException');
+        $this->expectException(\Smarty\CompilerException::class);
         $this->expectExceptionMessage('unclosed \'{if}\' in doubled quoted string');
         $this->smarty->fetch('001_unclosedBlock.tpl');
     }

@@ -69,7 +69,7 @@ Where the template is:
 
 ```smarty
 Welcome <!--{$name}--> to Smarty
-<script language="javascript">
+    <script>
   var foo = <!--{$foo}-->;
   function dosomething() {
     alert("foo is " + foo);

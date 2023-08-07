@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of append tags
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for append tags tests
  *
- * @runTestsInSeparateProcess
+ *
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class CompileAppendTest extends PHPUnit_Smarty
 {
@@ -32,8 +32,8 @@ class CompileAppendTest extends PHPUnit_Smarty
     /**
      * Test {append} tags
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     *
      * @dataProvider        dataTestAppend
      */
     public function testAppend($code, $result, $testName, $testNumber)
@@ -70,9 +70,9 @@ class CompileAppendTest extends PHPUnit_Smarty
     /**
      * Test Assign spacings
      *
-     * @preserveGlobalState disabled
+     *
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testAppendSpacing($code, $result, $testName, $testNumber)
     {
@@ -88,9 +88,9 @@ class CompileAppendTest extends PHPUnit_Smarty
     /**
      * Test Append nocache spacings
      *
-     * @preserveGlobalState disabled
+     *
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testAppendSpacingNocache($code, $result, $testName, $testNumber)
     {
@@ -107,9 +107,9 @@ class CompileAppendTest extends PHPUnit_Smarty
     /**
      * Test Append nocache spacings
      *
-     * @preserveGlobalState disabled
+     *
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testAppendSpacingNocache2($code, $result, $testName, $testNumber)
     {
@@ -118,6 +118,12 @@ class CompileAppendTest extends PHPUnit_Smarty
         $this->smarty->setCompileId('1');
         $this->smarty->setCaching(1);
         $this->smarty->setTemplateDir('./templates_tmp');
+
+	    $this->smarty->assign('foo', 'bar',true);
+	    $this->assertEquals($result,
+		    $this->smarty->fetch($file),
+		    "testSpacing - {$file}");
+
         $this->smarty->assign('foo', 'foo',true);
         $this->assertEquals(str_replace('bar','foo',$result),
                             $this->smarty->fetch($file),

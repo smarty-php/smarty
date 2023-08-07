@@ -2,9 +2,11 @@
 /**
  * Smarty plugin for testing scopes in config vars
  *
- * @package    Smarty
- * @subpackage PHPunitPlugin
+
+
  */
+
+use Smarty\Template;
 
 /**
  * Smarty {checkconfigvar}
@@ -17,29 +19,29 @@
 function smarty_function_checkconfigvar($params, $template)
 {
     $output = '';
-    $types = array('template', 'data', 'smarty');
+    $types = array('template', 'data', 'global');
     if (isset($params['types'])) {
         $types = (array)$params['types'];
     }
     $var = $params['var'];
     $ptr = $template;
     while ($ptr) {
-        if (in_array('template', $types) && $ptr instanceof Smarty_Internal_Template) {
-            $output .= "#{$ptr->source->name}:\${$var} =";
-            $output .= isset($ptr->config_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->config_vars[$var], true)) : 'null';
+        if (in_array('template', $types) && $ptr instanceof Template) {
+            $output .= "#{$ptr->getSource()->name}:\${$var} =";
+            $output .= $ptr->hasConfigVariable($var) ? preg_replace('/\s/', '', var_export($ptr->getConfigVariable($var), true)) : 'null';
             $ptr = $ptr->parent;
-        } elseif (in_array('data', $types) && $ptr instanceof Smarty_Data) {
+        } elseif (in_array('data', $types) && !($ptr instanceof Template || $ptr instanceof \Smarty\Smarty)) {
             $output .= "#data:\${$var} =";
-            $output .= isset($ptr->config_vars[$var]) ? preg_replace('/\s/', '', var_export($ptr->config_vars[$var], true)) : 'null';
+            $output .= $ptr->hasConfigVariable($var) ? preg_replace('/\s/', '', var_export($ptr->getConfigVariable($var), true)) : 'null';
             $ptr = $ptr->parent;
         } else {
             $ptr = null;
         }
     }
-    if (in_array('smarty', $types)) {
-        $output .= "#Smarty:\${$var} =";
-        $output .= isset($template->smarty->config_vars[ $var ]) ?
-            preg_replace('/\s/', '', var_export($template->smarty->config_vars[ $var ], true)) : 'null';
+    if (in_array('global', $types)) {
+        $output .= "#global:\${$var} =";
+        $output .= $template->getSmarty()->hasConfigVariable($var) ?
+            preg_replace('/\s/', '', var_export($template->getSmarty()->getConfigVariable($var), true)) : 'null';
     }
     return $output;
 }

@@ -4,6 +4,10 @@
  *
  */
 
+use Smarty\Exception;
+use Smarty\TemplateBase;
+use Smarty\Template;
+
 /**
  * Smarty Test Case Fixture
  */
@@ -13,7 +17,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     /**
      * Smarty object
      *
-     * @var Smarty
+     * @var \Smarty\Smarty
      */
     public $smarty = null;
 
@@ -55,20 +59,12 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     public static $pluginsdir = null;
 
     /**
-     * Default blacklist
-     *
-     * @var array
-     */
-    protected $backupStaticAttributesBlacklist = array('PHPUnit_Smarty' => array('config', 'pdo', 'init',
-                                                                                 'testNumver', 'pluginsdir'),);
-
-    /**
      * This method is called before the first test of this test class is run.
      *
      */
     public static function setUpBeforeClass(): void
     {
-        error_reporting(E_ALL & ~E_STRICT);
+        error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED & ~E_USER_DEPRECATED);
         self::$init = true;
         self::$pluginsdir =self::getSmartyPluginsDir();
     }
@@ -97,7 +93,6 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
             define('individualFolders', true);
         }
         parent::__construct($name, $data, $dataName);
-      $this->backupStaticAttributesBlacklist[ get_class($this) ] = array('init', 'config', 'pdo', 'testNumber');
     }
 
     /**
@@ -105,7 +100,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
      *
      * @param null $dir working directory
      */
-    public function setUpSmarty($dir = null)
+    public function setUpSmarty($dir)
     {
         static $s_dir;
         // set up current working directory
@@ -143,13 +138,12 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
         clearstatcache();
 
         // instance Smarty class
-        $this->smarty = new Smarty;
+        $this->smarty = new \Smarty\Smarty();
         if (individualFolders != 'true') {
             $this->smarty->setCompileDir(__DIR__ . '/templates_c');
             $this->smarty->setCacheDir(__DIR__ . '/cache');
         }
 
-        $this->getSmartyObj();
     }
 
     /**
@@ -163,7 +157,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
                 PHPUnit_Smarty::$pdo = new PDO(DB_DSN, DB_USER, DB_PASSWD);
             }
             catch (PDOException $e) {
-                throw new SmartyException('Mysql Resource failed: ' . $e->getMessage());
+                throw new Exception('Mysql Resource failed: ' . $e->getMessage());
             }
             $timezone = date_default_timezone_get();
             $j = PHPUnit_Smarty::$pdo->exec("SET time_zone = '{$timezone}';");
@@ -262,7 +256,7 @@ KEY `name` (`name`)
      */
     public function cleanCompileDir()
     {
-        $smarty = $this->getSmartyObj();
+        $smarty = $this->getSmarty();
         if (isset($smarty)) {
             $dir = $smarty->getCompileDir();
             $this->cleanDir($dir);
@@ -275,7 +269,7 @@ KEY `name` (`name`)
      */
     public function cleanCacheDir()
     {
-        $smarty = $this->getSmartyObj();
+        $smarty = $this->getSmarty();
         if (isset($smarty)) {
             $dir = $smarty->getCacheDir();
             $this->cleanDir($dir);
@@ -352,7 +346,7 @@ KEY `name` (`name`)
     /**
      * Return source path
      *
-     * @param Smarty_Internal_TemplateBase $tpl  template object
+     * @param TemplateBase $tpl  template object
      * @param null|string                  $name optional template name
      * @param null|string                  $type optional template type
      * @param null|string                  $dir  optional template folder
@@ -362,8 +356,8 @@ KEY `name` (`name`)
      */
     public function buildSourcePath($tpl, $name = null, $type = null, $dir = null)
     {
-        $name = isset($name) ? $name : $tpl->source->name;
-        $type = isset($type) ? $type : $tpl->source->type;
+        $name = isset($name) ? $name : $tpl->getSource()->name;
+        $type = isset($type) ? $type : $tpl->getSource()->type;
         $dir = isset($dir) ? $dir : $this->smarty->getTemplateDir(0);
         switch ($type) {
             case 'file':
@@ -384,7 +378,7 @@ KEY `name` (`name`)
     /**
      * Build template uid
      *
-     * @param Smarty_Internal_TemplateBase $tpl  template object
+     * @param TemplateBase $tpl  template object
      * @param null|string                  $value
      * @param null|string                  $name optional template name
      * @param null|string                  $type optional template type
@@ -394,17 +388,17 @@ KEY `name` (`name`)
      */
     public function buildUid($tpl, $value = null, $name = null, $type = null)
     {
-        $type = isset($type) ? $type : $tpl->source->type;
-        $name = isset($name) ? $name : $tpl->source->name;
+        $type = isset($type) ? $type : $tpl->getSource()->type;
+        $name = isset($name) ? $name : $tpl->getSource()->name;
         switch ($type) {
             case 'php':
             case 'file':
             case 'filetest':
-                if ($tpl instanceof Smarty) {
+                if ($tpl instanceof \Smarty\Smarty) {
                     return sha1($this->normalizePath($this->smarty->getTemplateDir(0) . $name) .
                                 $this->smarty->_joined_template_dir);
                 }
-                return sha1($tpl->source->filepath . $this->smarty->_joined_template_dir);
+                return sha1($tpl->getSource()->uid . $this->smarty->_joined_template_dir);
             case 'mysqltest':
             case 'mysql':
                 return sha1($type . ':' . $name);
@@ -436,7 +430,7 @@ KEY `name` (`name`)
         if ($match[1] === '') {
             if ($match[ 2 ] !== '' || $match[ 2 ] . $match[ 3 ] . $match[ 4 ] === '') {
                 $path = $getcwd . $ds . $path;
-            } else if (Smarty::$_IS_WINDOWS && $match[ 3 ] !== '') {
+            } else if (\Smarty\Smarty::$_IS_WINDOWS && $match[ 3 ] !== '') {
                 $path = substr($getcwd, 0, 2) . $path;
             }
         }
@@ -457,16 +451,16 @@ KEY `name` (`name`)
     /**
      * Return base name
      *
-     * @param \Smarty_Internal_Template|\Smarty_Internal_TemplateBase $tpl  template object
+     * @param \Smarty\Template|\Smarty\TemplateBase $tpl  template object
      * @param null|string                                             $name optional template name
      * @param null|string                                             $type optional template type
      *
      * @return null|string
      */
-    public function getBasename(Smarty_Internal_Template $tpl, $name = null, $type = null)
+    public function getBasename(Template $tpl, $name = null, $type = null)
     {
-        $name = isset($name) ? $name : $tpl->source->name;
-        $type = isset($type) ? $type : $tpl->source->type;
+        $name = isset($name) ? $name : $tpl->getSource()->name;
+        $type = isset($type) ? $type : $tpl->getSource()->type;
         switch ($type) {
             case 'file':
             case 'filetest':
@@ -487,7 +481,7 @@ KEY `name` (`name`)
     /**
      * Return compiled file path
      *
-     * @param \Smarty_Internal_Template|\Smarty_Internal_TemplateBase $tpl        template object
+     * @param \Smarty\Template|\Smarty\TemplateBase $tpl        template object
      * @param bool                                                    $sub        use sub directory flag
      * @param bool                                                    $caching    caching flag
      * @param null|string                                             $compile_id optional compile id
@@ -498,19 +492,19 @@ KEY `name` (`name`)
      * @return string
      * @throws \Exception
      */
-    public function buildCompiledPath(Smarty_Internal_Template $tpl, $sub = true, $caching = false, $compile_id = null,
-                                      $name = null, $type = null, $dir = null)
+    public function buildCompiledPath(Template $tpl, $sub = true, $caching = false, $compile_id = null,
+                                               $name = null, $type = null, $dir = null)
     {
         $sep = DIRECTORY_SEPARATOR;
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
         $uid = $this->buildUid($tpl, $sp, $name, $type);
         $_flag = '';
-        if (isset($tpl->source) && $tpl->source->isConfig) {
-            $_flag = '_' . ((int) $tpl->smarty->config_read_hidden + (int) $tpl->smarty->config_booleanize * 2 +
-                            (int) $tpl->smarty->config_overwrite * 4);
+        if ($tpl->getSource() && $tpl->getSource()->isConfig) {
+            $_flag = '_' . ((int) $tpl->getSmarty()->config_read_hidden + (int) $tpl->getSmarty()->config_booleanize * 2 +
+                            (int) $tpl->getSmarty()->config_overwrite * 4);
         } else {
-            $_flag = '_' . ((int) $tpl->smarty->merge_compiled_includes + (int) $tpl->smarty->escape_html * 2);
+            $_flag = '_' . ((int) $tpl->getSmarty()->merge_compiled_includes + (int) $tpl->getSmarty()->escape_html * 2);
         }
         $_filepath = $uid . $_flag;
         // if use_sub_dirs, break file into directories
@@ -529,7 +523,7 @@ KEY `name` (`name`)
         } else {
             $_cache = '';
         }
-        $_compile_dir = $tpl->smarty->getCompileDir();
+        $_compile_dir = $tpl->getSmarty()->getCompileDir();
         // set basename if not specified
         $_basename = $this->getBasename($tpl, $name, $type);
         if ($_basename === null) {
@@ -546,7 +540,7 @@ KEY `name` (`name`)
     /**
      * Return cache file path
      *
-     * @param Smarty_Internal_TemplateBase $tpl        template object
+     * @param TemplateBase $tpl        template object
      * @param bool                         $sub        use sub directory flag
      * @param null|string                  $cache_id   optional cache id
      * @param null|string                  $compile_id optional compile id
@@ -558,10 +552,10 @@ KEY `name` (`name`)
      * @return string
      * @throws \Exception
      */
-    public function buildCachedPath($tpl, $sub = true, $cache_id = null, $compile_id = null, $name = null, $type = null,
+    public function buildCachedPath(TemplateBase $tpl, $sub = true, $cache_id = null, $compile_id = null, $name = null, $type = null,
                                     $dir = null, $cacheType = null)
     {
-        $cacheType = isset($cacheType) ? $cacheType : $tpl->smarty->caching_type;
+        $cacheType = $cacheType ?? $tpl->getSmarty()->getCachingType();
         switch ($cacheType) {
             case 'file':
             case 'filetest':
@@ -570,7 +564,7 @@ KEY `name` (`name`)
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
                 $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
                 $uid = $this->buildUid($tpl, $sp, $name, $type);
-                $_filepath = sha1($uid . $this->smarty->_joined_template_dir);
+                $_filepath = $uid;
                 // if use_sub_dirs, break file into directories
                 if ($sub) {
                     $_filepath =
@@ -588,10 +582,7 @@ KEY `name` (`name`)
                 } else {
                     $_compile_id = '';
                 }
-                $smarty = isset($tpl->smarty) ? $tpl->smarty : $tpl;
-                $_cache_dir = $smarty->getCacheDir();
-                return $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($sp) . '.php';
-            case 'mysql':
+	            return $tpl->getSmarty()->getCacheDir() . $_cache_id . $_compile_id . $_filepath . '.' . basename($sp) . '.php';
             case 'mysqltest':
             case 'pdo':
             case 'foobar':
@@ -601,7 +592,7 @@ KEY `name` (`name`)
                 $_cache_id = isset($cache_id) ? preg_replace('![^\w\|]+!', '_', $cache_id) : null;
                 return sha1($uid . $_cache_id . $_compile_id);
             case 'memcachetest':
-            case 'acp':
+            case 'apc':
                 $sp = $this->buildSourcePath($tpl, $name, $type, $dir);
                 $uid = $this->buildUid($tpl, $sp, $name, $type);
                 $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
@@ -618,11 +609,11 @@ KEY `name` (`name`)
      * prefilter to insert test number
      *
      * @param  string                   $source
-     * @param \Smarty_Internal_Template $tpl
+     * @param \Smarty\Template $tpl
      *
      * @return string
      */
-    public function prefilterTest($source, Smarty_Internal_Template $tpl)
+    public function prefilterTest($source, Template $tpl)
     {
         return str_replace('#test#', "test:{\$test nocache} compiled:{$tpl->getTemplateVars('test')} rendered:{\$test}",
                            $source);
@@ -632,34 +623,15 @@ KEY `name` (`name`)
      *  Gat Smarty object
      * @return null|\Smarty
      */
-    public function getSmartyObj(){
+    public function getSmarty(){
         return $this->smarty;
     }
 
     public static function getSmartyPluginsDir(){
-        if (is_dir(__DIR__ . '/../smarty/libs/plugins')) {
-            return __DIR__ . '/../smarty/libs/plugins';
+        if (is_dir(__DIR__ . '/../smarty/src/plugins')) {
+            return __DIR__ . '/../smarty/src/plugins';
         } else if(is_dir(__DIR__ . '/../libs/plugins')) {
             return __DIR__ . '/../libs/plugins';
-        }
-    }
-    /**
-     * Tears down the fixture
-     * This method is called after a test is executed.
-     *
-     */
-    protected function tearDown(): void
-    {
-        if (class_exists('Smarty_Internal_TemplateCompilerBase') &&
-            isset(Smarty_Internal_TemplateCompilerBase::$_tag_objects)
-        ) {
-            Smarty_Internal_TemplateCompilerBase::$_tag_objects = array();
-        }
-        if (isset($this->smarty->smarty)) {
-            $this->smarty->smarty = null;
-        }
-        if (isset($this->smarty)) {
-            $this->smarty = null;
         }
     }
 }

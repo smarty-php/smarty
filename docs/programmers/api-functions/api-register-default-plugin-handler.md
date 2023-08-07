@@ -25,7 +25,7 @@ plugin types.
 
 
     <?php
-
+    use Smarty\Smarty;
     $smarty = new Smarty();
     $smarty->registerDefaultPluginHandler('my_plugin_handler');
 
@@ -37,7 +37,7 @@ plugin types.
      * @param string                     $name      name of the undefined tag
      * @param string                     $type     tag type (e.g. Smarty::PLUGIN_FUNCTION, Smarty::PLUGIN_BLOCK, 
                                                    Smarty::PLUGIN_COMPILER, Smarty::PLUGIN_MODIFIER, Smarty::PLUGIN_MODIFIERCOMPILER)
-     * @param Smarty_Internal_Template   $template     template object
+     * @param \Smarty\Template\   $template     template object
      * @param string                     &$callback    returned function name 
      * @param string                     &$script      optional returned script filepath if function is external
      * @param bool                       &$cacheable    true by default, set to false if plugin is not cachable (Smarty >= 3.1.8)

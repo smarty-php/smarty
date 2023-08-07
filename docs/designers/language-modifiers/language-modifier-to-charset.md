@@ -16,5 +16,5 @@ modifier](#language.modifier.from_charset).
 > modifier should only be used in cases where the application cannot
 > anticipate that a certain string is required in another encoding.
 
-See also [Charset Encoding](../../programmers/charset.md), [from_charset
+See also [Configuring Smarty](../../api/configuring.md), [from_charset
 modifier](language-modifier-from-charset.md).

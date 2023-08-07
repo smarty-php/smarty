@@ -1,1 +1,0 @@
-{include 'include_test2.tpl'}

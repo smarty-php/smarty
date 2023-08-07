@@ -14,7 +14,7 @@ installation can be accessed. It does output a corresponding protocol.
 
 
     <?php
-    require_once('Smarty.class.php');
+    use Smarty\Smarty;
     $smarty  = new Smarty();
     $smarty->testInstall();
     ?>

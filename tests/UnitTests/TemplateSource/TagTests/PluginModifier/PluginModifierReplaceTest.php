@@ -5,9 +5,9 @@ namespace UnitTests\TemplateSource\TagTests\PluginModifier;
 /**
  * class for modifier tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class PluginModifierReplaceTest extends \PHPUnit_Smarty
 {
@@ -18,7 +18,7 @@ class PluginModifierReplaceTest extends \PHPUnit_Smarty
 
     /**
      * @return void
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      *
      * @dataProvider replaceDataProvider
      */

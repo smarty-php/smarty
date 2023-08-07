@@ -2,16 +2,18 @@
 /**
  * Smarty PHPunit tests for security
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
+
+use Smarty\CompilerException;
 
 /**
  * class for security test
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class SecurityTest extends PHPUnit_Smarty
 {
@@ -28,18 +30,6 @@ class SecurityTest extends PHPUnit_Smarty
     }
 
 /**
- * test that security is loaded
-' *'/
-    public function testSecurityReenable()
-    {
-        $this->smarty->disableSecurity();
-        $this->smarty->enableSecurity('Security');
-        $this->smarty->fetch('helloworld.tpl');
-        $this->smarty->disableSecurity();
-        $this->smarty->enableSecurity('Security');
-        $this->smarty->fetch('helloworld.tpl');
-    }
-/**
 * test that security is loaded
  */
     public function testSecurityLoaded()
@@ -50,32 +40,9 @@ class SecurityTest extends PHPUnit_Smarty
 /**
  * test trusted PHP function
  */
-    public function testTrustedPHPFunction()
+    public function testTrustedFunction()
     {
-        $this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{sizeof($foo)}'));
-    }
-
-/**
- * test not trusted PHP function
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
-  */
-    public function testNotTrustedPHPFunction()
-    {
-        $this->expectException('SmartyException');
-        $this->expectExceptionMessage('PHP function \'sizeof\' not allowed by security setting');
-        $this->smarty->security_policy->php_functions = array('null');
-        $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{sizeof($foo)}');
-    }
-
-/**
- * test not trusted PHP function at disabled security
- */
-    public function testDisabledTrustedPHPFunction()
-    {
-        $this->smarty->security_policy->php_functions = array('null');
-        $this->smarty->disableSecurity();
-        $this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{sizeof($foo)}'));
+        $this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{count($foo)}'));
     }
 
 /**
@@ -84,32 +51,21 @@ class SecurityTest extends PHPUnit_Smarty
  */
     public function testTrustedModifier()
     {
-        $this->assertEquals("5", @$this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|@sizeof}'));
+        $this->assertEquals("5", @$this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|@count}'));
     }
 
 /**
  * test not trusted modifier
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
  *  @deprecated
  */
     public function testNotTrustedModifier()
     {
-        $this->expectException('SmartyException');
-        $this->expectExceptionMessage('modifier \'sizeof\' not allowed by security setting');
-        $this->smarty->security_policy->php_modifiers = array('null');
-        @$this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|@sizeof}');
-    }
-
-/**
- * test not trusted modifier at disabled security
- * @deprecated
- */
-    public function testDisabledTrustedModifier()
-    {
-        $this->smarty->security_policy->php_modifiers = array('null');
-        $this->smarty->disableSecurity();
-        @$this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|@sizeof}'));
+        $this->smarty->security_policy->disabled_modifiers[] = 'escape';
+        $this->expectException(\Smarty\Exception::class);
+        $this->expectExceptionMessage('modifier \'escape\' disabled by security setting');
+        @$this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|escape}');
     }
 
 /**
@@ -123,12 +79,12 @@ class SecurityTest extends PHPUnit_Smarty
 
 /**
  * test not allowed tag
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
  */
     public function testNotAllowedTags2()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('tag \'cycle\' not allowed by security setting');
         $this->smarty->security_policy->allowed_tags = array('counter');
         $this->smarty->fetch('string:{counter}{cycle values="1,2"}');
@@ -136,12 +92,12 @@ class SecurityTest extends PHPUnit_Smarty
 
 /**
  * test disabled tag
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
  */
     public function testDisabledTags()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('tag \'cycle\' disabled by security setting');
         $this->smarty->security_policy->disabled_tags = array('cycle');
         $this->smarty->fetch('string:{counter}{cycle values="1,2"}');
@@ -166,12 +122,12 @@ class SecurityTest extends PHPUnit_Smarty
 
 /**
  * test not allowed modifier
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
   */
     public function testNotAllowedModifier()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('modifier \'lower\' not allowed by security setting');
         $this->smarty->security_policy->allowed_modifiers = array('upper');
         $this->smarty->fetch('string:{"hello"|upper}{"world"|lower}');
@@ -179,12 +135,12 @@ class SecurityTest extends PHPUnit_Smarty
 
 /**
  * test disabled modifier
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
   */
     public function testDisabledModifier()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('modifier \'lower\' disabled by security setting');
         $this->smarty->security_policy->disabled_modifiers = array('lower');
         $this->smarty->fetch('string:{"hello"|upper}{"world"|lower}');
@@ -230,12 +186,12 @@ class SecurityTest extends PHPUnit_Smarty
 /**
  * test not trusted directory
   *
-  * @runInSeparateProcess
-  * @preserveGlobalState disabled
+  * 
+  * 
   */
     public function testNotTrustedDirectory()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('not trusted file path');
         $this->smarty->security_policy->secure_dir = array(str_replace('\\', '/', __DIR__ . '/templates_3/'));
         $this->smarty->fetch('string:{include file="templates_2/hello.tpl"}');
@@ -260,40 +216,40 @@ class SecurityTest extends PHPUnit_Smarty
         $this->assertEquals('25', $this->smarty->fetch($tpl));
     }
 
-	/**
-	 * test not trusted PHP function
-	 * @runInSeparateProcess
-	 * @preserveGlobalState disabled
-	 */
-	public function testNotTrustedStaticClass()
-	{
-        $this->expectException('SmartyException');
+    /**
+     * test not trusted PHP function
+     *
+     *
+     */
+    public function testNotTrustedStaticClass()
+    {
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('access to static class \'mysecuritystaticclass\' not allowed by security setting');
         $this->smarty->security_policy->static_classes = array('null');
         $this->smarty->fetch('string:{mysecuritystaticclass::square(5)}');
     }
 
-	/**
-	 * test not trusted PHP function
-	 */
-	public function testNotTrustedStaticClassEval()
-	{
-		$this->expectException('SmartyException');
-		$this->expectExceptionMessage('dynamic static class not allowed by security setting');
-		$this->smarty->security_policy->static_classes = array('null');
-		$this->smarty->fetch('string:{$test = "mysecuritystaticclass"}{$test::square(5)}');
-	}
+    /**
+     * test not trusted PHP function
+     */
+    public function testNotTrustedStaticClassEval()
+    {
+        $this->expectException(\Smarty\Exception::class);
+        $this->expectExceptionMessage('dynamic static class not allowed by security setting');
+        $this->smarty->security_policy->static_classes = array('null');
+        $this->smarty->fetch('string:{$test = "mysecuritystaticclass"}{$test::square(5)}');
+    }
 
-	/**
-	 * test not trusted PHP function
-	 */
-	public function testNotTrustedStaticClassSmartyVar()
-	{
-		$this->expectException('SmartyException');
-		$this->expectExceptionMessage('dynamic static class not allowed by security setting');
-		$this->smarty->security_policy->static_classes = array('null');
-		$this->smarty->fetch('string:{$smarty.template_object::square(5)}');
-	}
+    /**
+     * test not trusted PHP function
+     */
+    public function testNotTrustedStaticClassSmartyVar()
+    {
+        $this->expectException(\Smarty\Exception::class);
+        $this->expectExceptionMessage('dynamic static class not allowed by security setting');
+        $this->smarty->security_policy->static_classes = array('null');
+        $this->smarty->fetch('string:{$smarty.template_object::square(5)}');
+    }
 
     public function testChangedTrustedDirectory()
     {
@@ -311,41 +267,43 @@ class SecurityTest extends PHPUnit_Smarty
 /**
  * test template file exits
  *
- * @runInSeparateProcess
- * @preserveGlobalState disabled
+ * 
+ * 
  */
     public function testTemplateTrustedStream()
     {
-         stream_wrapper_register("global", "ResourceStreamSecurity")
+        stream_wrapper_register("global", ResourceStreamSecurity::class)
         or die("Failed to register protocol");
         $fp = fopen("global://mytest", "r+");
         fwrite($fp, 'hello world {$foo}');
         fclose($fp);
         $this->smarty->security_policy->streams= array('global');
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->source->exists);
+        $this->assertTrue($tpl->getSource()->exists);
+        stream_wrapper_unregister("global");
     }
 /**
- * @runInSeparateProcess
- * @preserveGlobalState disabled
+ * 
+ * 
  * test template file exits
  */
     public function testTemplateNotTrustedStream()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('stream \'global\' not allowed by security setting');
-        stream_wrapper_register("global", "ResourceStreamSecurity")
+        stream_wrapper_register("global", ResourceStreamSecurity::class)
         or die("Failed to register protocol");
         $fp = fopen("global://mytest", "r+");
         fwrite($fp, 'hello world {$foo}');
         fclose($fp);
         $this->smarty->security_policy->streams= array('notrusted');
         $tpl = $this->smarty->createTemplate('global:mytest');
-        $this->assertTrue($tpl->source->exists);
+        $this->assertTrue($tpl->getSource()->exists);
+        stream_wrapper_unregister("global");
     }
 /**
- * @runInSeparateProcess
- * @preserveGlobalState disabled
+ * 
+ * 
 */
     public function testTrustedUri()
     {
@@ -356,12 +314,12 @@ class SecurityTest extends PHPUnit_Smarty
     }
 
 /**
- * @runInSeparateProcess
- * @preserveGlobalState disabled
+ * 
+ * 
 */
     public function testNotTrustedUri()
     {
-        $this->expectException('SmartyException');
+        $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessage('URI \'https://www.smarty.net/docs/en/preface.tpl\' not allowed by security setting');
         $this->smarty->security_policy->trusted_uri = array();
         $this->assertStringContainsString('<title>Preface | Smarty</title>', $this->smarty->fetch('string:{fetch file="https://www.smarty.net/docs/en/preface.tpl"}'));
@@ -371,7 +329,7 @@ class SecurityTest extends PHPUnit_Smarty
      * In security mode, accessing $smarty.template_object should be illegal.
      */
     public function testSmartyTemplateObject() {
-        $this->expectException(SmartyCompilerException::class);
+        $this->expectException(CompilerException::class);
         $this->smarty->display('string:{$smarty.template_object}');
     }
 
@@ -387,10 +345,7 @@ class mysecuritystaticclass
         return $i * $i;
     }
 }
-class Security extends Smarty_Security
-{
 
-}
 #[AllowDynamicProperties]
 class ResourceStreamSecurity
 {

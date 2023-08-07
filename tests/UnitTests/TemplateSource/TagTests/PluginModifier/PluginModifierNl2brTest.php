@@ -6,9 +6,9 @@
 /**
  * class for modifier tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class PluginModifierNl2brTest extends PHPUnit_Smarty
 {

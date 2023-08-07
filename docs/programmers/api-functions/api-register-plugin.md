@@ -32,9 +32,9 @@ cache\_attrs
 This method registers functions or methods defined in your script as
 plugin. It uses the following parameters:
 
--   `cacheable` and `cache_attrs` can be omitted in most cases. See
+-   `cacheable` can be omitted in most cases. See
     [controlling cacheability of plugins output](#caching.cacheable) on
-    how to use them properly.
+    how to use this properly.
 
 <!-- -->
 

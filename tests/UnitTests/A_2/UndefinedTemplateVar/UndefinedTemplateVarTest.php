@@ -6,7 +6,7 @@
 /**
  * class for protected $template_dir, $compile_dir, $cache_dir, $config_dir, $plugins_dir property tests
  *
- * @backupStaticAttributes enabled
+ * 
  */
 class UndefinedTemplateVarTest extends PHPUnit_Smarty
 {
@@ -65,26 +65,13 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
      */
     public function testError()
     {
-        $exceptionThrown = false;
-
-        try {
-            $e1 = error_reporting();
-            $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
-            $e2 = error_reporting();
-            $this->assertEquals($e1, $e2);
-        } catch (Exception $e) {
-
-            $exceptionThrown = true;
-            $this->assertStringStartsWith('Undefined ', $e->getMessage());
-            $this->assertTrue(in_array(
-                get_class($e),
-                [
-                    'PHPUnit\Framework\Error\Warning',
-                    'PHPUnit\Framework\Error\Notice',
-                ]
-            ));
-        }
-        $this->assertTrue($exceptionThrown);
+		$this->smarty->error_unassigned = true;
+        $this->expectException(PHPUnit\Framework\Error\Error::class);
+		$this->expectExceptionMessage('Undefined ');
+        $e1 = error_reporting();
+        $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
+        $e2 = error_reporting();
+        $this->assertEquals($e1, $e2);
     }
 
     public function testUndefinedSimpleVar() {
@@ -145,9 +132,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->assertEquals("ab", $this->smarty->fetch($tpl));
     }
 
-	/**
-	 * @group 20221124
-	 */
+
 	public function testDereferenceOnNull() {
 		$this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 		$this->smarty->muteUndefinedOrNullWarnings();
@@ -156,9 +141,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
 		$this->assertEquals("ab", $this->smarty->fetch($tpl));
 	}
 
-	/**
-	 * @group 20221124
-	 */
+
 	public function testDereferenceOnBool() {
 		$this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
 		$this->smarty->muteUndefinedOrNullWarnings();
@@ -167,9 +150,7 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
 		$this->assertEquals("ab", $this->smarty->fetch($tpl));
 	}
 
-	/**
-	 * @group 20221124
-	 */
+
 	public function testDereferenceOnString() {
 		$this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
 		$this->smarty->muteUndefinedOrNullWarnings();

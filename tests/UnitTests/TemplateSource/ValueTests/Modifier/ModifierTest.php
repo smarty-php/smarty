@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of modifier
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for modifier tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class ModifierTest extends PHPUnit_Smarty
 {
@@ -30,7 +30,7 @@ class ModifierTest extends PHPUnit_Smarty
      * Test modifier
      *
      * @not                 runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
      * @dataProvider        dataTestModifier
      */
     public function testModifier($code, $result, $testName, $testNumber)
@@ -79,7 +79,7 @@ class ModifierTest extends PHPUnit_Smarty
      */
     public function testModifierRegisteredStaticClass()
     {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier', array('testmodifierclass', 'staticcall'));
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'testmodifier', array('testmodifierclass', 'staticcall'));
         $this->smarty->assign('foo', 1);
         $this->assertEquals("mymodifier static 1", $this->smarty->fetch('testModifier_RegisteredStatic.tpl'));
     }
@@ -90,7 +90,7 @@ class ModifierTest extends PHPUnit_Smarty
     public function testModifierRegisteredMethodCall()
     {
         $obj = new testmodifierclass();
-        $this->smarty->registerPlugin(Smarty::PLUGIN_MODIFIER, 'testmodifier', array($obj, 'method'));
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'testmodifier', array($obj, 'method'));
         $this->smarty->assign('foo', 3);
         $this->assertEquals("mymodifier method 3", $this->smarty->fetch('testModifier_RegisteredMethod.tpl'));
     }
@@ -100,7 +100,7 @@ class ModifierTest extends PHPUnit_Smarty
      */
     public function testUnknownModifier()
     {
-        $this->expectException('SmartyCompilerException');
+        $this->expectException(\Smarty\CompilerException::class);
         $this->expectExceptionMessage('unknown modifier \'unknown\'');
         $this->smarty->fetch('eval:{"hello world"|unknown}');
     }
@@ -110,7 +110,7 @@ class ModifierTest extends PHPUnit_Smarty
      */
     public function testDefaultModifier()
     {
-        $this->smarty->default_modifiers = array('escape');
+        $this->smarty->setDefaultModifiers(array('escape'));
         $this->smarty->assign('foo', '<bar>');
         $this->assertEquals('&lt;bar&gt;<bar>', $this->smarty->fetch('testModifier_Default.tpl'));
     }

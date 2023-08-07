@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests resource plugins
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for resource plugins tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class ResourcePluginTest extends PHPUnit_Smarty
 {
@@ -49,7 +49,6 @@ class ResourcePluginTest extends PHPUnit_Smarty
     public function testResourcePluginRegisteredInstance()
     {
         $this->smarty->addPluginsDir("./PHPunitplugins/");
-        $this->smarty->loadPlugin('Smarty_Resource_Db2');
         $this->smarty->registerResource('db2a', new Smarty_Resource_Db2('db2a'));
         $this->assertEquals('hello world', $this->smarty->fetch('db2a:test'));
     }
@@ -63,7 +62,7 @@ class ResourcePluginTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('db2:test.tpl');
         $expected = realpath('./templates_c/' . sha1('db2:test.tpl') . '.db2.test.tpl.php');
         $this->assertFalse(!!$expected);
-        $this->assertFalse($tpl->compiled->filepath);
+        $this->assertNull($tpl->getCompiled()->filepath);
     }
 
     /**
@@ -73,8 +72,8 @@ class ResourcePluginTest extends PHPUnit_Smarty
     {
         $this->smarty->addPluginsDir("./PHPunitplugins/");
         $tpl = $this->smarty->createTemplate('db:test');
-        $this->assertTrue(is_integer($tpl->source->getTimeStamp()));
-        $this->assertEquals(10, strlen($tpl->source->getTimeStamp()));
+        $this->assertTrue(is_integer($tpl->getSource()->getTimeStamp()));
+        $this->assertEquals(10, strlen($tpl->getSource()->getTimeStamp()));
     }
 }
 

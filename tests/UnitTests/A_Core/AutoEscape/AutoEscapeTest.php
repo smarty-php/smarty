@@ -6,9 +6,9 @@
 /**
  * class for 'escapeHtml' property tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class AutoEscapeTest extends PHPUnit_Smarty
 {

@@ -31,7 +31,7 @@ how to create custom CacheResources.
 
 
     <?php
-    $smarty->registerCacheResource('mysql', new Smarty_CacheResource_Mysql());
+    $smarty->registerCacheResource('mysql', new My_CacheResource_Mysql());
     ?>
 
        

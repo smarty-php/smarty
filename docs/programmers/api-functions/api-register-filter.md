@@ -38,8 +38,7 @@ filters](#advanced.features.outputfilters) for more information on how
 to set up an output filter function.
 
 See also [`unregisterFilter()`](#api.unregister.filter),
-[`loadFilter()`](#api.load.filter),
-[`$autoload_filters`](#variable.autoload.filters), [template pre
+[`loadFilter()`](#api.load.filter), [template pre
 filters](#advanced.features.prefilters) [template post
 filters](#advanced.features.postfilters) [template output
 filters](#advanced.features.outputfilters) section.

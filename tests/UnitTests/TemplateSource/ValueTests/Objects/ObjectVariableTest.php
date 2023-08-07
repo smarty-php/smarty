@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests object variables
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for object variable tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ *
  */
 class ObjectVariableTest extends PHPUnit_Smarty
 {

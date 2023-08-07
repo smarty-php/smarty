@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests variable output with nocache attribute
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for variable output with nocache attribute tag tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ *
+ * 
  */
 class PrintTest extends PHPUnit_Smarty
 {
@@ -28,9 +28,9 @@ class PrintTest extends PHPUnit_Smarty
     /**
      * Test Output spacings
      *
-     * @preserveGlobalState disabled
+     *
      * @dataProvider        dataTestOutputSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testOutputSpacing($code, $result, $testName, $testNumber)
     {
@@ -46,9 +46,9 @@ class PrintTest extends PHPUnit_Smarty
     /**
      * Test Output nocache spacings
      *
-     * @preserveGlobalState disabled
+     *
      * @dataProvider        dataTestOutputSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testOutputSpacingNocache($code, $result, $testName, $testNumber)
     {
@@ -65,9 +65,9 @@ class PrintTest extends PHPUnit_Smarty
     /**
      * Test Output nocache spacings
      *
-     * @preserveGlobalState disabled
+     *
      * @dataProvider        dataTestOutputSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testOutputSpacingNocache2($code, $result, $testName, $testNumber)
     {

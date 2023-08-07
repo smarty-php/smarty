@@ -1,0 +1,33 @@
+# @TODO
+
+## CI-building optimization
+- compiled & cached templates should not contain references to local filesystem paths. Add an optional rootpath param
+  to `(add|set)TemplateDir` or as a separate method. Make it default to `getcwd()`. If a relative path is passed to
+  `(add|set)TemplateDir`, prefix it with the rootpath at runtime, but do not store the path.
+
+## Review direct variable property access
+- review ->value{$index} in ForTag
+
+## include inline
+- Re-introduce merge_compiled_includes and the {include inline} attribute?
+
+## Output buffering
+- Fix ob_ output buffering commands being scattered around the codebase
+
+## Review public static vars
+- such as _CHARSET and _IS_WINDOWS
+
+## Block / inheritance
+- Consider phasing out $smarty.block.child as this reverses the inheritance hierarchy and might cause infinite loops
+  when combined with $smarty.block.parent
+
+## Plugin system
+- fix template security checks in one place in compiler
+
+## Beatify output
+- compiled templates could be proper classes, possibly using [nette/php-generator](https://packagist.org/packages/nette/php-generator)
+
+## Unrelated / other
+- review (and avoid) use of 'clone' keyword
+- compiler->has_code seems silly. Why not have proper return values?
+- what is 'user literal support', why are unit tests skipped?

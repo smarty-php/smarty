@@ -2,9 +2,11 @@
 /**
  * Smarty plugin getvar
  *
- * @package    Smarty
- * @subpackage PHPunitPlugin
+
+
  */
+
+use Smarty\Template;
 
 /**
  * Smarty {getvar}
@@ -14,7 +16,7 @@
  *
  * @return string
  */
-function smarty_function_getvar($params, Smarty_Internal_Template $template)
+function smarty_function_getvar($params, Template $template)
 {
     if (isset($params[ 'assign' ])) {
         $template->assign($params[ 'assign' ], $template->getTemplateVars($params[ 'var' ]));

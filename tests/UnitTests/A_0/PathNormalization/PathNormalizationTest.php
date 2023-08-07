@@ -6,9 +6,9 @@
 /**
  * class for path normalization tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class PathNormalizationTest extends PHPUnit_Smarty
 {

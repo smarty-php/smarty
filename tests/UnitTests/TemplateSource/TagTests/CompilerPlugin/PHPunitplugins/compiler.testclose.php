@@ -1,13 +1,15 @@
 <?php
 
 // compiler.testclose.php
-class smarty_compiler_testclose extends Smarty_Internal_CompileBase
+use Smarty\Compile\Base;
+
+class smarty_compiler_testclose extends Base
 {
-    public function execute($args, $compiler)
-    {
 
-        $this->closeTag($compiler, 'test');
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 
-        return '';
-    }
+		$this->closeTag($compiler, 'test');
+
+		return '';
+	}
 }

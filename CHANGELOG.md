@@ -6,6 +6,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Added support for PHP8.2
+- Added a new way to extend Smarty functionality using `Smarty::addExtension()` or `Smarty::setExtensions()`. Please see the docs for more information.
+- Custom tags can accept positional parameters, so you can write a block compiler that support this: `{trans "Jack" "dull boy"}All work and no play makes %s a %s.{/trans}` [#164](https://github.com/smarty-php/smarty/issues/164)
+- Full support for ternary operator: `{$test ? $a : $b}` and `{$var ?: $value_if_falsy}` [#881](https://github.com/smarty-php/smarty/issues/881)
+- Full support for null coalescing operator: `{$var ?? $value_if_null}` [#882](https://github.com/smarty-php/smarty/issues/882)
+
+### Changed
+- All Smarty code is now in the \Smarty namespace. For simple use-cases, you only need to add
+  `use \Smarty\Smarty;` to your script and everything will work. If you extend Smarty or use
+  Smarty plug-ins, please review your code to see if they assume specific class or method names.
+  E.g.: `Smarty_Internal_Template` is now `\Smarty\Template\`, `SmartyException` is now `\Smarty\Exception`.
+- Template variable scope bubbling has been simplified and made more consistent. 
+  The global scope now equals the Smarty scope in order to avoid global state side effects. Please read
+  the documentation for more details.
+- Lexers and Parsers PHP files are reliably generated from sources (.y and .plex) using the make file 
+- Smarty now always runs in multibyte mode, using `symfony/polyfill-mbstring` if required. Please use the
+  multibyte extension for optimal performance.
+- Smarty no longer calls `mb_internal_encoding()` and doesn't check for deprecated `mbstring.func_overload` ini directive [#480](https://github.com/smarty-php/smarty/issues/480)
+- Generated `<script>` tags lo longer have deprecated `type="text/javascript"` or `language="Javascript"` attributes [#815](https://github.com/smarty-php/smarty/issues/815)
+- Smarty will throw a compiler exception insteadd of silently ignoring a modifier on a function call, like this: `{include|dot:"x-template-id" file="included.dot.tpl"}` [#526](https://github.com/smarty-php/smarty/issues/526) 
+- The documentation was largely rewritten
+
+### Deprecated
+- `$smarty->getPluginsDir()`
+- `$smarty->loadFilter()`
+- `$smarty->setPluginsDir()`
+- `$smarty->assignGlobal()`
+- Using `$smarty->registerFilter()` for registering variable filters will trigger a notice.
+
+### Removed
+- Dropped support for PHP7.1
+- Removed `$smarty->left_delimiter` and `$smarty->right_delimiter`, use `$smarty->getLeftDelimiter()`/`$smarty->setLeftDelimiter()` and `$smarty->getRightDelimiter()`/`$smarty->setRightDelimiter()`
+- Removed support for the `$cache_attrs` parameter for registered plugins
+- Removed support for undocumented `{make_nocache}` tag
+- Removed support for deprecated `{insert}` tag, the 'insert' plugin type and the associated $smarty->trusted_dir variable
+- Removed the undocumented `{block_parent}` and `{parent}` alternatives to `{$smarty.block.parent}`
+- Removed the undocumented `{block_child}` and `{child}` alternatives to `{$smarty.block.child}`
+- Removed support for loading config files into a non-local scope using `{config_load}` from a template 
+- Removed `$smarty->autoload_filters` in favor of `$smarty->registerFilter()`
+- Removed `$smarty->trusted_dir` and `$smarty->allow_php_templates` since support for executing php scripts from templates has been dropped  
+- Removed `$smarty->php_functions` and `$smarty->php_modifiers`. 
+- You can no longer use native PHP-functions or userland functions in your templates without registering them. If you need a function in your templates,
+  register it first.
+- Removed support for `$smarty->getTags()`
+- Removed the abandoned `$smarty->direct_access_security` setting
+- Dropped support for `$smarty->plugins_dir` and `$smarty->use_include_path`. If you must, use `$smarty->addPluginsDir()` instead,
+  but it's better to use Smarty::addExtension() to add an extension or Smarty::registerPlugin to
+  quickly register a plugin using a callback function.
+- Removed constants such as SMARTY_DIR to prevent global side effects.
+- Removed direct access to `$smarty->template_dir`. Use `$smarty->setTemplateDir()`.
+- Removed direct access to `$smarty->cache_dir`. Use `$smarty->setCacheDir()`.
+- Removed `$smarty->loadPlugin()`, use `$smarty->registerPlugin()` instead.
+- Removed `$smarty->appendByRef()` and `$smarty->assignByRef()`.
+- Removed `$smarty->_current_file`
+- Removed `$smarty->allow_ambiguous_resources` (ambiguous resources handlers should still work)
+
 ### Fixed
 - `|strip_tags` does not work if the input is 0 [#890](https://github.com/smarty-php/smarty/issues/890)
 
@@ -1790,7 +1847,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 27.09.2011
 - bugfix possible warning "attempt to modify property of non-object" in {section} (issue #34)
-- added chaining to Smarty_Internal_Data so $smarty->assign('a',1)->assign('b',2); is possible now
+- added chaining to \Smarty\Data so $smarty->assign('a',1)->assign('b',2); is possible now
 - bugfix remove race condition when a custom resource did change timestamp during compilation
 - bugfix variable property did not work on objects variable in template
 - bugfix smarty_make_timestamp() failed to process DateTime objects properly
@@ -2125,7 +2182,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - optimize smarty_modified_escape for hex, hexentity, decentity.
 
 28/12/2010
-- changed $tpl_vars, $config_vars and $parent to belong to Smarty_Internal_Data
+- changed $tpl_vars, $config_vars and $parent to belong to \Smarty\Data
 - added Smarty::registerCacheResource() for dynamic cache resource object registration
 
 27/12/2010

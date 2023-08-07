@@ -2,21 +2,17 @@
 /**
  * Smarty PHPunit tests clearing all assigned variables
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for clearing all assigned variables tests
- *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
  */
 class ClearAllAssignTest extends PHPUnit_Smarty
 {
-    protected $_data = null;
-    protected $_tpl = null;
+    private $_data = null;
+    private $_tpl = null;
 
     public function setUp(): void
     {

@@ -4,7 +4,7 @@
         bootstrap="tests/Bootstrap.php"
         colors="true"
         backupGlobals="false"
-        backupStaticAttributes="true"
+        backupStaticAttributes="false"
         forceCoversAnnotation="false"
         processIsolation="false"
         stopOnError="false"

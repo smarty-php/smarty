@@ -2,17 +2,18 @@
 /**
  * Smarty PHPunit tests for cache resource Apc
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 include_once __DIR__ . '/../Memcache/CacheResourceCustomMemcacheTest.php';
+include_once __DIR__ . '/../_shared/PHPunitplugins/cacheresource.apctest.php';
 
 /**
  * class for cache resource file tests
  *
- * @runTestsInSeparateProcess
+ * 
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ *
  */
 class CacheResourceCustomApcTest extends CacheResourceCustomMemcacheTest
 {
@@ -24,7 +25,7 @@ class CacheResourceCustomApcTest extends CacheResourceCustomMemcacheTest
         $this->setUpSmarty(__DIR__);
         parent::setUp();
         $this->smarty->setCachingType('apc');
-        $this->smarty->addPluginsDir(SMARTY_DIR . '../demo/plugins/');
+        $this->smarty->registerCacheResource('apc', new Smarty_CacheResource_Apctest());
     }
 }
 

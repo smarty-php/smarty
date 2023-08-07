@@ -1,7 +1,7 @@
 # Getting started
 
 ## Requirements
-Smarty can be run with PHP 7.1 to PHP 8.2.
+Smarty can be run with PHP 7.2 to PHP 8.2.
 
 ## Installation
 Smarty can be installed with [Composer](https://getcomposer.org/).
@@ -26,22 +26,21 @@ Here's how you create an instance of Smarty in your PHP scripts:
 <?php
 
 require 'vendor/autoload.php';
+use Smarty\Smarty;
 $smarty = new Smarty();
 ```
 
 Now that the library files are in place, it's time to set up the Smarty
 directories for your application.
 
-Smarty requires four directories which are by default named
-    [`templates`](./programmers/api-variables/variable-template-dir.md),
-    [`configs`](./programmers/api-variables/variable-config-dir.md),
-    [`templates_c`](./programmers/api-variables/variable-compile-dir.md)
-     and 
-    [`cache`](./programmers/api-variables/variable-cache-dir.md) 
-    relative to the current working directory.
+Smarty requires four directories which are by default named `templates`, `configs`, `templates_c` and `cache` 
+relative to the current working directory.
 
 The defaults can be changed as follows:
+
 ```php
+<?php
+use Smarty\Smarty;
 $smarty = new Smarty();
 $smarty->setTemplateDir('/some/template/dir');
 $smarty->setConfigDir('/some/config/dir');
@@ -70,6 +69,8 @@ You can verify if your system has the correct access rights for
     these directories with [`testInstall()`](./programmers/api-functions/api-test-install.md):
 
 ```php
+<?php
+use Smarty\Smarty;
 $smarty = new Smarty();
 $smarty->setTemplateDir('/some/template/dir');
 $smarty->setConfigDir('/some/config/dir');
@@ -103,6 +104,7 @@ Now lets edit our php file. We'll create an instance of Smarty,
 
 require 'vendor/autoload.php';
 
+use Smarty\Smarty;
 $smarty = new Smarty();
 
 $smarty->setTemplateDir('/web/www.example.com/guestbook/templates/');
@@ -140,7 +142,9 @@ the same vars, etc., we can do that in one place.
 ```php
 <?php
 
-class Smarty_GuestBook extends Smarty {
+use Smarty\Smarty;
+
+class My_GuestBook extends Smarty {
 
    public function __construct()
    {
@@ -158,7 +162,7 @@ class Smarty_GuestBook extends Smarty {
 }
 ```
 
-Now, we can use `Smarty_GuestBook` instead of `Smarty` in our scripts:
+Now, we can use `My_GuestBook` instead of `Smarty` in our scripts:
 ```php
 <?php
 $smarty = new Smarty_GuestBook();

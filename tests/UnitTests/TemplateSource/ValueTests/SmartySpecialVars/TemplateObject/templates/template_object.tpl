@@ -1,1 +1,1 @@
-{if $smarty.template_object instanceof Smarty_Internal_Template}okay{/if}
+{if $smarty.template_object instanceof \Smarty\Template}okay{/if}

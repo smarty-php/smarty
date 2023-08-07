@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests {$smarty.template_objects}
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {$smarty.template_objects} tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class SmartyTemplateObjectTest extends PHPUnit_Smarty
 {

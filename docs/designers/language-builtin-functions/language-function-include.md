@@ -183,5 +183,5 @@ current template.
 {include file="$style_dir/$module.$view.tpl"}
 ```
       
-See also [`{insert}`](./language-function-insert.md), [template resources](../../programmers/resources.md) and
+See also [template resources](../../programmers/resources.md) and
 [componentized templates](../../appendixes/tips.md#componentized-templates).

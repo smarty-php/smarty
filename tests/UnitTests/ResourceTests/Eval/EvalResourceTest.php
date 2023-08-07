@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests for eval resources
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for eval resource tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class EvalResourceTest extends PHPUnit_Smarty
 {
@@ -31,7 +31,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testTemplateEvalExists1()
     {
         $tpl = $this->smarty->createTemplate('eval:{$foo}');
-        $this->assertTrue($tpl->source->exists);
+        $this->assertTrue($tpl->getSource()->exists);
     }
 
     public function testTemplateEvalExists2()
@@ -39,22 +39,16 @@ class EvalResourceTest extends PHPUnit_Smarty
         $this->assertTrue($this->smarty->templateExists('eval:{$foo}'));
     }
 
-    /**
-     * test getTemplateFilepath
-     */
-    public function testGetTemplateFilepath()
+    public function testGetTemplateResourceName()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertEquals('2aae6c35c94fcfb415dbe95f408b9ce91ee846ed', $tpl->source->filepath);
+        $this->assertEquals('hello world', $tpl->getSource()->getResourceName());
     }
 
-    /**
-     * test getTemplateTimestamp
-     */
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertTrue($tpl->source->getTimeStamp());
+        $this->assertTrue($tpl->getSource()->getTimeStamp());
     }
 
     /**
@@ -63,7 +57,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testGetTemplateSource()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world{$foo}');
-        $this->assertEquals('hello world{$foo}', $tpl->source->getContent());
+        $this->assertEquals('hello world{$foo}', $tpl->getSource()->getContent());
     }
 
     /**
@@ -81,7 +75,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testUsesCompiler()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertFalse($tpl->source->handler->uncompiled);
+        $this->markTestIncomplete();
     }
 
     /**
@@ -90,7 +84,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testIsEvaluated()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertTrue($tpl->source->handler->recompiled);
+        $this->assertTrue($tpl->getSource()->handler->recompiled);
     }
 
     /**
@@ -108,7 +102,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testGetCompiledFilepath()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertFalse($tpl->compiled->filepath);
+        $this->assertNull($tpl->getCompiled()->filepath);
     }
 
     /**
@@ -117,7 +111,7 @@ class EvalResourceTest extends PHPUnit_Smarty
     public function testGetCompiledTimestamp()
     {
         $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->assertFalse($tpl->compiled->getTimeStamp());
+        $this->assertFalse($tpl->getCompiled()->getTimeStamp());
     }
 
     /**

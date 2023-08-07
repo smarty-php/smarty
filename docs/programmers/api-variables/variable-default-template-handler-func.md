@@ -8,11 +8,11 @@ resource.
 >
 > The default handler is currently only invoked for file resources. It
 > is not triggered when the resource itself cannot be found, in which
-> case a SmartyException is thrown.
+> case a \Smarty\Exception is thrown.
 
 
     <?php
-
+    use Smarty\Smarty;
     $smarty = new Smarty();
     $smarty->default_template_handler_func = 'my_default_template_handler_func';
 

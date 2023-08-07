@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compiler errors
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for compiler tests
  *
- * @runTestsInSeparateProcess
+ *
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  *
  * Problem with total property of {section} and {foreach} in nested loop
  */

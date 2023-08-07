@@ -2,16 +2,19 @@
 /**
  * Smarty PHPunit tests register->block / unregister->block methods
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
+
+use Smarty\Compiler\Template;
+use Smarty\Smarty;
 
 /**
  * class for register->block / unregister->block methods tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ * 
+ *
  */
 class RegisterBlockTest extends PHPUnit_Smarty
 {
@@ -109,8 +112,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching2()
@@ -125,8 +128,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching3()
@@ -142,24 +145,30 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching4()
     {
         $this->smarty->caching = 1;
         $this->smarty->cache_lifetime = 1000;
-        $this->smarty->assign('x', 4);
-        $this->smarty->assign('y', 40);
-        $this->smarty->assign('z', 400);
-        $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testblock', 'myblockcache', false);
+	    $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testblock', 'myblockcache', false);
+
+	    $this->smarty->assign('x', 3);
+	    $this->smarty->assign('y', 30);
+	    $this->smarty->assign('z', 300);
+	    $this->assertEquals('3 30 300', $this->smarty->fetch('test_register_block.tpl'));
+
+	    $this->smarty->assign('x', 4);
+	    $this->smarty->assign('y', 40);
+	    $this->smarty->assign('z', 400);
         $this->assertEquals('3 40 300', $this->smarty->fetch('test_register_block.tpl'));
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching1Wrapper()
@@ -175,8 +184,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching2Wrapper()
@@ -191,8 +200,8 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
     /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     * 
      *
      */
     public function testRegisterBlockCaching3Wrapper()
@@ -207,21 +216,39 @@ class RegisterBlockTest extends PHPUnit_Smarty
         $this->assertEquals('3 30 300', $this->smarty->fetch('test_register_block.tpl'));
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     *
-     */
     public function testRegisterBlockCaching4Wrapper()
     {
+		$this->cleanDirs();
+
         $this->smarty->caching = 1;
         $this->smarty->cache_lifetime = 1000;
+	    $this->smarty->registerPlugin('block', 'testblock', 'myblockcache');
+
+	    $this->smarty->assign('x', 3);
+	    $this->smarty->assign('y', 30);
+	    $this->smarty->assign('z', 300);
+	    $this->assertEquals('3 30 300', $this->smarty->fetch('test_register_block.tpl'));
+
         $this->smarty->assign('x', 4);
         $this->smarty->assign('y', 40);
         $this->smarty->assign('z', 400);
-        $this->smarty->registerPlugin('block', 'testblock', 'myblockcache', false);
-        $this->assertEquals('3 40 300', $this->smarty->fetch('test_register_block.tpl'));
+        $this->assertEquals('3 30 300', $this->smarty->fetch('test_register_block.tpl'));
     }
+
+	/**
+	 * test register block with handler that supports positional params
+	 */
+	public function testRegisterBlockWithPositionalParams()
+	{
+		$this->cleanDirs();
+		$this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testblock', blockparamsCompiler::class);
+		$this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testblockclose', blockparamsCompiler::class);
+		$result = $this->smarty->fetch('string:{testblock "foo" "bar"} block 
+		contents
+		{/testblock}');
+		$this->assertStringContainsString('first', $result);
+		$this->assertStringContainsString('second', $result);
+	}
 
     /**
      * test unregister->block method
@@ -230,14 +257,14 @@ class RegisterBlockTest extends PHPUnit_Smarty
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testblock', 'myblock');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_BLOCK, 'testblock');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK]['testblock']));
+        $this->assertNull($this->smarty->getRegisteredPlugin(Smarty::PLUGIN_BLOCK, 'testblock'));
     }
 
     public function testUnregisterBlockWrapper()
     {
         $this->smarty->registerPlugin('block', 'testblock', 'myblock');
         $this->smarty->unregisterPlugin('block', 'testblock');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK]['testblock']));
+	    $this->assertNull($this->smarty->getRegisteredPlugin(Smarty::PLUGIN_BLOCK, 'testblock'));
     }
 
     /**
@@ -246,7 +273,7 @@ class RegisterBlockTest extends PHPUnit_Smarty
     public function testUnregisterBlockNotRegistered()
     {
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_BLOCK, 'testblock');
-        $this->assertFalse(isset($this->smarty->registered_plugins[Smarty::PLUGIN_BLOCK]['testblock']));
+	    $this->assertNull($this->smarty->getRegisteredPlugin(Smarty::PLUGIN_BLOCK, 'testblock'));
     }
 }
 
@@ -270,6 +297,28 @@ function myblock($params, $content, &$smarty_tpl, &$repeat)
 function myblockcache($params, $content, &$smarty_tpl, &$repeat)
 {
     return $content;
+}
+
+class blockparamsCompiler extends \Smarty\Compile\Base {
+
+	protected $shorttag_order = ["first", "second"];
+	protected $optional_attributes = ["first", "second"];
+
+	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null) {
+		$_attr = $this->getAttributes($compiler, $args);
+
+		$output = '';
+		if (isset($_attr['first'])) {
+			$output .= 'first';
+		}
+
+		if (isset($_attr['second'])) {
+			$output .= 'second';
+		}
+
+		return $output;
+	}
+
 }
 
 class myblockclass

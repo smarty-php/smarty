@@ -1,1 +1,0 @@
-{insert name='insertplugintest' foo=$foo}

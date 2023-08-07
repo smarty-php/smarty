@@ -27,12 +27,6 @@ is the value passed in the `name` attribute. If you do not supply the
 |---------|-----------------------------------------|
 | nocache | Disables caching of this captured block |
 
-> **Note**
->
-> Be careful when capturing [`{insert}`](#language.function.insert)
-> output. If you have [`$caching`](#caching) enabled and you have
-> [`{insert}`](#language.function.insert) commands that you expect to
-> run within cached content, do not capture this content.
 
 ## Examples
 

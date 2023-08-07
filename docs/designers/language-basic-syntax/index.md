@@ -26,8 +26,8 @@ The basis components of the Smarty syntax are:
 
 - [Comments](language-syntax-comments.md)
 - [Variables](language-syntax-variables.md)
+- [Operators](language-syntax-operators.md)
 - [Functions](language-syntax-functions.md)
 - [Attributes](language-syntax-attributes.md)
 - [Quotes](language-syntax-quotes.md)
-- [Math](language-math.md)
 - [Escaping](language-escaping.md)

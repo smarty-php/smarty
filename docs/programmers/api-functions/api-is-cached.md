@@ -22,8 +22,8 @@ string
 compile\_id
 
 -   This only works if [`$caching`](#variable.caching) is set to one of
-    `Smarty::CACHING_LIFETIME_CURRENT` or
-    `Smarty::CACHING_LIFETIME_SAVED` to enable caching. See the [caching
+    `\Smarty\Smarty::CACHING_LIFETIME_CURRENT` or
+    `\Smarty\Smarty::CACHING_LIFETIME_SAVED` to enable caching. See the [caching
     section](#caching) for more info.
 
 -   You can also pass a `$cache_id` as an optional second parameter in

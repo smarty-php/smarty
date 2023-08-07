@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of compiler plugins
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for compiler plugin tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ *
+ *
+ *
  */
 class CompileCompilerPluginTest extends PHPUnit_Smarty
 {
@@ -30,8 +30,8 @@ class CompileCompilerPluginTest extends PHPUnit_Smarty
      */
     public function testCompilerPluginFunction()
     {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'compilerplugin', 'mycompilerplugin');
-        $this->smarty->compile_id = 'function';
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_COMPILER, 'compilerplugin', 'mycompilerplugin');
+        $this->smarty->setCompileId('function');
         $this->assertEquals("Hello World", $this->smarty->fetch('compilerplugintest.tpl'));
     }
     /**
@@ -39,8 +39,8 @@ class CompileCompilerPluginTest extends PHPUnit_Smarty
      */
     public function testCompilerPluginClassStatic()
     {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'compilerplugin', array('CompilerPluginClass', 'statCompile'));
-        $this->smarty->compile_id = 'static';
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_COMPILER, 'compilerplugin', array('CompilerPluginClass', 'statCompile'));
+        $this->smarty->setCompileId('static');
         $this->assertEquals("Static World", $this->smarty->fetch('compilerplugintest.tpl'));
     }
     /**
@@ -49,8 +49,8 @@ class CompileCompilerPluginTest extends PHPUnit_Smarty
     public function testCompilerPluginClassObject()
     {
         $plugin = new CompilerPluginClass;
-        $this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'compilerplugin', array($plugin, 'compile'));
-        $this->smarty->compile_id = 'object';
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_COMPILER, 'compilerplugin', array($plugin, 'compile'));
+        $this->smarty->setCompileId('object');
         $this->assertEquals("Public World", $this->smarty->fetch('compilerplugintest.tpl'));
     }
 }

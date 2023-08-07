@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests compilation of {if} tag
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for {if} tag tests
  *
- * @runTestsInSeparateProcess
+ *
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class CompileIfTest extends PHPUnit_Smarty
 {
@@ -33,7 +33,7 @@ class CompileIfTest extends PHPUnit_Smarty
      * Test if tags
      *
      * @not                 runInSeparateProcess
-     * @preserveGlobalState disabled
+     *
      * @dataProvider        dataTestIf
      */
     public function testIf($code, $result, $testName, $testNumber)
@@ -148,8 +148,8 @@ class CompileIfTest extends PHPUnit_Smarty
     /**
      * Test if nocache tags
      *
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
+     * 
+     *
      * @dataProvider        dataTestIfNocache
      */
     public function testIfNocache($var, $value, $code, $result, $testName, $testNumber, $file = null)
@@ -165,7 +165,7 @@ class CompileIfTest extends PHPUnit_Smarty
         $this->smarty->assign($var, $value, true);
         $this->smarty->assign($var . '2', $value);
         $this->assertEquals($result, $this->strip($this->smarty->fetch('run_code_caching.tpl')),
-                            "testIfNocahe - {$code} - {$testName}");
+                            "testIfNocache - {$code} - {$testName}");
     }
 
     /*
@@ -205,9 +205,9 @@ class CompileIfTest extends PHPUnit_Smarty
      /**
      * Test spacings
      *
-     * @preserveGlobalState disabled
+     *
      * @dataProvider        dataTestSpacing
-     * @runInSeparateProcess
+     * 
      */
     public function testSpacing($code, $result, $testName, $testNumber)
     {

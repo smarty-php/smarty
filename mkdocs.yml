@@ -11,7 +11,7 @@ theme:
     - navigation.tracking
   icon:
     logo: material/lightbulb-on
-  favicon: images/favicon.ico
+  favicon: img/favicon.ico
 
 extra:
   version:
@@ -27,15 +27,15 @@ markdown_extensions:
 nav:
   - Home: 'index.md'
   - 'Getting started': 'getting-started.md'
-  - 'Designers':
+  - 'Language reference':
     - 'Basic Syntax':
         - Introduction: 'designers/language-basic-syntax/index.md'
         - Comments: 'designers/language-basic-syntax/language-syntax-comments.md'
         - Variables: 'designers/language-basic-syntax/language-syntax-variables.md'
+        - Operators: 'designers/language-basic-syntax/language-syntax-operators.md'
         - Functions: 'designers/language-basic-syntax/language-syntax-functions.md'
         - Attributes: 'designers/language-basic-syntax/language-syntax-attributes.md'
         - Quotes: 'designers/language-basic-syntax/language-syntax-quotes.md'
-        - Math: 'designers/language-basic-syntax/language-math.md'
         - 'Escaping Smarty parsing': 'designers/language-basic-syntax/language-escaping.md'
     - 'Variables':
         - 'Introduction': 'designers/language-variables/index.md'
@@ -69,7 +69,7 @@ nav:
         - 'unescape': 'designers/language-modifiers/language-modifier-unescape.md'
         - 'upper': 'designers/language-modifiers/language-modifier-upper.md'
         - 'wordwrap': 'designers/language-modifiers/language-modifier-wordwrap.md'
-    - 'designers/language-combining-modifiers.md'
+    - 'Combining Modifiers': 'designers/language-combining-modifiers.md'
     - 'Builtin Functions':
         - 'Introduction': 'designers/language-builtin-functions/index.md'
         - '{append}': 'designers/language-builtin-functions/language-function-append.md'
@@ -112,12 +112,31 @@ nav:
         - '{textformat}': 'designers/language-custom-functions/language-function-textformat.md'
     - 'designers/config-files.md'
     - 'designers/chapter-debugging-console.md'
-  - 'Programmers':
-      - 'programmers/charset.md'
-      - 'programmers/smarty-constants.md'
-      - 'programmers/api-variables.md'
-      - 'programmers/api-functions.md'
-      - 'programmers/caching.md'
-      - 'programmers/resources.md'
-      - 'programmers/advanced-features.md'
-      - 'programmers/plugins.md'
+  - 'API':
+      - 'Basics': 'api/basics.md'
+      - 'Configuring Smarty': 'api/configuring.md'
+      - 'Rendering a template': 'api/rendering.md'
+      - 'Using data in templates':
+          - 'Assigning variables': 'api/variables/assigning.md'
+          - 'Config files': 'api/variables/config-files.md'
+          - 'Using streams': 'api/variables/streams.md'
+          - 'Objects': 'api/variables/objects.md'
+          - 'Static class methods': 'api/variables/static-class-methods.md'
+      - 'Template inheritance': 'api/inheritance.md'
+      - 'Filters':
+          - 'Output filters': 'api/filters/output-filters.md'
+          - 'Prefilters': 'api/filters/prefilters.md'
+          - 'Postfilters': 'api/filters/postfilters.md'
+      - 'Template resources': 'api/resources.md'
+      - 'Caching':
+        - 'Basics': 'api/caching/basics.md'
+        - 'Multiple caches per template': 'api/caching/multiple-caches-per-template.md'
+        - 'Custom cache storage layers': 'api/caching/custom-storage-layers.md'
+      - 'Extending Smarty':
+          - 'Introduction': 'api/extending/introduction.md'
+          - 'Custom tags': 'api/extending/tags.md'
+          - 'Custom block tags': 'api/extending/block-tags.md'
+          - 'Custom modifiers': 'api/extending/modifiers.md'
+          - 'Creating an extension': 'api/extending/extensions.md'
+      - 'Security': 'api/security.md'
+

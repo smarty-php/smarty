@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of modifier
  *
- * @package PHPunit
+
  * @author  Rodney Rehm
  */
 
 /**
  * class for modifier tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class PluginFunctionFetchTest extends PHPUnit_Smarty
 {
@@ -29,8 +29,8 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
 /**
 * test {fetch} from UIR
 *
-* @runInSeparateProcess
-* @preserveGlobalState disabled
+* 
+* 
 */
    public function testFetchUri()
     {
@@ -40,12 +40,12 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
 /**
 * test {fetch} invalid uri
 *
-* @runInSeparateProcess
-* @preserveGlobalState disabled
+* 
+* 
 */
   public function testFetchInvalidUri()
   {
-      $this->expectException('SmartyException');
+      $this->expectException(\Smarty\Exception::class);
       $this->expectExceptionMessage('{fetch} cannot read resource \'https://foo.smarty.net/foo.dat\'');
       $this->smarty->fetch('string:{fetch file="https://foo.smarty.net/foo.dat"}');
   }
@@ -54,11 +54,11 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
   * test {fetch file=...} access to file from path not aloo/wed by security settings
   *
   * @run InSeparateProcess
-  * @preserveGlobalState disabled
+  * 
   */
   public function testFetchSecurity()
   {
-      $this->expectException('SmartyException');
+      $this->expectException(\Smarty\Exception::class);
       $this->expectExceptionMessage('not trusted file path');
       $this->cleanDirs();
       $dir=$this->smarty->getTemplateDir();
@@ -69,11 +69,11 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
   * test {fetch file=...} access to file from path not aloo/wed by security settings
   *
   * @run InSeparateProcess
-  * @preserveGlobalState disabled
+  * 
   */
   public function testFetchSecurity2()
   {
-      $this->expectException('SmartyException');
+      $this->expectException(\Smarty\Exception::class);
       $this->expectExceptionMessage('not trusted file path');
       $this->cleanDirs();
       $this->smarty->getTemplateDir();

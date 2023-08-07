@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of modifier
  *
- * @package PHPunit
+
  * @author  Rodney Rehm
  */
 
 /**
  * class for modifier tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class MathTest extends PHPUnit_Smarty
 {
@@ -66,14 +66,6 @@ class MathTest extends PHPUnit_Smarty
         $this->smarty->disableSecurity();
         $expected = min(1, 2) . ' -- ' . min(1, 2, 0);
         $tpl = $this->smarty->createTemplate('eval:{$x = 1}{$y = 2}{$z = 0}{math equation="min(x, y)" x=$x y=$y} -- {math equation="min(x, y, z)" x=$x y=$y z=$z}');
-        $this->assertEquals($expected, $this->smarty->fetch($tpl));
-    }
-
-    public function testSyntaxSin()
-    {
-        $this->smarty->disableSecurity();
-        $expected = sin(4) . ' -- ' . sin(4);
-        $tpl = $this->smarty->createTemplate('eval:{$x = 4}{$x|sin} -- {$y = sin($x)}{$y}');
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
     }
 

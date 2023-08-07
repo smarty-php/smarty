@@ -7,10 +7,6 @@ template engine. Every `{if}` must be paired with a matching `{/if}`.
 functions are recognized, such as *\|\|*, *or*, *&&*, *and*,
 *is_array()*, etc.
 
-If security is enabled, only PHP functions from `$php_functions` property
-of the security policy are allowed. See the
-[Security](../../programmers/advanced-features/advanced-features-security.md) section for details.
-
 The following is a list of recognized qualifiers, which must be
 separated from surrounding elements by spaces. Note that items listed in
 \[brackets\] are optional. PHP equivalents are shown where applicable.

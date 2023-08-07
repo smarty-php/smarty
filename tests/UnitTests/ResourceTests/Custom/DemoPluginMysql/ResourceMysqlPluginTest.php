@@ -2,20 +2,20 @@
 /**
  * Smarty PHPunit tests resource plugins
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 if (MysqlResourceEnable == true) {
     /**
      * class for resource plugins tests
      *
-     * @runTestsInSeparateProcess
-     * @preserveGlobalState disabled
-     * @backupStaticAttributes enabled
+     * 
+     * 
+     * 
      */
     class ResourceMysqlPluginTest extends PHPUnit_Smarty
     {
-        public function setUp()
+        public function setUp(): void
         {
             if (MysqlResourceEnable != true) {
                 $this->markTestSkipped('Msqlresource tests are disabled');
@@ -39,10 +39,6 @@ if (MysqlResourceEnable == true) {
 
         /**
         * test resource plugin rendering of a custom resource
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testResourcePluginMysql()
         {
@@ -51,10 +47,6 @@ if (MysqlResourceEnable == true) {
 
        /**
         * test must compile
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testMustCompile()
         {
@@ -62,12 +54,9 @@ if (MysqlResourceEnable == true) {
            $this->assertFalse($tpl->mustCompile());
         }
 
-         /**
+        /**
         * test must compile
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
+        * @group slow
         */
         public function testMustCompile2()
         {
@@ -79,10 +68,6 @@ if (MysqlResourceEnable == true) {
 
         /**
         * test resource plugin rendering of a custom resource
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testResourcePluginMysql2()
         {
@@ -91,10 +76,6 @@ if (MysqlResourceEnable == true) {
 
          /**
         * test clear compiled
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testClearCompiled()
         {
@@ -103,10 +84,6 @@ if (MysqlResourceEnable == true) {
 
        /**
         * test must compile
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testMustCompile3()
         {
@@ -121,7 +98,7 @@ if (MysqlResourceEnable == true) {
         {
             //$this->smarty->addPluginsDir("./PHPunitplugins/");
             $tpl = $this->smarty->createTemplate('mysqltest:test.tpl');
-            $this->assertEquals($this->buildCompiledPath($tpl, false, false, null, 'test.tpl', 'mysqltest', $this->smarty->getTemplateDir(0)), $tpl->compiled->filepath);
+            $this->assertEquals($this->buildCompiledPath($tpl, false, false, null, 'test.tpl', 'mysqltest', $this->smarty->getTemplateDir(0)), $tpl->getCompiled()->filepath);
         }
 
         public function testResourcePluginMysqlCompiledFilepathCache()
@@ -131,20 +108,16 @@ if (MysqlResourceEnable == true) {
             $this->smarty->setForceCompile(true);
             $this->smarty->fetch('mysqltest:test.tpl');
             $tpl = $this->smarty->createTemplate('mysqltest:test.tpl');
-            $this->assertEquals($this->buildCompiledPath($tpl, false, true, null, 'test.tpl', 'mysqltest', $this->smarty->getTemplateDir(0)), $tpl->compiled->filepath);
+            $this->assertEquals($this->buildCompiledPath($tpl, false, true, null, 'test.tpl', 'mysqltest', $this->smarty->getTemplateDir(0)), $tpl->getCompiled()->filepath);
             $this->smarty->caching = false;
         }
 
         /**
         * test unknown template
-        *
-        * @runInSeparateProcess
-        * @preserveGlobalState disabled
-        *
         */
         public function testUnknownTemplate() {
-            $this->expectException('SmartyException');
-            $this->expectExceptionMessage('Unable to load template \'mysqlstest:foo.tpl\'');
+            $this->expectException(\Smarty\Exception::class);
+            $this->expectExceptionMessage('Unable to load \'mysqlstest:foo.tpl\'');
             $this->assertEquals('foo', $this->smarty->fetch('mysqlstest:foo.tpl'));
         }
     }

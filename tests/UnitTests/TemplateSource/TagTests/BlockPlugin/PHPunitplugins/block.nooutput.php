@@ -2,8 +2,8 @@
 /**
  * Smarty plugin for testing block plugins
  *
- * @package    Smarty
- * @subpackage PHPunitPlugin
+
+
  */
 
 /**

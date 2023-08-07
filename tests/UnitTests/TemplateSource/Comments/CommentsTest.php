@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests comments in templates
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for security test
  *
- * @runTestsInSeparateProcess
+ *
  * @preserveGlobalState    disabled
- * @backupStaticAttributes enabled
+ * 
  */
 class CommentsTest extends PHPUnit_Smarty
 {
@@ -28,7 +28,7 @@ class CommentsTest extends PHPUnit_Smarty
     /**
      * Test comments
      *
-     * @preserveGlobalState disabled
+     *
      * @dataProvider        dataTestComments
      */
     public function testComments($code, $result, $testName, $testNumber)
@@ -36,7 +36,7 @@ class CommentsTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "testComments_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->template_dir = './templates_tmp';
+        $this->smarty->setTemplateDir('./templates_tmp');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
                             $file);

@@ -37,7 +37,7 @@ information on how to setup a function for fetching templates.
 
 
     <?php
-    $smarty->registerResource('mysql', new Smarty_Resource_Mysql());
+    $smarty->registerResource('mysql', new My_Resource_Mysql());
     ?>
 
        

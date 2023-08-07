@@ -1,1 +1,0 @@
-{make_nocache $foo}{if $foo > $bar}greater{else}not greater{/if}

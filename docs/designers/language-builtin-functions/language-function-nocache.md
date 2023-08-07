@@ -17,4 +17,4 @@ Today's date is
    
 The above code will output the current date on a cached page.
 
-See also the [caching section](../../programmers/caching.md).
+See also the [caching section](../../api/caching/basics.md).

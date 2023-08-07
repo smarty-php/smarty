@@ -69,7 +69,7 @@ These parameters follow the modifier name and are separated by a `:`
 <select name="name_id">
 {html_options output=$my_array|upper|truncate:20}
 </select>
-```
+```  
       
 - Modifiers can be applied to any type of variables, including arrays
     and objects.
@@ -96,26 +96,9 @@ These parameters follow the modifier name and are separated by a `:`
     > gives 9. To get the old result use parentheses like
     > `{(8+2)|count_characters}`.
 
-- Modifiers are autoloaded from the
-    [`$plugins_dir`](../../programmers/api-variables/variable-plugins-dir.md) or can be registered
-    explicitly with the [`registerPlugin()`](../../programmers/api-functions/api-register-plugin.md)
-    function. The later is useful for sharing a function between php
-    scripts and smarty templates.
-
-- All php-functions can be used as modifiers implicitly, as
-    demonstrated in the example above. However, using php-functions as
-    modifiers has two little pitfalls:
-
-    -   First - sometimes the order of the function-parameters is not
-        the desirable one. Formatting `$foo` with
-        `{"%2.f"|sprintf:$foo}` actually works, but asks for the more
-        intuitive, like `{$foo|string_format:"%2.f"}` that is provided
-        by the Smarty distribution.
-
-    -   Secondly - if security is enabled, all php-functions that are to
-        be used as modifiers have to be declared trusted in the
-        `$modifiers` property of the security policy. See the
-        [Security](../../programmers/advanced-features/advanced-features-security.md) section for details.
+- Custom modifiers can be registered
+    with the [`registerPlugin()`](../../programmers/api-functions/api-register-plugin.md)
+    function.
 
 See also [`registerPlugin()`](../../programmers/api-functions/api-register-plugin.md), [combining
 modifiers](../language-combining-modifiers.md). and [extending smarty with

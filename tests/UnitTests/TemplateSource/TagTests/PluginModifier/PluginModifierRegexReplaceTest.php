@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of modifier
  *
- * @package PHPunit
+
  * @author  Rodney Rehm
  */
 
 /**
  * class for modifier tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ *
 */
 class PluginModifierRegexReplaceTest extends PHPUnit_Smarty
 {
@@ -24,14 +24,6 @@ class PluginModifierRegexReplaceTest extends PHPUnit_Smarty
     {
         $tpl = $this->smarty->createTemplate('string:{"Infertility unlikely to\nbe passed on, experts say."|regex_replace:"/[\r\t\n]/":" "}');
         $this->assertEquals("Infertility unlikely to be passed on, experts say.", $this->smarty->fetch($tpl));
-    }
-
-    public function testDefaultWithoutMbstring()
-    {
-        Smarty::$_MBSTRING = false;$this->smarty->setCompileId('mb');
-        $tpl = $this->smarty->createTemplate('string:{"Infertility unlikely to\nbe passed on, experts say."|regex_replace:"/[\r\t\n]/":" "}');
-        $this->assertEquals("Infertility unlikely to be passed on, experts say.", $this->smarty->fetch($tpl));
-        Smarty::$_MBSTRING = true;
     }
 
     public function testUmlauts()

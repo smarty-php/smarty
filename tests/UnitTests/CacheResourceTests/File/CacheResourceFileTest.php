@@ -2,7 +2,7 @@
 /**
  * Smarty PHPunit tests for cache resource file
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
@@ -10,10 +10,6 @@ include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
 
 /**
  * class for cache resource file tests
- *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
  */
 class CacheResourceFileTest extends CacheResourceTestCommon
 {
@@ -41,8 +37,8 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertEquals($this->buildCachedPath($tpl, true, null, null, 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
-            , $tpl->cached->filepath);
+
+		$this->assertRegExp('/.*\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
     }
 
     /**
@@ -54,8 +50,8 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar');
-        $this->assertEquals($this->buildCachedPath($tpl, true, 'foo|bar', null, 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
-            , $tpl->cached->filepath);
+
+	    $this->assertRegExp('/.*\/foo\/bar\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
     }
 
     /**
@@ -67,8 +63,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', null, 'blar');
-        $this->assertEquals($this->buildCachedPath($tpl, true, null, 'blar', 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
-            , $tpl->cached->filepath);
+	    $this->assertRegExp('/.*\/blar\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
     }
 
     /**
@@ -80,8 +75,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
-        $this->assertEquals($this->buildCachedPath($tpl, true, 'foo|bar', 'blar', 'helloworld.tpl', $type = 'file', $this->smarty->getTemplateDir(0), 'file')
-            , $tpl->cached->filepath);
+	    $this->assertRegExp('/.*\/foo\/bar\/blar\\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
     }
 
     /**
@@ -95,7 +89,7 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
         $this->assertEquals(1, $this->smarty->clearAllCache());
     }
 
@@ -114,13 +108,13 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl2);
         $tpl3 = $this->smarty->createTemplate('helloworld2.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl3);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
         $this->assertEquals(2, $this->smarty->clearCache(null, 'foo|bar'));
-        $this->assertFalse(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertFalse(file_exists($tpl3->cached->filepath));
+        $this->assertFalse(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl3->getCached()->filepath));
     }
 
     public function testClearCacheCacheIdCompileId2()
@@ -135,13 +129,13 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl2);
         $tpl3 = $this->smarty->createTemplate('helloworld2.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl3);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
         $this->assertEquals(2, $this->smarty->clearCache('helloworld.tpl'));
-        $this->assertFalse(file_exists($tpl->cached->filepath));
-        $this->assertFalse(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertFalse(file_exists($tpl->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
     }
 
     public function testClearCacheCacheIdCompileId2Sub()
@@ -156,13 +150,13 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl2);
         $tpl3 = $this->smarty->createTemplate('helloworld2.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl3);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
         $this->assertEquals(2, $this->smarty->clearCache('helloworld.tpl'));
-        $this->assertFalse(file_exists($tpl->cached->filepath));
-        $this->assertFalse(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertFalse(file_exists($tpl->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
     }
 
     public function testClearCacheCacheIdCompileId3()
@@ -177,13 +171,13 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl2);
         $tpl3 = $this->smarty->createTemplate('helloworld2.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl3);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
         $this->assertEquals(1, $this->smarty->clearCache('helloworld.tpl', null, 'blar2'));
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertFalse(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
     }
 
     public function testClearCacheCacheIdCompileId3Sub()
@@ -198,13 +192,13 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl2);
         $tpl3 = $this->smarty->createTemplate('helloworld2.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl3);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
         $this->assertEquals(1, $this->smarty->clearCache('helloworld.tpl', null, 'blar2'));
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertFalse(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
     }
 
     public function testClearCacheCacheIdCompileId4()
@@ -219,13 +213,13 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl2);
         $tpl3 = $this->smarty->createTemplate('helloworld2.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl3);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
         $this->assertEquals(1, $this->smarty->clearCache('helloworld.tpl', null, 'blar2'));
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertFalse(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
     }
 
     public function testClearCacheCacheIdCompileId4Sub()
@@ -240,13 +234,13 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl2);
         $tpl3 = $this->smarty->createTemplate('helloworld2.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl3);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
         $this->assertEquals(1, $this->smarty->clearCache('helloworld.tpl', null, 'blar2'));
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertFalse(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
     }
 
     public function testClearCacheCacheIdCompileId5()
@@ -261,13 +255,13 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl2);
         $tpl3 = $this->smarty->createTemplate('helloworld2.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl3);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
         $this->assertEquals(2, $this->smarty->clearCache(null, null, 'blar'));
-        $this->assertFalse(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertFalse(file_exists($tpl3->cached->filepath));
+        $this->assertFalse(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl3->getCached()->filepath));
     }
 
     public function testClearCacheCacheIdCompileId5Sub()
@@ -282,13 +276,13 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl2);
         $tpl3 = $this->smarty->createTemplate('helloworld2.tpl', 'foo|bar', 'blar');
         $this->writeCachedContent($tpl3);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
         $this->assertEquals(2, $this->smarty->clearCache(null, null, 'blar'));
-        $this->assertFalse(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertFalse(file_exists($tpl3->cached->filepath));
+        $this->assertFalse(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl3->getCached()->filepath));
     }
 
     public function testClearCacheCacheFile()
@@ -305,15 +299,15 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl3);
         $tpl4 = $this->smarty->createTemplate('helloworld2.tpl');
         $this->writeCachedContent($tpl4);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
-        $this->assertTrue(file_exists($tpl4->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl4->getCached()->filepath));
         $this->assertEquals(3, $this->smarty->clearCache('helloworld.tpl'));
-        $this->assertFalse(file_exists($tpl->cached->filepath));
-        $this->assertFalse(file_exists($tpl2->cached->filepath));
-        $this->assertFalse(file_exists($tpl3->cached->filepath));
-        $this->assertTrue(file_exists($tpl4->cached->filepath));
+        $this->assertFalse(file_exists($tpl->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl2->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl3->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl4->getCached()->filepath));
     }
 
     public function testClearCacheCacheFileSub()
@@ -330,15 +324,15 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->writeCachedContent($tpl3);
         $tpl4 = $this->smarty->createTemplate('helloworld2.tpl');
         $this->writeCachedContent($tpl4);
-        $this->assertTrue(file_exists($tpl->cached->filepath));
-        $this->assertTrue(file_exists($tpl2->cached->filepath));
-        $this->assertTrue(file_exists($tpl3->cached->filepath));
-        $this->assertTrue(file_exists($tpl4->cached->filepath));
+        $this->assertTrue(file_exists($tpl->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl2->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl3->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl4->getCached()->filepath));
         $this->assertEquals(3, $this->smarty->clearCache('helloworld.tpl'));
-        $this->assertFalse(file_exists($tpl->cached->filepath));
-        $this->assertFalse(file_exists($tpl2->cached->filepath));
-        $this->assertFalse(file_exists($tpl3->cached->filepath));
-        $this->assertTrue(file_exists($tpl4->cached->filepath));
+        $this->assertFalse(file_exists($tpl->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl2->getCached()->filepath));
+        $this->assertFalse(file_exists($tpl3->getCached()->filepath));
+        $this->assertTrue(file_exists($tpl4->getCached()->filepath));
     }
 
     /**

@@ -34,7 +34,7 @@ spiders to lift email addresses off of a site.
 <a href="mailto:me@example.com" >send me some mail</a>
 
 {mailto address="me@example.com" encode="javascript"}
-<script type="text/javascript" language="javascript">
+    <script>
    eval(unescape('%64%6f% ... snipped ...%61%3e%27%29%3b'))
 </script>
 
@@ -51,7 +51,7 @@ spiders to lift email addresses off of a site.
 <a href="mailto:me@example.com" class="email">me@example.com</a>
 
 {mailto address="me@example.com" encode="javascript_charcode"}
-<script type="text/javascript" language="javascript">
+    <script>
     {document.write(String.fromCharCode(60,97, ... snipped ....60,47,97,62))}
 </script>
 ```

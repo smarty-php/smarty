@@ -2,16 +2,16 @@
 /**
  * Smarty PHPunit tests of function calls
  *
- * @package PHPunit
+
  * @author  Uwe Tews
  */
 
 /**
  * class for function tests
  *
- * @runTestsInSeparateProcess
- * @preserveGlobalState disabled
- * @backupStaticAttributes enabled
+ * 
+ * 
+ * 
  */
 class FunctionTest extends PHPUnit_Smarty
 {
@@ -31,14 +31,8 @@ class FunctionTest extends PHPUnit_Smarty
     public function testUnknownFunction()
     {
         $this->smarty->enableSecurity();
-        try {
-            $this->smarty->fetch('eval:{unknown()}');
-        }
-        catch (Exception $e) {
-            $this->assertStringContainsString("PHP function 'unknown' not allowed by security setting", $e->getMessage());
-
-            return;
-        }
-        $this->fail('Exception for unknown function has not been raised.');
+        $this->expectException(\Smarty\CompilerException::class);
+        $this->expectExceptionMessage('unknown modifier');
+        $this->smarty->fetch('eval:{unknown()}');
     }
 }
