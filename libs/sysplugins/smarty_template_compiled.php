@@ -50,23 +50,37 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
             $this->filepath .= preg_replace('![^\w]+!', '_', $_template->compile_id) .
                                ($smarty->use_sub_dirs ? DIRECTORY_SEPARATOR : '^');
         }
-        // if use_sub_dirs, break file into directories
-        if ($smarty->use_sub_dirs) {
-            $this->filepath .= $source->uid[ 0 ] . $source->uid[ 1 ] . DIRECTORY_SEPARATOR . $source->uid[ 2 ] .
-                               $source->uid[ 3 ] . DIRECTORY_SEPARATOR . $source->uid[ 4 ] . $source->uid[ 5 ] .
-                               DIRECTORY_SEPARATOR;
-        }
-        $this->filepath .= $source->uid . '_';
-        if ($source->isConfig) {
-            $this->filepath .= (int)$smarty->config_read_hidden + (int)$smarty->config_booleanize * 2 +
-                               (int)$smarty->config_overwrite * 4;
+        $basename = $smarty->use_only_compiled ? basename($source->name) : $source->handler->getBasename($source);
+        if ($smarty->use_only_compiled) {
+            if (empty($basename)) {
+                throw new SmartyException("Unable to get basename");
+            }
+            // if use_sub_dirs, break file into directories
+            if ($smarty->use_sub_dirs) {
+                $padded_basename = str_pad(str_replace('.','',$basename), 6, '_');
+                $this->filepath .= $padded_basename[ 0 ] . $padded_basename[ 1 ] . DIRECTORY_SEPARATOR .
+                                $padded_basename[ 2 ] . $padded_basename[ 3 ] . DIRECTORY_SEPARATOR .
+                                $padded_basename[ 4 ] . $padded_basename[ 5 ] . DIRECTORY_SEPARATOR;
+            }
         } else {
-            $this->filepath .= (int)$smarty->merge_compiled_includes + (int)$smarty->escape_html * 2 +
-                               (($smarty->merge_compiled_includes && $source->type === 'extends') ?
-                                   (int)$smarty->extends_recursion * 4 : 0);
+            // if use_sub_dirs, break file into directories
+            if ($smarty->use_sub_dirs) {
+                $this->filepath .= $source->uid[ 0 ] . $source->uid[ 1 ] . DIRECTORY_SEPARATOR . $source->uid[ 2 ] .
+                                $source->uid[ 3 ] . DIRECTORY_SEPARATOR . $source->uid[ 4 ] . $source->uid[ 5 ] .
+                                DIRECTORY_SEPARATOR;
+            }
+            $this->filepath .= $source->uid . '_';
+            if ($source->isConfig) {
+                $this->filepath .= (int)$smarty->config_read_hidden + (int)$smarty->config_booleanize * 2 +
+                                (int)$smarty->config_overwrite * 4;
+            } else {
+                $this->filepath .= (int)$smarty->merge_compiled_includes + (int)$smarty->escape_html * 2 +
+                                (($smarty->merge_compiled_includes && $source->type === 'extends') ?
+                                    (int)$smarty->extends_recursion * 4 : 0);
+            }
+            $this->filepath .= '.';
         }
-        $this->filepath .= '.' . $source->type;
-        $basename = $source->handler->getBasename($source);
+        $this->filepath .= $source->type;
         if (!empty($basename)) {
             $this->filepath .= '.' . $basename;
         }
@@ -91,7 +105,7 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
     public function render(Smarty_Internal_Template $_template)
     {
         // checks if template exists
-        if (!$_template->source->exists) {
+        if (!$_template->source->exists && !is_file($_template->source->filepath) && !$_template->smarty->use_only_compiled) {
             $type = $_template->source->isConfig ? 'config' : 'template';
             throw new SmartyException("Unable to load {$type} '{$_template->source->type}:{$_template->source->name}'");
         }
@@ -135,8 +149,9 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
         if ($source->handler->recompiled) {
             $source->handler->process($_smarty_tpl);
         } elseif (!$source->handler->uncompiled) {
-            if (!$this->exists || $smarty->force_compile
-                || ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp())
+            if ( !$smarty->use_only_compiled &&
+                    (!$this->exists || $smarty->force_compile
+                    || ($_smarty_tpl->compile_check && $source->getTimeStamp() > $this->getTimeStamp()))
             ) {
                 $this->compileTemplateSource($_smarty_tpl);
                 $compileCheck = $_smarty_tpl->compile_check;
@@ -147,7 +162,9 @@ class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
                 $_smarty_tpl->mustCompile = true;
                 @include $this->filepath;
                 if ($_smarty_tpl->mustCompile) {
-                    $this->compileTemplateSource($_smarty_tpl);
+                    if (!$smarty->use_only_compiled) {
+                        $this->compileTemplateSource($_smarty_tpl);
+                    }
                     $compileCheck = $_smarty_tpl->compile_check;
                     $_smarty_tpl->compile_check = Smarty::COMPILECHECK_OFF;
                     $this->loadCompiledTemplate($_smarty_tpl);
