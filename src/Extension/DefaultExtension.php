@@ -449,7 +449,9 @@ class DefaultExtension extends Base {
 						// see https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
 						'<!--' => '<\!--',
 						'<s'   => '<\s',
-						'<S'   => '<\S'
+						'<S'   => '<\S',
+						"`" => "\\\\`",
+						"\${" => "\\\\\\$\\{"
 					)
 				);
 			case 'mail':

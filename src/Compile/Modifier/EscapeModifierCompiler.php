@@ -45,7 +45,9 @@ class EscapeModifierCompiler extends Base {
 					// see https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
 					return 'strtr((string)' .
 						$params[ 0 ] .
-						', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", "\\n" => "\\\n", "</" => "<\/", "<!--" => "<\!--", "<s" => "<\s", "<S" => "<\S" ))';
+						', array("\\\\" => "\\\\\\\\", "\'" => "\\\\\'", "\"" => "\\\\\"", "\\r" => "\\\\r", 
+						"\\n" => "\\\n", "</" => "<\/", "<!--" => "<\!--", "<s" => "<\s", "<S" => "<\S",
+						"`" => "\\\\`", "\${" => "\\\\\\$\\{"))';
 			}
 		} catch (Exception $e) {
 			// pass through to regular plugin fallback
