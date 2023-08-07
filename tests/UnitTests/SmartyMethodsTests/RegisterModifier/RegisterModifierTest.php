@@ -120,6 +120,20 @@ class RegisterModifierTest extends PHPUnit_Smarty
 		$this->assertEquals($expectedValue, $this->smarty->fetch('string:' . $template));
 	}
 
+	/**
+	 * test register wildcard modifier using setExtensions
+	 * @dataProvider dataUnknownModifiers
+	 */
+	public function testSetExtensions($template, $expectedValue)
+	{
+		$this->cleanDirs();
+		$this->smarty->setExtensions([
+			new \Smarty\Extension\CoreExtension(),
+			new WildcardExtension()
+		]);
+		$this->assertEquals($expectedValue, $this->smarty->fetch('string:' . $template));
+	}
+
 }
 
 class WildcardExtension extends \Smarty\Extension\Base {

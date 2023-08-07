@@ -1,5 +1,7 @@
 # Creating an extension
 
+## Default extensions
+
 In order to organize your custom tags and modifiers, you can create an Extension.
 In fact, most of Smarty itself is organized into two extensions:
 
@@ -11,6 +13,8 @@ In fact, most of Smarty itself is organized into two extensions:
 > 
 > There is also the 'BCPluginsAdapter' extension, which does not add any new functionality, but
 > wraps calls to deprecated methods such as `Smarty\Smarty::addPluginsDir()` and `Smarty\Smarty::loadFilter()`.
+
+## Writing your own extension
 
 In order to write your own custom extension, you must write a class that implements `Smarty\Extension\ExtensionInterface`.
 However, it is usually easier to extend `Smarty\Extension\Base` which provides empty implementation for each of the methods
@@ -61,3 +65,37 @@ Writing an extension allows you to add a group of tags, block tags and modifiers
 It also allows you to register pre-, post- and output-filters in a structured way. 
 The files in `src/Extension/` in the `smarty/smarty` dir should give you all the information you need to start
 writing your own extension.
+
+## Registering an extension
+
+When you have written your extension, add it to a Smarty instance as follows:
+
+```php
+<?php
+
+use Smarty\Smarty;
+
+$smarty = new Smarty();
+
+$smarty->addExtension(new MyCustomExtension());
+```
+
+This will add `MyCustomExtension` to the end of the extension list, meaning that you cannot override tags or modifiers
+from one of Smarty's default extensions.
+
+Should you wish to insert your extension at the top of the extension list, or create a very limited Smarty version that
+only contains the core extension, you can use `Smarty\Smarty::setExtensions()` to override the list of extensions.
+
+```php
+<?php
+
+use Smarty\Smarty;
+
+$smarty = new Smarty();
+
+$smarty->setExtensions([
+    new Smarty\Extension\CoreExtension(),
+    new MyCustomExtension(),
+    new Smarty\Extension\DefaultExtension(),
+]);
+```

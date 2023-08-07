@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added support for PHP8.2
-- Added a new way to extend Smarty functionality using `Smarty::addExtension()`. Please see the docs for more information.
+- Added a new way to extend Smarty functionality using `Smarty::addExtension()` or `Smarty::setExtensions()`. Please see the docs for more information.
 - Custom tags can accept positional parameters, so you can write a block compiler that support this: `{trans "Jack" "dull boy"}All work and no play makes %s a %s.{/trans}` [#164](https://github.com/smarty-php/smarty/issues/164)
 - Full support for ternary operator: `{$test ? $a : $b}` and `{$var ?: $value_if_falsy}` [#881](https://github.com/smarty-php/smarty/issues/881)
 - Full support for null coalescing operator: `{$var ?? $value_if_null}` [#882](https://github.com/smarty-php/smarty/issues/882)

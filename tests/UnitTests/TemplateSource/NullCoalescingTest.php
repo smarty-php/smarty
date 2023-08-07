@@ -25,7 +25,7 @@ class NullCoalescingTest extends PHPUnit_Smarty {
 	public function dataForOther() {
 		return [
 			[null, 'undefined'],
-			['blah', ''],
+			['blah', 'blah'],
 			['', ''],
 			[false, false],
 		];

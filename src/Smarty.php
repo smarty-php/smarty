@@ -558,6 +558,17 @@ class Smarty extends \Smarty\TemplateBase {
 	}
 
 	/**
+	 * Replace the entire list extensions, allowing you to determine the exact order of the extensions.
+	 *
+	 * @param ExtensionInterface[] $extensions
+	 *
+	 * @return void
+	 */
+	public function setExtensions(array $extensions): void {
+		$this->extensions = $extensions;
+	}
+
+	/**
 	 * Check if a template resource exists
 	 *
 	 * @param string $resource_name template name
