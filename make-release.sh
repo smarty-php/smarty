@@ -7,9 +7,6 @@ else
    exit 1;
 fi
 
-## DEBUG
-exit 1;
-
 git checkout -b "release/$1"
 sed -i "s/## \\[Unreleased\\]/## \\[Unreleased\\]\\n\\n## \\[$1\\] - $(date +%Y-%m-%d)/" CHANGELOG.md
 sed -i "s/const SMARTY_VERSION = '[^']\+';/const SMARTY_VERSION = '$1';/" libs/Smarty.class.php
