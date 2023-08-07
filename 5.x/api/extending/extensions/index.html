@@ -2058,9 +2058,54 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Creating an extension
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Creating an extension
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#default-extensions" class="md-nav__link">
+    Default extensions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-your-own-extension" class="md-nav__link">
+    Writing your own extension
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registering-an-extension" class="md-nav__link">
+    Registering an extension
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2114,6 +2159,35 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#default-extensions" class="md-nav__link">
+    Default extensions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-your-own-extension" class="md-nav__link">
+    Writing your own extension
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registering-an-extension" class="md-nav__link">
+    Registering an extension
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2129,6 +2203,7 @@
 
 
 <h1 id="creating-an-extension">Creating an extension</h1>
+<h2 id="default-extensions">Default extensions</h2>
 <p>In order to organize your custom tags and modifiers, you can create an Extension.
 In fact, most of Smarty itself is organized into two extensions:</p>
 <ul>
@@ -2141,6 +2216,7 @@ In fact, most of Smarty itself is organized into two extensions:</p>
 <p>There is also the 'BCPluginsAdapter' extension, which does not add any new functionality, but
 wraps calls to deprecated methods such as <code>Smarty\Smarty::addPluginsDir()</code> and <code>Smarty\Smarty::loadFilter()</code>.</p>
 </blockquote>
+<h2 id="writing-your-own-extension">Writing your own extension</h2>
 <p>In order to write your own custom extension, you must write a class that implements <code>Smarty\Extension\ExtensionInterface</code>.
 However, it is usually easier to extend <code>Smarty\Extension\Base</code> which provides empty implementation for each of the methods
 required by <code>Smarty\Extension\ExtensionInterface</code>. This allows you to only override the method(s) you need.</p>
@@ -2183,6 +2259,32 @@ Another example, that would allow you to use any valid PHP callable as a modifie
 It also allows you to register pre-, post- and output-filters in a structured way. 
 The files in <code>src/Extension/</code> in the <code>smarty/smarty</code> dir should give you all the information you need to start
 writing your own extension.</p>
+<h2 id="registering-an-extension">Registering an extension</h2>
+<p>When you have written your extension, add it to a Smarty instance as follows:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">use</span> <span class="nx">Smarty\Smarty</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Smarty</span><span class="p">();</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">addExtension</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyCustomExtension</span><span class="p">());</span>
+</code></pre></div>
+<p>This will add <code>MyCustomExtension</code> to the end of the extension list, meaning that you cannot override tags or modifiers
+from one of Smarty's default extensions.</p>
+<p>Should you wish to insert your extension at the top of the extension list, or create a very limited Smarty version that
+only contains the core extension, you can use <code>Smarty\Smarty::setExtensions()</code> to override the list of extensions.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="k">use</span> <span class="nx">Smarty\Smarty</span><span class="p">;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Smarty</span><span class="p">();</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setExtensions</span><span class="p">([</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="k">new</span> <span class="nx">Smarty\Extension\CoreExtension</span><span class="p">(),</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="k">new</span> <span class="nx">MyCustomExtension</span><span class="p">(),</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="k">new</span> <span class="nx">Smarty\Extension\DefaultExtension</span><span class="p">(),</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="p">]);</span>
+</code></pre></div>
 
 
 
