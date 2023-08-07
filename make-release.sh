@@ -1,11 +1,14 @@
 #!/bin/bash
 
-if [[ "$1" =~ ^5\.[0-9\.-rc]+$ ]]; then
+if [[ "$1" =~ ^5\.[0-9\.]+(-rc[0-9]+)?$ ]]; then
    printf 'Creating release %s\n' "$1"
 else
    echo "Invalid version number: $1. This script can only make v5.x.x releases."
    exit 1;
 fi
+
+## DEBUG
+exit 1;
 
 git checkout -b "release/$1"
 sed -i "s/## \\[Unreleased\\]/## \\[Unreleased\\]\\n\\n## \\[$1\\] - $(date +%Y-%m-%d)/" CHANGELOG.md
