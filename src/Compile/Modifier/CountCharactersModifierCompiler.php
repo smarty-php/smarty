@@ -17,7 +17,7 @@ class CountCharactersModifierCompiler extends Base {
 		if (!isset($params[ 1 ]) || $params[ 1 ] !== 'true') {
 			return 'preg_match_all(\'/[^\s]/' . \Smarty\Smarty::$_UTF8_MODIFIER . '\',' . $params[ 0 ] . ', $tmp)';
 		}
-		return 'mb_strlen(' . $params[ 0 ] . ', \'' . addslashes(\Smarty\Smarty::$_CHARSET) . '\')';
+		return 'mb_strlen((string) ' . $params[ 0 ] . ', \'' . addslashes(\Smarty\Smarty::$_CHARSET) . '\')';
 	}
 
 }
