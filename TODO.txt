@@ -1,8 +1,5 @@
 # @TODO
 
-## 5.0
-- fix template invalidation when migrating to 5.0. https://github.com/smarty-php/smarty/pull/852#issuecomment-1412728329
-
 ## CI-building optimization
 - compiled & cached templates should not contain references to local filesystem paths. Add an optional rootpath param
   to `(add|set)TemplateDir` or as a separate method. Make it default to `getcwd()`. If a relative path is passed to

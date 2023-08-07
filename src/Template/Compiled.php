@@ -294,4 +294,9 @@ class Compiled extends GeneratedPhpFile {
 		return $is_valid && !function_exists($properties['unifunc']);
 	}
 
+	/**
+	 * This method is here only to fix an issue when upgrading from Smarty v4 to v5.
+	 */
+	public function _decodeProperties($a, $b, $c = false): bool { return false; }
+
 }
