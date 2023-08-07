@@ -220,9 +220,12 @@ class Debug extends Data
         $_config_vars = $ptr->config_vars;
         ksort($_config_vars);
         $debugging = $smarty->debugging;
+        $templateName = $obj->getSource()->type . ':' . $obj->getSource()->name;
+        $displayMode = $debugging === 2 || !$full;
+        $offset = $this->offset * 50;
         $_template = $debObj->doCreateTemplate($debObj->debug_tpl);
         if ($obj instanceof \Smarty\Template) {
-            $_template->assign('template_name', $obj->getSource()->type . ':' . $obj->getSource()->name);
+            $_template->assign('template_name', $templateName);
         } elseif ($obj instanceof Smarty || $full) {
             $_template->assign('template_data', $this->template_data[$this->index]);
         } else {
@@ -231,8 +234,8 @@ class Debug extends Data
         $_template->assign('assigned_vars', $_assigned_vars);
         $_template->assign('config_vars', $_config_vars);
         $_template->assign('execution_time', microtime(true) - $smarty->start_time);
-        $_template->assign('display_mode', $debugging === 2 || !$full);
-        $_template->assign('offset', $this->offset * 50);
+        $_template->assign('targetWindow', $displayMode ? md5("$offset$templateName") : '__Smarty__');
+        $_template->assign('offset', $offset);
         echo $_template->fetch();
         if (isset($full)) {
             $this->index--;

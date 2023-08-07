@@ -28,6 +28,8 @@ is the value passed in the `name` attribute. If you do not supply the
 | nocache | Disables caching of this captured block |
 
 
+## Examples
+
 ```smarty
 {* we don't want to print a div tag unless content is displayed *}
 {capture name="banner"}

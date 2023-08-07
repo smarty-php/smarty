@@ -5,5 +5,5 @@
 
 phpunit*
 .phpunit.result.cache
-/vendor/*
-/composer.lock
+vendor/*
+composer.lock
