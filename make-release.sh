@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [[ "$1" =~ ^4\.[0-9\.-rc]+$ ]]; then
+if [[ "$1" =~ ^5\.[0-9\.-rc]+$ ]]; then
    printf 'Creating release %s\n' "$1"
 else
-   echo "Invalid version number: $1. This script can only make v4.x.x releases."
+   echo "Invalid version number: $1. This script can only make v5.x.x releases."
    exit 1;
 fi
 
