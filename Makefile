@@ -1,4 +1,4 @@
-all: lexers parsers docs
+all: lexers parsers
 
 lexers: src/Lexer/ConfigfileLexer.php src/Lexer/TemplateLexer.php
 parsers: src/Parser/ConfigfileParser.php src/Parser/TemplateParser.php
