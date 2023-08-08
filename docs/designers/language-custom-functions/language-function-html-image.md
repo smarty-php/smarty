@@ -20,7 +20,7 @@ automatically calculated from the image file if they are not supplied.
     from. If not given, the web server's document root
     `$_ENV['DOCUMENT_ROOT']` is used as the base. If security is
     enabled, then the image must be located in the `$secure_dir` path of
-    the security policy. See the [Security](../../programmers/advanced-features/advanced-features-security.md)
+    the security policy. See the [Security](../../api/security.md)
     section for details.
 
 -   `href` is the href value to link the image to. If link is supplied,
@@ -37,7 +37,7 @@ automatically calculated from the image file if they are not supplied.
 >
 > `{html_image}` requires a hit to the disk to read the image and
 > calculate the height and width. If you don't use template
-> [caching](../../programmers/caching.md), it is generally better to avoid `{html_image}`
+> [caching](../../api/caching/basics.md), it is generally better to avoid `{html_image}`
 > and leave image tags static for optimal performance.
 
 ## Examples

@@ -33,7 +33,7 @@ nav:
         - Comments: 'designers/language-basic-syntax/language-syntax-comments.md'
         - Variables: 'designers/language-basic-syntax/language-syntax-variables.md'
         - Operators: 'designers/language-basic-syntax/language-syntax-operators.md'
-        - Functions: 'designers/language-basic-syntax/language-syntax-functions.md'
+        - Tags: 'designers/language-basic-syntax/language-syntax-tags.md'
         - Attributes: 'designers/language-basic-syntax/language-syntax-attributes.md'
         - Quotes: 'designers/language-basic-syntax/language-syntax-quotes.md'
         - 'Escaping Smarty parsing': 'designers/language-basic-syntax/language-escaping.md'
@@ -70,7 +70,7 @@ nav:
         - 'upper': 'designers/language-modifiers/language-modifier-upper.md'
         - 'wordwrap': 'designers/language-modifiers/language-modifier-wordwrap.md'
     - 'Combining Modifiers': 'designers/language-combining-modifiers.md'
-    - 'Builtin Functions':
+    - 'Builtin Tags':
         - 'Introduction': 'designers/language-builtin-functions/index.md'
         - '{append}': 'designers/language-builtin-functions/language-function-append.md'
         - '{assign}': 'designers/language-builtin-functions/language-function-assign.md'
@@ -93,7 +93,7 @@ nav:
         - '{setfilter}': 'designers/language-builtin-functions/language-function-setfilter.md'
         - '{strip}': 'designers/language-builtin-functions/language-function-strip.md'
         - '{while}': 'designers/language-builtin-functions/language-function-while.md'
-    - 'Custom Functions':
+    - 'Custom Tags':
         - 'Introduction': 'designers/language-custom-functions/index.md'
         - '{counter}': 'designers/language-custom-functions/language-function-counter.md'
         - '{cycle}': 'designers/language-custom-functions/language-function-cycle.md'

@@ -110,7 +110,7 @@ zaphod@slartibartfast.example.com<br />
 
 ## Objects
 
-Properties of [objects](../../programmers/advanced-features/advanced-features-objects.md) assigned from PHP
+Properties of [objects](../../api/variables/objects.md) assigned from PHP
 can be referenced by specifying the property name after the `->` symbol.
 
 ```smarty

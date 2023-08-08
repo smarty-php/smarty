@@ -79,6 +79,8 @@ $smarty->setCacheDir('/some/cache/dir');
 $smarty->testInstall();
 ```
 
+## Basic usage
+
 Now, let's create the `index.tpl` file that Smarty will display. This
 needs to be located in the [`$template_dir`](./programmers/api-variables/variable-template-dir.md).
 

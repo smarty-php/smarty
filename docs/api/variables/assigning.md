@@ -22,7 +22,7 @@ footer.tpl:
 <small>Copyright {$companyName|escape}</small>
 ```
 
-Smarty will apply the [escape modifier](../designers/language-modifiers/language-modifier-escape.md)
+Smarty will apply the [escape modifier](../../designers/language-modifiers/language-modifier-escape.md)
 to the value assigned to the variable
 `companyName` and replace `{$companyName|escape}` with the result.
 

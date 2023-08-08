@@ -27,7 +27,7 @@ Intro = """This is a value that spans more
 
 ```
 
-Values of [config file variables](./language-variables/language-config-variables.md) can be in
+Values of [config file variables](../../designers/language-variables/language-config-variables.md) can be in
 quotes, but not necessary. You can use either single or double quotes.
 If you have a value that spans more than one line, enclose the entire
 value with triple quotes \("""\). You can put comments into config
@@ -81,9 +81,8 @@ $smarty->setConfigOverwrite(false);
 When config overwrite is disabled, Smarty will create arrays of config file variables when it encounters
 multiple entries with the same name.
 
-See also [`{config_load}`](./language-builtin-functions/language-function-config-load.md),
-[`$config_overwrite`](../programmers/api-variables/variable-config-overwrite.md),
-[`$default_config_handler_func`](../programmers/api-variables/variable-default-config-handler-func.md),
-[`getConfigVars()`](../programmers/api-functions/api-get-config-vars.md),
-[`clearConfig()`](../programmers/api-functions/api-clear-config.md) and
-[`configLoad()`](../programmers/api-functions/api-config-load.md)
+See also [`{config_load}`](../../designers/language-builtin-functions/language-function-config-load.md),
+[`$default_config_handler_func`](../../programmers/api-variables/variable-default-config-handler-func.md),
+[`getConfigVars()`](../../programmers/api-functions/api-get-config-vars.md),
+[`clearConfig()`](../../programmers/api-functions/api-clear-config.md) and
+[`configLoad()`](../../programmers/api-functions/api-config-load.md)

@@ -4,7 +4,7 @@
 template delimiters, by default **{** and **}**. You can also use
 [`{literal}{/literal}`](./language-function-literal.md) to escape blocks of
 text eg Javascript or CSS. See also the complementary
-[`{$smarty.ldelim}`](../../programmers/api-variables/variable-left-delimiter.md).
+[`{$smarty.ldelim}`](../../designers/language-basic-syntax/language-escaping.md).
 
 ```smarty
 {* this will print literal delimiters out of the template *}

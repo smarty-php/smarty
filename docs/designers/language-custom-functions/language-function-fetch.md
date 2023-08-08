@@ -28,7 +28,7 @@ ftp and display the contents.
     > If security is enabled, and you are fetching a file from the local
     > file system, `{fetch}` will only allow files from within the
     > `$secure_dir` path of the security policy. See the
-    > [Security](../../programmers/advanced-features/advanced-features-security.md) section for details.
+    > [Security](../../api/security.md) section for details.
 
 -   If the `assign` attribute is set, the output of the `{fetch}`
     function will be assigned to this template variable instead of being

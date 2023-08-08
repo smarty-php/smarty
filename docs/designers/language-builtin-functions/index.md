@@ -4,7 +4,7 @@ Smarty comes with several built-in functions. These built-in functions
 are the integral part of the smarty template engine. They are compiled
 into corresponding inline PHP code for maximum performance.
 
-You cannot create your own [custom functions](../language-custom-functions/index.md) with the same name; and you
+You cannot create your own [custom tags](../language-custom-functions/index.md) with the same name; and you
 should not need to modify the built-in functions.
 
 A few of these functions have an `assign` attribute which collects the

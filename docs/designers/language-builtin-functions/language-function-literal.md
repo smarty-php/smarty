@@ -3,7 +3,7 @@
 `{literal}` tags allow a block of data to be taken literally. This is
 typically used around Javascript or stylesheet blocks where {curly
 braces} would interfere with the template
-[delimiter](../../programmers/api-variables/variable-left-delimiter.md) syntax. Anything within
+[delimiter](../../designers/language-basic-syntax/language-escaping.md) syntax. Anything within
 `{literal}{/literal}` tags is not interpreted, but displayed as-is. If
 you need template tags embedded in a `{literal}` block, consider using
 [`{ldelim}{rdelim}`](./language-function-ldelim.md) to escape the individual

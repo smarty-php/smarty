@@ -8,11 +8,11 @@ variable depends on what symbol it is prefixed or enclosed within.
 - [{$smarty} reserved variable](language-variables-smarty.md)
 
 Variables in Smarty can be either displayed directly or used as
-arguments for [functions](../language-basic-syntax/language-syntax-functions.md),
+arguments for [tags](../language-basic-syntax/language-syntax-tags.md),
 [attributes](../language-basic-syntax/language-syntax-attributes.md) and
 [modifiers](../language-modifiers/index.md), inside conditional expressions, etc.
 To print a variable, simply enclose it in the
-[delimiters](../../programmers/api-variables/variable-left-delimiter.md) so that it is the only thing
+[delimiters](../../designers/language-basic-syntax/language-escaping.md) so that it is the only thing
 contained between them.
 
 ```smarty

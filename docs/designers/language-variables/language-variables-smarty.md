@@ -138,12 +138,12 @@ Returns the version of Smarty the template was compiled with.
 ## {$smarty.block.child}
 
 Returns block text from child template. See [Template
-inheritance](../../programmers/advanced-features/advanced-features-template-inheritance.md).
+inheritance](../../api/inheritance.md).
 
 ## {$smarty.block.parent}
 
 Returns block text from parent template. See [Template
-inheritance](../../programmers/advanced-features/advanced-features-template-inheritance.md)
+inheritance](../../api/inheritance.md)
 
 ## {$smarty.ldelim}, {$smarty.rdelim}
 

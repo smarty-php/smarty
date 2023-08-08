@@ -1,6 +1,6 @@
 # Attributes
 
-Most of the [functions](./language-syntax-functions.md) take attributes that
+Most of the [tags](./language-syntax-tags.md) take attributes that
 specify or modify their behavior. Attributes to Smarty functions are
 much like HTML attributes. Static values don't have to be enclosed in
 quotes, but it is required for literal strings. Variables with or

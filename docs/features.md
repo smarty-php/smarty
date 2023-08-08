@@ -1,36 +1,35 @@
-Features
-=======
+# Features
 
 Some of Smarty's features:
+
 -   It is extremely fast.
 -   It is efficient since the PHP parser does the dirty work.
 -   No template parsing overhead, only compiles once.
--   It is smart about [recompiling](#variable.compile.check) only the
+-   It is smart about recompiling only the
     template files that have changed.
 -   You can easily create your own custom
-    [functions](#language.custom.functions) and [variable
-    modifiers](#language.modifiers), so the template language is
+    [tags](api/extending/tags.md) and [modifiers](api/extending/modifiers.md), so the template language is
     extremely extensible.
--   Configurable template [{delimiter}](#variable.left.delimiter) tag
+-   Configurable template [{delimiter}](designers/language-basic-syntax/language-escaping.md) tag
     syntax, so you can use `{$foo}`, `{{$foo}}`, `<!--{$foo}-->`, etc.
--   The [`{if}..{elseif}..{else}..{/if}`](#language.function.if)
+-   The [`{if}..{elseif}..{else}..{/if}`](designers/language-builtin-functions/language-function-if.md)
     constructs are passed to the PHP parser, so the `{if...}` expression
     syntax can be as simple or as complex an evaluation as you like.
 -   Allows unlimited nesting of
-    [`sections`](#language.function.section), `if's` etc.
--   Built-in [caching](#caching) support
--   Arbitrary [template](#resources) sources
--   [Template Inheritance](#advanced.features.template.inheritance) for
+    [`sections`](designers/language-builtin-functions/language-function-section.md), `if's` etc.
+-   Built-in [caching](api/caching/basics.md) support
+-   Arbitrary [template](api/resources.md) sources
+-   [Template Inheritance](api/inheritance.md) for
     easy management of template content.
--   [Plugin](#plugins) architecture
+-   [Plugin](api/extending/introduction.md) architecture
 
 ## Separation of presentation from application code
 -   This means templates can certainly contain logic under the condition
     that it is for presentation only. Things such as
-    [including](./designers/language-builtin-functions/language-function-include.md) other templates,
-    [alternating](./designers/language-custom-functions/language-function-cycle.md) table row colors,
-    [upper-casing](./designers/language-modifiers/language-modifier-upper.md) a variable,
-    [looping](./designers/language-builtin-functions/language-function-foreach.md) over an array of data and
+    [including](designers/language-builtin-functions/language-function-include.md) other templates,
+    [alternating](designers/language-custom-functions/language-function-cycle.md) table row colors,
+    [upper-casing](designers/language-modifiers/language-modifier-upper.md) a variable,
+    [looping](designers/language-builtin-functions/language-function-foreach.md) over an array of data and
     rendering it are examples of presentation logic.
 -   This does not mean however that Smarty forces a separation of
     business and presentation logic. Smarty has no knowledge of which is
@@ -61,7 +60,7 @@ inheritance, instead of including other templates we maintain our
 templates as single pages. We can then manipulate blocks of content
 within by inheriting them. This makes templates intuitive, efficient and
 easy to manage. See
-[Template Inheritance](./programmers/advanced-features/advanced-features-template-inheritance.md)
+[Template Inheritance](api/inheritance.md)
 for more info.
 
 ## Why not use XML/XSLT syntax?

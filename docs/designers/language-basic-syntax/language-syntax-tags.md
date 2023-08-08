@@ -1,4 +1,4 @@
-# Functions
+# Tags
 
 Every Smarty tag either prints a [variable](./language-syntax-variables.md) or
 invokes some sort of function. These are processed and displayed by
@@ -31,8 +31,8 @@ within delimiters like so: `{funcname attr1="val1" attr2="val2"}`.
     [`{strip}`](../language-builtin-functions/language-function-strip.md). There should be no need to
     change or modify them.
 
--   Custom functions are **additional** functions implemented via
-    [plugins](../../programmers/plugins.md). They can be modified to your liking, or you can
+-   Custom tags are **additional** tags implemented via
+    [plugins](../../api/extending/introduction.md). They can be modified to your liking, or you can
     create new ones. [`{html_options}`](../language-custom-functions/language-function-html-options.md)
     is an example of a custom function.
 

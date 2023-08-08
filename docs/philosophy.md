@@ -13,13 +13,13 @@ newspaper article.
 
 -   The article `$headline`, `$tagline`, `$author` and `$body` are
     content elements, they contain no information about how they will be
-    presented. They are [passed](#api.assign) into Smarty by the
+    presented. They are [passed](getting-started.md#basic-usage) into Smarty by the
     application.
 
 -   Then the template designer edits the templates and uses a
-    combination of HTML tags and [template tags](#language.basic.syntax)
+    combination of HTML tags and [template tags](designers/language-basic-syntax/language-syntax-tags.md)
     to format the presentation of these
-    [variables](#language.syntax.variables) with elements such as
+    [variables](designers/language-basic-syntax/language-syntax-variables.md) with elements such as
     tables, div\'s, background colors, font sizes, style sheets, svg
     etc.
 

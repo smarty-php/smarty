@@ -45,8 +45,7 @@ variables.
 Smarty's default delimiters { and } cleanly represent presentational
 content. However, if another set of delimiters suit your needs better,
 you can change them with Smarty's
-[`$left_delimiter`](../../programmers/api-variables/variable-left-delimiter.md) and
-[`$right_delimiter`](../../programmers/api-variables/variable-right-delimiter.md) values.
+`setLeftDelimiter()` and `setRightDelimiter()` methods.
 
 > **Note**
 >
@@ -57,8 +56,8 @@ you can change them with Smarty's
 ```php
 <?php
 
-$smarty->left_delimiter = '<!--{';
-$smarty->right_delimiter = '}-->';
+$smarty->setLeftDelimiter('<!--{');
+$smarty->setRightDelimiter('}-->');
 
 $smarty->assign('foo', 'bar');
 $smarty->assign('name', 'Albert');

@@ -1,7 +1,7 @@
 # Comments
 
 Template comments are surrounded by asterisks, and that is surrounded by
-the [delimiter](../../programmers/api-variables/variable-left-delimiter.md) tags like so:
+the [delimiter](../../designers/language-basic-syntax/language-escaping.md) tags like so:
 
 ## Examples
 

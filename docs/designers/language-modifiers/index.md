@@ -1,7 +1,7 @@
 # Variable Modifiers
 
 Variable modifiers can be applied to
-[variables](../language-variables/index.md), [custom functions](../language-custom-functions/index.md)
+[variables](../language-variables/index.md), [custom tags](../language-custom-functions/index.md)
 or strings. To apply a modifier,
 specify the value followed by a `|` (pipe) and the modifier name. A
 modifier may accept additional parameters that affect its behavior.
@@ -102,4 +102,4 @@ These parameters follow the modifier name and are separated by a `:`
 
 See also [`registerPlugin()`](../../programmers/api-functions/api-register-plugin.md), [combining
 modifiers](../language-combining-modifiers.md). and [extending smarty with
-plugins](../../programmers/plugins.md)
+plugins](../../api/extending/introduction.md)

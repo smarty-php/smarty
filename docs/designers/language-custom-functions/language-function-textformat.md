@@ -1,6 +1,6 @@
 # {textformat}
 
-`{textformat}` is a [block function](../../programmers/plugins/plugins-block-functions.md) used to
+`{textformat}` is a block tag used to
 format text. It basically cleans up spaces and special characters, and
 formats paragraphs by wrapping at a boundary and indenting lines.
 

@@ -22,7 +22,7 @@ output to the template.
 >     templates.
 >
 > -   Evaluated variables are compiled on every invocation, the compiled
->     versions are not saved! However, if you have [caching](../../programmers/caching.md)
+>     versions are not saved! However, if you have [caching](../../api/caching/basics.md)
 >     enabled, the output will be cached with the rest of the template.
 >
 > -   If the content to evaluate doesn't change often, or is used

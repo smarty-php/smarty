@@ -2,7 +2,7 @@
 
 `{block}` is used to define a named area of template source for template
 inheritance. For details see section of [Template
-Inheritance](../../programmers/advanced-features/advanced-features-template-inheritance.md).
+Inheritance](../../api/inheritance.md).
 
 The `{block}` template source area of a child template will replace the
 corresponding areas in the parent template(s).
@@ -195,7 +195,7 @@ The result would look like
 ```
 
 See also [Template
-Inheritance](../../programmers/advanced-features/advanced-features-template-inheritance.md),
+Inheritance](../../api/inheritance.md),
 [`$smarty.block.parent`](../language-variables/language-variables-smarty.md#smartyblockparent-languagevariablessmartyblockparent),
 [`$smarty.block.child`](../language-variables/language-variables-smarty.md#smartyblockchild-languagevariablessmartyblockchild), and
 [`{extends}`](./language-function-extends.md)
