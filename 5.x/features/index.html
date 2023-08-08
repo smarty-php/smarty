@@ -402,8 +402,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../designers/language-basic-syntax/language-syntax-functions/" class="md-nav__link">
-        Functions
+      <a href="../designers/language-basic-syntax/language-syntax-tags/" class="md-nav__link">
+        Tags
       </a>
     </li>
   
@@ -977,14 +977,14 @@
       
       
         <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
-          Builtin Functions
+          Builtin Tags
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3_5">
           <span class="md-nav__icon md-icon"></span>
-          Builtin Functions
+          Builtin Tags
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1319,14 +1319,14 @@
       
       
         <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
-          Custom Functions
+          Custom Tags
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_3_6">
           <span class="md-nav__icon md-icon"></span>
-          Custom Functions
+          Custom Tags
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -2221,28 +2221,29 @@
 
 
 <h1 id="features">Features</h1>
-<p>Some of Smarty's features:
--   It is extremely fast.
--   It is efficient since the PHP parser does the dirty work.
--   No template parsing overhead, only compiles once.
--   It is smart about <a href="#variable.compile.check">recompiling</a> only the
-    template files that have changed.
--   You can easily create your own custom
-    <a href="#language.custom.functions">functions</a> and <a href="#language.modifiers">variable
-    modifiers</a>, so the template language is
-    extremely extensible.
--   Configurable template <a href="#variable.left.delimiter">{delimiter}</a> tag
-    syntax, so you can use <code>{$foo}</code>, <code>{{$foo}}</code>, <code>&lt;!--{$foo}--&gt;</code>, etc.
--   The <a href="#language.function.if"><code>{if}..{elseif}..{else}..{/if}</code></a>
+<p>Some of Smarty's features:</p>
+<ul>
+<li>It is extremely fast.</li>
+<li>It is efficient since the PHP parser does the dirty work.</li>
+<li>No template parsing overhead, only compiles once.</li>
+<li>It is smart about recompiling only the
+    template files that have changed.</li>
+<li>You can easily create your own custom
+    <a href="../api/extending/tags/">tags</a> and <a href="../api/extending/modifiers/">modifiers</a>, so the template language is
+    extremely extensible.</li>
+<li>Configurable template <a href="../designers/language-basic-syntax/language-escaping/">{delimiter}</a> tag
+    syntax, so you can use <code>{$foo}</code>, <code>{{$foo}}</code>, <code>&lt;!--{$foo}--&gt;</code>, etc.</li>
+<li>The <a href="../designers/language-builtin-functions/language-function-if/"><code>{if}..{elseif}..{else}..{/if}</code></a>
     constructs are passed to the PHP parser, so the <code>{if...}</code> expression
-    syntax can be as simple or as complex an evaluation as you like.
--   Allows unlimited nesting of
-    <a href="#language.function.section"><code>sections</code></a>, <code>if's</code> etc.
--   Built-in <a href="#caching">caching</a> support
--   Arbitrary <a href="#resources">template</a> sources
--   <a href="#advanced.features.template.inheritance">Template Inheritance</a> for
-    easy management of template content.
--   <a href="#plugins">Plugin</a> architecture</p>
+    syntax can be as simple or as complex an evaluation as you like.</li>
+<li>Allows unlimited nesting of
+    <a href="../designers/language-builtin-functions/language-function-section/"><code>sections</code></a>, <code>if's</code> etc.</li>
+<li>Built-in <a href="../api/caching/basics/">caching</a> support</li>
+<li>Arbitrary <a href="../api/resources/">template</a> sources</li>
+<li><a href="../api/inheritance/">Template Inheritance</a> for
+    easy management of template content.</li>
+<li><a href="../api/extending/introduction/">Plugin</a> architecture</li>
+</ul>
 <h2 id="separation-of-presentation-from-application-code">Separation of presentation from application code</h2>
 <ul>
 <li>This means templates can certainly contain logic under the condition
@@ -2278,7 +2279,7 @@ inheritance, instead of including other templates we maintain our
 templates as single pages. We can then manipulate blocks of content
 within by inheriting them. This makes templates intuitive, efficient and
 easy to manage. See
-<a href="./programmers/advanced-features/advanced-features-template-inheritance.md">Template Inheritance</a>
+<a href="../api/inheritance/">Template Inheritance</a>
 for more info.</p>
 <h2 id="why-not-use-xmlxslt-syntax">Why not use XML/XSLT syntax?</h2>
 <p>There are a couple of good reasons. First, Smarty can be used for more
