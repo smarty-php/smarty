@@ -196,7 +196,7 @@ class Template extends TemplateBase {
 				);
 			} else {
 				if ((!$this->caching || $this->getCached()->getNocacheCode() || $this->getSource()->handler->recompiled)
-					&& !$no_output_filter && isset($this->smarty->registered_filters['output'])
+					&& !$no_output_filter
 				) {
 					echo $this->smarty->runOutputFilters(ob_get_clean(), $this);
 				} else {

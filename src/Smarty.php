@@ -385,13 +385,6 @@ class Smarty extends \Smarty\TemplateBase {
 	public $registered_classes = [];
 
 	/**
-	 * registered filters
-	 *
-	 * @var array
-	 */
-	public $registered_filters = [];
-
-	/**
 	 * registered resources
 	 *
 	 * @var array

@@ -210,7 +210,6 @@ class Debug extends Data
         $debObj->error_reporting = E_ALL & ~E_NOTICE;
         $debObj->debug_tpl = $smarty->debug_tpl ?? 'file:' . __DIR__ . '/../debug.tpl';
         $debObj->registered_resources = array();
-        $debObj->registered_filters = array();
         $debObj->escape_html = true;
         $debObj->caching = \Smarty::CACHING_OFF;
         // prepare information of assigned variables
