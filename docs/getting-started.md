@@ -167,7 +167,7 @@ class My_GuestBook extends Smarty {
 Now, we can use `My_GuestBook` instead of `Smarty` in our scripts:
 ```php
 <?php
-$smarty = new Smarty_GuestBook();
+$smarty = new My_GuestBook();
 $smarty->assign('name', 'Ned');
 $smarty->display('index.tpl');
 ```
