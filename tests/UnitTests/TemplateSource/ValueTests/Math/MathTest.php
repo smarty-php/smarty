@@ -101,6 +101,14 @@ class MathTest extends PHPUnit_Smarty
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
     }
 
+    public function testNegativeNumbers()
+    {
+        $this->smarty->disableSecurity();
+        $expected = "-19 -- 4.1";
+        $tpl = $this->smarty->createTemplate('eval:{$x = 4}{$y = 5.5}{math equation="-2.0*(x+y)" x=$x y=$y} -- {math equation="-20.5 / -5"}');
+        $this->assertEquals($expected, $this->smarty->fetch($tpl));
+    }
+
     public function testSyntaxFormat()
     {
         $this->smarty->disableSecurity();
