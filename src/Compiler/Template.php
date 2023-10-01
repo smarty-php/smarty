@@ -464,7 +464,7 @@ class Template extends BaseCompiler {
 	public function compileTag($tag, $args, $parameter = []) {
 		$this->prefixCodeStack[] = $this->prefix_code;
 		$this->prefix_code = [];
-		$result = $this->compileTag2(strtolower($tag), $args, $parameter);
+		$result = $this->compileTag2($tag, $args, $parameter);
 		$this->prefix_code = array_merge($this->prefix_code, array_pop($this->prefixCodeStack));
 		return $result;
 	}
@@ -591,6 +591,7 @@ class Template extends BaseCompiler {
 	 * @return ?\Smarty\Compile\CompilerInterface tag compiler object or null if not found or untrusted by security policy
 	 */
 	public function getTagCompiler($tag): ?\Smarty\Compile\CompilerInterface {
+        $tag = strtolower($tag);
 
 		if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->isTrustedTag($tag, $this)) {
 			return null;
@@ -1114,7 +1115,7 @@ class Template extends BaseCompiler {
 			}
 		}
 
-		// call to function previousely defined by {function} tag
+		// call to function previously defined by {function} tag
 		if ($this->canCompileTemplateFunctionCall($tag)) {
 
 			if (!empty($parameter['modifierlist'])) {
