@@ -14,7 +14,7 @@ is invoked.
 > **Note**
 >
 > As of Smarty 3.1 the file resource no longer walks through the
-> [include\_path](&url.php-manual;ini.core.php#ini.include-path) unless
+> [include\_path](https://www.php.net/ini.core.php#ini.include-path) unless
 > [`$use_include_path` is activated](#variable.use.include.path)
 
 Templates from \$template\_dir {#templates.from.template.dir}

@@ -6,11 +6,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.3.4] - 2023-09-14
+
+## [4.3.3] - 2023-09-14
+
+### Fixed
+- `|strip_tags` does not work if the input is 0 [#890](https://github.com/smarty-php/smarty/issues/890)
+- Use of negative numbers in {math} equations [#895](https://github.com/smarty-php/smarty/issues/895)
+
+## [4.3.2] - 2023-07-19
+
+### Fixed
+- `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP8 warnings for undefined properties
+
+## [4.3.1] - 2023-03-28
+
+### Security
+- Fixed Cross site scripting vulnerability in Javascript escaping. This addresses CVE-2023-28447.
+
 ### Fixed
 - `$smarty->muteUndefinedOrNullWarnings()` now also mutes PHP7 notices for undefined array indexes [#736](https://github.com/smarty-php/smarty/issues/736)
 - `$smarty->muteUndefinedOrNullWarnings()` now treats undefined vars and array access of a null or false variables 
   equivalent across all supported PHP versions
-- `$smarty->muteUndefinedOrNullWarnings()` now allows dereferencing of non-objects accross all supported PHP versions [#831](https://github.com/smarty-php/smarty/issues/831)
+- `$smarty->muteUndefinedOrNullWarnings()` now allows dereferencing of non-objects across all supported PHP versions [#831](https://github.com/smarty-php/smarty/issues/831)
+- PHP 8.1 deprecation warnings on null strings in modifiers [#834](https://github.com/smarty-php/smarty/pull/834)
+
 ## [4.3.0] - 2022-11-22
 
 ### Added
@@ -31,7 +51,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed PHP8.1 deprecation errors passing null to parameter in trim [#807](https://github.com/smarty-php/smarty/pull/807)
 - Adapt Smarty upper/lower functions to be codesafe (e.g. for Turkish locale) [#586](https://github.com/smarty-php/smarty/pull/586)
 - Bug fix for underscore and limited length in template name in custom resources [#581](https://github.com/smarty-php/smarty/pull/581)
-
 
 ## [4.2.1] - 2022-09-14
 

@@ -1,7 +1,7 @@
 Objects {#advanced.features.objects}
 =======
 
-Smarty allows access to PHP [objects](&url.php-manual;object) through
+Smarty allows access to PHP [objects](https://www.php.net/object) through
 the templates.
 
 > **Note**

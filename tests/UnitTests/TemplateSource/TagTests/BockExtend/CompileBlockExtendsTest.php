@@ -1371,4 +1371,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         );
     }
 
+	public function testBlockWithAssign() {
+		$this->assertEquals('Captured content is: Content with lots of html here', $this->smarty->fetch('038_child.tpl'));
+	}
+
 }
