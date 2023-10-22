@@ -166,6 +166,18 @@ class RegisterFunctionTest extends PHPUnit_Smarty
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction');
 	    $this->assertIsArray($this->smarty->getRegisteredPlugin(Smarty::PLUGIN_BLOCK, 'testfunction'));
     }
+
+    /**
+     * Test case (in)sensitivy of plugin functions
+     * @return void
+     * @throws \Smarty\Exception
+     * @group issue907
+     */
+    public function testCaseSensitivity() {
+        $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'customTag', 'myfunction');
+        $this->assertEquals('hello world ', $this->smarty->fetch('string:{customTag}'));
+    }
+
 }
 
 function myfunction($params, $smarty)
