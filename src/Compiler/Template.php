@@ -593,6 +593,8 @@ class Template extends BaseCompiler {
 	public function getTagCompiler($tag): ?\Smarty\Compile\CompilerInterface {
         $tag = strtolower($tag);
 
+		$tag = strtolower($tag);
+
 		if (isset($this->smarty->security_policy) && !$this->smarty->security_policy->isTrustedTag($tag, $this)) {
 			return null;
 		}

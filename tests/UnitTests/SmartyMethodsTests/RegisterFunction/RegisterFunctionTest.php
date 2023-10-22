@@ -154,7 +154,7 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     public function testUnregisterFunctionNotRegistered()
     {
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction');
-	    $this->assertNull($this->smarty->getRegisteredPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction'));
+        $this->assertNull($this->smarty->getRegisteredPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction'));
     }
 
     /**
@@ -164,18 +164,32 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_BLOCK, 'testfunction', 'myfunction');
         $this->smarty->unregisterPlugin(Smarty::PLUGIN_FUNCTION, 'testfunction');
-	    $this->assertIsArray($this->smarty->getRegisteredPlugin(Smarty::PLUGIN_BLOCK, 'testfunction'));
+        $this->assertIsArray($this->smarty->getRegisteredPlugin(Smarty::PLUGIN_BLOCK, 'testfunction'));
     }
+
 
     /**
      * Test case (in)sensitivy of plugin functions
+     * @param $registerName
+     * @param $templateString
      * @return void
      * @throws \Smarty\Exception
      * @group issue907
+     * @dataProvider dataProviderForCaseSensitivity
      */
-    public function testCaseSensitivity() {
-        $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'customTag', 'myfunction');
-        $this->assertEquals('hello world ', $this->smarty->fetch('string:{customTag}'));
+    public function testCaseSensitivity($registerName, $templateString) {
+        $this->smarty->registerPlugin(
+            Smarty::PLUGIN_FUNCTION,
+            $registerName,
+            function($params, $smarty) { return 'function-output'; });
+        $this->assertEquals('function-output', $this->smarty->fetch('string:' . $templateString));
+    }
+
+    public function dataProviderForCaseSensitivity() {
+        return [
+            ['customTag', '{customTag}'],
+            ['customtag', '{customtag}'],
+        ];
     }
 
 }
