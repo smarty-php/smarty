@@ -40,6 +40,17 @@ class RegisterFunctionTest extends PHPUnit_Smarty
     }
 
     /**
+     * test registerPlugin method for function case-sensitive
+     */
+    public function testRegisterFunctionCaseInsensitive()
+    {
+        $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'testFunction', 'myfunction');
+        $this->assertEquals('myfunction',
+            $this->smarty->getRegisteredPlugin(Smarty::PLUGIN_FUNCTION, 'testFunction')[0]);
+        $this->assertEquals('hello world 1', $this->smarty->fetch('eval:{testFunction value=1}'));
+    }
+
+    /**
      * test registerPlugin method for function  class
      */
     public function testRegisterFunctionClass()

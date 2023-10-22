@@ -261,6 +261,8 @@ class Security {
 	 * @return boolean                 true if tag is trusted
 	 */
 	public function isTrustedTag($tag_name, $compiler) {
+        $tag_name = strtolower($tag_name);
+
 		// check for internal always required tags
 		if (in_array($tag_name,	['assign', 'call'])) {
 			return true;
