@@ -85,11 +85,11 @@ The template above includes the example `links.tpl` below
 
 ```smarty
 <div id="box">
-    <h3>{$title}{/h3>
+    <h3>{$title}</h3>
     <ul>
         {foreach from=$links item=l}
             .. do stuff  ...
-        </foreach}
+        {/foreach}
     </ul>
 </div>
 ```
