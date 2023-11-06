@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./utilities/testrunners/php72/Dockerfile
     volumes:
-      - .:/app
+      - smarty-code:/app
     working_dir: /app
   php72:
     extends:
@@ -37,3 +37,35 @@ services:
       service: base
     build:
       dockerfile: ./utilities/testrunners/php82/Dockerfile
+
+volumes:
+  smarty-code:
+
+x-mutagen:
+  sync:
+    defaults:
+      symlink:
+        mode: "posix-raw"
+      ignore:
+        vcs: true
+        paths:
+          - ".docker"
+          - ".env.docker"
+          - ".bundles"
+          - "docker-compose.yml"
+          - ".idea"
+          - ".DS_Store"
+      mode: "two-way-resolved"
+      configurationBeta:
+        permissions:
+          defaultOwner: "id:${APP_USER_ID}"
+          defaultGroup: "id:${APP_GROUP_ID}"
+          defaultFileMode: 0666
+          defaultDirectoryMode: 0755
+      permissions:
+        defaultOwner: "id:${APP_USER_ID}"
+        defaultGroup: "id:${APP_GROUP_ID}"
+    smarty-code:
+      alpha: "."
+      beta: "volume://smarty-code"
+
