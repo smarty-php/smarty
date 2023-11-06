@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use of negative numbers in {math} equations [#895](https://github.com/smarty-php/smarty/issues/895)
 - Do not auto-html-escape custom function results [#906](https://github.com/smarty-php/smarty/issues/906)
 - Fix case-sensitive tag names [#907](https://github.com/smarty-php/smarty/issues/907)
-- Do not auto-html-escape custom function results [#906](https://github.com/smarty-php/smarty/issues/906)
 
 ### Removed
 - Removed `$smarty->registered_filters` array
