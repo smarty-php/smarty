@@ -1143,7 +1143,7 @@ class Template extends BaseCompiler {
 		if ($this->smarty->getFunctionHandler($base_tag)) {
 			if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($base_tag, $this)) {
 				return (new \Smarty\Compile\PrintExpressionCompiler())->compile(
-					[],
+					['nofilter'], // functions are never auto-escaped
 					$this,
 					['value' =>	$this->compileFunctionCall($base_tag, $args, $parameter)]
 				);
