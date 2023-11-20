@@ -67,7 +67,7 @@ function smarty_function_math($params, $template)
     $equation = preg_replace('/\s+/', '', $equation);
 
     // Adapted from https://www.php.net/manual/en/function.eval.php#107377
-    $number = '(?:\d+(?:[,.]\d+)?|pi|π)'; // What is a number
+    $number = '-?(?:\d+(?:[,.]\d+)?|pi|π)'; // What is a number
     $functionsOrVars = '((?:0x[a-fA-F0-9]+)|([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*))';
     $operators = '[,+\/*\^%-]'; // Allowed math operators
     $regexp = '/^(('.$number.'|'.$functionsOrVars.'|('.$functionsOrVars.'\s*\((?1)*\)|\((?1)*\)))(?:'.$operators.'(?1))?)+$/';

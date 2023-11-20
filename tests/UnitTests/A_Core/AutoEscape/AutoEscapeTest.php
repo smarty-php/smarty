@@ -30,4 +30,36 @@ class AutoEscapeTest extends PHPUnit_Smarty
         $tpl->assign('foo', '<a@b.c>');
         $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
     }
+
+
+    /**
+     * test 'escapeHtml' property
+     * @group issue906
+     */
+    public function testAutoEscapeDoesNotEscapeFunctionPlugins()
+    {
+        $this->smarty->registerPlugin(
+            Smarty::PLUGIN_FUNCTION,
+            'horizontal_rule',
+            function ($params, $smarty)	{ return "<hr>"; }
+        );
+        $tpl = $this->smarty->createTemplate('eval:{horizontal_rule}');
+        $this->assertEquals("<hr>", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test 'escapeHtml' property
+     * @group issue906
+     */
+    public function testAutoEscapeDoesNotEscapeBlockPlugins()
+    {
+        $this->smarty->registerPlugin(
+            Smarty::PLUGIN_BLOCK,
+            'paragraphify',
+            function ($params, $content)	{ return $content == null ? null :  "<p>".$content."</p>"; }
+        );
+        $tpl = $this->smarty->createTemplate('eval:{paragraphify}hi{/paragraphify}');
+        $this->assertEquals("<p>hi</p>", $this->smarty->fetch($tpl));
+    }
+
 }

@@ -14,7 +14,7 @@ sed -i "s/const SMARTY_VERSION = '[^']\+';/const SMARTY_VERSION = '$1';/" libs/S
 git add CHANGELOG.md libs/Smarty.class.php
 git commit -m "version bump"
 
-git checkout master
+git checkout support/4.3
 git pull
 git merge --no-ff "release/$1"
 git branch -d "release/$1"
