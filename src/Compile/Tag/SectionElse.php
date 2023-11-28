@@ -20,7 +20,8 @@ class SectionElse extends Base {
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		[$openTag, $nocache_pushed] = $this->closeTag($compiler, ['section']);
 		$this->openTag($compiler, 'sectionelse', ['sectionelse', $nocache_pushed]);
 		return "<?php }} else {\n ?>";

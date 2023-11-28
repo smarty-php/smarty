@@ -21,7 +21,8 @@ class Setfilter extends Base {
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		$compiler->variable_filter_stack[] = $compiler->getSmarty()->getDefaultModifiers();
 
 		// The modifier_list is passed as an array of array's. The inner arrays have the modifier at index 0,

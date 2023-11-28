@@ -33,9 +33,10 @@ class FunctionClose extends Base {
 	 * @param array $args array with attributes from parser
 	 * @param object|\Smarty\Compiler\Template $compiler compiler object
 	 *
-	 * @return bool true
+	 * @return string compiled code
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		$this->compiler = $compiler;
 		$saved_data = $this->closeTag($compiler, ['function']);
 		$_attr = $saved_data[0];

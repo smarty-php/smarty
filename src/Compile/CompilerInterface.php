@@ -20,7 +20,7 @@ interface CompilerInterface {
 	 * @return string compiled code as a string
 	 * @throws \Smarty\CompilerException
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null);
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string;
 
 	public function isCacheable(): bool;
 }

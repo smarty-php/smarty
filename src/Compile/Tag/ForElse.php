@@ -21,7 +21,8 @@ class ForElse extends Base {
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		[$tagName, $nocache_pushed] = $this->closeTag($compiler, ['for']);
 		$this->openTag($compiler, 'forelse', ['forelse', $nocache_pushed]);
 		return "<?php }} else { ?>";

@@ -27,7 +27,8 @@ class DefaultHandlerFunctionCallCompiler extends Base {
 	 * @throws \Smarty\CompilerException
 	 * @throws \Smarty\Exception
 	 */
-	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		unset($_attr['nocache']);

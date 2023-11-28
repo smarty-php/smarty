@@ -33,7 +33,8 @@ class ModifierCompiler extends Base {
 	 * @throws \Smarty\CompilerException
 	 * @throws \Smarty\Exception
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 
 		$output = $parameter['value'];
 

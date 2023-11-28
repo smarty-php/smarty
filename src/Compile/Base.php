@@ -229,5 +229,5 @@ abstract class Base implements CompilerInterface {
 	 * @return string compiled code as a string
 	 * @throws \Smarty\CompilerException
 	 */
-	abstract public function compile($args, Template $compiler, $parameter = array(), $tag = null, $function = null);
+	abstract public function compile($args, Template $compiler, $parameter = array(), $tag = null, $function = null): string;
 }

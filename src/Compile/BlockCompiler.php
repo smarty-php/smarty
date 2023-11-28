@@ -50,7 +50,8 @@ class BlockCompiler extends Base {
 	 * @throws CompilerException
 	 * @throws Exception
 	 */
-	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 
 		if (!isset($tag[5]) || substr($tag, -5) !== 'close') {
 			$output = $this->compileOpeningTag($compiler, $args, $tag, $function);

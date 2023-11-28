@@ -52,7 +52,8 @@ class ExtendsTag extends Inheritance {
 	 * @throws \Smarty\CompilerException
 	 * @throws \Smarty\Exception
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		if ($_attr['nocache'] === true) {

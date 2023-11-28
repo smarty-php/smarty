@@ -29,7 +29,8 @@ class CaptureClose extends Base {
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 
 		if (array_pop($compiler->_cache['capture_stack'])) {
 			// pop the virtual {nocache} tag from the stack.

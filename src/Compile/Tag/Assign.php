@@ -55,8 +55,8 @@ class Assign extends Base
      * @return string compiled code
      * @throws \Smarty\CompilerException
      */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
-    {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null): string
+	{
 
         $_nocache = false;
         // check and get attributes

@@ -79,7 +79,8 @@ class ForeachTag extends ForeachSection {
 	 * @throws \Smarty\CompilerException
 	 * @throws \Smarty\Exception
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		$compiler->loopNesting++;
 		// init
 		$this->isNamed = false;
