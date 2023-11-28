@@ -140,7 +140,7 @@ class FunctionClose extends Base {
 		// restore old status
 		$compiler->getTemplate()->getCompiled()->setNocacheCode($saved_data[2]);
 		$compiler->getTemplate()->caching = $saved_data[3];
-		return true;
+		return '';
 	}
 
 	/**

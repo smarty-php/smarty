@@ -34,8 +34,6 @@ class Setfilter extends Base {
 
 		$compiler->getSmarty()->setDefaultModifiers($newList);
 
-		// this tag does not return compiled code
-		$compiler->has_code = false;
-		return true;
+		return '';
 	}
 }

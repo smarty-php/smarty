@@ -66,7 +66,6 @@ class Capture extends Base {
 			$compiler->openTag('nocache');
 		}
 
-		$_output = "<?php \$_smarty_tpl->getSmarty()->getRuntime('Capture')->open(\$_smarty_tpl, $buffer, $assign, $append);?>";
-		return $_output;
+		return "<?php \$_smarty_tpl->getSmarty()->getRuntime('Capture')->open(\$_smarty_tpl, $buffer, $assign, $append);?>";
 	}
 }

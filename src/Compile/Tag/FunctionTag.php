@@ -67,6 +67,6 @@ class FunctionTag extends Base {
 		// Init temporary context
 		$compiler->getParser()->current_buffer = new \Smarty\ParseTree\Template();
 		$compiler->getTemplate()->getCompiled()->setNocacheCode(false);
-		return true;
+		return '';
 	}
 }

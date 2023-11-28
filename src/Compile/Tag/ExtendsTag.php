@@ -86,7 +86,6 @@ class ExtendsTag extends Inheritance {
 		} else {
 			$this->compileEndChild($compiler, $_attr['file']);
 		}
-		$compiler->has_code = false;
 		return '';
 	}
 

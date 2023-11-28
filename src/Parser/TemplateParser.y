@@ -290,9 +290,7 @@ literal_e1(A) ::= . {
 }
                       // Smarty tag
 template       ::= template smartytag(B). {
-      if ($this->compiler->has_code) {
-          $this->current_buffer->append_subtree($this, $this->mergePrefixCode(B));
-      }
+     $this->current_buffer->append_subtree($this, $this->mergePrefixCode(B));
      $this->compiler->has_variable_string = false;
      $this->block_nesting_level = $this->compiler->getTagStackCount();
 }

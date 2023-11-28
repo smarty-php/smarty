@@ -103,7 +103,6 @@ class BlockClose extends Inheritance {
 		if ($compiler->_cache['blockNesting'] === 0) {
 			unset($compiler->_cache['blockNesting']);
 		}
-		$compiler->has_code = true;
 		$compiler->suppressNocacheProcessing = true;
 		return $output;
 	}

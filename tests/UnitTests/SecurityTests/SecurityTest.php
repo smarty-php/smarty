@@ -303,7 +303,7 @@ class SecurityTest extends PHPUnit_Smarty
     }
 /**
  * 
- * 
+ * @group slow
 */
     public function testTrustedUri()
     {

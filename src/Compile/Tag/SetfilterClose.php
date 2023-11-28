@@ -37,8 +37,6 @@ class SetfilterClose extends Base {
 			count($compiler->variable_filter_stack) ? array_pop($compiler->variable_filter_stack) : []
 		);
 
-		// this tag does not return compiled code
-		$compiler->has_code = false;
-		return true;
+		return '';
 	}
 }

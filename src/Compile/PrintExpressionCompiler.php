@@ -49,8 +49,6 @@ class PrintExpressionCompiler extends Base {
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 
-		$compiler->has_code = true;
-
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		$output = $parameter['value'];

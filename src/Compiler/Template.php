@@ -185,13 +185,6 @@ class Template extends BaseCompiler {
 	public $prefixCodeStack = [];
 
 	/**
-	 * Tag has compiled code
-	 *
-	 * @var bool
-	 */
-	public $has_code = false;
-
-	/**
 	 * A variable string was compiled
 	 *
 	 * @var bool
@@ -1074,12 +1067,10 @@ class Template extends BaseCompiler {
 	}
 
 	public function compileChildBlock() {
-		$this->has_code = true;
 		return $this->blockCompiler->compileChild($this);
 	}
 
 	public function compileParentBlock() {
-		$this->has_code = true;
 		return $this->blockCompiler->compileParent($this);
 	}
 
@@ -1096,8 +1087,6 @@ class Template extends BaseCompiler {
 	 */
 	private function compileTag2($tag, $args, $parameter) {
 		// $args contains the attributes parsed and compiled by the lexer/parser
-		// assume that tag does compile into code, but creates no HTML output
-		$this->has_code = true;
 
 		$this->handleNocacheFlag($args);
 
@@ -1106,12 +1095,10 @@ class Template extends BaseCompiler {
 			if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this)) {
 				$this->tag_nocache = $this->tag_nocache | !$tagCompiler->isCacheable();
 				$_output = $tagCompiler->compile($args, $this, $parameter);
-				if ($_output !== false) {
-					if (!empty($parameter['modifierlist'])) {
-						throw new CompilerException('No modifiers allowed on ' . $tag);
-					}
-					return $this->has_code && $_output !== true ? $_output : null;
+				if (!empty($parameter['modifierlist'])) {
+					throw new CompilerException('No modifiers allowed on ' . $tag);
 				}
+				return $_output;
 			}
 		}
 
@@ -1124,8 +1111,7 @@ class Template extends BaseCompiler {
 
 			$args['_attr']['name'] = "'{$tag}'";
 			$tagCompiler = $this->getTagCompiler('call');
-			$_output = $tagCompiler === null ? false : $tagCompiler->compile($args, $this, $parameter);
-			return $this->has_code ? $_output : null;
+			return $tagCompiler === null ? false : $tagCompiler->compile($args, $this, $parameter);
 		}
 
 		// remaining tastes: (object-)function, (object-function-)block, custom-compiler

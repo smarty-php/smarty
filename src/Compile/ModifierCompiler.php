@@ -35,8 +35,6 @@ class ModifierCompiler extends Base {
 	 */
 	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
 
-		$compiler->has_code = true;
-
 		$output = $parameter['value'];
 
 		// loop over list of modifiers

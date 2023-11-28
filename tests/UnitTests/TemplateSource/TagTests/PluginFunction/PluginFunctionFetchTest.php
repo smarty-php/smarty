@@ -30,7 +30,7 @@ class PluginFunctionFetchTest extends PHPUnit_Smarty
 * test {fetch} from UIR
 *
 * 
-* 
+* @group slow
 */
    public function testFetchUri()
     {
