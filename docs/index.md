@@ -26,5 +26,6 @@ and 480 for $height, the result is:
 - [Features](./features.md) - or "Why do I want Smarty?"
 
 ## Help
+- [Upgrading from an older version](upgrading.md)
 - [Some random tips & tricks](./appendixes/tips.md)
 - [Troubleshooting](./appendixes/troubleshooting.md)

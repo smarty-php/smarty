@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   multibyte extension for optimal performance.
 - Smarty no longer calls `mb_internal_encoding()` and doesn't check for deprecated `mbstring.func_overload` ini directive [#480](https://github.com/smarty-php/smarty/issues/480)
 - Generated `<script>` tags lo longer have deprecated `type="text/javascript"` or `language="Javascript"` attributes [#815](https://github.com/smarty-php/smarty/issues/815)
-- Smarty will throw a compiler exception insteadd of silently ignoring a modifier on a function call, like this: `{include|dot:"x-template-id" file="included.dot.tpl"}` [#526](https://github.com/smarty-php/smarty/issues/526) 
+- Smarty will throw a compiler exception instead of silently ignoring a modifier on a function call, like this: `{include|dot:"x-template-id" file="included.dot.tpl"}` [#526](https://github.com/smarty-php/smarty/issues/526) 
 - The documentation was largely rewritten
 
 ### Deprecated

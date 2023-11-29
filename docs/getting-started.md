@@ -16,9 +16,9 @@ To get the latest, unreleased version, use:
 composer require smarty/smarty:dev-master
 ```
 
-To get the previous stable version of Smarty, Smarty 3, use:
+To get the previous stable version of Smarty, Smarty 4, use:
 ```shell
-composer require smarty/smarty:^3
+composer require smarty/smarty:^4
 ```
 
 Here's how you create an instance of Smarty in your PHP scripts:
