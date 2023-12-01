@@ -72,6 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed constants such as SMARTY_DIR to prevent global side effects.
 - Removed direct access to `$smarty->template_dir`. Use `$smarty->setTemplateDir()`.
 - Removed direct access to `$smarty->cache_dir`. Use `$smarty->setCacheDir()`.
+- Removed direct access to `$smarty->compile_dir`. Use `$smarty->setCompileDir()`.
 - Removed `$smarty->loadPlugin()`, use `$smarty->registerPlugin()` instead.
 - Removed `$smarty->appendByRef()` and `$smarty->assignByRef()`.
 - Removed `$smarty->_current_file`

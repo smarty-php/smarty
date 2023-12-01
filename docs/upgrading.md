@@ -71,6 +71,7 @@ In many cases, these properties have been made private, and you should now use t
 - `$smarty->autoload_filters` should be replaced with `$smarty->registerFilter()`
 - `$smarty->template_dir` should be replaced with `$smarty->setTemplateDir()`
 - `$smarty->cache_dir` should be replaced with `$smarty->setCacheDir()`
+- `$smarty->compile_dir` should be replaced with `$smarty->setCompileDir()`
 
 Other public properties have been removed altogether, and you should no longer access them:
 
