@@ -134,8 +134,8 @@ that would be needed otherwise? Does the codebase or framework you plan
 on using have the features you need for the presentation component?
 
 ## Sites using Smarty
-Many well-known PHP projects make use of Smarty such as XOOPS CMS, CMS Made Simple, Tiki
-CMS/Groupware and X-Cart to name a few.
+Many well-known PHP projects make use of Smarty such as XOOPS CMS, CMS Made Simple, 
+Tiki Wiki CMS Groupware and X-Cart to name a few.
 
 ## Summary
 Whether you are using Smarty for a small website or massive enterprise
