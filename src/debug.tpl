@@ -1,4 +1,4 @@
-{capture name='_smarty_debug' assign=debug_output}
+{capture name='_smarty_debug' assign='debug_output'}
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -108,7 +108,7 @@
     </head>
     <body>
 
-    <h1>Smarty {Smarty::SMARTY_VERSION} Debug Console
+    <h1>Smarty {\Smarty\Smarty::SMARTY_VERSION} Debug Console
         -  {if isset($template_name)}{$template_name|debug_print_var nofilter} {/if}{if !empty($template_data)}Total Time {$execution_time|string_format:"%.5f"}{/if}</h1>
 
     {if !empty($template_data)}
@@ -166,7 +166,7 @@
     </body>
     </html>
 {/capture}
-<script type="text/javascript">
+<script>
     _smarty_console = window.open("", "console{$targetWindow}", "width=1024,height=600,left={$offset},top={$offset},resizable,scrollbars=yes");
     _smarty_console.document.write("{$debug_output|escape:'javascript' nofilter}");
     _smarty_console.document.close();
