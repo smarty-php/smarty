@@ -6,8 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.0-rc2] - 2023-11-11
+### Fixed
+- The {debug} tag was broken in v5 [#922](https://github.com/smarty-php/smarty/issues/922)
 
+## [5.0.0-rc2] - 2023-11-11
 
 ### Fixed
 - Registered output filters wouldn't run [#899](https://github.com/smarty-php/smarty/issues/899)

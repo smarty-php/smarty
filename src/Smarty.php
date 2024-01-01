@@ -251,9 +251,10 @@ class Smarty extends \Smarty\TemplateBase {
 
 	/**
 	 * debug mode
-	 * Setting this to true enables the debug-console.
+	 * Setting this to true enables the debug-console. Setting it to 2 enables individual Debug Console window by
+	 * template name.
 	 *
-	 * @var boolean
+	 * @var boolean|int
 	 */
 	public $debugging = false;
 

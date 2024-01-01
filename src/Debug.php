@@ -6,16 +6,7 @@ namespace Smarty;
  * Smarty Internal Plugin Debug
  * Class to collect data for the Smarty Debugging Console
  *
-
-
  * @author     Uwe Tews
- */
-
-/**
- * Smarty Internal Plugin Debug Class
- *
-
-
  */
 class Debug extends Data
 {
@@ -24,14 +15,14 @@ class Debug extends Data
      *
      * @var array
      */
-    public $template_data = array();
+    public $template_data = [];
 
     /**
      * List of uid's which shall be ignored
      *
      * @var array
      */
-    public $ignore_uid = array();
+    public $ignore_uid = [];
 
     /**
      * Index of display() and fetch() calls
@@ -50,10 +41,10 @@ class Debug extends Data
     /**
      * Start logging template
      *
-     * @param \Smarty\Template $template template
+     * @param Template $template template
      * @param null                      $mode     true: display   false: fetch  null: subtemplate
      */
-    public function start_template(\Smarty\Template $template, $mode = null)
+    public function start_template(Template $template, $mode = null)
     {
         if (isset($mode) && !$template->_isSubTpl()) {
             $this->index++;
@@ -67,9 +58,9 @@ class Debug extends Data
     /**
      * End logging of cache time
      *
-     * @param \Smarty\Template $template cached template
+     * @param Template $template cached template
      */
-    public function end_template(\Smarty\Template $template)
+    public function end_template(Template $template)
     {
         $key = $this->get_key($template);
         $this->template_data[ $this->index ][ $key ][ 'total_time' ] +=
@@ -79,15 +70,15 @@ class Debug extends Data
     /**
      * Start logging of compile time
      *
-     * @param \Smarty\Template $template
+     * @param Template $template
      */
-    public function start_compile(\Smarty\Template $template)
+    public function start_compile(Template $template)
     {
         static $_is_stringy = array('string' => true, 'eval' => true);
         if (!empty($template->getCompiler()->trace_uid)) {
             $key = $template->getCompiler()->trace_uid;
             if (!isset($this->template_data[ $this->index ][ $key ])) {
-	            $this->saveTemplateData($_is_stringy, $template, $key);
+                $this->saveTemplateData($_is_stringy, $template, $key);
             }
         } else {
             if (isset($this->ignore_uid[ $template->getSource()->uid ])) {
@@ -101,9 +92,9 @@ class Debug extends Data
     /**
      * End logging of compile time
      *
-     * @param \Smarty\Template $template
+     * @param Template $template
      */
-    public function end_compile(\Smarty\Template $template)
+    public function end_compile(Template $template)
     {
         if (!empty($template->getCompiler()->trace_uid)) {
             $key = $template->getCompiler()->trace_uid;
@@ -120,9 +111,9 @@ class Debug extends Data
     /**
      * Start logging of render time
      *
-     * @param \Smarty\Template $template
+     * @param Template $template
      */
-    public function start_render(\Smarty\Template $template)
+    public function start_render(Template $template)
     {
         $key = $this->get_key($template);
         $this->template_data[ $this->index ][ $key ][ 'start_time' ] = microtime(true);
@@ -131,9 +122,9 @@ class Debug extends Data
     /**
      * End logging of compile time
      *
-     * @param \Smarty\Template $template
+     * @param Template $template
      */
-    public function end_render(\Smarty\Template $template)
+    public function end_render(Template $template)
     {
         $key = $this->get_key($template);
         $this->template_data[ $this->index ][ $key ][ 'render_time' ] +=
@@ -143,9 +134,9 @@ class Debug extends Data
     /**
      * Start logging of cache time
      *
-     * @param \Smarty\Template $template cached template
+     * @param Template $template cached template
      */
-    public function start_cache(\Smarty\Template $template)
+    public function start_cache(Template $template)
     {
         $key = $this->get_key($template);
         $this->template_data[ $this->index ][ $key ][ 'start_time' ] = microtime(true);
@@ -154,9 +145,9 @@ class Debug extends Data
     /**
      * End logging of cache time
      *
-     * @param \Smarty\Template $template cached template
+     * @param Template $template cached template
      */
-    public function end_cache(\Smarty\Template $template)
+    public function end_cache(Template $template)
     {
         $key = $this->get_key($template);
         $this->template_data[ $this->index ][ $key ][ 'cache_time' ] +=
@@ -166,9 +157,9 @@ class Debug extends Data
     /**
      * Register template object
      *
-     * @param \Smarty\Template $template cached template
+     * @param Template $template cached template
      */
-    public function register_template(\Smarty\Template $template)
+    public function register_template(Template $template)
     {
     }
 
@@ -184,13 +175,13 @@ class Debug extends Data
     /**
      * Opens a window for the Smarty Debugging Console and display the data
      *
-     * @param \Smarty\Template|\Smarty $obj object to debug
+     * @param Template|Smarty $obj object to debug
      * @param bool                            $full
      *
      * @throws \Exception
-     * @throws \Smarty\Exception
+     * @throws Exception
      */
-    public function display_debug($obj, $full = false)
+    public function display_debug($obj, bool $full = false)
     {
         if (!$full) {
             $this->offset++;
@@ -200,18 +191,18 @@ class Debug extends Data
         $smarty = $obj->getSmarty();
         // create fresh instance of smarty for displaying the debug console
         // to avoid problems if the application did overload the Smarty class
-        $debObj = new \Smarty\Smarty();
+        $debObj = new Smarty();
         // copy the working dirs from application
         $debObj->setCompileDir($smarty->getCompileDir());
-        $debObj->compile_check = \Smarty::COMPILECHECK_ON;
+        $debObj->compile_check = Smarty::COMPILECHECK_ON;
         $debObj->security_policy = null;
         $debObj->debugging = false;
         $debObj->debugging_ctrl = 'NONE';
         $debObj->error_reporting = E_ALL & ~E_NOTICE;
-        $debObj->debug_tpl = $smarty->debug_tpl ?? 'file:' . __DIR__ . '/../debug.tpl';
+        $debObj->debug_tpl = $smarty->debug_tpl ?? 'file:' . __DIR__ . '/debug.tpl';
         $debObj->registered_resources = array();
         $debObj->escape_html = true;
-        $debObj->caching = \Smarty::CACHING_OFF;
+        $debObj->caching = Smarty::CACHING_OFF;
         // prepare information of assigned variables
         $ptr = $this->get_debug_vars($obj);
         $_assigned_vars = $ptr->tpl_vars;
@@ -223,7 +214,7 @@ class Debug extends Data
         $displayMode = $debugging === 2 || !$full;
         $offset = $this->offset * 50;
         $_template = $debObj->doCreateTemplate($debObj->debug_tpl);
-        if ($obj instanceof \Smarty\Template) {
+        if ($obj instanceof Template) {
             $_template->assign('template_name', $templateName);
         } elseif ($obj instanceof Smarty || $full) {
             $_template->assign('template_data', $this->template_data[$this->index]);
@@ -298,11 +289,11 @@ class Debug extends Data
     /**
      * Return key into $template_data for template
      *
-     * @param \Smarty\Template $template template object
+     * @param Template $template template object
      *
      * @return string key into $template_data
      */
-    private function get_key(\Smarty\Template $template)
+    private function get_key(Template $template)
     {
         static $_is_stringy = array('string' => true, 'eval' => true);
 
@@ -319,9 +310,9 @@ class Debug extends Data
     /**
      * Ignore template
      *
-     * @param \Smarty\Template $template
+     * @param Template $template
      */
-    public function ignore(\Smarty\Template $template)
+    public function ignore(Template $template)
     {
         $this->ignore_uid[$template->getSource()->uid] = true;
     }
@@ -329,9 +320,9 @@ class Debug extends Data
     /**
      * handle 'URL' debugging mode
      *
-     * @param \Smarty $smarty
+     * @param Smarty $smarty
      */
-    public function debugUrl(\Smarty $smarty)
+    public function debugUrl(Smarty $smarty)
     {
         if (isset($_SERVER[ 'QUERY_STRING' ])) {
             $_query_string = $_SERVER[ 'QUERY_STRING' ];
@@ -360,12 +351,12 @@ class Debug extends Data
 
 	/**
 	 * @param array $_is_stringy
-	 * @param \Smarty\Template $template
+	 * @param Template $template
 	 * @param string $key
 	 *
 	 * @return void
 	 */
-	private function saveTemplateData(array $_is_stringy, \Smarty\Template $template, string $key): void {
+	private function saveTemplateData(array $_is_stringy, Template $template, string $key): void {
 		if (isset($_is_stringy[$template->getSource()->type])) {
 			$this->template_data[$this->index][$key]['name'] =
 				'\'' . substr($template->getSource()->name, 0, 25) . '...\'';
