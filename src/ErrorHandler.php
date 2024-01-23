@@ -77,7 +77,7 @@ class ErrorHandler
         }
 
         if ($this->allowUndefinedArrayKeys && preg_match(
-            '/^(Undefined index|Undefined array key|Trying to access array offset on value of type)/',
+            '/^(Undefined index|Undefined array key|Trying to access array offset on)/',
             $errstr
         )) {
             return; // suppresses this error
