@@ -431,6 +431,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#escaping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Escaping
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#extended-setup" class="md-nav__link">
     <span class="md-ellipsis">
       Extended Setup
@@ -3150,6 +3159,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#escaping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Escaping
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#extended-setup" class="md-nav__link">
     <span class="md-ellipsis">
       Extended Setup
@@ -3236,7 +3254,7 @@ being used.</p>
 <p>Now, let's create the <code>index.tpl</code> file that Smarty will display. This
 needs to be located in the <a href="../programmers/api-variables/variable-template-dir/"><code>$template_dir</code></a>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">{</span><span class="c">* Smarty *</span><span class="cp">}</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="x">Hello </span><span class="cp">{</span><span class="nv">$name</span><span class="cp">}</span><span class="x">, welcome to Smarty!</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="x">&lt;h1&gt;Hello </span><span class="cp">{</span><span class="nv">$name</span><span class="o">|</span><span class="na">escape</span><span class="cp">}</span><span class="x">, welcome to Smarty!&lt;/h1&gt;</span>
 </code></pre></div>
 <blockquote>
 <p><strong>Note</strong></p>
@@ -3275,38 +3293,50 @@ directories you intended.</p>
 </blockquote>
 <p>Now, run your PHP file. You should see <em>"Hello Ned, welcome to Smarty!"</em></p>
 <p>You have completed the basic setup for Smarty!</p>
+<h2 id="escaping">Escaping</h2>
+<p>You may have noticed that the example template above renders the <code>$name</code> variable using
+the <a href="../designers/language-modifiers/language-modifier-escape/">escape modifier</a>.  This 
+modifier makes string 'safe' to use in the context of an HTML page.</p>
+<p>If you are primarily using Smarty for HTML-pages, it is recommended to enable automatic
+escaping. This way, you don't have to add <code>|escape</code> to every variable you use on a web page. 
+Smarty will handle it automatically for you!</p>
+<p>Enable auto-escaping for HTML as follows:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="x">$smarty-&gt;setEscapeHtml(true);</span>
+</code></pre></div></p>
 <h2 id="extended-setup">Extended Setup</h2>
 <p>This is a continuation of the <a href="#installation">basic installation</a>, please read that first!</p>
 <p>A slightly more flexible way to set up Smarty is to extend the Smarty
 class and initialize your Smarty
 environment. So instead of repeatedly setting directory paths, assigning
 the same vars, etc., we can do that in one place.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">&lt;?php</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">use</span> <span class="nx">Smarty\Smarty</span><span class="p">;</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">class</span> <span class="nc">My_GuestBook</span> <span class="k">extends</span> <span class="nx">Smarty</span> <span class="p">{</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>   <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>   <span class="p">{</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/templates/&#39;</span><span class="p">);</span>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setCompileDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/templates_c/&#39;</span><span class="p">);</span>
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setConfigDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/configs/&#39;</span><span class="p">);</span>
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setCacheDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/cache/&#39;</span><span class="p">);</span>
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">caching</span> <span class="o">=</span> <span class="nx">Smarty</span><span class="o">::</span><span class="na">CACHING_LIFETIME_CURRENT</span><span class="p">;</span>
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;app_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Guest Book&#39;</span><span class="p">);</span>
-<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>   <span class="p">}</span>
-<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>
-<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">use</span> <span class="nx">Smarty\Smarty</span><span class="p">;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">class</span> <span class="nc">My_GuestBook</span> <span class="k">extends</span> <span class="nx">Smarty</span> <span class="p">{</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>   <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>   <span class="p">{</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/templates/&#39;</span><span class="p">);</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setCompileDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/templates_c/&#39;</span><span class="p">);</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setConfigDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/configs/&#39;</span><span class="p">);</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setCacheDir</span><span class="p">(</span><span class="s1">&#39;/web/www.example.com/guestbook/cache/&#39;</span><span class="p">);</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setEscapeHtml</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">caching</span> <span class="o">=</span> <span class="nx">Smarty</span><span class="o">::</span><span class="na">CACHING_LIFETIME_CURRENT</span><span class="p">;</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;app_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Guest Book&#39;</span><span class="p">);</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>   <span class="p">}</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="p">}</span>
 </code></pre></div>
 <p>Now, we can use <code>My_GuestBook</code> instead of <code>Smarty</code> in our scripts:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">&lt;?php</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">My_GuestBook</span><span class="p">();</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;Ned&#39;</span><span class="p">);</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;index.tpl&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">My_GuestBook</span><span class="p">();</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;Ned&#39;</span><span class="p">);</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;index.tpl&#39;</span><span class="p">);</span>
 </code></pre></div></p>
 
 

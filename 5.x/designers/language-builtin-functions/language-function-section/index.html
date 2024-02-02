@@ -3779,11 +3779,11 @@ header block every five rows.</p>
 <a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="x">    </span><span class="cp">{</span><span class="nf">/section</span><span class="cp">}</span>
 <a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a><span class="x">&lt;/table&gt;</span>
 </code></pre></div>
-<p>An example that uses the <code>iteration</code> property to alternate a text color every
+<p>An example that uses the <code>index</code> property to alternate a text color every
 third row.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="x">&lt;table&gt;</span>
 <a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="x">  </span><span class="cp">{</span><span class="nf">section</span> <span class="na">name</span><span class="o">=</span><span class="na">co</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$contacts</span><span class="cp">}</span>
-<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="x">    </span><span class="cp">{</span><span class="nf">if</span> <span class="nv">$smarty.section.co.iteration</span> <span class="na">is</span> <span class="na">even</span> <span class="na">by</span> <span class="m">3</span><span class="cp">}</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="x">    </span><span class="cp">{</span><span class="nf">if</span> <span class="nv">$smarty.section.co.index</span> <span class="na">is</span> <span class="na">even</span> <span class="na">by</span> <span class="m">3</span><span class="cp">}</span>
 <a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="x">      &lt;span style=&quot;color: #ffffff&quot;&gt;</span><span class="cp">{</span><span class="nv">$contacts</span><span class="o">[</span><span class="na">co</span><span class="o">].</span><span class="na">name</span><span class="cp">}</span><span class="x">&lt;/span&gt;</span>
 <a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="x">    </span><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span>
 <a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="x">      &lt;span style=&quot;color: #dddddd&quot;&gt;</span><span class="cp">{</span><span class="nv">$contacts</span><span class="o">[</span><span class="na">co</span><span class="o">].</span><span class="na">name</span><span class="cp">}</span><span class="x">&lt;/span&gt;</span>
