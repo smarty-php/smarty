@@ -86,7 +86,7 @@ needs to be located in the [`$template_dir`](./programmers/api-variables/variabl
 
 ```smarty
 {* Smarty *}
-Hello {$name}, welcome to Smarty!
+<h1>Hello {$name|escape}, welcome to Smarty!</h1>
 ```
 
 > **Note**
@@ -132,6 +132,20 @@ Now, run your PHP file. You should see *"Hello Ned, welcome to Smarty!"*
 
 You have completed the basic setup for Smarty!
 
+## Escaping
+You may have noticed that the example template above renders the `$name` variable using
+the [escape modifier](./designers/language-modifiers/language-modifier-escape.md).  This 
+modifier makes string 'safe' to use in the context of an HTML page.
+
+If you are primarily using Smarty for HTML-pages, it is recommended to enable automatic
+escaping. This way, you don't have to add `|escape` to every variable you use on a web page. 
+Smarty will handle it automatically for you!
+
+Enable auto-escaping for HTML as follows:
+```php
+$smarty->setEscapeHtml(true);
+```
+
 ## Extended Setup
 
 This is a continuation of the [basic installation](#installation), please read that first!
@@ -156,6 +170,8 @@ class My_GuestBook extends Smarty {
         $this->setCompileDir('/web/www.example.com/guestbook/templates_c/');
         $this->setConfigDir('/web/www.example.com/guestbook/configs/');
         $this->setCacheDir('/web/www.example.com/guestbook/cache/');
+        
+        $this->setEscapeHtml(true);
 
         $this->caching = Smarty::CACHING_LIFETIME_CURRENT;
         $this->assign('app_name', 'Guest Book');

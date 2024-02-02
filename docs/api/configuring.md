@@ -122,6 +122,24 @@ $smarty->setCacheDir('/data/caches');
 $cacheDir = $smarty->getCacheDir();
 ```
 
+## Enabling auto-escaping
+By default, Smarty does not escape anything you render in your templates. If you use
+Smarty to render a HTML-page, this means that you will have to make sure that you do
+not render any characters that have a special meaning in HTML, such as `&`, `<` and `>`,
+or apply the [escape modifier](../designers/language-modifiers/language-modifier-escape.md) 
+to anything you want to render.
+
+If you forget to do so, you may break your HTML page, or even create a vulnerability for 
+attacks known as [XSS or Cross Site Scripting](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).
+
+Luckily, you can tell Smarty to automatically apply the escape modifier to any dynamic part of your template.
+It's like Smarty magically adds `|escape` to every variable you use on a web page.
+
+Enable auto-escaping for HTML as follows:
+```php
+$smarty->setEscapeHtml(true);
+```
+
 ## Disabling compile check
 By default, Smarty tests to see if the
 current template has changed since the last time
