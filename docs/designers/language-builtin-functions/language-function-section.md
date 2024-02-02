@@ -478,13 +478,13 @@ header block every five rows.
 </table>
 ```
 
-An example that uses the `iteration` property to alternate a text color every
+An example that uses the `index` property to alternate a text color every
 third row.
 
 ```smarty
 <table>
   {section name=co loop=$contacts}
-    {if $smarty.section.co.iteration is even by 3}
+    {if $smarty.section.co.index is even by 3}
       <span style="color: #ffffff">{$contacts[co].name}</span>
     {else}
       <span style="color: #dddddd">{$contacts[co].name}</span>

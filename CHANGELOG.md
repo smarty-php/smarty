@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - The {debug} tag was broken in v5 [#922](https://github.com/smarty-php/smarty/issues/922)
+- Documentation on `{if $x is even by $y}` syntax
 
 ## [5.0.0-rc2] - 2023-11-11
 
