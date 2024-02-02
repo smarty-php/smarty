@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PHP8.3 support [#925](https://github.com/smarty-php/smarty/issues/925)
 - Backlink to GitHub in docs
 - Explain how to do escaping and set-up auto-escaping in docs [#865](https://github.com/smarty-php/smarty/issues/865)
+- Link to variable scope page in the documentation for the assign tag [#878](https://github.com/smarty-php/smarty/issues/878)
 
 ### Fixed
 - The {debug} tag was broken in v5 [#922](https://github.com/smarty-php/smarty/issues/922)

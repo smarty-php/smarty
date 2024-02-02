@@ -8,12 +8,12 @@ execution of a template**.
 |----------------|------------|-----------------------------------------------------------------------|
 | var            |            | The name of the variable being assigned                               | 
 | value          |            | The value being assigned                                              |                             
-| scope          | (optional) | The scope of the assigned variable: \'parent\',\'root\' or \'global\' | 
+| scope          | (optional) | The scope of the assigned variable: 'parent','root' or 'global' | 
 
 ## Attributes of the {$var=...} syntax
 | Attribute Name | Required   | Description                                                           |
 |----------------|------------|-----------------------------------------------------------------------|
-| scope          | (optional) | The scope of the assigned variable: \'parent\',\'root\' or \'global\' | 
+| scope          | (optional) | The scope of the assigned variable: 'parent','root' or 'global' | 
 
 ## Option Flags
 | Name    | Description                                       |
@@ -102,6 +102,8 @@ A global variable is seen by all templates.
 {$foo="bar" scope="global"}
 ```
  
+For more information on variable scope, please read the page on [variable scopes](../language-variables/language-variable-scopes.md).
+
 To access `{assign}` variables from a php script use
 [`getTemplateVars()`](../../programmers/api-functions/api-get-template-vars.md). 
 Here's the template that creates the variable `$foo`.
