@@ -26,6 +26,10 @@ and 480 for $height, the result is:
 - [Features](./features.md) - or "Why do I want Smarty?"
 
 ## Help
+- [Search or create an issue](https://github.com/smarty-php/smarty/issues)
 - [Upgrading from an older version](upgrading.md)
 - [Some random tips & tricks](./appendixes/tips.md)
 - [Troubleshooting](./appendixes/troubleshooting.md)
+
+## Source code
+- [Smarty repository at GitHub](https://github.com/smarty-php/smarty)
