@@ -90,3 +90,4 @@ Run this, and you will see:
 
 Note how the [escape modifier](../designers/language-modifiers/language-modifier-escape.md) 
 translated the `&` character into the proper HTML syntax `&amp;`.
+Read more about auto-escaping in the [next section](./configuring.md).
