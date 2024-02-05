@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - PHP8.3 support [#925](https://github.com/smarty-php/smarty/issues/925)
 
+### Fixed
+- Incorrect compilation of expressions when escape_html=true [#930](https://github.com/smarty-php/smarty/pull/930)
+
 ## [4.3.4] - 2023-09-14
 
 ## [4.3.3] - 2023-09-14
