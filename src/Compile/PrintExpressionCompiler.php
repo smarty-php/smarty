@@ -84,7 +84,7 @@ class PrintExpressionCompiler extends Base {
 				}
 
 				if ($compiler->getTemplate()->getSmarty()->escape_html) {
-					$output = "htmlspecialchars((string) {$output}, ENT_QUOTES, '" . addslashes(\Smarty\Smarty::$_CHARSET) . "')";
+					$output = "htmlspecialchars((string) ({$output}), ENT_QUOTES, '" . addslashes(\Smarty\Smarty::$_CHARSET) . "')";
 				}
 
 			}
