@@ -848,7 +848,7 @@ class Template extends BaseCompiler {
 		$e = new CompilerException(
 			$error_text,
 			0,
-			$this->template->getSource()->getFullResourceName(),
+			$this->template->getSource()->getFilepath() ?? $this->template->getSource()->getFullResourceName(),
 			$line
 		);
 		$e->source = trim(preg_replace('![\t\r\n]+!', ' ', $match[$line - 1]));
