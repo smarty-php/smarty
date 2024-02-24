@@ -117,6 +117,7 @@ The following constants have been removed to prevent global side effects.
 - Smarty now always runs in multibyte mode. Make sure you use the [PHP multibyte extension](https://www.php.net/manual/en/book.mbstring.php) in production for optimal performance.
 - Generated `<script>` tags lo longer have deprecated `type="text/javascript"` or `language="Javascript"` attributes
 - Smarty will throw a compiler exception instead of silently ignoring a modifier on a function call, like this: `{include|dot:"x-template-id" file="included.dot.tpl"}`
+- The ::getFile() method of a CompilerException will now return the full path of the template being compiled, if possible. This used to be 'file:relative_dir/filename.tpl'.
 
 ## Upgrading from v3 to v4
 
