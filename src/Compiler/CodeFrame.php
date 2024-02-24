@@ -121,6 +121,6 @@ class CodeFrame
 	 * @return string
 	 */
 	public function insertLocalVariables(): string {
-		return '$_smarty_current_dir = ' . var_export(dirname($this->_template->getSource()->getFilepath()), true) . ";\n";
+		return '$_smarty_current_dir = ' . var_export(dirname($this->_template->getSource()->getFilepath() ?? '.'), true) . ";\n";
 	}
 }

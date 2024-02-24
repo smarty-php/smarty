@@ -271,11 +271,11 @@ class Source {
 		return $this->type . ':' . $this->name;
 	}
 
-	public function getFilepath(): string {
+	public function getFilepath(): ?string {
 		if ($this->handler instanceof FilePlugin) {
 			return $this->handler->getFilePath($this->name, $this->smarty, $this->isConfig);
 		}
-		return '.';
+		return null;
 	}
 
 	public function isConfig(): bool {
