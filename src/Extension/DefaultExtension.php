@@ -28,6 +28,7 @@ class DefaultExtension extends Base {
 			case 'from_charset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\FromCharsetModifierCompiler(); break;
 			case 'indent': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IndentModifierCompiler(); break;
 			case 'isset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IssetModifierCompiler(); break;
+			case 'json_encode': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\JsonEncodeModifierCompiler(); break;
 			case 'lower': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\LowerModifierCompiler(); break;
 			case 'nl2br': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\Nl2brModifierCompiler(); break;
 			case 'noprint': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\NoPrintModifierCompiler(); break;
@@ -37,6 +38,7 @@ class DefaultExtension extends Base {
 			case 'strip': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\StripModifierCompiler(); break;
 			case 'strip_tags': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\StripTagsModifierCompiler(); break;
 			case 'strlen': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\StrlenModifierCompiler(); break;
+			case 'substr': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\SubstrModifierCompiler(); break;
 			case 'to_charset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\ToCharsetModifierCompiler(); break;
 			case 'unescape': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\UnescapeModifierCompiler(); break;
 			case 'upper': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\UpperModifierCompiler(); break;
@@ -54,6 +56,7 @@ class DefaultExtension extends Base {
 			case 'debug_print_var': return [$this, 'smarty_modifier_debug_print_var'];
 			case 'escape': return [$this, 'smarty_modifier_escape'];
 			case 'explode': return [$this, 'smarty_modifier_explode'];
+			case 'implode': return [$this, 'smarty_modifier_implode'];
 			case 'mb_wordwrap': return [$this, 'smarty_modifier_mb_wordwrap'];
 			case 'number_format': return [$this, 'smarty_modifier_number_format'];
 			case 'regex_replace': return [$this, 'smarty_modifier_regex_replace'];
@@ -520,6 +523,27 @@ class DefaultExtension extends Base {
 	{
 		// provide $string default to prevent deprecation errors in PHP >=8.1
 		return explode($separator, $string ?? '', $limit ?? PHP_INT_MAX);
+	}
+
+	/**
+	 * Smarty implode modifier plugin
+	 * Type:     modifier
+	 * Name:     implode
+	 * Purpose:  join an array of values into a single string
+	 *
+	 * @param array   $values
+	 * @param string   $separator
+	 *
+	 * @return string
+	 */
+	public function smarty_modifier_implode($values, $separator = '')
+	{
+		if (is_array($separator)) {
+			trigger_error("Using implode with the separator first is deprecated. " .
+				"Call implode using the array first, separator second.", E_USER_DEPRECATED);
+			return implode((string) ($values ?? ''), (array) $separator);
+		}
+		return implode((string) ($separator ?? ''), (array) $values);
 	}
 
 	/**

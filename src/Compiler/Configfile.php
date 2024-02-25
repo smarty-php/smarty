@@ -66,8 +66,6 @@ class Configfile extends BaseCompiler {
 	 */
 	public function __construct(Smarty $smarty) {
 		$this->smarty = $smarty;
-		// get required plugins
-		$this->smarty = $smarty;
 		$this->config_data['sections'] = [];
 		$this->config_data['vars'] = [];
 	}
@@ -104,7 +102,7 @@ class Configfile extends BaseCompiler {
 			) . "\n",
 			$this
 		);
-		/* @var ConfigfileParser $this->parser */
+
 		$this->parser = new ConfigfileParser($this->lex, $this);
 		if ($this->smarty->_parserdebug) {
 			$this->parser->PrintTrace();
