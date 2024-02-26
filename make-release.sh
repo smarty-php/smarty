@@ -12,7 +12,7 @@ git checkout -b "release/$1"
 php utilities/update-changelog.php $1
 php utilities/update-smarty-version-number.php $1
 
-git add CHANGELOG.md libs/Smarty.class.php
+git add changelog CHANGELOG.md libs/Smarty.class.php
 git commit -m "version bump"
 
 git checkout support/4.3
