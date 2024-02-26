@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.1] - 2024-02-26
+- Fixed internal release-tooling
+
+
 ### Changed
 - Using the `|implode`, `|json_encode` and `|substr` modifiers does not generate a deprecation warning anymore as they will continue to be supported in v5 [#939](https://github.com/smarty-php/smarty/issues/939) 
 
