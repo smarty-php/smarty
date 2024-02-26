@@ -26,7 +26,9 @@ markdown_extensions:
 
 nav:
   - Home: 'index.md'
-  - 'Getting started': 'getting-started.md'
+  - 'Getting started':
+    - Introduction: 'getting-started.md'
+    - 'Upgrading from an older version': 'upgrading.md'
   - 'Designers':
     - 'Basic Syntax':
         - Introduction: 'designers/language-basic-syntax/index.md'
