@@ -72,7 +72,7 @@ nav:
         - 'round': 'designers/language-modifiers/language-modifier-round.md'
         - 'spacify': 'designers/language-modifiers/language-modifier-spacify.md'
         - 'split': 'designers/language-modifiers/language-modifier-split.md'
-        - 'str_repeat': 'designers/language-modifiers/language-modifier-string-repeat.md'
+        - 'str_repeat': 'designers/language-modifiers/language-modifier-str-repeat.md'
         - 'string_format': 'designers/language-modifiers/language-modifier-string-format.md'
         - 'strip': 'designers/language-modifiers/language-modifier-strip.md'
         - 'strip_tags': 'designers/language-modifiers/language-modifier-strip-tags.md'
