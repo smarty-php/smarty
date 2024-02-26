@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.0-rc3] - 2024-02-26
+- Add support for implode, substr and json_encode as modifiers/functions in templates [#939](https://github.com/smarty-php/smarty/issues/939)
+- Add template path to CompilerException to enable rich debug features [#935](https://github.com/smarty-php/smarty/issues/935)
+- Fix incorrect compilation of expressions when escape_html=true [#930](https://github.com/smarty-php/smarty/pull/930)
+
+
 ### Added
 - PHP8.3 support [#925](https://github.com/smarty-php/smarty/issues/925)
 - Backlink to GitHub in docs
