@@ -9,7 +9,7 @@ namespace UnitTests\TemplateSource\TagTests\PluginModifier;
  * 
  * 
  */
-class PluginModifierExplodeTest extends \PHPUnit_Smarty
+class PluginModifierSplitTest extends \PHPUnit_Smarty
 {
     public function setUp(): void
     {
@@ -18,10 +18,9 @@ class PluginModifierExplodeTest extends \PHPUnit_Smarty
     }
 
     /**
-     * @deprecated
      * @dataProvider explodeDataProvider
      */
-    public function testExplode($template, $subject, $expectedString)
+    public function testSplit($template, $subject, $expectedString)
     {
         $this->smarty->assign('subject', $subject);
 
@@ -35,17 +34,17 @@ class PluginModifierExplodeTest extends \PHPUnit_Smarty
     {
         return [
             'default'  => [
-                'template'      => 'string:{","|explode:$subject|json_encode}',
+                'template'      => 'string:{$subject|split:","|json_encode}',
                 'subject'       => 'a,b,c,d',
                 'expectedString' => '["a","b","c","d"]',
             ],
             'withNoDelimiterFound'  => [
-                'template'      => 'string:{","|explode:$subject|json_encode}',
+                'template'      => 'string:{$subject|split:","|json_encode}',
                 'subject'       => 'abcd',
                 'expectedString' => '["abcd"]',
             ],
             'withNull' => [
-                'template'      => 'string:{","|explode:$subject|json_encode}',
+                'template'      => 'string:{$subject|split:","|json_encode}',
                 'subject'       => null,
                 'expectedString' => '[""]',
             ],

@@ -103,7 +103,8 @@ class RegisterModifierTest extends PHPUnit_Smarty
 
 	public function dataUnknownModifiers(): array {
 		return [
-			['{"blah"|substr:1:2}', 'la'],
+			['{" blah"|ltrim:" "}', 'blah'],
+			['{"blah"|strrev}', 'halb'],
 			['{"blah"|ucfirst}', 'Blah'],
 			['{"blah"|md5}', md5('blah')],
 		];

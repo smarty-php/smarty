@@ -43,16 +43,19 @@ class ModifierCompiler extends Base {
 		foreach ($parameter['modifierlist'] as $single_modifier) {
 			/* @var string $modifier */
 			$modifier = $single_modifier[0];
-			$single_modifier[0] = $output;
-			$params = implode(',', $single_modifier);
+
+
+			$modifier_params = array_values($single_modifier);
+
+			$modifier_params[0] = $output;
+			$params = implode(',', $modifier_params);
 
 			if (!is_object($compiler->getSmarty()->security_policy)
 				|| $compiler->getSmarty()->security_policy->isTrustedModifier($modifier, $compiler)
 			) {
 
 				if ($handler = $compiler->getModifierCompiler($modifier)) {
-					$output = $handler->compile($single_modifier, $compiler);
-
+					$output = $handler->compile($modifier_params, $compiler);
 				} elseif ($compiler->getSmarty()->getModifierCallback($modifier)) {
 					$output = sprintf(
 							'$_smarty_tpl->getSmarty()->getModifierCallback(%s)(%s)',
@@ -60,7 +63,7 @@ class ModifierCompiler extends Base {
 							$params
 						);
 				} elseif ($callback = $compiler->getPluginFromDefaultHandler($modifier, \Smarty\Smarty::PLUGIN_MODIFIERCOMPILER)) {
-					$output = (new \Smarty\Compile\Modifier\BCPluginWrapper($callback))->compile($single_modifier, $compiler);
+					$output = (new \Smarty\Compile\Modifier\BCPluginWrapper($callback))->compile($modifier_params, $compiler);
 				} elseif ($function = $compiler->getPluginFromDefaultHandler($modifier, \Smarty\Smarty::PLUGIN_MODIFIER)) {
 					if (!is_array($function)) {
 						$output = "{$function}({$params})";

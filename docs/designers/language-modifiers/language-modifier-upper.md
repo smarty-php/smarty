@@ -29,5 +29,5 @@ If Strike isn't Settled Quickly it may Last a While.
 IF STRIKE ISN'T SETTLED QUICKLY IT MAY LAST A WHILE.
 ```
 
-See also [`lower`](lower) and
+See also [`lower`](./language-modifier-lower.md) and
 [`capitalize`](language-modifier-capitalize.md).

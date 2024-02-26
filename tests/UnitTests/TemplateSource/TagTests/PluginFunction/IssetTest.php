@@ -15,6 +15,10 @@ class IssetTest extends \PHPUnit_Smarty {
 		$this->assertEquals("yay", $this->smarty->fetch("string:{if isset('')}yay{/if}"));
 	}
 
+	public function testEmptyStringIssetModifierSyntax() {
+		$this->assertEquals("yay", $this->smarty->fetch("string:{if ''|isset}yay{/if}"));
+	}
+
 	public function testFalseIsset() {
 		$this->smarty->assign('test', false);
 		$this->assertEquals("yay", $this->smarty->fetch("string:{if isset(\$test)}yay{/if}"));
