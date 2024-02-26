@@ -8,8 +8,9 @@ else
 fi
 
 git checkout -b "release/$1"
-sed -i "s/## \\[Unreleased\\]/## \\[Unreleased\\]\\n\\n## \\[$1\\] - $(date +%Y-%m-%d)/" CHANGELOG.md
-sed -i "s/const SMARTY_VERSION = '[^']\+';/const SMARTY_VERSION = '$1';/" libs/Smarty.class.php
+
+php utilities/update-changelog.php $1
+php utilities/update-smarty-version-number.php $1
 
 git add CHANGELOG.md libs/Smarty.class.php
 git commit -m "version bump"
