@@ -1061,7 +1061,7 @@ objectelement(res)::= PTR method(f).  {
 // function
 //
 function(res)     ::= ns1(f) OPENP params(p) CLOSEP. {
-    res = $this->compiler->compileFunctionCall(f, p);
+    res = $this->compiler->compileModifierInExpression(f, p);
 }
 
 

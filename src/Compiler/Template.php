@@ -1369,6 +1369,11 @@ class Template extends BaseCompiler {
 		return $this->functionCallCompiler->compile($args, $this, $parameter, $base_tag, $base_tag);
 	}
 
+	public function compileModifierInExpression(string $function, array $_attr) {
+		$value = array_shift($_attr);
+		return $this->compileModifier([array_merge([$function], $_attr)], $value);
+	}
+
 	/**
 	 * @return TemplateParser|null
 	 */

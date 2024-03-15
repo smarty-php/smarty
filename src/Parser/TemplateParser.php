@@ -2675,7 +2675,7 @@ public static $yy_action = array(
     }
 // line 1063 "src/Parser/TemplateParser.y"
     public function yy_r148(){
-    $this->_retvalue = $this->compiler->compileFunctionCall($this->yystack[$this->yyidx + -3]->minor, $this->yystack[$this->yyidx + -1]->minor);
+    $this->_retvalue = $this->compiler->compileModifierInExpression($this->yystack[$this->yyidx + -3]->minor, $this->yystack[$this->yyidx + -1]->minor);
     }
 // line 1071 "src/Parser/TemplateParser.y"
     public function yy_r149(){

@@ -88,9 +88,6 @@ Object chaining:
 
 {$object->method1($x)->method2($y)}
 
-Direct PHP function access:
-
-{time()}
 ```
 
 > **Note**
