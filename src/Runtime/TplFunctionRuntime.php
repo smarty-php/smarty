@@ -26,31 +26,26 @@ class TplFunctionRuntime {
 	 */
 	public function callTemplateFunction(Template $tpl, $name, $params, $nocache) {
 		$funcParam = $tpl->tplFunctions[$name] ?? ($tpl->getSmarty()->tplFunctions[$name] ?? null);
-		if (isset($funcParam)) {
-			if (!$tpl->caching || ($tpl->caching && $nocache)) {
-				$function = $funcParam['call_name'];
+		if (!isset($funcParam)) {
+			throw new \Smarty\Exception("Unable to find template function '{$name}'");
+		}
+
+		if (!$tpl->caching || ($tpl->caching && $nocache)) {
+			$function = $funcParam['call_name'];
+		} else {
+			if (isset($funcParam['call_name_caching'])) {
+				$function = $funcParam['call_name_caching'];
 			} else {
-				if (isset($funcParam['call_name_caching'])) {
-					$function = $funcParam['call_name_caching'];
-				} else {
-					$function = $funcParam['call_name'];
-				}
-			}
-			if (function_exists($function)) {
-				$this->saveTemplateVariables($tpl, $name);
-				$function($tpl, $params);
-				$this->restoreTemplateVariables($tpl, $name);
-				return;
-			}
-			// try to load template function dynamically
-			if ($this->addTplFuncToCache($tpl, $name, $function)) {
-				$this->saveTemplateVariables($tpl, $name);
-				$function($tpl, $params);
-				$this->restoreTemplateVariables($tpl, $name);
-				return;
+				$function = $funcParam['call_name'];
 			}
 		}
-		throw new \Smarty\Exception("Unable to find template function '{$name}'");
+		if (!function_exists($function) && !$this->addTplFuncToCache($tpl, $name, $function)) {
+			throw new \Smarty\Exception("Unable to find template function '{$name}'");
+		}
+
+		$tpl->pushStack();
+		$function($tpl, $params);
+		$tpl->popStack();
 	}
 
 	/**
@@ -146,28 +141,4 @@ class TplFunctionRuntime {
 		return false;
 	}
 
-	/**
-	 * Save current template variables on stack
-	 *
-	 * @param \Smarty\Template $tpl
-	 * @param string $name stack name
-	 */
-	public function saveTemplateVariables(Template $tpl, $name) {
-		$tpl->_var_stack[] =
-			['tpl' => $tpl->tpl_vars, 'config' => $tpl->config_vars, 'name' => "_tplFunction_{$name}"];
-	}
-
-	/**
-	 * Restore saved variables into template objects
-	 *
-	 * @param \Smarty\Template $tpl
-	 * @param string $name stack name
-	 */
-	public function restoreTemplateVariables(Template $tpl, $name) {
-		if (isset($tpl->_var_stack)) {
-			$vars = array_pop($tpl->_var_stack);
-			$tpl->tpl_vars = $vars['tpl'];
-			$tpl->config_vars = $vars['config'];
-		}
-	}
 }

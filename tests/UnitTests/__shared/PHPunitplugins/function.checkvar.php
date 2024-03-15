@@ -29,12 +29,6 @@ function smarty_function_checkvar($params, \Smarty\Template $template)
         if (in_array('template', $types) && $ptr instanceof Template) {
             $output .= "#{$ptr->getSource()->name}:\${$var} =";
             $output .= $ptr->hasVariable($var) ? preg_replace('/\s/', '', var_export($ptr->getValue($var), true)) : '>unassigned<';
-            $i = 0;
-            while (isset($ptr->_var_stack[ $i ])) {
-                $output .= "#{$ptr->_var_stack[ $i ]['name']} = ";
-                $output .= isset($ptr->_var_stack[ $i ][ 'tpl' ][$var]) ? preg_replace('/\s/', '', var_export($ptr->_var_stack[ $i ][ 'tpl' ][$var]->value, true)) : '>unassigned<';
-                $i ++;
-            }
             $ptr = $ptr->parent;
         } elseif (in_array('data', $types) && !($ptr instanceof Template || $ptr instanceof \Smarty\Smarty)) {
             $output .= "#data:\${$var} =";

@@ -326,7 +326,7 @@ class ScopeTest extends PHPUnit_Smarty
         $r = $this->smarty->fetch('test_function_scope.tpl');
     }
 
-	public function testFunctionScopeIsLocaLByDefault()
+	public function testFunctionScopeIsLocalByDefault()
 	{
 		$this->assertEquals(
 			'a',
