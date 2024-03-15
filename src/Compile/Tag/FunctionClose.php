@@ -75,7 +75,7 @@ class FunctionClose extends Base {
 			$output .= "foreach (\$params as \$key => \$value) {\n\$_smarty_tpl->assign(\$key, \$value);\n}\n";
 			$output .= "\$params = var_export(\$params, true);\n";
 			$output .= "echo \"/*%%SmartyNocache:{$compiler->getTemplate()->getCompiled()->nocache_hash}%%*/<?php ";
-			$output .= "\\\$_smarty_tpl->getSmarty()->getRuntime('TplFunction')->saveTemplateVariables(\\\$_smarty_tpl, '{$_name}');\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->assign(\\\$key, \\\$value);\n}\n?>";
+			$output .= "\\\$_smarty_tpl->pushStack();\nforeach (\$params as \\\$key => \\\$value) {\n\\\$_smarty_tpl->assign(\\\$key, \\\$value);\n}\n?>";
 			$output .= "/*/%%SmartyNocache:{$compiler->getTemplate()->getCompiled()->nocache_hash}%%*/\";?>";
 			$compiler->getParser()->current_buffer->append_subtree(
 				$compiler->getParser(),
@@ -86,7 +86,7 @@ class FunctionClose extends Base {
 			);
 			$compiler->getParser()->current_buffer->append_subtree($compiler->getParser(), $_functionCode);
 			$output = "<?php echo \"/*%%SmartyNocache:{$compiler->getTemplate()->getCompiled()->nocache_hash}%%*/<?php ";
-			$output .= "\\\$_smarty_tpl->getSmarty()->getRuntime('TplFunction')->restoreTemplateVariables(\\\$_smarty_tpl, '{$_name}');?>\n";
+			$output .= "\\\$_smarty_tpl->popStack();?>\n";
 			$output .= "/*/%%SmartyNocache:{$compiler->getTemplate()->getCompiled()->nocache_hash}%%*/\";\n?>";
 			$output .= "<?php echo str_replace('{$compiler->getTemplate()->getCompiled()->nocache_hash}', \$_smarty_tpl->getCompiled()->nocache_hash ?? '', ob_get_clean());\n";
 			$output .= "}\n}\n";

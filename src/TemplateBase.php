@@ -60,13 +60,6 @@ abstract class TemplateBase extends Data {
 	public $tplFunctions = [];
 
 	/**
-	 * When initialized to an (empty) array, this variable will hold a stack of template variables.
-	 *
-	 * @var null|array
-	 */
-	public $_var_stack = null;
-
-	/**
 	 * @var Debug
 	 */
 	private $debug;

@@ -48,6 +48,20 @@ class Data
     public $config_vars = array();
 
 	/**
+	 * This variable will hold a stack of template variables.
+	 *
+	 * @var null|array
+	 */
+	private $_var_stack = [];
+
+	/**
+	 * This variable will hold a stack of config variables.
+	 *
+	 * @var null|array
+	 */
+	private $_config_stack = [];
+
+	/**
 	 * Default scope for new variables
 	 * @var int
 	 */
@@ -492,5 +506,21 @@ class Data
 	 */
 	public function setParent($parent): void {
 		$this->parent = $parent;
+	}
+
+	public function pushStack(): void {
+		$stackList = [];
+		foreach ($this->tpl_vars as $name => $variable) {
+			$stackList[$name] = clone $variable; // variables are stored in Variable objects
+		}
+		$this->_var_stack[] = $this->tpl_vars;
+		$this->tpl_vars = $stackList;
+
+		$this->_config_stack[] = $this->config_vars;
+	}
+
+	public function popStack(): void {
+		$this->tpl_vars = array_pop($this->_var_stack);
+		$this->config_vars = array_pop($this->_config_stack);
 	}
 }

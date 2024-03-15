@@ -645,8 +645,7 @@ class Template extends TemplateBase {
 			} else {
 
 				// After rendering a template, the tpl/config variables are reset, so the template can be re-used.
-				$savedTplVars = $this->tpl_vars;
-				$savedConfigVars = $this->config_vars;
+				$this->pushStack();
 
 				// Start output-buffering.
 				ob_start();
@@ -654,8 +653,7 @@ class Template extends TemplateBase {
 				$result = $this->render(false, $function);
 
 				// Restore the template to its previous state
-				$this->tpl_vars = $savedTplVars;
-				$this->config_vars = $savedConfigVars;
+				$this->popStack();
 			}
 
 			if (isset($errorHandler)) {
