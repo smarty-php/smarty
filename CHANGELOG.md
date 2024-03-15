@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Using unregistered static class methods in expressions now also triggers a deprecation notice because we will drop support for this in the next major release [#813](https://github.com/smarty-php/smarty/issues/813)
 
+## [4.4.1] - 2024-02-26
+- Fixed internal release-tooling
+
+## [4.4.0] - 2024-02-26
+### Changed
+- Using the `|implode`, `|json_encode` and `|substr` modifiers does not generate a deprecation warning anymore as they will continue to be supported in v5 [#939](https://github.com/smarty-php/smarty/issues/939) 
+
+### Added
+- PHP8.3 support [#925](https://github.com/smarty-php/smarty/issues/925)
+
+### Fixed
+- Incorrect compilation of expressions when escape_html=true [#930](https://github.com/smarty-php/smarty/pull/930)
+
 ## [4.3.4] - 2023-09-14
 
 ## [4.3.3] - 2023-09-14
