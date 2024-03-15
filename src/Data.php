@@ -127,13 +127,15 @@ class Data
 			case self::SCOPE_LOCAL:
 			default:
 				if (isset($this->tpl_vars[$tpl_var])) {
-					$this->tpl_vars[$tpl_var]->setValue($value);
+					$newVariable = clone $this->tpl_vars[$tpl_var];
+					$newVariable->setValue($value);
 					if ($nocache) {
-						$this->tpl_vars[$tpl_var]->setNocache(true);
+						$newVariable->setNocache(true);
 					}
 				} else {
-					$this->tpl_vars[$tpl_var] = new Variable($value, $nocache);
+					$newVariable = new Variable($value, $nocache);
 				}
+				$this->tpl_vars[$tpl_var] = $newVariable;
 		}
 
         return $this;
