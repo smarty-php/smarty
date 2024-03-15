@@ -79,7 +79,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty3()
     {
         $this->smarty->disableSecurity();
-        $this->getSmarty()->registerPlugin(\Smarty\Smarty::PLUGIN_FUNCTION, 'pass', function ($v) { return $v; });
+        $this->getSmarty()->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'pass', function ($v) { return $v; });
         $this->smarty->assign('var', array(true,
                                            (int) 1,
                                            (float) 0.1,
@@ -99,7 +99,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty4()
     {
         $this->smarty->disableSecurity();
-        $this->getSmarty()->registerPlugin(\Smarty\Smarty::PLUGIN_FUNCTION, 'pass', function ($v) { return $v; });
+        $this->getSmarty()->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'pass', function ($v) { return $v; });
         $this->smarty->assign('var', new TestIsset());
         $expected = ' true , false , false , true , true , true , false ';
         $this->assertEquals($expected, $this->smarty->fetch('string:{strip}{if empty($var->isNull)} true {else} false {/IF}

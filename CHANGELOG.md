@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Too many shorthand attributes error when using a modifier as a function with more than 3 parameters in an expression [#949](https://github.com/smarty-php/smarty/issues/949)
+
+### Removed
+- Dropped support for undocumented `{time()}` added in v5.0.0 since we already have the documented `{$smarty.now}`
+
 ## [5.0.0-rc3] - 2024-02-26
 
 ### Added

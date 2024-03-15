@@ -2,6 +2,8 @@
 
 namespace Smarty\Extension;
 
+use Smarty\Exception;
+
 class DefaultExtension extends Base {
 
 	private $modifiers = [];
@@ -27,6 +29,7 @@ class DefaultExtension extends Base {
 			case 'escape': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\EscapeModifierCompiler(); break;
 			case 'from_charset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\FromCharsetModifierCompiler(); break;
 			case 'indent': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IndentModifierCompiler(); break;
+			case 'is_array': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IsArrayModifierCompiler(); break;
 			case 'isset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IssetModifierCompiler(); break;
 			case 'json_encode': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\JsonEncodeModifierCompiler(); break;
 			case 'lower': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\LowerModifierCompiler(); break;
@@ -57,6 +60,7 @@ class DefaultExtension extends Base {
 			case 'escape': return [$this, 'smarty_modifier_escape'];
 			case 'explode': return [$this, 'smarty_modifier_explode'];
 			case 'implode': return [$this, 'smarty_modifier_implode'];
+			case 'in_array': return [$this, 'smarty_modifier_in_array'];
 			case 'join': return [$this, 'smarty_modifier_join'];
 			case 'mb_wordwrap': return [$this, 'smarty_modifier_mb_wordwrap'];
 			case 'number_format': return [$this, 'smarty_modifier_number_format'];
@@ -87,12 +91,8 @@ class DefaultExtension extends Base {
 			case 'html_select_date': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlSelectDate(); break;
 			case 'html_select_time': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlSelectTime(); break;
 			case 'html_table': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\HtmlTable(); break;
-			case 'in_array': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\InArray(); break;
-			case 'is_array': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\IsArray(); break;
 			case 'mailto': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Mailto(); break;
 			case 'math': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Math(); break;
-			case 'strlen': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Strlen(); break;
-			case 'time': $this->functionHandlers[$functionName] = new \Smarty\FunctionHandler\Time(); break;
 		}
 
 		return $this->functionHandlers[$functionName] ?? null;
@@ -568,6 +568,23 @@ class DefaultExtension extends Base {
 			return implode((string) ($values ?? ''), (array) $separator);
 		}
 		return implode((string) ($separator ?? ''), (array) $values);
+	}
+
+	/**
+	 * Smarty in_array modifier plugin
+	 * Type:     modifier
+	 * Name:     in_array
+	 * Purpose:  test if value is contained in an array
+	 *
+	 * @param mixed   $needle
+	 * @param array   $array
+	 * @param bool   $strict
+	 *
+	 * @return bool
+	 */
+	public function smarty_modifier_in_array($needle, $array, $strict = false)
+	{
+		return in_array($needle, (array) $array, (bool) $strict);
 	}
 
 	/**
