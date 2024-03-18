@@ -5,11 +5,13 @@
 # - ./run-tests-for-all-php-versions.sh --group 20221124
 # - ./run-tests-for-all-php-versions.sh --exclude-group slow
 
-docker-compose run php71 ./run-tests.sh $@ && \
-docker-compose run php72 ./run-tests.sh $@ && \
-docker-compose run php73 ./run-tests.sh $@ && \
-docker-compose run php74 ./run-tests.sh $@ && \
-docker-compose run php80 ./run-tests.sh $@ && \
-docker-compose run php81 ./run-tests.sh $@ && \
-docker-compose run php82 ./run-tests.sh $@ && \
-docker-compose run php83 ./run-tests.sh $@
+COMPOSE_CMD="mutagen-compose"
+
+$COMPOSE_CMD run --rm php71 ./run-tests.sh $@ && \
+$COMPOSE_CMD run --rm php72 ./run-tests.sh $@ && \
+$COMPOSE_CMD run --rm php73 ./run-tests.sh $@ && \
+$COMPOSE_CMD run --rm php74 ./run-tests.sh $@ && \
+$COMPOSE_CMD run --rm php80 ./run-tests.sh $@ && \
+$COMPOSE_CMD run --rm php81 ./run-tests.sh $@ && \
+$COMPOSE_CMD run --rm php82 ./run-tests.sh $@ && \
+$COMPOSE_CMD run --rm php83 ./run-tests.sh $@

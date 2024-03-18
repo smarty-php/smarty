@@ -49,6 +49,6 @@ class LoadPluginTest extends PHPUnit_Smarty
      */
     public function testLoadPluginSmartyPluginCounter()
     {
-        $this->assertTrue($this->smarty->loadPlugin('Smarty_Function_Counter') == true);
+        $this->assertTrue($this->smarty->loadPlugin('Smarty_function_counter') == true);
     }
 }
