@@ -169,6 +169,12 @@ class CompileIfTest extends PHPUnit_Smarty
                      array('{if {counter start=1} == 1}yes{else}no{/if}', 'yes', 'Tag1', $i ++),
                      array('{if false}false{elseif {counter start=1} == 1}yes{else}no{/if}', 'yes', 'Tag2', $i ++),
                      array('{if {counter start=1} == 0}false{elseif {counter} == 2}yes{else}no{/if}', 'yes', 'Tag3', $i ++),
+
+                     array('{if 2 is in ["foo", 2]}yes{else}no{/if}', 'yes', 'IsIn', $i++),
+                     array('{if 2 is in ["foo", "bar"]}yes{else}no{/if}', 'no', 'IsIn2', $i++),
+                     array('{if 2 is not in ["foo", "bar"]}yes{else}no{/if}', 'yes', 'IsNotIn', $i++),
+                     array('{if 2 is not in ["foo", 2]}yes{else}no{/if}', 'no', 'IsNotIn2', $i++),
+
          );
     }
 

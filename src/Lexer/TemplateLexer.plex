@@ -324,7 +324,7 @@ class TemplateLexer
      slop = ~\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor)\s+~
      tlop = ~\s+is\s+(not\s+)?(odd|even|div)\s+by\s+~
      scond = ~\s+is\s+(not\s+)?(odd|even)~
-     isin = ~\s+is\s+in\s+~
+     isin = ~\s+is\s+(not\s+)?in\s+~
      as = ~\s+as\s+~
      to = ~\s+to\s+~
      step = ~\s+step\s+~
