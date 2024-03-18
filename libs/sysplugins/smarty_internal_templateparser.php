@@ -2425,6 +2425,9 @@ public static $yy_action = array(
         if (isset($this->smarty->registered_classes[$this->yystack[$this->yyidx + -2]->minor])) {
             $this->_retvalue = $this->smarty->registered_classes[$this->yystack[$this->yyidx + -2]->minor].'::'.$this->yystack[$this->yyidx + 0]->minor[0].$this->yystack[$this->yyidx + 0]->minor[1];
         } else {
+            trigger_error('Using unregistered static method "' . $this->yystack[$this->yyidx + -2]->minor.'::'.$this->yystack[$this->yyidx + 0]->minor[0] . '" in a template is deprecated and will be ' .
+                'removed in a future release. Use Smarty::registerClass to explicitly register ' .
+                'a class for access.', E_USER_DEPRECATED);
             $this->_retvalue = $this->yystack[$this->yyidx + -2]->minor.'::'.$this->yystack[$this->yyidx + 0]->minor[0].$this->yystack[$this->yyidx + 0]->minor[1];
         } 
     } else {

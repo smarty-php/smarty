@@ -57,6 +57,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty2()
     {
         $this->smarty->disableSecurity();
+	    $this->smarty->registerPlugin('modifier', 'pass', 'pass');
         $this->smarty->assign('var', array(null,
                                            false,
                                            (int) 0,
@@ -78,6 +79,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testEmpty3()
     {
         $this->smarty->disableSecurity();
+	    $this->smarty->registerPlugin('modifier', 'pass', 'pass');
         $this->smarty->assign('var', array(true,
                                            (int) 1,
                                            (float) 0.1,
@@ -114,6 +116,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testIsset1()
     {
         $this->smarty->disableSecurity();
+	    $this->smarty->registerPlugin('modifier', 'pass', 'pass');
         $this->smarty->assign('isNull', null);
         $this->smarty->assign('isSet', 1);
         $this->smarty->assign('arr', array('isNull' => null, 'isSet' => 1));
@@ -155,7 +158,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
     public function testIsset3($strTemplate, $result)
     {
         $this->smarty->disableSecurity();
-
+	    $this->smarty->registerPlugin('modifier', 'intval', 'intval');
         $this->smarty->assign('varobject', new TestIsset());
         $this->smarty->assign('vararray', $vararray = array(
             'keythatexists' => false,
@@ -196,6 +199,105 @@ class PhpFunctionTest extends PHPUnit_Smarty
             array('{if isset($_varsimple{$key})}true{else}false{/if}', 'true'),
         );
     }
+
+	/**
+	 * Tests various PHP functions (deprecated)
+	 * @dataProvider        dataVariousPHPFunctions
+	 */
+	public function testVariousPHPFunctions($strTemplate, $value, $expected) {
+		$this->smarty->disableSecurity();
+		$this->cleanDirs();
+		$this->smarty->assign('value', $value);
+		$this->assertEquals($expected, $this->smarty->fetch('string:' . $strTemplate));
+	}
+
+	/**
+	 * Data provider for testIsset3
+	 */
+	public function dataVariousPHPFunctions()
+	{
+		return array(
+			array('{$a = count($value)}{$a}', array(1,2,3), '3'),
+			array('{$a = in_array("b", $value)}{$a}', array(1,'b',3), true),
+			array('{$a = strlen(uniqid())}{$a}', '', 13),
+			array('{$a = date("Y", $value)}{$a}', strtotime("01-01-2030"), 2030),
+			array('{$a = PhpFunctionTest::sayHi($value)}{$a}', 'mario', 'hi mario'),
+			array('{$a = pass($value)}{$a}', 'mario', 'mario'),
+			array('{$a = 1}{$b = Closure::fromCallable($value)}{$a}', 'strlen', 1),
+		);
+	}
+
+	public static function sayHi($value) {
+		return 'hi ' . $value;
+	}
+
+	/**
+	 * Tests that each function that will not be supported in Smarty 5 does throw an E_USER_DEPRECATED notice.
+	 * @dataProvider        dataDeprecationNoticesForSmarty5
+	 * @deprecated
+	 */
+	public function testDeprecationNoticesForSmarty5($strTemplateSource, $expected = '', $shouldTriggerDeprecationNotice = false) {
+
+		// this overrides the error reporting level set in \PHPUnit_Smarty::setUpSmarty
+		$previousErrorReporting = $this->smarty->error_reporting;
+		$this->smarty->setErrorReporting($previousErrorReporting | E_USER_DEPRECATED);
+
+		$this->smarty->assign('a', 'a');
+		$this->smarty->assign('ar', [1,2]);
+		$this->smarty->assign('f', 3.14);
+
+		$errorMessage = '';
+
+		try {
+			$output = $this->smarty->fetch('string:' . $strTemplateSource);
+		} catch (Exception $e) {
+			$errorMessage = $e->getMessage();
+		}
+
+		if ($shouldTriggerDeprecationNotice) {
+			$this->assertStringContainsString('Using unregistered function', $errorMessage);
+		} else {
+			$this->assertEquals($expected, $output);
+			$this->assertEquals('', $errorMessage);
+		}
+
+		$this->smarty->setErrorReporting($previousErrorReporting);
+	}
+
+	public function dataDeprecationNoticesForSmarty5()
+	{
+
+		return [
+
+			['{if empty($a)}{else}b{/if}', 'b', false],
+			['{json_encode($a)}', '"a"', false],
+			['{nl2br($a)}', 'a', false],
+			['{$a|nl2br}', 'a', false],
+			['{round($f, 1)}', '3.1', false],
+			['{$f|round}', '3', false],
+			['{str_repeat($a, 2)}', 'aa', false],
+			['{$a|str_repeat:3}', 'aaa', false],
+			['{$a|strip_tags}', 'a', false],
+			['{$a|strlen}', '1', false],
+			['{$a|substr:-1}', 'a', false],
+			['{$f|substr:-1}', '4', false],
+			['{$ar|count}', '2', false],
+			['{foreach "."|explode:$f as $n}{$n}{/foreach}', '314', false],
+			['{"-"|implode:$ar}', '1-2', false],
+			['{"-"|join:$ar}', '1-2', false],
+			['{$f|wordwrap:2:"k":true}', "3.k14", false],
+			['{$f|number_format:1:","}', "3,1", false],
+			['{if in_array(1, $ar)}yes{/if}', "yes", false],
+			['{if is_array($ar)}yes{/if}', "yes", false],
+			['{if time() gt 0}yes{/if}', "yes", false],
+
+			['{if array_chunk($ar, 2)}x{else}y{/if}', '', true],
+			['{$a|addslashes}', '', true],
+			['{$a|sha1}', '', true],
+			['{$a|get_parent_class}', '', true],
+		];
+	}
+
 }
 
 /**

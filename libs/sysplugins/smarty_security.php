@@ -253,7 +253,7 @@ class Smarty_Security
      *
      * @param string $function_name
      * @param object $compiler compiler object
-     *
+     * @deprecated
      * @return boolean                 true if function is trusted
      */
     public function isTrustedPhpFunction($function_name, $compiler)

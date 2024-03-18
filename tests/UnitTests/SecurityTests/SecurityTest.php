@@ -52,7 +52,7 @@ class SecurityTest extends PHPUnit_Smarty
  */
     public function testTrustedPHPFunction()
     {
-        $this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{sizeof($foo)}'));
+        $this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{count($foo)}'));
     }
 
 /**
@@ -75,7 +75,7 @@ class SecurityTest extends PHPUnit_Smarty
     {
         $this->smarty->security_policy->php_functions = array('null');
         $this->smarty->disableSecurity();
-        $this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{sizeof($foo)}'));
+        $this->assertEquals("5", $this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{count($foo)}'));
     }
 
 /**
