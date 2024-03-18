@@ -149,7 +149,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
             $this->smarty->setCacheDir(__DIR__ . '/cache');
         }
 
-        $this->getSmartyObj();
+        $this->smarty->setErrorReporting(E_ALL &~ E_USER_DEPRECATED);
     }
 
     /**
