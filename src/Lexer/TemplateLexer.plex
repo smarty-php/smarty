@@ -131,6 +131,7 @@ class TemplateLexer
                                                'OPENB'       => '[',
                                                'CLOSEB'      => ']',
                                                'PTR'         => '->',
+                                               'NSPTR'       => '?->',
                                                'APTR'        => '=>',
                                                'EQUAL'       => '=',
                                                'NUMBER'      => 'number',
@@ -310,6 +311,7 @@ class TemplateLexer
      equal = ~\s*[=]\s*~
      space = ~\s+~
      ptr = ~\s*[-][>]\s*~
+     nsptr = ~\s*[?][-][>]\s*~
      aptr = ~\s*[=][>]\s*~
      singlequotestring = ~'[^'\\]*(?:\\.[^'\\]*)*'~
      backtick = ~[`]~
@@ -513,6 +515,9 @@ class TemplateLexer
      }
      ptr {
         $this->token = \Smarty\Parser\TemplateParser::TP_PTR;
+     }
+     nsptr {
+         $this->token = \Smarty\Parser\TemplateParser::TP_NSPTR;
      }
      aptr {
         $this->token = \Smarty\Parser\TemplateParser::TP_APTR;
