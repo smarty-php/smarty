@@ -15,7 +15,7 @@ php utilities/update-smarty-version-number.php $1
 git add changelog CHANGELOG.md libs/Smarty.class.php
 git commit -m "version bump"
 
-git checkout support/4.3
+git checkout support/4
 git pull
 git merge --no-ff "release/$1"
 git branch -d "release/$1"
