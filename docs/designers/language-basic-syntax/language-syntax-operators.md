@@ -32,9 +32,7 @@ The following is a list of recognized operators, which must be
 separated from surrounding elements by spaces. Note that items listed in
 \[brackets\] are optional. PHP equivalents are shown where applicable.
 
-## Qualifiers
-
-| Qualifier          | Alternates | Syntax Example       | Meaning                        | PHP Equivalent     |
+| Operator           | Alternates | Syntax Example       | Meaning                        | PHP Equivalent     |
 |--------------------|------------|----------------------|--------------------------------|--------------------|
 | ==                 | eq         | $a eq $b             | equals                         | ==                 |
 | !=                 | ne, neq    | $a neq $b            | not equals                     | !=                 |
