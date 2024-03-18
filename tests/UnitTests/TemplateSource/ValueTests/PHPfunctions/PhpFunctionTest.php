@@ -232,6 +232,81 @@ class PhpFunctionTest extends PHPUnit_Smarty
 	}
 
 
+	/**
+	 * Tests that each function that will still be supported in Smarty 5 does NOT throw an E_USER_DEPRECATED notice.
+	 * @dataProvider        dataSupportedInSmarty5
+	 */
+	public function testSupportedInSmarty5($strTemplateSource, $expected) {
+		$this->cleanDirs();
+		$this->smarty->setErrorReporting(E_ALL);
+		$this->smarty->assign('a', 'a');
+		$this->smarty->assign('ar', [1,2]);
+		$this->smarty->assign('f', 3.14);
+		$output = $this->smarty->fetch('string:' . $strTemplateSource);
+		$this->assertEquals($expected, $output);
+		$this->assertStringNotContainsString('Deprecated', $output);
+	}
+
+	public function dataSupportedInSmarty5()
+	{
+		return [
+			['{if empty($a)}{else}b{/if}', 'b'],
+			['{json_encode($a)}', '"a"'],
+			['{nl2br($a)}', 'a'],
+			['{$a|nl2br}', 'a'],
+			['{round($f, 1)}', '3.1'],
+			['{$f|round}', '3'],
+			['{str_repeat($a, 2)}', 'aa'],
+			['{$a|str_repeat:3}', 'aaa'],
+			['{$a|strip_tags}', 'a'],
+			['{$a|strlen}', '1'],
+			['{$a|substr:-1}', 'a'],
+			['{$f|substr:-1}', '4'],
+			['{$ar|count}', '2'],
+			['{foreach "."|explode:$f as $n}{$n}{/foreach}', '314'],
+			['{"-"|implode:$ar}', '1-2'],
+			['{"-"|join:$ar}', '1-2'],
+			['{$f|wordwrap:2:"k":true}', "3.k14"],
+			['{$f|number_format:1:","}', "3,1"],
+			['{if in_array(1, $ar)}yes{/if}', "yes"],
+			['{if is_array($ar)}yes{/if}', "yes"],
+			['{if time() gt 0}yes{/if}', "yes"],
+		];
+	}
+
+	/**
+	 * Tests that each function that will not be supported in Smarty 5 does throw an E_USER_DEPRECATED notice.
+	 * @dataProvider        dataNotSupportedInSmarty5
+	 * @deprecated
+	 */
+	public function testNotSupportedInSmarty5($strTemplateSource) {
+		$this->cleanDirs();
+		$this->smarty->setErrorReporting(E_ALL);
+		$this->smarty->assign('a', 'a');
+		$this->smarty->assign('ar', [1,2]);
+		$this->smarty->assign('f', 3.14);
+
+		try {
+			$this->smarty->fetch('string:' . $strTemplateSource);
+			$this->assertTrue(false); // we should not reach this
+		} catch (Exception $e) {
+			$this->assertStringContainsString('Using unregistered function', $e->getMessage());
+		}
+
+
+	}
+
+	public function dataNotSupportedInSmarty5()
+	{
+
+		return [
+			['{if array_chunk($ar, 2)}x{else}y{/if}'],
+			['{$a|addslashes}'],
+			['{$a|sha1}'],
+			['{$a|get_parent_class}'],
+		];
+	}
+
 }
 
 /**
