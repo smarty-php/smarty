@@ -26,12 +26,11 @@ class Nocache extends Base {
 	 * @param array $args array with attributes from parser
 	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
-	 * @return bool
+	 * @return string
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		$this->openTag($compiler, 'nocache');
-		// this tag does not return compiled code
-		$compiler->has_code = false;
-		return true;
+		return '';
 	}
 }

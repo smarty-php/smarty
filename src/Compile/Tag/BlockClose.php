@@ -18,7 +18,7 @@ class BlockClose extends Inheritance {
 	 *
 	 * @return bool true
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null)
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = array(), $tag = null, $function = null): string
 	{
 		[$_attr, $_nocache, $_buffer, $_has_nocache_code, $_className] = $this->closeTag($compiler, ['block']);
 
@@ -103,7 +103,6 @@ class BlockClose extends Inheritance {
 		if ($compiler->_cache['blockNesting'] === 0) {
 			unset($compiler->_cache['blockNesting']);
 		}
-		$compiler->has_code = true;
 		$compiler->suppressNocacheProcessing = true;
 		return $output;
 	}

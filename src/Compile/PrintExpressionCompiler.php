@@ -47,9 +47,8 @@ class PrintExpressionCompiler extends Base {
 	 * @return string
 	 * @throws \Smarty\Exception
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
-
-		$compiler->has_code = true;
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);

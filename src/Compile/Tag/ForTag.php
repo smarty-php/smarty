@@ -28,7 +28,8 @@ class ForTag extends Base {
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		$compiler->loopNesting++;
 		if ($parameter === 0) {
 			$this->required_attributes = ['start', 'to'];

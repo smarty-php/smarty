@@ -29,5 +29,4 @@
 
 ## Unrelated / other
 - review (and avoid) use of 'clone' keyword
-- compiler->has_code seems silly. Why not have proper return values?
 - what is 'user literal support', why are unit tests skipped?

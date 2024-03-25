@@ -22,7 +22,8 @@ class ElseIfTag extends Base {
 	 * @return string compiled code
 	 * @throws \Smarty\CompilerException
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 
 		[$nesting, $nocache_pushed] = $this->closeTag($compiler, ['if', 'elseif']);
 

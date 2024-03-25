@@ -53,7 +53,8 @@ class Capture extends Base {
 	 *
 	 * @return string compiled code
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		$buffer = $_attr['name'] ?? "'default'";
@@ -66,7 +67,6 @@ class Capture extends Base {
 			$compiler->openTag('nocache');
 		}
 
-		$_output = "<?php \$_smarty_tpl->getSmarty()->getRuntime('Capture')->open(\$_smarty_tpl, $buffer, $assign, $append);?>";
-		return $_output;
+		return "<?php \$_smarty_tpl->getSmarty()->getRuntime('Capture')->open(\$_smarty_tpl, $buffer, $assign, $append);?>";
 	}
 }

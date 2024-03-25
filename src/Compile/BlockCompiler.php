@@ -50,7 +50,8 @@ class BlockCompiler extends Base {
 	 * @throws CompilerException
 	 * @throws Exception
 	 */
-	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 
 		if (!isset($tag[5]) || substr($tag, -5) !== 'close') {
 			$output = $this->compileOpeningTag($compiler, $args, $tag, $function);
@@ -77,7 +78,6 @@ class BlockCompiler extends Base {
 			);
 		}
 		$compiler->_cache['blockParams'][$compiler->_cache['blockNesting']]['callsChild'] = true;
-		$compiler->has_code = true;
 		$compiler->suppressNocacheProcessing = true;
 
 		$output = "<?php \n";
@@ -102,7 +102,6 @@ class BlockCompiler extends Base {
 				$compiler->getParser()->lex->taglineno
 			);
 		}
-		$compiler->has_code = true;
 		$compiler->suppressNocacheProcessing = true;
 
 		$output = "<?php \n";

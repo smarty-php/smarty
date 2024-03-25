@@ -32,7 +32,6 @@ class CompileFunctionTest extends PHPUnit_Smarty
      * 
      * @dataProvider functionProvider
      * test simple function call tag
-     *
      */
     public function testSimpleFunction_001($text)
     {

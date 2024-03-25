@@ -42,10 +42,11 @@ class FunctionTag extends Base {
 	 * @param array $args array with attributes from parser
 	 * @param \Smarty\Compiler\Template $compiler compiler object
 	 *
-	 * @return bool true
+	 * @return string compiled code
 	 * @throws \Smarty\CompilerException
 	 */
-	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, \Smarty\Compiler\Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		// check and get attributes
 		$_attr = $this->getAttributes($compiler, $args);
 		if ($_attr['nocache'] === true) {
@@ -67,6 +68,6 @@ class FunctionTag extends Base {
 		// Init temporary context
 		$compiler->getParser()->current_buffer = new \Smarty\ParseTree\Template();
 		$compiler->getTemplate()->getCompiled()->setNocacheCode(false);
-		return true;
+		return '';
 	}
 }

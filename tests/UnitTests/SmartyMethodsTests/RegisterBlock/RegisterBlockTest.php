@@ -304,7 +304,8 @@ class blockparamsCompiler extends \Smarty\Compile\Base {
 	protected $shorttag_order = ["first", "second"];
 	protected $optional_attributes = ["first", "second"];
 
-	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null) {
+	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null): string
+	{
 		$_attr = $this->getAttributes($compiler, $args);
 
 		$output = '';
