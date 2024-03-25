@@ -27,6 +27,30 @@ Various basic operators can be applied directly to variable values.
 > complex, it may be a good idea to move the bits that do not deal
 > explicitly with presentation to PHP by way of plugins or modifiers.
 
+## List
+The following is a list of recognized operators, which must be
+separated from surrounding elements by spaces. Note that items listed in
+\[brackets\] are optional. PHP equivalents are shown where applicable.
+
+| Operator           | Alternates | Syntax Example       | Meaning                        | PHP Equivalent     |
+|--------------------|------------|----------------------|--------------------------------|--------------------|
+| ==                 | eq         | $a eq $b             | equals                         | ==                 |
+| !=                 | ne, neq    | $a neq $b            | not equals                     | !=                 |
+| >                  | gt         | $a gt $b             | greater than                   | >                  |
+| <                  | lt         | $a lt $b             | less than                      | <                  |
+| >=                 | gte, ge    | $a ge $b             | greater than or equal          | >=                 |
+| <=                 | lte, le    | $a le $b             | less than or equal             | <=                 |
+| ===                |            | $a === 0             | check for identity             | ===                |
+| !                  | not        | not $a               | negation (unary)               | !                  |
+| %                  | mod        | $a mod $b            | modulo                         | %                  |
+| is \[not\] div by  |            | $a is not div by 4   | divisible by                   | $a % $b == 0       |
+| is \[not\] even    |            | $a is not even       | \[not\] an even number (unary) | $a % 2 == 0        |
+| is \[not\] even by |            | $a is not even by $b | grouping level \[not\] even    | ($a / $b) % 2 == 0 |
+| is \[not\] odd     |            | $a is not odd        | \[not\] an odd number (unary)  | $a % 2 != 0        |
+| is \[not\] odd by  |            | $a is not odd by $b  | \[not\] an odd grouping        | ($a / $b) % 2 != 0 |
+| is in              |            | $a is in $b          | exists in array                | in_array($a, $b)   |
+| is \[not\] in      |            | $a is not in $b      | does not exist in array        | !in_array($a, $b)  |
+
 ## Ternary
 You can use the `?:` (or ternary) operator to test one expression and present the value
 of the second or third expression, based on the result of the test.

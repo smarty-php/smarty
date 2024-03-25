@@ -663,12 +663,21 @@ expr(res)        ::= expr(e1) scond(c). {
     res = c . e1 . ')';
 }
 
-expr(res)        ::= expr(e1) ISIN array(a).  {
-    res = 'in_array('.e1.','.a.')';
+isin(res)  ::= ISIN(o). {
+    static $isin = [
+        'isin' => 'in_array(',
+        'isnotin' => '!in_array(',
+    ];
+   $op = strtolower(str_replace(' ', '', o));
+   res = $isin[$op];
 }
 
-expr(res)        ::= expr(e1) ISIN value(v).  {
-    res = 'in_array('.e1.',(array)'.v.')';
+expr(res)        ::= expr(e1) isin(c) array(a).  {
+    res = c . e1.','.a.')';
+}
+
+expr(res)        ::= expr(e1) isin(c) value(v).  {
+    res = c . e1.',(array)'.v.')';
 }
 
 // null coalescing
