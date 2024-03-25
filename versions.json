@@ -3,6 +3,7 @@
     "version": "5.x",
     "title": "5.x",
     "aliases": [
+      "stable",
       "latest"
     ]
   },
