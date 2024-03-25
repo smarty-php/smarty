@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.0] - 2024-03-25
+- Fixed that scoped variables would overwrite parent scope [#952](https://github.com/smarty-php/smarty/issues/952)
+- Removed publicly accessible `$tpl->_var_stack` variable
+
+
 ### Fixed
 - Too many shorthand attributes error when using a modifier as a function with more than 3 parameters in an expression [#949](https://github.com/smarty-php/smarty/issues/949)
 
