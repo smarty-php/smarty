@@ -555,6 +555,9 @@ class Template extends TemplateBase {
 	 */
 	public function getStreamVariable($variable)
 	{
+
+		trigger_error("Using stream variables (\`\{\$foo:bar\}\`)is deprecated.", E_USER_DEPRECATED);
+
 		$_result = '';
 		$fp = fopen($variable, 'r+');
 		if ($fp) {
