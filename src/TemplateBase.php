@@ -377,9 +377,9 @@ abstract class TemplateBase extends Data {
 	 * Registers a resource to fetch a template
 	 *
 	 * @param string $name name of resource type
-	 * @param Smarty\Resource\Base $resource_handler instance of Smarty\Resource\Base
+	 * @param \Smarty\Resource\BasePlugin $resource_handler instance of Smarty\Resource\BasePlugin
 	 *
-	 * @return \Smarty|\Smarty\Template
+	 * @return \Smarty\Smarty|\Smarty\Template
 	 * @link https://www.smarty.net/docs/en/api.register.resource.tpl
 	 *
 	 * @api  Smarty::registerResource()
