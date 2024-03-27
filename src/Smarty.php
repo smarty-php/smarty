@@ -1339,7 +1339,7 @@ class Smarty extends \Smarty\TemplateBase {
 			}
 			$_filepath = (string)$_file;
 			if ($_file->isDir()) {
-				if (!$_file->isDot()) {
+				if (!$_compile->isDot()) {
 					// delete folder if empty
 					@rmdir($_file->getPathname());
 				}
