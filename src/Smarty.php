@@ -2,6 +2,7 @@
 
 namespace Smarty;
 
+use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Smarty\Cacheresource\File;
@@ -12,11 +13,12 @@ use Smarty\Extension\CoreExtension;
 use Smarty\Extension\DefaultExtension;
 use Smarty\Extension\ExtensionInterface;
 use Smarty\Filter\Output\TrimWhitespace;
-use Smarty\Resource\BasePlugin;
-use Smarty\Smarty\Runtime\CaptureRuntime;
-use Smarty\Smarty\Runtime\ForeachRuntime;
-use Smarty\Smarty\Runtime\InheritanceRuntime;
-use Smarty\Smarty\Runtime\TplFunctionRuntime;
+use Smarty\Runtime\CaptureRuntime;
+use Smarty\Runtime\DefaultPluginHandlerRuntime;
+use Smarty\Runtime\ForeachRuntime;
+use Smarty\Runtime\InheritanceRuntime;
+use Smarty\Runtime\TplFunctionRuntime;
+
 
 /**
  * Project:     Smarty: the PHP compiling template engine
@@ -1337,7 +1339,7 @@ class Smarty extends \Smarty\TemplateBase {
 			}
 			$_filepath = (string)$_file;
 			if ($_file->isDir()) {
-				if (!$_compile->isDot()) {
+				if (!$_file->isDot()) {
 					// delete folder if empty
 					@rmdir($_file->getPathname());
 				}
@@ -1755,15 +1757,15 @@ class Smarty extends \Smarty\TemplateBase {
 		// Lazy load runtimes when/if needed
 		switch ($type) {
 			case 'Capture':
-				return $this->runtimes[$type] = new \Smarty\Runtime\CaptureRuntime();
+				return $this->runtimes[$type] = new CaptureRuntime();
 			case 'Foreach':
-				return $this->runtimes[$type] = new \Smarty\Runtime\ForeachRuntime();
+				return $this->runtimes[$type] = new ForeachRuntime();
 			case 'Inheritance':
-				return $this->runtimes[$type] = new \Smarty\Runtime\InheritanceRuntime();
+				return $this->runtimes[$type] = new InheritanceRuntime();
 			case 'TplFunction':
-				return $this->runtimes[$type] = new \Smarty\Runtime\TplFunctionRuntime();
+				return $this->runtimes[$type] = new TplFunctionRuntime();
 			case 'DefaultPluginHandler':
-				return $this->runtimes[$type] = new \Smarty\Runtime\DefaultPluginHandlerRuntime(
+				return $this->runtimes[$type] = new DefaultPluginHandlerRuntime(
 					$this->getDefaultPluginHandlerFunc()
 				);
 		}
@@ -2052,7 +2054,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param array|string $modifiers modifier or list of modifiers
 	 *                                                                                   to add
 	 *
-	 * @return \Smarty|Template
+	 * @return Smarty
 	 * @api Smarty::addDefaultModifiers()
 	 *
 	 */
@@ -2131,7 +2133,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @throws \Smarty\Exception
 	 */
 	public function display($template = null, $cache_id = null, $compile_id = null) {
-		return $this->returnOrCreateTemplate($template, $cache_id, $compile_id)->display();
+		$this->returnOrCreateTemplate($template, $cache_id, $compile_id)->display();
 	}
 
 	/**
