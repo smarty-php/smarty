@@ -66,7 +66,7 @@ function smarty_make_timestamp($string)
 		|| (interface_exists('DateTimeInterface', false) && $string instanceof DateTimeInterface)
 	) {
 		return (int)$string->format('U'); // PHP 5.2 BC
-	} elseif (strlen($string) === 14 && ctype_digit($string)) {
+	} elseif (strlen($string) === 14 && ctype_digit((string)$string)) {
 		// it is mysql timestamp format of YYYYMMDDHHMMSS?
 		return mktime(
 			substr($string, 8, 2),
