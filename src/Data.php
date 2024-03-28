@@ -109,7 +109,7 @@ class Data
             foreach ($tpl_var as $_key => $_val) {
                 $this->assign($_key, $_val, $nocache, $scope);
             }
-			return;
+			return $this;
         }
 		switch ($scope ?? $this->getDefaultScope()) {
 			case self::SCOPE_GLOBAL:
