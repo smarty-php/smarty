@@ -42,4 +42,15 @@ class AssignTest extends PHPUnit_Smarty
         $this->smarty->assign(array('foo' => 'bar', 'foo2' => 'bar2'));
         $this->assertEquals('bar bar2', $this->smarty->fetch('eval:{$foo} {$foo2}'));
     }
+
+	/**
+	 * Test that assign returns this.
+	 */
+	public function testAssignReturnsThis()
+	{
+		$this->assertEquals(
+			'data',
+			$this->smarty->assign(['dummy' => 'data'])->fetch('eval:{$dummy}')
+		);
+	}
 }
