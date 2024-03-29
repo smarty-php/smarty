@@ -290,7 +290,7 @@ class Data
 	 * @return bool
 	 */
 	public function hasVariable($varName): bool {
-		return !($this->getVariable($varName) instanceof UndefinedVariable);
+		return !($this->getVariable($varName, true, false) instanceof UndefinedVariable);
 	}
 
 	/**
