@@ -2228,5 +2228,21 @@ class Smarty extends \Smarty\TemplateBase {
 		return $template;
 	}
 
+	/**
+	 * Whether Smarty displays an error when using an unassigned variable
+	 */
+	public function getErrorUnassigned(): bool
+	{
+		return (bool) $this->error_unassigned;
+	}
+
+	/**
+	 * Set if Smarty should display an error on using an unassigned variable
+	 */
+	public function setErrorUnassigned(bool $error_unassigned): void
+	{
+		$this->error_unassigned = $error_unassigned;
+	}
+
 }
 
