@@ -60,6 +60,7 @@ nav:
         - 'escape': 'designers/language-modifiers/language-modifier-escape.md'
         - 'from_charset': 'designers/language-modifiers/language-modifier-from-charset.md'
         - 'indent': 'designers/language-modifiers/language-modifier-indent.md'
+        - 'is_array': 'designers/language-modifiers/language-modifier-is_array.md'
         - 'isset': 'designers/language-modifiers/language-modifier-isset.md'
         - 'join': 'designers/language-modifiers/language-modifier-join.md'
         - 'json_encode': 'designers/language-modifiers/language-modifier-json-encode.md'
