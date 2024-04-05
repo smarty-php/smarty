@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Fixed argument must be passed by reference error introduced in v4.5.1 [#964](https://github.com/smarty-php/smarty/issues/964)
+
 ## [4.5.1] - 2024-03-18
 
 
