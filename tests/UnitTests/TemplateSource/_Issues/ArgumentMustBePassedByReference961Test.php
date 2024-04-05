@@ -25,11 +25,6 @@ class ArgumentMustBePassedByReference961Test extends PHPUnit_Smarty
 	public function testResetAsModifier()
 	{
 		$smarty = new Smarty();
-
-//		$previousErrorReporting = $smarty->error_reporting;
-//		$smarty->setErrorReporting($previousErrorReporting | E_USER_DEPRECATED);
-//		$smarty->registerPlugin('modifier', 'reset', 'reset');
-//		$this->expectDeprecation();
 		try {
 			$templateStr = "string:{\$ar|reset}";
 			$smarty->assign('ar', [1,2,3]);
@@ -39,8 +34,6 @@ class ArgumentMustBePassedByReference961Test extends PHPUnit_Smarty
 			);
 		} catch (Exception $e) {
 		}
-
-//		$smarty->setErrorReporting($previousErrorReporting);
 	}
 
 	/**
