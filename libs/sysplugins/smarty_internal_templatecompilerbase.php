@@ -640,17 +640,18 @@ abstract class Smarty_Internal_TemplateCompilerBase
                         return $func_name . '(' . $parameter[ 0 ] . ')';
                     }
                 } else {
-					$first_param = array_shift($parameter);
-					$modifier = array_merge(array($name), $parameter);
-					// Now, compile the function call as a modifier
-					return $this->compileTag(
-						'private_modifier',
-						array(),
-						array(
-							'modifierlist' => array($modifier),
-							'value'        => $first_param
-						)
-					);
+
+					if (
+						!$this->smarty->loadPlugin('smarty_modifiercompiler_' . $name)
+						&& !isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name])
+						&& !in_array($name, ['time', 'join', 'is_array', 'in_array'])
+					) {
+						trigger_error('Using unregistered function "' . $name . '" in a template is deprecated and will be ' .
+							'removed in a future release. Use Smarty::registerPlugin to explicitly register ' .
+							'a custom modifier.', E_USER_DEPRECATED);
+					}
+
+					return $name . '(' . implode(',', $parameter) . ')';
                 }
             } else {
                 $this->trigger_template_error("unknown function '{$name}'");
