@@ -604,7 +604,6 @@ class Template extends TemplateBase {
 	 * @return bool cache status
 	 * @throws \Exception
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.is.cached.tpl
 	 *
 	 * @api  Smarty::isCached()
 	 */

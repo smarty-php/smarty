@@ -75,7 +75,6 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @return \Smarty|\Smarty\Template
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.register.object.tpl
 	 *
 	 * @api  Smarty::registerObject()
 	 */
@@ -116,7 +115,6 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @return TemplateBase
 	 * @api  Smarty::unregisterObject()
-	 * @link https://www.smarty.net/docs/en/api.unregister.object.tpl
 	 *
 	 */
 	public function unregisterObject($object_name) {
@@ -179,7 +177,6 @@ abstract class TemplateBase extends Data {
 	 * @return Data data object
 	 * @throws Exception
 	 * @api  Smarty::createData()
-	 * @link https://www.smarty.net/docs/en/api.create.data.tpl
 	 *
 	 */
 	public function createData(Data $parent = null, $name = null) {
@@ -222,7 +219,6 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @return object
 	 * @throws \Smarty\Exception if no such object is found
-	 * @link https://www.smarty.net/docs/en/api.get.registered.object.tpl
 	 *
 	 * @api  Smarty::getRegisteredObject()
 	 */
@@ -319,7 +315,6 @@ abstract class TemplateBase extends Data {
 	 * @return TemplateBase
 	 * @throws \Smarty\Exception
 	 * @api  Smarty::registerClass()
-	 * @link https://www.smarty.net/docs/en/api.register.class.tpl
 	 *
 	 */
 	public function registerClass($class_name, $class_impl) {
@@ -380,7 +375,6 @@ abstract class TemplateBase extends Data {
 	 * @param \Smarty\Resource\BasePlugin $resource_handler instance of Smarty\Resource\BasePlugin
 	 *
 	 * @return \Smarty\Smarty|\Smarty\Template
-	 * @link https://www.smarty.net/docs/en/api.register.resource.tpl
 	 *
 	 * @api  Smarty::registerResource()
 	 */
@@ -397,7 +391,6 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @return TemplateBase
 	 * @api  Smarty::unregisterResource()
-	 * @link https://www.smarty.net/docs/en/api.unregister.resource.tpl
 	 *
 	 */
 	public function unregisterResource($type) {

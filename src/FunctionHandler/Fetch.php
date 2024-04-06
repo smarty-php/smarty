@@ -10,8 +10,6 @@ use Smarty\Template;
  * Name:     fetch
  * Purpose:  fetch file, web or ftp data and display results
  *
- * @link   https://www.smarty.net/manual/en/language.function.fetch.php {fetch}
- *         (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
  *
  * @param array                    $params   parameters

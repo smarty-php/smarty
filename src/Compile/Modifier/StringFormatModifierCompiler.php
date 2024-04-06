@@ -6,7 +6,6 @@ namespace Smarty\Compile\Modifier;
  * Name:     string_format
  * Purpose:  format strings via sprintf
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.string.format.php string_format (Smarty online manual)
  * @author Uwe Tews
  */
 

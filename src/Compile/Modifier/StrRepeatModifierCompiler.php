@@ -6,7 +6,6 @@ namespace Smarty\Compile\Modifier;
  * Name:     str_repeat
  * Purpose:  returns string repeated times times
  *
- * @link   https://www.smarty.net/docs/en/language.modifier.str_repeat.tpl str_repeat (Smarty online manual)
  */
 
 class StrRepeatModifierCompiler extends Base {

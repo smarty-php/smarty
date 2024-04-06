@@ -9,8 +9,6 @@ use Smarty\Template;
  * Name:     html_select_time
  * Purpose:  Prints the dropdowns for time selection
  *
- * @link   https://www.smarty.net/manual/en/language.function.html.select.time.php {html_select_time}
- *           (Smarty online manual)
  * @author Roberto Berto <roberto@berto.net>
  * @author Monte Ohrt <monte AT ohrt DOT com>
  *

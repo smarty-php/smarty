@@ -6,7 +6,6 @@ namespace Smarty\Compile\Modifier;
  * Name:     wordwrap
  * Purpose:  wrap a string of text at a given length
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.wordwrap.php wordwrap (Smarty online manual)
  * @author Uwe Tews
  */
 
