@@ -40,7 +40,6 @@ use Smarty\Runtime\TplFunctionRuntime;
  * Smarty mailing list. Send a blank e-mail to
  * smarty-discussion-subscribe@googlegroups.com
  *
- * @link      https://www.smarty.net/
  * @author    Monte Ohrt <monte at ohrt dot com>
  * @author    Uwe Tews   <uwe dot tews at gmail dot com>
  * @author    Rodney Rehm
@@ -731,7 +730,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @return $this
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.register.plugin.tpl
 	 *
 	 * @api  Smarty::registerPlugin()
 	 */
@@ -758,7 +756,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string $name name of template tag
 	 *
 	 * @return array|null
-	 * @link https://www.smarty.net/docs/en/api.unregister.plugin.tpl
 	 *
 	 * @api  Smarty::unregisterPlugin()
 	 */
@@ -776,7 +773,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string $name name of template tag
 	 *
 	 * @return $this
-	 * @link https://www.smarty.net/docs/en/api.unregister.plugin.tpl
 	 *
 	 * @api  Smarty::unregisterPlugin()
 	 */
@@ -850,7 +846,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @return $this
 	 * @throws Exception              if $callback is not callable
-	 * @link https://www.smarty.net/docs/en/api.register.default.plugin.handler.tpl
 	 *
 	 * @api  Smarty::registerDefaultPluginHandler()
 	 *
@@ -1254,7 +1249,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @return int number of cache files deleted
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.clear.cache.tpl
 	 *
 	 * @api  Smarty::clearCache()
 	 */
@@ -1274,7 +1268,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string $type resource type
 	 *
 	 * @return int number of cache files deleted
-	 * @link https://www.smarty.net/docs/en/api.clear.all.cache.tpl
 	 *
 	 * @api  Smarty::clearAllCache()
 	 */
@@ -1291,7 +1284,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @return int number of template files deleted
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.clear.compiled.template.tpl
 	 *
 	 * @api  Smarty::clearCompiledTemplate()
 	 */
@@ -1805,7 +1797,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @return bool
 	 * @throws \Smarty\Exception
 	 * @api  Smarty::loadFilter()
-	 * @link https://www.smarty.net/docs/en/api.load.filter.tpl
 	 *
 	 * @deprecated since 5.0
 	 */
@@ -1857,7 +1848,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @throws \Smarty\Exception
 	 * @api  Smarty::unloadFilter()
 	 *
-	 * @link https://www.smarty.net/docs/en/api.unload.filter.tpl
 	 *
 	 * @deprecated since 5.0
 	 */
@@ -1901,7 +1891,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param Base $resource_handler
 	 *
 	 * @return Smarty
-	 * @link https://www.smarty.net/docs/en/api.register.cacheresource.tpl
 	 *
 	 * @api  Smarty::registerCacheResource()
 	 *
@@ -1924,7 +1913,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @return Smarty
 	 * @api  Smarty::unregisterCacheResource()
-	 * @link https://www.smarty.net/docs/en/api.unregister.cacheresource.tpl
 	 *
 	 * @deprecated since 5.0
 	 *
@@ -1958,7 +1946,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @return TemplateBase
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.register.filter.tpl
 	 *
 	 * @api  Smarty::registerFilter()
 	 */
@@ -2020,7 +2007,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @throws \Smarty\Exception
 	 * @api  Smarty::unregisterFilter()
 	 *
-	 * @link https://www.smarty.net/docs/en/api.unregister.filter.tpl
 	 *
 	 */
 	public function unregisterFilter($type, $name) {
@@ -2203,7 +2189,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @return bool cache status
 	 * @throws \Exception
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.is.cached.tpl
 	 *
 	 * @api  Smarty::isCached()
 	 */

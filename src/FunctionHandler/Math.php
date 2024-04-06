@@ -10,8 +10,6 @@ use Smarty\Template;
  * Name:     math
  * Purpose:  handle math computations in template
  *
- * @link   https://www.smarty.net/manual/en/language.function.math.php {math}
- *           (Smarty online manual)
  * @author Monte Ohrt <monte at ohrt dot com>
  *
  * @param array                    $params   parameters

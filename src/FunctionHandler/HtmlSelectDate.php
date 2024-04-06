@@ -26,8 +26,6 @@ use Smarty\Template;
  *            - 2.0 complete rewrite for performance,
  *              added attributes month_names, *_id
  *
- * @link    https://www.smarty.net/manual/en/language.function.html.select.date.php {html_select_date}
- *           (Smarty online manual)
  * @version 2.0
  * @author  Andrei Zmievski
  * @author  Monte Ohrt <monte at ohrt dot com>

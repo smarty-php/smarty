@@ -7,7 +7,6 @@ namespace Smarty\Compile\Modifier;
  * Name:     nl2br
  * Purpose:  insert HTML line breaks before all newlines in a string
  *
- * @link   https://www.smarty.net/docs/en/language.modifier.nl2br.tpl nl2br (Smarty online manual)
  */
 
 class Nl2brModifierCompiler extends Base {

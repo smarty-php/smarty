@@ -20,9 +20,6 @@ use Smarty\Template;
  * - indent_char   - string (" ")
  * - wrap_boundary - boolean (true)
  *
- * @link   https://www.smarty.net/manual/en/language.function.textformat.php {textformat}
- *         (Smarty online manual)
- *
  * @param array                    $params   parameters
  * @param string                   $content  contents of the block
  * @param Template $template template object

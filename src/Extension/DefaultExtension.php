@@ -113,7 +113,6 @@ class DefaultExtension extends Base {
 	 * Name:     spacify
 	 * Purpose:  add spaces between characters in a string
 	 *
-	 * @link   https://www.smarty.net/manual/en/language.modifier.spacify.php spacify (Smarty online manual)
 	 * @author Monte Ohrt <monte at ohrt dot com>
 	 *
 	 * @param string $string       input string
@@ -234,7 +233,6 @@ class DefaultExtension extends Base {
 	 *          - format: strftime format for output
 	 *          - default_date: default date if $string is empty
 	 *
-	 * @link   https://www.smarty.net/manual/en/language.modifier.date.format.php date_format (Smarty online manual)
 	 * @author Monte Ohrt <monte at ohrt dot com>
 	 *
 	 * @param string $string       input date string
@@ -386,7 +384,6 @@ class DefaultExtension extends Base {
 	 * Name:     escape
 	 * Purpose:  escape string for output
 	 *
-	 * @link   https://www.smarty.net/docs/en/language.modifier.escape
 	 * @author Monte Ohrt <monte at ohrt dot com>
 	 *
 	 * @param string  $string        input string
@@ -654,8 +651,6 @@ class DefaultExtension extends Base {
 	 * Name:     regex_replace
 	 * Purpose:  regular expression search/replace
 	 *
-	 * @link   https://www.smarty.net/manual/en/language.modifier.regex.replace.php
-	 *          regex_replace (Smarty online manual)
 	 * @author Monte Ohrt <monte at ohrt dot com>
 	 *
 	 * @param string       $string  input string
@@ -703,7 +698,6 @@ class DefaultExtension extends Base {
 	 * Name:     replace
 	 * Purpose:  simple search/replace
 	 *
-	 * @link   https://www.smarty.net/manual/en/language.modifier.replace.php replace (Smarty online manual)
 	 * @author Monte Ohrt <monte at ohrt dot com>
 	 * @author Uwe Tews
 	 *
@@ -726,7 +720,6 @@ class DefaultExtension extends Base {
 	 *               optionally splitting in the middle of a word, and
 	 *               appending the $etc string or inserting $etc into the middle.
 	 *
-	 * @link   https://www.smarty.net/manual/en/language.modifier.truncate.php truncate (Smarty online manual)
 	 * @author Monte Ohrt <monte at ohrt dot com>
 	 *
 	 * @param string  $string      input string
