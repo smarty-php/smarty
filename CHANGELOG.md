@@ -6,22 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.5.2] - 2024-04-06
 - Fixed argument must be passed by reference error introduced in v4.5.1 [#964](https://github.com/smarty-php/smarty/issues/964)
 
 ## [4.5.1] - 2024-03-18
-
+- Using unregistered static class methods in expressions now also triggers a deprecation notice because we will drop support for this in the next major release [#813](https://github.com/smarty-php/smarty/issues/813)
 
 ## [4.5.0] - 2024-03-18
-
-
-### Changed
-- Using unregistered static class methods in expressions now also triggers a deprecation notice because we will drop support for this in the next major release [#813](https://github.com/smarty-php/smarty/issues/813)
+- (this release accidentally didn't contain any changes, fixed in 4.5.1)
 
 ## [4.4.1] - 2024-02-26
 - Fixed internal release-tooling
 
 ## [4.4.0] - 2024-02-26
-### Changed
 - Using the `|implode`, `|json_encode` and `|substr` modifiers does not generate a deprecation warning anymore as they will continue to be supported in v5 [#939](https://github.com/smarty-php/smarty/issues/939) 
 
 ### Added
