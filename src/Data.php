@@ -224,7 +224,10 @@ class Data
 			return $this->getValue($varName, $searchParents);
 	    }
 
-		return array_merge($this->parent && $searchParents ? $this->parent->getTemplateVars() : [], $this->tpl_vars);
+		return array_merge(
+			$this->parent && $searchParents ? $this->parent->getTemplateVars() : [],
+			array_map(function(Variable $var) { return $var->getValue(); }, $this->tpl_vars)
+		);
     }
 
 	/**
