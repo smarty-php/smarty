@@ -109,4 +109,17 @@ class GetTemplateVarsTest extends PHPUnit_Smarty
         $this->assertEquals("bar2", $this->smarty->getTemplateVars('foo2', $data2, false));
         $this->assertEquals("", $this->smarty->getTemplateVars('blar', $data2, false));
     }
+
+    public function testSimpleCallReturnsArrayWithAllValues()
+    {
+        $this->smarty->assign('foo', 'bar');
+        $this->smarty->assign('i', 3);
+
+        $vars = $this->smarty->getTemplateVars();
+
+        $this->assertArrayHasKey('foo', $vars);
+        $this->assertArrayHasKey('i', $vars);
+        $this->assertEquals('bar', $vars['foo']);
+        $this->assertEquals(3,$vars['i']);
+    }
 }
