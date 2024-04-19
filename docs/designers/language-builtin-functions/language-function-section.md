@@ -178,14 +178,14 @@ The above example will output:
 </p>
 <p>
   name: Jack Jones<br />
-  home phone: 777-555-5555<br />
-  cell phone: 888-555-5555<br />
+  home: 777-555-5555<br />
+  cell: 888-555-5555<br />
   e-mail: jack@myexample.com
 </p>
 <p>
   name: Jane Munson<br />
-  home phone: 000-555-5555<br />
-  cell phone: 123456<br />
+  home: 000-555-5555<br />
+  cell: 123456<br />
   e-mail: jane@myexample.com
 </p>
 ```

@@ -148,4 +148,37 @@ class CompileSectionTest extends PHPUnit_Smarty
         );
     }
 
+	public function testNestedArrayAsLoopParameter()
+	{
+		$data = [
+			['name' => 'John Smith', 'home' => '555-555-5555',
+				'cell' => '666-555-5555', 'email' => 'john@myexample.com'],
+			['name' => 'Jack Jones', 'home' => '777-555-5555',
+				'cell' => '888-555-5555', 'email' => 'jack@myexample.com'],
+			['name' => 'Jane Munson', 'home' => '000-555-5555',
+				'cell' => '123456', 'email' => 'jane@myexample.com']
+		];
+		$this->smarty->assign('contacts',$data);
+		$result = $this->smarty->fetch('string:{section name=customer loop=$contacts}
+name: {$contacts[customer].name}
+home: {$contacts[customer].home}
+cell: {$contacts[customer].cell}
+e-mail: {$contacts[customer].email}
+{/section}');
+		$this->assertEquals('name: John Smith
+home: 555-555-5555
+cell: 666-555-5555
+e-mail: john@myexample.com
+name: Jack Jones
+home: 777-555-5555
+cell: 888-555-5555
+e-mail: jack@myexample.com
+name: Jane Munson
+home: 000-555-5555
+cell: 123456
+e-mail: jane@myexample.com
+', $result);
+
+	}
+
 }
