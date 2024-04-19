@@ -114,7 +114,7 @@ class Template extends Base
                     break;
                 case 'tag':
                     foreach ($chunk['subtrees'] as $subtree) {
-                        $text = $parser->compiler->appendCode($text, $subtree->to_smarty_php($parser));
+                        $text = $parser->compiler->appendCode($text, (string) $subtree->to_smarty_php($parser));
                     }
                     $code .= $text;
                     break;
