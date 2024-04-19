@@ -2536,7 +2536,7 @@ public static $yy_action = array(
 // line 806 "src/Parser/TemplateParser.y"
     public function yy_r101(){
     $prefixVar = $this->compiler->getNewPrefixVariable();
-    $tmp = $this->compiler->appendCode('<?php ob_start();?>', $this->yystack[$this->yyidx + 0]->minor);
+    $tmp = $this->compiler->appendCode('<?php ob_start();?>', (string) $this->yystack[$this->yyidx + 0]->minor);
     $this->compiler->appendPrefixCode($this->compiler->appendCode($tmp, "<?php {$prefixVar} = ob_get_clean();?>"));
     $this->_retvalue = $prefixVar;
     }

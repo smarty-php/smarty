@@ -62,9 +62,9 @@ class Tag extends Base
     public function assign_to_var(\Smarty\Parser\TemplateParser $parser)
     {
         $var = $parser->compiler->getNewPrefixVariable();
-        $tmp = $parser->compiler->appendCode('<?php ob_start();?>', $this->data);
+        $tmp = $parser->compiler->appendCode('<?php ob_start();?>', (string) $this->data);
         $tmp = $parser->compiler->appendCode($tmp, "<?php {$var}=ob_get_clean();?>");
-        $parser->compiler->appendPrefixCode((string) $tmp);
+        $parser->compiler->appendPrefixCode($tmp);
         return $var;
     }
 }

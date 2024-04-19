@@ -680,7 +680,8 @@ class Template extends BaseCompiler {
 	 *
 	 * @return string
 	 */
-	public function appendCode($left, $right) {
+	public function appendCode(string $left, string $right): string
+	{
 		if (preg_match('/\s*\?>\s?$/D', $left) && preg_match('/^<\?php\s+/', $right)) {
 			$left = preg_replace('/\s*\?>\s?$/D', "\n", $left);
 			$left .= preg_replace('/^<\?php\s+/', '', $right);
@@ -1056,7 +1057,7 @@ class Template extends BaseCompiler {
 		$prefixArray = array_merge($this->prefix_code, array_pop($this->prefixCodeStack));
 		$this->prefixCodeStack[] = [];
 		foreach ($prefixArray as $c) {
-			$code = $this->appendCode($code, $c);
+			$code = $this->appendCode($code, (string) $c);
 		}
 		$this->prefix_code = [];
 		return $code;
