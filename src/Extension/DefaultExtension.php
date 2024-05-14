@@ -31,7 +31,6 @@ class DefaultExtension extends Base {
 			case 'indent': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IndentModifierCompiler(); break;
 			case 'is_array': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IsArrayModifierCompiler(); break;
 			case 'isset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IssetModifierCompiler(); break;
-			case 'json_encode': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\JsonEncodeModifierCompiler(); break;
 			case 'lower': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\LowerModifierCompiler(); break;
 			case 'nl2br': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\Nl2brModifierCompiler(); break;
 			case 'noprint': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\NoPrintModifierCompiler(); break;
@@ -62,6 +61,7 @@ class DefaultExtension extends Base {
 			case 'implode': return [$this, 'smarty_modifier_implode'];
 			case 'in_array': return [$this, 'smarty_modifier_in_array'];
 			case 'join': return [$this, 'smarty_modifier_join'];
+			case 'json_encode': return [$this, 'smarty_modifier_json_encode'];
 			case 'mb_wordwrap': return [$this, 'smarty_modifier_mb_wordwrap'];
 			case 'number_format': return [$this, 'smarty_modifier_number_format'];
 			case 'regex_replace': return [$this, 'smarty_modifier_regex_replace'];
@@ -603,6 +603,92 @@ class DefaultExtension extends Base {
 			return implode((string) ($values ?? ''), (array) $separator);
 		}
 		return implode((string) ($separator ?? ''), (array) $values);
+	}
+
+	/**
+	 * Smarty json_encode modifier plugin.
+	 * Type:     modifier
+	 * Name:     json_encode
+	 * Purpose:  Returns the JSON representation of the given value or false on error. The resulting string will be UTF-8 encoded.
+	 *
+	 * @param mixed $value
+	 * @param int   $flags
+	 * @param string $input_encoding of $value; defaults to \Smarty\Smarty::$_CHARSET
+	 *
+	 * @return string|false
+	 */
+	public function smarty_modifier_json_encode($value, $flags = 0, string $input_encoding = null)
+	{
+		if (!$input_encoding) {
+			$input_encoding = \Smarty\Smarty::$_CHARSET;
+		}
+
+		# json_encode() expects UTF-8 input, so recursively encode $value if necessary into UTF-8
+		if (!empty($value) && strcasecmp($input_encoding, 'UTF-8')) {
+			static $transcoder = null;
+			if (is_null($transcoder)) {
+				/**
+				* Similar to mb_convert_encoding(), but operates on keys and values of arrays, and on objects too.
+				* Objects implementing \JsonSerializable and unsupported types are returned unchanged.
+				*
+				* @param string $from_encoding
+				* @param string $to_encoding
+				* @param mixed $data
+				* @return mixed
+				*/
+				$transcoder = function($data, string $to_encoding, string $from_encoding) use(&$transcoder) {
+					if (empty($data)) {
+						return $data;
+					}
+					elseif (is_string($data)) {
+						return mb_convert_encoding($data, $to_encoding, $from_encoding);
+					}
+					elseif (is_scalar($data)) {
+						return $data;
+					}
+
+					# convert object to array if necessary
+					if (is_object($data)) {
+						if (is_a($data, '\JsonSerializable')) {	# this is the reason why this function is not generic
+							return $data;	# this object should know how to deal with it's internal encoding when fed to json_encode()
+						}
+						$data = get_object_vars($data); # public properties as key => value pairs
+					}
+
+					if (is_array($data)) {
+						$result = [];
+						foreach ($data as $k => $v) {
+							if (is_string($k)) {
+								$k = mb_convert_encoding($k, $to_encoding, $from_encoding);
+								if ($k === false) {
+									return false;
+								}
+							}
+							if (empty($v) || (is_scalar($v) && !is_string($v))) {
+								$result[$k] = $v; # $v can be false and that's not an error
+							}
+							else {
+								# recurse
+								$v = $transcoder($v, $to_encoding, $from_encoding);
+								if ($v === false) {
+									return false;
+								}
+								$result[$k] = $v;
+							}
+						}
+						return $result;
+					}
+
+					return $data;	# anything except string, object, or array
+				};
+			}
+
+			$value = $transcoder($value, 'UTF-8', $input_encoding);
+			if ($value === false) {
+				return $value;	# failure; this must not be passed to json_encode!; this is part of what the !empty() check is for at the top of this block
+			}
+		}
+		return \json_encode($value, $flags);	# string|false
 	}
 
 	/**
