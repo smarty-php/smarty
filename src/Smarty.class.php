@@ -7,7 +7,7 @@
 // backwards compatible with previous versions of Smarty.          //
 //                                                                 //
 // Example:                                                        //
-// require_once("/path/to/smarty/Smarty.class.php");               //
+// require_once("/path/to/smarty/src/Smarty.class.php");           //
 //                                                                 //
 // $smarty = new Smarty\Smarty;                                    //
 // $smarty->testInstall();                                         //
