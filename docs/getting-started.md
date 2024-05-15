@@ -33,7 +33,7 @@ $smarty = new Smarty();
 // or ...
 
 // Instantiated directly
-require("/path/to/smarty/src/Smarty.class.php");
+require("/path/to/smarty/libs/Smarty.class.php");
 use Smarty\Smarty;
 $smarty = new Smarty();
 ```

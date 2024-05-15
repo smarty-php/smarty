@@ -7,13 +7,13 @@
 // backwards compatible with previous versions of Smarty.          //
 //                                                                 //
 // Example:                                                        //
-// require_once("/path/to/smarty/src/Smarty.class.php");           //
+// require_once("/path/to/smarty/libs/Smarty.class.php");          //
 //                                                                 //
 // $smarty = new Smarty\Smarty;                                    //
 // $smarty->testInstall();                                         //
 /////////////////////////////////////////////////////////////////////
 
-define('__SMARTY_DIR', __DIR__ . '/');
+define('__SMARTY_DIR', __DIR__ . '/../src/');
 
 // Global function declarations
 require_once(__SMARTY_DIR . "/functions.php");
