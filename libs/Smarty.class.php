@@ -37,10 +37,6 @@ spl_autoload_register(function ($class) {
 
 	// If the file exists, require it
 	if (file_exists($file)) {
-		//print "<div>Class <b>$class</b> maps to <code>$file</code></div>\n";
-
 		require_once($file);
 	}
 });
-
-// vim: tabstop=4 shiftwidth=4 noexpandtab autoindent softtabstop=4
