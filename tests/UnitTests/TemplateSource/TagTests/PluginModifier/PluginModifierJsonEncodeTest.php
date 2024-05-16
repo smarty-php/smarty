@@ -39,7 +39,7 @@ class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
 			["abc", '"abc"'],
 			[["abc"], '["abc"]'],
 			[["abc",["a"=>2]], '["abc",{"a":2}]'],
-			[['€uro',['Schlüssel'=>'Straße']], '["\u20acuro",{"Schl\u00fcssel":"Stra\u00dfe"}]'],	# € = x80 in cp1252; ü = xFC in cp1252; ß = xDF in cp1252;
+			[["€uro",["Schlüssel"=>"Straße"]], '["\u20acuro",{"Schl\u00fcssel":"Stra\u00dfe"}]'],	# \u{20ac} = € = euro, \u{00fc} = ü = uuml, xDF = \u{00df} = szlig
 		];
 	}
 
@@ -68,7 +68,7 @@ class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
 			["abc", '"abc"'],
 			[["abc"], '{"0":"abc"}'],
 			[["abc",["a"=>2]], '{"0":"abc","1":{"a":2}}'],
-			[['€uro'], '{"0":"\u20acuro"}'],
+			[["€uro"], '{"0":"\u20acuro"}'],
 		];
 	}
 
