@@ -11,9 +11,10 @@ Depending on the value of `$user` this would return a string in JSON-format, e.g
 
 ## Parameters
 
-| Parameter | Type | Required | Description                                                                               |
-|-----------|------|----------|-------------------------------------------------------------------------------------------|
-| 1         | int  | No       | bitmask of flags, directly passed to [PHP's json_encode](https://www.php.net/json_encode) |
+| Parameter | Type   | Required | Description                                                                               |
+|-----------|--------|----------|-------------------------------------------------------------------------------------------|
+| 1         | int    | No       | bitmask of flags, directly passed to [PHP's json_encode](https://www.php.net/json_encode) |
+| 2         | string | No       | input encoding; defaults to \Smarty\Smarty::$_CHARSET which defaults to UTF-8             |
 
 
 ## Examples
