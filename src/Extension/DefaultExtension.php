@@ -624,70 +624,76 @@ class DefaultExtension extends Base {
 		}
 
 		# json_encode() expects UTF-8 input, so recursively encode $value if necessary into UTF-8
-		if (!empty($value) && strcasecmp($input_encoding, 'UTF-8')) {
-			static $transcoder = null;
-			if (is_null($transcoder)) {
-				/**
-				* Similar to mb_convert_encoding(), but operates on keys and values of arrays, and on objects too.
-				* Objects implementing \JsonSerializable and unsupported types are returned unchanged.
-				*
-				* @param string $from_encoding
-				* @param string $to_encoding
-				* @param mixed $data
-				* @return mixed
-				*/
-				$transcoder = function($data, string $to_encoding, string $from_encoding) use(&$transcoder) {
-					if (empty($data)) {
-						return $data;
-					}
-					elseif (is_string($data)) {
-						return mb_convert_encoding($data, $to_encoding, $from_encoding);
-					}
-					elseif (is_scalar($data)) {
-						return $data;
-					}
-
-					# convert object to array if necessary
-					if (is_object($data)) {
-						if (is_a($data, '\JsonSerializable')) {	# this is the reason why this function is not generic
-							return $data;	# this object should know how to deal with it's internal encoding when fed to json_encode()
+		if ($value && strcasecmp($input_encoding, 'UTF-8')) {
+			if (is_string($value)) {	# shortcut for the most common case
+				$value = mb_convert_encoding($value, 'UTF-8', $input_encoding);
+			}
+			elseif (is_array($value) || is_object($value)) {
+				static $transcoder;	# this closure will be assigned once, and then persist in memory
+				if (is_null($transcoder)) {
+					/**
+					* Similar to mb_convert_encoding(), but operates on keys and values of arrays, and on objects too.
+					* Objects implementing \JsonSerializable and unsupported types are returned unchanged.
+					*
+					* @param string $from_encoding
+					* @param string $to_encoding
+					* @param mixed $data
+					* @return mixed
+					*/
+					$transcoder = function($data, string $to_encoding, string $from_encoding) use(&$transcoder) {
+						if (empty($data)) {
+							return $data;
 						}
-						$data = get_object_vars($data); # public properties as key => value pairs
-					}
+						elseif (is_string($data)) {
+							return mb_convert_encoding($data, $to_encoding, $from_encoding);
+						}
+						elseif (is_scalar($data)) {
+							return $data;
+						}
 
-					if (is_array($data)) {
-						$result = [];
-						foreach ($data as $k => $v) {
-							if (is_string($k)) {
-								$k = mb_convert_encoding($k, $to_encoding, $from_encoding);
-								if ($k === false) {
-									return false;
+						# convert object to array if necessary
+						if (is_object($data)) {
+							if (is_a($data, '\JsonSerializable')) {	# this is the only reason why this function is not generic
+								return $data;
+							}
+							$data = get_object_vars($data); # public properties as key => value pairs
+						}
+
+						if (is_array($data)) {
+							$result = [];
+							foreach ($data as $k => $v) {
+								if (is_string($k)) {
+									$k = mb_convert_encoding($k, $to_encoding, $from_encoding);
+									if ($k === false) {
+										return false;
+									}
+								}
+								if (empty($v) || (is_scalar($v) && !is_string($v))) {
+									$result[$k] = $v; # $v can be false and that's not an error
+								}
+								else {
+									# recurse
+									$v = $transcoder($v, $to_encoding, $from_encoding);
+									if ($v === false) {
+										return false;
+									}
+									$result[$k] = $v;
 								}
 							}
-							if (empty($v) || (is_scalar($v) && !is_string($v))) {
-								$result[$k] = $v; # $v can be false and that's not an error
-							}
-							else {
-								# recurse
-								$v = $transcoder($v, $to_encoding, $from_encoding);
-								if ($v === false) {
-									return false;
-								}
-								$result[$k] = $v;
-							}
+							return $result;
 						}
-						return $result;
-					}
 
-					return $data;	# anything except string, object, or array
-				};
-			}
+						return $data;	# anything except string, object, or array
+					}; # / $transcoder function
+				} # / if is_null($transcoder)
 
-			$value = $transcoder($value, 'UTF-8', $input_encoding);
-			if ($value === false) {
-				return $value;	# failure; this must not be passed to json_encode!; this is part of what the !empty() check is for at the top of this block
-			}
-		}
+				$value = $transcoder($value, 'UTF-8', $input_encoding);
+				if ($value === false) {
+					return $value;	# failure; this must not be passed to json_encode!; this is part of what the !empty() check is for at the top of this block
+				}
+			} # / elseif (is_array($value) || is_object($value))
+		} # / if input encoding != UTF-8
+
 		return \json_encode($value, $flags);	# string|false
 	}
 
