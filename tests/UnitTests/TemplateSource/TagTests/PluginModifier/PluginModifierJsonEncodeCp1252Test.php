@@ -1,7 +1,7 @@
 <?php
 /**
  * Smarty PHPunit tests of modifier.
- * This file must be saved in UTF-8 encoding!
+ * This file must be saved in Windows-1252 encoding!
  */
 
 namespace UnitTests\TemplateSource\TagTests\PluginModifier;
@@ -12,6 +12,7 @@ class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
 	public function setUp(): void
 	{
 		$this->setUpSmarty(__DIR__);
+		\Smarty\Smarty::$_CHARSET = 'cp1252';
 	}
 
 	/**
@@ -39,7 +40,7 @@ class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
 			["abc", '"abc"'],
 			[["abc"], '["abc"]'],
 			[["abc",["a"=>2]], '["abc",{"a":2}]'],
-			[['â‚¬uro',['SchlÃ¼ssel'=>'StraÃŸe']], '["\u20acuro",{"Schl\u00fcssel":"Stra\u00dfe"}]'],	# â‚¬ = x80 in cp1252; Ã¼ = xFC in cp1252; ÃŸ = xDF in cp1252;
+			[['€uro',['Schlüssel'=>'Straße']], '["\u20acuro",{"Schl\u00fcssel":"Stra\u00dfe"}]'],	# € = x80 in cp1252; ü = xFC in cp1252; ß = xDF in cp1252;
 		];
 	}
 
@@ -68,7 +69,7 @@ class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
 			["abc", '"abc"'],
 			[["abc"], '{"0":"abc"}'],
 			[["abc",["a"=>2]], '{"0":"abc","1":{"a":2}}'],
-			[['â‚¬uro'], '{"0":"\u20acuro"}'],
+			[['€uro'], '{"0":"\u20acuro"}'],
 		];
 	}
 
