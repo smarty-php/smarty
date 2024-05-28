@@ -2211,5 +2211,14 @@ class Smarty extends \Smarty\TemplateBase {
 		return $template;
 	}
 
+	/**
+	 * Sets if Smarty should check If-Modified-Since headers to determine cache validity.
+	 * @param bool $cache_modified_check
+	 * @return void
+	 */
+	public function setCacheModifiedCheck($cache_modified_check): void {
+		$this->cache_modified_check = (bool) $cache_modified_check;
+	}
+
 }
 
