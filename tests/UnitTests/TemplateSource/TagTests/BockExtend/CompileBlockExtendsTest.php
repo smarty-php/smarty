@@ -1371,8 +1371,38 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         );
     }
 
-	public function testBlockWithAssign() {
-		$this->assertEquals('Captured content is: Content with lots of html here', $this->smarty->fetch('038_child.tpl'));
-	}
+    public function testBlockWithAssign() {
+        $this->assertEquals('Captured content is: Content with lots of html here', $this->smarty->fetch('038_child.tpl'));
+    }
+
+    /**
+     * Test escaping of file parameter
+     */
+    public function testEscaping()
+    {
+        $this->expectException(SmartyException::class);
+        $this->expectExceptionMessageRegExp('/Unable to load.*/');
+        $this->assertEquals('hello world', $this->smarty->fetch('escaping.tpl'));
+    }
+
+    /**
+     * Test escaping of file parameter 2
+     */
+    public function testEscaping2()
+    {
+        $this->expectException(SmartyException::class);
+        $this->expectExceptionMessageRegExp('/Unable to load.*/');
+        $this->assertEquals('hello world', $this->smarty->fetch('escaping2.tpl'));
+    }
+
+    /**
+     * Test escaping of file parameter 3
+     */
+    public function testEscaping3()
+    {
+        $this->expectException(SmartyException::class);
+        $this->expectExceptionMessageRegExp('/Unable to load.*/');
+        $this->assertEquals('hello world', $this->smarty->fetch('escaping3.tpl'));
+    }
 
 }

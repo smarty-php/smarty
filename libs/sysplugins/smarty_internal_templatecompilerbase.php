@@ -455,15 +455,29 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->smarty->_current_file = $this->template->source->filepath;
             // get template source
             if (!empty($this->template->source->components)) {
-                // we have array of inheritance templates by extends: resource
-                // generate corresponding source code sequence
-                $_content =
-                    Smarty_Internal_Compile_Extends::extendsSourceArrayCode($this->template);
+				$_compiled_code = '<?php $_smarty_tpl->_loadInheritance(); $_smarty_tpl->inheritance->init($_smarty_tpl, true); ?>';
+
+				$i = 0;
+				$reversed_components = array_reverse($this->template->getSource()->components);
+				foreach ($reversed_components as $source) {
+					$i++;
+					if ($i === count($reversed_components)) {
+						$_compiled_code .= '<?php $_smarty_tpl->inheritance->endChild($_smarty_tpl); ?>';
+					}
+					$_compiled_code .= $this->compileTag(
+						'include',
+						[
+							var_export($source->resource, true),
+							['scope' => 'parent'],
+						]
+					);
+				}
+				$_compiled_code = $this->postFilter($_compiled_code, $this->template);
             } else {
                 // get template source
                 $_content = $this->template->source->getContent();
+				$_compiled_code = $this->postFilter($this->doCompile($this->preFilter($_content), true));
             }
-            $_compiled_code = $this->postFilter($this->doCompile($this->preFilter($_content), true));
             if (!empty($this->required_plugins[ 'compiled' ]) || !empty($this->required_plugins[ 'nocache' ])) {
                 $_compiled_code = '<?php ' . $this->compileRequiredPlugins() . "?>\n" . $_compiled_code;
             }
