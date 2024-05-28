@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.5.3] - 2024-05-28
+- Fixed a code injection vulnerability in extends-tag. This addresses CVE-2024-35226.
+
+
 ## [4.5.2] - 2024-04-06
 - Fixed argument must be passed by reference error introduced in v4.5.1 [#964](https://github.com/smarty-php/smarty/issues/964)
 
