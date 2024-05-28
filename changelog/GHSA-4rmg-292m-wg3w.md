@@ -1,1 +1,0 @@
-- Fixed a code injection vulnerability in extends-tag. This addresses CVE-2024-35226.
