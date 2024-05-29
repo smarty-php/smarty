@@ -15,6 +15,11 @@ class PluginModifierJsonEncodeCp1252Test extends PHPUnit_Smarty
 		\Smarty\Smarty::$_CHARSET = 'cp1252';
 	}
 
+	public function tearDown(): void
+	{
+		\Smarty\Smarty::$_CHARSET = 'UTF-8';
+	}
+
 	/**
 	 * @dataProvider dataForDefault
 	 */
