@@ -35,8 +35,6 @@ use Smarty\Template;
  * {mailto address="me@domain.com" cc="you@domain.com,they@domain.com"}
  * {mailto address="me@domain.com" extra='class="mailto"'}
  *
- * @link    https://www.smarty.net/manual/en/language.function.mailto.php {mailto}
- *           (Smarty online manual)
  * @version 1.2
  * @author  Monte Ohrt <monte at ohrt dot com>
  * @author  credits to Jason Sweat (added cc, bcc and subject functionality)

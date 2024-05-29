@@ -11,8 +11,6 @@ namespace Smarty\Compile\Modifier;
  * Input:    string to catenate
  * Example:  {$var|cat:"foo"}
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.cat.php cat
- *           (Smarty online manual)
  * @author Uwe Tews
  */
 

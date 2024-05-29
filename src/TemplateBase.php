@@ -73,9 +73,8 @@ abstract class TemplateBase extends Data {
 	 * @param bool $format smarty argument format, else traditional
 	 * @param array $block_methods list of block-methods
 	 *
-	 * @return \Smarty|\Smarty\Template
+	 * @return static
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.register.object.tpl
 	 *
 	 * @api  Smarty::registerObject()
 	 */
@@ -114,9 +113,8 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @param string $object_name name of object
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @api  Smarty::unregisterObject()
-	 * @link https://www.smarty.net/docs/en/api.unregister.object.tpl
 	 *
 	 */
 	public function unregisterObject($object_name) {
@@ -179,7 +177,6 @@ abstract class TemplateBase extends Data {
 	 * @return Data data object
 	 * @throws Exception
 	 * @api  Smarty::createData()
-	 * @link https://www.smarty.net/docs/en/api.create.data.tpl
 	 *
 	 */
 	public function createData(Data $parent = null, $name = null) {
@@ -222,7 +219,6 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @return object
 	 * @throws \Smarty\Exception if no such object is found
-	 * @link https://www.smarty.net/docs/en/api.get.registered.object.tpl
 	 *
 	 * @api  Smarty::getRegisteredObject()
 	 */
@@ -255,7 +251,7 @@ abstract class TemplateBase extends Data {
 	 * @param array|string $literals literal or list of literals
 	 *                                                                                  to addto add
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @throws \Smarty\Exception
 	 * @api Smarty::addLiterals()
 	 *
@@ -273,7 +269,7 @@ abstract class TemplateBase extends Data {
 	 * @param array|string $literals literal or list of literals
 	 *                                                                                  to setto set
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @throws \Smarty\Exception
 	 * @api Smarty::setLiterals()
 	 *
@@ -316,10 +312,9 @@ abstract class TemplateBase extends Data {
 	 * @param string $class_impl the referenced PHP class to
 	 *                                                                                    register
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @throws \Smarty\Exception
 	 * @api  Smarty::registerClass()
-	 * @link https://www.smarty.net/docs/en/api.register.class.tpl
 	 *
 	 */
 	public function registerClass($class_name, $class_impl) {
@@ -338,7 +333,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @param callable $callback class/method name
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @throws Exception              if $callback is not callable
 	 * @api Smarty::registerDefaultConfigHandler()
 	 *
@@ -358,7 +353,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @param callable $callback class/method name
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @throws Exception              if $callback is not callable
 	 * @api Smarty::registerDefaultTemplateHandler()
 	 *
@@ -379,8 +374,7 @@ abstract class TemplateBase extends Data {
 	 * @param string $name name of resource type
 	 * @param \Smarty\Resource\BasePlugin $resource_handler instance of Smarty\Resource\BasePlugin
 	 *
-	 * @return \Smarty\Smarty|\Smarty\Template
-	 * @link https://www.smarty.net/docs/en/api.register.resource.tpl
+	 * @return static
 	 *
 	 * @api  Smarty::registerResource()
 	 */
@@ -395,9 +389,8 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @param string $type name of resource type
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @api  Smarty::unregisterResource()
-	 * @link https://www.smarty.net/docs/en/api.unregister.resource.tpl
 	 *
 	 */
 	public function unregisterResource($type) {
@@ -413,7 +406,7 @@ abstract class TemplateBase extends Data {
 	 *
 	 * @param string $tpl_name
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @throws Exception if file is not readable
 	 * @api Smarty::setDebugTemplate()
 	 *

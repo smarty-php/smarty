@@ -9,7 +9,6 @@ namespace Smarty\Compile\Modifier;
  * Example:  {$var|strip} {$var|strip:"&nbsp;"}
  * Date:     September 25th, 2002
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.strip.php strip (Smarty online manual)
  * @author Uwe Tews
  */
 

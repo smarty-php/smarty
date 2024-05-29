@@ -40,7 +40,6 @@ use Smarty\Runtime\TplFunctionRuntime;
  * Smarty mailing list. Send a blank e-mail to
  * smarty-discussion-subscribe@googlegroups.com
  *
- * @link      https://www.smarty.net/
  * @author    Monte Ohrt <monte at ohrt dot com>
  * @author    Uwe Tews   <uwe dot tews at gmail dot com>
  * @author    Rodney Rehm
@@ -55,7 +54,7 @@ class Smarty extends \Smarty\TemplateBase {
 	/**
 	 * smarty version
 	 */
-	const SMARTY_VERSION = '5.0.1';
+	const SMARTY_VERSION = '5.2.0';
 
 	/**
 	 * define caching modes
@@ -536,8 +535,6 @@ class Smarty extends \Smarty\TemplateBase {
 	/**
 	 * Load an additional extension.
 	 *
-	 * @param Base $extension
-	 *
 	 * @return void
 	 */
 	public function addExtension(ExtensionInterface $extension) {
@@ -583,7 +580,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @param string|\Smarty\Security $security_class if a string is used, it must be class-name
 	 *
-	 * @return Smarty                 current Smarty instance for chaining
+	 * @return static                 current Smarty instance for chaining
 	 * @throws \Smarty\Exception
 	 */
 	public function enableSecurity($security_class = null) {
@@ -594,7 +591,7 @@ class Smarty extends \Smarty\TemplateBase {
 	/**
 	 * Disable security
 	 *
-	 * @return Smarty current Smarty instance for chaining
+	 * @return static current Smarty instance for chaining
 	 */
 	public function disableSecurity() {
 		$this->security_policy = null;
@@ -608,7 +605,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string $key of the array element to assign the template dir to
 	 * @param bool $isConfig true for config_dir
 	 *
-	 * @return Smarty          current Smarty instance for chaining
+	 * @return static current Smarty instance for chaining
 	 */
 	public function addTemplateDir($template_dir, $key = null, $isConfig = false) {
 		if ($isConfig) {
@@ -673,7 +670,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string|array $template_dir directory(s) of template sources
 	 * @param bool $isConfig true for config_dir
 	 *
-	 * @return Smarty current Smarty instance for chaining
+	 * @return static current Smarty instance for chaining
 	 */
 	public function setTemplateDir($template_dir, $isConfig = false) {
 		if ($isConfig) {
@@ -688,12 +685,27 @@ class Smarty extends \Smarty\TemplateBase {
 	}
 
 	/**
+	 * Adds a template directory before any existing directoires
+	 *
+	 * @param string $new_template_dir directory of template sources
+	 * @param bool $is_config true for config_dir
+	 *
+	 * @return static current Smarty instance for chaining
+	 */
+	public function prependTemplateDir($new_template_dir, $is_config = false) {
+		$current_template_dirs = $is_config ? $this->config_dir : $this->template_dir;
+		array_unshift($current_template_dirs, $new_template_dir);
+		$this->setTemplateDir($current_template_dirs, $is_config);
+		return $this;
+	}
+
+	/**
 	 * Add config directory(s)
 	 *
 	 * @param string|array $config_dir directory(s) of config sources
 	 * @param mixed $key key of the array element to assign the config dir to
 	 *
-	 * @return Smarty current Smarty instance for chaining
+	 * @return static current Smarty instance for chaining
 	 */
 	public function addConfigDir($config_dir, $key = null) {
 		return $this->addTemplateDir($config_dir, $key, true);
@@ -715,7 +727,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @param $config_dir
 	 *
-	 * @return Smarty       current Smarty instance for chaining
+	 * @return static current Smarty instance for chaining
 	 */
 	public function setConfigDir($config_dir) {
 		return $this->setTemplateDir($config_dir, true);
@@ -731,7 +743,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @return $this
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.register.plugin.tpl
 	 *
 	 * @api  Smarty::registerPlugin()
 	 */
@@ -758,7 +769,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string $name name of template tag
 	 *
 	 * @return array|null
-	 * @link https://www.smarty.net/docs/en/api.unregister.plugin.tpl
 	 *
 	 * @api  Smarty::unregisterPlugin()
 	 */
@@ -776,7 +786,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string $name name of template tag
 	 *
 	 * @return $this
-	 * @link https://www.smarty.net/docs/en/api.unregister.plugin.tpl
 	 *
 	 * @api  Smarty::unregisterPlugin()
 	 */
@@ -792,7 +801,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @param null|array|string $plugins_dir
 	 *
-	 * @return Smarty current Smarty instance for chaining
+	 * @return static current Smarty instance for chaining
 	 * @deprecated since 5.0
 	 */
 	public function addPluginsDir($plugins_dir) {
@@ -825,7 +834,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @param string|array $plugins_dir directory(s) of plugins
 	 *
-	 * @return Smarty       current Smarty instance for chaining
+	 * @return static current Smarty instance for chaining
 	 * @deprecated since 5.0
 	 */
 	public function setPluginsDir($plugins_dir) {
@@ -850,7 +859,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @return $this
 	 * @throws Exception              if $callback is not callable
-	 * @link https://www.smarty.net/docs/en/api.register.default.plugin.handler.tpl
 	 *
 	 * @api  Smarty::registerDefaultPluginHandler()
 	 *
@@ -887,7 +895,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @param string $compile_dir directory to store compiled templates in
 	 *
-	 * @return Smarty current Smarty instance for chaining
+	 * @return static current Smarty instance for chaining
 	 */
 	public function setCompileDir($compile_dir) {
 		$this->_normalizeDir('compile_dir', $compile_dir);
@@ -913,7 +921,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @param string $cache_dir directory to store cached templates in
 	 *
-	 * @return Smarty current Smarty instance for chaining
+	 * @return static current Smarty instance for chaining
 	 */
 	public function setCacheDir($cache_dir) {
 		$this->_normalizeDir('cache_dir', $cache_dir);
@@ -1176,7 +1184,7 @@ class Smarty extends \Smarty\TemplateBase {
 	/**
 	 * Get Smarty object
 	 *
-	 * @return Smarty
+	 * @return static
 	 */
 	public function getSmarty() {
 		return $this;
@@ -1254,7 +1262,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @return int number of cache files deleted
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.clear.cache.tpl
 	 *
 	 * @api  Smarty::clearCache()
 	 */
@@ -1274,7 +1281,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string $type resource type
 	 *
 	 * @return int number of cache files deleted
-	 * @link https://www.smarty.net/docs/en/api.clear.all.cache.tpl
 	 *
 	 * @api  Smarty::clearAllCache()
 	 */
@@ -1291,7 +1297,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @return int number of template files deleted
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.clear.compiled.template.tpl
 	 *
 	 * @api  Smarty::clearCompiledTemplate()
 	 */
@@ -1805,7 +1810,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @return bool
 	 * @throws \Smarty\Exception
 	 * @api  Smarty::loadFilter()
-	 * @link https://www.smarty.net/docs/en/api.load.filter.tpl
 	 *
 	 * @deprecated since 5.0
 	 */
@@ -1853,11 +1857,10 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string $type filter type
 	 * @param string $name filter name
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @throws \Smarty\Exception
 	 * @api  Smarty::unloadFilter()
 	 *
-	 * @link https://www.smarty.net/docs/en/api.unload.filter.tpl
 	 *
 	 * @deprecated since 5.0
 	 */
@@ -1900,8 +1903,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string $name name of resource type
 	 * @param Base $resource_handler
 	 *
-	 * @return Smarty
-	 * @link https://www.smarty.net/docs/en/api.register.cacheresource.tpl
+	 * @return static
 	 *
 	 * @api  Smarty::registerCacheResource()
 	 *
@@ -1922,9 +1924,8 @@ class Smarty extends \Smarty\TemplateBase {
 	 *
 	 * @param                                                                 $name
 	 *
-	 * @return Smarty
+	 * @return static
 	 * @api  Smarty::unregisterCacheResource()
-	 * @link https://www.smarty.net/docs/en/api.unregister.cacheresource.tpl
 	 *
 	 * @deprecated since 5.0
 	 *
@@ -1956,9 +1957,8 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param callable $callback
 	 * @param string|null $name optional filter name
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.register.filter.tpl
 	 *
 	 * @api  Smarty::registerFilter()
 	 */
@@ -2016,11 +2016,10 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param string $type filter type
 	 * @param callback|string $name the name previously used in ::registerFilter
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @throws \Smarty\Exception
 	 * @api  Smarty::unregisterFilter()
 	 *
-	 * @link https://www.smarty.net/docs/en/api.unregister.filter.tpl
 	 *
 	 */
 	public function unregisterFilter($type, $name) {
@@ -2054,7 +2053,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param array|string $modifiers modifier or list of modifiers
 	 *                                                                                   to add
 	 *
-	 * @return Smarty
+	 * @return static
 	 * @api Smarty::addDefaultModifiers()
 	 *
 	 */
@@ -2084,7 +2083,7 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @param array|string $modifiers modifier or list of modifiers
 	 *                                                                                   to set
 	 *
-	 * @return TemplateBase
+	 * @return static
 	 * @api Smarty::setDefaultModifiers()
 	 *
 	 */
@@ -2203,7 +2202,6 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @return bool cache status
 	 * @throws \Exception
 	 * @throws \Smarty\Exception
-	 * @link https://www.smarty.net/docs/en/api.is.cached.tpl
 	 *
 	 * @api  Smarty::isCached()
 	 */
@@ -2242,7 +2240,15 @@ class Smarty extends \Smarty\TemplateBase {
 	public function setErrorUnassigned(bool $error_unassigned): void
 	{
 		$this->error_unassigned = $error_unassigned;
+  }
+  
+  /**
+	 * Sets if Smarty should check If-Modified-Since headers to determine cache validity.
+	 * @param bool $cache_modified_check
+	 * @return void
+	 */
+	public function setCacheModifiedCheck($cache_modified_check): void {
+		$this->cache_modified_check = (bool) $cache_modified_check;
 	}
 
 }
-

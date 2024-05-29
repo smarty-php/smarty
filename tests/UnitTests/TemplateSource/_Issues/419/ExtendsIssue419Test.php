@@ -32,4 +32,11 @@ class ExtendsIssue419Test extends PHPUnit_Smarty
         $this->assertEquals('child', $this->smarty->fetch('extends:001_parent.tpl|001_child.tpl'));
     }
 
+    public function testextendsSecurity()
+    {
+        $this->expectException(\Smarty\Exception::class);
+        $this->expectExceptionMessageMatches('/Unable to load.*/');
+        $this->assertEquals('child', $this->smarty->fetch('string:{include "001_parent.tpl\', var_dump(shell_exec(\'ls\')), 1, 2, 3);}}?>"}'));
+    }
+
 }

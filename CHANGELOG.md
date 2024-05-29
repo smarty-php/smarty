@@ -6,6 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.2.0] - 2024-05-28
+- Fixed a code injection vulnerability in extends-tag. This addresses CVE-2024-35226.
+- Added `$smarty->setCacheModifiedCheck()` setter for cache_modified_check
+- Added a PSR-4 loading script to allow Smarty to be used without Composer [#1017](https://github.com/smarty-php/smarty/pull/1017)
+
+
+## [5.1.0] - 2024-04-22
+- Prevent deprecation notices during compilation in PHP8.3 [#996](https://github.com/smarty-php/smarty/issues/996)
+- Fix that getTemplateVars would return an array of objects instead of the assigned variables values [#994](https://github.com/smarty-php/smarty/issues/994)
+- Fix Smarty::assign() not returning $this when called with an array as first parameter [#972](https://github.com/smarty-php/smarty/pull/972)
+- Documented support for `{if $element is in $array}` syntax [#937](https://github.com/smarty-php/smarty/issues/937)
+- Added support for `{if $element is not in $array}` syntax [#937](https://github.com/smarty-php/smarty/issues/937)
+- Using stream variables in templates now throws a deprecation notice [#933](https://github.com/smarty-php/smarty/pull/933)
+- Internal compiler classes always return a string (the internal has_code flag has been removed for simplicity) [#918](https://github.com/smarty-php/smarty/pull/918)
+- Fix invalid classnames in Runtime code for foreach [#1000](https://github.com/smarty-php/smarty/issues/1000)
+
+
 ## [5.0.1] - 2024-03-27
 - Fix error in Smarty\Smarty::compileAllTemplates() by including missing FilesystemIterator class [#966](https://github.com/smarty-php/smarty/issues/966)  
 

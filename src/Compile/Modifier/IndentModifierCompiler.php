@@ -6,7 +6,6 @@ namespace Smarty\Compile\Modifier;
  * Name:     indent
  * Purpose:  indent lines of text
  *
- * @link   https://www.smarty.net/manual/en/language.modifier.indent.php indent (Smarty online manual)
  * @author Uwe Tews
  */
 

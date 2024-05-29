@@ -9,7 +9,6 @@
 |----------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | file           | Yes      | The name of the config file to include                                                                                                                                                                                                                                                                                          |
 | section        | No       | The name of the section to load                                                                                                                                                                                                                                                                                                 |
-| scope          | no       | How the scope of the loaded variables are treated, which must be one of local, parent or global. local means variables are loaded into the local template context. parent means variables are loaded into both the local context and the parent template that called it. global means variables are available to all templates. |
 
 
 ## Examples

@@ -805,7 +805,7 @@ value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
                   // Smarty tag
 value(res)       ::= smartytag(st). {
     $prefixVar = $this->compiler->getNewPrefixVariable();
-    $tmp = $this->compiler->appendCode('<?php ob_start();?>', st);
+    $tmp = $this->compiler->appendCode('<?php ob_start();?>', (string) st);
     $this->compiler->appendPrefixCode($this->compiler->appendCode($tmp, "<?php {$prefixVar} = ob_get_clean();?>"));
     res = $prefixVar;
 }

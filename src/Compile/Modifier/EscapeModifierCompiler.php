@@ -9,7 +9,6 @@ use Smarty\Exception;
  * Name:     escape
  * Purpose:  escape string for output
  *
- * @link   https://www.smarty.net/docsv2/en/language.modifier.escape count_characters (Smarty online manual)
  * @author Rodney Rehm
  */
 

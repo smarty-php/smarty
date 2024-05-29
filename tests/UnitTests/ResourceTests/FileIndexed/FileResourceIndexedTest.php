@@ -91,4 +91,13 @@ class FileResourceIndexedTest extends PHPUnit_Smarty
 
 	    $this->assertNotEquals($tpl->getCached()->filepath, $tpl2->getCached()->filepath);
     }
+
+	public function testPrependTemplatePath()
+	{
+		$this->smarty->setTemplateDir(__DIR__ . '/templates');
+		$this->smarty->prependTemplateDir(__DIR__ . '/templates_4');
+		$tpl = $this->smarty->createTemplate('dirname.tpl');
+		$this->assertEquals('templates_4', $this->smarty->fetch($tpl));
+	}
+
 }

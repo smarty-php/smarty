@@ -1,0 +1,1 @@
+{extends file='extends:"helloworld.tpl'|cat:"', var_dump(shell_exec('ls')), 1, 2, 3);}}?>"}

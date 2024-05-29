@@ -403,21 +403,37 @@ class Template extends BaseCompiler {
 			}
 			// get template source
 			if (!empty($this->template->getSource()->components)) {
-				// we have array of inheritance templates by extends: resource
-				// generate corresponding source code sequence
-				$_content =
-					ExtendsTag::extendsSourceArrayCode($this->template);
+
+				$_compiled_code = '<?php $_smarty_tpl->getInheritance()->init($_smarty_tpl, true); ?>';
+
+				$i = 0;
+				$reversed_components = array_reverse($this->template->getSource()->components);
+				foreach ($reversed_components as $source) {
+					$i++;
+					if ($i === count($reversed_components)) {
+						$_compiled_code .= '<?php $_smarty_tpl->getInheritance()->endChild($_smarty_tpl); ?>';
+					}
+					$_compiled_code .= $this->compileTag(
+						'include',
+						[
+							var_export($source->resource, true),
+							['scope' => 'parent'],
+						]
+					);
+				}
+				$_compiled_code = $this->smarty->runPostFilters($_compiled_code, $this->template);
 			} else {
 				// get template source
 				$_content = $this->template->getSource()->getContent();
+				$_compiled_code = $this->smarty->runPostFilters(
+					$this->doCompile(
+						$this->smarty->runPreFilters($_content, $this->template),
+						true
+					),
+					$this->template
+				);
 			}
-			$_compiled_code = $this->smarty->runPostFilters(
-				$this->doCompile(
-					$this->smarty->runPreFilters($_content, $this->template),
-					true
-				),
-				$this->template
-			);
+
 		} catch (\Exception $e) {
 			if ($this->smarty->debugging) {
 				$this->smarty->getDebug()->end_compile($this->template);
@@ -680,7 +696,8 @@ class Template extends BaseCompiler {
 	 *
 	 * @return string
 	 */
-	public function appendCode($left, $right) {
+	public function appendCode(string $left, string $right): string
+	{
 		if (preg_match('/\s*\?>\s?$/D', $left) && preg_match('/^<\?php\s+/', $right)) {
 			$left = preg_replace('/\s*\?>\s?$/D', "\n", $left);
 			$left .= preg_replace('/^<\?php\s+/', '', $right);
@@ -1056,7 +1073,7 @@ class Template extends BaseCompiler {
 		$prefixArray = array_merge($this->prefix_code, array_pop($this->prefixCodeStack));
 		$this->prefixCodeStack[] = [];
 		foreach ($prefixArray as $c) {
-			$code = $this->appendCode($code, $c);
+			$code = $this->appendCode($code, (string) $c);
 		}
 		$this->prefix_code = [];
 		return $code;

@@ -47,18 +47,18 @@ class Dq extends Base
             if ($subtree instanceof Code) {
                 $this->subtrees[ $last_subtree ]->data =
                     $parser->compiler->appendCode(
-                        $this->subtrees[ $last_subtree ]->data,
+                        (string) $this->subtrees[ $last_subtree ]->data,
                         '<?php echo ' . $subtree->data . ';?>'
                     );
             } elseif ($subtree instanceof DqContent) {
                 $this->subtrees[ $last_subtree ]->data =
                     $parser->compiler->appendCode(
-                        $this->subtrees[ $last_subtree ]->data,
+                        (string) $this->subtrees[ $last_subtree ]->data,
                         '<?php echo "' . $subtree->data . '";?>'
                     );
             } else {
                 $this->subtrees[ $last_subtree ]->data =
-                    $parser->compiler->appendCode($this->subtrees[ $last_subtree ]->data, $subtree->data);
+                    $parser->compiler->appendCode((string) $this->subtrees[ $last_subtree ]->data, (string) $subtree->data);
             }
         } else {
             $this->subtrees[] = $subtree;

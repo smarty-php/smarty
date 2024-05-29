@@ -116,22 +116,20 @@ class ForeachRuntime {
 	 *
 	 * @return int   the count for arrays and objects that implement countable, 1 for other objects that don't, and 0
 	 *               for empty elements
+	 * @throws \Exception
 	 */
-	public function count($value) {
-		if ($value instanceof IteratorAggregate) {
+	public function count($value): int
+	{
+		if ($value instanceof \IteratorAggregate) {
 			// Note: getIterator() returns a Traversable, not an Iterator
 			// thus rewind() and valid() methods may not be present
 			return iterator_count($value->getIterator());
-		} elseif ($value instanceof Iterator) {
-			return $value instanceof Generator ? 1 : iterator_count($value);
-		} elseif ($value instanceof Countable) {
+		} elseif ($value instanceof \Iterator) {
+			return $value instanceof \Generator ? 1 : iterator_count($value);
+		} elseif ($value instanceof \Countable) {
 			return count($value);
-		} elseif ($value instanceof PDOStatement) {
-			return $value->rowCount();
-		} elseif ($value instanceof Traversable) {
-			return iterator_count($value);
 		}
-		return count((array)$value);
+		return count((array) $value);
 	}
 
 	/**

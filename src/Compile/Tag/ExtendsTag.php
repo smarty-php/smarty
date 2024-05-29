@@ -32,7 +32,7 @@ class ExtendsTag extends Inheritance {
 	 *
 	 * @var array
 	 */
-	protected $optional_attributes = ['extends_resource'];
+	protected $optional_attributes = [];
 
 	/**
 	 * Attribute definition: Overwrites base class.
@@ -64,29 +64,7 @@ class ExtendsTag extends Inheritance {
 		}
 		// add code to initialize inheritance
 		$this->registerInit($compiler, true);
-		$file = trim($_attr['file'], '\'"');
-		if (strlen($file) > 8 && substr($file, 0, 8) === 'extends:') {
-			// generate code for each template
-			$files = array_reverse(explode('|', substr($file, 8)));
-			$i = 0;
-			foreach ($files as $file) {
-				if ($file[0] === '"') {
-					$file = trim($file, '".');
-				} else {
-					$file = "'{$file}'";
-				}
-				$i++;
-				if ($i === count($files) && isset($_attr['extends_resource'])) {
-					$this->compileEndChild($compiler);
-				}
-				$this->compileInclude($compiler, $file);
-			}
-			if (!isset($_attr['extends_resource'])) {
-				$this->compileEndChild($compiler);
-			}
-		} else {
-			$this->compileEndChild($compiler, $_attr['file']);
-		}
+		$this->compileEndChild($compiler, $_attr['file']);
 		return '';
 	}
 
@@ -105,43 +83,5 @@ class ExtendsTag extends Inheritance {
 			'<?php $_smarty_tpl->getInheritance()->endChild($_smarty_tpl' .
 			(isset($template) ?	", {$template}, \$_smarty_current_dir" : '') . ");\n?>"
 		);
-	}
-
-	/**
-	 * Add code for including subtemplate to end of template
-	 *
-	 * @param \Smarty\Compiler\Template $compiler
-	 * @param string $template subtemplate name
-	 *
-	 * @throws \Smarty\CompilerException
-	 * @throws \Smarty\Exception
-	 */
-	private function compileInclude(\Smarty\Compiler\Template $compiler, $template) {
-		$compiler->getParser()->template_postfix[] = new \Smarty\ParseTree\Tag(
-			$compiler->getParser(),
-			$compiler->compileTag(
-				'include',
-				[
-					$template,
-					['scope' => 'parent'],
-				]
-			)
-		);
-	}
-
-	/**
-	 * Create source code for {extends} from source components array
-	 *
-	 * @param \Smarty\Template $template
-	 *
-	 * @return string
-	 */
-	public static function extendsSourceArrayCode(\Smarty\Template $template) {
-		$resources = [];
-		foreach ($template->getSource()->components as $source) {
-			$resources[] = $source->resource;
-		}
-		return $template->getLeftDelimiter() . 'extends file=\'extends:' . join('|', $resources) .
-			'\' extends_resource=true' . $template->getRightDelimiter();
 	}
 }

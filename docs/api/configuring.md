@@ -12,24 +12,27 @@ Use `getTemplateDir()` to retrieve the configured paths.
 <?php
 
  // set a single directory where the config files are stored
-$smarty->setTemplateDir('./config');
+$smarty->setTemplateDir('./templates');
 
-// set multiple directories where config files are stored
-$smarty->setTemplateDir(['./config', './config_2', './config_3']);
+// set multiple directories where templates are stored
+$smarty->setTemplateDir(['./templates', './templates_2', './templates_3']);
 
-// add directory where config files are stored to the current list of dirs
-$smarty->addTemplateDir('./config_1');
+// add directory where templates files are stored to the current list of dirs
+$smarty->addTemplateDir('./templates_1');
 
 // add multiple directories to the current list of dirs
 $smarty->addTemplateDir([
-    './config_2',
-    './config_3',
+    './templates_2',
+    './templates_3',
 ]);
 
 // chaining of method calls
-$smarty->setTemplateDir('./config')
-       ->addTemplateDir('./config_1')
-       ->addTemplateDir('./config_2');
+$smarty->setTemplateDir('./templates')
+       ->addTemplateDir('./templates_1')
+       ->addTemplateDir('./templates_2');
+
+// insert a template dir before exising template dirs
+$smarty->prependTemplateDir('./more_important_templates')
 
 // get all directories where config files are stored
 $template_dirs = $smarty->getTemplateDir();

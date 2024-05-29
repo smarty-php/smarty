@@ -7,7 +7,6 @@ namespace Smarty\Compile\Modifier;
  * Name:     strlen
  * Purpose:  return the length of the given string
  *
- * @link   https://www.smarty.net/docs/en/language.modifier.strlen.tpl strlen (Smarty online manual)
  */
 
 class StrlenModifierCompiler extends Base {
