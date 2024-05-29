@@ -7,7 +7,7 @@
 namespace UnitTests\TemplateSource\TagTests\PluginModifier;
 use PHPUnit_Smarty;
 
-class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
+class PluginModifierJsonEncodeCp1252Test extends PHPUnit_Smarty
 {
 	public function setUp(): void
 	{
@@ -40,7 +40,7 @@ class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
 			["abc", '"abc"'],
 			[["abc"], '["abc"]'],
 			[["abc",["a"=>2]], '["abc",{"a":2}]'],
-			[["\x80uro",["Schl\xFCssel"=>"Stra\xDFe"]], '["\u20acuro",{"Schl\u00fcssel":"Stra\u00dfe"}]'],	# x80 = € = euro, xFC = ü = uuml, xDF = ß = szlig
+			[["\x80uro",["Schl\xFCssel"=>"Stra\xDFe"]], '["\u20acuro",{"Schl\u00fcssel":"Stra\u00dfe"}]'],	# x80 = ï¿½ = euro, xFC = ï¿½ = uuml, xDF = ï¿½ = szlig
 		];
 	}
 
