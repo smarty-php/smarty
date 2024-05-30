@@ -653,7 +653,7 @@ class DefaultExtension extends Base {
 
 						# convert object to array if necessary
 						if (is_object($data)) {
-							if (is_a($data, '\JsonSerializable')) {	# this is the only reason why this function is not generic
+							if (is_a($data, \JsonSerializable::class)) {	# this is the only reason why this function is not generic
 								return $data;
 							}
 							$data = get_object_vars($data); # public properties as key => value pairs
