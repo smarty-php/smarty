@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.3.0] - 2024-05-30
+- Fix warning when calling hasVariable for an undefined variable [#977](https://github.com/smarty-php/smarty/issues/977)
+- Added `$smarty->prependTemplateDir()` method [#1022](https://github.com/smarty-php/smarty/issues/1022)
+
+
 ## [5.2.0] - 2024-05-28
 - Fixed a code injection vulnerability in extends-tag. This addresses CVE-2024-35226.
 - Added `$smarty->setCacheModifiedCheck()` setter for cache_modified_check
