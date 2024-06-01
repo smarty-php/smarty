@@ -41,11 +41,18 @@ class PluginModifierJsonEncodeCp1252Test extends PHPUnit_Smarty
 	}
 
 	public function dataForDefault() {
+		$json_serializable_object = new class() implements \JsonSerializable {
+			public function jsonSerialize(): mixed {
+				return ["Schl\xC3\xBCssel" => "Stra\xC3\x9Fe"];	# UTF-8 ready for json_encode(); to prove that transcoding doesn't attempt to transcode this again
+				#return ['Schlüssel' => 'Straße'];	# alternatively, this can be used, but then this file must always be saved in UTF-8 encoding or else the test will fail.
+			}
+		};
 		return [
 			["abc", '"abc"'],
 			[["abc"], '["abc"]'],
 			[["abc",["a"=>2]], '["abc",{"a":2}]'],
-			[["\x80uro",["Schl\xFCssel"=>"Stra\xDFe"]], '["\u20acuro",{"Schl\u00fcssel":"Stra\u00dfe"}]'],	# x80 = � = euro, xFC = � = uuml, xDF = � = szlig
+			[["\x80uro",["Schl\xFCssel"=>"Stra\xDFe"]], '["\u20acuro",{"Schl\u00fcssel":"Stra\u00dfe"}]'],	# x80 = € = euro, xFC = ü = uuml, xDF = ß = szlig
+			[$json_serializable_object, '{"Schl\u00fcssel":"Stra\u00dfe"}'],
 		];
 	}
 
