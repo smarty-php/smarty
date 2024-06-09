@@ -82,12 +82,13 @@ class PrintExpressionCompiler extends Base {
 					$output = $compiler->compileModifier($modifierlist, $output);
 				}
 
-				if ($compiler->getTemplate()->getSmarty()->escape_html) {
+				if ($compiler->getTemplate()->getSmarty()->escape_html && !$compiler->getTemplate()->getSmarty()->raw_output) {
 					$output = "htmlspecialchars((string) ({$output}), ENT_QUOTES, '" . addslashes(\Smarty\Smarty::$_CHARSET) . "')";
 				}
 
 			}
 			$output = "<?php echo {$output};?>\n";
+			$compiler->getTemplate()->getSmarty()->raw_output = false;
 		}
 		return $output;
 	}

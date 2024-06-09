@@ -416,6 +416,13 @@ class Smarty extends \Smarty\TemplateBase {
 	public $escape_html = false;
 
 	/**
+	 * disabled autoescape (when set to true, the next variable output is not escaped)
+	 *
+	 * @var boolean
+	 */
+	public $raw_output = false;
+
+	/**
 	 * start time for execution time calculation
 	 *
 	 * @var int

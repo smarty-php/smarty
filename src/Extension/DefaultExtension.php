@@ -35,6 +35,7 @@ class DefaultExtension extends Base {
 			case 'lower': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\LowerModifierCompiler(); break;
 			case 'nl2br': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\Nl2brModifierCompiler(); break;
 			case 'noprint': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\NoPrintModifierCompiler(); break;
+			case 'raw': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\RawModifierCompiler(); break;
 			case 'round': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\RoundModifierCompiler(); break;
 			case 'str_repeat': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\StrRepeatModifierCompiler(); break;
 			case 'string_format': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\StringFormatModifierCompiler(); break;

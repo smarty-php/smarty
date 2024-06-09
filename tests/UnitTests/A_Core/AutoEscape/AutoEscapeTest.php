@@ -61,4 +61,39 @@ class AutoEscapeTest extends PHPUnit_Smarty
         $this->assertEquals("<p>hi</p>", $this->smarty->fetch($tpl));
     }
 
+    /**
+     * test autoescape + raw modifier
+     */
+    public function testAutoEscapeRaw() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|raw}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("<a@b.c>", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + escape modifier = no double-escaping
+     */
+    public function testAutoEscapeNoDoubleEscape() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + escape modifier = force double-escaping
+     */
+    public function testAutoEscapeForceDoubleEscape() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape:\'force\'}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("&amp;lt;a@b.c&amp;gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + escape modifier = special escape
+     */
+    public function testAutoEscapeSpecialEscape() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape:\'url\'}');
+        $tpl->assign('foo', 'aa bb');
+        $this->assertEquals("aa%20bb", $this->smarty->fetch($tpl));
+    }
 }

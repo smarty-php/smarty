@@ -143,6 +143,35 @@ Enable auto-escaping for HTML as follows:
 $smarty->setEscapeHtml(true);
 ```
 
+When auto-escaping is enabled, the `|escape` modifier's default mode (`html`) has no effect,
+to avoid double-escaping. It is possible to force it with the `force` mode.
+Other modes (`htmlall`, `url`, `urlpathinfo`, `quotes`, `javascript`) may be used
+with the result you might expect, without double-escaping.
+
+Even when auto-escaping is enabled, you might want to display the content of a variable without
+escaping it. To do so, use the `|raw` modifier.
+
+Examples (with auto-escaping enabled):
+```smarty
+{* these three statements are identical *}
+{$myVar}
+{$myVar|escape}
+{$myVar|escape:'html'}
+
+{* no double-escaping on these statements *}
+{$var|escape:'htmlall'}
+{$myVar|escape:'url'}
+{$myVar|escape:'urlpathinfo'}
+{$myVar|escape:'quotes'}
+{$myVar|escape:'javascript'}
+
+{* no escaping at all *}
+{$myVar|raw}
+
+{* force double-escaping *}
+{$myVar|escape:'force'}
+```
+
 ## Disabling compile check
 By default, Smarty tests to see if the
 current template has changed since the last time
