@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.3.1] - 2024-06-16
+- Fixed error when using section with nocache [#1034](https://github.com/smarty-php/smarty/issues/1034)
+
+
 ## [5.3.0] - 2024-05-30
 - Fix warning when calling hasVariable for an undefined variable [#977](https://github.com/smarty-php/smarty/issues/977)
 - Added `$smarty->prependTemplateDir()` method [#1022](https://github.com/smarty-php/smarty/issues/1022)
