@@ -148,4 +148,10 @@ class CompileSectionTest extends PHPUnit_Smarty
         );
     }
 
+    public function testSectionWithNocache()
+    {
+        $source = 'string:{section name=module start=0 loop=1 nocache}{/section}';
+        $this->assertEquals('', $this->smarty->fetch($source));
+    }
+
 }
