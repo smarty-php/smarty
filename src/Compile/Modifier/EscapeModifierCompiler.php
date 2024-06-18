@@ -28,7 +28,7 @@ class EscapeModifierCompiler extends Base {
 					// in case of auto-escaping, and without the 'force' option, no double-escaping
 					if ($compiler->getSmarty()->escape_html && $esc_type != 'force')
 						return $params[0];
-					$compiler->getSmarty()->raw_output = true;
+					// otherwise, escape the variable
 					return 'htmlspecialchars((string)' . $params[ 0 ] . ', ENT_QUOTES, ' . var_export($char_set, true) . ', ' .
 						var_export($double_encode, true) . ')';
 				// no break
