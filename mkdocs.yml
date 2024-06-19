@@ -68,6 +68,7 @@ nav:
         - 'noprint': 'designers/language-modifiers/language-modifier-noprint.md'
         - 'number_format': 'designers/language-modifiers/language-modifier-number-format.md'
         - 'nl2br': 'designers/language-modifiers/language-modifier-nl2br.md'
+        - 'raw': 'designers/language-modifiers/language-modifier-raw.md'
         - 'regex_replace': 'designers/language-modifiers/language-modifier-regex-replace.md'
         - 'replace': 'designers/language-modifiers/language-modifier-replace.md'
         - 'round': 'designers/language-modifiers/language-modifier-round.md'
