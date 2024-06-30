@@ -75,7 +75,7 @@ class ModifierCompiler extends Base {
 				}
 			}
 		}
-		return $output;
+		return (string)$output;
 	}
 
 	/**

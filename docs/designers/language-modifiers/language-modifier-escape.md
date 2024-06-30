@@ -73,6 +73,6 @@ This snippet is useful for emails, but see also
 <a href="mailto:{$EmailAddress|escape:'hex'}">{$EmailAddress|escape:'mail'}</a>
 ```
 
-See also [escaping smarty parsing](../language-basic-syntax/language-escaping.md),
+See also [auto-escaping](../../api/configuring.md#enabling-auto-escaping), [escaping smarty parsing](../language-basic-syntax/language-escaping.md),
 [`{mailto}`](../language-custom-functions/language-function-mailto.md) and the [obfuscating email
-addresses](../../appendixes/tips.md#obfuscating-e-mail-addresses) page.
+addresses](../../appendixes/tips.md#obfuscating-e-mail-addresses) pages.
