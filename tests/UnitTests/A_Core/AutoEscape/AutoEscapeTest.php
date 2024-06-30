@@ -96,4 +96,33 @@ class AutoEscapeTest extends PHPUnit_Smarty
         $tpl->assign('foo', 'aa bb');
         $this->assertEquals("aa%20bb", $this->smarty->fetch($tpl));
     }
+
+    /**
+     * test autoescape + escape modifier = special escape
+     */
+    public function testAutoEscapeSpecialEscape2() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape:\'url\'}');
+        $tpl->assign('foo', '<BR>');
+        $this->assertEquals("%3CBR%3E", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + escape modifier = special escape
+     */
+    public function testAutoEscapeSpecialEscape3() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape:\'htmlall\'}');
+        $tpl->assign('foo', '<BR>');
+        $this->assertEquals("&lt;BR&gt;", $this->smarty->fetch($tpl));
+    }
+
+
+    /**
+     * test autoescape + escape modifier = special escape
+     */
+    public function testAutoEscapeSpecialEscape4() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape:\'javascript\'}');
+        $tpl->assign('foo', '<\'');
+        $this->assertEquals("<\\'", $this->smarty->fetch($tpl));
+    }
+
 }
