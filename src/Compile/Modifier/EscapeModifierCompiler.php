@@ -33,23 +33,23 @@ class EscapeModifierCompiler extends Base {
 						var_export($double_encode, true) . ')';
 				// no break
 				case 'htmlall':
-					$compiler->getSmarty()->raw_output = true;
+					$compiler->setRawOutput(true);
 					return 'htmlentities(mb_convert_encoding((string)' . $params[ 0 ] . ', \'UTF-8\', ' .
 						var_export($char_set, true) . '), ENT_QUOTES, \'UTF-8\', ' .
 						var_export($double_encode, true) . ')';
 				// no break
 				case 'url':
-					$compiler->getSmarty()->raw_output = true;
+					$compiler->setRawOutput(true);
 					return 'rawurlencode((string)' . $params[ 0 ] . ')';
 				case 'urlpathinfo':
-					$compiler->getSmarty()->raw_output = true;
+					$compiler->setRawOutput(true);
 					return 'str_replace("%2F", "/", rawurlencode((string)' . $params[ 0 ] . '))';
 				case 'quotes':
-					$compiler->getSmarty()->raw_output = true;
+					$compiler->setRawOutput(true);
 					// escape unescaped single quotes
 					return 'preg_replace("%(?<!\\\\\\\\)\'%", "\\\'", (string)' . $params[ 0 ] . ')';
 				case 'javascript':
-					$compiler->getSmarty()->raw_output = true;
+					$compiler->setRawOutput(true);
 					// escape quotes and backslashes, newlines, etc.
 					// see https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements
 					return 'strtr((string)' .

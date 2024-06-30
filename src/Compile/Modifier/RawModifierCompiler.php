@@ -15,7 +15,7 @@ use Smarty\Exception;
 class RawModifierCompiler extends Base {
 
 	public function compile($params, \Smarty\Compiler\Template $compiler) {
-		$compiler->getSmarty()->raw_output = true;
+		$compiler->setRawOutput(true);
 		return ($params[0]);
 	}
 }
