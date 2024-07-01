@@ -144,6 +144,7 @@
                         {$vars['attributes']|debug_print_var nofilter}
                     {/if}
                 </td>
+            </tr>
          {/foreach}
     </table>
 
