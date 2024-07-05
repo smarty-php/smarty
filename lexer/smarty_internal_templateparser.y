@@ -759,6 +759,19 @@ value(res)    ::= varindexed(vi) DOUBLECOLON static_class_access(r). {
     res = $prefixVar .'::'.r[0].r[1];
 }
 
+value(res)    ::= varindexed(vi) DOUBLECOLON static_class_constant(r). {
+    if ($this->security && $this->security->static_classes !== array()) {
+        $this->compiler->trigger_template_error('dynamic static class not allowed by security setting');
+    }
+    $prefixVar = $this->compiler->getNewPrefixVariable();
+    if (vi['var'] === '\'smarty\'') {
+        $this->compiler->appendPrefixCode("<?php {$prefixVar} = ". $this->compiler->compileTag('private_special_variable',array(),vi['smarty_internal_index']).';?>');
+     } else {
+        $this->compiler->appendPrefixCode("<?php  {$prefixVar} = ". $this->compiler->compileVariable(vi['var']).vi['smarty_internal_index'].';?>');
+    }
+    res = $prefixVar .'::'.r[0];
+}
+
                   // Smarty tag
 value(res)       ::= smartytag(st). {
     $prefixVar = $this->compiler->getNewPrefixVariable();
@@ -779,7 +792,21 @@ value(res)       ::= NAMESPACE(c). {
 value(res)       ::= arraydef(a). {
     res = a;
 }
-                  // static class access
+
+                  // static class constant access
+value(res)       ::= ns1(c)DOUBLECOLON static_class_constant(s). {
+    if (!in_array(strtolower(c), array('self', 'parent')) && (!$this->security || $this->security->isTrustedStaticClassAccess(c, s, $this->compiler))) {
+         if (isset($this->smarty->registered_classes[c])) {
+            res = $this->smarty->registered_classes[c].'::'.s[0];
+        } else {
+            res = c.'::'.s[0];
+        }
+    } else {
+        $this->compiler->trigger_template_error ('static class \''.c.'\' is undefined or not allowed by security setting');
+    }
+}
+
+                  // other static class access
 value(res)       ::= ns1(c)DOUBLECOLON static_class_access(s). {
     if (!in_array(strtolower(c), array('self', 'parent')) && (!$this->security || $this->security->isTrustedStaticClassAccess(c, s, $this->compiler))) {
         if (isset($this->smarty->registered_classes[c])) {
@@ -1111,6 +1138,11 @@ modparameter(res) ::= COLON array(mp). {
     res = array(mp);
 }
 
+                  // static class constant
+static_class_constant(res)       ::= ID(v). {
+    res = array(v);
+}
+
                   // static class methode call
 static_class_access(res)       ::= method(m). {
     res = array(m, '', 'method');
@@ -1119,11 +1151,6 @@ static_class_access(res)       ::= method(m). {
                   // static class methode call with object chainig
 static_class_access(res)       ::= method(m) objectchain(oc). {
     res = array(m, oc, 'method');
-}
-
-                  // static class constant
-static_class_access(res)       ::= ID(v). {
-    res = array(v, '');
 }
 
                   // static class variables
