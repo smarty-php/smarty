@@ -115,7 +115,7 @@ class Template extends TemplateBase {
 	public function __construct(
 		$template_resource,
 		Smarty $smarty,
-		\Smarty\Data $_parent = null,
+		?\Smarty\Data $_parent = null,
 		$_cache_id = null,
 		$_compile_id = null,
 		$_caching = null,
@@ -248,7 +248,7 @@ class Template extends TemplateBase {
 		$caching,
 		$cache_lifetime,
 		array $extra_vars = [],
-		int $scope = null,
+		?int $scope = null,
 		?string $currentDir = null
 	) {
 
@@ -462,7 +462,7 @@ class Template extends TemplateBase {
 	 * @return string
 	 * @throws Exception
 	 */
-	public function createCodeFrame($content = '', $functions = '', $cache = false, \Smarty\Compiler\Template $compiler = null) {
+	public function createCodeFrame($content = '', $functions = '', $cache = false, ?\Smarty\Compiler\Template $compiler = null) {
 		return $this->getCodeFrameCompiler()->create($content, $functions, $cache, $compiler);
 	}
 

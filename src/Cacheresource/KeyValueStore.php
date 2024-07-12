@@ -103,7 +103,7 @@ abstract class KeyValueStore extends Base
 	 */
     public function process(
 	    Template $_smarty_tpl,
-	    Cached   $cached = null,
+	    ?Cached  $cached = null,
 	             $update = false
     ) {
         if (!$cached) {

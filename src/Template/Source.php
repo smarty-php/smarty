@@ -134,9 +134,9 @@ class Source {
 	 * @throws Exception
 	 */
 	public static function load(
-		Template $_template = null,
-		Smarty   $smarty = null,
-		         $template_resource = null
+		?Template $_template = null,
+		?Smarty   $smarty = null,
+		          $template_resource = null
 	) {
 		if ($_template) {
 			$smarty = $_template->getSmarty();

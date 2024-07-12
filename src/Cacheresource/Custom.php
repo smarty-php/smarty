@@ -139,7 +139,7 @@ abstract class Custom extends Base
 	 */
     public function process(
 	    Template               $_smarty_tpl,
-	    \Smarty\Template\Cached $cached = null,
+	    ?\Smarty\Template\Cached $cached = null,
 	                           $update = false
     ) {
         if (!$cached) {

@@ -22,7 +22,7 @@ class My_Resource_Extendsall extends \Smarty\Resource\ExtendsPlugin
      *
      * @return void
      */
-    public function populate(Source $source, Template $_template = null)
+    public function populate(Source $source, ?Template $_template = null)
     {
         $uid = '';
         $sources = array();

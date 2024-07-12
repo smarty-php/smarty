@@ -374,7 +374,7 @@ class Template extends BaseCompiler {
 	 * @throws CompilerException
 	 * @throws Exception
 	 */
-	public function compileTemplateSource(\Smarty\Template $template, \Smarty\Compiler\Template $parent_compiler = null) {
+	public function compileTemplateSource(\Smarty\Template $template, ?\Smarty\Compiler\Template $parent_compiler = null) {
 		try {
 			// save template object in compiler class
 			$this->template = $template;
