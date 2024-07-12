@@ -50,7 +50,7 @@ abstract class CustomPlugin extends BasePlugin {
 	 * @param Source $source source object
 	 * @param Template|null $_template template object
 	 */
-	public function populate(Source $source, Template $_template = null) {
+	public function populate(Source $source, ?Template $_template = null) {
 		$source->uid = sha1($source->type . ':' . $source->name);
 		$mtime = $this->fetchTimestamp($source->name);
 		if ($mtime !== null) {

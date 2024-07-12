@@ -179,7 +179,7 @@ abstract class TemplateBase extends Data {
 	 * @api  Smarty::createData()
 	 *
 	 */
-	public function createData(Data $parent = null, $name = null) {
+	public function createData(?Data $parent = null, $name = null) {
 		/* @var Smarty $smarty */
 		$smarty = $this->getSmarty();
 		$dataObj = new Data($parent, $smarty, $name);

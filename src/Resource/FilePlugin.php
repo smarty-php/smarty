@@ -32,7 +32,7 @@ class FilePlugin extends BasePlugin {
 	 *
 	 * @throws Exception
 	 */
-	public function populate(Source $source, Template $_template = null) {
+	public function populate(Source $source, ?Template $_template = null) {
 
 		$source->uid = sha1(
 			$source->name . ($source->isConfig ? $source->getSmarty()->_joined_config_dir :

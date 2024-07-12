@@ -23,7 +23,7 @@ class ExtendsPlugin extends BasePlugin
      *
      * @throws Exception
      */
-    public function populate(Source $source, Template $_template = null)
+    public function populate(Source $source, ?Template $_template = null)
     {
         $uid = '';
         $sources = array();

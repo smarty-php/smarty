@@ -41,7 +41,7 @@ class CodeFrame
         $content = '',
         $functions = '',
         $cache = false,
-        \Smarty\Compiler\Template $compiler = null
+        ?\Smarty\Compiler\Template $compiler = null
     ) {
         // build property code
         $properties[ 'version' ] = \Smarty\Smarty::SMARTY_VERSION;
