@@ -23,6 +23,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
+          - windows-latest
 
         php-version:
           - "7.2"
@@ -52,7 +53,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Override PHP ini values for JIT compiler
       if: matrix.compiler == 'jit'
@@ -68,7 +69,7 @@ jobs:
 
     - name: Cache Composer packages
       id: composer-cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: vendor
         key: v5r2-${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
@@ -76,10 +77,18 @@ jobs:
           v5r1-${{ runner.os }}-php-${{ matrix.php-version }}-
 
     - name: Install dependencies
-      uses: php-actions/composer@v6
+      run: composer install
 
     - name: Run make
       run: make -B
 
-    - name: Run tests with phpunit
+    - if: runner.os == 'Linux'
+      name: Run tests with phpunit
       run: php ./vendor/phpunit/phpunit/phpunit
+
+    - if: runner.os == 'Windows'
+      name: Run tests with phpunit on Windows
+      continue-on-error: true
+      run: |
+        php ./vendor/phpunit/phpunit/phpunit
+        exit 0
