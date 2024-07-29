@@ -82,13 +82,5 @@ jobs:
     - name: Run make
       run: make -B
 
-    - if: runner.os == 'Linux'
-      name: Run tests with phpunit
+    - name: Run tests with phpunit
       run: php ./vendor/phpunit/phpunit/phpunit
-
-    - if: runner.os == 'Windows'
-      name: Run tests with phpunit on Windows
-      continue-on-error: true
-      run: |
-        php ./vendor/phpunit/phpunit/phpunit
-        exit 0
