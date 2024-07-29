@@ -136,7 +136,7 @@ class Compiled extends GeneratedPhpFile {
 		if ($this->exists && !$_smarty_tpl->getSmarty()->force_compile
 			&& !($_smarty_tpl->compile_check && $_smarty_tpl->getSource()->getTimeStamp() > $this->getTimeStamp())
 		) {
-			$this->loadCompiledTemplate($_smarty_tpl);
+			$this->loadCompiledTemplate($_smarty_tpl, false);
 		}
 
 		if (!$this->isValid) {
@@ -241,17 +241,20 @@ class Compiled extends GeneratedPhpFile {
 	 * HHVM requires a workaround because of a PHP incompatibility
 	 *
 	 * @param Template $_smarty_tpl do not change/remove variable name, is used by compiled template
+	 * @param bool $invalidateCachedFiles
 	 *
 	 */
-	private function loadCompiledTemplate(Template $_smarty_tpl) {
-
-		if (function_exists('opcache_invalidate')
-			&& (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
-		) {
-			opcache_invalidate($this->filepath, false);
-		} elseif (function_exists('apc_compile_file')) {
-			apc_compile_file($this->filepath);
-		}
+	private function loadCompiledTemplate(Template $_smarty_tpl, bool $invalidateCachedFiles = true) {
+        
+        if ($invalidateCachedFiles) {
+            if (function_exists('opcache_invalidate')
+                && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
+            ) {
+                opcache_invalidate($this->filepath, false);
+            } elseif (function_exists('apc_compile_file')) {
+                apc_compile_file($this->filepath);
+            }
+        }
 		if (defined('HHVM_VERSION')) {
 			eval('?>' . file_get_contents($this->filepath));
 		} else {
