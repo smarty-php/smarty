@@ -246,14 +246,14 @@ class Compiled extends GeneratedPhpFile {
 	 */
 	private function loadCompiledTemplate(Template $_smarty_tpl, bool $invalidateCachedFiles = true) {
         
-        if ($invalidateCachedFiles) {
-            if (function_exists('opcache_invalidate')
-                && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
-            ) {
-                opcache_invalidate($this->filepath, false);
-            } elseif (function_exists('apc_compile_file')) {
-                apc_compile_file($this->filepath);
-            }
+		if ($invalidateCachedFiles) {
+			if (function_exists('opcache_invalidate')
+				 && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
+			) {
+				opcache_invalidate($this->filepath, false);
+			} elseif (function_exists('apc_compile_file')) {
+				apc_compile_file($this->filepath);
+			}
         }
 		if (defined('HHVM_VERSION')) {
 			eval('?>' . file_get_contents($this->filepath));
