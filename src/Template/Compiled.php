@@ -254,7 +254,7 @@ class Compiled extends GeneratedPhpFile {
 			} elseif (function_exists('apc_compile_file')) {
 				apc_compile_file($this->filepath);
 			}
-        }
+		}
 		if (defined('HHVM_VERSION')) {
 			eval('?>' . file_get_contents($this->filepath));
 		} else {
