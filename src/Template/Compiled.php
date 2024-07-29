@@ -241,7 +241,7 @@ class Compiled extends GeneratedPhpFile {
 	 * HHVM requires a workaround because of a PHP incompatibility
 	 *
 	 * @param Template $_smarty_tpl do not change/remove variable name, is used by compiled template
-	 * @param bool $invalidateCachedFiles
+	 * @param bool $invalidateCachedFiles forces a revalidation of the file in opcache or apc cache (if available)
 	 *
 	 */
 	private function loadCompiledTemplate(Template $_smarty_tpl, bool $invalidateCachedFiles = true) {
