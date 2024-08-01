@@ -56,6 +56,7 @@ class FilePlugin extends BasePlugin {
 	 * @param Source $source source object
 	 */
 	public function populateTimestamp(Source $source) {
+		$path = false;
 		if (!$source->exists && $path = $this->getFilePath($source->name, $source->getSmarty(), $source->isConfig)) {
 			$source->timestamp = $source->exists = is_file($path);
 		}
