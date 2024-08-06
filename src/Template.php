@@ -462,7 +462,7 @@ class Template extends TemplateBase {
 	 * @return string
 	 * @throws Exception
 	 */
-	public function createCodeFrame($content = '', $functions = '', $cache = false, \Smarty\Compiler\Template $compiler = null) {
+	public function createCodeFrame($content = '', $functions = '', $cache = false, ?\Smarty\Compiler\Template $compiler = null) {
 		return $this->getCodeFrameCompiler()->create($content, $functions, $cache, $compiler);
 	}
 
