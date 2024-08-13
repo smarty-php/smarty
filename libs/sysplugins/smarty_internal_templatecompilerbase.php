@@ -658,7 +658,7 @@ abstract class Smarty_Internal_TemplateCompilerBase
 					if (
 						!$this->smarty->loadPlugin('smarty_modifiercompiler_' . $name)
 						&& !isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name])
-						&& !in_array($name, ['time', 'join', 'is_array', 'in_array'])
+						&& !in_array($name, ['time', 'join', 'is_array', 'in_array', 'count'])
 					) {
 						trigger_error('Using unregistered function "' . $name . '" in a template is deprecated and will be ' .
 							'removed in a future release. Use Smarty::registerPlugin to explicitly register ' .
