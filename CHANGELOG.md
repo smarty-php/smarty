@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.5.4] - 2024-08-14
+- Fixed that using `count()` would trigger a deprecation notice. [#813](https://github.com/smarty-php/smarty/issues/813)
+
+
 ## [4.5.3] - 2024-05-28
 - Fixed a code injection vulnerability in extends-tag. This addresses CVE-2024-35226.
 
