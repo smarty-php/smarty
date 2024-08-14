@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.4.0] - 2024-08-14
+- Fixing forced OpCache invalidation on every template include, which is resulting in fast raising wasted OpCache memory [#1007](https://github.com/smarty-php/smarty/issues/1007) 
+- Improvement of auto-escaping [#1030](https://github.com/smarty-php/smarty/pull/1030)
+
+
 ## [5.3.1] - 2024-06-16
 - Fixed error when using section with nocache [#1034](https://github.com/smarty-php/smarty/issues/1034)
 
