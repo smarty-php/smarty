@@ -1,1 +1,0 @@
-- Fixed that using `count()` would trigger a deprecation notice. [#813](https://github.com/smarty-php/smarty/issues/813)
