@@ -247,6 +247,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
 		$this->smarty->assign('f', 3.14);
 
 		$errorMessage = '';
+		$output = '';
 
 		try {
 			$output = $this->smarty->fetch('string:' . $strTemplateSource);
@@ -282,6 +283,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
 			['{$a|substr:-1}', 'a', false],
 			['{$f|substr:-1}', '4', false],
 			['{$ar|count}', '2', false],
+			['{count($ar)}', '2', false],
 			['{foreach "."|explode:$f as $n}{$n}{/foreach}', '314', false],
 			['{"-"|implode:$ar}', '1-2', false],
 			['{"-"|join:$ar}', '1-2', false],
