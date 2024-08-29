@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.4.1] - 2024-08-29
+
+
 - Enable (and fix) unit tests for Windows [#1046](https://github.com/smarty-php/smarty/pull/1046)
 - Fix the use of "extends:" to define the inheritance tree on Windows [#1018](https://github.com/smarty-php/smarty/issues/1018)
 
