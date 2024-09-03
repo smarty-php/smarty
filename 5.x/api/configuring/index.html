@@ -1139,6 +1139,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../designers/language-modifiers/language-modifier-is_array/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    is_array
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../designers/language-modifiers/language-modifier-isset/" class="md-nav__link">
         
   
@@ -1270,6 +1291,27 @@
   
   <span class="md-ellipsis">
     nl2br
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../designers/language-modifiers/language-modifier-raw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    raw
   </span>
   
 
@@ -3467,32 +3509,35 @@ Use <code>getTemplateDir()</code> to retrieve the configured paths.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> <span class="c1">// set a single directory where the config files are stored</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">(</span><span class="s1">&#39;./config&#39;</span><span class="p">);</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">(</span><span class="s1">&#39;./templates&#39;</span><span class="p">);</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">// set multiple directories where config files are stored</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">([</span><span class="s1">&#39;./config&#39;</span><span class="p">,</span> <span class="s1">&#39;./config_2&#39;</span><span class="p">,</span> <span class="s1">&#39;./config_3&#39;</span><span class="p">]);</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">// set multiple directories where templates are stored</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">([</span><span class="s1">&#39;./templates&#39;</span><span class="p">,</span> <span class="s1">&#39;./templates_2&#39;</span><span class="p">,</span> <span class="s1">&#39;./templates_3&#39;</span><span class="p">]);</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">// add directory where config files are stored to the current list of dirs</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">addTemplateDir</span><span class="p">(</span><span class="s1">&#39;./config_1&#39;</span><span class="p">);</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">// add directory where templates files are stored to the current list of dirs</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">addTemplateDir</span><span class="p">(</span><span class="s1">&#39;./templates_1&#39;</span><span class="p">);</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">// add multiple directories to the current list of dirs</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">addTemplateDir</span><span class="p">([</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="s1">&#39;./config_2&#39;</span><span class="p">,</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="s1">&#39;./config_3&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="s1">&#39;./templates_2&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="s1">&#39;./templates_3&#39;</span><span class="p">,</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">]);</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1">// chaining of method calls</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">(</span><span class="s1">&#39;./config&#39;</span><span class="p">)</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>       <span class="o">-&gt;</span><span class="na">addTemplateDir</span><span class="p">(</span><span class="s1">&#39;./config_1&#39;</span><span class="p">)</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>       <span class="o">-&gt;</span><span class="na">addTemplateDir</span><span class="p">(</span><span class="s1">&#39;./config_2&#39;</span><span class="p">);</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setTemplateDir</span><span class="p">(</span><span class="s1">&#39;./templates&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>       <span class="o">-&gt;</span><span class="na">addTemplateDir</span><span class="p">(</span><span class="s1">&#39;./templates_1&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>       <span class="o">-&gt;</span><span class="na">addTemplateDir</span><span class="p">(</span><span class="s1">&#39;./templates_2&#39;</span><span class="p">);</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="c1">// get all directories where config files are stored</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nv">$template_dirs</span> <span class="o">=</span> <span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">getTemplateDir</span><span class="p">();</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$template_dirs</span><span class="p">);</span> <span class="c1">// array</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="c1">// get directory identified by key</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="nv">$template_dir</span> <span class="o">=</span> <span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">getTemplateDir</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$template_dir</span><span class="p">);</span> <span class="c1">// string</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="c1">// insert a template dir before exising template dirs</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">prependTemplateDir</span><span class="p">(</span><span class="s1">&#39;./more_important_templates&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="c1">// get all directories where config files are stored</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="nv">$template_dirs</span> <span class="o">=</span> <span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">getTemplateDir</span><span class="p">();</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$template_dirs</span><span class="p">);</span> <span class="c1">// array</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="c1">// get directory identified by key</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="nv">$template_dir</span> <span class="o">=</span> <span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">getTemplateDir</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="nb">var_dump</span><span class="p">(</span><span class="nv">$template_dir</span><span class="p">);</span> <span class="c1">// string</span>
 </code></pre></div>
 <h2 id="setting-the-path-for-compiled-templates">Setting the path for compiled templates</h2>
 <p>Smarty compiles templates to native PHP to be as fast as possible.
@@ -3573,6 +3618,31 @@ It's like Smarty magically adds <code>|escape</code> to every variable you use o
 <p>Enable auto-escaping for HTML as follows:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="x">$smarty-&gt;setEscapeHtml(true);</span>
 </code></pre></div></p>
+<p>When auto-escaping is enabled, the <code>|escape</code> modifier's default mode (<code>html</code>) has no effect,
+to avoid double-escaping. It is possible to force it with the <code>force</code> mode.
+Other modes (<code>htmlall</code>, <code>url</code>, <code>urlpathinfo</code>, <code>quotes</code>, <code>javascript</code>) may be used
+with the result you might expect, without double-escaping.</p>
+<p>Even when auto-escaping is enabled, you might want to display the content of a variable without
+escaping it. To do so, use the <code>|raw</code> modifier.</p>
+<p>Examples (with auto-escaping enabled):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">{</span><span class="c">* these three statements are identical *</span><span class="cp">}</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="cp">}</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">escape</span><span class="cp">}</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;html&#39;</span><span class="cp">}</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="cp">{</span><span class="c">* no double-escaping on these statements *</span><span class="cp">}</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="cp">{</span><span class="nv">$var</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;htmlall&#39;</span><span class="cp">}</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;url&#39;</span><span class="cp">}</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;urlpathinfo&#39;</span><span class="cp">}</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;quotes&#39;</span><span class="cp">}</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;javascript&#39;</span><span class="cp">}</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="cp">{</span><span class="c">* no escaping at all *</span><span class="cp">}</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">raw</span><span class="cp">}</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="cp">{</span><span class="c">* force double-escaping *</span><span class="cp">}</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;force&#39;</span><span class="cp">}</span>
+</code></pre></div></p>
 <h2 id="disabling-compile-check">Disabling compile check</h2>
 <p>By default, Smarty tests to see if the
 current template has changed since the last time
@@ -3580,8 +3650,8 @@ it was compiled. If it has changed, it recompiles that template. </p>
 <p>Once an application is put into production, this compile-check step 
 is usually no longer needed and the extra checks can significantly hurt performance. 
 Be sure to disable compile checking on production for maximum performance. 
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">&lt;?php</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setCompileCheck</span><span class="p">(</span><span class="nx">\Smarty\Smarty</span><span class="o">::</span><span class="na">COMPILECHECK_OFF</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">setCompileCheck</span><span class="p">(</span><span class="nx">\Smarty\Smarty</span><span class="o">::</span><span class="na">COMPILECHECK_OFF</span><span class="p">);</span>
 </code></pre></div></p>
 <p>If <a href="../caching/basics/"><code>caching</code></a> is enabled and compile-check is
 enabled, then the cache files will get regenerated if an involved
@@ -3605,13 +3675,13 @@ strongly encouraged.</p>
 <p>Smarty\'s internals and core plugins are truly UTF-8 compatible since
 Smarty 3.1.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">&lt;?php</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1">// use japanese character encoding</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nx">mb_internal_charset</span><span class="p">(</span><span class="s1">&#39;EUC-JP&#39;</span><span class="p">);</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nx">\Smarty\Smarty</span><span class="o">::</span><span class="nv">$_CHARSET</span> <span class="o">=</span> <span class="s1">&#39;EUC-JP&#39;</span><span class="p">;</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Smarty\Smarty</span><span class="p">();</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1">// use japanese character encoding</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nx">mb_internal_charset</span><span class="p">(</span><span class="s1">&#39;EUC-JP&#39;</span><span class="p">);</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="nx">\Smarty\Smarty</span><span class="o">::</span><span class="nv">$_CHARSET</span> <span class="o">=</span> <span class="s1">&#39;EUC-JP&#39;</span><span class="p">;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Smarty\Smarty</span><span class="p">();</span>
 </code></pre></div>
 
 

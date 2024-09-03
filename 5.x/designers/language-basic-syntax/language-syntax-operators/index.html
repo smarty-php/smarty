@@ -615,6 +615,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      List
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ternary" class="md-nav__link">
     <span class="md-ellipsis">
       Ternary
@@ -1221,6 +1230,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../language-modifiers/language-modifier-is_array/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    is_array
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../language-modifiers/language-modifier-isset/" class="md-nav__link">
         
   
@@ -1352,6 +1382,27 @@
   
   <span class="md-ellipsis">
     nl2br
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../language-modifiers/language-modifier-raw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    raw
   </span>
   
 
@@ -3376,6 +3427,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    <span class="md-ellipsis">
+      List
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ternary" class="md-nav__link">
     <span class="md-ellipsis">
       Ternary
@@ -3432,6 +3492,135 @@ focused on presentation. If you find your template syntax getting too
 complex, it may be a good idea to move the bits that do not deal
 explicitly with presentation to PHP by way of plugins or modifiers.</p>
 </blockquote>
+<h2 id="list">List</h2>
+<p>The following is a list of recognized operators, which must be
+separated from surrounding elements by spaces. Note that items listed in
+[brackets] are optional. PHP equivalents are shown where applicable.</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Alternates</th>
+<th>Syntax Example</th>
+<th>Meaning</th>
+<th>PHP Equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>==</td>
+<td>eq</td>
+<td>$a eq $b</td>
+<td>equals</td>
+<td>==</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>ne, neq</td>
+<td>$a neq $b</td>
+<td>not equals</td>
+<td>!=</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>gt</td>
+<td>$a gt $b</td>
+<td>greater than</td>
+<td>&gt;</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>lt</td>
+<td>$a lt $b</td>
+<td>less than</td>
+<td>&lt;</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>gte, ge</td>
+<td>$a ge $b</td>
+<td>greater than or equal</td>
+<td>&gt;=</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>lte, le</td>
+<td>$a le $b</td>
+<td>less than or equal</td>
+<td>&lt;=</td>
+</tr>
+<tr>
+<td>===</td>
+<td></td>
+<td>$a === 0</td>
+<td>check for identity</td>
+<td>===</td>
+</tr>
+<tr>
+<td>!</td>
+<td>not</td>
+<td>not $a</td>
+<td>negation (unary)</td>
+<td>!</td>
+</tr>
+<tr>
+<td>%</td>
+<td>mod</td>
+<td>$a mod $b</td>
+<td>modulo</td>
+<td>%</td>
+</tr>
+<tr>
+<td>is [not] div by</td>
+<td></td>
+<td>$a is not div by 4</td>
+<td>divisible by</td>
+<td>$a % $b == 0</td>
+</tr>
+<tr>
+<td>is [not] even</td>
+<td></td>
+<td>$a is not even</td>
+<td>[not] an even number (unary)</td>
+<td>$a % 2 == 0</td>
+</tr>
+<tr>
+<td>is [not] even by</td>
+<td></td>
+<td>$a is not even by $b</td>
+<td>grouping level [not] even</td>
+<td>($a / $b) % 2 == 0</td>
+</tr>
+<tr>
+<td>is [not] odd</td>
+<td></td>
+<td>$a is not odd</td>
+<td>[not] an odd number (unary)</td>
+<td>$a % 2 != 0</td>
+</tr>
+<tr>
+<td>is [not] odd by</td>
+<td></td>
+<td>$a is not odd by $b</td>
+<td>[not] an odd grouping</td>
+<td>($a / $b) % 2 != 0</td>
+</tr>
+<tr>
+<td>is in</td>
+<td></td>
+<td>$a is in $b</td>
+<td>exists in array</td>
+<td>in_array($a, $b)</td>
+</tr>
+<tr>
+<td>is [not] in</td>
+<td></td>
+<td>$a is not in $b</td>
+<td>does not exist in array</td>
+<td>!in_array($a, $b)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="ternary">Ternary</h2>
 <p>You can use the <code>?:</code> (or ternary) operator to test one expression and present the value
 of the second or third expression, based on the result of the test.</p>
