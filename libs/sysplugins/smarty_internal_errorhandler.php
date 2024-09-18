@@ -30,6 +30,18 @@ class Smarty_Internal_ErrorHandler
     public $allowUndefinedArrayKeys = true;
 
     /**
+     * Allows Unregistered smarty Plugin.
+     * @var bool
+     */
+    public $allowUnregisteredPlugin = true;
+
+    /**
+     * Allows Unregistered smarty class.
+     * @var bool
+     */
+    public $allowUnregisteredClass = true;
+
+    /**
      * Allows {$foo->bar} where bar is not an object (e.g. null or false).
      * @var bool
      */
@@ -105,6 +117,21 @@ class Smarty_Internal_ErrorHandler
                 $errstr
             )) {
             return; // suppresses this error
+        }
+
+        if ($this->allowUnregisteredPlugin && preg_match(
+                '/Use Smarty::registerPlugin/',
+                $errstr
+            )) {
+            return; // suppresses this error
+        }
+
+
+        if ($this->allowUnregisteredClass && preg_match(
+            '/Use Smarty::registerClass/',
+            $errstr
+          )) {
+          return; // suppresses this error
         }
 
         // pass all other errors through to the previous error handler or to the default PHP error handler

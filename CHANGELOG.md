@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.5.5] - 2024-09-18
+- smarty 4 suppresses Smarty register class-plugin error in muteUndefinedOrNullWarnings function
+
 ## [4.5.4] - 2024-08-14
 - Fixed that using `count()` would trigger a deprecation notice. [#813](https://github.com/smarty-php/smarty/issues/813)
 
