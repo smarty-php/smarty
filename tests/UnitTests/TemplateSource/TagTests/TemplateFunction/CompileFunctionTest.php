@@ -438,7 +438,31 @@ class CompileFunctionTest extends PHPUnit_Smarty
      */
     public function testIllegalFunctionName() {
         $this->expectException(SmartyCompilerException::class);
-	    $this->smarty->fetch('string:{function name=\'rce(){};echo "hi";function \'}{/function}');
+        $this->smarty->fetch('string:{function name=\'rce(){};echo "hi";function \'}{/function}');
+    }
+
+    /**
+     * test shorthand function definition with regular call
+     */
+    public function testShorthand1()
+    {
+        $this->assertEquals("gribus", $this->smarty->fetch('shorthand1.tpl'));
+    }
+
+    /**
+     * test normal function definition with shorthand call
+     */
+    public function testShorthand2()
+    {
+        $this->assertEquals("gribus", $this->smarty->fetch('shorthand2.tpl'));
+    }
+
+    /**
+     * test shorthand function definition with shorthand call
+     */
+    public function testShorthand3()
+    {
+        $this->assertEquals("gribus", $this->smarty->fetch('shorthand3.tpl'));
     }
 
 }
