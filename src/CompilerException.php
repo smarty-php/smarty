@@ -16,14 +16,14 @@ class CompilerException extends Exception {
 	 * @param int $code The Exception code.
 	 * @param string|null $filename The filename where the exception is thrown.
 	 * @param int|null $line The line number where the exception is thrown.
-	 * @param Throwable|null $previous The previous exception used for the exception chaining.
+	 * @param \Throwable|null $previous The previous exception used for the exception chaining.
 	 */
 	public function __construct(
 		string    $message = "",
 		int       $code = 0,
 		?string   $filename = null,
 		?int      $line = null,
-		Throwable $previous = null
+		?\Throwable $previous = null
 	) {
 		parent::__construct($message, $code, $previous);
 

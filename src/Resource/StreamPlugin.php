@@ -33,7 +33,7 @@ class StreamPlugin extends RecompiledPlugin {
 	 *
 	 * @return void
 	 */
-	public function populate(Source $source, Template $_template = null) {
+	public function populate(Source $source, ?Template $_template = null) {
 		$source->uid = false;
 		$source->content = $this->getContent($source);
 		$source->timestamp = $source->exists = !!$source->content;

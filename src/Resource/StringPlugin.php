@@ -31,7 +31,7 @@ class StringPlugin extends BasePlugin {
 	 *
 	 * @return void
 	 */
-	public function populate(Source $source, Template $_template = null) {
+	public function populate(Source $source, ?Template $_template = null) {
 		$source->uid = sha1($source->name);
 		$source->timestamp = $source->exists = true;
 	}

@@ -112,7 +112,7 @@ abstract class BasePlugin
 	 * @param Source $source source object
 	 * @param Template|null $_template template object
 	 */
-    abstract public function populate(Source $source, \Smarty\Template $_template = null);
+    abstract public function populate(Source $source, ?\Smarty\Template $_template = null);
 
     /**
      * populate Source Object with timestamp and exists from Resource

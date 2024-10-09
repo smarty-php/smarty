@@ -99,7 +99,7 @@ class File extends Base
 	 */
     public function process(
 	    Template $_smarty_tpl,
-	    Cached   $cached = null,
+	    ?Cached  $cached = null,
 	             $update = false
     ) {
         $_smarty_tpl->getCached()->setValid(false);

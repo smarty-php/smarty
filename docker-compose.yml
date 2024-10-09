@@ -42,6 +42,11 @@ services:
       service: base
     build:
       dockerfile: ./utilities/testrunners/php83/Dockerfile
+  php84:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php84/Dockerfile
 volumes:
   smarty-code:
 

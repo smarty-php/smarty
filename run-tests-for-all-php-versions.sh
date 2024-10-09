@@ -14,3 +14,4 @@ $COMPOSE_CMD run --rm php80 ./run-tests.sh $@ && \
 $COMPOSE_CMD run --rm php81 ./run-tests.sh $@ && \
 $COMPOSE_CMD run --rm php82 ./run-tests.sh $@
 $COMPOSE_CMD run --rm php83 ./run-tests.sh $@
+$COMPOSE_CMD run --rm php84 ./run-tests.sh $@
