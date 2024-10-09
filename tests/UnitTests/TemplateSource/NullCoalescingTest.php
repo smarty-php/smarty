@@ -4,7 +4,7 @@ class NullCoalescingTest extends PHPUnit_Smarty {
 
 	public function setUp(): void
 	{
-		$this->setUpSmarty('/tmp');
+		$this->setUpSmarty(sys_get_temp_dir());
 		$this->cleanDirs();
 	}
 

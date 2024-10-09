@@ -14,10 +14,13 @@ include_once __DIR__ . '/../_shared/CacheResourceTestCommon.php';
 class CacheResourceFileTest extends CacheResourceTestCommon
 {
 
+    private $directorySeparator;
+
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
         parent::setUp();
+        $this->directorySeparator = preg_quote(DIRECTORY_SEPARATOR, '/');
         $this->smarty->setCachingType('filetest');
     }
 
@@ -38,7 +41,8 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
 
-		$this->assertRegExp('/.*\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
+        $pattern = '/.*' . $this->directorySeparator . '([a-f0-9]{2}' . $this->directorySeparator . '){3}.*\.php/';
+        $this->assertRegExp($pattern, $tpl->getCached()->filepath);
     }
 
     /**
@@ -51,7 +55,8 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar');
 
-	    $this->assertRegExp('/.*\/foo\/bar\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
+        $pattern = '/.*' . $this->directorySeparator . 'foo' . $this->directorySeparator . 'bar' . $this->directorySeparator . '([a-f0-9]{2}' . $this->directorySeparator . '){3}.*\.php/';
+        $this->assertRegExp($pattern, $tpl->getCached()->filepath);
     }
 
     /**
@@ -63,7 +68,9 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', null, 'blar');
-	    $this->assertRegExp('/.*\/blar\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
+
+        $pattern = '/.*' . $this->directorySeparator . 'blar' . $this->directorySeparator . '([a-f0-9]{2}' . $this->directorySeparator . '){3}.*\.php/';
+        $this->assertRegExp($pattern, $tpl->getCached()->filepath);
     }
 
     /**
@@ -75,7 +82,9 @@ class CacheResourceFileTest extends CacheResourceTestCommon
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->setUseSubDirs(true);
         $tpl = $this->smarty->createTemplate('helloworld.tpl', 'foo|bar', 'blar');
-	    $this->assertRegExp('/.*\/foo\/bar\/blar\\/([a-f0-9]{2}\/){3}.*.php/', $tpl->getCached()->filepath);
+
+        $pattern = '/.*' . $this->directorySeparator . 'foo' . $this->directorySeparator . 'bar' . $this->directorySeparator . 'blar' . $this->directorySeparator . '([a-f0-9]{2}' . $this->directorySeparator . '){3}.*\.php/';
+        $this->assertRegExp($pattern, $tpl->getCached()->filepath);
     }
 
     /**
