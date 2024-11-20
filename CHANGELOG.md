@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Support the deprecations introduced in PHP 8.4 and added tests for PHP 8.4 [#1043](https://github.com/smarty-php/smarty/pull/1043)
+
 ## [5.4.1] - 2024-08-29
 
 
