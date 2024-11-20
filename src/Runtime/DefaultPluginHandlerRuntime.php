@@ -26,7 +26,7 @@ class DefaultPluginHandlerRuntime {
 		$script = null;
 		$cacheable = null;
 
-		return (call_user_func_array(
+		return (\call_user_func_array(
 				$this->defaultPluginHandler,
 				[
 					$tag,
@@ -54,7 +54,7 @@ class DefaultPluginHandlerRuntime {
 		$script = null;
 		$cacheable = null;
 
-		if (call_user_func_array(
+		if (\call_user_func_array(
 				$this->defaultPluginHandler,
 				[
 					$tag,
