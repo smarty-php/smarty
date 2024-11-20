@@ -203,7 +203,7 @@ class Source {
 	 */
 	public function _getDefaultTemplate($default_handler) {
 		$_content = $_timestamp = null;
-		$_return = call_user_func_array(
+		$_return = \call_user_func_array(
 			$default_handler,
 			[$this->type, $this->name, &$_content, &$_timestamp, $this->smarty]
 		);

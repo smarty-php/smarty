@@ -26,7 +26,7 @@ class CallbackWrapper {
 
 	public function handle(...$params) {
 		try {
-			return call_user_func_array($this->callback, $params);
+			return ($this->callback)(...$params);
 		} catch (\ArgumentCountError $e) {
 			throw new Exception("Invalid number of arguments to modifier " . $this->modifierName);
 		}
