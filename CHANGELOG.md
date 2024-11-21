@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Support the deprecations introduced in PHP 8.4 and added tests for PHP 8.4 [#1084](https://github.com/smarty-php/smarty/pull/1084)
+
 ## [4.5.4] - 2024-08-14
 - Fixed that using `count()` would trigger a deprecation notice. [#813](https://github.com/smarty-php/smarty/issues/813)
 
