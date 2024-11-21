@@ -1,7 +1,7 @@
 # Getting started
 
 ## Requirements
-Smarty can be run with PHP 7.1 to PHP 8.3.
+Smarty can be run with PHP 7.1 to PHP 8.4.
 
 ## Installation
 Smarty can be installed with [Composer](https://getcomposer.org/).
