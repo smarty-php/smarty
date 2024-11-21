@@ -165,16 +165,16 @@ abstract class Smarty_Resource
      * wrapper for backward compatibility to versions < 3.1.22
      * Either [$_template] or [$smarty, $template_resource] must be specified
      *
-     * @param Smarty_Internal_Template $_template         template object
-     * @param Smarty                   $smarty            smarty object
-     * @param string                   $template_resource resource identifier
+     * @param Smarty_Internal_Template|null $_template         template object
+     * @param Smarty|null                   $smarty            smarty object
+     * @param string                        $template_resource resource identifier
      *
      * @return \Smarty_Template_Source Source Object
      * @throws \SmartyException
      */
     public static function source(
-        Smarty_Internal_Template $_template = null,
-        Smarty $smarty = null,
+        ?Smarty_Internal_Template $_template = null,
+        ?Smarty $smarty = null,
         $template_resource = null
     ) {
         return Smarty_Template_Source::load($_template, $smarty, $template_resource);
@@ -193,10 +193,10 @@ abstract class Smarty_Resource
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty_Template_Source   $source    source object
-     * @param Smarty_Internal_Template $_template template object
+     * @param Smarty_Template_Source        $source    source object
+     * @param Smarty_Internal_Template|null $_template template object
      */
-    abstract public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null);
+    abstract public function populate(Smarty_Template_Source $source, ?Smarty_Internal_Template $_template = null);
 
     /**
      * populate Source Object with timestamp and exists from Resource

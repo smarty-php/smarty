@@ -17,11 +17,11 @@ class Smarty_Internal_Runtime_CodeFrame
     /**
      * Create code frame for compiled and cached templates
      *
-     * @param Smarty_Internal_Template              $_template
-     * @param string                                $content   optional template content
-     * @param string                                $functions compiled template function and block code
-     * @param bool                                  $cache     flag for cache file
-     * @param \Smarty_Internal_TemplateCompilerBase $compiler
+     * @param Smarty_Internal_Template                   $_template
+     * @param string                                     $content   optional template content
+     * @param string                                     $functions compiled template function and block code
+     * @param bool                                       $cache     flag for cache file
+     * @param \Smarty_Internal_TemplateCompilerBase|null $compiler
      *
      * @return string
      */
@@ -30,7 +30,7 @@ class Smarty_Internal_Runtime_CodeFrame
         $content = '',
         $functions = '',
         $cache = false,
-        Smarty_Internal_TemplateCompilerBase $compiler = null
+        ?Smarty_Internal_TemplateCompilerBase $compiler = null
     ) {
         // build property code
         $properties[ 'version' ] = Smarty::SMARTY_VERSION;
