@@ -1036,11 +1036,11 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * Get unique template id
      *
-     * @param string                    $template_name
-     * @param null|mixed                $cache_id
-     * @param null|mixed                $compile_id
-     * @param null                      $caching
-     * @param \Smarty_Internal_Template $template
+     * @param string                         $template_name
+     * @param null|mixed                     $cache_id
+     * @param null|mixed                     $compile_id
+     * @param null                           $caching
+     * @param \Smarty_Internal_Template|null $template
      *
      * @return string
      * @throws \SmartyException
@@ -1050,7 +1050,7 @@ class Smarty extends Smarty_Internal_TemplateBase
         $cache_id = null,
         $compile_id = null,
         $caching = null,
-        Smarty_Internal_Template $template = null
+        ?Smarty_Internal_Template $template = null
     ) {
         $template_name = (strpos($template_name, ':') === false) ? "{$this->default_resource_type}:{$template_name}" :
             $template_name;

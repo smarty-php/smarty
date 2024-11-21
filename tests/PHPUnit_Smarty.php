@@ -68,7 +68,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
      */
     public static function setUpBeforeClass(): void
     {
-        error_reporting(E_ALL & ~E_STRICT);
+        error_reporting(E_ALL);
         self::$init = true;
         self::$pluginsdir =self::getSmartyPluginsDir();
     }

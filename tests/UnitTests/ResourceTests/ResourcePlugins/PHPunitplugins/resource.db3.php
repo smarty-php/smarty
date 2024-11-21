@@ -12,7 +12,7 @@
 
 class Smarty_Resource_Db3 extends Smarty_Resource
 {
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    public function populate(Smarty_Template_Source $source, ?Smarty_Internal_Template $_template = null)
     {
         $source->filepath = 'db3:';
         $source->uid = sha1($source->resource);

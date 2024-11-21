@@ -21,7 +21,7 @@ class SmartyCompilerException extends SmartyException
         int $code = 0,
         ?string $filename = null,
         ?int $line = null,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);
 
