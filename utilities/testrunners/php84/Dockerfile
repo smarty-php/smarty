@@ -1,4 +1,4 @@
-FROM php:8.4-rc-cli-bullseye
+FROM php:8.4-cli-bullseye
 
 ## Basic utilities
 RUN apt-get update -yqq && apt-get install -y curl apt-utils git zip unzip
