@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.4.3] - 2024-12-23
+- Fix PHP backtraces by qualifying/replacing `call_user_func_array` calls [#1074](https://github.com/smarty-php/smarty/issues/1074)
+
+
 ## [5.4.2] - 2024-11-20
 
 
