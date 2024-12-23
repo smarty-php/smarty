@@ -54,7 +54,7 @@ class Smarty extends \Smarty\TemplateBase {
 	/**
 	 * smarty version
 	 */
-	const SMARTY_VERSION = '5.4.2';
+	const SMARTY_VERSION = '5.4.3';
 
 	/**
 	 * define caching modes
