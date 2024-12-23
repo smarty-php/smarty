@@ -65,9 +65,18 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
      */
     public function testError()
     {
-		$this->smarty->error_unassigned = true;
+        $this->smarty->error_unassigned = true;
         $this->expectException(PHPUnit\Framework\Error\Error::class);
-		$this->expectExceptionMessage('Undefined ');
+        $this->expectExceptionMessage('Undefined ');
+        $e1 = error_reporting();
+        $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
+        $e2 = error_reporting();
+        $this->assertEquals($e1, $e2);
+    }
+
+    public function testNoError()
+    {
+        $this->smarty->error_unassigned = false;
         $e1 = error_reporting();
         $this->assertEquals('undefined = ', $this->smarty->fetch('001_main.tpl'));
         $e2 = error_reporting();
@@ -133,30 +142,30 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
     }
 
 
-	public function testDereferenceOnNull() {
-		$this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
-		$this->smarty->muteUndefinedOrNullWarnings();
-		$tpl = $this->smarty->createTemplate('string:a{if $object->myprop}def{/if}b');
-		$this->smarty->assign('object', null);
-		$this->assertEquals("ab", $this->smarty->fetch($tpl));
-	}
+    public function testDereferenceOnNull() {
+        $this->smarty->setErrorReporting(E_ALL & ~E_WARNING & ~E_NOTICE);
+        $this->smarty->muteUndefinedOrNullWarnings();
+        $tpl = $this->smarty->createTemplate('string:a{if $object->myprop}def{/if}b');
+        $this->smarty->assign('object', null);
+        $this->assertEquals("ab", $this->smarty->fetch($tpl));
+    }
 
 
-	public function testDereferenceOnBool() {
-		$this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
-		$this->smarty->muteUndefinedOrNullWarnings();
-		$tpl = $this->smarty->createTemplate('string:a{if $object->myprop}def{/if}b');
-		$this->smarty->assign('object', false);
-		$this->assertEquals("ab", $this->smarty->fetch($tpl));
-	}
+    public function testDereferenceOnBool() {
+        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->muteUndefinedOrNullWarnings();
+        $tpl = $this->smarty->createTemplate('string:a{if $object->myprop}def{/if}b');
+        $this->smarty->assign('object', false);
+        $this->assertEquals("ab", $this->smarty->fetch($tpl));
+    }
 
 
-	public function testDereferenceOnString() {
-		$this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
-		$this->smarty->muteUndefinedOrNullWarnings();
-		$tpl = $this->smarty->createTemplate('string:a{if $object->myprop}def{/if}b');
-		$this->smarty->assign('object', 'xyz');
-		$this->assertEquals("ab", $this->smarty->fetch($tpl));
-	}
+    public function testDereferenceOnString() {
+        $this->smarty->setErrorReporting(E_ALL & ~E_NOTICE);
+        $this->smarty->muteUndefinedOrNullWarnings();
+        $tpl = $this->smarty->createTemplate('string:a{if $object->myprop}def{/if}b');
+        $this->smarty->assign('object', 'xyz');
+        $this->assertEquals("ab", $this->smarty->fetch($tpl));
+    }
 
 }
