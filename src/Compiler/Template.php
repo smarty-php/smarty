@@ -505,7 +505,7 @@ class Template extends BaseCompiler {
 	 *
 	 * @return string
 	 */
-	public function compileVariable($variable) {
+	public function triggerTagNoCache($variable): void {
 		if (!strpos($variable, '(')) {
 			// not a variable variable
 			$var = trim($variable, '\'');
@@ -516,7 +516,6 @@ class Template extends BaseCompiler {
 					false
 				)->isNocache();
 		}
-		return '$_smarty_tpl->getValue(' . $variable . ')';
 	}
 
 	/**

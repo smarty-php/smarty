@@ -1,0 +1,1 @@
+undefined = {if isset($foo)}{/if}
