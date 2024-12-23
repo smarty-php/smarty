@@ -1,0 +1,1 @@
+undefined = {if empty($foo)}{/if}

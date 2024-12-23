@@ -83,6 +83,16 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->assertEquals($e1, $e2);
     }
 
+    public function testNoErrorForIssetOrEmpty()
+    {
+        $this->smarty->error_unassigned = true;
+        $e1 = error_reporting();
+        $this->assertEquals('undefined = ', $this->smarty->fetch('001_isset.tpl'));
+        $this->assertEquals('undefined = ', $this->smarty->fetch('001_empty.tpl'));
+        $e2 = error_reporting();
+        $this->assertEquals($e1, $e2);
+    }
+
     public function testUndefinedSimpleVar() {
         $this->smarty->muteUndefinedOrNullWarnings();
         $tpl = $this->smarty->createTemplate('string:a{if $undef}def{/if}b');
