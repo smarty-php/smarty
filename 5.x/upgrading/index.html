@@ -459,6 +459,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Using native PHP-functions or userland functions in your templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passing-parameters-by-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passing parameters by reference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3550,6 +3565,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Using native PHP-functions or userland functions in your templates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passing-parameters-by-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Passing parameters by reference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3723,6 +3753,10 @@ If you need a function in your templates, register it first.</p>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="x">$smarty-&gt;registerPlugin(&#39;modifier&#39;, &#39;my_special_func&#39;, &#39;my_special_func&#39;);</span>
 </code></pre></div></p>
 <p>But you may want to consider writing a proper <a href="../api/extending/extensions/">extension</a>.</p>
+<h4 id="passing-parameters-by-reference">Passing parameters by reference</h4>
+<p>You cannot use plugins that expect a parameter by reference anymore. PHP-function such as <code>reset()</code>, <code>prev()</code>, 
+<code>next()</code> and <code>end()</code> can be registered as plugin, but they won't work because they expect a parameter by 
+reference and Smarty will try to pass it by value.</p>
 <h3 id="removed-undocumented-tags">Removed undocumented tags</h3>
 <p>Smarty 4 still supported some tags that have been carried over from previous version, but have never been documented.</p>
 <ul>
