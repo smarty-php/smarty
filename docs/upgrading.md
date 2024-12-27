@@ -107,6 +107,15 @@ Search your code for the following changes:
 - `$smarty->assignByRef()` should be replaced with `$smarty->assign()`
 - `$smarty->loadPlugin()` should be replaced with `$smarty->registerPlugin()`
 
+### Removed undocumented magic API methods
+
+Smarty v4 allowed setting (internal) properties for which no setter existed by using magic methods 
+that start with either `set` or `get`. This has been removed in Smarty 5.
+
+For example, `$smarty->setErrorUnassigned(true);` would set the `error_unassigned` property.
+
+Every setter of getter that was ever documented or unit tested has been kept.
+
 ### Removed PHP constants
 
 The following constants have been removed to prevent global side effects.
