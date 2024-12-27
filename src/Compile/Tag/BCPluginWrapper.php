@@ -21,6 +21,20 @@ class BCPluginWrapper extends Base {
 		$this->cacheable = $cacheable;
 	}
 
+        /**
+         * Returns attribute index for unnamed ("shorthand") attribute, or null if not allowed.
+         *
+         * For compiler plugins, we allow arbitrarily many unnamed attributes,
+         * and just make them accessible in the order they are set.
+         *
+         * @param int $key
+         *
+         * @return int
+         */
+        protected function getShorthandOrder(int $key): int {
+            return $key;
+        }
+
 	/**
 	 * @inheritDoc
 	 */
