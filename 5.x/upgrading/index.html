@@ -513,6 +513,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#removed-undocumented-magic-api-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removed undocumented magic API methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removed-php-constants" class="md-nav__link">
     <span class="md-ellipsis">
       Removed PHP constants
@@ -3619,6 +3628,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#removed-undocumented-magic-api-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removed undocumented magic API methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#removed-php-constants" class="md-nav__link">
     <span class="md-ellipsis">
       Removed PHP constants
@@ -3806,6 +3824,11 @@ Use <code>$smarty-&gt;addPluginsDir()</code> or consider writing a proper <a hre
 <li><code>$smarty-&gt;assignByRef()</code> should be replaced with <code>$smarty-&gt;assign()</code></li>
 <li><code>$smarty-&gt;loadPlugin()</code> should be replaced with <code>$smarty-&gt;registerPlugin()</code></li>
 </ul>
+<h3 id="removed-undocumented-magic-api-methods">Removed undocumented magic API methods</h3>
+<p>Smarty v4 allowed setting (internal) properties for which no setter existed by using magic methods 
+that start with either <code>set</code> or <code>get</code>. This has been removed in Smarty 5.</p>
+<p>For example, <code>$smarty-&gt;setErrorUnassigned(true);</code> would set the <code>error_unassigned</code> property.</p>
+<p>Every setter of getter that was ever documented or unit tested has been kept.</p>
 <h3 id="removed-php-constants">Removed PHP constants</h3>
 <p>The following constants have been removed to prevent global side effects.</p>
 <ul>
