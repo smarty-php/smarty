@@ -72,11 +72,11 @@ abstract class Base implements CompilerInterface {
 	/**
 	 * Returns attribute index for unnamed ("shorthand") attribute, or null if not allowed.
 	 *
-	 * @param int $key
+	 * @param string|int|null $key Index of the argument. Type should probably be narrowed to int
 	 *
 	 * @return string|int|null
 	 */
-	protected function getShorthandOrder(int $key) {
+	protected function getShorthandOrder($key) {
 	    return $this->shorttag_order[$key] ?? null;
 	}
 

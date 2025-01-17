@@ -27,11 +27,11 @@ class BCPluginWrapper extends Base {
          * For compiler plugins, we allow arbitrarily many unnamed attributes,
          * and just make them accessible in the order they are set.
          *
-         * @param int $key
+	 * @param string|int|null $key Index of the argument. Type should probably be narrowed to int
          *
-         * @return int
+         * @return string|int|null
          */
-        protected function getShorthandOrder(int $key): int {
+        protected function getShorthandOrder($key) {
             return $key;
         }
 
