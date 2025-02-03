@@ -617,7 +617,9 @@ abstract class Smarty_Internal_TemplateCompilerBase
     {
         if (!$this->smarty->security_policy || $this->smarty->security_policy->isTrustedPhpFunction($name, $this)) {
             if (strcasecmp($name, 'isset') === 0 || strcasecmp($name, 'empty') === 0
-                || strcasecmp($name, 'array') === 0 || is_callable($name)
+                || strcasecmp($name, 'array') === 0
+				|| is_callable($name)
+				|| isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name])
             ) {
                 $func_name = smarty_strtolower_ascii($name);
 
@@ -665,6 +667,14 @@ abstract class Smarty_Internal_TemplateCompilerBase
 							'a custom modifier.', E_USER_DEPRECATED);
 					}
 
+					if (isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name])) {
+						return sprintf(
+								'call_user_func_array($_smarty_tpl->registered_plugins[ \'%s\' ][ %s ][ 0 ], array( %s ))',
+								Smarty::PLUGIN_MODIFIER,
+								var_export($name, true),
+								implode(',', $parameter)
+							);
+					}
 					return $name . '(' . implode(',', $parameter) . ')';
                 }
             } else {
