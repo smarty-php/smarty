@@ -667,7 +667,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
 							'a custom modifier.', E_USER_DEPRECATED);
 					}
 
-					if (isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name])) {
+					if (isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name][0])
+						&& !is_string($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name][0])) {
 						return sprintf(
 								'call_user_func_array($_smarty_tpl->registered_plugins[ \'%s\' ][ %s ][ 0 ], array( %s ))',
 								Smarty::PLUGIN_MODIFIER,
