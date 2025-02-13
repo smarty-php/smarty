@@ -455,28 +455,28 @@ abstract class Smarty_Internal_TemplateCompilerBase
             $this->smarty->_current_file = $this->template->source->filepath;
             // get template source
             if (!empty($this->template->source->components)) {
-				$_compiled_code = '<?php $_smarty_tpl->_loadInheritance(); $_smarty_tpl->inheritance->init($_smarty_tpl, true); ?>';
+                $_compiled_code = '<?php $_smarty_tpl->_loadInheritance(); $_smarty_tpl->inheritance->init($_smarty_tpl, true); ?>';
 
-				$i = 0;
-				$reversed_components = array_reverse($this->template->getSource()->components);
-				foreach ($reversed_components as $source) {
-					$i++;
-					if ($i === count($reversed_components)) {
-						$_compiled_code .= '<?php $_smarty_tpl->inheritance->endChild($_smarty_tpl); ?>';
-					}
-					$_compiled_code .= $this->compileTag(
-						'include',
-						[
-							var_export($source->resource, true),
-							['scope' => 'parent'],
-						]
-					);
-				}
-				$_compiled_code = $this->postFilter($_compiled_code, $this->template);
+                $i = 0;
+                $reversed_components = array_reverse($this->template->getSource()->components);
+                foreach ($reversed_components as $source) {
+                    $i++;
+                    if ($i === count($reversed_components)) {
+                        $_compiled_code .= '<?php $_smarty_tpl->inheritance->endChild($_smarty_tpl); ?>';
+                    }
+                    $_compiled_code .= $this->compileTag(
+                        'include',
+                        [
+                            var_export($source->resource, true),
+                            ['scope' => 'parent'],
+                        ]
+                    );
+                }
+                $_compiled_code = $this->postFilter($_compiled_code, $this->template);
             } else {
                 // get template source
                 $_content = $this->template->source->getContent();
-				$_compiled_code = $this->postFilter($this->doCompile($this->preFilter($_content), true));
+                $_compiled_code = $this->postFilter($this->doCompile($this->preFilter($_content), true));
             }
             if (!empty($this->required_plugins[ 'compiled' ]) || !empty($this->required_plugins[ 'nocache' ])) {
                 $_compiled_code = '<?php ' . $this->compileRequiredPlugins() . "?>\n" . $_compiled_code;
@@ -617,7 +617,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
     {
         if (!$this->smarty->security_policy || $this->smarty->security_policy->isTrustedPhpFunction($name, $this)) {
             if (strcasecmp($name, 'isset') === 0 || strcasecmp($name, 'empty') === 0
-                || strcasecmp($name, 'array') === 0 || is_callable($name)
+                || strcasecmp($name, 'array') === 0
+                || (is_callable($name) && !isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name]))
             ) {
                 $func_name = smarty_strtolower_ascii($name);
 
@@ -649,28 +650,42 @@ abstract class Smarty_Internal_TemplateCompilerBase
                     }
                     if ($func_name === 'empty') {
                         return $func_name . '(' .
-                               str_replace("')->value", "',null,true,false)->value", $parameter[ 0 ]) . ')';
+                            str_replace("')->value", "',null,true,false)->value", $parameter[0]) . ')';
                     } else {
-                        return $func_name . '(' . $parameter[ 0 ] . ')';
+                        return $func_name . '(' . $parameter[0] . ')';
                     }
                 } else {
 
-					if (
-						!$this->smarty->loadPlugin('smarty_modifiercompiler_' . $name)
-						&& !isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name])
-						&& !in_array($name, ['time', 'join', 'is_array', 'in_array', 'count'])
-					) {
-						trigger_error('Using unregistered function "' . $name . '" in a template is deprecated and will be ' .
-							'removed in a future release. Use Smarty::registerPlugin to explicitly register ' .
-							'a custom modifier.', E_USER_DEPRECATED);
-					}
+                    if (
+                        !$this->smarty->loadPlugin('smarty_modifiercompiler_' . $name)
+                        && !isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name])
+                        && !in_array($name, ['time', 'join', 'is_array', 'in_array', 'count'])
+                    ) {
+                        trigger_error('Using unregistered function "' . $name . '" in a template is deprecated and will be ' .
+                            'removed in a future release. Use Smarty::registerPlugin to explicitly register ' .
+                            'a custom modifier.', E_USER_DEPRECATED);
+                    }
 
-					return $name . '(' . implode(',', $parameter) . ')';
+                    return $name . '(' . implode(',', $parameter) . ')';
                 }
-            } else {
-                $this->trigger_template_error("unknown function '{$name}'");
+
             }
         }
+
+        if (isset($this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name])) {
+            if ($name === $this->smarty->registered_plugins[Smarty::PLUGIN_MODIFIER][$name][0]) {
+                return $name . '(' . implode(',', $parameter) . ')';
+            }
+
+            return sprintf(
+                'call_user_func_array($_smarty_tpl->registered_plugins[ \'%s\' ][ %s ][ 0 ], array( %s ))',
+                Smarty::PLUGIN_MODIFIER,
+                var_export($name, true),
+                implode(',', $parameter)
+            );
+        }
+
+        $this->trigger_template_error("unknown function '{$name}'");
     }
 
     /**
