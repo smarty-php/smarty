@@ -34,7 +34,7 @@ class RegisterCompilerFunctionTest extends PHPUnit_Smarty
     {
         $this->smarty->registerPlugin(Smarty::PLUGIN_COMPILER, 'testcompilerfunction', 'mycompilerfunction');
         $this->assertEquals('mycompilerfunction', $this->smarty->getRegisteredPlugin('compiler', 'testcompilerfunction')[0]);
-        $this->assertEquals('hello world 1', $this->smarty->fetch('eval:{testcompilerfunction var=1}'));
+        $this->assertEquals('hello world 1 2', $this->smarty->fetch('eval:{testcompilerfunction 1 var=2}'));
     }
 
     /**
@@ -99,7 +99,7 @@ class RegisterCompilerFunctionTest extends PHPUnit_Smarty
 
 function mycompilerfunction($params, $smarty)
 {
-    return "<?php echo 'hello world {$params['var']}';?>";
+    return "<?php echo 'hello world {$params[0]} {$params['var']}';?>";
 }
 
 function mycompilerfunctionopen($params, $smarty)
