@@ -12,10 +12,12 @@ These parameters follow the modifier name and are separated by a `:`
 
 - [capitalize](language-modifier-capitalize.md)
 - [cat](language-modifier-cat.md)
+- [count](language-modifier-count.md)
 - [count_characters](language-modifier-count-characters.md)
 - [count_paragraphs](language-modifier-count-paragraphs.md)
 - [count_sentences](language-modifier-count-sentences.md)
 - [count_words](language-modifier-count-words.md)
+- [debug_print_var](language-modifier-debug-print-var.md)
 - [date_format](language-modifier-date-format.md)
 - [default](language-modifier-default.md)
 - [escape](language-modifier-escape.md)
