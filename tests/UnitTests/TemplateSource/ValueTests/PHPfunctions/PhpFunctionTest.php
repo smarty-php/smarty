@@ -291,7 +291,7 @@ class PhpFunctionTest extends PHPUnit_Smarty
 			['{$f|number_format:1:","}', "3,1", false],
 			['{if in_array(1, $ar)}yes{/if}', "yes", false],
 			['{if is_array($ar)}yes{/if}', "yes", false],
-			['{if time() gt 0}yes{/if}', "yes", false],
+			['{if time() gt 0}yes{/if}', "yes", true],
 
 			['{if array_chunk($ar, 2)}x{else}y{/if}', '', true],
 			['{$a|addslashes}', '', true],
