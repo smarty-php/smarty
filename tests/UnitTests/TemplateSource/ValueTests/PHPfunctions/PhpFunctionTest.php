@@ -256,8 +256,9 @@ class PhpFunctionTest extends PHPUnit_Smarty
 		}
 
 		if ($shouldTriggerDeprecationNotice) {
-			$this->assertStringContainsString('Using unregistered function', $errorMessage);
+			$this->assertStringContainsString('Using unregistered ', $errorMessage);
 		} else {
+			$this->assertEquals('', $errorMessage);
 			$this->assertEquals($expected, $output);
 			$this->assertEquals('', $errorMessage);
 		}
@@ -297,6 +298,9 @@ class PhpFunctionTest extends PHPUnit_Smarty
 			['{$a|addslashes}', '', true],
 			['{$a|sha1}', '', true],
 			['{$a|get_parent_class}', '', true],
+
+			['{StaticMethodsTesterClass::giveMeEmptyString($a)}', '', true],
+			['{StaticMethodsTesterClass::EMPTY_STRING}', '', false],
 		];
 	}
 
@@ -327,4 +331,13 @@ class TestIsset {
     public function pass($v) {
         return $v;
     }
+}
+
+class StaticMethodsTesterClass {
+
+	const EMPTY_STRING = '';
+
+	public static function giveMeEmptyString($data) {
+		return '';
+	}
 }
