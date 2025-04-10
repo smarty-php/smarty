@@ -192,6 +192,15 @@ class RegisterFunctionTest extends PHPUnit_Smarty
         ];
     }
 
+    /**
+     * test registerPlugin for function name ending in 'close' #1122
+     */
+    public function testRegisterFunctionEndingInClose()
+    {
+        $this->smarty->registerPlugin(Smarty::PLUGIN_FUNCTION, 'window_close', 'myfunction');
+        $this->assertEquals('hello world 1', $this->smarty->fetch('eval:{window_close value=1}'));
+    }
+
 }
 
 function myfunction($params, $smarty)
