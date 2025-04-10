@@ -1146,12 +1146,12 @@ class Template extends BaseCompiler {
 		}
 
 		// check if tag is a function
-		if ($this->smarty->getFunctionHandler($base_tag)) {
-			if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($base_tag, $this)) {
+		if ($this->smarty->getFunctionHandler($tag)) {
+			if (!isset($this->smarty->security_policy) || $this->smarty->security_policy->isTrustedTag($tag, $this)) {
 				return (new \Smarty\Compile\PrintExpressionCompiler())->compile(
 					['nofilter'], // functions are never auto-escaped
 					$this,
-					['value' =>	$this->compileFunctionCall($base_tag, $args, $parameter)]
+					['value' =>	$this->compileFunctionCall($tag, $args, $parameter)]
 				);
 			}
 		}
@@ -1164,16 +1164,16 @@ class Template extends BaseCompiler {
 		}
 
 		// the default plugin handler is a handler of last resort, it may also handle not specifically registered tags.
-		if ($callback = $this->getPluginFromDefaultHandler($base_tag, Smarty::PLUGIN_COMPILER)) {
+		if ($callback = $this->getPluginFromDefaultHandler($tag, Smarty::PLUGIN_COMPILER)) {
 			if (!empty($parameter['modifierlist'])) {
-				throw new CompilerException('No modifiers allowed on ' . $base_tag);
+				throw new CompilerException('No modifiers allowed on ' . $tag);
 			}
 			$tagCompiler = new \Smarty\Compile\Tag\BCPluginWrapper($callback);
 			return $tagCompiler->compile($args, $this, $parameter);
 		}
 
 		if ($this->getPluginFromDefaultHandler($base_tag, Smarty::PLUGIN_FUNCTION)) {
-			return $this->defaultHandlerFunctionCallCompiler->compile($args, $this, $parameter, $tag, $base_tag);
+			return $this->defaultHandlerFunctionCallCompiler->compile($args, $this, $parameter, $tag, $tag);
 		}
 
 		if ($this->getPluginFromDefaultHandler($base_tag, Smarty::PLUGIN_BLOCK)) {
