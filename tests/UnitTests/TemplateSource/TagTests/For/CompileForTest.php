@@ -197,4 +197,65 @@ class CompileForTest extends PHPUnit_Smarty
                      array("{for \$x=-1;\$x>=0;\$x--}{\$x}{forelse}{\$buh}{/for}", "buh", 'T14', $i++),
         );
     }
+
+    /**
+     * Test for inside extended template issue #1036
+     */
+    public function testForWithExtendedTemplate() : void
+    {
+        $this->smarty->caching = false;
+        $tpl = $this->smarty->createTemplate( 'extends:string:{block name="content"}{/block}|string:{block name="content"}{for $i=0 to 3}{$i}{/for}{/block}' );
+        $this->assertEquals( "0123", $this->smarty->fetch( $tpl ) );
+    }
+
+    /**
+     * Test for inside extended template issue #1036
+     */
+    public function testForWithExtendedTemplateWithStep() : void
+    {
+        $this->smarty->caching = false;
+        $tpl = $this->smarty->createTemplate( 'extends:string:{block name="content"}{/block}|string:{block name="content"}{for $i=0 to 3 step 2}{$i}{/for}{/block}' );
+        $this->assertEquals( "02", $this->smarty->fetch( $tpl ) );
+    }
+
+    /**
+     * Test for inside extended template issue #1036
+     */
+    public function testForWithExtendedTemplateWithMax() : void
+    {
+        $this->smarty->caching = false;
+        $tpl = $this->smarty->createTemplate( 'extends:string:{block name="content"}{/block}|string:{block name="content"}{for $i=0 to 30 max=3}{$i}{/for}{/block}' );
+        $this->assertEquals( "012", $this->smarty->fetch( $tpl ) );
+    }
+
+    /**
+     * Test for inside extended template issue #1036
+     */
+    public function testNestedForWithExtendedTemplate() : void
+    {
+        $this->smarty->caching = false;
+        $tpl = $this->smarty->createTemplate( 'extends:string:{block name="content"}{/block}|string:{block name="content"}{for $i=0 to 1}{for $y=0 to 3}{$y}{/for}{/for}{/block}' );
+        $this->assertEquals( "01230123", $this->smarty->fetch( $tpl ) );
+    }
+
+    /**
+     * Test for inside extended template issue #1036
+     */
+    public function testForLegacySyntaxWithExtendedTemplate() : void
+    {
+        $this->smarty->caching = false;
+        $tpl = $this->smarty->createTemplate( 'extends:string:{block name="content"}{/block}|string:{block name="content"}{for $i=0; $i<4; $i++}{$i}{/for}{/block}' );
+        $this->assertEquals( "0123", $this->smarty->fetch( $tpl ) );
+    }
+
+    /**
+     * Test for inside extended template issue #1036
+     */
+    public function testForLegacySyntaxTemplate() : void
+    {
+        $this->smarty->caching = false;
+        $tpl = $this->smarty->createTemplate('string:{for $i=0; $i<4; $i++}{$i}{/for}');
+        $this->assertEquals("0123", $this->smarty->fetch($tpl));
+    }
+
 }
