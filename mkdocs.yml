@@ -57,9 +57,11 @@ nav:
         - 'date_format': 'designers/language-modifiers/language-modifier-date-format.md'
         - 'debug_print_var': 'designers/language-modifiers/language-modifier-debug-print-var.md'
         - 'default': 'designers/language-modifiers/language-modifier-default.md'
+        - 'empty': "designers/language-modifiers/language-modifier-empty.md"
         - 'escape': 'designers/language-modifiers/language-modifier-escape.md'
         - 'from_charset': 'designers/language-modifiers/language-modifier-from-charset.md'
         - 'indent': 'designers/language-modifiers/language-modifier-indent.md'
+        - 'in_array': 'designers/language-modifiers/language-modifier-in_array.md'
         - 'is_array': 'designers/language-modifiers/language-modifier-is_array.md'
         - 'isset': 'designers/language-modifiers/language-modifier-isset.md'
         - 'join': 'designers/language-modifiers/language-modifier-join.md'
