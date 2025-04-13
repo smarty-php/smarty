@@ -18,3 +18,10 @@ composer require smarty/smarty
 ````
 
 More in the [Getting Started](./docs/getting-started.md) section of the docs.
+
+## Sponsors
+
+Smarty is sponsored by:
+- Marc Laporte [@marclaporte](https://github.com/marclaporte)
+
+Thank you!
