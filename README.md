@@ -7,7 +7,7 @@ Smarty is a template engine for PHP, facilitating the separation of presentation
 Read the [documentation](https://smarty-php.github.io/smarty/) to find out how to use it. 
 
 ## Requirements
-Smarty v5 can be run with PHP 7.2 to PHP 8.3.
+Smarty v5 can be run with PHP 7.2 to PHP 8.4.
 
 ## Installation
 Smarty versions 3.1.11 or later can be installed with [Composer](https://getcomposer.org/).
@@ -18,3 +18,10 @@ composer require smarty/smarty
 ````
 
 More in the [Getting Started](./docs/getting-started.md) section of the docs.
+
+## Sponsors
+
+Smarty is sponsored by:
+- Marc Laporte [@marclaporte](https://github.com/marclaporte)
+
+Thank you!

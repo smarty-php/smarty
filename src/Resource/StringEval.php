@@ -31,7 +31,7 @@ class StringEval extends RecompiledPlugin
      *
      * @return void
      */
-    public function populate(\Smarty\Template\Source $source, \Smarty\Template $_template = null)
+    public function populate(\Smarty\Template\Source $source, ?\Smarty\Template $_template = null)
     {
         $source->uid = sha1($source->name);
         $source->timestamp = $source->exists = true;

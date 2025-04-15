@@ -108,7 +108,7 @@
     </head>
     <body>
 
-    <h1>Smarty {\Smarty\Smarty::SMARTY_VERSION} Debug Console
+    <h1>Smarty {$smarty.version} Debug Console
         -  {if isset($template_name)}{$template_name|debug_print_var nofilter} {/if}{if !empty($template_data)}Total Time {$execution_time|string_format:"%.5f"}{/if}</h1>
 
     {if !empty($template_data)}

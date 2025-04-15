@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.4.5] - 2025-04-15
+- Fixed deprecation notice in StringEval in PHP8.4 [#1119](https://github.com/smarty-php/smarty/issues/1119)
+
+
+## [5.4.4] - 2025-04-13
+- Fix syntax error occurring when registering a function plugin that ends with the string 'close' [#1122](https://github.com/smarty-php/smarty/issues/1122)
+- Replace SMARTY_VERSION constant with $smarty.version in debug.tpl [#1073](https://github.com/smarty-php/smarty/issues/1073)
+
+
+## [5.4.3] - 2024-12-23
+- Fix PHP backtraces by qualifying/replacing `call_user_func_array` calls [#1074](https://github.com/smarty-php/smarty/issues/1074)
+
+
+## [5.4.2] - 2024-11-20
+
+
+- Support the deprecations introduced in PHP 8.4 and added tests for PHP 8.4 [#1043](https://github.com/smarty-php/smarty/pull/1043)
+
 ## [5.4.1] - 2024-08-29
 
 

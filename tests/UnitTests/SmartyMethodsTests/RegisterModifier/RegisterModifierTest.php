@@ -135,6 +135,20 @@ class RegisterModifierTest extends PHPUnit_Smarty
 		$this->assertEquals($expectedValue, $this->smarty->fetch('string:' . $template));
 	}
 
+	public function testRegisterNativePhpFuncAsString()
+	{
+		$this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'strrev', 'strrev');
+		$this->smarty->assign('myVar', 'andersom');
+		$this->assertEquals('mosredna', $this->smarty->fetch('string:{strrev($myVar)}'));
+	}
+
+	public function testRegisterNativePhpFuncUnderDifferentName()
+	{
+		$this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'k_xyz_a', 'strrev');
+		$this->smarty->assign('myVar', 'andersom');
+		$this->assertEquals('mosredna', $this->smarty->fetch('string:{k_xyz_a($myVar)}'));
+	}
+
 }
 
 class WildcardExtension extends \Smarty\Extension\Base {

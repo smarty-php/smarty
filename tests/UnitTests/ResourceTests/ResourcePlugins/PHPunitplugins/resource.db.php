@@ -16,7 +16,7 @@ use Smarty\Template\Source;
 
 class Smarty_Resource_Db extends RecompiledPlugin {
 
-    public function populate(Source $source, Template $_template = null) {
+    public function populate(Source $source, ?Template $_template = null) {
         $source->uid = sha1($source->resource);
         $source->timestamp = 1000000000;
         $source->exists = true;

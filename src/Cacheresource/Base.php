@@ -44,7 +44,7 @@ abstract class Base
 	 */
     abstract public function process(
 	    Template $_template,
-	    Cached   $cached = null,
+	    ?Cached  $cached = null,
 	             $update = false
     );
 

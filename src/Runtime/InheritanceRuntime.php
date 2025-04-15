@@ -162,7 +162,7 @@ class InheritanceRuntime {
 	private function processBlock(
 		Template              $tpl,
 		\Smarty\Runtime\Block $block,
-		\Smarty\Runtime\Block $parent = null
+		?\Smarty\Runtime\Block $parent = null
 	) {
 		if ($block->hide && !isset($block->child)) {
 			return;

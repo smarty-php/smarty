@@ -41,10 +41,9 @@ class CompileIfTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "testIf_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->assignGlobal('file', $file);
+        $this->smarty->assign('file', $file);
         $this->smarty->assign('bar', 'buh');
-        $this->assertEquals($result, $this->smarty->fetch($file),
-                            "testIf - {$code} - {$name}");
+        $this->assertEquals($result, $this->smarty->fetch($file), "testIf - {$code} - {$name}");
     }
 
     /*
