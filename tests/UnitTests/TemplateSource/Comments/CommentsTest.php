@@ -69,6 +69,7 @@ class CommentsTest extends PHPUnit_Smarty
                      array("=\na\n{* comment 1 *}\n {* comment 2 *}\n{* comment 3 *}\nb\n=", "=\na\n b\n=", 'T12', $i++),
                      array("=\na\n{* comment 1 *}\n{* comment 2 *} \n{* comment 3 *}\nb\n=", "=\na\n \nb\n=", 'T13', $i++),
                      array("=\na\n{* comment 1 *}\n {* comment 2 *} \n{* comment 3 *}\nb\n=", "=\na\n  \nb\n=", 'T14', $i++),
+                     array("K{*} comment 1 *}L{*} comment 2 {*}", "KL", 'T15', $i++),
         );
     }
 
