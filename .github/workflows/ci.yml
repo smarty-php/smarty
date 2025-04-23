@@ -56,35 +56,35 @@ jobs:
             compiler: jit
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-    - name: Override PHP ini values for JIT compiler
-      if: matrix.compiler == 'jit'
-      run: echo "PHP_INI_VALUES::assert.exception=1, zend.assertions=1, opcache.enable=1, opcache.enable_cli=1, opcache.optimization_level=-1, opcache.jit=1255, opcache.jit_buffer_size=32M" >> $GITHUB_ENV
+      - name: Override PHP ini values for JIT compiler
+        if: matrix.compiler == 'jit'
+        run: echo "PHP_INI_VALUES::assert.exception=1, zend.assertions=1, opcache.enable=1, opcache.enable_cli=1, opcache.optimization_level=-1, opcache.jit=1255, opcache.jit_buffer_size=32M" >> $GITHUB_ENV
 
-    - name: Install PHP with extensions
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-version }}
-        coverage: pcov
-        extensions: ${{ env.PHP_EXTENSIONS }}
-        ini-values: ${{ env.PHP_INI_VALUES }}
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@9e72090525849c5e82e596468b86eb55e9cc5401 # v2.32.0
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: pcov
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          ini-values: ${{ env.PHP_INI_VALUES }}
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v4
-      with:
-        path: vendor
-        key: v5r2-${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          v5r1-${{ runner.os }}-php-${{ matrix.php-version }}-
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: vendor
+          key: v5r2-${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            v5r1-${{ runner.os }}-php-${{ matrix.php-version }}-
 
-    - name: Install dependencies
-      run: composer install
+      - name: Install dependencies
+        run: composer install
 
-    - name: Run make
-      run: make -B
+      - name: Run make
+        run: make -B
 
-    - name: Run tests with phpunit
-      run: php ./vendor/phpunit/phpunit/phpunit
+      - name: Run tests with phpunit
+        run: php ./vendor/phpunit/phpunit/phpunit

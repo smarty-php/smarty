@@ -1,0 +1,87 @@
+name: actionlint
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - ".github/**"
+
+jobs:
+  action-lint:
+    runs-on: centreon-ubuntu-22.04
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Download actionlint
+        id: get_actionlint
+        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/v1.7.3/scripts/download-actionlint.bash)
+        shell: bash
+
+      - name: Install shellcheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install shellcheck
+        shell: bash
+
+      - name: Check workflow files
+        env:
+          SHELLCHECK_OPTS: "--severity=error"
+        run: |
+          ${{ steps.get_actionlint.outputs.executable }} \
+            -ignore 'label "centreon-common" is unknown' \
+            -ignore 'label "centreon-ubuntu-22.04" is unknown' \
+            -ignore 'label "infrastructure" is unknown' \
+            -ignore '"github.head_ref" is potentially untrusted' \
+            -pyflakes= \
+            -color
+        shell: bash
+
+      - name: Ensure SHA pinned actions
+        uses: centreon/github-actions-ensure-sha-pinned-actions@47d553c67ceb08ad660deaeb3b994e47a3dd8fc3 # v3.0.23.3
+
+  yaml-lint:
+    runs-on: centreon-ubuntu-22.04
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
+        with:
+          python-version: '3.12'
+
+      - name: Install Yaml
+        run: pip install yamllint==1.35.1
+
+      - name: Add Yaml Lint Rules
+        run: |
+          cat <<EOF >>./yamllint_rules.yml
+          extends: default
+
+          rules:
+            document-start: disable
+            line-length: disable
+            truthy:
+              check-keys: false
+              level: error
+            indentation:
+              spaces: 2
+              indent-sequences: true
+              check-multi-line-strings: false
+            comments:
+              ignore-shebangs: true
+              min-spaces-from-content: 1
+            comments-indentation: disable
+            new-lines:
+              type: unix
+            new-line-at-end-of-file: enable
+          EOF
+
+      - name: Lint YAML files
+        run: yamllint -c ./yamllint_rules.yml ./.github/workflows/
