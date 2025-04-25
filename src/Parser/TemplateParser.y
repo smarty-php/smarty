@@ -1321,6 +1321,10 @@ arrayelements(res)   ::=  arrayelements(a1) COMMA arrayelement(a).  {
     res = a1.','.a;
 }
 
+arrayelements(res)   ::=  arrayelements(a) COMMA.  {
+    res = a.',';
+}
+
 arrayelements        ::=  .  {
     return;
 }
