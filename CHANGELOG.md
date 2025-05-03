@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.5.0] - 2025-05-03
+- Support trailing comma in array [#1013](https://github.com/smarty-php/smarty/issues/1013)
+
+
 ## [5.4.5] - 2025-04-15
 - Fixed deprecation notice in StringEval in PHP8.4 [#1119](https://github.com/smarty-php/smarty/issues/1119)
 
