@@ -70,6 +70,8 @@ class ArrayTest extends PHPUnit_Smarty
                      array('{$foo=[1,2,[7,8,9],4,5]}{$x=2}{$foo.$x.0}', '7', 'T13', $i++),
                      array('{$foo=[1,2,[7,8,9],4,5]}{$x=0}{$foo.2.$x}', '7', 'T14', $i++),
                      array('{$foo=[1,2,[7,8,9],4,5]}{$x=[1,0]}{$foo.2.{$x.1}}', '7', 'T15', $i++),
+                     array('{$foo=[1,2,3,4,5,]}{foreach $foo as $bar}{$bar}{/foreach}', '12345', 'T16', $i++),
+                     array('{$foo=[1,2,3,4,5,[6,7,8,],]}{$foo[5][2]}', '8', 'T17', $i++),
         );
     }
 }
