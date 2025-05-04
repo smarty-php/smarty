@@ -1,0 +1,17 @@
+PHPUnit 12.1.4 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.6
+Configuration: C:\PHP\smarty\phpunit.xml
+
+Time: 00:00.361, Memory: 12.00 MB
+
+There was 1 error:
+
+1) UndefinedTemplateVarTest::testError
+Error: Call to undefined method UndefinedTemplateVarTest::expectWarning()
+
+C:\PHP\smarty\tests\UnitTests\A_2\UndefinedTemplateVar\UndefinedTemplateVarTest.php:74
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+ERRORS!
+Tests: 16, Assertions: 20, Errors: 1, Warnings: 1, PHPUnit Deprecations: 1, Skipped: 1.

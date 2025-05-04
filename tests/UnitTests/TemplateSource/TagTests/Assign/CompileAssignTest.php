@@ -36,7 +36,7 @@ class CompileAssignTest extends PHPUnit_Smarty
      * 
      * @dataProvider        dataTestAssign
      */
-    public function testAssign($code, $result, $testName, $testNumber)
+    public function testAssign($code = '{assign var=foo value=1}{$foo}', $result = '1', $testName = '', $testNumber = 1)
     {
         $file = "Assign_{$testNumber}.tpl";
         $this->makeTemplateFile($file, $code);
@@ -97,7 +97,7 @@ class CompileAssignTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testAssignSpacing($code, $result, $testName, $testNumber)
+    public function testAssignSpacing($code = "A{assign var=buh value=\$foo}B{\$buh}", $result = "ABbar", $testName = 'Text1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
@@ -115,7 +115,7 @@ class CompileAssignTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testAssignSpacingNocache($code, $result, $testName, $testNumber)
+    public function testAssignSpacingNocache($code = "A{assign var=buh value=\$foo}B{\$buh}", $result = "ABbar", $testName = 'Text1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
@@ -134,7 +134,7 @@ class CompileAssignTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testAssignSpacingNocache2($code, $result, $testName, $testNumber)
+    public function testAssignSpacingNocache2($code = "A{assign var=buh value=\$foo}B{\$buh}", $result = "ABbar", $testName = 'Text1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";

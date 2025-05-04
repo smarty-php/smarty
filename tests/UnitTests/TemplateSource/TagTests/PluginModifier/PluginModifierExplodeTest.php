@@ -21,7 +21,7 @@ class PluginModifierExplodeTest extends \PHPUnit_Smarty
      * @deprecated
      * @dataProvider explodeDataProvider
      */
-    public function testExplode($template, $subject, $expectedString)
+    public function testExplode($template = 'string:{","|explode:$subject|json_encode}', $subject = 'a,b,c,d', $expectedString = '["a","b","c","d"]')
     {
         $this->smarty->assign('subject', $subject);
 

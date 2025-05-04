@@ -33,7 +33,7 @@ class CompileForTest extends PHPUnit_Smarty
      * @dataProvider        dataTestFor
      * 
      */
-    public function testFor($code, $result, $testName, $testNumber)
+    public function testFor($code = '{for $x=0;$x<10;$x++}{$x}{/for}', $result = '0123456789', $testName = 'T1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "For_{$name}.tpl";
@@ -157,7 +157,7 @@ class CompileForTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testSpacing($code, $result, $testName, $testNumber)
+    public function testSpacing($code = "A{for \$bar = 1 to 2}{\$bar}{/for}C", $result = "A12C", $testName = 'T1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";

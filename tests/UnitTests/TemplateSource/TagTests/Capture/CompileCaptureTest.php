@@ -34,7 +34,7 @@ class CompileCaptureTest extends PHPUnit_Smarty
      * 
      * @dataProvider        dataTestCapture
      */
-    public function testCapture($code, $result, $testName, $testNumber)
+    public function testCapture($code = '{capture assign=foo}hello world{/capture}{$foo}', $result = 'hello world', $testName = '', $testNumber = 1)
     {
         $file = "testCapture{$testNumber}.tpl";
         $this->makeTemplateFile($file, $code);
@@ -111,7 +111,7 @@ class CompileCaptureTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testSpacing($code, $result, $testName, $testNumber)
+    public function testSpacing($code = "A{capture}B{/capture}C{\$smarty.capture.default}", $result = "ACB", $testName = 'Newline1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";

@@ -16,7 +16,7 @@ class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
 	/**
 	 * @dataProvider dataForDefault
 	 */
-	public function testDefault($value, $expected)
+	public function testDefault($value = "abc", $expected = '"abc"')
 	{
 		$tpl = $this->smarty->createTemplate('string:{$v|json_encode}');
 		$tpl->assign("v", $value);
@@ -26,7 +26,7 @@ class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
 	/**
 	 * @dataProvider dataForDefault
 	 */
-	public function testDefaultAsFunction($value, $expected)
+	public function testDefaultAsFunction($value = "abc", $expected = '"abc"')
 	{
 		$tpl = $this->smarty->createTemplate('string:{json_encode($v)}');
 		$tpl->assign("v", $value);
@@ -44,7 +44,7 @@ class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
 	/**
 	 * @dataProvider dataForForceObject
 	 */
-	public function testForceObject($value, $expected)
+	public function testForceObject($value = "abc", $expected = '"abc"')
 	{
 		$tpl = $this->smarty->createTemplate('string:{$v|json_encode:16}');
 		$tpl->assign("v", $value);
@@ -54,7 +54,7 @@ class PluginModifierJsonEncodeTest extends PHPUnit_Smarty
 	/**
 	 * @dataProvider dataForForceObject
 	 */
-	public function testForceObjectAsFunction($value, $expected)
+	public function testForceObjectAsFunction($value = "abc", $expected = '"abc"')
 	{
 		$tpl = $this->smarty->createTemplate('string:{json_encode($v,16)}');
 		$tpl->assign("v", $value);
