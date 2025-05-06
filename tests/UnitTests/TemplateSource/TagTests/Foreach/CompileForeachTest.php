@@ -34,7 +34,7 @@ class CompileForeachTest extends PHPUnit_Smarty
      * 
      * @dataProvider        dataTestForeach
      */
-    public function testForeach($code, $foo, $result, $testName, $testNumber)
+    public function testForeach($code = '{foreach item=x from=$foo}{$x}{/foreach}', $foo = array(1,2,3), $result = '123', $testName = '', $testNumber = 0)
     {
         $file = "testForeach_{$testNumber}.tpl";
         $this->makeTemplateFile($file, $code);
@@ -108,7 +108,7 @@ class CompileForeachTest extends PHPUnit_Smarty
      * 
      * @dataProvider        dataTestForeachNocache
      */
-    public function testForeachCaching($code, $new, $assignNocache, $foo, $result, $testName, $testNumber)
+    public function testForeachCaching($code = '{foreach item=x from=$foo}{$x}{/foreach}', $new = true, $assignNocache = true, $foo = array(1,2,3), $result = '123', $testName = '', $testNumber = 0)
     {
         $this->smarty->caching = true;
         $file = "testForeachNocache_{$testNumber}.tpl";
@@ -307,7 +307,7 @@ class CompileForeachTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testSpacing($code, $result, $testName, $testNumber)
+    public function testSpacing($code = "A{foreach from=\$foo item='bar'}{\$bar}{/foreach}C", $result = "A12C", $testName = '', $testNumber = 0)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
@@ -351,7 +351,7 @@ class CompileForeachTest extends PHPUnit_Smarty
      * @dataProvider        dataTestElseSpacing
      * 
      */
-    public function testElseSpacing($code, $result, $testName, $testNumber)
+    public function testElseSpacing($code = "{foreach from=\$foo item='bar'}{\$bar}{foreachelse}A{\$buh}B{/foreach}", $result = "AbuhB", $testName = '', $testNumber = 0)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_Else_{$name}.tpl";

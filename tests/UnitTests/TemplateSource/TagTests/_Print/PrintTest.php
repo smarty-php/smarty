@@ -32,7 +32,7 @@ class PrintTest extends PHPUnit_Smarty
      * @dataProvider        dataTestOutputSpacing
      * 
      */
-    public function testOutputSpacing($code, $result, $testName, $testNumber)
+    public function testOutputSpacing($code = '{$foo}', $result = 'bar', $testName = 'Variable', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "testSpacing_{$name}.tpl";
@@ -50,7 +50,7 @@ class PrintTest extends PHPUnit_Smarty
      * @dataProvider        dataTestOutputSpacing
      * 
      */
-    public function testOutputSpacingNocache($code, $result, $testName, $testNumber)
+    public function testOutputSpacingNocache($code = '{$foo}', $result = 'bar', $testName = 'Variable', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "testSpacing_{$name}.tpl";
@@ -69,7 +69,7 @@ class PrintTest extends PHPUnit_Smarty
      * @dataProvider        dataTestOutputSpacing
      * 
      */
-    public function testOutputSpacingNocache2($code, $result, $testName, $testNumber)
+    public function testOutputSpacingNocache2($code = '{$foo}', $result = 'bar', $testName = 'Variable', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "testSpacing_{$name}.tpl";
