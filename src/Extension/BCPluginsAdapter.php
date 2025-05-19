@@ -176,7 +176,7 @@ class BCPluginsAdapter extends Base {
 		    'prefilter',
 		    'postfilter',
 		    'outputfilter',
-			'modifiercompiler',
+		    'modifiercompiler',
 		] as $type) {
 			foreach (glob($path  . $type . '.?*.php') as $filename) {
 				$pluginName = $this->getPluginNameFromFilename($filename);
