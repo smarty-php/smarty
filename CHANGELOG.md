@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.5.1] - 2025-05-19
+- Fix missing support for loading modifiercompilers from plugin dir in BCPluginsAdapter [#1132](https://github.com/smarty-php/smarty/pull/1132)
+
+
 ## [5.5.0] - 2025-05-03
 - Support trailing comma in array [#1013](https://github.com/smarty-php/smarty/issues/1013)
 
