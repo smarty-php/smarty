@@ -156,8 +156,8 @@ class Smarty_Template_Source
      * @throws SmartyException
      */
     public static function load(
-        Smarty_Internal_Template $_template = null,
-        Smarty $smarty = null,
+        ?Smarty_Internal_Template $_template = null,
+        ?Smarty $smarty = null,
         $template_resource = null
     ) {
         if ($_template) {

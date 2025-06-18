@@ -30,7 +30,7 @@ class Smarty_Internal_Runtime_CodeFrame
         $content = '',
         $functions = '',
         $cache = false,
-        Smarty_Internal_TemplateCompilerBase $compiler = null
+        ?Smarty_Internal_TemplateCompilerBase $compiler = null
     ) {
         // build property code
         $properties[ 'version' ] = Smarty::SMARTY_VERSION;

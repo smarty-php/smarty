@@ -27,7 +27,7 @@ class Smarty_Internal_Resource_Stream extends Smarty_Resource_Recompiled
      *
      * @return void
      */
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    public function populate(Smarty_Template_Source $source, ?Smarty_Internal_Template $_template = null)
     {
         if (strpos($source->resource, '://') !== false) {
             $source->filepath = $source->resource;

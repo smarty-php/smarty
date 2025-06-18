@@ -34,7 +34,7 @@ class Smarty_Internal_Method_GetTemplateVars
     public function getTemplateVars(
         Smarty_Internal_Data $data,
         $varName = null,
-        Smarty_Internal_Data $_ptr = null,
+        ?Smarty_Internal_Data $_ptr = null,
         $searchParents = true
     ) {
         if (isset($varName)) {
@@ -87,7 +87,7 @@ class Smarty_Internal_Method_GetTemplateVars
     public function _getVariable(
         Smarty_Internal_Data $data,
         $varName,
-        Smarty_Internal_Data $_ptr = null,
+        ?Smarty_Internal_Data $_ptr = null,
         $searchParents = true,
         $errorEnable = true
     ) {

@@ -96,7 +96,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
      */
     public function process(
         Smarty_Internal_Template $_smarty_tpl,
-        Smarty_Template_Cached $cached = null,
+        ?Smarty_Template_Cached $cached = null,
         $update = false
     ) {
         $_smarty_tpl->cached->valid = false;

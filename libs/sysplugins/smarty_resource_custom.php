@@ -45,7 +45,7 @@ abstract class Smarty_Resource_Custom extends Smarty_Resource
      * @param Smarty_Template_Source   $source    source object
      * @param Smarty_Internal_Template $_template template object
      */
-    public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template = null)
+    public function populate(Smarty_Template_Source $source, ?Smarty_Internal_Template $_template = null)
     {
         $source->filepath = $source->type . ':' . $this->generateSafeName($source->name);
         $source->uid = sha1($source->type . ':' . $source->name);
