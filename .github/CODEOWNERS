@@ -1,6 +1,7 @@
-*                   @centreon/owners-php
+*                             @centreon/owners-php
 
-.github/**          @centreon/owners-pipelines
+.github/**                    @centreon/owners-pipelines
 
-.gitleaks.toml      @centreon/owners-security
-.gitleaksignore     @centreon/owners-security
+.gitleaks.toml                @centreon/owners-security
+.gitleaksignore               @centreon/owners-security
+**/workflows/*-analysis.yml   @centreon/owners-security

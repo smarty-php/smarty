@@ -14,7 +14,7 @@ on:
 
 jobs:
   action-lint:
-    runs-on: centreon-ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout sources
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -36,8 +36,6 @@ jobs:
         run: |
           ${{ steps.get_actionlint.outputs.executable }} \
             -ignore 'label "centreon-common" is unknown' \
-            -ignore 'label "centreon-ubuntu-22.04" is unknown' \
-            -ignore 'label "infrastructure" is unknown' \
             -ignore '"github.head_ref" is potentially untrusted' \
             -pyflakes= \
             -color
@@ -47,7 +45,7 @@ jobs:
         uses: centreon/github-actions-ensure-sha-pinned-actions@47d553c67ceb08ad660deaeb3b994e47a3dd8fc3 # v3.0.23.3
 
   yaml-lint:
-    runs-on: centreon-ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout sources
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
