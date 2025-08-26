@@ -320,7 +320,7 @@ class DefaultExtension extends Base {
 					break;
 				}
 				foreach ($var as $curr_key => $curr_val) {
-					$results .= '<br>' . str_repeat('&nbsp;', $depth * 2) . '<b>' . strtr($curr_key, $_replace) .
+					$results .= '<br>' . str_repeat('&nbsp;', $depth * 2) . '<b>' . htmlspecialchars(strtr($curr_key, $_replace)) .
 						'</b> =&gt; ' .
 						$this->smarty_modifier_debug_print_var($curr_val, $max, $length, ++$depth, $objects);
 					$depth--;
@@ -338,7 +338,7 @@ class DefaultExtension extends Base {
 				}
 				$objects[] = $var;
 				foreach ($object_vars as $curr_key => $curr_val) {
-					$results .= '<br>' . str_repeat('&nbsp;', $depth * 2) . '<b> -&gt;' . strtr($curr_key, $_replace) .
+					$results .= '<br>' . str_repeat('&nbsp;', $depth * 2) . '<b> -&gt;' . htmlspecialchars(strtr($curr_key, $_replace)) .
 						'</b> = ' . $this->smarty_modifier_debug_print_var($curr_val, $max, $length, ++$depth, $objects);
 					$depth--;
 				}
