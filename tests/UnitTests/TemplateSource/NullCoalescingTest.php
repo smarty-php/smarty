@@ -16,7 +16,7 @@ class NullCoalescingTest extends PHPUnit_Smarty {
 	/**
 	 * @dataProvider dataForOther
 	 */
-	public function testOther($value, $expected) {
+	public function testOther($value = null, $expected = 'undefined') {
 		$tpl = $this->smarty->createTemplate('string:{$myvar ?? "undefined"}');
 		$tpl->assign('myvar', $value);
 		$this->assertEquals($expected, $this->smarty->fetch($tpl));

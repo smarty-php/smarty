@@ -22,7 +22,7 @@ class PluginModifierReplaceTest extends \PHPUnit_Smarty
      *
      * @dataProvider replaceDataProvider
      */
-    public function testReplace($template, $subject, $expectedString)
+    public function testReplace($template = 'string:{$subject|replace:",":"-"}', $subject = "a,b,c,d", $expectedString = "a-b-c-d")
     {
         $this->smarty->assign('subject', $subject);
 

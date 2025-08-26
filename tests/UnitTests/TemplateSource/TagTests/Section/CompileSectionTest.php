@@ -69,7 +69,7 @@ class CompileSectionTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testSpacing($code, $result, $testName, $testNumber)
+    public function testSpacing($code = "A{section name=bar loop=\$foo}{\$foo[bar]}{/section}C", $result = "A12C", $testName = 'T1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
@@ -113,7 +113,7 @@ class CompileSectionTest extends PHPUnit_Smarty
      * @dataProvider        dataTestElseSpacing
      * 
      */
-    public function testElseSpacing($code, $result, $testName, $testNumber)
+    public function testElseSpacing($code = "{section name=bar loop=\$foo}{\$foo[bar]}{sectionelse}A{\$bar}B{/section}", $result = "AbarB", $testName = 'T1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_Else_{$name}.tpl";

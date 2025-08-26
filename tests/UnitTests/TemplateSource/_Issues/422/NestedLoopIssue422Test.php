@@ -27,7 +27,7 @@ class NestedLoopIssue422Test extends PHPUnit_Smarty
         $this->cleanDirs();
     }
 
-    public function testnested422()
+    public function testnested422($dummy = null)
     {
          $this->assertEquals('loop: 1inner: 0loop: 2inner: 1', $this->smarty->fetch('422_test.tpl'));
     }

@@ -196,16 +196,16 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      *
      * @dataProvider        data
      */
-    public function testCache($isCached,
-                              $caching,
-                              $cachable,
-                              $testNumber,
-                              $compileTestNumber,
-                              $renderTestNumber,
-                              $resultNumber,
-                              $nocache,
-                              $compileid,
-                              $testName)
+    public function testCache($isCached = false,
+                              $caching = false,
+                              $cachable = false,
+                              $testNumber = 1,
+                              $compileTestNumber = 1,
+                              $renderTestNumber = 1,
+                              $resultNumber = 1,
+                              $nocache = false,
+                              $compileid = 0,
+                              $testName = 'no cacheing')
     {
         $this->smarty->registerFilter('pre', array($this, 'prefilterTest'));
         $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_BLOCK, 'cachetest', 'myblockplugintest2', $cachable);
@@ -246,7 +246,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      *
      * @dataProvider        dataTestSpacing
      */
-    public function testSpacing($code, $result, $testName, $testNumber)
+    public function testSpacing($code = "A{noop}\nB{/noop}C", $result = "ABC", $testName = 'Newline1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "testSpacing_{$name}.tpl";
@@ -285,7 +285,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      *
      * @dataProvider        dataTestDefaultSpacing
      */
-    public function testSpacingDefault($code, $result, $testName, $testNumber)
+    public function testSpacingDefault($code = "A{scriptblock}\nB{/scriptblock}C", $result = "Ascriptblock BC", $testName = 'Newline1', $testNumber = 1)
     {
          $name = empty($testName) ? $testNumber : $testName;
         $file = "testSpacing_{$name}.tpl";
@@ -327,7 +327,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      *
      * @dataProvider        dataTestNocacheSpacing
      */
-    public function testBlockNocache($code, $result, $testName, $testNumber)
+    public function testBlockNocache($code = "A{testparameter value=\$bar}\n{\$foo}{/testparameter}C", $result = "AbarC", $testName = 'Var1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Nocache_{$name}.tpl";
@@ -345,7 +345,7 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
      *
      * @dataProvider        dataTestNocacheSpacing
      */
-    public function testBlockNocache2($code, $result, $testName, $testNumber)
+    public function testBlockNocache2($code = "A{testparameter value=\$bar}\n{\$foo}{/testparameter}C", $result = "AbarC", $testName = 'Var1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Nocache_{$name}.tpl";

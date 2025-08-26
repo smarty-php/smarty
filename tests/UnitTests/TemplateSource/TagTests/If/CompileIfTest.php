@@ -36,7 +36,7 @@ class CompileIfTest extends PHPUnit_Smarty
      *
      * @dataProvider        dataTestIf
      */
-    public function testIf($code, $result, $testName, $testNumber)
+    public function testIf($code = '', $result = '', $testName = '', $testNumber = 0)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "testIf_{$name}.tpl";
@@ -187,14 +187,17 @@ class CompileIfTest extends PHPUnit_Smarty
      *
      * @dataProvider        dataTestIfNocache
      */
-    public function testIfNocache($var, $value, $code, $result, $testName, $testNumber, $file = null)
+    public function testIfNocache($var = 'foo', $value = false, $code = '{if $foo}yes{else}no{/if}', $result = 'no', $testName = '', $testNumber = 0, $file = null)
     {
         if (!isset($file)) {
             $file = "testIfNoCache_{$testNumber}.tpl";
         }
-        if ($code) {
+        
+        // Always create the template file for the default case
+        if ($code !== false || $testNumber == 0) {
             $this->makeTemplateFile($file, $code);
         }
+        
         $this->smarty->setCaching(true);
         $this->smarty->assign('file', $file, true);
         $this->smarty->assign($var, $value, true);
@@ -244,7 +247,7 @@ class CompileIfTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testSpacing($code, $result, $testName, $testNumber)
+    public function testSpacing($code = '', $result = '', $testName = '', $testNumber = 0)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
