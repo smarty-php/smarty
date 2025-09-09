@@ -70,6 +70,17 @@ abstract class Base implements CompilerInterface {
 	}
 
 	/**
+	 * Returns attribute index for unnamed ("shorthand") attribute, or null if not allowed.
+	 *
+	 * @param string|int|null $key Index of the argument. Type should probably be narrowed to int
+	 *
+	 * @return string|int|null
+	 */
+	protected function getShorthandOrder($key) {
+	    return $this->shorttag_order[$key] ?? null;
+	}
+
+	/**
 	 * This function checks if the attributes passed are valid
 	 * The attributes passed for the tag to compile are checked against the list of required and
 	 * optional attributes. Required attributes must be present. Optional attributes are check against
@@ -91,8 +102,8 @@ abstract class Base implements CompilerInterface {
 				if (isset($options[trim($mixed, '\'"')])) {
 					$_indexed_attr[trim($mixed, '\'"')] = true;
 					// shorthand attribute ?
-				} elseif (isset($this->shorttag_order[$key])) {
-					$_indexed_attr[$this->shorttag_order[$key]] = $mixed;
+				} elseif (!is_null($this->getShorthandOrder($key))) {
+					$_indexed_attr[$this->getShorthandOrder($key)] = $mixed;
 				} else {
 					// too many shorthands
 					$compiler->trigger_template_error('too many shorthand attributes', null, true);
