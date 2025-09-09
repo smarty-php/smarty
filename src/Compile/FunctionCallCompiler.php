@@ -3,39 +3,17 @@
  * Smarty Internal Plugin Compile Registered Function
  * Compiles code for the execution of a registered function
  *
-
-
  * @author     Uwe Tews
  */
 
 namespace Smarty\Compile;
 
 use Smarty\Compiler\Template;
-use Smarty\CompilerException;
 
 /**
  * Smarty Internal Plugin Compile Registered Function Class
- *
-
-
  */
 class FunctionCallCompiler extends Base {
-
-	/**
-	 * Attribute definition: Overwrites base class.
-	 *
-	 * @var array
-	 * @see BasePlugin
-	 */
-	public $optional_attributes = ['_any'];
-
-	/**
-	 * Shorttag attribute order defined by its names
-	 *
-	 * @var array
-	 */
-	protected $shorttag_order = [];
-
 	/**
 	 * Compiles code for the execution of a registered function
 	 *
@@ -51,14 +29,8 @@ class FunctionCallCompiler extends Base {
 	 */
 	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null): string
 	{
-
-		// check and get attributes
-		$_attr = $this->getAttributes($compiler, $args);
-		unset($_attr['nocache']);
-
-		$_paramsArray = $this->formatParamsArray($_attr);
-		$_params = 'array(' . implode(',', $_paramsArray) . ')';
-
+		// Compile arguments to pass on the the functionhandler
+		$_params = $this->compileArguments($args);
 
 		if ($functionHandler = $compiler->getSmarty()->getFunctionHandler($function)) {
 
@@ -75,5 +47,28 @@ class FunctionCallCompiler extends Base {
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Recursively compile function arguments.
+	 * @param array $args array with attributes from parser
+	 * @return string compiled arguments
+	 */
+	private function compileArguments(array $arguments): string
+	{
+		$params = '';
+
+		foreach ($arguments as $key => $value) {
+			$params .= var_export($key, true) . "=>";
+			if (is_array($value)) {
+				$params .= $this->compileArguments($value);
+			} else {
+				$params .= $value;
+			}
+
+			$params .= ',';
+		}
+
+		return '[' . rtrim($params, ',') . ']';
 	}
 }
