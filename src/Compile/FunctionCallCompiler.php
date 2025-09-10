@@ -45,7 +45,7 @@ class FunctionCallCompiler extends Base
 	 *
 	 * @var array
 	 */
-	protected $option_flags = [];
+	protected $option_flags = ['nocache'];
 
 	/**
 	 * Compiles code for the execution of a registered function
@@ -74,6 +74,7 @@ class FunctionCallCompiler extends Base
 			
 			// check and get attributes
 			$_attr = $this->getAttributes($compiler, $args);
+			unset($_attr['nocache']);
 
 			$_paramsArray = $this->formatParamsArray($_attr);
 			$_params = 'array(' . implode(',', $_paramsArray) . ')';
