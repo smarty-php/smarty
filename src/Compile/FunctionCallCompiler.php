@@ -68,7 +68,9 @@ class FunctionCallCompiler extends Base
 				$supported_attributes = $functionHandler->getSupportedAttributes();
 
 				foreach (['required_attributes', 'optional_attributes', 'shorttag_order', 'option_flags'] as $property) {
-					$this->$property = $supported_attributes[$property];
+					if (isset($supported_attributes[$property]) && is_array($supported_attributes[$property])) {
+						$this->$property = $supported_attributes[$property];
+					}
 				}
 			}
 			
