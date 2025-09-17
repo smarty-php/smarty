@@ -1,0 +1,38 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 50
+    labels:
+      - 'dependencies'
+      - 'gha'
+
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 0
+    labels:
+      - 'dependencies'
+      - 'javascript'
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "production"
+    ignore:
+      - dependency-name: '*'
+
+  - package-ecosystem: composer
+    directory: '/'
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 0
+    labels:
+      - 'dependencies'
+      - 'php'
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "production"
+    ignore:
+      - dependency-name: '*'

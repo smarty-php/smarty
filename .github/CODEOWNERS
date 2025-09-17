@@ -4,4 +4,4 @@
 
 .gitleaks.toml                @centreon/owners-security
 .gitleaksignore               @centreon/owners-security
-**/workflows/*-analysis.yml   @centreon/owners-security
+**/security-checks.yml        @centreon/owners-security
