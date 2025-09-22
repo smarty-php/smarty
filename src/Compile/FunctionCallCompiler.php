@@ -9,21 +9,13 @@
 namespace Smarty\Compile;
 
 use Smarty\Compiler\Template;
-use Smarty\CompilerException;
 use Smarty\FunctionHandler\AttributeFunctionHandlerInterface;
 
 /**
  * Smarty Internal Plugin Compile Registered Function Class
  *
  */
-class FunctionCallCompiler extends Base
-{
-	/**
-	 * Array of names of required attribute required by tag
-	 *
-	 * @var array
-	 */
-	protected $required_attributes = [];
+class FunctionCallCompiler extends Base {
 
 	/**
 	 * Attribute definition: Overwrites base class.
@@ -41,13 +33,6 @@ class FunctionCallCompiler extends Base
 	protected $shorttag_order = [];
 
 	/**
-	 * Array of names of valid option flags
-	 *
-	 * @var array
-	 */
-	protected $option_flags = ['nocache'];
-
-	/**
 	 * Compiles code for the execution of a registered function
 	 *
 	 * @param array $args array with attributes from parser
@@ -62,20 +47,23 @@ class FunctionCallCompiler extends Base
 	 */
 	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null): string
 	{
-		if ($functionHandler = $compiler->getSmarty()->getFunctionHandler($function)) {
-			// add attributes of the function handler.
-			if ($functionHandler instanceof AttributeFunctionHandlerInterface) {
-				$supported_attributes = $functionHandler->getSupportedAttributes();
 
-				foreach (['required_attributes', 'optional_attributes', 'shorttag_order', 'option_flags'] as $property) {
-					if (isset($supported_attributes[$property]) && is_array($supported_attributes[$property])) {
-						$this->$property = $supported_attributes[$property];
-					}
-				}
+		if ($functionHandler = $compiler->getSmarty()->getFunctionHandler($function)) {
+
+			$attribute_overrides = [];
+
+			if ($functionHandler instanceof AttributeFunctionHandlerInterface) {
+				$attribute_overrides = $functionHandler->getSupportedAttributes();
 			}
-			
+
 			// check and get attributes
-			$_attr = $this->getAttributes($compiler, $args);
+			$_attr = (new AttributesCompiler(
+				$attribute_overrides['required_attributes'] ?? $this->required_attributes,
+					$attribute_overrides['optional_attributes'] ?? $this->optional_attributes,
+					$attribute_overrides['shorttag_order'] ?? $this->shorttag_order,
+					$attribute_overrides['option_flags'] ?? $this->option_flags
+			))->getAttributes($compiler, $args);
+
 			unset($_attr['nocache']);
 
 			$_paramsArray = $this->formatParamsArray($_attr);
@@ -95,4 +83,5 @@ class FunctionCallCompiler extends Base
 
 		return $output;
 	}
+
 }
