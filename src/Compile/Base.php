@@ -82,7 +82,7 @@ abstract class Base implements CompilerInterface {
 	 * @return array  of mapped attributes for further processing
 	 */
 	protected function getAttributes($compiler, $attributes) {
-		return (new AttributesCompiler(
+		return (new AttributeCompiler(
 			$this->required_attributes,
 			$this->optional_attributes,
 			$this->shorttag_order,

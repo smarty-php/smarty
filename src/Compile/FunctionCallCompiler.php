@@ -13,10 +13,8 @@ use Smarty\FunctionHandler\AttributeFunctionHandlerInterface;
 
 /**
  * Smarty Internal Plugin Compile Registered Function Class
- *
  */
 class FunctionCallCompiler extends Base {
-
 	/**
 	 * Attribute definition: Overwrites base class.
 	 *
@@ -47,7 +45,6 @@ class FunctionCallCompiler extends Base {
 	 */
 	public function compile($args, Template $compiler, $parameter = [], $tag = null, $function = null): string
 	{
-
 		if ($functionHandler = $compiler->getSmarty()->getFunctionHandler($function)) {
 
 			$attribute_overrides = [];
@@ -57,11 +54,11 @@ class FunctionCallCompiler extends Base {
 			}
 
 			// check and get attributes
-			$_attr = (new AttributesCompiler(
+			$_attr = (new AttributeCompiler(
 				$attribute_overrides['required_attributes'] ?? $this->required_attributes,
-					$attribute_overrides['optional_attributes'] ?? $this->optional_attributes,
-					$attribute_overrides['shorttag_order'] ?? $this->shorttag_order,
-					$attribute_overrides['option_flags'] ?? $this->option_flags
+				$attribute_overrides['optional_attributes'] ?? $this->optional_attributes,
+				$attribute_overrides['shorttag_order'] ?? $this->shorttag_order,
+				$attribute_overrides['option_flags'] ?? $this->option_flags
 			))->getAttributes($compiler, $args);
 
 			unset($_attr['nocache']);
@@ -83,5 +80,4 @@ class FunctionCallCompiler extends Base {
 
 		return $output;
 	}
-
 }

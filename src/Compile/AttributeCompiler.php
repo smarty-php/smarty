@@ -2,9 +2,11 @@
 
 namespace Smarty\Compile;
 
-class AttributesCompiler
+/**
+ * This class handles compiling the attributes.
+ */
+class AttributeCompiler
 {
-
 	/**
 	 * Array of names of required attributes required by tag
 	 *
@@ -39,8 +41,7 @@ class AttributesCompiler
 		array $optional_attributes = [],
 		array $shorttag_order = [],
 		array $option_flags = []
-	)
-	{
+	) {
 		$this->required_attributes = $required_attributes;
 		$this->optional_attributes = $optional_attributes;
 		$this->shorttag_order = $shorttag_order;
@@ -59,7 +60,8 @@ class AttributesCompiler
 	 *
 	 * @return array  of mapped attributes for further processing
 	 */
-	public function getAttributes($compiler, $attributes) {
+	public function getAttributes($compiler, $attributes)
+	{
 		$_indexed_attr = [];
 		$options = array_fill_keys($this->option_flags, true);
 		foreach ($attributes as $key => $mixed) {
@@ -139,5 +141,4 @@ class AttributesCompiler
 
 		return $_indexed_attr;
 	}
-
 }
