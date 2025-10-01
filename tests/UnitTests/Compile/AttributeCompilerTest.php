@@ -33,6 +33,18 @@ class AttributeCompilerTest extends PHPUnit\Framework\TestCase
 	}
 
 	/**
+	 * Create the attribute compilor for testing.
+	 */
+	private function createAttributeCompiler() {
+		return new AttributeCompiler(
+			$this->attributes['required_attributes'],
+			$this->attributes['optional_attributes'],
+			$this->attributes['shorttag_order'],
+			$this->attributes['option_flags']
+		);
+	}
+
+	/**
 	 * Tests shorthand attribute compiling.
 	 */
 	public function testAttributeCompiler(): void
@@ -50,9 +62,8 @@ class AttributeCompilerTest extends PHPUnit\Framework\TestCase
 		];
 
 		$this->assertEquals(
-			(new AttributeCompiler(
-				...$this->attributes
-			))->getAttributes($this->template_compiler, $payload),
+			$this->createAttributeCompiler()
+				->getAttributes($this->template_compiler, $payload),
 			[
 				'shorttag' => 'shorttag value',
 				'required' => 'required_value',
@@ -76,18 +87,16 @@ class AttributeCompilerTest extends PHPUnit\Framework\TestCase
 		];
 
 		$this->assertEquals(
-			(new AttributeCompiler(
-				...$this->attributes
-			))->getAttributes($this->template_compiler, $payload),
+			$this->createAttributeCompiler()
+				->getAttributes($this->template_compiler, $payload),
 			[
 				'optional' => 'optional value',
 			]
 		);
 
 		$this->assertEquals(
-			(new AttributeCompiler(
-				...$this->attributes
-			))->getAttributes($this->template_compiler, []),
+			$this->createAttributeCompiler()
+				->getAttributes($this->template_compiler, []),
 			[]
 		);
 	}
@@ -109,9 +118,8 @@ class AttributeCompilerTest extends PHPUnit\Framework\TestCase
 		];
 
 		$this->assertEquals(
-			(new AttributeCompiler(
-				...$this->attributes
-			))->getAttributes($this->template_compiler, $payload),
+			$this->createAttributeCompiler()
+				->getAttributes($this->template_compiler, $payload),
 			[
 				'optional' => 'optional value',
 				'optional_two' => 'optional value two',
@@ -133,9 +141,8 @@ class AttributeCompilerTest extends PHPUnit\Framework\TestCase
 			->method('trigger_template_error')
 			->with('too many shorthand attributes', null, true);
 
-		(new AttributeCompiler(
-			...$this->attributes
-		))->getAttributes($this->template_compiler, $payload);
+		$this->createAttributeCompiler()
+			->getAttributes($this->template_compiler, $payload);
 	}
 
 	/**
@@ -150,9 +157,8 @@ class AttributeCompilerTest extends PHPUnit\Framework\TestCase
 			->method('trigger_template_error')
 			->with('missing \'required\' attribute', null, true);
 
-		(new AttributeCompiler(
-			...$this->attributes
-		))->getAttributes($this->template_compiler, []);
+		$this->createAttributeCompiler()
+			->getAttributes($this->template_compiler, []);
 	}
 
 	/**
@@ -182,8 +188,7 @@ class AttributeCompilerTest extends PHPUnit\Framework\TestCase
 			->method('trigger_template_error')
 			->with('unexpected \'unexpected\' attribute', null, true);
 
-		(new AttributeCompiler(
-			...$this->attributes
-		))->getAttributes($this->template_compiler, [0 => ['unexpected' => 'bar']]);
+		$this->createAttributeCompiler()
+			->getAttributes($this->template_compiler, [0 => ['unexpected' => 'bar']]);
 	}
 }
