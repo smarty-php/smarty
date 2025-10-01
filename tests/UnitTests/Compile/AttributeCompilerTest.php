@@ -8,12 +8,12 @@ class AttributeCompilerTest extends PHPUnit\Framework\TestCase
 	/**
 	 * The template compiler.
 	 */
-	private Template $template_compiler;
+	private $template_compiler;
 
 	/**
 	 * The attributes
 	 */
-	private array $attributes = [];
+	private $attributes = [];
 
 	/**
 	 * @inheritDoc
