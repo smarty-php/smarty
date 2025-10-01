@@ -33,7 +33,7 @@ class AttributeCompilerTest extends PHPUnit\Framework\TestCase
 	}
 
 	/**
-	 * Create the attribute compilor for testing.
+	 * Create the attribute compiler for testing.
 	 */
 	private function createAttributeCompiler() {
 		return new AttributeCompiler(
