@@ -173,9 +173,8 @@ class AttributeCompilerTest extends PHPUnit\Framework\TestCase
 			->method('trigger_template_error')
 			->with('illegal value \'\'foo\'\' for options flag \'option\'', null, true);
 
-		(new AttributeCompiler(
-			...$this->attributes
-		))->getAttributes($this->template_compiler, [0 => ['option' => 'foo']]);
+		$this->createAttributeCompiler()
+			->getAttributes($this->template_compiler, [0 => ['option' => 'foo']]);
 	}
 
 	/**
