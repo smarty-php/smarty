@@ -48,4 +48,10 @@ class PluginModifierCountSentencesTest extends PHPUnit_Smarty
         $tpl = $this->smarty->createTemplate('string:{"hello world.ärong"|count_sentences}');
         $this->assertEquals("0", $this->smarty->fetch($tpl));
     }
+
+    public function testNull()
+    {
+        $tpl = $this->smarty->createTemplate('string:{null|count_sentences}');
+        $this->assertEquals("0", $this->smarty->fetch($tpl));
+    }
 }
