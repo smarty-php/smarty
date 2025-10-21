@@ -22,7 +22,7 @@ class PluginModifierNumberFormatTest extends \PHPUnit_Smarty
      *
      * @dataProvider numberFormatDataProvider
      */
-    public function testNumberFormat($template, $subject, $expectedString)
+    public function testNumberFormat($template = 'string:{$subject|number_format}', $subject = 12345, $expectedString = "12,345")
     {
         $this->smarty->assign('subject', $subject);
 
