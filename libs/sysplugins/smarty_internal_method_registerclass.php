@@ -9,6 +9,8 @@
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  */
+// PHP 8.2+: Allow dynamic properties for method state and data storage
+#[\AllowDynamicProperties]
 class Smarty_Internal_Method_RegisterClass
 {
     /**

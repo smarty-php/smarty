@@ -13,6 +13,8 @@
  *
  * @author Uwe Tews <uwe.tews@googlemail.com>
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and tag-specific data
+#[\AllowDynamicProperties]
 class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inheritance
 {
     /**
@@ -94,6 +96,8 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_Compile_Shared_Inher
 /**
  * Smarty Internal Plugin Compile BlockClose Class
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and tag-specific data
+#[\AllowDynamicProperties]
 class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_Inheritance
 {
     /**
@@ -129,7 +133,8 @@ class Smarty_Internal_Compile_Blockclose extends Smarty_Internal_Compile_Shared_
         $output .= "class {$_className} extends Smarty_Internal_Block\n";
         $output .= "{\n";
         foreach ($_block as $property => $value) {
-            $output .= "public \${$property} = " . var_export($value, true) . ";\n";
+            // PHP 8.2+: Replaced deprecated ${} interpolation with concatenation for clarity
+            $output .= 'public $' . $property . ' = ' . var_export($value, true) . ";\n";
         }
         $output .= "public function callBlock(Smarty_Internal_Template \$_smarty_tpl) {\n";
         $output .= $compiler->compileRequiredPlugins();

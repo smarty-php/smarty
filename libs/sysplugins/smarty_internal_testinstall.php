@@ -14,6 +14,8 @@
  * @package    Smarty
  * @subpackage Utilities
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_TestInstall
 {
     /**

@@ -7,6 +7,8 @@
  * @subpackage TemplateResources
  * @author     Rodney Rehm
  */
+// PHP 8.2+: Allow dynamic properties for resource metadata and file dependencies
+#[\AllowDynamicProperties]
 abstract class Smarty_Template_Resource_Base
 {
     /**
