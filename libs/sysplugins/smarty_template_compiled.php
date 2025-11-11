@@ -9,6 +9,8 @@
  * @author     Rodney Rehm
  * @property   string $content compiled content
  */
+// PHP 8.2+: Allow dynamic properties for compiled template metadata
+#[\AllowDynamicProperties]
 class Smarty_Template_Compiled extends Smarty_Template_Resource_Base
 {
     /**
