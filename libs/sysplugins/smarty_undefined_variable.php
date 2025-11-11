@@ -7,6 +7,8 @@
  * @package    Smarty
  * @subpackage Template
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Undefined_Variable extends Smarty_Variable
 {
     /**

@@ -5,6 +5,8 @@
  *
  * @package Smarty
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class SmartyCompilerException extends SmartyException
 {
     /**

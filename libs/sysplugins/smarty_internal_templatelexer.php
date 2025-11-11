@@ -16,6 +16,8 @@
  *
  * @author Uwe Tews <uwe.tews@googlemail.com>
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_Templatelexer
 {
     /**

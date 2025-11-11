@@ -14,6 +14,8 @@
  * @package    Smarty
  * @subpackage Debug
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_Debug extends Smarty_Internal_Data
 {
     /**

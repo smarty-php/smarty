@@ -14,6 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and tag-specific data
+#[\AllowDynamicProperties]
 class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_ForeachSection
 {
     /**
@@ -277,6 +279,8 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_Compile_Private_Fo
  * @package    Smarty
  * @subpackage Compiler
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and tag-specific data
+#[\AllowDynamicProperties]
 class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase
 {
     /**
@@ -308,6 +312,8 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and tag-specific data
+#[\AllowDynamicProperties]
 class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase
 {
     /**

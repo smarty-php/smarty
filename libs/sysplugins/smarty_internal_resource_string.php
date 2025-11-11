@@ -16,6 +16,8 @@
  * @package    Smarty
  * @subpackage TemplateResources
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_Resource_String extends Smarty_Resource
 {
     /**
