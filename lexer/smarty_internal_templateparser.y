@@ -785,9 +785,11 @@ value(res)       ::= ns1(c)DOUBLECOLON static_class_access(s). {
         if (isset($this->smarty->registered_classes[c])) {
             res = $this->smarty->registered_classes[c].'::'.s[0].s[1];
         } else {
-            trigger_error('Using unregistered static method "' . c.'::'.s[0] . '" in a template is deprecated and will be ' .
-                    'removed in a future release. Use Smarty::registerClass to explicitly register ' .
-                    'a class for access.', E_USER_DEPRECATED);
+            if (s[2] === 'method') {
+                trigger_error('Using unregistered static method "' . c.'::'.s[0] . '" in a template is deprecated and will be ' .
+                        'removed in a future release. Use Smarty::registerClass to explicitly register ' .
+                        'a class for access.', E_USER_DEPRECATED);
+            }
             res = c.'::'.s[0].s[1];
         } 
     } else {
@@ -1123,7 +1125,7 @@ static_class_access(res)       ::= method(m) objectchain(oc). {
 
                   // static class constant
 static_class_access(res)       ::= ID(v). {
-    res = array(v, '');
+    res = array(v, '', 'constant');
 }
 
                   // static class variables
