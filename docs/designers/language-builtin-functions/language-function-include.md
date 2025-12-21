@@ -47,11 +47,13 @@ available within the included template.
 
 ## Option Flags
 
-| Name    | Description                                                                          |
-|---------|--------------------------------------------------------------------------------------|
-| nocache | Disables caching of this subtemplate                                                 |
-| caching | Enable caching of this subtemplate                                                   |
-| inline  | If set, merge the compile-code of the subtemplate into the compiled calling template |
+| Name      | Description                                                                          |
+|-----------|--------------------------------------------------------------------------------------|
+| nocache   | Disables caching of this subtemplate                                                 |
+| caching   | Enable caching of this subtemplate                                                   |
+| inline \* | If set, merge the compile-code of the subtemplate into the compiled calling template |
+
+\* The `inline` option flag is currently not implemented in Smarty v5. Using it will not trigger an error, however.
 
 ## Examples
 ```smarty
