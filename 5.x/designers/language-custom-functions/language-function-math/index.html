@@ -3528,36 +3528,36 @@ within <a href="../../language-builtin-functions/language-function-section/"><co
 </blockquote>
 <h2 id="examples">Examples</h2>
 <p><strong>Example 1</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="c">* $height=4, $width=5 *</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="c">* $height=4, $width=5 *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">{</span><span class="nf">math</span> <span class="na">equation</span><span class="o">=</span><span class="s2">&quot;x + y&quot;</span> <span class="na">x</span><span class="o">=</span><span class="nv">$height</span> <span class="na">y</span><span class="o">=</span><span class="nv">$width</span><span class="cp">}</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">{</span><span class="nf">math</span> <span class="na">equation</span><span class="o">=</span><span class="s2">&quot;x + y&quot;</span> <span class="na">x</span><span class="o">=</span><span class="nv">$height</span> <span class="na">y</span><span class="o">=</span><span class="nv">$width</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div></p>
 <p>The above example will output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>9
 </code></pre></div>
 <p><strong>Example 2</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="c">* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="c">* $row_height = 10, $row_width = 20, #col_div# = 2, assigned in template *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">{</span><span class="nf">math</span> <span class="na">equation</span><span class="o">=</span><span class="s2">&quot;height * width / division&quot;</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="na">height</span><span class="o">=</span><span class="nv">$row_height</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="na">width</span><span class="o">=</span><span class="nv">$row_width</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="na">division</span><span class="o">=</span><span class="nv">#col_div#</span><span class="cp">}</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="na">division</span><span class="o">=</span><span class="nv">#col_div#</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>The above example will output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>100
 </code></pre></div>
 <p><strong>Example 3</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">{</span><span class="c">* you can use parenthesis *</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">{</span><span class="c">* you can use parenthesis *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">{</span><span class="nf">math</span> <span class="na">equation</span><span class="o">=</span><span class="s2">&quot;(( x + y ) / z )&quot;</span> <span class="na">x</span><span class="o">=</span><span class="m">2</span> <span class="na">y</span><span class="o">=</span><span class="m">10</span> <span class="na">z</span><span class="o">=</span><span class="m">2</span><span class="cp">}</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">{</span><span class="nf">math</span> <span class="na">equation</span><span class="o">=</span><span class="s2">&quot;(( x + y ) / z )&quot;</span> <span class="na">x</span><span class="o">=</span><span class="m">2</span> <span class="na">y</span><span class="o">=</span><span class="m">10</span> <span class="na">z</span><span class="o">=</span><span class="m">2</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>The above example will output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>6
 </code></pre></div>
 <p><strong>Example 4</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{</span><span class="c">* you can supply a format parameter in sprintf format *</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{</span><span class="c">* you can supply a format parameter in sprintf format *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="cp">{</span><span class="nf">math</span> <span class="na">equation</span><span class="o">=</span><span class="s2">&quot;x + y&quot;</span> <span class="na">x</span><span class="o">=</span><span class="m">4.4444</span> <span class="na">y</span><span class="o">=</span><span class="m">5.0000</span> <span class="na">format</span><span class="o">=</span><span class="s2">&quot;%.2f&quot;</span><span class="cp">}</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="cp">{</span><span class="nf">math</span> <span class="na">equation</span><span class="o">=</span><span class="s2">&quot;x + y&quot;</span> <span class="na">x</span><span class="o">=</span><span class="m">4.4444</span> <span class="na">y</span><span class="o">=</span><span class="m">5.0000</span> <span class="na">format</span><span class="o">=</span><span class="s2">&quot;%.2f&quot;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>The above example will output:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>9.44

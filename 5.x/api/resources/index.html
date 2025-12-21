@@ -3685,14 +3685,14 @@ to access.</p>
 <a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="c1">// will load ./templates_10/foo.tpl</span>
 </code></pre></div></p>
 <p>And, from within a Smarty template:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;file:foo.tpl&quot;</span><span class="cp">}</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">{</span><span class="c">* will load ./templates/foo.tpl *</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;file:foo.tpl&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">{</span><span class="c">* will load ./templates/foo.tpl *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;file:[1]foo.tpl&quot;</span><span class="cp">}</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="cp">{</span><span class="c">* will load ./templates_2/foo.tpl *</span><span class="cp">}</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;file:[1]foo.tpl&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="cp">{</span><span class="c">* will load ./templates_2/foo.tpl *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;file:[foo]foo.tpl&quot;</span><span class="cp">}</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="cp">{</span><span class="c">* will load ./templates_foo/foo.tpl *</span><span class="cp">}</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;file:[foo]foo.tpl&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="cp">{</span><span class="c">* will load ./templates_foo/foo.tpl *</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <h3 id="using-absolute-paths">Using absolute paths</h3>
 <p>Templates outside the specified template directories 
@@ -3722,7 +3722,7 @@ the path to avoid namespace conflicts and get the desired results.
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;file:F:/path/to/my/templates/menu.tpl&#39;</span><span class="p">);</span>
 </code></pre></div></p>
 <p>And from within Smarty template:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;file:D:/usr/local/share/templates/navigation.tpl&#39;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;file:D:/usr/local/share/templates/navigation.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div></p>
 <h3 id="handling-missing-templates">Handling missing templates</h3>
 <p>If the file resource cannot find the requested template, it will check if there is
@@ -3786,8 +3786,8 @@ your disk space with wasted compiled strings.</p>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;eval:&#39;</span> <span class="o">.</span> <span class="nv">$template_string</span><span class="p">);</span> <span class="c1">// compiles every time</span>
 </code></pre></div>
 From within a Smarty template:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;string:$template_string&quot;</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="c">* compiles for later reuse *</span><span class="cp">}</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;eval:$template_string&quot;</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="c">* compiles every time *</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;string:$template_string&quot;</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="c">* compiles for later reuse *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;eval:$template_string&quot;</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="c">* compiles every time *</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div></p>
 <p>Both <code>string:</code> and <code>eval:</code> resources may be encoded with
 <a href="https://www.php.net/urlencode"><code>urlencode()</code></a> or
@@ -3802,8 +3802,8 @@ either of them in conjunction with the <a href="#the-extends-resource"><code>ext
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a> <span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;eval:base64:&#39;</span> <span class="o">.</span> <span class="nv">$template_string_base64</span><span class="p">);</span> <span class="c1">// will decode string using base64_decode()</span>
 </code></pre></div>
 <p>From within a Smarty template:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="x"> </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;string:urlencode:$template_string_urlencode&quot;</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="c">* will decode string using urldecode() *</span><span class="cp">}</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="x"> </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;eval:base64:$template_string_base64&quot;</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="c">* will decode string using base64_decode() *</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="x"> </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;string:urlencode:$template_string_urlencode&quot;</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="c">* will decode string using urldecode() *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="x"> </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;eval:base64:$template_string_base64&quot;</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="c">* will decode string using base64_decode() *</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div></p>
 <h2 id="the-extends-resource">The extends resource</h2>
 <p>The <code>extends:</code> resource is used to define child/parent relationships. For details see section of
@@ -3835,7 +3835,7 @@ to fetch the template.</p>
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;myresource:bar.tpl&#39;</span><span class="p">);</span>
 </code></pre></div></p>
 <p>Or, from within a template:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="x"> </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;myresource:bar.tpl&quot;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="x"> </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;myresource:bar.tpl&quot;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div></p>
 <h2 id="adding-your-own-resource-type">Adding your own resource type</h2>
 <p>You can create a class that extends <code>Smarty\Resource\CustomPlugin</code> to add your own resource type, 

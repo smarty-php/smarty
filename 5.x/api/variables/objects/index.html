@@ -3484,7 +3484,7 @@ See the Best Practices section of the Smarty website.</p>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;index.tpl&#39;</span><span class="p">);</span>
 </code></pre></div></p>
 <p>And here's how to access your object in <code>index.tpl</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nv">$myobj</span><span class="o">-&gt;</span><span class="na">meth1</span><span class="o">(</span><span class="s1">&#39;foo&#39;</span><span class="o">,</span><span class="nv">$bar</span><span class="o">)</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nv">$myobj</span><span class="o">-&gt;</span><span class="na">meth1</span><span class="o">(</span><span class="s1">&#39;foo&#39;</span><span class="o">,</span><span class="nv">$bar</span><span class="o">)</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <h2 id="register-the-object">Register the object</h2>
 <p>Registerd objects use a different template syntax. Also, a registered object 
@@ -3533,12 +3533,12 @@ behave like block tags.</p>
 <a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;index.tpl&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>And here's how to access your objects in <code>index.tpl</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="c">* access our registered object *</span><span class="cp">}</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">{</span><span class="nf">foobar</span><span class="o">-&gt;</span><span class="na">meth1</span> <span class="na">p1</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span> <span class="na">p2</span><span class="o">=</span><span class="nv">$bar</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="c">* access our registered object *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">{</span><span class="nf">foobar</span><span class="o">-&gt;</span><span class="na">meth1</span> <span class="na">p1</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span> <span class="na">p2</span><span class="o">=</span><span class="nv">$bar</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="cp">{</span><span class="c">* you can also assign the output *</span><span class="cp">}</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="cp">{</span><span class="nf">foobar</span><span class="o">-&gt;</span><span class="na">meth1</span> <span class="na">p1</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span> <span class="na">p2</span><span class="o">=</span><span class="nv">$bar</span> <span class="na">assign</span><span class="o">=</span><span class="s1">&#39;output&#39;</span><span class="cp">}</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="x">the output was </span><span class="cp">{</span><span class="nv">$output</span><span class="cp">}</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="cp">{</span><span class="c">* you can also assign the output *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="cp">{</span><span class="nf">foobar</span><span class="o">-&gt;</span><span class="na">meth1</span> <span class="na">p1</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span> <span class="na">p2</span><span class="o">=</span><span class="nv">$bar</span> <span class="na">assign</span><span class="o">=</span><span class="s1">&#39;output&#39;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="x">the output was </span><span class="cp">{</span><span class="nv">$output</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 
 

@@ -3479,9 +3479,9 @@
 <h2 id="basic-usage">Basic usage</h2>
 <p>For <code>$chars</code> populated with <code>'abc'</code>, the following will produce a html list with 3 elements (a, b and c).
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="x">&lt;ol&gt;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="x">    </span><span class="cp">{</span><span class="nf">foreach</span> <span class="nv">$chars</span><span class="o">|</span><span class="na">split</span> <span class="na">as</span> <span class="nv">$char</span><span class="cp">}</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="x">    </span><span class="cp">{</span><span class="nf">foreach</span> <span class="nv">$chars</span><span class="o">|</span><span class="na">split</span> <span class="na">as</span> <span class="nv">$char</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="x">        &lt;li&gt;</span><span class="cp">{</span><span class="nv">$char</span><span class="o">|</span><span class="na">escape</span><span class="cp">}</span><span class="x">&lt;/li&gt;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="x">    </span><span class="cp">{</span><span class="nf">/foreach</span><span class="cp">}</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="x">    </span><span class="cp">{</span><span class="nf">/foreach</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="x">&lt;/ol&gt;</span>
 </code></pre></div></p>
 <h2 id="parameters">Parameters</h2>
@@ -3506,9 +3506,9 @@
 <h2 id="examples">Examples</h2>
 <p>For <code>$ids</code> populated with <code>'1,2,3'</code>, the following will produce a html list with 3 elements (1, 2 and 3).
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="x">&lt;ol&gt;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="x">    </span><span class="cp">{</span><span class="nf">foreach</span> <span class="nv">$ids</span><span class="o">|</span><span class="na">split</span><span class="o">:</span><span class="s1">&#39;,&#39;</span> <span class="na">as</span> <span class="nv">$id</span><span class="cp">}</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="x">    </span><span class="cp">{</span><span class="nf">foreach</span> <span class="nv">$ids</span><span class="o">|</span><span class="na">split</span><span class="o">:</span><span class="s1">&#39;,&#39;</span> <span class="na">as</span> <span class="nv">$id</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="x">        &lt;li&gt;</span><span class="cp">{</span><span class="nv">$id</span><span class="o">|</span><span class="na">escape</span><span class="cp">}</span><span class="x">&lt;/li&gt;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="x">    </span><span class="cp">{</span><span class="nf">/foreach</span><span class="cp">}</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="x">    </span><span class="cp">{</span><span class="nf">/foreach</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="x">&lt;/ol&gt;</span>
 </code></pre></div></p>
 

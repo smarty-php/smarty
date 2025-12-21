@@ -3578,109 +3578,110 @@ available within the included template.</p>
 <td>Enable caching of this subtemplate</td>
 </tr>
 <tr>
-<td>inline</td>
+<td>inline *</td>
 <td>If set, merge the compile-code of the subtemplate into the compiled calling template</td>
 </tr>
 </tbody>
 </table>
+<p>* The <code>inline</code> option flag is currently not implemented in Smarty v5. Using it will not trigger an error, however.</p>
 <h2 id="examples">Examples</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="x">&lt;html&gt;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="x">    &lt;head&gt;</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="x">      &lt;title&gt;</span><span class="cp">{</span><span class="nv">$title</span><span class="cp">}</span><span class="x">&lt;/title&gt;</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="x">    &lt;/head&gt;</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="x">    &lt;body&gt;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="x">    </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;page_header.tpl&#39;</span><span class="cp">}</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="x">    </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;page_header.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="x">    </span><span class="cp">{</span><span class="c">* body of template goes here, the $tpl_name variable</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c">       is replaced with a value eg &#39;contact.tpl&#39;</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c">    *</span><span class="cp">}</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="x">    </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;$tpl_name.tpl&quot;</span><span class="cp">}</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c">    *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="x">    </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;$tpl_name.tpl&quot;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="x">    </span><span class="cp">{</span><span class="c">* using shortform file attribute *</span><span class="cp">}</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="x">    </span><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;page_footer.tpl&#39;</span><span class="cp">}</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="x">    </span><span class="cp">{</span><span class="c">* using shortform file attribute *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="x">    </span><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;page_footer.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="x">    &lt;/body&gt;</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="x">&lt;/html&gt;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;links.tpl&#39;</span> <span class="na">title</span><span class="o">=</span><span class="s1">&#39;Newest links&#39;</span> <span class="na">links</span><span class="o">=</span><span class="nv">$link_array</span><span class="cp">}</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">{</span><span class="c">* body of template goes here *</span><span class="cp">}</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;footer.tpl&#39;</span> <span class="na">foo</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;links.tpl&#39;</span> <span class="na">title</span><span class="o">=</span><span class="s1">&#39;Newest links&#39;</span> <span class="na">links</span><span class="o">=</span><span class="nv">$link_array</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">{</span><span class="c">* body of template goes here *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;footer.tpl&#39;</span> <span class="na">foo</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>The template above includes the example <code>links.tpl</code> below</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="x">&lt;div id=&quot;box&quot;&gt;</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="x">    &lt;h3&gt;</span><span class="cp">{</span><span class="nv">$title</span><span class="cp">}</span><span class="x">&lt;/h3&gt;</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="x">    &lt;ul&gt;</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="x">        </span><span class="cp">{</span><span class="nf">foreach</span> <span class="na">from</span><span class="o">=</span><span class="nv">$links</span> <span class="na">item</span><span class="o">=</span><span class="na">l</span><span class="cp">}</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="x">        </span><span class="cp">{</span><span class="nf">foreach</span> <span class="na">from</span><span class="o">=</span><span class="nv">$links</span> <span class="na">item</span><span class="o">=</span><span class="na">l</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="x">            .. do stuff  ...</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="x">        </span><span class="cp">{</span><span class="nf">/foreach</span><span class="cp">}</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="x">        </span><span class="cp">{</span><span class="nf">/foreach</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="x">    &lt;/ul&gt;</span>
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="x">&lt;/div&gt;</span>
 </code></pre></div>
 Variables assigned in the included template will be seen in the
 including template.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;sub_template.tpl&#39;</span> <span class="na">scope</span><span class="o">=</span><span class="na">parent</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;sub_template.tpl&#39;</span> <span class="na">scope</span><span class="o">=</span><span class="na">parent</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="x">...</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="cp">{</span><span class="c">* display variables assigned in sub_template *</span><span class="cp">}</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="cp">{</span><span class="c">* display variables assigned in sub_template *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="cp">{</span><span class="nv">$foo</span><span class="cp">}</span><span class="x">&lt;br&gt;</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="cp">{</span><span class="nv">$bar</span><span class="cp">}</span><span class="x">&lt;br&gt;</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="x">...</span>
 </code></pre></div>
 <p>The template above includes the example <code>sub_template.tpl</code> below</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="x">...</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">{</span><span class="nf">assign</span> <span class="na">var</span><span class="o">=</span><span class="na">foo</span> <span class="na">value</span><span class="o">=</span><span class="s1">&#39;something&#39;</span><span class="cp">}</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">{</span><span class="nf">assign</span> <span class="na">var</span><span class="o">=</span><span class="na">bar</span> <span class="na">value</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="cp">}</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">{</span><span class="nf">assign</span> <span class="na">var</span><span class="o">=</span><span class="na">foo</span> <span class="na">value</span><span class="o">=</span><span class="s1">&#39;something&#39;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">{</span><span class="nf">assign</span> <span class="na">var</span><span class="o">=</span><span class="na">bar</span> <span class="na">value</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="x">...</span>
 </code></pre></div>
 <p>The included template will not be cached.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;sub_template.tpl&#39;</span> <span class="na">nocache</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;sub_template.tpl&#39;</span> <span class="na">nocache</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="x">...</span>
 </code></pre></div>
 <p>In this example included template will be cached with an individual
 cache lifetime of 500 seconds.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;sub_template.tpl&#39;</span> <span class="na">cache_lifetime</span><span class="o">=</span><span class="m">500</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;sub_template.tpl&#39;</span> <span class="na">cache_lifetime</span><span class="o">=</span><span class="m">500</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="x">...</span>
 </code></pre></div>
 <p>In this example included template will be cached independent of the
 global caching setting.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;sub_template.tpl&#39;</span> <span class="na">caching</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;sub_template.tpl&#39;</span> <span class="na">caching</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="x">...</span>
 </code></pre></div>
 <p>This example assigns the contents of <code>nav.tpl</code> to the <code>$navbar</code>
 variable, which is then output at both the top and bottom of the page.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="x">&lt;body&gt;</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="x">  </span><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;nav.tpl&#39;</span> <span class="na">assign</span><span class="o">=</span><span class="na">navbar</span><span class="cp">}</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="x">  </span><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;header.tpl&#39;</span> <span class="na">title</span><span class="o">=</span><span class="s1">&#39;Smarty is cool&#39;</span><span class="cp">}</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="x">    </span><span class="cp">{</span><span class="nv">$navbar</span><span class="cp">}</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="x">    </span><span class="cp">{</span><span class="c">* body of template goes here *</span><span class="cp">}</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="x">    </span><span class="cp">{</span><span class="nv">$navbar</span><span class="cp">}</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="x">  </span><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;footer.tpl&#39;</span><span class="cp">}</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="x">  </span><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;nav.tpl&#39;</span> <span class="na">assign</span><span class="o">=</span><span class="na">navbar</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="x">  </span><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;header.tpl&#39;</span> <span class="na">title</span><span class="o">=</span><span class="s1">&#39;Smarty is cool&#39;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="x">    </span><span class="cp">{</span><span class="nv">$navbar</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="x">    </span><span class="cp">{</span><span class="c">* body of template goes here *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="x">    </span><span class="cp">{</span><span class="nv">$navbar</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="x">  </span><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;footer.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="x">&lt;/body&gt;</span>
 </code></pre></div>
 <p>This example includes another template relative to the directory of the
 current template.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;template-in-a-template_dir-directory.tpl&#39;</span><span class="cp">}</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;./template-in-same-directory.tpl&#39;</span><span class="cp">}</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;../template-in-parent-directory.tpl&#39;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;template-in-a-template_dir-directory.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;./template-in-same-directory.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="cp">{</span><span class="nf">include</span> <span class="s1">&#39;../template-in-parent-directory.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">{</span><span class="c">* absolute filepath *</span><span class="cp">}</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;/usr/local/include/templates/header.tpl&#39;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">{</span><span class="c">* absolute filepath *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;/usr/local/include/templates/header.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="cp">{</span><span class="c">* absolute filepath (same thing) *</span><span class="cp">}</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;file:/usr/local/include/templates/header.tpl&#39;</span><span class="cp">}</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="cp">{</span><span class="c">* absolute filepath (same thing) *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;file:/usr/local/include/templates/header.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="cp">{</span><span class="c">* windows absolute filepath (MUST use &quot;file:&quot; prefix) *</span><span class="cp">}</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;file:C:/www/pub/templates/header.tpl&#39;</span><span class="cp">}</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="cp">{</span><span class="c">* windows absolute filepath (MUST use &quot;file:&quot; prefix) *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;file:C:/www/pub/templates/header.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="cp">{</span><span class="c">* include from template resource named &quot;db&quot; *</span><span class="cp">}</span>
-<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;db:header.tpl&#39;</span><span class="cp">}</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="cp">{</span><span class="c">* include from template resource named &quot;db&quot; *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;db:header.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
-<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="cp">{</span><span class="c">* include a $variable template - eg $module = &#39;contacts&#39; *</span><span class="cp">}</span>
-<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;$module.tpl&quot;</span><span class="cp">}</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="cp">{</span><span class="c">* include a $variable template - eg $module = &#39;contacts&#39; *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;$module.tpl&quot;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
-<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="cp">{</span><span class="c">* wont work as its single quotes ie no variable substitution *</span><span class="cp">}</span>
-<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;$module.tpl&#39;</span><span class="cp">}</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="cp">{</span><span class="c">* wont work as its single quotes ie no variable substitution *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;$module.tpl&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>
-<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="cp">{</span><span class="c">* include a multi $variable template - eg amber/links.view.tpl *</span><span class="cp">}</span>
-<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;$style_dir/$module.$view.tpl&quot;</span><span class="cp">}</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="cp">{</span><span class="c">* include a multi $variable template - eg amber/links.view.tpl *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&quot;$style_dir/$module.$view.tpl&quot;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>See also <a href="../../../api/resources/">template resources</a> and
 <a href="../../../appendixes/tips/#componentized-templates">componentized templates</a>.</p>

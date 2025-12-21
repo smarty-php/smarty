@@ -3513,7 +3513,7 @@ selected by default as well.</p>
 <tr>
 <td>label_ids</td>
 <td>No</td>
-<td>Add id-attributes to &lt;label&gt; and &lt;input&gt; to the output (defaults to false)</td>
+<td>Add id-attributes to &lt;label> and &lt;input> to the output (defaults to false)</td>
 </tr>
 <tr>
 <td>escape</td>
@@ -3554,7 +3554,7 @@ selected by default as well.</p>
 </code></pre></div>
 <p>Where template is:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">html_radios</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;id&#39;</span> <span class="na">values</span><span class="o">=</span><span class="nv">$cust_ids</span> <span class="na">output</span><span class="o">=</span><span class="nv">$cust_names</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>       <span class="na">selected</span><span class="o">=</span><span class="nv">$customer_id</span> <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>       <span class="na">selected</span><span class="o">=</span><span class="nv">$customer_id</span> <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;cust_radios&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
@@ -3566,7 +3566,7 @@ selected by default as well.</p>
 </code></pre></div>
 <p>Where template is:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nf">html_radios</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;id&#39;</span> <span class="na">options</span><span class="o">=</span><span class="nv">$cust_radios</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>     <span class="na">selected</span><span class="o">=</span><span class="nv">$customer_id</span> <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>     <span class="na">selected</span><span class="o">=</span><span class="nv">$customer_id</span> <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>Both examples will output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;id&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;1000&quot;</span> <span class="p">/&gt;</span>Joe Schmoe<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
@@ -3586,7 +3586,7 @@ selected by default as well.</p>
 <p>The variable assigned from the database above would be output with the
 template:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{</span><span class="nf">html_radios</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;contact_type_id&#39;</span> <span class="na">options</span><span class="o">=</span><span class="nv">$contact_types</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>     <span class="na">selected</span><span class="o">=</span><span class="nv">$contact.contact_type_id</span> <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>     <span class="na">selected</span><span class="o">=</span><span class="nv">$contact.contact_type_id</span> <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>See also <a href="../language-function-html-checkboxes/"><code>{html_checkboxes}</code></a> and
 <a href="../language-function-html-options/"><code>{html_options}</code></a></p>

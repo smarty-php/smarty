@@ -3446,14 +3446,14 @@ later syntax is useful for embedding into quoted attribute values, or
 accessing variable values such as <code>$smarty.config.$foo</code>.</p>
 <h2 id="examples">Examples</h2>
 <p>Example config file - <code>foo.conf</code>:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="na">pageTitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;This is mine&quot;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="na">bodyBgColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;</span><span class="c1">#eeeeee&#39;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="na">tableBorderSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">3</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="na">tableBgColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="c1">#bbbbbb&quot;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="na">rowBgColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="c1">#cccccc&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="na">pageTitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;This is mine&quot;</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="na">bodyBgColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;#eeeeee&#39;</span><span class="w"></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="na">tableBorderSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">3</span><span class="w"></span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="na">tableBgColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;#bbbbbb&quot;</span><span class="w"></span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="na">rowBgColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;#cccccc&quot;</span><span class="w"></span>
 </code></pre></div></p>
 <p>A template demonstrating the <code>#hash#</code> method:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">config_load</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;foo.conf&#39;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">config_load</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;foo.conf&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="x">&lt;html&gt;</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="x">    &lt;title&gt;</span><span class="cp">{</span><span class="nv">#pageTitle#</span><span class="cp">}</span><span class="x">&lt;/title&gt;</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="x">    &lt;body bgcolor=&quot;</span><span class="cp">{</span><span class="nv">#bodyBgColor#</span><span class="cp">}</span><span class="x">&quot;&gt;</span>
@@ -3469,7 +3469,7 @@ accessing variable values such as <code>$smarty.config.$foo</code>.</p>
 </code></pre></div>
 <p>A template demonstrating the
 <a href="../language-variables-smarty/#smartyconfig-languagevariablessmartyconfig"><code>$smarty.config</code></a> method:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nf">config_load</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;foo.conf&#39;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nf">config_load</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;foo.conf&#39;</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="x">&lt;html&gt;</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="x">&lt;title&gt;</span><span class="cp">{</span><span class="nv">$smarty.config.pageTitle</span><span class="cp">}</span><span class="x">&lt;/title&gt;</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="x">    &lt;body bgcolor=&quot;</span><span class="cp">{</span><span class="nv">$smarty.config.bodyBgColor</span><span class="cp">}</span><span class="x">&quot;&gt;</span>

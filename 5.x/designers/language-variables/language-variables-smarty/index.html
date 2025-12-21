@@ -3661,26 +3661,26 @@ environment and request variables. The full list of them follows.</p>
 <p>The <a href="https://www.php.net/reserved.variables">request variables</a> such as
 <code>$_GET</code>, <code>$_POST</code>, <code>$_COOKIE</code>, <code>$_SERVER</code>, <code>$_ENV</code> and <code>$_SESSION</code> can
 be accessed as demonstrated in the examples below:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="c">* display value of page from URL ($_GET) http://www.example.com/index.php?page=foo *</span><span class="cp">}</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">{</span><span class="nv">$smarty.get.page</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="c">* display value of page from URL ($_GET) http://www.example.com/index.php?page=foo *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">{</span><span class="nv">$smarty.get.page</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cp">{</span><span class="c">* display the variable &quot;page&quot; from a form ($_POST[&#39;page&#39;]) *</span><span class="cp">}</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="cp">{</span><span class="nv">$smarty.post.page</span><span class="cp">}</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cp">{</span><span class="c">* display the variable &quot;page&quot; from a form ($_POST[&#39;page&#39;]) *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="cp">{</span><span class="nv">$smarty.post.page</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="cp">{</span><span class="c">* display the value of the cookie &quot;username&quot; ($_COOKIE[&#39;username&#39;]) *</span><span class="cp">}</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="cp">{</span><span class="nv">$smarty.cookies.username</span><span class="cp">}</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="cp">{</span><span class="c">* display the value of the cookie &quot;username&quot; ($_COOKIE[&#39;username&#39;]) *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="cp">{</span><span class="nv">$smarty.cookies.username</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="cp">{</span><span class="c">* display the server variable &quot;SERVER_NAME&quot; ($_SERVER[&#39;SERVER_NAME&#39;])*</span><span class="cp">}</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="cp">{</span><span class="nv">$smarty.server.SERVER_NAME</span><span class="cp">}</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="cp">{</span><span class="c">* display the server variable &quot;SERVER_NAME&quot; ($_SERVER[&#39;SERVER_NAME&#39;])*</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="cp">{</span><span class="nv">$smarty.server.SERVER_NAME</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="cp">{</span><span class="c">* display the system environment variable &quot;PATH&quot; *</span><span class="cp">}</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="cp">{</span><span class="nv">$smarty.env.PATH</span><span class="cp">}</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="cp">{</span><span class="c">* display the system environment variable &quot;PATH&quot; *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="cp">{</span><span class="nv">$smarty.env.PATH</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="cp">{</span><span class="c">* display the php session variable &quot;id&quot; ($_SESSION[&#39;id&#39;]) *</span><span class="cp">}</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="cp">{</span><span class="nv">$smarty.session.id</span><span class="cp">}</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="cp">{</span><span class="c">* display the php session variable &quot;id&quot; ($_SESSION[&#39;id&#39;]) *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="cp">{</span><span class="nv">$smarty.session.id</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="cp">{</span><span class="c">* display the variable &quot;username&quot; from merged get/post/cookies/server/env *</span><span class="cp">}</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="cp">{</span><span class="nv">$smarty.request.username</span><span class="cp">}</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="cp">{</span><span class="c">* display the variable &quot;username&quot; from merged get/post/cookies/server/env *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="cp">{</span><span class="nv">$smarty.request.username</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <blockquote>
 <p><strong>Note</strong></p>
@@ -3704,8 +3704,8 @@ display. Note that <a href="https://www.php.net/function.time"><code>time()</cod
 on each invocation; eg a script that takes three seconds to execute with
 a call to <code>$smarty.now</code> at start and end will show the three-second
 difference.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="c">* use the date_format modifier to show current date and time *</span><span class="cp">}</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">{</span><span class="nv">$smarty.now</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="s1">&#39;%Y-%m-%d %H:%M:%S&#39;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="c">* use the date_format modifier to show current date and time *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">{</span><span class="nv">$smarty.now</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="s1">&#39;%Y-%m-%d %H:%M:%S&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <h2 id="smartyconst">{$smarty.const}</h2>
 <p>You can access PHP constant values directly.</p>
@@ -3714,7 +3714,7 @@ difference.</p>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">define</span><span class="p">(</span><span class="s1">&#39;MY_CONST_VAL&#39;</span><span class="p">,</span><span class="s1">&#39;CHERRIES&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>Output the constant in a template with</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nv">$smarty.const.MY_CONST_VAL</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nv">$smarty.const.MY_CONST_VAL</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <blockquote>
 <p><strong>Note</strong></p>

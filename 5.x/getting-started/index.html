@@ -3508,17 +3508,17 @@
 
 <h1 id="getting-started">Getting started</h1>
 <h2 id="requirements">Requirements</h2>
-<p>Smarty can be run with PHP 7.2 to PHP 8.4.</p>
+<p>Smarty can be run with PHP 7.2 to PHP 8.5.</p>
 <h2 id="installation">Installation</h2>
 <p>Smarty can be installed with <a href="https://getcomposer.org/">Composer</a>.</p>
 <p>To get the latest stable version of Smarty use:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>composer<span class="w"> </span>require<span class="w"> </span>smarty/smarty
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>composer require smarty/smarty
 </code></pre></div></p>
 <p>To get the latest, unreleased version, use:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>composer<span class="w"> </span>require<span class="w"> </span>smarty/smarty:dev-master
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>composer require smarty/smarty:dev-master
 </code></pre></div></p>
 <p>To get the previous stable version of Smarty, Smarty 4, use:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>composer<span class="w"> </span>require<span class="w"> </span>smarty/smarty:^4
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>composer require smarty/smarty:^4
 </code></pre></div></p>
 <p>Here's how you create an instance of Smarty in your PHP scripts:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">&lt;?php</span>
@@ -3556,11 +3556,11 @@ default is user "www" and group "www". If you are using Apache, you
 can look in your <code>httpd.conf</code> file to see what user and group are
 being used.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>chown<span class="w"> </span>nobody:nobody<span class="w"> </span>/web/www.example.com/guestbook/templates_c/
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>chmod<span class="w"> </span><span class="m">770</span><span class="w"> </span>/web/www.example.com/guestbook/templates_c/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>chown nobody:nobody /web/www.example.com/guestbook/templates_c/
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>chmod <span class="m">770</span> /web/www.example.com/guestbook/templates_c/
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>chown<span class="w"> </span>nobody:nobody<span class="w"> </span>/web/www.example.com/guestbook/cache/
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>chmod<span class="w"> </span><span class="m">770</span><span class="w"> </span>/web/www.example.com/guestbook/cache/
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>chown nobody:nobody /web/www.example.com/guestbook/cache/
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>chmod <span class="m">770</span> /web/www.example.com/guestbook/cache/
 </code></pre></div>
 <p>You can verify if your system has the correct access rights for
     these directories with <a href="../programmers/api-functions/api-test-install/"><code>testInstall()</code></a>:</p>
@@ -3576,7 +3576,7 @@ being used.</p>
 <h2 id="basic-usage">Basic usage</h2>
 <p>Now, let's create the <code>index.tpl</code> file that Smarty will display. This
 needs to be located in the <a href="../programmers/api-variables/variable-template-dir/"><code>$template_dir</code></a>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">{</span><span class="c">* Smarty *</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">{</span><span class="c">* Smarty *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="x">&lt;h1&gt;Hello </span><span class="cp">{</span><span class="nv">$name</span><span class="o">|</span><span class="na">escape</span><span class="cp">}</span><span class="x">, welcome to Smarty!&lt;/h1&gt;</span>
 </code></pre></div>
 <blockquote>

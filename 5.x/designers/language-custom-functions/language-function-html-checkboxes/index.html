@@ -3508,12 +3508,12 @@ which item(s) are selected by default as well.</p>
 <tr>
 <td>labels</td>
 <td>No</td>
-<td>Add &lt;label&gt;-tags to the output (defaults to true)</td>
+<td>Add &lt;label>-tags to the output (defaults to true)</td>
 </tr>
 <tr>
 <td>label_ids</td>
 <td>No</td>
-<td>Add id-attributes to &lt;label&gt; and &lt;input&gt; to the output (defaults to false)</td>
+<td>Add id-attributes to &lt;label> and &lt;input> to the output (defaults to false)</td>
 </tr>
 <tr>
 <td>escape</td>
@@ -3536,7 +3536,7 @@ which item(s) are selected by default as well.</p>
 </li>
 <li>
 <p>All parameters that are not in the list above are printed as
-    name/value-pairs inside each of the created &lt;input&gt;-tags.</p>
+    name/value-pairs inside each of the created &lt;input>-tags.</p>
 </li>
 </ul>
 <h2 id="examples">Examples</h2>
@@ -3552,7 +3552,7 @@ which item(s) are selected by default as well.</p>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">);</span>
 </code></pre></div>
 <p>where template is</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">html_checkboxes</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;id&#39;</span> <span class="na">values</span><span class="o">=</span><span class="nv">$cust_ids</span> <span class="na">output</span><span class="o">=</span><span class="nv">$cust_names</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$customer_id</span>  <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">html_checkboxes</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;id&#39;</span> <span class="na">values</span><span class="o">=</span><span class="nv">$cust_ids</span> <span class="na">output</span><span class="o">=</span><span class="nv">$cust_names</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$customer_id</span>  <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>or where PHP code is:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">&lt;?php</span>
@@ -3569,7 +3569,7 @@ which item(s) are selected by default as well.</p>
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;customer_id&#39;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">);</span>
 </code></pre></div>
 <p>and the template is</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nf">html_checkboxes</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;id&#39;</span> <span class="na">options</span><span class="o">=</span><span class="nv">$cust_checkboxes</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$customer_id</span> <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nf">html_checkboxes</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;id&#39;</span> <span class="na">options</span><span class="o">=</span><span class="nv">$cust_checkboxes</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$customer_id</span> <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>both examples will output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;id[]&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;1000&quot;</span> <span class="p">/&gt;</span>Joe Schmoe<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
@@ -3588,7 +3588,7 @@ which item(s) are selected by default as well.</p>
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;contact&#39;</span><span class="p">,</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">(</span><span class="nv">$sql</span><span class="p">));</span>
 </code></pre></div>
 <p>The results of the database queries above would be output with.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{</span><span class="nf">html_checkboxes</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;contact_type_id&#39;</span> <span class="na">options</span><span class="o">=</span><span class="nv">$contact_types</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$contact.contact_type_id</span> <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{</span><span class="nf">html_checkboxes</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;contact_type_id&#39;</span> <span class="na">options</span><span class="o">=</span><span class="nv">$contact_types</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$contact.contact_type_id</span> <span class="na">separator</span><span class="o">=</span><span class="s1">&#39;&lt;br /&gt;&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>See also <a href="../language-function-html-radios/"><code>{html_radios}</code></a> and
 <a href="../language-function-html-options/"><code>{html_options}</code></a></p>

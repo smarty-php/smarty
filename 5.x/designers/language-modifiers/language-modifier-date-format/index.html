@@ -3503,7 +3503,7 @@ made up of month day year, parsable by php\'s
 the date passed to <code>date_format</code> is empty and a second parameter is
 passed, that will be used as the date to format.</p>
 <h2 id="basic-usage">Basic usage</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="s2">&quot;%Y-%m-%d&quot;</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="s2">&quot;%Y-%m-%d&quot;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <h2 id="parameters">Parameters</h2>
 <table>
@@ -3564,12 +3564,12 @@ These are: %D, %e, %h, %l, %n, %r, %R, %t, %T.</p>
 </code></pre></div>
 <p>This template uses <a href="../../language-variables/language-variables-smarty/#smartynow-languagevariablessmartynow"><code>$smarty.now</code></a> to
 get the current time:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nv">$smarty.now</span><span class="o">|</span><span class="na">date_format</span><span class="cp">}</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">{</span><span class="nv">$smarty.now</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="s2">&quot;%D&quot;</span><span class="cp">}</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">{</span><span class="nv">$smarty.now</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="nv">$config.date</span><span class="cp">}</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">{</span><span class="nv">$yesterday</span><span class="o">|</span><span class="na">date_format</span><span class="cp">}</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="cp">{</span><span class="nv">$yesterday</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="s2">&quot;%A, %B %e, %Y&quot;</span><span class="cp">}</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="cp">{</span><span class="nv">$yesterday</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="nv">$config.time</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nv">$smarty.now</span><span class="o">|</span><span class="na">date_format</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">{</span><span class="nv">$smarty.now</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="s2">&quot;%D&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">{</span><span class="nv">$smarty.now</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="nv">$config.date</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">{</span><span class="nv">$yesterday</span><span class="o">|</span><span class="na">date_format</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="cp">{</span><span class="nv">$yesterday</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="s2">&quot;%A, %B %e, %Y&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="cp">{</span><span class="nv">$yesterday</span><span class="o">|</span><span class="na">date_format</span><span class="o">:</span><span class="nv">$config.time</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>This above will output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Jan 1, 2022

@@ -3477,7 +3477,7 @@
 <h1 id="json_encode">json_encode</h1>
 <p>Transforms a value into a valid JSON string.</p>
 <h2 id="basic-usage">Basic usage</h2>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nv">$user</span><span class="o">|</span><span class="na">json_encode</span><span class="cp">}</span>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nv">$user</span><span class="o">|</span><span class="na">json_encode</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 Depending on the value of <code>$user</code> this would return a string in JSON-format, e.g. <code>{"username":"my_username","email":"my_username@smarty.net"}</code>.</p>
 <h2 id="parameters">Parameters</h2>
@@ -3503,7 +3503,7 @@ Depending on the value of <code>$user</code> this would return a string in JSON-
 <p>By passing <code>16</code> as the second parameter, you can force json_encode to always format the JSON-string as an object.
 Without it, an array <code>$myArray = ["a","b"]</code> would be formatted as a javascript array: </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nv">$myArray</span><span class="o">|</span><span class="na">json_encode</span><span class="cp">}</span><span class="x"> # renders: [&quot;a&quot;,&quot;b&quot;]</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">{</span><span class="nv">$myArray</span><span class="o">|</span><span class="na">json_encode</span><span class="o">:</span><span class="m">16</span><span class="cp">}</span><span class="x"> # renders: </span><span class="cp">{</span><span class="s2">&quot;0&quot;</span><span class="o">:</span><span class="s2">&quot;a&quot;</span><span class="o">,</span><span class="s2">&quot;1&quot;</span><span class="o">:</span><span class="s2">&quot;b&quot;</span><span class="cp">}</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">{</span><span class="nv">$myArray</span><span class="o">|</span><span class="na">json_encode</span><span class="o">:</span><span class="m">16</span><span class="cp">}</span><span class="x"> # renders: </span><span class="cp">{</span><span class="s2">&quot;0&quot;</span><span class="o">:</span><span class="s2">&quot;a&quot;</span><span class="o">,</span><span class="s2">&quot;1&quot;</span><span class="o">:</span><span class="s2">&quot;b&quot;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 
 

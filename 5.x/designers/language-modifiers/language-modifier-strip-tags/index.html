@@ -3477,7 +3477,7 @@
 <h1 id="strip_tags">strip_tags</h1>
 <p>This strips out HTML markup tags, basically anything between <code>&lt;</code> and <code>&gt;</code>.</p>
 <h2 id="basic-usage">Basic usage</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">strip_tags</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">strip_tags</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <h2 id="parameters">Parameters</h2>
 <table>
@@ -3509,9 +3509,9 @@
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>               <span class="p">);</span>
 </code></pre></div>
 <p>Where template is:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nv">$articleTitle</span><span class="cp">}</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">{</span><span class="nv">$articleTitle</span><span class="o">|</span><span class="na">strip_tags</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="c">* same as {$articleTitle|strip_tags:true} *</span><span class="cp">}</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">{</span><span class="nv">$articleTitle</span><span class="o">|</span><span class="na">strip_tags</span><span class="o">:</span><span class="kc">false</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nv">$articleTitle</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">{</span><span class="nv">$articleTitle</span><span class="o">|</span><span class="na">strip_tags</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="c">* same as {$articleTitle|strip_tags:true} *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">{</span><span class="nv">$articleTitle</span><span class="o">|</span><span class="na">strip_tags</span><span class="o">:</span><span class="kc">false</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>Will output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Blind Woman Gets <span class="p">&lt;</span><span class="nt">font</span> <span class="na">face</span><span class="o">=</span><span class="s">&quot;helvetica&quot;</span><span class="p">&gt;</span>New Kidney<span class="p">&lt;/</span><span class="nt">font</span><span class="p">&gt;</span> from Dad she Hasn&#39;t Seen in <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>years<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>.

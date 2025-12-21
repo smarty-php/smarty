@@ -3445,9 +3445,9 @@ the template engine. Every <code>{while}</code> must be paired with a matching
 <code>{/while}</code>. All <a href="../../language-basic-syntax/language-syntax-operators/">operators</a> are recognized, such as <em>==</em>,
 <em>||</em>, <em>or</em>, <em>&amp;&amp;</em>, <em>and</em>, etc and you can use modifiers as functions, such as <em>is_array()</em>.</p>
 <h2 id="examples">Examples</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nf">while</span> <span class="nv">$foo</span> <span class="o">&gt;</span> <span class="m">0</span><span class="cp">}</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="x">  </span><span class="cp">{</span><span class="nv">$foo</span><span class="o">--</span><span class="cp">}</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">{</span><span class="nf">/while</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nf">while</span> <span class="nv">$foo</span> <span class="o">&gt;</span> <span class="m">0</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="x">  </span><span class="cp">{</span><span class="nv">$foo</span><span class="o">--</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">{</span><span class="nf">/while</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>The above example will count down the value of $foo until 1 is reached.</p>
 <p>See also <a href="../language-function-foreach/"><code>{foreach}</code></a>,

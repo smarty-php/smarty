@@ -3557,8 +3557,8 @@ dumps an array of data into an HTML <code>&lt;table&gt;</code>.</p>
 <p>The variables assigned from php could be displayed as these three
 examples demonstrate. Each example shows the template followed by
 output.</p>
-<p>** Example 1 **
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">html_table</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$data</span><span class="cp">}</span>
+<p><strong> Example 1 </strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">html_table</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$data</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">table</span> <span class="na">border</span><span class="o">=</span><span class="s">&quot;1&quot;</span><span class="p">&gt;</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="p">&lt;</span><span class="nt">tbody</span><span class="p">&gt;</span>
@@ -3568,8 +3568,8 @@ output.</p>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
 <a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
 </code></pre></div></p>
-<p>** Example 2 **
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nf">html_table</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$data</span> <span class="na">cols</span><span class="o">=</span><span class="m">4</span> <span class="na">table_attr</span><span class="o">=</span><span class="s1">&#39;border=&quot;0&quot;&#39;</span><span class="cp">}</span>
+<p><strong> Example 2 </strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nf">html_table</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$data</span> <span class="na">cols</span><span class="o">=</span><span class="m">4</span> <span class="na">table_attr</span><span class="o">=</span><span class="s1">&#39;border=&quot;0&quot;&#39;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">table</span> <span class="na">border</span><span class="o">=</span><span class="s">&quot;0&quot;</span><span class="p">&gt;</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="p">&lt;</span><span class="nt">tbody</span><span class="p">&gt;</span>
@@ -3579,8 +3579,8 @@ output.</p>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
 </code></pre></div></p>
-<p>** Example 3 **
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">{</span><span class="nf">html_table</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$data</span> <span class="na">cols</span><span class="o">=</span><span class="s2">&quot;first,second,third,fourth&quot;</span> <span class="na">tr_attr</span><span class="o">=</span><span class="nv">$tr</span><span class="cp">}</span>
+<p><strong> Example 3 </strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">{</span><span class="nf">html_table</span> <span class="na">loop</span><span class="o">=</span><span class="nv">$data</span> <span class="na">cols</span><span class="o">=</span><span class="s2">&quot;first,second,third,fourth&quot;</span> <span class="na">tr_attr</span><span class="o">=</span><span class="nv">$tr</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">&lt;</span><span class="nt">table</span> <span class="na">border</span><span class="o">=</span><span class="s">&quot;1&quot;</span><span class="p">&gt;</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>

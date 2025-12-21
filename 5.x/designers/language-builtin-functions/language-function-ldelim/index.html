@@ -3388,7 +3388,7 @@ template delimiters, by default <strong>{</strong> and <strong>}</strong>. You c
 <a href="../language-function-literal/"><code>{literal}{/literal}</code></a> to escape blocks of
 text eg Javascript or CSS. See also the complementary
 <a href="../../language-basic-syntax/language-escaping/"><code>{$smarty.ldelim}</code></a>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="c">* this will print literal delimiters out of the template *</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="c">* this will print literal delimiters out of the template *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="cp">{</span><span class="nf">ldelim</span><span class="cp">}</span><span class="x">funcname</span><span class="cp">{</span><span class="nf">rdelim</span><span class="cp">}</span><span class="x"> is how functions look in Smarty!</span>
 </code></pre></div>
@@ -3397,22 +3397,22 @@ text eg Javascript or CSS. See also the complementary
 </code></pre></div>
 <p>Another example with some Javascript</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="x">&lt;script&gt;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="x">function foo() </span><span class="cp">{</span><span class="nf">ldelim</span><span class="cp">}</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="x">function foo() </span><span class="cp">{</span><span class="nf">ldelim</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="x">    ... code ...</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">{</span><span class="nf">rdelim</span><span class="cp">}</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">{</span><span class="nf">rdelim</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="x">&lt;/script&gt;</span>
 </code></pre></div>
 <p>will output</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="p">....</span><span class="w"> </span><span class="nx">code</span><span class="w"> </span><span class="p">...</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="p">....</span><span class="w"> </span><span class="nx">code</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span><span class="w"></span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="x">&lt;script&gt;</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="x">    function myJsFunction()</span><span class="cp">{</span><span class="nf">ldelim</span><span class="cp">}</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="x">    function myJsFunction()</span><span class="cp">{</span><span class="nf">ldelim</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="x">        alert(&quot;The server name\n</span><span class="cp">{</span><span class="nv">$smarty.server.SERVER_NAME</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="na">javascript</span><span class="cp">}</span><span class="x">\n</span><span class="cp">{</span><span class="nv">$smarty.server.SERVER_ADDR</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="na">javascript</span><span class="cp">}</span><span class="x">&quot;);</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="x">    </span><span class="cp">{</span><span class="nf">rdelim</span><span class="cp">}</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="x">    </span><span class="cp">{</span><span class="nf">rdelim</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="x">&lt;/script&gt;</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="x">&lt;a href=&quot;javascript:myJsFunction()&quot;&gt;Click here for Server Info&lt;/a&gt;</span>
 </code></pre></div>

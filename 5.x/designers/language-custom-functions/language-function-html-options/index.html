@@ -3536,7 +3536,7 @@ takes care of which item(s) are selected by default as well.</p>
 </code></pre></div>
 <p>The following template will generate a drop-down list. Note the presence
 of the <code>name</code> attribute which creates the <code>&lt;select&gt;</code> tags.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">html_options</span> <span class="na">name</span><span class="o">=</span><span class="na">foo</span> <span class="na">options</span><span class="o">=</span><span class="nv">$myOptions</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$mySelect</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">html_options</span> <span class="na">name</span><span class="o">=</span><span class="na">foo</span> <span class="na">options</span><span class="o">=</span><span class="nv">$myOptions</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$mySelect</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>Output of the above example would be:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;foo&quot;</span><span class="p">&gt;</span>
@@ -3557,7 +3557,7 @@ of the <code>name</code> attribute which creates the <code>&lt;select&gt;</code>
 use of the php <a href="https://www.php.net/function.count"><code>count()</code></a> function as a
 modifier to set the select size).</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="x">&lt;select name=&quot;customer_id&quot; size=&quot;</span><span class="cp">{</span><span class="nv">$cust_names</span><span class="o">|@</span><span class="na">count</span><span class="cp">}</span><span class="x">&quot;&gt;</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="x">   </span><span class="cp">{</span><span class="nf">html_options</span> <span class="na">values</span><span class="o">=</span><span class="nv">$cust_ids</span> <span class="na">output</span><span class="o">=</span><span class="nv">$cust_names</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$customer_id</span><span class="cp">}</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="x">   </span><span class="cp">{</span><span class="nf">html_options</span> <span class="na">values</span><span class="o">=</span><span class="nv">$cust_ids</span> <span class="na">output</span><span class="o">=</span><span class="nv">$cust_names</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$customer_id</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="x">&lt;/select&gt;</span>
 </code></pre></div>
 <p>The above example would output:</p>
@@ -3580,7 +3580,7 @@ modifier to set the select size).</p>
 <a href="../../language-modifiers/language-modifier-truncate/"><code>truncate</code></a> modifier.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="x">&lt;select name=&quot;type_id&quot;&gt;</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="x">    &lt;option value=&#39;null&#39;&gt;-- none --&lt;/option&gt;</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="x">    </span><span class="cp">{</span><span class="nf">html_options</span> <span class="na">options</span><span class="o">=</span><span class="nv">$contact_types</span><span class="o">|</span><span class="na">truncate</span><span class="o">:</span><span class="m">20</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$contact.type_id</span><span class="cp">}</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="x">    </span><span class="cp">{</span><span class="nf">html_options</span> <span class="na">options</span><span class="o">=</span><span class="nv">$contact_types</span><span class="o">|</span><span class="na">truncate</span><span class="o">:</span><span class="m">20</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$contact.type_id</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="x">&lt;/select&gt;</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="cp">&lt;?php</span>
@@ -3590,7 +3590,7 @@ modifier to set the select size).</p>
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;fav&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
 </code></pre></div>
 <p>The script above and the following template</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">{</span><span class="nf">html_options</span> <span class="na">name</span><span class="o">=</span><span class="na">foo</span> <span class="na">options</span><span class="o">=</span><span class="nv">$lookups</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$fav</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">{</span><span class="nf">html_options</span> <span class="na">name</span><span class="o">=</span><span class="na">foo</span> <span class="na">options</span><span class="o">=</span><span class="nv">$lookups</span> <span class="na">selected</span><span class="o">=</span><span class="nv">$fav</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>would output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;foo&quot;</span><span class="p">&gt;</span>

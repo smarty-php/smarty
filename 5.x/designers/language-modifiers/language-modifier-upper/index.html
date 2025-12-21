@@ -3460,15 +3460,15 @@
 <p>This is used to uppercase a variable. This is equivalent to the PHP
 <a href="https://www.php.net/strtoupper"><code>strtoupper()</code></a> function.</p>
 <h2 id="basic-usage">Basic usage</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">upper</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">|</span><span class="na">upper</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <h2 id="examples">Examples</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;articleTitle&#39;</span><span class="p">,</span> <span class="s2">&quot;If Strike isn&#39;t Settled Quickly it may Last a While.&quot;</span><span class="p">);</span>
 </code></pre></div>
 <p>Where template is:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nv">$articleTitle</span><span class="cp">}</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">{</span><span class="nv">$articleTitle</span><span class="o">|</span><span class="na">upper</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nv">$articleTitle</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">{</span><span class="nv">$articleTitle</span><span class="o">|</span><span class="na">upper</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>Will output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>If Strike isn&#39;t Settled Quickly it may Last a While.

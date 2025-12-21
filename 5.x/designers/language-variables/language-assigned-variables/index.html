@@ -3509,9 +3509,9 @@
 <p><code>index.tpl</code> source:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="x">Hello </span><span class="cp">{</span><span class="nv">$firstname</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="nv">$lastname</span><span class="cp">}</span><span class="x">, glad to see you can make it.</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="x">&lt;br /&gt;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">{</span><span class="c">* this will not work as $variables are case sensitive *</span><span class="cp">}</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">{</span><span class="c">* this will not work as $variables are case sensitive *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="x">This weeks meeting is in </span><span class="cp">{</span><span class="nv">$meetingplace</span><span class="cp">}</span><span class="x">.</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cp">{</span><span class="c">* this will work *</span><span class="cp">}</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cp">{</span><span class="c">* this will work *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="x">This weeks meeting is in </span><span class="cp">{</span><span class="nv">$meetingPlace</span><span class="cp">}</span><span class="x">.</span>
 </code></pre></div>
 <p>This above would output:</p>
@@ -3536,7 +3536,7 @@ after a dot "." symbol.</p>
 <p><code>index.tpl</code> source:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">{</span><span class="nv">$Contacts.fax</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">{</span><span class="nv">$Contacts.email</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">{</span><span class="c">* you can print arrays of arrays as well *</span><span class="cp">}</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">{</span><span class="c">* you can print arrays of arrays as well *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="cp">{</span><span class="nv">$Contacts.phone.home</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="cp">{</span><span class="nv">$Contacts.phone.cell</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 </code></pre></div>
@@ -3560,7 +3560,7 @@ after a dot "." symbol.</p>
 <p><code>index.tpl</code> source:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">{</span><span class="nv">$Contacts</span><span class="o">[</span><span class="m">0</span><span class="o">]</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="cp">{</span><span class="nv">$Contacts</span><span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="cp">{</span><span class="c">* you can print arrays of arrays as well *</span><span class="cp">}</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="cp">{</span><span class="c">* you can print arrays of arrays as well *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="cp">{</span><span class="nv">$Contacts</span><span class="o">[</span><span class="m">2</span><span class="o">][</span><span class="m">0</span><span class="o">]</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="cp">{</span><span class="nv">$Contacts</span><span class="o">[</span><span class="m">2</span><span class="o">][</span><span class="m">1</span><span class="o">]</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 </code></pre></div>

@@ -3478,7 +3478,7 @@
 <p>Allows you to format a number using decimals and a thousands-separator. By default, the number of decimals is 0 
 and the number is rounded.</p>
 <h2 id="basic-usage">Basic usage</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nv">$num</span>  <span class="o">=</span> <span class="m">2000.151</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nv">$num</span>  <span class="o">=</span> <span class="m">2000.151</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">{</span><span class="nv">$num</span><span class="o">|</span><span class="na">number_format</span><span class="cp">}</span><span class="x"> # renders: 2,000</span>
 </code></pre></div>
 <h2 id="parameters">Parameters</h2>
@@ -3513,10 +3513,10 @@ and the number is rounded.</p>
 </tbody>
 </table>
 <h2 id="examples">Examples</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nv">$num</span>  <span class="o">=</span> <span class="m">2000.151</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nv">$num</span>  <span class="o">=</span> <span class="m">2000.151</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">{</span><span class="nv">$num</span><span class="o">|</span><span class="na">number_format</span><span class="o">:</span><span class="m">2</span><span class="cp">}</span><span class="x"> # renders: 2,000.15</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nv">$num</span>  <span class="o">=</span> <span class="m">2000.151</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nv">$num</span>  <span class="o">=</span> <span class="m">2000.151</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">{</span><span class="nv">$num</span><span class="o">|</span><span class="na">number_format</span><span class="o">:</span><span class="m">2</span><span class="o">:</span><span class="s2">&quot;.&quot;</span><span class="o">:</span><span class="s2">&quot;&quot;</span><span class="cp">}</span><span class="x"> # renders: 2000.15</span>
 </code></pre></div>
 

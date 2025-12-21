@@ -3509,7 +3509,7 @@ name/value-pairs inside the <code>&lt;select&gt;</code> tags of day, month and y
 <tr>
 <td>month_names</td>
 <td></td>
-<td>List of strings to display for months. array(1 =&gt; 'Jan', ..., 12 =&gt; 'Dec')</td>
+<td>List of strings to display for months. array(1 => 'Jan', ..., 12 => 'Dec')</td>
 </tr>
 <tr>
 <td>month_format</td>
@@ -3640,7 +3640,7 @@ for converting <code>{html_select_date}</code> form values to a timestamp.</p>
 </blockquote>
 <h2 id="exaples">Exaples</h2>
 <p>Template code</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nf">html_select_date</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">{</span><span class="nf">html_select_date</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>This will output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;Date_Month&quot;</span><span class="p">&gt;</span>
@@ -3671,9 +3671,9 @@ for converting <code>{html_select_date}</code> form values to a timestamp.</p>
 <a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;2006&quot;</span> <span class="na">selected</span><span class="o">=</span><span class="s">&quot;selected&quot;</span><span class="p">&gt;</span>2006<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
 <a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="c">* start and end year can be relative to current year *</span><span class="cp">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="c">* start and end year can be relative to current year *</span><span class="cp">}</span><span class="x"></span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">{</span><span class="nf">html_select_date</span> <span class="na">prefix</span><span class="o">=</span><span class="s1">&#39;StartDate&#39;</span> <span class="na">time</span><span class="o">=</span><span class="nv">$time</span> <span class="na">start_year</span><span class="o">=</span><span class="s1">&#39;-5&#39;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>       <span class="na">end_year</span><span class="o">=</span><span class="s1">&#39;+1&#39;</span> <span class="na">display_days</span><span class="o">=</span><span class="kc">false</span><span class="cp">}</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>       <span class="na">end_year</span><span class="o">=</span><span class="s1">&#39;+1&#39;</span> <span class="na">display_days</span><span class="o">=</span><span class="kc">false</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 <p>With 2000 as the current year the output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;StartDateMonth&quot;</span><span class="p">&gt;</span>
