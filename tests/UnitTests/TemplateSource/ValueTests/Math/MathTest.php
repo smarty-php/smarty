@@ -135,7 +135,13 @@ class MathTest extends PHPUnit_Smarty
 
     public function testBackticksIllegal()
     {
-        $this->expectException(PHPUnit\Framework\Error\Warning::class);
+        // In newer PHPUnit versions, we need a different approach for catching warnings
+        if (class_exists('PHPUnit\Framework\Error\Warning')) {
+            $this->expectException(\PHPUnit\Framework\Error\Warning::class);
+        } else {
+            $this->expectWarning(); // Use this for PHPUnit 9+
+        }
+        
         $expected = "22.00";
         $tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="`ls` x * y" x=$x y=$y}');
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
@@ -143,7 +149,13 @@ class MathTest extends PHPUnit_Smarty
 
     public function testDollarSignsIllegal()
     {
-        $this->expectException(PHPUnit\Framework\Error\Warning::class);
+        // In newer PHPUnit versions, we need a different approach for catching warnings
+        if (class_exists('PHPUnit\Framework\Error\Warning')) {
+            $this->expectException(\PHPUnit\Framework\Error\Warning::class);
+        } else {
+            $this->expectWarning(); // Use this for PHPUnit 9+
+        }
+        
         $expected = "22.00";
         $tpl = $this->smarty->createTemplate('eval:{$x = "4"}{$y = "5.5"}{math equation="$" x=$x y=$y}');
         $this->assertEquals($expected, $this->smarty->fetch($tpl));
@@ -151,7 +163,13 @@ class MathTest extends PHPUnit_Smarty
 
     public function testBracketsIllegal()
     {
-        $this->expectException(PHPUnit\Framework\Error\Warning::class);
+        // In newer PHPUnit versions, we need a different approach for catching warnings
+        if (class_exists('PHPUnit\Framework\Error\Warning')) {
+            $this->expectException(\PHPUnit\Framework\Error\Warning::class);
+        } else {
+            $this->expectWarning(); // Use this for PHPUnit 9+
+        }
+        
         $expected = "I";
         $tpl = $this->smarty->createTemplate('eval:{$x = "0"}{$y = "1"}{math equation="((y/x).(x))[x]" x=$x y=$y}');
         $this->assertEquals($expected, $this->smarty->fetch($tpl));

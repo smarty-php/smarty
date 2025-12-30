@@ -1,0 +1,154 @@
+PHPUnit Started (PHPUnit 12.1.4 using PHP 8.4.6 (cli) on WINNT)
+Test Runner Triggered Deprecation (Your XML configuration validates against a deprecated schema. Migrate your XML configuration using "--migrate-configuration"!)
+Test Runner Configured
+Bootstrap Finished (C:\PHP\smarty\tests/Bootstrap.php)
+Event Facade Sealed
+Test Suite Loaded (22 tests)
+Test Runner Started
+Test Suite Sorted
+Test Runner Execution Started (22 tests)
+Test Suite Started (CLI Arguments, 22 tests)
+Test Suite Started (CacheResourceCustomMemcacheTest, 22 tests)
+Before First Test Method Called (CacheResourceCustomMemcacheTest::setUpBeforeClass)
+Before First Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUpBeforeClass
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheAllCacheIdCompileId)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheAllCacheIdCompileId)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId2)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId2)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId2Sub)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId2Sub)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId3)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId3)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId3Sub)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId3Sub)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId4)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId4)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId4Sub)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId4Sub)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId5)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId5)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId5Sub)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheIdCompileId5Sub)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheFile)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheFile)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheExpired)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheExpired)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testClearCacheCacheFileSub)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testClearCacheCacheFileSub)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testCache)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testCache)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testCachingDisabled1)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testCachingDisabled1)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testCachingDisabled2)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testCachingDisabled2)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testCachingTemplateDir)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testCachingTemplateDir)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testInit)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testInit)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testGetCachedFilepathSubDirs)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testGetCachedFilepathSubDirs)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testGetCachedFilepathCacheId)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testGetCachedFilepathCacheId)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testGetCachedFilepathCompileId)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testGetCachedFilepathCompileId)
+Memcache not available
+Test Preparation Started (CacheResourceCustomMemcacheTest::testGetCachedFilepathCacheIdCompileId)
+Before Test Method Called (CacheResourceCustomMemcacheTest::setUp)
+Before Test Method Finished:
+- CacheResourceCustomMemcacheTest::setUp
+Test Skipped (CacheResourceCustomMemcacheTest::testGetCachedFilepathCacheIdCompileId)
+Memcache not available
+After Last Test Method Called (CacheResourceCustomMemcacheTest::tearDownAfterClass)
+After Last Test Method Finished:
+- CacheResourceCustomMemcacheTest::tearDownAfterClass
+Test Suite Finished (CacheResourceCustomMemcacheTest, 22 tests)
+Test Suite Finished (CLI Arguments, 22 tests)
+Test Runner Execution Finished
+Test Runner Finished
+PHPUnit Finished (Shell Exit Code: 0)
