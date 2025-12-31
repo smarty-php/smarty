@@ -24,5 +24,5 @@ Pass in the `name` of the CacheResource.
 
        
 
-See also [`registerCacheResource()`](#api.register.cacheresource) and
+See also [`registerCacheResource()`](../../programmers/api-functions/api-register-cacheresource.md) and
 the [Custom CacheResource Implementation](#caching.custom) section.

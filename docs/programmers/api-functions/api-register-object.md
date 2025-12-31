@@ -40,5 +40,5 @@ block\_methods
 See the [objects section](#advanced.features.objects) for more
 information.
 
-See also [`getRegisteredObject()`](#api.get.registered.object), and
-[`unregisterObject()`](#api.unregister.object).
+See also [`getRegisteredObject()`](../../programmers/api-functions/api-get-registered-object.md), and
+[`unregisterObject()`](../../programmers/api-functions/api-unregister-object.md).

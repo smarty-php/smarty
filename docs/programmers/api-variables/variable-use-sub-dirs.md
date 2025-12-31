@@ -26,6 +26,6 @@ almost nothing.
 >
 > -   Safe\_mode is being deprecated in PHP6.
 >
-See also [`$compile_id`](#variable.compile.id),
+See also [`$compile_id`](../api-variables/variable-compile-id.md),
 [`$cache_dir`](#variable.cache.dir), and
 [`$compile_dir`](#variable.compile.dir).

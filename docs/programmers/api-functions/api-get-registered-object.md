@@ -14,7 +14,7 @@ string
 object\_name
 
 This is useful from within a custom function when you need direct access
-to a [registered object](#api.register.object). See the
+to a [registered object](../../programmers/api-functions/api-register-object.md). See the
 [objects](#advanced.features.objects) page for more info.
 
 
@@ -31,6 +31,6 @@ to a [registered object](#api.register.object). See the
 
        
 
-See also [`registerObject()`](#api.register.object),
-[`unregisterObject()`](#api.unregister.object) and [objects
+See also [`registerObject()`](../../programmers/api-functions/api-register-object.md),
+[`unregisterObject()`](../../programmers/api-functions/api-unregister-object.md) and [objects
 page](#advanced.features.objects)
