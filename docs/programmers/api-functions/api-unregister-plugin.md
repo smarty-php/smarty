@@ -18,7 +18,7 @@ string
 name
 
 This method unregisters plugins which previously have been registered by
-[registerPlugin()](#api.register.plugin), It uses the following
+[registerPlugin()](../../programmers/api-functions/api-register-plugin.md), It uses the following
 parameters:
 
 <!-- -->
@@ -33,4 +33,4 @@ parameters:
 
        
 
-See also [`registerPlugin()`](#api.register.plugin).
+See also [`registerPlugin()`](../../programmers/api-functions/api-register-plugin.md).

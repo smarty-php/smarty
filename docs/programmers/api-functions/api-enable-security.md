@@ -37,5 +37,5 @@ parameters:
 For the details how to setup a security policy see the
 [Security](#advanced.features.security) section.
 
-See also [`disableSecurity()`](#api.disable.security), and
+See also [`disableSecurity()`](../../programmers/api-functions/api-disable-security.md), and
 [Security](#advanced.features.security).

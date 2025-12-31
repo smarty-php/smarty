@@ -48,5 +48,5 @@ be used to control which variables are seen by which templates.
 
         
 
-See also [`display()`](#api.display), and
+See also [`display()`](../../programmers/api-functions/api-display.md), and
 [`createTemplate()`](#api.create.template),
