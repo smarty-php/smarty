@@ -61,6 +61,8 @@ class CompileStripTest extends PHPUnit_Smarty
                            '<ul><li><a href="#">BlaBla</a></li><li><a href="#">BlaBla</a></li></ul>', '', $i ++),
                      array("\n            <textarea>\n\n                some text\n\n            </textarea>   foo\n    bar\n",
                            "<textarea>\n\n                some text\n\n            </textarea>   foobar", '', $i ++),
+                     array("<a\n       href=\"{'genLink'}\"\n    target=\"_blank\">link-text</a>", '<a href="genLink" target="_blank">link-text</a>', '', $i ++),
+                     array("<span\nonclick=\"fn({'param'});\"\nclass=\"c\">text</span>", '<span onclick="fn(param);" class="c">text</span>', '', $i ++),
                      // variable in html tag
                      array("\n    <b><c>c</c></b>\n", '<b><c>c</c></b>', '', $i ++),
                      array("\n    <b> <c>c</c></b>\n", '<b> <c>c</c></b>', '', $i ++),
