@@ -127,8 +127,6 @@ class File extends Base
                 && (!function_exists('ini_get') || strlen(ini_get('opcache.restrict_api'))) < 1
             ) {
                 opcache_invalidate($_template->getCached()->filepath, true);
-            } elseif (function_exists('apc_compile_file')) {
-                apc_compile_file($_template->getCached()->filepath);
             }
             $cached = $_template->getCached();
             $cached->timestamp = $cached->exists = is_file($cached->filepath);
@@ -279,8 +277,6 @@ class File extends Base
 						    && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
 					    ) {
 						    opcache_invalidate($_filepath, true);
-					    } elseif (function_exists('apc_delete_file')) {
-						    apc_delete_file($_filepath);
 					    }
 				    }
 			    }
