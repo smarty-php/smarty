@@ -291,7 +291,7 @@ KEY `name` (`name`)
             }
             // directory ?
             if ($file->isDir()) {
-                if (!$ri->isDot()) {
+                if (!$file->isDot()) {
                     // delete folder if empty
                     @rmdir($file->getPathname());
                 }

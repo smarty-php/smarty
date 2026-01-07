@@ -223,7 +223,7 @@ class File extends Base
 			    $_filepath = (string)$_file;
 			    // directory ?
 			    if ($_file->isDir()) {
-				    if (!$_cache->isDot()) {
+				    if (!$_file->isDot()) {
 					    // delete folder if empty
 					    @rmdir($_file->getPathname());
 				    }
