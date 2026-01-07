@@ -1344,10 +1344,8 @@ class Smarty extends \Smarty\TemplateBase {
 			}
 			$_filepath = (string)$_file;
 			if ($_file->isDir()) {
-				if (!$_file->isDot()) {
-					// delete folder if empty
-					@rmdir($_file->getPathname());
-				}
+				// delete folder if empty
+				@rmdir($_file->getPathname());
 			} else {
 				// delete only php files
 				if (substr($_filepath, -4) !== '.php') {
