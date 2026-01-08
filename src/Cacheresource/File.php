@@ -127,8 +127,6 @@ class File extends Base
                 && (!function_exists('ini_get') || strlen(ini_get('opcache.restrict_api'))) < 1
             ) {
                 opcache_invalidate($_template->getCached()->filepath, true);
-            } elseif (function_exists('apc_compile_file')) {
-                apc_compile_file($_template->getCached()->filepath);
             }
             $cached = $_template->getCached();
             $cached->timestamp = $cached->exists = is_file($cached->filepath);
@@ -223,10 +221,8 @@ class File extends Base
 			    $_filepath = (string)$_file;
 			    // directory ?
 			    if ($_file->isDir()) {
-				    if (!$_cache->isDot()) {
-					    // delete folder if empty
-					    @rmdir($_file->getPathname());
-				    }
+                    // delete folder if empty
+                    @rmdir($_file->getPathname());
 			    } else {
 				    // delete only php files
 				    if (substr($_filepath, -4) !== '.php') {
@@ -279,8 +275,6 @@ class File extends Base
 						    && (!function_exists('ini_get') || strlen(ini_get("opcache.restrict_api")) < 1)
 					    ) {
 						    opcache_invalidate($_filepath, true);
-					    } elseif (function_exists('apc_delete_file')) {
-						    apc_delete_file($_filepath);
 					    }
 				    }
 			    }
