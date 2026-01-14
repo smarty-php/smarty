@@ -103,7 +103,7 @@ In the template, use `ss` to strip slashes.
     {$var|ss}
     ?>
 
-See also [`unregisterPlugin()`](#api.unregister.plugin), [plugin
+See also [`unregisterPlugin()`](../../programmers/api-functions/api-unregister-plugin.md), [plugin
 functions](#plugins.functions), [plugin block
 functions](#plugins.block.functions), [plugin compiler
 functions](#plugins.compiler.functions), and the [creating plugin
