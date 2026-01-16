@@ -45,8 +45,9 @@ class SpecialVariableCompiler extends Base {
 		if ($variable === false) {
 			$compiler->trigger_template_error("special \$Smarty variable name index can not be variable", null, true);
 		}
-		if (!isset($compiler->getSmarty()->security_policy)
-			|| $compiler->getSmarty()->security_policy->isTrustedSpecialSmartyVar($variable, $compiler)
+		$securityPolicy = $compiler->getSmarty()->getSecurityPolicy();
+		if ($securityPolicy === null
+			|| $securityPolicy->isTrustedSpecialSmartyVar($variable, $compiler)
 		) {
 			switch ($variable) {
 				case 'foreach':
@@ -58,8 +59,8 @@ class SpecialVariableCompiler extends Base {
 				case 'now':
 					return 'time()';
 				case 'cookies':
-					if (isset($compiler->getSmarty()->security_policy)
-						&& !$compiler->getSmarty()->security_policy->allow_super_globals
+					if ($securityPolicy !== null
+						&& !$securityPolicy->allow_super_globals
 					) {
 						$compiler->trigger_template_error("(secure mode) super globals not permitted");
 						break;
@@ -72,8 +73,8 @@ class SpecialVariableCompiler extends Base {
 				case 'server':
 				case 'session':
 				case 'request':
-					if (isset($compiler->getSmarty()->security_policy)
-						&& !$compiler->getSmarty()->security_policy->allow_super_globals
+					if ($securityPolicy !== null
+						&& !$securityPolicy->allow_super_globals
 					) {
 						$compiler->trigger_template_error("(secure mode) super globals not permitted");
 						break;
@@ -83,7 +84,7 @@ class SpecialVariableCompiler extends Base {
 				case 'template':
 					return '$_smarty_tpl->template_resource';
 				case 'template_object':
-					if (isset($compiler->getSmarty()->security_policy)) {
+					if ($securityPolicy !== null) {
 						$compiler->trigger_template_error("(secure mode) template_object not permitted");
 						break;
 					}
@@ -93,8 +94,8 @@ class SpecialVariableCompiler extends Base {
 				case 'version':
 					return "\\Smarty\\Smarty::SMARTY_VERSION";
 				case 'const':
-					if (isset($compiler->getSmarty()->security_policy)
-						&& !$compiler->getSmarty()->security_policy->allow_constants
+					if ($securityPolicy !== null
+						&& !$securityPolicy->allow_constants
 					) {
 						$compiler->trigger_template_error("(secure mode) constants not permitted");
 						break;

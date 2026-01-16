@@ -508,7 +508,7 @@ class Security {
 	 */
 	public static function enableSecurity(Smarty $smarty, $security_class) {
 		if ($security_class instanceof Security) {
-			$smarty->security_policy = $security_class;
+			$smarty->setSecurityPolicy($security_class);
 			return $smarty;
 		} elseif (is_object($security_class)) {
 			throw new Exception("Class '" . get_class($security_class) . "' must extend \\Smarty\\Security.");
@@ -521,7 +521,7 @@ class Security {
 		} elseif ($security_class !== Security::class && !is_subclass_of($security_class, Security::class)) {
 			throw new Exception("Class '$security_class' must extend " . Security::class . ".");
 		} else {
-			$smarty->security_policy = new $security_class($smarty);
+			$smarty->setSecurityPolicy(new $security_class($smarty));
 		}
 		return $smarty;
 	}

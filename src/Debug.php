@@ -195,7 +195,7 @@ class Debug extends Data
         // copy the working dirs from application
         $debObj->setCompileDir($smarty->getCompileDir());
         $debObj->compile_check = Smarty::COMPILECHECK_ON;
-        $debObj->security_policy = null;
+        $debObj->setSecurityPolicy(null);
         $debObj->debugging = false;
         $debObj->debugging_ctrl = 'NONE';
         $debObj->error_reporting = E_ALL & ~E_NOTICE;

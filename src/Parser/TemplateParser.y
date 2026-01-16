@@ -164,7 +164,7 @@ class TemplateParser
         $this->compiler = $compiler;
         $this->template = $this->compiler->getTemplate();
         $this->smarty = $this->template->getSmarty();
-        $this->security = $this->smarty->security_policy ?? false;
+        $this->security = $this->smarty->getSecurityPolicy() ?? false;
         $this->current_buffer = $this->root_buffer = new TemplateParseTree();
     }
 

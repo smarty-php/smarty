@@ -246,9 +246,9 @@ class Smarty extends \Smarty\TemplateBase {
 	/**
 	 * implementation of security class
 	 *
-	 * @var \Smarty\Security
+	 * @var \Smarty\Security|null
 	 */
-	public $security_policy = null;
+	private $security_policy = null;
 
 	/**
 	 * debug mode
@@ -594,8 +594,29 @@ class Smarty extends \Smarty\TemplateBase {
 	 * @return static current Smarty instance for chaining
 	 */
 	public function disableSecurity() {
-		$this->security_policy = null;
+		$this->setSecurityPolicy(null);
 		return $this;
+	}
+
+	/**
+	 * Set security policy
+	 *
+	 * @param \Smarty\Security|null $policy Security policy instance or null to disable
+	 *
+	 * @return static current Smarty instance for chaining
+	 */
+	public function setSecurityPolicy(?\Smarty\Security $policy) {
+		$this->security_policy = $policy;
+		return $this;
+	}
+
+	/**
+	 * Get security policy
+	 *
+	 * @return \Smarty\Security|null Current security policy instance or null if disabled
+	 */
+	public function getSecurityPolicy(): ?\Smarty\Security {
+		return $this->security_policy;
 	}
 
 	/**
@@ -2229,6 +2250,58 @@ class Smarty extends \Smarty\TemplateBase {
 	 */
 	public function setCacheModifiedCheck($cache_modified_check): void {
 		$this->cache_modified_check = (bool) $cache_modified_check;
+	}
+
+	/**
+	 * Backward compatibility for security_policy property access
+	 *
+	 * @param string $name Property name
+	 *
+	 * @return mixed Property value
+	 */
+	public function __get($name) {
+		if ($name === 'security_policy') {
+			return $this->getSecurityPolicy();
+		}
+		trigger_error('Undefined property: ' . static::class . '::$' . $name, E_USER_NOTICE);
+		return null;
+	}
+
+	/**
+	 * Backward compatibility for security_policy property access with type validation
+	 *
+	 * @param string $name Property name
+	 * @param mixed $value Property value
+	 *
+	 * @return void
+	 * @throws \Smarty\Exception if security_policy value is invalid
+	 */
+	public function __set($name, $value) {
+		if ($name === 'security_policy') {
+			if ($value !== null && !($value instanceof \Smarty\Security)) {
+				$given = is_object($value) ? get_class($value) : gettype($value);
+				throw new \Smarty\Exception(
+					'security_policy must be null or \Smarty\Security, ' . $given . ' given'
+				);
+			}
+			$this->setSecurityPolicy($value);
+			return;
+		}
+		$this->$name = $value;
+	}
+
+	/**
+	 * Check if property is set
+	 *
+	 * @param string $name Property name
+	 *
+	 * @return bool
+	 */
+	public function __isset($name) {
+		if ($name === 'security_policy') {
+			return $this->getSecurityPolicy() !== null;
+		}
+		return isset($this->$name);
 	}
 
 }
