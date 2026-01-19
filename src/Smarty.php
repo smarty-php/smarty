@@ -2253,22 +2253,7 @@ class Smarty extends \Smarty\TemplateBase {
 	}
 
 	/**
-	 * Backward compatibility for security_policy property access
-	 *
-	 * @param string $name Property name
-	 *
-	 * @return mixed Property value
-	 */
-	public function __get($name) {
-		if ($name === 'security_policy') {
-			return $this->getSecurityPolicy();
-		}
-		trigger_error('Undefined property: ' . static::class . '::$' . $name, E_USER_NOTICE);
-		return null;
-	}
-
-	/**
-	 * Backward compatibility for security_policy property access with type validation
+	 * Backward compatibility for security_policy property assignment with type validation
 	 *
 	 * @param string $name Property name
 	 * @param mixed $value Property value
@@ -2288,20 +2273,6 @@ class Smarty extends \Smarty\TemplateBase {
 			return;
 		}
 		$this->$name = $value;
-	}
-
-	/**
-	 * Check if property is set
-	 *
-	 * @param string $name Property name
-	 *
-	 * @return bool
-	 */
-	public function __isset($name) {
-		if ($name === 'security_policy') {
-			return $this->getSecurityPolicy() !== null;
-		}
-		return isset($this->$name);
 	}
 
 }
