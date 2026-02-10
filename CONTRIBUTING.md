@@ -115,5 +115,7 @@ If you are a maintainer, you can publish the document using [mike](https://githu
 mike deploy 5.x
 ```
 
+Then, push the `gh-pages` branch.
+
 ## Attribution
 This guide is based on the **contributing.md**. [Make your own](https://contributing.md/)!

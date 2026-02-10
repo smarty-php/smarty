@@ -1062,12 +1062,22 @@ object(res)    ::= varindexed(vi) objectchain(oc). {
     }
 }
 
+                    // optional objectchain - empty
+optobjectchain(res) ::= . {
+    res = '';
+}
+
+                    // optional objectchain - present
+optobjectchain(res) ::= objectchain(oc). {
+    res = oc;
+}
+
                     // single element
 objectchain(res) ::= objectelement(oe). {
     res  = oe;
 }
 
-                    // chain of elements 
+                    // chain of elements
 objectchain(res) ::= objectchain(oc) objectelement(oe). {
     res  = oc.oe;
 }
@@ -1111,7 +1121,7 @@ objectelement(res)::= PTR method(f).  {
 //
 // function
 //
-function(res)     ::= ns1(f) OPENP variablelist(v) CLOSEP. {
+function(res)     ::= ns1(f) OPENP variablelist(v) CLOSEP optobjectchain(oc). {
 
     if (f == 'isset') {
         res = '(true';
@@ -1125,15 +1135,15 @@ function(res)     ::= ns1(f) OPENP variablelist(v) CLOSEP. {
                 res .= ' && (' . $value . ' !== null)';
             }
         }
-        res .= ')';
+        res .= ')' . oc;
     } elseif (f == 'empty') {
         if (count(v) != 1) {
             throw new CompilerException("Invalid number of arguments for empty. empty expects at exactly one parameter.");
         }
         if (is_array(v[0])) {
-            res .= '( !' . v[0][0] . ' || empty(' . v[0][1] . '))';
+            res = '( !' . v[0][0] . ' || empty(' . v[0][1] . '))' . oc;
         } else {
-            res = 'false == ' . v[0];
+            res = 'false == ' . v[0] . oc;
         }
     } else {
         $p = array();
@@ -1144,7 +1154,7 @@ function(res)     ::= ns1(f) OPENP variablelist(v) CLOSEP. {
                 $p[] = $value;
             }
         }
-        res = $this->compiler->compileModifierInExpression(f, $p);
+        res = $this->compiler->compileModifierInExpression(f, $p) . oc;
     }
 }
 
