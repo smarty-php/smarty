@@ -64,6 +64,21 @@ class StaticClassAccessTest extends PHPUnit_Smarty
         $this->assertEquals('3', $this->smarty->fetch($tpl));
     }
 
+	/**
+	 * test static class constant chain
+	 */
+	public function testRegisteredBackedEnum()
+	{
+		if (PHP_VERSION_ID < 80100) {
+			$this->markTestSkipped('Enums only available after PHP >= 8.1');
+			return;
+		} else {
+			$this->smarty->registerClass('RegisteredBackedEnum', MyBackedEnum::class);
+			$tpl = $this->smarty->createTemplate('eval:{RegisteredBackedEnum::A->value}');
+			$this->assertEquals('3', $this->smarty->fetch($tpl));
+		}
+	}
+
     /**
      * test static class method
      */
@@ -133,4 +148,8 @@ class mystaticclass
     {
         return $i * $i;
     }
+}
+
+if (PHP_VERSION_ID >= 80100) {
+	eval('enum MyBackedEnum: int { case A = 3; }');
 }

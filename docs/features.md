@@ -22,6 +22,8 @@ Some of Smarty's features:
 -   [Template Inheritance](api/inheritance.md) for
     easy management of template content.
 -   [Plugin](api/extending/introduction.md) architecture
+-   Regex pattern matching with the [`matches`](designers/language-basic-syntax/language-syntax-operators.md#regex-matching-operator) operator
+-   Support for PHP 8.1+ [backed enums](designers/language-variables/language-assigned-variables.md#backed-enums-php-81)
 
 ## Separation of presentation from application code
 -   This means templates can certainly contain logic under the condition
