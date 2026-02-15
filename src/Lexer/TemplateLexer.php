@@ -160,6 +160,7 @@ class TemplateLexer
                                                'LOGOP'       => '"<", "==" ... logical operator',
                                                'TLOGOP'      => '"lt", "eq" ... logical operator; "is div by" ... if condition',
                                                'SCOND'       => '"is even" ... if condition',
+                                               'MATCHES'     => '"matches" regex operator',
     );
 
     /**
@@ -567,7 +568,7 @@ class TemplateLexer
     public function yylex3()
     {
         if (!isset($this->yy_global_pattern3)) {
-            $this->yy_global_pattern3 = $this->replace("/\G(\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal)|\G([\"])|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(\\s+is\\s+(not\\s+)?in\\s+)|\G(\\s+as\\s+)|\G(\\s+to\\s+)|\G(\\s+step\\s+)|\G(\\s+instanceof\\s+)|\G(\\s*([!=][=]{1,2}|[<][=>]?|[>][=]?|[&|]{2})\\s*)|\G(\\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor)\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even|div)\\s+by\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even))|\G([!]\\s*|not\\s+)|\G([(](int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)[)]\\s*)|\G(\\s*[(]\\s*)|\G(\\s*[)])|\G(\\[\\s*)|\G(\\s*\\])|\G(\\s*[-][>]\\s*)|\G(\\s*[=][>]\\s*)|\G(\\s*[=]\\s*)|\G(([+]|[-]){2})|\G(\\s*([+]|[-])\\s*)|\G(\\s*([*]{1,2}|[%\/^&]|[<>]{2})\\s*)|\G([@])|\G(array\\s*[(]\\s*)|\G([#])|\G(\\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\\s*[=]\\s*)|\G(([0-9]*[a-zA-Z_]\\w*)?(\\\\[0-9]*[a-zA-Z_]\\w*)+)|\G([0-9]*[a-zA-Z_]\\w*)|\G(\\d+)|\G([`])|\G([|][@]?)|\G([.])|\G(\\s*[,]\\s*)|\G(\\s*[;]\\s*)|\G([:]{2})|\G(\\s*[:]\\s*)|\G(\\s*[?]\\s*)|\G(0[xX][0-9a-fA-F]+)|\G(\\s+)|\G([\S\s])/isS");
+            $this->yy_global_pattern3 = $this->replace("/\G(\\s*SMARTYrdel)|\G((SMARTYldel)SMARTYal)|\G([\"])|\G('[^'\\\\]*(?:\\\\.[^'\\\\]*)*')|\G([$][0-9]*[a-zA-Z_]\\w*)|\G([$])|\G(\\s+is\\s+(not\\s+)?in\\s+)|\G(\\s+matches\\s+)|\G(\\s+as\\s+)|\G(\\s+to\\s+)|\G(\\s+step\\s+)|\G(\\s+instanceof\\s+)|\G(\\s*([!=][=]{1,2}|[<][=>]?|[>][=]?|[&|]{2})\\s*)|\G(\\s+(eq|ne|neq|gt|ge|gte|lt|le|lte|mod|and|or|xor)\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even|div)\\s+by\\s+)|\G(\\s+is\\s+(not\\s+)?(odd|even))|\G([!]\\s*|not\\s+)|\G([(](int(eger)?|bool(ean)?|float|double|real|string|binary|array|object)[)]\\s*)|\G(\\s*[(]\\s*)|\G(\\s*[)])|\G(\\[\\s*)|\G(\\s*\\])|\G(\\s*[-][>]\\s*)|\G(\\s*[=][>]\\s*)|\G(\\s*[=]\\s*)|\G(([+]|[-]){2})|\G(\\s*([+]|[-])\\s*)|\G(\\s*([*]{1,2}|[%\/^&]|[<>]{2})\\s*)|\G([@])|\G(array\\s*[(]\\s*)|\G([#])|\G(\\s+[0-9]*[a-zA-Z_][a-zA-Z0-9_\-:]*\\s*[=]\\s*)|\G(([0-9]*[a-zA-Z_]\\w*)?(\\\\[0-9]*[a-zA-Z_]\\w*)+)|\G([0-9]*[a-zA-Z_]\\w*)|\G(\\d+)|\G([`])|\G([|][@]?)|\G([.])|\G(\\s*[,]\\s*)|\G(\\s*[;]\\s*)|\G([:]{2})|\G(\\s*[:]\\s*)|\G(\\s*[?]\\s*)|\G(0[xX][0-9a-fA-F]+)|\G(\\s+)|\G([\S\s])/isS");
         }
         if (!isset($this->dataLength)) {
             $this->dataLength = strlen($this->data);
@@ -662,119 +663,124 @@ class TemplateLexer
     public function yy_r3_10()
     {
 
-        $this->token = \Smarty\Parser\TemplateParser::TP_AS;
+        $this->token = \Smarty\Parser\TemplateParser::TP_MATCHES;
          }
     public function yy_r3_11()
     {
 
-        $this->token = \Smarty\Parser\TemplateParser::TP_TO;
+        $this->token = \Smarty\Parser\TemplateParser::TP_AS;
          }
     public function yy_r3_12()
     {
 
-        $this->token = \Smarty\Parser\TemplateParser::TP_STEP;
+        $this->token = \Smarty\Parser\TemplateParser::TP_TO;
          }
     public function yy_r3_13()
     {
 
-        $this->token = \Smarty\Parser\TemplateParser::TP_INSTANCEOF;
+        $this->token = \Smarty\Parser\TemplateParser::TP_STEP;
          }
     public function yy_r3_14()
     {
 
+        $this->token = \Smarty\Parser\TemplateParser::TP_INSTANCEOF;
+         }
+    public function yy_r3_15()
+    {
+
         $this->token = \Smarty\Parser\TemplateParser::TP_LOGOP;
          }
-    public function yy_r3_16()
+    public function yy_r3_17()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_SLOGOP;
          }
-    public function yy_r3_18()
+    public function yy_r3_19()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_TLOGOP;
          }
-    public function yy_r3_21()
+    public function yy_r3_22()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_SINGLECOND;
          }
-    public function yy_r3_24()
+    public function yy_r3_25()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_NOT;
          }
-    public function yy_r3_25()
+    public function yy_r3_26()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_TYPECAST;
          }
-    public function yy_r3_29()
+    public function yy_r3_30()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_OPENP;
          }
-    public function yy_r3_30()
+    public function yy_r3_31()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_CLOSEP;
          }
-    public function yy_r3_31()
+    public function yy_r3_32()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_OPENB;
          }
-    public function yy_r3_32()
+    public function yy_r3_33()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_CLOSEB;
          }
-    public function yy_r3_33()
+    public function yy_r3_34()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_PTR;
          }
-    public function yy_r3_34()
+    public function yy_r3_35()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_APTR;
          }
-    public function yy_r3_35()
+    public function yy_r3_36()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_EQUAL;
          }
-    public function yy_r3_36()
+    public function yy_r3_37()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_INCDEC;
          }
-    public function yy_r3_38()
+    public function yy_r3_39()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_UNIMATH;
          }
-    public function yy_r3_40()
+    public function yy_r3_41()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_MATH;
          }
-    public function yy_r3_42()
+    public function yy_r3_43()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_AT;
          }
-    public function yy_r3_43()
+    public function yy_r3_44()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_ARRAYOPEN;
          }
-    public function yy_r3_44()
+    public function yy_r3_45()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_HATCH;
          }
-    public function yy_r3_45()
+    public function yy_r3_46()
     {
 
         // resolve conflicts with shorttag and right_delimiter starting with '='
@@ -786,73 +792,73 @@ class TemplateLexer
             $this->token = \Smarty\Parser\TemplateParser::TP_ATTR;
         }
          }
-    public function yy_r3_46()
+    public function yy_r3_47()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_NAMESPACE;
          }
-    public function yy_r3_49()
+    public function yy_r3_50()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_ID;
          }
-    public function yy_r3_50()
+    public function yy_r3_51()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_INTEGER;
          }
-    public function yy_r3_51()
+    public function yy_r3_52()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_BACKTICK;
         $this->yypopstate();
          }
-    public function yy_r3_52()
+    public function yy_r3_53()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_VERT;
          }
-    public function yy_r3_53()
+    public function yy_r3_54()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_DOT;
          }
-    public function yy_r3_54()
+    public function yy_r3_55()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_COMMA;
          }
-    public function yy_r3_55()
+    public function yy_r3_56()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_SEMICOLON;
          }
-    public function yy_r3_56()
+    public function yy_r3_57()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_DOUBLECOLON;
          }
-    public function yy_r3_57()
+    public function yy_r3_58()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_COLON;
          }
-    public function yy_r3_58()
+    public function yy_r3_59()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_QMARK;
          }
-    public function yy_r3_59()
+    public function yy_r3_60()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_HEX;
          }
-    public function yy_r3_60()
+    public function yy_r3_61()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_SPACE;
          }
-    public function yy_r3_61()
+    public function yy_r3_62()
     {
 
         $this->token = \Smarty\Parser\TemplateParser::TP_TEXT;

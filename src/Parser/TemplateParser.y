@@ -681,6 +681,11 @@ expr(res)        ::= expr(e1) isin(c) value(v).  {
     res = c . e1.',(array)'.v.')';
 }
 
+                 // regex matching
+ expr(res)        ::= expr(e1) matchop(c) value(e2). {
+    res = c . e2 . ',' . e1 . ') ';
+}
+
 // null coalescing
 nullcoalescing(res)        ::= expr(v) QMARK QMARK expr(e2). {
     res = v.' ?? '.e2;
@@ -1311,6 +1316,10 @@ scond(res)  ::= SINGLECOND(o). {
         );
    $op = strtolower(str_replace(' ', '', o));
    res = $scond[$op];
+}
+
+matchop(res) ::= MATCHES(o). {
+    res = 'preg_match(';
 }
 
 //
