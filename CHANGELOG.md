@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.0] - 2026-02-15
+- Added support for Backed Enums for php versions >= 8.1 [#1171](https://github.com/smarty-php/smarty/pull/1171)
+- Added support for new 'matches' operator doing regex matching [#1169](https://github.com/smarty-php/smarty/pull/1169)
+- Update documentation to clarify that include inline is currently not implemented in Smarty v5 [#1152](https://github.com/smarty-php/smarty/issues/1152)
+- Support for Laravel Collections style object chaining for objects return from function calls implemented as modifiers [#1151](https://github.com/smarty-php/smarty/issues/1151)
+
+
 ## [5.7.0] - 2025-11-19
 - PHP 8.5 support
 
