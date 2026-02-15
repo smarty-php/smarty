@@ -803,6 +803,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#backed-enums-php-81" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backed Enums (PHP 8.1+)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backed Enums (PHP 8.1+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accessing-enum-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessing Enum Properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer-backed-enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integer-backed Enums
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3477,6 +3519,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#backed-enums-php-81" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backed Enums (PHP 8.1+)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backed Enums (PHP 8.1+)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#accessing-enum-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessing Enum Properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integer-backed-enums" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integer-backed Enums
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3580,6 +3664,68 @@ can be referenced by specifying the property name after the <code>-&gt;</code> s
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>name:  Zaphod Beeblebrox<span class="p">&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>email: zaphod@slartibartfast.example.com<span class="p">&lt;</span><span class="nt">br</span> <span class="p">/&gt;</span>
 </code></pre></div>
+<h2 id="backed-enums-php-81">Backed Enums (PHP 8.1+)</h2>
+<p>Smarty supports accessing properties of <a href="https://www.php.net/manual/en/language.enumerations.backed.php">backed enums</a> introduced in PHP 8.1.</p>
+<h3 id="accessing-enum-properties">Accessing Enum Properties</h3>
+<p>You can access the <code>name</code> and <code>value</code> properties of backed enum cases:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">{</span><span class="c">* Access enum case properties *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="x">&lt;option id=&quot;</span><span class="cp">{</span><span class="nf">MyEnum</span><span class="o">::</span><span class="na">Foo</span><span class="o">-&gt;</span><span class="na">name</span><span class="cp">}</span><span class="x">&quot;&gt;</span><span class="cp">{</span><span class="nf">MyEnum</span><span class="o">::</span><span class="na">Foo</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x">&lt;/option&gt;</span>
+</code></pre></div>
+<h3 id="complete-example">Complete Example</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">use</span> <span class="nx">Smarty\Smarty</span><span class="p">;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">// Define a backed enum</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nx">enum</span> <span class="nx">Status</span><span class="o">:</span> <span class="nx">string</span> <span class="p">{</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="k">case</span> <span class="nx">Active</span> <span class="o">=</span> <span class="s1">&#39;active&#39;</span><span class="p">;</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>    <span class="k">case</span> <span class="nx">Inactive</span> <span class="o">=</span> <span class="s1">&#39;inactive&#39;</span><span class="p">;</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>    <span class="k">case</span> <span class="nx">Pending</span> <span class="o">=</span> <span class="s1">&#39;pending&#39;</span><span class="p">;</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="p">}</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="nv">$smarty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Smarty</span><span class="p">();</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;currentStatus&#39;</span><span class="p">,</span> <span class="nx">Status</span><span class="o">::</span><span class="na">Active</span><span class="p">);</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;template.tpl&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p><code>template.tpl</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="cp">{</span><span class="c">* Display enum properties *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="x">Current status: </span><span class="cp">{</span><span class="nv">$currentStatus</span><span class="o">-&gt;</span><span class="na">name</span><span class="cp">}</span><span class="x"> (value: </span><span class="cp">{</span><span class="nv">$currentStatus</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x">)</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="cp">{</span><span class="c">* Use in HTML attributes *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="x">&lt;select name=&quot;status&quot;&gt;</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="x">    &lt;option value=&quot;</span><span class="cp">{</span><span class="nf">Status</span><span class="o">::</span><span class="na">Active</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x">&quot; </span><span class="cp">{</span><span class="nf">if</span> <span class="nv">$currentStatus</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">===</span> <span class="s1">&#39;Active&#39;</span><span class="cp">}</span><span class="x">selected</span><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x">&gt;Active&lt;/option&gt;</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="x">    &lt;option value=&quot;</span><span class="cp">{</span><span class="nf">Status</span><span class="o">::</span><span class="na">Inactive</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x">&quot; </span><span class="cp">{</span><span class="nf">if</span> <span class="nv">$currentStatus</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">===</span> <span class="s1">&#39;Inactive&#39;</span><span class="cp">}</span><span class="x">selected</span><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x">&gt;Inactive&lt;/option&gt;</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="x">    &lt;option value=&quot;</span><span class="cp">{</span><span class="nf">Status</span><span class="o">::</span><span class="na">Pending</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x">&quot; </span><span class="cp">{</span><span class="nf">if</span> <span class="nv">$currentStatus</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">===</span> <span class="s1">&#39;Pending&#39;</span><span class="cp">}</span><span class="x">selected</span><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x">&gt;Pending&lt;/option&gt;</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="x">&lt;/select&gt;</span>
+</code></pre></div>
+<p>This would output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Current status: Active (value: active)
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="p">&lt;</span><span class="nt">select</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;status&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;active&quot;</span> <span class="na">selected</span><span class="p">&gt;</span>Active<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;inactive&quot;</span><span class="p">&gt;</span>Inactive<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;pending&quot;</span><span class="p">&gt;</span>Pending<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="integer-backed-enums">Integer-backed Enums</h3>
+<p>Integer-backed enums work the same way:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nx">enum</span> <span class="nx">Priority</span><span class="o">:</span> <span class="nx">int</span> <span class="p">{</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="k">case</span> <span class="nx">Low</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="k">case</span> <span class="nx">Medium</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> 
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="k">case</span> <span class="nx">High</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="p">}</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;priority&#39;</span><span class="p">,</span> <span class="nx">Priority</span><span class="o">::</span><span class="na">High</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="cp">{</span><span class="c">* Access integer enum properties *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="x">Priority level: </span><span class="cp">{</span><span class="nv">$priority</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x"> (</span><span class="cp">{</span><span class="nv">$priority</span><span class="o">-&gt;</span><span class="na">name</span><span class="cp">}</span><span class="x">)</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Priority level: 3 (High)
+</code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: Backed enum support requires PHP 8.1 or higher. The enum must be registered or available in the current namespace.</p>
+</blockquote>
 
 
 

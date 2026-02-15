@@ -624,6 +624,75 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#regex-matching-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regex Matching Operator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regex Matching Operator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern Modifiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complex-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complex Conditions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practical Examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ternary" class="md-nav__link">
     <span class="md-ellipsis">
       Ternary
@@ -3478,6 +3547,75 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#regex-matching-operator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Regex Matching Operator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regex Matching Operator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Usage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-modifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pattern Modifiers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complex-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complex Conditions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practical Examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ternary" class="md-nav__link">
     <span class="md-ellipsis">
       Ternary
@@ -3661,34 +3799,129 @@ separated from surrounding elements by spaces. Note that items listed in
 <td>does not exist in array</td>
 <td>!in_array($a, $b)</td>
 </tr>
+<tr>
+<td>matches</td>
+<td></td>
+<td>$a matches $b</td>
+<td>regex pattern match</td>
+<td>preg_match($b, $a)</td>
+</tr>
 </tbody>
 </table>
+<h2 id="regex-matching-operator">Regex Matching Operator</h2>
+<p>The <code>matches</code> operator allows you to test if a string matches a regular expression pattern.</p>
+<h3 id="basic-usage">Basic Usage</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nf">if</span> <span class="s2">&quot;hello&quot;</span> <span class="na">matches</span> <span class="s2">&quot;/^[a-z]+$/&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="x">    String matches the pattern!</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cp">{</span><span class="nf">if</span> <span class="nv">$email</span> <span class="na">matches</span> <span class="s2">&quot;/^[^@]+@[^@]+\.[^@]+$/&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="x">    Valid email format</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="x">    Invalid email format</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+</code></pre></div>
+<h3 id="using-variables">Using Variables</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nv">$pattern</span> <span class="o">=</span> <span class="s1">&#39;/^[a-zA-Z0-9]{8,}$/&#39;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">{</span><span class="nf">if</span> <span class="nv">$password</span> <span class="na">matches</span> <span class="nv">$pattern</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="x">    Password meets requirements</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="x">    Password must be at least 8 alphanumeric characters</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+</code></pre></div>
+<h3 id="pattern-modifiers">Pattern Modifiers</h3>
+<p>The <code>matches</code> operator supports all standard PHP regex modifiers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="c">* Case insensitive matching *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">{</span><span class="nf">if</span> <span class="s2">&quot;HELLO&quot;</span> <span class="na">matches</span> <span class="s2">&quot;/hello/i&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="x">    Matches (case insensitive)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="cp">{</span><span class="c">* Multiline mode *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="cp">{</span><span class="nf">if</span> <span class="s2">&quot;line1\nline2&quot;</span> <span class="na">matches</span> <span class="s2">&quot;/line2$/m&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="x">    Matches in multiline mode</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="cp">{</span><span class="c">* Dot matches newlines *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="cp">{</span><span class="nf">if</span> <span class="s2">&quot;hello\nworld&quot;</span> <span class="na">matches</span> <span class="s2">&quot;/hello.world/s&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="x">    Matches with dotall modifier</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+</code></pre></div>
+<h3 id="complex-conditions">Complex Conditions</h3>
+<p>The <code>matches</code> operator can be combined with other operators:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">{</span><span class="nf">if</span> <span class="nv">$username</span> <span class="na">matches</span> <span class="s2">&quot;/^[a-z]+$/&quot;</span> <span class="o">&amp;&amp;</span> <span class="nv">$username</span><span class="o">|</span><span class="na">length</span> <span class="o">&gt;</span> <span class="m">3</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="x">    Valid username</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="x">    Username must be lowercase letters and at least 4 characters</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="cp">{</span><span class="nf">if</span> <span class="nv">$input</span> <span class="na">matches</span> <span class="s2">&quot;/^[0-9]+$/&quot;</span> <span class="o">||</span> <span class="nv">$input</span> <span class="na">matches</span> <span class="s2">&quot;/^[a-z]+$/&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="x">    Input is either numeric or lowercase letters</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="x">    Invalid input format</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+</code></pre></div>
+<h3 id="practical-examples">Practical Examples</h3>
+<p><strong>Email Validation:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">{</span><span class="nf">if</span> <span class="nv">$email</span> <span class="na">matches</span> <span class="s2">&quot;/^[^@\s]+@[^@\s]+\.[^@\s]+$/&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="x">    Valid email address</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="x">    Please enter a valid email address</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+</code></pre></div></p>
+<p><strong>Password Strength:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">{</span><span class="nf">if</span> <span class="nv">$password</span> <span class="na">matches</span> <span class="s2">&quot;/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="x">    Strong password</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="x">    Password must contain uppercase, lowercase, numbers and be at least 8 characters</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+</code></pre></div></p>
+<p><strong>URL Validation:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">{</span><span class="nf">if</span> <span class="nv">$url</span> <span class="na">matches</span> <span class="s2">&quot;/^https?:\/\/(www\.)?[a-z0-9\-]+(\.[a-z]{2,})+/i&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="x">    Valid URL format</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="x">    Please enter a valid URL</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+</code></pre></div></p>
+<p><strong>Numeric Validation:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="cp">{</span><span class="nf">if</span> <span class="nv">$input</span> <span class="na">matches</span> <span class="s2">&quot;/^[0-9]+$/&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="x">    Valid numeric input</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="x">    Please enter numbers only</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x"></span>
+</code></pre></div></p>
+<h3 id="notes">Notes</h3>
+<ul>
+<li>The <code>matches</code> operator uses PHP's <code>preg_match()</code> function internally</li>
+<li>Pattern delimiters must be valid regex delimiters (typically <code>/</code>)</li>
+<li>Invalid patterns will cause PHP warnings but won't break template execution</li>
+<li>For complex regex patterns, consider using variables for better readability</li>
+</ul>
 <h2 id="ternary">Ternary</h2>
 <p>You can use the <code>?:</code> (or ternary) operator to test one expression and present the value
 of the second or third expression, based on the result of the test.</p>
 <p>In other words:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">{</span><span class="nv">$test</span> <span class="o">?</span> <span class="s2">&quot;OK&quot;</span> <span class="o">:</span> <span class="s2">&quot;FAIL&quot;</span><span class="cp">}</span><span class="x"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">{</span><span class="nv">$test</span> <span class="o">?</span> <span class="s2">&quot;OK&quot;</span> <span class="o">:</span> <span class="s2">&quot;FAIL&quot;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 will result in OK if <code>$test</code> is set to true, and in FAIL otherwise.</p>
 <p>There is also a shorthand <code>?:</code> operator:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">{</span><span class="nv">$myVar</span> <span class="o">?:</span> <span class="s2">&quot;empty&quot;</span><span class="cp">}</span><span class="x"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">{</span><span class="nv">$myVar</span> <span class="o">?:</span> <span class="s2">&quot;empty&quot;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 will result in 'empty' if <code>$myVar</code> is not set or set to something that evaluates to false, such as an empty string.
 If <code>$myVar</code> is set to something that evaluates to true, the value of <code>$myVar</code> is returned. So, the following will 
 return 'hello':
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="cp">}</span><span class="x"></span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">{</span><span class="nv">$myVar</span> <span class="o">?:</span> <span class="s2">&quot;empty&quot;</span><span class="cp">}</span><span class="x"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="cp">{</span><span class="nv">$myVar</span> <span class="o">?:</span> <span class="s2">&quot;empty&quot;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div></p>
 <h2 id="testing-for-null">Testing for null</h2>
 <p>If "something that evaluates to false" is to broad a test for you, you can use the <code>??</code> (or null coalescing) operator 
 to trigger only if the tested value is undefined or set to null.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">{</span><span class="nv">$myVar</span> <span class="o">??</span> <span class="s2">&quot;empty&quot;</span><span class="cp">}</span><span class="x"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="cp">{</span><span class="nv">$myVar</span> <span class="o">??</span> <span class="s2">&quot;empty&quot;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div>
 will result in 'empty' if <code>$myVar</code> is not set or set to null.
 If <code>$myVar</code> is set to something that evaluates to anything else, the value of <code>$myVar</code> is returned. So, the following will
 return an empty string (''):
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="cp">}</span><span class="x"></span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="cp">{</span><span class="nv">$myVar</span> <span class="o">?:</span> <span class="s2">&quot;this is not shown&quot;</span><span class="cp">}</span><span class="x"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="cp">{</span><span class="nv">$myVar</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="cp">{</span><span class="nv">$myVar</span> <span class="o">?:</span> <span class="s2">&quot;this is not shown&quot;</span><span class="cp">}</span><span class="x"></span>
 </code></pre></div></p>
 
 
