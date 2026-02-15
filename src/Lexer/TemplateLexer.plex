@@ -160,6 +160,7 @@ class TemplateLexer
                                                'LOGOP'       => '"<", "==" ... logical operator',
                                                'TLOGOP'      => '"lt", "eq" ... logical operator; "is div by" ... if condition',
                                                'SCOND'       => '"is even" ... if condition',
+                                               'MATCHES'     => '"matches" regex operator',
     );
 
     /**
@@ -468,6 +469,9 @@ class TemplateLexer
      }
      isin {
         $this->token = \Smarty\Parser\TemplateParser::TP_ISIN;
+     }
+     matches {
+        $this->token = \Smarty\Parser\TemplateParser::TP_MATCHES;
      }
      as {
         $this->token = \Smarty\Parser\TemplateParser::TP_AS;
