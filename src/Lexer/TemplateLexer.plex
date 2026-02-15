@@ -326,6 +326,7 @@ class TemplateLexer
      tlop = ~\s+is\s+(not\s+)?(odd|even|div)\s+by\s+~
      scond = ~\s+is\s+(not\s+)?(odd|even)~
      isin = ~\s+is\s+(not\s+)?in\s+~
+     matches = ~\s+matches\s+~
      as = ~\s+as\s+~
      to = ~\s+to\s+~
      step = ~\s+step\s+~
