@@ -72,10 +72,11 @@ class StaticClassAccessTest extends PHPUnit_Smarty
 		if (PHP_VERSION_ID < 80100) {
 			$this->markTestSkipped('Enums only available after PHP >= 8.1');
 			return;
+		} else {
+			$this->smarty->registerClass('RegisteredBackedEnum', MyBackedEnum::class);
+			$tpl = $this->smarty->createTemplate('eval:{RegisteredBackedEnum::A->value}');
+			$this->assertEquals('3', $this->smarty->fetch($tpl));
 		}
-		$this->smarty->registerClass('RegisteredBackedEnum', MyBackedEnum::class);
-		$tpl = $this->smarty->createTemplate('eval:{RegisteredBackedEnum::A->value}');
-		$this->assertEquals('3', $this->smarty->fetch($tpl));
 	}
 
     /**
