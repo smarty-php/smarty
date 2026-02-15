@@ -151,8 +151,5 @@ class mystaticclass
 }
 
 if (PHP_VERSION_ID >= 80100) {
-	enum MyBackedEnum: int
-	{
-		case A = 3;
-	}
+	eval('enum MyBackedEnum: int { case A = 3; }');
 }
