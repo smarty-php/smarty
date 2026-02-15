@@ -31,6 +31,15 @@ class Variable
 		$this->value = $value;
 	}
 
+	/**
+	 * Set value by reference
+	 *
+	 * @param mixed|null $value
+	 */
+	public function setValueByRef(&$value): void {
+		$this->value = &$value;
+	}
+
     /**
      * if true any output of this variable will be not cached
      *
