@@ -50,6 +50,120 @@ separated from surrounding elements by spaces. Note that items listed in
 | is \[not\] odd by  |            | $a is not odd by $b  | \[not\] an odd grouping        | ($a / $b) % 2 != 0 |
 | is in              |            | $a is in $b          | exists in array                | in_array($a, $b)   |
 | is \[not\] in      |            | $a is not in $b      | does not exist in array        | !in_array($a, $b)  |
+| matches            |            | $a matches $b       | regex pattern match            | preg_match($b, $a) |
+
+## Regex Matching Operator
+
+The `matches` operator allows you to test if a string matches a regular expression pattern.
+
+### Basic Usage
+
+```smarty
+{if "hello" matches "/^[a-z]+$/"}
+    String matches the pattern!
+{/if}
+
+{if $email matches "/^[^@]+@[^@]+\.[^@]+$/"}
+    Valid email format
+{else}
+    Invalid email format
+{/if}
+```
+
+### Using Variables
+
+```smarty
+{$pattern = '/^[a-zA-Z0-9]{8,}$/'}
+{if $password matches $pattern}
+    Password meets requirements
+{else}
+    Password must be at least 8 alphanumeric characters
+{/if}
+```
+
+### Pattern Modifiers
+
+The `matches` operator supports all standard PHP regex modifiers:
+
+```smarty
+{* Case insensitive matching *}
+{if "HELLO" matches "/hello/i"}
+    Matches (case insensitive)
+{/if}
+
+{* Multiline mode *}
+{if "line1\nline2" matches "/line2$/m"}
+    Matches in multiline mode
+{/if}
+
+{* Dot matches newlines *}
+{if "hello\nworld" matches "/hello.world/s"}
+    Matches with dotall modifier
+{/if}
+```
+
+### Complex Conditions
+
+The `matches` operator can be combined with other operators:
+
+```smarty
+{if $username matches "/^[a-z]+$/" && $username|length > 3}
+    Valid username
+{else}
+    Username must be lowercase letters and at least 4 characters
+{/if}
+
+{if $input matches "/^[0-9]+$/" || $input matches "/^[a-z]+$/"}
+    Input is either numeric or lowercase letters
+{else}
+    Invalid input format
+{/if}
+```
+
+### Practical Examples
+
+**Email Validation:**
+```smarty
+{if $email matches "/^[^@\s]+@[^@\s]+\.[^@\s]+$/"}
+    Valid email address
+{else}
+    Please enter a valid email address
+{/if}
+```
+
+**Password Strength:**
+```smarty
+{if $password matches "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/"}
+    Strong password
+{else}
+    Password must contain uppercase, lowercase, numbers and be at least 8 characters
+{/if}
+```
+
+**URL Validation:**
+```smarty
+{if $url matches "/^https?:\/\/(www\.)?[a-z0-9\-]+(\.[a-z]{2,})+/i"}
+    Valid URL format
+{else}
+    Please enter a valid URL
+{/if}
+```
+
+**Numeric Validation:**
+```smarty
+{if $input matches "/^[0-9]+$/"}
+    Valid numeric input
+{else}
+    Please enter numbers only
+{/if}
+```
+
+### Notes
+
+- The `matches` operator uses PHP's `preg_match()` function internally
+- Pattern delimiters must be valid regex delimiters (typically `/`)
+- Invalid patterns will cause PHP warnings but won't break template execution
+- For complex regex patterns, consider using variables for better readability
 
 ## Ternary
 You can use the `?:` (or ternary) operator to test one expression and present the value

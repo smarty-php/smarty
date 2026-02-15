@@ -1254,6 +1254,11 @@ static_class_access(res)       ::= ID(v). {
     res = array(v, '');
 }
 
+                  // static class constant with object chain
+static_class_access(res)       ::= ID(v) objectchain(oc). {
+    res = array(v, oc);
+}
+
                   // static class variables
 static_class_access(res)       ::=  DOLLARID(v) arrayindex(a). {
     res = array(v, a, 'property');
