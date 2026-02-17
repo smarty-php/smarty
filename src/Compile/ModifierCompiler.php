@@ -48,9 +48,10 @@ class ModifierCompiler extends Base {
 
 			$modifier_params[0] = $output;
 			$params = implode(',', $modifier_params);
+			$securityPolicy = $compiler->getSmarty()->getSecurityPolicy();
 
-			if (!is_object($compiler->getSmarty()->security_policy)
-				|| $compiler->getSmarty()->security_policy->isTrustedModifier($modifier, $compiler)
+			if ($securityPolicy === null
+				|| $securityPolicy->isTrustedModifier($modifier, $compiler)
 			) {
 
 				if ($handler = $compiler->getModifierCompiler($modifier)) {

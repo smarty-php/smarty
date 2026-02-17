@@ -135,8 +135,9 @@ class Template extends TemplateBase {
 		$this->source = $_isConfig ? Config::load($this) : Source::load($this);
 		$this->compiled = Compiled::load($this);
 
-		if ($smarty->security_policy) {
-			$smarty->security_policy->registerCallBacks($this);
+		$securityPolicy = $smarty->getSecurityPolicy();
+		if ($securityPolicy !== null) {
+			$securityPolicy->registerCallBacks($this);
 		}
 	}
 
