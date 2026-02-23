@@ -25,5 +25,5 @@ install](#installing.smarty.basic) for more info.
 
 See also [`getCompileDir()`](#api.get.compile.dir),
 [`setCompileDir()`](#api.set.compile.dir),
-[`$compile_id`](#variable.compile.id) and
+[`$compile_id`](../api-variables/variable-compile-id.md) and
 [`$use_sub_dirs`](#variable.use.sub.dirs).

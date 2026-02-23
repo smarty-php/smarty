@@ -70,10 +70,10 @@ array
 data
 
 This creates a template object which later can be rendered by the
-[display](#api.display) or [fetch](#api.fetch) method. It uses the
+[display](../../programmers/api-functions/api-display.md) or [fetch](../../programmers/api-functions/api-fetch.md) method. It uses the
 following parameters:
 
--   `template` must be a valid [template resource](#resources) type and
+-   `template` must be a valid [template resource](../../api/resources.md) type and
     path.
 
 <!-- -->
@@ -95,5 +95,5 @@ following parameters:
 
         
 
-See also [`display()`](#api.display), and
+See also [`display()`](../../programmers/api-functions/api-display.md), and
 [`templateExists()`](#api.template.exists).

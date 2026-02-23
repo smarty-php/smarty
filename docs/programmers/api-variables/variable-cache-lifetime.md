@@ -19,12 +19,12 @@ Once this time has expired, the cache will be regenerated.
 -   If you want to give certain templates their own cache lifetime, you
     could do this by setting [`$caching`](#variable.caching) =
     \Smarty\Smarty::CACHING\_LIFETIME\_SAVED, then set `$cache_lifetime` to a
-    unique value just before calling [`display()`](#api.display) or
-    [`fetch()`](#api.fetch).
+    unique value just before calling [`display()`](../../programmers/api-functions/api-display.md) or
+    [`fetch()`](../../programmers/api-functions/api-fetch.md).
 
 If [`$force_compile`](#variable.force.compile) is enabled, the cache
 files will be regenerated every time, effectively disabling caching. You
 can clear all the cache files with the
-[`clear_all_cache()`](#api.clear.all.cache) function, or individual
-cache files (or groups) with the [`clear_cache()`](#api.clear.cache)
+[`clear_all_cache()`](../../programmers/api-functions/api-clear-all-cache.md) function, or individual
+cache files (or groups) with the [`clear_cache()`](../../programmers/api-functions/api-clear-cache.md)
 function.

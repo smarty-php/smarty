@@ -26,7 +26,8 @@ This can be a single value, or an array of values.
 
        
 
-See also [`clearAllAssign()`](#api.clear.all.assign),
-[`clearConfig()`](#api.clear.config),
-[`getTemplateVars()`](#api.get.template.vars), [`assign()`](#api.assign)
-and [`append()`](#api.append)
+See also [`clearAllAssign()`](../../programmers/api-functions/api-clear-all-assign.md),
+[`clearConfig()`](../../programmers/api-functions/api-clear-config.md),
+[`getTemplateVars()`](../../programmers/api-functions/api-get-template-vars.md), 
+[`assign()`](../../programmers/api-functions/api-assign.md)
+and [`append()`](../../programmers/api-functions/api-append.md)

@@ -1,8 +1,8 @@
 # to_charset
 
 `to_charset` is used to transcode a string from the internal charset to
-a given charset. This is the exact opposite of the [from_charset
-modifier](#language.modifier.from_charset).
+a given charset. This is the exact opposite of the 
+[from_charset modifier](language-modifier-from-charset.md).
 
 ## Parameters
 
@@ -16,5 +16,5 @@ modifier](#language.modifier.from_charset).
 > modifier should only be used in cases where the application cannot
 > anticipate that a certain string is required in another encoding.
 
-See also [Configuring Smarty](../../api/configuring.md), [from_charset
-modifier](language-modifier-from-charset.md).
+See also [Configuring Smarty](../../api/configuring.md) and 
+[from_charset modifier](language-modifier-from-charset.md).

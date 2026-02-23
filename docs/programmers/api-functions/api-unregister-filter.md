@@ -20,4 +20,4 @@ callback
 Use this to dynamically unregister filters. It uses the following
 parameters:
 
-See also [`registerFilter()`](#api.register.filter).
+See also [`registerFilter()`](../../programmers/api-functions/api-register-filter.md).

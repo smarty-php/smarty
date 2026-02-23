@@ -26,6 +26,6 @@ getPluginsDir
 
        
 
-See also [`setPluginsDir()`](#api.set.plugins.dir),
-[`addPluginsDir()`](#api.add.plugins.dir) and
+See also [`setPluginsDir()`](../../programmers/api-functions/api-set-plugins-dir.md),
+[`addPluginsDir()`](../../programmers/api-functions/api-add-plugins-dir.md) and
 [`$plugins_dir`](#variable.plugins.dir).
