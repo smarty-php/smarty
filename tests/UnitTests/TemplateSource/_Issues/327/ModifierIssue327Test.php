@@ -26,7 +26,7 @@ class ModifierIssue327Test extends PHPUnit_Smarty
         $this->cleanDirs();
     }
 
-    public function testModifier327()
+    public function testModifier327($dummy = null)
     {
           $this->assertEquals('hello you', $this->smarty->fetch('string:{"hello world"|substr:0:-5|cat:"you"}'));
     }

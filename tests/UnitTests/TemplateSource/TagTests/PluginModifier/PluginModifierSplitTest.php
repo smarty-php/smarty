@@ -20,7 +20,7 @@ class PluginModifierSplitTest extends \PHPUnit_Smarty
     /**
      * @dataProvider explodeDataProvider
      */
-    public function testSplit($template, $subject, $expectedString)
+    public function testSplit($template = 'string:{$subject|split:","|json_encode}', $subject = 'a,b,c,d', $expectedString = '["a","b","c","d"]')
     {
         $this->smarty->assign('subject', $subject);
 

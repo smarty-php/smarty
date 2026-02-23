@@ -1,0 +1,53 @@
+PHPUnit 12.1.4 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.6
+Configuration: C:\PHP\smarty\phpunit.xml
+
+DEDDEDFFFFDDDDDDDDDDDDDDD                                         25 / 25 (100%)
+
+Time: 00:04.740, Memory: 12.00 MB
+
+There were 2 errors:
+
+1) CacheResourceFileTest::testCache
+ArgumentCountError: Too few arguments to function CacheResourceTestCommon::testCache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 14 expected
+
+C:\PHP\smarty\tests\UnitTests\CacheResourceTests\_shared\CacheResourceTestCommon.php:416
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+2) CacheResourceFileTest::testCachingTemplateDir
+ArgumentCountError: Too few arguments to function CacheResourceTestCommon::testCachingTemplateDir(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\CacheResourceTests\_shared\CacheResourceTestCommon.php:536
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+--
+
+There were 4 failures:
+
+1) CacheResourceFileTest::testGetCachedFilepathSubDirs
+Failed asserting that 'C:\PHP\smarty\tests\UnitTests\CacheResourceTests\File\cache\testGetCachedFilepathSubDirs^de133b268927c4d909f863f6149151cf4b548d6c_helloworld.tpl.php' matches PCRE pattern "#^.\\cache\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]+#".
+
+C:\PHP\smarty\tests\UnitTests\CacheResourceTests\File\CacheResourceFileTest.php:46
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+2) CacheResourceFileTest::testGetCachedFilepathCacheId
+Failed asserting that 'C:\PHP\smarty\tests\UnitTests\CacheResourceTests\File\cache\foo^bar^testGetCachedFilepathCacheId^de133b268927c4d909f863f6149151cf4b548d6c_helloworld.tpl.php' matches PCRE pattern "#^.\\cache\\foo\|bar\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]+#".
+
+C:\PHP\smarty\tests\UnitTests\CacheResourceTests\File\CacheResourceFileTest.php:61
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+3) CacheResourceFileTest::testGetCachedFilepathCompileId
+Failed asserting that 'C:\PHP\smarty\tests\UnitTests\CacheResourceTests\File\cache\blar^de133b268927c4d909f863f6149151cf4b548d6c_helloworld.tpl.php' matches PCRE pattern "#^.\\cache\\blar\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]+#".
+
+C:\PHP\smarty\tests\UnitTests\CacheResourceTests\File\CacheResourceFileTest.php:76
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+4) CacheResourceFileTest::testGetCachedFilepathCacheIdCompileId
+Failed asserting that 'C:\PHP\smarty\tests\UnitTests\CacheResourceTests\File\cache\foo^bar^blar^de133b268927c4d909f863f6149151cf4b548d6c_helloworld.tpl.php' matches PCRE pattern "#^.\\cache\\foo\|bar\\blar\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]{2}\\[a-zA-Z0-9]+#".
+
+C:\PHP\smarty\tests\UnitTests\CacheResourceTests\File\CacheResourceFileTest.php:91
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+ERRORS!
+Tests: 25, Assertions: 103, Errors: 2, Failures: 4, Deprecations: 3, PHPUnit Deprecations: 1.

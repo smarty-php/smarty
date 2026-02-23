@@ -25,14 +25,14 @@ class ExtendsIssue419Test extends PHPUnit_Smarty
         $this->cleanDirs();
     }
 
-    public function testextends419()
+    public function testextends419($dummy = null)
     {
         $this->smarty->setLeftDelimiter('{{');
         $this->smarty->setRightDelimiter('}}');
         $this->assertEquals('child', $this->smarty->fetch('extends:001_parent.tpl|001_child.tpl'));
     }
 
-    public function testextendsSecurity()
+    public function testextendsSecurity($dummy = null)
     {
         $this->expectException(\Smarty\Exception::class);
         $this->expectExceptionMessageMatches('/Unable to load.*/');

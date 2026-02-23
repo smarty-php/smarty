@@ -1,0 +1,865 @@
+PHPUnit 12.1.4 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.6
+Configuration: C:\PHP\smarty\phpunit.xml
+
+.............................E.....W.................D.......   61 / 1197 (  5%)
+......DD.....DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDSSSSSSSSSSS  122 / 1197 ( 10%)
+SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS....DDDDDDDD........SSSSSSS.  183 / 1197 ( 15%)
+.................................D...........................  244 / 1197 ( 20%)
+..I............EEEE........E......................I.R........  305 / 1197 ( 25%)
+..........................DDDDD....I....................I....  366 / 1197 ( 30%)
+..................D..........................................  427 / 1197 ( 35%)
+.............................................................  488 / 1197 ( 40%)
+......E.............EEE........................E..E.E........  549 / 1197 ( 45%)
+...DEEEEDEEEEDDDDDDDDDDDDDDDDDDDEEEEE....EEEEEEEEEEEEEEEEEEE.  610 / 1197 ( 50%)
+...........EEEEEED.E...EEEEEE.....E....E.DDDDDDDDDDDDDD......  671 / 1197 ( 56%)
+...E......EDEEDDDDDDDDDDDDDDDDDEEDDDDDEEEDEEEDEEEEEEEEEEED...  732 / 1197 ( 61%)
+.............................................................  793 / 1197 ( 66%)
+.............................................................  854 / 1197 ( 71%)
+.............................................................  915 / 1197 ( 76%)
+..........................EDDDDD....EEEE....E..E..E..........  976 / 1197 ( 81%)
+.................................EE.....DE.EEEEE.EEEEEE.EEEEE 1037 / 1197 ( 86%)
+EEE.......EEDDDDDD......EEE........E...............DEDD...... 1098 / 1197 ( 91%)
+........EEE..E....................E...........E.E........EE.. 1159 / 1197 ( 96%)
+....D.....DEEEEEDD..................E.                        1197 / 1197 (100%)
+
+Time: 00:51.331, Memory: 32.00 MB
+
+There were 5 PHPUnit test runner warnings:
+
+1) Class TemlateDirNormalizationTest cannot be found in C:\PHP\smarty\tests\UnitTests\A_0\PathNormalization\TemlateDirNormalizationTest.php
+
+2) Class CacheResourceCustomMysqlTest cannot be found in C:\PHP\smarty\tests\UnitTests\CacheResourceTests\Mysql\CacheResourceCustomMysqlTest.php
+
+3) Class CacheResourceCustomRegisteredTest cannot be found in C:\PHP\smarty\tests\UnitTests\CacheResourceTests\Registered\CacheResourceCustomRegisteredTest.php
+
+4) Class ResourceMysqlPluginTest cannot be found in C:\PHP\smarty\tests\UnitTests\ResourceTests\Custom\DemoPluginMysql\ResourceMysqlPluginTest.php
+
+5) Class DebugTest cannot be found in C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Debug\DebugTest.php
+
+--
+
+There were 135 errors:
+
+1) UndefinedTemplateVarTest::testError
+Error: Call to undefined method UndefinedTemplateVarTest::expectWarning()
+
+C:\PHP\smarty\tests\UnitTests\A_2\UndefinedTemplateVar\UndefinedTemplateVarTest.php:74
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+2) ExtendsResourceTest::testCompileBlockChildPrepend_003
+ArgumentCountError: Too few arguments to function ExtendsResourceTest::testCompileBlockChildPrepend_003(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\ResourceTests\Extends\ExtendsResourceTest.php:37
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+3) ExtendsResourceTest::testCompileBlockChildAppend_004
+ArgumentCountError: Too few arguments to function ExtendsResourceTest::testCompileBlockChildAppend_004(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\ResourceTests\Extends\ExtendsResourceTest.php:60
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+4) ExtendsResourceTest::testCompileBlockAssignInChild_040
+ArgumentCountError: Too few arguments to function ExtendsResourceTest::testCompileBlockAssignInChild_040(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\ResourceTests\Extends\ExtendsResourceTest.php:78
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+5) ExtendsResourceTest::testCompileBlockIncreaseInChild_050
+ArgumentCountError: Too few arguments to function ExtendsResourceTest::testCompileBlockIncreaseInChild_050(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\ResourceTests\Extends\ExtendsResourceTest.php:95
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+6) ExtendsResourceTest::testCompileBlockRelativeIncludes_033
+ArgumentCountError: Too few arguments to function ExtendsResourceTest::testCompileBlockRelativeIncludes_033(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\ResourceTests\Extends\ExtendsResourceTest.php:226
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+7) RegisterFunctionTest::testCaseSensitivity
+ArgumentCountError: Too few arguments to function RegisterFunctionTest::testCaseSensitivity(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\SmartyMethodsTests\RegisterFunction\RegisterFunctionTest.php:180
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+8) RegisterModifierTest::testNativePHPModifiers
+ArgumentCountError: Too few arguments to function RegisterModifierTest::testNativePHPModifiers(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\SmartyMethodsTests\RegisterModifier\RegisterModifierTest.php:96
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+9) RegisterModifierTest::testUnregisterModifiers
+ArgumentCountError: Too few arguments to function RegisterModifierTest::testUnregisterModifiers(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\SmartyMethodsTests\RegisterModifier\RegisterModifierTest.php:117
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+10) RegisterModifierTest::testSetExtensions
+ArgumentCountError: Too few arguments to function RegisterModifierTest::testSetExtensions(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\SmartyMethodsTests\RegisterModifier\RegisterModifierTest.php:128
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+11) CommentsTest::testComments
+ArgumentCountError: Too few arguments to function CommentsTest::testComments(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\Comments\CommentsTest.php:34
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+12) NullCoalescingTest::testOther
+ArgumentCountError: Too few arguments to function NullCoalescingTest::testOther(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\NullCoalescingTest.php:19
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+13) SpacingTest::testSpacing
+ArgumentCountError: Too few arguments to function SpacingTest::testSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\Spacing\SpacingTest.php:35
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+14) CompileAppendTest::testAppend
+ArgumentCountError: Too few arguments to function CompileAppendTest::testAppend(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Append\CompileAppendTest.php:39
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+15) CompileAppendTest::testAppendSpacing
+ArgumentCountError: Too few arguments to function CompileAppendTest::testAppendSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Append\CompileAppendTest.php:77
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+16) CompileAppendTest::testAppendSpacingNocache
+ArgumentCountError: Too few arguments to function CompileAppendTest::testAppendSpacingNocache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Append\CompileAppendTest.php:95
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+17) CompileAppendTest::testAppendSpacingNocache2
+ArgumentCountError: Too few arguments to function CompileAppendTest::testAppendSpacingNocache2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Append\CompileAppendTest.php:114
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+18) CompileAssignTest::testAssign
+ArgumentCountError: Too few arguments to function CompileAssignTest::testAssign(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Assign\CompileAssignTest.php:39
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+19) CompileAssignTest::testAssignSpacing
+ArgumentCountError: Too few arguments to function CompileAssignTest::testAssignSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Assign\CompileAssignTest.php:100
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+20) CompileAssignTest::testAssignSpacingNocache
+ArgumentCountError: Too few arguments to function CompileAssignTest::testAssignSpacingNocache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Assign\CompileAssignTest.php:118
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+21) CompileAssignTest::testAssignSpacingNocache2
+ArgumentCountError: Too few arguments to function CompileAssignTest::testAssignSpacingNocache2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Assign\CompileAssignTest.php:137
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+22) CompileBlockPluginTest::testCache
+ArgumentCountError: Too few arguments to function CompileBlockPluginTest::testCache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 10 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BlockPlugin\CompileBlockPluginTest.php:199
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+23) CompileBlockPluginTest::testSpacing
+ArgumentCountError: Too few arguments to function CompileBlockPluginTest::testSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BlockPlugin\CompileBlockPluginTest.php:249
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+24) CompileBlockPluginTest::testSpacingDefault
+ArgumentCountError: Too few arguments to function CompileBlockPluginTest::testSpacingDefault(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BlockPlugin\CompileBlockPluginTest.php:288
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+25) CompileBlockPluginTest::testBlockNocache
+ArgumentCountError: Too few arguments to function CompileBlockPluginTest::testBlockNocache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BlockPlugin\CompileBlockPluginTest.php:330
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+26) CompileBlockPluginTest::testBlockNocache2
+ArgumentCountError: Too few arguments to function CompileBlockPluginTest::testBlockNocache2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BlockPlugin\CompileBlockPluginTest.php:348
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+27) CompileBlockExtendsTest::testCompileBlockChild_002
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChild_002(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:65
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+28) CompileBlockExtendsTest::testCompileBlockChildPrepend_003
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildPrepend_003(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:90
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+29) CompileBlockExtendsTest::testCompileBlockGrandPrepend_003
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockGrandPrepend_003(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:116
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+30) CompileBlockExtendsTest::testCompileBlockChildAppend_004
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildAppend_004(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:143
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+31) CompileBlockExtendsTest::testCompileBlockGrandAppend_004
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockGrandAppend_004(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:170
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+32) CompileBlockExtendsTest::testCompileBlockGrandAppendPrepend_004
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockGrandAppendPrepend_004(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:197
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+33) CompileBlockExtendsTest::testCompileBlockChildAppendShortag_005
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildAppendShortag_005(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:224
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+34) CompileBlockExtendsTest::testCompileBlockChildSmartyChild_006
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildSmartyChild_006(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:250
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+35) CompileBlockExtendsTest::testCompileBlockChildSmartyParent_007
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildSmartyParent_007(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:276
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+36) CompileBlockExtendsTest::testCompileBlockChildSmartyParent_007_2
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildSmartyParent_007_2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:303
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+37) CompileBlockExtendsTest::testCompileBlockChildPlugin_008
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildPlugin_008(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:330
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+38) CompileBlockExtendsTest::testCompileBlockParentNested_009
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockParentNested_009(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:357
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+39) CompileBlockExtendsTest::testCompileBlockChildNested_010
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildNested_010(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:382
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+40) CompileBlockExtendsTest::testCompileBlockChildNestedInclude_011
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildNestedInclude_011(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:408
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+41) CompileBlockExtendsTest::testCompileBlockChildNestedInclude_012
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildNestedInclude_012(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:435
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+42) CompileBlockExtendsTest::testCompileBlockChildNestedHide_018
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildNestedHide_018(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:462
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+43) CompileBlockExtendsTest::testCompileBlockChildNestedHide_018_2
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildNestedHide_018_2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:486
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+44) CompileBlockExtendsTest::testCompileBlockChildNestedHide_018_3
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockChildNestedHide_018_3(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:510
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+45) CompileBlockExtendsTest::testCompileBlockStartSubTemplates_020
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockStartSubTemplates_020(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:534
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+46) CompileBlockExtendsTest::testSmartyBlockVariablePartentInclude_28
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testSmartyBlockVariablePartentInclude_28(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:779
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+47) CompileBlockExtendsTest::testSmartyBlockVariablePartentInclude_282
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testSmartyBlockVariablePartentInclude_282(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:802
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+48) CompileBlockExtendsTest::testCompileBlockGrandChildNested_030
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockGrandChildNested_030(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:826
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+49) CompileBlockExtendsTest::testCompileBlockGrandChildNestedRelative_030
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockGrandChildNestedRelative_030(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:849
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+50) CompileBlockExtendsTest::testCompileBlockSmartyBlockParent_034_1
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockSmartyBlockParent_034_1(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:872
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+51) CompileBlockExtendsTest::testCompileBlockSmartyBlockChild_035_1
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockSmartyBlockChild_035_1(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:895
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+52) CompileBlockExtendsTest::testCompileBlockRelativeIncludes_033
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testCompileBlockRelativeIncludes_033(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:969
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+53) CompileBlockExtendsTest::testSpacing
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:1021
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+54) CompileBlockExtendsTest::testBlockSpacingNocache
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testBlockSpacingNocache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:1039
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+55) CompileBlockExtendsTest::testBlockSpacingNocache2
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testBlockSpacingNocache2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:1058
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+56) CompileBlockExtendsTest::testChildSpacing
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testChildSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:1097
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+57) CompileBlockExtendsTest::testBlockNocacheSpacing
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testBlockNocacheSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:1146
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+58) CompileBlockExtendsTest::testBlockNocacheSpacing2
+ArgumentCountError: Too few arguments to function CompileBlockExtendsTest::testBlockNocacheSpacing2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\BockExtend\CompileBlockExtendsTest.php:1165
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+59) CompileCaptureTest::testCapture
+ArgumentCountError: Too few arguments to function CompileCaptureTest::testCapture(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Capture\CompileCaptureTest.php:37
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+60) CompileCaptureTest::testSpacing
+ArgumentCountError: Too few arguments to function CompileCaptureTest::testSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Capture\CompileCaptureTest.php:114
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+61) CompileForTest::testFor
+ArgumentCountError: Too few arguments to function CompileForTest::testFor(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\For\CompileForTest.php:36
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+62) CompileForTest::testSpacing
+ArgumentCountError: Too few arguments to function CompileForTest::testSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\For\CompileForTest.php:160
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+63) CompileForeachTest::testForeach
+ArgumentCountError: Too few arguments to function CompileForeachTest::testForeach(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 5 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Foreach\CompileForeachTest.php:37
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+64) CompileForeachTest::testForeachCaching
+ArgumentCountError: Too few arguments to function CompileForeachTest::testForeachCaching(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 7 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Foreach\CompileForeachTest.php:111
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+65) CompileForeachTest::testSpacing
+ArgumentCountError: Too few arguments to function CompileForeachTest::testSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Foreach\CompileForeachTest.php:310
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+66) CompileForeachTest::testElseSpacing
+ArgumentCountError: Too few arguments to function CompileForeachTest::testElseSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Foreach\CompileForeachTest.php:354
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+67) CompileIfTest::testIf
+ArgumentCountError: Too few arguments to function CompileIfTest::testIf(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\If\CompileIfTest.php:39
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+68) CompileIfTest::testIfNocache
+ArgumentCountError: Too few arguments to function CompileIfTest::testIfNocache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and at least 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\If\CompileIfTest.php:190
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+69) CompileIfTest::testSpacing
+ArgumentCountError: Too few arguments to function CompileIfTest::testSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\If\CompileIfTest.php:247
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+70) CompileIncludeTest::testSpacing_001
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testSpacing_001(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 3 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:38
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+71) CompileIncludeTest::testSpacing_001V2
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testSpacing_001V2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 3 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:56
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+72) CompileIncludeTest::testSpacing_001V3
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testSpacing_001V3(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 3 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:74
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+73) CompileIncludeTest::testIncludeStandard_001
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testIncludeStandard_001(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:104
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+74) CompileIncludeTest::testIncludeStandardNocacheVar
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testIncludeStandardNocacheVar(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:119
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+75) CompileIncludeTest::testIncludeAssign1
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testIncludeAssign1(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:136
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+76) CompileIncludeTest::testIncludeAssign2
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testIncludeAssign2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:150
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+77) CompileIncludeTest::testIncludePassVars
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testIncludePassVars(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:164
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+78) CompileIncludeTest::testIncludePassVars2
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testIncludePassVars2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:179
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+79) CompileIncludeTest::testRecursiveIncludes1
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testRecursiveIncludes1(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:196
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+80) CompileIncludeTest::testRecursiveIncludes2
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testRecursiveIncludes2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:212
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+81) CompileIncludeTest::testIncludeSpacing
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testIncludeSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:263
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+82) CompileIncludeTest::testIncludeSpacingNocache
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testIncludeSpacingNocache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:281
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+83) CompileIncludeTest::testIncludeSpacingNocache2
+ArgumentCountError: Too few arguments to function CompileIncludeTest::testIncludeSpacingNocache2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Include\CompileIncludeTest.php:300
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+84) UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierExplodeTest::testExplode
+ArgumentCountError: Too few arguments to function UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierExplodeTest::testExplode(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 3 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierExplodeTest.php:24
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+85) UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest::testDefault
+ArgumentCountError: Too few arguments to function UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest::testDefault(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest.php:19
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+86) UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest::testDefaultAsFunction
+ArgumentCountError: Too few arguments to function UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest::testDefaultAsFunction(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest.php:29
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+87) UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest::testForceObject
+ArgumentCountError: Too few arguments to function UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest::testForceObject(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest.php:47
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+88) UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest::testForceObjectAsFunction
+ArgumentCountError: Too few arguments to function UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest::testForceObjectAsFunction(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierJsonEncodeTest.php:57
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+89) UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierNumberFormatTest::testNumberFormat
+ArgumentCountError: Too few arguments to function UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierNumberFormatTest::testNumberFormat(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 3 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierNumberFormatTest.php:25
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+90) UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierReplaceTest::testReplace
+ArgumentCountError: Too few arguments to function UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierReplaceTest::testReplace(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 3 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierReplaceTest.php:25
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+91) UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierSplitTest::testSplit
+ArgumentCountError: Too few arguments to function UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierSplitTest::testSplit(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 3 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\PluginModifier\PluginModifierSplitTest.php:23
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+92) CompileSectionTest::testSpacing
+ArgumentCountError: Too few arguments to function CompileSectionTest::testSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Section\CompileSectionTest.php:72
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+93) CompileSectionTest::testElseSpacing
+ArgumentCountError: Too few arguments to function CompileSectionTest::testElseSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Section\CompileSectionTest.php:116
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+94) CompileStripTest::testStrip
+ArgumentCountError: Too few arguments to function CompileStripTest::testStrip(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\Strip\CompileStripTest.php:37
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+95) CompileFunctionTest::testSimpleFunction_001
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testSimpleFunction_001(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 1 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:36
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+96) CompileFunctionTest::testSimpleFunctionAssign_001
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testSimpleFunctionAssign_001(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 1 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:49
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+97) CompileFunctionTest::testSimpleFunctionCached_001
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testSimpleFunctionCached_001(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 1 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:62
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+98) CompileFunctionTest::testSimpleFunctionCached_002
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testSimpleFunctionCached_002(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 1 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:76
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+99) CompileFunctionTest::testSimpleFunctionCachedNocacheDefault_002_1
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testSimpleFunctionCachedNocacheDefault_002_1(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 1 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:91
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+100) CompileFunctionTest::testSimpleFunctionPlugin_003
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testSimpleFunctionPlugin_003(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:129
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+101) CompileFunctionTest::testSimpleFunctionTag2
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testSimpleFunctionTag2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 1 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:147
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+102) CompileFunctionTest::testRecursiveFunction
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testRecursiveFunction(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 1 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:159
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+103) CompileFunctionTest::testInheritedFunction
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testInheritedFunction(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:171
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+104) CompileFunctionTest::testDefineFunctionInclude
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testDefineFunctionInclude(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:184
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+105) CompileFunctionTest::testExternalDefinedFunctionCached1
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testExternalDefinedFunctionCached1(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:199
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+106) CompileFunctionTest::testExternalDefinedFunctionCached12
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testExternalDefinedFunctionCached12(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:231
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+107) CompileFunctionTest::testExternalDefinedFunctionNocachedCall1
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testExternalDefinedFunctionNocachedCall1(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:250
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+108) CompileFunctionTest::testExternalDefinedFunctionNocachedCall2
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testExternalDefinedFunctionNocachedCall2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:268
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+109) CompileFunctionTest::testExternalDefinedFunctionNocachedCall3
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testExternalDefinedFunctionNocachedCall3(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:287
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+110) CompileFunctionTest::testExternalDefinedFunctionRecursion
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testExternalDefinedFunctionRecursion(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 1 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:306
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+111) CompileFunctionTest::testSpacing
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:364
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+112) CompileFunctionTest::testSpacingNocache
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testSpacingNocache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:382
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+113) CompileFunctionTest::testSpacingNocache2
+ArgumentCountError: Too few arguments to function CompileFunctionTest::testSpacingNocache2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\TemplateFunction\CompileFunctionTest.php:401
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+114) CompileWhileTest::testSpacing
+ArgumentCountError: Too few arguments to function CompileWhileTest::testSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\While\CompileWhileTest.php:53
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+115) CompileWhileTest::testNocache
+ArgumentCountError: Too few arguments to function CompileWhileTest::testNocache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 6 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\While\CompileWhileTest.php:108
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+116) PrintTest::testOutputSpacing
+ArgumentCountError: Too few arguments to function PrintTest::testOutputSpacing(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\_Print\PrintTest.php:35
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+117) PrintTest::testOutputSpacingNocache
+ArgumentCountError: Too few arguments to function PrintTest::testOutputSpacingNocache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\_Print\PrintTest.php:53
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+118) PrintTest::testOutputSpacingNocache2
+ArgumentCountError: Too few arguments to function PrintTest::testOutputSpacingNocache2(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\TagTests\_Print\PrintTest.php:72
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+119) ArrayTest::testArray
+ArgumentCountError: Too few arguments to function ArrayTest::testArray(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\Array\ArrayTest.php:34
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+120) DoubleQuotedStringTest::testDoubleQuoted
+ArgumentCountError: Too few arguments to function DoubleQuotedStringTest::testDoubleQuoted(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\DoubleQuoted\DoubleQuotedStringTest.php:37
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+121) MathTest::testBackticksIllegal
+Error: Call to undefined method MathTest::expectWarning()
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\Math\MathTest.php:142
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+122) MathTest::testDollarSignsIllegal
+Error: Call to undefined method MathTest::expectWarning()
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\Math\MathTest.php:156
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+123) MathTest::testBracketsIllegal
+Error: Call to undefined method MathTest::expectWarning()
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\Math\MathTest.php:170
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+124) ModifierTest::testModifier
+ArgumentCountError: Too few arguments to function ModifierTest::testModifier(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\Modifier\ModifierTest.php:36
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+125) PhpFunctionTest::testIsset3
+ArgumentCountError: Too few arguments to function PhpFunctionTest::testIsset3(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\PHPfunctions\PhpFunctionTest.php:160
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+126) CookieTest::testCookie
+ArgumentCountError: Too few arguments to function CookieTest::testCookie(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\SmartySpecialVars\Cookie\CookieTest.php:34
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+127) CookieTest::testCookieModifier
+ArgumentCountError: Too few arguments to function CookieTest::testCookieModifier(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 3 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\SmartySpecialVars\Cookie\CookieTest.php:56
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+128) PostTest::testPost
+ArgumentCountError: Too few arguments to function PostTest::testPost(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\SmartySpecialVars\Post\PostTest.php:34
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+129) PostTest::testPostModifier
+ArgumentCountError: Too few arguments to function PostTest::testPostModifier(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 3 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\ValueTests\SmartySpecialVars\Post\PostTest.php:47
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+130) ScopeTest::testAppendScope
+ArgumentCountError: Too few arguments to function ScopeTest::testAppendScope(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 5 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\X_Scopes\ScopeTest.php:36
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+131) ScopeTest::testAssignScope
+ArgumentCountError: Too few arguments to function ScopeTest::testAssignScope(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 5 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\X_Scopes\ScopeTest.php:117
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+132) ScopeTest::testScopeNocache
+ArgumentCountError: Too few arguments to function ScopeTest::testScopeNocache(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 3 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\X_Scopes\ScopeTest.php:188
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+133) ScopeTest::testIncludeScope
+ArgumentCountError: Too few arguments to function ScopeTest::testIncludeScope(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and at least 4 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\X_Scopes\ScopeTest.php:221
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+134) ScopeTest::testConfigScope
+ArgumentCountError: Too few arguments to function ScopeTest::testConfigScope(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 5 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\X_Scopes\ScopeTest.php:285
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+135) MbSplitEncodingIssue549Test::testReplaceModifier
+ArgumentCountError: Too few arguments to function MbSplitEncodingIssue549Test::testReplaceModifier(), 0 passed in C:\PHP\smarty\vendor\phpunit\phpunit\src\Framework\TestCase.php on line 1260 and exactly 2 expected
+
+C:\PHP\smarty\tests\UnitTests\TemplateSource\_Issues\549\MbSplitEncodingIssue549Test.php:59
+C:\PHP\smarty\vendor\bin\phpunit:122
+
+--
+
+There was 1 risky test:
+
+1) FileResourceTest::testGetCompiledTimestampPrepare
+This test did not perform any assertions
+
+C:\PHP\smarty\tests\UnitTests\ResourceTests\File\FileResourceTest.php:108
+
+ERRORS!
+Tests: 1197, Assertions: 1430, Errors: 135, Warnings: 6, Deprecations: 10, PHPUnit Deprecations: 1, Skipped: 52, Incomplete: 4, Risky: 1.

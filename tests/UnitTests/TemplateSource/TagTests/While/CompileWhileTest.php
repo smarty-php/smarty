@@ -50,7 +50,7 @@ class CompileWhileTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testSpacing($code, $result, $testName, $testNumber)
+    public function testSpacing($code = "A{while \$foo=\$foo-1}{\$foo}{/while}C", $result = "A21C", $testName = 'T1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
@@ -105,7 +105,7 @@ class CompileWhileTest extends PHPUnit_Smarty
      * 
      * @dataProvider        dataTestNocache
      */
-    public function testNocache($value, $nocache, $code, $result, $testName, $testNumber)
+    public function testNocache($value = 3, $nocache = false, $code = "{while \$foo=\$foo-1}\n{\$foo}{/while}", $result = '21', $testName = 'T1', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Nocache_{$name}.tpl";

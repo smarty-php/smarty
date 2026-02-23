@@ -336,4 +336,13 @@ class ScopeTest extends PHPUnit_Smarty
 		);
 	}
 
+    public function source(?object $_template, ?object $smarty = null)
+    {
+        // ...existing code...
+    }
+
+    public function populate(?object $_template)
+    {
+        // ...existing code...
+    }
 }

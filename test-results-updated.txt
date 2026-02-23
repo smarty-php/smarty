@@ -1,0 +1,11 @@
+PHPUnit 12.1.4 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.6
+Configuration: C:\PHP\smarty\phpunit.xml
+
+DDDDDDDDDDDDDDDDDDDDDDDDD                                         25 / 25 (100%)
+
+Time: 00:04.776, Memory: 12.00 MB
+
+OK, but there were issues!
+Tests: 25, Assertions: 106, Deprecations: 3, PHPUnit Deprecations: 1.

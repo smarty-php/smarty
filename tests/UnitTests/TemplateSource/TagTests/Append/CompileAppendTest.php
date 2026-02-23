@@ -36,7 +36,10 @@ class CompileAppendTest extends PHPUnit_Smarty
      *
      * @dataProvider        dataTestAppend
      */
-    public function testAppend($code, $result, $testName, $testNumber)
+    public function testAppend($code = '{$foo=1}{append var=foo value=2}{$foo|var_export:true}', $result = 'array (
+  0 => 1,
+  1 => 2,
+)', $testName = '', $testNumber = 0)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Append_{$name}.tpl";
@@ -74,7 +77,7 @@ class CompileAppendTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testAppendSpacing($code, $result, $testName, $testNumber)
+    public function testAppendSpacing($code = "A{append var=buh value=\$foo}B{\$buh[0]}", $result = "ABbar", $testName = 'Text', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
@@ -92,7 +95,7 @@ class CompileAppendTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testAppendSpacingNocache($code, $result, $testName, $testNumber)
+    public function testAppendSpacingNocache($code = "A{append var=buh value=\$foo}B{\$buh[0]}", $result = "ABbar", $testName = 'Text', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
@@ -111,7 +114,7 @@ class CompileAppendTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testAppendSpacingNocache2($code, $result, $testName, $testNumber)
+    public function testAppendSpacingNocache2($code = "A{append var=buh value=\$foo}B{\$buh[0]}", $result = "ABbar", $testName = 'Text', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";

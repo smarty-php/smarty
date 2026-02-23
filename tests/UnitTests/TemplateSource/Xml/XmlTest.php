@@ -30,7 +30,7 @@ class XmlTest extends PHPUnit_Smarty
     /**
      * test standard xml
      */
-    public function testXml()
+    public function testXml($dummy = null)
     {
         $tpl = $this->smarty->createTemplate('xml.tpl');
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>', $this->smarty->fetch($tpl));
@@ -39,7 +39,7 @@ class XmlTest extends PHPUnit_Smarty
     /**
      * test standard xml
      */
-    public function testXmlPhpAllow()
+    public function testXmlPhpAllow($dummy = null)
     {
         $tpl = $this->smarty->createTemplate('xml.tpl');
         $this->assertEquals('<?xml version="1.0" encoding="UTF-8"?>', $this->smarty->fetch($tpl));
@@ -48,7 +48,7 @@ class XmlTest extends PHPUnit_Smarty
     /**
      * test xml caching
      */
-    public function testXmlCaching()
+    public function testXmlCaching($dummy = null)
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
@@ -58,7 +58,7 @@ class XmlTest extends PHPUnit_Smarty
     /**
      * test subtemplate xml caching
      */
-    public function testXmlCaching2()
+    public function testXmlCaching2($dummy = null)
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
@@ -70,7 +70,7 @@ class XmlTest extends PHPUnit_Smarty
     /**
      * test xml with variable
      */
-    public function testXmlVariable()
+    public function testXmlVariable($dummy = null)
     {
         $this->smarty->assign('foo','bar');
         $content = $this->smarty->fetch('xmlvar.tpl');
@@ -79,7 +79,7 @@ class XmlTest extends PHPUnit_Smarty
     /**
      * test xml with nocache variable
      */
-    public function testXmlVariableNocache1()
+    public function testXmlVariableNocache1($dummy = null)
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
@@ -87,7 +87,7 @@ class XmlTest extends PHPUnit_Smarty
         $content = $this->smarty->fetch('xmlvar.tpl');
         $this->assertEquals('<?xml version="1.0" encoding="bar"?>', $content);
     }
-    public function testXmlVariableNocache2()
+    public function testXmlVariableNocache2($dummy = null)
     {
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
