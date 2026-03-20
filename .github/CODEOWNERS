@@ -1,7 +1,10 @@
-*                             @centreon/owners-php
 
+# Pipelines Codeowners rules
 .github/**                    @centreon/owners-pipelines
+.yamlfix.toml                 @centreon/owners-pipelines
 
+# Security Codeowners rules
 .gitleaks.toml                @centreon/owners-security
 .gitleaksignore               @centreon/owners-security
-**/security-checks.yml        @centreon/owners-security
+.githooks/pre-commit          @centreon/owners-security
+**/secu-*.yml                 @centreon/owners-security
