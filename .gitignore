@@ -7,3 +7,15 @@ phpunit*
 .phpunit.result.cache
 vendor/*
 composer.lock
+
+# Smarty compiled/cache output (safety net)
+/templates_c/
+/cache/
+
+# Test temp directories (compiled templates, cache, and temporary template sources)
+tests/**/cache/
+tests/**/templates_c/
+tests/**/templates_tmp/
+tests/cache/
+tests/templates_c/
+tests/templates_tmp/

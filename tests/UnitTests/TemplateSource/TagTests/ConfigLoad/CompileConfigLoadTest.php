@@ -25,7 +25,7 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
         $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
         $this->smarty->addTemplateDir("../../../__shared/templates/");
-        $this->smarty->addTemplateDir("./templates_tmp");
+        $this->smarty->addTemplateDir($this->getTemplatesTmpDir());
     }
 
     /**

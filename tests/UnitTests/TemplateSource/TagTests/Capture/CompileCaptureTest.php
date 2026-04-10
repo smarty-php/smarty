@@ -18,7 +18,7 @@ class CompileCaptureTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-        $this->smarty->addTemplateDir("./templates_tmp");
+        $this->smarty->addTemplateDir($this->getTemplatesTmpDir());
     }
 
 
@@ -116,7 +116,7 @@ class CompileCaptureTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),

@@ -18,7 +18,7 @@ class ModifierTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-        $this->smarty->addTemplateDir("./templates_tmp");
+        $this->smarty->addTemplateDir($this->getTemplatesTmpDir());
     }
 
     public function testInit()

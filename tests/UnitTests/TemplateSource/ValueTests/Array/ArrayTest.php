@@ -36,7 +36,7 @@ class ArrayTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Array_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 3);
         $this->assertEquals($result,
                             $this->smarty->fetch($file),

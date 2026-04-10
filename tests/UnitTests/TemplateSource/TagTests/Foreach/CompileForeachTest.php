@@ -19,7 +19,7 @@ class CompileForeachTest extends PHPUnit_Smarty
     {
         $this->setUpSmarty(__DIR__);
         $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
-        $this->smarty->addTemplateDir("./templates_tmp");
+        $this->smarty->addTemplateDir($this->getTemplatesTmpDir());
     }
 
     public function testInit()
@@ -312,7 +312,7 @@ class CompileForeachTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', array(1,2));
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -356,7 +356,7 @@ class CompileForeachTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_Else_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', array());
         $this->smarty->assign('buh', 'buh');
         $this->assertEquals($result,

@@ -7,7 +7,7 @@ class CompileCheckTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-        $this->smarty->addTemplateDir('./templates_tmp');
+        $this->smarty->addTemplateDir($this->getTemplatesTmpDir());
         $this->cleanDirs();
     }
 
@@ -16,18 +16,23 @@ class CompileCheckTest extends PHPUnit_Smarty
      */
     protected function makeFiles()
     {
-        file_put_contents('./templates_tmp/t1.tpl', 'TPL1');
-        file_put_contents('./templates_tmp/t2.tpl', 'TPL2');
-        file_put_contents('./templates_tmp/base.tpl', '{include file="t1.tpl"}{include file="t2.tpl"}');
+        $dir = $this->getTemplatesTmpDir();
+        if (!is_dir($dir)) {
+            mkdir($dir, 0775, true);
+        }
+        file_put_contents($dir . '/t1.tpl', 'TPL1');
+        file_put_contents($dir . '/t2.tpl', 'TPL2');
+        file_put_contents($dir . '/base.tpl', '{include file="t1.tpl"}{include file="t2.tpl"}');
     }
     /**
      * remove generated templates
      */
     protected function removeFiles()
     {
-        unlink('./templates_tmp/t1.tpl');
-        unlink('./templates_tmp/t2.tpl');
-        unlink('./templates_tmp/base.tpl');
+        $dir = $this->getTemplatesTmpDir();
+        unlink($dir . '/t1.tpl');
+        unlink($dir . '/t2.tpl');
+        unlink($dir . '/base.tpl');
     }
 
     /**
@@ -36,7 +41,9 @@ class CompileCheckTest extends PHPUnit_Smarty
      */
     private function softResetSmarty() {
         $this->smarty = new \Smarty\Smarty();
-        $this->smarty->addTemplateDir('./templates_tmp');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache');
+        $this->smarty->addTemplateDir($this->getTemplatesTmpDir());
     }
 
     /**
@@ -64,7 +71,7 @@ class CompileCheckTest extends PHPUnit_Smarty
         $this->softResetSmarty();
         $this->smarty->setCompileCheck(\Smarty\Smarty::COMPILECHECK_ON);
 
-        unlink('./templates_tmp/base.tpl');
+        unlink($this->getTemplatesTmpDir() . '/base.tpl');
         sleep(1);
 
         $this->expectException(\Smarty\Exception::class);
@@ -83,7 +90,7 @@ class CompileCheckTest extends PHPUnit_Smarty
         $this->smarty->setCompileCheck(\Smarty\Smarty::COMPILECHECK_ON);
 
         sleep(1);
-        file_put_contents('./templates_tmp/base.tpl', 'hello');
+        file_put_contents($this->getTemplatesTmpDir() . '/base.tpl', 'hello');
 
         $this->assertEquals('hello', $this->smarty->fetch('base.tpl'));
     }
@@ -113,7 +120,7 @@ class CompileCheckTest extends PHPUnit_Smarty
         $this->softResetSmarty();
         $this->smarty->setCompileCheck(\Smarty\Smarty::COMPILECHECK_OFF);
 
-        unlink('./templates_tmp/base.tpl');
+        unlink($this->getTemplatesTmpDir() . '/base.tpl');
         sleep(1);
 
         $this->assertEquals('TPL1TPL2', $this->smarty->fetch('base.tpl'));
@@ -131,7 +138,7 @@ class CompileCheckTest extends PHPUnit_Smarty
         $this->smarty->setCompileCheck(\Smarty\Smarty::COMPILECHECK_OFF);
 
         sleep(1);
-        file_put_contents('./templates_tmp/base.tpl', 'hello');
+        file_put_contents($this->getTemplatesTmpDir() . '/base.tpl', 'hello');
 
         $this->assertEquals('TPL1TPL2', $this->smarty->fetch('base.tpl'));
     }

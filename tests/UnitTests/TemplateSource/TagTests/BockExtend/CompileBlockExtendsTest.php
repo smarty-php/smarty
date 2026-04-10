@@ -563,7 +563,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->smarty->assign('parent', 'parent');
         $this->smarty->assign('child', 'child', true);
         $this->smarty->assign('grand', 'grand', true);
-        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/mustcompile');
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
@@ -589,7 +589,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      */
     public function testCompileBlockGrandChildMustCompile_021_12()
     {
-        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/mustcompile');
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $this->smarty->assign('parent', 'parent3');
@@ -611,7 +611,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->smarty->assign('parent', 'parent4');
         $this->smarty->assign('child', 'child4', true);
         $this->smarty->assign('grand', 'grand4', true);
-        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/mustcompile');
         sleep(2);
         touch($this->smarty->getTemplateDir(0) . '021_grand.tpl');
         clearstatcache();
@@ -625,7 +625,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->smarty->assign('parent', 'parent5');
         $this->smarty->assign('child', 'child5', true);
         $this->smarty->assign('grand', 'grand5', true);
-        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/mustcompile');
         $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
         $this->assertTrue($tpl2->isCached());
         $result = $this->smarty->fetch($tpl2);
@@ -642,7 +642,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->smarty->assign('parent', 'parent6');
         $this->smarty->assign('child', 'child6', true);
         $this->smarty->assign('grand', 'grand6', true);
-        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/mustcompile');
         sleep(2);
         touch($this->smarty->getTemplateDir(0) . '021_child.tpl');
         clearstatcache();
@@ -667,7 +667,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->smarty->assign('parent', 'parent7');
         $this->smarty->assign('child', 'child7', true);
         $this->smarty->assign('grand', 'grand7', true);
-        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/mustcompile');
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
@@ -686,7 +686,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->smarty->assign('parent', 'parent8');
         $this->smarty->assign('child', 'child8', true);
         $this->smarty->assign('grand', 'grand8', true);
-        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/mustcompile');
         sleep(2);
         touch($this->smarty->getTemplateDir(0) . '021_parent.tpl');
         clearstatcache();
@@ -711,7 +711,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->smarty->assign('parent', 'parent9');
         $this->smarty->assign('child', 'child9', true);
         $this->smarty->assign('grand', 'grand9', true);
-        $this->smarty->setCompileDir('./templates_c/mustcompile');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/mustcompile');
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl2 = $this->smarty->createTemplate('021_grand.tpl', $this->smarty);
@@ -1023,7 +1023,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -1042,7 +1042,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $file = "Spacing_{$name}.tpl";
         $this->smarty->setCompileId('VarNocache');
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'bar',true);
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -1061,7 +1061,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $file = "Spacing_{$name}.tpl";
         $this->smarty->setCompileId('VarNocache');
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'foo',true);
         $this->assertEquals(str_replace('bar','foo',$result),
                             $this->smarty->fetch($file),
@@ -1103,7 +1103,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $child .= preg_replace(array('/A/','/C/','/[$]foo/','/\s*[{][$]smarty[.]block[.]child[}]\s*/'),array('G','H','$bar','{$bar}'),$code);
         $file = "Spacing_Child{$name}.tpl";
         $this->makeTemplateFile($file, $child);
-        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'foo');
         $this->smarty->assign('bar', 'bar');
         $this->assertEquals($result,
@@ -1149,7 +1149,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->makeTemplateFile($file, $code);
         $this->smarty->setCompileId('BlockNocache');
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -1167,7 +1167,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $file = "blockNocache_{$name}.tpl";
         $this->smarty->setCompileId('BlockNocache');
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir('./templates_tmp');
+        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'foo');
         $this->assertEquals(str_replace('bar','foo',$result),
                             $this->smarty->fetch($file),

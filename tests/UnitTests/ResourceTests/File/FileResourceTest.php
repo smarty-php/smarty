@@ -173,6 +173,8 @@ class FileResourceTest extends PHPUnit_Smarty
 
 
 		$this->smarty = new \Smarty\Smarty();
+		$this->smarty->setCompileDir(self::$tempBase . 'templates_c');
+		$this->smarty->setCacheDir(self::$tempBase . 'cache');
 	    $this->smarty->caching = true;
 	    $this->smarty->cache_lifetime = 1000;
 
@@ -271,8 +273,8 @@ class FileResourceTest extends PHPUnit_Smarty
         $cwd = getcwd();
         chdir(__DIR__ . '/templates/sub/');
         $dn = __DIR__;
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
         $this->smarty->setTemplateDir(array(
                                           __DIR__ . '/does-not-exist/',
                                       ));
@@ -292,8 +294,8 @@ class FileResourceTest extends PHPUnit_Smarty
         $cwd = getcwd();
         chdir(__DIR__ . '/templates/sub/');
         $dn = __DIR__;
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
         $this->smarty->setTemplateDir(array(
                                           __DIR__ . '/does-not-exist/',
                                       ));
@@ -348,8 +350,8 @@ class FileResourceTest extends PHPUnit_Smarty
 
         $cwd = getcwd();
         $dn = __DIR__;
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
         $this->smarty->setTemplateDir(array($dn . '/templates/relativity/theory/',));
 
         $map = array('foo.tpl' => 'theory', './foo.tpl' => 'theory', '././foo.tpl' => 'theory',
@@ -367,8 +369,8 @@ class FileResourceTest extends PHPUnit_Smarty
 
         $cwd = getcwd();
         $dn = __DIR__;
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
 
 
         $this->smarty->setTemplateDir(array(
@@ -399,8 +401,8 @@ class FileResourceTest extends PHPUnit_Smarty
         $cwd = getcwd();
         $dn = __DIR__;
 
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
         chdir($dn . '/templates/relativity/theory/');
         $this->smarty->setTemplateDir(array(
                                           $dn . '/templates/',
@@ -428,8 +430,8 @@ class FileResourceTest extends PHPUnit_Smarty
         $cwd = getcwd();
         $dn = __DIR__;
 
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
         $this->smarty->setTemplateDir(array($dn . '/templates/relativity/theory/einstein/',));
 
         $map = array('foo.tpl' => 'einstein', './foo.tpl' => 'einstein', '././foo.tpl' => 'einstein',
@@ -448,8 +450,8 @@ class FileResourceTest extends PHPUnit_Smarty
         $cwd = getcwd();
         $dn = __DIR__;
 
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
         $this->smarty->setTemplateDir(array(
                                           $dn . '/templates/relativity/theory/einstein/',
                                       ));
@@ -479,8 +481,8 @@ class FileResourceTest extends PHPUnit_Smarty
         $cwd = getcwd();
         $dn = __DIR__;
 
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
         $this->smarty->setTemplateDir(array('../..',));
 
         $map = array('foo.tpl' => 'relativity', './foo.tpl' => 'relativity', '././foo.tpl' => 'relativity',);
@@ -497,8 +499,8 @@ class FileResourceTest extends PHPUnit_Smarty
         $cwd = getcwd();
         $dn = __DIR__;
 
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
         $this->smarty->setTemplateDir(array('../..',));
 
         $map =
@@ -516,8 +518,8 @@ class FileResourceTest extends PHPUnit_Smarty
         $cwd = getcwd();
         $dn = __DIR__;
 
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
         $this->smarty->setTemplateDir(array(
                                           '../..',
                                       ));
@@ -549,8 +551,8 @@ class FileResourceTest extends PHPUnit_Smarty
 
         $cwd = getcwd();
         $dn = __DIR__;
-        $this->smarty->setCompileDir($dn . '/templates_c/');
-        $this->smarty->setCacheDir($dn . '/cache/');
+        $this->smarty->setCompileDir(self::$tempBase . 'templates_c/');
+        $this->smarty->setCacheDir(self::$tempBase . 'cache/');
         $this->smarty->setTemplateDir(array(
                                           '..',
                                       ));
