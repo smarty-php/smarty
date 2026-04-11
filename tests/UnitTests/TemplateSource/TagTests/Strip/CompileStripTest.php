@@ -34,7 +34,7 @@ class CompileStripTest extends PHPUnit_Smarty
      * 
      * @dataProvider        dataTestStrip
      */
-    public function testStrip($code, $result, $testName, $testNumber)
+    public function testStrip($code = "    foo\n    bar  buh\n\n", $result = 'foobar  buh', $testName = '', $testNumber = 0)
     {
         $file = "testStrip_{$testNumber}.tpl";
         $this->makeTemplateFile($file, "{strip}\n" . $code);

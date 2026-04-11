@@ -56,7 +56,7 @@ class MbSplitEncodingIssue549Test extends PHPUnit_Smarty
      *
      * @dataProvider encodingPairsProvider
      */
-    public function testReplaceModifier($mb_int_encoding, $mb_regex_encoding)
+    public function testReplaceModifier($mb_int_encoding = 'UTF-8', $mb_regex_encoding = 'UTF-8')
     {
         $data = $this->data;
         \array_walk($data, function(&$value, $key) use($mb_int_encoding) {

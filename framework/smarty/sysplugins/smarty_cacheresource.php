@@ -336,4 +336,8 @@ class ScopeTest extends PHPUnit_Smarty
 		);
 	}
 
+    public function process(?object $cached)
+    {
+        // ...existing code...
+    }
 }

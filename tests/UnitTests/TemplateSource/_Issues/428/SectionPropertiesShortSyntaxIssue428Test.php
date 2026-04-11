@@ -27,12 +27,12 @@ class SectionPropertiesShortSyntaxIssue428Test extends PHPUnit_Smarty
         $this->cleanDirs();
     }
 
-    public function testSection_001()
+    public function testSection_001($dummy = null)
     {
         $this->smarty->assign('foo', array('a', 'b', 'c'));
         $this->assertEquals('abc', $this->smarty->fetch('001_section.tpl'));
     }
-    public function testSection_002()
+    public function testSection_002($dummy = null)
     {
         $this->smarty->assign('foo', array('a', 'b', 'c'));
         $this->assertEquals('abc', $this->smarty->fetch('002_section.tpl'));

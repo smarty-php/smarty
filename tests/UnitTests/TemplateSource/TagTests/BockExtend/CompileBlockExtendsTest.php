@@ -62,8 +62,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChild_002($caching, $merge, $testNumber, $compileTestNumber, $renderTestNumber,
-                                              $testName)
+    public function testCompileBlockChild_002($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1, $renderTestNumber = 1,
+                                              $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -87,8 +87,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildPrepend_003($caching, $merge, $testNumber, $compileTestNumber,
-                                                     $renderTestNumber, $testName)
+    public function testCompileBlockChildPrepend_003($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                     $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -113,8 +113,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockGrandPrepend_003($caching, $merge, $testNumber, $compileTestNumber,
-                                                     $renderTestNumber, $testName)
+    public function testCompileBlockGrandPrepend_003($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                     $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -140,8 +140,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildAppend_004($caching, $merge, $testNumber, $compileTestNumber,
-                                                    $renderTestNumber, $testName)
+    public function testCompileBlockChildAppend_004($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                    $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -167,8 +167,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockGrandAppend_004($caching, $merge, $testNumber, $compileTestNumber,
-                                                    $renderTestNumber, $testName)
+    public function testCompileBlockGrandAppend_004($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                    $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -194,8 +194,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockGrandAppendPrepend_004($caching, $merge, $testNumber, $compileTestNumber,
-                                                           $renderTestNumber, $testName)
+    public function testCompileBlockGrandAppendPrepend_004($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                           $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -221,8 +221,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildAppendShortag_005($caching, $merge, $testNumber, $compileTestNumber,
-                                                           $renderTestNumber, $testName)
+    public function testCompileBlockChildAppendShortag_005($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                           $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -247,8 +247,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildSmartyChild_006($caching, $merge, $testNumber, $compileTestNumber,
-                                                         $renderTestNumber, $testName)
+    public function testCompileBlockChildSmartyChild_006($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                         $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -273,8 +273,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildSmartyParent_007($caching, $merge, $testNumber, $compileTestNumber,
-                                                          $renderTestNumber, $testName)
+    public function testCompileBlockChildSmartyParent_007($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                          $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -300,8 +300,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildSmartyParent_007_2($caching, $merge, $testNumber, $compileTestNumber,
-                                                            $renderTestNumber, $testName)
+    public function testCompileBlockChildSmartyParent_007_2($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                            $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -327,8 +327,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildPlugin_008($caching, $merge, $testNumber, $compileTestNumber,
-                                                    $renderTestNumber, $testName)
+    public function testCompileBlockChildPlugin_008($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                    $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -354,8 +354,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockParentNested_009($caching, $merge, $testNumber, $compileTestNumber,
-                                                     $renderTestNumber, $testName)
+    public function testCompileBlockParentNested_009($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                     $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -379,8 +379,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildNested_010($caching, $merge, $testNumber, $compileTestNumber,
-                                                    $renderTestNumber, $testName)
+    public function testCompileBlockChildNested_010($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                    $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -405,8 +405,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildNestedInclude_011($caching, $merge, $testNumber, $compileTestNumber,
-                                                           $renderTestNumber, $testName)
+    public function testCompileBlockChildNestedInclude_011($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                           $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -432,8 +432,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildNestedInclude_012($caching, $merge, $testNumber, $compileTestNumber,
-                                                           $renderTestNumber, $testName)
+    public function testCompileBlockChildNestedInclude_012($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                           $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -459,8 +459,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildNestedHide_018($caching, $merge, $testNumber, $compileTestNumber,
-                                                        $renderTestNumber, $testName)
+    public function testCompileBlockChildNestedHide_018($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                        $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -483,8 +483,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildNestedHide_018_2($caching, $merge, $testNumber, $compileTestNumber,
-                                                          $renderTestNumber, $testName)
+    public function testCompileBlockChildNestedHide_018_2($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                          $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -507,8 +507,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockChildNestedHide_018_3($caching, $merge, $testNumber, $compileTestNumber,
-                                                          $renderTestNumber, $testName)
+    public function testCompileBlockChildNestedHide_018_3($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                          $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -531,8 +531,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockStartSubTemplates_020($caching, $merge, $testNumber, $compileTestNumber,
-                                                          $renderTestNumber, $testName)
+    public function testCompileBlockStartSubTemplates_020($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                          $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -776,8 +776,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testSmartyBlockVariablePartentInclude_28($caching, $merge, $testNumber, $compileTestNumber,
-                                                             $renderTestNumber, $testName)
+    public function testSmartyBlockVariablePartentInclude_28($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                             $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -799,8 +799,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      *
      * @dataProvider data
      */
-    public function testSmartyBlockVariablePartentInclude_282($caching, $merge, $testNumber, $compileTestNumber,
-                                                              $renderTestNumber, $testName)
+    public function testSmartyBlockVariablePartentInclude_282($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                              $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -823,8 +823,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockGrandChildNested_030($caching, $merge, $testNumber, $compileTestNumber,
-                                                         $renderTestNumber, $testName)
+    public function testCompileBlockGrandChildNested_030($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                         $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -846,8 +846,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockGrandChildNestedRelative_030($caching, $merge, $testNumber, $compileTestNumber,
-                                                                 $renderTestNumber, $testName)
+    public function testCompileBlockGrandChildNestedRelative_030($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                                 $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -869,8 +869,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockSmartyBlockParent_034_1($caching, $merge, $testNumber, $compileTestNumber,
-                                                          $renderTestNumber, $testName)
+    public function testCompileBlockSmartyBlockParent_034_1($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                          $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -892,8 +892,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockSmartyBlockChild_035_1($caching, $merge, $testNumber, $compileTestNumber,
-                                                         $renderTestNumber, $testName)
+    public function testCompileBlockSmartyBlockChild_035_1($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                         $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -966,8 +966,8 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * 
      * @dataProvider        data
      */
-    public function testCompileBlockRelativeIncludes_033($caching, $merge, $testNumber, $compileTestNumber,
-                                                                 $renderTestNumber, $testName)
+    public function testCompileBlockRelativeIncludes_033($caching = false, $merge = false, $testNumber = 1, $compileTestNumber = 1,
+                                                                 $renderTestNumber = 1, $testName = 'default')
     {
         $this->smarty->registerFilter('pre', array($this, 'compiledPrefilter'));
         $this->smarty->assign('test', $testNumber);
@@ -1018,7 +1018,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testSpacing($code, $result, $testName, $testNumber)
+    public function testSpacing($code = '', $result = '', $testName = '', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
@@ -1036,7 +1036,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testBlockSpacingNocache($code, $result, $testName, $testNumber)
+    public function testBlockSpacingNocache($code = '', $result = '', $testName = '', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
@@ -1055,7 +1055,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * @dataProvider        dataTestSpacing
      * 
      */
-    public function testBlockSpacingNocache2($code, $result, $testName, $testNumber)
+    public function testBlockSpacingNocache2($code = '', $result = '', $testName = '', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
@@ -1094,7 +1094,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * @dataProvider        dataTestChildSpacing
      * 
      */
-    public function testChildSpacing($code, $result, $testName, $testNumber)
+    public function testChildSpacing($code = '', $result = '', $testName = '', $testNumber = 1)
     {
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_Parent{$name}.tpl";
@@ -1143,7 +1143,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * @dataProvider        dataTestBlockNocache
      * 
      */
-    public function testBlockNocacheSpacing($code, $result, $name, $testNumber)
+    public function testBlockNocacheSpacing($code = '', $result = '', $name = '', $testNumber = 1)
     {
         $file = "blockNocache_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
@@ -1162,7 +1162,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
      * @dataProvider        dataTestBlockNocache
      * 
      */
-    public function testBlockNocacheSpacing2($code, $result, $name, $testNumber)
+    public function testBlockNocacheSpacing2($code = '', $result = '', $name = '', $testNumber = 1)
     {
         $file = "blockNocache_{$name}.tpl";
         $this->smarty->setCompileId('BlockNocache');
