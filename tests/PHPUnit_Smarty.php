@@ -116,9 +116,6 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     public function __construct($name = null, array $data = array(), $dataName = '')
     {
         date_default_timezone_set('Europe/Berlin');
-        if (!defined('individualFolders')) {
-            define('individualFolders', true);
-        }
         parent::__construct($name, $data, $dataName);
     }
 
@@ -166,7 +163,6 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
      */
     public function setUpSmarty($dir)
     {
-        static $s_dir;
         // set up current working directory
         chdir($dir);
         self::$cwd = getcwd();
@@ -181,21 +177,6 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
                 mkdir($dir . '/configs');
             }
             $tempDir = self::getTempBase();
-            if (individualFolders != 'true') {
-                if (!isset($s_dir[ $dir ])) {
-                    if (is_dir($tempDir . 'templates_c')) {
-                        $this->cleanDir($tempDir . 'templates_c');
-                    }
-                    if (is_dir($tempDir . 'cache')) {
-                        $this->cleanDir($tempDir . 'cache');
-                    }
-                    if (is_dir($tempDir . 'templates_tmp')) {
-                        $this->cleanDir($tempDir . 'templates_tmp');
-                    }
-                    $s_dir[ $dir ] = true;
-                }
-                $tempDir = self::getTempDir(__DIR__);
-            }
             if (!is_dir($tempDir . 'templates_c')) {
                 mkdir($tempDir . 'templates_c', 0775, true);
             }
@@ -210,14 +191,8 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
 
         // instance Smarty class
         $this->smarty = new \Smarty\Smarty();
-        if (individualFolders != 'true') {
-            $globalTemp = self::getTempDir(__DIR__);
-            $this->smarty->setCompileDir($globalTemp . 'templates_c');
-            $this->smarty->setCacheDir($globalTemp . 'cache');
-        } else {
-            $this->smarty->setCompileDir(self::getTempBase() . 'templates_c');
-            $this->smarty->setCacheDir(self::getTempBase() . 'cache');
-        }
+        $this->smarty->setCompileDir(self::getTempBase() . 'templates_c');
+        $this->smarty->setCacheDir(self::getTempBase() . 'cache');
         // Clean output dirs once at the start of each test class run
         if (self::$testNumber === 0) {
             $this->cleanDirs();
@@ -314,8 +289,7 @@ KEY `name` (`name`)
         if (is_dir($templatesTmpDir)) {
             $this->cleanDir($templatesTmpDir);
         }
-        $this->assertTrue(true);
-   }
+    }
 
     /**
      * Return the templates_tmp directory path (in the temp area)

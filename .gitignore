@@ -12,10 +12,8 @@ composer.lock
 /templates_c/
 /cache/
 
-# Test temp directories (compiled templates, cache, and temporary template sources)
-tests/**/cache/
+# Test output dirs — never belong in source control
 tests/**/templates_c/
+tests/**/cache/
 tests/**/templates_tmp/
-tests/cache/
-tests/templates_c/
-tests/templates_tmp/
+

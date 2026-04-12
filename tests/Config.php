@@ -6,7 +6,6 @@
 /*
  * Smarty PHPUnit Config
  */
-define('individualFolders', true);
 define('MysqlCacheEnable', false);
 define('PdoCacheEnable', false);
 define('PdoGzipCacheEnable', false);
