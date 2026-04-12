@@ -22,10 +22,6 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $this->smarty->disableSecurity();
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * test block plugin tag

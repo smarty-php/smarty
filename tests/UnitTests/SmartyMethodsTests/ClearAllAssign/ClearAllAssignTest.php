@@ -25,10 +25,6 @@ class ClearAllAssignTest extends PHPUnit_Smarty
         $this->_tpl->assign('blar', 'blar');
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test all variables accessable
      */

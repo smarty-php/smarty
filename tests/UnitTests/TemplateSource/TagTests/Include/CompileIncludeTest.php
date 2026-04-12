@@ -23,10 +23,6 @@ class CompileIncludeTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * test spacing

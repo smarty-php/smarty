@@ -25,10 +25,6 @@ class CustomResourceAmbiguousTest extends PHPUnit_Smarty
         //        Smarty::$_resource_cache = array();
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     protected function relative($path)
     {

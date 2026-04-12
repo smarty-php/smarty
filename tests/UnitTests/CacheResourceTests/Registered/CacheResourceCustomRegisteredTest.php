@@ -26,6 +26,7 @@ if (MysqlCacheEnable == true) {
                 $this->getConnection();
             }
             $this->setUpSmarty(__DIR__);
+            $this->initMysqlCache();
             parent::setUp();
             if (!class_exists('Smarty_CacheResource_Mysqltest', false)) {
                 require_once(__DIR__ . "/../_shared/PHPunitplugins/cacheresource.mysqltest.php");
@@ -34,11 +35,6 @@ if (MysqlCacheEnable == true) {
             $this->smarty->registerCacheResource('foobar', new Smarty_CacheResource_Mysqltest());
         }
 
-        public function testInit()
-        {
-            $this->cleanDirs();
-            $this->initMysqlCache();
-        }
     }
 }
 

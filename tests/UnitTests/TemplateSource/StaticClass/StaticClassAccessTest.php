@@ -22,10 +22,6 @@ class StaticClassAccessTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test static class variable
      */

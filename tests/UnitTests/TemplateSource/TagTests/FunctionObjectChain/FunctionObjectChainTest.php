@@ -92,10 +92,6 @@ class FunctionObjectChainTest extends PHPUnit_Smarty
         $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, 'create_object', 'smarty_modifier_create_object');
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * Test the NEW feature: function call followed by method chain

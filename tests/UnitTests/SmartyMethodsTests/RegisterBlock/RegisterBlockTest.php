@@ -25,10 +25,6 @@ class RegisterBlockTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test registerPlugin method for block function
      */

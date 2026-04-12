@@ -20,10 +20,6 @@ class GetterSetterTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * test setter on Smarty object

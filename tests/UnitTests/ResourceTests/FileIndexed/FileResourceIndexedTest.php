@@ -20,10 +20,6 @@ class FileResourceIndexedTest extends PHPUnit_Smarty
         $this->smarty->addTemplateDir(__DIR__ . '/templates_4', 'foo');
      }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     public function testFetch()
     {

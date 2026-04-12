@@ -17,10 +17,6 @@ if (PHP_VERSION_ID >= 80100) {
 		}
 
 
-		public function testInit()
-		{
-			$this->cleanDirs();
-		}
 
 		public function testRegisterFirstClassCallable()
 		{

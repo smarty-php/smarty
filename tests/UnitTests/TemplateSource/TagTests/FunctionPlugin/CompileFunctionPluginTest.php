@@ -21,10 +21,6 @@ class CompileFunctionPluginTest extends PHPUnit_Smarty
         $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
 
     /**

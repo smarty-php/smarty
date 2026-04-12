@@ -21,10 +21,6 @@ class CompileWhileTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test {while 'condition'} tag
      */

@@ -27,10 +27,6 @@ class StreamResourceTest extends PHPUnit_Smarty
         fclose($fp);
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     public function tearDown(): void
     {
         parent::tearDown();

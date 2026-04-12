@@ -20,10 +20,6 @@ class CompileCompilerPluginTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * test compiler plugin tag in template file

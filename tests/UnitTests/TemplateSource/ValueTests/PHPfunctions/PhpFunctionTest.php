@@ -22,10 +22,6 @@ class PhpFunctionTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * test PHP empty() on variables true

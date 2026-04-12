@@ -21,10 +21,6 @@ class MathTest extends PHPUnit_Smarty
         $this->smarty->registerPlugin('modifier', 'sin', 'sin');
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * test PHP function as modifier

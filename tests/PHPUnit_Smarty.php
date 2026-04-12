@@ -54,7 +54,25 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
      *
      * @var string|null
      */
-    public static $tempBase = null;
+    private static $tempBase = null;
+
+    /**
+     * Unique token for the current test class's temp directory.
+     * Generated once per class, reset in tearDownAfterClass().
+     *
+     * @var string|null
+     */
+    private static $tempId = null;
+
+    /**
+     * Return the temp directory base for the current test class.
+     *
+     * @return string|null
+     */
+    public static function getTempBase(): ?string
+    {
+        return self::$tempBase;
+    }
 
     /**
      * PDO object for Mysql tests
@@ -84,6 +102,8 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     {
         //self::$pdo = null;
         self::$testNumber = 0;
+        self::$tempId = null;
+        self::$tempBase = null;
     }
 
     /**
@@ -105,16 +125,24 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     /**
      * Compute the temp directory base for a given test directory.
      *
-     * Maps a test directory to a parallel structure under the system temp dir,
-     * keeping the path relative to the tests/ root. For example:
+     * Returns a path unique to this test class run under sys_get_temp_dir(),
+     * so that concurrent or sequential runs of different test classes never
+     * share compiled/cached output. The unique token is generated once per
+     * class lifetime and reset in tearDownAfterClass().
+     *
+     * Example:
      *   /path/to/smarty/tests/UnitTests/TagTests/If
-     *     → /tmp/smarty-tests/UnitTests/TagTests/If
+     *     → /tmp/smarty-tests/UnitTests/TagTests/If/<unique-id>/
      *
      * @param string $dir absolute test directory
      * @return string absolute temp base directory (with trailing separator)
      */
-    public static function getTempDir($dir)
+    private static function getTempDir($dir)
     {
+        // Lazily generate a unique token for this test class.
+        if (self::$tempId === null) {
+            self::$tempId = uniqid('', true);
+        }
         $testsRoot = realpath(__DIR__);
         $realDir = realpath($dir) ?: $dir;
         // compute relative path from tests/ root
@@ -126,7 +154,9 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
         }
         return rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR)
             . DIRECTORY_SEPARATOR . 'smarty-tests'
-            . $relative . DIRECTORY_SEPARATOR;
+            . $relative
+            . DIRECTORY_SEPARATOR . self::$tempId
+            . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -150,7 +180,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
             if (!is_dir($dir . '/configs')) {
                 mkdir($dir . '/configs');
             }
-            $tempDir = self::$tempBase;
+            $tempDir = self::getTempBase();
             if (individualFolders != 'true') {
                 if (!isset($s_dir[ $dir ])) {
                     if (is_dir($tempDir . 'templates_c')) {
@@ -185,9 +215,14 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
             $this->smarty->setCompileDir($globalTemp . 'templates_c');
             $this->smarty->setCacheDir($globalTemp . 'cache');
         } else {
-            $this->smarty->setCompileDir(self::$tempBase . 'templates_c');
-            $this->smarty->setCacheDir(self::$tempBase . 'cache');
+            $this->smarty->setCompileDir(self::getTempBase() . 'templates_c');
+            $this->smarty->setCacheDir(self::getTempBase() . 'cache');
         }
+        // Clean output dirs once at the start of each test class run
+        if (self::$testNumber === 0) {
+            $this->cleanDirs();
+        }
+        self::$testNumber++;
 
     }
 
@@ -275,7 +310,7 @@ KEY `name` (`name`)
     {
         $this->cleanCompileDir();
         $this->cleanCacheDir();
-        $templatesTmpDir = self::$tempBase . 'templates_tmp';
+        $templatesTmpDir = self::getTempBase() . 'templates_tmp';
         if (is_dir($templatesTmpDir)) {
             $this->cleanDir($templatesTmpDir);
         }
@@ -289,7 +324,7 @@ KEY `name` (`name`)
      */
     public function getTemplatesTmpDir()
     {
-        return self::$tempBase . 'templates_tmp';
+        return self::getTempBase() . 'templates_tmp';
     }
 
     /**

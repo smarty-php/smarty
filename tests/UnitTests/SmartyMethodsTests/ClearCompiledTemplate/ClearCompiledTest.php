@@ -23,10 +23,6 @@ class ClearCompiledTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     // helpers
     /**
      * clear $smarty->compile_dir

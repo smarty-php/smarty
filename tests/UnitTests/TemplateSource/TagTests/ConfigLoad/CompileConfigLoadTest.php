@@ -31,10 +31,6 @@ class CompileConfigLoadTest extends PHPUnit_Smarty
     /**
      * empty template_c and cache folders
      */
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * 

@@ -21,10 +21,6 @@ class RegisterModifierTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test register->modifier method for function
      */

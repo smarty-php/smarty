@@ -21,10 +21,6 @@ class TemplateExistsTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test $smarty->templateExists true
      */

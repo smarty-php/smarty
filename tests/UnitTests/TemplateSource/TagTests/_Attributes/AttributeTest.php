@@ -22,10 +22,6 @@ class AttributeTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * test required attribute

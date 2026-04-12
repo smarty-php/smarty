@@ -23,10 +23,6 @@ class DefaultTemplateHandlerTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test error on unknow template
      */

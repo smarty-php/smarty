@@ -41,8 +41,8 @@ class CompileCheckTest extends PHPUnit_Smarty
      */
     private function softResetSmarty() {
         $this->smarty = new \Smarty\Smarty();
-        $this->smarty->setCompileDir(self::$tempBase . 'templates_c');
-        $this->smarty->setCacheDir(self::$tempBase . 'cache');
+        $this->smarty->setCompileDir(self::getTempBase() . 'templates_c');
+        $this->smarty->setCacheDir(self::getTempBase() . 'cache');
         $this->smarty->addTemplateDir($this->getTemplatesTmpDir());
     }
 

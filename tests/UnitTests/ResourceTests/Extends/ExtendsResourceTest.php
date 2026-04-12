@@ -20,10 +20,6 @@ class ExtendsResourceTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     public function compiledPrefilter($text, Template $tpl)
     {

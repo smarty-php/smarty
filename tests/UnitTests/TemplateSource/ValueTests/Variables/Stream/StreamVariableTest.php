@@ -26,10 +26,6 @@ class StreamVariableTest extends PHPUnit_Smarty
         fclose($fp);
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     protected function tearDown(): void
     {

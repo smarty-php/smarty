@@ -21,10 +21,6 @@ class CompileSectionTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test {section} tag
      */

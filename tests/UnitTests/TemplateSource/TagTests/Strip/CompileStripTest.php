@@ -22,10 +22,6 @@ class CompileStripTest extends PHPUnit_Smarty
         $this->smarty->addTemplateDir($this->getTemplatesTmpDir());
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * Test {strip} tags

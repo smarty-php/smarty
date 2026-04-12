@@ -26,10 +26,6 @@ class RegisteredResourceTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test resource plugin rendering
      */

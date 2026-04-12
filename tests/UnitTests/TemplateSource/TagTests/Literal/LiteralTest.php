@@ -21,10 +21,6 @@ class LiteralTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /*
      *  Test literal tag
      */

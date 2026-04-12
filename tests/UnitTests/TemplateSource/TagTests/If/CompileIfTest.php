@@ -24,10 +24,6 @@ class CompileIfTest extends PHPUnit_Smarty
         $this->smarty->registerPlugin('modifier', 'var_export', 'var_export');
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * Test if tags
