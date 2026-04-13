@@ -14,16 +14,13 @@ class FileResourceIndexedTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
+		$this->smarty->setTemplateDir(__DIR__ . '/templates');
         $this->smarty->addTemplateDir(__DIR__ . '/templates_2');
         // note that 10 is a string!
         $this->smarty->addTemplateDir(__DIR__ . '/templates_3', '10');
         $this->smarty->addTemplateDir(__DIR__ . '/templates_4', 'foo');
      }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     public function testFetch()
     {

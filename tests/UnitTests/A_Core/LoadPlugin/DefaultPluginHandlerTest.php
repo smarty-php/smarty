@@ -24,10 +24,6 @@ class DefaultPluginHandlerTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     public function testDefaultFunctionScript()
     {
         $this->assertEquals("scriptfunction foo bar", $this->smarty->fetch('test_default_function_script.tpl'));

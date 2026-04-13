@@ -20,10 +20,6 @@ class ExtendsIssue419Test extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     public function testextends419()
     {

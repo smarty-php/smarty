@@ -29,15 +29,11 @@ if (MysqlCacheEnable == true) {
                 $this->getConnection();
             }
             $this->setUpSmarty(__DIR__);
+            $this->initMysqlCache();
             parent::setUp();
             $this->smarty->setCachingType('mysqltest');
         }
 
-        public function testInit()
-        {
-            $this->cleanDirs();
-            $this->initMysqlCache();
-        }
     }
 }
 

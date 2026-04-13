@@ -8,10 +8,6 @@ class MatchesOperatorTest extends PHPUnit_Smarty {
 		$this->setUpSmarty(__DIR__);
 	}
 
-	public function testInit()
-	{
-		$this->cleanDirs();
-	}
 
 	/**
 	 * Test basic regex matching functionality

@@ -18,14 +18,6 @@ class CompileIncludeTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
-        $this->smarty->addTemplateDir("./templates_tmp");
-    }
-
-
-    public function testInit()
-    {
-        $this->cleanDirs();
     }
 
     /**
@@ -265,7 +257,6 @@ class CompileIncludeTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->addTemplateDir('./templates_tmp');
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -284,7 +275,6 @@ class CompileIncludeTest extends PHPUnit_Smarty
         $file = "Spacing_{$name}.tpl";
         $this->smarty->setCompileId('1');
         $this->smarty->setCaching(1);
-        $this->smarty->addTemplateDir('./templates_tmp');
         $this->smarty->assign('foo', 'bar',true);
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -303,7 +293,6 @@ class CompileIncludeTest extends PHPUnit_Smarty
         $file = "Spacing_{$name}.tpl";
         $this->smarty->setCompileId('1');
         $this->smarty->setCaching(1);
-        $this->smarty->addTemplateDir('./templates_tmp');
         $this->smarty->assign('foo', 'foo',true);
         $this->assertEquals(str_replace('bar','foo',$result),
                             $this->smarty->fetch($file),

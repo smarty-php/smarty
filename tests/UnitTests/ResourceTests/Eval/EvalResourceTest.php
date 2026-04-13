@@ -21,10 +21,6 @@ class EvalResourceTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test template eval exits
      */

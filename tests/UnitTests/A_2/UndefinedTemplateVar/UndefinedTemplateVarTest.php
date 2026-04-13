@@ -18,10 +18,6 @@ class UndefinedTemplateVarTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * Test Error suppression template fetched by Smarty object
      */

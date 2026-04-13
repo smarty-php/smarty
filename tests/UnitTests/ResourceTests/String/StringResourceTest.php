@@ -21,10 +21,6 @@ class StringResourceTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     protected function relative($path)
     {

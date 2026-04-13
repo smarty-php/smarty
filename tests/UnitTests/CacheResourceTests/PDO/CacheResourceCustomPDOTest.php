@@ -28,15 +28,11 @@ class CacheResourceCustomPDOTest extends CacheResourceTestCommon
             $this->getConnection();
         }
         $this->setUpSmarty(__DIR__);
+        $this->initMysqlCache();
         parent::setUp();
         $this->smarty->registerCacheResource('pdo',
                                              new Smarty_CacheResource_Pdotest($this->getPDO(), 'output_cache'));
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-        $this->initMysqlCache();
-    }
 }
 

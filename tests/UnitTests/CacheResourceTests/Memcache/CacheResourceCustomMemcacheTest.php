@@ -32,10 +32,6 @@ class CacheResourceCustomMemcacheTest extends CacheResourceTestCommon
         $this->smarty->setCachingType('memcachetest');
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     protected function doClearCacheAssertion($a, $b)
     {

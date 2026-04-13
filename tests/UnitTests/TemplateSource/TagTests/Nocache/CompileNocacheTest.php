@@ -21,10 +21,6 @@ class CompileNocacheTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test nocache tag caching disabled
      */

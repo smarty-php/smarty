@@ -50,6 +50,37 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     public static $cwd = null;
 
     /**
+     * Temp directory base for this test class (compile, cache, templates_tmp)
+     *
+     * @var string|null
+     */
+    private static $tempBase = null;
+
+    /**
+     * Unique token for the current test class's temp directory.
+     * Generated once per class.
+     *
+     * @var string|null
+     */
+    private static $tempId = null;
+
+    /**
+     * Return the temp directory base for the current test class.
+     *
+     * @return string
+     * @throws \LogicException If the temp directory base has not been initialized yet.
+     */
+    public static function getTempBase(): string
+    {
+        if (self::$tempBase === null) {
+            throw new \LogicException(
+                'Temp directory base has not been initialized. Call setUpSmarty() before using temp-path helpers.'
+            );
+        }
+        return self::$tempBase;
+    }
+
+    /**
      * PDO object for Mysql tests
      *
      * @var PDO
@@ -75,8 +106,37 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
      */
     public static function tearDownAfterClass(): void
     {
-        //self::$pdo = null;
-        self::$testNumber = 0;
+        // Remove the unique temp directory for this test class unless the caller
+        // wants to inspect the artifacts (e.g. for debugging a failure).
+        if (!getenv('KEEP_SMARTY_TEST_ARTIFACTS') && self::$tempBase !== null && is_dir(self::$tempBase)) {
+            self::removeDir(self::$tempBase);
+        }
+    }
+
+    /**
+     * Recursively remove a directory, silently ignoring any errors.
+     *
+     * @param string $dir
+     */
+    private static function removeDir(string $dir): void
+    {
+        $dir = rtrim($dir, DIRECTORY_SEPARATOR);
+        $items = @scandir($dir);
+        if ($items === false) {
+            return;
+        }
+        foreach ($items as $item) {
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+            $path = $dir . DIRECTORY_SEPARATOR . $item;
+            if (is_dir($path) && !is_link($path)) {
+                self::removeDir($path);
+            } else {
+                @unlink($path);
+            }
+        }
+        @rmdir($dir);
     }
 
     /**
@@ -89,10 +149,44 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     public function __construct($name = null, array $data = array(), $dataName = '')
     {
         date_default_timezone_set('Europe/Berlin');
-        if (!defined('individualFolders')) {
-            define('individualFolders', true);
-        }
         parent::__construct($name, $data, $dataName);
+    }
+
+    /**
+     * Compute the temp directory base for a given test directory.
+     *
+     * Returns a path unique to this test class run under sys_get_temp_dir(),
+     * so that concurrent or sequential runs of different test classes never
+     * share compiled/cached output. The unique token is generated once per
+     * class lifetime and reset in tearDownAfterClass().
+     *
+     * Example:
+     *   /path/to/smarty/tests/UnitTests/TagTests/If
+     *     → /tmp/smarty-tests/UnitTests/TagTests/If/<unique-id>/
+     *
+     * @param string $dir absolute test directory
+     * @return string absolute temp base directory (with trailing separator)
+     */
+    private static function getTempDir($dir)
+    {
+        // Lazily generate a unique token for this test class.
+        if (self::$tempId === null) {
+            self::$tempId = uniqid('', true);
+        }
+        $testsRoot = realpath(__DIR__);
+        $realDir = realpath($dir) ?: $dir;
+        // compute relative path from tests/ root
+        if (strpos($realDir, $testsRoot) === 0) {
+            $relative = substr($realDir, strlen($testsRoot));
+        } else {
+            // fallback: use full path hash
+            $relative = DIRECTORY_SEPARATOR . md5($realDir);
+        }
+        return rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR)
+            . DIRECTORY_SEPARATOR . 'smarty-tests'
+            . $relative
+            . DIRECTORY_SEPARATOR . self::$tempId
+            . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -102,47 +196,37 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
      */
     public function setUpSmarty($dir)
     {
-        static $s_dir;
         // set up current working directory
         chdir($dir);
         self::$cwd = getcwd();
+        // compute temp base for this test directory
+        self::$tempBase = self::getTempDir($dir);
         // create missing folders for test
         if (self::$init) {
-            if (!is_dir($dir . '/templates')) {
-                mkdir($dir . '/templates');
+            if (!is_dir(self::$tempBase . 'templates_c')) {
+                mkdir(self::$tempBase . 'templates_c', 0775, true);
             }
-            if (!is_dir($dir . '/configs')) {
-                mkdir($dir . '/configs');
+            if (!is_dir(self::$tempBase . 'cache')) {
+                mkdir(self::$tempBase . 'cache', 0775, true);
             }
-            if (individualFolders != 'true') {
-                if (!isset($s_dir[ $dir ])) {
-                    $this->cleanDir($dir . '/templates_c');
-                    $this->cleanDir($dir . '/cache');
-                    if (is_dir($dir . '/templates_tmp')) {
-                        $this->cleanDir($dir . '/templates_tmp');
-                    }
-                    $s_dir[ $dir ] = true;
-                }
-                $dir = __DIR__;
-            }
-            if (!is_dir($dir . '/templates_c')) {
-                mkdir($dir . '/templates_c');
-            }
-            chmod($dir . '/templates_c', 0775);
-            if (!is_dir($dir . '/cache')) {
-                mkdir($dir . '/cache');
-                chmod($dir . '/cache', 0775);
-            }
+			if (!is_dir(self::$tempBase . 'templates_tmp')) {
+				mkdir(self::$tempBase . 'templates_tmp', 0775, true);
+			}
             self::$init = false;
         }
         clearstatcache();
 
         // instance Smarty class
         $this->smarty = new \Smarty\Smarty();
-        if (individualFolders != 'true') {
-            $this->smarty->setCompileDir(__DIR__ . '/templates_c');
-            $this->smarty->setCacheDir(__DIR__ . '/cache');
+        $this->smarty->setCompileDir(self::getTempBase() . 'templates_c');
+        $this->smarty->setCacheDir(self::getTempBase() . 'cache');
+		$this->smarty->addTemplateDir(self::getTempBase() . 'templates_tmp');
+
+        // Clean output dirs once at the start of each test class run
+        if (self::$testNumber === 0) {
+            $this->cleanDirs();
         }
+        self::$testNumber++;
 
     }
 
@@ -230,24 +314,24 @@ KEY `name` (`name`)
     {
         $this->cleanCompileDir();
         $this->cleanCacheDir();
-        if (is_dir(self::$cwd . '/templates_tmp')) {
-            $this->cleanDir(self::$cwd . '/templates_tmp');
+        $templatesTmpDir = self::getTempBase() . 'templates_tmp';
+        if (is_dir($templatesTmpDir)) {
+            $this->cleanDir($templatesTmpDir);
         }
-        $this->assertTrue(true);
-   }
+    }
 
     /**
      * Make temporary template file
      *
      */
-    public function makeTemplateFile($name, $code)
+    protected function makeTemplateFile($name, $code)
     {
-        if (!is_dir(self::$cwd . '/templates_tmp')) {
-            mkdir(self::$cwd . '/templates_tmp');
-            chmod(self::$cwd . '/templates_tmp', 0775);
-        }
-        $fileName = self::$cwd . '/templates_tmp/' . "{$name}";
-        file_put_contents($fileName, $code);
+        file_put_contents(self::getTempBase() . 'templates_tmp' . '/' . $name, $code);
+    }
+
+    protected function removeTemplateFile($name)
+    {
+        unlink(self::getTempBase() . 'templates_tmp' . '/' . $name);
     }
 
     /**

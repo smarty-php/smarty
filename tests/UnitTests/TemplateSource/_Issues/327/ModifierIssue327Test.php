@@ -21,10 +21,6 @@ class ModifierIssue327Test extends PHPUnit_Smarty
         $this->smarty->registerPlugin('modifier', 'substr', 'substr');
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     public function testModifier327()
     {

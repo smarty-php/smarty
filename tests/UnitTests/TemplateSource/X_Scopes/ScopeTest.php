@@ -18,15 +18,9 @@ class ScopeTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-        $this->smarty->addPluginsDir("../../__shared/PHPunitplugins/");
-        $this->smarty->addTemplateDir("../../__shared/templates/");
-        $this->smarty->addTemplateDir("./templates_tmp");
+        $this->smarty->addPluginsDir("./plugins/");
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * Test scope

@@ -24,17 +24,9 @@ if (MysqlResourceEnable == true) {
                 $this->getConnection();
             }
             $this->setUpSmarty(__DIR__);
-            $this->smarty->addPluginsDir("./PHPunitplugins/");
-        }
-
-        /**
-        *
-        */
-        public function testInit()
-        {
-            $this->cleanDirs();
             $this->initMysqlResource();
             PHPUnit_Smarty::$pdo->exec("REPLACE INTO templates (name, source) VALUES ('test.tpl', '{\$x = \'hello world\'}{\$x}')");
+            $this->smarty->addPluginsDir("./PHPunitplugins/");
         }
 
         /**

@@ -18,14 +18,10 @@ class AttributeTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
+        $this->smarty->addPluginsDir("./plugins/");
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * test required attribute

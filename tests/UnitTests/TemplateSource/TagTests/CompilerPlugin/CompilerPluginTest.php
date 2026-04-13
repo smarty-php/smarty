@@ -17,10 +17,6 @@ class CompilerPluginTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test compiler plugin
      */

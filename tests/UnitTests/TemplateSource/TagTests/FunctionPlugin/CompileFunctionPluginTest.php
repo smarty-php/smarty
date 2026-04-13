@@ -18,14 +18,7 @@ class CompileFunctionPluginTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
     }
-
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
-
 
     /**
      * test function plugin tag in compiled template file

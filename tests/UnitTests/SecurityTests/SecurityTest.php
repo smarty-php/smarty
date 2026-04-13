@@ -20,10 +20,6 @@ class SecurityTest extends PHPUnit_Smarty
 		$this->smarty->setForceCompile(true);
 		$this->smarty->enableSecurity();
 	}
-	public function testInit()
-	{
-		$this->cleanDirs();
-	}
 
 	/**
 	 * test that security is loaded

@@ -24,10 +24,6 @@ class UserliteralTest extends PHPUnit_Smarty
         }
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     public function testUserLiteral()
     {

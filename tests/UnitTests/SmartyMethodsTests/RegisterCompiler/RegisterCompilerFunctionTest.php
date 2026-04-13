@@ -23,10 +23,6 @@ class RegisterCompilerFunctionTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test register->compilerFunction method for function
      */

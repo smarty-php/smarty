@@ -20,10 +20,6 @@ class CommentsTest extends PHPUnit_Smarty
         $this->setUpSmarty(__DIR__);
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * Test comments
@@ -36,7 +32,6 @@ class CommentsTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "testComments_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir('./templates_tmp');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
                             $file);

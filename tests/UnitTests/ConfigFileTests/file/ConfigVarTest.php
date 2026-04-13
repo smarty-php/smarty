@@ -28,10 +28,6 @@ class ConfigVarTest extends PHPUnit_Smarty
     /**
      * empty templat_c and cache folders
      */
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * test number config variable

@@ -19,14 +19,11 @@ class ClearCompiledTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-        $this->smarty->addTemplateDir('./templates_2/');
+		$this->smarty->setTemplateDir('./templates/');
+		$this->smarty->addTemplateDir('./templates_2/');
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     // helpers
     /**
      * clear $smarty->compile_dir

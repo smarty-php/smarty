@@ -21,10 +21,6 @@ class CompileSectionTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test {section} tag
      */
@@ -74,7 +70,6 @@ class CompileSectionTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir('./templates_tmp');
         $this->smarty->assign('foo', array(1,2));
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -118,7 +113,6 @@ class CompileSectionTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_Else_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir('./templates_tmp');
         $this->smarty->assign('foo', array());
         $this->smarty->assign('bar', 'bar');
         $this->assertEquals($result,

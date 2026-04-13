@@ -25,11 +25,6 @@ class CacheResourceFileTest extends CacheResourceTestCommon
     }
 
 
-    public function testInit()
-
-    {
-        $this->cleanDirs();
-    }
 
     /**
      * test getCachedFilepath with configuration['useSubDirs'] enabled

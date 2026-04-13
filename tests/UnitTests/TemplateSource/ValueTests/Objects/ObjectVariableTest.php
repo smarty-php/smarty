@@ -22,10 +22,6 @@ class ObjectVariableTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test simple object variable
      */

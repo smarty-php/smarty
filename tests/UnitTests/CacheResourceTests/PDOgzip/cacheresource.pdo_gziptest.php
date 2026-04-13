@@ -2,7 +2,7 @@
 
 use Smarty\Template\Cached;
 
-require_once __DIR__ . '/../../__shared/cacheresources/cacheresource.pdo_gzip.php';
+require_once __DIR__ . '/../_shared/cacheresources/cacheresource.pdo_gzip.php';
 
 class Smarty_CacheResource_Pdo_Gziptest extends Smarty_CacheResource_Pdo_Gzip
 {

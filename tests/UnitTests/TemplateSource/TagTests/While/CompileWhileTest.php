@@ -21,10 +21,6 @@ class CompileWhileTest extends PHPUnit_Smarty
     }
 
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-    }
     /**
      * test {while 'condition'} tag
      */
@@ -55,7 +51,6 @@ class CompileWhileTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir('./templates_tmp');
         $this->smarty->assign('foo', 3);
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -113,7 +108,6 @@ class CompileWhileTest extends PHPUnit_Smarty
             $this->makeTemplateFile($file, $code);
         }
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir('./templates_tmp');
         $this->smarty->assign('foo', $value, $nocache);
         $this->assertEquals($result, $this->smarty->fetch($file),
                             "{$file} - {$testNumber}");

@@ -27,16 +27,12 @@ class CacheResourceCustomPDOGzipTest extends CacheResourceTestCommon
             $this->getConnection();
         }
         $this->setUpSmarty(__DIR__);
+        $this->initMysqlCache();
         parent::setUp();
         $this->smarty->setCachingType('pdo');
         $this->smarty->registerCacheResource('pdo', new Smarty_CacheResource_Pdo_Gziptest($this->getPDO(),
                                                                                           'output_cache'));
     }
 
-    public function testInit()
-    {
-        $this->cleanDirs();
-        $this->initMysqlCache();
-    }
 }
 
