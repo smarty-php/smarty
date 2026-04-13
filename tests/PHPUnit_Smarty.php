@@ -58,7 +58,7 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
 
     /**
      * Unique token for the current test class's temp directory.
-     * Generated once per class, reset in tearDownAfterClass().
+     * Generated once per class.
      *
      * @var string|null
      */
@@ -324,14 +324,15 @@ KEY `name` (`name`)
      * Make temporary template file
      *
      */
-    public function makeTemplateFile($name, $code)
+    protected function makeTemplateFile($name, $code)
     {
         file_put_contents(self::getTempBase() . 'templates_tmp' . '/' . $name, $code);
     }
 
-	public function removeTemplateFile($name) {
-		unlink(self::getTempBase() . 'templates_tmp' . '/' . $name);
-	}
+    protected function removeTemplateFile($name)
+    {
+        unlink(self::getTempBase() . 'templates_tmp' . '/' . $name);
+    }
 
     /**
      * Delete files in templates_c folder
