@@ -34,7 +34,6 @@ class CompileForTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "For_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
                             $file);
@@ -158,7 +157,6 @@ class CompileForTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('buh', 'buh');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),

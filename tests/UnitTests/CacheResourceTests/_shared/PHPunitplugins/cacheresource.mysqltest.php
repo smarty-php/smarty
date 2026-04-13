@@ -3,7 +3,7 @@
 use Smarty\Exception;
 use Smarty\Template\Cached;
 
-require_once __DIR__ . '/../../../__shared/cacheresources/cacheresource.mysql.php';
+require_once __DIR__ . '/../cacheresources/cacheresource.mysql.php';
 
 class Smarty_CacheResource_Mysqltest extends Smarty_CacheResource_Mysql
 {

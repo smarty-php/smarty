@@ -18,9 +18,6 @@ class CompileIfTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
-        $this->smarty->addTemplateDir("../../../__shared/templates/");
-        $this->smarty->addTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->registerPlugin('modifier', 'var_export', 'var_export');
     }
 
@@ -245,7 +242,6 @@ class CompileIfTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('bar', 'bar');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),

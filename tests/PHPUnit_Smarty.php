@@ -203,21 +203,15 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
         self::$tempBase = self::getTempDir($dir);
         // create missing folders for test
         if (self::$init) {
-            if (!is_dir($dir . '/templates')) {
-                mkdir($dir . '/templates');
+            if (!is_dir(self::$tempBase . 'templates_c')) {
+                mkdir(self::$tempBase . 'templates_c', 0775, true);
             }
-            if (!is_dir($dir . '/configs')) {
-                mkdir($dir . '/configs');
+            if (!is_dir(self::$tempBase . 'cache')) {
+                mkdir(self::$tempBase . 'cache', 0775, true);
             }
-            $tempDir = self::getTempBase();
-            if (!is_dir($tempDir . 'templates_c')) {
-                mkdir($tempDir . 'templates_c', 0775, true);
-            }
-            chmod($tempDir . 'templates_c', 0775);
-            if (!is_dir($tempDir . 'cache')) {
-                mkdir($tempDir . 'cache', 0775, true);
-            }
-            chmod($tempDir . 'cache', 0775);
+			if (!is_dir(self::$tempBase . 'templates_tmp')) {
+				mkdir(self::$tempBase . 'templates_tmp', 0775, true);
+			}
             self::$init = false;
         }
         clearstatcache();
@@ -226,6 +220,8 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
         $this->smarty = new \Smarty\Smarty();
         $this->smarty->setCompileDir(self::getTempBase() . 'templates_c');
         $this->smarty->setCacheDir(self::getTempBase() . 'cache');
+		$this->smarty->addTemplateDir(self::getTempBase() . 'templates_tmp');
+
         // Clean output dirs once at the start of each test class run
         if (self::$testNumber === 0) {
             $this->cleanDirs();
@@ -325,28 +321,17 @@ KEY `name` (`name`)
     }
 
     /**
-     * Return the templates_tmp directory path (in the temp area)
-     *
-     * @return string
-     */
-    public function getTemplatesTmpDir()
-    {
-        return self::getTempBase() . 'templates_tmp';
-    }
-
-    /**
      * Make temporary template file
      *
      */
     public function makeTemplateFile($name, $code)
     {
-        $templatesTmpDir = $this->getTemplatesTmpDir();
-        if (!is_dir($templatesTmpDir)) {
-            mkdir($templatesTmpDir, 0775, true);
-        }
-        $fileName = $templatesTmpDir . '/' . "{$name}";
-        file_put_contents($fileName, $code);
+        file_put_contents(self::getTempBase() . 'templates_tmp' . '/' . $name, $code);
     }
+
+	public function removeTemplateFile($name) {
+		unlink(self::getTempBase() . 'templates_tmp' . '/' . $name);
+	}
 
     /**
      * Delete files in templates_c folder

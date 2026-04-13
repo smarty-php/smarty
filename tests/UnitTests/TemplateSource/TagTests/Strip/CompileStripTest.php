@@ -18,10 +18,7 @@ class CompileStripTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
-        $this->smarty->addPluginsDir("../../../__shared/PHPunitplugins/");
-        $this->smarty->addTemplateDir($this->getTemplatesTmpDir());
     }
-
 
     /**
      * Test {strip} tags

@@ -8,12 +8,4 @@ phpunit*
 vendor/*
 composer.lock
 
-# Smarty compiled/cache output (safety net)
-/templates_c/
-/cache/
-
-# Test output dirs — never belong in source control
-tests/**/templates_c/
-tests/**/cache/
-tests/**/templates_tmp/
 

@@ -247,7 +247,6 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "testSpacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -286,7 +285,6 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
          $name = empty($testName) ? $testNumber : $testName;
         $file = "testSpacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->registerDefaultPluginHandler('my_block_plugin_handler');
         $this->smarty->setCompileId('default');
         $this->smarty->assign('foo', 'bar');
@@ -330,7 +328,6 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $this->makeTemplateFile($file, $code);
         $this->smarty->setCompileId('nocache');
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('bar', 'bar',true);
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -347,7 +344,6 @@ class CompileBlockPluginTest extends PHPUnit_Smarty
         $file = "Nocache_{$name}.tpl";
         $this->smarty->setCompileId('nocache');
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('bar', 'foo',true);
         $this->assertEquals(str_replace('bar','foo',$result),
                             $this->smarty->fetch($file),

@@ -1019,7 +1019,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -1038,7 +1037,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $file = "Spacing_{$name}.tpl";
         $this->smarty->setCompileId('VarNocache');
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'bar',true);
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -1057,7 +1055,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $file = "Spacing_{$name}.tpl";
         $this->smarty->setCompileId('VarNocache');
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'foo',true);
         $this->assertEquals(str_replace('bar','foo',$result),
                             $this->smarty->fetch($file),
@@ -1099,7 +1096,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $child .= preg_replace(array('/A/','/C/','/[$]foo/','/\s*[{][$]smarty[.]block[.]child[}]\s*/'),array('G','H','$bar','{$bar}'),$code);
         $file = "Spacing_Child{$name}.tpl";
         $this->makeTemplateFile($file, $child);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'foo');
         $this->smarty->assign('bar', 'bar');
         $this->assertEquals($result,
@@ -1145,7 +1141,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $this->makeTemplateFile($file, $code);
         $this->smarty->setCompileId('BlockNocache');
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals($result,
                             $this->smarty->fetch($file),
@@ -1163,7 +1158,6 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
         $file = "blockNocache_{$name}.tpl";
         $this->smarty->setCompileId('BlockNocache');
         $this->smarty->setCaching(1);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('foo', 'foo');
         $this->assertEquals(str_replace('bar','foo',$result),
                             $this->smarty->fetch($file),

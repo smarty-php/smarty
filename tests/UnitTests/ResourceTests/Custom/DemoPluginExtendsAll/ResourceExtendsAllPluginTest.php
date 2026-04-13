@@ -6,7 +6,7 @@
  * @author  Uwe Tews
  */
 
-require_once __DIR__ . '/../../../__shared/resources/resource.extendsall.php';
+require_once __DIR__ . '/resources/resource.extendsall.php';
 
 /**
  * class for demo resource plugin extendsall tests

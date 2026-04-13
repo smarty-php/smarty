@@ -1,1 +1,0 @@
-{pluginassign var=foo value='newvar'}{checkvar var=foo}

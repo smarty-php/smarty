@@ -33,7 +33,6 @@ class NewlineSpacing extends PHPUnit_Smarty
         $name = empty($testName) ? $testNumber : $testName;
         $file = "Spacing_{$name}.tpl";
         $this->makeTemplateFile($file, $code);
-        $this->smarty->setTemplateDir($this->getTemplatesTmpDir());
         $this->smarty->assign('file', $file);
         $this->smarty->assign('foo', 'bar');
         $this->assertEquals($result,
