@@ -106,17 +106,11 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
      */
     public static function tearDownAfterClass(): void
     {
-        //self::$pdo = null;
-        self::$testNumber = 0;
-
         // Remove the unique temp directory for this test class unless the caller
         // wants to inspect the artifacts (e.g. for debugging a failure).
         if (!getenv('KEEP_SMARTY_TEST_ARTIFACTS') && self::$tempBase !== null && is_dir(self::$tempBase)) {
             self::removeDir(self::$tempBase);
         }
-
-        self::$tempId = null;
-        self::$tempBase = null;
     }
 
     /**
