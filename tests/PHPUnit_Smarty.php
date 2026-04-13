@@ -67,10 +67,16 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     /**
      * Return the temp directory base for the current test class.
      *
-     * @return string|null
+     * @return string
+     * @throws \LogicException If the temp directory base has not been initialized yet.
      */
-    public static function getTempBase(): ?string
+    public static function getTempBase(): string
     {
+        if (self::$tempBase === null) {
+            throw new \LogicException(
+                'Temp directory base has not been initialized. Call setUpSmarty() before using temp-path helpers.'
+            );
+        }
         return self::$tempBase;
     }
 
