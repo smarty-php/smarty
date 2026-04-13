@@ -17,7 +17,7 @@ class CompileCheckTest extends PHPUnit_Smarty
     {
 		$this->makeTemplateFile('t1.tpl', 'TPL1');
 		$this->makeTemplateFile('t2.tpl', 'TPL2');
-		$this->makeTemplateFile('basetpl', '{include file="t1.tpl"}{include file="t2.tpl"}');
+		$this->makeTemplateFile('base.tpl', '{include file="t1.tpl"}{include file="t2.tpl"}');
     }
     /**
      * remove generated templates

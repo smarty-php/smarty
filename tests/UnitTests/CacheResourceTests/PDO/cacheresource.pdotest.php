@@ -2,7 +2,7 @@
 
 use Smarty\Template\Cached;
 
-require_once __DIR__ . '/../cacheresources/cacheresource.pdo.php';
+require_once __DIR__ . '/../_shared/cacheresources/cacheresource.pdo.php';
 
 class Smarty_CacheResource_Pdotest extends Smarty_CacheResource_Pdo
 {

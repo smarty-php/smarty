@@ -167,10 +167,7 @@ class FileResourceTest extends PHPUnit_Smarty
 		$tpl->fetch();
 		$timestamp = $tpl->getCached()->timestamp;
 
-
-		$this->smarty = new \Smarty\Smarty();
-		$this->smarty->setCompileDir(self::getTempBase() . 'templates_c');
-		$this->smarty->setCacheDir(self::getTempBase() . 'cache');
+		$this->setUpSmarty(__DIR__);
 	    $this->smarty->caching = true;
 	    $this->smarty->cache_lifetime = 1000;
 

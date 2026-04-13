@@ -18,6 +18,7 @@ class TemplateNormalizationTest extends PHPUnit_Smarty
     public function setUp(): void
     {
         $this->setUpSmarty(__DIR__);
+		$this->smarty->setTemplateDir(__DIR__ . '/templates');
     }
 
     public function testGetTemplateDir()
