@@ -102,8 +102,41 @@ class PHPUnit_Smarty extends PHPUnit\Framework\TestCase
     {
         //self::$pdo = null;
         self::$testNumber = 0;
+
+        // Remove the unique temp directory for this test class unless the caller
+        // wants to inspect the artifacts (e.g. for debugging a failure).
+        if (!getenv('KEEP_SMARTY_TEST_ARTIFACTS') && self::$tempBase !== null && is_dir(self::$tempBase)) {
+            self::removeDir(self::$tempBase);
+        }
+
         self::$tempId = null;
         self::$tempBase = null;
+    }
+
+    /**
+     * Recursively remove a directory, silently ignoring any errors.
+     *
+     * @param string $dir
+     */
+    private static function removeDir(string $dir): void
+    {
+        $dir = rtrim($dir, DIRECTORY_SEPARATOR);
+        $items = @scandir($dir);
+        if ($items === false) {
+            return;
+        }
+        foreach ($items as $item) {
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+            $path = $dir . DIRECTORY_SEPARATOR . $item;
+            if (is_dir($path) && !is_link($path)) {
+                self::removeDir($path);
+            } else {
+                @unlink($path);
+            }
+        }
+        @rmdir($dir);
     }
 
     /**
