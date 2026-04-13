@@ -29,4 +29,3 @@
 
 ## Unrelated / other
 - review (and avoid) use of 'clone' keyword
-- what is 'user literal support', why are unit tests skipped?
