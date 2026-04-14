@@ -26,7 +26,7 @@ class SecurityTest extends PHPUnit_Smarty
 	 */
 	public function testSecurityLoaded()
 	{
-		$this->assertTrue(is_object($this->smarty->security_policy));
+		$this->assertTrue($this->smarty->getSecurityPolicy() instanceof \Smarty\Security);
 	}
 
 	/**
@@ -54,7 +54,7 @@ class SecurityTest extends PHPUnit_Smarty
 	 */
 	public function testNotTrustedModifier()
 	{
-		$this->smarty->security_policy->disabled_modifiers[] = 'escape';
+		$this->smarty->getSecurityPolicy()->disabled_modifiers[] = 'escape';
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('modifier \'escape\' disabled by security setting');
 		@$this->smarty->fetch('string:{assign var=foo value=[1,2,3,4,5]}{$foo|escape}');
@@ -65,7 +65,7 @@ class SecurityTest extends PHPUnit_Smarty
 	 */
 	public function testAllowedTags1()
 	{
-		$this->smarty->security_policy->allowed_tags = array('counter');
+		$this->smarty->getSecurityPolicy()->allowed_tags = array('counter');
 		$this->assertEquals("1", $this->smarty->fetch('string:{counter start=1}'));
 	}
 
@@ -78,7 +78,7 @@ class SecurityTest extends PHPUnit_Smarty
 	{
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('tag \'cycle\' not allowed by security setting');
-		$this->smarty->security_policy->allowed_tags = array('counter');
+		$this->smarty->getSecurityPolicy()->allowed_tags = array('counter');
 		$this->smarty->fetch('string:{counter}{cycle values="1,2"}');
 	}
 
@@ -91,7 +91,7 @@ class SecurityTest extends PHPUnit_Smarty
 	{
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('tag \'cycle\' disabled by security setting');
-		$this->smarty->security_policy->disabled_tags = array('cycle');
+		$this->smarty->getSecurityPolicy()->disabled_tags = array('cycle');
 		$this->smarty->fetch('string:{counter}{cycle values="1,2"}');
 	}
 
@@ -101,14 +101,14 @@ class SecurityTest extends PHPUnit_Smarty
 	public function testAllowedModifier1()
 	{
 		error_reporting(E_ALL  & E_STRICT);
-		$this->smarty->security_policy->allowed_modifiers = array('capitalize');
+		$this->smarty->getSecurityPolicy()->allowed_modifiers = array('capitalize');
 		$this->assertEquals("Hello World", $this->smarty->fetch('string:{"hello world"|capitalize}'));
 		error_reporting(E_ALL | E_STRICT);
 	}
 
 	public function testAllowedModifier2()
 	{
-		$this->smarty->security_policy->allowed_modifiers = array('upper');
+		$this->smarty->getSecurityPolicy()->allowed_modifiers = array('upper');
 		$this->assertEquals("HELLO WORLD", $this->smarty->fetch('string:{"hello world"|upper}'));
 	}
 
@@ -121,7 +121,7 @@ class SecurityTest extends PHPUnit_Smarty
 	{
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('modifier \'lower\' not allowed by security setting');
-		$this->smarty->security_policy->allowed_modifiers = array('upper');
+		$this->smarty->getSecurityPolicy()->allowed_modifiers = array('upper');
 		$this->smarty->fetch('string:{"hello"|upper}{"world"|lower}');
 	}
 
@@ -134,7 +134,7 @@ class SecurityTest extends PHPUnit_Smarty
 	{
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('modifier \'lower\' disabled by security setting');
-		$this->smarty->security_policy->disabled_modifiers = array('lower');
+		$this->smarty->getSecurityPolicy()->disabled_modifiers = array('lower');
 		$this->smarty->fetch('string:{"hello"|upper}{"world"|lower}');
 	}
 
@@ -171,7 +171,7 @@ class SecurityTest extends PHPUnit_Smarty
 	 */
 	public function testTrustedDirectory()
 	{
-		$this->smarty->security_policy->secure_dir = array('.' . DIRECTORY_SEPARATOR . 'templates_2' . DIRECTORY_SEPARATOR);
+		$this->smarty->getSecurityPolicy()->secure_dir = array('.' . DIRECTORY_SEPARATOR . 'templates_2' . DIRECTORY_SEPARATOR);
 		$this->assertEquals("hello world", $this->smarty->fetch('string:{include file="templates_2/hello.tpl"}'));
 	}
 
@@ -185,7 +185,7 @@ class SecurityTest extends PHPUnit_Smarty
 	{
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('not trusted file path');
-		$this->smarty->security_policy->secure_dir = array(str_replace('\\', '/', __DIR__ . '/templates_3/'));
+		$this->smarty->getSecurityPolicy()->secure_dir = array(str_replace('\\', '/', __DIR__ . '/templates_3/'));
 		$this->smarty->fetch('string:{include file="templates_2/hello.tpl"}');
 	}
 
@@ -203,7 +203,7 @@ class SecurityTest extends PHPUnit_Smarty
 	 */
 	public function testTrustedStaticClass()
 	{
-		$this->smarty->security_policy->static_classes = array('mysecuritystaticclass');
+		$this->smarty->getSecurityPolicy()->static_classes = array('mysecuritystaticclass');
 		$tpl = $this->smarty->createTemplate('string:{mysecuritystaticclass::square(5)}');
 		$this->assertEquals('25', $this->smarty->fetch($tpl));
 	}
@@ -217,7 +217,7 @@ class SecurityTest extends PHPUnit_Smarty
 	{
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('access to static class \'mysecuritystaticclass\' not allowed by security setting');
-		$this->smarty->security_policy->static_classes = array('null');
+		$this->smarty->getSecurityPolicy()->static_classes = array('null');
 		$this->smarty->fetch('string:{mysecuritystaticclass::square(5)}');
 	}
 
@@ -228,7 +228,7 @@ class SecurityTest extends PHPUnit_Smarty
 	{
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('dynamic static class not allowed by security setting');
-		$this->smarty->security_policy->static_classes = array('null');
+		$this->smarty->getSecurityPolicy()->static_classes = array('null');
 		$this->smarty->fetch('string:{$test = "mysecuritystaticclass"}{$test::square(5)}');
 	}
 
@@ -239,18 +239,18 @@ class SecurityTest extends PHPUnit_Smarty
 	{
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('dynamic static class not allowed by security setting');
-		$this->smarty->security_policy->static_classes = array('null');
+		$this->smarty->getSecurityPolicy()->static_classes = array('null');
 		$this->smarty->fetch('string:{$smarty.template_object::square(5)}');
 	}
 
 	public function testChangedTrustedDirectory()
 	{
-		$this->smarty->security_policy->secure_dir = array(
+		$this->smarty->getSecurityPolicy()->secure_dir = array(
 			'.' . DIRECTORY_SEPARATOR . 'templates_2' . DIRECTORY_SEPARATOR,
 		);
 		$this->assertEquals("hello world", $this->smarty->fetch('string:{include file="templates_2/hello.tpl"}'));
 
-		$this->smarty->security_policy->secure_dir = array(
+		$this->smarty->getSecurityPolicy()->secure_dir = array(
 			'.' . DIRECTORY_SEPARATOR . 'templates_2' . DIRECTORY_SEPARATOR,
 			'.' . DIRECTORY_SEPARATOR . 'templates_3' . DIRECTORY_SEPARATOR,
 		);
@@ -269,7 +269,7 @@ class SecurityTest extends PHPUnit_Smarty
 		$fp = fopen("global://mytest", "r+");
 		fwrite($fp, 'hello world {$foo}');
 		fclose($fp);
-		$this->smarty->security_policy->streams= array('global');
+		$this->smarty->getSecurityPolicy()->streams= array('global');
 		$tpl = $this->smarty->createTemplate('global:mytest');
 		$this->assertTrue($tpl->getSource()->exists);
 		stream_wrapper_unregister("global");
@@ -288,7 +288,7 @@ class SecurityTest extends PHPUnit_Smarty
 		$fp = fopen("global://mytest", "r+");
 		fwrite($fp, 'hello world {$foo}');
 		fclose($fp);
-		$this->smarty->security_policy->streams= array('notrusted');
+		$this->smarty->getSecurityPolicy()->streams= array('notrusted');
 		$tpl = $this->smarty->createTemplate('global:mytest');
 		$this->assertTrue($tpl->getSource()->exists);
 		stream_wrapper_unregister("global");
@@ -296,7 +296,7 @@ class SecurityTest extends PHPUnit_Smarty
 
 	public function testTrustedUri()
 	{
-		$this->smarty->security_policy->trusted_uri = array(
+		$this->smarty->getSecurityPolicy()->trusted_uri = array(
 			'#https://s4otw4nhg.erteorteortert.nusuchtld$#i'
 		);
 
@@ -314,7 +314,7 @@ class SecurityTest extends PHPUnit_Smarty
 	{
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('URI \'https://example.net\' not allowed by security setting');
-		$this->smarty->security_policy->trusted_uri = [];
+		$this->smarty->getSecurityPolicy()->trusted_uri = [];
 		$this->assertStringContainsString(
 			'<title>Preface | Smarty</title>',
 			$this->smarty->fetch('string:{fetch file="https://example.net"}')
