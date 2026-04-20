@@ -17,9 +17,9 @@ Smarty\_resource
 
 resource\_handler
 
-Use this to dynamically register a [Resource plugin](#resources) with
+Use this to dynamically register a [Resource plugin](../../api/resources.md) with
 Smarty. Pass in the `name` of the Resource and the object extending
-Smarty\_Resource. See [template resources](#resources) for more
+Smarty\_Resource. See [template resources](../../api/resources.md) for more
 information on how to setup a function for fetching templates.
 
 > **Note**
@@ -42,5 +42,5 @@ information on how to setup a function for fetching templates.
 
        
 
-See also [`unregisterResource()`](#api.unregister.resource) and the
-[template resources](#resources) section.
+See also [`unregisterResource()`](../../programmers/api-functions/api-unregister-resource.md) and the
+[template resources](../../api/resources.md) section.

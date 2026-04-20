@@ -20,7 +20,7 @@ found.
 > [`setTemplateDir()`](#api.set.template.dir) and
 > [`addTemplateDir()`](#api.add.template.dir) instead.
 
-See also [`Template Resources`](#resources),
+See also [`Template Resources`](../../api/resources.md),
 [`getTemplateDir()`](#api.get.template.dir),
 [`setTemplateDir()`](#api.set.template.dir) and
 [`addTemplateDir()`](#api.add.template.dir).

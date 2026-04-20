@@ -33,5 +33,5 @@ cache files must be before they will get cleared.
 
        
 
-See also [`clearCache()`](#api.clear.cache),
-[`isCached()`](#api.is.cached) and the [caching](#caching) page.
+See also [`clearCache()`](../../programmers/api-functions/api-clear-cache.md),
+[`isCached()`](../../programmers/api-functions/api-is-cached.md) and the [caching](../../api/caching/basics.md) page.
