@@ -48,4 +48,12 @@ class PluginModifierCountCharactersTest extends PHPUnit_Smarty
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
     }
 
+    public function testNull()
+    {
+        $tpl = $this->smarty->createTemplate('string:{null|count_characters}');
+        $this->assertEquals("0", $this->smarty->fetch($tpl));
+        $tpl = $this->smarty->createTemplate('string:{null|count_characters:true}');
+        $this->assertEquals("0", $this->smarty->fetch($tpl));
+    }
+
 }
