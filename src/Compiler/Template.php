@@ -506,7 +506,7 @@ class Template extends BaseCompiler {
 	 * @return string
 	 */
 	public function triggerTagNoCache($variable): void {
-		if (!strpos($variable, '(')) {
+		if (strpos($variable, '(') === false) {
 			// not a variable variable
 			$var = trim($variable, '\'');
 			$this->tag_nocache = $this->tag_nocache |
