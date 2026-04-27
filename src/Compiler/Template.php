@@ -1075,7 +1075,7 @@ class Template extends BaseCompiler {
 	 */
 	public function getPrefixCode() {
 		$code = '';
-		$prefixArray = array_merge($this->prefix_code, array_pop($this->prefixCodeStack));
+		$prefixArray = array_merge($this->prefix_code, array_pop($this->prefixCodeStack) ?? []);
 		$this->prefixCodeStack[] = [];
 		foreach ($prefixArray as $c) {
 			$code = $this->appendCode($code, (string) $c);
