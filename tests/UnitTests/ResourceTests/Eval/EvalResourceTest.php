@@ -66,15 +66,6 @@ class EvalResourceTest extends PHPUnit_Smarty
     }
 
     /**
-     * test usesCompiler
-     */
-    public function testUsesCompiler()
-    {
-        $tpl = $this->smarty->createTemplate('eval:hello world');
-        $this->markTestIncomplete();
-    }
-
-    /**
      * test isEvaluated
      */
     public function testIsEvaluated()

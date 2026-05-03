@@ -20,7 +20,6 @@
         <testsuite name="foo">
             <directory>./tests/UnitTests/</directory>
             <exclude>./tests/UnitTests/CacheResourceTests/Memcache/CacheResourceCustomMemcacheTest.php</exclude>
-            <exclude>./tests/UnitTests/CacheResourceTests/Apc/CacheResourceCustomApcTest.php</exclude>
             <exclude>./tests/UnitTests/CacheModify/ModifiedSince/HttpModifiedSinceTest.php</exclude>
         </testsuite>
     </testsuites>
