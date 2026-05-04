@@ -1483,7 +1483,7 @@ class Smarty extends \Smarty\TemplateBase {
 				//
 				$_smarty->force_compile = $force_compile;
 				try {
-					$_tpl = $this->doCreateTemplate($_file);
+					$_tpl = $_smarty->doCreateTemplate($_file);
 					$_tpl->caching = self::CACHING_OFF;
 					$_tpl->setSource(
 						$isConfig ? \Smarty\Template\Config::load($_tpl) : \Smarty\Template\Source::load($_tpl)
@@ -1503,7 +1503,7 @@ class Smarty extends \Smarty\TemplateBase {
 				}
 				// free memory
 				unset($_tpl);
-				if ($max_errors !== null && $_error_count === $max_errors) {
+				if ($max_errors !== null && $_error_count > $max_errors) {
 					echo "\ntoo many errors\n";
 					exit(1);
 				}
