@@ -40,8 +40,9 @@ class FilePlugin extends BasePlugin {
 		);
 
 		if ($path = $this->getFilePath($source->name, $source->getSmarty(), $source->isConfig)) {
-			if (isset($source->getSmarty()->security_policy) && is_object($source->getSmarty()->security_policy)) {
-				$source->getSmarty()->security_policy->isTrustedResourceDir($path, $source->isConfig);
+			$securityPolicy = $source->getSmarty()->getSecurityPolicy();
+			if ($securityPolicy !== null) {
+				$securityPolicy->isTrustedResourceDir($path, $source->isConfig);
 			}
 			$source->exists = true;
 			$source->timestamp = filemtime($path);
