@@ -526,7 +526,7 @@ class Smarty extends \Smarty\TemplateBase {
 		$this->BCPluginsAdapter = new BCPluginsAdapter($this);
 
 		$this->extensions[] = new CoreExtension();
-		$this->extensions[] = new DefaultExtension();
+		$this->extensions[] = new DefaultExtension($this);
 		$this->extensions[] = $this->BCPluginsAdapter;
 
 		$this->cacheResource = new File();
