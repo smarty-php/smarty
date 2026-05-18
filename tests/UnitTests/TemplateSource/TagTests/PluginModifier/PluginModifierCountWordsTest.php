@@ -41,4 +41,10 @@ class PluginModifierCountWordsTest extends PHPUnit_Smarty
         $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
     }
 
+    public function testNull()
+    {
+        $result = "0";
+        $tpl = $this->smarty->createTemplate('string:{null|count_words}');
+        $this->assertEquals(str_replace("\r", '', $result), $this->smarty->fetch($tpl));
+    }
 }
