@@ -2223,6 +2223,22 @@ class Smarty extends \Smarty\TemplateBase {
 	}
 
 	/**
+	 * Whether Smarty displays an error when using an unassigned variable
+	 */
+	public function getErrorUnassigned(): bool
+	{
+		return (bool) $this->error_unassigned;
+	}
+
+	/**
+	 * Set if Smarty should display an error on using an unassigned variable
+	 */
+	public function setErrorUnassigned(bool $error_unassigned): void
+	{
+		$this->error_unassigned = $error_unassigned;
+  }
+  
+  /**
 	 * Sets if Smarty should check If-Modified-Since headers to determine cache validity.
 	 * @param bool $cache_modified_check
 	 * @return void
@@ -2232,4 +2248,3 @@ class Smarty extends \Smarty\TemplateBase {
 	}
 
 }
-
