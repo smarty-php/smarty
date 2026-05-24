@@ -9,7 +9,7 @@ nested menus.
 > **Note**
 >
 > Template functions are defined global. Since the Smarty compiler is a
-> single-pass compiler, The [`{call}`](#language.function.call) tag must
+> single-pass compiler, The [`{call}`](./language-function-call.md) tag must
 > be used to call a template function defined externally from the given
 > template. Otherwise, you can directly use the function as
 > `{funcname ...}` in the template.
@@ -56,7 +56,8 @@ nested menus.
   {foreach $data as $entry}
     {if is_array($entry)}
       <li>{$entry@key}</li>
-      {menu data=$entry level=$level+1}
+      {call name=menu data=$entry level=$level+1}
+      {menu data=$entry level=$level+1}    {* short-hand *}
     {else}
       <li>{$entry}</li>
     {/if}
@@ -69,7 +70,9 @@ nested menus.
 ['item3-3-1','item3-3-2']],'item4']}
 
 {* run the array through the function *}
-{menu data=$menu}
+{call name=menu data=$menu}
+{call menu data=$menu} {* short-hand *}
+{menu data=$menu} {* even shorter short-hand *}
 ```
 
 Will generate the following output
@@ -85,5 +88,5 @@ Will generate the following output
             + item3-3-2
 * item4
 ```
-      
+
 See also [`{call}`](./language-function-call.md)
