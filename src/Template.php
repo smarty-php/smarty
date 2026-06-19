@@ -171,6 +171,7 @@ class Template extends TemplateBase {
 			call_user_func($callback, $this);
 		}
 
+		$renderException = null;
 		try {
 
 			// read from cache or render
@@ -180,9 +181,21 @@ class Template extends TemplateBase {
 				$this->getCompiled()->render($this);
 			}
 
+		} catch (\Throwable $e) {
+			$renderException = $e;
 		} finally {
-			foreach ($this->endRenderCallbacks as $callback) {
-				call_user_func($callback, $this);
+			try {
+				foreach ($this->endRenderCallbacks as $callback) {
+					call_user_func($callback, $this);
+				}
+			} catch (\Throwable $callbackException) {
+				if ($renderException === null) {
+					throw $callbackException;
+				}
+			}
+
+			if ($renderException !== null) {
+				throw $renderException;
 			}
 		}
 
