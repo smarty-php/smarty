@@ -78,3 +78,10 @@ Markdown in `docs/`, built with mkdocs + Material theme. Preview: `mkdocs serve`
 ## Release
 
 `./make-release.sh <version>` — only v5.x.x. Updates changelog and version constant, creates a merge commit and tag on `master`.
+
+### Changelog
+
+Every change that should appear in `CHANGELOG.md` must add a new markdown file under `changelog/`. At release time `utilities/update-changelog.php` concatenates all `changelog/*.md` files into the `## [Unreleased]` section, so:
+
+- One file per change, containing a single line that starts with a dash (`- ...`). The filename is arbitrary; name it after the issue number (e.g. `1036.md`) when there is one, otherwise use a short descriptive slug.
+- Include a markdown link to the relevant issue when one exists, e.g. `[#1036](https://github.com/smarty-php/smarty/issues/1036)`. Omit the link when there is no public issue (e.g. embargoed security reports).
