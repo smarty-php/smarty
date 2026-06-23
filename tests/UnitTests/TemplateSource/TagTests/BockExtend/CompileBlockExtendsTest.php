@@ -1381,7 +1381,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     public function testEscaping()
     {
         $this->expectException(SmartyException::class);
-        $this->expectExceptionMessageRegExp('/Unable to load.*/');
+        $this->expectExceptionMessageMatches('/Unable to load.*/');
         $this->assertEquals('hello world', $this->smarty->fetch('escaping.tpl'));
     }
 
@@ -1391,7 +1391,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     public function testEscaping2()
     {
         $this->expectException(SmartyException::class);
-        $this->expectExceptionMessageRegExp('/Unable to load.*/');
+        $this->expectExceptionMessageMatches('/Unable to load.*/');
         $this->assertEquals('hello world', $this->smarty->fetch('escaping2.tpl'));
     }
 
@@ -1401,7 +1401,7 @@ class CompileBlockExtendsTest extends PHPUnit_Smarty
     public function testEscaping3()
     {
         $this->expectException(SmartyException::class);
-        $this->expectExceptionMessageRegExp('/Unable to load.*/');
+        $this->expectExceptionMessageMatches('/Unable to load.*/');
         $this->assertEquals('hello world', $this->smarty->fetch('escaping3.tpl'));
     }
 
