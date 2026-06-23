@@ -1,1 +1,0 @@
-- Re-activated unit tests for user literals, which were previously disabled due to a bug in refactoring to v5.
