@@ -47,6 +47,14 @@ parseable by PHP's [`strtotime()`](https://www.php.net/strtotime).
 | meridian\_empty       | null                                                   | If supplied then the first element of the meridian's select-box has this value as it's label and "" as it's value. This is useful to make the select-box read "Please select an meridian" for example.                                                                                                                                                                                   |
 
 
+> **Security note**
+>
+> The `*_extra` attributes, `field_separator`/`option_separator`, and any
+> unrecognised parameter (which is emitted as a raw attribute on the `<select>`
+> tag) are written into the generated HTML without escaping. If any of these
+> values originate from untrusted input, escape them yourself first to avoid
+> cross-site scripting (XSS).
+
 ## Examples
 
 ```smarty

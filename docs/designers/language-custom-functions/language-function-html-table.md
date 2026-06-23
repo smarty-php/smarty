@@ -31,6 +31,15 @@ dumps an array of data into an HTML `<table>`.
 -   `trailpad` is the value put into the trailing cells on the last
     table row if there are any present.
 
+> **Security note**
+>
+> The `loop`/`cols` data and the `caption`, `trailpad`, `table_attr`, `tr_attr`,
+> `td_attr` and `th_attr` attributes are written into the generated HTML without
+> escaping (this is by design — e.g. `table_attr='border="1"'`). If any of these
+> values originate from untrusted input, escape them yourself first (e.g. with the
+> [`escape`](../language-modifiers/language-modifier-escape.md) modifier) to avoid
+> cross-site scripting (XSS).
+
 ## Examples
 
 ```php

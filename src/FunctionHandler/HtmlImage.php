@@ -65,7 +65,7 @@ class HtmlImage extends Base {
 					break;
 				case 'link':
 				case 'href':
-					$prefix = '<a href="' . $_val . '">';
+					$prefix = '<a href="' . smarty_function_escape_special_chars($_val) . '">';
 					$suffix = '</a>';
 					break;
 				default:
@@ -143,7 +143,12 @@ class HtmlImage extends Base {
 			$width = round($width * $_resize);
 			$height = round($height * $_resize);
 		}
-		return $prefix . '<img src="' . $path_prefix . $file . '" alt="' . $alt . '" width="' . $width . '" height="' .
-			$height . '"' . $extra . ' />' . $suffix;
+		// $alt and the pass-through attributes ($extra) are already escaped above;
+		// escape the remaining value-context params at output time so untrusted
+		// values cannot break out of the attribute (CWE-79). The unescaped $file/
+		// $width/$height are still used for getimagesize()/DPI math above.
+		return $prefix . '<img src="' . smarty_function_escape_special_chars($path_prefix . $file) . '" alt="' . $alt
+			. '" width="' . smarty_function_escape_special_chars($width) . '" height="'
+			. smarty_function_escape_special_chars($height) . '"' . $extra . ' />' . $suffix;
 	}
 }

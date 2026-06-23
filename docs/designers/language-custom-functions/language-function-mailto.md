@@ -24,6 +24,14 @@ spiders to lift email addresses off of a site.
 > you can use hex encoding too.
 
 
+> **Security note**
+>
+> The `extra` attribute is written into the generated `<a>` tag without escaping,
+> so that you can add attributes such as `extra='class="mailto"'`. If you pass a
+> value that originates from untrusted input, escape it yourself first (e.g. with
+> the [`escape`](../language-modifiers/language-modifier-escape.md) modifier) to
+> avoid cross-site scripting (XSS).
+
 ## Examples
 
 ```smarty

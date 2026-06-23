@@ -28,6 +28,13 @@ selected by default as well.
 -   All parameters that are not in the list above are output as
     name/value-pairs inside each of the created `<input>`-tags.
 
+> **Security note**
+>
+> The `separator` attribute is written into the generated HTML without escaping,
+> so it can contain markup such as `separator='<br />'`. If its value originates
+> from untrusted input, escape it yourself first to avoid cross-site scripting
+> (XSS). Option values and labels are escaped automatically.
+
 ## Examples
 
 ```php

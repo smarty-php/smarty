@@ -47,6 +47,14 @@ name/value-pairs inside the `<select>` tags of day, month and year.
 > There is an useful php function on the [date tips page](../../appendixes/tips.md)
 > for converting `{html_select_date}` form values to a timestamp.
 
+> **Security note**
+>
+> The `*_extra` attributes, `field_separator`/`option_separator`, and any
+> unrecognised parameter (which is emitted as a raw attribute on the `<select>`
+> tag) are written into the generated HTML without escaping. If any of these
+> values originate from untrusted input, escape them yourself first to avoid
+> cross-site scripting (XSS).
+
 ## Exaples
 
 Template code
