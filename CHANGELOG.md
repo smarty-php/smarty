@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.1] - 2026-06-23
+- Re-activated unit tests for user literals, which were previously disabled due to a bug in refactoring to v5.
+- fixed a bug where child template's block content leaked into subsequent rendering of the parent template [#1189](https://github.com/smarty-php/smarty/issues/1189)
+- Moved all unit test-generated output from inside the working tree to tmp files [#1178](https://github.com/smarty-php/smarty/issues/1178)
+
+
 ## [5.8.0] - 2026-02-15
 - Added support for Backed Enums for php versions >= 8.1 [#1171](https://github.com/smarty-php/smarty/pull/1171)
 - Added support for new 'matches' operator doing regex matching [#1169](https://github.com/smarty-php/smarty/pull/1169)
