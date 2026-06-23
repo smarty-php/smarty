@@ -199,63 +199,43 @@ class CompileForTest extends PHPUnit_Smarty
     }
 
     /**
-     * Test for inside extended template issue #1036
+     * Test {for} inside an inheritance (extends) template.
+     *
+     * The {for} tag pokes loop bookkeeping (step, total, value, ...) directly
+     * onto its loop Variable. In an extended template the child block renders
+     * with SCOPE_PARENT, so the loop variable is assigned to the parent and was
+     * not resolvable locally, causing 'assign property on null'.
+     *
+     * @see https://github.com/smarty-php/smarty/issues/1036
+     *
+     * @dataProvider dataForInheritance
      */
-    public function testForWithExtendedTemplate() : void
+    public function testForInheritance($code, $result, $testName, $caching)
     {
-        $this->smarty->caching = false;
-        $tpl = $this->smarty->createTemplate( 'extends:string:{block name="content"}{/block}|string:{block name="content"}{for $i=0 to 3}{$i}{/for}{/block}' );
-        $this->assertEquals( "0123", $this->smarty->fetch( $tpl ) );
+        $this->smarty->caching = $caching;
+        $tpl = $this->smarty->createTemplate($code);
+        $this->assertEquals($result, $this->smarty->fetch($tpl), "test - {$testName}");
     }
 
-    /**
-     * Test for inside extended template issue #1036
-     */
-    public function testForWithExtendedTemplateWithStep() : void
+    public function dataForInheritance()
     {
-        $this->smarty->caching = false;
-        $tpl = $this->smarty->createTemplate( 'extends:string:{block name="content"}{/block}|string:{block name="content"}{for $i=0 to 3 step 2}{$i}{/for}{/block}' );
-        $this->assertEquals( "02", $this->smarty->fetch( $tpl ) );
-    }
-
-    /**
-     * Test for inside extended template issue #1036
-     */
-    public function testForWithExtendedTemplateWithMax() : void
-    {
-        $this->smarty->caching = false;
-        $tpl = $this->smarty->createTemplate( 'extends:string:{block name="content"}{/block}|string:{block name="content"}{for $i=0 to 30 max=3}{$i}{/for}{/block}' );
-        $this->assertEquals( "012", $this->smarty->fetch( $tpl ) );
-    }
-
-    /**
-     * Test for inside extended template issue #1036
-     */
-    public function testNestedForWithExtendedTemplate() : void
-    {
-        $this->smarty->caching = false;
-        $tpl = $this->smarty->createTemplate( 'extends:string:{block name="content"}{/block}|string:{block name="content"}{for $i=0 to 1}{for $y=0 to 3}{$y}{/for}{/for}{/block}' );
-        $this->assertEquals( "01230123", $this->smarty->fetch( $tpl ) );
-    }
-
-    /**
-     * Test for inside extended template issue #1036
-     */
-    public function testForLegacySyntaxWithExtendedTemplate() : void
-    {
-        $this->smarty->caching = false;
-        $tpl = $this->smarty->createTemplate( 'extends:string:{block name="content"}{/block}|string:{block name="content"}{for $i=0; $i<4; $i++}{$i}{/for}{/block}' );
-        $this->assertEquals( "0123", $this->smarty->fetch( $tpl ) );
-    }
-
-    /**
-     * Test for inside extended template issue #1036
-     */
-    public function testForLegacySyntaxTemplate() : void
-    {
-        $this->smarty->caching = false;
-        $tpl = $this->smarty->createTemplate('string:{for $i=0; $i<4; $i++}{$i}{/for}');
-        $this->assertEquals("0123", $this->smarty->fetch($tpl));
+        $parent = 'extends:string:{block name="content"}{/block}';
+        $cases = array(
+            array('to',     '{for $i=0 to 3}{$i}{/for}',                      '0123'),
+            array('step',   '{for $i=0 to 3 step 2}{$i}{/for}',               '02'),
+            array('max',    '{for $i=0 to 30 max=3}{$i}{/for}',               '012'),
+            array('nested', '{for $i=0 to 1}{for $y=0 to 3}{$y}{/for}{/for}', '01230123'),
+            array('legacy', '{for $i=0; $i<4; $i++}{$i}{/for}',               '0123'),
+        );
+        $data = array();
+        foreach (array(false, true) as $caching) {
+            foreach ($cases as $case) {
+                $code = $parent . '|string:{block name="content"}' . $case[1] . '{/block}';
+                $name = $case[0] . ($caching ? ' (caching)' : '');
+                $data[] = array($code, $case[2], $name, $caching);
+            }
+        }
+        return $data;
     }
 
 }

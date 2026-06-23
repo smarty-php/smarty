@@ -51,7 +51,7 @@ class ForTag extends Base {
 					$var = $_statement['var'];
 					$index = '';
 				}
-                $itemVar = "\$_smarty_tpl->getVariable({$var})";
+				$itemVar = "\$_smarty_tpl->getVariable({$var})";
 				$output .= "\$_smarty_tpl->assign($var, []);\n";
 				$output .= "{$itemVar}->value{$index} = {$_statement['value']};\n";
 			}
@@ -62,7 +62,7 @@ class ForTag extends Base {
 				$var = $_attr['var'];
 				$index = '';
 			}
-            $itemVar = "\$_smarty_tpl->getVariable({$var})";
+			$itemVar = "\$_smarty_tpl->getVariable({$var})";
 			$output .= "if ($_attr[ifexp]) {\nfor (\$_foo=true;$_attr[ifexp]; {$itemVar}->value{$index}$_attr[step]) {\n";
 		} else {
 			$_statement = $_attr['start'];
@@ -73,7 +73,7 @@ class ForTag extends Base {
 				$var = $_statement['var'];
 				$index = '';
 			}
-            $itemVar = "\$_smarty_tpl->getVariable({$var})";
+			$itemVar = "\$_smarty_tpl->getVariable({$var})";
 			$output .= "\$_smarty_tpl->assign($var, []);";
 			if (isset($_attr['step'])) {
 				$output .= "{$itemVar}->step = $_attr[step];";
