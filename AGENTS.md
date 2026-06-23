@@ -1,8 +1,12 @@
 # AGENTS.md
 
+This file is the single source of truth for AI coding assistants working in this repo (including Claude Code, claude.ai/code).
+
 ## Project
 
 Smarty v5 — PHP template engine. Single Composer package (`smarty/smarty`), namespace `Smarty\`, source in `src/`, autoloaded via PSR-4. Supports PHP 7.2–8.5.
+
+Do not use PHP syntax newer than 7.2 in `src/` unless it is guarded for older runtimes.
 
 ## Commands
 
@@ -59,6 +63,7 @@ After editing a `.plex` or `.y` file, run `make -B` to regenerate. The generator
 - All tests extend `PHPUnit_Smarty` (defined in `tests/PHPUnit_Smarty.php`), which provides `setUpSmarty($dir)`.
 - Test suite root: `tests/UnitTests/`. Typical test `setUp()` calls `$this->setUpSmarty(__DIR__)`.
 - Each test directory may have its own `templates/`, `configs/` subdirectories. Compiled output goes to `templates_c/` and `cache/` (auto-created by the test harness).
+- Running the suite scatters generated `templates_c/`, `cache/`, and `templates_tmp/` directories (and empty runtime `templates/`/`configs/` dirs) throughout `tests/` and the repo root. These are not tracked — treat them as noise in `git status`, never commit them, and clean them with `git clean -fd` (exclude tool dirs like `.serena`).
 - Three test files are excluded in `phpunit.xml`: Memcache, APC, and HttpModifiedSince tests (require external services).
 - Tests needing MySQL/PDO are gated by constants in `tests/Config.php` (disabled by default).
 
