@@ -189,7 +189,19 @@ class Fetch extends Base {
 				return;
 			}
 		} else {
-			$content = @file_get_contents($params['file']);
+			$context = null;
+			if (isset($template->getSmarty()->security_policy)) {
+				// When a security policy is active, the trusted_uri check only validates
+				// the URL passed to {fetch}. PHP's HTTP stream wrapper follows redirects
+				// by default, which would let an Open Redirect on a trusted host bypass
+				// the policy and reach arbitrary internal addresses (SSRF). Disable
+				// redirect following for the policy-checked request. See PT-03-2026.
+				$context = stream_context_create([
+					'http'  => ['follow_location' => 0, 'max_redirects' => 1],
+					'https' => ['follow_location' => 0, 'max_redirects' => 1],
+				]);
+			}
+			$content = @file_get_contents($params['file'], false, $context);
 			if ($content === false) {
 				throw new Exception("{fetch} cannot read resource '" . $params['file'] . "'");
 			}
