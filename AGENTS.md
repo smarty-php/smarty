@@ -73,7 +73,7 @@ GitHub Actions (`.github/workflows/ci.yml`): matrix of PHP 7.2–8.5 on ubuntu +
 
 ## Docs
 
-Markdown in `docs/`, built with mkdocs + Material theme. Preview: `mkdocs serve`. Published via `mike deploy 5.x`.
+Markdown in `docs/`, built with mkdocs + Material theme. Install the toolchain with `pip install -r docs/requirements.txt`, then preview with `mkdocs serve`. Published via `mike deploy 5.x`.
 
 ## Release
 

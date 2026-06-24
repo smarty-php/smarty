@@ -273,7 +273,10 @@ class SecurityTest extends PHPUnit_Smarty
 
 		$this->expectException(\Smarty\Exception::class);
 		$this->expectExceptionMessage('not trusted file path');
-		$this->smarty->fetch('string:{include file="' . $link . '"}');
+		// Use forward slashes: backslashes in a double-quoted template string are
+		// interpreted as escape sequences (\f, \r, ...), which would corrupt a
+		// Windows path. Forward slashes work on every platform.
+		$this->smarty->fetch('string:{include file="' . str_replace('\\', '/', $link) . '"}');
 	}
 
 	/**
@@ -292,7 +295,9 @@ class SecurityTest extends PHPUnit_Smarty
 
 		$this->smarty->security_policy->secure_dir = array($secureDir . DIRECTORY_SEPARATOR);
 
-		$this->assertEquals('inside-content', $this->smarty->fetch('string:{include file="' . $link . '"}'));
+		// Forward slashes so backslashes in a Windows path are not mistaken for
+		// escape sequences inside the double-quoted template string.
+		$this->assertEquals('inside-content', $this->smarty->fetch('string:{include file="' . str_replace('\\', '/', $link) . '"}'));
 	}
 
 	/**
