@@ -15,8 +15,11 @@
         <link rel="next" href="../language-variable-scopes/">
       
       
+        
+      
+      
       <link rel="icon" href="../../../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -24,10 +27,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -46,11 +49,10 @@
       
     
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
-    
     
     
   </head>
@@ -93,12 +95,12 @@
     <a href="../../.." title="Smarty Documentation" class="md-header__button md-logo" aria-label="Smarty Documentation" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 6a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V19a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1.8c-1.79-1.04-3-2.98-3-5.2a6 6 0 0 1 6-6m2 15v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1h4m6-10h3v2h-3v-2M1 11h3v2H1v-2M13 1v3h-2V1h2M4.92 3.5l2.13 2.14-1.42 1.41L3.5 4.93 4.92 3.5m12.03 2.13 2.12-2.13 1.43 1.43-2.13 2.12-1.42-1.42Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 6a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V19a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1.8c-1.79-1.04-3-2.98-3-5.2a6 6 0 0 1 6-6m2 15v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1zm6-10h3v2h-3zM1 11h3v2H1zM13 1v3h-2V1zM4.92 3.5l2.13 2.14-1.42 1.41L3.5 4.93zm12.03 2.13 2.12-2.13 1.43 1.43-2.13 2.12z"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
       
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -122,32 +124,34 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -158,6 +162,7 @@
     </div>
   </div>
 </div>
+      
     
     
   </nav>
@@ -172,9 +177,11 @@
   
   
   
+  
     <li class="md-tabs__item">
       <a href="../../.." class="md-tabs__link">
         
+  
   
     
   
@@ -189,11 +196,13 @@
   
   
   
+  
     
     
       <li class="md-tabs__item">
         <a href="../../../getting-started/" class="md-tabs__link">
           
+  
   
   Getting started
 
@@ -206,12 +215,14 @@
         
   
   
+  
     
   
   
     
     
       
+  
   
   
     
@@ -222,6 +233,7 @@
       <li class="md-tabs__item md-tabs__item--active">
         <a href="../../language-basic-syntax/" class="md-tabs__link">
           
+  
   
   Language reference
 
@@ -238,11 +250,13 @@
   
   
   
+  
     
     
       <li class="md-tabs__item">
         <a href="../../../api/basics/" class="md-tabs__link">
           
+  
   
   API
 
@@ -283,7 +297,7 @@
     <a href="../../.." title="Smarty Documentation" class="md-nav__button md-logo" aria-label="Smarty Documentation" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 6a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V19a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1.8c-1.79-1.04-3-2.98-3-5.2a6 6 0 0 1 6-6m2 15v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1h4m6-10h3v2h-3v-2M1 11h3v2H1v-2M13 1v3h-2V1h2M4.92 3.5l2.13 2.14-1.42 1.41L3.5 4.93 4.92 3.5m12.03 2.13 2.12-2.13 1.43 1.43-2.13 2.12-1.42-1.42Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 6a6 6 0 0 1 6 6c0 2.22-1.21 4.16-3 5.2V19a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-1.8c-1.79-1.04-3-2.98-3-5.2a6 6 0 0 1 6-6m2 15v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1zm6-10h3v2h-3zM1 11h3v2H1zM13 1v3h-2V1zM4.92 3.5l2.13 2.14-1.42 1.41L3.5 4.93zm12.03 2.13 2.12-2.13 1.43 1.43-2.13 2.12z"/></svg>
 
     </a>
     Smarty Documentation
@@ -301,9 +315,16 @@
       <a href="../../.." class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Home
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -321,24 +342,30 @@
     
     
     
-    
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    
+    <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Getting started
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -347,7 +374,11 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Getting started
+            
+  
+    Getting started
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -361,9 +392,16 @@
       <a href="../../../getting-started/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Introduction
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -382,9 +420,16 @@
       <a href="../../../upgrading/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Upgrading from an older version
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -412,13 +457,15 @@
     
     
     
+      
+        
+        
+      
+      
     
-      
-      
     
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
@@ -427,9 +474,16 @@
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Language reference
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -438,7 +492,11 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Language reference
+            
+  
+    Language reference
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -452,10 +510,12 @@
     
     
     
+      
+      
+    
     
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
@@ -464,9 +524,16 @@
           <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Basic Syntax
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -475,7 +542,11 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_1">
             <span class="md-nav__icon md-icon"></span>
-            Basic Syntax
+            
+  
+    Basic Syntax
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -489,9 +560,16 @@
       <a href="../../language-basic-syntax/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Introduction
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -510,9 +588,16 @@
       <a href="../../language-basic-syntax/language-syntax-comments/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Comments
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -531,9 +616,16 @@
       <a href="../../language-basic-syntax/language-syntax-variables/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Variables
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -552,9 +644,16 @@
       <a href="../../language-basic-syntax/language-syntax-operators/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Operators
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -573,9 +672,16 @@
       <a href="../../language-basic-syntax/language-syntax-tags/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Tags
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -594,9 +700,16 @@
       <a href="../../language-basic-syntax/language-syntax-attributes/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Attributes
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -615,9 +728,16 @@
       <a href="../../language-basic-syntax/language-syntax-quotes/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Quotes
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -636,9 +756,16 @@
       <a href="../../language-basic-syntax/language-escaping/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Escaping Smarty parsing
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -667,10 +794,12 @@
     
     
     
+      
+      
+    
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
@@ -679,9 +808,16 @@
           <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Variables
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -690,7 +826,11 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
-            Variables
+            
+  
+    Variables
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -704,9 +844,16 @@
       <a href="../" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Introduction
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -734,9 +881,16 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
+  
   <span class="md-ellipsis">
+    
+  
     Assigned from PHP
+  
+
+    
   </span>
+  
   
 
           <span class="md-nav__icon md-icon"></span>
@@ -745,9 +899,16 @@
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Assigned from PHP
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -770,7 +931,9 @@
         <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Examples
+      
+        Examples
+      
     </span>
   </a>
   
@@ -779,7 +942,9 @@
         <li class="md-nav__item">
   <a href="#associative-arrays" class="md-nav__link">
     <span class="md-ellipsis">
-      Associative arrays
+      
+        Associative arrays
+      
     </span>
   </a>
   
@@ -788,7 +953,9 @@
         <li class="md-nav__item">
   <a href="#array-indexes" class="md-nav__link">
     <span class="md-ellipsis">
-      Array indexes
+      
+        Array indexes
+      
     </span>
   </a>
   
@@ -797,7 +964,9 @@
         <li class="md-nav__item">
   <a href="#objects" class="md-nav__link">
     <span class="md-ellipsis">
-      Objects
+      
+        Objects
+      
     </span>
   </a>
   
@@ -806,7 +975,9 @@
         <li class="md-nav__item">
   <a href="#backed-enums-php-81" class="md-nav__link">
     <span class="md-ellipsis">
-      Backed Enums (PHP 8.1+)
+      
+        Backed Enums (PHP 8.1+)
+      
     </span>
   </a>
   
@@ -816,7 +987,9 @@
           <li class="md-nav__item">
   <a href="#accessing-enum-properties" class="md-nav__link">
     <span class="md-ellipsis">
-      Accessing Enum Properties
+      
+        Accessing Enum Properties
+      
     </span>
   </a>
   
@@ -825,7 +998,9 @@
           <li class="md-nav__item">
   <a href="#complete-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete Example
+      
+        Complete Example
+      
     </span>
   </a>
   
@@ -834,7 +1009,9 @@
           <li class="md-nav__item">
   <a href="#integer-backed-enums" class="md-nav__link">
     <span class="md-ellipsis">
-      Integer-backed Enums
+      
+        Integer-backed Enums
+      
     </span>
   </a>
   
@@ -864,9 +1041,16 @@
       <a href="../language-variable-scopes/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Variable scopes
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -885,9 +1069,16 @@
       <a href="../language-config-variables/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     From config files
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -906,9 +1097,16 @@
       <a href="../language-variables-smarty/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {$smarty}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -935,10 +1133,12 @@
     
     
     
+      
+      
+    
     
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
@@ -947,9 +1147,16 @@
           <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Modifiers
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -958,7 +1165,11 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
-            Modifiers
+            
+  
+    Modifiers
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -972,9 +1183,16 @@
       <a href="../../language-modifiers/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Introduction
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -993,9 +1211,16 @@
       <a href="../../language-modifiers/language-modifier-capitalize/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     capitalize
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1014,9 +1239,16 @@
       <a href="../../language-modifiers/language-modifier-cat/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     cat
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1035,9 +1267,16 @@
       <a href="../../language-modifiers/language-modifier-count/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     count
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1056,9 +1295,16 @@
       <a href="../../language-modifiers/language-modifier-count-characters/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     count_characters
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1077,9 +1323,16 @@
       <a href="../../language-modifiers/language-modifier-count-paragraphs/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     count_paragraphs
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1098,9 +1351,16 @@
       <a href="../../language-modifiers/language-modifier-count-sentences/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     count_sentences
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1119,9 +1379,16 @@
       <a href="../../language-modifiers/language-modifier-count-words/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     count_words
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1140,9 +1407,16 @@
       <a href="../../language-modifiers/language-modifier-date-format/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     date_format
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1161,9 +1435,16 @@
       <a href="../../language-modifiers/language-modifier-debug-print-var/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     debug_print_var
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1182,9 +1463,16 @@
       <a href="../../language-modifiers/language-modifier-default/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     default
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1203,9 +1491,16 @@
       <a href="../../language-modifiers/language-modifier-empty/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     empty
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1224,9 +1519,16 @@
       <a href="../../language-modifiers/language-modifier-escape/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     escape
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1245,9 +1547,16 @@
       <a href="../../language-modifiers/language-modifier-from-charset/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     from_charset
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1266,9 +1575,16 @@
       <a href="../../language-modifiers/language-modifier-indent/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     indent
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1287,9 +1603,16 @@
       <a href="../../language-modifiers/language-modifier-in_array/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     in_array
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1308,9 +1631,16 @@
       <a href="../../language-modifiers/language-modifier-is_array/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     is_array
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1329,9 +1659,16 @@
       <a href="../../language-modifiers/language-modifier-isset/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     isset
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1350,9 +1687,16 @@
       <a href="../../language-modifiers/language-modifier-join/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     join
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1371,9 +1715,16 @@
       <a href="../../language-modifiers/language-modifier-json-encode/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     json_encode
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1392,9 +1743,16 @@
       <a href="../../language-modifiers/language-modifier-lower/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     lower
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1413,9 +1771,16 @@
       <a href="../../language-modifiers/language-modifier-noprint/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     noprint
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1434,9 +1799,16 @@
       <a href="../../language-modifiers/language-modifier-number-format/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     number_format
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1455,9 +1827,16 @@
       <a href="../../language-modifiers/language-modifier-nl2br/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     nl2br
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1476,9 +1855,16 @@
       <a href="../../language-modifiers/language-modifier-raw/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     raw
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1497,9 +1883,16 @@
       <a href="../../language-modifiers/language-modifier-regex-replace/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     regex_replace
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1518,9 +1911,16 @@
       <a href="../../language-modifiers/language-modifier-replace/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     replace
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1539,9 +1939,16 @@
       <a href="../../language-modifiers/language-modifier-round/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     round
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1560,9 +1967,16 @@
       <a href="../../language-modifiers/language-modifier-spacify/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     spacify
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1581,9 +1995,16 @@
       <a href="../../language-modifiers/language-modifier-split/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     split
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1602,9 +2023,16 @@
       <a href="../../language-modifiers/language-modifier-str-repeat/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     str_repeat
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1623,9 +2051,16 @@
       <a href="../../language-modifiers/language-modifier-string-format/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     string_format
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1644,9 +2079,16 @@
       <a href="../../language-modifiers/language-modifier-strip/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     strip
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1665,9 +2107,16 @@
       <a href="../../language-modifiers/language-modifier-strip-tags/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     strip_tags
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1686,9 +2135,16 @@
       <a href="../../language-modifiers/language-modifier-strlen/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     strlen
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1707,9 +2163,16 @@
       <a href="../../language-modifiers/language-modifier-substr/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     substr
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1728,9 +2191,16 @@
       <a href="../../language-modifiers/language-modifier-to-charset/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     to_charset
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1749,9 +2219,16 @@
       <a href="../../language-modifiers/language-modifier-truncate/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     truncate
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1770,9 +2247,16 @@
       <a href="../../language-modifiers/language-modifier-unescape/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     unescape
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1791,9 +2275,16 @@
       <a href="../../language-modifiers/language-modifier-upper/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     upper
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1812,9 +2303,16 @@
       <a href="../../language-modifiers/language-modifier-wordwrap/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     wordwrap
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1841,10 +2339,12 @@
     
     
     
+      
+      
+    
     
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
@@ -1853,9 +2353,16 @@
           <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Builtin Tags
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -1864,7 +2371,11 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
-            Builtin Tags
+            
+  
+    Builtin Tags
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1878,9 +2389,16 @@
       <a href="../../language-builtin-functions/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Introduction
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1899,9 +2417,16 @@
       <a href="../../language-builtin-functions/language-function-append/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {append}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1920,9 +2445,16 @@
       <a href="../../language-builtin-functions/language-function-assign/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {assign}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1941,9 +2473,16 @@
       <a href="../../language-builtin-functions/language-function-block/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {block}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1962,9 +2501,16 @@
       <a href="../../language-builtin-functions/language-function-call/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {call}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -1983,9 +2529,16 @@
       <a href="../../language-builtin-functions/language-function-capture/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {capture}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2004,9 +2557,16 @@
       <a href="../../language-builtin-functions/language-function-config-load/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {config_load}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2025,9 +2585,16 @@
       <a href="../../language-builtin-functions/language-function-debug/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {debug}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2046,9 +2613,16 @@
       <a href="../../language-builtin-functions/language-function-extends/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {extends}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2067,9 +2641,16 @@
       <a href="../../language-builtin-functions/language-function-for/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {for}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2088,9 +2669,16 @@
       <a href="../../language-builtin-functions/language-function-foreach/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {foreach}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2109,9 +2697,16 @@
       <a href="../../language-builtin-functions/language-function-function/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {function}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2130,9 +2725,16 @@
       <a href="../../language-builtin-functions/language-function-if/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {if},{elseif},{else}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2151,9 +2753,16 @@
       <a href="../../language-builtin-functions/language-function-include/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {include}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2172,9 +2781,16 @@
       <a href="../../language-builtin-functions/language-function-insert/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {insert}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2193,9 +2809,16 @@
       <a href="../../language-builtin-functions/language-function-ldelim/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {ldelim},{rdelim}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2214,9 +2837,16 @@
       <a href="../../language-builtin-functions/language-function-literal/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {literal}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2235,9 +2865,16 @@
       <a href="../../language-builtin-functions/language-function-nocache/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {nocache}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2256,9 +2893,16 @@
       <a href="../../language-builtin-functions/language-function-section/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {section}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2277,9 +2921,16 @@
       <a href="../../language-builtin-functions/language-function-setfilter/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {setfilter}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2298,9 +2949,16 @@
       <a href="../../language-builtin-functions/language-function-strip/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {strip}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2319,9 +2977,16 @@
       <a href="../../language-builtin-functions/language-function-while/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {while}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2348,10 +3013,12 @@
     
     
     
+      
+      
+    
     
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
@@ -2360,9 +3027,16 @@
           <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Custom Tags
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2371,7 +3045,11 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_5">
             <span class="md-nav__icon md-icon"></span>
-            Custom Tags
+            
+  
+    Custom Tags
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2385,9 +3063,16 @@
       <a href="../../language-custom-functions/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Introduction
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2406,9 +3091,16 @@
       <a href="../../language-custom-functions/language-function-counter/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {counter}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2427,9 +3119,16 @@
       <a href="../../language-custom-functions/language-function-cycle/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {cycle}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2448,9 +3147,16 @@
       <a href="../../language-custom-functions/language-function-debug/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {debug}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2469,9 +3175,16 @@
       <a href="../../language-custom-functions/language-function-eval/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {eval}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2490,9 +3203,16 @@
       <a href="../../language-custom-functions/language-function-fetch/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {fetch}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2511,9 +3231,16 @@
       <a href="../../language-custom-functions/language-function-html-checkboxes/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {html_checkboxes}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2532,9 +3259,16 @@
       <a href="../../language-custom-functions/language-function-html-image/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {html_image}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2553,9 +3287,16 @@
       <a href="../../language-custom-functions/language-function-html-options/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {html_options}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2574,9 +3315,16 @@
       <a href="../../language-custom-functions/language-function-html-radios/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {html_radios}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2595,9 +3343,16 @@
       <a href="../../language-custom-functions/language-function-html-select-date/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {html_select_date}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2616,9 +3371,16 @@
       <a href="../../language-custom-functions/language-function-html-select-time/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {html_select_time}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2637,9 +3399,16 @@
       <a href="../../language-custom-functions/language-function-html-table/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {html_table}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2658,9 +3427,16 @@
       <a href="../../language-custom-functions/language-function-mailto/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {mailto}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2679,9 +3455,16 @@
       <a href="../../language-custom-functions/language-function-math/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {math}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2700,9 +3483,16 @@
       <a href="../../language-custom-functions/language-function-textformat/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     {textformat}
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2729,9 +3519,16 @@
       <a href="../../config-files/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Config Files
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2750,9 +3547,16 @@
       <a href="../../chapter-debugging-console/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Debugging Console
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2778,24 +3582,30 @@
     
     
     
-    
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    
+    <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     API
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2804,7 +3614,11 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            API
+            
+  
+    API
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2818,9 +3632,16 @@
       <a href="../../../api/basics/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Basics
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2839,9 +3660,16 @@
       <a href="../../../api/configuring/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Configuring Smarty
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2860,9 +3688,16 @@
       <a href="../../../api/rendering/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Rendering a template
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2881,10 +3716,12 @@
     
     
     
+      
+      
+    
     
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
@@ -2893,9 +3730,16 @@
           <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Using data in templates
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -2904,7 +3748,11 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
-            Using data in templates
+            
+  
+    Using data in templates
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -2918,9 +3766,16 @@
       <a href="../../../api/variables/assigning/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Assigning variables
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2939,9 +3794,16 @@
       <a href="../../../api/variables/config-files/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Config files
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2960,9 +3822,16 @@
       <a href="../../../api/variables/streams/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Using streams
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -2981,9 +3850,16 @@
       <a href="../../../api/variables/objects/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Objects
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3002,9 +3878,16 @@
       <a href="../../../api/variables/static-class-methods/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Static class methods
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3031,9 +3914,16 @@
       <a href="../../../api/inheritance/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Template inheritance
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3052,10 +3942,12 @@
     
     
     
+      
+      
+    
     
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
@@ -3064,9 +3956,16 @@
           <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Filters
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3075,7 +3974,11 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_6">
             <span class="md-nav__icon md-icon"></span>
-            Filters
+            
+  
+    Filters
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3089,9 +3992,16 @@
       <a href="../../../api/filters/output-filters/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Output filters
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3110,9 +4020,16 @@
       <a href="../../../api/filters/prefilters/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Prefilters
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3131,9 +4048,16 @@
       <a href="../../../api/filters/postfilters/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Postfilters
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3160,9 +4084,16 @@
       <a href="../../../api/resources/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Template resources
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3181,10 +4112,12 @@
     
     
     
+      
+      
+    
     
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
@@ -3193,9 +4126,16 @@
           <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Caching
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3204,7 +4144,11 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_8">
             <span class="md-nav__icon md-icon"></span>
-            Caching
+            
+  
+    Caching
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3218,9 +4162,16 @@
       <a href="../../../api/caching/basics/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Basics
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3239,9 +4190,16 @@
       <a href="../../../api/caching/multiple-caches-per-template/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Multiple caches per template
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3260,9 +4218,16 @@
       <a href="../../../api/caching/custom-storage-layers/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Custom cache storage layers
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3289,10 +4254,12 @@
     
     
     
+      
+      
+    
     
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
@@ -3301,9 +4268,16 @@
           <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
             
   
+  
   <span class="md-ellipsis">
+    
+  
     Extending Smarty
+  
+
+    
   </span>
+  
   
 
             <span class="md-nav__icon md-icon"></span>
@@ -3312,7 +4286,11 @@
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_9">
             <span class="md-nav__icon md-icon"></span>
-            Extending Smarty
+            
+  
+    Extending Smarty
+  
+
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -3326,9 +4304,16 @@
       <a href="../../../api/extending/introduction/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Introduction
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3347,9 +4332,16 @@
       <a href="../../../api/extending/tags/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Custom tags
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3368,9 +4360,16 @@
       <a href="../../../api/extending/block-tags/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Custom block tags
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3389,9 +4388,16 @@
       <a href="../../../api/extending/modifiers/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Custom modifiers
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3410,9 +4416,16 @@
       <a href="../../../api/extending/extensions/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Creating an extension
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3439,9 +4452,16 @@
       <a href="../../../api/security/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
+    
+  
     Security
+  
+
+    
   </span>
+  
   
 
       </a>
@@ -3486,7 +4506,9 @@
         <li class="md-nav__item">
   <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Examples
+      
+        Examples
+      
     </span>
   </a>
   
@@ -3495,7 +4517,9 @@
         <li class="md-nav__item">
   <a href="#associative-arrays" class="md-nav__link">
     <span class="md-ellipsis">
-      Associative arrays
+      
+        Associative arrays
+      
     </span>
   </a>
   
@@ -3504,7 +4528,9 @@
         <li class="md-nav__item">
   <a href="#array-indexes" class="md-nav__link">
     <span class="md-ellipsis">
-      Array indexes
+      
+        Array indexes
+      
     </span>
   </a>
   
@@ -3513,7 +4539,9 @@
         <li class="md-nav__item">
   <a href="#objects" class="md-nav__link">
     <span class="md-ellipsis">
-      Objects
+      
+        Objects
+      
     </span>
   </a>
   
@@ -3522,7 +4550,9 @@
         <li class="md-nav__item">
   <a href="#backed-enums-php-81" class="md-nav__link">
     <span class="md-ellipsis">
-      Backed Enums (PHP 8.1+)
+      
+        Backed Enums (PHP 8.1+)
+      
     </span>
   </a>
   
@@ -3532,7 +4562,9 @@
           <li class="md-nav__item">
   <a href="#accessing-enum-properties" class="md-nav__link">
     <span class="md-ellipsis">
-      Accessing Enum Properties
+      
+        Accessing Enum Properties
+      
     </span>
   </a>
   
@@ -3541,7 +4573,9 @@
           <li class="md-nav__item">
   <a href="#complete-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Complete Example
+      
+        Complete Example
+      
     </span>
   </a>
   
@@ -3550,7 +4584,9 @@
           <li class="md-nav__item">
   <a href="#integer-backed-enums" class="md-nav__link">
     <span class="md-ellipsis">
-      Integer-backed Enums
+      
+        Integer-backed Enums
+      
     </span>
   </a>
   
@@ -3571,9 +4607,11 @@
           
           
             <div class="md-content" data-md-component="content">
+              
               <article class="md-content__inner md-typeset">
                 
                   
+
 
 
 <h1 id="variables-assigned-from-php">Variables assigned from PHP</h1>
@@ -3593,9 +4631,9 @@
 <p><code>index.tpl</code> source:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="x">Hello </span><span class="cp">{</span><span class="nv">$firstname</span><span class="cp">}</span><span class="x"> </span><span class="cp">{</span><span class="nv">$lastname</span><span class="cp">}</span><span class="x">, glad to see you can make it.</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="x">&lt;br /&gt;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">{</span><span class="c">* this will not work as $variables are case sensitive *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="cp">{</span><span class="c">* this will not work as $variables are case sensitive *</span><span class="cp">}</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="x">This weeks meeting is in </span><span class="cp">{</span><span class="nv">$meetingplace</span><span class="cp">}</span><span class="x">.</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cp">{</span><span class="c">* this will work *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cp">{</span><span class="c">* this will work *</span><span class="cp">}</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="x">This weeks meeting is in </span><span class="cp">{</span><span class="nv">$meetingPlace</span><span class="cp">}</span><span class="x">.</span>
 </code></pre></div>
 <p>This above would output:</p>
@@ -3620,7 +4658,7 @@ after a dot "." symbol.</p>
 <p><code>index.tpl</code> source:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">{</span><span class="nv">$Contacts.fax</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">{</span><span class="nv">$Contacts.email</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">{</span><span class="c">* you can print arrays of arrays as well *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">{</span><span class="c">* you can print arrays of arrays as well *</span><span class="cp">}</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="cp">{</span><span class="nv">$Contacts.phone.home</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="cp">{</span><span class="nv">$Contacts.phone.cell</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 </code></pre></div>
@@ -3644,7 +4682,7 @@ after a dot "." symbol.</p>
 <p><code>index.tpl</code> source:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">{</span><span class="nv">$Contacts</span><span class="o">[</span><span class="m">0</span><span class="o">]</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="cp">{</span><span class="nv">$Contacts</span><span class="o">[</span><span class="m">1</span><span class="o">]</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="cp">{</span><span class="c">* you can print arrays of arrays as well *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="cp">{</span><span class="c">* you can print arrays of arrays as well *</span><span class="cp">}</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="cp">{</span><span class="nv">$Contacts</span><span class="o">[</span><span class="m">2</span><span class="o">][</span><span class="m">0</span><span class="o">]</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="cp">{</span><span class="nv">$Contacts</span><span class="o">[</span><span class="m">2</span><span class="o">][</span><span class="m">1</span><span class="o">]</span><span class="cp">}</span><span class="x">&lt;br /&gt;</span>
 </code></pre></div>
@@ -3668,7 +4706,7 @@ can be referenced by specifying the property name after the <code>-&gt;</code> s
 <p>Smarty supports accessing properties of <a href="https://www.php.net/manual/en/language.enumerations.backed.php">backed enums</a> introduced in PHP 8.1.</p>
 <h3 id="accessing-enum-properties">Accessing Enum Properties</h3>
 <p>You can access the <code>name</code> and <code>value</code> properties of backed enum cases:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">{</span><span class="c">* Access enum case properties *</span><span class="cp">}</span><span class="x"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">{</span><span class="c">* Access enum case properties *</span><span class="cp">}</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="x">&lt;option id=&quot;</span><span class="cp">{</span><span class="nf">MyEnum</span><span class="o">::</span><span class="na">Foo</span><span class="o">-&gt;</span><span class="na">name</span><span class="cp">}</span><span class="x">&quot;&gt;</span><span class="cp">{</span><span class="nf">MyEnum</span><span class="o">::</span><span class="na">Foo</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x">&lt;/option&gt;</span>
 </code></pre></div>
 <h3 id="complete-example">Complete Example</h3>
@@ -3687,10 +4725,10 @@ can be referenced by specifying the property name after the <code>-&gt;</code> s
 <a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;template.tpl&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p><code>template.tpl</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="cp">{</span><span class="c">* Display enum properties *</span><span class="cp">}</span><span class="x"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="cp">{</span><span class="c">* Display enum properties *</span><span class="cp">}</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="x">Current status: </span><span class="cp">{</span><span class="nv">$currentStatus</span><span class="o">-&gt;</span><span class="na">name</span><span class="cp">}</span><span class="x"> (value: </span><span class="cp">{</span><span class="nv">$currentStatus</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x">)</span>
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="cp">{</span><span class="c">* Use in HTML attributes *</span><span class="cp">}</span><span class="x"></span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="cp">{</span><span class="c">* Use in HTML attributes *</span><span class="cp">}</span>
 <a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="x">&lt;select name=&quot;status&quot;&gt;</span>
 <a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="x">    &lt;option value=&quot;</span><span class="cp">{</span><span class="nf">Status</span><span class="o">::</span><span class="na">Active</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x">&quot; </span><span class="cp">{</span><span class="nf">if</span> <span class="nv">$currentStatus</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">===</span> <span class="s1">&#39;Active&#39;</span><span class="cp">}</span><span class="x">selected</span><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x">&gt;Active&lt;/option&gt;</span>
 <a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="x">    &lt;option value=&quot;</span><span class="cp">{</span><span class="nf">Status</span><span class="o">::</span><span class="na">Inactive</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x">&quot; </span><span class="cp">{</span><span class="nf">if</span> <span class="nv">$currentStatus</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">===</span> <span class="s1">&#39;Inactive&#39;</span><span class="cp">}</span><span class="x">selected</span><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x">&gt;Inactive&lt;/option&gt;</span>
@@ -3717,7 +4755,7 @@ can be referenced by specifying the property name after the <code>-&gt;</code> s
 <a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>
 <a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="nv">$smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;priority&#39;</span><span class="p">,</span> <span class="nx">Priority</span><span class="o">::</span><span class="na">High</span><span class="p">);</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="cp">{</span><span class="c">* Access integer enum properties *</span><span class="cp">}</span><span class="x"></span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="cp">{</span><span class="c">* Access integer enum properties *</span><span class="cp">}</span>
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="x">Priority level: </span><span class="cp">{</span><span class="nv">$priority</span><span class="o">-&gt;</span><span class="na">value</span><span class="cp">}</span><span class="x"> (</span><span class="cp">{</span><span class="nv">$priority</span><span class="o">-&gt;</span><span class="na">name</span><span class="cp">}</span><span class="x">)</span>
 </code></pre></div>
 <p>Output:</p>
@@ -3772,10 +4810,13 @@ can be referenced by specifying the property name after the <code>-&gt;</code> s
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking"], "search": "../../../assets/javascripts/workers/search.c011b7c0.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.7389ff0e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
