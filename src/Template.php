@@ -183,7 +183,7 @@ class Template extends TemplateBase {
 
 		} catch (\Throwable $e) {
 			$renderException = $e;
-            throw $renderException;
+			throw $renderException;
 		} finally {
 			try {
 				foreach ($this->endRenderCallbacks as $callback) {
