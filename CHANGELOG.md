@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.2] - 2026-06-24
+- Security: prevent symlinks inside a trusted `secure_dir`/template directory from being used to read files outside of it (CWE-22 path traversal), affecting `{include}` and `{fetch}` of local files
+- Security: `{html_image}` now escapes the `file`, `path_prefix`, `href`/`link`, `width` and `height` attributes (it already escaped `alt` and pass-through attributes), and `{html_select_date}` casts `day_size`/`month_size`/`year_size` to int (matching `{html_select_time}`), preventing untrusted values passed into these attributes from breaking out of the generated HTML (CWE-79)
+- Security: `{fetch}` no longer follows HTTP redirects for remote resources while a security policy is active, preventing an open redirect on a trusted host from bypassing `trusted_uri` (CWE-918 server-side request forgery)
+- Fixed "Attempt to assign property step on null" error when using a {for} loop inside a block of an extended template [#1036](https://github.com/smarty-php/smarty/issues/1036)
+
+
 ## [5.8.1] - 2026-06-23
 - Re-activated unit tests for user literals, which were previously disabled due to a bug in refactoring to v5.
 - fixed a bug where child template's block content leaked into subsequent rendering of the parent template [#1189](https://github.com/smarty-php/smarty/issues/1189)
