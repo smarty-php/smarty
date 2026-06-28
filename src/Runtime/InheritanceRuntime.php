@@ -69,12 +69,8 @@ class InheritanceRuntime {
 	 * @param array $blockNames outer level block name
 	 */
 	public function init(Template $tpl, $initChild, $blockNames = []) {
-		// if called while executing parent template it must be a sub-template with new inheritance root.
-		// A new root is started either by a child template ($initChild) or by a sub-template included
-		// outside of any block rendering (empty source stack); the latter must not inherit the leftover
-		// block overrides of a previously completed inheritance tree (see issue #1189).
-		if (($initChild || empty($this->sourceStack)) && $this->state === 3
-			&& (strpos($tpl->template_resource, 'extendsall') === false)) {
+		// if called while executing parent template it must be a sub-template with new inheritance root
+		if ($initChild && $this->state === 3 && (strpos($tpl->template_resource, 'extendsall') === false)) {
 			$tpl->setInheritance(clone $tpl->getSmarty()->getRuntime('Inheritance'));
 			$tpl->getInheritance()->init($tpl, $initChild, $blockNames);
 			return;
