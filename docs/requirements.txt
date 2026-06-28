@@ -1,0 +1,14 @@
+# Python dependencies for building/previewing the docs.
+#
+#   pip install -r docs/requirements.txt
+#   mkdocs serve          # local preview
+#   mike deploy 5.x       # publish
+#
+# pymdown-extensions must be >=11: earlier releases pass filename=None to
+# Pygments, and Pygments >=2.19 then crashes with
+# "'NoneType' object has no attribute 'replace'" on any untitled code block.
+mkdocs>=1.6
+mkdocs-material>=9.7
+pymdown-extensions>=11
+Pygments>=2.19
+mike>=2.2
