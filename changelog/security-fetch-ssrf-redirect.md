@@ -1,0 +1,1 @@
+- Security: `{fetch}` no longer follows HTTP redirects for remote resources while a security policy is active, preventing an open redirect on a trusted host from bypassing `trusted_uri` (CWE-918 server-side request forgery)
