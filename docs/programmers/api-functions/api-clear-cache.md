@@ -29,9 +29,9 @@ expire\_time
     template, you can clear a specific cache by supplying the `cache_id`
     as the second parameter.
 
--   You can also pass a [`$compile_id`](#variable.compile.id) as a third
+-   You can also pass a [`$compile_id`](../api-variables/variable-compile-id.md) as a third
     parameter. You can [group templates together](#caching.groups) so
-    they can be removed as a group, see the [caching section](#caching)
+    they can be removed as a group, see the [caching section](../../api/caching/basics.md)
     for more information.
 
 -   As an optional fourth parameter, you can supply a minimum age in
@@ -56,5 +56,5 @@ expire\_time
 
        
 
-See also [`clearAllCache()`](#api.clear.all.cache) and
-[`caching`](#caching) section.
+See also [`clearAllCache()`](../../programmers/api-functions/api-clear-all-cache.md) and
+[`caching`](../../api/caching/basics.md) section.

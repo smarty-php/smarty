@@ -7,5 +7,5 @@ last visit, then a `'304: Not Modified'` header will be sent instead of
 the content.
 
 See also [`$caching`](#variable.caching),
-[`$cache_lifetime`](#variable.cache.lifetime), and the [caching
-section](#caching).
+[`$cache_lifetime`](#variable.cache.lifetime), and the 
+[caching section](../../api/caching/basics.md).

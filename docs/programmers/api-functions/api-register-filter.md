@@ -33,12 +33,12 @@ postfilters](#advanced.features.postfilters) for more information on how
 to setup a postfiltering function.
 
 A [outputfilter](#plugins.outputfilters) operates on a template\'s
-output before it is [displayed](#api.display). See [template output
+output before it is [displayed](../../programmers/api-functions/api-display.md). See [template output
 filters](#advanced.features.outputfilters) for more information on how
 to set up an output filter function.
 
-See also [`unregisterFilter()`](#api.unregister.filter),
-[`loadFilter()`](#api.load.filter), [template pre
+See also [`unregisterFilter()`](../../programmers/api-functions/api-unregister-filter.md),
+[`loadFilter()`](../../programmers/api-functions/api-load-filter.md), [template pre
 filters](#advanced.features.prefilters) [template post
 filters](#advanced.features.postfilters) [template output
 filters](#advanced.features.outputfilters) section.

@@ -25,7 +25,7 @@ $smarty->display('index.tpl', $my_cache_id);
 
 
 Above, we are passing the variable `$my_cache_id` to
-[`display()`](#api.display) as the `$cache_id`. For each unique value of
+[`display()`](../../programmers/api-functions/api-display.md) as the `$cache_id`. For each unique value of
 `$my_cache_id`, a separate cache will be generated for `index.tpl`. In
 this example, `article_id` was passed in the URL and is used as the
 `$cache_id`.

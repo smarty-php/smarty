@@ -21,10 +21,10 @@ string
 
 compile\_id
 
-This returns the template output instead of [displaying](#api.display)
-it. Supply a valid [template resource](#resources) type and path. As an
-optional second parameter, you can pass a `$cache id`, see the [caching
-section](#caching) for more information.
+This returns the template output instead of [displaying](../../programmers/api-functions/api-display.md)
+it. Supply a valid [template resource](../../api/resources.md) type and path. As an
+optional second parameter, you can pass a `$cache id`, see the 
+[caching section](../../api/caching/basics.md) for more information.
 
 PARAMETER.COMPILEID
 
@@ -72,20 +72,19 @@ The `email_body.tpl` template
 The php script using the PHP [`mail()`](https://www.php.net/function.mail)
 function
 
+```php
+<?php
 
-    <?php
+// get $contact_info from db or other resource here
 
-    // get $contact_info from db or other resource here
+$smarty->assign('contact_info',$contact_info);
+$smarty->assign('login_url',"http://{$_SERVER['SERVER_NAME']}/login");
 
-    $smarty->assign('contact_info',$contact_info);
-    $smarty->assign('login_url',"http://{$_SERVER['SERVER_NAME']}/login");
+mail($contact_info['email'], 'Thank You', $smarty->fetch('email_body.tpl'));
 
-    mail($contact_info['email'], 'Thank You', $smarty->fetch('email_body.tpl'));
+?>
+```
 
-    ?>
-
-        
-
-See also [`{fetch}`](#language.function.fetch)
-[`display()`](#api.display), [`{eval}`](#language.function.eval), and
+See also [`{fetch}`](../../designers/language-custom-functions/language-function-fetch.md)
+[`display()`](api-display.md), [`{eval}`](../../designers/language-custom-functions/language-function-eval.md), and
 [`templateExists()`](#api.template.exists).
