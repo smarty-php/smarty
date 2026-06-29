@@ -54,8 +54,19 @@ class StreamPlugin extends RecompiledPlugin {
 			$filepath = str_replace(':', '://', $source->getFullResourceName());
 		}
 
+		// Validate the underlying stream wrapper against the security policy.
+		// When the built-in "stream" resource type is used (e.g.
+		// stream:php://filter/...), BasePlugin::load() matches the "stream"
+		// sysplugin before the stream_get_wrappers()/isTrustedStream() check,
+		// so the nested wrapper ("php" here) is never validated. Parse the
+		// wrapper scheme from the resolved path and check it explicitly so that
+		// e.g. Security::$streams = null blocks it before fopen() (CWE-22/-441).
+		$smarty = $source->getSmarty();
+		if (is_object($smarty->security_policy) && ($_pos = strpos($filepath, '://')) !== false) {
+			$smarty->security_policy->isTrustedStream(strtolower(substr($filepath, 0, $_pos)));
+		}
+
 		$t = '';
-		// the availability of the stream has already been checked in Smarty\Resource\Base::fetch()
 		$fp = fopen($filepath, 'r+');
 		if ($fp) {
 			while (!feof($fp) && ($current_line = fgets($fp)) !== false) {
