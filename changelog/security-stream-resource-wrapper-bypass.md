@@ -1,0 +1,1 @@
+- Security: the built-in `stream:` resource type now validates the nested stream wrapper against the security policy, so a template such as `stream:php://filter/...` can no longer bypass `Security::$streams` (including `Security::$streams = null`) to read local files (CWE-22)
