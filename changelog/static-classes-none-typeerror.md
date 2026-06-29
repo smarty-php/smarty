@@ -1,1 +1,0 @@
-- Fixed a `TypeError` on PHP 8 when `Security::$static_classes` was set to a non-array value (e.g. the string `'none'`) to disable static class access; any non-array value now cleanly denies access. Use `Security::$static_classes = null` to disable access to all static classes.
