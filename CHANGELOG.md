@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.5.7] - 2026-06-29
+- Security: prevent symlinks inside a trusted `secure_dir`/template directory from being used to read files outside of it (CWE-22 path traversal), affecting `{include}` and `{fetch}` of local files
+- Security: `{html_image}` now escapes the `file`, `path_prefix`, `href`/`link`, `width` and `height` attributes (it already escaped `alt` and pass-through attributes), and `{html_select_date}` casts `day_size`/`month_size`/`year_size` to int (matching `{html_select_time}`), preventing untrusted values passed into these attributes from breaking out of the generated HTML (CWE-79)
+- Security: `{fetch}` no longer follows HTTP redirects for remote resources while a security policy is active, preventing an open redirect on a trusted host from bypassing `trusted_uri` (CWE-918 server-side request forgery)
+
+
 ## [4.5.6] - 2025-08-26
 - Fixed that modifiers called like function would be compiled to modifier name instead of calling the registered callback [#1100](https://github.com/smarty-php/smarty/issues/1100)
 - Replace SMARTY_VERSION constant with $smarty.version in debug.tpl [#1073](https://github.com/smarty-php/smarty/issues/1073)

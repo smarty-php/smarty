@@ -1,1 +1,0 @@
-- Security: prevent symlinks inside a trusted `secure_dir`/template directory from being used to read files outside of it (CWE-22 path traversal), affecting `{include}` and `{fetch}` of local files
