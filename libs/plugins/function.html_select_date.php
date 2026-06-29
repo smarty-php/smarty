@@ -131,9 +131,6 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
             case 'day_value_format':
             case 'month_format':
             case 'month_value_format':
-            case 'day_size':
-            case 'month_size':
-            case 'year_size':
             case 'all_extra':
             case 'day_extra':
             case 'month_extra':
@@ -150,6 +147,13 @@ function smarty_function_html_select_date($params, Smarty_Internal_Template $tem
             case 'day_id':
             case 'year_id':
                 $$_key = (string)$_value;
+                break;
+            case 'day_size':
+            case 'month_size':
+            case 'year_size':
+                // numeric HTML size attribute; cast to int (consistent with
+                // html_select_time) so it cannot break out of size="…" (CWE-79)
+                $$_key = (int)$_value;
                 break;
             case 'display_days':
             case 'display_months':

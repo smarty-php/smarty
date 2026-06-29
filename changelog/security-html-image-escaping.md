@@ -1,0 +1,1 @@
+- Security: `{html_image}` now escapes the `file`, `path_prefix`, `href`/`link`, `width` and `height` attributes (it already escaped `alt` and pass-through attributes), and `{html_select_date}` casts `day_size`/`month_size`/`year_size` to int (matching `{html_select_time}`), preventing untrusted values passed into these attributes from breaking out of the generated HTML (CWE-79)
