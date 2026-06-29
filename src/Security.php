@@ -52,7 +52,7 @@ class Security {
 	/**
 	 * This is an array of trusted static classes.
 	 * If empty access to all static classes is allowed.
-	 * If set to 'none' none is allowed.
+	 * To disable access to all static classes set $static_classes = null.
 	 *
 	 * @var array
 	 */
@@ -206,7 +206,11 @@ class Security {
 	 * @return boolean                 true if class is trusted
 	 */
 	public function isTrustedStaticClass($class_name, $compiler) {
-		if (isset($this->static_classes)
+		// Only an array enables access: an empty array allows all classes, a
+		// populated array is an allowlist. Any other value (null, or the
+		// documented "none") denies all. Using is_array() rather than isset()
+		// also avoids a PHP 8 TypeError from passing a non-array to in_array().
+		if (is_array($this->static_classes)
 			&& (empty($this->static_classes) || in_array($class_name, $this->static_classes))
 		) {
 			return true;

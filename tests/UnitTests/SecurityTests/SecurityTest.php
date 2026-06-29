@@ -243,6 +243,39 @@ class SecurityTest extends PHPUnit_Smarty
 		$this->smarty->fetch('string:{$smarty.template_object::square(5)}');
 	}
 
+	/**
+	 * The default (empty array) allows access to all static classes. Documents
+	 * the backwards-compatible behaviour.
+	 */
+	public function testStaticClassAllowedByDefault()
+	{
+		$this->smarty->security_policy->static_classes = array();
+		$this->assertEquals('25', $this->smarty->fetch('string:{mysecuritystaticclass::square(5)}'));
+	}
+
+	/**
+	 * Setting static_classes to null disables access to all static classes.
+	 */
+	public function testStaticClassDeniedWhenNull()
+	{
+		$this->expectException(\Smarty\Exception::class);
+		$this->expectExceptionMessage("access to static class 'mysecuritystaticclass' not allowed by security setting");
+		$this->smarty->security_policy->static_classes = null;
+		$this->smarty->fetch('string:{mysecuritystaticclass::square(5)}');
+	}
+
+	/**
+	 * Regression: a non-array value such as the string 'none' must deny access
+	 * cleanly instead of raising a PHP 8 TypeError from in_array().
+	 */
+	public function testStaticClassDeniedWhenNonArray()
+	{
+		$this->expectException(\Smarty\Exception::class);
+		$this->expectExceptionMessage("access to static class 'mysecuritystaticclass' not allowed by security setting");
+		$this->smarty->security_policy->static_classes = 'none';
+		$this->smarty->fetch('string:{mysecuritystaticclass::square(5)}');
+	}
+
 	public function testChangedTrustedDirectory()
 	{
 		$this->smarty->security_policy->secure_dir = array(
