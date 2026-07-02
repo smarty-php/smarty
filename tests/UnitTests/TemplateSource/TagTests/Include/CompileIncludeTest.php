@@ -88,7 +88,7 @@ class CompileIncludeTest extends PHPUnit_Smarty
     public function testIncludeFilenameEscaping()
     {
         $this->expectException(SmartyException::class);
-        $this->expectExceptionMessageRegExp('/Unable to load.*/');
+        $this->expectExceptionMessageMatches('/Unable to load.*/');
         $tpl = $this->smarty->createTemplate('test_include_security.tpl');
         $content = $this->smarty->fetch($tpl);
         $this->assertEquals("hello world", $content);

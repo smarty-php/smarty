@@ -5,7 +5,7 @@
 # - ./run-tests-for-all-php-versions.sh --group 20221124
 # - ./run-tests-for-all-php-versions.sh --exclude-group slow
 
-COMPOSE_CMD="mutagen-compose"
+COMPOSE_CMD="docker-compose"
 
 $COMPOSE_CMD run --rm php71 ./run-tests.sh $@ && \
 $COMPOSE_CMD run --rm php72 ./run-tests.sh $@ && \
@@ -15,4 +15,5 @@ $COMPOSE_CMD run --rm php80 ./run-tests.sh $@ && \
 $COMPOSE_CMD run --rm php81 ./run-tests.sh $@ && \
 $COMPOSE_CMD run --rm php82 ./run-tests.sh $@ && \
 $COMPOSE_CMD run --rm php83 ./run-tests.sh $@ && \
-$COMPOSE_CMD run --rm php84 ./run-tests.sh $@
+$COMPOSE_CMD run --rm php84 ./run-tests.sh $@ && \
+$COMPOSE_CMD run --rm php85 ./run-tests.sh $@
