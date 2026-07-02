@@ -14,6 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and tag-specific data
+#[\AllowDynamicProperties]
 class Smarty_Internal_Compile_Config_Load extends Smarty_Internal_CompileBase
 {
     /**

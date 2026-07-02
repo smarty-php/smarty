@@ -18,6 +18,8 @@
  * @method populateCompiledFilepath(Smarty_Template_Compiled $compiled, Smarty_Internal_Template $_template)
  * @method process(Smarty_Internal_Template $_smarty_tpl)
  */
+// PHP 8.2+: Allow dynamic properties for resource-specific metadata and custom resources
+#[\AllowDynamicProperties]
 abstract class Smarty_Resource
 {
     /**

@@ -12,6 +12,8 @@
  * Class Smarty_Internal_Extension_CodeFrame
  * Create code frame for compiled and cached templates
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_Runtime_CodeFrame
 {
     /**

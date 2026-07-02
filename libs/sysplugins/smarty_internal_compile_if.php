@@ -14,6 +14,8 @@
  * @package    Smarty
  * @subpackage Compiler
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and tag-specific data
+#[\AllowDynamicProperties]
 class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase
 {
     /**
@@ -76,6 +78,8 @@ class Smarty_Internal_Compile_If extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and tag-specific data
+#[\AllowDynamicProperties]
 class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase
 {
     /**
@@ -100,6 +104,8 @@ class Smarty_Internal_Compile_Else extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and tag-specific data
+#[\AllowDynamicProperties]
 class Smarty_Internal_Compile_Elseif extends Smarty_Internal_CompileBase
 {
     /**
@@ -181,6 +187,8 @@ class Smarty_Internal_Compile_Elseif extends Smarty_Internal_CompileBase
  * @package    Smarty
  * @subpackage Compiler
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and tag-specific data
+#[\AllowDynamicProperties]
 class Smarty_Internal_Compile_Ifclose extends Smarty_Internal_CompileBase
 {
     /**

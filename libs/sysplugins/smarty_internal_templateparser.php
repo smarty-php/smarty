@@ -20,6 +20,8 @@ class TP_yyStackEntry
 * 
 * @author Uwe Tews <uwe.tews@googlemail.com>
 */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_Templateparser
 {
 // line 23 "../smarty/lexer/smarty_internal_templateparser.y"

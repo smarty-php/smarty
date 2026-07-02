@@ -8,6 +8,8 @@
  * @subpackage TemplateResources
  * @author     Rodney Rehm
  */
+// PHP 8.2+: Allow dynamic properties for template source metadata
+#[\AllowDynamicProperties]
 class Smarty_Template_Source
 {
     /**

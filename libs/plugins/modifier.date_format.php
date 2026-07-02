@@ -78,8 +78,8 @@ function smarty_modifier_date_format($string, $format = null, $default_date = ''
             }
             $format = str_replace($_win_from, $_win_to, $format);
         }
-        // @ to suppress deprecation errors when running in PHP8.1 or higher.
-        return @strftime($format, $timestamp);
+        // PHP 8.1+: Use smarty_strftime() polyfill instead of deprecated strftime()
+        return smarty_strftime($format, $timestamp);
     } else {
         return date($format, $timestamp);
     }
