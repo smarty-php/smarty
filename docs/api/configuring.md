@@ -143,13 +143,21 @@ Enable auto-escaping for HTML as follows:
 $smarty->setEscapeHtml(true);
 ```
 
-When auto-escaping is enabled, the `|escape` modifier's default mode (`html`) has no effect,
-to avoid double-escaping. It is possible to force it with the `force` mode.
+When auto-escaping is enabled, applying the
+[escape modifier](../designers/language-modifiers/language-modifier-escape.md) explicitly
+does not result in double-escaping: the modifier escapes the value, and Smarty then
+considers it safe and does not escape it again. It is possible to force a second
+escaping round with the `force` mode.
 Other modes (`htmlall`, `url`, `urlpathinfo`, `quotes`, `javascript`) may be used
 with the result you might expect, without double-escaping.
 
 Even when auto-escaping is enabled, you might want to display the content of a variable without
-escaping it. To do so, use the `|raw` modifier.
+escaping it. To do so, use the `|raw` modifier, or the `nofilter` tag flag, which disables
+auto-escaping (and any variable filter) for the whole tag.
+
+Combining an explicit `|escape` with a modifier that produces HTML gives you escaped
+content while preserving the generated markup: `{$myVar|escape|nl2br}` outputs the
+escaped value with real `<br />` tags.
 
 Examples (with auto-escaping enabled):
 ```smarty
@@ -159,7 +167,7 @@ Examples (with auto-escaping enabled):
 {$myVar|escape:'html'}
 
 {* no double-escaping on these statements *}
-{$var|escape:'htmlall'}
+{$myVar|escape:'htmlall'}
 {$myVar|escape:'url'}
 {$myVar|escape:'urlpathinfo'}
 {$myVar|escape:'quotes'}
@@ -167,6 +175,11 @@ Examples (with auto-escaping enabled):
 
 {* no escaping at all *}
 {$myVar|raw}
+{$myVar nofilter}
+
+{* escaped content, with real <br /> tags *}
+{$myVar|escape|nl2br}
+{$myVar|escape|nl2br nofilter}
 
 {* force double-escaping *}
 {$myVar|escape:'force'}

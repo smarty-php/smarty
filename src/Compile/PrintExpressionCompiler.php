@@ -58,7 +58,9 @@ class PrintExpressionCompiler extends Base {
 			$output = $compiler->compileModifier($parameter['modifierlist'], $output);
 		}
 		if (isset($_attr['assign'])) {
-			// assign output to variable
+			// assign output to variable; nothing is printed, so discard the raw output
+			// marker possibly set by a modifier, or it would leak into the next output
+			$compiler->setRawOutput(false);
 			return "<?php \$_smarty_tpl->assign({$_attr['assign']},{$output});?>";
 		} else {
 			// display value
