@@ -146,7 +146,7 @@ $current_charset = mb_regex_encoding(?string $encoding = null):
 			$replace = mb_convert_encoding($replace, $current_charset, \Smarty\Smarty::$_CHARSET);
 		}
 
-		$parts = mb_split(preg_quote($search), $subject ?? "") ?: array();
+$parts = mb_split(preg_quote(string $search), string $subject ?? "") ?: array();
 		// If original regex encoding was not unicode...
 		if(!$reg_is_unicode) {
 			// ...restore original regex encoding to avoid breaking the system.
