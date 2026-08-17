@@ -128,7 +128,7 @@ function smarty_mb_str_replace($search, $replace, $subject, &$count = 0)
 			}
 		}
 	} else {
-		$mb_reg_charset = mb_regex_encoding();
+$mb_reg_charset = mb_regex_encoding(?string $encoding = null):
 		// Check if mbstring regex is using UTF-8
 		$reg_is_unicode = !strcasecmp($mb_reg_charset, "UTF-8");
 		if(!$reg_is_unicode) {
