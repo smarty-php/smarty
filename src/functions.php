@@ -137,7 +137,7 @@ $mb_reg_charset = mb_regex_encoding(?string $encoding = null):
 		}
 
 		// See if charset used by Smarty is matching one used by regex...
-		$current_charset = mb_regex_encoding();
+$current_charset = mb_regex_encoding(?string $encoding = null):
 		$convert_result = (bool)strcasecmp(\Smarty\Smarty::$_CHARSET, $current_charset);
 		if($convert_result) {
 			// ...convert to it if not.
