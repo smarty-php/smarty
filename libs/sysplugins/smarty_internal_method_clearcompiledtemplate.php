@@ -72,7 +72,17 @@ class Smarty_Internal_Method_ClearCompiledTemplate
         } catch (Exception $e) {
             return 0;
         }
-        $_compile = new RecursiveIteratorIterator($_compileDirs, RecursiveIteratorIterator::CHILD_FIRST);
+        // CATCH_GET_CHILD swallows UnexpectedValueException raised when a
+        // subdirectory disappears between the parent iteration and the
+        // implicit getChildren() call (concurrent cleanup by another process,
+        // cron, deploy). Without this flag, the exception bubbles up to the
+        // caller and can crash unrelated critical paths (payment webhooks,
+        // order validation, etc.) that trigger a cache clear.
+        $_compile = new RecursiveIteratorIterator(
+            $_compileDirs,
+            RecursiveIteratorIterator::CHILD_FIRST,
+            RecursiveIteratorIterator::CATCH_GET_CHILD
+        );
         foreach ($_compile as $_file) {
             if (substr(basename($_file->getPathname()), 0, 1) === '.') {
                 continue;
