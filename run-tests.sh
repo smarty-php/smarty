@@ -6,5 +6,8 @@
 # - ./run-tests.sh --exclude-group slow
 
 composer update --quiet
-#php -r 'echo "\nPHP version " . phpversion() . ". ";'
+echo '------------------------------------------------------------'
+php -v
+echo '------------------------------------------------------------'
 php ./vendor/phpunit/phpunit/phpunit $@
+echo
