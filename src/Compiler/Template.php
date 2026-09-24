@@ -571,6 +571,7 @@ class Template extends BaseCompiler {
 			'#(:SMARTY@!@|>)[\040\011]*[\n]\s*(?=@!@SMARTY:|<)#s' => '\1\2',
 			// remove multiple spaces between attributes (but not in attribute values!)
 			'#(([a-z0-9]\s*=\s*("[^"]*?")|(\'[^\']*?\'))|<[a-z0-9_]+)\s+([a-z/>])#is' => '\1 \5',
+			'#"[\t\s]*\n+[\t\s]*([a-z-]+=")#is' => '" \1',
 			'#>[\040\011]+$#Ss' => '> ',
 			'#>[\040\011]*[\n]\s*$#Ss' => '>',
 			$this->stripRegEx => '',
