@@ -36,5 +36,5 @@ how to create custom CacheResources.
 
        
 
-See also [`unregisterCacheResource()`](#api.unregister.cacheresource)
+See also [`unregisterCacheResource()`](../../programmers/api-functions/api-unregister-cacheresource.md)
 and the [Custom CacheResource Implementation](#caching.custom) section.

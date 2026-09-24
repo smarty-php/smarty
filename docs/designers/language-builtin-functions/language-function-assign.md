@@ -134,15 +134,15 @@ $smarty->assign('foo','Even smarter');
 echo $smarty->getTemplateVars('foo');
 ```
 
-The following functions can also *optionally* assign template variables: [`{capture}`](#language.function.capture),
-[`{include}`](#language.function.include),
-[`{counter}`](#language.function.counter),
-[`{cycle}`](#language.function.cycle),
-[`{eval}`](#language.function.eval),
-[`{fetch}`](#language.function.fetch),
-[`{math}`](#language.function.math) and
-[`{textformat}`](#language.function.textformat).
+The following functions can also *optionally* assign template variables: [`{capture}`](language-function-capture.md),
+[`{include}`](language-function-include.md),
+[`{counter}`](../language-custom-functions/language-function-counter.md),
+[`{cycle}`](../language-custom-functions/language-function-cycle.md),
+[`{eval}`](../language-custom-functions/language-function-eval.md),
+[`{fetch}`](../language-custom-functions/language-function-fetch.md),
+[`{math}`](../language-custom-functions/language-function-math.md) and
+[`{textformat}`](../language-custom-functions/language-function-textformat.md).
 
 See also [`{append}`](./language-function-append.md),
-[`assign()`](#api.assign) and
-[`getTemplateVars()`](#api.get.template.vars).
+[`assign()`](../../programmers/api-functions/api-assign.md) and
+[`getTemplateVars()`](../../programmers/api-functions/api-get-template-vars.md).

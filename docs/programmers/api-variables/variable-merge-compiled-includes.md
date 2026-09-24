@@ -24,4 +24,4 @@ have to be enabled for the `inline` merge.
 > This is a compile time option. If you change the setting you must make
 > sure that the templates get recompiled.
 
-See also [`{include}`](#language.function.include) tag
+See also [`{include}`](../../designers/language-builtin-functions/language-function-include.md) tag.

@@ -56,5 +56,5 @@ NOTE.PARAMETER.MERGE
 
        
 
-See also [`assign()`](#api.assign) and
-[`getTemplateVars()`](#api.get.template.vars)
+See also [`assign()`](../../programmers/api-functions/api-assign.md) and
+[`getTemplateVars()`](../../programmers/api-functions/api-get-template-vars.md)

@@ -45,5 +45,5 @@ The above example will output:
 
       
 
-See also [`append()`](#api.append) and
-[`getTemplateVars()`](#api.get.template.vars).
+See also [`append()`](../../programmers/api-functions/api-append.md) and
+[`getTemplateVars()`](../../programmers/api-functions/api-get-template-vars.md).

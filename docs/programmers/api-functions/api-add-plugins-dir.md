@@ -37,6 +37,5 @@ plugins\_dir
 
        
 
-See also [`getPluginsDir()`](#api.get.plugins.dir),
-[`setPluginsDir()`](#api.set.plugins.dir) and
-[`$plugins_dir`](#variable.plugins.dir).
+See also [`getPluginsDir()`](../../programmers/api-functions/api-get-plugins-dir.md) and
+[`setPluginsDir()`](../../programmers/api-functions/api-set-plugins-dir.md)

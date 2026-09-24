@@ -32,4 +32,4 @@ See also [`getCacheDir()`](#api.get.cache.dir),
 [`$use_sub_dirs`](#variable.use.sub.dirs),
 [`$cache_lifetime`](#variable.cache.lifetime),
 [`$cache_modified_check`](#variable.cache.modified.check) and the
-[caching section](#caching).
+[caching section](../../api/caching/basics.md).

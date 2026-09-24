@@ -14,4 +14,4 @@ auto\_literal to false.
             
 :::
 
-See also [Escaping Smarty parsing](#language.escaping),
+See also [Escaping Smarty parsing](../../designers/language-basic-syntax/language-escaping.md).

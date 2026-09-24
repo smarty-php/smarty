@@ -1,7 +1,7 @@
 # {config_load}
 
 `{config_load}` is used for loading config
-[`#variables#`](#language.config.variables) from a [configuration file](#config.files) into the template.
+[`#variables#`](../language-variables/language-config-variables.md) from a [configuration file](../config-files.md) into the template.
 
 ## Attributes
 

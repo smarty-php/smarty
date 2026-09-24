@@ -21,7 +21,7 @@ same template.
     [`$cache_lifetime`](#variable.cache.lifetime) value at the time the
     cache was generated. This way you can set the
     [`$cache_lifetime`](#variable.cache.lifetime) just before
-    [fetching](#api.fetch) the template to have granular control over
+    [fetching](../../programmers/api-functions/api-fetch.md) the template to have granular control over
     when that particular cache expires. See also
     [`isCached()`](#api.is.cached).
 
@@ -35,4 +35,4 @@ same template.
 See also [`$cache_dir`](#variable.cache.dir),
 [`$cache_lifetime`](#variable.cache.lifetime),
 [`$cache_modified_check`](#variable.cache.modified.check),
-[`is_cached()`](#api.is.cached) and the [caching section](#caching).
+[`is_cached()`](#api.is.cached) and the [caching section](../../api/caching/basics.md).

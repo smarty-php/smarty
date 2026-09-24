@@ -11,5 +11,5 @@ disableSecurity
 
 This disables security checking on templates.
 
-See also [`enableSecurity()`](#api.enable.security), and
+See also [`enableSecurity()`](../../programmers/api-functions/api-enable-security.md), and
 [Security](#advanced.features.security).
