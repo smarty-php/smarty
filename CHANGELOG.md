@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.5] - 2026-10-04
+- Security: prevent attacker-controlled template output from forging a nocache marker that injects raw PHP into the generated cache file when a template is rendered through the `extends:`/inheritance path 
+
+
 ## [5.8.4] - 2026-06-29
 - Fixed a `TypeError` on PHP 8 when `Security::$static_classes` was set to a non-array value (e.g. the string `'none'`) to disable static class access; any non-array value now cleanly denies access. Use `Security::$static_classes = null` to disable access to all static classes.
 - Security: the built-in `stream:` resource type now validates the nested stream wrapper against the security policy, so a template such as `stream:php://filter/...` can no longer bypass `Security::$streams` (including `Security::$streams = null`) to read local files (CWE-22)
