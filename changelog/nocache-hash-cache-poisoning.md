@@ -1,1 +1,0 @@
-- Security: prevent attacker-controlled template output from forging a nocache marker that injects raw PHP into the generated cache file when a template is rendered through the `extends:`/inheritance path 
