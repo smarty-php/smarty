@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [4.5.8] - 2026-10-04
+
 - Security: prevent attacker-controlled template output from forging a nocache marker that injects raw PHP into the generated cache file when a template is rendered through the `extends:`/inheritance path (CWE-94 code injection); the top-level unifunc's missing nocache hash no longer produces an empty alternative in the cache-split regex
 
 ## [4.5.7] - 2026-06-29
