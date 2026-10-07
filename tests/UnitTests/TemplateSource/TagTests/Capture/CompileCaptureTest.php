@@ -97,6 +97,31 @@ class CompileCaptureTest extends PHPUnit_Smarty
         $this->assertStringContainsString('uppercase', $result);
     }
 
+    public function testRenderExceptionInsideCaptureIsNotMaskedByEndRenderException()
+    {
+        $this->smarty->registerPlugin(\Smarty\Smarty::PLUGIN_FUNCTION, 'capture_fail', function () {
+            throw new \RuntimeException('render failure inside capture');
+        });
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('render failure inside capture');
+
+        $this->smarty->fetch('string:{capture}{capture_fail}{/capture}');
+    }
+
+    public function testEndRenderCallbackExceptionIsThrownWhenRenderSucceeds()
+    {
+        $template = $this->smarty->createTemplate('string:render succeeds');
+        $template->endRenderCallbacks[] = function () {
+            throw new \RuntimeException('end render callback failure');
+        };
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('end render callback failure');
+
+        $template->fetch();
+    }
+
     /**
      * Test spacings
      *
