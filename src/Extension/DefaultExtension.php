@@ -31,7 +31,6 @@ class DefaultExtension extends Base {
 			case 'indent': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IndentModifierCompiler(); break;
 			case 'is_array': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IsArrayModifierCompiler(); break;
 			case 'isset': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\IssetModifierCompiler(); break;
-			case 'json_encode': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\JsonEncodeModifierCompiler(); break;
 			case 'lower': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\LowerModifierCompiler(); break;
 			case 'nl2br': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\Nl2brModifierCompiler(); break;
 			case 'noprint': $this->modifiers[$modifier] = new \Smarty\Compile\Modifier\NoPrintModifierCompiler(); break;
@@ -63,6 +62,7 @@ class DefaultExtension extends Base {
 			case 'implode': return [$this, 'smarty_modifier_implode'];
 			case 'in_array': return [$this, 'smarty_modifier_in_array'];
 			case 'join': return [$this, 'smarty_modifier_join'];
+			case 'json_encode': return [$this, 'smarty_modifier_json_encode'];
 			case 'mb_wordwrap': return [$this, 'smarty_modifier_mb_wordwrap'];
 			case 'number_format': return [$this, 'smarty_modifier_number_format'];
 			case 'regex_replace': return [$this, 'smarty_modifier_regex_replace'];
@@ -604,6 +604,41 @@ class DefaultExtension extends Base {
 			return implode((string) ($values ?? ''), (array) $separator);
 		}
 		return implode((string) ($separator ?? ''), (array) $values);
+	}
+
+	/**
+	 * Smarty json_encode modifier plugin.
+	 * Type:     modifier
+	 * Name:     json_encode
+	 * Purpose:  Returns the JSON representation of the given value or false on error. The resulting string will be UTF-8 encoded.
+	 *
+	 * @param mixed $value
+	 * @param int   $flags
+	 * @param string $input_encoding of $value; defaults to \Smarty\Smarty::$_CHARSET
+	 *
+	 * @return string|false
+	 */
+	public function smarty_modifier_json_encode($value, $flags = 0, string $input_encoding = null)
+	{
+		if (!$input_encoding) {
+			$input_encoding = \Smarty\Smarty::$_CHARSET;
+		}
+
+		# json_encode() expects UTF-8 input, so recursively encode $value if necessary into UTF-8
+		if ($value && strcasecmp($input_encoding, 'UTF-8')) {
+			if (is_string($value)) {	# shortcut for the most common case
+				$value = mb_convert_encoding($value, 'UTF-8', $input_encoding);
+			}
+			elseif (DefaultExtension\RecursiveTranscoder::is_transcoding_candidate($value)) {
+				$value = DefaultExtension\RecursiveTranscoder::transcode($value, 'UTF-8', $input_encoding, ['ignore_JsonSerializable_objects' => true]);
+				if ($value === false) {
+					# If transcode() throws an exception on failure, then the interpreter will never arrive here
+					return false;	# failure
+				}
+			}
+		}
+
+		return \json_encode($value, $flags);	# string|false
 	}
 
 	/**
