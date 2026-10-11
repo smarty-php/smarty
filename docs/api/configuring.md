@@ -146,7 +146,9 @@ $smarty->setEscapeHtml(true);
 When auto-escaping is enabled, the `|escape` modifier's default mode (`html`) has no effect,
 to avoid double-escaping. It is possible to force it with the `force` mode.
 Other modes (`htmlall`, `url`, `urlpathinfo`, `quotes`, `javascript`) may be used
-with the result you might expect, without double-escaping.
+with the result you might expect, without double-escaping, as long as they apply to the printed
+value as a whole. If they are used on just a part of an expression, the whole value is auto-escaped
+as well, just like with the [`|raw` modifier](../designers/language-modifiers/language-modifier-raw.md#scope).
 
 Even when auto-escaping is enabled, you might want to display the content of a variable without
 escaping it. To do so, use the `|raw` modifier.
