@@ -71,6 +71,33 @@ class AutoEscapeTest extends PHPUnit_Smarty
     }
 
     /**
+     * test autoescape + raw modifier in a tag that does not print, followed by a printed variable
+     */
+    public function testAutoEscapeRawInAssignDoesNotAffectNextOutput() {
+        $tpl = $this->smarty->createTemplate('eval:{$bar = $foo|raw}{$foo}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + raw modifier in a block tag condition, followed by a printed variable
+     */
+    public function testAutoEscapeRawInIfDoesNotAffectNextOutput() {
+        $tpl = $this->smarty->createTemplate('eval:{if $foo|raw}{$foo}{/if}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + raw modifier with assign attribute, followed by a printed variable
+     */
+    public function testAutoEscapeRawWithAssignAttributeDoesNotAffectNextOutput() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|raw assign=bar}{$foo}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
      * test autoescape + escape modifier = no double-escaping
      */
     public function testAutoEscapeNoDoubleEscape() {

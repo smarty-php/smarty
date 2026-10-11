@@ -481,6 +481,8 @@ class Template extends BaseCompiler {
 		$this->prefix_code = [];
 		$result = $this->compileTag2($tag, $args, $parameter);
 		$this->prefix_code = array_merge($this->prefix_code, array_pop($this->prefixCodeStack));
+		// a raw output request (e.g. by the raw modifier) must not leak into the next tag
+		$this->setRawOutput(false);
 		return $result;
 	}
 

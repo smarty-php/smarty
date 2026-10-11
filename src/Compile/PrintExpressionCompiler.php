@@ -59,7 +59,7 @@ class PrintExpressionCompiler extends Base {
 		}
 		if (isset($_attr['assign'])) {
 			// assign output to variable
-			return "<?php \$_smarty_tpl->assign({$_attr['assign']},{$output});?>";
+			$output = "<?php \$_smarty_tpl->assign({$_attr['assign']},{$output});?>";
 		} else {
 			// display value
 			if (!$_attr['nofilter']) {
@@ -88,8 +88,8 @@ class PrintExpressionCompiler extends Base {
 
 			}
 			$output = "<?php echo {$output};?>\n";
-			$compiler->setRawOutput(false);
 		}
+		$compiler->setRawOutput(false);
 		return $output;
 	}
 
