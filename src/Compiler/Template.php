@@ -314,11 +314,18 @@ class Template extends BaseCompiler {
 	private $noCacheStackDepth = 0;
 
 	/**
-	 * disabled auto-escape (when set to true, the next variable output is not auto-escaped)
+	 * disabled auto-escape (set to true by a modifier in the modifier chain currently being compiled)
 	 *
 	 * @var boolean
 	 */
 	private $raw_output = false;
+
+	/**
+	 * compiled code of the most recently compiled modifier chain, if that chain disabled auto-escape
+	 *
+	 * @var string|null
+	 */
+	private $raw_output_code = null;
 
 	/**
 	 * Initialize compiler
@@ -482,7 +489,7 @@ class Template extends BaseCompiler {
 		$result = $this->compileTag2($tag, $args, $parameter);
 		$this->prefix_code = array_merge($this->prefix_code, array_pop($this->prefixCodeStack));
 		// a raw output request (e.g. by the raw modifier) must not leak into the next tag
-		$this->setRawOutput(false);
+		$this->raw_output_code = null;
 		return $result;
 	}
 
@@ -497,7 +504,12 @@ class Template extends BaseCompiler {
 	 * @throws Exception
 	 */
 	public function compileModifier($modifierlist, $value) {
-		return $this->modifierCompiler->compile([], $this, ['modifierlist' => $modifierlist, 'value' => $value]);
+		$this->raw_output = false;
+		$output = $this->modifierCompiler->compile([], $this, ['modifierlist' => $modifierlist, 'value' => $value]);
+		// a raw output request only applies to the result of this modifier chain, not to any expression containing it
+		$this->raw_output_code = $this->raw_output ? $output : null;
+		$this->raw_output = false;
+		return $output;
 	}
 
 	/**
@@ -1220,10 +1232,13 @@ class Template extends BaseCompiler {
 	 */
 	public function compilePrintExpression($value, $attributes = [], $modifiers = null) {
 		$this->handleNocacheFlag($attributes);
-		return $this->printExpressionCompiler->compile($attributes, $this, [
+		$output = $this->printExpressionCompiler->compile($attributes, $this, [
 			'value'=> $value,
 			'modifierlist' => $modifiers,
 		]);
+		// a raw output request (e.g. by the raw modifier) must not leak into the next tag
+		$this->raw_output_code = null;
+		return $output;
 	}
 
 	/**
@@ -1496,7 +1511,7 @@ class Template extends BaseCompiler {
 	}
 
 	/**
-	 * Should the next variable output be raw (true) or auto-escaped (false)
+	 * Should the result of the modifier chain currently being compiled be output raw (true) or auto-escaped (false)
 	 * @return bool
 	 */
 	public function isRawOutput(): bool {
@@ -1504,11 +1519,30 @@ class Template extends BaseCompiler {
 	}
 
 	/**
-	 * Should the next variable output be raw (true) or auto-escaped (false)
+	 * Should the result of the modifier chain currently being compiled be output raw (true) or auto-escaped (false)
 	 * @param bool $raw_output
 	 * @return void
 	 */
 	public function setRawOutput(bool $raw_output): void {
 		$this->raw_output = $raw_output;
+	}
+
+	/**
+	 * Should this compiled expression be output raw (true) or auto-escaped (false)
+	 *
+	 * Only true if the expression as a whole is the (parenthesized) result of the most recently compiled modifier
+	 * chain, and that chain requested raw output.
+	 *
+	 * @param string $code
+	 * @return bool
+	 */
+	public function isRawOutputFor(string $code): bool {
+		if ($this->raw_output_code === null) {
+			return false;
+		}
+		while ($code !== $this->raw_output_code && strlen($code) > 2 && $code[0] === '(' && substr($code, -1) === ')') {
+			$code = substr($code, 1, -1);
+		}
+		return $code === $this->raw_output_code;
 	}
 }

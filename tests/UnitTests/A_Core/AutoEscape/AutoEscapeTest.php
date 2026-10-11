@@ -98,6 +98,57 @@ class AutoEscapeTest extends PHPUnit_Smarty
     }
 
     /**
+     * test autoescape + raw modifier on a modifier parameter does not affect the whole printed value
+     */
+    public function testAutoEscapeRawInModifierParameterDoesNotAffectWholeOutput() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|cat:($bar|raw)}');
+        $tpl->assign('foo', '<a@b.c>');
+        $tpl->assign('bar', '<hr>');
+        $this->assertEquals("&lt;a@b.c&gt;&lt;hr&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + raw modifier in a ternary branch does not affect the other branch
+     */
+    public function testAutoEscapeRawInTernaryDoesNotAffectWholeOutput() {
+        $tpl = $this->smarty->createTemplate('eval:{$show ? $foo : ($bar|raw)}');
+        $tpl->assign('show', true);
+        $tpl->assign('foo', '<a@b.c>');
+        $tpl->assign('bar', '<hr>');
+        $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + raw modifier in a double quoted string does not affect the whole string
+     */
+    public function testAutoEscapeRawInDoubleQuotedStringDoesNotAffectWholeOutput() {
+        $tpl = $this->smarty->createTemplate('eval:{"`$bar|raw``$foo`"}');
+        $tpl->assign('foo', '<a@b.c>');
+        $tpl->assign('bar', '<hr>');
+        $this->assertEquals("&lt;hr&gt;&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + raw modifier applied to the whole printed value
+     */
+    public function testAutoEscapeRawOnWholeOutput() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|cat:$bar|raw}{($foo|raw)}');
+        $tpl->assign('foo', '<a@b.c>');
+        $tpl->assign('bar', '<hr>');
+        $this->assertEquals("<a@b.c><hr><a@b.c>", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + raw modifier combined with default modifiers
+     */
+    public function testAutoEscapeRawWithDefaultModifier() {
+        $this->smarty->setDefaultModifiers(['upper']);
+        $tpl = $this->smarty->createTemplate('eval:{$foo|raw}{$foo}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("<A@B.C>&lt;A@B.C&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
      * test autoescape + escape modifier = no double-escaping
      */
     public function testAutoEscapeNoDoubleEscape() {

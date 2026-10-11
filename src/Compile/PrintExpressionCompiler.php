@@ -59,10 +59,12 @@ class PrintExpressionCompiler extends Base {
 		}
 		if (isset($_attr['assign'])) {
 			// assign output to variable
-			$output = "<?php \$_smarty_tpl->assign({$_attr['assign']},{$output});?>";
+			return "<?php \$_smarty_tpl->assign({$_attr['assign']},{$output});?>";
 		} else {
 			// display value
 			if (!$_attr['nofilter']) {
+				// a modifier such as raw only disables auto-escaping if it applies to the printed value as a whole
+				$raw_output = $compiler->isRawOutputFor($output);
 				// default modifier
 				if ($compiler->getSmarty()->getDefaultModifiers()) {
 					$modifierlist = [];
@@ -80,16 +82,16 @@ class PrintExpressionCompiler extends Base {
 					}
 
 					$output = $compiler->compileModifier($modifierlist, $output);
+					$raw_output = $raw_output || $compiler->isRawOutputFor($output);
 				}
 
-				if ($compiler->getTemplate()->getSmarty()->escape_html && !$compiler->isRawOutput()) {
+				if ($compiler->getTemplate()->getSmarty()->escape_html && !$raw_output) {
 					$output = "htmlspecialchars((string) ({$output}), ENT_QUOTES, '" . addslashes(\Smarty\Smarty::$_CHARSET) . "')";
 				}
 
 			}
 			$output = "<?php echo {$output};?>\n";
 		}
-		$compiler->setRawOutput(false);
 		return $output;
 	}
 
