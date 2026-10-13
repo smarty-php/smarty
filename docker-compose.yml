@@ -52,3 +52,8 @@ services:
       service: base
     build:
       dockerfile: ./utilities/testrunners/php84/Dockerfile
+  php85:
+    extends:
+      service: base
+    build:
+      dockerfile: ./utilities/testrunners/php85/Dockerfile
