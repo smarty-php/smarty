@@ -14,6 +14,8 @@
  * @subpackage Compiler
  * @ignore
  */
+// PHP 8.2+: Allow dynamic properties for method state and data storage
+#[\AllowDynamicProperties]
 class Smarty_Internal_ParseTree_Text extends Smarty_Internal_ParseTree
 {
 

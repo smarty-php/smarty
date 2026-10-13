@@ -21,6 +21,8 @@ class TPC_yyStackEntry
  * @subpackage Compiler
  * @author     Uwe Tews
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_Configfileparser
 {
     // line 25 "../smarty/lexer/smarty_internal_configfileparser.y"

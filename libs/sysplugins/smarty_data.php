@@ -15,6 +15,8 @@
  * @package    Smarty
  * @subpackage Template
  */
+// PHP 8.2+: Allow dynamic properties for data object flexibility (inherits from Smarty_Internal_Data)
+#[\AllowDynamicProperties]
 class Smarty_Data extends Smarty_Internal_Data
 {
     /**

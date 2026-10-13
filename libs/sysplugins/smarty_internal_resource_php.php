@@ -9,6 +9,8 @@
  * @author     Uwe Tews
  * @author     Rodney Rehm
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_Resource_Php extends Smarty_Internal_Resource_File
 {
     /**
