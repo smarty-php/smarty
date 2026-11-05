@@ -6,9 +6,9 @@ Smarty currently supports the latest minor version of Smarty 4 and Smarty 5.
 
 | Version | Supported          |
 |---------|--------------------|
-| 5.0.x   | :white_check_mark: |
-| 4.3.x   | :white_check_mark: |
-| < 4.3   | :x:                |
+| 5.x.y   | :white_check_mark: |
+| 4.x.y   | :white_check_mark: |
+| < 4.x.y | :x:                |
 
 ## Reporting a Vulnerability
 
