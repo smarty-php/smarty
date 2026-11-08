@@ -36,7 +36,7 @@ class Data
     /**
      * parent data container (if any)
      *
-     * @var Data
+     * @var Data|null
      */
     public $parent = null;
 
