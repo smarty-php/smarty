@@ -100,7 +100,7 @@ class Data
 	 * @param boolean $nocache if true any output of this variable will be not cached
 	 * @param int $scope one of self::SCOPE_* constants
 	 *
-	 * @return Data current Data (or Smarty or \Smarty\Template) instance for
+	 * @return $this current Data (or Smarty or \Smarty\Template) instance for
 	 *                              chaining
 	 */
     public function assign($tpl_var, $value = null, $nocache = false, $scope = null)
@@ -162,7 +162,7 @@ class Data
      * @param bool         $nocache if true any output of this variable will
      *                              be not cached
      *
-     * @return Data
+     * @return $this
      * @api  Smarty::append()
      */
 	public function append($tpl_var, $value = null, $merge = false, $nocache = false)
@@ -198,7 +198,7 @@ class Data
      * @param mixed   $value   the value to assign
      * @param boolean $nocache if true any output of this variable will be not cached
      *
-     * @return Data
+     * @return $this
      * @deprecated since 5.0
      */
     public function assignGlobal($varName, $value = null, $nocache = false)
@@ -350,7 +350,7 @@ class Data
 	 *
 	 * @param string|array $tpl_var the template variable(s) to clear
 	 *
-	 * @return Data
+	 * @return $this
 	 *
 	 * @api  Smarty::clearAssign()
 	 */
@@ -369,7 +369,7 @@ class Data
 	/**
 	 * clear all the assigned template variables.
 	 *
-	 * @return Data
+	 * @return $this
 	 *
 	 * @api  Smarty::clearAllAssign()
 	 */
@@ -384,7 +384,7 @@ class Data
 	 *
 	 * @param string|null $name variable name or null
 	 *
-	 * @return Data
+	 * @return $this
 	 *
 	 * @api  Smarty::clearConfig()
 	 */
@@ -456,7 +456,7 @@ class Data
 	 * @param mixed                                                   $sections    array of section names, single
 	 *                                                                             section or null
 
-	 * @returns $this
+	 * @return $this
 	 * @throws \Exception
 	 *
 	 * @api  Smarty::configLoad()
