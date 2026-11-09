@@ -6,8 +6,6 @@
  * file that was distributed with this source code.
  */
 
-use Smarty\Exception;
-
 /**
  * Converts the first characters in $string to uppercase (A-Z) if it is an ASCII lowercase character (a-z).
  *
@@ -128,42 +126,28 @@ function smarty_mb_str_replace($search, $replace, $subject, &$count = 0)
 			}
 		}
 	} else {
-		$mb_reg_charset = mb_regex_encoding();
-		// Check if mbstring regex is using UTF-8
-		$reg_is_unicode = !strcasecmp($mb_reg_charset, "UTF-8");
-		if(!$reg_is_unicode) {
-			// ...and set to UTF-8 if not
-			mb_regex_encoding("UTF-8");
-		}
-
-		// See if charset used by Smarty is matching one used by regex...
-		$current_charset = mb_regex_encoding();
-		$convert_result = (bool)strcasecmp(\Smarty\Smarty::$_CHARSET, $current_charset);
+		$subject = $subject ?? '';
+		$search = $search ?? '';
+		$replace = $replace ?? '';
+		// Byte-wise str_replace() is only safe on UTF-8, where a match cannot start in the middle of
+		// a character. Other multibyte charsets (e.g. Shift_JIS) are converted to UTF-8 first.
+		$convert_result = (bool)strcasecmp(\Smarty\Smarty::$_CHARSET, 'UTF-8');
 		if($convert_result) {
-			// ...convert to it if not.
-			$subject = mb_convert_encoding($subject, $current_charset, \Smarty\Smarty::$_CHARSET);
-			$search = mb_convert_encoding($search, $current_charset, \Smarty\Smarty::$_CHARSET);
-			$replace = mb_convert_encoding($replace, $current_charset, \Smarty\Smarty::$_CHARSET);
+			$subject = mb_convert_encoding($subject, 'UTF-8', \Smarty\Smarty::$_CHARSET);
+			$search = mb_convert_encoding($search, 'UTF-8', \Smarty\Smarty::$_CHARSET);
+			$replace = mb_convert_encoding($replace, 'UTF-8', \Smarty\Smarty::$_CHARSET);
 		}
 
-		$parts = mb_split(preg_quote($search), $subject ?? "") ?: array();
-		// If original regex encoding was not unicode...
-		if(!$reg_is_unicode) {
-			// ...restore original regex encoding to avoid breaking the system.
-			mb_regex_encoding($mb_reg_charset);
-		}
-		if($parts === false) {
-			// This exception is thrown if call to mb_split failed.
-			// Usually it happens, when $search or $replace are not valid for given mb_regex_encoding().
-			// There may be other cases for it to fail, please file an issue if you find a reproducible one.
-			throw new Exception("Source string is not a valid $current_charset sequence (probably)");
+		if (!mb_check_encoding((string)$subject, 'UTF-8') || !mb_check_encoding((string)$search, 'UTF-8')) {
+			// Keep the result of the former mb_split() based implementation for invalid input.
+			$count = -1;
+			return '';
 		}
 
-		$count = count($parts) - 1;
-		$subject = implode($replace, $parts);
+		$subject = str_replace($search, $replace, $subject, $count);
 		// Convert results back to charset used by Smarty, if needed.
 		if($convert_result) {
-			$subject = mb_convert_encoding($subject, \Smarty\Smarty::$_CHARSET, $current_charset);
+			$subject = mb_convert_encoding($subject, \Smarty\Smarty::$_CHARSET, 'UTF-8');
 		}
 	}
 	return $subject;
