@@ -2566,7 +2566,7 @@ public static $yy_action = array(
     }
 // line 655 "src/Parser/TemplateParser.y"
     public function yy_r72(){
-    $this->_retvalue = $this->yystack[$this->yyidx + -1]->minor['pre']. $this->yystack[$this->yyidx + -2]->minor.$this->yystack[$this->yyidx + -1]->minor['op'].$this->yystack[$this->yyidx + 0]->minor .')';
+    $this->_retvalue = $this->yystack[$this->yyidx + -1]->minor['pre']. $this->yystack[$this->yyidx + -2]->minor.$this->yystack[$this->yyidx + -1]->minor['op'].$this->yystack[$this->yyidx + 0]->minor .$this->yystack[$this->yyidx + -1]->minor['post'];
     }
 // line 659 "src/Parser/TemplateParser.y"
     public function yy_r73(){
@@ -3001,12 +3001,12 @@ public static $yy_action = array(
 // line 1302 "src/Parser/TemplateParser.y"
     public function yy_r182(){
      static $tlops = array(
-         'isdivby' => array('op' => ' % ', 'pre' => '!('),
-         'isnotdivby' => array('op' => ' % ', 'pre' => '('),
-         'isevenby' => array('op' => ' / ', 'pre' => '!(1 & '),
-         'isnotevenby' => array('op' => ' / ', 'pre' => '(1 & '),
-         'isoddby' => array('op' => ' / ', 'pre' => '(1 & '),
-         'isnotoddby' => array('op' => ' / ', 'pre' => '!(1 & '),
+         'isdivby' => array('op' => ' % ', 'pre' => '!(', 'post' => ')'),
+         'isnotdivby' => array('op' => ' % ', 'pre' => '(', 'post' => ')'),
+         'isevenby' => array('op' => ' / ', 'pre' => '!(1 & (int)(', 'post' => '))'),
+         'isnotevenby' => array('op' => ' / ', 'pre' => '(1 & (int)(', 'post' => '))'),
+         'isoddby' => array('op' => ' / ', 'pre' => '(1 & (int)(', 'post' => '))'),
+         'isnotoddby' => array('op' => ' / ', 'pre' => '!(1 & (int)(', 'post' => '))'),
          );
      $op = strtolower(preg_replace('/\s*/', '', $this->yystack[$this->yyidx + 0]->minor));
      $this->_retvalue = $tlops[$op];

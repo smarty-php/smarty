@@ -653,7 +653,7 @@ expr(res)        ::= expr(e) UNIMATH(m) value(v). {
 // if expression
                     // special conditions
 expr(res)        ::= expr(e1) tlop(c) value(e2). {
-    res = c['pre']. e1.c['op'].e2 .')';
+    res = c['pre']. e1.c['op'].e2 .c['post'];
 }
                     // simple expression
 expr(res)        ::= expr(e1) lop(c) expr(e2). {
@@ -1301,12 +1301,12 @@ lop(res)        ::= SLOGOP(o). {
 }
 tlop(res)        ::= TLOGOP(o). {
      static $tlops = array(
-         'isdivby' => array('op' => ' % ', 'pre' => '!('),
-         'isnotdivby' => array('op' => ' % ', 'pre' => '('),
-         'isevenby' => array('op' => ' / ', 'pre' => '!(1 & '),
-         'isnotevenby' => array('op' => ' / ', 'pre' => '(1 & '),
-         'isoddby' => array('op' => ' / ', 'pre' => '(1 & '),
-         'isnotoddby' => array('op' => ' / ', 'pre' => '!(1 & '),
+         'isdivby' => array('op' => ' % ', 'pre' => '!(', 'post' => ')'),
+         'isnotdivby' => array('op' => ' % ', 'pre' => '(', 'post' => ')'),
+         'isevenby' => array('op' => ' / ', 'pre' => '!(1 & (int)(', 'post' => '))'),
+         'isnotevenby' => array('op' => ' / ', 'pre' => '(1 & (int)(', 'post' => '))'),
+         'isoddby' => array('op' => ' / ', 'pre' => '(1 & (int)(', 'post' => '))'),
+         'isnotoddby' => array('op' => ' / ', 'pre' => '!(1 & (int)(', 'post' => '))'),
          );
      $op = strtolower(preg_replace('/\s*/', '', o));
      res = $tlops[$op];

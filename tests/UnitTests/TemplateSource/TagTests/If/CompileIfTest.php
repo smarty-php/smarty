@@ -285,5 +285,50 @@ class CompileIfTest extends PHPUnit_Smarty
         );
     }
 
+    /**
+     * Test that "is [not] even by" / "is [not] odd by" do not trigger
+     * "Implicit conversion from float to int loses precision" (PHP 8.1+)
+     * when the division has a remainder.
+     *
+     * @dataProvider        dataTestIsOddEvenByNoDeprecation
+     */
+    public function testIsOddEvenByNoDeprecation($code, $result, $testName)
+    {
+        $errors = array();
+        set_error_handler(function ($errno, $errstr) use (&$errors) {
+            $errors[] = $errstr;
+            return true;
+        }, E_ALL);
+        try {
+            $file = "testIf_{$testName}.tpl";
+            $this->makeTemplateFile($file, $code);
+            $this->smarty->assign('index', 1);
+            $this->smarty->assign('by', 2);
+            $this->smarty->assign('float', 2.5);
+            $output = $this->smarty->fetch($file);
+        } finally {
+            restore_error_handler();
+        }
+        $this->assertEquals($result, $output, "testIsOddEvenByNoDeprecation - {$code}");
+        $this->assertSame(array(), $errors, "testIsOddEvenByNoDeprecation - {$code}");
+    }
 
+    /*
+      * Data provider for testIsOddEvenByNoDeprecation
+      */
+    public function dataTestIsOddEvenByNoDeprecation()
+    {
+        return array(
+            array('{if 1 is odd by 2}yes{else}no{/if}', 'no', 'IsOddByRemainder1'),
+            array('{if 3 is odd by 2}yes{else}no{/if}', 'yes', 'IsOddByRemainder3'),
+            array('{if 1 is not odd by 2}yes{else}no{/if}', 'yes', 'IsNotOddByRemainder1'),
+            array('{if 1 is even by 2}yes{else}no{/if}', 'yes', 'IsEvenByRemainder1'),
+            array('{if 3 is even by 2}yes{else}no{/if}', 'no', 'IsEvenByRemainder3'),
+            array('{if 3 is not even by 2}yes{else}no{/if}', 'yes', 'IsNotEvenByRemainder3'),
+            array('{if $index is odd by $by}yes{else}no{/if}', 'no', 'IsOddByVarRemainder'),
+            array('{if ($index+2) is odd by $by}yes{else}no{/if}', 'yes', 'IsOddByExprRemainder'),
+            array('{if $float is odd by 1}yes{else}no{/if}', 'no', 'IsOddByFloatVar'),
+            array('{if $float is even by 1}yes{else}no{/if}', 'yes', 'IsEvenByFloatVar'),
+        );
+    }
  }
