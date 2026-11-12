@@ -125,4 +125,97 @@ class AutoEscapeTest extends PHPUnit_Smarty
         $this->assertEquals("<\\'", $this->smarty->fetch($tpl));
     }
 
+    /**
+     * test nofilter disables autoescape
+     */
+    public function testAutoEscapeNofilter() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo nofilter}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("<a@b.c>", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + explicit escape still escapes when nofilter is used
+     * @group issue1188
+     */
+    public function testAutoEscapeEscapeWithNofilter() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape nofilter}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + escape followed by an HTML-producing modifier, with nofilter
+     * @group issue1188
+     */
+    public function testAutoEscapeEscapeNl2brWithNofilter() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape|nl2br nofilter}');
+        $tpl->assign('foo', "<a@b.c>\nsecond line");
+        $this->assertEquals("&lt;a@b.c&gt;<br />\nsecond line", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + escape followed by an HTML-producing modifier, without nofilter
+     * @group issue1188
+     */
+    public function testAutoEscapeEscapeNl2br() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape|nl2br}');
+        $tpl->assign('foo', "<a@b.c>\nsecond line");
+        $this->assertEquals("&lt;a@b.c&gt;<br />\nsecond line", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test autoescape + escape modifier honors the double_encode parameter
+     * @group issue1188
+     */
+    public function testAutoEscapeEscapeHonorsDoubleEncodeParameter() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape:\'html\':\'UTF-8\':false}');
+        $tpl->assign('foo', '&amp; <a@b.c>');
+        $this->assertEquals("&amp; &lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test that escape used in an assign attribute does not disable
+     * auto-escaping of the next printed variable
+     * @group issue1188
+     */
+    public function testRawOutputDoesNotLeakFromAssignAttribute() {
+        $tpl = $this->smarty->createTemplate('eval:{$foo|escape assign=bar}{$foo}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test that escape used in an {assign} tag does not disable
+     * auto-escaping of the next printed variable
+     * @group issue1188
+     */
+    public function testRawOutputDoesNotLeakFromAssignTag() {
+        $tpl = $this->smarty->createTemplate('eval:{assign var=bar value=$foo|escape}{$foo}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test that an escaping modifier used in an {if} condition does not disable
+     * auto-escaping of the next printed variable
+     * @group issue1188
+     */
+    public function testRawOutputDoesNotLeakFromIfCondition() {
+        $tpl = $this->smarty->createTemplate('eval:{if $foo|escape:\'url\'}{/if}{$foo}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
+    /**
+     * test that the raw modifier used in an {assign} tag does not disable
+     * auto-escaping of the next printed variable
+     * @group issue1188
+     */
+    public function testRawOutputDoesNotLeakFromRawInAssignTag() {
+        $tpl = $this->smarty->createTemplate('eval:{assign var=bar value=$foo|raw}{$foo}');
+        $tpl->assign('foo', '<a@b.c>');
+        $this->assertEquals("&lt;a@b.c&gt;", $this->smarty->fetch($tpl));
+    }
+
 }

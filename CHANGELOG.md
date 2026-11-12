@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Security: when auto-escaping is enabled, the `escape` modifier (default `html` mode) was compiled to a no-op, leaving values completely unescaped when combined with `nofilter` (e.g. `{$var|escape|nl2br nofilter}`) (CWE-79). The modifier now always escapes and marks its output as safe, so auto-escaping does not double-escape it; `{$var|escape|nl2br}` now also keeps the `<br />` tags produced by `nl2br` unescaped, and the charset/`double_encode` parameters of an explicit `escape` are honored again [#1188](https://github.com/smarty-php/smarty/issues/1188)
+- Security: the internal "safe output" marker set by `|raw` and the escaping modifiers no longer leaks out of tags that do not print anything (e.g. `{if $x|escape:'url'}`, `{assign var=y value=$x|raw}`, `{$x|escape assign=y}`), which used to disable auto-escaping of the next printed variable (CWE-79)
+- Documented the `nofilter` tag flag and the `force` escape mode, and their interaction with auto-escaping [#1188](https://github.com/smarty-php/smarty/issues/1188)
 
 ## [5.8.5] - 2026-10-04
 - Security: prevent attacker-controlled template output from forging a nocache marker that injects raw PHP into the generated cache file when a template is rendered through the `extends:`/inheritance path 
