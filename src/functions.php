@@ -128,7 +128,7 @@ function smarty_mb_str_replace($search, $replace, $subject, &$count = 0)
 			}
 		}
 	} else {
-		$mb_reg_charset = mb_regex_encoding();
+$mb_reg_charset = mb_regex_encoding(?string $encoding = null):
 		// Check if mbstring regex is using UTF-8
 		$reg_is_unicode = !strcasecmp($mb_reg_charset, "UTF-8");
 		if(!$reg_is_unicode) {
@@ -137,7 +137,7 @@ function smarty_mb_str_replace($search, $replace, $subject, &$count = 0)
 		}
 
 		// See if charset used by Smarty is matching one used by regex...
-		$current_charset = mb_regex_encoding();
+$current_charset = mb_regex_encoding(?string $encoding = null):
 		$convert_result = (bool)strcasecmp(\Smarty\Smarty::$_CHARSET, $current_charset);
 		if($convert_result) {
 			// ...convert to it if not.
@@ -146,7 +146,7 @@ function smarty_mb_str_replace($search, $replace, $subject, &$count = 0)
 			$replace = mb_convert_encoding($replace, $current_charset, \Smarty\Smarty::$_CHARSET);
 		}
 
-		$parts = mb_split(preg_quote($search), $subject ?? "") ?: array();
+$parts = mb_split(preg_quote(string $search), string $subject ?? "") ?: array();
 		// If original regex encoding was not unicode...
 		if(!$reg_is_unicode) {
 			// ...restore original regex encoding to avoid breaking the system.
