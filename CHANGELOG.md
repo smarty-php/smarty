@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.6.0] - 2026-11-16
+- Fixed PHP 8.6 deprecation notices in the `replace` modifier and `escape:'mail'` [#1217](https://github.com/smarty-php/smarty/pull/1217)
+- PHP 8.5 and PHP 8.6 support [#1184](https://github.com/smarty-php/smarty/issues/1184)
+
+
 ## [4.5.8] - 2026-10-04
 
 - Security: prevent attacker-controlled template output from forging a nocache marker that injects raw PHP into the generated cache file when a template is rendered through the `extends:`/inheritance path (CWE-94 code injection); the top-level unifunc's missing nocache hash no longer produces an empty alternative in the cache-split regex
