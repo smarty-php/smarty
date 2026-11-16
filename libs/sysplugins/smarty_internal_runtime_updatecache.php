@@ -72,22 +72,42 @@ class Smarty_Internal_Runtime_UpdateCache
         $php_pattern = '/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/';
         $content = ob_get_clean();
         $hash_array = $cached->hashes;
-        $hash_array[ $_template->compiled->nocache_hash ] = true;
-        $hash_array = array_keys($hash_array);
-        $nocache_hash = '(' . implode('|', $hash_array) . ')';
+        // Only fold in the top-level nocache hash when it is actually set. A template
+        // compiled through the inheritance/component path produces a top-level unifunc
+        // that never restores its nocache_hash, leaving it null here. Using that null as
+        // an array offset is deprecated (PHP 8.1+), and an empty hash would produce an
+        // empty alternative "(realhash|)" in the pattern below, letting attacker-controlled
+        // output forge a nocache marker whose raw content is copied verbatim into the cache
+        // file (skipping PHP-tag neutralization) and executed as PHP on the next include
+        // (CWE-94 code injection).
+        if ((string) $_template->compiled->nocache_hash !== '') {
+            $hash_array[ $_template->compiled->nocache_hash ] = true;
+        }
+        // Defensive: never allow an empty hash (hence an empty regex alternative).
+        $hash_array = array_filter(array_keys($hash_array), function ($hash) {
+            return (string) $hash !== '';
+        });
         $_template->cached->has_nocache_code = false;
-        // get text between non-cached items
-        $cache_split =
-            preg_split(
+        if ($hash_array === array()) {
+            // No known nocache hashes: there is no legitimate nocache content to extract,
+            // so treat the whole buffer as ordinary output (PHP tags are neutralized below).
+            $cache_split = array($content);
+            $cache_parts = array();
+        } else {
+            $nocache_hash = '(' . implode('|', $hash_array) . ')';
+            // get text between non-cached items
+            $cache_split =
+                preg_split(
+                    "!/\*%%SmartyNocache:{$nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$nocache_hash}%%\*/!s",
+                    $content
+                );
+            // get non-cached items
+            preg_match_all(
                 "!/\*%%SmartyNocache:{$nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$nocache_hash}%%\*/!s",
-                $content
+                $content,
+                $cache_parts
             );
-        // get non-cached items
-        preg_match_all(
-            "!/\*%%SmartyNocache:{$nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$nocache_hash}%%\*/!s",
-            $content,
-            $cache_parts
-        );
+        }
         $content = '';
         // loop over items, stitch back together
         foreach ($cache_split as $curr_idx => $curr_split) {

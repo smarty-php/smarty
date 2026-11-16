@@ -375,6 +375,87 @@ class SecurityTest extends PHPUnit_Smarty
         $this->smarty->display('string:{$smarty.template_object}');
     }
 
+    /**
+     * A symlink located inside a trusted secure_dir must not be usable to read
+     * a file outside of it (CWE-22 path traversal via symlink).
+     */
+    public function testSymlinkEscapeFromSecureDirIsRejected()
+    {
+        list($secureDir, $outsideFile) = $this->createSymlinkFixture('secret-outside-content');
+        $link = $secureDir . DIRECTORY_SEPARATOR . 'finance_doc';
+        if (!@symlink($outsideFile, $link)) {
+            $this->markTestSkipped('Unable to create symlinks on this platform');
+        }
+
+        $this->smarty->security_policy->secure_dir = array($secureDir . DIRECTORY_SEPARATOR);
+
+        $this->expectException('SmartyException');
+        $this->expectExceptionMessage('not trusted file path');
+        // Use forward slashes: backslashes in a double-quoted template string are
+        // interpreted as escape sequences (\f, \r, ...), which would corrupt a
+        // Windows path. Forward slashes work on every platform.
+        $this->smarty->fetch('string:{include file="' . str_replace('\\', '/', $link) . '"}');
+    }
+
+    /**
+     * A symlink that stays inside the trusted secure_dir must keep working, so
+     * legitimate (e.g. deployment) symlinks are not broken by the fix above.
+     */
+    public function testSymlinkWithinSecureDirIsAllowed()
+    {
+        list($secureDir) = $this->createSymlinkFixture('secret-outside-content');
+        $target = $secureDir . DIRECTORY_SEPARATOR . 'real.tpl';
+        file_put_contents($target, 'inside-content');
+        $link = $secureDir . DIRECTORY_SEPARATOR . 'linked.tpl';
+        if (!@symlink($target, $link)) {
+            $this->markTestSkipped('Unable to create symlinks on this platform');
+        }
+
+        $this->smarty->security_policy->secure_dir = array($secureDir . DIRECTORY_SEPARATOR);
+
+        // Forward slashes so backslashes in a Windows path are not mistaken for
+        // escape sequences inside the double-quoted template string.
+        $this->assertEquals('inside-content', $this->smarty->fetch('string:{include file="' . str_replace('\\', '/', $link) . '"}'));
+    }
+
+    /**
+     * Builds a temporary directory tree for the symlink tests: a (canonicalized)
+     * secure directory plus a file located outside of it. The tree is removed in
+     * tearDown(). Returns array(secureDir, outsideFile).
+     */
+    private function createSymlinkFixture($outsideContent)
+    {
+        $base = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'smarty_symlink_' . getmypid() . '_' . uniqid();
+        $secureDir = $base . DIRECTORY_SEPARATOR . 'secure';
+        mkdir($secureDir, 0777, true);
+        $outsideFile = $base . DIRECTORY_SEPARATOR . 'outside.txt';
+        file_put_contents($outsideFile, $outsideContent);
+
+        // Canonicalize so secure_dir is symlink-free (sys_get_temp_dir() itself
+        // may sit under a symlink, e.g. /var -> /private/var on macOS).
+        $this->symlinkFixtureDir = realpath($base);
+        return array(realpath($secureDir), realpath($outsideFile));
+    }
+
+    /** @var string|null temp dir created by createSymlinkFixture(), removed in tearDown */
+    private $symlinkFixtureDir = null;
+
+    protected function tearDown(): void
+    {
+        if (!empty($this->symlinkFixtureDir) && is_dir($this->symlinkFixtureDir)) {
+            $it = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($this->symlinkFixtureDir, \FilesystemIterator::SKIP_DOTS),
+                \RecursiveIteratorIterator::CHILD_FIRST
+            );
+            foreach ($it as $entry) {
+                ($entry->isDir() && !$entry->isLink()) ? rmdir($entry->getPathname()) : unlink($entry->getPathname());
+            }
+            rmdir($this->symlinkFixtureDir);
+            $this->symlinkFixtureDir = null;
+        }
+        parent::tearDown();
+    }
+
 }
 
 class mysecuritystaticclass

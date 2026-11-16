@@ -308,6 +308,19 @@ class PluginFunctionHtmlSelectDateTest extends PHPUnit_Smarty
         $this->assertEquals($result, $tpl->fetch());
     }
 
+    /**
+     * day_size/month_size/year_size are numeric HTML size attributes and are
+     * cast to int (consistent with html_select_time) so an untrusted value
+     * cannot break out of size="…" (CWE-79).
+     */
+    public function testSizeIsCastToInt()
+    {
+        $tpl = $this->smarty->createTemplate('eval:{html_select_date time=' . $this->now . ' year_size="5\" onfocus=alert(1) x=\""}');
+        $result = $tpl->fetch();
+        $this->assertStringContainsString('size="5"', $result);
+        $this->assertStringNotContainsString('onfocus', $result);
+    }
+
     public function testFieldOrder()
     {
         $n = "\n";

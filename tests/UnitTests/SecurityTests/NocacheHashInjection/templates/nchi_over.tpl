@@ -1,0 +1,1 @@
+{block name=body}Hello {$name}!{/block}
