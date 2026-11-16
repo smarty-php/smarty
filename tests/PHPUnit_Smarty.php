@@ -643,6 +643,21 @@ KEY `name` (`name`)
             return __DIR__ . '/../libs/plugins';
         }
     }
+
+    /**
+     * expectExceptionMessageMatches() was added in PHPUnit 8.4, expectExceptionMessageRegExp() is deprecated since then
+     *
+     * @param string $regularExpression
+     */
+    public function expectExceptionMessageMatchesCompat($regularExpression)
+    {
+        if (method_exists($this, 'expectExceptionMessageMatches')) {
+            $this->expectExceptionMessageMatches($regularExpression);
+        } else {
+            $this->expectExceptionMessageRegExp($regularExpression);
+        }
+    }
+
     /**
      * Tears down the fixture
      * This method is called after a test is executed.

@@ -34,6 +34,8 @@ jobs:
           - "8.2"
           - "8.3"
           - "8.4"
+          - "8.5"
+          - "8.6"
 
         compiler:
           - default
@@ -53,6 +55,12 @@ jobs:
             compiler: jit
           - os: ubuntu-latest
             php-version: "8.4"
+            compiler: jit
+          - os: ubuntu-latest
+            php-version: "8.5"
+            compiler: jit
+          - os: ubuntu-latest
+            php-version: "8.6"
             compiler: jit
     steps:
     - name: Checkout

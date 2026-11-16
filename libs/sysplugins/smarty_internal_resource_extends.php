@@ -45,7 +45,7 @@ class Smarty_Internal_Resource_Extends extends Smarty_Resource
             if ($_s->type === 'php') {
                 throw new SmartyException("Resource type {$_s->type} cannot be used with the extends resource type");
             }
-            $sources[ $_s->uid ] = $_s;
+            $sources[ (string)$_s->uid ] = $_s;
             $uid .= $_s->filepath;
             if ($_template) {
                 $exists = $exists && $_s->exists;

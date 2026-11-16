@@ -73,7 +73,7 @@ class ResourcePluginTest extends PHPUnit_Smarty
     {
         $this->smarty->addPluginsDir("./PHPunitplugins/");
         $tpl = $this->smarty->createTemplate('db:test');
-        $this->assertTrue(is_integer($tpl->source->getTimeStamp()));
+        $this->assertTrue(is_int($tpl->source->getTimeStamp()));
         $this->assertEquals(10, strlen($tpl->source->getTimeStamp()));
     }
 }

@@ -78,7 +78,7 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testGetTemplateTimestamp()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue(is_integer($tpl->source->getTimeStamp()));
+        $this->assertTrue(is_int($tpl->source->getTimeStamp()));
         $this->assertEquals(10, strlen($tpl->source->getTimeStamp()));
     }
 
@@ -125,7 +125,7 @@ class FileResourceTest extends PHPUnit_Smarty
     public function testGetCompiledTimestamp()
     {
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue(is_integer($tpl->compiled->getTimeStamp()));
+        $this->assertTrue(is_int($tpl->compiled->getTimeStamp()));
         $this->assertEquals(10, strlen($tpl->compiled->getTimeStamp()));
         $this->assertEquals($tpl->compiled->getTimeStamp(), $tpl->source->getTimeStamp());
     }
@@ -186,7 +186,7 @@ class FileResourceTest extends PHPUnit_Smarty
         $this->smarty->caching = true;
         $this->smarty->cache_lifetime = 1000;
         $tpl = $this->smarty->createTemplate('helloworld.tpl');
-        $this->assertTrue(is_integer($tpl->cached->timestamp));
+        $this->assertTrue(is_int($tpl->cached->timestamp));
         $this->assertEquals(10, strlen($tpl->cached->timestamp));
     }
 

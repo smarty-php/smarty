@@ -78,7 +78,7 @@ class Smarty_Internal_Method_RegisterObject
         }
         // register the object
         $smarty->registered_objects[ $object_name ] =
-            array($object, (array)$allowed_methods_properties, (boolean)$format, (array)$block_methods);
+            array($object, (array)$allowed_methods_properties, (bool)$format, (array)$block_methods);
         return $obj;
     }
 }
