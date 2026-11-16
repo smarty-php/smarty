@@ -4,7 +4,7 @@ This file is the single source of truth for AI coding assistants working in this
 
 ## Project
 
-Smarty v5 — PHP template engine. Single Composer package (`smarty/smarty`), namespace `Smarty\`, source in `src/`, autoloaded via PSR-4. Supports PHP 7.2–8.5.
+Smarty v5 — PHP template engine. Single Composer package (`smarty/smarty`), namespace `Smarty\`, source in `src/`, autoloaded via PSR-4. Supports PHP 7.2–8.6.
 
 Do not use PHP syntax newer than 7.2 in `src/` unless it is guarded for older runtimes.
 
@@ -69,7 +69,7 @@ After editing a `.plex` or `.y` file, run `make -B` to regenerate. The generator
 
 ## CI
 
-GitHub Actions (`.github/workflows/ci.yml`): matrix of PHP 7.2–8.5 on ubuntu + windows. Steps: `composer install` → `make -B` → `phpunit`. No deploy step.
+GitHub Actions (`.github/workflows/ci.yml`): matrix of PHP 7.2–8.6 on ubuntu + windows. Steps: `composer install` → `make -B` → `phpunit`. No deploy step.
 
 ## Docs
 

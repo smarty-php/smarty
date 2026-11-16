@@ -1,0 +1,1 @@
+- PHP 8.6 support [#1222](https://github.com/smarty-php/smarty/issues/1222)
