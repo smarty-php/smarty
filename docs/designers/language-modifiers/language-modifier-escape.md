@@ -13,9 +13,19 @@ its `html`.
 
 | Parameter Position | Type    | Required | Possible Values                                                                                                | Default | Description                                                                          |
 |--------------------|---------|----------|----------------------------------------------------------------------------------------------------------------|---------|--------------------------------------------------------------------------------------|
-| 1                  | string  | No       | `html`, `htmlall`, `url`, `urlpathinfo`, `quotes`, `hex`, `hexentity`, `javascript`, `mail`                    | `html`  | This is the escape format to use.                                                    |
+| 1                  | string  | No       | `html`, `htmlall`, `url`, `urlpathinfo`, `quotes`, `hex`, `hexentity`, `javascript`, `mail`, `force`           | `html`  | This is the escape format to use.                                                    |
 | 2                  | string  | No       | `ISO-8859-1`, `UTF-8`, and any character set supported by [`htmlentities()`](https://www.php.net/htmlentities) | `UTF-8` | The character set encoding passed to htmlentities() et. al.                          |
 | 3                  | boolean | No       | FALSE                                                                                                          | TRUE    | Double encode entities from &amp; to &amp;amp; (applies to `html` and `htmlall` only) |
+
+## Interaction with auto-escaping
+
+When [auto-escaping](../../api/configuring.md#enabling-auto-escaping) is enabled, a value
+explicitly escaped with this modifier is considered safe and is not escaped a second time.
+This also holds when the `nofilter` tag flag is used, so `{$myVar|escape|nl2br nofilter}`
+outputs escaped content with real `<br />` tags.
+
+The `force` format behaves like `html`, except that the value is not marked as safe:
+with auto-escaping enabled, the output ends up escaped twice.
 
 
 ## Examples

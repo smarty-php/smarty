@@ -481,6 +481,10 @@ class Template extends BaseCompiler {
 		$this->prefix_code = [];
 		$result = $this->compileTag2($tag, $args, $parameter);
 		$this->prefix_code = array_merge($this->prefix_code, array_pop($this->prefixCodeStack));
+		// tags handled here do not print expressions themselves, so discard the raw
+		// output marker possibly set by a modifier compiled as part of this tag
+		// (e.g. {if $x|escape:'url'}), or it would leak into the next output
+		$this->setRawOutput(false);
 		return $result;
 	}
 
