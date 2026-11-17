@@ -9,6 +9,8 @@
  * @subpackage PluginsInternal
  * @author     Uwe Tews
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_Undefined
 {
     /**

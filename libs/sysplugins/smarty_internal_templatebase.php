@@ -46,6 +46,8 @@
  * @method Smarty_Internal_TemplateBase unregisterFilter(string $type, mixed $callback)
  * @method Smarty_Internal_TemplateBase unregisterResource(string $name)
  */
+// PHP 8.2+: Allow dynamic properties for template configuration and extensions
+#[\AllowDynamicProperties]
 abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data
 {
     /**

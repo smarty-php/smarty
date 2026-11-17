@@ -14,6 +14,8 @@
  * @subpackage TemplateResources
  * @author     Rodney Rehm
  */
+// PHP 8.2+: Allow dynamic properties for cache metadata and handler state
+#[\AllowDynamicProperties]
 class Smarty_Template_Cached extends Smarty_Template_Resource_Base
 {
     /**

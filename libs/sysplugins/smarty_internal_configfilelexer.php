@@ -19,6 +19,8 @@
  * @subpackage Compiler
  * @author     Uwe Tews
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_Configfilelexer
 {
     const START              = 1;

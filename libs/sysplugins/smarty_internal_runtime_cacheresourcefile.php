@@ -13,6 +13,8 @@
  * @package    Smarty
  * @subpackage PluginsInternal
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Internal_Runtime_CacheResourceFile
 {
     /**

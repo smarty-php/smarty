@@ -15,6 +15,8 @@
  * @subpackage TemplateResources
  * @author     Uwe Tews
  */
+// PHP 8.2+: Allow dynamic properties for internal state and extensibility
+#[\AllowDynamicProperties]
 class Smarty_Template_Config extends Smarty_Template_Source
 {
     /**

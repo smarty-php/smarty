@@ -19,6 +19,8 @@
  * @method   registerPostCompileCallback($callback, $parameter = array(), $key = null, $replace = false)
  * @method   unregisterPostCompileCallback($key)
  */
+// PHP 8.2+: Allow dynamic properties for compiler state and callbacks
+#[\AllowDynamicProperties]
 abstract class Smarty_Internal_TemplateCompilerBase
 {
     /**
