@@ -13,7 +13,7 @@
  * @preserveGlobalState    disabled
  * 
  *
- * mb_split breaks if Smarty encoding is not the same as mbstring regex encoding.
+ * replace modifier must work regardless of Smarty encoding.
  */
 class MbSplitEncodingIssue549Test extends PHPUnit_Smarty
 {
@@ -42,21 +42,19 @@ class MbSplitEncodingIssue549Test extends PHPUnit_Smarty
 
     /** Provider for testReplaceModifier
      */
-    public function encodingPairsProvider()
+    public function encodingProvider()
     {
         return array(
-            "with non-UNICODE src/non-UNICODE regex (PHP < 5.6 default)" => array("Windows-1252", "EUC-JP"),
-            "with UTF-8 src/non-UNICODE regex (PHP < 5.6 default)" => array("UTF-8", "EUC-JP"),
-            "with UTF-8 src/UTF-8 regex (PHP >= 5.6)" => array("UTF-8", "UTF-8"),
-            "with non-UNICODE src/UTF-8 regex" => array("Windows-1252", "UTF-8"),
+            "with non-UNICODE src" => array("Windows-1252"),
+            "with UTF-8 src" => array("UTF-8"),
         );
     }
 
-    /** Test behavior of `replace` modifier with different source and regex encodings
+    /** Test behavior of `replace` modifier with different source encodings
      *
-     * @dataProvider encodingPairsProvider
+     * @dataProvider encodingProvider
      */
-    public function testReplaceModifier($mb_int_encoding, $mb_regex_encoding)
+    public function testReplaceModifier($mb_int_encoding)
     {
         $data = $this->data;
         \array_walk($data, function(&$value, $key) use($mb_int_encoding) {
@@ -64,9 +62,43 @@ class MbSplitEncodingIssue549Test extends PHPUnit_Smarty
         });
         \extract($data, \EXTR_SKIP);
 
-        \mb_regex_encoding($mb_regex_encoding);
         \Smarty\Smarty::$_CHARSET = $mb_int_encoding;
         $this->assertEquals($result, $this->smarty->fetch("string:{\"$subject\"|replace:\"$pattern\":\"$replacement\"}"));
+    }
+
+    /** Test that `replace` modifier does not match inside a multibyte character
+     *
+     * In Shift_JIS, the second byte of "ソ" (0x83 0x5C) is the same as a backslash (0x5C).
+     */
+    public function testReplaceModifierDoesNotMatchInsideMultibyteCharacter()
+    {
+        \Smarty\Smarty::$_CHARSET = "SJIS";
+        $this->smarty->assign("subject", pack("H*", "835c"));
+        $this->assertEquals(pack("H*", "835c"), $this->smarty->fetch("string:{\$subject|replace:\"\\\\\":\"x\"}"));
+    }
+
+    /** Provider for testReplaceModifierWithInvalidUtf8
+     */
+    public function invalidUtf8Provider()
+    {
+        return array(
+            "with invalid subject" => array("61ff61", "61"),
+            "with invalid search" => array("616263", "ff"),
+        );
+    }
+
+    /** Test that `replace` modifier returns an empty string for invalid UTF-8 input
+     *
+     * This keeps the result of the former mb_split() based implementation.
+     *
+     * @dataProvider invalidUtf8Provider
+     */
+    public function testReplaceModifierWithInvalidUtf8($subject, $search)
+    {
+        \Smarty\Smarty::$_CHARSET = "UTF-8";
+        $this->smarty->assign("subject", pack("H*", $subject));
+        $this->smarty->assign("search", pack("H*", $search));
+        $this->assertEquals("", $this->smarty->fetch("string:{\$subject|replace:\$search:\"x\"}"));
     }
 
 }
