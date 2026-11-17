@@ -670,7 +670,9 @@ class DefaultExtension extends Base {
 		} else {
 			$search = $this->regex_replace_check($search);
 		}
-		return preg_replace($search, $replace, $string, $limit);
+		// provide defaults to prevent deprecation errors in PHP >=8.1
+		// a null $limit falls back to 0, matching PHP's historical null-to-int coercion
+		return preg_replace($search, $replace ?? '', $string ?? '', $limit ?? 0);
 	}
 
 	/**
@@ -681,6 +683,8 @@ class DefaultExtension extends Base {
 	 */
 	private function regex_replace_check($search)
 	{
+		// provide $search default to prevent deprecation errors in PHP >=8.1
+		$search = $search ?? '';
 		// null-byte injection detection
 		// anything behind the first null-byte is ignored
 		if (($pos = strpos($search, "\0")) !== false) {
