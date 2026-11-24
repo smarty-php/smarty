@@ -433,6 +433,8 @@ abstract class KeyValueStore extends Base
         $_name .= '#';
         $cid = trim((string)$cache_id, '|');
         if (!$cid) {
+            // invalidate() writes the combined key without a CacheID as well
+            $t[] = 'IVK#CID' . $_name . $_compile;
             return $t;
         }
         $i = 0;
