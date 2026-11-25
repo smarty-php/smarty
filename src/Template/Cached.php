@@ -297,7 +297,9 @@ class Cached extends GeneratedPhpFile {
 	 * @throws \Smarty\Exception
 	 */
 	private function removeNoCacheHash(Template $_template, $no_output_filter) {
-		$php_pattern = '/(<%|%>|<\?php|<\?|\?>|<script\s+language\s*=\s*[\"\']?\s*php\s*[\"\']?\s*>)/';
+		// Only fixed strings: since PHP 7, <script language="php"> no longer opens PHP code, and a
+		// pattern for it could match a quote and backtrack until PCRE gives up.
+		$php_pattern = '/(<%|%>|<\?php|<\?|\?>)/';
 		$content = ob_get_clean();
 		$hash_array = $this->hashes;
 		// Only fold in the top-level nocache hash when it is actually set. A template
@@ -330,45 +332,43 @@ class Cached extends GeneratedPhpFile {
 					$content
 				);
 			// get non-cached items
-			preg_match_all(
+			$found = preg_match_all(
 				"!/\*%%SmartyNocache:{$nocache_hash}%%\*\/(.+?)/\*/%%SmartyNocache:{$nocache_hash}%%\*/!s",
 				$content,
 				$cache_parts
 			);
+			if ($cache_split === false || $found === false) {
+				throw new Exception(
+					"Unable to write cache for '{$_template->template_resource}': PCRE error " . preg_last_error()
+				);
+			}
+		}
+		// Output filters only run on pages without nocache parts. Run them on the raw output, as
+		// the uncached path does, so a filter cannot turn escaped output back into a PHP tag.
+		if (!$no_output_filter && empty($cache_parts[0])) {
+			$cache_split = [$_template->getSmarty()->runOutputFilters($content, $_template)];
 		}
 		$content = '';
 		// loop over items, stitch back together
 		foreach ($cache_split as $curr_idx => $curr_split) {
-			if (preg_match($php_pattern, $curr_split)) {
-				// escape PHP tags in template content
-				$php_split = preg_split(
-					$php_pattern,
-					$curr_split
+			// escape PHP tags in template content: odd entries are the captured tags
+			$php_split = preg_split($php_pattern, $curr_split, -1, PREG_SPLIT_DELIM_CAPTURE);
+			if ($php_split === false) {
+				throw new Exception(
+					"Unable to write cache for '{$_template->template_resource}': PCRE error " . preg_last_error()
 				);
-				preg_match_all(
-					$php_pattern,
-					$curr_split,
-					$php_parts
-				);
-				foreach ($php_split as $idx_php => $curr_php) {
+			}
+			foreach ($php_split as $idx_php => $curr_php) {
+				if ($idx_php % 2 === 1) {
+					$content .= '<?php echo ' . var_export($curr_php, true) . "; ?>\n";
+				} else {
 					$content .= $curr_php;
-					if (isset($php_parts[0][$idx_php])) {
-						$content .= "<?php echo '{$php_parts[ 1 ][ $idx_php ]}'; ?>\n";
-					}
 				}
-			} else {
-				$content .= $curr_split;
 			}
 			if (isset($cache_parts[0][$curr_idx])) {
 				$_template->getCached()->setNocacheCode(true);
 				$content .= $cache_parts[2][$curr_idx];
 			}
-		}
-		if (
-			!$no_output_filter
-			&& !$_template->getCached()->getNocacheCode()
-		) {
-			$content = $_template->getSmarty()->runOutputFilters($content, $_template);
 		}
 
 		$codeframe = (new \Smarty\Compiler\CodeFrame($_template))->create($content, '', true);
