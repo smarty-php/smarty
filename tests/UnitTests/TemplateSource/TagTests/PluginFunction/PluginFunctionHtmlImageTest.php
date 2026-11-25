@@ -76,4 +76,87 @@ class PluginFunctionHtmlImageTest extends PHPUnit_Smarty
         $this->assertStringContainsString('href="detail.php?id=1&amp;page=2"', $result);
         $this->assertStringNotContainsString('&amp;amp;', $result);
     }
+
+    /**
+     * Under a security policy a remote image must be read without following redirects, otherwise a redirect on a
+     * trusted host reaches a URI that is not in trusted_uri (SSRF, CWE-918).
+     */
+    public function testRemoteImageDisablesRedirectsUnderSecurity()
+    {
+        HtmlImageContextCaptureStreamWrapper::$capturedOptions = null;
+        stream_wrapper_register('ssrftest', HtmlImageContextCaptureStreamWrapper::class);
+        try {
+            $this->smarty->enableSecurity();
+            $this->smarty->security_policy->trusted_uri[] = '/^ssrftest:\/\/allowed$/';
+
+            $result = $this->smarty->fetch('string:{html_image file="ssrftest://allowed/pic.png"}');
+
+            $this->assertStringContainsString('width="1" height="1"', $result);
+            $this->assertSame(0, HtmlImageContextCaptureStreamWrapper::$capturedOptions['http']['follow_location']);
+            $this->assertLessThanOrEqual(1, HtmlImageContextCaptureStreamWrapper::$capturedOptions['http']['max_redirects']);
+        } finally {
+            stream_wrapper_unregister('ssrftest');
+        }
+    }
+
+    public function testRemoteImageWithoutSecurity()
+    {
+        HtmlImageContextCaptureStreamWrapper::$capturedOptions = null;
+        stream_wrapper_register('ssrftest', HtmlImageContextCaptureStreamWrapper::class);
+        try {
+            $result = $this->smarty->fetch('string:{html_image file="ssrftest://allowed/pic.png"}');
+
+            $this->assertStringContainsString('width="1" height="1"', $result);
+        } finally {
+            stream_wrapper_unregister('ssrftest');
+        }
+    }
+}
+
+/**
+ * Records the stream context options {html_image} opens a resource with and serves a 1x1 PNG.
+ */
+class HtmlImageContextCaptureStreamWrapper
+{
+    /** @var resource|null set by PHP when a context is passed */
+    public $context;
+
+    /** @var array|null */
+    public static $capturedOptions = null;
+
+    private $data;
+
+    public function stream_open($path, $mode, $options, &$opened_path)
+    {
+        self::$capturedOptions = isset($this->context) ? stream_context_get_options($this->context) : [];
+        $this->data = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=');
+        return true;
+    }
+
+    public function stream_read($count)
+    {
+        $chunk = substr($this->data, 0, $count);
+        $this->data = (string) substr($this->data, $count);
+        return $chunk;
+    }
+
+    public function stream_eof()
+    {
+        return $this->data === '';
+    }
+
+    public function stream_seek($offset, $whence)
+    {
+        return false;
+    }
+
+    public function stream_stat()
+    {
+        return [];
+    }
+
+    public function url_stat($path, $flags)
+    {
+        return [];
+    }
 }
