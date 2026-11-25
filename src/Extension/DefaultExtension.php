@@ -6,13 +6,26 @@ use Smarty\Exception;
 
 class DefaultExtension extends Base {
 
+    /**
+     * @var \Smarty\Smarty
+     */
+    private $smarty;
+
 	private $modifiers = [];
 
 	private $functionHandlers = [];
 
 	private $blockHandlers = [];
 
+    public function __construct(\Smarty\Smarty $smarty) {
+        $this->smarty = $smarty;
+    }
+
 	public function getModifierCompiler(string $modifier): ?\Smarty\Compile\Modifier\ModifierCompilerInterface {
+
+        if($this->smarty->getRegisteredPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, $modifier) ?? $this->smarty->getRegisteredPlugin(\Smarty\Smarty::PLUGIN_MODIFIERCOMPILER, $modifier)) {
+            return null;
+        }
 
 		if (isset($this->modifiers[$modifier])) {
 			return $this->modifiers[$modifier];
@@ -53,7 +66,12 @@ class DefaultExtension extends Base {
 	}
 
 	public function getModifierCallback(string $modifierName) {
-		switch ($modifierName) {
+
+        if ($this->smarty->getRegisteredPlugin(\Smarty\Smarty::PLUGIN_MODIFIER, $modifierName)){
+            return null;
+        }
+
+        switch ($modifierName) {
 			case 'capitalize': return [$this, 'smarty_modifier_capitalize'];
 			case 'count': return [$this, 'smarty_modifier_count'];
 			case 'date_format': return [$this, 'smarty_modifier_date_format'];
