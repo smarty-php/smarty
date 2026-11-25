@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Security: `{html_options}` now escapes `name`, `id` and `class`, and `{html_select_date}` / `{html_select_time}` escape `prefix`, `field_array`, the `*_empty` labels, the formatted option values and texts, and the `year_as_text` value
 
 ## [4.6.0] - 2026-11-16
 - Fixed PHP 8.6 deprecation notices in the `replace` modifier and `escape:'mail'` [#1217](https://github.com/smarty-php/smarty/pull/1217)
