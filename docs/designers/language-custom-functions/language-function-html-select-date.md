@@ -49,10 +49,11 @@ name/value-pairs inside the `<select>` tags of day, month and year.
 
 > **Security note**
 >
-> The `*_extra` attributes, `field_separator`/`option_separator`, and any
-> unrecognised parameter (which is emitted as a raw attribute on the `<select>`
-> tag) are written into the generated HTML without escaping. If any of these
-> values originate from untrusted input, escape them yourself first to avoid
+> All parameter values are HTML-escaped, except for the `*_extra` attributes and
+> `field_separator`/`option_separator`, which are written into the generated HTML
+> as they are. The name of an unrecognised parameter (which is emitted as an
+> attribute on the `<select>` tag) is not escaped either; its value is. If any of
+> these originate from untrusted input, escape them yourself first to avoid
 > cross-site scripting (XSS).
 
 ## Exaples

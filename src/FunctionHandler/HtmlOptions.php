@@ -46,7 +46,7 @@ class HtmlOptions extends Base {
 				case 'name':
 				case 'class':
 				case 'id':
-					$$_key = (string)$_val;
+					$$_key = smarty_function_escape_special_chars((string)$_val);
 					break;
 				case 'options':
 					$options = (array)$_val;
