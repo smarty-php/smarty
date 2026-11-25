@@ -122,7 +122,23 @@ function smarty_function_html_image($params, Smarty_Internal_Template $template)
     }
     if (!isset($params[ 'width' ]) || !isset($params[ 'height' ])) {
         // FIXME: (rodneyrehm) getimagesize() loads the complete file off a remote resource, use custom [jpg,png,gif]header reader!
-        if (!$_image_data = @getimagesize($_image_path)) {
+        if ($protocol && isset($template->smarty->security_policy)) {
+            // isTrustedUri() only checked the initial URL and getimagesize() follows redirects without accepting
+            // a stream context, so read the remote image without following redirects (SSRF, CWE-918)
+            $context = stream_context_create(
+                array(
+                    'http' => array(
+                        'follow_location' => 0,
+                        'max_redirects'   => 1,
+                    ),
+                )
+            );
+            $_image_content = @file_get_contents($_image_path, false, $context);
+            $_image_data = $_image_content === false ? false : @getimagesizefromstring($_image_content);
+        } else {
+            $_image_data = @getimagesize($_image_path);
+        }
+        if (!$_image_data) {
             if (!file_exists($_image_path)) {
                 trigger_error("html_image: unable to find '{$_image_path}'", E_USER_NOTICE);
                 return;

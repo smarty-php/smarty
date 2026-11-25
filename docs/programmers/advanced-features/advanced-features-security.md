@@ -24,7 +24,8 @@ instance of the Smarty\_Security class. These are the possible settings:
     [`{html_image}`](#language.function.html.image). URIs passed to
     these functions are reduced to `{$PROTOCOL}://{$HOSTNAME}` to allow
     simple regular expressions (without having to deal with edge cases
-    like authentication-tokens).
+    like authentication-tokens). Only the URI itself is checked, so these
+    functions do not follow HTTP redirects while a security policy is active.
 
     The expression `'#https?://.*smarty.net$#i'` would allow accessing
     the following URIs:
