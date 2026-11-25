@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Security: prevent assigned data such as `<script language=php'>` from breaking out of the PHP-tag escaping in the cache writer and injecting PHP into the cache file, run output filters before that escaping instead of after it, and stop writing a cache file when PCRE fails while escaping
 
 ## [4.6.0] - 2026-11-16
 - Fixed PHP 8.6 deprecation notices in the `replace` modifier and `escape:'mail'` [#1217](https://github.com/smarty-php/smarty/pull/1217)

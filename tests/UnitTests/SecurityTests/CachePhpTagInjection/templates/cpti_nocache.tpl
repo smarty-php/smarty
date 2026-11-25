@@ -1,0 +1,1 @@
+{$x nocache}|Hello {$name}!|{$x nocache}
