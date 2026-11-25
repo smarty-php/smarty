@@ -13,6 +13,8 @@ takes care of which item(s) are selected by default as well.
 | selected       | No                                  | The selected option element(s) as a string or array                                                                                                                                                     |
 | options        | Yes, unless using values and output | An associative array of values and output                                                                                                                                                               |
 | name           | No                                  | Name of select group                                                                                                                                                                                    |
+| id             | No                                  | id of the select group, also used as prefix for the option ids                                                                                                                                          |
+| class          | No                                  | class of the select group and its options                                                                                                                                                               |
 | strict         | No                                  | Will make the "extra" attributes *disabled* and *readonly* only be set, if they were supplied with either boolean *TRUE* or string *"disabled"* and *"readonly"* respectively (defaults to false) |
 
 -   Required attributes are `values` and `output`, unless you use the
@@ -28,6 +30,12 @@ takes care of which item(s) are selected by default as well.
 -   All parameters that are not in the list above are printed as
     name/value-pairs inside the `<select>` tag. They are ignored if the
     optional `name` is not given.
+
+> **Security note**
+>
+> All parameter values are HTML-escaped. The names of parameters that are not
+> in the list above are written into the `<select>` tag as they are; never take
+> them from untrusted input.
 
 -   All output is XHTML compliant.
 
