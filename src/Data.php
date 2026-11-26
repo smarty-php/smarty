@@ -153,6 +153,62 @@ class Data
         return $this;
     }
 
+	/**
+	 * Assigns a Smarty variable by reference
+	 *
+	 * @param string $tpl_var the template variable name
+	 * @param mixed $value the value (by reference) to assign
+	 * @param boolean $nocache if true any output of this variable will be not cached
+	 * @param int $scope one of self::SCOPE_* constants
+	 *
+	 * @return Data current Data (or Smarty or \Smarty\Template) instance for
+	 *                              chaining
+	 */
+	public function assignByRef($tpl_var, &$value, $nocache = false, $scope = null)
+	{
+		switch ($scope ?? $this->getDefaultScope()) {
+			case self::SCOPE_GLOBAL:
+			case self::SCOPE_SMARTY:
+				$this->getSmarty()->assignByRef($tpl_var, $value);
+				break;
+			case self::SCOPE_TPL_ROOT:
+				$ptr = $this;
+				while (isset($ptr->parent) && ($ptr->parent instanceof Template)) {
+					$ptr = $ptr->parent;
+				}
+				$ptr->assignByRef($tpl_var, $value);
+				break;
+			case self::SCOPE_ROOT:
+				$ptr = $this;
+				while (isset($ptr->parent) && !($ptr->parent instanceof Smarty)) {
+					$ptr = $ptr->parent;
+				}
+				$ptr->assignByRef($tpl_var, $value);
+				break;
+			case self::SCOPE_PARENT:
+				if ($this->parent) {
+					$this->parent->assignByRef($tpl_var, $value);
+				} else {
+					// assign local as fallback
+					$this->assignByRef($tpl_var, $value);
+				}
+				break;
+			case self::SCOPE_LOCAL:
+			default:
+				if (isset($this->tpl_vars[$tpl_var])) {
+					$this->tpl_vars[$tpl_var]->setValueByRef($value);
+					if ($nocache) {
+						$this->tpl_vars[$tpl_var]->setNocache(true);
+					}
+				} else {
+					$this->tpl_vars[$tpl_var] = new Variable(null, $nocache);
+					$this->tpl_vars[$tpl_var]->setValueByRef($value);
+				}
+		}
+
+		return $this;
+	}
+
     /**
      * appends values to template variables
      *
