@@ -3,7 +3,7 @@
 
 When this value is set to a non-null-value it\'s value is used as php\'s
 [`error_reporting`](https://www.php.net/error_reporting) level inside of
-[`display()`](#api.display) and [`fetch()`](#api.fetch).
+[`display()`](../../programmers/api-functions/api-display.md) and [`fetch()`](../../programmers/api-functions/api-fetch.md).
 
 Smarty 3.1.2 introduced the
 [`muteExpectedErrors()`](#api.mute.expected.errors) function. Calling

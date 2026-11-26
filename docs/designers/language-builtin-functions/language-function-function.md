@@ -9,7 +9,7 @@ nested menus.
 > **Note**
 >
 > Template functions are defined global. Since the Smarty compiler is a
-> single-pass compiler, The [`{call}`](#language.function.call) tag must
+> single-pass compiler, The [`{call}`](language-function-call.md) tag must
 > be used to call a template function defined externally from the given
 > template. Otherwise, you can directly use the function as
 > `{funcname ...}` in the template.

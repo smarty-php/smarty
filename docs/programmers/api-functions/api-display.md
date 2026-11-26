@@ -22,10 +22,10 @@ string
 compile\_id
 
 This displays the contents of a template. To return the contents of a
-template into a variable, use [`fetch()`](#api.fetch). Supply a valid
-[template resource](#resources) type and path. As an optional second
+template into a variable, use [`fetch()`](../../programmers/api-functions/api-fetch.md). Supply a valid
+[template resource](../../api/resources.md) type and path. As an optional second
 parameter, you can pass a `$cache_id`, see the [caching
-section](#caching) for more information.
+section](../../api/caching/basics.md) for more information.
 
 PARAMETER.COMPILEID
 
@@ -60,7 +60,7 @@ PARAMETER.COMPILEID
 
        
 
-Use the syntax for [template resources](#resources) to display files
+Use the syntax for [template resources](../../api/resources.md) to display files
 outside of the [`$template_dir`](#variable.template.dir) directory.
 
 
@@ -80,5 +80,5 @@ outside of the [`$template_dir`](#variable.template.dir) directory.
 
        
 
-See also [`fetch()`](#api.fetch) and
+See also [`fetch()`](../../programmers/api-functions/api-fetch.md) and
 [`templateExists()`](#api.template.exists).

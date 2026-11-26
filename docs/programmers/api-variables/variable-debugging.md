@@ -2,16 +2,16 @@
 ===========
 
 This enables the [debugging console](#chapter.debugging.console). The
-console is a javascript popup window that informs you of the
-[included](#language.function.include) templates, variables
-[assigned](#api.assign) from php and [config file
-variables](#language.config.variables) for the current script. It does
+console is a JavaScript popup window that informs you of the
+[included](../../designers/language-builtin-functions/language-function-include.md) templates, variables
+[assigned](../../programmers/api-functions/api-assign.md) from php and 
+[config file variables](../../designers/language-variables/language-config-variables.md) for the current script. It does
 not show variables assigned within a template with the
-[`{assign}`](#language.function.assign) function.
+[`{assign}`](../../designers/language-builtin-functions/language-function-assign.md) function.
 
 The console can also be enabled from the url with
-[`$debugging_ctrl`](#variable.debugging.ctrl).
+[`$debugging_ctrl`](variable-debugging-ctrl.md).
 
-See also [`{debug}`](#language.function.debug),
-[`$debug_tpl`](#variable.debug_template), and
-[`$debugging_ctrl`](#variable.debugging.ctrl).
+See also [`{debug}`](../../designers/language-custom-functions/language-function-debug.md),
+[`$debug_tpl`](variable-debug-template.md), and
+[`$debugging_ctrl`](variable-debugging-ctrl.md).

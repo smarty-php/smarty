@@ -13,5 +13,5 @@ string
 
 object\_name
 
-See also [`registerObject()`](#api.register.object) and [objects
+See also [`registerObject()`](../../programmers/api-functions/api-register-object.md) and [objects
 section](#advanced.features.objects)

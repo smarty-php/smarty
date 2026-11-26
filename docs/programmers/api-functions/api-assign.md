@@ -75,9 +75,9 @@ These are accessed in the template with
     {$contact.id}, {$contact.name},{$contact.email}
 
 To access more complex array assignments see
-[`{foreach}`](#language.function.foreach) and
-[`{section}`](#language.function.section)
+[`{foreach}`](../../designers/language-builtin-functions/language-function-foreach.md) and
+[`{section}`](../../designers/language-builtin-functions/language-function-section.md)
 
-See also [`getTemplateVars()`](#api.get.template.vars),
-[`clearAssign()`](#api.clear.assign), [`append()`](#api.append) and
-[`{assign}`](#language.function.assign)
+See also [`getTemplateVars()`](../../programmers/api-functions/api-get-template-vars.md),
+[`clearAssign()`](../../programmers/api-functions/api-clear-assign.md), [`append()`](../../programmers/api-functions/api-append.md) and
+[`{assign}`](../../designers/language-builtin-functions/language-function-assign.md)

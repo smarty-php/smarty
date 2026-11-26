@@ -13,8 +13,8 @@ string
 
 varname
 
-If no parameter is given, an array of all loaded [config
-variables](#language.config.variables) is returned.
+If no parameter is given, an array of all loaded 
+[config variables](../../designers/language-variables/language-config-variables.md) is returned.
 
 
     <?php
@@ -31,7 +31,7 @@ variables](#language.config.variables) is returned.
 
        
 
-See also [`clearConfig()`](#api.clear.config),
-[`{config_load}`](#language.function.config.load),
-[`configLoad()`](#api.config.load) and
-[`getTemplateVars()`](#api.get.template.vars).
+See also [`clearConfig()`](../../programmers/api-functions/api-clear-config.md),
+[`{config_load}`](../../designers/language-builtin-functions/language-function-config-load.md),
+[`configLoad()`](../../programmers/api-functions/api-config-load.md) and
+[`getTemplateVars()`](../../programmers/api-functions/api-get-template-vars.md).

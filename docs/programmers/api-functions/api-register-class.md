@@ -64,5 +64,5 @@ otherwise. If security is enabled, classes registered with
 
        
 
-See also [`registerObject()`](#api.register.object), and
+See also [`registerObject()`](../../programmers/api-functions/api-register-object.md), and
 [Security](#advanced.features.security).

@@ -13,7 +13,7 @@ string
 
 var
 
-This clears all assigned [config variables](#language.config.variables).
+This clears all assigned [config variables](../../designers/language-variables/language-config-variables.md).
 If a variable name is supplied, only that variable is cleared.
 
 
@@ -27,9 +27,9 @@ If a variable name is supplied, only that variable is cleared.
 
        
 
-See also [`getConfigVars()`](#api.get.config.vars),
-[`config variables`](#language.config.variables),
-[`config files`](#config.files),
-[`{config_load}`](#language.function.config.load),
-[`configLoad()`](#api.config.load) and
-[`clearAssign()`](#api.clear.assign).
+See also [`getConfigVars()`](../../programmers/api-functions/api-get-config-vars.md),
+[`config variables`](../../designers/language-variables/language-config-variables.md),
+[`config files`](../../designers/config-files.md),
+[`{config_load}`](../../designers/language-builtin-functions/language-function-config-load.md),
+[`configLoad()`](../../programmers/api-functions/api-config-load.md) and
+[`clearAssign()`](../../programmers/api-functions/api-clear-assign.md).
