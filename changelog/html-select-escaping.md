@@ -1,1 +1,0 @@
-- Security: `{html_options}` now escapes `name`, `id` and `class`, and `{html_select_date}` / `{html_select_time}` escape `prefix`, `field_array`, the `*_empty` labels, the formatted option values and texts, and the `year_as_text` value

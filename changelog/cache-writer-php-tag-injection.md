@@ -1,1 +1,0 @@
-- Security: prevent assigned data such as `<script language=php'>` from breaking out of the PHP-tag escaping in the cache writer and injecting PHP into the cache file, run output filters before that escaping instead of after it, and stop writing a cache file when PCRE fails while escaping
