@@ -1,1 +1,0 @@
-- Security: `{html_image}` no longer follows HTTP redirects when reading a remote image while a security policy is active, so a redirect on a trusted host cannot reach a URI outside `$trusted_uri`
